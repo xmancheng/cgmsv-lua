@@ -12,34 +12,61 @@ cgmsv lua Module/Modules
 # 舊框架Module
 舊框架
 useModule('LoginRewards');				--登入獎勵系統
+
 useModule('AutoRecovery');				--戰鬥自動恢復&自動整理背包&天使祝福
+
 useModule('AllExpEvent');					--寵物學習裝置&經驗加倍券
+
 useModule('PetTalk');							--寵物說話互動
+
 useModule('getpetBp');						--寵物算档
+
 useModule('PetAttrib');						--寵物洗档
+
 useModule('PetMirage');						--寵物變身&超靈體in水晶
+
 useModule('PetMchange');					--寵物附身合體
+
 useModule('PetConvert');					--寵物改造
+
 useModule('PetMutation');					--寵物異變
+
 useModule('PetTechLetter');				--寵物技能卷
+
 useModule('PetLevelUpEvent');			--寵物技能升級
+
 useModule('EquipCard');						--裝備插卡
+
 useModule('AccessoriesCube');			--淺能方塊
+
 useModule('ShadowWeapon');				--影子武器
+
 useModule('StarPower');						--星力水晶
+
 useModule('Makeover');						--角色變裝系統
+
 useModule('RecordPoint');					--座標紀錄系統
+
 useModule('Subsidy');							--製造補貼系統
+
 useModule('WildBoss');						--野外挑戰
+
 useModule('ActivityScript');			--活動副本
+
 useModule('BravadoScript');				--單人挑戰
+
 useModule('DailyScript');					--曜日副本
 
+
 useModule('ItemUse');							--戰鬥暫時增益道具
+
 useModule('ModularPet');					--自定義寵物
+
 useModule('PetBreeding');					--寵物配種
+
 
 # 新框架Modules
 loadModule('uniShop')             --鏡像擺攤
+
 loadModule('autoRanking')         --自助天梯
 
