@@ -9,8 +9,8 @@ cgmsv lua Module/Modules
 
 模組加載皆在ModuleConfig.lua操作
 
-# 舊框架Module
-## 功能擴增
+## 舊框架Module
+### 功能擴增
 模組加載代碼 | 說明 
 --- | --- 
 useModule('LoginRewards');|登入獎勵系統
@@ -21,7 +21,7 @@ useModule('Subsidy');|製造補貼系統
 useModule('ItemUse');|戰鬥暫時增益道具
 
 
-## 寵物相關
+### 寵物相關
 模組加載代碼 | 說明 
 --- | --- 
 useModule('AllExpEvent');|寵物學習裝置&經驗加倍券
@@ -38,7 +38,7 @@ useModule('ModularPet');|自定義寵物
 useModule('PetBreeding');|寵物配種
 
 
-## 裝備相關
+### 裝備相關
 模組加載代碼 | 說明 
 --- | --- 
 useModule('EquipCard');|裝備插卡
@@ -47,7 +47,7 @@ useModule('ShadowWeapon');|影子武器
 useModule('StarPower');|星力水晶
 
 
-## 副本相關
+### 副本相關
 模組加載代碼 | 說明 
 --- | --- 
 useModule('WildBoss');|野外挑戰
@@ -56,7 +56,7 @@ useModule('BravadoScript');|單人挑戰
 useModule('DailyScript');|曜日副本
 
 
-# 新框架Modules
+## 新框架Modules
 模組加載代碼 | 說明 
 --- | --- 
 loadModule('uniShop')|鏡像擺攤
