@@ -10,7 +10,6 @@ cgmsv lua Module/Modules
 模組加載皆在ModuleConfig.lua操作
 
 # 舊框架Module
-舊框架
 useModule('LoginRewards');				--登入獎勵系統
 
 useModule('AutoRecovery');				--戰鬥自動恢復&自動整理背包&天使祝福
@@ -57,13 +56,11 @@ useModule('BravadoScript');				--單人挑戰
 
 useModule('DailyScript');					--曜日副本
 
-
 useModule('ItemUse');							--戰鬥暫時增益道具
 
 useModule('ModularPet');					--自定義寵物
 
 useModule('PetBreeding');					--寵物配種
-
 
 # 新框架Modules
 loadModule('uniShop')             --鏡像擺攤
