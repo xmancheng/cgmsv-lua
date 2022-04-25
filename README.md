@@ -57,7 +57,9 @@ useModule('DailyScript');|曜日副本
 
 
 # 新框架Modules
-loadModule('uniShop')             --鏡像擺攤
+模組加載代碼 | 說明 
+--- | --- 
+loadModule('uniShop')|鏡像擺攤
+loadModule('autoRanking')|自助天梯
 
-loadModule('autoRanking')         --自助天梯
 
