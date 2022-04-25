@@ -10,8 +10,9 @@ cgmsv lua Module/Modules
 模組加載皆在ModuleConfig.lua操作
 
 # 舊框架Module
-|---|---|
-|useModule('LoginRewards');|登入獎勵系統|
+代碼 | 功能 
+--- | --- 
+useModule('LoginRewards');|登入獎勵系統
 
 |useModule('AutoRecovery');|戰鬥自動恢復&自動整理背包&天使祝福|
 
