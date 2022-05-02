@@ -45,7 +45,7 @@ useModule('EquipCard');|裝備插卡
 useModule('AccessoriesCube');|淺能方塊
 useModule('ShadowWeapon');|影子武器
 useModule('StarPower');|星力水晶
-
+useModule('card');|卡片加成
 
 ### 副本相關
 模組加載代碼 | 說明 
