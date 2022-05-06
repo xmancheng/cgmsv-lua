@@ -61,5 +61,5 @@ useModule('DailyScript');|曜日副本
 --- | --- 
 loadModule('uniShop')|鏡像擺攤
 loadModule('autoRanking')|自助天梯
-loadModule('ybNenSkill')|特殊效果
-
+loadModule('ybNenSkill')|被動效果
+loadModule('specialSkill')|特殊能力
