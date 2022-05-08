@@ -1,15 +1,15 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local SpecialSkill = ModuleBase:createModule('specialSkill')
 
 Equipment ={}
 for eee = 0,799 do
 	Equipment[eee] = {}
-	Equipment[eee][0] = 0  --³õÊ¼»¯»ØºÏÊı
-	Equipment[eee][1] = 0  --³õÊ¼»¯´ò»÷Êı
+	Equipment[eee][0] = 0  --åˆå§‹åŒ–å›åˆæ•°
+	Equipment[eee][1] = 0  --åˆå§‹åŒ–æ‰“å‡»æ•°
 end
 
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function SpecialSkill:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -23,12 +23,12 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
-               local RaceType = Char.GetData(charIndex,CONST.CHAR_ÖÖ×å);
-               if ( RaceType == CONST.ÖÖ×å_ÈËĞÍ ) then 
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+               local RaceType = Char.GetData(charIndex,CONST.CHAR_ç§æ—);
+               if ( RaceType == CONST.ç§æ—_äººå‹ ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
                  if (battleturn > Equipment[charIndex][0]) then
                      Equipment[charIndex][0] = battleturn;
@@ -36,22 +36,28 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                  end
                  local turnhit = Equipment[charIndex][1] + 1;
                  local cj= 1 + (turnhit*0.015);
-                 if turnhit>=20 then
-                          cj = 1.3;
+                 if turnhit>=3 then
+                          Char.SetData(charIndex, CONST.CHAR_BattleDamageReflec, 1);
+                          if turnhit>=5 then
+                                   Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 3);
+                                   if turnhit>=20 then
+                                            cj = 1.3;
+                                   end
+                          end
                  end
                  local damage = damage * cj;
                  print(damage)
                  Equipment[charIndex][1] = turnhit;
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(charIndex,charIndex,"¡¾´ç„Å¡¿£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(charIndex,charIndex,"ã€å¯¸å‹ã€‘ï¼ï¼",4,3);
                  end
-                 --NLG.Say(-1,-1,"ÈËĞÍÏµÈËÎïÊ¹Ä¿±ê½ÓÏÂÀ´ÊÜµ½µÄÉËº¦Ìá¸ß£¬´ËĞ§¹ûÔÚÕ½¶·ÖĞÃ¿´Î´ò»÷ÌáÉı1.5%£¬Ã¿»ØºÏÖØÖÃ´ÎÊı",4,3);
+                 --NLG.Say(-1,-1,"äººå‹ç³»äººç‰©åœ¨æˆ˜æ–—ä¸­æ¯æ¬¡æ‰“å‡»ä¼¤å®³æå‡1.5%ï¼Œè¾¾æ¬¡æ•°å¾—åˆ°é¢å¤–æ•ˆæœï¼Œæ¯å›åˆé‡ç½®æ¬¡æ•°",4,3);
                  return damage;
                end
-               if ( RaceType == CONST.ÖÖ×å_·ÉĞĞ ) then 
+               if ( RaceType == CONST.ç§æ—_é£è¡Œ ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHp = Char.GetData(defCharIndex,CONST.CHAR_Ñª);
-                 local defHpM = Char.GetData(defCharIndex,CONST.CHAR_×î´óÑª);
+                 local defHp = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
+                 local defHpM = Char.GetData(defCharIndex,CONST.CHAR_æœ€å¤§è¡€);
                  local Hp05 = defHp/defHpM;
                  if Hp05<=0.5  then
                         yy = 1.2;
@@ -60,74 +66,83 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                  end
                  if NLG.Rand(1,10)>=8  then
                         damage = damage * yy;
-                        if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                               NLG.Say(charIndex,charIndex,"¡¾ÓğÒí¡¿£¡£¡",4,3);
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
+                        if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                               NLG.Say(charIndex,charIndex,"ã€ç¾½ç¿¼ã€‘ï¼ï¼",4,3);
                         end
                  else
                         damage = damage;
                  end
                  print(damage)
-                 --NLG.Say(-1,-1,"·ÉĞĞÏµÈËÎïÃ¿´ÎÔì³ÉÉËº¦Ê±£¬ÓĞ30%µÄ¼¸ÂÊ¶Ôµ±Ç°ÉúÃüÖµÉÙÓÚ50%µÄÄ¿±êÉËº¦Ìá¸ß20%",4,3);
+                 --NLG.Say(-1,-1,"é£è¡Œç³»äººç‰©æ¯æ¬¡é€ æˆä¼¤å®³æ—¶ï¼Œæœ‰30%çš„å‡ ç‡ä½¿ç›®æ ‡çŸ³åŒ–2å›åˆï¼Œå¯¹å½“å‰ç”Ÿå‘½å€¼å°‘äº50%çš„ç›®æ ‡ä¼¤å®³æé«˜20%",4,3);
                  return damage;
                end
-               if ( RaceType == CONST.ÖÖ×å_À¥³æ ) then 
+               if ( RaceType == CONST.ç§æ—_æ˜†è™« ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHp = Char.GetData(defCharIndex,CONST.CHAR_Ñª);
+                 local defHp = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
                  local dy = defHp*0.5;
                  if dy>=damage  then
                         dy = damage;
                  end
                  if NLG.Rand(1,10)>=8  then
                         damage = damage + dy;
-                        if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                               NLG.Say(charIndex,charIndex,"¡¾¶¾Òº¡¿£¡£¡",4,3);
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 3);
+                        if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                               NLG.Say(charIndex,charIndex,"ã€æ¯’æ¶²ã€‘ï¼ï¼",4,3);
                         end
                  else
                         damage = damage;
                  end
                  print(damage)
-                 --NLG.Say(-1,-1,"À¥³æÏµÈËÎïÃ¿´ÎÔì³ÉÉËº¦Ê±£¬ÓĞ30%µÄ¼¸ÂÊ¶ÔÄ¿±êÔì³É¶îÍâµÄµÈÍ¬ÓÚÄ¿±êµ±Ç°ÉúÃüÖµÒ»°ëµÄÖĞ¶¾ÉËº¦",4,3);
+                 --NLG.Say(-1,-1,"æ˜†è™«ç³»äººç‰©æ¯æ¬¡é€ æˆä¼¤å®³æ—¶ï¼Œæœ‰30%çš„å‡ ç‡å¯¹ç›®æ ‡é€ æˆé¢å¤–çš„ç­‰åŒäºç›®æ ‡å½“å‰ç”Ÿå‘½å€¼ä¸€åŠçš„ä¼¤å®³å¹¶ä¸­æ¯’3å›åˆ",4,3);
                  return damage;
                end
-               if ( RaceType == CONST.ÖÖ×å_Ò°ÊŞ ) then 
+               if ( RaceType == CONST.ç§æ—_é‡å…½ ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHpM = Char.GetData(defCharIndex,CONST.CHAR_×î´óÑª);
+                 local defHpM = Char.GetData(defCharIndex,CONST.CHAR_æœ€å¤§è¡€);
                  local damage = damage + (defHpM*0.1);
-                 print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(charIndex,charIndex,"¡¾ËºÁÑ¡¿£¡£¡",4,3);
+                 if NLG.Rand(1,10)>=8  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModSleep, 1);
                  end
-                 --NLG.Say(-1,-1,"Ò°ÊŞÏµÈËÎïÊ¹Ä¿±êÊÜµ½×î´óÉúÃüÖµ10%µÄ³öÑªÉËº¦",4,3);
+                 print(damage)
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(charIndex,charIndex,"ã€æ’•è£‚ã€‘ï¼ï¼",4,3);
+                 end
+                 --NLG.Say(-1,-1,"é‡å…½ç³»äººç‰©ä½¿ç›®æ ‡å—åˆ°æœ€å¤§ç”Ÿå‘½å€¼10%çš„å‡ºè¡€ä¼¤å®³ï¼Œ30%çš„å‡ ç‡æ˜ç¡1å›åˆ",4,3);
                  return damage;
                end
-               if ( RaceType == CONST.ÖÖ×å_ÌØÊâ ) then 
+               if ( RaceType == CONST.ç§æ—_ç‰¹æ®Š ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHp = Char.GetData(charIndex,CONST.CHAR_Ñª);
-                 local defHpM = Char.GetData(charIndex,CONST.CHAR_×î´óÑª);
+                 local defHp = Char.GetData(charIndex,CONST.CHAR_è¡€);
+                 local defHpM = Char.GetData(charIndex,CONST.CHAR_æœ€å¤§è¡€);
                  local Hp05 = defHp/defHpM;
                  if Hp05<=0.5  then
                         fc = 1+(1-Hp05);
                         damage = damage * fc;
-                        if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                               NLG.Say(charIndex,charIndex,"¡¾Í³ğ¡¿£¡£¡",4,3);
+                        Char.SetData(charIndex, CONST.CHAR_BattleDamageVanish, 1);
+                        if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                               NLG.Say(charIndex,charIndex,"ã€å¾©ä»‡ã€‘ï¼ï¼",4,3);
                         end
                  else
                         damage = damage;
                  end
                  print(damage)
-                 --NLG.Say(-1,-1,"ÌØÊâÏµÈËÎïµ±×î´óÑªÁ¿µÍÓÚ50%£¬¶ÔÄ¿±êÔì³ÉËğÊ§ÑªÁ¿%µÄ¸´³ğÉËº¦",4,3);
+                 --NLG.Say(-1,-1,"ç‰¹æ®Šç³»äººç‰©å½“æœ€å¤§è¡€é‡ä½äº50%ï¼Œå¯¹ç›®æ ‡é€ æˆæŸå¤±è¡€é‡%çš„å¤ä»‡ä¼¤å®³ï¼Œè‡ªèº«æ”»æ— çŠ¶æ€1å›åˆ",4,3);
                  return damage;
                end
-               if ( RaceType == CONST.ÖÖ×å_½ğÊô ) then 
+               if ( RaceType == CONST.ç§æ—_é‡‘å± ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHpM = Char.GetData(charIndex,CONST.CHAR_×î´óÑª);
+                 local defHpM = Char.GetData(charIndex,CONST.CHAR_æœ€å¤§è¡€);
                  local zb = defHpM*0.045;
                  local damage = damage + zb;
-                 print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(charIndex,charIndex,"¡¾ÕÏ±Ú¡¿£¡£¡",4,3);
+                 if NLG.Rand(1,10)>=6  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 3);
                  end
-                 --NLG.Say(-1,-1,"½ğÊôÏµÈËÎïÔì³ÉÉËº¦Ê±£¬¶îÍâ¶ÔÄ¿±êÔì³ÉÏàµ±ÓÚ×î´óÑªÁ¿4.5%µÄÉËº¦",4,3);
+                 print(damage)
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(charIndex,charIndex,"ã€éšœå£ã€‘ï¼ï¼",4,3);
+                 end
+                 --NLG.Say(-1,-1,"é‡‘å±ç³»äººç‰©é€ æˆä¼¤å®³æ—¶ï¼Œé¢å¤–å¯¹ç›®æ ‡é€ æˆç›¸å½“äºæœ€å¤§è¡€é‡4.5%çš„ä¼¤å®³ï¼Œ50%çš„å‡ ç‡æ··ä¹±3å›åˆ",4,3);
                  return damage;
                end
          else
@@ -142,263 +157,263 @@ function SpecialSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
       local leader1 = Battle.GetPlayer(battleIndex,0)
       local leader2 = Battle.GetPlayer(battleIndex,5)
       local leader = leader1
-      if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+      if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
             leader = leader2
       end
-      if Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
-            local NEN = Char.GetData(charIndex,CONST.CHAR_ÖÖ×å);
+      if Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+            local NEN = Char.GetData(charIndex,CONST.CHAR_ç§æ—);
             local JL1 = NLG.Rand(1,4);
             --print(NEN)
             --print(JL1)
             if JL1 >= 1 then
                   local item2 = Char.GetItemIndex(charIndex, 2);
-                  local item2_Id = Item.GetData(item2, CONST.µÀ¾ß_ID);
+                  local item2_Id = Item.GetData(item2, CONST.é“å…·_ID);
                   local item3 = Char.GetItemIndex(charIndex, 3);
-                  local item3_Id = Item.GetData(item3, CONST.µÀ¾ß_ID);
-                  if techID >= 2730 and techID <= 2739 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  local item3_Id = Item.GetData(item3, CONST.é“å…·_ID);
+                  if techID >= 2730 and techID <= 2739 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                                  NLG.Say(leader,charIndex,"¡¾Ç¿»÷¡¿£¡£¡",4,3);
+                              if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                                  NLG.Say(leader,charIndex,"ã€å¼ºå‡»ã€‘ï¼ï¼",4,3);
                               end
-                              --NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÔÉÊ¯Ç¿»÷ÍşÁ¦Ôö¼Ó30%¡¿");
+                              --NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é™¨çŸ³å¼ºå‡»å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 2730 and techID <= 2739 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 2730 and techID <= 2739 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÔÉÊ¯Ç¿»÷ÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é™¨çŸ³å¼ºå‡»æ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 2830 and techID <= 2839 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 2830 and techID <= 2839 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾±ù¶³Ç¿»÷ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å†°å†»å¼ºå‡»å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 2830 and techID <= 2839 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 2830 and techID <= 2839 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾±ù¶³Ç¿»÷ÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å†°å†»å¼ºå‡»æ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 2930 and techID <= 2939 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 2930 and techID <= 2939 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾»ğÑæÇ¿»÷ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç«ç„°å¼ºå‡»å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 2930 and techID <= 2939 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 2930 and techID <= 2939 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾»ğÑæÇ¿»÷ÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç«ç„°å¼ºå‡»æ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 3030 and techID <= 3039 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 3030 and techID <= 3039 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾·çÈĞÇ¿»÷ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é£åˆƒå¼ºå‡»å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 3030 and techID <= 3039 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 3030 and techID <= 3039 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾·çÈĞÇ¿»÷ÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é£åˆƒå¼ºå‡»æ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 25710 and techID <= 25719 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 25710 and techID <= 25719 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾¿àÎŞÂÒÎèÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€è‹¦æ— ä¹±èˆå¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 25710 and techID <= 25719 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 25710 and techID <= 25719 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾¿àÎŞÂÒÎèÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€è‹¦æ— ä¹±èˆæ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 110 and techID <= 119 and NEN == CONST.ÖÖ×å_Áú  then
+                  if techID >= 110 and techID <= 119 and NEN == CONST.ç§æ—_é¾™  then
                         if option == 'TR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÈÌµ¶ÂÒÎèÍşÁ¦Ôö¼Ó10%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å¿åˆ€ä¹±èˆå¨åŠ›å¢åŠ 10%ã€‘");
                               return val+10;
                         end
                         return val
                   end
-                  if techID >= 26010 and techID <= 26019 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 26010 and techID <= 26019 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾³å»÷²¨¶¯ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å†²å‡»æ³¢åŠ¨å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 26010 and techID <= 26019 and NEN == CONST.ÖÖ×å_À¥³æ  then
+                  if techID >= 26010 and techID <= 26019 and NEN == CONST.ç§æ—_æ˜†è™«  then
                         if option == 'SR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾³å»÷²¨¶¯±¶ÂÊÔö¼Ó50%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å†²å‡»æ³¢åŠ¨å€ç‡å¢åŠ 50%ã€‘");
                               return val+50;
                         end
                         return val
                   end
-                  if techID >= 10505 and techID <= 10509 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 10505 and techID <= 10509 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾¾ÑÉ±Ãé×¼ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç‹™æ€ç„å‡†å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 10505 and techID <= 10509 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 10505 and techID <= 10509 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾¾ÑÉ±Ãé×¼ÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç‹™æ€ç„å‡†æ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 515 and techID <= 519 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 515 and techID <= 519 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾Õ¨ÁÑÃÍ¹¥ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç‚¸è£‚çŒ›æ”»å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 25815 and techID <= 25819 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 25815 and techID <= 25819 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÈñÀûÉä»÷ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é”åˆ©å°„å‡»å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 5019 and techID <= 5319 and NEN == CONST.ÖÖ×å_ÌØÊâ  then
+                  if techID >= 5019 and techID <= 5319 and NEN == CONST.ç§æ—_ç‰¹æ®Š  then
                         if option == 'AR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÏİÚåÌØÊâÔö¼Ó200%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é™·é˜±ç‰¹æ®Šå¢åŠ 200%ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 200510 and techID <= 200518 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 200510 and techID <= 200518 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÌúÉ³ÕÆÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é“æ²™æŒå¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 200510 and techID <= 200518 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 200510 and techID <= 200518 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÌúÉ³ÕÆÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é“æ²™æŒæ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID == 529 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID == 529 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾°¢ĞŞÂŞ°Ô»ËÈ­ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é˜¿ä¿®ç½—éœ¸å‡°æ‹³å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 25880 and techID <= 25885 and NEN == CONST.ÖÖ×å_·ÉĞĞ  then
+                  if techID >= 25880 and techID <= 25885 and NEN == CONST.ç§æ—_é£è¡Œ  then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÁùºÏÈ­ÊıÁ¿Ôö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å…­åˆæ‹³æ•°é‡å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID >= 11105 and techID <= 11109 and NEN == CONST.ÖÖ×å_Áú  then
+                  if techID >= 11105 and techID <= 11109 and NEN == CONST.ç§æ—_é¾™  then
                         if option == 'TR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾»ØĞıµ¶ÈĞÍşÁ¦Ôö¼Ó10%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å›æ—‹åˆ€åˆƒå¨åŠ›å¢åŠ 10%ã€‘");
                               return val+10;
                         end
                         return val
                   end
-                  if techID >= 200705 and techID <= 200709 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 200705 and techID <= 200709 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾·´ÉäÉËº¦ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€åå°„ä¼¤å®³å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID >= 8105 and techID <= 8109 and NEN == CONST.ÖÖ×å_Ò°ÊŞ  then
+                  if techID >= 8105 and techID <= 8109 and NEN == CONST.ç§æ—_é‡å…½  then
                         if option == 'DD:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÉáÃü¹¥»÷ÍşÁ¦Ôö¼Ó30%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€èˆå‘½æ”»å‡»å¨åŠ›å¢åŠ 30%ã€‘");
                               return val+30;
                         end
                         return val
                   end
-                  if techID == 5919 and NEN == CONST.ÖÖ×å_½ğÊô  then
+                  if techID == 5919 and NEN == CONST.ç§æ—_é‡‘å±  then
                         if option == 'CH:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÌìÊ¹Ö®»÷³ÖĞøÔö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å¤©ä½¿ä¹‹å‡»æŒç»­å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID == 6019 and NEN == CONST.ÖÖ×å_½ğÊô  then
+                  if techID == 6019 and NEN == CONST.ç§æ—_é‡‘å±  then
                         if option == 'CH:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÌìÊ¹Ö®»¤³ÖĞøÔö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€å¤©ä½¿ä¹‹æŠ¤æŒç»­å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID == 6619 and NEN == CONST.ÖÖ×å_½ğÊô  then
+                  if techID == 6619 and NEN == CONST.ç§æ—_é‡‘å±  then
                         if option == 'CH:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÉñÊ¥½µÁÙ³ÖĞøÔö¼Ó2¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç¥åœ£é™ä¸´æŒç»­å¢åŠ 2ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID == 6219 and NEN == CONST.ÖÖ×å_ÌØÊâ  then
+                  if techID == 6219 and NEN == CONST.ç§æ—_ç‰¹æ®Š  then
                         if option == 'AR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÉñÊ¥Æíµ»ÌØÊâÔö¼Ó200%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç¥åœ£ç¥ˆç¥·ç‰¹æ®Šå¢åŠ 200%ã€‘");
                               return val+200;
                         end
                         return val
                   end
-                  if techID == 6329 and NEN == CONST.ÖÖ×å_ÌØÊâ  then
+                  if techID == 6329 and NEN == CONST.ç§æ—_ç‰¹æ®Š  then
                         if option == 'AR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÉñÊ¥Æíµ»ÌØÊâÔö¼Ó200%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç¥åœ£ç¥ˆç¥·ç‰¹æ®Šå¢åŠ 200%ã€‘");
                               return val+200;
                         end
                         return val
                   end
-                  if techID >= 10628 and techID <= 10629 and NEN == CONST.ÖÖ×å_Áú  then
+                  if techID >= 10628 and techID <= 10629 and NEN == CONST.ç§æ—_é¾™  then
                               if option == 'TR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾Ë²ÉíÖ®ÊõÍşÁ¦Ôö¼Ó10%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç¬èº«ä¹‹æœ¯å¨åŠ›å¢åŠ 10%ã€‘");
                               return val+10;
                         end
                         return val
                   end
-                  if techID == 200607 and NEN == CONST.ÖÖ×å_ÌØÊâ  then
+                  if techID == 200607 and NEN == CONST.ç§æ—_ç‰¹æ®Š  then
                         if option == 'AR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾À×¶İ£®Ç§ÄñÁ÷ÌØÊâÔö¼Ó200%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€é›·éï¼åƒé¸Ÿæµç‰¹æ®Šå¢åŠ 200%ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID == 201408 and NEN == CONST.ÖÖ×å_ÌØÊâ  then
+                  if techID == 201408 and NEN == CONST.ç§æ—_ç‰¹æ®Š  then
                         if option == 'AR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾»ğ¶İ£®»Ò»ıÉÕÌØÊâÔö¼Ó200%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç«éï¼ç°ç§¯çƒ§ç‰¹æ®Šå¢åŠ 200%ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID == 201209 and NEN == CONST.ÖÖ×å_ÌØÊâ  then
+                  if techID == 201209 and NEN == CONST.ç§æ—_ç‰¹æ®Š  then
                         if option == 'AR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÍÁ¶İ£®ÍÁÁ÷²¨ÌØÊâÔö¼Ó200%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€åœŸéï¼åœŸæµæ³¢ç‰¹æ®Šå¢åŠ 200%ã€‘");
                               return val+2;
                         end
                         return val
                   end
-                  if techID == 201919 and NEN == CONST.ÖÖ×å_ÌØÊâ  then
+                  if techID == 201919 and NEN == CONST.ç§æ—_ç‰¹æ®Š  then
                         if option == 'AR:' then
-                              NLG.SystemMessage(charIndex,"×¨ÊôÄîÄÜÁ¦Ğ§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾»àÍÁ×ªÉúÌØÊâÔö¼Ó200%¡¿");
+                              NLG.SystemMessage(charIndex,"ä¸“å±å¿µèƒ½åŠ›æ•ˆæœåŠ æˆå·²å‘åŠ¨ï¼ã€ç§½åœŸè½¬ç”Ÿç‰¹æ®Šå¢åŠ 200%ã€‘");
                               return val+200;
                         end
                         return val
@@ -407,11 +422,11 @@ function SpecialSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
       end
 end
 
-function pequipitemZS(index,itemid)  ---×óÊÖ
+function pequipitemZS(index,itemid)  ---å·¦æ‰‹
       
  for k=2,2 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -419,11 +434,11 @@ function pequipitemZS(index,itemid)  ---×óÊÖ
 
 end
 
-function pequipitemYS(index,itemid)  --ÓÒÊÖ
+function pequipitemYS(index,itemid)  --å³æ‰‹
       
  for k=3,3 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -431,11 +446,11 @@ function pequipitemYS(index,itemid)  --ÓÒÊÖ
 
 end
 
-function pequipitemT(index,itemid)  ---Í·²¿
+function pequipitemT(index,itemid)  ---å¤´éƒ¨
       
  for k=0,0 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -443,11 +458,11 @@ function pequipitemT(index,itemid)  ---Í·²¿
 
 end
 
-function pequipitemS(index,itemid)  ---Éí
+function pequipitemS(index,itemid)  ---èº«
       
  for k=1,1 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -455,11 +470,11 @@ function pequipitemS(index,itemid)  ---Éí
 
 end
 
-function pequipitemX(index,itemid)  ---Ğ¬
+function pequipitemX(index,itemid)  ---é‹
       
  for k=4,4 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -467,11 +482,11 @@ function pequipitemX(index,itemid)  ---Ğ¬
 
 end
 
-function pequipitemSS1(index,itemid) --ÊÎÆ·1
+function pequipitemSS1(index,itemid) --é¥°å“1
       
  for k=5,5 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -479,11 +494,11 @@ function pequipitemSS1(index,itemid) --ÊÎÆ·1
 
 end
 
-function pequipitemSS2(index,itemid) --ÊÎÆ·2
+function pequipitemSS2(index,itemid) --é¥°å“2
       
  for k=6,6 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -491,11 +506,11 @@ function pequipitemSS2(index,itemid) --ÊÎÆ·2
 
 end
 
-function pequipitemSJ(index,itemid) --Ë®¾§
+function pequipitemSJ(index,itemid) --æ°´æ™¶
       
  for k=7,7 do
      local itemindex = Char.GetItemIndex(index,k);
-     if(itemid == Item.GetData(itemindex, %µÀ¾ß_ID%))then
+     if(itemid == Item.GetData(itemindex, %é“å…·_ID%))then
         return true;
      end
  end
@@ -503,7 +518,7 @@ function pequipitemSJ(index,itemid) --Ë®¾§
 
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function SpecialSkill:onUnload()
   self:logInfo('unload')
 end
