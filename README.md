@@ -63,3 +63,4 @@ loadModule('uniShop')|鏡像擺攤
 loadModule('autoRanking')|自助天梯
 loadModule('ybNenSkill')|被動效果
 loadModule('specialSkill')|特殊能力
+loadModule('magicSkill')|魔屬技能
