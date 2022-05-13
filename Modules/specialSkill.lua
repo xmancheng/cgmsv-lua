@@ -56,10 +56,10 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                end
                if ( RaceType == CONST.种族_飞行 ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHp = Char.GetData(defCharIndex,CONST.CHAR_血);
-                 local defHpM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
-                 local Hp05 = defHp/defHpM;
-                 if Hp05<=0.5  then
+                 local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
+                 local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
+                 local HpE05 = defHpE/defHpEM;
+                 if HpE05<=0.5  then
                         yy = 1.2;
                  else
                         yy = 1;
@@ -79,8 +79,8 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                end
                if ( RaceType == CONST.种族_昆虫 ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHp = Char.GetData(defCharIndex,CONST.CHAR_血);
-                 local dy = defHp*0.5;
+                 local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
+                 local dy = defHpE*0.5;
                  if dy>=damage  then
                         dy = damage;
                  end
@@ -99,8 +99,14 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                end
                if ( RaceType == CONST.种族_野兽 ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 local defHpM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
-                 local damage = damage + (defHpM*0.1);
+                 local defHp = Char.GetData(charIndex,CONST.CHAR_血);
+                 local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
+                 local Hp02 = defHp/defHpM;
+                 if Hp02<=0.2  then
+                        Char.SetData(charIndex, CONST.CHAR_BattleDamageAbsrob, 2);
+                 end
+                 local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
+                 local damage = damage + (defHpEM*0.1);
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModSleep, 1);
                  end
@@ -108,7 +114,7 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
                         NLG.Say(charIndex,charIndex,"【撕裂】！！",4,3);
                  end
-                 --NLG.Say(-1,-1,"野兽系人物使目标受到最大生命值10%的出血伤害，30%的几率昏睡1回合",4,3);
+                 --NLG.Say(-1,-1,"野兽系人物当最大血量低于20%，自身攻吸状态2回合。每次造成伤害时使目标受到最大生命值10%的出血伤害，30%的几率昏睡1回合",4,3);
                  return damage;
                end
                if ( RaceType == CONST.种族_特殊 ) then 
@@ -125,9 +131,13 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                         end
                  else
                         damage = damage;
+                        Char.SetData(charIndex, CONST.CHAR_BattleLpRecovery, 2);
+                        if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                               NLG.Say(charIndex,charIndex,"【自癒】！！",4,3);
+                        end
                  end
                  print(damage)
-                 --NLG.Say(-1,-1,"特殊系人物当最大血量低于50%，对目标造成损失血量%的复仇伤害，自身攻无状态1回合",4,3);
+                 --NLG.Say(-1,-1,"特殊系人物当最大血量高于50%，自身恢复状态2回合。当最大血量低于50%，自身攻无状态1回合，对目标造成损失血量%的复仇伤害",4,3);
                  return damage;
                end
                if ( RaceType == CONST.种族_金属 ) then 
