@@ -30,17 +30,20 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                local RaceType = Char.GetData(charIndex,CONST.CHAR_种族);
                if ( RaceType == CONST.种族_人型 ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
-                 if (battleturn > Equipment[charIndex][0]) then
+                 if (battleturn == 0) then
+                     Equipment[charIndex][0] = battleturn;
+                     Equipment[charIndex][1] = 0;
+                 elseif (battleturn > Equipment[charIndex][0]) then
                      Equipment[charIndex][0] = battleturn;
                      Equipment[charIndex][1] = 0;
                  end
-                 local turnhit = Equipment[charIndex][1] + 1;
-                 local cj= 1 + (turnhit*0.015);
-                 if turnhit>=3 then
+                 Equipment[charIndex][1] = Equipment[charIndex][1] + 1;
+                 local cj= 1 + (Equipment[charIndex][1]*0.015);
+                 if Equipment[charIndex][1]>=3 then
                           Char.SetData(charIndex, CONST.CHAR_BattleDamageReflec, 1);
-                          if turnhit>=5 then
+                          if Equipment[charIndex][1]>=5 then
                                    Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 3);
-                                   if turnhit>=20 then
+                                   if Equipment[charIndex][1]>=20 then
                                             cj = 1.3;
                                    end
                           end
