@@ -1,5 +1,6 @@
 NL.RegGetExpEvent(nil,"AllExpEvent");
 NL.RegBattleSkillExpEvent(nil,"AllSkillExpEvent");
+NL.RegProductSkillExpEvent(nil,"ProductSkillExpEvent");
 expshare_itemid = 70041;
 exp_itemid = 70040;
 playerexp_itemid = 68011;
@@ -17,33 +18,33 @@ function AllExpEvent(CharIndex, Exp)
 			for Slot=0,4 do
 				local PetIndex = Char.GetPet(CharIndex,Slot);
 				if(PetIndex >=0 and Char.ItemNum(CharIndex,petexp_itemid) == 0) then
-					local exp = Char.GetData(PetIndex,%¶ÔÏó_¾­Ñé%);
+					local exp = Char.GetData(PetIndex,%å¯¹è±¡_ç»éªŒ%);
 					local Ne = exp + Exp;
-					Char.SetData(PetIndex,%¶ÔÏó_¾­Ñé%,Ne);
+					Char.SetData(PetIndex,%å¯¹è±¡_ç»éªŒ%,Ne);
 					NLG.UpChar(PetIndex);
-					--NLG.TalkToCli(CharIndex,-1,"[³èÎïÑ§Ï°Æ÷] ½ÇÉ«Ô­Ê¼¾­ÑéÒÑ¹²Ïí¸øËùÓĞ³èÎï£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+					--NLG.TalkToCli(CharIndex,-1,"[å® ç‰©å­¦ä¹ å™¨] è§’è‰²åŸå§‹ç»éªŒå·²å…±äº«ç»™æ‰€æœ‰å® ç‰©ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 				end
 				if(PetIndex >=0 and Char.ItemNum(CharIndex,petexp_itemid) == 1) then
-					local exp = Char.GetData(PetIndex,%¶ÔÏó_¾­Ñé%);
+					local exp = Char.GetData(PetIndex,%å¯¹è±¡_ç»éªŒ%);
 					local Ne = exp + Exp* 2;
-					Char.SetData(PetIndex,%¶ÔÏó_¾­Ñé%,Ne);
+					Char.SetData(PetIndex,%å¯¹è±¡_ç»éªŒ%,Ne);
 					NLG.UpChar(PetIndex);
-					--NLG.TalkToCli(CharIndex,-1,"[³èÎïÑ§Ï°Æ÷] ½ÇÉ«Ô­Ê¼¾­ÑéÒÑË«±¶¹²Ïí¸øËùÓĞ³èÎï£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+					--NLG.TalkToCli(CharIndex,-1,"[å® ç‰©å­¦ä¹ å™¨] è§’è‰²åŸå§‹ç»éªŒå·²åŒå€å…±äº«ç»™æ‰€æœ‰å® ç‰©ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 				end
 			end
 		end
 		if(Char.ItemNum(CharIndex,exp_itemid) > 0 and Char.ItemNum(CharIndex,playerexp_itemid) > 0) then
 			local ne = Exp * 3;
-			--NLG.TalkToCli(CharIndex,-1,"[ÏµÍ³] ½ÇÉ«»ñÈ¡µÄ¾­Ñé3±¶£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
-			return ne;  --½ÇÉ«»ñÈ¡µÄ¾­Ñé3±¶
+			--NLG.TalkToCli(CharIndex,-1,"[ç³»ç»Ÿ] è§’è‰²è·å–çš„ç»éªŒ3å€ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
+			return ne;  --è§’è‰²è·å–çš„ç»éªŒ3å€
 		elseif(Char.ItemNum(CharIndex,exp_itemid) > 0 and Char.ItemNum(CharIndex,playerexp_itemid) == 0) then
 			local ne = Exp * 1.5;
-			--NLG.TalkToCli(CharIndex,-1,"[ÏµÍ³] ½ÇÉ«»ñÈ¡µÄ¾­Ñé1.5±¶£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
-			return ne;  --½ÇÉ«»ñÈ¡µÄ¾­Ñé1.5±¶
+			--NLG.TalkToCli(CharIndex,-1,"[ç³»ç»Ÿ] è§’è‰²è·å–çš„ç»éªŒ1.5å€ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
+			return ne;  --è§’è‰²è·å–çš„ç»éªŒ1.5å€
 		elseif(Char.ItemNum(CharIndex,exp_itemid) == 0 and Char.ItemNum(CharIndex,playerexp_itemid) > 0) then
 			local ne = Exp * 2;
-			--NLG.TalkToCli(CharIndex,-1,"[ÏµÍ³] ½ÇÉ«»ñÈ¡µÄ¾­ÑéË«±¶£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
-			return ne;  --½ÇÉ«»ñÈ¡µÄ¾­ÑéË«±¶
+			--NLG.TalkToCli(CharIndex,-1,"[ç³»ç»Ÿ] è§’è‰²è·å–çš„ç»éªŒåŒå€ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
+			return ne;  --è§’è‰²è·å–çš„ç»éªŒåŒå€
 		end
 	end
 	return Exp;
@@ -52,8 +53,17 @@ end
 function AllSkillExpEvent(CharIndex, SkillID, Exp)
 	if(Char.ItemNum(CharIndex,skillexp_itemid) > 0) then
 		local ne = Exp * 2;
-		--NLG.TalkToCli(CharIndex,-1,"[ÏµÍ³] ½ÇÉ«»ñÈ¡µÄ¼¼ÄÜ¾­ÑéË«±¶£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
-		return ne;  --½ÇÉ«»ñÈ¡µÄÕ½¶·¼¼ÄÜ¾­ÑéË«±¶
+		--NLG.TalkToCli(CharIndex,-1,"[ç³»ç»Ÿ] è§’è‰²è·å–çš„æˆ˜æ–—æŠ€èƒ½ç»éªŒåŒå€ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
+		return ne;  --è§’è‰²è·å–çš„æˆ˜æ–—æŠ€èƒ½ç»éªŒåŒå€
+	end
+	return Exp;
+end
+
+function ProductSkillExpEvent(CharIndex, SkillID, Exp)
+	if(Char.ItemNum(CharIndex,skillexp_itemid) > 0) then
+		local ne = Exp * 2;
+		--NLG.TalkToCli(CharIndex,-1,"[ç³»ç»Ÿ] è§’è‰²è·å–çš„ç”Ÿäº§æŠ€èƒ½ç»éªŒåŒå€ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
+		return ne;  --è§’è‰²è·å–çš„ç”Ÿäº§æŠ€èƒ½ç»éªŒåŒå€
 	end
 	return Exp;
 end
