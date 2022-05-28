@@ -26,8 +26,8 @@ useModule('ItemUse');|戰鬥暫時增益道具
 --- | --- 
 useModule('AllExpEvent');|寵物學習裝置&經驗加倍券
 useModule('PetTalk');|寵物說話互動
-useModule('getpetBp');|寵物算档
-useModule('PetAttrib');|寵物洗档
+useModule('getpetBp');|寵物算檔
+useModule('PetAttrib');|寵物洗檔
 useModule('PetMirage');|寵物變身&超靈體in水晶
 useModule('PetMchange');|寵物附身合體
 useModule('PetConvert');|寵物改造
