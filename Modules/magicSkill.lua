@@ -188,6 +188,32 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
 
 
+               if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
+                 if NLG.Rand(1,10)>=8  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
+                 end
+                 return damage;
+               end
+               if (com3 >= 2000 and com3 <= 2009) or (com3 >= 2400 and com3 <= 2409) or (com3 >= 2800 and com3 <= 2809)  then    --冰凍魔法
+                 if NLG.Rand(1,10)>=8  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 2);
+                 end
+                 return damage;
+               end
+               if (com3 >= 2100 and com3 <= 2109) or (com3 >= 2500 and com3 <= 2509) or (com3 >= 2900 and com3 <= 2909)  then    --火焰魔法
+                 if NLG.Rand(1,10)>=8  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 2);
+                 end
+                 return damage;
+               end
+               if (com3 >= 2200 and com3 <= 2209) or (com3 >= 2600 and com3 <= 2609) or (com3 >= 3000 and com3 <= 3009)  then    --風刃魔法
+                 if NLG.Rand(1,10)>=8  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModSleep, 2);
+                 end
+                 return damage;
+               end
+
+
                if flg == CONST.DamageFlags.Combo  then
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModConfusion)>=1  then
                         damage = damage * 1.01;
