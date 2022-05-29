@@ -198,13 +198,18 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                else
                         LvRate = LvRate*0.02;
                end
+               if Spirit <= 800  then
+                        SpRate = 1;
+               else
+                        SpRate = Spirit/800;
+               end
                if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
                  if com3 >= 1900 and com3 <= 1909  then
-                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2300 and com3 <= 2309  then
-                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
                  elseif com3 >= 2700 and com3 <= 2709  then
-                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
                  end
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
@@ -213,11 +218,11 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
                if (com3 >= 2000 and com3 <= 2009) or (com3 >= 2400 and com3 <= 2409) or (com3 >= 2800 and com3 <= 2809)  then    --冰凍魔法
                  if com3 >= 2000 and com3 <= 2009  then
-                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2400 and com3 <= 2409  then
-                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
                  elseif com3 >= 2800 and com3 <= 2809  then
-                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
                  end
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 2);
@@ -226,11 +231,11 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
                if (com3 >= 2100 and com3 <= 2109) or (com3 >= 2500 and com3 <= 2509) or (com3 >= 2900 and com3 <= 2909)  then    --火焰魔法
                  if com3 >= 2100 and com3 <= 2109  then
-                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2500 and com3 <= 2509  then
-                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
                  elseif com3 >= 2900 and com3 <= 2909  then
-                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
                  end
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 2);
@@ -239,11 +244,11 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
                if (com3 >= 2200 and com3 <= 2209) or (com3 >= 2600 and com3 <= 2609) or (com3 >= 3000 and com3 <= 3009)  then    --風刃魔法
                  if com3 >= 2200 and com3 <= 2209  then
-                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2600 and com3 <= 2609  then
-                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
                  elseif com3 >= 3000 and com3 <= 3009  then
-                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
                  end
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
