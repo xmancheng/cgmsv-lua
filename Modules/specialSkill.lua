@@ -26,7 +26,7 @@ function SpecialSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
          if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
                leader = leader2
          end
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                local RaceType = Char.GetData(charIndex,CONST.CHAR_种族);
                if ( RaceType == CONST.种族_人型 ) then 
                  local battleturn = Battle.GetTurn(battleIndex);
