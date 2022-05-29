@@ -168,16 +168,22 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
 
                if com3 == 8137  then
+                 local defLvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
                  local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
                  local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
-                 print(defHpE)
-                 print(damage)
-                 if defHpE<=10  then
-                         damage = damage*0;
+                 if defLvE<=1  then
+                         if defHpE<=10  then
+                             damage = damage*0;
+                         else
+                             damage = damage*0 + defHpE - 10;
+                         end
                  else
-                         damage = damage*0 + defHpE - 10;
+                         damage = damage;
                  end
-                 --NLG.Say(charIndex,charIndex,"【刀背攻擊】！！",4,3);
+                 --print(defHpE,damage)
+                 if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                         NLG.Say(charIndex,charIndex,"【刀背攻擊】傷害前目標剩餘血量".. defHpE .."！！",4,3);
+                 end
                  return damage;
                end
 
