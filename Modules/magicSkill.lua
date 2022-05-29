@@ -188,27 +188,65 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
 
 
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
+               local JobLv = Char.GetData(charIndex,CONST.CHAR_职阶)+1;
+               local JobLv_tbl = {200,310,340,370,400,430};
+               if LvRate <= 50  then
+                        LvRate = 1;
+               else
+                        LvRate = LvRate*0.02;
+               end
                if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
+                 if com3 >= 1900 and com3 <= 1909  then
+                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                 elseif com3 >= 2300 and com3 <= 2309  then
+                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                 elseif com3 >= 2700 and com3 <= 2709  then
+                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                 end
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
                  end
                  return damage;
                end
                if (com3 >= 2000 and com3 <= 2009) or (com3 >= 2400 and com3 <= 2409) or (com3 >= 2800 and com3 <= 2809)  then    --冰凍魔法
+                 if com3 >= 2000 and com3 <= 2009  then
+                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                 elseif com3 >= 2400 and com3 <= 2409  then
+                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                 elseif com3 >= 2800 and com3 <= 2809  then
+                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                 end
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 2);
                  end
                  return damage;
                end
                if (com3 >= 2100 and com3 <= 2109) or (com3 >= 2500 and com3 <= 2509) or (com3 >= 2900 and com3 <= 2909)  then    --火焰魔法
+                 if com3 >= 2100 and com3 <= 2109  then
+                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                 elseif com3 >= 2500 and com3 <= 2509  then
+                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                 elseif com3 >= 2900 and com3 <= 2909  then
+                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                 end
                  if NLG.Rand(1,10)>=8  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 2);
                  end
                  return damage;
                end
                if (com3 >= 2200 and com3 <= 2209) or (com3 >= 2600 and com3 <= 2609) or (com3 >= 3000 and com3 <= 3009)  then    --風刃魔法
+                 if com3 >= 2200 and com3 <= 2209  then
+                        damage = damage + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                 elseif com3 >= 2600 and com3 <= 2609  then
+                        damage = damage + Spirit * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                 elseif com3 >= 3000 and com3 <= 3009  then
+                        damage = damage + Spirit * 0.125 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.125;
+                 end
                  if NLG.Rand(1,10)>=8  then
-                        Char.SetData(defCharIndex, CONST.CHAR_BattleModSleep, 2);
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
                  end
                  return damage;
                end
