@@ -81,7 +81,7 @@ function YbNenSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  return damage;
                end
            end
-         elseif  Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为攻击方事件，被动技能只能二选一
+         elseif  flg == CONST.DamageFlags.Normal and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为攻击方事件，被动技能只能二选一
            for i=0,9 do
                local skillId = Pet.GetSkill(charIndex, i)
                if (skillId == 1619) then  --宠物被动【大胆无畏】
@@ -113,6 +113,76 @@ function YbNenSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  return damage;
                end
            end
+         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+               if LvRate <= 50  then
+                        LvRate = 1;
+               else
+                        LvRate = LvRate/10;
+               end
+               if Spirit <= 200  then
+                        SpRate = 1;
+               else
+                        SpRate = Spirit/200;
+               end
+               if (com3 >= 1930 and com3 <= 1939) or (com3 >= 2330 and com3 <= 2339) or (com3 >= 2750 and com3 <= 2759)  then    --隕石魔法
+                 if com3 >= 1930 and com3 <= 1939  then
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate ;
+                 elseif com3 >= 2330 and com3 <= 2339  then
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate;
+                 elseif com3 >= 2750 and com3 <= 2759  then
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate;
+                 end
+                 print(damage)
+                 if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                        --NLG.Say(leader,charIndex,"【魔法導力】！！",4,3);
+                 end
+                 return damage;
+               end
+               if (com3 >= 2030 and com3 <= 2039) or (com3 >= 2430 and com3 <= 2439) or (com3 >= 2850 and com3 <= 2859)  then    --冰凍魔法
+                 if com3 >= 2030 and com3 <= 2039  then
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate;
+                 elseif com3 >= 2430 and com3 <= 2439  then
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate;
+                 elseif com3 >= 2850 and com3 <= 2859  then
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate;
+                 end
+                 print(damage)
+                 if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                        --NLG.Say(leader,charIndex,"【魔法導力】！！",4,3);
+                 end
+                 return damage;
+               end
+               if (com3 >= 2130 and com3 <= 2139) or (com3 >= 2530 and com3 <= 2539) or (com3 >= 2950 and com3 <= 2959)  then    --火焰魔法
+                 if com3 >= 2130 and com3 <= 2139  then
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate;
+                 elseif com3 >= 2530 and com3 <= 2539  then
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate;
+                 elseif com3 >= 2950 and com3 <= 2959  then
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate;
+                 end
+                 print(damage)
+                 if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                        --NLG.Say(leader,charIndex,"【魔法導力】！！",4,3);
+                 end
+                 return damage;
+               end
+               if (com3 >= 2230 and com3 <= 2239) or (com3 >= 2630 and com3 <= 2639) or (com3 >= 3050 and com3 <= 3059)  then    --風刃魔法
+                 if com3 >= 2230 and com3 <= 2239  then
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate;
+                 elseif com3 >= 2630 and com3 <= 2639  then
+                        damage = damage * SpRate + Spirit * 0.25 * LvRate;
+                 elseif com3 >= 3050 and com3 <= 3059  then
+                        damage = damage * SpRate + Spirit * 0.125 * LvRate;
+                 end
+                 print(damage)
+                 if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                        --NLG.Say(leader,charIndex,"【魔法導力】！！",4,3);
+                 end
+                 return damage;
+               end
+
          end
   return damage;
 end
