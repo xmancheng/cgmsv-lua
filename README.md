@@ -61,6 +61,6 @@ useModule('DailyScript');|曜日副本
 --- | --- 
 loadModule('uniShop')|鏡像擺攤
 loadModule('autoRanking')|自助天梯
-loadModule('ybNenSkill')|寵物被動、寵物法傷、傭兵技能強化
-loadModule('specialSkill')|人物種族[特異能力、技能強化]
-loadModule('magicSkill')|魔法屬性技能、刀背攻擊、狀態增傷
+loadModule('ybNenSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
+loadModule('specialSkill')|人物種族特異能力、人物種族技能強化
+loadModule('magicSkill')|魔法屬性技能、抓寵刀背攻擊、魔法附加狀態、合擊狀態增傷
