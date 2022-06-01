@@ -103,7 +103,7 @@ function DisguiseSpell:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDam
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                for i,w in pairs(Spell_tbl.Tech) do
                      if (Char.GetData(charIndex,%对象_原形%) == w[1]) then               --原形增加额外真实伤害
-                        Spell_control[charIndex][2] = Battle.GetSlot(battleIndex, charIndex);
+                        --Spell_control[charIndex][2] = Battle.GetSlot(battleIndex, charIndex);
                         local Attack = Char.GetData(charIndex,w[3]);
                         local damage = damage + Attack*w[4];
                         print(damage)
