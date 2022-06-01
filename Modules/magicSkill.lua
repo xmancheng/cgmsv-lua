@@ -5,41 +5,6 @@ local MagicSkill = ModuleBase:createModule('magicSkill')
 function MagicSkill:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
-  self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self))
-  self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
-end
-
-function MagicSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
-         --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
-         if techID == 5014 or techID == 5019  then
-               --NLG.Say(charIndex,charIndex,"【土之女神加護】！！",4,3);
-               Char.SetData(charIndex,%对象_原形%,110351);
-               NLG.UpChar(charIndex);
-         elseif techID == 5114 or techID == 5119  then
-               --NLG.Say(charIndex,charIndex,"【水之女神加護】！！",4,3);
-               Char.SetData(charIndex,%对象_原形%,110357);
-               NLG.UpChar(charIndex);
-         elseif techID == 5214 or techID == 5219  then
-               --NLG.Say(charIndex,charIndex,"【火之女神加護】！！",4,3);
-               Char.SetData(charIndex,%对象_原形%,110363);
-               NLG.UpChar(charIndex);
-         elseif techID == 5314 or techID == 5319  then
-               --NLG.Say(charIndex,charIndex,"【風之女神加護】！！",4,3);
-               Char.SetData(charIndex,%对象_原形%,110369);
-               NLG.UpChar(charIndex);
-         else
-         end
-end
-
-function MagicSkill:battleOverEventCallback(battleIndex)
-         for jlbs = 0,19 do
-               local charIndex = Battle.GetPlayer(battleIndex, jlbs);
-               if Char.GetData(charIndex,%对象_原形%) == 110351 or Char.GetData(charIndex,%对象_原形%) == 110357 or Char.GetData(charIndex,%对象_原形%) == 110363 or Char.GetData(charIndex,%对象_原形%) == 110369  then
-                   local PlayerImage = Char.GetData(charIndex,%对象_原始图档%);
-                   Char.SetData(charIndex,%对象_原形%,PlayerImage);
-                   NLG.UpChar(charIndex);
-               end
-         end
 end
 
 function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
@@ -52,37 +17,6 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                leader = leader2
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               if Char.GetData(charIndex,%对象_原形%) == 110351  then
-                     local Attack = Char.GetData(charIndex,CONST.CHAR_防御力);
-                     --Char.SetData(charIndex,%对象_防御力%, Char.GetData(charIndex,%对象_防御力%)+500);
-                     --NLG.UpChar(charIndex);
-                     local damage = damage + Attack*0.5;
-                     print(damage)
-                     return damage;
-               elseif Char.GetData(charIndex,%对象_原形%) == 110357  then
-                     local Attack = Char.GetData(charIndex,CONST.CHAR_回复);
-                     --Char.SetData(charIndex,%对象_回复%, Char.GetData(charIndex,%对象_回复%)+500);
-                     --NLG.UpChar(charIndex);
-                     local damage = damage + Attack*0.25;
-                     print(damage)
-                     return damage;
-               elseif Char.GetData(charIndex,%对象_原形%) == 110363  then
-                     local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
-                     --Char.SetData(charIndex,%对象_攻击力%, Char.GetData(charIndex,%对象_攻击力%)+500);
-                     --Char.SetData(charIndex,%对象_精神%, Char.GetData(charIndex,%对象_精神%)+500);
-                     --NLG.UpChar(charIndex);
-                     local damage = damage + Attack*0.125;
-                     print(damage)
-                     return damage;
-               elseif Char.GetData(charIndex,%对象_原形%) == 110369  then
-                     local Attack = Char.GetData(charIndex,CONST.CHAR_敏捷);
-                     --Char.SetData(charIndex,%对象_敏捷%, Char.GetData(charIndex,%对象_敏捷%)+500);
-                     --NLG.UpChar(charIndex);
-                     local damage = damage + Attack*0.25;
-                     print(damage)
-                     return damage;
-               end
-
                if com3 >= 2730 and com3 <= 2739  then
                  Tech.SetTechMagicAttribute(2730, 10, 0, 0, 0);
                  Tech.SetTechMagicAttribute(2731, 10, 0, 0, 0);
@@ -252,7 +186,7 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  return damage;
                end
 
-
+--法術附加30%狀態
                local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
                local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
                local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
@@ -261,7 +195,7 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                if LvRate <= 50  then
                         LvRate = 1;
                else
-                        LvRate = LvRate*0.02;
+                        LvRate = LvRate/50;
                end
                if Spirit <= 800  then
                         SpRate = 1;
@@ -321,7 +255,33 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  return damage;
                end
 
+--單體50%狀態大攻擊
+               if (com3 >= 7510 and com3 <= 7519)  then    --蓋棺鐵圍山
+                 if NLG.Rand(1,10)>=6  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 2);
+                 end
+                 return damage;
+               end
+               if (com3 >= 7810 and com3 <= 7819)  then    --蕩蘊平線
+                 if NLG.Rand(1,10)>=6  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 2);
+                 end
+                 return damage;
+               end
+               if (com3 >= 7910 and com3 <= 7919)  then    --自閉圓頓裹
+                 if NLG.Rand(1,10)>=6  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
+                 end
+                 return damage;
+               end
+               if (com3 >= 8010 and com3 <= 8019)  then    --祭森供花
+                 if NLG.Rand(1,10)>=6  then
+                        Char.SetData(defCharIndex, CONST.CHAR_BattleModAmnesia, 2);
+                 end
+                 return damage;
+               end
 
+--合擊狀態增傷
                if flg == CONST.DamageFlags.Combo  then
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModConfusion)>=1  then
                         damage = damage * 1.01;
