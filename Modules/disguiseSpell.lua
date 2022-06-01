@@ -38,20 +38,6 @@ function DisguiseSpell:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
 end
 
-function DisguiseSpell:OnTechOptionEventCallBack(charIndex, option, techID, val)
-         --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
-         --使用技能时变身对应迷彩
-         for i,w in pairs(Spell_tbl.Tech) do
-               if (techID == i) then
-                  --NLG.Say(charIndex,charIndex,"【女神加護】！！",4,3);
-                  Char.SetData(charIndex,%对象_原形%,w[1]);
-                  NLG.UpChar(charIndex);
-                  Spell_control[charIndex][1] = 0;
-               end
-         end
-
-end
-
 function DisguiseSpell:handleBattleAutoCommand(battleIndex)
                local battleturn = Battle.GetTurn(battleIndex);
                for i = 0, 19 do
@@ -89,6 +75,20 @@ function DisguiseSpell:battleOverEventCallback(battleIndex)
                      end
                end
          end
+end
+
+function DisguiseSpell:OnTechOptionEventCallBack(charIndex, option, techID, val)
+         --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
+         --使用技能时变身对应迷彩
+         for i,w in pairs(Spell_tbl.Tech) do
+               if (techID == i) then
+                  --NLG.Say(charIndex,charIndex,"【女神加護】！！",4,3);
+                  Char.SetData(charIndex,%对象_原形%,w[1]);
+                  NLG.UpChar(charIndex);
+                  Spell_control[charIndex][1] = 0;
+               end
+         end
+
 end
 
 function DisguiseSpell:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
