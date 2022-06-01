@@ -1,35 +1,35 @@
----æ¨¡å—ç±»
+---Ä£¿éÀà
 local DisguiseSpell = ModuleBase:createModule('disguiseSpell')
 
 Spell_control ={}
 for ddd = 0,799 do
 	Spell_control[ddd] = {}
-	Spell_control[ddd][0] = 0  --åˆå§‹åŒ–æŒ‡æ ‡å›åˆæ•°
-	Spell_control[ddd][1] = 0  --åˆå§‹åŒ–æŒç»­å›åˆæ•°
+	Spell_control[ddd][0] = 0  --³õÊ¼»¯Ö¸±ê»ØºÏÊı
+	Spell_control[ddd][1] = 0  --³õÊ¼»¯³ÖĞø»ØºÏÊı
 end
 
 Spell_tbl = {}
-Spell_tbl[1] = {5014,5019}   --ä¸€ç»„çš„techIDï¼Œä¸‹æ–¹Spell_tbl.Techä¸€ä¸ªtechè¦æ–°å¢ä¸€åˆ—è®¾å®š
+Spell_tbl[1] = {5014,5019}   --Ò»×éµÄtechID£¬ÏÂ·½Spell_tbl.TechÒ»¸ötechÒªĞÂÔöÒ»ÁĞÉè¶¨
 Spell_tbl[2] = {5114,5119}
 Spell_tbl[3] = {5214,5219}
 Spell_tbl[4] = {5314,5319}
 
 Spell_tbl.Tech = {}
 -----------------------------------------------------------
-Spell_tbl.Tech[5014] = {110351,2,CONST.CHAR_é˜²å¾¡åŠ›,0.5}   --å˜æˆçš„åŸå½¢ç¼–å·ã€è¿·å½©æŒç»­å›åˆã€çœŸå®ä¼¤å®³æ¥æºã€è½¬æ¢å€ç‡
-Spell_tbl.Tech[5019] = {110351,2,CONST.CHAR_é˜²å¾¡åŠ›,0.5}
+Spell_tbl.Tech[5014] = {110351,2,CONST.CHAR_·ÀÓùÁ¦,0.5}   --±ä³ÉµÄÔ­ĞÎ±àºÅ¡¢ÃÔ²Ê³ÖĞø»ØºÏ¡¢ÕæÊµÉËº¦À´Ô´¡¢×ª»»±¶ÂÊ
+Spell_tbl.Tech[5019] = {110351,2,CONST.CHAR_·ÀÓùÁ¦,0.5}
 -----------------------------------------------------------
-Spell_tbl.Tech[5114] = {110357,2,CONST.CHAR_å›å¤,0.25}
-Spell_tbl.Tech[5119] = {110357,2,CONST.CHAR_å›å¤,0.25}
+Spell_tbl.Tech[5114] = {110357,2,CONST.CHAR_»Ø¸´,0.25}
+Spell_tbl.Tech[5119] = {110357,2,CONST.CHAR_»Ø¸´,0.25}
 -----------------------------------------------------------
-Spell_tbl.Tech[5214] = {110363,2,CONST.CHAR_æ”»å‡»åŠ›,0.125}
-Spell_tbl.Tech[5219] = {110363,2,CONST.CHAR_æ”»å‡»åŠ›,0.125}
+Spell_tbl.Tech[5214] = {110363,2,CONST.CHAR_¹¥»÷Á¦,0.125}
+Spell_tbl.Tech[5219] = {110363,2,CONST.CHAR_¹¥»÷Á¦,0.125}
 -----------------------------------------------------------
-Spell_tbl.Tech[5314] = {110369,2,CONST.CHAR_æ•æ·,0.25}
-Spell_tbl.Tech[5319] = {110369,2,CONST.CHAR_æ•æ·,0.25}
+Spell_tbl.Tech[5314] = {110369,2,CONST.CHAR_Ãô½İ,0.25}
+Spell_tbl.Tech[5319] = {110369,2,CONST.CHAR_Ãô½İ,0.25}
 -----------------------------------------------------------
 
---- åŠ è½½æ¨¡å—é’©å­
+--- ¼ÓÔØÄ£¿é¹³×Ó
 function DisguiseSpell:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -38,23 +38,37 @@ function DisguiseSpell:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
 end
 
+function DisguiseSpell:OnTechOptionEventCallBack(charIndex, option, techID, val)
+         --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
+         --Ê¹ÓÃ¼¼ÄÜÊ±±äÉí¶ÔÓ¦ÃÔ²Ê
+         for i,w in pairs(Spell_tbl.Tech) do
+               if (techID == i) then
+                  --NLG.Say(charIndex,charIndex,"¡¾Å®Éñ¼Ó×o¡¿£¡£¡",4,3);
+                  Char.SetData(charIndex,%¶ÔÏó_Ô­ĞÎ%,w[1]);
+                  NLG.UpChar(charIndex);
+                  Spell_control[charIndex][1] = 0;
+               end
+         end
+
+end
+
 function DisguiseSpell:handleBattleAutoCommand(battleIndex)
                local battleturn = Battle.GetTurn(battleIndex);
                for i = 0, 19 do
                      local charIndex = Battle.GetPlayer(battleIndex, i);
                      if charIndex >= 0 then
-                           if Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+                           if Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
                                  if (battleturn == 0) then
                                      Spell_control[charIndex][0] = 0;
                                      Spell_control[charIndex][1] = 0;
-                                  --å›åˆè®¡ç®—
+                                  --»ØºÏ¼ÆËã
                                  elseif (battleturn > Spell_control[charIndex][0]) then
                                      Spell_control[charIndex][0] = battleturn;
                                      Spell_control[charIndex][1] = Spell_control[charIndex][1] + 1;
                                      for i,w in pairs(Spell_tbl.Tech) do
-                                         if (Spell_control[charIndex][1] >= w[2]) then                               --ä¼¤å®³åŠ¨ä½œå›åˆå˜å½¢è¿˜åŸ
-                                             local PlayerImage = Char.GetData(charIndex,%å¯¹è±¡_åŸå§‹å›¾æ¡£%);
-                                             Char.SetData(charIndex,%å¯¹è±¡_åŸå½¢%,PlayerImage);
+                                         if (Spell_control[charIndex][1] >= w[2]) then                               --ÉËº¦¶¯×÷»ØºÏ±äĞÎ»¹Ô­
+                                             local PlayerImage = Char.GetData(charIndex,%¶ÔÏó_Ô­Ê¼Í¼µµ%);
+                                             Char.SetData(charIndex,%¶ÔÏó_Ô­ĞÎ%,PlayerImage);
                                              NLG.UpChar(charIndex);
                                          end
                                      end
@@ -68,27 +82,13 @@ function DisguiseSpell:battleOverEventCallback(battleIndex)
          for jlbs = 0,19 do
                local charIndex = Battle.GetPlayer(battleIndex, jlbs);
                for i,w in pairs(Spell_tbl.Tech) do
-                     if (Char.GetData(charIndex,%å¯¹è±¡_åŸå½¢%) == w[1]) then
-                        local PlayerImage = Char.GetData(charIndex,%å¯¹è±¡_åŸå§‹å›¾æ¡£%);
-                        Char.SetData(charIndex,%å¯¹è±¡_åŸå½¢%,PlayerImage);
+                     if (Char.GetData(charIndex,%¶ÔÏó_Ô­ĞÎ%) == w[1]) then
+                        local PlayerImage = Char.GetData(charIndex,%¶ÔÏó_Ô­Ê¼Í¼µµ%);
+                        Char.SetData(charIndex,%¶ÔÏó_Ô­ĞÎ%,PlayerImage);
                         NLG.UpChar(charIndex);
                      end
                end
          end
-end
-
-function DisguiseSpell:OnTechOptionEventCallBack(charIndex, option, techID, val)
-         --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
-         --ä½¿ç”¨æŠ€èƒ½æ—¶å˜èº«å¯¹åº”è¿·å½©
-         for i,w in pairs(Spell_tbl.Tech) do
-               if (techID == i) then
-                  --NLG.Say(charIndex,charIndex,"ã€å¥³ç¥åŠ è­·ã€‘ï¼ï¼",4,3);
-                  Char.SetData(charIndex,%å¯¹è±¡_åŸå½¢%,w[1]);
-                  NLG.UpChar(charIndex);
-                  Spell_control[charIndex][1] = 0;
-               end
-         end
-
 end
 
 function DisguiseSpell:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
@@ -97,13 +97,13 @@ function DisguiseSpell:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDam
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex)
-         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
                leader = leader2
          end
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
                for i,w in pairs(Spell_tbl.Tech) do
-                     if (Char.GetData(charIndex,%å¯¹è±¡_åŸå½¢%) == w[1]) then               --åŸå½¢å¢åŠ é¢å¤–çœŸå®ä¼¤å®³
-                        --Spell_control[charIndex][2] = Battle.GetSlot(battleIndex, charIndex);
+                     if (Char.GetData(charIndex,%¶ÔÏó_Ô­ĞÎ%) == w[1]) then               --Ô­ĞÎÔö¼Ó¶îÍâÕæÊµÉËº¦
+                        Spell_control[charIndex][2] = Battle.GetSlot(battleIndex, charIndex);
                         local Attack = Char.GetData(charIndex,w[3]);
                         local damage = damage + Attack*w[4];
                         print(damage)
@@ -116,7 +116,7 @@ function DisguiseSpell:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDam
   return damage;
 end
 
---- å¸è½½æ¨¡å—é’©å­
+--- Ğ¶ÔØÄ£¿é¹³×Ó
 function DisguiseSpell:onUnload()
   self:logInfo('unload')
 end
