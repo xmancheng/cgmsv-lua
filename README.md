@@ -64,3 +64,4 @@ loadModule('autoRanking')|自助天梯
 loadModule('ybNenSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化
 loadModule('magicSkill')|魔法屬性技能、抓寵刀背攻擊、法術附加狀態、合擊狀態增傷
+loadModule('disguiseSpell')|變形咒語傷害調整
