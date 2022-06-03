@@ -237,7 +237,7 @@ function YbNenSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
                         end
                         return val
                   end
-                  if techID >= 1260 and techID <= 1269 and item5_Id == 900329  then
+                  if techID >= 1260 and techID <= 1269 and item5_Id == 900330  then
                         if option == 'D2:' then
                               if Char.GetData(leader,%对象_队聊开关%) == 1  then
                                   NLG.Say(leader,charIndex,"【靈光】！！",4,3);
