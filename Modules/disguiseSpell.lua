@@ -114,36 +114,120 @@ function DisguiseSpell:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDam
          if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
                leader = leader2
          end
+
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-           for s=1,#Spell_tbl do
-               if (s<=4) then
-                  for i,w in pairs(Spell_tbl.Tech) do
-                     if (Char.GetData(charIndex,%对象_原形%) == w[1]) then               --原形增加额外真实伤害
-                        --Spell_control[charIndex][2] = Battle.GetSlot(battleIndex, charIndex);
-                        local Attack = Char.GetData(charIndex,w[3]);
-                        local damage = damage + Attack*w[4];
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5014][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5014][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5014][4];
                         print(damage)
                         return damage;
-                     end
                   end
-               end
-           end
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5019][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5019][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5019][4];
+                        print(damage)
+                        return damage;
+                  end
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5114][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5114][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5114][4];
+                        print(damage)
+                        return damage;
+                  end
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5119][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5119][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5119][4];
+                        print(damage)
+                        return damage;
+                  end
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5214][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5214][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5214][4];
+                        print(damage)
+                        return damage;
+                  end
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5219][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5219][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5219][4];
+                        print(damage)
+                        return damage;
+                  end
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5314][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5314][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5314][4];
+                        print(damage)
+                        return damage;
+                  end
+                  if (Char.GetData(charIndex,%对象_原形%) == Spell_tbl.Tech[5319][1]) then               --原形增加额外真实伤害
+                        local Attack = Char.GetData(charIndex,Spell_tbl.Tech[5319][3]);
+                        local damage = damage + Attack*Spell_tbl.Tech[5319][4];
+                        print(damage)
+                        return damage;
+                  end
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-           for s=1,#Spell_tbl do
-               if (s>=5) then
-                  for i,w in pairs(Spell_tbl.Tech) do
-                     if (Char.GetData(defCharIndex,%对象_原形%) == w[1]) then         --原形减少固定数值伤害
-                        local Injury = Char.GetData(defCharIndex,w[3]);
-                        local damage = damage - Injury*w[4];
+                 if (Char.GetData(defCharIndex,%对象_原形%) == Spell_tbl.Tech[6519][1]) then         --原形减少固定数值伤害
+                        local Injury = Char.GetData(defCharIndex,Spell_tbl.Tech[6519][3]);
+                        local damage = damage - Injury*Spell_tbl.Tech[6519][4];
                         if damage<=1 then
                                damage = 1;
                         end
                         print(damage)
                         return damage;
-                     end
                   end
-               end
-           end
+                 if (Char.GetData(defCharIndex,%对象_原形%) == Spell_tbl.Tech[6219][1]) then         --原形减少固定数值伤害
+                        local Injury = Char.GetData(defCharIndex,Spell_tbl.Tech[6219][3]);
+                        local damage = damage - Injury*Spell_tbl.Tech[6219][4];
+                        if damage<=1 then
+                               damage = 1;
+                        end
+                        print(damage)
+                        return damage;
+                  end
+                 if (Char.GetData(defCharIndex,%对象_原形%) == Spell_tbl.Tech[6619][1]) then         --原形减少固定数值伤害
+                        local Injury = Char.GetData(defCharIndex,Spell_tbl.Tech[6619][3]);
+                        local damage = damage - Injury*Spell_tbl.Tech[6619][4];
+                        if damage<=1 then
+                               damage = 1;
+                        end
+                        print(damage)
+                        return damage;
+                  end
+                 if (Char.GetData(defCharIndex,%对象_原形%) == Spell_tbl.Tech[6329][1]) then         --原形减少固定数值伤害
+                        local Injury = Char.GetData(defCharIndex,Spell_tbl.Tech[6329][3]);
+                        local damage = damage - Injury*Spell_tbl.Tech[6329][4];
+                        if damage<=1 then
+                               damage = 1;
+                        end
+                        print(damage)
+                        return damage;
+                  end
+                 if (Char.GetData(defCharIndex,%对象_原形%) == Spell_tbl.Tech[26116][1]) then         --原形减少固定数值伤害
+                        local Injury = Char.GetData(defCharIndex,Spell_tbl.Tech[26116][3]);
+                        local damage = damage - Injury*Spell_tbl.Tech[26116][4];
+                        if damage<=1 then
+                               damage = 1;
+                        end
+                        print(damage)
+                        return damage;
+                  end
+                 if (Char.GetData(defCharIndex,%对象_原形%) == Spell_tbl.Tech[26117][1]) then         --原形减少固定数值伤害
+                        local Injury = Char.GetData(defCharIndex,Spell_tbl.Tech[26117][3]);
+                        local damage = damage - Injury*Spell_tbl.Tech[26117][4];
+                        if damage<=1 then
+                               damage = 1;
+                        end
+                        print(damage)
+                        return damage;
+                  end
+                 if (Char.GetData(defCharIndex,%对象_原形%) == Spell_tbl.Tech[26118][1]) then         --原形减少固定数值伤害
+                        local Injury = Char.GetData(defCharIndex,Spell_tbl.Tech[26118][3]);
+                        local damage = damage - Injury*Spell_tbl.Tech[26118][4];
+                        if damage<=1 then
+                               damage = 1;
+                        end
+                        print(damage)
+                        return damage;
+                  end
 
          else
          end
