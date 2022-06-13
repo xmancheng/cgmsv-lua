@@ -1,7 +1,7 @@
----æ¨¡å—ç±»
+---Ä£¿éÀà
 local MagicSkill = ModuleBase:createModule('magicSkill')
 
---- åŠ è½½æ¨¡å—é’©å­
+--- ¼ÓÔØÄ£¿é¹³×Ó
 function MagicSkill:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -13,10 +13,10 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex)
-         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
                leader = leader2
          end
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
                if com3 >= 2730 and com3 <= 2739  then
                  Tech.SetTechMagicAttribute(2730, 10, 0, 0, 0);
                  Tech.SetTechMagicAttribute(2731, 10, 0, 0, 0);
@@ -28,8 +28,8 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  Tech.SetTechMagicAttribute(2737, 10, 0, 0, 0);
                  Tech.SetTechMagicAttribute(2738, 10, 0, 0, 0);
                  Tech.SetTechMagicAttribute(2739, 10, 0, 0, 0);
-                 --if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        --NLG.Say(charIndex,charIndex,"ã€å¼ºå‡»é™„åŠ åœ°å±æ€§1ã€‘ï¼ï¼",4,3);
+                 --if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        --NLG.Say(charIndex,charIndex,"¡¾Ç¿»÷¸½¼ÓµØÊôĞÔ1¡¿£¡£¡",4,3);
                  --end
                  return damage;
                end
@@ -44,8 +44,8 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  Tech.SetTechMagicAttribute(2837, 0, 10, 0, 0);
                  Tech.SetTechMagicAttribute(2838, 0, 10, 0, 0);
                  Tech.SetTechMagicAttribute(2839, 0, 10, 0, 0);
-                 --if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        --NLG.Say(charIndex,charIndex,"ã€å¼ºå‡»é™„åŠ æ°´å±æ€§1ã€‘ï¼ï¼",4,3);
+                 --if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        --NLG.Say(charIndex,charIndex,"¡¾Ç¿»÷¸½¼ÓË®ÊôĞÔ1¡¿£¡£¡",4,3);
                  --end
                  return damage;
                end
@@ -60,8 +60,8 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  Tech.SetTechMagicAttribute(2937, 0, 0, 10, 0);
                  Tech.SetTechMagicAttribute(2938, 0, 0, 10, 0);
                  Tech.SetTechMagicAttribute(2939, 0, 0, 10, 0);
-                 --if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        --NLG.Say(charIndex,charIndex,"ã€å¼ºå‡»é™„åŠ ç«å±æ€§1ã€‘ï¼ï¼",4,3);
+                 --if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        --NLG.Say(charIndex,charIndex,"¡¾Ç¿»÷¸½¼Ó»ğÊôĞÔ1¡¿£¡£¡",4,3);
                  --end
                  return damage;
                end
@@ -76,100 +76,100 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  Tech.SetTechMagicAttribute(3037, 0, 0, 0, 10);
                  Tech.SetTechMagicAttribute(3038, 0, 0, 0, 10);
                  Tech.SetTechMagicAttribute(3039, 0, 0, 0, 10);
-                 --if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        --NLG.Say(charIndex,charIndex,"ã€å¼ºå‡»é™„åŠ é£å±æ€§1ã€‘ï¼ï¼",4,3);
+                 --if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        --NLG.Say(charIndex,charIndex,"¡¾Ç¿»÷¸½¼Ó·çÊôĞÔ1¡¿£¡£¡",4,3);
                  --end
                  return damage;
                end
                if com3 == 25719  then
                  Tech.SetTechMagicAttribute(25719, 0, 0, 0, 10);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€é¢¨éï¼æ—‹é¢¨åˆƒé™„åŠ é¢¨å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾ïL¶İ£®ĞıïLÈĞ¸½¼ÓïLŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 119  then
                  Tech.SetTechMagicAttribute(119, 0, 10, 0, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€æ°´éï¼æ°´åˆƒæ–¬é™„åŠ æ°´å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾Ë®¶İ£®Ë®ÈĞ”Ø¸½¼ÓË®ŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 26019  then
                  Tech.SetTechMagicAttribute(26019, 0, 10, 0, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€æ°´ï¼æ³¢ç´‹æ“Šåˆºé™„åŠ æ°´å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾Ë®£®²¨¼y“ô´Ì¸½¼ÓË®ŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 9619  then
                  Tech.SetTechMagicAttribute(9619, 10, 0, 0, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€é›·ï¼éœ¹é‚ä¸€é–ƒé™„åŠ åœ°å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾À×£®ÅùìZÒ»éW¸½¼ÓµØŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 10509  then
                  Tech.SetTechMagicAttribute(10509, 0, 10, 0, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€ç®­é›¨é¢¨æš´é™„åŠ æ°´å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾¼ıÓêïL±©¸½¼ÓË®ŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 25819  then
                  Tech.SetTechMagicAttribute(25819, 10, 0, 0, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€èè‹±å°„æ“Šé™„åŠ åœ°å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾İ¼Ó¢Éä“ô¸½¼ÓµØŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 529  then
                  Tech.SetTechMagicAttribute(529, 0, 0, 10, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€é˜¿ä¿®ç¾…éœ¸å‡°æ‹³é™„åŠ ç«å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾°¢ĞŞÁ_°Ô»ËÈ­¸½¼Ó»ğŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 629  then
                  Tech.SetTechMagicAttribute(629, 0, 0, 10, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€ç¾…å‰ç ´å‡°æ“Šé™„åŠ ç«å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾Á_„xÆÆ»Ë“ô¸½¼Ó»ğŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 201614  then
                  Tech.SetTechMagicAttribute(201614, 0, 0, 0, 10);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€éŸ³é€Ÿè¡æ“Šæ³¢é™„åŠ é¢¨å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾ÒôËÙĞn“ô²¨¸½¼ÓïLŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 11109  then
                  Tech.SetTechMagicAttribute(11109, 0, 0, 0, 10);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€å¹»å½±åå­—æ–¬é™„åŠ é¢¨å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾»ÃÓ°Ê®×Ö”Ø¸½¼ÓïLŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 200709  then
                  Tech.SetTechMagicAttribute(200709, 0, 0, 10, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€è–åå­—å¯©åˆ¤é™„åŠ ç«å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾Â}Ê®×ÖŒÅĞ¸½¼Ó»ğŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
                if com3 == 8109  then
                  Tech.SetTechMagicAttribute(8109, 0, 0, 10, 0);
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                        NLG.Say(charIndex,charIndex,"ã€è–åå­—çƒ™å°é™„åŠ ç«å±¬æ€§1ã€‘ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                        NLG.Say(charIndex,charIndex,"¡¾Â}Ê®×ÖÀÓÓ¡¸½¼Ó»ğŒÙĞÔ1¡¿£¡£¡",4,3);
                  end
                  return damage;
                end
 
                if com3 == 8137  then
-                 local defLvE = Char.GetData(defCharIndex,CONST.CHAR_ç­‰çº§);
-                 local defHpE = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
-                 local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_æœ€å¤§è¡€);
+                 local defLvE = Char.GetData(defCharIndex,CONST.CHAR_µÈ¼¶);
+                 local defHpE = Char.GetData(defCharIndex,CONST.CHAR_Ñª);
+                 local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_×î´óÑª);
                  if defLvE<=1  then
                          if defHpE<=10  then
                              damage = damage*0;
@@ -180,17 +180,17 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                          damage = damage;
                  end
                  --print(defHpE,damage)
-                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
-                         NLG.Say(charIndex,charIndex,"ã€åˆ€èƒŒæ”»æ“Šã€‘å‚·å®³å‰ç›®æ¨™å‰©é¤˜è¡€é‡".. defHpE .."ï¼ï¼",4,3);
+                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
+                         NLG.Say(charIndex,charIndex,"¡¾µ¶±³¹¥“ô¡¿‚ûº¦Ç°Ä¿˜ËÊ£ğNÑªÁ¿".. defHpE .."£¡£¡",4,3);
                  end
                  return damage;
                end
 
---æ³•è¡“é™„åŠ 30%ç‹€æ…‹
-               local LvRate = Char.GetData(charIndex,CONST.CHAR_ç­‰çº§);
-               local Spirit = Char.GetData(charIndex,CONST.CHAR_ç²¾ç¥);
-               local Mattack = Char.GetData(charIndex,CONST.CHAR_é­”æ”»);
-               local JobLv = Char.GetData(charIndex,CONST.CHAR_èŒé˜¶)+1;
+--[[·¨Ğg¸½¼Ó30% î‘B
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_µÈ¼¶);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_¾«Éñ);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_Ä§¹¥);
+               local JobLv = Char.GetData(charIndex,CONST.CHAR_Ö°½×)+1;
                local JobLv_tbl = {200,310,340,370,400,430};
                if LvRate <= 50  then
                         LvRate = 1;
@@ -202,7 +202,7 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                else
                         SpRate = Spirit/800;
                end
-               if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --éš•çŸ³é­”æ³•
+               if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --ëEÊ¯Ä§·¨
                  if com3 >= 1900 and com3 <= 1909  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2300 and com3 <= 2309  then
@@ -215,7 +215,7 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  return damage;
                end
-               if (com3 >= 2000 and com3 <= 2009) or (com3 >= 2400 and com3 <= 2409) or (com3 >= 2800 and com3 <= 2809)  then    --å†°å‡é­”æ³•
+               if (com3 >= 2000 and com3 <= 2009) or (com3 >= 2400 and com3 <= 2409) or (com3 >= 2800 and com3 <= 2809)  then    --±ùƒöÄ§·¨
                  if com3 >= 2000 and com3 <= 2009  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2400 and com3 <= 2409  then
@@ -228,7 +228,7 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  return damage;
                end
-               if (com3 >= 2100 and com3 <= 2109) or (com3 >= 2500 and com3 <= 2509) or (com3 >= 2900 and com3 <= 2909)  then    --ç«ç„°é­”æ³•
+               if (com3 >= 2100 and com3 <= 2109) or (com3 >= 2500 and com3 <= 2509) or (com3 >= 2900 and com3 <= 2909)  then    --»ğÑæÄ§·¨
                  if com3 >= 2100 and com3 <= 2109  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2500 and com3 <= 2509  then
@@ -241,7 +241,7 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  return damage;
                end
-               if (com3 >= 2200 and com3 <= 2209) or (com3 >= 2600 and com3 <= 2609) or (com3 >= 3000 and com3 <= 3009)  then    --é¢¨åˆƒé­”æ³•
+               if (com3 >= 2200 and com3 <= 2209) or (com3 >= 2600 and com3 <= 2609) or (com3 >= 3000 and com3 <= 3009)  then    --ïLÈĞÄ§·¨
                  if com3 >= 2200 and com3 <= 2209  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2600 and com3 <= 2609  then
@@ -254,69 +254,69 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  return damage;
                end
-
---å–®é«”50%ç‹€æ…‹å¤§æ”»æ“Š
-               if (com3 >= 7510 and com3 <= 7519)  then    --è“‹æ£ºéµåœå±±
+]]
+--†Îów50% î‘B´ó¹¥“ô
+               if (com3 >= 7510 and com3 <= 7519)  then    --Éw¹×èF‡úÉ½
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 2);
                  end
                  return damage;
                end
-               if (com3 >= 7810 and com3 <= 7819)  then    --è•©è˜Šå¹³ç·š
+               if (com3 >= 7810 and com3 <= 7819)  then    --ÊÌNÆ½¾€
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 2);
                  end
                  return damage;
                end
-               if (com3 >= 7910 and com3 <= 7919)  then    --è‡ªé–‰åœ“é “è£¹
+               if (com3 >= 7910 and com3 <= 7919)  then    --×Ôé]ˆAîD¹ü
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
                  end
                  return damage;
                end
-               if (com3 >= 8010 and com3 <= 8019)  then    --ç¥­æ£®ä¾›èŠ±
+               if (com3 >= 8010 and com3 <= 8019)  then    --¼ÀÉ­¹©»¨
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModAmnesia, 2);
                  end
                  return damage;
                end
 
---åˆæ“Šç‹€æ…‹å¢å‚·
+--ºÏ“ô î‘BÔö‚û
                if flg == CONST.DamageFlags.Combo  then
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModConfusion)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"ã€å¯¹æ··ä¹±ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
+                        --NLG.Say(leader,charIndex,"¡¾¶Ô»ìÂÒÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModDrunk)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"ã€å¯¹é…’é†‰ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
+                        --NLG.Say(leader,charIndex,"¡¾¶Ô¾Æ×íÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModPoison)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"ã€å¯¹ä¸­æ¯’ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
+                        --NLG.Say(leader,charIndex,"¡¾¶ÔÖĞ¶¾Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModSleep)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"ã€å¯¹æ˜ç¡ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
+                        --NLG.Say(leader,charIndex,"¡¾¶Ô»èË¯Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModStone)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"ã€å¯¹çŸ³åŒ–ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
+                        --NLG.Say(leader,charIndex,"¡¾¶ÔÊ¯»¯Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModAmnesia)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"ã€å¯¹é—å¿˜ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
+                        --NLG.Say(leader,charIndex,"¡¾¶ÔÒÅÍüÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
                         return damage;
                  end
                end
@@ -326,7 +326,7 @@ function MagicSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
   return damage;
 end
 
---- å¸è½½æ¨¡å—é’©å­
+--- Ğ¶ÔØÄ£¿é¹³×Ó
 function MagicSkill:onUnload()
   self:logInfo('unload')
 end
