@@ -26,7 +26,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 		zttj0 = 0
 		zttj1 = 0
 		for ztxx = 0,9 do
-			local ztrw = Battle.GetPlayer(battleIndex, ztxx);--ÎÒ·½×´Ì¬ÈËÊı
+			local ztrw = Battle.GetPlayer(battleIndex, ztxx);--æˆ‘æ–¹çŠ¶æ€äººæ•°
 			if ztrw >= 0 then
 				if Char.GetData(ztrw,CONST.CHAR_BattleModPoison)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModSleep)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModStone)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModDrunk)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModConfusion)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModAmnesia)>=1 then
 					zttj0 = zttj0 + 1
@@ -34,7 +34,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 			end
 		end
 		for ztxx = 10,19 do
-			local ztrw = Battle.GetPlayer(battleIndex, ztxx);--Ëû·½×´Ì¬ÈËÊı
+			local ztrw = Battle.GetPlayer(battleIndex, ztxx);--ä»–æ–¹çŠ¶æ€äººæ•°
 			if ztrw >= 0 then
 				if Char.GetData(ztrw,CONST.CHAR_BattleModPoison)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModSleep)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModStone)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModDrunk)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModConfusion)>=1 or Char.GetData(ztrw,CONST.CHAR_BattleModAmnesia)>=1 then
 					zttj1 = zttj1 + 1
@@ -49,9 +49,9 @@ end
 function Module:battleOverEventCallback(battleIndex)
 	local player = Battle.GetPlayer(battleIndex, 0);
 	local player5 = Battle.GetPlayer(battleIndex, 5);
-	if Char.GetData(player,%¶ÔÏó_¶ÔÕ½¿ª¹Ø%) == 1 or Char.GetData(player5,%¶ÔÏó_¶ÔÕ½¿ª¹Ø%) == 1 then--¼ì²â´«½Ì³¬»Ö¿ªÆôÌõ¼ş
---		NLG.Say(player,-1,"¼ì²âµ½Äã¿ªÆôÁË¶ÔÕ½£¬´«½Ì³¬»Ö¿ªÆô£¡",0,3);
---		NLG.Say(player5,-1,"¼ì²âµ½Äã¿ªÆôÁË¶ÔÕ½£¬´«½Ì³¬»Ö¿ªÆô£¡",0,3);
+	if Char.GetData(player,%å¯¹è±¡_å¯¹æˆ˜å¼€å…³%) == 1 or Char.GetData(player5,%å¯¹è±¡_å¯¹æˆ˜å¼€å…³%) == 1 then--æ£€æµ‹ä¼ æ•™è¶…æ¢å¼€å¯æ¡ä»¶
+--		NLG.Say(player,-1,"æ£€æµ‹åˆ°ä½ å¼€å¯äº†å¯¹æˆ˜ï¼Œä¼ æ•™è¶…æ¢å¼€å¯ï¼",0,3);
+--		NLG.Say(player5,-1,"æ£€æµ‹åˆ°ä½ å¼€å¯äº†å¯¹æˆ˜ï¼Œä¼ æ•™è¶…æ¢å¼€å¯ï¼",0,3);
 	end
 	battleData[battleIndex] = nil;
 end
@@ -84,31 +84,31 @@ function Module:handleBattleAutoCommand(battleIndex)
 	local zswz0 = 0
 	local zswz1 = 10
 	for chxx = 10,19 do
-		local chrw = Battle.GetPlayer(battleIndex, chxx);--µĞ·½´æ»îÈËÊı
-		if Char.GetData(chrw,%¶ÔÏó_Õ½ËÀ%) == 0 then
+		local chrw = Battle.GetPlayer(battleIndex, chxx);--æ•Œæ–¹å­˜æ´»äººæ•°
+		if Char.GetData(chrw,%å¯¹è±¡_æˆ˜æ­»%) == 0 then
 			chtj0 = chtj0 + 1
 		end
 	end
 	for chxx = 0,9 do
 		local chrw = Battle.GetPlayer(battleIndex, chxx);
-		if Char.GetData(chrw,%¶ÔÏó_Õ½ËÀ%) == 0 then
+		if Char.GetData(chrw,%å¯¹è±¡_æˆ˜æ­»%) == 0 then
 			chtj1 = chtj1 + 1
 		end
 	end
 	for zsxx = 0,9 do
-		local zsrw = Battle.GetPlayer(battleIndex, zsxx);--ÎÒ·½Õ½ËÀÈËÊı
-		if Char.GetData(zsrw,%¶ÔÏó_Õ½ËÀ%) == 1 then
+		local zsrw = Battle.GetPlayer(battleIndex, zsxx);--æˆ‘æ–¹æˆ˜æ­»äººæ•°
+		if Char.GetData(zsrw,%å¯¹è±¡_æˆ˜æ­»%) == 1 then
 			zstj0 = zstj0 + 1
-			if Char.GetData(zsrw, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+			if Char.GetData(zsrw, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 				zswz0 = zsxx
 			end
 		end
 	end
 	for zsxx = 10,19 do
 		local zsrw = Battle.GetPlayer(battleIndex, zsxx);
-		if Char.GetData(zsrw,%¶ÔÏó_Õ½ËÀ%) == 1 then
+		if Char.GetData(zsrw,%å¯¹è±¡_æˆ˜æ­»%) == 1 then
 			zstj1 = zstj1 + 1
-			if Char.GetData(zsrw, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+			if Char.GetData(zsrw, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 				zswz1 = zsxx
 			end
 		end
@@ -129,7 +129,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 			if Char.IsDummy(charIndex) then
 				local sidetable = {{10,40,41,zswz0},{0,41,40,zswz1}}
 				local charside = 1
-				local ybside = Char.GetData(charIndex,%¶ÔÏó_Õ½¶·Side%)
+				local ybside = Char.GetData(charIndex,%å¯¹è±¡_æˆ˜æ–—Side%)
 				local playersd = playersd0
 				local leader = leader0
 				local leaderpet = leaderpet0
@@ -147,7 +147,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 					zstj = zstj1
 					zttj = zttj1
 				end
-				if Char.GetData(leader, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+				if Char.GetData(leader, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 					leader5 = leader
 				else
 					leader5 = leaderpet
@@ -157,81 +157,90 @@ function Module:handleBattleAutoCommand(battleIndex)
 				else
 --					self:logDebug('auto battle', charIndex, petIndex);
 					hasAutoBattle = true;
-					local rlv = Char.GetData(leader5,%¶ÔÏó_µÈ¼¶%)
-					local ybqk={300,301,302,303,304,305,306,307,308,309}--Ç¬À¤Ò»ÖÀ
-					--local ybyj={25800,25801,25802,25803,25804,25805,25806,25807,25808,25809}--Ò»»÷±ØÖĞ
-					local ybjj={25700,25701,25702,25703,25704,25705,25706,25707,25708,25709}--½ä½¾½äÔê
-					local ybls={9500,9501,9502,9503,9504,9505,9506,9507,9508,9509}--ÂÒÉä
-					local ybqg={400,401,402,403,404,405,406,407,408,409}--Æø¹¦µ¯
-					local ybch={6600,6601,6602,6603,6604,6605,6606,6607,6608,6609}--³¬»Ö
-					local ybqj={6800,6801,6802,6803,6804,6805,6806,6807,6808,6809}--Æø¾ø
-					local ybcb={6300,6301,6302,6303,6304,6305}--³¬²¹
-					local ybmj={1200,1201,1202,1203,1204,1205,1206,1207,1208,1209}--Ã÷¾µ
+					local rlv = Char.GetData(leader5,%å¯¹è±¡_ç­‰çº§%)
+					local ybqk={300,301,302,303,304,305,306,307,308,309}--ä¹¾å¤ä¸€æ·
+					--local ybyj={25800,25801,25802,25803,25804,25805,25806,25807,25808,25809}--ä¸€å‡»å¿…ä¸­
+					local ybjj={25700,25701,25702,25703,25704,25705,25706,25707,25708,25709}--æˆ’éª„æˆ’èº
+					local ybls={9500,9501,9502,9503,9504,9505,9506,9507,9508,9509}--ä¹±å°„
+					local ybqg={400,401,402,403,404,405,406,407,408,409}--æ°”åŠŸå¼¹
+					local ybch={6600,6601,6602,6603,6604,6605,6606,6607,6608,6609}--è¶…æ¢
+					local ybqj={6800,6801,6802,6803,6804,6805,6806,6807,6808,6809}--æ°”ç»
+					local ybcb={6300,6301,6302,6303,6304,6305}--è¶…è¡¥
+					local ybmj={1200,1201,1202,1203,1204,1205,1206,1207,1208,1209}--æ˜é•œ
 					local ybdanti={
-					{1930,1931,1932,1933,1934,1935,1936,1937,1938,1939},--µ¥ÔÉ
-					{2030,2031,2032,2033,2034,2035,2036,2037,2038,2039},--µ¥Ë®
-					{2130,2131,2132,2133,2134,2135,2136,2137,2138,2139},--µ¥»ğ
-					{2230,2231,2232,2233,2234,2235,2236,2237,2238,2239},--µ¥·ç
-					{3100,3101,3102,3103,3104,3105,3106,3107,3108,3109},--ÎüÑª
-					}--µ¥ÌåÄ§·¨
+					{1930,1931,1932,1933,1934,1935,1936,1937,1938,1939},--å•é™¨
+					{2030,2031,2032,2033,2034,2035,2036,2037,2038,2039},--å•æ°´
+					{2130,2131,2132,2133,2134,2135,2136,2137,2138,2139},--å•ç«
+					{2230,2231,2232,2233,2234,2235,2236,2237,2238,2239},--å•é£
+					{3100,3101,3102,3103,3104,3105,3106,3107,3108,3109},--å¸è¡€
+					}--å•ä½“é­”æ³•
 					local ybquanti={
-					{2700,2701,2702,2703,2704,2705,2706,2707,2708,2709},--³¬ÔÉ
-					{2800,2801,2802,2803,2804,2805,2806,2807,2808,2809},--³¬Ë®
-					{2900,2901,2902,2903,2904,2905,2906,2907,2908,2909},--³¬»ğ
-					{3000,3001,3002,3003,3004,3005,3006,3007,3008,3009},--³¬·ç
-					{26700,26701,26702,26703,26704,26705,26706,26707,26708,26709},--¾«Éñ³å»÷²¨
-					}--È«ÌåÄ§·¨
-					local cwcy={2750,2751,2752,2753,2754,2755,2756,2757,2758,2759}--³¬ÔÉ
-					local cwcs={2850,2851,2852,2853,2854,2855,2856,2857,2858,2859}--³¬Ë®
-					local cwch={2950,2951,2952,2953,2954,2955,2956,2957,2958,2959}--³¬»ğ
-					local cwcf={3050,3051,3052,3053,3054,3055,3056,3057,3058,3059}--³¬·ç
-					local cwdy={1930,1931,1932,1933,1934,1935,1936,1937,1938,1939}--µ¥ÔÉ
-					local cwds={2030,2031,2032,2033,2034,2035,2036,2037,2038,2039}--µ¥Ë®
-					local cwdh={2130,2131,2132,2133,2134,2135,2136,2137,2138,2139}--µ¥»ğ
-					local cwdf={2230,2231,2232,2233,2234,2235,2236,2237,2238,2239}--µ¥·ç
-					local cwmj={1230,1232,1234,1236,1238}--Ã÷¾»
-					local ybm1={5,10,15,20,25,30,35,40,45,50}--Æø¹¦µ¯£¬ÂÒÉä£¬Æø¾ø
-					local ybm2={24,48,72,96,120}--³¬²¹
-					local ybm3={48,96,144,192,240,288,336,384,432,480}--³¬»Ö
-					local ybm4={5,9,13,17,21,25,29,33,37,41}--½ä½¾½äÔê
-					local ybm5={10,18,26,34,42,50,58,66,74,82}--Ç¬À¤Ò»ÖÀ
-					local ybm6={10,16,22,28,34,40,46,52,58,64}--Ò»»÷±ØÖĞ
-					local ybm7={10,20,30,40,50,60,70,80,90,100}--³èÎïµ¥ÌåÄ§·¨
-					local ybm8={40,80,120,160,200,240,280,320,360,400}--³èÎï³¬Ä§·¨
-					local ybm9={15,45,75,105,135}--³èÎïÃ÷¾»
+					{2700,2701,2702,2703,2704,2705,2706,2707,2708,2709},--è¶…é™¨
+					{2800,2801,2802,2803,2804,2805,2806,2807,2808,2809},--è¶…æ°´
+					{2900,2901,2902,2903,2904,2905,2906,2907,2908,2909},--è¶…ç«
+					{3000,3001,3002,3003,3004,3005,3006,3007,3008,3009},--è¶…é£
+					{26700,26701,26702,26703,26704,26705,26706,26707,26708,26709},--ç²¾ç¥å†²å‡»æ³¢
+					}--å…¨ä½“é­”æ³•
+					local cwcy={2750,2751,2752,2753,2754,2755,2756,2757,2758,2759}--è¶…é™¨
+					local cwcs={2850,2851,2852,2853,2854,2855,2856,2857,2858,2859}--è¶…æ°´
+					local cwch={2950,2951,2952,2953,2954,2955,2956,2957,2958,2959}--è¶…ç«
+					local cwcf={3050,3051,3052,3053,3054,3055,3056,3057,3058,3059}--è¶…é£
+					local cwdy={1930,1931,1932,1933,1934,1935,1936,1937,1938,1939}--å•é™¨
+					local cwds={2030,2031,2032,2033,2034,2035,2036,2037,2038,2039}--å•æ°´
+					local cwdh={2130,2131,2132,2133,2134,2135,2136,2137,2138,2139}--å•ç«
+					local cwdf={2230,2231,2232,2233,2234,2235,2236,2237,2238,2239}--å•é£
+					local cwmj={1230,1232,1234,1236,1238}--æ˜å‡€
+					local ybm1={5,10,15,20,25,30,35,40,45,50}--æ°”åŠŸå¼¹ï¼Œä¹±å°„ï¼Œæ°”ç»
+					local ybm2={24,48,72,96,120}--è¶…è¡¥
+					local ybm3={48,96,144,192,240,288,336,384,432,480}--è¶…æ¢
+					local ybm4={5,9,13,17,21,25,29,33,37,41}--æˆ’éª„æˆ’èº
+					local ybm5={10,18,26,34,42,50,58,66,74,82}--ä¹¾å¤ä¸€æ·
+					local ybm6={10,16,22,28,34,40,46,52,58,64}--ä¸€å‡»å¿…ä¸­
+					local ybm7={10,20,30,40,50,60,70,80,90,100}--å® ç‰©å•ä½“é­”æ³•
+					local ybm8={40,80,120,160,200,240,280,320,360,400}--å® ç‰©è¶…é­”æ³•
+					local ybm9={15,45,75,105,135}--å® ç‰©æ˜å‡€
 					local yblv = math.floor(rlv/10) + 1
 					local cwlv = math.floor(rlv/20) + 1
 					if rlv >= 100 then	yblv = 10;cwlv = 5;	end
 					local ybjn = Battle.IsWaitingCommand(charIndex);
-					local yb01 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "ĞÇÖ¯"
-					local yb02 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "Æß±ù"
-					local yb03 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "°ËÖØÇĞ"
-					local yb04 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "ºìÁ«"
-					local yb05 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "ÄÎÂé"
-					local yb06 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "ÖØÒô"
-					local yb07 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "ÁİÒô"
-					local yb08 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "Ãà½ò¼û"
-					local yb09 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "ÒÁ´µ"
-					local yb10 = Char.GetData(charIndex,%¶ÔÏó_Ãû×Ö%) == "°¢ÏÄ"
-					local ybcw01 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶´óµØÊó"
-					local ybcw02 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶¶ñÃÎÊó"
-					local ybcw03 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶»ğÑæÊó"
-					local ybcw04 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶±¦Ê¯Êó"
-					local ybcw05 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶¿Ú´üÁú"
-					local ybcw06 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶ÃÔÄãÁú"
-					local ybcw07 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶³ûÁú"
-					local ybcw08 = Char.GetData(petIndex,%¶ÔÏó_Ãû×Ö%) == "³¬¼¶Ñ¨Áú"
-					local hp = Char.GetData(charIndex,%¶ÔÏó_Ñª%);
-					local hp2 = Char.GetData(petIndex,%¶ÔÏó_Ñª%);
-					local hpMax = Char.GetData(charIndex,%¶ÔÏó_×î´óÑª%);
-					local hpMax2 = Char.GetData(petIndex,%¶ÔÏó_×î´óÑª%);
-					local mp = Char.GetData(charIndex,%¶ÔÏó_Ä§%);
-					local mp2 = Char.GetData(petIndex,%¶ÔÏó_Ä§%);
---¾µÏñ³èÎï»ï°éAI
-					if ybjn and Char.ItemNum(charIndex,900201) > 0 then
-						Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1);
+					local yb01 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "æ˜Ÿç»‡"
+					local yb02 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "ä¸ƒå†°"
+					local yb03 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "å…«é‡åˆ‡"
+					local yb04 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "çº¢è²"
+					local yb05 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "å¥ˆéº»"
+					local yb06 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "é‡éŸ³"
+					local yb07 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "å‡›éŸ³"
+					local yb08 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "ç»µæ´¥è§"
+					local yb09 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "ä¼Šå¹"
+					local yb10 = Char.GetData(charIndex,%å¯¹è±¡_åå­—%) == "é˜¿å¤"
+					local ybcw01 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§å¤§åœ°é¼ "
+					local ybcw02 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§æ¶æ¢¦é¼ "
+					local ybcw03 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§ç«ç„°é¼ "
+					local ybcw04 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§å®çŸ³é¼ "
+					local ybcw05 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§å£è¢‹é¾™"
+					local ybcw06 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§è¿·ä½ é¾™"
+					local ybcw07 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§é›é¾™"
+					local ybcw08 = Char.GetData(petIndex,%å¯¹è±¡_åå­—%) == "è¶…çº§ç©´é¾™"
+					local hp = Char.GetData(charIndex,%å¯¹è±¡_è¡€%);
+					local hp2 = Char.GetData(petIndex,%å¯¹è±¡_è¡€%);
+					local hpMax = Char.GetData(charIndex,%å¯¹è±¡_æœ€å¤§è¡€%);
+					local hpMax2 = Char.GetData(petIndex,%å¯¹è±¡_æœ€å¤§è¡€%);
+					local mp = Char.GetData(charIndex,%å¯¹è±¡_é­”%);
+					local mp2 = Char.GetData(petIndex,%å¯¹è±¡_é­”%);
+--é•œåƒå® ç‰©ä¼™ä¼´AI
+					if ybjn and Char.ItemNum(charIndex,900201) > 0 and Char.ItemNum(charIndex,900202) > 0 then     --æ”»å‡»ã€æ˜é•œã€ŠåŸºæœ¬ã€‹å¡
+						local ActionCard = {{CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1},{CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION, -1, 1206}}
+						local ACS = 1;
+						if hp <= hpMax/3 then
+							ACS = 2;
+						end
+						if Char.ItemNum(charIndex,900205) > 0 and hp > hpMax/3 then
+							table.insert(ActionCard, 3,{CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403});
+							ACS = 3;
+						end
+						Battle.ActionSelect(charIndex,ActionCard[ACS][1],ActionCard[ACS][2],ActionCard[ACS][3]);
 					end
---ÈËÎïAI
+--äººç‰©AI
 					if ybjn and yb01 then
 						local AttackData = {{CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1},{CONST.BATTLE_COM.BATTLE_COM_P_RANDOMSHOT, sidetable[charside][1], ybls[yblv]},{CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION, -1, ybmj[yblv]}}
 						local ACC = 1;
@@ -306,10 +315,10 @@ function Module:handleBattleAutoCommand(battleIndex)
 						if (zttj >= 1) and mp >= 40 then
 							HRR = 3;
 						end
-						if (zstj >= 1 or Char.GetData(leader5,%¶ÔÏó_Õ½ËÀ%)==1) and mp >= ybm1[yblv] then
+						if (zstj >= 1 or Char.GetData(leader5,%å¯¹è±¡_æˆ˜æ­»%)==1) and mp >= ybm1[yblv] then
 							HRR = 4;
 						end
-						if tmp5[playersd] == 0 and mp >= ybm3[yblv] and (Char.GetData(leader5,%¶ÔÏó_¶ÔÕ½¿ª¹Ø%) == 1 or Battle.GetType(battleIndex) == 2) then
+						if tmp5[playersd] == 0 and mp >= ybm3[yblv] and (Char.GetData(leader5,%å¯¹è±¡_å¯¹æˆ˜å¼€å…³%) == 1 or Battle.GetType(battleIndex) == 2) then
 							HRR = 1;
 						end
 						Battle.ActionSelect(charIndex, HealRecoveryData[HRR][1], HealRecoveryData[HRR][2], HealRecoveryData[HRR][3]);
@@ -354,7 +363,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						Battle.ActionSelect(charIndex,AttackData[ACC][1],AttackData[ACC][2],AttackData[ACC][3]);
 					end
---³èÎïAI
+--å® ç‰©AI
 					if ybjn and ybcw01 then
 						local AttackData = {{CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1},{CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], cwdy[yblv]},{CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][3], cwcy[yblv]},{CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION, -1, cwmj[cwlv]}}
 						local ACC = 1;
