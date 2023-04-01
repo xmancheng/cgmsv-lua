@@ -127,7 +127,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 		local petIndex = Battle.GetPlayer(battleIndex, math.fmod(i + 5, 10));
 		if charIndex >= 0 then
 			if Char.IsDummy(charIndex) then
-				local sidetable = {{10,40,41,zswz0},{0,41,40,zswz1}}
+				local sidetable = {{10,40,41,30,zswz0},{0,41,40,20,zswz1}}
 				local charside = 1
 				local ybside = Char.GetData(charIndex,%对象_战斗Side%)
 				local playersd = playersd0
@@ -203,24 +203,24 @@ function Module:handleBattleAutoCommand(battleIndex)
 					local cwlv = math.floor(rlv/20) + 1
 					if rlv >= 100 then	yblv = 10;cwlv = 5;	end
 					local ybjn = Battle.IsWaitingCommand(charIndex);
-					local yb01 = Char.GetData(charIndex,%对象_名字%) == "星织"
-					local yb02 = Char.GetData(charIndex,%对象_名字%) == "七冰"
-					local yb03 = Char.GetData(charIndex,%对象_名字%) == "八重切"
-					local yb04 = Char.GetData(charIndex,%对象_名字%) == "红莲"
-					local yb05 = Char.GetData(charIndex,%对象_名字%) == "奈麻"
-					local yb06 = Char.GetData(charIndex,%对象_名字%) == "重音"
-					local yb07 = Char.GetData(charIndex,%对象_名字%) == "凛音"
-					local yb08 = Char.GetData(charIndex,%对象_名字%) == "绵津见"
-					local yb09 = Char.GetData(charIndex,%对象_名字%) == "伊吹"
-					local yb10 = Char.GetData(charIndex,%对象_名字%) == "阿夏"
-					local ybcw01 = Char.GetData(petIndex,%对象_名字%) == "超级大地鼠"
-					local ybcw02 = Char.GetData(petIndex,%对象_名字%) == "超级恶梦鼠"
-					local ybcw03 = Char.GetData(petIndex,%对象_名字%) == "超级火焰鼠"
-					local ybcw04 = Char.GetData(petIndex,%对象_名字%) == "超级宝石鼠"
-					local ybcw05 = Char.GetData(petIndex,%对象_名字%) == "超级口袋龙"
-					local ybcw06 = Char.GetData(petIndex,%对象_名字%) == "超级迷你龙"
-					local ybcw07 = Char.GetData(petIndex,%对象_名字%) == "超级雏龙"
-					local ybcw08 = Char.GetData(petIndex,%对象_名字%) == "超级穴龙"
+					--local yb01 = Char.GetData(charIndex,%对象_名字%) == "星织"
+					--local yb02 = Char.GetData(charIndex,%对象_名字%) == "七冰"
+					--local yb03 = Char.GetData(charIndex,%对象_名字%) == "八重切"
+					--local yb04 = Char.GetData(charIndex,%对象_名字%) == "红莲"
+					--local yb05 = Char.GetData(charIndex,%对象_名字%) == "奈麻"
+					--local yb06 = Char.GetData(charIndex,%对象_名字%) == "重音"
+					--local yb07 = Char.GetData(charIndex,%对象_名字%) == "凛音"
+					--local yb08 = Char.GetData(charIndex,%对象_名字%) == "绵津见"
+					--local yb09 = Char.GetData(charIndex,%对象_名字%) == "伊吹"
+					--local yb10 = Char.GetData(charIndex,%对象_名字%) == "阿夏"
+					--local ybcw01 = Char.GetData(petIndex,%对象_名字%) == "超级大地鼠"
+					--local ybcw02 = Char.GetData(petIndex,%对象_名字%) == "超级恶梦鼠"
+					--local ybcw03 = Char.GetData(petIndex,%对象_名字%) == "超级火焰鼠"
+					--local ybcw04 = Char.GetData(petIndex,%对象_名字%) == "超级宝石鼠"
+					--local ybcw05 = Char.GetData(petIndex,%对象_名字%) == "超级口袋龙"
+					--local ybcw06 = Char.GetData(petIndex,%对象_名字%) == "超级迷你龙"
+					--local ybcw07 = Char.GetData(petIndex,%对象_名字%) == "超级雏龙"
+					--local ybcw08 = Char.GetData(petIndex,%对象_名字%) == "超级穴龙"
 					local hp = Char.GetData(charIndex,%对象_血%);
 					local hp2 = Char.GetData(petIndex,%对象_血%);
 					local hpMax = Char.GetData(charIndex,%对象_最大血%);
@@ -229,18 +229,86 @@ function Module:handleBattleAutoCommand(battleIndex)
 					local mp2 = Char.GetData(petIndex,%对象_魔%);
 --镜像宠物伙伴AI
 					if ybjn and Char.ItemNum(charIndex,900201) > 0 and Char.ItemNum(charIndex,900202) > 0 then     --攻击、明镜《基本》卡
+						local tmp1,tmp2 = math.modf(battleturn/6)
+						local tmp3,tmp4 = math.modf(battleturn/3)
+						local tmp5={tmp2,tmp4}
 						local ActionCard = {{CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1},{CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION, -1, 1206}}
 						local ACS = 1;
-						if hp <= hpMax/3 then
+						if (hp <= hpMax/3) then
 							ACS = 2;
 						end
-						if Char.ItemNum(charIndex,900205) > 0 and hp > hpMax/3 then
-							table.insert(ActionCard, 3,{CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403});
+						if Char.ItemNum(charIndex,900203) > 0 and (hp >= hpMax/2) then  --自身血量大于50%
+							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_KNIGHTGUARD, sidetable[charside][2], 26106});
 							ACS = 3;
+						end
+						if Char.ItemNum(charIndex,900204) > 0 and (hp <= hpMax/10) then  --自身血量少于90%
+							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_P_HEAL, sidetable[charside][2], 6306});
+							ACS = 3;
+						end
+						if Char.ItemNum(charIndex,900205) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY, sidetable[charside][2], 6606});
+							ACS = 3;
+						end
+						if Char.ItemNum(charIndex,900206) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
+							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403});
+							ACS = 4;
+						end
+						if Char.ItemNum(charIndex,900207) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
+							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_P_DODGE, sidetable[charside][1], 906});
+							ACS = 4;
+						end
+						if Char.ItemNum(charIndex,900208) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ATKUP, sidetable[charside][2], 10106});
+							ACS = 5;
+						end
+						if Char.ItemNum(charIndex,900209) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS, sidetable[charside][4]+Battle.GetSlot(battleIndex, charIndex), 5706});
+							ACS = 5;
+						end
+						if Char.ItemNum(charIndex,900210) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_MAGIC, sidetable[charside][4]+Battle.GetSlot(battleIndex, charIndex), 5806});
+							ACS = 5;
+						end
+						if Char.ItemNum(charIndex,900211) > 0 and (zttj >= 1) then  --我方异常状态人数>=1
+							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER, sidetable[charside][2], 6706});
+							ACS = 5;
+						end
+						if Char.ItemNum(charIndex,900212) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU, sidetable[charside][1], 5});
+							ACS = 6;
+						end
+						if Char.ItemNum(charIndex,900213) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 4806});
+							ACS = 6;
+						end
+						if Char.ItemNum(charIndex,900214) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 4406});
+							ACS = 6;
+						end
+						if Char.ItemNum(charIndex,900215) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 4706});
+							ACS = 6;
+						end
+						if Char.ItemNum(charIndex,900216) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 1906});
+							ACS = 7;
+						end
+						if Char.ItemNum(charIndex,900217) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2006});
+							ACS = 7;
+						end
+						if Char.ItemNum(charIndex,900218) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2106});
+							ACS = 7;
+						end
+						if Char.ItemNum(charIndex,900219) > 0 and (hp > hpMax/3) then
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2206});
+							ACS = 7;
 						end
 						Battle.ActionSelect(charIndex,ActionCard[ACS][1],ActionCard[ACS][2],ActionCard[ACS][3]);
 					end
 --人物AI
+--[[
 					if ybjn and yb01 then
 						local AttackData = {{CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1},{CONST.BATTLE_COM.BATTLE_COM_P_RANDOMSHOT, sidetable[charside][1], ybls[yblv]},{CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION, -1, ybmj[yblv]}}
 						local ACC = 1;
@@ -301,7 +369,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						Battle.ActionSelect(charIndex,AttackData[ACC][1],AttackData[ACC][2],AttackData[ACC][3]);
 					elseif ybjn and yb05 then
-						local HealRecoveryData = { {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY, sidetable[charside][2], ybch[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_P_HEAL, sidetable[charside][2], ybcb[cwlv]}, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER, sidetable[charside][2], 6702}, {CONST.BATTLE_COM.BATTLE_COM_P_REVIVE, sidetable[charside][4], ybqj[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1}};
+						local HealRecoveryData = { {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY, sidetable[charside][2], ybch[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_P_HEAL, sidetable[charside][2], ybcb[cwlv]}, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER, sidetable[charside][2], 6702}, {CONST.BATTLE_COM.BATTLE_COM_P_REVIVE, sidetable[charside][5], ybqj[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1}};
 						local tmp1,tmp2 = math.modf(battleturn/6)
 						local tmp3,tmp4 = math.modf(battleturn/3)
 						local tmp5={tmp2,tmp4}
@@ -363,7 +431,9 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						Battle.ActionSelect(charIndex,AttackData[ACC][1],AttackData[ACC][2],AttackData[ACC][3]);
 					end
+]]
 --宠物AI
+--[[
 					if ybjn and ybcw01 then
 						local AttackData = {{CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1},{CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], cwdy[yblv]},{CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][3], cwcy[yblv]},{CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION, -1, cwmj[cwlv]}}
 						local ACC = 1;
@@ -445,6 +515,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						Battle.ActionSelect(petIndex,AttackData[ACC][1],AttackData[ACC][2],AttackData[ACC][3]);
 					end
+]]
 				end
 				if petIndex < 0 then
 					Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1);
