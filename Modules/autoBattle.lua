@@ -306,6 +306,9 @@ function Module:handleBattleAutoCommand(battleIndex)
 							ACS = 7;
 						end
 						Battle.ActionSelect(charIndex,ActionCard[ACS][1],ActionCard[ACS][2],ActionCard[ACS][3]);
+						if (mp <= 100) then
+							Battle.ActionSelect(charIndex,CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1);
+						end
 					end
 --人物AI
 --[[
