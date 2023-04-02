@@ -1,6 +1,6 @@
 local hbparameter = ModuleBase:createModule('hbparameter')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function hbparameter:onLoad()
   self:logInfo('load')
   self:regCallback('ScriptCallEvent', function(npcIndex, playerIndex, text, msg)
@@ -9,39 +9,41 @@ function hbparameter:onLoad()
 	player = playerIndex
 	npc = npcIndex
 
-	if text == 'Ò»¼üÇ¿»¯' then
+	if text == 'ä¸€é”®å¼ºåŒ–' then
 		for hbnum = 1,4 do 
 			local targetcharIndex = Char.GetPartyMember(player,hbnum)
 			if targetcharIndex >= 0 and Char.IsDummy(targetcharIndex) then
-				local TL = Char.GetData(targetcharIndex, CONST.CHAR_ÄÍÁ¦);  --Ìå³É
-				local GJ = Char.GetData(targetcharIndex, CONST.CHAR_÷ÈÁ¦);  --Á¦³É
-				local FY = Char.GetData(targetcharIndex, CONST.CHAR_ÉùÍû);  --Ç¿³É
-				local MJ = Char.GetData(targetcharIndex, CONST.CHAR_ÁéÇÉ);  --Ãô³É
-				local MF = Char.GetData(targetcharIndex, CONST.CHAR_ÖÇÁ¦);  --Ä§³É
+				local TL = Char.GetData(targetcharIndex, CONST.CHAR_è€åŠ›);  --ä½“æˆ
+				local GJ = Char.GetData(targetcharIndex, CONST.CHAR_é­…åŠ›);  --åŠ›æˆ
+				local FY = Char.GetData(targetcharIndex, CONST.CHAR_å£°æœ›);  --å¼ºæˆ
+				local MJ = Char.GetData(targetcharIndex, CONST.CHAR_çµå·§);  --æ•æˆ
+				local MF = Char.GetData(targetcharIndex, CONST.CHAR_æ™ºåŠ›);  --é­”æˆ
 				local hb = {
-					{900203,900203,900205},--Ìåµµ¸ß
-					{900206,900207},--Á¦µµ¸ß
-					{900208,900209,900210},--Ç¿µµ¸ß
-					{900212,900213,900214,900215},--ËÙµµ¸ß
-					{900216,900217,900218,900219} --Ä§µµ¸ß
+					{900203,900203,900205},--ä½“æ¡£é«˜
+					{900206,900207},--åŠ›æ¡£é«˜
+					{900209,900210},--å¼ºæ¡£é«˜
+					{900212,900213,900214,900215},--é€Ÿæ¡£é«˜
+					{900216,900217,900218,900219} --é­”æ¡£é«˜
 				}
 				local ItemIndex = Char.GetItemIndex(targetcharIndex, 12)
 				if ItemIndex < 0 then
-					if TL>GJ then
-						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --¡¶ÌØÊâ¡·¿¨
-					elseif GJ>MF then
-						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --¡¶ÎïÀí¡·¿¨
-					elseif FY>TL then
-						Char.GiveItem(targetcharIndex, hb[3][1], 1);  --¡¶×ƒ»¯¡·¿¨
-					elseif MJ>GJ then
-						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --¡¶¸É”_¡·¿¨
-					elseif MF>GJ then
-						Char.GiveItem(targetcharIndex, hb[5][1], 1);  --¡¶·¨Ğg¡·¿¨
+					if TL>GJ and TL>=40 then
+						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --ã€Šç‰¹æ®Šã€‹å¡
+					elseif GJ>MF and GJ>=40 then
+						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --ã€Šç‰©ç†ã€‹å¡
+					elseif FY>TL and FY>=40 then
+						Char.GiveItem(targetcharIndex, hb[3][1], 1);  --ã€Šè®ŠåŒ–ã€‹å¡
+					elseif MJ>GJ and MJ>=40 then
+						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --ã€Šå¹²æ“¾ã€‹å¡
+					elseif MF>GJ and MF>=40 then
+						Char.GiveItem(targetcharIndex, hb[5][1], 1);  --ã€Šæ³•è¡“ã€‹å¡
+					else
+						Char.GiveItem(targetcharIndex, 900208, 1);  --æ”»æ“Šæå‡ã€Šè®ŠåŒ–ã€‹å¡
 					end
 				end
 			end
 		end
-		NLG.SystemMessage(player, 'â·°éŠ»¯³É¹¦«@µÃ„Ó×÷¼¼ÄÜ¿¨£¡');
+		NLG.SystemMessage(player, 'å¤¥ä¼´å¼·åŒ–æˆåŠŸç²å¾—å‹•ä½œæŠ€èƒ½å¡ï¼');
 	end
 
     return -1;
@@ -49,7 +51,7 @@ function hbparameter:onLoad()
 end
 
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function hbparameter:onUnload()
   self:logInfo('unload')
 end
