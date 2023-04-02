@@ -127,7 +127,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 		local petIndex = Battle.GetPlayer(battleIndex, math.fmod(i + 5, 10));
 		if charIndex >= 0 then
 			if Char.IsDummy(charIndex) then
-				local sidetable = {{10,40,41,30,zswz0},{0,41,40,20,zswz1}}
+				local sidetable = {{10,40,41,20,zswz0},{0,41,40,30,zswz1}}
 				local charside = 1
 				local ybside = Char.GetData(charIndex,%对象_战斗Side%)
 				local playersd = playersd0
