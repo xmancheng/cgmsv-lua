@@ -28,15 +28,39 @@ function hbparameter:onLoad()
 				}
 
 				if TL>GJ and TL>=40 then
-					Char.GiveItem(targetcharIndex, hb[1][3], 1);  --《特殊》卡
+					if MJ<10 then
+						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --譽《特殊》卡
+					elseif MJ<30 then
+						Char.GiveItem(targetcharIndex, hb[1][2], 1);  --補《特殊》卡
+					else
+						Char.GiveItem(targetcharIndex, hb[1][3], 1);  --恢《特殊》卡
+					end
 				elseif GJ>MJ and GJ>=40 then
-					Char.GiveItem(targetcharIndex, hb[2][1], 1);  --《物理》卡
+					if TL<20 then
+						Char.GiveItem(targetcharIndex, hb[2][2], 1);  --彈《物理》卡
+					else
+						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --陽《物理》卡
+					end
 				elseif FY>TL and FY>=40 then
-					Char.GiveItem(targetcharIndex, hb[3][1], 1);  --《變化》卡
+					if GJ<20 and MF>=20 then
+						Char.GiveItem(targetcharIndex, hb[3][1], 1);  --攻《變化》卡
+					elseif MF<20 and GJ>=20 then
+						Char.GiveItem(targetcharIndex, hb[3][2], 1);  --魔《變化》卡
+					else
+						Char.GiveItem(targetcharIndex, hb[3][3], 1);  --潔《變化》卡
+					end
 				elseif MJ>GJ and MJ>=40 then
-					Char.GiveItem(targetcharIndex, hb[4][2], 1);  --《干擾》卡
+					if GJ<10 then
+						Char.GiveItem(targetcharIndex, hb[4][2], 1);  --混《干擾》卡
+					elseif GJ<20 then
+						Char.GiveItem(targetcharIndex, hb[4][3], 1);  --毒《干擾》卡
+					elseif GJ<30 then
+						Char.GiveItem(targetcharIndex, hb[4][4], 1);  --醉《干擾》卡
+					else
+						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --連《干擾》卡
+					end
 				elseif MF>GJ and MF>=40 then
-					Char.GiveItem(targetcharIndex, hb[5][1], 1);  --《法術》卡
+					Char.GiveItem(targetcharIndex, hb[5][math.random(1,4)], 1);  --《法術》卡
 				else
 					Char.GiveItem(targetcharIndex, 900208, 1);  --攻擊提升《變化》卡
 				end
