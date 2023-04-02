@@ -18,6 +18,7 @@ function hbparameter:onLoad()
 				local FY = Char.GetData(targetcharIndex, CONST.CHAR_声望);  --强成
 				local MJ = Char.GetData(targetcharIndex, CONST.CHAR_灵巧);  --敏成
 				local MF = Char.GetData(targetcharIndex, CONST.CHAR_智力);  --魔成
+				--print(TL,GJ,FY,MJ,MF)
 				local hb = {
 					{900203,900203,900205},--体档高
 					{900206,900207},--力档高
@@ -25,21 +26,19 @@ function hbparameter:onLoad()
 					{900212,900213,900214,900215},--速档高
 					{900216,900217,900218,900219} --魔档高
 				}
-				local ItemIndex = Char.GetItemIndex(targetcharIndex, 12)
-				if ItemIndex < 0 then
-					if TL>GJ and TL>=40 then
-						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --《特殊》卡
-					elseif GJ>MF and GJ>=40 then
-						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --《物理》卡
-					elseif FY>TL and FY>=40 then
-						Char.GiveItem(targetcharIndex, hb[3][1], 1);  --《變化》卡
-					elseif MJ>GJ and MJ>=40 then
-						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --《干擾》卡
-					elseif MF>GJ and MF>=40 then
-						Char.GiveItem(targetcharIndex, hb[5][1], 1);  --《法術》卡
-					else
-						Char.GiveItem(targetcharIndex, 900208, 1);  --攻擊提升《變化》卡
-					end
+
+				if TL>GJ and TL>=40 then
+					Char.GiveItem(targetcharIndex, hb[1][3], 1);  --《特殊》卡
+				elseif GJ>MJ and GJ>=40 then
+					Char.GiveItem(targetcharIndex, hb[2][1], 1);  --《物理》卡
+				elseif FY>TL and FY>=40 then
+					Char.GiveItem(targetcharIndex, hb[3][1], 1);  --《變化》卡
+				elseif MJ>GJ and MJ>=40 then
+					Char.GiveItem(targetcharIndex, hb[4][2], 1);  --《干擾》卡
+				elseif MF>GJ and MF>=40 then
+					Char.GiveItem(targetcharIndex, hb[5][1], 1);  --《法術》卡
+				else
+					Char.GiveItem(targetcharIndex, 900208, 1);  --攻擊提升《變化》卡
 				end
 			end
 		end
