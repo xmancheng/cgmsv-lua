@@ -1,17 +1,17 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local hbSummonLuac = ModuleBase:createModule('hbSummonLuac')
 local allyb = 0
 
-local wanjia = {}--Íæ¼Ò±í
+local wanjia = {}--ç©å®¶è¡¨
 for bbb = 0,100 do
 	wanjia[bbb] = {}
-	wanjia[bbb][0] = 0--aiÍ³¼Æ
+	wanjia[bbb][0] = 0--aiç»Ÿè®¡
 	for ccc = 1,5 do
 		wanjia[bbb][ccc] = -1
 	end
 end
 
-functionhbSummonLuac:yboffline(player)--Íæ¼ÒÏÂÏßÇå¿Õ×Ô¼ºÕÙ»½µÄai
+function hbSummonLuac:yboffline(player)--ç©å®¶ä¸‹çº¿æ¸…ç©ºè‡ªå·±å¬å”¤çš„ai
 	for xxqk = 1,#wanjia[player] do
 		if wanjia[player][xxqk] > 0 then
 			Char.DelDummy(wanjia[player][xxqk])
@@ -20,20 +20,20 @@ functionhbSummonLuac:yboffline(player)--Íæ¼ÒÏÂÏßÇå¿Õ×Ô¼ºÕÙ»½µÄai
 	wanjia[player][0] = 0
 end
 
-local hbsp = {900330,900333}--ÊÎÆ·
+local hbsp = {900330,900333}--é¥°å“
 
 local mfsj = {
-	{9213,9212,9211,9210,9209,9208,9207,9206,9205,9201},--1-9µØË®¡¢10µØË®¾§
-	{9222,9221,9220,9219,9218,9217,9216,9215,9214,9202},--1-9Ë®»ğ¡¢10Ë®Ë®¾§
-	{9231,9230,9229,9228,9227,9226,9225,9224,9223,9203},--1-9»ğ·ç¡¢10»ğË®¾§
-	{9240,9239,9238,9237,9236,9235,9234,9233,9232,9204} --1-9·çµØ¡¢10·çË®¾§
+	{9213,9212,9211,9210,9209,9208,9207,9206,9205,9201},--1-9åœ°æ°´ã€10åœ°æ°´æ™¶
+	{9222,9221,9220,9219,9218,9217,9216,9215,9214,9202},--1-9æ°´ç«ã€10æ°´æ°´æ™¶
+	{9231,9230,9229,9228,9227,9226,9225,9224,9223,9203},--1-9ç«é£ã€10ç«æ°´æ™¶
+	{9240,9239,9238,9237,9236,9235,9234,9233,9232,9204} --1-9é£åœ°ã€10é£æ°´æ™¶
 }
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function hbSummonLuac:onLoad()
 
   self:logInfo('load')
-  --local fnpc = self:NPC_createNormal('¾µÏñ³èÎï', 101003, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
+  --local fnpc = self:NPC_createNormal('é•œåƒå® ç‰©', 101003, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
   self:regCallback('ScriptCallEvent', function(npcIndex, playerIndex, text, msg)
     self:logDebugF('npcIndex: %s, playerIndex: %s, text: %s, msg: %s', npcIndex, playerIndex, text, msg)
     self:regCallback("LogoutEvent", Func.bind(self.yboffline, self))
@@ -41,19 +41,19 @@ function hbSummonLuac:onLoad()
 	player = playerIndex
 	npc = npcIndex
 
-	id = Char.GetData(player,%¶ÔÏó_CDK%)
-	name = Char.GetData(player,%¶ÔÏó_Ãû×Ö%)
-	lv = Char.GetData(player, %¶ÔÏó_µÈ¼¶%)
-	Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--µØÍ¼ÀàĞÍ
-	Target_FloorId = Char.GetData(player,CONST.CHAR_µØÍ¼)--µØÍ¼±àºÅ
-	Target_X = Char.GetData(player,CONST.CHAR_X)--µØÍ¼x
-	Target_Y = Char.GetData(player,CONST.CHAR_Y)--µØÍ¼y
+	id = Char.GetData(player,%å¯¹è±¡_CDK%)
+	name = Char.GetData(player,%å¯¹è±¡_åå­—%)
+	lv = Char.GetData(player, %å¯¹è±¡_ç­‰çº§%)
+	Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--åœ°å›¾ç±»å‹
+	Target_FloorId = Char.GetData(player,CONST.CHAR_åœ°å›¾)--åœ°å›¾ç¼–å·
+	Target_X = Char.GetData(player,CONST.CHAR_X)--åœ°å›¾x
+	Target_Y = Char.GetData(player,CONST.CHAR_Y)--åœ°å›¾y
 
-	if text == 'Ò»¼üÕÙ»½' then
+	if text == 'ä¸€é”®å¬å”¤' then
 		if wanjia[player][0] > 3 then
-			NLG.SystemMessage(player, 'ÄúÒÑ¾­ÕÙ»½ÁË4Î»Ğ¡»ï°éÁË£¬²»ÄÜÔÙÕÙ»½ÁË¡£' )
+			NLG.SystemMessage(player, 'æ‚¨å·²ç»å¬å”¤äº†4ä½å°ä¼™ä¼´äº†ï¼Œä¸èƒ½å†å¬å”¤äº†ã€‚' )
 		elseif allyb > 100 then
-			NLG.SystemMessage(player, 'µ±Ç°ÏßÂ·ÈË¿Ú±¬Âú£¬ÎŞ·¨Ìí¼ÓÓ¶±øÁË¡£' )
+			NLG.SystemMessage(player, 'å½“å‰çº¿è·¯äººå£çˆ†æ»¡ï¼Œæ— æ³•æ·»åŠ ä½£å…µäº†ã€‚' )
 		else
 		for csdd = 1,5 do
 			if Char.PartyNum(wanjia[player][csdd]) == -1 then
@@ -61,77 +61,77 @@ function hbSummonLuac:onLoad()
 				Char.Warp(wanjia[player][csdd], Target_MapId, Target_FloorId, Target_X, Target_Y);
 				Char.JoinParty(wanjia[player][csdd],player);
 			end
-			local pzw = Char.GetData(player,CONST.CHAR_Î»ÖÃ)
+			local pzw = Char.GetData(player,CONST.CHAR_ä½ç½®)
 			if pzw == 1 then 
 				if Char.IsDummy(Char.GetPartyMember(player,1)) then
-					Char.SetData(Char.GetPartyMember(player,1),CONST.CHAR_Î»ÖÃ,0);
+					Char.SetData(Char.GetPartyMember(player,1),CONST.CHAR_ä½ç½®,0);
 				end
 				if Char.IsDummy(Char.GetPartyMember(player,2)) then
-					Char.SetData(Char.GetPartyMember(player,2),CONST.CHAR_Î»ÖÃ,0);
+					Char.SetData(Char.GetPartyMember(player,2),CONST.CHAR_ä½ç½®,0);
 				end
 				if Char.IsDummy(Char.GetPartyMember(player,3)) then
-					Char.SetData(Char.GetPartyMember(player,3),CONST.CHAR_Î»ÖÃ,1);
+					Char.SetData(Char.GetPartyMember(player,3),CONST.CHAR_ä½ç½®,1);
 				end
 				if Char.IsDummy(Char.GetPartyMember(player,4)) then
-					Char.SetData(Char.GetPartyMember(player,4),CONST.CHAR_Î»ÖÃ,1);
+					Char.SetData(Char.GetPartyMember(player,4),CONST.CHAR_ä½ç½®,1);
 				end
 			elseif pzw == 0 then
 				if Char.IsDummy(Char.GetPartyMember(player,1)) then
-					Char.SetData(Char.GetPartyMember(player,1),CONST.CHAR_Î»ÖÃ,1);
+					Char.SetData(Char.GetPartyMember(player,1),CONST.CHAR_ä½ç½®,1);
 				end
 				if Char.IsDummy(Char.GetPartyMember(player,2)) then
-					Char.SetData(Char.GetPartyMember(player,2),CONST.CHAR_Î»ÖÃ,1);
+					Char.SetData(Char.GetPartyMember(player,2),CONST.CHAR_ä½ç½®,1);
 				end
 				if Char.IsDummy(Char.GetPartyMember(player,3)) then
-					Char.SetData(Char.GetPartyMember(player,3),CONST.CHAR_Î»ÖÃ,0);
+					Char.SetData(Char.GetPartyMember(player,3),CONST.CHAR_ä½ç½®,0);
 				end
 				if Char.IsDummy(Char.GetPartyMember(player,4)) then
-					Char.SetData(Char.GetPartyMember(player,4),CONST.CHAR_Î»ÖÃ,0);
+					Char.SetData(Char.GetPartyMember(player,4),CONST.CHAR_ä½ç½®,0);
 				end
 			end
 		end
 		for num = 1,5 do
 			local petIndex1 = Char.GetPet(player,num-1)
-			if Char.GetData(petIndex1, 73) ~= CONST.PET_STATE_Õ½¶· then
+			if Char.GetData(petIndex1, 73) ~= CONST.PET_STATE_æˆ˜æ–— then
 				if wanjia[player][num] <= 0 and petIndex1 >= 0 then
-					local charIndex1 = Char.CreateDummy()--Éú³ÉaiÓ¶±ø
-					wanjia[player][0] = wanjia[player][0] + 1--Í³¼ÆaiÓ¶±øÊıÁ¿
+					local charIndex1 = Char.CreateDummy()--ç”Ÿæˆaiä½£å…µ
+					wanjia[player][0] = wanjia[player][0] + 1--ç»Ÿè®¡aiä½£å…µæ•°é‡
 					allyb = charIndex1
-					print("±àºÅ£º"..charIndex1.."")
+					print("ç¼–å·ï¼š"..charIndex1.."")
 					wanjia[player][num] = charIndex1
-					local TL = Pet.GetArtRank(petIndex1,CONST.PET_Ìå³É);
-					local GJ = Pet.GetArtRank(petIndex1,CONST.PET_Á¦³É);
-					local FY = Pet.GetArtRank(petIndex1,CONST.PET_Ç¿³É);
-					local MJ = Pet.GetArtRank(petIndex1,CONST.PET_Ãô³É);
-					local MF = Pet.GetArtRank(petIndex1,CONST.PET_Ä§³É);
-					Char.SetData(charIndex1, CONST.CHAR_ÄÍÁ¦, TL);
-					Char.SetData(charIndex1, CONST.CHAR_÷ÈÁ¦, GJ);
-					Char.SetData(charIndex1, CONST.CHAR_ÉùÍû, FY);
-					Char.SetData(charIndex1, CONST.CHAR_ÁéÇÉ, MJ);
-					Char.SetData(charIndex1, CONST.CHAR_ÖÇÁ¦, MF);
+					local TL = Pet.GetArtRank(petIndex1,CONST.PET_ä½“æˆ);
+					local GJ = Pet.GetArtRank(petIndex1,CONST.PET_åŠ›æˆ);
+					local FY = Pet.GetArtRank(petIndex1,CONST.PET_å¼ºæˆ);
+					local MJ = Pet.GetArtRank(petIndex1,CONST.PET_æ•æˆ);
+					local MF = Pet.GetArtRank(petIndex1,CONST.PET_é­”æˆ);
+					Char.SetData(charIndex1, CONST.CHAR_è€åŠ›, TL);
+					Char.SetData(charIndex1, CONST.CHAR_é­…åŠ›, GJ);
+					Char.SetData(charIndex1, CONST.CHAR_å£°æœ›, FY);
+					Char.SetData(charIndex1, CONST.CHAR_çµå·§, MJ);
+					Char.SetData(charIndex1, CONST.CHAR_æ™ºåŠ›, MF);
 
 					Char.SetData(charIndex1, CONST.CHAR_X, Char.GetData(player, CONST.CHAR_X));
 					Char.SetData(charIndex1, CONST.CHAR_Y, Char.GetData(player, CONST.CHAR_Y));
-					Char.SetData(charIndex1, CONST.CHAR_µØÍ¼, Char.GetData(player, CONST.CHAR_µØÍ¼));
-					Char.SetData(charIndex1, CONST.CHAR_Ãû×Ö, Char.GetData(petIndex1,CONST.CHAR_Ãû×Ö));
-					Char.SetData(charIndex1, CONST.CHAR_µØÍ¼ÀàĞÍ, Char.GetData(player,CONST.CHAR_µØÍ¼ÀàĞÍ));
-					Char.SetData(charIndex1, CONST.CHAR_ĞÎÏó, Char.GetData(petIndex1,CONST.CHAR_ĞÎÏó));
-					Char.SetData(charIndex1, CONST.CHAR_Ô­ĞÎ, Char.GetData(petIndex1,CONST.CHAR_Ô­ĞÎ));
-					Char.SetData(charIndex1, CONST.CHAR_Ô­Ê¼Í¼µµ, Char.GetData(petIndex1,CONST.CHAR_Ô­Ê¼Í¼µµ));
+					Char.SetData(charIndex1, CONST.CHAR_åœ°å›¾, Char.GetData(player, CONST.CHAR_åœ°å›¾));
+					Char.SetData(charIndex1, CONST.CHAR_åå­—, Char.GetData(petIndex1,CONST.CHAR_åå­—));
+					Char.SetData(charIndex1, CONST.CHAR_åœ°å›¾ç±»å‹, Char.GetData(player,CONST.CHAR_åœ°å›¾ç±»å‹));
+					Char.SetData(charIndex1, CONST.CHAR_å½¢è±¡, Char.GetData(petIndex1,CONST.CHAR_å½¢è±¡));
+					Char.SetData(charIndex1, CONST.CHAR_åŸå½¢, Char.GetData(petIndex1,CONST.CHAR_åŸå½¢));
+					Char.SetData(charIndex1, CONST.CHAR_åŸå§‹å›¾æ¡£, Char.GetData(petIndex1,CONST.CHAR_åŸå§‹å›¾æ¡£));
 					print('charIndex1', charIndex1)
 					--print(player)
-					Char.SetData(charIndex1, CONST.CHAR_ÌåÁ¦, Char.GetData(petIndex1,CONST.CHAR_ÌåÁ¦));
-					Char.SetData(charIndex1, CONST.CHAR_Á¦Á¿, Char.GetData(petIndex1,CONST.CHAR_Á¦Á¿));
-					Char.SetData(charIndex1, CONST.CHAR_Ç¿¶È, Char.GetData(petIndex1,CONST.CHAR_Ç¿¶È));
-					Char.SetData(charIndex1, CONST.CHAR_ËÙ¶È, Char.GetData(petIndex1,CONST.CHAR_ËÙ¶È));
-					Char.SetData(charIndex1, CONST.CHAR_Ä§·¨, Char.GetData(petIndex1,CONST.CHAR_Ä§·¨));
-					Char.SetData(charIndex1, CONST.CHAR_µÈ¼¶, Char.GetData(petIndex1,CONST.CHAR_µÈ¼¶));
-					Char.SetData(charIndex1, CONST.CHAR_ÖÖ×å, Char.GetData(petIndex1,CONST.CHAR_ÖÖ×å));
+					Char.SetData(charIndex1, CONST.CHAR_ä½“åŠ›, Char.GetData(petIndex1,CONST.CHAR_ä½“åŠ›));
+					Char.SetData(charIndex1, CONST.CHAR_åŠ›é‡, Char.GetData(petIndex1,CONST.CHAR_åŠ›é‡));
+					Char.SetData(charIndex1, CONST.CHAR_å¼ºåº¦, Char.GetData(petIndex1,CONST.CHAR_å¼ºåº¦));
+					Char.SetData(charIndex1, CONST.CHAR_é€Ÿåº¦, Char.GetData(petIndex1,CONST.CHAR_é€Ÿåº¦));
+					Char.SetData(charIndex1, CONST.CHAR_é­”æ³•, Char.GetData(petIndex1,CONST.CHAR_é­”æ³•));
+					Char.SetData(charIndex1, CONST.CHAR_ç­‰çº§, Char.GetData(petIndex1,CONST.CHAR_ç­‰çº§));
+					Char.SetData(charIndex1, CONST.CHAR_ç§æ—, Char.GetData(petIndex1,CONST.CHAR_ç§æ—));
 					NLG.UpChar(charIndex1);
-					local dsj= Char.GetData(petIndex1,CONST.CHAR_µØÊôĞÔ)
-					local ssj= Char.GetData(petIndex1,CONST.CHAR_Ë®ÊôĞÔ)
-					local hsj= Char.GetData(petIndex1,CONST.CHAR_»ğÊôĞÔ)
-					local fsj= Char.GetData(petIndex1,CONST.CHAR_·çÊôĞÔ)
+					local dsj= Char.GetData(petIndex1,CONST.CHAR_åœ°å±æ€§)
+					local ssj= Char.GetData(petIndex1,CONST.CHAR_æ°´å±æ€§)
+					local hsj= Char.GetData(petIndex1,CONST.CHAR_ç«å±æ€§)
+					local fsj= Char.GetData(petIndex1,CONST.CHAR_é£å±æ€§)
 					if dsj>0 and ssj>0 then
 						mf=1
 						sj=math.floor(dsj/10)
@@ -149,44 +149,44 @@ function hbSummonLuac:onLoad()
 						sj=10
 					end
 					Char.GiveItem(charIndex1, mfsj[mf][sj], 1);
-					Char.GiveItem(charIndex1, hbsp[1], 1);--ÊÎÆ·1
-					Char.GiveItem(charIndex1, hbsp[2], 1);--ÊÎÆ·2
-					Char.MoveItem(charIndex1, 8, CONST.EQUIP_Ë®¾§, -1)
-					Char.MoveItem(charIndex1, 9, CONST.EQUIP_Ê×ÊÎ1, -1)
-					Char.MoveItem(charIndex1, 10, CONST.EQUIP_Ê×ÊÎ2, -1)
-					Char.GiveItem(charIndex1, 18196, 1);--ÊµÑéÒ©
-					Char.GiveItem(charIndex1, 18315, 1);--»ğ°Ñ
-					Char.GiveItem(charIndex1, 900201, 1);--¹¥»÷¡¶»ù±¾¡·¿¨
-					Char.GiveItem(charIndex1, 900202, 1);--Ã÷¾µ¡¶»ù±¾¡·¿¨
+					Char.GiveItem(charIndex1, hbsp[1], 1);--é¥°å“1
+					Char.GiveItem(charIndex1, hbsp[2], 1);--é¥°å“2
+					Char.MoveItem(charIndex1, 8, CONST.EQUIP_æ°´æ™¶, -1)
+					Char.MoveItem(charIndex1, 9, CONST.EQUIP_é¦–é¥°1, -1)
+					Char.MoveItem(charIndex1, 10, CONST.EQUIP_é¦–é¥°2, -1)
+					Char.GiveItem(charIndex1, 18196, 1);--å®éªŒè¯
+					Char.GiveItem(charIndex1, 18315, 1);--ç«æŠŠ
+					Char.GiveItem(charIndex1, 900201, 1);--æ”»å‡»ã€ŠåŸºæœ¬ã€‹å¡
+					Char.GiveItem(charIndex1, 900202, 1);--æ˜é•œã€ŠåŸºæœ¬ã€‹å¡
 
-					Char.SetData(charIndex1, CONST.CHAR_Ñª, Char.GetData(petIndex1,CONST.CHAR_×î´óÑª));
-					Char.SetData(charIndex1, CONST.CHAR_Ä§, Char.GetData(petIndex1,CONST.CHAR_×î´óÄ§));
-					Char.SetData(charIndex1, CONST.CHAR_¿¹¶¾, Char.GetData(petIndex1,CONST.CHAR_¿¹¶¾));
-					Char.SetData(charIndex1, CONST.CHAR_¿¹Ë¯, Char.GetData(petIndex1,CONST.CHAR_¿¹Ë¯));
-					Char.SetData(charIndex1, CONST.CHAR_¿¹Ê¯, Char.GetData(petIndex1,CONST.CHAR_¿¹Ê¯));
-					Char.SetData(charIndex1, CONST.CHAR_¿¹×í, Char.GetData(petIndex1,CONST.CHAR_¿¹×í));
-					Char.SetData(charIndex1, CONST.CHAR_¿¹ÂÒ, Char.GetData(petIndex1,CONST.CHAR_¿¹ÂÒ));
-					Char.SetData(charIndex1, CONST.CHAR_¿¹Íü, Char.GetData(petIndex1,CONST.CHAR_¿¹Íü));
-					Char.SetData(charIndex1, CONST.CHAR_±ØÉ±, Char.GetData(petIndex1,CONST.CHAR_±ØÉ±));
-					Char.SetData(charIndex1, CONST.CHAR_·´»÷, Char.GetData(petIndex1,CONST.CHAR_·´»÷));
-					Char.SetData(charIndex1, CONST.CHAR_ÃüÖĞ, Char.GetData(petIndex1,CONST.CHAR_ÃüÖĞ));
-					Char.SetData(charIndex1, CONST.CHAR_ÉÁ¶ã, Char.GetData(petIndex1,CONST.CHAR_ÉÁ¶ã));
+					Char.SetData(charIndex1, CONST.CHAR_è¡€, Char.GetData(petIndex1,CONST.CHAR_æœ€å¤§è¡€));
+					Char.SetData(charIndex1, CONST.CHAR_é­”, Char.GetData(petIndex1,CONST.CHAR_æœ€å¤§é­”));
+					Char.SetData(charIndex1, CONST.CHAR_æŠ—æ¯’, Char.GetData(petIndex1,CONST.CHAR_æŠ—æ¯’));
+					Char.SetData(charIndex1, CONST.CHAR_æŠ—ç¡, Char.GetData(petIndex1,CONST.CHAR_æŠ—ç¡));
+					Char.SetData(charIndex1, CONST.CHAR_æŠ—çŸ³, Char.GetData(petIndex1,CONST.CHAR_æŠ—çŸ³));
+					Char.SetData(charIndex1, CONST.CHAR_æŠ—é†‰, Char.GetData(petIndex1,CONST.CHAR_æŠ—é†‰));
+					Char.SetData(charIndex1, CONST.CHAR_æŠ—ä¹±, Char.GetData(petIndex1,CONST.CHAR_æŠ—ä¹±));
+					Char.SetData(charIndex1, CONST.CHAR_æŠ—å¿˜, Char.GetData(petIndex1,CONST.CHAR_æŠ—å¿˜));
+					Char.SetData(charIndex1, CONST.CHAR_å¿…æ€, Char.GetData(petIndex1,CONST.CHAR_å¿…æ€));
+					Char.SetData(charIndex1, CONST.CHAR_åå‡», Char.GetData(petIndex1,CONST.CHAR_åå‡»));
+					Char.SetData(charIndex1, CONST.CHAR_å‘½ä¸­, Char.GetData(petIndex1,CONST.CHAR_å‘½ä¸­));
+					Char.SetData(charIndex1, CONST.CHAR_é—ªèº², Char.GetData(petIndex1,CONST.CHAR_é—ªèº²));
 
-					Char.SetData(charIndex1, CONST.CHAR_Ö°Òµ, 1);      --ÓÎÃñ
-					Char.SetData(charIndex1, CONST.CHAR_Ö°ÀàID, 0);  --ÓÎÃñ
-					Char.SetData(charIndex1, CONST.CHAR_Ö°½×, 3);
+					Char.SetData(charIndex1, CONST.CHAR_èŒä¸š, 1);      --æ¸¸æ°‘
+					Char.SetData(charIndex1, CONST.CHAR_èŒç±»ID, 0);  --æ¸¸æ°‘
+					Char.SetData(charIndex1, CONST.CHAR_èŒé˜¶, 3);
 
 					Char.JoinParty(charIndex1, player);
 				else
-					--NLG.SystemMessage(player, '³èÎï²»´æÔÚ¡£' )
+					--NLG.SystemMessage(player, 'å® ç‰©ä¸å­˜åœ¨ã€‚' )
 				end
 			else
-				--NLG.SystemMessage(player, 'Õ½¶·×´Ì¬³èÎïÎŞ·¨ÕÙ»½¡£' )
+				--NLG.SystemMessage(player, 'æˆ˜æ–—çŠ¶æ€å® ç‰©æ— æ³•å¬å”¤ã€‚' )
 			end
 		end
 		end
 	end
-	if text == 'Ò»¼ü½â³ı' then
+	if text == 'ä¸€é”®è§£é™¤' then
 		for xxqk = 1,#wanjia[player] do
 			if wanjia[player][xxqk] > 0 then
 				Char.DelDummy(wanjia[player][xxqk])
@@ -216,19 +216,19 @@ function hbSummonLuac:onLoad()
   end)
 
 
---[[  self:NPC_regTalkedEvent(fnpc, function(npc,player)--ÏÔÊ¾window
+--[[  self:NPC_regTalkedEvent(fnpc, function(npc,player)--æ˜¾ç¤ºwindow
 	
 	function showwindow(npc,player)
 	window = "1"
 	.."2"
-	NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_Ñ¡Ôñ¿ò,CONST.BUTTON_¹Ø±Õ,1,window);
+	NLG.ShowWindowTalked(player,npc,CONST.çª—å£_é€‰æ‹©æ¡†,CONST.BUTTON_å…³é—­,1,window);
 	end
 	showwindow(fnpc,player)
 	return
   end)]]
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function hbSummonLuac:onUnload()
   self:logInfo('unload')
 end
