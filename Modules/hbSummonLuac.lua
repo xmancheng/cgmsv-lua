@@ -18,6 +18,7 @@ function hbSummonLuac:yboffline(player)--玩家下线清空自己召唤的ai
 		end
 	end
 	wanjia[player][0] = 0
+	Char.EndEvent(player,17,0);
 end
 
 local hbsp = {900330,900333}--饰品
