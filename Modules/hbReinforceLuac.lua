@@ -1,80 +1,136 @@
 local hbReinforceLuac = ModuleBase:createModule('hbReinforceLuac')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function hbReinforceLuac:onLoad()
   self:logInfo('load')
   self:regCallback('ScriptCallEvent', function(npcIndex, playerIndex, text, msg)
     self:logDebugF('npcIndex: %s, playerIndex: %s, text: %s, msg: %s', npcIndex, playerIndex, text, msg)
+    self:regCallback('BattleStartEvent', Func.bind(hbReinforceLuac.battleStartEventCallback, self))
+    self:regCallback('BattleOverEvent', Func.bind(hbReinforceLuac.battleOverEventCallback, self))
 
 	player = playerIndex
 	npc = npcIndex
 
-	if text == 'Ò»¼üÇ¿»¯' then
+	if text == 'ä¸€é”®å¼ºåŒ–' then
 		for hbnum = 1,4 do 
 			local targetcharIndex = Char.GetPartyMember(player,hbnum)
 			if targetcharIndex >= 0 and Char.IsDummy(targetcharIndex) then
-				local TL = Char.GetData(targetcharIndex, CONST.CHAR_ÄÍÁ¦);  --Ìå³É
-				local GJ = Char.GetData(targetcharIndex, CONST.CHAR_÷ÈÁ¦);  --Á¦³É
-				local FY = Char.GetData(targetcharIndex, CONST.CHAR_ÉùÍû);  --Ç¿³É
-				local MJ = Char.GetData(targetcharIndex, CONST.CHAR_ÁéÇÉ);  --Ãô³É
-				local MF = Char.GetData(targetcharIndex, CONST.CHAR_ÖÇÁ¦);  --Ä§³É
+				local TL = Char.GetData(targetcharIndex, CONST.CHAR_è€åŠ›);  --ä½“æˆ
+				local GJ = Char.GetData(targetcharIndex, CONST.CHAR_é­…åŠ›);  --åŠ›æˆ
+				local FY = Char.GetData(targetcharIndex, CONST.CHAR_å£°æœ›);  --å¼ºæˆ
+				local MJ = Char.GetData(targetcharIndex, CONST.CHAR_çµå·§);  --æ•æˆ
+				local MF = Char.GetData(targetcharIndex, CONST.CHAR_æ™ºåŠ›);  --é­”æˆ
 				--print(TL,GJ,FY,MJ,MF)
 				local hb = {
-					{900203,900204,900205},--Ìåµµ¸ß
-					{900206,900207},--Á¦µµ¸ß
-					{900209,900210,900211},--Ç¿µµ¸ß
-					{900212,900213,900214,900215},--ËÙµµ¸ß
-					{900216,900217,900218,900219} --Ä§µµ¸ß
+					{900203,900204,900205},--ä½“æ¡£é«˜
+					{900206,900207},--åŠ›æ¡£é«˜
+					{900209,900210,900211},--å¼ºæ¡£é«˜
+					{900212,900213,900214,900215},--é€Ÿæ¡£é«˜
+					{900216,900217,900218,900219} --é­”æ¡£é«˜
 				}
 
 				if TL>GJ and TL>=40 then
 					if MJ<10 then
-						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --×u¡¶ÌØÊâ¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --è­½ã€Šç‰¹æ®Šã€‹å¡
 					elseif MJ<30 then
-						Char.GiveItem(targetcharIndex, hb[1][2], 1);  --Ña¡¶ÌØÊâ¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[1][2], 1);  --è£œã€Šç‰¹æ®Šã€‹å¡
 					else
-						Char.GiveItem(targetcharIndex, hb[1][3], 1);  --»Ö¡¶ÌØÊâ¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[1][3], 1);  --æ¢ã€Šç‰¹æ®Šã€‹å¡
 					end
 				elseif GJ>MJ and GJ>=40 then
 					if TL<20 then
-						Char.GiveItem(targetcharIndex, hb[2][2], 1);  --—¡¶ÎïÀí¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[2][2], 1);  --é™½ã€Šç‰©ç†ã€‹å¡
 					else
-						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --ê–¡¶ÎïÀí¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --å½ˆã€Šç‰©ç†ã€‹å¡
 					end
 				elseif FY>TL and FY>=40 then
 					if GJ<20 and MF>=20 then
-						Char.GiveItem(targetcharIndex, hb[3][1], 1);  --¹¥¡¶×ƒ»¯¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[3][1], 1);  --æ”»ã€Šè®ŠåŒ–ã€‹å¡
 					elseif MF<20 and GJ>=20 then
-						Char.GiveItem(targetcharIndex, hb[3][2], 1);  --Ä§¡¶×ƒ»¯¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[3][2], 1);  --é­”ã€Šè®ŠåŒ–ã€‹å¡
 					else
-						Char.GiveItem(targetcharIndex, hb[3][3], 1);  --¡¶×ƒ»¯¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[3][3], 1);  --æ½”ã€Šè®ŠåŒ–ã€‹å¡
 					end
 				elseif MJ>GJ and MJ>=40 then
 					if GJ<10 then
-						Char.GiveItem(targetcharIndex, hb[4][2], 1);  --»ì¡¶¸É”_¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[4][2], 1);  --æ··ã€Šå¹²æ“¾ã€‹å¡
 					elseif GJ<20 then
-						Char.GiveItem(targetcharIndex, hb[4][3], 1);  --¶¾¡¶¸É”_¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[4][3], 1);  --æ¯’ã€Šå¹²æ“¾ã€‹å¡
 					elseif GJ<30 then
-						Char.GiveItem(targetcharIndex, hb[4][4], 1);  --×í¡¶¸É”_¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[4][4], 1);  --é†‰ã€Šå¹²æ“¾ã€‹å¡
 					else
-						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --ßB¡¶¸É”_¡·¿¨
+						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --é€£ã€Šå¹²æ“¾ã€‹å¡
 					end
 				elseif MF>GJ and MF>=40 then
-					Char.GiveItem(targetcharIndex, hb[5][math.random(1,4)], 1);  --¡¶·¨Ğg¡·¿¨
+					Char.GiveItem(targetcharIndex, hb[5][math.random(1,4)], 1);  --ã€Šæ³•è¡“ã€‹å¡
 				else
-					Char.GiveItem(targetcharIndex, 900208, 1);  --¹¥“ôÌáÉı¡¶×ƒ»¯¡·¿¨
+					Char.GiveItem(targetcharIndex, 900208, 1);  --æ”»æ“Šæå‡ã€Šè®ŠåŒ–ã€‹å¡
 				end
 			end
 		end
-		NLG.SystemMessage(player, 'â·°éŠ»¯³É¹¦«@µÃ„Ó×÷¼¼ÄÜ¿¨£¡');
+		NLG.SystemMessage(player, 'å¤¥ä¼´å¼·åŒ–æˆåŠŸç²å¾—å‹•ä½œæŠ€èƒ½å¡ï¼');
+	end
+	if text == 'ä¸€é”®æˆé•¿' then
+		local itemIndex = Char.HaveItem(player,900100);
+		local Slot = Char.GetItemSlot(player, itemIndex);
+		local Exp = Item.GetData(itemIndex,CONST.é“å…·_è€ä¹…);
+		for i = 1,5 do
+		local petIndex = Char.GetPet(player, i - 1);
+			if petIndex > 0 then 
+				Char.SetData(petIndex,CONST.CHAR_ç»éªŒ,Char.GetData(petIndex,CONST.CHAR_ç»éªŒ)+Exp);
+				Pet.UpPet(player, petIndex);
+			end
+		end
+		Item.SetData(itemIndex,CONST.é“å…·_è€ä¹…, 0);
+		Item.UpItem(player, Slot);
+		NLG.SystemMessage(player, 'ç´¯ç©çš„ç¶“é©—å€¼å…±äº«çµ¦æ‰€æœ‰å¯µç‰©ï¼');
 	end
 
     return -1;
   end)
 end
 
+local Dm={}
+function hbReinforceLuac:battleStartEventCallback(battleIndex)
+	for i=10,19 do
+		local enemy = Battle.GetPlayer(battleIndex, i);
+		if enemy >0 then
+			local enemylv = Char.GetData(enemy, CONST.CHAR_ç­‰çº§);
+			table.insert(Dm, i, enemylv);
+		else
+			table.insert(Dm, i, -1);
+		end
+	end
+end
+function hbReinforceLuac:battleOverEventCallback(battleIndex)
+	local player = Battle.GetPlayer(battleIndex, 0);
+	local itemIndex = Char.HaveItem(player,900100);
+	local Slot = Char.GetItemSlot(player, itemIndex);
+	if Char.EndEvent(player,17) == 1 then --æ£€æµ‹ç´¯ç§¯è·å¾—çš„ç»éªŒå€¼å¼€å¯æ¡ä»¶
+		local Exp = Item.GetData(itemIndex,CONST.é“å…·_è€ä¹…);
+		local m = 0;
+		local k = 0;
+		for i=10,19 do
+			if Dm[i]>0 then
+				m = m+Dm[i];
+				k = k+1;
+			end
+		end
+		local lv = math.floor(m/k);
+		local plus = lv*(lv+13)*k;
+		if Exp >= 6250000 then
+			Item.SetData(itemIndex,CONST.é“å…·_è€ä¹…, 6250000);
+			Item.UpItem(player, Slot);
+		else
+			Item.SetData(itemIndex,CONST.é“å…·_è€ä¹…, Exp+plus);
+			Item.SetData(itemIndex,CONST.é“å…·_æœ€å¤§è€ä¹…, 6250000);
+			Item.UpItem(player, Slot);
+		end
+		--NLG.Say(player,-1,"æ£€æµ‹åˆ°ç´¯ç§¯è·å¾—çš„ç»éªŒå€¼å¼€å¯ï¼",0,3);
+	end
+end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function hbReinforceLuac:onUnload()
   self:logInfo('unload')
 end
