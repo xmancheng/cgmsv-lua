@@ -184,6 +184,7 @@ function hbSummonLuac:onLoad()
 				--NLG.SystemMessage(player, '战斗状态宠物无法召唤。' )
 			end
 		end
+		Char.EndEvent(player,17,1);  --哈贝鲁村遗迹称号
 		end
 	end
 	if text == '一键解除' then
@@ -194,6 +195,7 @@ function hbSummonLuac:onLoad()
 			end
 		end
 		wanjia[player][0] = 0
+		Char.EndEvent(player,17,0);
 	end
 	
 --[[
