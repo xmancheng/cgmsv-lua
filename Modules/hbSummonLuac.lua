@@ -51,11 +51,6 @@ function hbSummonLuac:onLoad()
 	Target_Y = Char.GetData(player,CONST.CHAR_Y)--地图y
 
 	if text == '一键召唤' then
-		if wanjia[player][0] > 3 then
-			NLG.SystemMessage(player, '您已经召唤了4位小伙伴了，不能再召唤了。' )
-		elseif allyb > 100 then
-			NLG.SystemMessage(player, '当前线路人口爆满，无法添加佣兵了。' )
-		else
 		for csdd = 1,5 do
 			if Char.PartyNum(wanjia[player][csdd]) == -1 then
 				Battle.ExitBattle(wanjia[player][csdd]);
@@ -91,6 +86,11 @@ function hbSummonLuac:onLoad()
 				end
 			end
 		end
+		if wanjia[player][0] > 3 then
+			NLG.SystemMessage(player, '调整角色前后排再召唤，可以改变队伍阵型。' )
+		elseif allyb > 100 then
+			NLG.SystemMessage(player, '当前线路人口爆满，无法添加佣兵了。' )
+		else
 		for num = 1,5 do
 			local petIndex1 = Char.GetPet(player,num-1)
 			if Char.GetData(petIndex1, 73) ~= CONST.PET_STATE_战斗 then
