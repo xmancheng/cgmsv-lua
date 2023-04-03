@@ -240,75 +240,89 @@ function Module:handleBattleAutoCommand(battleIndex)
 						if Char.ItemNum(charIndex,900203) > 0 and (hp >= hpMax/2) then  --自身血量大于50%
 							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_KNIGHTGUARD, sidetable[charside][2], 26106});
 							ACS = 3;
+							if mp<34 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900204) > 0 and (hp <= hpMax/10) then  --自身血量少于90%
 							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_P_HEAL, sidetable[charside][2], 6306});
 							ACS = 3;
+							if mp<336 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900205) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
 							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY, sidetable[charside][2], 6606});
 							ACS = 3;
+							if mp<336 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900206) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
 							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403});
 							ACS = 4;
+							if mp<20 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900207) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
 							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_P_DODGE, sidetable[charside][1], 906});
 							ACS = 4;
+							if mp<34 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900208) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+						if Char.ItemNum(charIndex,900208) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
 							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ATKUP, sidetable[charside][2], 10106});
 							ACS = 5;
+							if mp<170 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900209) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+						if Char.ItemNum(charIndex,900209) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
 							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS, sidetable[charside][4]+Battle.GetSlot(battleIndex, charIndex), 5706});
 							ACS = 5;
+							if mp<160 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900210) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+						if Char.ItemNum(charIndex,900210) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
 							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_MAGIC, sidetable[charside][4]+Battle.GetSlot(battleIndex, charIndex), 5806});
 							ACS = 5;
+							if mp<160 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900211) > 0 and (zttj >= 1) then  --我方异常状态人数>=1
 							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER, sidetable[charside][2], 6706});
 							ACS = 5;
+							if mp<80 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900212) > 0 and (hp > hpMax/3) then
 							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU, sidetable[charside][1], 5});
 							ACS = 6;
+							if mp<35 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900213) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 4806});
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 3606});
 							ACS = 6;
+							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900214) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 4406});
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 3206});
 							ACS = 6;
+							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900215) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 4706});
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 3506});
 							ACS = 6;
+							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900216) > 0 and (hp > hpMax/3) then
 							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 1906});
 							ACS = 7;
+							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900217) > 0 and (hp > hpMax/3) then
 							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2006});
 							ACS = 7;
+							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900218) > 0 and (hp > hpMax/3) then
 							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2106});
 							ACS = 7;
+							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900219) > 0 and (hp > hpMax/3) then
 							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2206});
 							ACS = 7;
+							if mp<70 then ACS = 1; end
 						end
 						Battle.ActionSelect(charIndex,ActionCard[ACS][1],ActionCard[ACS][2],ActionCard[ACS][3]);
-						if (mp <= 100) then
-							Battle.ActionSelect(charIndex,CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1);
-						end
 					end
 --人物AI
 --[[
