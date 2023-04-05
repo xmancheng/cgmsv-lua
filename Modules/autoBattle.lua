@@ -228,7 +228,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 					local mp = Char.GetData(charIndex,%对象_魔%);
 					local mp2 = Char.GetData(petIndex,%对象_魔%);
 --镜像宠物伙伴AI
-					if ybjn and Char.ItemNum(charIndex,900201) > 0 and Char.ItemNum(charIndex,900202) > 0 then     --攻击、明镜《基本》卡
+					if ybjn and Char.ItemNum(charIndex,900202) > 0 and Char.ItemNum(charIndex,900203) > 0 then     --攻击、明镜《基本》卡
 						local tmp1,tmp2 = math.modf(battleturn/6)
 						local tmp3,tmp4 = math.modf(battleturn/3)
 						local tmp5={tmp2,tmp4}
@@ -237,35 +237,30 @@ function Module:handleBattleAutoCommand(battleIndex)
 						if (hp <= hpMax/3) then
 							ACS = 2;
 						end
-						if Char.ItemNum(charIndex,900203) > 0 and (hp >= hpMax/2) then  --自身血量大于50%
+						if Char.ItemNum(charIndex,900204) > 0 and (hp >= hpMax/2) then  --自身血量大于50%
 							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_KNIGHTGUARD, sidetable[charside][2], 26106});
 							ACS = 3;
 							if mp<34 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900204) > 0 and (hp <= hpMax/10) then  --自身血量少于90%
+						if Char.ItemNum(charIndex,900205) > 0 and (hp <= hpMax/10) then  --自身血量少于90%
 							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_P_HEAL, sidetable[charside][2], 6306});
 							ACS = 3;
 							if mp<336 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900205) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
+						if Char.ItemNum(charIndex,900206) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 2 then
 							table.insert(ActionCard, 3, {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY, sidetable[charside][2], 6606});
 							ACS = 3;
 							if mp<336 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900206) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
+						if Char.ItemNum(charIndex,900207) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
 							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403});
 							ACS = 4;
 							if mp<20 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900207) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
+						if Char.ItemNum(charIndex,900208) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
 							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_ATTACKALL, sidetable[charside][4], 10629});
 							ACS = 4;
 							if mp<105 then ACS = 1; end
-						end
-						if Char.ItemNum(charIndex,900208) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
-							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE, -1, 5106});
-							ACS = 5;
-							if mp<75 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900209) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
 							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS, sidetable[charside][5]+Battle.GetSlot(battleIndex, charIndex), 5706});
@@ -321,6 +316,26 @@ function Module:handleBattleAutoCommand(battleIndex)
 							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][4], 2206});
 							ACS = 7;
 							if mp<70 then ACS = 1; end
+						end
+						if Char.ItemNum(charIndex,900220) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
+							table.insert(ActionCard, 8, {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE, -1, 5006});
+							ACS = 8;
+							if mp<75 then ACS = 1; end
+						end
+						if Char.ItemNum(charIndex,900221) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
+							table.insert(ActionCard, 8, {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE, -1, 5106});
+							ACS = 8;
+							if mp<75 then ACS = 1; end
+						end
+						if Char.ItemNum(charIndex,900222) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
+							table.insert(ActionCard, 8, {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE, -1, 5206});
+							ACS = 8;
+							if mp<75 then ACS = 1; end
+						end
+						if Char.ItemNum(charIndex,900223) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
+							table.insert(ActionCard, 8, {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE, -1, 5306});
+							ACS = 8;
+							if mp<75 then ACS = 1; end
 						end
 						Battle.ActionSelect(charIndex,ActionCard[ACS][1],ActionCard[ACS][2],ActionCard[ACS][3]);
 					end
