@@ -30,9 +30,8 @@ function hbReinforceLuac:onLoad()
 					{900220,900221,900222,900223} --
 				}
 				local CrystalIndex = Char.GetItemIndex(targetcharIndex,7);
-				local CrystalId = Item.GetData(CrystalIndex,CONST.道具_ID);
-				local code = math.floor(CrystalId%9200);
-				print(CrystalIndex,CrystalId,code)
+				local code = Item.GetData(CrystalIndex,CONST.道具_ID);
+				--print(CrystalIndex,code)
 				if TL>GJ and TL>=40 then
 					if MJ<10 then
 						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --譽《特殊》卡
@@ -66,24 +65,28 @@ function hbReinforceLuac:onLoad()
 						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --石《干擾》卡
 					end
 				elseif MF>GJ and MF>=40 then
-					if code==1 or code==5 or code==6 or code==7 or code==8 or code==36  or code==37  or code==38  or code==39  or code==40 then
+					if code==9201 or code==9205 or code==9206 or code==9207 or code==9208 or code==9236  or code==9237  or code==9238  or code==9239  or code==9240 then
 						Char.GiveItem(targetcharIndex, hb[5][1], 1);  --隕《法術》卡
-					elseif code==9 or code==10 or code==11 or code==12 or code==13 or code==14  or code==15  or code==16  or code==17  or code==2 then
+					elseif code==9209 or code==9210 or code==9211 or code==9212 or code==9213 or code==9214  or code==9215  or code==9216  or code==9217  or code==9202 then
 						Char.GiveItem(targetcharIndex, hb[5][2], 1);  --冰《法術》卡
-					elseif code==18 or code==19 or code==20 or code==21 or code==22 or code==23  or code==24  or code==25  or code==26  or code==3 then
+					elseif code==9218 or code==9219 or code==9220 or code==9221 or code==9222 or code==9223  or code==9224  or code==9225  or code==9226  or code==9203 then
 						Char.GiveItem(targetcharIndex, hb[5][3], 1);  --火《法術》卡
-					elseif code==27 or code==28 or code==29 or code==30 or code==31 or code==32  or code==33  or code==34  or code==35  or code==4 then
+					elseif code==9227 or code==9228 or code==9229 or code==9230 or code==9231 or code==9232  or code==9233  or code==9234  or code==9235  or code==9204 then
 						Char.GiveItem(targetcharIndex, hb[5][4], 1);  --風《法術》卡
+					else
+						Char.GiveItem(targetcharIndex, hb[5][math.random(1,4)], 1);
 					end
 				else
-					if code==1 or code==5 or code==6 or code==7 or code==8 or code==36  or code==37  or code==38  or code==39  or code==40 then
+					if code==9201 or code==9205 or code==9206 or code==9207 or code==9208 or code==9236  or code==9237  or code==9238  or code==9239  or code==9240 then
 						Char.GiveItem(targetcharIndex, hb[6][1], 1);  --大地祈禱《變化》卡
-					elseif code==9 or code==10 or code==11 or code==12 or code==13 or code==14  or code==15  or code==16  or code==17  or code==2 then
+					elseif code==9209 or code==9210 or code==9211 or code==9212 or code==9213 or code==9214  or code==9215  or code==9216  or code==9217  or code==9202 then
 						Char.GiveItem(targetcharIndex, hb[6][2], 1);  --海洋祈禱《變化》卡
-					elseif code==18 or code==19 or code==20 or code==21 or code==22 or code==23  or code==24  or code==25  or code==26  or code==3 then
+					elseif code==9218 or code==9219 or code==9220 or code==9221 or code==9222 or code==9223  or code==9224  or code==9225  or code==9226  or code==9203 then
 						Char.GiveItem(targetcharIndex, hb[6][3], 1);  --火焰祈禱《變化》卡
-					elseif code==27 or code==28 or code==29 or code==30 or code==31 or code==32  or code==33  or code==34  or code==35  or code==4 then
+					elseif code==9227 or code==9228 or code==9229 or code==9230 or code==9231 or code==9232  or code==9233  or code==9234  or code==9235  or code==9204 then
 						Char.GiveItem(targetcharIndex, hb[6][4], 1);  --雲群祈禱《變化》卡
+					else
+						Char.GiveItem(targetcharIndex, hb[6][math.random(1,4)], 1);
 					end
 				end
 			end
