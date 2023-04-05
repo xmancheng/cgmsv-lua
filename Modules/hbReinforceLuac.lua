@@ -124,7 +124,7 @@ function hbReinforceLuac:battleStartEventCallback(battleIndex)
 end
 function hbReinforceLuac:battleOverEventCallback(battleIndex)
 	local player = Battle.GetPlayer(battleIndex, 0);
-	local itemIndex = Char.HaveItem(player,900100);
+	local itemIndex = Char.HaveItem(player,900201);
 	local Slot = Char.GetItemSlot(player, itemIndex);
 	if Char.EndEvent(player,17) == 1 then --检测累积获得的经验值开启条件
 		local Exp = Item.GetData(itemIndex,CONST.道具_耐久);
