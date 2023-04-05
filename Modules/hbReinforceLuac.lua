@@ -22,13 +22,17 @@ function hbReinforceLuac:onLoad()
 				local MF = Char.GetData(targetcharIndex, CONST.CHAR_智力);  --魔成
 				--print(TL,GJ,FY,MJ,MF)
 				local hb = {
-					{900203,900204,900205},--体档高
-					{900206,900207},--力档高
+					{900204,900205,900206},--体档高
+					{900207,900208},--力档高
 					{900209,900210,900211},--强档高
 					{900212,900213,900214,900215},--速档高
 					{900216,900217,900218,900219} --魔档高
+					{900220,900221,900222,900223} --
 				}
-
+				local CrystalIndex = Char.GetItemIndex(targetcharIndex,7);
+				local CrystalId = Item.GetData(CrystalIndex,CONST.道具_ID);
+				local code = math.floor(CrystalId%9200);
+				print(CrystalIndex,CrystalId,code)
 				if TL>GJ and TL>=40 then
 					if MJ<10 then
 						Char.GiveItem(targetcharIndex, hb[1][1], 1);  --譽《特殊》卡
@@ -62,9 +66,25 @@ function hbReinforceLuac:onLoad()
 						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --石《干擾》卡
 					end
 				elseif MF>GJ and MF>=40 then
-					Char.GiveItem(targetcharIndex, hb[5][math.random(1,4)], 1);  --《法術》卡
+					if code==1 or code==5 or code==6 or code==7 or code==8 or code==36  or code==37  or code==38  or code==39  or code==40 then
+						Char.GiveItem(targetcharIndex, hb[5][1], 1);  --隕《法術》卡
+					elseif code==9 or code==10 or code==11 or code==12 or code==13 or code==14  or code==15  or code==16  or code==17  or code==2 then
+						Char.GiveItem(targetcharIndex, hb[5][2], 1);  --冰《法術》卡
+					elseif code==18 or code==19 or code==20 or code==21 or code==22 or code==23  or code==24  or code==25  or code==26  or code==3 then
+						Char.GiveItem(targetcharIndex, hb[5][3], 1);  --火《法術》卡
+					elseif code==27 or code==28 or code==29 or code==30 or code==31 or code==32  or code==33  or code==34  or code==35  or code==4 then
+						Char.GiveItem(targetcharIndex, hb[5][4], 1);  --風《法術》卡
+					end
 				else
-					Char.GiveItem(targetcharIndex, 900208, 1);  --海洋祈禱《變化》卡
+					if code==1 or code==5 or code==6 or code==7 or code==8 or code==36  or code==37  or code==38  or code==39  or code==40 then
+						Char.GiveItem(targetcharIndex, hb[6][1], 1);  --大地祈禱《變化》卡
+					elseif code==9 or code==10 or code==11 or code==12 or code==13 or code==14  or code==15  or code==16  or code==17  or code==2 then
+						Char.GiveItem(targetcharIndex, hb[6][2], 1);  --海洋祈禱《變化》卡
+					elseif code==18 or code==19 or code==20 or code==21 or code==22 or code==23  or code==24  or code==25  or code==26  or code==3 then
+						Char.GiveItem(targetcharIndex, hb[6][3], 1);  --火焰祈禱《變化》卡
+					elseif code==27 or code==28 or code==29 or code==30 or code==31 or code==32  or code==33  or code==34  or code==35  or code==4 then
+						Char.GiveItem(targetcharIndex, hb[6][4], 1);  --雲群祈禱《變化》卡
+					end
 				end
 			end
 		end
