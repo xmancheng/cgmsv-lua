@@ -91,7 +91,7 @@ function hbReinforceLuac:onLoad()
 		NLG.SystemMessage(player, '夥伴強化成功獲得動作技能卡！');
 	end
 	if text == '一键成长' then
-		local itemIndex = Char.HaveItem(player,900100);
+		local itemIndex = Char.HaveItem(player,900201);
 		local Slot = Char.GetItemSlot(player, itemIndex);
 		local Exp = Item.GetData(itemIndex,CONST.道具_耐久);
 		for i = 1,5 do
