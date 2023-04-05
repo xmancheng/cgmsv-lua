@@ -157,8 +157,8 @@ function hbSummonLuac:onLoad()
 					Char.MoveItem(charIndex1, 10, CONST.EQUIP_首饰2, -1)
 					Char.GiveItem(charIndex1, 18196, 1);--实验药
 					Char.GiveItem(charIndex1, 18315, 1);--火把
-					Char.GiveItem(charIndex1, 900201, 1);--攻击《基本》卡
-					Char.GiveItem(charIndex1, 900202, 1);--明镜《基本》卡
+					Char.GiveItem(charIndex1, 900202, 1);--攻击《基本》卡
+					Char.GiveItem(charIndex1, 900203, 1);--明镜《基本》卡
 
 					Char.SetData(charIndex1, CONST.CHAR_血, Char.GetData(petIndex1,CONST.CHAR_最大血));
 					Char.SetData(charIndex1, CONST.CHAR_魔, Char.GetData(petIndex1,CONST.CHAR_最大魔));
