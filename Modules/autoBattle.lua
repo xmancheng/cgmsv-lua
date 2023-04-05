@@ -127,7 +127,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 		local petIndex = Battle.GetPlayer(battleIndex, math.fmod(i + 5, 10));
 		if charIndex >= 0 then
 			if Char.IsDummy(charIndex) then
-				local sidetable = {{10,40,41,20,zswz0},{0,41,40,30,zswz1}}
+				local sidetable = {{10,40,41,30,20,zswz0},{0,41,40,30,20,zswz1}}
 				local charside = 1
 				local ybside = Char.GetData(charIndex,%对象_战斗Side%)
 				local playersd = playersd0
@@ -258,22 +258,22 @@ function Module:handleBattleAutoCommand(battleIndex)
 							if mp<20 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900207) > 0 and (chtj > 2) and (hp > hpMax/3) then  --敌方存活人数>2
-							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_P_DODGE, sidetable[charside][1], 906});
+							table.insert(ActionCard, 4, {CONST.BATTLE_COM.BATTLE_COM_ATTACKALL, sidetable[charside][4], 10629});
 							ACS = 4;
-							if mp<34 then ACS = 1; end
+							if mp<105 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900208) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
-							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ATKUP, sidetable[charside][2], 10106});
+							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE, -1, 5106});
 							ACS = 5;
-							if mp<170 then ACS = 1; end
+							if mp<75 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900209) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
-							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS, sidetable[charside][4]+Battle.GetSlot(battleIndex, charIndex), 5706});
+							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS, sidetable[charside][5]+Battle.GetSlot(battleIndex, charIndex), 5706});
 							ACS = 5;
 							if mp<160 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900210) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 then
-							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_MAGIC, sidetable[charside][4]+Battle.GetSlot(battleIndex, charIndex), 5806});
+							table.insert(ActionCard, 5, {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_MAGIC, sidetable[charside][5]+Battle.GetSlot(battleIndex, charIndex), 5806});
 							ACS = 5;
 							if mp<160 then ACS = 1; end
 						end
@@ -282,43 +282,43 @@ function Module:handleBattleAutoCommand(battleIndex)
 							ACS = 5;
 							if mp<80 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900212) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU, sidetable[charside][1], 5});
+						if Char.ItemNum(charIndex,900212) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 and (hp > hpMax/3) then
+							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 3406});
 							ACS = 6;
-							if mp<35 then ACS = 1; end
+							if mp<70 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900213) > 0 and (hp > hpMax/3) then
+						if Char.ItemNum(charIndex,900213) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 and (hp > hpMax/3) then
 							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 3606});
 							ACS = 6;
 							if mp<70 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900214) > 0 and (hp > hpMax/3) then
+						if Char.ItemNum(charIndex,900214) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 and (hp > hpMax/3) then
 							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 3206});
 							ACS = 6;
 							if mp<70 then ACS = 1; end
 						end
-						if Char.ItemNum(charIndex,900215) > 0 and (hp > hpMax/3) then
+						if Char.ItemNum(charIndex,900215) > 0 and tmp5[playersd] == 0 and Battle.GetType(battleIndex) == 1 and (hp > hpMax/3) then
 							table.insert(ActionCard, 6, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE, sidetable[charside][3], 3506});
 							ACS = 6;
 							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900216) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 1906});
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][4], 1906});
 							ACS = 7;
 							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900217) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2006});
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][4], 2006});
 							ACS = 7;
 							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900218) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2106});
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][4], 2106});
 							ACS = 7;
 							if mp<70 then ACS = 1; end
 						end
 						if Char.ItemNum(charIndex,900219) > 0 and (hp > hpMax/3) then
-							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][1], 2206});
+							table.insert(ActionCard, 7, {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, sidetable[charside][4], 2206});
 							ACS = 7;
 							if mp<70 then ACS = 1; end
 						end
@@ -386,7 +386,7 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						Battle.ActionSelect(charIndex,AttackData[ACC][1],AttackData[ACC][2],AttackData[ACC][3]);
 					elseif ybjn and yb05 then
-						local HealRecoveryData = { {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY, sidetable[charside][2], ybch[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_P_HEAL, sidetable[charside][2], ybcb[cwlv]}, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER, sidetable[charside][2], 6702}, {CONST.BATTLE_COM.BATTLE_COM_P_REVIVE, sidetable[charside][5], ybqj[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1}};
+						local HealRecoveryData = { {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY, sidetable[charside][2], ybch[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_P_HEAL, sidetable[charside][2], ybcb[cwlv]}, {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER, sidetable[charside][2], 6702}, {CONST.BATTLE_COM.BATTLE_COM_P_REVIVE, sidetable[charside][6], ybqj[yblv]}, {CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1}};
 						local tmp1,tmp2 = math.modf(battleturn/6)
 						local tmp3,tmp4 = math.modf(battleturn/3)
 						local tmp5={tmp2,tmp4}
