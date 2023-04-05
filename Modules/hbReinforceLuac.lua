@@ -39,7 +39,7 @@ function hbReinforceLuac:onLoad()
 					end
 				elseif GJ>MJ and GJ>=40 then
 					if TL<20 then
-						Char.GiveItem(targetcharIndex, hb[2][2], 1);  --陽《物理》卡
+						Char.GiveItem(targetcharIndex, hb[2][2], 1);  --分《物理》卡
 					else
 						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --彈《物理》卡
 					end
@@ -59,12 +59,12 @@ function hbReinforceLuac:onLoad()
 					elseif GJ<30 then
 						Char.GiveItem(targetcharIndex, hb[4][4], 1);  --醉《干擾》卡
 					else
-						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --連《干擾》卡
+						Char.GiveItem(targetcharIndex, hb[4][1], 1);  --石《干擾》卡
 					end
 				elseif MF>GJ and MF>=40 then
 					Char.GiveItem(targetcharIndex, hb[5][math.random(1,4)], 1);  --《法術》卡
 				else
-					Char.GiveItem(targetcharIndex, 900208, 1);  --攻擊提升《變化》卡
+					Char.GiveItem(targetcharIndex, 900208, 1);  --海洋祈禱《變化》卡
 				end
 			end
 		end
