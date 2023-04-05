@@ -39,9 +39,9 @@ function hbReinforceLuac:onLoad()
 					end
 				elseif GJ>MJ and GJ>=40 then
 					if TL<20 then
-						Char.GiveItem(targetcharIndex, hb[2][2], 1);  --分《物理》卡
-					else
 						Char.GiveItem(targetcharIndex, hb[2][1], 1);  --彈《物理》卡
+					else
+						Char.GiveItem(targetcharIndex, hb[2][2], 1);  --分《物理》卡
 					end
 				elseif FY>TL and FY>=40 then
 					if GJ<20 and MF>=20 then
