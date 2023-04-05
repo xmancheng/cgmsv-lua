@@ -67,4 +67,4 @@ loadModule('magicSkill')|魔法屬性技能、抓寵刀背攻擊、法術附加�
 loadModule('disguiseSpell')|變形咒語傷害調整
 loadModule('hbSummonLuac')|一鍵召喚鏡像寵物夥伴
 loadModule('hbReinforceLuac')|動作技能卡、經驗儲存物品
-loadModule('autoBattle')|鏡像寵物夥伴技能動作
+loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
