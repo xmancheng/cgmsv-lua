@@ -29,7 +29,7 @@ function hbReinforceLuac:onLoad()
 					{900216,900217,900218,900219}, --魔档高
 					{900220,900221,900222,900223} --
 				}
-				local CrystalIndex = Char.GetItemIndex(targetcharIndex, CONST.位置_水晶);
+				local CrystalIndex = Char.GetItemIndex(targetcharIndex, CONST.EQUIP_水晶);
 				local code = Item.GetData(CrystalIndex,CONST.道具_ID);
 				--print(CrystalIndex,code)
 				if TL>GJ and TL>=40 then
