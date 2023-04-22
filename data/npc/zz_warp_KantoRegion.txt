@@ -1,0 +1,146 @@
+#深灰市(前伊爾村)
+block  StrCmpChat == 6000000
+window "\n\n\n\n@c你是否要使用傳送到深灰市？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 94 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 94 == 1
+leavegroup
+warp 0,20231,60,15
+
+
+#華藍市(前聖拉魯卡村)
+block StrCmpChat == 6000001
+window "\n\n\n\n@c你是否要使用傳送到华藍市？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 95 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 95 == 1
+leavegroup
+warp 0,20231,112,15
+
+
+#枯葉市(前亞留特村)
+block StrCmpChat == 6000002
+window "\n\n\n\n@c你是否要使用傳送到枯葉市？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 96 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 96 == 1
+leavegroup
+warp 0,20231,8,59
+
+
+#玉虹市(前维诺亞村)
+block StrCmpChat == 6000003
+window "\n\n\n\n@c你是否要使用傳送到玉虹市？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 97 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 97 == 1
+leavegroup
+warp 0,20231,112,59
+
+
+#淺紅市(前奇利村)
+block StrCmpChat == 6000004
+window "\n\n\n\n@c你是否要使用傳送到淺紅市？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 98 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 98 == 1
+leavegroup
+warp 0,20231,8,103
+
+
+#金黃市(前加納村)
+block StrCmpChat == 6000005
+window "\n\n\n\n@c你是否要使用傳送到金黄市？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 99 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 99 == 1
+leavegroup
+warp 0,20231,60,103
+
+
+#紅蓮鎮(前傑诺瓦鎮)
+block StrCmpChat == 6000006
+window "\n\n\n\n@c你是否要使用傳送到紅蓮鎮？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 100 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 100 == 1
+leavegroup
+warp 0,20231,112,103
+
+
+#常青市(前蒂娜村)
+block StrCmpChat == 6000007
+window "\n\n\n\n@c你是否要使用傳送到常青市？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 101 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 101 == 1
+leavegroup
+warp 0,20231,8,15
+
+
+#紫苑鎮(前尼維爾海村)
+block StrCmpChat == 6000008
+window "\n\n\n\n@c你是否要使用傳送到紫苑鎮？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 241 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 241 == 1
+leavegroup
+warp 0,20231,60,59
+
+
+#月見山(前克瑞村)
+block StrCmpChat == 6000009
+window "\n\n\n\n@c你是否要使用傳送到月見山？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 242 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 242 == 1
+leavegroup
+warp 0,20231,60,147
+
+
+#岩山隧道(前摩頓村)
+block StrCmpChat == 6000010
+window "\n\n\n\n@c你是否要使用傳送到岩山隧道？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 243 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 243 == 1
+leavegroup
+warp 0,20231,112,147
+
+
+#石英高原(前阿巴尼斯村)
+block StrCmpChat == 6000011
+window "\n\n\n\n@c你是否要使用傳送到石英高原？",yes,no
+window_no
+endwindow "\n\n\n\n@c等你想好了再來."
+window_yes Nowevent 102 == 0
+endwindow 1200937 #\n\n\n\n@c你没有使用此传送石的资格。	1
+window_yes Nowevent 102 == 1
+leavegroup
+warp 0,20231,8,147
+
+#輸入對話傳送
+block
+endwindow "\n輸入以下對應的數字就可以傳送:\n\n1.深灰市　　　　9.紫苑鎮\n2.华藍市　　　　10.月見山\n3.枯葉市　　　　11.岩山隧道\n4.玉虹市　　　　12.石英高原\n5.淺紅市　　　　\n6.金黄市　　　　\n7.紅蓮鎮　　　　\n8.常青市　　　　"
