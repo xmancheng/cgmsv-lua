@@ -17,12 +17,13 @@ end
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
 	local battleturn = Battle.GetTurn(battleIndex);
-	if (battleturn == 0) then
+	local ztBattleturn = battleturn;
+	if (ztBattleturn == 0) then
 		ztBattleturn = 0;
 		zttj0 = 0
 		zttj1 = 0
-	elseif (battleturn > ztBattleturn) then
-		ztBattleturn = battleturn;
+	elseif (battleturn >= ztBattleturn) then
+		ztBattleturn = battleturn+1;
 		zttj0 = 0
 		zttj1 = 0
 		for ztxx = 0,9 do
