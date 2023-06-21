@@ -18,18 +18,20 @@ function ItemThrow:onLoad()
   self:logInfo('load')
   self:regCallback('ItemUseEvent', Func.bind(self.onItemUseEvent, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
+  self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
 end
 
 function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
   local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
   local battleIndex = Char.GetBattleIndex(charIndex);
-  if (Item.GetData(itemIndex, CONST.µÀ¾ß_ÀàĞÍ)==51) then
-      NLG.Say(charIndex,charIndex,"¡¾Í¶”S¡¿£¡£¡",4,3);
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç±»å‹)==51) then
       if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)==-1) then
-               NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
       else
                Throw = true;
-               NLG.Say(charIndex,charIndex,"¡¾Õ¨—¡¿£¡£¡",4,3);
+               Char.DelItem(charIndex,ItemID,1);
+               NLG.Say(charIndex,charIndex,"ã€æº–å‚™æŠ•æ“²ã€‘ï¼ï¼",4,3);
       end
   end
 
@@ -42,7 +44,7 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
         if charIndex >= 0 then
                 local sidetable = {{10,40,41,30,20},{0,41,40,30,20}}
                 local charside = 1
-                local ybside = Char.GetData(charIndex,%¶ÔÏó_Õ½¶·Side%)
+                local ybside = Char.GetData(charIndex,%å¯¹è±¡_æˆ˜æ–—Side%)
                 if ybside == 1 then
                         charside = 2
                 end
@@ -55,6 +57,24 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
         end
   end
   return Throw;
+end
+
+function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
+      --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
+         local defHpE = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
+         if com3 == 200209 and CONST.æˆ˜æ–—_æ™®é€š and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_æ€ª  then
+                if damage>=defHpE  then
+                       local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
+                       --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
+                       Char.AddPet(charIndex,enemyId);
+                else
+                        if Char.GetData(charIndex,%å¯¹è±¡_ç»„é˜Ÿå¼€å…³%) == 1  then
+                               local HpRe = defHpE - damage;
+                               NLG.Say(charIndex,-1,"ç›®æ¨™è¡€é‡å‰©é¤˜ã€"..HpRe.."ã€‘ï¼ï¼",4,3);
+                        end
+                end
+         end
+  return damage;
 end
 
 function ItemThrow:onUnload()
