@@ -62,11 +62,20 @@ end
 function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
          local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
+         local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
+         local HpE05 = math.ceil(defHpE/defHpEM);
+         local getit= NLG.Rand(1, HpE05*10);
+         local LvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
+         local pokemon= NLG.Rand(1, LvE);
          if com3 == 200209 and CONST.战斗_普通 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
                 if damage>=defHpE  then
-                       local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
-                       --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
-                       Char.AddPet(charIndex,enemyId);
+                        if getit == 1 and pokemon == 1 then
+                               local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
+                               --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
+                               Char.AddPet(charIndex,enemyId);
+                        else
+                               NLG.Say(charIndex,-1,"【抓取失敗且目標陣亡】！！",4,3);
+                        end
                 else
                         if Char.GetData(charIndex,%对象_组队开关%) == 1  then
                                local HpRe = defHpE - damage;
