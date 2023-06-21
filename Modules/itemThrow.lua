@@ -63,8 +63,8 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
          local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
          local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
-         local HpE05 = math.ceil(defHpE/defHpEM);
-         local getit= NLG.Rand(1, HpE05*10);
+         local HpE05 = defHpE/defHpEM;
+         local getit= NLG.Rand(1, math.ceil(HpE05*10) );
          local LvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
          local pokemon= NLG.Rand(1, LvE);
          if com3 == 200209 and CONST.战斗_普通 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
