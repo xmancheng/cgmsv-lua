@@ -1,5 +1,7 @@
 local ItemThrow = ModuleBase:createModule('itemThrow')
 
+local MaxLv = 200
+
 function ItemThrow:setItemData(itemIndex, value)
   ---@type ItemExt
   local itemExt = getModule('itemExt')
@@ -17,6 +19,7 @@ local DmgType = CONST.DamageFlags
 function ItemThrow:onLoad()
   self:logInfo('load')
   self:regCallback('ItemUseEvent', Func.bind(self.onItemUseEvent, self))
+  self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
 end
@@ -31,11 +34,15 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
       else
                Throw = true;
                Char.DelItem(charIndex,ItemID,1);
-               NLG.Say(charIndex,charIndex,"【準備投擲】！！",4,3);
+               NLG.Say(charIndex,charIndex,"【準備投擲】下回合建議防禦！！",4,3);
       end
   end
 
   return 0;
+end
+
+function ItemThrow:battleOverEventCallback(battleIndex)
+               Throw = false;
 end
 
 function ItemThrow:handleBattleAutoCommand(battleIndex)
@@ -64,12 +71,12 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
          local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
          local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
          local HpE05 = defHpE/defHpEM;
-         local getit= NLG.Rand(1, math.ceil(HpE05*10) );
+         local getit= NLG.Rand(1, math.ceil(HpE05*4) );
          local LvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
-         local pokemon= NLG.Rand(1, LvE);
+         local LvMR = NLG.Rand(1,MaxLv);
          if com3 == 200209 and CONST.战斗_普通 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
                 if damage>=defHpE  then
-                        if getit == 1 and pokemon == 1 then
+                        if getit == 1 and LvMR >= LvE then
                                local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
                                --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
                                Char.AddPet(charIndex,enemyId);
