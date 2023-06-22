@@ -6,7 +6,11 @@ for hhh = 0,5 do
 	Throw_control[hhh] = false  --初始化投掷开关
 end
 local MaxLv = 200
+local GetitEnable_list = {};
+GetitEnable_list[400014] = 1;  --enemy.txt编号，设置1可捕捉、设置0或无设置不可捕捉
+GetitEnable_list[400015] = 1;
 
+-----------------------------------------------------------------
 function ItemThrow:setItemData(itemIndex, value)
   ---@type ItemExt
   local itemExt = getModule('itemExt')
@@ -89,7 +93,11 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
                         if getit == 1 and LvMR >= LvE then
                                local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
                                --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
-                               Char.AddPet(charIndex,enemyId);
+                               if GetitEnable_list[enemyId] == 1  then
+                                      Char.AddPet(charIndex,enemyId);
+                               else
+                                      NLG.Say(charIndex,-1,"【尚未開放捕捉】！！",4,3);
+                               end
                         else
                                if Char.GetData(charIndex,%对象_组队开关%) == 1  then
                                       NLG.Say(charIndex,-1,"【抓取失敗且目標陣亡】！！",4,3);
