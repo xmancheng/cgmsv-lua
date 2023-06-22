@@ -1,5 +1,10 @@
 local ItemThrow = ModuleBase:createModule('itemThrow')
 
+Throw_control ={}
+for hhh = 0,5 do
+	Throw_control[hhh] = {}
+	Throw_control[hhh] = false  --初始化投掷开关
+end
 local MaxLv = 200
 
 function ItemThrow:setItemData(itemIndex, value)
@@ -32,7 +37,7 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
       if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)==-1) then
                NLG.SystemMessage(charIndex,"[道具提示]戰鬥中才能使用的道具");
       else
-               Throw = true;
+               Throw_control[charIndex] = true;
                Char.DelItem(charIndex,ItemID,1);
                NLG.Say(charIndex,charIndex,"【準備投擲】下回合建議防禦！！",4,3);
       end
@@ -42,7 +47,12 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
 end
 
 function ItemThrow:battleOverEventCallback(battleIndex)
-               Throw = false;
+  for i = 0, 19 do
+        local charIndex = Battle.GetPlayer(battleIndex, i);
+        if charIndex >= 0 then
+               Throw_control[charIndex] = false;
+        end
+  end
 end
 
 function ItemThrow:handleBattleAutoCommand(battleIndex)
@@ -56,10 +66,10 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
                         charside = 2
                 end
                 local ybjn = Battle.IsWaitingCommand(charIndex);
-                if ybjn and Throw == true then
+                if ybjn and Throw_control[charIndex] == true then
                        Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, sidetable[charside][3], 200209);
                        --Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403);
-                       Throw = false;
+                       Throw_control[charIndex] = false;
                 end
         end
   end
@@ -81,7 +91,9 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
                                --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
                                Char.AddPet(charIndex,enemyId);
                         else
-                               NLG.Say(charIndex,-1,"【抓取失敗且目標陣亡】！！",4,3);
+                               if Char.GetData(charIndex,%对象_组队开关%) == 1  then
+                                      NLG.Say(charIndex,-1,"【抓取失敗且目標陣亡】！！",4,3);
+                               end
                         end
                 else
                         if Char.GetData(charIndex,%对象_组队开关%) == 1  then
