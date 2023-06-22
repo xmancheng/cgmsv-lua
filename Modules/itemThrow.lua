@@ -88,7 +88,7 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
          local getit= NLG.Rand(1, math.ceil(HpE05*4) );
          local LvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
          local LvMR = NLG.Rand(1,MaxLv);
-         if com3 == 200209 and CONST.战斗_普通 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
+         if com3 == 200209 and Char.GetData(charIndex,CONST.对象_战斗状态) ~= CONST.战斗_BOSS战 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
                 if damage>=defHpE  then
                         if getit == 1 and LvMR >= LvE then
                                local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
