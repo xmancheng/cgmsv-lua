@@ -61,9 +61,10 @@ useModule('DailyScript');|曜日副本
 --- | --- 
 loadModule('uniShop')|鏡像擺攤
 loadModule('autoRanking')|自助天梯
-loadModule('ybNenSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
+loadModule('ybPetSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化
-loadModule('magicSkill')|魔法屬性技能、抓寵刀背攻擊、法術附加狀態、合擊狀態增傷
+loadModule('attackSkill')|抓寵刀背攻擊、法術附加狀態、合擊狀態增傷
+loadModule('setupMagicAttr')|魔法屬性技能
 loadModule('disguiseSpell')|變形咒語傷害調整
 loadModule('hbSummonLuac')|一鍵召喚鏡像寵物夥伴
 loadModule('hbReinforceLuac')|動作技能卡、經驗儲存物品
