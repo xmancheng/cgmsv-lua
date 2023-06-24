@@ -3,7 +3,7 @@ local ItemThrow = ModuleBase:createModule('itemThrow')
 Throw_control ={}
 for hhh = 0,5 do
 	Throw_control[hhh] = {}
-	Throw_control[hhh] = false  --初始化投掷开关
+	Throw_control[hhh] = false;     --初始化投掷开关
 end
 local MaxLv = 200
 local GetitEnable_list = {};
@@ -41,6 +41,13 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
       if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)==-1) then
                NLG.SystemMessage(charIndex,"[道具提示]戰鬥中才能使用的道具");
       else
+               for i = 10, 19 do
+                     local enemy = Battle.GetPlayer(battleIndex, i);
+                     if enemy == targetCharIndex then
+                            print(i)
+                            Throw_pos = i+20;
+                     end
+               end
                Throw_control[charIndex] = true;
                Char.DelItem(charIndex,ItemID,1);
                NLG.Say(charIndex,charIndex,"【準備投擲】下回合建議防禦！！",4,3);
@@ -70,8 +77,8 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
                         charside = 2
                 end
                 local ybjn = Battle.IsWaitingCommand(charIndex);
-                if ybjn and Throw_control[charIndex] == true then
-                       Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, sidetable[charside][3], 200209);
+                if ybjn and Throw_control[charIndex] == true  then
+                       Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, Throw_pos, 200209);
                        --Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403);
                        Throw_control[charIndex] = false;
                 end
