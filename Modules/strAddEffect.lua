@@ -1,7 +1,7 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local StrAddEffect = ModuleBase:createModule('strAddEffect')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function StrAddEffect:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -15,35 +15,36 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
-               local WeaponIndex = Char.GetWeapon(charIndex);                --×óÓÒÊÖ
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
-               local StrPlus = string.find(Weapon_Name, "+");
-               if StrPlus~=nil then
-                 StrAdd = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
-               else
-                 StrAdd = 0;
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+               local WeaponIndex = Char.GetWeapon(charIndex);                --å·¦å³æ‰‹
+               local Weapon_Name = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
+               local StrAdd = 0;
+               if Weapon_Name~=nil then
+                 local StrPlus = string.find(Weapon_Name, "+");
+                 if StrPlus~=nil then
+                   StrAdd = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
+                 end
                end
                if ( StrAdd >= 0 ) then
                  local StrEffect = 1 + (StrAdd*0.02);
                  --print(StrEffect)
                  if NLG.Rand(1,10)>=1  then
                         damage = damage * StrEffect;
-                        NLG.Say(charIndex,-1,"ÎäÆ÷¸½¼ÓÇ¿»¯ÌØÊâĞ§¹ûÃ¿+1ÉËº¦ÌáÉı2%£¬Ä¿Ç°ÉËº¦"..(StrAdd*2).."%",4,3);
+                        NLG.Say(charIndex,-1,"æ­¦å™¨é™„åŠ å¼ºåŒ–ç‰¹æ®Šæ•ˆæœæ¯+1ä¼¤å®³æå‡2%ï¼Œç›®å‰ä¼¤å®³"..(StrAdd*2).."%",4,3);
                  end
                  print(damage)
                  return damage;
                end
-         elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
-               local Armour0 = Char.GetItemIndex(defCharIndex, 0);                  --Í·
-               local Armour0_Name = Item.GetData(Armour0, CONST.µÀ¾ß_Ãû×Ö);
-               local Armour1 = Char.GetItemIndex(defCharIndex, 1);                  --Éí
-               local Armour0_Name = Item.GetData(Armour1, CONST.µÀ¾ß_Ãû×Ö);
-               local Armour4 = Char.GetItemIndex(defCharIndex, 4);                  --ÍÈ
-               local Armour0_Name = Item.GetData(Armour4, CONST.µÀ¾ß_Ãû×Ö);
+         elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+               local Armour0 = Char.GetItemIndex(defCharIndex, 0);                  --å¤´
+               local Armour0_Name = Item.GetData(Armour0, CONST.é“å…·_åå­—);
+               local Armour1 = Char.GetItemIndex(defCharIndex, 1);                  --èº«
+               local Armour0_Name = Item.GetData(Armour1, CONST.é“å…·_åå­—);
+               local Armour4 = Char.GetItemIndex(defCharIndex, 4);                  --è…¿
+               local Armour0_Name = Item.GetData(Armour4, CONST.é“å…·_åå­—);
 
          else
          end
@@ -57,22 +58,23 @@ function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         if Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
-               local WeaponIndex = Char.GetWeapon(charIndex);                --×óÓÒÊÖ
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
-               local StrPlus = string.find(Weapon_Name, "+");
-               if StrPlus~=nil then
-                 StrAdd = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
-               else
-                 StrAdd = 0;
+         if Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+               local WeaponIndex = Char.GetWeapon(charIndex);                --å·¦å³æ‰‹
+               local Weapon_Name = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
+               local StrAdd = 0;
+               if Weapon_Name~=nil then
+                 local StrPlus = string.find(Weapon_Name, "+");
+                 if StrPlus~=nil then
+                   StrAdd = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
+                 end
                end
                if NLG.Rand(1,4) >= 1 then
                   if techID >= 9500 and techID <= 9509 and StrAdd>= 7 then
                         if option == 'AM:' then
-                              NLG.SystemMessage(charIndex,"¡¾¼¼ÄÜÍşÁ¦¼Ó³É¡¿·¢¶¯£¡");
+                              NLG.SystemMessage(charIndex,"ã€æŠ€èƒ½å¨åŠ›åŠ æˆã€‘å‘åŠ¨ï¼");
                               return val+3;
                         end
                         return val
@@ -81,7 +83,7 @@ function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)
          end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function StrAddEffect:onUnload()
   self:logInfo('unload')
 end
