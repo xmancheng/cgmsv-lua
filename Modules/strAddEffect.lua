@@ -30,11 +30,20 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
                local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
+               local ShieldIndex = Char.GetShield(charIndex);                         --详情底部Fn
+               local Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字);
                local StrAdd = 0;
                if Weapon_Name~=nil then
                  local StrPlus = string.find(Weapon_Name, "+");
                  if StrPlus~=nil then
                    StrAdd = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
+                 end
+               else
+                 if Shield_Name~=nil then
+                   local StrPlus = string.find(Shield_Name, "+");
+                   if StrPlus~=nil then
+                     StrAdd = tonumber(string.sub(Shield_Name, StrPlus+1, -1));
+                   end
                  end
                end
                if ( StrAdd >= 0 ) then
