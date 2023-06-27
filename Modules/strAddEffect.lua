@@ -100,8 +100,8 @@ function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)
                end
                if NLG.Rand(1,4) >= 1 then
                  for k,v in pairs(TechTbl) do
-                  if techID >= v.techID_b and techID <= v.techID_h and StrAdd >= v.StrAdd_b and StrAdd <= v.StrAdd_h  then
-                        if option == v.option then
+                  if techID >= v.techID_b and techID <= v.techID_h  then
+                        if StrAdd >= v.StrAdd_b and StrAdd <= v.StrAdd_h and option == v.option  then
                               NLG.SystemMessage(charIndex,"【技能威力加成】发动！");
                               return val+v.val;
                         end
