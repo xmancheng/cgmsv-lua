@@ -72,3 +72,4 @@ loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
 loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
 loadModule('strAddEffect')|強化效果
+loadModule('setupItemType')|副武器擴充
