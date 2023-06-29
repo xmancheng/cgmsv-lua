@@ -1,66 +1,77 @@
 local Module = ModuleBase:createModule('encountEX')
 
-local ²»ÏûºÄÓÕÄ§Ë® = false--ÏûºÄµÀ¾ß¿ª¹Ø
-local ²»ÏûºÄÇıÄ§Ë® = false--ÏûºÄµÀ¾ß¿ª¹Ø
-local ymxs = 900498--ÓÕÄ§ÏãË®
-local qmxs = 900497--ÇıÄ§ÏãË®
-local hmxs = 900500--Âú¹ÖÏãË®
-FullMon_control = {}
-for full = 0,5 do
-	FullMon_control[full] = {}
-	FullMon_control[full] = false  --³õÊ¼»¯Âú¹Ö¿ª¹Ø
-end
+local ä¸æ¶ˆè€—è¯±é­”æ°´ = false--æ¶ˆè€—é“å…·å¼€å…³
+local ä¸æ¶ˆè€—é©±é­”æ°´ = false--æ¶ˆè€—é“å…·å¼€å…³
+local ymxs = 900498--è¯±é­”é¦™æ°´
+local qmxs = 900497--é©±é­”é¦™æ°´
+local hmxs = 900500--æ»¡æ€ªé¦™æ°´
+
+local EnemyTbl = {}
 
 function Module:battleStartEventCallback(battleIndex)
 	for i=10, 19 do
 		local enemy = Battle.GetPlayIndex(battleIndex, i)
 		local player = Battle.GetPlayIndex(battleIndex, 0)
 		local playerpet = Battle.GetPlayer(battleIndex, 5)
-		if Char.GetData(player, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if Char.GetData(player, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			player = player
 		else
 			player = playerpet
 		end
 		local hmxsnum = Char.ItemNum(player,hmxs)
-		if enemy>=0 and hmxsnum >= 1 and Char.GetData(enemy, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_¹Ö and Char.GetData(enemy,CONST.¶ÔÏó_Õ½¶·×´Ì¬) ~= CONST.Õ½¶·_BOSSÕ½ then
+		if enemy>=0 and hmxsnum >= 1 and Char.GetData(enemy, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_æ€ª and Char.GetData(enemy,CONST.å¯¹è±¡_æˆ˜æ–—çŠ¶æ€) ~= CONST.æˆ˜æ–—_BOSSæˆ˜ then
 			local enemyId = Char.GetData(enemy, CONST.CHAR_ENEMY_ID);
-			local enemyLv = Char.GetData(enemy,CONST.CHAR_µÈ¼¶);
+			local enemyLv = Char.GetData(enemy,CONST.CHAR_ç­‰çº§);
 			--local enemyIndex = Data.EnemyGetDataIndex(enemyId)
-			--local enemylow = Data.EnemyGetData(enemyIndex, CONST.Enemy_×îµÍÊıÁ¿)
-			--local enemyhigh = Data.EnemyGetData(enemyIndex, CONST.Enemy_×î¸ßÊıÁ¿)
+			--local enemylow = Data.EnemyGetData(enemyIndex, CONST.Enemy_æœ€ä½æ•°é‡)
+			--local enemyhigh = Data.EnemyGetData(enemyIndex, CONST.Enemy_æœ€é«˜æ•°é‡)
 			--print(enemyId,enemyIndex,enemylow,enemyhigh)
-			EnemyIdAr = {enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId}
-			BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
-			FullMon_control[player] = true;
+			local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+			local EnemyIdAr = {enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId}
+			local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
+			table.insert(EnemyTbl[cdk],EnemyIdAr);
+			table.insert(EnemyTbl[cdk],BaseLevelAr);
 		end
 	end
 end
 
 function Module:LoginGateEvent(player)
-	Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,0);
-	Char.SetData(player,%¶ÔÏó_ÏãÉÏÏŞ%,0);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+	Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,0);
+	Char.SetData(player,%å¯¹è±¡_é¦™ä¸Šé™%,0);
 	Char.SetLoopEvent(nil,'ymloop',player,0);
-	Char.SetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%,0);
+	Char.SetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%,0);
 	Char.SetLoopEvent(nil,'qmloop',player,0);
 	NLG.UpChar(player);
-	FullMon_control[player] = false;
-	EnemyIdAr = {}
-	BaseLevelAr = {}
-	NLG.SystemMessage(player,"×Ô¶¯ÓöµĞ¡¢²»ÓöµĞ¡¢M¹Ö¹Ø±ÕÁË£¡");
+	if EnemyTbl[cdk] ~= nill then
+		for i,v in ipairs(EnemyTbl[cdk]) do
+			if ( cdk==v )then
+				table.remove(EnemyTbl[cdk],i);
+				EnemyTbl[cdk] = {};
+			end
+		end
+	end
+	NLG.SystemMessage(player,"è‡ªåŠ¨é‡æ•Œã€ä¸é‡æ•Œã€æ»¿æ€ªå…³é—­äº†ï¼");
   return 0;
 end
 
 function Module:LogoutEvent(player)
-	Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,0);
-	Char.SetData(player,%¶ÔÏó_ÏãÉÏÏŞ%,0);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+	Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,0);
+	Char.SetData(player,%å¯¹è±¡_é¦™ä¸Šé™%,0);
 	Char.SetLoopEvent(nil,'ymloop',player,0);
-	Char.SetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%,0);
+	Char.SetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%,0);
 	Char.SetLoopEvent(nil,'qmloop',player,0);
 	NLG.UpChar(player);
-	FullMon_control[player] = false;
-	EnemyIdAr = {}
-	BaseLevelAr = {}
-	NLG.SystemMessage(player,"×Ô¶¯ÓöµĞ¡¢²»ÓöµĞ¡¢M¹Ö¹Ø±ÕÁË£¡");
+	if EnemyTbl[cdk] ~= nill then
+		for i,v in ipairs(EnemyTbl[cdk]) do
+			if ( cdk==v )then
+				table.remove(EnemyTbl[cdk],i);
+				EnemyTbl[cdk] = {};
+			end
+		end
+	end
+	NLG.SystemMessage(player,"è‡ªåŠ¨é‡æ•Œã€ä¸é‡æ•Œã€æ»¿æ€ªå…³é—­äº†ï¼");
   return 0;
 end
 
@@ -71,52 +82,56 @@ function Module:onLoad()
 	self:regCallback('LogoutEvent', Func.bind(self.LogoutEvent, self))
 	self:regCallback('LoopEvent', Func.bind(self.ymloop,self))
 	self:regCallback('ymloop',function(player)
-	local playeryd = Char.GetData(player,%¶ÔÏó_Õ½¶·ÖĞ%) == 0
+	local playeryd = Char.GetData(player,%å¯¹è±¡_æˆ˜æ–—ä¸­%) == 0
 	local ymxsnum = Char.ItemNum(player,ymxs)
-	local ymbs = Char.GetData(player,%¶ÔÏó_Ïã²½Êı%)
+	local ymbs = Char.GetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%)
 	local hmxsnum = Char.ItemNum(player,hmxs)
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	if playeryd then
-		if ²»ÏûºÄÓÕÄ§Ë® then
+		if ä¸æ¶ˆè€—è¯±é­”æ°´ then
 			Battle.Encount(player, player);
 		else
-			if ymbs > 979 then--ĞŞ¸ÄÓÕÄ§Ë®³ÖĞø²½Êı
-				Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,ymbs-1);
+			if ymbs > 979 then--ä¿®æ”¹è¯±é­”æ°´æŒç»­æ­¥æ•°
+				Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,ymbs-1);
 				NLG.UpChar(player);
-				if FullMon_control[player] == false then
+				if cdk == EnemyTbl[cdk][1] and EnemyTbl[cdk][2] == nill then
 					Battle.Encount(player, player);
-				elseif FullMon_control[player] == true and hmxsnum > 1 then
+				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 then
 					Char.DelItem(player,hmxs,1);
-					Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
-				elseif FullMon_control[player] == true and hmxsnum == 1 then
- 					FullMon_control[player] = false;
+					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 then
 					Char.DelItem(player,hmxs,1);
-					Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
-					EnemyIdAr = {}
-					BaseLevelAr = {}
+					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					for i,v in ipairs(EnemyTbl[cdk]) do
+						if ( cdk==v )then
+							table.remove(EnemyTbl[cdk],i);
+							EnemyTbl[cdk] = {};
+						end
+					end
 				else
 					Battle.Encount(player, player);
 				end
-				NLG.SystemMessage(player,'×Ô¶¯ÓöµĞÊ£Óà'..(ymbs-980)..'²½')
+				NLG.SystemMessage(player,'è‡ªåŠ¨é‡æ•Œå‰©ä½™'..(ymbs-980)..'æ­¥')
 			else
 				if ymxsnum > 1 then
-					Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,998);
+					Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,998);
 					Char.DelItem(player,ymxs,1);
 					Item.UpItem(player,-1);
 					NLG.UpChar(player);
-					NLG.SystemMessage(player,'ÏûºÄÒ»¸ö¹ÖÎï±ı¸É£¬×Ô¶¯ÓöµĞ¼ÌĞø£¬»¹ÓĞ'..(ymxsnum-1)..'¸ö¹ÖÎï±ı¸É¡£');
+					NLG.SystemMessage(player,'æ¶ˆè€—ä¸€ä¸ªæ€ªç‰©é¥¼å¹²ï¼Œè‡ªåŠ¨é‡æ•Œç»§ç»­ï¼Œè¿˜æœ‰'..(ymxsnum-1)..'ä¸ªæ€ªç‰©é¥¼å¹²ã€‚');
 					Battle.Encount(player, player);
 				elseif ymxsnum == 1 then
-					Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,998);
+					Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,998);
 					Char.DelItem(player,ymxs,1);
 					Item.UpItem(player,-1);
 					NLG.UpChar(player);
-					NLG.SystemMessage(player,'×Ô¶¯ÓöµĞ×îºóÒ»´ÎÉúĞ§,Çë¼°Ê±²¹³ä¹ÖÎï±ı¸É£¡');
+					NLG.SystemMessage(player,'è‡ªåŠ¨é‡æ•Œæœ€åä¸€æ¬¡ç”Ÿæ•ˆ,è¯·åŠæ—¶è¡¥å……æ€ªç‰©é¥¼å¹²ï¼');
 					Battle.Encount(player, player);
 				else
-					Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,0);
-					Char.SetData(player,%¶ÔÏó_ÏãÉÏÏŞ%,0);
+					Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,0);
+					Char.SetData(player,%å¯¹è±¡_é¦™ä¸Šé™%,0);
 					Char.SetLoopEvent(nil,'ymloop',player,0);
-					NLG.SystemMessage(player,'¹ÖÎï±ı¸ÉÏûºÄ´ù¾¡£¬×Ô¶¯ÓöµĞ¹Ø±Õ£¡')
+					NLG.SystemMessage(player,'æ€ªç‰©é¥¼å¹²æ¶ˆè€—æ®†å°½ï¼Œè‡ªåŠ¨é‡æ•Œå…³é—­ï¼')
 				end
 			end
 		end
@@ -128,69 +143,79 @@ function Module:onLoad()
 	if qmxsnum > 1 then
 		Char.DelItem(player,qmxs,1);
 		Item.UpItem(player, -1);
-		NLG.SystemMessage(player,'ÏûºÄÒ»Æ¿´óËâÓÍ£¬²»ÓöµĞ¼ÌĞø£¬»¹ÓĞ'..(qmxsnum-1)..'Æ¿´óËâÓÍ¡£');
+		NLG.SystemMessage(player,'æ¶ˆè€—ä¸€ç“¶å¤§è’œæ²¹ï¼Œä¸é‡æ•Œç»§ç»­ï¼Œè¿˜æœ‰'..(qmxsnum-1)..'ç“¶å¤§è’œæ²¹ã€‚');
 	elseif qmxsnum == 1 then
 		Char.DelItem(player,qmxs,1);
 		Item.UpItem(player,-1);
-		NLG.SystemMessage(player,'²»ÓöµĞ×îºóÒ»´ÎÉúĞ§,Çë¼°Ê±²¹³ä´óËâÓÍ£¡');
+		NLG.SystemMessage(player,'ä¸é‡æ•Œæœ€åä¸€æ¬¡ç”Ÿæ•ˆ,è¯·åŠæ—¶è¡¥å……å¤§è’œæ²¹ï¼');
 	else
-		Char.SetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%,0);
+		Char.SetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%,0);
 		Char.SetLoopEvent(nil,'qmloop',player,0);
 		NLG.UpChar(player);
-		NLG.SystemMessage(player,'´óËâÓÍÏûºÄ´ù¾¡£¬²»ÓöµĞ¹Ø±Õ£¡')
+		NLG.SystemMessage(player,'å¤§è’œæ²¹æ¶ˆè€—æ®†å°½ï¼Œä¸é‡æ•Œå…³é—­ï¼')
 	end
 	end)
 	self:regCallback('TalkEvent', function(player, msg)
 	local ymxsnum = Char.ItemNum(player,ymxs)
 	local qmxsnum = Char.ItemNum(player,qmxs)
-	if (msg == "/1" or msg == "¡¢1") then
-		FullMon_control[player] = false;
-		EnemyIdAr = {}
-		BaseLevelAr = {}
-		if Char.GetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%) == 1 then
-			NLG.SystemMessage(player,"ÄãÕıÔÚÊ¹ÓÃ´óËâÓÍ£¬ÎŞ·¨Ê¹ÓÃ×Ô¶¯ÓöµĞ");
-		elseif Char.GetData(player,%¶ÔÏó_Ïã²½Êı%) > 0 then
-			Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,0);
-			Char.SetData(player,%¶ÔÏó_ÏãÉÏÏŞ%,0);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+	if (msg == "/1" or msg == "ã€1") then
+		if EnemyTbl[cdk] == nill then
+			EnemyTbl[cdk] = {}
+			table.insert(EnemyTbl[cdk],cdk);
+		else
+			for i,v in ipairs(EnemyTbl[cdk]) do
+				if ( cdk==v )then
+					table.remove(EnemyTbl[cdk],i);
+					EnemyTbl[cdk] = {};
+				end
+			end
+			table.insert(EnemyTbl[cdk],cdk);
+		end
+		if Char.GetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%) == 1 then
+			NLG.SystemMessage(player,"ä½ æ­£åœ¨ä½¿ç”¨å¤§è’œæ²¹ï¼Œæ— æ³•ä½¿ç”¨è‡ªåŠ¨é‡æ•Œ");
+		elseif Char.GetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%) > 0 then
+			Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,0);
+			Char.SetData(player,%å¯¹è±¡_é¦™ä¸Šé™%,0);
 			Char.SetLoopEvent(nil,'ymloop',player,0);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"×Ô¶¯ÓöµĞ¹Ø±ÕÁË£¡");
-		elseif ²»ÏûºÄÓÕÄ§Ë® then
-			Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,999);
-			Char.SetData(player,%¶ÔÏó_ÏãÉÏÏŞ%,999);
+			NLG.SystemMessage(player,"è‡ªåŠ¨é‡æ•Œå…³é—­äº†ï¼");
+		elseif ä¸æ¶ˆè€—è¯±é­”æ°´ then
+			Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,999);
+			Char.SetData(player,%å¯¹è±¡_é¦™ä¸Šé™%,999);
 			Char.SetLoopEvent(nil,'ymloop',player,5000);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"×Ô¶¯ÓöµĞ¿ªÊ¼ÁË£¬Ã¿5Ãë³¢ÊÔÒ»´Î¡£");
-		elseif not ²»ÏûºÄÓÕÄ§Ë® and ymxsnum > 0 then
-			Char.SetData(player,%¶ÔÏó_Ïã²½Êı%,999);
-			Char.SetData(player,%¶ÔÏó_ÏãÉÏÏŞ%,999);
+			NLG.SystemMessage(player,"è‡ªåŠ¨é‡æ•Œå¼€å§‹äº†ï¼Œæ¯5ç§’å°è¯•ä¸€æ¬¡ã€‚");
+		elseif not ä¸æ¶ˆè€—è¯±é­”æ°´ and ymxsnum > 0 then
+			Char.SetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%,999);
+			Char.SetData(player,%å¯¹è±¡_é¦™ä¸Šé™%,999);
 			Char.SetLoopEvent(nil,'ymloop',player,5000);
 			Char.DelItem(player,ymxs,1);
 			Item.UpItem(player,-1);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"×Ô¶¯ÓöµĞ¿ªÊ¼ÁË£¬Ã¿5Ãë³¢ÊÔÒ»´Î¡£");
-		elseif not ²»ÏûºÄÓÕÄ§Ë® and ymxsnum == 0 then
-			NLG.SystemMessage(player,'È±ÉÙ¹ÖÎï±ı¸É£¬×Ô¶¯ÓöµĞÎŞ·¨¿ªÆô£¡');
+			NLG.SystemMessage(player,"è‡ªåŠ¨é‡æ•Œå¼€å§‹äº†ï¼Œæ¯5ç§’å°è¯•ä¸€æ¬¡ã€‚");
+		elseif not ä¸æ¶ˆè€—è¯±é­”æ°´ and ymxsnum == 0 then
+			NLG.SystemMessage(player,'ç¼ºå°‘æ€ªç‰©é¥¼å¹²ï¼Œè‡ªåŠ¨é‡æ•Œæ— æ³•å¼€å¯ï¼');
 		end
-	elseif (msg == "/2" or msg == "¡¢2") then
-		if Char.GetData(player,%¶ÔÏó_Ïã²½Êı%)>0 then
-			NLG.SystemMessage(player,"ÄãÕıÔÚÊ¹ÓÃ²½²½ÓöµĞ£¬ÎŞ·¨Ê¹ÓÃ´óËâÓÍ£¡");
-		elseif Char.GetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%)==1 then
-			Char.SetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%,0);
+	elseif (msg == "/2" or msg == "ã€2") then
+		if Char.GetData(player,%å¯¹è±¡_é¦™æ­¥æ•°%)>0 then
+			NLG.SystemMessage(player,"ä½ æ­£åœ¨ä½¿ç”¨æ­¥æ­¥é‡æ•Œï¼Œæ— æ³•ä½¿ç”¨å¤§è’œæ²¹ï¼");
+		elseif Char.GetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%)==1 then
+			Char.SetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%,0);
 			Char.SetLoopEvent(nil,'qmloop',player,0);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"²»ÓöµĞ¹¦ÄÜ¹Ø±Õ£¡");
-		elseif ²»ÏûºÄÇıÄ§Ë® then
-			Char.SetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%,1);
+			NLG.SystemMessage(player,"ä¸é‡æ•ŒåŠŸèƒ½å…³é—­ï¼");
+		elseif ä¸æ¶ˆè€—é©±é­”æ°´ then
+			Char.SetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%,1);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"²»ÓöµĞÒÑ¾­¿ªÆô£¡");
-		elseif not ²»ÏûºÄÇıÄ§Ë® and qmxsnum > 0 then
-			Char.SetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%,1);
-			Char.SetLoopEvent(nil,'qmloop',player,120000);--ĞŞ¸ÄÇıÄ§Ë®³ÖĞøÊ±¼ä£¬µ¥Î»ºÁÃë
+			NLG.SystemMessage(player,"ä¸é‡æ•Œå·²ç»å¼€å¯ï¼");
+		elseif not ä¸æ¶ˆè€—é©±é­”æ°´ and qmxsnum > 0 then
+			Char.SetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%,1);
+			Char.SetLoopEvent(nil,'qmloop',player,120000);--ä¿®æ”¹é©±é­”æ°´æŒç»­æ—¶é—´ï¼Œå•ä½æ¯«ç§’
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"²»ÓöµĞÒÑ¾­¿ªÆô£¡");
-		elseif not ²»ÏûºÄÇıÄ§Ë® and qmxsnum == 0 then
-			NLG.SystemMessage(player,'È±ÉÙ´óËâÓÍ£¬²»ÓöµĞÎŞ·¨¿ªÆô£¡');
+			NLG.SystemMessage(player,"ä¸é‡æ•Œå·²ç»å¼€å¯ï¼");
+		elseif not ä¸æ¶ˆè€—é©±é­”æ°´ and qmxsnum == 0 then
+			NLG.SystemMessage(player,'ç¼ºå°‘å¤§è’œæ²¹ï¼Œä¸é‡æ•Œæ— æ³•å¼€å¯ï¼');
 		end
 	end
 	end)
