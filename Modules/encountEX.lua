@@ -27,10 +27,12 @@ function Module:battleStartEventCallback(battleIndex)
 			--local enemyhigh = Data.EnemyGetData(enemyIndex, CONST.Enemy_最高数量)
 			--print(enemyId,enemyIndex,enemylow,enemyhigh)
 			local cdk = Char.GetData(player,CONST.对象_CDK);
-			local EnemyIdAr = {enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId}
-			local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
-			table.insert(EnemyTbl[cdk],EnemyIdAr);
-			table.insert(EnemyTbl[cdk],BaseLevelAr);
+			if EnemyTbl[cdk][1] ~= nill then
+				local EnemyIdAr = {enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId}
+				local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
+				table.insert(EnemyTbl[cdk],EnemyIdAr);
+				table.insert(EnemyTbl[cdk],BaseLevelAr);
+			end
 		end
 	end
 end
