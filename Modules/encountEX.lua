@@ -5,6 +5,7 @@ local 不消耗驱魔水 = false--消耗道具开关
 local ymxs = 900498--诱魔香水
 local qmxs = 900497--驱魔香水
 local hmxs = 900500--满怪香水
+local gmxs = 900501--黄金喷雾
 
 local EnemyTbl = {}
 
@@ -19,14 +20,23 @@ function Module:battleStartEventCallback(battleIndex)
 			player = playerpet
 		end
 		local hmxsnum = Char.ItemNum(player,hmxs)
-		if enemy>=0 and hmxsnum >= 1 and Char.GetData(enemy, CONST.CHAR_类型) == CONST.对象类型_怪 and Char.GetData(enemy,CONST.对象_战斗状态) ~= CONST.战斗_BOSS战 then
+		local gmxsnum = Char.ItemNum(player,gmxs)
+		if enemy>=0 and hmxsnum >= 1 and gmxsnum == 0 and Char.GetData(enemy, CONST.CHAR_类型) == CONST.对象类型_怪 and Char.GetData(enemy,CONST.对象_战斗状态) ~= CONST.战斗_BOSS战 then
 			local enemyId = Char.GetData(enemy, CONST.CHAR_ENEMY_ID);
 			local enemyLv = Char.GetData(enemy,CONST.CHAR_等级);
 			--local enemyIndex = Data.EnemyGetDataIndex(enemyId)
-			--local enemylow = Data.EnemyGetData(enemyIndex, CONST.Enemy_最低数量)
-			--local enemyhigh = Data.EnemyGetData(enemyIndex, CONST.Enemy_最高数量)
-			--print(enemyId,enemyIndex,enemylow,enemyhigh)
 			local cdk = Char.GetData(player,CONST.对象_CDK);
+			if EnemyTbl[cdk] ~= nill then
+				local EnemyIdAr = {enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId}
+				local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
+				table.insert(EnemyTbl[cdk],EnemyIdAr);
+				table.insert(EnemyTbl[cdk],BaseLevelAr);
+			end
+		elseif enemy>=0 and hmxsnum >= 1 and gmxsnum >= 1 and Char.GetData(enemy, CONST.CHAR_类型) == CONST.对象类型_怪 and Char.GetData(enemy,CONST.对象_战斗状态) ~= CONST.战斗_BOSS战 then
+			local enemyId = Char.GetData(enemy, CONST.CHAR_ENEMY_ID);
+			local enemyLv = Char.GetData(enemy,CONST.CHAR_等级);
+			local cdk = Char.GetData(player,CONST.对象_CDK);
+			local enemyLv = enemyLv+5;
 			if EnemyTbl[cdk] ~= nill then
 				local EnemyIdAr = {enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId, enemyId}
 				local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
@@ -88,6 +98,7 @@ function Module:onLoad()
 	local ymxsnum = Char.ItemNum(player,ymxs)
 	local ymbs = Char.GetData(player,%对象_香步数%)
 	local hmxsnum = Char.ItemNum(player,hmxs)
+	local gmxsnum = Char.ItemNum(player,gmxs)
 	local cdk = Char.GetData(player,CONST.对象_CDK);
 	if playeryd then
 		if 不消耗诱魔水 then
@@ -98,11 +109,25 @@ function Module:onLoad()
 				NLG.UpChar(player);
 				if cdk == EnemyTbl[cdk][1] and EnemyTbl[cdk][2] == nill then
 					Battle.Encount(player, player);
-				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 then
+				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum == 0 then          --满怪香水
 					Char.DelItem(player,hmxs,1);
 					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
-				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 then
+				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum > 1 then             --满怪香水&黄金喷雾
 					Char.DelItem(player,hmxs,1);
+					Char.DelItem(player,gmxs,1);
+					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 and gmxsnum == 0 then       --满怪香水
+					Char.DelItem(player,hmxs,1);
+					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					for i,v in ipairs(EnemyTbl[cdk]) do
+						if ( cdk==v )then
+							table.remove(EnemyTbl[cdk],i);
+							EnemyTbl[cdk] = {};
+						end
+					end
+				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 and gmxsnum >= 1 then         --满怪香水&黄金喷雾
+					Char.DelItem(player,hmxs,1);
+					Char.DelItem(player,gmxs,1);
 					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					for i,v in ipairs(EnemyTbl[cdk]) do
 						if ( cdk==v )then
