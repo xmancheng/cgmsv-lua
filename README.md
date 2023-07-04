@@ -59,8 +59,8 @@ useModule('DailyScript');|曜日副本
 ## 新框架Modules
 模組加載代碼 | 說明 
 --- | --- 
-loadModule('uniShop')|鏡像擺攤
-loadModule('autoRanking')|自助天梯
+loadModule('uniShop')|鏡像擺攤(未完善)
+loadModule('autoRanking')|自助天梯(未完善)
 loadModule('ybPetSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化
 loadModule('attackSkill')|抓寵刀背攻擊、法術附加狀態、合擊狀態增傷
