@@ -115,7 +115,9 @@ function featuresLuac:onLoad()
 				Pet.UpPet(player,petIndex);
 			end
 			NLG.SystemMessage(player, '寵物隨機升級成為-'..a6..'檔次！體-'..a1..'力-'..a2..'強-'..a3..'敏-'..a4..'魔-'..a5..');
-		elseif petIndex > 0 then
+		elseif petIndex > 0 and Char.GetPetRank(player,0)<=5 then
+			NLG.SystemMessage(player, '銀冠徽章只能用在-6至-10檔的寵物！');
+		elseif petIndex > 0 and Char.GetPetRank(player,0)>10 then
 			NLG.SystemMessage(player, '銀冠徽章只能用在-6至-10檔的寵物！');
 		end
 	end
