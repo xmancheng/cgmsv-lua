@@ -73,3 +73,4 @@ loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
 loadModule('strAddEffect')|強化效果
 loadModule('setupItemType')|副武器擴充
+loadModule('quickUI')|動作快捷
