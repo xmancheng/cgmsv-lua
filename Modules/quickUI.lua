@@ -1,5 +1,7 @@
 local QuickUI = ModuleBase:createModule('quickUI')
 
+local PartyMember={}
+
 function QuickUI:shortcut(player, actionID)
   if actionID == %动作_跑步% then
     self:walkingspeed(self.speedNpc,player);
@@ -7,6 +9,10 @@ function QuickUI:shortcut(player, actionID)
     self:teamfever(self.feverNpc,player);
   elseif actionID == %动作_点头% then
     self:gather(player);
+  elseif actionID == %动作_坐下% then
+    self:partyenter(player);
+  elseif actionID == %动作_招手% then
+    self:partyform(player);
   end
 end
 
@@ -16,20 +22,74 @@ function QuickUI:walkingspeed(npc, player)
 end
 
 function QuickUI:teamfever(npc, player)
-      local msg = "\\n\\n@c【一鍵全隊打卡】\\n\\n非打卡狀態→打卡狀態\\n\\n打卡狀態→非打卡狀態\\n\\n[確定]幫全隊進行打卡、全隊的打卡結束\\n";
+      local msg = "\\n\\n@c【一鍵全隊打卡】\\n\\n非打卡狀態→打卡狀態\\n\\n打卡狀態→非打卡狀態\\n\\n[確定]幫全隊進行打卡|全隊的打卡結束\\n";
       NLG.ShowWindowTalked(player, self.feverNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 2, msg);
 end
 
 function QuickUI:gather(player)
-      local playeMapType = Char.GetData(player, CONST.CHAR_地图类型);
+      local playerMapType = Char.GetData(player, CONST.CHAR_地图类型);
       local playerMap = Char.GetData(player, CONST.CHAR_地图);
       local playerX = Char.GetData(player, CONST.CHAR_X);
       local playerY = Char.GetData(player, CONST.CHAR_Y);
-      for slot = 1,4 do
-          local p = Char.GetPartyMember(player,slot)
-          if(p>=0) then
-                Char.Warp(p, playeMapType, playerMap, playerX, playerY);
-          end
+      if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+            for slot = 1,4 do
+                local p = Char.GetPartyMember(player,slot)
+                if(p>=0) then
+                      Char.Warp(p, playerMapType, playerMap, playerX, playerY);
+                end
+            end
+      else
+            NLG.SystemMessage(player, '隊長才可使用！');
+      end
+end
+
+function QuickUI:partyenter(player)
+      local cdk = Char.GetData(player,CONST.对象_CDK);
+      local playerMapType = Char.GetData(player, CONST.CHAR_地图类型);
+      local playerMap = Char.GetData(player, CONST.CHAR_地图);
+      local playerX = Char.GetData(player, CONST.CHAR_X);
+      local playerY = Char.GetData(player, CONST.CHAR_Y);
+      if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+             PartyMember[cdk] = {}
+             for partySlot = 0,4 do 
+                    local targetcharIndex = Char.GetPartyMember(player,partySlot);
+                    if targetcharIndex >= 0  then
+                          table.insert(PartyMember[cdk], partySlot+1, targetcharIndex);
+                    else
+                          table.insert(PartyMember[cdk], partySlot+1, -1);
+                    end
+             end
+             table.insert(PartyMember[cdk],cdk);
+             NLG.SystemMessage(player, '隊伍成員紀錄完畢！');
+      else
+            NLG.SystemMessage(player, '隊長才可使用！');
+      end
+end
+
+function QuickUI:partyform(player)
+      local cdk = Char.GetData(player,CONST.对象_CDK);
+      local playerMapType = Char.GetData(player, CONST.CHAR_地图类型);
+      local playerMap = Char.GetData(player, CONST.CHAR_地图);
+      local playerX = Char.GetData(player, CONST.CHAR_X);
+      local playerY = Char.GetData(player, CONST.CHAR_Y);
+      if PartyMember[cdk] ~= nill and cdk == PartyMember[cdk][6] then
+            if Char.PartyNum(player) == -1 then
+                  for i,v in ipairs(PartyMember[cdk]) do
+                        local memberMap = Char.GetData(v, CONST.CHAR_地图);
+                        local memberX = Char.GetData(v, CONST.CHAR_X);
+                        local memberY = Char.GetData(v, CONST.CHAR_Y);
+                        if i<=5 and v>-1 and v~=player and memberMap == playerMap then
+                              if memberX >= playerX-5 and memberX <= playerX+5 and memberY>= playerY-5 and memberY<= playerY+5 then
+                                    Char.Warp(v, playerMapType, playerMap, playerX, playerY);
+                                    Char.JoinParty(v, player);
+                              else
+                                    NLG.SystemMessage(player, '有隊員距離過遠入隊失敗！');
+                              end
+                        end
+                  end
+            end
+      else
+            NLG.SystemMessage(player, '請先記錄或覆寫隊伍成員！');
       end
 end
 
