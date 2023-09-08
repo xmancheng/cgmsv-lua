@@ -201,10 +201,10 @@ function QuickUI:onLoad()
     local data = tonumber(_data)
     if select > 0 then
       if seqno == 3 and select == CONST.按钮_确定 then
-        local gold = Char.GetData(player, CONST.CHAR_金币);
-        local totalGold = 0;
-        local FpGold = 0;
-        local LpGold = 0;
+        gold = Char.GetData(player, CONST.CHAR_金币);
+        totalGold = 0;
+        FpGold = 0;
+        LpGold = 0;
         --計算回復總金額
         for slot = 0,4 do
           local p = Char.GetPartyMember(player,slot)
@@ -227,7 +227,10 @@ function QuickUI:onLoad()
         else
           totalGold = FpGold + LpGold - FpGold*0.5;
         end
-        --人物寵物補血魔
+        local msg = "\\n\\n@c全隊回復需要花費"..totalGold.."個金幣\\n\\n現有金錢是"..gold.."個金幣\\n\\n\\n要回復嗎？\\n";
+        NLG.ShowWindowTalked(player, self.healNpc, CONST.窗口_信息框, CONST.按钮_是否, 31, msg);
+      --人物寵物補血魔
+      elseif seqno == 31 and select == CONST.按钮_是 then
         if gold < totalGold then
                 NLG.SystemMessage(player, '金幣不足無法回復');
                 return
