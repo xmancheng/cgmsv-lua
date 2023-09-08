@@ -75,7 +75,7 @@ function featuresLuac:onLoad()
 				Char.SetData(petIndex,CONST.CHAR_魔法, (Char.GetData(petIndex,CONST.CHAR_魔法) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
 				Pet.UpPet(player,petIndex);
 			end
-			NLG.SystemMessage(player, '寵物隨機升級成為-'..a6..'檔次！體-'..a1..'力-'..a2..'強-'..a3..'敏-'..a4..'魔-'..a5..'');
+			NLG.SystemMessage(player, '寵物隨機升級成為-'..a6..'檔次！體-'..a1..'力-'..a2..'強-'..a3..'速-'..a4..'魔-'..a5..'');
 		elseif petIndex > 0 and Char.GetPetRank(player,0)>5 then
 			NLG.SystemMessage(player, '金冠徽章只能用在-5檔以下的寵物！');
 		end
@@ -114,7 +114,7 @@ function featuresLuac:onLoad()
 				Char.SetData(petIndex,CONST.CHAR_魔法, (Char.GetData(petIndex,CONST.CHAR_魔法) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
 				Pet.UpPet(player,petIndex);
 			end
-			NLG.SystemMessage(player, '寵物隨機升級成為-'..a6..'檔次！體-'..a1..'力-'..a2..'強-'..a3..'敏-'..a4..'魔-'..a5..'');
+			NLG.SystemMessage(player, '寵物隨機升級成為-'..a6..'檔次！體-'..a1..'力-'..a2..'強-'..a3..'速-'..a4..'魔-'..a5..'');
 		elseif petIndex > 0 then
 			NLG.SystemMessage(player, '銀冠徽章只能用在-6至-10檔的寵物！');
 		end
