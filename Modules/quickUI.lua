@@ -221,41 +221,44 @@ function QuickUI:onLoad()
                 end
           end
         end
-        print(FpGold,LpGold);
+        print(FpGold,LpGold)
         if FpGold*0.5 >= LpGold then
           totalGold = FpGold;
         else
           totalGold = FpGold + LpGold - FpGold*0.5;
         end
-        print(totalGold);
         --人物寵物補血魔
         if gold < totalGold then
                 NLG.SystemMessage(player, '金幣不足無法回復');
                 return
         else
-                for slot = 0,4 do
-                       local p = Char.GetPartyMember(player,slot)
+                if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+                    for slot = 0,4 do
+                       local p = Char.GetPartyMember(player,slot);
                        if(p>=0) then
-                           local maxLp = Char.GetData(p, CONST.CHAR_最大血)
-                           local maxFp = Char.GetData(p, CONST.CHAR_最大魔)
+                           local maxLp = Char.GetData(p, CONST.CHAR_最大血);
+                           local maxFp = Char.GetData(p, CONST.CHAR_最大魔);
                            Char.SetData(p, CONST.CHAR_血, maxLp);
                            Char.SetData(p, CONST.CHAR_魔, maxFp);
                            NLG.UpChar(p);
                            for petSlot  = 0,4 do
                               local petIndex = Char.GetPet(p,petSlot);
                               if petIndex >= 0 then
-                                  local maxLp = Char.GetData(petIndex, CONST.CHAR_最大血)
-                                  local maxFp = Char.GetData(petIndex, CONST.CHAR_最大魔)
+                                  local maxLp = Char.GetData(petIndex, CONST.CHAR_最大血);
+                                  local maxFp = Char.GetData(petIndex, CONST.CHAR_最大魔);
                                   Char.SetData(petIndex, CONST.CHAR_血, maxLp);
                                   Char.SetData(petIndex, CONST.CHAR_魔, maxFp);
                                   Pet.UpPet(p, petIndex);
                               end
                            end
                        end
+                    end
+                    Char.AddGold(player, -totalGold);
+                    NLG.UpChar(player);
+                else
+                    NLG.SystemMessage(player, '隊長才可使用！');
                 end
         end
-        Char.AddGold(player, -totalGold);
-        NLG.UpChar(player);
 
       end
     end
