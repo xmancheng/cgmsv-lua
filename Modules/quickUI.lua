@@ -178,7 +178,7 @@ function QuickUI:onLoad()
                       NLG.SystemMessage(player, name.."打卡成功。");
                 end
           else
-                NLG.SystemMessage(player, "組隊狀態才能用此全隊打卡。");
+                --NLG.SystemMessage(player, "組隊狀態才能用此全隊打卡。");
                 return
           end
         end
@@ -213,19 +213,21 @@ function QuickUI:onLoad()
                 local maxLp = Char.GetData(p, CONST.CHAR_最大血)
                 local fp = Char.GetData(p, CONST.CHAR_魔)
                 local maxFp = Char.GetData(p, CONST.CHAR_最大魔)
-                if fp < maxFp then
+                if fp <= maxFp then
                       FpGold = FpGold + maxFp - fp;
                 end
-                if lp < maxLp then
+                if lp <= maxLp then
                       LpGold = LpGold + maxLp - lp;
                 end
           end
         end
+        print(FpGold,LpGold);
         if FpGold*0.5 >= LpGold then
           totalGold = FpGold;
         else
           totalGold = FpGold + LpGold - FpGold*0.5;
         end
+        print(totalGold);
         --人物寵物補血魔
         if gold < totalGold then
                 NLG.SystemMessage(player, '金幣不足無法回復');
@@ -246,17 +248,15 @@ function QuickUI:onLoad()
                                   local maxFp = Char.GetData(petIndex, CONST.CHAR_最大魔)
                                   Char.SetData(petIndex, CONST.CHAR_血, maxLp);
                                   Char.SetData(petIndex, CONST.CHAR_魔, maxFp);
-                                  Pet.UpPet(player, petIndex);
+                                  Pet.UpPet(p, petIndex);
                               end
                            end
-                       else
-                              NLG.SystemMessage(player, "組隊狀態才能用此全隊回復。");
-                              return
                        end
                 end
         end
         Char.AddGold(player, -totalGold);
         NLG.UpChar(player);
+
       end
     end
   end)
