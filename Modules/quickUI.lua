@@ -115,7 +115,7 @@ function QuickUI:petinfo(player)
             if a6 >= 0 then
                   NLG.SystemMessage(player, '---------------------------------------');
                   NLG.SystemMessage(player, ''..petname..'：總共-'..a6..'檔次！');
-                  NLG.SystemMessage(player, '體'..arr_rank1..'(-'..a1..')力'..arr_rank2..'(-'..a2..')強'..arr_rank3..'(-'..a3..')敏'..arr_rank4..'(-'..a4..')魔'..arr_rank5..'(-'..a5..')');
+                  NLG.SystemMessage(player, '體'..arr_rank1..'(-'..a1..')力'..arr_rank2..'(-'..a2..')強'..arr_rank3..'(-'..a3..')速'..arr_rank4..'(-'..a4..')魔'..arr_rank5..'(-'..a5..')');
             end
       end
       NLG.SystemMessage(player, '---------------------------------------');
