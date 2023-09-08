@@ -15,6 +15,8 @@ function QuickUI:shortcut(player, actionID)
     self:partyenter(player);
   elseif actionID == %动作_招手% then
     self:partyform(player);
+  elseif actionID == %动作_剪刀% then
+    self:petinfo(player);
   end
 end
 
@@ -99,6 +101,26 @@ function QuickUI:partyform(player)
             NLG.SystemMessage(player, '請先記錄或覆寫隊伍成員！');
       end
 end
+
+function QuickUI:petinfo(player)
+      for petSlot = 0,4 do
+            local petIndex = Char.GetPet(player, petSlot);
+            local petname = Char.GetData(petIndex, CONST.CHAR_名字);
+            local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_体成);
+            local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_力成);
+            local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_强成);
+            local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_敏成);
+            local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_魔成);
+            local a6, a1, a2, a3, a4, a5 = Char.GetPetRank(player,petSlot);
+            if a6 >= 0 then
+                  NLG.SystemMessage(player, '---------------------------------------');
+                  NLG.SystemMessage(player, ''..petname..'：總共-'..a6..'檔次！');
+                  NLG.SystemMessage(player, '體'..arr_rank1..'(-'..a1..')力'..arr_rank2..'(-'..a2..')強'..arr_rank3..'(-'..a3..')敏'..arr_rank4..'(-'..a4..')魔'..arr_rank5..'(-'..a5..')');
+            end
+            NLG.SystemMessage(player, '---------------------------------------');
+      end
+end
+
 
 function QuickUI:onLoad()
   self:logInfo('load');
@@ -279,6 +301,30 @@ function QuickUI:onLoad()
     end
   end)
 
+end
+
+Char.GetPetRank = function(playerIndex,slot)
+  local petIndex = Char.GetPet(playerIndex, slot);
+  if petIndex >= 0 then
+    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_体成);
+    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_力成);
+    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_强成);
+    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_敏成);
+    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_魔成);
+    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_体成);
+    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_力成);
+    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_强成);
+    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_敏成);
+    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_魔成);
+    local a1 = math.abs(arr_rank11 - arr_rank1);
+    local a2 = math.abs(arr_rank21 - arr_rank2);
+    local a3 = math.abs(arr_rank31 - arr_rank3);
+    local a4 = math.abs(arr_rank41 - arr_rank4);
+    local a5 = math.abs(arr_rank51 - arr_rank5);
+    local a6 = a1 + a2+ a3+ a4+ a5;
+    return a6, a1, a2, a3, a4, a5;
+  end
+  return -1;
 end
 
 function QuickUI:onUnload()
