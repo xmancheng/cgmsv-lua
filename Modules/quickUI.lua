@@ -1,46 +1,61 @@
 local QuickUI = ModuleBase:createModule('quickUI')
 
 function QuickUI:shortcut(player, actionID)
-  if actionID == %¶¯×÷_ÅÜ²½% then
+  if actionID == %åŠ¨ä½œ_è·‘æ­¥% then
     self:walkingspeed(self.speedNpc,player);
-  elseif actionID == %¶¯×÷_¹¥»÷% then
+  elseif actionID == %åŠ¨ä½œ_æ”»å‡»% then
     self:teamfever(self.feverNpc,player);
+  elseif actionID == %åŠ¨ä½œ_ç‚¹å¤´% then
+    self:gather(player);
   end
 end
 
 function QuickUI:walkingspeed(npc, player)
-      local msg = "\\n\\n@c¡¾ÒÆ„Ó¼ÓËÙ¡¿Íê³ÉÈÎ„ÕÖğ²½ÌáÉıÖÁ×î¸ß×ßÂ·ËÙ¶È£¡\\n\\n1.ÍõŒmÕÙ†¾Ê¿ÉwÆ[ËÀÕß½äÖ¸]¡¾120¡¿\\n\\n2.Å®Éñ¿¨ßB[Áùê×Ö®Ëş]¡¾140¡¿\\n";
-      NLG.ShowWindowTalked(player, self.speedNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+      local msg = "\\n\\n@cã€ç§»å‹•åŠ é€Ÿã€‘å®Œæˆä»»å‹™é€æ­¥æå‡è‡³æœ€é«˜èµ°è·¯é€Ÿåº¦ï¼\\n\\n1.ç‹å®®å¬å–šå£«è“‹èŒ²[æ­»è€…æˆ’æŒ‡]ã€120ã€‘\\n\\n2.å¥³ç¥å¡é€£[å…­æ›œä¹‹å¡”]ã€140ã€‘\\n";
+      NLG.ShowWindowTalked(player, self.speedNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
 end
 
 function QuickUI:teamfever(npc, player)
-      local msg = "\\n\\n@c¡¾Ò»æIÈ«ê ´ò¿¨¡¿\\n\\n·Ç´ò¿¨ î‘B¡ú´ò¿¨ î‘B\\n\\n´ò¿¨ î‘B¡ú·Ç´ò¿¨ î‘B\\n\\n[´_¶¨]ÍÈ«ê ßMĞĞ´ò¿¨¡¢È«ê µÄ´ò¿¨½YÊø\\n";
-      NLG.ShowWindowTalked(player, self.feverNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 2, msg);
+      local msg = "\\n\\n@cã€ä¸€éµå…¨éšŠæ‰“å¡ã€‘\\n\\néæ‰“å¡ç‹€æ…‹â†’æ‰“å¡ç‹€æ…‹\\n\\næ‰“å¡ç‹€æ…‹â†’éæ‰“å¡ç‹€æ…‹\\n\\n[ç¢ºå®š]å¹«å…¨éšŠé€²è¡Œæ‰“å¡ã€å…¨éšŠçš„æ‰“å¡çµæŸ\\n";
+      NLG.ShowWindowTalked(player, self.feverNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 2, msg);
+end
+
+function QuickUI:gather(player)
+      local playeMapType = Char.GetData(player, CONST.CHAR_åœ°å›¾ç±»å‹);
+      local playerMap = Char.GetData(player, CONST.CHAR_åœ°å›¾);
+      local playerX = Char.GetData(player, CONST.CHAR_X);
+      local playerY = Char.GetData(player, CONST.CHAR_Y);
+      for slot = 1,4 do
+          local p = Char.GetPartyMember(player,slot)
+          if(p>=0) then
+                Char.Warp(p, playeMapType, playerMap, playerX, playerY);
+          end
+      end
 end
 
 function QuickUI:onLoad()
   self:logInfo('load');
   self:regCallback('CharActionEvent', Func.bind(self.shortcut, self))
-  self.quickUINpc = self:NPC_createNormal('¶¯×÷¿ì½İÍ¼Ê¾', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
+  self.quickUINpc = self:NPC_createNormal('åŠ¨ä½œå¿«æ·å›¾ç¤º', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.quickUINpc, Func.bind(self.shortcut, self))
   self:NPC_regWindowTalkedEvent(self.quickUINpc, Func.bind(self.shortcut, self))
 
-  --ÒÆ„ÓËÙ¶È
-  self.speedNpc = self:NPC_createNormal('ËÙ¶È¿ì½İ', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
+  --ç§»å‹•é€Ÿåº¦
+  self.speedNpc = self:NPC_createNormal('é€Ÿåº¦å¿«æ·', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.speedNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n\\n@c¡¾ÒÆ„Ó¼ÓËÙ¡¿Íê³ÉÈÎ„ÕÖğ²½ÌáÉıÖÁ×î¸ß×ßÂ·ËÙ¶È£¡\\n\\n1.ÍõŒmÕÙ†¾Ê¿ÉwÆ[ËÀÕß½äÖ¸]¡¾120¡¿\\n\\n2.Å®Éñ¿¨ßB[Áùê×Ö®Ëş]¡¾140¡¿\\n";
-      NLG.ShowWindowTalked(player, self.speedNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+      local msg = "\\n\\n@cã€ç§»å‹•åŠ é€Ÿã€‘å®Œæˆä»»å‹™é€æ­¥æå‡è‡³æœ€é«˜èµ°è·¯é€Ÿåº¦ï¼\\n\\n1.ç‹å®®å¬å–šå£«è“‹èŒ²[æ­»è€…æˆ’æŒ‡]ã€120ã€‘\\n\\n2.å¥³ç¥å¡é€£[å…­æ›œä¹‹å¡”]ã€140ã€‘\\n";
+      NLG.ShowWindowTalked(player, self.speedNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.speedNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 1 and select == CONST.°´Å¥_È·¶¨ then
+      if seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
             if Char.EndEvent(player,0) == 1 then
                 local charPtr = Char.GetCharPointer(player)
                 ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 120);   --walkSpeed
@@ -53,7 +68,7 @@ function QuickUI:onLoad()
                 NLG.SetHeadIcon(player,114177);
                 NLG.UpChar(player)
             end
-      elseif seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­ then
                 local charPtr = Char.GetCharPointer(player)
                 ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 100);   --walkSpeed
                 NLG.SetHeadIcon(player,1);
@@ -61,42 +76,42 @@ function QuickUI:onLoad()
       end
     end
   end)
-  --È«ê ´ò¿¨
-  self.feverNpc = self:NPC_createNormal('´ò¿¨¿ì½İ', 98972, { x = 38, y = 37, mapType = 0, map = 777, direction = 6 });
+  --å…¨éšŠæ‰“å¡
+  self.feverNpc = self:NPC_createNormal('æ‰“å¡å¿«æ·', 98972, { x = 38, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.feverNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n\\n@c¡¾Ò»æIÈ«ê ´ò¿¨¡¿\\n\\n·Ç´ò¿¨ î‘B¡ú´ò¿¨ î‘B\\n\\n´ò¿¨ î‘B¡ú·Ç´ò¿¨ î‘B\\n\\n[´_¶¨]ÍÈ«ê ßMĞĞ´ò¿¨¡¢È«ê µÄ´ò¿¨½YÊø\\n";
-      NLG.ShowWindowTalked(player, self.feverNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 2, msg);
+      local msg = "\\n\\n@cã€ä¸€éµå…¨éšŠæ‰“å¡ã€‘\\n\\néæ‰“å¡ç‹€æ…‹â†’æ‰“å¡ç‹€æ…‹\\n\\næ‰“å¡ç‹€æ…‹â†’éæ‰“å¡ç‹€æ…‹\\n\\n[ç¢ºå®š]å¹«å…¨éšŠé€²è¡Œæ‰“å¡ã€å…¨éšŠçš„æ‰“å¡çµæŸ\\n";
+      NLG.ShowWindowTalked(player, self.feverNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 2, msg);
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.feverNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 2 and select == CONST.°´Å¥_È·¶¨ then
+      if seqno == 2 and select == CONST.æŒ‰é’®_ç¡®å®š then
         for slot = 0,4 do
           local p = Char.GetPartyMember(player,slot)
           if(p>=0) then
                 local daka = Char.GetData(p, 4008);
-                local name = Char.GetData(p,CONST.CHAR_Ãû×Ö);
+                local name = Char.GetData(p,CONST.CHAR_åå­—);
                 if daka == 1 then
                       Char.FeverStop(p);
                       NLG.UpChar(p);
-                      NLG.SystemMessage(player, name.."êPé]´ò¿¨¡£");
+                      NLG.SystemMessage(player, name.."é—œé–‰æ‰“å¡ã€‚");
                 end
                 if daka == 0 then
                       if Char.IsDummy(p) then
-                          Char.SetData(p, CONST.CHAR_¿¨Ê±, 24 * 3600);
+                          Char.SetData(p, CONST.CHAR_å¡æ—¶, 24 * 3600);
                       end
                       Char.FeverStart(p);
                       NLG.UpChar(p);
-                      NLG.SystemMessage(player, name.."´ò¿¨³É¹¦¡£");
+                      NLG.SystemMessage(player, name.."æ‰“å¡æˆåŠŸã€‚");
                 end
           else
-                NLG.SystemMessage(player, "½Mê  î‘B²ÅÄÜÓÃ´ËÈ«ê ´ò¿¨¡£");
+                NLG.SystemMessage(player, "çµ„éšŠç‹€æ…‹æ‰èƒ½ç”¨æ­¤å…¨éšŠæ‰“å¡ã€‚");
                 return
           end
         end
