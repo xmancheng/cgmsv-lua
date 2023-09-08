@@ -19,7 +19,7 @@ function QuickUI:shortcut(player, actionID)
 end
 
 function QuickUI:walkingspeed(npc, player)
-      local msg = "\\n\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【120】\\n\\n2.女神卡連[六曜之塔]【140】\\n";
+      local msg = "\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【130】\\n\\n2.女神卡連[六曜之塔]【150】\\n\\n3.受傷的女人[森羅萬象]【170】\\n\\n4.賽格梅特之魂[失翼之龍]【200】\\n";
       NLG.ShowWindowTalked(player, self.speedNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
 end
 
@@ -111,7 +111,7 @@ function QuickUI:onLoad()
   self.speedNpc = self:NPC_createNormal('速度快捷', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.speedNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【120】\\n\\n2.女神卡連[六曜之塔]【140】\\n";
+      local msg = "\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【130】\\n\\n2.女神卡連[六曜之塔]【150】\\n\\n3.受傷的女人[森羅萬象]【170】\\n\\n4.賽格梅特之魂[失翼之龍]【200】\\n";
       NLG.ShowWindowTalked(player, self.speedNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     end
     return
@@ -125,13 +125,25 @@ function QuickUI:onLoad()
       if seqno == 1 and select == CONST.按钮_确定 then
             if Char.EndEvent(player,0) == 1 then
                 local charPtr = Char.GetCharPointer(player)
-                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 120);   --walkSpeed
+                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 130);   --walkSpeed
                 NLG.SetHeadIcon(player,114206);
                 NLG.UpChar(player)
             end
             if Char.EndEvent(player,21) == 1 then
                 local charPtr = Char.GetCharPointer(player)
-                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 140);   --walkSpeed
+                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 150);   --walkSpeed
+                NLG.SetHeadIcon(player,114177);
+                NLG.UpChar(player)
+            end
+            if Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
+                local charPtr = Char.GetCharPointer(player)
+                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 170);   --walkSpeed
+                NLG.SetHeadIcon(player,114177);
+                NLG.UpChar(player)
+            end
+            if Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 and Char.EndEvent(player,143) == 1 then
+                local charPtr = Char.GetCharPointer(player)
+                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 200);   --walkSpeed
                 NLG.SetHeadIcon(player,114177);
                 NLG.UpChar(player)
             end
