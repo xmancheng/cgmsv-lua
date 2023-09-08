@@ -7,6 +7,8 @@ function QuickUI:shortcut(player, actionID)
     self:walkingspeed(self.speedNpc,player);
   elseif actionID == %动作_攻击% then
     self:teamfever(self.feverNpc,player);
+  elseif actionID == %动作_魔法% then
+    self:teamheal(self.healNpc,player);
   elseif actionID == %动作_点头% then
     self:gather(player);
   elseif actionID == %动作_坐下% then
@@ -24,6 +26,11 @@ end
 function QuickUI:teamfever(npc, player)
       local msg = "\\n\\n@c【一鍵全隊打卡】\\n\\n非打卡狀態→打卡狀態\\n\\n打卡狀態→非打卡狀態\\n\\n[確定]幫全隊進行打卡|全隊的打卡結束\\n";
       NLG.ShowWindowTalked(player, self.feverNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 2, msg);
+end
+
+function QuickUI:teamheal(npc, player)
+      local msg = "\\n\\n@c回復魔法值（+等量生命值）\\n\\n回復生命值\\n\\n回復寵物的生命值和魔法值\\n\\n一鍵回復全隊人物和寵物魔法、生命\\n";
+      NLG.ShowWindowTalked(player, self.healNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 3, msg);
 end
 
 function QuickUI:gather(player)
@@ -175,6 +182,81 @@ function QuickUI:onLoad()
                 return
           end
         end
+      end
+    end
+  end)
+  --全隊補血
+  self.healNpc = self:NPC_createNormal('补血快捷', 98972, { x = 39, y = 37, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.healNpc, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+      local msg = "\\n\\n@c回復魔法值（+等量生命值）\\n\\n回復生命值\\n\\n回復寵物的生命值和魔法值\\n\\n一鍵回復全隊人物和寵物魔法、生命\\n";
+      NLG.ShowWindowTalked(player, self.healNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 3, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.healNpc, function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.对象_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select > 0 then
+      if seqno == 3 and select == CONST.按钮_确定 then
+        local gold = Char.GetData(player, CONST.CHAR_金币);
+        local totalGold = 0;
+        local FpGold = 0;
+        local LpGold = 0;
+        --計算回復總金額
+        for slot = 0,4 do
+          local p = Char.GetPartyMember(player,slot)
+          if(p>=0) then
+                local lp = Char.GetData(p, CONST.CHAR_血)
+                local maxLp = Char.GetData(p, CONST.CHAR_最大血)
+                local fp = Char.GetData(p, CONST.CHAR_魔)
+                local maxFp = Char.GetData(p, CONST.CHAR_最大魔)
+                if fp < maxFp then
+                      FpGold = FpGold + maxFp - fp;
+                end
+                if lp < maxLp then
+                      LpGold = LpGold + maxLp - lp;
+                end
+          end
+        end
+        if FpGold*0.5 >= LpGold then
+          totalGold = FpGold;
+        else
+          totalGold = FpGold + LpGold - FpGold*0.5;
+        end
+        --人物寵物補血魔
+        if gold < totalGold then
+                NLG.SystemMessage(player, '金幣不足無法回復');
+                return
+        else
+                for slot = 0,4 do
+                       local p = Char.GetPartyMember(player,slot)
+                       if(p>=0) then
+                           local maxLp = Char.GetData(p, CONST.CHAR_最大血)
+                           local maxFp = Char.GetData(p, CONST.CHAR_最大魔)
+                           Char.SetData(p, CONST.CHAR_血, maxLp);
+                           Char.SetData(p, CONST.CHAR_魔, maxFp);
+                           NLG.UpChar(p);
+                           for petSlot  = 0,4 do
+                              local petIndex = Char.GetPet(p,petSlot);
+                              if petIndex >= 0 then
+                                  local maxLp = Char.GetData(petIndex, CONST.CHAR_最大血)
+                                  local maxFp = Char.GetData(petIndex, CONST.CHAR_最大魔)
+                                  Char.SetData(petIndex, CONST.CHAR_血, maxLp);
+                                  Char.SetData(petIndex, CONST.CHAR_魔, maxFp);
+                                  Pet.UpPet(player, petIndex);
+                              end
+                           end
+                       else
+                              NLG.SystemMessage(player, "組隊狀態才能用此全隊回復。");
+                              return
+                       end
+                end
+        end
+        Char.AddGold(player, -totalGold);
+        NLG.UpChar(player);
       end
     end
   end)
