@@ -9,6 +9,8 @@ function QuickUI:shortcut(player, actionID)
     self:teamfever(self.feverNpc,player);
   elseif actionID == %动作_魔法% then
     self:teamheal(self.healNpc,player);
+  elseif actionID == %动作_防御% then
+    self:metamo(self.imageNpc,player);
   elseif actionID == %动作_点头% then
     self:gather(player);
   elseif actionID == %动作_坐下% then
@@ -33,6 +35,12 @@ end
 function QuickUI:teamheal(npc, player)
       local msg = "\\n\\n@c回復魔法值（+等量生命值）\\n\\n回復生命值\\n\\n回復寵物的生命值和魔法值\\n\\n一鍵回復全隊人物和寵物魔法、生命\\n";
       NLG.ShowWindowTalked(player, self.healNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 3, msg);
+end
+
+function QuickUI:metamo(npc, player)
+      local dressing_OImage = tonumber(Char.GetData(player,CONST.对象_原始图档));
+      local msg = ""..dressing_OImage.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      1 / 10\\n";
+      NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, 4, msg);
 end
 
 function QuickUI:gather(player)
@@ -300,6 +308,70 @@ function QuickUI:onLoad()
       end
     end
   end)
+
+  --人物衣櫃
+  self.imageNpc = self:NPC_createNormal('形象快捷', 98972, { x = 40, y = 37, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.imageNpc, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+      local dressing_OImage = tonumber(Char.GetData(player,CONST.对象_原始图档));
+      local msg = ""..dressing_OImage.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      1 / 10\\n";
+      NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, 4, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.imageNpc, function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.对象_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    local dressing_BImage = tonumber(Char.GetData(player, CONST.对象_形象));
+    local dressing_BBImage = tonumber(Char.GetData(player, CONST.对象_原形));
+    local dressing_OImage = tonumber(Char.GetData(player, CONST.对象_原始图档));
+    if select > 0 then
+      if seqno == 4 and select == CONST.按钮_是 then
+            if dressing_OImage == dressing_BImage then
+                Char.SetData(player,CONST.对象_形象, dressing_OImage);
+                Char.SetData(player,CONST.对象_原形, dressing_OImage);
+                Char.SetData(player,CONST.对象_原始图档, dressing_OImage);
+                NLG.UpChar(player)
+            elseif dressing_OImage ~= dressing_BImage then
+                Char.SetData(player,CONST.对象_形象, dressing_OImage);
+                Char.SetData(player,CONST.对象_原形, dressing_OImage);
+                NLG.UpChar(player)
+            end
+      elseif seqno == 4 and select == CONST.按钮_否 then
+            page = seqno*10+1;
+            local dressing = tonumber(Char.GetData(player,CONST.对象_原始图档));
+            local msg = ""..dressing.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      2 / 10\\n";
+            NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, page, msg);
+      end
+      --第二頁以後的新增形象展示
+      if seqno == page and select == CONST.按钮_是 then
+            if dressing_OImage == dressing_BImage then
+                Char.SetData(player,CONST.对象_形象, dressing_OImage);
+                Char.SetData(player,CONST.对象_原形, dressing_OImage);
+                Char.SetData(player,CONST.对象_原始图档, dressing_OImage);
+                NLG.UpChar(player)
+            elseif dressing_OImage ~= dressing_BImage then
+                Char.SetData(player,CONST.对象_形象, dressing_OImage);
+                Char.SetData(player,CONST.对象_原形, dressing_OImage);
+                NLG.UpChar(player)
+            end
+      elseif seqno == page and select == CONST.按钮_否 then
+            page = page+1;
+            local dressing = tonumber(Char.GetData(player,CONST.对象_原始图档));
+            local imagepage = page-40+1;
+            local msg = ""..dressing.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      "..imagepage.." / 10\\n";
+            if page<=49 then
+                NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, page, msg);
+            else
+                return;
+            end
+      end
+
+    end
+  end)
+
 
 end
 
