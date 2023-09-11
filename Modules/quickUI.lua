@@ -2,6 +2,34 @@ local QuickUI = ModuleBase:createModule('quickUI')
 
 local PartyMember={}
 
+QuickUI:addMigration(1, 'init lua_hook_character', function()
+  SQL.querySQL([[
+      CREATE TABLE if not exists `lua_hook_character` (
+    `Name` char(32) COLLATE gbk_bin NOT NULL,
+    `CdKey` char(32) COLLATE gbk_bin NOT NULL,
+    `RankedPoints` int(10) NOT NULL Default 0,
+    `OriginalImageNumber` int(10) NOT NULL,
+    `SwitchImageNumber2` int(10) Default 1,
+    `SwitchImageNumber3` int(10) Default 1,
+    `SwitchImageNumber4` int(10) Default 1,
+    `SwitchImageNumber5` int(10) Default 1,
+    `SwitchImageNumber6` int(10) Default 1,
+    `SwitchImageNumber7` int(10) Default 1,
+    `SwitchImageNumber8` int(10) Default 1,
+    `SwitchImageNumber9` int(10) Default 1,
+    `SwitchImageNumber10` int(10) Default 1,
+    PRIMARY KEY (`CdKey`),
+    KEY `Name` (`Name`) USING BTREE
+  ) ENGINE=Innodb DEFAULT CHARSET=gbk COLLATE=gbk_bin
+  ]])
+end);
+
+QuickUI:addMigration(2, 'insertinto lua_hook_character', function()
+  SQL.querySQL([[
+      INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character;
+  ]])
+end);
+
 function QuickUI:shortcut(player, actionID)
   if actionID == %动作_跑步% then
     self:walkingspeed(self.speedNpc,player);
@@ -38,7 +66,8 @@ function QuickUI:teamheal(npc, player)
 end
 
 function QuickUI:metamo(npc, player)
-      local dressing_OImage = tonumber(Char.GetData(player,CONST.对象_原始图档));
+      local cdk = Char.GetData(player,CONST.对象_CDK);
+      local dressing_OImage = tonumber(SQL.Run("select OriginalImageNumber from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
       local msg = ""..dressing_OImage.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      1 / 10\\n";
       NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, 4, msg);
 end
@@ -313,7 +342,8 @@ function QuickUI:onLoad()
   self.imageNpc = self:NPC_createNormal('形象快捷', 98972, { x = 40, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.imageNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local dressing_OImage = tonumber(Char.GetData(player,CONST.对象_原始图档));
+      local cdk = Char.GetData(player,CONST.对象_CDK);
+      local dressing_OImage = tonumber(SQL.Run("select OriginalImageNumber from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
       local msg = ""..dressing_OImage.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      1 / 10\\n";
       NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, 4, msg);
     end
@@ -324,45 +354,41 @@ function QuickUI:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    local dressing_BImage = tonumber(Char.GetData(player, CONST.对象_形象));
-    local dressing_BBImage = tonumber(Char.GetData(player, CONST.对象_原形));
-    local dressing_OImage = tonumber(Char.GetData(player, CONST.对象_原始图档));
+    local dressing_BImage = tonumber(Char.GetData(player,CONST.对象_形象));
+    local dressing_OImage = tonumber(SQL.Run("select OriginalImageNumber from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
     if select > 0 then
       if seqno == 4 and select == CONST.按钮_是 then
-            if dressing_OImage == dressing_BImage then
-                Char.SetData(player,CONST.对象_形象, dressing_OImage);
-                Char.SetData(player,CONST.对象_原形, dressing_OImage);
-                Char.SetData(player,CONST.对象_原始图档, dressing_OImage);
-                NLG.UpChar(player)
-            elseif dressing_OImage ~= dressing_BImage then
-                Char.SetData(player,CONST.对象_形象, dressing_OImage);
-                Char.SetData(player,CONST.对象_原形, dressing_OImage);
-                NLG.UpChar(player)
-            end
+            Char.SetData(player,CONST.对象_形象, dressing_OImage);
+            Char.SetData(player,CONST.对象_原形, dressing_OImage);
+            Char.SetData(player,CONST.对象_原始图档, dressing_OImage);
+            NLG.UpChar(player)
       elseif seqno == 4 and select == CONST.按钮_否 then
             page = seqno*10+1;
-            local dressing = tonumber(Char.GetData(player,CONST.对象_原始图档));
+            local dressing = tonumber(SQL.Run("select SwitchImageNumber2 from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
             local msg = ""..dressing.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      2 / 10\\n";
             NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, page, msg);
       end
       --第二頁以後的新增形象展示
       if seqno == page and select == CONST.按钮_是 then
-            if dressing_OImage == dressing_BImage then
-                Char.SetData(player,CONST.对象_形象, dressing_OImage);
-                Char.SetData(player,CONST.对象_原形, dressing_OImage);
-                Char.SetData(player,CONST.对象_原始图档, dressing_OImage);
-                NLG.UpChar(player)
-            elseif dressing_OImage ~= dressing_BImage then
-                Char.SetData(player,CONST.对象_形象, dressing_OImage);
-                Char.SetData(player,CONST.对象_原形, dressing_OImage);
-                NLG.UpChar(player)
+            local imagepage = page-40+1;
+            if page<=49 then
+                local dressing = tonumber(SQL.Run("select SwitchImageNumber"..imagepage.." from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
+                if dressing_BImage ~= dressing and dressing > 1 then
+                    Char.SetData(player,CONST.对象_形象, dressing);
+                    Char.SetData(player,CONST.对象_原形, dressing);
+                    Char.SetData(player,CONST.对象_原始图档, dressing);
+                    NLG.UpChar(player)                
+                else
+                    NLG.SystemMessage(player, '請先登記取得的造型形象卡片。！');
+                    return;
+                end
             end
       elseif seqno == page and select == CONST.按钮_否 then
             page = page+1;
-            local dressing = tonumber(Char.GetData(player,CONST.对象_原始图档));
             local imagepage = page-40+1;
-            local msg = ""..dressing.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      "..imagepage.." / 10\\n";
             if page<=49 then
+                local dressing =  tonumber(SQL.Run("select SwitchImageNumber"..imagepage.." from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
+                local msg = ""..dressing.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      "..imagepage.." / 10\\n";
                 NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, page, msg);
             else
                 return;
