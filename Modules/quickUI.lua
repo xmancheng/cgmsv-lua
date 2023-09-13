@@ -438,7 +438,7 @@ function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
     local Para2 = tonumber(Item.GetData(ItemIndex,CONST.道具_子参二));
 
     if (Name_data == nil) then
-        SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character");
+        SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character" WHERE Name = '"..name.."'");
         NLG.SystemMessage(charIndex, '人物形象收藏激活，請再次重新登記造型！');
         return;
     end
