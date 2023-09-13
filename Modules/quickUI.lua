@@ -162,6 +162,7 @@ end
 function QuickUI:onLoad()
   self:logInfo('load');
   self:regCallback('CharActionEvent', Func.bind(self.shortcut, self))
+  self:regCallback('ItemString', Func.bind(self.imageCollection, self),"LUA_useMetamoCT");
   self.quickUINpc = self:NPC_createNormal('动作快捷图示', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.quickUINpc, Func.bind(self.shortcut, self))
   self:NPC_regWindowTalkedEvent(self.quickUINpc, Func.bind(self.shortcut, self))
@@ -423,6 +424,38 @@ Char.GetPetRank = function(playerIndex,slot)
     return a6, a1, a2, a3, a4, a5;
   end
   return -1;
+end
+
+function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
+    local cdk = Char.GetData(charIndex,CONST.对象_CDK);
+    local name = Char.GetData(charIndex, CONST.CHAR_名字);
+    local Name_data =  SQL.Run("select Name from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
+
+    local itemSlot = Char.FindItemId(charIndex, 69990);
+    local ItemIndex = Char.GetItemIndex(charIndex, itemSlot);
+    local Special = Item.GetData(ItemIndex,CONST.道具_特殊类型);
+    local Para1 = tonumber(Item.GetData(ItemIndex,CONST.道具_子参一));
+    local Para2 = tonumber(Item.GetData(ItemIndex,CONST.道具_子参二));
+
+    if (Name_data == nil) then
+        SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character");
+        NLG.SystemMessage(charIndex, '人物形象收藏激活，請再次重新登記造型！');
+        return;
+    end
+    if (Name_data == name) then
+        if (Special == 14 and Para1 == 1 and Para2 ~= 0) then
+            for image=2,10 do
+                local Number =  tonumber(SQL.Run("select SwitchImageNumber"..image.." from lua_hook_character where Name='"..name.."'")["0_0"])
+                if Number == 1 then
+                    SQL.Run("update lua_hook_character set SwitchImageNumber"..image.." = '"..Para2.."' where Name='"..name.."'");
+                    Char.DelItemBySlot(charIndex, itemSlot);
+                    return;
+                else
+                    --NLG.SystemMessage(charIndex, '人物形象收藏暫時已滿！');
+                end
+            end
+        end
+    end
 end
 
 function QuickUI:onUnload()
