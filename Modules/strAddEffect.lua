@@ -59,11 +59,11 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                  end
                end
                if ( StrAdd >= 0 ) then
-                 local StrEffect = 1 + (StrAdd*0.02);
+                 local StrEffect = 1 + (StrAdd*0.03);
                  --print(StrEffect)
                  if NLG.Rand(1,10)>=1  then
                         damage = damage * StrEffect;
-                        --NLG.Say(charIndex,-1,"武器附加强化特殊效果每+1伤害提升2%，目前伤害"..(StrAdd*2).."%",4,3);
+                        --NLG.Say(charIndex,-1,"武器附加强化特殊效果每+1伤害提升3%，目前伤害"..(StrAdd*3).."%",4,3);
                  end
                  print(damage)
                  return damage;
@@ -75,7 +75,36 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                local Armour1_Name = Item.GetData(Armour1, CONST.道具_名字);
                local Armour4 = Char.GetItemIndex(defCharIndex, 4);                  --腿
                local Armour4_Name = Item.GetData(Armour4, CONST.道具_名字);
-
+               local StrAdd_0 = 0;
+               local StrAdd_1 = 0;
+               local StrAdd_4 = 0;
+               if Armour0_Name~=nil then
+                 local StrPlus = string.find(Armour0_Name, "+");
+                 if StrPlus~=nil then
+                   StrAdd_0 = tonumber(string.sub(Armour0_Name, StrPlus+1, -1));
+                 end
+               elseif Armour1_Name~=nil then
+                 local StrPlus = string.find(Armour1_Name, "+");
+                 if StrPlus~=nil then
+                   StrAdd_1 = tonumber(string.sub(Armour1_Name, StrPlus+1, -1));
+                 end
+               elseif Armour4_Name~=nil then
+                 local StrPlus = string.find(Armour4_Name, "+");
+                 if StrPlus~=nil then
+                   StrAdd_4 = tonumber(string.sub(Armour4_Name, StrPlus+1, -1));
+                 end
+               end
+               local StrAdd = StrAdd_0 + StrAdd_1 + StrAdd_4;
+               if ( StrAdd >= 0 ) then
+                 local StrEffect = 1 - (StrAdd*0.01);
+                 --print(StrEffect)
+                 if NLG.Rand(1,10)>=1  then
+                        damage = damage * StrEffect;
+                        --NLG.Say(defCharIndex,-1,"防具附加強化特殊效果每+1傷害減少1%，目前減傷"..(StrAdd*1).."%",4,3);
+                 end
+                 print(damage)
+                 return damage;
+                  
          else
          end
   return damage;
