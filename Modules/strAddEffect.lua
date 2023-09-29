@@ -44,6 +44,9 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
                local ShieldIndex = Char.GetShield(charIndex);                         --详情底部Fn
                local Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字);
+               local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
+               local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
+               local GTime = NLG.GetGameTime();
                local StrAdd = 0;
                if Weapon_Name~=nil then
                  local StrPlus = string.find(Weapon_Name, "+");
@@ -63,7 +66,11 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                  --print(StrEffect)
                  if NLG.Rand(1,10)>=1  then
                         damage = damage * StrEffect;
-                        --NLG.Say(charIndex,-1,"武器附加强化特殊效果每+1伤害提升3%，目前伤害"..(StrAdd*3).."%",4,3);
+                        --NLG.Say(charIndex,-1,"武器附加強化特殊效果每+1傷害提升3%，目前傷害"..(StrAdd*3).."%",4,3);
+                        if ( ViceWeapon_Effect == GTime ) then
+                               damage = (damage+1000) * StrEffect;
+                               NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升3%",4,3);
+                        end
                  end
                  print(damage)
                  return damage;
@@ -104,7 +111,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                  end
                  print(damage)
                  return damage;
-                  
+               end
          else
          end
   return damage;
@@ -121,7 +128,7 @@ function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)
                leader = leader2
          end
          if Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 then
-               local ViceWeaponIndex =Char.GetViceWeapon(charIndex);                --左右手
+               local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
                local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字);
                local ViceStrAdd = 0;
                if ViceWeapon_Name~=nil then
@@ -134,7 +141,7 @@ function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)
                  for k,v in pairs(TechTbl) do
                   if techID >= v.techID_b and techID <= v.techID_h  then
                         if ViceStrAdd >= v.StrAdd_b and ViceStrAdd <= v.StrAdd_h and option == v.option  then
-                              NLG.SystemMessage(charIndex,"【技能威力加成】发动！");
+                              NLG.SystemMessage(charIndex,"【技能威力加成】發動！");
                               return val+v.val;
                         end
                         return val
