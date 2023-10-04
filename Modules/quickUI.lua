@@ -1,6 +1,8 @@
 local QuickUI = ModuleBase:createModule('quickUI')
 
 local PartyMember={}
+local onlinePlayerRewards = {}
+local rewardsCount = {}
 
 QuickUI:addMigration(1, 'init lua_hook_character', function()
   SQL.querySQL([[
@@ -187,6 +189,14 @@ function QuickUI:pettalk(player)
       local playerX = Char.GetData(player, CONST.CHAR_X);
       local playerY = Char.GetData(player, CONST.CHAR_Y);
       local playerDir = Char.GetData(player, CONST.CHAR_方向);
+      if (onlinePlayerRewards[player]==nil and rewardsCount[player]==nil) then
+             onlinePlayerRewards[player] = os.time();
+             rewardsCount[player] = 0;
+      end
+      if (rewardsCount[player]>0 and tonumber(os.date("%H",os.time())) - tonumber(os.date("%H",onlinePlayerRewards[player])) < 1) then
+            NLG.SystemMessage(player,"在線獎勵領取時間紀錄"..os.date("%X",onlinePlayerRewards[player])..":請1小時後再次領取");
+            return
+      end
       if (foodNpc == nil) then
             if playerDir==0 then playerX=playerX; playerY=playerY-1;
             elseif playerDir==1 then playerX=playerX+1; playerY=playerY-1;
@@ -198,7 +208,10 @@ function QuickUI:pettalk(player)
             elseif playerDir==7 then playerX=playerX-1; playerY=playerY-1;
             end
             foodNpc = self:NPC_createNormal(' ', 27304, { x = playerX, y = playerY, mapType = playerMapType, map = playerMap, direction = 0 });
-      elseif (foodNpc ~= nil) then
+            rewardsCount[player] = 0;
+      elseif (foodNpc ~= nil and Char.ItemSlot(player)<=18) then
+            onlinePlayerRewards[player] = os.time();
+            rewardsCount[player] = 1;
             for hbnum = 1,4 do 
                   local targetcharIndex = Char.GetPartyMember(player,hbnum);
                   if targetcharIndex >= 0 and Char.IsDummy(targetcharIndex) then
@@ -206,11 +219,16 @@ function QuickUI:pettalk(player)
                         NLG.SystemMessage(player,""..Char.GetData(targetcharIndex,%对象_名字%)..":"..talknotes[r][1].."");
                   end
             end
+            local giftItemID = {900497,900498,70016,75011}   --大蒜油、怪物餅乾、1000魔幣交換卡、精靈球
+            local rx = math.random(1,4);
+            Char.GiveItem(player, giftItemID[rx], rx, '你的寵物帶回來了一些道具給你！');
             NL.DelNpc(foodNpc);
             foodNpc = nil;
+      elseif (foodNpc ~= nil and Char.ItemSlot(player)>=19) then
+            NLG.SystemMessage(player,'物品欄快滿了，請空出兩格');
+            return
       end
 end
-
 
 
 
