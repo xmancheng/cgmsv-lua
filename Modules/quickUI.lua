@@ -47,6 +47,8 @@ function QuickUI:shortcut(player, actionID)
     self:partyform(player);
   elseif actionID == %动作_剪刀% then
     self:petinfo(player);
+  elseif actionID == %动作_投掷% then
+    self:pettalk(player);
   end
 end
 
@@ -157,6 +159,59 @@ function QuickUI:petinfo(player)
       end
       NLG.SystemMessage(player, '---------------------------------------');
 end
+
+local t1 = {"你睡著了喔?我都快餓死了..."};
+local t2 = {"你自己一直偷吃都不餵我..."};
+local t3 = {"我需要甜食，就是那個啦!"};
+local t4 = {"我...我...太感動了!"};
+local t5 = {"最近天氣不錯..."};
+local t6 = {"無聊就吃東西吧..."};
+local t7 = {"讓你喘口氣也好!"};
+local t8 = {"哈哈!接下來要去挑戰誰呀!"};
+local t9 = {"今天非常順利哦!走吧!我們再去練!"};
+local t10 = {"不要以為就可以輕鬆的死亡!"};
+local t11 = {"精神不夠啊，重新開始吧"};
+local t12 = {"我有出眾的力量和智慧!"};
+local t13 = {"很抱歉你只到這種水平... 很讓我失望"};
+local t14 = {"活著是空虛的..."};
+local t15 = {"不好意思!讓主人擔心了!"};
+local t16 = {"恭喜呦!您是我心目中的英雄"};
+local t17 = {"時間就是金幣啊! 朋友!"};
+local t18 = {"先別急著冒險,讓我陪您喝杯茶再說吧!"};
+local t19 = {"是的! 老大!"};
+local t20 = {"嗚啦啊啊啊啊啊!!!"};
+local talknotes = {t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20};
+function QuickUI:pettalk(player)
+      local playerMapType = Char.GetData(player, CONST.CHAR_地图类型);
+      local playerMap = Char.GetData(player, CONST.CHAR_地图);
+      local playerX = Char.GetData(player, CONST.CHAR_X);
+      local playerY = Char.GetData(player, CONST.CHAR_Y);
+      local playerDir = Char.GetData(player, CONST.CHAR_方向);
+      if (foodNpc == nil) then
+            if playerDir==0 then playerX=playerX; playerY=playerY-1;
+            elseif playerDir==1 then playerX=playerX+1; playerY=playerY-1;
+            elseif playerDir==2 then playerX=playerX+1; playerY=playerY;
+            elseif playerDir==3 then playerX=playerX+1; playerY=playerY+1;
+            elseif playerDir==4 then playerX=playerX; playerY=playerY+1;
+            elseif playerDir==5 then playerX=playerX-1; playerY=playerY+1;
+            elseif playerDir==6 then playerX=playerX-1; playerY=playerY;
+            elseif playerDir==7 then playerX=playerX-1; playerY=playerY-1;
+            end
+            foodNpc = self:NPC_createNormal(' ', 27304, { x = playerX, y = playerY, mapType = playerMapType, map = playerMap, direction = 0 });
+      elseif (foodNpc ~= nil) then
+            for hbnum = 1,4 do 
+                  local targetcharIndex = Char.GetPartyMember(player,hbnum);
+                  if targetcharIndex >= 0 and Char.IsDummy(targetcharIndex) then
+                        local r = math.random(2,20);
+                        NLG.SystemMessage(player,""..Char.GetData(targetcharIndex,%对象_名字%)..":"..talknotes[r][1].."");
+                  end
+            end
+            NL.DelNpc(foodNpc);
+            foodNpc = nil;
+      end
+end
+
+
 
 
 function QuickUI:onLoad()
@@ -380,7 +435,7 @@ function QuickUI:onLoad()
                     Char.SetData(player,CONST.对象_原始图档, dressing);
                     NLG.UpChar(player)                
                 else
-                    NLG.SystemMessage(player, '請先登記取得的造型形象卡片。！');
+                    NLG.SystemMessage(player, '請先登記取得的造型形象卡片。');
                     return;
                 end
             end
@@ -438,7 +493,7 @@ function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
     local Para2 = tonumber(Item.GetData(ItemIndex,CONST.道具_子参二));
 
     if (Name_data == nil) then
-        SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character" WHERE Name = '"..name.."'");
+        SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE Name = '"..name.."'");
         NLG.SystemMessage(charIndex, '人物形象收藏激活，請再次重新登記造型！');
         return;
     end
