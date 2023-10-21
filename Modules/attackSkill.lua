@@ -18,7 +18,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
          end
          if defCom1 == 43  then    --聖盾(無限抵擋死亡)
                local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
-               if damage>=defHpE  then
+               if damage>=defHpE-1  then
                  Char.SetData(defCharIndex, CONST.CHAR_血, defHpE+damage*0.1);
                  Char.SetData(defCharIndex, CONST.CHAR_受伤, 0);
                  NLG.UpChar(defCharIndex);
