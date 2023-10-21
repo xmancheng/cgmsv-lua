@@ -20,6 +20,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
                if damage>=defHpE  then
                  Char.SetData(defCharIndex, CONST.CHAR_血, defHpE+damage*0.1);
+                 Char.SetData(defCharIndex, CONST.CHAR_受伤, 0);
                  NLG.UpChar(defCharIndex);
                  damage = damage*0;
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
