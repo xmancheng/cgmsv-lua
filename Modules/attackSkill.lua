@@ -1,7 +1,7 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local AttackSkill = ModuleBase:createModule('attackSkill')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function AttackSkill:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -13,15 +13,30 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
---×¥Œ™¼¼ÄÜµ¶±³¹¥“ô
+         if defCom1 == 43  then    --è–ç›¾(ç„¡é™æŠµæ“‹æ­»äº¡)
+               local defHpE = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
+               if damage>=defHpE  then
+                 Char.SetData(defCharIndex, CONST.CHAR_è¡€, defHpE+damage*0.1);
+                 NLG.UpChar(defCharIndex);
+                 damage = damage*0;
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                         NLG.Say(leader,-1,"ã€èƒŒæ°´ä¸€æˆ°ã€‘è–ç›¾æŠµéŠ·äº†è‡´å‘½çš„å‚·å®³ï¼ï¼",4,3);
+                 end
+               else
+                 damage = damage;
+               end
+               return damage;
+         end
+  
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+--æŠ“å¯µæŠ€èƒ½åˆ€èƒŒæ”»æ“Š
                if com3 == 8137  then
-                 local defLvE = Char.GetData(defCharIndex,CONST.CHAR_µÈ¼¶);
-                 local defHpE = Char.GetData(defCharIndex,CONST.CHAR_Ñª);
-                 local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_×î´óÑª);
+                 local defLvE = Char.GetData(defCharIndex,CONST.CHAR_ç­‰çº§);
+                 local defHpE = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
+                 local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_æœ€å¤§è¡€);
                  if defLvE<=1  then
                          if defHpE<=10  then
                              damage = damage*0;
@@ -32,17 +47,17 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                          damage = damage;
                  end
                  --print(defHpE,damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                         NLG.Say(charIndex,charIndex,"¡¾µ¶±³¹¥“ô¡¿‚ûº¦Ç°Ä¿˜ËÊ£ğNÑªÁ¿".. defHpE .."£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                         NLG.Say(charIndex,charIndex,"ã€åˆ€èƒŒæ”»æ“Šã€‘å‚·å®³å‰ç›®æ¨™å‰©é¤˜è¡€é‡".. defHpE .."ï¼ï¼",4,3);
                  end
                  return damage;
                end
 
---[[·¨Ğg¸½¼Ó30% î‘B
-               local LvRate = Char.GetData(charIndex,CONST.CHAR_µÈ¼¶);
-               local Spirit = Char.GetData(charIndex,CONST.CHAR_¾«Éñ);
-               local Mattack = Char.GetData(charIndex,CONST.CHAR_Ä§¹¥);
-               local JobLv = Char.GetData(charIndex,CONST.CHAR_Ö°½×)+1;
+--[[æ³•è¡“é™„åŠ 30%ç‹€æ…‹
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_ç­‰çº§);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_ç²¾ç¥);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_é­”æ”»);
+               local JobLv = Char.GetData(charIndex,CONST.CHAR_èŒé˜¶)+1;
                local JobLv_tbl = {200,310,340,370,400,430};
                if LvRate <= 50  then
                         LvRate = 1;
@@ -54,7 +69,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                else
                         SpRate = Spirit/800;
                end
-               if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --ëEÊ¯Ä§·¨
+               if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --éš•çŸ³é­”æ³•
                  if com3 >= 1900 and com3 <= 1909  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2300 and com3 <= 2309  then
@@ -67,7 +82,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  end
                  return damage;
                end
-               if (com3 >= 2000 and com3 <= 2009) or (com3 >= 2400 and com3 <= 2409) or (com3 >= 2800 and com3 <= 2809)  then    --±ùƒöÄ§·¨
+               if (com3 >= 2000 and com3 <= 2009) or (com3 >= 2400 and com3 <= 2409) or (com3 >= 2800 and com3 <= 2809)  then    --å†°å‡é­”æ³•
                  if com3 >= 2000 and com3 <= 2009  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2400 and com3 <= 2409  then
@@ -80,7 +95,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  end
                  return damage;
                end
-               if (com3 >= 2100 and com3 <= 2109) or (com3 >= 2500 and com3 <= 2509) or (com3 >= 2900 and com3 <= 2909)  then    --»ğÑæÄ§·¨
+               if (com3 >= 2100 and com3 <= 2109) or (com3 >= 2500 and com3 <= 2509) or (com3 >= 2900 and com3 <= 2909)  then    --ç«ç„°é­”æ³•
                  if com3 >= 2100 and com3 <= 2109  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2500 and com3 <= 2509  then
@@ -93,7 +108,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  end
                  return damage;
                end
-               if (com3 >= 2200 and com3 <= 2209) or (com3 >= 2600 and com3 <= 2609) or (com3 >= 3000 and com3 <= 3009)  then    --ïLÈĞÄ§·¨
+               if (com3 >= 2200 and com3 <= 2209) or (com3 >= 2600 and com3 <= 2609) or (com3 >= 3000 and com3 <= 3009)  then    --é¢¨åˆƒé­”æ³•
                  if com3 >= 2200 and com3 <= 2209  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
                  elseif com3 >= 2600 and com3 <= 2609  then
@@ -107,68 +122,68 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  return damage;
                end
 ]]
---†Îów50% î‘B´ó¹¥“ô
-               if (com3 >= 7510 and com3 <= 7519)  then    --Éw¹×èF‡úÉ½
+--å–®é«”50%ç‹€æ…‹å¤§æ”»æ“Š
+               if (com3 >= 7510 and com3 <= 7519)  then    --è“‹æ£ºéµåœå±±
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 2);
                  end
                  return damage;
                end
-               if (com3 >= 7810 and com3 <= 7819)  then    --ÊÌNÆ½¾€
+               if (com3 >= 7810 and com3 <= 7819)  then    --è•©è˜Šå¹³ç·š
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModDrunk, 2);
                  end
                  return damage;
                end
-               if (com3 >= 7910 and com3 <= 7919)  then    --×Ôé]ˆAîD¹ü
+               if (com3 >= 7910 and com3 <= 7919)  then    --è‡ªé–‰åœ“é “è£¹
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
                  end
                  return damage;
                end
-               if (com3 >= 8010 and com3 <= 8019)  then    --¼ÀÉ­¹©»¨
+               if (com3 >= 8010 and com3 <= 8019)  then    --ç¥­æ£®ä¾›èŠ±
                  if NLG.Rand(1,10)>=6  then
                         Char.SetData(defCharIndex, CONST.CHAR_BattleModAmnesia, 2);
                  end
                  return damage;
                end
 
---ºÏ“ô î‘BÔö‚û
+--åˆæ“Šç‹€æ…‹å¢å‚·
                if flg == CONST.DamageFlags.Combo  then
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModConfusion)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶Ô»ìÂÒÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹æ··ä¹±ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModDrunk)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶Ô¾Æ×íÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹é…’é†‰ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModPoison)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶ÔÖĞ¶¾Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹ä¸­æ¯’ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModSleep)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶Ô»èË¯Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹æ˜ç¡ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModStone)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶ÔÊ¯»¯Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹çŸ³åŒ–ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModAmnesia)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶ÔÒÅÍüÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹é—å¿˜ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                end
@@ -178,7 +193,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
   return damage;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function AttackSkill:onUnload()
   self:logInfo('unload')
 end
