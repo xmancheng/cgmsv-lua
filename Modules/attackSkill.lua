@@ -31,19 +31,14 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                end
                return damage;
          end
-         if (com3 >= 0 and com3 <= 9)  then    --連擊(消除巫術)
+         if (com3 >= 200500 and com3 <= 200509)  then    --追月(消除巫術)
                for k, v in ipairs(clearType) do
                  local sorcery = Char.GetData(defCharIndex, v.type);
                  if sorcery>=1 then
-                         if v.type == CONST.CHAR_BattleDamageReflec then
-                                 local defHpE = Char.GetData(charIndex,CONST.CHAR_血);
-                                 Char.SetData(charIndex, CONST.CHAR_血, defHpE+damage);
-                                 NLG.UpChar(charIndex);
-                         end
                          Char.SetData(defCharIndex, v.type, 0);
                          damage = damage*0;
                          if Char.GetData(leader,%对象_队聊开关%) == 1  then
-                                 NLG.Say(charIndex,-1,"【燕返空裂】連擊消除了"..v.name.."！！",4,3);
+                                 NLG.Say(charIndex,-1,"【燕返空裂】追月消除了"..v.name.."！！",4,3);
                          end
                  else
                          damage = damage;
