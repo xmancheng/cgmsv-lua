@@ -10,6 +10,7 @@ QuickUI:addMigration(1, 'init lua_hook_character', function()
     `Name` char(32) COLLATE gbk_bin NOT NULL,
     `CdKey` char(32) COLLATE gbk_bin NOT NULL,
     `RankedPoints` int(10) NOT NULL Default 0,
+    --`WingCover` int(10) NOT NULL Default 0,
     `OriginalImageNumber` int(10) NOT NULL,
     `SwitchImageNumber2` int(10) Default 1,
     `SwitchImageNumber3` int(10) Default 1,
@@ -31,6 +32,35 @@ QuickUI:addMigration(2, 'insertinto lua_hook_character', function()
       INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character;
   ]])
 end);
+
+function QuickUI:headcover(player, hcID)
+  --self:logDebug('headcover', player, hcID)
+  if player>=0 and player < 800  then
+      --local cdk = Char.GetData(player,CONST.对象_CDK);
+      --local WingCover = tonumber(SQL.Run("select WingCover from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
+      if hcID == 1 and Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 and Char.EndEvent(player,143) == 1 then
+            local charPtr = Char.GetCharPointer(player)
+            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 200);   --walkSpeed
+            return 108510;
+      end
+      if hcID == 1 and Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
+            local charPtr = Char.GetCharPointer(player)
+            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 170);   --walkSpeed
+            return 114177;
+      end
+      if hcID == 1 and Char.EndEvent(player,21) == 1 then
+            local charPtr = Char.GetCharPointer(player)
+            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 150);   --walkSpeed
+            return 114206;
+      end
+      if hcID == 1 and Char.EndEvent(player,0) == 1 then
+            local charPtr = Char.GetCharPointer(player)
+            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 130);   --walkSpeed
+            return 108510;
+      end
+  end
+  return hcID;
+end
 
 function QuickUI:shortcut(player, actionID)
   if actionID == %动作_跑步% then
@@ -235,6 +265,7 @@ end
 function QuickUI:onLoad()
   self:logInfo('load');
   self:regCallback('CharActionEvent', Func.bind(self.shortcut, self))
+  self:regCallback('HeadCoverEvent', Func.bind(self.headcover, self))
   self:regCallback('ItemString', Func.bind(self.imageCollection, self),"LUA_useMetamoCT");
   self.quickUINpc = self:NPC_createNormal('动作快捷图示', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.quickUINpc, Func.bind(self.shortcut, self))
@@ -255,35 +286,22 @@ function QuickUI:onLoad()
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 1 and select == CONST.按钮_确定 then
-            if Char.EndEvent(player,0) == 1 then
-                local charPtr = Char.GetCharPointer(player)
-                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 130);   --walkSpeed
-                NLG.SetHeadIcon(player,114206);
-                NLG.UpChar(player)
+      local AccessoryIndex,Slot = Char.GetAccessory(player);
+      if seqno == 1 and select == CONST.按钮_确定 and AccessoryIndex>=0 then
+            if Item.GetData(AccessoryIndex, CONST.道具_ID) ~= 900331  then
+                Item.SetData(AccessoryIndex, CONST.道具_ID, 900331);
+                Item.SetData(AccessoryIndex, CONST.道具_名字, Item.GetData(AccessoryIndex, CONST.道具_名字).."[翅膀]" );
+                Item.SetData(AccessoryIndex, CONST.道具_丢地消失, 1);
+                Item.SetData(AccessoryIndex,CONST.道具_宠邮, 0);
+                Item.UpItem(player, Slot);
+            elseif Item.GetData(AccessoryIndex, CONST.道具_ID) == 900331  then
+                self:headcover(player, hcID);
             end
-            if Char.EndEvent(player,21) == 1 then
-                local charPtr = Char.GetCharPointer(player)
-                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 150);   --walkSpeed
-                NLG.SetHeadIcon(player,114177);
-                NLG.UpChar(player)
-            end
-            if Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
-                local charPtr = Char.GetCharPointer(player)
-                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 170);   --walkSpeed
-                NLG.SetHeadIcon(player,114177);
-                NLG.UpChar(player)
-            end
-            if Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 and Char.EndEvent(player,143) == 1 then
-                local charPtr = Char.GetCharPointer(player)
-                ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 200);   --walkSpeed
-                NLG.SetHeadIcon(player,114177);
-                NLG.UpChar(player)
-            end
+      elseif seqno == 1 and select == CONST.按钮_确定 and AccessoryIndex<0 then
+                NLG.SystemMessage(player, "翅膀系統走路加速，需要有任意裝飾品");
       elseif seqno == 1 and select == CONST.按钮_关闭 then
                 local charPtr = Char.GetCharPointer(player)
                 ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 100);   --walkSpeed
-                NLG.SetHeadIcon(player,1);
                 NLG.UpChar(player)
       end
     end
@@ -529,6 +547,30 @@ function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
             end
         end
     end
+end
+
+
+Char.GetAccessory = function(charIndex)
+  local itemType = {
+    { type=15},{ type=16},{ type=17},{ type=18},{ type=19},{ type=20},{ type=21},
+  }
+  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
+  if ItemIndex >= 0 then
+    for k, v in ipairs(itemType) do
+      if Item.GetData(ItemIndex, CONST.道具_类型)==v.type then
+        return ItemIndex, CONST.EQUIP_首饰1;
+      end
+    end
+  end
+  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2)
+  if ItemIndex >= 0 then
+    for k, v in ipairs(itemType) do
+      if Item.GetData(ItemIndex, CONST.道具_类型)==v.type then
+        return ItemIndex, CONST.EQUIP_首饰2;
+      end
+    end
+  end
+  return -1, -1;
 end
 
 function QuickUI:onUnload()
