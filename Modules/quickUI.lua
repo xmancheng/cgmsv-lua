@@ -38,25 +38,25 @@ function QuickUI:headcover(player, hcID)
   if player>=0 and player < 800  then
       --local cdk = Char.GetData(player,CONST.对象_CDK);
       --local WingCover = tonumber(SQL.Run("select WingCover from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
-      if hcID == 1 and Char.EndEvent(player,0) == 1 then
-            local charPtr = Char.GetCharPointer(player)
-            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 130);   --walkSpeed
-            return 114206;
-      end
-      if hcID == 1 and Char.EndEvent(player,21) == 1 then
-            local charPtr = Char.GetCharPointer(player)
-            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 150);   --walkSpeed
-            return 120054;
-      end
-      if hcID == 1 and Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
-            local charPtr = Char.GetCharPointer(player)
-            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 170);   --walkSpeed
-            return 114177;
-      end
       if hcID == 1 and Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 and Char.EndEvent(player,143) == 1 then
             local charPtr = Char.GetCharPointer(player)
             ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 200);   --walkSpeed
             return 108510;
+      end
+      if hcID == 1 and Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
+            local charPtr = Char.GetCharPointer(player)
+            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 170);   --walkSpeed
+            return 120054;
+      end
+      if hcID == 1 and Char.EndEvent(player,21) == 1 then
+            local charPtr = Char.GetCharPointer(player)
+            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 150);   --walkSpeed
+            return 114177;
+      end
+      if hcID == 1 and Char.EndEvent(player,0) == 1 then
+            local charPtr = Char.GetCharPointer(player)
+            ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 130);   --walkSpeed
+            return 114206;
       end
   end
   return hcID;
