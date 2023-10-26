@@ -1,5 +1,14 @@
 ---模块类
 local AttackSkill = ModuleBase:createModule('attackSkill')
+local clearType = {
+    { type=CONST.CHAR_BattleDamageAbsrob, name="攻擊吸收" },
+    { type=CONST.CHAR_BattleDamageReflec, name="攻擊反彈" },
+    { type=CONST.CHAR_BattleDamageVanish, name="攻擊無效" },
+    { type=CONST.CHAR_BattleDamageMagicAbsrob, name="魔法吸收" },
+    { type=CONST.CHAR_BattleDamageMagicReflec, name="魔法反彈" },
+    { type=CONST.CHAR_BattleDamageMagicVanish, name="魔法無效" },
+    { type=CONST.CHAR_BattleLpRecovery, name="恢復魔法" },
+  }
 
 --- 加载模块钩子
 function AttackSkill:onLoad()
