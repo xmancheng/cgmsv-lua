@@ -433,7 +433,7 @@ function PetHatching:onLoad()
                 local PetSlot = Char.GetEmptyPetSlot(player);
                 Char.AddPet(player, Pet_ID);
                 local petIndex = Char.GetPet(player,PetSlot);
-                Pet.AddSkill(petIndex, 131100, 9);
+                Pet.AddSkill(petIndex, 9610, 9);
                 Pet.UpPet(player, petIndex);
                 --取回寵物
                 Char.AddGold(player, -50000);
