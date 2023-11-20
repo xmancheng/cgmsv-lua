@@ -75,4 +75,5 @@ loadModule('strAddEffect')|強化效果、附念效果
 loadModule('setupItemType')|副武器擴充
 loadModule('addTK')|副武器附念
 loadModule('quickUI')|動作快捷
+loadModule('petHatching')|飼育小屋
 
