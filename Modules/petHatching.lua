@@ -7,140 +7,140 @@ for list = 0,50 do
                     petNpcIndex[list][2] = -1
 end
 
--- NOTE ³èÎïµÄËùÓĞÊôĞÔkey
+-- NOTE å® ç‰©çš„æ‰€æœ‰å±æ€§key
 local petFields={
-CONST.CHAR_ÀàĞÍ,
-CONST.CHAR_ĞÎÏó,
-CONST.CHAR_Ô­ĞÎ,
+CONST.CHAR_ç±»å‹,
+CONST.CHAR_å½¢è±¡,
+CONST.CHAR_åŸå½¢,
 CONST.CHAR_MAP,
-CONST.CHAR_µØÍ¼,
+CONST.CHAR_åœ°å›¾,
 CONST.CHAR_X,
 CONST.CHAR_Y,
-CONST.CHAR_·½Ïò,
-CONST.CHAR_µÈ¼¶,
-CONST.CHAR_Ñª,
-CONST.CHAR_Ä§,
-CONST.CHAR_ÌåÁ¦,
-CONST.CHAR_Á¦Á¿,
-CONST.CHAR_Ç¿¶È,
-CONST.CHAR_ËÙ¶È,
-CONST.CHAR_Ä§·¨,
-CONST.CHAR_ÔËÆø,
-CONST.CHAR_ÖÖ×å,
-CONST.CHAR_µØÊôĞÔ,
-CONST.CHAR_Ë®ÊôĞÔ,
-CONST.CHAR_»ğÊôĞÔ,
-CONST.CHAR_·çÊôĞÔ,
-CONST.CHAR_¿¹¶¾,
-CONST.CHAR_¿¹Ë¯,
-CONST.CHAR_¿¹Ê¯,
-CONST.CHAR_¿¹×í,
-CONST.CHAR_¿¹ÂÒ,
-CONST.CHAR_¿¹Íü,
-CONST.CHAR_±ØÉ±,
-CONST.CHAR_·´»÷,
-CONST.CHAR_ÃüÖĞ,
-CONST.CHAR_ÉÁ¶ã,
-CONST.CHAR_µÀ¾ßÀ¸,
-CONST.CHAR_¼¼ÄÜÀ¸,
-CONST.CHAR_ËÀÍöÊı,
-CONST.CHAR_ÉËº¦Êı,
-CONST.CHAR_É±³èÊı,
-CONST.CHAR_Õ¼²·Ê±¼ä,
-CONST.CHAR_ÊÜÉË,
-CONST.CHAR_ÒÆ¼ä,
-CONST.CHAR_Ñ­Ê±,
-CONST.CHAR_¾­Ñé,
-CONST.CHAR_Éı¼¶µã,
-CONST.CHAR_Í¼Àà,
-CONST.CHAR_ÃûÉ«,
-CONST.CHAR_µô»ê,
-CONST.CHAR_Ô­Ê¼Í¼µµ,
-CONST.CHAR_Ãû×Ö,
-CONST.CHAR_Ô­Ãû,
-CONST.CHAR_×î´óÑª,
-CONST.CHAR_×î´óÄ§,
-CONST.CHAR_¹¥»÷Á¦,
-CONST.CHAR_·ÀÓùÁ¦,
-CONST.CHAR_Ãô½İ,
-CONST.CHAR_¾«Éñ,
-CONST.CHAR_»Ø¸´,
-CONST.CHAR_»ñµÃ¾­Ñé,
-CONST.CHAR_Ä§¹¥,
-CONST.CHAR_Ä§¿¹,
+CONST.CHAR_æ–¹å‘,
+CONST.CHAR_ç­‰çº§,
+CONST.CHAR_è¡€,
+CONST.CHAR_é­”,
+CONST.CHAR_ä½“åŠ›,
+CONST.CHAR_åŠ›é‡,
+CONST.CHAR_å¼ºåº¦,
+CONST.CHAR_é€Ÿåº¦,
+CONST.CHAR_é­”æ³•,
+CONST.CHAR_è¿æ°”,
+CONST.CHAR_ç§æ—,
+CONST.CHAR_åœ°å±æ€§,
+CONST.CHAR_æ°´å±æ€§,
+CONST.CHAR_ç«å±æ€§,
+CONST.CHAR_é£å±æ€§,
+CONST.CHAR_æŠ—æ¯’,
+CONST.CHAR_æŠ—ç¡,
+CONST.CHAR_æŠ—çŸ³,
+CONST.CHAR_æŠ—é†‰,
+CONST.CHAR_æŠ—ä¹±,
+CONST.CHAR_æŠ—å¿˜,
+CONST.CHAR_å¿…æ€,
+CONST.CHAR_åå‡»,
+CONST.CHAR_å‘½ä¸­,
+CONST.CHAR_é—ªèº²,
+CONST.CHAR_é“å…·æ ,
+CONST.CHAR_æŠ€èƒ½æ ,
+CONST.CHAR_æ­»äº¡æ•°,
+CONST.CHAR_ä¼¤å®³æ•°,
+CONST.CHAR_æ€å® æ•°,
+CONST.CHAR_å åœæ—¶é—´,
+CONST.CHAR_å—ä¼¤,
+CONST.CHAR_ç§»é—´,
+CONST.CHAR_å¾ªæ—¶,
+CONST.CHAR_ç»éªŒ,
+CONST.CHAR_å‡çº§ç‚¹,
+CONST.CHAR_å›¾ç±»,
+CONST.CHAR_åè‰²,
+CONST.CHAR_æ‰é­‚,
+CONST.CHAR_åŸå§‹å›¾æ¡£,
+CONST.CHAR_åå­—,
+CONST.CHAR_åŸå,
+CONST.CHAR_æœ€å¤§è¡€,
+CONST.CHAR_æœ€å¤§é­”,
+CONST.CHAR_æ”»å‡»åŠ›,
+CONST.CHAR_é˜²å¾¡åŠ›,
+CONST.CHAR_æ•æ·,
+CONST.CHAR_ç²¾ç¥,
+CONST.CHAR_å›å¤,
+CONST.CHAR_è·å¾—ç»éªŒ,
+CONST.CHAR_é­”æ”»,
+CONST.CHAR_é­”æŠ—,
 CONST.CHAR_EnemyBaseId,
-CONST.PET_Ö÷ÈËRegistNumber,
+CONST.PET_ä¸»äººRegistNumber,
 CONST.PET_DepartureBattleStatus,
 CONST.PET_PetID,
-CONST.PET_¼¼ÄÜÀ¸,
-CONST.PET_»ñÈ¡Ê±µÈ¼¶,
-CONST.CHAR_Ö÷ÈËCD,
-CONST.CHAR_Ö÷ÈËÃû×Ö,
-CONST.CHAR_Ö÷ÈËÔ­Ãû,
+CONST.PET_æŠ€èƒ½æ ,
+CONST.PET_è·å–æ—¶ç­‰çº§,
+CONST.CHAR_ä¸»äººCD,
+CONST.CHAR_ä¸»äººåå­—,
+CONST.CHAR_ä¸»äººåŸå,
 }
 
--- NOTE ³èÎï³É³¤ÊôĞÔkey
+-- NOTE å® ç‰©æˆé•¿å±æ€§key
 local petRankFields={
-CONST.PET_Ìå³É,
-CONST.PET_Á¦³É,
-CONST.PET_Ç¿³É,
-CONST.PET_Ãô³É,
-CONST.PET_Ä§³É,
+CONST.PET_ä½“æˆ,
+CONST.PET_åŠ›æˆ,
+CONST.PET_å¼ºæˆ,
+CONST.PET_æ•æˆ,
+CONST.PET_é­”æˆ,
 }
 
 function PetHatching:onLoad()
   self:logInfo('load');
-  --×ÊÉîÑµÁ·¼ÒÒ¯Ò¯
-  self.seniorNpc = self:NPC_createNormal('×ÊÉîÑµÁ·¼ÒÒ¯Ò¯', 231085, { x = 17, y = 13, mapType = 0, map = 25010, direction = 6 });
+  --èµ„æ·±è®­ç»ƒå®¶çˆ·çˆ·
+  self.seniorNpc = self:NPC_createNormal('è³‡æ·±è¨“ç·´å®¶çˆºçˆº', 231085, { x = 17, y = 13, mapType = 0, map = 25010, direction = 6 });
   self:NPC_regTalkedEvent(self.seniorNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local seniorCheck = Char.GetExtData(player, "¾­Ñé¿âS") or 0;
+      local seniorCheck = Char.GetExtData(player, "ç»éªŒåº“S") or 0;
       if seniorCheck <=0 then
-          local msg = "3|\\nÄãÇóÎÒÍÃ¦Ó–¾šŒ™Îï†á£¿Ã¿´ÎÖ»ÄÜÓ–¾šÒ»ëbŒ™Îï£¬ÇÒ•şÒÀ×î½K«@µÃµÄ½›òÖµßMĞĞÊÕÙM£¡\\n\\n";
+          local msg = "3|\\nä½ æ±‚æˆ‘å¹«å¿™è¨“ç·´å¯µç‰©å—ï¼Ÿæ¯æ¬¡åªèƒ½è¨“ç·´ä¸€éš»å¯µç‰©ï¼Œä¸”æœƒä¾æœ€çµ‚ç²å¾—çš„ç¶“é©—å€¼é€²è¡Œæ”¶è²»ï¼\\n\\n";
           for i=0,4 do
                 local pet = Char.GetPet(player,i);
                 if(pet<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, self.seniorNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.seniorNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
       elseif seniorCheck >0 then
-          local SBTime = Char.GetExtData(player, "¾­Ñé¿âSTime");
+          local SBTime = Char.GetExtData(player, "ç»éªŒåº“STime");
           local days = tonumber(os.date("%j",os.time())) - tonumber(os.date("%j",SBTime));
           local hours = tonumber(os.date("%H",os.time())) - tonumber(os.date("%H",SBTime));
           local minutes = tonumber(os.date("%M",os.time())) - tonumber(os.date("%M",SBTime));
           totalMinutes = days*24*60+hours*60+minutes;
           totalGold = totalMinutes*10;
           if (totalGold>=432000) then
-              totalMinutes = 43200;       --×î¸ß±£¹ÜÉÏÏŞ30Ìì½›ò4Èf3200
-              totalGold = 432000;           --×î¸ßÊÕÙMÉÏÏŞ30ÌìµÄ43Èf2000
+              totalMinutes = 43200;       --æœ€é«˜ä¿ç®¡ä¸Šé™30å¤©ç¶“é©—4è¬3200
+              totalGold = 432000;           --æœ€é«˜æ”¶è²»ä¸Šé™30å¤©çš„43è¬2000
           end
-          local msg = "\\n\\n@cÄ¿Ç°ÒÑÓ–¾š•rég£º "..totalMinutes.." ·Ö\\n\\n\\n¬FÔÚÒªîI»ØŒ™Îï†á£¿\\n\\n¿‚¹²ĞèÒª£º"..totalGold.."Ä§Å\\n\\n";
-          NLG.ShowWindowTalked(player, self.seniorNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2, msg);
+          local msg = "\\n\\n@cç›®å‰å·²è¨“ç·´æ™‚é–“ï¼š "..totalMinutes.." åˆ†\\n\\n\\nç¾åœ¨è¦é ˜å›å¯µç‰©å—ï¼Ÿ\\n\\nç¸½å…±éœ€è¦ï¼š"..totalGold.."é­”å¹£\\n\\n";
+          NLG.ShowWindowTalked(player, self.seniorNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2, msg);
       end
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.seniorNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    --±£¹ÜŒ™ÎïëA¶Î
+    --ä¿ç®¡å¯µç‰©éšæ®µ
     if select == 0 then
       if seqno == 1 and data >= 1 then
         local slot = data-1;
         local petIndex = Char.GetPet(player,slot);
         if petIndex>=0 then
              local data = self:extractPetData(petIndex);
-             local pet_name = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
-             local pet_image = Char.GetData(petIndex,CONST.CHAR_ĞÎÏó);
+             local pet_name = Char.GetData(petIndex,CONST.CHAR_åå­—);
+             local pet_image = Char.GetData(petIndex,CONST.CHAR_å½¢è±¡);
              local Pet_ID = Char.GetData(petIndex,CONST.PET_PetID);
-             Char.SetExtData(player, "¾­Ñé¿âS", Pet_ID);
-             Char.SetExtData(player, "¾­Ñé¿âSTime", os.time() );
-             Char.SetExtData(player, "¾­Ñé¿âSPet", JSON.encode(data) );
+             Char.SetExtData(player, "ç»éªŒåº“S", Pet_ID);
+             Char.SetExtData(player, "ç»éªŒåº“STime", os.time() );
+             Char.SetExtData(player, "ç»éªŒåº“SPet", JSON.encode(data) );
              petNpcIndex[player][1] = Char.CreateDummy()
              Char.TradePet(player, slot, petNpcIndex[player][1]);
              self:regCallback('LoopEvent', Func.bind(self.pnloop,self))
@@ -152,32 +152,33 @@ function PetHatching:onLoad()
                      NLG.UpChar(NpcIndex);
              end)
              Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][1], math.random(1000,5000));
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_Ãû×Ö, pet_name);
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_ĞÎÏó, pet_image);
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_Ô­ĞÎ, pet_image);
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_Ô­Ê¼Í¼µµ, pet_image);
+             Char.SetData(petNpcIndex[player][1], CONST.CHAR_åå­—, pet_name);
+             Char.SetData(petNpcIndex[player][1], CONST.CHAR_å½¢è±¡, pet_image);
+             Char.SetData(petNpcIndex[player][1], CONST.CHAR_åŸå½¢, pet_image);
+             Char.SetData(petNpcIndex[player][1], CONST.CHAR_åŸå§‹å›¾æ¡£, pet_image);
              NLG.UpChar(petNpcIndex[player][1]);
              Char.Warp(petNpcIndex[player][1], 0, 25010, math.random(6,14), math.random(2,17));
-             NLG.SystemMessage(player, 'Œ™ÎïÒÑËÍßMÈ¥Ó–¾š');
+             NLG.SystemMessage(player, 'å¯µç‰© '..pet_name..' å·²é€é€²å»è¨“ç·´');
+             NLG.UpChar(player);
         end
       end
-    --È¡»ØŒ™ÎïëA¶Î
+    --å–å›å¯µç‰©éšæ®µ
     elseif select > 0 then
-      if seqno == 2 and select == CONST.°´Å¥_ÊÇ then
-        local gold = Char.GetData(player, CONST.CHAR_½ğ±Ò);
+      if seqno == 2 and select == CONST.æŒ‰é’®_æ˜¯ then
+        local gold = Char.GetData(player, CONST.CHAR_é‡‘å¸);
         if gold < totalGold then
-                NLG.SystemMessage(player, '½ğÅ²»×ãŸo·¨îI»ØŒ™Îï');
+                NLG.SystemMessage(player, 'é‡‘å¹£ä¸è¶³ç„¡æ³•é ˜å›å¯µç‰©');
                 return
         else
             if Char.GetEmptyPetSlot(player) < 0 then
-                NLG.SystemMessage(player, 'Œ™Îï›]ÓĞ»ØíµÄ¿ÕÎ»');
+                NLG.SystemMessage(player, 'å¯µç‰©æ²’æœ‰å›ä¾†çš„ç©ºä½');
                 return
             else
                 local petData= {}
-                local Pet_ID = Char.GetExtData(player, "¾­Ñé¿âS");
-                local data = Char.GetExtData(player, "¾­Ñé¿âSPet");
+                local Pet_ID = Char.GetExtData(player, "ç»éªŒåº“S");
+                local data = Char.GetExtData(player, "ç»éªŒåº“SPet");
                 local petData = JSON.decode(data);
-                --È¡µÃ½›òÖµ
+                --å–å¾—ç¶“é©—å€¼
                 if petNpcIndex[player][1]==-1 then
                     petNpcIndex[player][1] = Char.CreateDummy()
                     petIndex = Char.GetPet(petNpcIndex[player][1],0);
@@ -190,78 +191,79 @@ function PetHatching:onLoad()
                 elseif petNpcIndex[player][1]>=0 then
                     petIndex = Char.GetPet(petNpcIndex[player][1],0);
                 end
-                local level = Char.GetData(petIndex, CONST.CHAR_µÈ¼¶);
-                local exp = Char.GetData(petIndex, CONST.CHAR_¾­Ñé);
+                local level = Char.GetData(petIndex, CONST.CHAR_ç­‰çº§);
+                local exp = Char.GetData(petIndex, CONST.CHAR_ç»éªŒ);
                 local plusExp = totalMinutes * level * 12;
-                Char.SetData(petIndex, CONST.CHAR_¾­Ñé, exp+plusExp);
+                Char.SetData(petIndex, CONST.CHAR_ç»éªŒ, exp+plusExp);
                 Pet.UpPet(petNpcIndex[player][1], petIndex);
-                --È¡»ØŒ™Îï
+                --å–å›å¯µç‰©
                 Char.TradePet(petNpcIndex[player][1], 0, player);
                 Char.AddGold(player, -totalGold);
                 Char.DelDummy(petNpcIndex[player][1])
                 petNpcIndex[player][1] = -1
-                Char.SetExtData(player, "¾­Ñé¿âS", 0);
-                Char.SetExtData(player, "¾­Ñé¿âSTime", 0);
-                Char.SetExtData(player, "¾­Ñé¿âSPet", 0);
+                Char.SetExtData(player, "ç»éªŒåº“S", 0);
+                Char.SetExtData(player, "ç»éªŒåº“STime", 0);
+                Char.SetExtData(player, "ç»éªŒåº“SPet", 0);
                 NLG.UpChar(player);
-                NLG.SystemMessage(player, 'Œ™Îï»Øµ½ÄãµÄÉíß…');
+                NLG.SystemMessage(player, 'å¯µç‰©å›åˆ°ä½ çš„èº«é‚Š');
             end
         end
       end
 
     end
   end)
-  --ĞÂÊÖËÇÓı¼ÒÄÌÄÌ231089
-  self.juniorNpc = self:NPC_createNormal('ĞÂÊÖËÇÓı¼ÒÄÌÄÌ', 231089, { x = 17, y = 10, mapType = 0, map = 25010, direction = 6 });
+
+  --æ–°æ‰‹é¥²è‚²å®¶å¥¶å¥¶
+  self.juniorNpc = self:NPC_createNormal('æ–°æ‰‹é£¼è‚²å®¶å¥¶å¥¶', 231089, { x = 17, y = 10, mapType = 0, map = 25010, direction = 6 });
   self:NPC_regTalkedEvent(self.juniorNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local juniorCheck = Char.GetExtData(player, "¾­Ñé¿âJ") or 0;
+      local juniorCheck = Char.GetExtData(player, "ç»éªŒåº“J") or 0;
       if juniorCheck <=0 then
-          local msg = "3|\\nÎÒ¿ÉÒÔÍÃ¦Äãï•ğBŒ™Îï£¡Ã¿´ÎÖ»ÄÜï•ğBÒ»ëbŒ™Îï£¬ÇÒ³ıÁË«@µÃ½›òÖµß€¿ÉÒÔÄÃ IğBÎï£¡\\n\\n";
+          local msg = "3|\\næˆ‘å¯ä»¥å¹«å¿™ä½ é£¼é¤Šå¯µç‰©ï¼æ¯æ¬¡åªèƒ½é£¼é¤Šä¸€éš»å¯µç‰©ï¼Œä¸”é™¤äº†ç²å¾—ç¶“é©—å€¼é‚„å¯ä»¥æ‹¿ç‡Ÿé¤Šç‰©ï¼\\n\\n";
           for i=0,4 do
                 local pet = Char.GetPet(player,i);
                 if(pet<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, self.juniorNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.juniorNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
       elseif juniorCheck >0 then
-          local JBTime = Char.GetExtData(player, "¾­Ñé¿âJTime");
+          local JBTime = Char.GetExtData(player, "ç»éªŒåº“JTime");
           local days = tonumber(os.date("%j",os.time())) - tonumber(os.date("%j",JBTime));
           local hours = tonumber(os.date("%H",os.time())) - tonumber(os.date("%H",JBTime));
           local minutes = tonumber(os.date("%M",os.time())) - tonumber(os.date("%M",JBTime));
           totalMinutes = days*24*60+hours*60+minutes;
           totalGold = totalMinutes*10;
           if (totalGold>=432000) then
-              totalMinutes = 43200;       --×î¸ß±£¹ÜÉÏÏŞ30Ìì½›ò4Èf3200
-              totalGold = 432000;           --×î¸ßÊÕÙMÉÏÏŞ30ÌìµÄ43Èf2000
+              totalMinutes = 43200;       --æœ€é«˜ä¿ç®¡ä¸Šé™30å¤©ç¶“é©—4è¬3200
+              totalGold = 432000;           --æœ€é«˜æ”¶è²»ä¸Šé™30å¤©çš„43è¬2000
           end
-          local msg = "\\n\\n@cÄ¿Ç°ÒÑÓ–¾š•rég£º "..totalMinutes.." ·Ö\\n\\n\\n¬FÔÚÒªîI»ØŒ™Îï†á£¿\\n\\n¿‚¹²ĞèÒª£º"..totalGold.."Ä§Å\\n\\n";
-          NLG.ShowWindowTalked(player, self.juniorNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2, msg);
+          local msg = "\\n\\n@cç›®å‰å·²è¨“ç·´æ™‚é–“ï¼š "..totalMinutes.." åˆ†\\n\\n\\nç¾åœ¨è¦é ˜å›å¯µç‰©å—ï¼Ÿ\\n\\nç¸½å…±éœ€è¦ï¼š"..totalGold.."é­”å¹£\\n\\n";
+          NLG.ShowWindowTalked(player, self.juniorNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2, msg);
       end
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.juniorNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    --±£¹ÜŒ™ÎïëA¶Î
+    --ä¿ç®¡å¯µç‰©éšæ®µ
     if select == 0 then
       if seqno == 1 and data >= 1 then
         local slot = data-1;
         local petIndex = Char.GetPet(player,slot);
         if petIndex>=0 then
              local data = self:extractPetData(petIndex);
-             local pet_name = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
-             local pet_image = Char.GetData(petIndex,CONST.CHAR_ĞÎÏó);
+             local pet_name = Char.GetData(petIndex,CONST.CHAR_åå­—);
+             local pet_image = Char.GetData(petIndex,CONST.CHAR_å½¢è±¡);
              local Pet_ID = Char.GetData(petIndex,CONST.PET_PetID);
-             Char.SetExtData(player, "¾­Ñé¿âJ", Pet_ID);
-             Char.SetExtData(player, "¾­Ñé¿âJTime", os.time() );
-             Char.SetExtData(player, "¾­Ñé¿âJPet", JSON.encode(data) );
+             Char.SetExtData(player, "ç»éªŒåº“J", Pet_ID);
+             Char.SetExtData(player, "ç»éªŒåº“JTime", os.time() );
+             Char.SetExtData(player, "ç»éªŒåº“JPet", JSON.encode(data) );
              petNpcIndex[player][2] = Char.CreateDummy()
              Char.TradePet(player, slot, petNpcIndex[player][2]);
              self:regCallback('LoopEvent', Func.bind(self.pnloop,self))
@@ -273,32 +275,33 @@ function PetHatching:onLoad()
                      NLG.UpChar(NpcIndex);
              end)
              Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][2], math.random(1000,5000));
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_Ãû×Ö, pet_name);
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_ĞÎÏó, pet_image);
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_Ô­ĞÎ, pet_image);
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_Ô­Ê¼Í¼µµ, pet_image);
+             Char.SetData(petNpcIndex[player][2], CONST.CHAR_åå­—, pet_name);
+             Char.SetData(petNpcIndex[player][2], CONST.CHAR_å½¢è±¡, pet_image);
+             Char.SetData(petNpcIndex[player][2], CONST.CHAR_åŸå½¢, pet_image);
+             Char.SetData(petNpcIndex[player][2], CONST.CHAR_åŸå§‹å›¾æ¡£, pet_image);
              NLG.UpChar(petNpcIndex[player][2]);
              Char.Warp(petNpcIndex[player][2], 0, 25010, math.random(6,14), math.random(2,17));
-             NLG.SystemMessage(player, 'Œ™ÎïÒÑËÍßMÈ¥Ó–¾š');
+             NLG.SystemMessage(player, 'å¯µç‰© '..pet_name..' å·²é€é€²å»è¨“ç·´');
+             NLG.UpChar(player);
         end
       end
-    --È¡»ØŒ™ÎïëA¶Î
+    --å–å›å¯µç‰©éšæ®µ
     elseif select > 0 then
-      if seqno == 2 and select == CONST.°´Å¥_ÊÇ then
-        local gold = Char.GetData(player, CONST.CHAR_½ğ±Ò);
+      if seqno == 2 and select == CONST.æŒ‰é’®_æ˜¯ then
+        local gold = Char.GetData(player, CONST.CHAR_é‡‘å¸);
         if gold < totalGold then
-                NLG.SystemMessage(player, '½ğÅ²»×ãŸo·¨îI»ØŒ™Îï');
+                NLG.SystemMessage(player, 'é‡‘å¹£ä¸è¶³ç„¡æ³•é ˜å›å¯µç‰©');
                 return
         else
             if Char.GetEmptyPetSlot(player) < 0 then
-                NLG.SystemMessage(player, 'Œ™Îï›]ÓĞ»ØíµÄ¿ÕÎ»');
+                NLG.SystemMessage(player, 'å¯µç‰©æ²’æœ‰å›ä¾†çš„ç©ºä½');
                 return
             else
                 local petData= {}
-                local Pet_ID = Char.GetExtData(player, "¾­Ñé¿âJ");
-                local data = Char.GetExtData(player, "¾­Ñé¿âJPet");
+                local Pet_ID = Char.GetExtData(player, "ç»éªŒåº“J");
+                local data = Char.GetExtData(player, "ç»éªŒåº“JPet");
                 local petData = JSON.decode(data);
-                --È¡µÃ½›òÖµ
+                --å–å¾—ç¶“é©—å€¼
                 if petNpcIndex[player][2]==-1 then
                     petNpcIndex[player][2] = Char.CreateDummy()
                     petIndex = Char.GetPet(petNpcIndex[player][2],0);
@@ -311,33 +314,133 @@ function PetHatching:onLoad()
                 elseif petNpcIndex[player][2]>=0 then
                     petIndex = Char.GetPet(petNpcIndex[player][2],0);
                 end
-                local level = Char.GetData(petIndex, CONST.CHAR_µÈ¼¶);
-                local exp = Char.GetData(petIndex, CONST.CHAR_¾­Ñé);
+                local level = Char.GetData(petIndex, CONST.CHAR_ç­‰çº§);
+                local exp = Char.GetData(petIndex, CONST.CHAR_ç»éªŒ);
                 local plusExp = totalMinutes * level * 10;
-                Char.SetData(petIndex, CONST.CHAR_¾­Ñé, exp+plusExp);
+                Char.SetData(petIndex, CONST.CHAR_ç»éªŒ, exp+plusExp);
                 Pet.UpPet(petNpcIndex[player][2], petIndex);
-                --È¡»ØŒ™Îï
+                --å–å›å¯µç‰©
                 if Char.ItemSlot(player)<20 then
                     if (totalMinutes>=60 and totalMinutes<180) then
-                        Char.GiveItem(player, 900504, math.random(1,2), '«@µÃÉúµ° IğBÎï');
+                        Char.GiveItem(player, 900504, math.random(1,2), 'ç²å¾—ç”Ÿè›‹ç‡Ÿé¤Šç‰©');
                     elseif (totalMinutes>=180 and totalMinutes<480) then
-                        Char.GiveItem(player, 900504, math.random(4,8), '«@µÃÉúµ° IğBÎï');
+                        Char.GiveItem(player, 900504, math.random(4,8), 'ç²å¾—ç”Ÿè›‹ç‡Ÿé¤Šç‰©');
                     elseif (totalMinutes>=480) then
-                        Char.GiveItem(player, 900504, math.random(8,10), '«@µÃÉúµ° IğBÎï');
+                        Char.GiveItem(player, 900504, math.random(8,10), 'ç²å¾—ç”Ÿè›‹ç‡Ÿé¤Šç‰©');
                     end
                 else
-                    NLG.SystemMessage(player, 'ÎïÆ·™Ú›]ÓĞ¿ÕÎ»');
+                    NLG.SystemMessage(player, 'ç‰©å“æ¬„æ²’æœ‰ç©ºä½');
                     return
                 end
                 Char.TradePet(petNpcIndex[player][2], 0, player);
                 Char.AddGold(player, -totalGold);
                 Char.DelDummy(petNpcIndex[player][2])
                 petNpcIndex[player][2] = -1
-                Char.SetExtData(player, "¾­Ñé¿âJ", 0);
-                Char.SetExtData(player, "¾­Ñé¿âJTime", 0);
-                Char.SetExtData(player, "¾­Ñé¿âJPet", 0);
+                Char.SetExtData(player, "ç»éªŒåº“J", 0);
+                Char.SetExtData(player, "ç»éªŒåº“JTime", 0);
+                Char.SetExtData(player, "ç»éªŒåº“JPet", 0);
                 NLG.UpChar(player);
-                NLG.SystemMessage(player, 'Œ™Îï»Øµ½ÄãµÄÉíß…');
+                NLG.SystemMessage(player, 'å¯µç‰©å›åˆ°ä½ çš„èº«é‚Š');
+            end
+        end
+      end
+
+    end
+  end)
+
+  --å¹´è½»çš„é­”ç‰©ç ”ç©¶å‘˜
+  self.researchNpc = self:NPC_createNormal('å¹´è¼•çš„é­”ç‰©ç ”ç©¶å“¡', 260020, { x = 19, y = 5, mapType = 0, map = 25010, direction = 6 });
+  self:NPC_regTalkedEvent(self.researchNpc, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+      local seniorCheck = Char.GetExtData(player, "ç»éªŒåº“S");
+      local juniorCheck = Char.GetExtData(player, "ç»éªŒåº“J");
+      if seniorCheck >0 and  juniorCheck >0  then
+          local researchCheck = Char.GetExtData(player, "ç ”ç©¶å‘˜R") or 0;
+          local RTime = Char.GetExtData(player, "ç ”ç©¶å‘˜Time") or 0;
+          local days = tonumber(os.date("%j",os.time())) - tonumber(os.date("%j",RTime));
+          local hours = tonumber(os.date("%H",os.time())) - tonumber(os.date("%H",RTime));
+          local minutes = tonumber(os.date("%M",os.time())) - tonumber(os.date("%M",RTime));
+          local totalMinutes = days*24*60+hours*60+minutes;
+          if (researchCheck==0)  then
+              local msg = "\\n\\n@cç›®å‰å·²ç ”ç©¶æ™‚é–“ï¼š 0 åˆ†\\n\\n\\nè¦é¤µé¤Šçœ‹çœ‹ç¥å¥‡ç³–æœå—ï¼Ÿ\\n\\nç¬¬ä¸€å¤©ç ”ç©¶éœ€è¦ï¼š4å€‹\\n\\n";
+              NLG.ShowWindowTalked(player, self.researchNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 31, msg);
+          end
+          if (researchCheck==1 and minutes>=1)  then
+              local msg = "\\n\\n@cç›®å‰å·²ç ”ç©¶æ™‚é–“ï¼š "..totalMinutes.." åˆ†\\n\\n\\nè§€å¯Ÿé­”ç‰©è›‹çš„åæ‡‰è‰¯å¥½ï¼\\n\\nç¬¬äºŒå¤©ç ”ç©¶éœ€è¦ï¼š8å€‹ç¥å¥‡ç³–æœ\\n\\n";
+              NLG.ShowWindowTalked(player, self.researchNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 32, msg);
+          elseif (researchCheck==1 and minutes<1)  then
+              local msg = "\\n\\n@cç›®å‰å·²ç ”ç©¶æ™‚é–“ï¼š "..totalMinutes.." åˆ†\\n\\n\\nç ”ç©¶é ˆç­‰å¾…è¶…é1440åˆ†é˜ï¼\\n\\nç¬¬äºŒå¤©ç ”ç©¶éœ€è¦ï¼š8å€‹ç¥å¥‡ç³–æœ\\n\\n";
+              NLG.ShowWindowTalked(player, self.researchNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 3, msg);
+          end
+          if (researchCheck==2 and minutes>=1)  then
+              local msg = "\\n\\n@cç›®å‰å·²ç ”ç©¶æ™‚é–“ï¼š "..totalMinutes.." åˆ†\\n\\n\\nç‰¹æ®Šçš„é­”ç‰©å¿«è¦å‡ºä¾†äº†ï¼\\n\\næœ€å¾Œçš„ç ”ç©¶éœ€è¦ï¼š16å€‹ç¥å¥‡ç³–æœå’Œ5è¬é­”å¹£\\n\\n";
+              NLG.ShowWindowTalked(player, self.researchNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 33, msg);
+          elseif (researchCheck==2 and minutes<1)  then
+              local msg = "\\n\\n@cç›®å‰å·²ç ”ç©¶æ™‚é–“ï¼š "..totalMinutes.." åˆ†\\n\\n\\nç ”ç©¶é ˆç­‰å¾…è¶…é1440åˆ†é˜ï¼\\n\\næœ€å¾Œçš„ç ”ç©¶éœ€è¦ï¼š16å€‹ç¥å¥‡ç³–æœå’Œ5è¬é­”å¹£\\n\\n";
+              NLG.ShowWindowTalked(player, self.researchNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 3, msg);
+          end
+      else
+          local msg = "\\n\\n@cè«‹å…ˆå»æ‰¾çˆºçˆºå’Œå¥¶å¥¶ä¿ç®¡ä½ çš„å¯µç‰©\\n\\nå…©é‚Šéƒ½å¯„æ”¾å¾Œä¾†æ‰¾æˆ‘\\n\\nä¸€èµ·ç ”ç©¶å¦‚ä½•è®“é­”ç‰©ç”Ÿè›‹ï¼\\n\\n";
+          NLG.ShowWindowTalked(player, self.researchNpc, CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ç¡®å®š, 3, msg);
+      end
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.researchNpc, function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    --é¤µé¤Šè›‹éšæ®µ
+    if select > 0 then
+      if seqno == 31 and select == CONST.æŒ‰é’®_æ˜¯ then
+        if Char.ItemNum(player,900504)>=4 then
+                Char.SetExtData(player, "ç ”ç©¶å‘˜R", 1);
+                Char.SetExtData(player, "ç ”ç©¶å‘˜Time", os.time() );
+                Char.DelItem(player,900504,4);
+        else
+                NLG.SystemMessage(player, 'ç¥å¥‡ç³–æœéœ€è¦4å€‹');
+                return
+        end
+      elseif seqno == 32 and select == CONST.æŒ‰é’®_æ˜¯ then
+        if Char.ItemNum(player,900504)>=8 then
+                Char.SetExtData(player, "ç ”ç©¶å‘˜R", 2);
+                Char.SetExtData(player, "ç ”ç©¶å‘˜Time", os.time() );
+                Char.DelItem(player,900504,8);
+        else
+                NLG.SystemMessage(player, 'ç¥å¥‡ç³–æœéœ€è¦8å€‹');
+                return
+        end
+    --é ˜é¤Šå¯µç‰©éšæ®µ
+      elseif seqno == 33 and select == CONST.æŒ‰é’®_æ˜¯ then
+        local gold = Char.GetData(player, CONST.CHAR_é‡‘å¸);
+        if gold < 50000 then
+                NLG.SystemMessage(player, 'é ˜é¤Šå¯µç‰©é ˆè¦5è¬é‡‘å¹£');
+                return
+        else
+            if Char.GetEmptyPetSlot(player) < 0 then
+                NLG.SystemMessage(player, 'å¯µç‰©æ²’æœ‰å›ä¾†çš„ç©ºä½');
+                return
+            else
+                if Char.ItemNum(player,900504)>=16 then
+                    Char.SetExtData(player, "ç ”ç©¶å‘˜R", 3);
+                    Char.DelItem(player,900504,16);
+                else
+                    NLG.SystemMessage(player, 'ç¥å¥‡ç³–æœéœ€è¦16å€‹');
+                    return
+                end
+                local Pet_ID = Char.GetExtData(player, "ç»éªŒåº“S");
+                local PetSlot = Char.GetEmptyPetSlot(player);
+                Char.AddPet(player, Pet_ID);
+                local petIndex = Char.GetPet(player,PetSlot);
+                Pet.AddSkill(petIndex, 131100, 9);
+                Pet.UpPet(player, petIndex);
+                --å–å›å¯µç‰©
+                Char.AddGold(player, -50000);
+                Char.SetExtData(player, "ç ”ç©¶å‘˜R", 0);
+                Char.SetExtData(player, "ç ”ç©¶å‘˜Time", 0);
+                NLG.UpChar(player);
+                NLG.SystemMessage(player, 'æ­å–œç²å¾—æœ‰å¤©ç”Ÿæ€§æ ¼çš„Lv1å¯µç‰©');
             end
         end
       end
@@ -346,13 +449,12 @@ function PetHatching:onLoad()
   end)
 
 
-
 end
 
 
 
 
--- NOTE ³éÈ¡³èÎïÊı¾İ
+-- NOTE æŠ½å–å® ç‰©æ•°æ®
 function PetHatching:extractPetData(petIndex)
   local item = {
     attr={},
@@ -367,7 +469,7 @@ function PetHatching:extractPetData(petIndex)
     item.rank[tostring(v)] = Pet.GetArtRank(petIndex,v);
     
   end
-  -- ³èÎï¼¼ÄÜ
+  -- å® ç‰©æŠ€èƒ½
   local skillTable={}
   for i=0,9 do
     local tech_id = Pet.GetSkill(petIndex, i)
@@ -380,23 +482,23 @@ function PetHatching:extractPetData(petIndex)
   item.skills=skillTable
   return item;
 end
--- NOTE ¸³Óè³èÎïÊı¾İ
+-- NOTE èµ‹äºˆå® ç‰©æ•°æ®
 function PetHatching:insertPetData(petIndex,petData)
-  -- ³èÎïÊôĞÔ
+  -- å® ç‰©å±æ€§
   for key, v in pairs(petFields) do
     if petData.attr[tostring(v)] ~=nil  then
       Char.SetData(petIndex, v,petData.attr[tostring(v)]);
     end
   end
-  -- ÖÒ³Ï
+  -- å¿ è¯š
   -- Char.SetData(petIndex, 495,100);
-  -- ³èÎï³É³¤
+  -- å® ç‰©æˆé•¿
   for key, v in pairs(petRankFields) do
     if petData.rank[tostring(v)] ~=nil then
       Pet.SetArtRank(petIndex, v,petData.rank[tostring(v)]);
     end
   end
-  -- ³èÎï¼¼ÄÜ
+  -- å® ç‰©æŠ€èƒ½
   
   for i=0,9 do
     local tech_id = petData.skills[i+1]
