@@ -7,6 +7,15 @@ for list = 0,50 do
                     petNpcIndex[list][2] = -1
 end
 
+local petMettleTable = {
+          {9610,9619},
+          {9611,9615},
+          {9612,9616},
+          {9613,9617},
+          {9614,9618},
+          {9620,9621,9622,9623,9624,9625,9626,9627,9628,9629},
+}
+
 -- NOTE 宠物的所有属性key
 local petFields={
 CONST.CHAR_类型,
@@ -135,6 +144,7 @@ function PetHatching:onLoad()
         local petIndex = Char.GetPet(player,slot);
         if petIndex>=0 then
              local data = self:extractPetData(petIndex);
+             local pet_level = Char.GetData(petIndex, CONST.CHAR_等级);
              local pet_name = Char.GetData(petIndex,CONST.CHAR_名字);
              local pet_image = Char.GetData(petIndex,CONST.CHAR_形象);
              local Pet_ID = Char.GetData(petIndex,CONST.PET_PetID);
@@ -152,6 +162,7 @@ function PetHatching:onLoad()
                      NLG.UpChar(NpcIndex);
              end)
              Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][1], math.random(1000,5000));
+             Char.SetData(petNpcIndex[player][1], CONST.CHAR_等级, pet_level);
              Char.SetData(petNpcIndex[player][1], CONST.CHAR_名字, pet_name);
              Char.SetData(petNpcIndex[player][1], CONST.CHAR_形象, pet_image);
              Char.SetData(petNpcIndex[player][1], CONST.CHAR_原形, pet_image);
@@ -258,6 +269,7 @@ function PetHatching:onLoad()
         local petIndex = Char.GetPet(player,slot);
         if petIndex>=0 then
              local data = self:extractPetData(petIndex);
+             local pet_level = Char.GetData(petIndex, CONST.CHAR_等级);
              local pet_name = Char.GetData(petIndex,CONST.CHAR_名字);
              local pet_image = Char.GetData(petIndex,CONST.CHAR_形象);
              local Pet_ID = Char.GetData(petIndex,CONST.PET_PetID);
@@ -275,6 +287,7 @@ function PetHatching:onLoad()
                      NLG.UpChar(NpcIndex);
              end)
              Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][2], math.random(1000,5000));
+             Char.SetData(petNpcIndex[player][2], CONST.CHAR_等级, pet_level);
              Char.SetData(petNpcIndex[player][2], CONST.CHAR_名字, pet_name);
              Char.SetData(petNpcIndex[player][2], CONST.CHAR_形象, pet_image);
              Char.SetData(petNpcIndex[player][2], CONST.CHAR_原形, pet_image);
@@ -352,8 +365,8 @@ function PetHatching:onLoad()
   self.researchNpc = self:NPC_createNormal('年輕的魔物研究員', 260020, { x = 19, y = 5, mapType = 0, map = 25010, direction = 6 });
   self:NPC_regTalkedEvent(self.researchNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local seniorCheck = Char.GetExtData(player, "经验库S");
-      local juniorCheck = Char.GetExtData(player, "经验库J");
+      local seniorCheck = Char.GetExtData(player, "经验库S") or 0;
+      local juniorCheck = Char.GetExtData(player, "经验库J") or 0;
       if seniorCheck >0 and  juniorCheck >0  then
           local researchCheck = Char.GetExtData(player, "研究员R") or 0;
           local RTime = Char.GetExtData(player, "研究员Time") or 0;
@@ -433,7 +446,9 @@ function PetHatching:onLoad()
                 local PetSlot = Char.GetEmptyPetSlot(player);
                 Char.AddPet(player, Pet_ID);
                 local petIndex = Char.GetPet(player,PetSlot);
-                Pet.AddSkill(petIndex, 9610, 9);
+                local typeRand = math.random(1,6);
+                local pos = math.random(1,#petMettleTable[typeRand]);
+                Pet.AddSkill(petIndex, petMettleTable[typeRand][pos], 9);
                 Pet.UpPet(player, petIndex);
                 --取回寵物
                 Char.AddGold(player, -50000);
