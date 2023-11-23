@@ -8,12 +8,11 @@ for list = 0,50 do
 end
 
 local petMettleTable = {
-          {9610,9619},
-          {9611,9615},
-          {9612,9616},
-          {9613,9617},
-          {9614,9618},
-          {9620,9621,9622,9623,9624,9625,9626,9627,9628,9629},
+          {9610,9619,9620,9629},       --對BOSS增,自BOSS減,對人形增,對邪魔增
+          {9611,9615,9623,9624},       --對地增,自地減,對飛行增,對昆蟲增
+          {9612,9616,9627,9628},       --對水增,自水減,對特殊增,對金屬增
+          {9613,9617,9621,9626},       --對火增,自火減,對龍族增,對野獸增
+          {9614,9618,9622,9625},       --對風增,自風減,對不死增,對植物增
 }
 
 -- NOTE 宠物的所有属性key
@@ -378,17 +377,17 @@ function PetHatching:onLoad()
               local msg = "\\n\\n@c目前已研究時間： 0 分\\n\\n\\n要餵養看看神奇糖果嗎？\\n\\n第一天研究需要：4個\\n\\n";
               NLG.ShowWindowTalked(player, self.researchNpc, CONST.窗口_信息框, CONST.按钮_是否, 31, msg);
           end
-          if (researchCheck==1 and minutes>=1)  then
+          if (researchCheck==1 and days>=1)  then
               local msg = "\\n\\n@c目前已研究時間： "..totalMinutes.." 分\\n\\n\\n觀察魔物蛋的反應良好！\\n\\n第二天研究需要：8個神奇糖果\\n\\n";
               NLG.ShowWindowTalked(player, self.researchNpc, CONST.窗口_信息框, CONST.按钮_是否, 32, msg);
-          elseif (researchCheck==1 and minutes<1)  then
+          elseif (researchCheck==1 and days<1)  then
               local msg = "\\n\\n@c目前已研究時間： "..totalMinutes.." 分\\n\\n\\n研究須等待超過1440分鐘！\\n\\n第二天研究需要：8個神奇糖果\\n\\n";
               NLG.ShowWindowTalked(player, self.researchNpc, CONST.窗口_信息框, CONST.按钮_是否, 3, msg);
           end
-          if (researchCheck==2 and minutes>=1)  then
+          if (researchCheck==2 and days>=1)  then
               local msg = "\\n\\n@c目前已研究時間： "..totalMinutes.." 分\\n\\n\\n特殊的魔物快要出來了！\\n\\n最後的研究需要：16個神奇糖果和5萬魔幣\\n\\n";
               NLG.ShowWindowTalked(player, self.researchNpc, CONST.窗口_信息框, CONST.按钮_是否, 33, msg);
-          elseif (researchCheck==2 and minutes<1)  then
+          elseif (researchCheck==2 and days<1)  then
               local msg = "\\n\\n@c目前已研究時間： "..totalMinutes.." 分\\n\\n\\n研究須等待超過1440分鐘！\\n\\n最後的研究需要：16個神奇糖果和5萬魔幣\\n\\n";
               NLG.ShowWindowTalked(player, self.researchNpc, CONST.窗口_信息框, CONST.按钮_是否, 3, msg);
           end
@@ -446,7 +445,7 @@ function PetHatching:onLoad()
                 local PetSlot = Char.GetEmptyPetSlot(player);
                 Char.AddPet(player, Pet_ID);
                 local petIndex = Char.GetPet(player,PetSlot);
-                local typeRand = math.random(1,6);
+                local typeRand = math.random(1,#petMettleTable);
                 local pos = math.random(1,#petMettleTable[typeRand]);
                 Pet.AddSkill(petIndex, petMettleTable[typeRand][pos], 9);
                 Pet.UpPet(player, petIndex);
