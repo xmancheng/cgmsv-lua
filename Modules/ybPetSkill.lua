@@ -38,7 +38,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == 1) then
                        local damage = damage * v.val;
-                       NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
+                       --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
                end
@@ -47,7 +47,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) == 1) then
                        local damage = damage * v.val;
-                       NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
+                       --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
                end
@@ -56,7 +56,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) >= 10) then
                        local damage = damage * v.val;
-                       NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
+                       --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
                end
@@ -65,7 +65,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) >= 10) then
                        local damage = damage * v.val;
-                       NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
+                       --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
                end
@@ -74,7 +74,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == v.info) then
                        local damage = damage * v.val;
-                       NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
+                       --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
                end
@@ -107,7 +107,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
                         NLG.Say(leader,defCharIndex,"【隱忍自重】！！",4,3);
                  end
-                 NLG.Say(-1,-1,"进入战斗时降低受到的物理伤害25%，此效果在战斗中每回合减少5%，最多减少至50%",4,3);
+                 --NLG.Say(-1,-1,"进入战斗时降低受到的物理伤害25%，此效果在战斗中每回合减少5%，最多减少至50%",4,3);
                  return damage;
                end
                if (skillId == 1519) then  --宠物被动【威风凛凛】
@@ -121,7 +121,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
                         NLG.Say(leader,defCharIndex,"【威風凜凜】！！",4,3);
                  end
-                 NLG.Say(-1,-1,"进入战斗时降低受到的物理伤害0%，此效果在战斗中每回合提高3%，最高30%",4,3);
+                 --NLG.Say(-1,-1,"进入战斗时降低受到的物理伤害0%，此效果在战斗中每回合提高3%，最高30%",4,3);
                  return damage;
                end
            end
@@ -139,7 +139,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
                         NLG.Say(leader,defCharIndex,"【萬念皆空】！！",4,3);
                  end
-                 NLG.Say(-1,-1,"进入战斗时降低受到的魔法伤害25%，此效果在战斗中每回合减少5%，最多减少至50%",4,3);
+                 --NLG.Say(-1,-1,"进入战斗时降低受到的魔法伤害25%，此效果在战斗中每回合减少5%，最多减少至50%",4,3);
                  return damage;
                end
                if (skillId == 1519) then  --宠物被动【威风凛凛】
@@ -153,7 +153,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
                         NLG.Say(leader,defCharIndex,"【威風凜凜】！！",4,3);
                  end
-                 NLG.Say(-1,-1,"进入战斗时降低受到的魔法伤害0%，此效果在战斗中每回合提高3%，最高30%",4,3);
+                 --NLG.Say(-1,-1,"进入战斗时降低受到的魔法伤害0%，此效果在战斗中每回合提高3%，最高30%",4,3);
                  return damage;
                end
            end
@@ -171,7 +171,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
                         NLG.Say(leader,charIndex,"【大膽無畏】！！",4,3);
                  end
-                 NLG.Say(-1,-1,"进入战斗时提高造成的所有伤害30%，此效果在战斗中每回合降低6%",4,3);
+                 --NLG.Say(-1,-1,"进入战斗时提高造成的所有伤害30%，此效果在战斗中每回合降低6%",4,3);
                  return damage;
                end
                if (skillId == 1719) then  --宠物被动【百战磨练】
@@ -185,7 +185,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
                         NLG.Say(leader,charIndex,"【百戰磨練】！！",4,3);
                  end
-                 NLG.Say(-1,-1,"进入战斗时提高造成的所有伤害0%，此效果在战斗中每回合上升6%，最高30%",4,3);
+                 --NLG.Say(-1,-1,"进入战斗时提高造成的所有伤害0%，此效果在战斗中每回合上升6%，最高30%",4,3);
                  return damage;
                end
            end
