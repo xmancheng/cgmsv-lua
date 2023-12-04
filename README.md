@@ -36,6 +36,7 @@ useModule('PetTechLetter');|寵物技能卷
 useModule('PetLevelUpEvent');|寵物技能升級
 useModule('ModularPet');|自定義寵物
 useModule('PetBreeding');|寵物配種
+useModule('PetBerry');|寵物樹果
 
 
 ### 裝備相關
