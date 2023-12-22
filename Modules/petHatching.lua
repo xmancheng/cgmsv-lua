@@ -519,7 +519,7 @@ function PetHatching:insertPetData(petIndex,petData)
     Pet.DelSkill(petIndex,i)
     if tech_id ~=nil then
       
-      Pet.AddSkill(petIndex,tech_id)
+      Pet.AddSkill(petIndex,tech_id, i)
     
     end
   end
