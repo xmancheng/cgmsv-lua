@@ -47,29 +47,51 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
                local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
                local GTime = NLG.GetGameTime();
-               local StrAdd = 0;
+               local StrAdd_W = 0;
+               local StrAdd_S = 0;
                if Weapon_Name~=nil then
                  local StrPlus = string.find(Weapon_Name, "+");
                  if StrPlus~=nil then
-                   StrAdd = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
+                   StrAdd_W = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
                  end
                else
                  if Shield_Name~=nil then
                    local StrPlus = string.find(Shield_Name, "+");
                    if StrPlus~=nil then
-                     StrAdd = tonumber(string.sub(Shield_Name, StrPlus+1, -1));
+                     StrAdd_S = tonumber(string.sub(Shield_Name, StrPlus+1, -1));
                    end
                  end
                end
-               if ( StrAdd >= 0 ) then
-                 local StrEffect = 1 + (StrAdd*0.03);
+               if ( StrAdd_W >= 0 ) then
+                 local StrEffect_W = 1 + (StrAdd_W*0.03);
+                 local StrEffect_S = 1 + (StrAdd_S*0.01);
                  --print(StrEffect)
                  if NLG.Rand(1,10)>=1  then
-                        damage = damage * StrEffect;
-                        --NLG.Say(charIndex,-1,"武器附加強化特殊效果每+1傷害提升3%，目前傷害"..(StrAdd*3).."%",4,3);
+                        damage = damage * StrEffect_W;
+                        --NLG.Say(charIndex,-1,"武器附加強化特殊效果每+1傷害提升3%，目前傷害"..(StrAdd_W*3).."%",4,3);
                         if ( ViceWeapon_Effect == GTime ) then
-                               damage = (damage+1000) * StrEffect;
-                               NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升3%",4,3);
+                               damage = damage+(1000 * StrEffect_S);
+                               --NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升1%",4,3);
+                        end
+                        if ( Item.GetData(WeaponIndex, CONST.道具_类型) == 5 or Item.GetData(WeaponIndex, CONST.道具_类型) == 6) then
+                               local Shadow = Char.GetTempData(defCharIndex, '影子标记') or 0
+                               if (Battle.GetTurn(battleIndex)==1) then               --标记层数初始化
+                                      Char.SetTempData(defCharIndex, '影子标记', 0);
+                               end
+                               if (Shadow>=1) then
+                                      local agi = Char.GetData(charIndex, CONST.CHAR_敏捷);
+                                      local SR = {0.2, 0.4, 0.8, 1.6}                                 --标记层数对应暴击系数
+                                      local SAD = (SR[Shadow]) * agi;                         --影子偷袭附加伤害
+                                      damage = damage+SAD;
+                                      Char.SetTempData(defCharIndex, '影子标记', 0);      --标记层数初始化
+                                      NLG.Say(charIndex,-1,"影子偷襲暴擊".. SAD .."！",4,3);
+                               else
+                                      local min = Item.GetData(WeaponIndex, CONST.道具_最小攻击数量);
+                                      local max = Item.GetData(WeaponIndex, CONST.道具_最大攻击数量);
+                                      local SL = math.random(min,max) or 0;
+                                      Char.SetTempData(defCharIndex, '影子标记', SL);
+                                      --NLG.Say(charIndex,-1,"影子標記".. SL .."層",4,3);
+                               end
                         end
                  end
                  print(damage)
