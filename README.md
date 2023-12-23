@@ -66,7 +66,7 @@ loadModule('ybPetSkill')|寵物被動技能、寵物魔法傷害調整、傭兵�
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化
 loadModule('attackSkill')|抓寵刀背攻擊、法術附加狀態、合擊狀態增傷
 loadModule('setupMagicAttr')|魔法屬性技能
-loadModule('disguiseSpell')|變形咒語傷害調整
+loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
 loadModule('hbSummonLuac')|一鍵召喚鏡像寵物夥伴
 loadModule('hbReinforceLuac')|動作技能卡、經驗儲存物品
 loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
