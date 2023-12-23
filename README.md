@@ -72,7 +72,7 @@ loadModule('hbReinforceLuac')|動作技能卡、經驗儲存物品
 loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
 loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
-loadModule('strAddEffect')|強化效果、附念效果
+loadModule('strAddEffect')|強化效果、附念效果、影子效果
 loadModule('setupItemType')|副武器擴充
 loadModule('addTK')|副武器附念
 loadModule('quickUI')|動作快捷
