@@ -22,13 +22,32 @@ local TechTbl = {
       { techID_b = 26609, techID_h = 26609, StrAdd_b = 9, StrAdd_h = 9, option = 'AR:', val = -30},
 }
 
+local signType = {
+    { type=Shadow, min=1, max=2, layer=1, round=1, ratio=0.2},        --影子标记、最小攻击次数、最大攻击次数、层数、回合、暴击系数
+    { type=Shadow, min=2, max=2, layer=1, round=2, ratio=0.2},
+    { type=Shadow, min=2, max=3, layer=2, round=2, ratio=0.4},
+    { type=Shadow, min=3, max=3, layer=2, round=3, ratio=0.4},
+    { type=Shadow, min=3, max=4, layer=3, round=3, ratio=0.8},
+  }
+
 --- 加载模块钩子
 function StrAddEffect:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self))
+  self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
 end
 
+function StrAddEffect:battleOverEventCallback(battleIndex)
+         for i = 0,19 do
+               local defCharIndex = Battle.GetPlayer(battleIndex, i);
+               if (defCharIndex > 0) then    --标记层数初始化
+                      if (Char.GetTempData(defCharIndex, '影子标记层数')==nil or Char.GetTempData(defCharIndex, '影子标记层数') > 0 )  then
+                             Char.SetTempData(defCharIndex, '影子标记层数', 0);
+                      end
+               end
+         end
+end
 
 function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
@@ -74,23 +93,27 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                --NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升1%",4,3);
                         end
                         if ( Item.GetData(WeaponIndex, CONST.道具_类型) == 5 or Item.GetData(WeaponIndex, CONST.道具_类型) == 6) then
-                               local Shadow = Char.GetTempData(defCharIndex, '影子标记') or 0
-                               if (Battle.GetTurn(battleIndex)==1) then               --标记层数初始化
-                                      Char.SetTempData(defCharIndex, '影子标记', 0);
-                               end
-                               if (Shadow>=1) then
-                                      local agi = Char.GetData(charIndex, CONST.CHAR_敏捷);
-                                      local SR = {0.2, 0.4, 0.8, 1.6}                                 --标记层数对应暴击系数
-                                      local SAD = (SR[Shadow]) * agi;                         --影子偷袭附加伤害
-                                      damage = damage+SAD;
-                                      Char.SetTempData(defCharIndex, '影子标记', 0);      --标记层数初始化
-                                      NLG.Say(charIndex,-1,"影子偷襲暴擊".. SAD .."！",4,3);
-                               else
-                                      local min = Item.GetData(WeaponIndex, CONST.道具_最小攻击数量);
-                                      local max = Item.GetData(WeaponIndex, CONST.道具_最大攻击数量);
-                                      local SL = math.random(min,max) or 0;
-                                      Char.SetTempData(defCharIndex, '影子标记', SL);
-                                      --NLG.Say(charIndex,-1,"影子標記".. SL .."層",4,3);
+                               for k, v in ipairs(signType) do
+                                      local Round = Battle.GetTurn(battleIndex);
+                                      local yzbj_round= Char.GetTempData(defCharIndex, '影子标记回合') or 0
+                                      local min_w = Item.GetData(WeaponIndex, CONST.道具_最小攻击数量);
+                                      local max_w = Item.GetData(WeaponIndex, CONST.道具_最大攻击数量);
+                                      if (v.type == Shadow and min_w==v.min and max_w==v.max ) then
+                                             if ( (Round - yzbj_round)<0 or (Round - yzbj_round)>=v.round+1 ) then
+                                                    Char.SetTempData(defCharIndex, '影子标记层数', 0);      --标记层数初始化
+                                             end
+                                             local yzbj_layer = Char.GetTempData(defCharIndex, '影子标记层数') or 0
+                                             if (yzbj_layer>=1) then
+                                                    local agi = Char.GetData(charIndex, CONST.CHAR_敏捷);
+                                                    local SAD = v.layer * v.ratio * agi;                         --影子偷袭附加伤害
+                                                    damage = damage+SAD;
+                                                    --NLG.Say(charIndex,-1,"影子偷襲暴擊".. SAD .."！",4,3);
+                                             else
+                                                    Char.SetTempData(defCharIndex, '影子标记层数', v.layer);
+                                                    Char.SetTempData(defCharIndex, '影子标记回合', round);
+                                                    --NLG.Say(charIndex,-1,"影子標記".. v.layer .."層".. v.round .."回合，下回合起算第1回合",4,3);
+                                             end
+                                      end
                                end
                         end
                  end
