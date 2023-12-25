@@ -110,7 +110,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                                     --NLG.Say(charIndex,-1,"影子偷襲暴擊".. SAD .."！",4,3);
                                              else
                                                     Char.SetTempData(defCharIndex, '影子标记层数', v.layer);
-                                                    Char.SetTempData(defCharIndex, '影子标记回合', round);
+                                                    Char.SetTempData(defCharIndex, '影子标记回合', Round);
                                                     --NLG.Say(charIndex,-1,"影子標記".. v.layer .."層".. v.round .."回合，下回合起算第1回合",4,3);
                                              end
                                       end
