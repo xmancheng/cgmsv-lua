@@ -1,59 +1,78 @@
 local ItemMenus = {
-  { "[¡¡¡¡Œ™Îï¸½ÉíÃ½½é¡¡¡¡]x1¡¡¡¡¡¡¡¡¡¡30", 69993, 30, 1},
-  { "[¡¡¡¡¡¡M¹ÖÏãË®¡¡¡¡¡¡]x1¡¡¡¡¡¡¡¡¡¡20", 900500, 20, 1},
-  { "[¡¡¡¡¡¡üS½ğ‡ŠìF¡¡¡¡¡¡]x1¡¡¡¡¡¡¡¡¡¡15", 900501, 15, 1},
-  { "[¡¡¡¡¡¡Í»î‰K¡¡¡¡¡¡¡¡]x1¡¡¡¡¡¡¡¡¡¡10", 900502, 10, 1},
-  { "[¡¡¡¡¡¡ëx¶´ÀK¡¡¡¡¡¡¡¡]x1¡¡¡¡¡¡¡¡¡¡10", 900503, 10, 1},
-  { "[¡¡¡¡¡¡ÌìÌİ·e·ÖÈ¯¡¡¡¡]x10¡¡¡¡¡¡¡¡10", 69000, 10, 10},
+  { "[ã€€ã€€å¯µç‰©é™„èº«åª’ä»‹ã€€ã€€]x1ã€€ã€€ã€€ã€€ã€€30", 69993, 30, 1},
+  { "[ã€€ã€€ã€€æ»¿æ€ªé¦™æ°´ã€€ã€€ã€€]x1ã€€ã€€ã€€ã€€ã€€20", 900500, 20, 1},
+  { "[ã€€ã€€ã€€é»ƒé‡‘å™´éœ§ã€€ã€€ã€€]x1ã€€ã€€ã€€ã€€ã€€15", 900501, 15, 1},
+  { "[ã€€ã€€ã€€å¾©æ´»å¡Šã€€ã€€ã€€ã€€]x1ã€€ã€€ã€€ã€€ã€€10", 900502, 10, 1},
+  { "[ã€€ã€€ã€€é›¢æ´ç¹©ã€€ã€€ã€€ã€€]x1ã€€ã€€ã€€ã€€ã€€10", 900503, 10, 1},
+  { "[ã€€ã€€ã€€å¤©æ¢¯ç©åˆ†åˆ¸ã€€ã€€]x10ã€€ã€€ã€€ã€€10", 69000, 10, 10},
 }
 
 local EnemySet = {}
 local BaseLevelSet = {}
 local Pos = {}
 local STime = os.time()
-local YS = 30 --½Å±¾ÑÓÊ±¶àÉÙÃë´´½¨NPC
-local SXTime = 15 --NPCË¢ĞÂÊ±¼ä¡¤Ãë
+local YS = 30 --è„šæœ¬å»¶æ—¶å¤šå°‘ç§’åˆ›å»ºNPC
+local SXTime = 15 --NPCåˆ·æ–°æ—¶é—´Â·ç§’
 local FTime = os.time()
 local Setting = 0;
---¶ÓÁĞ½âÊÍ
---     Îå	Èı	Ò»	¶ş	ËÄ
---     Ê®	°Ë	Áù	Æß	¾Å
-------------ÌìÌİ¶ÔÕ½NPCÉèÖÃ------------
-EnemySet[1] = {9116, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
-EnemySet[2] = {9115, 0, 0, 0, 0, 9134, 0, 0, 0, 0}
-EnemySet[3] = {9114, 0, 0, 0, 0, 9133, 0, 0, 0, 0}
-EnemySet[4] = {9113, 0, 0, 0, 0, 9132, 0, 0, 0, 0}
-EnemySet[5] = {9112, 0, 0, 0, 0, 9131, 0, 0, 0, 0}
-EnemySet[6] = {9111, 9116, 9115, 0, 0, 0, 0, 9134, 0, 0}
-EnemySet[7] = {9110, 9114, 9113, 0, 0, 0, 9133, 9132, 0, 0}
-EnemySet[8] = {9106, 9107, 9112, 0, 0, 9125, 9125, 9131, 0, 0}
-EnemySet[9] = {9103, 9100, 9101, 9111, 9110, 9129, 0, 0, 0, 0}
-EnemySet[10] = {9099, 9115, 9114, 9113, 9112, 9102, 9134, 9133, 9132, 9131}
-BaseLevelSet[1] = {73, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-BaseLevelSet[2] = {76, 0, 0, 0, 0, 73, 0, 0, 0, 0}
-BaseLevelSet[3] = {79, 0, 0, 0, 0, 75, 0, 0, 0, 0}
-BaseLevelSet[4] = {82, 0, 0, 0, 0, 78, 0, 0, 0, 0}
-BaseLevelSet[5] = {85, 0, 0, 0, 0, 80, 0, 0, 0, 0}
-BaseLevelSet[6] = {88, 73, 76, 0, 0, 0, 0, 73, 0, 0}
-BaseLevelSet[7] = {88, 79, 82, 0, 0, 0, 75, 78, 0, 0}
-BaseLevelSet[8] = {100, 97, 85, 0, 0, 80, 80, 80, 0, 0}
-BaseLevelSet[9] = {109, 118, 115, 88, 88, 99, 0, 0, 0, 0}
-BaseLevelSet[10] = {121, 86, 89, 92, 95, 112, 83, 85, 88, 90}
-Pos[1] = {{"¼ªÀ­",100320,25290,18,29,5,EnemySet[1],1,BaseLevelSet[1]}}
-Pos[2] = {{"°ÍÀ×Àò",100092,25290,20,31,5,EnemySet[2],2,BaseLevelSet[2]}}
-Pos[3] = {{"ÒÁô”¬”",100394,25290,16,29,5,EnemySet[3],3,BaseLevelSet[3]}}
-Pos[4] = {{"ÒÁ×ôËş",100006,25290,20,33,5,EnemySet[4],4,BaseLevelSet[4]}}
-Pos[5] = {{"ÎéÄÇ",100416,25290,18,31,5,EnemySet[5],5,BaseLevelSet[5]}}
-Pos[6] = {{"ÒÁÖZ¿Ë",100164,25290,19,13,4,EnemySet[6],6,BaseLevelSet[6]}}
-Pos[7] = {{"ÈRšWÄá –",100071,25290,23,13,4,EnemySet[7],7,BaseLevelSet[7]}}
-Pos[8] = {{"šWÆÄá¿Ë",100802,25290,27,13,4,EnemySet[8],8,BaseLevelSet[8]}}
-Pos[9] = {{"°¢ô”°ÍË¹",100602,25290,35,20,5,EnemySet[9],9,BaseLevelSet[9]}}
-Pos[10] = {{"°¬Öx°ÍÌØ",100577,25290,36,30,6,EnemySet[10],10,BaseLevelSet[10]}}
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”(4)	ä¸‰(2)	ä¸€(0)	äºŒ(1)	å››(3)
+--     å(9)	å…«(7)	å…­(5)	ä¸ƒ(6)	ä¹(8)
+------------å¤©æ¢¯å¯¹æˆ˜NPCè®¾ç½®------------
+EnemySet[1] = {0, 0, 25036, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
+EnemySet[2] = {0, 25032, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[3] = {0, 0, 0, 0, 0, 0, 0, 25037, 0, 0}
+EnemySet[4] = {0, 0, 0, 0, 0, 0, 25033, 0, 0, 0}
+EnemySet[5] = {0, 0, 0, 0, 25035, 25031, 0, 0, 0, 0}
+EnemySet[6] = {0, 25032, 25036, 25034, 25035, 0, 0, 0, 0, 0}
+EnemySet[7] = {0, 0, 25036, 0, 25035, 25031, 0, 0, 0, 0}
+EnemySet[8] = {0, 25032, 0, 25034, 0, 25041, 0, 0, 0, 0}
+EnemySet[9] = {0, 25032, 25036, 25034, 25035, 25031, 25033, 25037, 0, 0}
+EnemySet[10] = {0, 25032, 25036, 25034, 25035, 25041, 25033, 25037, 0, 0}
+BaseLevelSet[1] = {0, 0, 20, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[2] = {0, 20, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[3] = {0, 0, 0, 0, 0, 0, 0, 20, 0, 0}
+BaseLevelSet[4] = {0, 0, 0, 0, 0, 0, 20, 0, 0, 0}
+BaseLevelSet[5] = {0, 0, 0, 0, 20, 28, 0, 0, 0, 0}
+BaseLevelSet[6] = {0, 50, 50, 50, 50, 0, 0, 0, 0, 0}
+BaseLevelSet[7] = {0, 0, 50, 0, 50, 58, 0, 0, 0, 0}
+BaseLevelSet[8] = {0, 50, 0, 50, 0, 58, 0, 0, 0, 0}
+BaseLevelSet[9] = {0, 80, 80, 80, 80, 88, 80, 90, 0, 0}
+BaseLevelSet[10] = {0, 80, 80, 80, 80, 88, 80, 90, 0, 0}
+Pos[1] = {{"å¸•åˆ©è€¶",106654,25290,18,29,5,EnemySet[1],1,BaseLevelSet[1]}}
+Pos[2] = {{"çƒè‰å…’",106604,25290,20,31,5,EnemySet[2],2,BaseLevelSet[2]}}
+Pos[3] = {{"ç†Šç¾",101012,25290,16,29,5,EnemySet[3],3,BaseLevelSet[3]}}
+Pos[4] = {{"å°çƒ",101501,25290,20,33,5,EnemySet[4],4,BaseLevelSet[4]}}
+Pos[5] = {{"ç¾…åš´",106452,25290,18,31,5,EnemySet[5],5,BaseLevelSet[5]}}
+Pos[6] = {{"å‡±å‚‘çˆ¾",106427,25290,19,13,4,EnemySet[6],6,BaseLevelSet[6]}}
+Pos[7] = {{"å¸•åˆ©è€¶",106654,25290,23,13,4,EnemySet[7],7,BaseLevelSet[7]}}
+Pos[8] = {{"çƒè‰å…’",106604,25290,27,13,4,EnemySet[8],8,BaseLevelSet[8]}}
+Pos[9] = {{"ç™½éŠ€ä¹‹é¨å£«",106555,25290,35,20,5,EnemySet[9],9,BaseLevelSet[9]}}
+Pos[10] = {{"ç™¾åˆä¹‹å°‘å¥³",106726,25290,36,30,6,EnemySet[10],10,BaseLevelSet[10]}}
 
 tbl_AutoRankingNpcIndex = tbl_AutoRankingNpcIndex or {}
 ------------------------------------------------
---±³¾°ÉèÖÃ
-tbl_duel_user = {};			--µ±Ç°³¡´ÎÍæ¼ÒµÄÁĞ±í
+--èƒŒæ™¯è®¾ç½®
+local Switch = 1;                          --ç»„é˜Ÿäººæ•°é™åˆ¶å¼€å…³1å¼€0å…³
+local BossMap= {25290,15,34} -- æˆ˜æ–—åœºæ™¯Floor,X,Y(åˆã€é«˜ã€ç»åŒåœºæ™¯)
+local OutMap= {25291,35,14}  -- å¤±è´¥ä¼ é€Floor,X,Y(åˆã€é«˜ã€ç»åŒåœºæ™¯)
+local BossKey= {70213,70212,70211} -- åˆçº§ã€é«˜çº§ã€ç»çº§
+local Pts= 69000;                        --ç§¯åˆ†åˆ¸
+local BossRoom = {
+      { key=1, keyItem=70213, keyItem_count=1, limit=-1, posNum_L=1, posNum_R=6,
+          win={warpWMap=1000, warpWX=229, warpWY=65, getItem = 69000, getItem_count = 5},
+          lose={warpLMap=25291, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
+       },
+      { key=3, keyItem=70212, keyItem_count=1, limit=3, posNum_L=6, posNum_R=9,
+          win={warpWMap=1000, warpWX=229, warpWY=65, getItem = 69000, getItem_count = 10},
+          lose={warpLMap=25291, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
+       },
+      { key=5, keyItem=70211, keyItem_count=1, limit=5, posNum_L=9, posNum_R=11,
+          win={warpWMap=1000, warpWX=229, warpWY=65, getItem = 69000, getItem_count = 20},
+          lose={warpLMap=25291, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
+       },
+}
+tbl_duel_user = {};			--å½“å‰åœºæ¬¡ç©å®¶çš„åˆ—è¡¨
 tbl_win_user = {};
 ------------------------------------------------
 Delegate.RegInit("initRankingScriptNpc");
@@ -65,13 +84,13 @@ end
 function initRankingScriptNpc()
 	if (RankingScriptNpcA == nil) then
 		RankingScriptNpcA = NL.CreateNpc("lua/Module/RankingScript.lua", "initRankingScriptNpc_Init");
-		Char.SetData(RankingScriptNpcA,%¶ÔÏó_ĞÎÏó%,11394);
-		Char.SetData(RankingScriptNpcA,%¶ÔÏó_Ô­ĞÎ%,11394);
-		Char.SetData(RankingScriptNpcA,%¶ÔÏó_X%,229);
-		Char.SetData(RankingScriptNpcA,%¶ÔÏó_Y%,64);
-		Char.SetData(RankingScriptNpcA,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(RankingScriptNpcA,%¶ÔÏó_·½Ïò%,4);
-		Char.SetData(RankingScriptNpcA,%¶ÔÏó_Ô­Ãû%,"×Ô„ÓÌìÌİŒ¦‘ğÄ£Ê½");
+		Char.SetData(RankingScriptNpcA,%å¯¹è±¡_å½¢è±¡%,11394);
+		Char.SetData(RankingScriptNpcA,%å¯¹è±¡_åŸå½¢%,11394);
+		Char.SetData(RankingScriptNpcA,%å¯¹è±¡_X%,229);
+		Char.SetData(RankingScriptNpcA,%å¯¹è±¡_Y%,64);
+		Char.SetData(RankingScriptNpcA,%å¯¹è±¡_åœ°å›¾%,1000);
+		Char.SetData(RankingScriptNpcA,%å¯¹è±¡_æ–¹å‘%,4);
+		Char.SetData(RankingScriptNpcA,%å¯¹è±¡_åŸå%,"è‡ªå‹•é ­ç›®æˆ¿å°æˆ°");
 		NLG.UpChar(RankingScriptNpcA);
 		Char.SetLoopEvent(nil, "AutoRanking_LoopEvent", RankingScriptNpcA, 1000)
 		Char.SetWindowTalkedEvent("lua/Module/RankingScript.lua","RankingScriptA",RankingScriptNpcA);
@@ -79,26 +98,26 @@ function initRankingScriptNpc()
 	end
 	if (RankingScriptNpcB == nil) then
 		RankingScriptNpcB = NL.CreateNpc("lua/Module/RankingScript.lua", "initRankingScriptNpc_Init");
-		Char.SetData(RankingScriptNpcB,%¶ÔÏó_ĞÎÏó%,17092);
-		Char.SetData(RankingScriptNpcB,%¶ÔÏó_Ô­ĞÎ%,17092);
-		Char.SetData(RankingScriptNpcB,%¶ÔÏó_X%,36);
-		Char.SetData(RankingScriptNpcB,%¶ÔÏó_Y%,13);
-		Char.SetData(RankingScriptNpcB,%¶ÔÏó_µØÍ¼%,25291);
-		Char.SetData(RankingScriptNpcB,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(RankingScriptNpcB,%¶ÔÏó_Ô­Ãû%,"ÌÔÌ­îIª„Ì");
+		Char.SetData(RankingScriptNpcB,%å¯¹è±¡_å½¢è±¡%,17092);
+		Char.SetData(RankingScriptNpcB,%å¯¹è±¡_åŸå½¢%,17092);
+		Char.SetData(RankingScriptNpcB,%å¯¹è±¡_X%,36);
+		Char.SetData(RankingScriptNpcB,%å¯¹è±¡_Y%,13);
+		Char.SetData(RankingScriptNpcB,%å¯¹è±¡_åœ°å›¾%,25291);
+		Char.SetData(RankingScriptNpcB,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(RankingScriptNpcB,%å¯¹è±¡_åŸå%,"æ·˜æ±°é ˜çè™•");
 		NLG.UpChar(RankingScriptNpcB);
 		Char.SetWindowTalkedEvent("lua/Module/RankingScript.lua","RankingScriptB",RankingScriptNpcB);
 		Char.SetTalkedEvent("lua/Module/RankingScript.lua","RankingScriptMsgB", RankingScriptNpcB);
 	end
 	if (RankingScriptNpcC == nil) then
 		RankingScriptNpcC = NL.CreateNpc("lua/Module/RankingScript.lua", "initRankingScriptNpc_Init");
-		Char.SetData(RankingScriptNpcC,%¶ÔÏó_ĞÎÏó%,231116);
-		Char.SetData(RankingScriptNpcC,%¶ÔÏó_Ô­ĞÎ%,231116);
-		Char.SetData(RankingScriptNpcC,%¶ÔÏó_X%,18);
-		Char.SetData(RankingScriptNpcC,%¶ÔÏó_Y%,18);
-		Char.SetData(RankingScriptNpcC,%¶ÔÏó_µØÍ¼%,777);
-		Char.SetData(RankingScriptNpcC,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(RankingScriptNpcC,%¶ÔÏó_Ô­Ãû%,"Ã÷¹ÖÉèÖÃ");
+		Char.SetData(RankingScriptNpcC,%å¯¹è±¡_å½¢è±¡%,231116);
+		Char.SetData(RankingScriptNpcC,%å¯¹è±¡_åŸå½¢%,231116);
+		Char.SetData(RankingScriptNpcC,%å¯¹è±¡_X%,18);
+		Char.SetData(RankingScriptNpcC,%å¯¹è±¡_Y%,18);
+		Char.SetData(RankingScriptNpcC,%å¯¹è±¡_åœ°å›¾%,777);
+		Char.SetData(RankingScriptNpcC,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(RankingScriptNpcC,%å¯¹è±¡_åŸå%,"æ˜æ€ªè®¾ç½®");
 		NLG.UpChar(RankingScriptNpcC);
 		Char.SetLoopEvent(nil, "RankingScript_LoopEvent",RankingScriptNpcC, SXTime*1000)
 		Char.SetWindowTalkedEvent("lua/Module/RankingScript.lua","RankingScriptC",RankingScriptNpcC);
@@ -106,139 +125,170 @@ function initRankingScriptNpc()
 	end
 end
 
+function Char.HealAll(player)
+	for Slot=0,4 do
+		local TeamPlayer = Char.GetPartyMember(player,Slot);
+		if (TeamPlayer>0) then
+			Char.SetData(TeamPlayer,%å¯¹è±¡_è¡€%, Char.GetData(TeamPlayer,%å¯¹è±¡_æœ€å¤§è¡€%));
+			Char.SetData(TeamPlayer,%å¯¹è±¡_é­”%, Char.GetData(TeamPlayer,%å¯¹è±¡_æœ€å¤§é­”%));
+			Char.SetData(TeamPlayer, %å¯¹è±¡_å—ä¼¤%, 0);
+			Char.SetData(TeamPlayer, %å¯¹è±¡_æ‰é­‚%, 0);
+			NLG.UpdateParty(TeamPlayer);
+			NLG.UpChar(TeamPlayer);
+		elseif (TeamPlayer==-1) then
+			Char.SetData(player,%å¯¹è±¡_è¡€%, Char.GetData(TeamPlayer,%å¯¹è±¡_æœ€å¤§è¡€%));
+			Char.SetData(player,%å¯¹è±¡_é­”%, Char.GetData(TeamPlayer,%å¯¹è±¡_æœ€å¤§é­”%));
+			Char.SetData(player, %å¯¹è±¡_å—ä¼¤%, 0);
+			Char.SetData(player, %å¯¹è±¡_æ‰é­‚%, 0);
+			NLG.UpdateParty(player);
+			NLG.UpChar(player);
+		end
+	end
+end
+
 function RankingScriptMsgA(npc, player)
 	if (NLG.CanTalk(npc, player) == true) then
-		local msg = "1\\n@cšgÓ­ßMĞĞÌìÌİŒ¦‘ğ¹¦ÄÜ\\n\\n"
-			.."[¡¡ˆóÃûÌìÌİŒ¦‘ğ¡¡]\\n" 
-			.."[¡¡Ó^¿´ÌìÌİÕfÃ÷¡¡]\\n" 
-			.."[¡¡ßMĞĞˆöÍâÓ^‘ğ¡¡]\\n" 
-			.."[¡¡µÇê‘éLÆÚ·e·Ö¡¡]\\n" 
-			.."[¡¡²éÔƒÌìÌİüc”µ¡¡]\\n" 
-			.."[¡¡ƒ¶“QÌìÌİª„„î¡¡]\\n" ;
-		NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, msg);
+		local msg = "1\\n@cæ­¡è¿é€²è¡Œé ­ç›®æˆ¿å°æˆ°åŠŸèƒ½\\n\\n"
+			.."[ã€€å ±åé ­ç›®å°æˆ°ã€€]\\n" 
+			.."[ã€€è§€çœ‹é ­ç›®èªªæ˜ã€€]\\n" 
+			.."[ã€€é€²è¡Œå ´å¤–è§€æˆ°ã€€]\\n" 
+			.."[ã€€ç™»é™¸é•·æœŸç©åˆ†ã€€]\\n" 
+			.."[ã€€æŸ¥è©¢é ­ç›®é»æ•¸ã€€]\\n" 
+			.."[ã€€å…Œæ›é ­ç›®çå‹µã€€]\\n" ;
+		NLG.ShowWindowTalked(player, npc, %çª—å£_é€‰æ‹©æ¡†%, %æŒ‰é’®_å…³é—­%, 1, msg);
 	end
 	return;
 end
 
 
 function RankingScriptA(npc, player, _seqno, _select, _data)
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)			
 	if seqno == 1 then
-		if data == 2 then  ----±¨ÃûÌìÌİ¶ÔÕ½
-			if(Char.ItemNum(player,70213)>0 or Char.ItemNum(player,70212)>0 or Char.ItemNum(player,70211)>0) then
-				NLG.SystemMessage(player,"[Ïµ½y]ßMÈëµÀˆöÇ°²»ÄÜÓĞÈÎºÎÙY¸ñí—å€¡£");
+		if data == 2 then  ----æŠ¥åå¤´ç›®æˆ¿å¯¹æˆ˜
+			if(Char.ItemNum(player,BossKey[1])>0 or Char.ItemNum(player,BossKey[2])>0 or Char.ItemNum(player,BossKey[3])>0) then
+				NLG.SystemMessage(player,"[ç³»çµ±]é€²å…¥é ­ç›®æˆ¿ä¸èƒ½æœ‰ä»»ä½•è³‡æ ¼é …éŠã€‚");
 				return;
 			else
-				local msg = "3\\n@cßx“ñÌìÌİŒ¦‘ğÄ£Ê½\\n"
-					.."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T"
-					.. "\\n1¡¡VS¡¡1¡¡†ÎÈËŒ¦‘ğ\\n"
-					.. "\\n3¡¡VS¡¡3¡¡ÈıÈËŒ¦‘ğ\\n"
-					.. "\\n5¡¡VS¡¡5¡¡ˆFówŒ¦‘ğ\\n";
-				NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 21, msg);
+				local msg = "3\\n@cé¸æ“‡é ­ç›®æˆ¿å°æˆ°æ¨¡å¼\\n"
+					.."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•"
+					.. "\\n1äººå°éšŠã€€VSã€€åˆç´šå°æˆ°\\n"
+					.. "\\n3äººå°çµ„ã€€VSã€€é«˜ç´šå°æˆ°\\n"
+					.. "\\n5äººå°çœ¾ã€€VSã€€çµ•ç´šå°æˆ°\\n";
+				NLG.ShowWindowTalked(player, npc, %çª—å£_é€‰æ‹©æ¡†%, %æŒ‰é’®_å…³é—­%, 21, msg);
 			end
 		end
-		if data == 3 then  ----¹Û¿´ÌìÌİËµÃ÷
+		if data == 3 then  ----è§‚çœ‹å¤´ç›®æˆ¿è¯´æ˜
 			if (NLG.CanTalk(npc, player) == true) then
-			local msg = "\\n@cÕˆÔ”¼šé†×xÌìÌİÕfÃ÷\\n"
-				.. "\\nßx“ñ1ÈË¡¢3ÈË¡¢5ÈËµÄŒ¦‘ğÄ£Ê½\\n"
-				.. "\\nßMÈëˆöµØááé_Ê¼×Ô„ÓÅäŒ¦‘ğôY\\n"
-				.. "\\n¹ÚÜŠ¿É«@µÃ5ˆ·e·Ö\\n"
-				.. "\\nÌô‘ğÊ§”¡Õß1ˆ·e·Ö\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_¹Ø±Õ, 31, msg);
+			local msg = "\\n@cè«‹è©³ç´°é–±è®€é ­ç›®æˆ¿èªªæ˜\\n"
+				.. "\\né¸æ“‡1äººã€3äººã€5äººçš„æ”»ç•¥æ¨¡å¼\\n"
+				.. "\\né€²å…¥å ´åœ°å¾Œé–‹å§‹è‡ªå‹•é…å°æˆ°é¬¥\\n"
+				.. "\\nå¤šäººæˆ°å‹å¯ç²å¾—è¶Šå¤šç©åˆ†\\n"
+				.. "\\næŒ‘æˆ°å¤±æ•—è€…1å¼µç©åˆ†\\n";
+			NLG.ShowWindowTalked(player, npc, %çª—å£_ä¿¡æ¯æ¡†%, %æŒ‰é’®_ç¡®å®š%, 31, msg);
 			end
 		end
-		if data == 4 then  ----½øĞĞ³¡Íâ¹ÛÕ½
+		if data == 4 then  ----è¿›è¡Œåœºå¤–è§‚æˆ˜
 			if (tbl_duel_user~=nil) then
-			local msg = "3\\n@cÌìÌİÓ^‘ğ¹¦ÄÜ\\n"
-				.."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
+			local msg = "3\\n@cé ­ç›®æˆ¿è§€æˆ°åŠŸèƒ½\\n"
+				.."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
 				for i = 1, #tbl_duel_user do
 				local duelplayer = tbl_duel_user[i];
-				local duelplayerName = Char.GetData(duelplayer,CONST.CHAR_Ãû×Ö);
-				msg = msg .. duelplayerName .. "¡¡VS¡¡".. "\\n"
+				local duelplayerName = Char.GetData(duelplayer,CONST.CHAR_åå­—);
+				if (duelplayerName~=nil) then
+					msg = msg .. duelplayerName .. "ã€€VSã€€".. "\\n"
+				end
 			end
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 41, msg);
+			NLG.ShowWindowTalked(player, npc, %çª—å£_é€‰æ‹©æ¡†%, %æŒ‰é’®_å…³é—­%, 41, msg);
 			else
 				return;
 			end
 		end
-		if data == 5 then  ----µÇÂ½³¤ÆÚ»ı·Ö
+		if data == 5 then  ----ç™»é™†é•¿æœŸç§¯åˆ†
 			if (NLG.CanTalk(npc, player) == true) then
-			local key = Char.FindItemId(player,69000);
+			local key = Char.FindItemId(player,Pts);
 			local item = Char.GetItemIndex(player,key);
-			local PointCount = Char.ItemNum(player,69000);
-			local msg = "\\n@cµÇê‘éLÆÚÌìÌİ·e·Ö\\n"
-				.. "\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-				.. "\\n¡¡ÌìÌİ·e·ÖÈ¯¡¡¡¾".. PointCount .. "¡¿È«²¿ÉÏ‚÷†á?\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÊÇ·ñ, 51, msg);
+			local PointCount = Char.ItemNum(player,Pts);
+			local msg = "\\n@cç™»é™¸é•·æœŸé ­ç›®ç©åˆ†\\n"
+				.. "\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+				.. "\\nã€€é ­ç›®ç©åˆ†åˆ¸ã€€ã€".. PointCount .. "ã€‘å…¨éƒ¨ä¸Šå‚³å—?\\n";
+			NLG.ShowWindowTalked(player, npc, %çª—å£_ä¿¡æ¯æ¡†%, %æŒ‰é’®_æ˜¯å¦%, 51, msg);
 			end
 		end
-		if data == 6 then  ----²éÑ¯ÌìÌİµãÊı&Ö´ĞĞ
+		if data == 6 then  ----æŸ¥è¯¢å¤´ç›®ç‚¹æ•°&æ‰§è¡Œ
 			if (NLG.CanTalk(npc, player) == true) then
 			local PointCount = tonumber(SQL.Run("select RankedPoints from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
-			local msg = "\\n@c²éÔƒÌìÌİüc”µ¹¦ÄÜ\\n"
-				.. "\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-				.. "\\n¡¡ÌìÌİ·e·Ö¡¡¡¡¡¡".. PointCount .. "È¯\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_¹Ø±Õ, 61, msg);
+			local msg = "\\n@cæŸ¥è©¢é ­ç›®é»æ•¸åŠŸèƒ½\\n"
+				.. "\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+				.. "\\nã€€é ­ç›®ç©åˆ†ã€€ã€€ã€€".. PointCount .. "åˆ¸\\n";
+			NLG.ShowWindowTalked(player, npc, %çª—å£_ä¿¡æ¯æ¡†%, %æŒ‰é’®_ç¡®å®š%, 61, msg);
 			end
 		end
-		if data == 7 then  ----¶Ò»»ÌìÌİ½±Àø
+		if data == 7 then  ----å…‘æ¢å¤´ç›®å¥–åŠ±
 			if (NLG.CanTalk(npc, player) == true) then
-			local msg = "3\\n@cƒ¶“QÌìÌİª„„î¹¦ÄÜ\\n"
-				.."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
+			local msg = "3\\n@cå…Œæ›é ­ç›®çå‹µåŠŸèƒ½\\n"
+				.."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
 				for i = 1, 6 do
 					msg = msg .. ItemMenus[i][1] .. "\\n"
 				end
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 71, msg);
+			NLG.ShowWindowTalked(player, npc, %çª—å£_é€‰æ‹©æ¡†%, %æŒ‰é’®_å…³é—­%, 71, msg);
 			end
 		end
 	end
 	------------------------------------------------------------
-	if seqno == 21 then  ----±¨ÃûÌìÌİ¶ÔÕ½Ö´ĞĞ
+	if seqno == 21 then  ----æŠ¥åå¤´ç›®å¯¹æˆ˜æ‰§è¡Œ
 		key = data
 		if select == 2 then
 			return;
 		end
 		if key == data then
-			local playerName = Char.GetData(player,CONST.CHAR_Ãû×Ö);
-			local partyname = playerName .. "£­ê ";
-			Char.SetData(player,%¶ÔÏó_Ñª%, Char.GetData(player,%¶ÔÏó_×î´óÑª%));
-			Char.SetData(player,%¶ÔÏó_Ä§%, Char.GetData(player,%¶ÔÏó_×î´óÄ§%));
-			NLG.UpChar(player);
+			local playerName = Char.GetData(player,CONST.CHAR_åå­—);
+			local partyname = playerName .. "ï¼éšŠ";
+			Char.HealAll(player);
 			--print(key)
-			if ( key==1 ) then
-				Char.GiveItem(player,70213,1);
-				local slot = Char.FindItemId(player,70213);
-				local item_indexA = Char.GetItemIndex(player,slot);
-				Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,1);
-				Item.UpItem(player,slot);
-				table.insert(tbl_duel_user,player);
-				Char.Warp(player,0,25290,15,34);
-			elseif ( key==3 ) then
-				Char.GiveItem(player,70212,1);
-				local slot = Char.FindItemId(player,70212);
-				local item_indexA = Char.GetItemIndex(player,slot);
-				Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,6);
-				Item.UpItem(player,slot);
-				table.insert(tbl_duel_user,player);
-				Char.Warp(player,0,25290,15,34);
-			elseif ( key==5 ) then
-				Char.GiveItem(player,70211,1);
-				local slot = Char.FindItemId(player,70211);
-				local item_indexA = Char.GetItemIndex(player,slot);
-				Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,9);
-				Item.UpItem(player,slot);
-				table.insert(tbl_duel_user,player);
-				Char.Warp(player,0,25290,15,34);
+			local MapUser = NLG.GetMapPlayer(0, BossMap[1]);
+			if (MapUser ~= -3 ) then
+				local msg = "\\n@cè«‹ç­‰å¾…å‰ä¸€çµ„å†’éšªè€…\\n"
+				.. "\\næ¯æ¬¡åªå‡†è¨±ä¸€éšŠé€²è¡Œæˆ¿é–“æ”»ç•¥\\n"
+				.. "\\né€²å…¥å ´åœ°å³é–‹å§‹è‡ªå‹•é…å°æˆ°é¬¥\\n"
+				.. "\\nå‹åˆ©çå‹µå…¨éƒ¨æœƒåˆ†é…çµ¦éšŠé•·\\n"
+				.. "\\nè«‹å°‡æˆ°åˆ©å“èˆ‡éšŠå‹å€‘å…±äº«\\n";
+				NLG.ShowWindowTalked(player, npc, %çª—å£_ä¿¡æ¯æ¡†%, %æŒ‰é’®_ç¡®å®š%, 22, msg);
+				return;
+			end
+			for k,v in pairs(BossRoom) do
+				if ( key==v.key ) then
+					if( Switch==1 and Char.PartyNum(player) ~= v.limit) then
+						local msg = "\\n\\n\\n\\n@cæ”»ç•¥éœ€æ¹Šè¶³æ­£ç¢ºäººæ•¸ï¼ï¼\\n";
+						NLG.ShowWindowTalked(player, npc, %çª—å£_ä¿¡æ¯æ¡†%, %æŒ‰é’®_ç¡®å®š%, 23, msg);
+						return;
+					elseif( Switch==1 and Char.PartyNum(player) == v.limit) then
+						Char.GiveItem(player, v.keyItem, v.keyItem_count);
+						local slot = Char.FindItemId(player, v.keyItem);
+						local item_indexA = Char.GetItemIndex(player,slot);
+						Item.SetData(item_indexA,%é“å…·_é­…åŠ›%, v.posNum_L);
+						Item.UpItem(player,slot);
+						table.insert(tbl_duel_user,player);
+						Char.Warp(player,0, BossMap[1], BossMap[2], BossMap[3]);
+					elseif( Switch==0) then
+						Char.GiveItem(player, v.keyItem, v.keyItem_count);
+						local slot = Char.FindItemId(player, v.keyItem);
+						local item_indexA = Char.GetItemIndex(player,slot);
+						Item.SetData(item_indexA,%é“å…·_é­…åŠ›%, v.posNum_L);
+						Item.UpItem(player,slot);
+						table.insert(tbl_duel_user,player);
+						Char.Warp(player,0, BossMap[1], BossMap[2], BossMap[3]);
+					end
+				end
 			end
 			def_round_start(player, 'wincallbackfunc');
 		else
 			return 0;
 		end
 	end
-	if seqno == 41 then  ----½øĞĞ³¡Íâ¹ÛÕ½&Ö´ĞĞ
+	if seqno == 41 then  ----è¿›è¡Œåœºå¤–è§‚æˆ˜&æ‰§è¡Œ
 		key = data
 		local duelplayer= tbl_duel_user[key];
 		if ( duelplayer ~= nil ) then
@@ -247,22 +297,22 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 			return 0;
 		end
 	end
-	if seqno == 51 then  ----µÇÂ½³¤ÆÚ»ı·ÖÖ´ĞĞ
+	if seqno == 51 then  ----ç™»é™†é•¿æœŸç§¯åˆ†æ‰§è¡Œ
 		if select == 4 then
-			local key = Char.FindItemId(player,69000);
+			local key = Char.FindItemId(player,Pts);
 			local item = Char.GetItemIndex(player,key);
-			local PointCount = Char.ItemNum(player,69000);
+			local PointCount = Char.ItemNum(player,Pts);
 			local Restcount = tonumber(SQL.Run("select RankedPoints from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
 			local Restcount = Restcount + PointCount;
 			SQL.Run("update lua_hook_character set RankedPoints= '"..Restcount.."' where CdKey='"..cdk.."'")
 			NLG.UpChar(player);
-			Char.DelItem(player,69000,PointCount);
-			NLG.SystemMessage(player,"[Ïµ½y]ÒÑ³É¹¦ÉÏ‚÷ËùÓĞÌìÌİ·e·ÖÈ¯£¡");
+			Char.DelItem(player,Pts,PointCount);
+			NLG.SystemMessage(player,"[ç³»çµ±]å·²æˆåŠŸä¸Šå‚³æ‰€æœ‰é ­ç›®ç©åˆ†åˆ¸ï¼");
 		else
 			return 0;
 		end
 	end
-	if seqno == 71 then  ----¶Ò»»ÌìÌİ½±ÀøÖ´ĞĞ
+	if seqno == 71 then  ----å…‘æ¢å¤´ç›®å¥–åŠ±æ‰§è¡Œ
 		key = data
 		if select == 2 then
 			return;
@@ -276,35 +326,23 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 				NLG.UpChar(player);
 				Char.GiveItem(player,ItemMenus[data][2],ItemMenus[data][4]);
 			else
-				NLG.SystemMessage(player,"[Ïµ½y]ÌìÌİ·e·Ö”µÁ¿²»×ã£¡");
+				NLG.SystemMessage(player,"[ç³»çµ±]é ­ç›®ç©åˆ†æ•¸é‡ä¸è¶³ï¼");
 				return 0;
 			end
 		end
 	end
 end
 
-function RankingScriptMsgB(npc, player)  ----ÉèÁ¢ÌÔÌ­Áì½±´¦
+function RankingScriptMsgB(npc, player)  ----è®¾ç«‹æ·˜æ±°é¢†å¥–å¤„
 	if (NLG.CanTalk(npc, player) == true) then
-		if (Char.ItemNum(player,70213) > 0) then
-			local slot = Char.FindItemId(player,70213);
-			local item_indexA = Char.GetItemIndex(player,slot);
-			Char.DelItem(player,70213,1);
-			Char.GiveItem(player,69000,1);
-			Char.Warp(player,0,1000,229,65);
-		end
-		if (Char.ItemNum(player,70212) > 0) then
-			local slot = Char.FindItemId(player,70212);
-			local item_indexA = Char.GetItemIndex(player,slot);
-			Char.DelItem(player,70212,1);
-			Char.GiveItem(player,69000,1);
-			Char.Warp(player,0,1000,229,65);
-		end
-		if (Char.ItemNum(player,70211) > 0) then
-			local slot = Char.FindItemId(player,70211);
-			local item_indexA = Char.GetItemIndex(player,slot);
-			Char.DelItem(player,70211,1);
-			Char.GiveItem(player,69000,1);
-			Char.Warp(player,0,1000,229,65);
+		for k,v in pairs(BossRoom) do
+			if (Char.ItemNum(player, v.keyItem) > 0) then
+				local slot = Char.FindItemId(player, v.keyItem);
+				local item_indexA = Char.GetItemIndex(player,slot);
+				Char.DelItem(player, v.keyItem, v.keyItem_count);
+				Char.GiveItem(player, v.lose.getItem, v.lose.getItem_count);
+				Char.Warp(player,0,v.win.warpWMap,v.win.warpWX,v.win.warpWY);
+			end
 		end
 	end
 	return;
@@ -314,7 +352,7 @@ function RankingScriptB(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 end
 
 function RankingScript_LoopEvent(_MeIndex)
-	--´´½¨¼ÙÈË
+	--åˆ›å»ºå‡äºº
 	local DTime = os.time()
 	if DTime - STime >= YS then
 		for i=1, #Pos do
@@ -326,26 +364,26 @@ function RankingScript_LoopEvent(_MeIndex)
 		end
 	end
 end
---NPC¶Ô»°ÊÂ¼ş(NPCË÷Òı)
+--NPCå¯¹è¯äº‹ä»¶(NPCç´¢å¼•)
 function RankingScriptMsgC(_NpcIndex, _PlayerIndex)
 tbl_AutoRankingNpcIndex = {}
 end
 
---NPC´°¿ÚÊÂ¼ş(NPCË÷Òı)
+--NPCçª—å£äº‹ä»¶(NPCç´¢å¼•)
 function RankingScriptC ( _NpcIndex, _PlayerIndex, _seqno, _select, _data)
 	
 end
 function CreateRankingNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	local AutoRankingNpcIndex = NL.CreateNpc("./lua/System/BaseModule/Base.lua", "Myinit");
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_ĞÎÏó%, Image);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_Ô­ĞÎ%, Image);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_µØÍ¼ÀàĞÍ%, MapType);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_µØÍ¼%, MapID);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_X%, PosX);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_Y%, PosY);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_·½Ïò%, Dir);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_Ô­Ãû%, Name);
-	Char.SetData( AutoRankingNpcIndex, %¶ÔÏó_ÃûÉ«%, NameColor);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_å½¢è±¡%, Image);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_åŸå½¢%, Image);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_åœ°å›¾ç±»å‹%, MapType);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_åœ°å›¾%, MapID);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_X%, PosX);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_Y%, PosY);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_æ–¹å‘%, Dir);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_åŸå%, Name);
+	Char.SetData( AutoRankingNpcIndex, %å¯¹è±¡_åè‰²%, NameColor);
 	tbl_LuaNpcIndex = tbl_LuaNpcIndex or {}
 	tbl_LuaNpcIndex["RankingNpc"] = AutoRankingNpcIndex
 	Char.SetTalkedEvent(nil, "RankingNpc__Talked", AutoRankingNpcIndex)
@@ -355,25 +393,25 @@ function CreateRankingNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	return AutoRankingNpcIndex
 end
 function RankingNpc_LoopEvent(_MeIndex)
-	local spell = 6;
-	NLG.SetAction(_MeIndex,spell);
+	local walk = 1;
+	NLG.SetAction(_MeIndex,walk);
 	NLG.UpChar(_MeIndex);
 end
 function RankingNpc__Talked(_NpcIndex, _PlayerIndex)
 	if(NLG.CheckInFront(_PlayerIndex, _NpcIndex, 1)==false and _Mode~=1) then
 		return ;
 	end
-	--ÃæÏòÍæ¼Ò
+	--é¢å‘ç©å®¶
 	local i;
-	i = Char.GetData(_PlayerIndex, %¶ÔÏó_·½Ïò%);
+	i = Char.GetData(_PlayerIndex, %å¯¹è±¡_æ–¹å‘%);
 	if i >= 4 then 
 		i = i - 4;
 	else
 		i = i + 4;		
 	end
-	Char.SetData(_NpcIndex, %¶ÔÏó_·½Ïò%,i);
+	Char.SetData(_NpcIndex, %å¯¹è±¡_æ–¹å‘%,i);
 	NLG.UpChar( _NpcIndex);
-	local	token ="\n\n\n\n@cÊ§”¡ÕßGµôí—å€£¬ëxé_Ìì¿Õ¸‚¼¼ˆö£¡"
+	local	token ="\n\n\n\n@cå¤±æ•—è€…ä¸Ÿæ‰é …éŠï¼Œé›¢é–‹é ­ç›®æˆ¿ï¼"
 
        NLG.ShowWindowTalked(_PlayerIndex, _NpcIndex, 0, 1, 1, token)
 
@@ -387,46 +425,29 @@ end
 
 function def_round_start(player, callback)
 
-	MapUser = NLG.GetMapPlayer(0,25290);
+	MapUser = NLG.GetMapPlayer(0,BossMap[1]);
 	tbl_win_user = {};
 	tbl_duel_user = {};
 	table.insert(tbl_duel_user,player);
 
-	--¿ªÊ¼Õ½¶·
+	--å¼€å§‹æˆ˜æ–—
 	tbl_UpIndex = {}
 	battleindex = {}
 	--battleindex[player] = Battle.PVP(tbl_UpIndex[1], player);
 	--Battle.SetPVPWinEvent('lua/Modules/autoRanking.lua', 'def_round_wincallback', battleindex);
 
-	if (Char.ItemNum(player,70213)>0) then
-		local slot = Char.FindItemId(player,70213);
-		local item_indexA = Char.GetItemIndex(player,slot);
-		local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-		if (Num>=1 and Num<6)then
-			NLG.SystemMessage(-1,"¸‚¼¼½MºÏ:"..Pos[Num][1][1].." VS "..Char.GetData(player,%¶ÔÏó_Ãû×Ö%));
-			local battleindex = Battle.PVE( player, player, nil, Pos[Num][1][7], Pos[Num][1][9], nil)
-			Battle.SetWinEvent( nil, "def_round_wincallback", battleindex);
-		end
-	elseif(Char.ItemNum(player,70212)>0) then
-		local slot = Char.FindItemId(player,70212);
-		local item_indexA = Char.GetItemIndex(player,slot);
-		local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-		if (Num>=6 and Num<9)then
-			NLG.SystemMessage(-1,"¸‚¼¼½MºÏ:"..Pos[Num][1][1].." VS "..Char.GetData(player,%¶ÔÏó_Ãû×Ö%));
-			local battleindex = Battle.PVE( player, player, nil, Pos[Num][1][7], Pos[Num][1][9], nil)
-			Battle.SetWinEvent( nil, "def_round_wincallback", battleindex);
-		end
-                    elseif(Char.ItemNum(player,70211)>0) then
-		local slot = Char.FindItemId(player,70211);
-		local item_indexA = Char.GetItemIndex(player,slot);
-		local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-		if (Num>=9 and Num<11)then
-			NLG.SystemMessage(-1,"¸‚¼¼½MºÏ:"..Pos[Num][1][1].." VS "..Char.GetData(player,%¶ÔÏó_Ãû×Ö%));
-			local battleindex = Battle.PVE( player, player, nil, Pos[Num][1][7], Pos[Num][1][9], nil)
-			Battle.SetWinEvent( nil, "def_round_wincallback", battleindex);
+	for k,v in pairs(BossRoom) do
+		if (Char.ItemNum(player, v.keyItem)>0) then
+			local slot = Char.FindItemId(player, v.keyItem);
+			local item_indexA = Char.GetItemIndex(player,slot);
+			local Num = Item.GetData(item_indexA,%é“å…·_é­…åŠ›%);
+			if (Num>=v.posNum_L and Num<v.posNum_R)then
+				NLG.SystemMessage(-1,"æŒ‘æˆ°çµ„åˆ:"..Pos[Num][1][1].." VS "..Char.GetData(player,%å¯¹è±¡_åå­—%));
+				local battleindex = Battle.PVE( player, player, nil, Pos[Num][1][7], Pos[Num][1][9], nil)
+				Battle.SetWinEvent( nil, "def_round_wincallback", battleindex);
+			end
 		end
 	end
-
 end
 
 function def_round_wincallback(battleindex, player)
@@ -434,62 +455,49 @@ function def_round_wincallback(battleindex, player)
 	local winside = Battle.GetWinSide(battleindex);
 	local sideM = 0;
 
-	--»ñÈ¡Ê¤Àû·½
+	--è·å–èƒœåˆ©æ–¹
 	if (winside == 0) then
 		sideM = 0;
 	end
 	if (winside == 1) then
 		sideM = 10;
 	end
-	--»ñÈ¡Ê¤Àû·½µÄÍæ¼ÒÖ¸Õë£¬¿ÉÄÜÕ¾ÔÚÇ°·½ºÍºó·½
+	--è·å–èƒœåˆ©æ–¹çš„ç©å®¶æŒ‡é’ˆï¼Œå¯èƒ½ç«™åœ¨å‰æ–¹å’Œåæ–¹
 	local w1 = Battle.GetPlayIndex(battleindex, 0 + sideM);
 	local w2 = Battle.GetPlayIndex(battleindex, 5 + sideM);
 	local ww = nil;
 
-	--°ÑÊ¤ÀûÍæ¼Ò¼ÓÈëÁĞ±í
+	--æŠŠèƒœåˆ©ç©å®¶åŠ å…¥åˆ—è¡¨
 	tbl_win_user = {}
-	if ( Char.GetData(w1, %¶ÔÏó_ÀàĞÍ%) >= %¶ÔÏóÀàĞÍ_ÈË% ) then
+	if ( Char.GetData(w1, %å¯¹è±¡_ç±»å‹%) >= %å¯¹è±¡ç±»å‹_äºº% ) then
 		local ww = w1;
 		table.insert(tbl_win_user, ww);
-	elseif ( Char.GetData(w2, %¶ÔÏó_ÀàĞÍ%) >= %¶ÔÏóÀàĞÍ_ÈË% ) then
+	elseif ( Char.GetData(w2, %å¯¹è±¡_ç±»å‹%) >= %å¯¹è±¡ç±»å‹_äºº% ) then
 		local ww = w2;
 		table.insert(tbl_win_user, ww);
 	else
 		local ww = nil;
 	end
 
-	local MapUser = NLG.GetMapPlayer(0,25290);
+	local MapUser = NLG.GetMapPlayer(0, BossMap[1]);
 	for _,w in pairs(MapUser)do
-		if (Char.GetData(w, CONST.CHAR_ÊÜÉË) > 0) then
-		Char.SetData(w, %¶ÔÏó_ÊÜÉË%, 0);
+		if (Char.GetData(w, %å¯¹è±¡_å—ä¼¤%) > 0) then
+		Char.SetData(w, %å¯¹è±¡_å—ä¼¤%, 0);
 		NLG.UpdateParty(w);
 		NLG.UpChar(w);
 		end
 	end
 	local player = tbl_win_user[1];
-	if (Char.ItemNum(player,70213)>0) then
-		local slot = Char.FindItemId(player,70213);
-		local item_indexA = Char.GetItemIndex(player,slot);
-		local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-		if (Num>=1 and Num<6)then
-			Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,Num+1);
-			Item.UpItem(player,slot);
-		end
-	elseif(Char.FindItemId(player,70212)>0) then
-		local slot = Char.FindItemId(player,70212);
-		local item_indexA = Char.GetItemIndex(player,slot);
-		local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-		if (Num>=6 and Num<9)then
-			Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,Num+1);
-			Item.UpItem(player,slot);
-		end
-	elseif(Char.FindItemId(player,70211)>0) then
-		local slot = Char.FindItemId(player,70211);
-		local item_indexA = Char.GetItemIndex(player,slot);
-		local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-		if (Num>=9 and Num<11)then
-			Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,Num+1);
-			Item.UpItem(player,slot);
+
+	for k,v in pairs(BossRoom) do
+		if (Char.ItemNum(player, v.keyItem)>0) then
+			local slot = Char.FindItemId(player, v.keyItem);
+			local item_indexA = Char.GetItemIndex(player,slot);
+			local Num = Item.GetData(item_indexA,%é“å…·_é­…åŠ›%);
+			if (Num>=v.posNum_L and Num<v.posNum_R)then
+				Item.SetData(item_indexA,%é“å…·_é­…åŠ›%,Num+1);
+				Item.UpItem(player,slot);
+			end
 		end
 	end
 	FTime = os.time()
@@ -499,21 +507,26 @@ end
 function AutoRanking_LoopEvent(_MeIndex)
 	local BTime= os.time()
 	local timec = BTime - FTime;
-	local MapUser = NLG.GetMapPlayer(0,25290);
+
+	local MapUser = NLG.GetMapPlayer(0, BossMap[1]);
 	if (MapUser == -3 and tonumber(#tbl_win_user) == 0 ) then
 		Setting = 0;
 	elseif (MapUser ~= -3 and tonumber(#tbl_win_user) >= 1 ) then
 		Setting = 1;
 	elseif (MapUser ~= -3 and tonumber(#tbl_win_user) == 0 ) then
 		for _,w in pairs(MapUser)do
-			if (Char.GetData(w,%¶ÔÏó_Ñª%)<=1) then
+			if (Char.GetData(w,%å¯¹è±¡_è¡€%)<=1) then
 				Setting = 2;
 			end
 		end
 	end
+
 	if (Setting == 1) then
-		if (timec <= 20) then
-			NLG.SystemMessageToMap(0, 25290,"Ìì¿Õ¸‚¼¼ÙÏÂÒ»»ØºÏ¼´Œ¢é_Ê¼£¬Ê£ğN"..tostring(21 - timec).."Ãë¡£");
+		if (timec <= 30) then
+			local player = tbl_win_user[1];
+			if Char.GetData(player,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+				NLG.SystemMessageToMap(0, BossMap[1],"é ­ç›®æˆ¿æŒ‘æˆ°ä¸‹ä¸€å›åˆå³å°‡é–‹å§‹ï¼Œå‰©é¤˜"..tostring(31 - timec).."ç§’ã€‚");
+			end
 			return;
 		else
 			for _,v in pairs(tbl_win_user) do
@@ -533,81 +546,55 @@ end
 function wincallbackfunc(tbl_win_user)
 	if (tbl_win_user ~= nil and tonumber(#tbl_win_user) >= 1)then
 		-----------------------------------------------------
-		for _,v in pairs(tbl_win_user) do
-		if (Char.ItemNum(v,70213)>0) then
-			local slot = Char.FindItemId(v,70213);
-			local item_indexA = Char.GetItemIndex(v,slot);
-			local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-			if (Num==6) then
-				Char.DelItem(v,70213,1);
-				Char.GiveItem(v,69000,5);
-				NLG.SystemMessage(-1,"¹§Ï²Íæ¼Ò:"..Char.GetData(v,%¶ÔÏó_Ãû×Ö%).."«@µÃ±¾´ÎÌì¿Õ¸‚¼¼Ù¹ÚÜŠ¡£");
-				Char.Warp(v,0,1000,229,65);
-				tbl_win_user ={}
-				Setting = 0;
-			elseif (Num>=1 and Num<6) then
-				Setting = 1;
+		for _,w in pairs(tbl_win_user) do
+			for k,v in pairs(BossRoom) do
+			if (Char.ItemNum(w, v.keyItem)>0) then
+				local slot = Char.FindItemId(w, v.keyItem);
+				local item_indexA = Char.GetItemIndex(w,slot);
+				local Num = Item.GetData(item_indexA,%é“å…·_é­…åŠ›%);
+				if (Num==v.posNum_R) then
+					Char.DelItem(w, v.keyItem, v.keyItem_count);
+					Char.GiveItem(w, v.win.getItem, v.win.getItem_count);
+					NLG.SystemMessage(-1,"æ­å–œç©å®¶:"..Char.GetData(w,%å¯¹è±¡_åå­—%).."æ”»ç•¥æˆåŠŸæœ¬æ¬¡é ­ç›®æˆ¿ã€‚");
+					Char.Warp(w,0, v.win.warpWMap, v.win.warpWX, v.win.warpWY);
+					tbl_win_user ={}
+					Setting = 0;
+				elseif (Num>=v.posNum_L and Num<v.posNum_R) then
+					Setting = 1;
+				end
 			end
-		elseif(Char.FindItemId(v,70212)>0) then
-			local slot = Char.FindItemId(v,70212);
-			local item_indexA = Char.GetItemIndex(v,slot);
-			local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-			if (Num==9) then
-				Char.DelItem(v,70212,1);
-				Char.GiveItem(v,69000,5);
-				NLG.SystemMessage(-1,"¹§Ï²Íæ¼Ò:"..Char.GetData(v,%¶ÔÏó_Ãû×Ö%).."«@µÃ±¾´ÎÌì¿Õ¸‚¼¼Ù¹ÚÜŠ¡£");
-				Char.Warp(v,0,1000,229,65);
-				tbl_win_user ={}
-				Setting = 0;
-			elseif (Num>=6 and Num<9) then
-				Setting = 1;
 			end
-		elseif(Char.FindItemId(v,70211)>0) then
-			local slot = Char.FindItemId(v,70211);
-			local item_indexA = Char.GetItemIndex(v,slot);
-			local Num = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
-			if (Num==11) then
-				Char.DelItem(v,70211,1);
-				Char.GiveItem(v,69000,5);
-				NLG.SystemMessage(-1,"¹§Ï²Íæ¼Ò:"..Char.GetData(v,%¶ÔÏó_Ãû×Ö%).."«@µÃ±¾´ÎÌì¿Õ¸‚¼¼Ù¹ÚÜŠ¡£");
-				Char.Warp(v,0,1000,229,65);
-				tbl_win_user ={}
-				Setting = 0;
-			elseif (Num>=9 and Num<11) then
-				Setting = 1;
-			end
-		end
 		end
 	else
 		-----------------------------------------------------
-		local MapUser = NLG.GetMapPlayer(0,25290);
+		local MapUser = NLG.GetMapPlayer(0, BossMap[1]);
 		if (MapUser == -3) then
 			return;
 		else
 			tbl_win_user ={};
 			tbl_duel_user = {};
-			warpfailuser(MapUser,tbl_win_user,0,25291,35,14);
+			warpfailuser(MapUser,tbl_win_user,0,OutMap[1],OutMap[2],OutMap[3]);
 		end
 	end
 end
 
 
---	º¯Êı¹¦ÄÜ£º·É×ßÊ§°ÜµÄÍæ¼Ò
+--	å‡½æ•°åŠŸèƒ½ï¼šé£èµ°å¤±è´¥çš„ç©å®¶
 function warpfailuser(MapUser,tbl_win_user,floor,mapid,x,y)
 	local failuser = delfailuser(MapUser,tbl_win_user);
 	for _,tuser in pairs(failuser) do
 		Battle.ExitBattle(tuser);
-		if (Char.GetData(tuser, CONST.CHAR_ÊÜÉË) > 0) then
-			Char.SetData(tuser, %¶ÔÏó_ÊÜÉË%, 0);
+		if (Char.GetData(tuser, CONST.CHAR_å—ä¼¤) > 0) then
+			Char.SetData(tuser, %å¯¹è±¡_å—ä¼¤%, 0);
 			NLG.UpdateParty(tuser);
 			NLG.UpChar(tuser);
 		end
-		Char.Warp(tuser,0,25291,35,14);
-		NLG.SystemMessage(tuser,"Äúİ”ÁË£¬¸ĞÖx…¢Åc£¡");
+		Char.Warp(tuser,0,OutMap[1],OutMap[2],OutMap[3]);
+		NLG.SystemMessage(tuser,"æ‚¨è¼¸äº†ï¼Œæ„Ÿè¬åƒèˆ‡æœ¬æ¬¡é ­ç›®æˆ¿ï¼");
 	end
 end
 
---	º¯Êı¹¦ÄÜ£º»ñÈ¡Õ½¶·Ê§°ÜµÄÍæ¼Ò
+--	å‡½æ•°åŠŸèƒ½ï¼šè·å–æˆ˜æ–—å¤±è´¥çš„ç©å®¶
 function delfailuser(MapUser,tbl_win_user)
 	for _,v in pairs(tbl_win_user)do
 		for i,w in pairs(MapUser)do
