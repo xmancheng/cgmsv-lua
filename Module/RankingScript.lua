@@ -142,6 +142,7 @@ function Char.HealAll(player)
 			Char.SetData(player, %对象_掉魂%, 0);
 			NLG.UpdateParty(player);
 			NLG.UpChar(player);
+			return;
 		end
 	end
 end
