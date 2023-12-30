@@ -136,8 +136,8 @@ function Char.HealAll(player)
 			NLG.UpdateParty(TeamPlayer);
 			NLG.UpChar(TeamPlayer);
 		elseif (TeamPlayer==-1) then
-			Char.SetData(player,%对象_血%, Char.GetData(TeamPlayer,%对象_最大血%));
-			Char.SetData(player,%对象_魔%, Char.GetData(TeamPlayer,%对象_最大魔%));
+			Char.SetData(player,%对象_血%, Char.GetData(player,%对象_最大血%));
+			Char.SetData(player,%对象_魔%, Char.GetData(player,%对象_最大魔%));
 			Char.SetData(player, %对象_受伤%, 0);
 			Char.SetData(player, %对象_掉魂%, 0);
 			NLG.UpdateParty(player);
