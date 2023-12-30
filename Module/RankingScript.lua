@@ -19,32 +19,32 @@ local Setting = 0;
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------天梯对战NPC设置------------
-EnemySet[1] = {0, 0, 25036, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
-EnemySet[2] = {0, 25032, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[3] = {0, 0, 0, 0, 0, 0, 0, 25037, 0, 0}
-EnemySet[4] = {0, 0, 0, 0, 0, 0, 25033, 0, 0, 0}
-EnemySet[5] = {0, 0, 0, 0, 25035, 25031, 0, 0, 0, 0}
-EnemySet[6] = {0, 25032, 25036, 25034, 25035, 0, 0, 0, 0, 0}
-EnemySet[7] = {0, 0, 25036, 0, 25035, 25031, 0, 0, 0, 0}
-EnemySet[8] = {0, 25032, 0, 25034, 0, 25041, 0, 0, 0, 0}
+EnemySet[1] = {25029, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+EnemySet[2] = {25030, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[3] = {0, 0, 0, 0, 0, 25037, 0, 0, 0, 0}
+EnemySet[4] = {0, 0, 0, 0, 0, 25033, 0, 0, 0, 0}
+EnemySet[5] = {0, 0, 0, 0, 0, 0, 25034, 25035, 0, 0}
+EnemySet[6] = {0, 25029, 25030, 0, 0, 25028, 0, 0, 0, 0}
+EnemySet[7] = {0, 25036, 25035, 0, 0, 25031, 0, 0, 0, 0}
+EnemySet[8] = {0, 25032, 25034, 0, 0, 25041, 0, 0, 0, 0}
 EnemySet[9] = {0, 25032, 25036, 25034, 25035, 25031, 25033, 25037, 0, 0}
 EnemySet[10] = {0, 25032, 25036, 25034, 25035, 25041, 25033, 25037, 0, 0}
-BaseLevelSet[1] = {0, 0, 20, 0, 0, 0, 0, 0, 0, 0}
-BaseLevelSet[2] = {0, 20, 0, 0, 0, 0, 0, 0, 0, 0}
-BaseLevelSet[3] = {0, 0, 0, 0, 0, 0, 0, 20, 0, 0}
-BaseLevelSet[4] = {0, 0, 0, 0, 0, 0, 20, 0, 0, 0}
-BaseLevelSet[5] = {0, 0, 0, 0, 20, 28, 0, 0, 0, 0}
-BaseLevelSet[6] = {0, 50, 50, 50, 50, 0, 0, 0, 0, 0}
-BaseLevelSet[7] = {0, 0, 50, 0, 50, 58, 0, 0, 0, 0}
-BaseLevelSet[8] = {0, 50, 0, 50, 0, 58, 0, 0, 0, 0}
+BaseLevelSet[1] = {24, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[2] = {24, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[3] = {0, 0, 0, 0, 0, 30, 0, 0, 0, 0}
+BaseLevelSet[4] = {0, 0, 0, 0, 0, 30, 0, 0, 0, 0}
+BaseLevelSet[5] = {0, 0, 0, 0, 0, 0, 30, 30, 0, 0}
+BaseLevelSet[6] = {0, 44, 44, 0, 0, 49, 0, 0, 0, 0}
+BaseLevelSet[7] = {0, 50, 50, 0, 0, 58, 0, 0, 0, 0}
+BaseLevelSet[8] = {0, 50, 50, 0, 0, 58, 0, 0, 0, 0}
 BaseLevelSet[9] = {0, 80, 80, 80, 80, 88, 80, 90, 0, 0}
 BaseLevelSet[10] = {0, 80, 80, 80, 80, 88, 80, 90, 0, 0}
-Pos[1] = {{"帕利耶",106654,25290,18,29,5,EnemySet[1],1,BaseLevelSet[1]}}
-Pos[2] = {{"烏莉兒",106604,25290,20,31,5,EnemySet[2],2,BaseLevelSet[2]}}
+Pos[1] = {{"艾兒卡絲的手下",100727,25290,18,29,5,EnemySet[1],1,BaseLevelSet[1]}}
+Pos[2] = {{"艾兒卡絲的手下",106527,25290,20,31,5,EnemySet[2],2,BaseLevelSet[2]}}
 Pos[3] = {{"熊美",101012,25290,16,29,5,EnemySet[3],3,BaseLevelSet[3]}}
 Pos[4] = {{"小烏",101501,25290,20,33,5,EnemySet[4],4,BaseLevelSet[4]}}
-Pos[5] = {{"羅嚴",106452,25290,18,31,5,EnemySet[5],5,BaseLevelSet[5]}}
-Pos[6] = {{"凱傑爾",106427,25290,19,13,4,EnemySet[6],6,BaseLevelSet[6]}}
+Pos[5] = {{"凱傑爾",106427,25290,18,31,5,EnemySet[5],5,BaseLevelSet[5]}}
+Pos[6] = {{"艾兒卡絲",100702,25290,19,13,4,EnemySet[6],6,BaseLevelSet[6]}}
 Pos[7] = {{"帕利耶",106654,25290,23,13,4,EnemySet[7],7,BaseLevelSet[7]}}
 Pos[8] = {{"烏莉兒",106604,25290,27,13,4,EnemySet[8],8,BaseLevelSet[8]}}
 Pos[9] = {{"白銀之騎士",106555,25290,35,20,5,EnemySet[9],9,BaseLevelSet[9]}}
@@ -246,7 +246,6 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 		if key == data then
 			local playerName = Char.GetData(player,CONST.CHAR_名字);
 			local partyname = playerName .. "－隊";
-			Char.HealAll(player);
 			--print(key)
 			local MapUser = NLG.GetMapPlayer(0, BossMap[1]);
 			if (MapUser ~= -3 ) then
@@ -265,6 +264,7 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 						NLG.ShowWindowTalked(player, npc, %窗口_信息框%, %按钮_确定%, 23, msg);
 						return;
 					elseif( Switch==1 and Char.PartyNum(player) == v.limit) then
+						Char.HealAll(player);
 						Char.GiveItem(player, v.keyItem, v.keyItem_count);
 						local slot = Char.FindItemId(player, v.keyItem);
 						local item_indexA = Char.GetItemIndex(player,slot);
@@ -273,6 +273,7 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 						table.insert(tbl_duel_user,player);
 						Char.Warp(player,0, BossMap[1], BossMap[2], BossMap[3]);
 					elseif( Switch==0) then
+						Char.HealAll(player);
 						Char.GiveItem(player, v.keyItem, v.keyItem_count);
 						local slot = Char.FindItemId(player, v.keyItem);
 						local item_indexA = Char.GetItemIndex(player,slot);
