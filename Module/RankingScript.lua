@@ -39,38 +39,39 @@ BaseLevelSet[7] = {0, 50, 50, 0, 0, 58, 0, 0, 0, 0}
 BaseLevelSet[8] = {0, 50, 50, 0, 0, 58, 0, 0, 0, 0}
 BaseLevelSet[9] = {0, 80, 80, 80, 80, 88, 80, 90, 0, 0}
 BaseLevelSet[10] = {0, 80, 80, 80, 80, 88, 80, 90, 0, 0}
-Pos[1] = {{"艾兒卡絲的手下",100727,25290,18,29,5,EnemySet[1],1,BaseLevelSet[1]}}
+Pos[1] = {{"艾兒卡絲的手下",100727,25290,18,29,5,EnemySet[1],1,BaseLevelSet[1]}}      -- 初级(1~5)
 Pos[2] = {{"艾兒卡絲的手下",106527,25290,20,31,5,EnemySet[2],2,BaseLevelSet[2]}}
 Pos[3] = {{"熊美",101012,25290,16,29,5,EnemySet[3],3,BaseLevelSet[3]}}
 Pos[4] = {{"小烏",101501,25290,20,33,5,EnemySet[4],4,BaseLevelSet[4]}}
 Pos[5] = {{"凱傑爾",106427,25290,18,31,5,EnemySet[5],5,BaseLevelSet[5]}}
-Pos[6] = {{"艾兒卡絲",100702,25290,19,13,4,EnemySet[6],6,BaseLevelSet[6]}}
+Pos[6] = {{"艾兒卡絲",100702,25290,19,13,4,EnemySet[6],6,BaseLevelSet[6]}}                  -- 高级(6~8)
 Pos[7] = {{"帕利耶",106654,25290,23,13,4,EnemySet[7],7,BaseLevelSet[7]}}
 Pos[8] = {{"烏莉兒",106604,25290,27,13,4,EnemySet[8],8,BaseLevelSet[8]}}
-Pos[9] = {{"白銀之騎士",106555,25290,35,20,5,EnemySet[9],9,BaseLevelSet[9]}}
+Pos[9] = {{"白銀之騎士",106555,25290,35,20,5,EnemySet[9],9,BaseLevelSet[9]}}              -- 绝级(9~10)
 Pos[10] = {{"百合之少女",106726,25290,36,30,6,EnemySet[10],10,BaseLevelSet[10]}}
 
 tbl_AutoRankingNpcIndex = tbl_AutoRankingNpcIndex or {}
 ------------------------------------------------
 --背景设置
 local Switch = 1;                          --组队人数限制开关1开0关
+local Rank = 0;                             --难度分类
 local BossMap= {25290,15,34} -- 战斗场景Floor,X,Y(初、高、绝同场景)
 local OutMap= {25291,35,14}  -- 失败传送Floor,X,Y(初、高、绝同场景)
 local BossKey= {70213,70212,70211} -- 初级、高级、绝级
 local Pts= 69000;                        --积分券
 local BossRoom = {
-      { key=1, keyItem=70213, keyItem_count=1, limit=-1, posNum_L=1, posNum_R=6,
+      { key=1, keyItem=70213, keyItem_count=1, bossRank=1, limit=-1, posNum_L=1, posNum_R=6,
           win={warpWMap=1000, warpWX=229, warpWY=65, getItem = 69000, getItem_count = 5},
           lose={warpLMap=25291, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
-       },
-      { key=3, keyItem=70212, keyItem_count=1, limit=3, posNum_L=6, posNum_R=9,
+       },    -- 初级(1~5)
+      { key=3, keyItem=70212, keyItem_count=1, bossRank=2, limit=3, posNum_L=6, posNum_R=9,
           win={warpWMap=1000, warpWX=229, warpWY=65, getItem = 69000, getItem_count = 10},
           lose={warpLMap=25291, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
-       },
-      { key=5, keyItem=70211, keyItem_count=1, limit=5, posNum_L=9, posNum_R=11,
+       },    -- 高级(6~8)
+      { key=5, keyItem=70211, keyItem_count=1, bossRank=3, limit=5, posNum_L=9, posNum_R=11,
           win={warpWMap=1000, warpWX=229, warpWY=65, getItem = 69000, getItem_count = 20},
           lose={warpLMap=25291, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
-       },
+       },    -- 绝级(9~10)
 }
 tbl_duel_user = {};			--当前场次玩家的列表
 tbl_win_user = {};
@@ -198,8 +199,9 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 				for i = 1, #tbl_duel_user do
 				local duelplayer = tbl_duel_user[i];
 				local duelplayerName = Char.GetData(duelplayer,CONST.CHAR_名字);
-				if (duelplayerName~=nil) then
-					msg = msg .. duelplayerName .. "　VS　".. "\\n"
+				local rankLevel = {"初級","高級","絕級"};
+				if (duelplayerName~=nil and Rank>=1) then
+					msg = msg .. duelplayerName .. "　VS　".. rankLevel[Rank] .."對戰\\n"
 				end
 			end
 			NLG.ShowWindowTalked(player, npc, %窗口_选择框%, %按钮_关闭%, 41, msg);
@@ -265,6 +267,7 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 						NLG.ShowWindowTalked(player, npc, %窗口_信息框%, %按钮_确定%, 23, msg);
 						return;
 					elseif( Switch==1 and Char.PartyNum(player) == v.limit) then
+						Rank = v.bossRank;
 						Char.HealAll(player);
 						Char.GiveItem(player, v.keyItem, v.keyItem_count);
 						local slot = Char.FindItemId(player, v.keyItem);
@@ -275,6 +278,7 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 						Char.Warp(player,0, BossMap[1], BossMap[2], BossMap[3]);
 					elseif( Switch==0) then
 						Char.HealAll(player);
+						Rank = v.bossRank;
 						Char.GiveItem(player, v.keyItem, v.keyItem_count);
 						local slot = Char.FindItemId(player, v.keyItem);
 						local item_indexA = Char.GetItemIndex(player,slot);
@@ -561,6 +565,7 @@ function wincallbackfunc(tbl_win_user)
 					Char.Warp(w,0, v.win.warpWMap, v.win.warpWX, v.win.warpWY);
 					tbl_win_user ={}
 					Setting = 0;
+					Rank = 0;
 				elseif (Num>=v.posNum_L and Num<v.posNum_R) then
 					Setting = 1;
 				end
@@ -573,6 +578,7 @@ function wincallbackfunc(tbl_win_user)
 		if (MapUser == -3) then
 			return;
 		else
+			Rank = 0;
 			tbl_win_user ={};
 			tbl_duel_user = {};
 			warpfailuser(MapUser,tbl_win_user,0,OutMap[1],OutMap[2],OutMap[3]);
