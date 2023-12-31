@@ -277,8 +277,8 @@ function RankingScriptA(npc, player, _seqno, _select, _data)
 						table.insert(tbl_duel_user,player);
 						Char.Warp(player,0, BossMap[1], BossMap[2], BossMap[3]);
 					elseif( Switch==0) then
-						Char.HealAll(player);
 						Rank = v.bossRank;
+						Char.HealAll(player);
 						Char.GiveItem(player, v.keyItem, v.keyItem_count);
 						local slot = Char.FindItemId(player, v.keyItem);
 						local item_indexA = Char.GetItemIndex(player,slot);
