@@ -55,7 +55,7 @@ useModule('WildBoss');|野外挑戰
 useModule('ActivityScript');|活動副本
 useModule('BravadoScript');|單人挑戰
 useModule('DailyScript');|曜日副本
-useModule('RankingScript');|天梯挑戰
+useModule('RankingScript');|頭目挑戰
 
 
 ## 新框架Modules
