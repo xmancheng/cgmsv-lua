@@ -127,7 +127,15 @@ function initRankingScriptNpc()
 end
 
 function Char.HealAll(player)
-	for Slot=0,4 do
+	Char.SetData(player,%对象_血%, Char.GetData(player,%对象_最大血%));
+	Char.SetData(player,%对象_魔%, Char.GetData(player,%对象_最大魔%));
+	Char.SetData(player, %对象_受伤%, 0);
+	Char.SetData(player, %对象_掉魂%, 0);
+	NLG.UpdateParty(player);
+	NLG.UpChar(player);
+	local PartyNum = Char.PartyNum(player);
+	if (PartyNum>1) then
+		for Slot=1,4 do
 		local TeamPlayer = Char.GetPartyMember(player,Slot);
 		if (TeamPlayer>0) then
 			Char.SetData(TeamPlayer,%对象_血%, Char.GetData(TeamPlayer,%对象_最大血%));
@@ -136,14 +144,7 @@ function Char.HealAll(player)
 			Char.SetData(TeamPlayer, %对象_掉魂%, 0);
 			NLG.UpdateParty(TeamPlayer);
 			NLG.UpChar(TeamPlayer);
-		elseif (TeamPlayer==-1) then
-			Char.SetData(player,%对象_血%, Char.GetData(player,%对象_最大血%));
-			Char.SetData(player,%对象_魔%, Char.GetData(player,%对象_最大魔%));
-			Char.SetData(player, %对象_受伤%, 0);
-			Char.SetData(player, %对象_掉魂%, 0);
-			NLG.UpdateParty(player);
-			NLG.UpChar(player);
-			return;
+		end
 		end
 	end
 end
@@ -348,6 +349,8 @@ function RankingScriptMsgB(npc, player)  ----设立淘汰领奖处
 				Char.DelItem(player, v.keyItem, v.keyItem_count);
 				Char.GiveItem(player, v.lose.getItem, v.lose.getItem_count);
 				Char.Warp(player,0,v.win.warpWMap,v.win.warpWX,v.win.warpWY);
+			else
+				Char.Warp(player,0,v.win.warpWMap,v.win.warpWX,v.win.warpWY);
 			end
 		end
 	end
@@ -521,7 +524,7 @@ function AutoRanking_LoopEvent(_MeIndex)
 		Setting = 1;
 	elseif (MapUser ~= -3 and tonumber(#tbl_win_user) == 0 ) then
 		for _,w in pairs(MapUser)do
-			if (Char.GetData(w,%对象_血%)<=1) then
+			if (w==tbl_duel_user[1] and Char.GetData(w,%对象_血%)<=1) then
 				Setting = 2;
 			end
 		end
@@ -578,10 +581,11 @@ function wincallbackfunc(tbl_win_user)
 		if (MapUser == -3) then
 			return;
 		else
+			warpfailuser(MapUser,tbl_win_user,0,OutMap[1],OutMap[2],OutMap[3]);
 			Rank = 0;
 			tbl_win_user ={};
 			tbl_duel_user = {};
-			warpfailuser(MapUser,tbl_win_user,0,OutMap[1],OutMap[2],OutMap[3]);
+
 		end
 	end
 end
@@ -592,6 +596,12 @@ function warpfailuser(MapUser,tbl_win_user,floor,mapid,x,y)
 	local failuser = delfailuser(MapUser,tbl_win_user);
 	for _,tuser in pairs(failuser) do
 		Battle.ExitBattle(tuser);
+		for Slot=1,4 do
+			local TeamPlayer = Char.GetPartyMember(tuser,Slot);
+			if (TeamPlayer>0) then
+				Battle.ExitBattle(TeamPlayer);
+			end
+		end
 		if (Char.GetData(tuser, CONST.CHAR_受伤) > 0) then
 			Char.SetData(tuser, %对象_受伤%, 0);
 			NLG.UpdateParty(tuser);
