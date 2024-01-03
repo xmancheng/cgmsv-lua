@@ -530,8 +530,14 @@ function AutoRanking_LoopEvent(_MeIndex)
 				if (Char.GetData(w,%对象_血%)<=1) then
 					DeadNum = DeadNum+1;
 				end
-				if (DeadNum==1 or DeadNum==PartyNum ) then
-					Setting = 2;
+				if (PartyNum==-1) then
+	 				if (DeadNum==1) then
+						Setting = 2;
+					end
+				elseif (PartyNum>=1) then
+					if (DeadNum==PartyNum) then
+						Setting = 2;
+					end
 				end
 			else
 				return;
