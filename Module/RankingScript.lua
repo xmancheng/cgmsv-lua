@@ -527,9 +527,9 @@ function AutoRanking_LoopEvent(_MeIndex)
 		Setting = 1;
 	elseif (MapUser ~= -3 and tonumber(#tbl_win_user) == 0 ) then
 		if (tbl_duel_user[1] ~= nil) then
+			local PartyNum = Char.PartyNum(tbl_duel_user[1]);
+			local DeadNum = 0;
 			for _,w in pairs(MapUser)do
-				local PartyNum = Char.PartyNum(tbl_duel_user[1]);
-				local DeadNum = 0;
 				if (Char.GetData(w,%对象_血%)<=1) then
 					DeadNum = DeadNum+1;
 				end
