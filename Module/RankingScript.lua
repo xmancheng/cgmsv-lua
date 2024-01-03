@@ -524,7 +524,12 @@ function AutoRanking_LoopEvent(_MeIndex)
 		Setting = 1;
 	elseif (MapUser ~= -3 and tonumber(#tbl_win_user) == 0 ) then
 		for _,w in pairs(MapUser)do
-			if (w==tbl_duel_user[1] and Char.GetData(w,%对象_血%)<=1) then
+			local PartyNum = Char.PartyNum(tbl_duel_user[1]);
+			local DeadNum = 0;
+			if (Char.GetData(w,%对象_血%)<=1) then
+				DeadNum = DeadNum+1;
+			end
+			if (PartyNum==-1 or PartyNum==DeadNum ) then
 				Setting = 2;
 			end
 		end
@@ -541,7 +546,7 @@ function AutoRanking_LoopEvent(_MeIndex)
 			for _,v in pairs(tbl_win_user) do
 				def_round_start(v, 'wincallbackfunc');
 			end
-			tbl_win_user ={}
+			tbl_win_user = {};
 			Setting = 0;
 		end
 	elseif (Setting == 2) then
@@ -566,7 +571,7 @@ function wincallbackfunc(tbl_win_user)
 					Char.GiveItem(w, v.win.getItem, v.win.getItem_count);
 					NLG.SystemMessage(-1,"恭喜玩家:"..Char.GetData(w,%对象_名字%).."攻略成功本次頭目房。");
 					Char.Warp(w,0, v.win.warpWMap, v.win.warpWX, v.win.warpWY);
-					tbl_win_user ={}
+					tbl_win_user = {};
 					Setting = 0;
 					Rank = 0;
 				elseif (Num>=v.posNum_L and Num<v.posNum_R) then
@@ -583,7 +588,7 @@ function wincallbackfunc(tbl_win_user)
 		else
 			warpfailuser(MapUser,tbl_win_user,0,OutMap[1],OutMap[2],OutMap[3]);
 			Rank = 0;
-			tbl_win_user ={};
+			tbl_win_user = {};
 			tbl_duel_user = {};
 
 		end
@@ -596,12 +601,6 @@ function warpfailuser(MapUser,tbl_win_user,floor,mapid,x,y)
 	local failuser = delfailuser(MapUser,tbl_win_user);
 	for _,tuser in pairs(failuser) do
 		Battle.ExitBattle(tuser);
-		for Slot=1,4 do
-			local TeamPlayer = Char.GetPartyMember(tuser,Slot);
-			if (TeamPlayer>0) then
-				Battle.ExitBattle(TeamPlayer);
-			end
-		end
 		if (Char.GetData(tuser, CONST.CHAR_受伤) > 0) then
 			Char.SetData(tuser, %对象_受伤%, 0);
 			NLG.UpdateParty(tuser);
