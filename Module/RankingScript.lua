@@ -344,7 +344,15 @@ end
 function RankingScriptMsgB(npc, player)  ----设立淘汰领奖处
 	if (NLG.CanTalk(npc, player) == true) then
 		if (Char.PartyNum(player)==-1) then
-			Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
+			if (Char.ItemNum(player, BossKey[1]) > 0) then
+				local slot = Char.FindItemId(player, BossKey[1]);
+				local item_indexA = Char.GetItemIndex(player,slot);
+				Char.DelItem(player, BossKey[1], 1);
+				Char.GiveItem(player, 69000, 1);
+				Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
+			else
+				Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
+			end
 		else
 			for k,v in pairs(BossRoom) do
 			if (Char.ItemNum(player, v.keyItem) > 0) then
