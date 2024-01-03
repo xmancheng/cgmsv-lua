@@ -57,6 +57,7 @@ local Switch = 1;                          --组队人数限制开关1开0关
 local Rank = 0;                             --难度分类
 local BossMap= {25290,15,34} -- 战斗场景Floor,X,Y(初、高、绝同场景)
 local OutMap= {25291,35,14}  -- 失败传送Floor,X,Y(初、高、绝同场景)
+local LeaveMap= {1000,229,65}  -- 离开传送Floor,X,Y(初、高、绝同场景)
 local BossKey= {70213,70212,70211} -- 初级、高级、绝级
 local Pts= 69000;                        --积分券
 local BossRoom = {
@@ -342,15 +343,17 @@ end
 
 function RankingScriptMsgB(npc, player)  ----设立淘汰领奖处
 	if (NLG.CanTalk(npc, player) == true) then
-		for k,v in pairs(BossRoom) do
+		if (Char.PartyNum(player)==-1) then
+			Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
+		else
+			for k,v in pairs(BossRoom) do
 			if (Char.ItemNum(player, v.keyItem) > 0) then
 				local slot = Char.FindItemId(player, v.keyItem);
 				local item_indexA = Char.GetItemIndex(player,slot);
 				Char.DelItem(player, v.keyItem, v.keyItem_count);
 				Char.GiveItem(player, v.lose.getItem, v.lose.getItem_count);
 				Char.Warp(player,0,v.win.warpWMap,v.win.warpWX,v.win.warpWY);
-			else
-				Char.Warp(player,0,v.win.warpWMap,v.win.warpWX,v.win.warpWY);
+			end
 			end
 		end
 	end
@@ -523,25 +526,25 @@ function AutoRanking_LoopEvent(_MeIndex)
 	elseif (MapUser ~= -3 and tonumber(#tbl_win_user) >= 1 ) then
 		Setting = 1;
 	elseif (MapUser ~= -3 and tonumber(#tbl_win_user) == 0 ) then
-		for _,w in pairs(MapUser)do
-			if (tbl_duel_user[1] ~= nil) then
+		if (tbl_duel_user[1] ~= nil) then
+			for _,w in pairs(MapUser)do
 				local PartyNum = Char.PartyNum(tbl_duel_user[1]);
 				local DeadNum = 0;
 				if (Char.GetData(w,%对象_血%)<=1) then
 					DeadNum = DeadNum+1;
 				end
-				if (PartyNum==-1) then
-	 				if (DeadNum==1) then
-						Setting = 2;
-					end
-				elseif (PartyNum>=1) then
-					if (DeadNum==PartyNum) then
-						Setting = 2;
-					end
-				end
-			else
-				return;
 			end
+			if (PartyNum==-1) then
+	 			if (DeadNum==1) then
+					Setting = 2;
+				end
+			elseif (PartyNum>=1) then
+				if (DeadNum==PartyNum) then
+					Setting = 2;
+				end
+			end
+		else
+			return;
 		end
 	end
 
