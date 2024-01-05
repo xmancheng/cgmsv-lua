@@ -1,48 +1,48 @@
 local MatchDraw = ModuleBase:createModule('matchDraw')
 
+MatchDraw:addMigration(1, 'init lua_hook_character', function()
+  SQL.querySQL([[
+      CREATE TABLE if not exists `lua_hook_character` (
+    `Name` char(32) COLLATE gbk_bin NOT NULL,
+    `CdKey` char(32) COLLATE gbk_bin NOT NULL,
+    `MatchDraw1` mediumtext COLLATE gbk_bin NULL,
+    PRIMARY KEY (`CdKey`),
+    KEY `Name` (`Name`) USING BTREE
+  ) ENGINE=Innodb DEFAULT CHARSET=gbk COLLATE=gbk_bin
+  ]])
+end);
+
 local DrawTbl={
-       { Num="[001]", type="S", serial_L=1000, serial_H=1000, itemid=69000, count=1},        --S(1)
-       { Num="[002]", type="A", serial_L=996, serial_H=999, itemid=69000, count=1},             --A(2~3)
-       { Num="[003]", type="A", serial_L=991, serial_H=995, itemid=69000, count=1},
-       { Num="[004]", type="B", serial_L=985, serial_H=990, itemid=69000, count=1},             --B(4~6)
-       { Num="[005]", type="B", serial_L=978, serial_H=984, itemid=69000, count=1},
-       { Num="[006]", type="B", serial_L=970, serial_H=977, itemid=69000, count=1},
-       { Num="[007]", type="C", serial_L=955, serial_H=969, itemid=69000, count=1},             --C(7~10)
-       { Num="[008]", type="C", serial_L=940, serial_H=954, itemid=69000, count=1},
-       { Num="[009]", type="C", serial_L=925, serial_H=939, itemid=69000, count=1},
-       { Num="[010]", type="C", serial_L=909, serial_H=924, itemid=69000, count=1},
-       { Num="[011]", type="D", serial_L=849, serial_H=908, itemid=69000, count=1},             --D(11~15)
-       { Num="[012]", type="D", serial_L=789, serial_H=848, itemid=69000, count=1},
-       { Num="[013]", type="D", serial_L=729, serial_H=788, itemid=69000, count=1},
-       { Num="[014]", type="D", serial_L=669, serial_H=728, itemid=69000, count=1},
-       { Num="[015]", type="D", serial_L=608, serial_H=668, itemid=69000, count=1},
-       { Num="[016]", type="E", serial_L=508, serial_H=607, itemid=69000, count=1},             --E(16~21)
-       { Num="[017]", type="E", serial_L=408, serial_H=507, itemid=69000, count=1},
-       { Num="[018]", type="E", serial_L=308, serial_H=407, itemid=69000, count=1},
-       { Num="[019]", type="E", serial_L=208, serial_H=307, itemid=69000, count=1},
-       { Num="[020]", type="E", serial_L=108, serial_H=207, itemid=69000, count=1},
-       { Num="[021]", type="E", serial_L=7, serial_H=107, itemid=69000, count=1},
+       { Num="001", type="S", serial_L=1000, serial_H=1000, name="‰æù‰ª£Âè¨ÂñöÊõ∏", itemid=70011, count=1},        --S(1)
+       { Num="002", type="A", serial_L=996, serial_H=999, name="ÈáëËâ≤ÁéãÂÜ†", itemid=68017, count=1},             --A(2~3)
+       { Num="003", type="A", serial_L=991, serial_H=995, name="ÂÖÉÊ∞£ÊªøÊªøÁÉ§Áàê", itemid=70039, count=1},
+       { Num="004", type="B", serial_L=985, serial_H=990, name="ÈäÄËâ≤ÁéãÂÜ†", itemid=68018, count=1},             --B(4~6)
+       { Num="005", type="B", serial_L=978, serial_H=984, name="ÁãóÁãóÂúñÈëë", itemid=70024, count=1},
+       { Num="006", type="B", serial_L=970, serial_H=977, name="ÊÆòÁ†¥ÁöÑÂØ∂ÁÆ±", itemid=70220, count=1},
+       { Num="007", type="C", serial_L=955, serial_H=969, name="ÂÜ•ÈæçÂè¨ÂñöÊõ∏", itemid=70224, count=1},             --C(7~10)
+       { Num="008", type="C", serial_L=940, serial_H=954, name="ÊØíÈæçÂè¨ÂñöÊõ∏", itemid=70225, count=1},
+       { Num="009", type="C", serial_L=925, serial_H=939, name="È≠îÈæçÂè¨ÂñöÊõ∏", itemid=70226, count=1},
+       { Num="010", type="C", serial_L=909, serial_H=924, name="ÈÇ™ÈæçÂè¨ÂñöÊõ∏", itemid=70227, count=1},
+       { Num="011", type="D", serial_L=849, serial_H=908, name="Ê∑±Ê∑µÈ≠ÇÈ≠Ñ", itemid=66666, count=100},             --D(11~15)
+       { Num="012", type="D", serial_L=789, serial_H=848, name="Ë™øÊü•ÂÖµÂúòÁ©çÂàÜ", itemid=68999, count=100},
+       { Num="013", type="D", serial_L=729, serial_H=788, name="È≠îÂäõÈäÄÂπ£Âç°", itemid=68001, count=3},
+       { Num="014", type="D", serial_L=669, serial_H=728, name="È†≠ÁõÆÁ©çÂàÜÂà∏", itemid=69000, count=5},
+       { Num="015", type="D", serial_L=608, serial_H=668, name="ÂøÉ‰πãÁ¢éÁâá", itemid=70002, count=20},
+       { Num="016", type="E", serial_L=508, serial_H=607, name="Èæç‰πãÂà©Áâô", itemid=70162, count=1},             --E(16~21)
+       { Num="017", type="E", serial_L=408, serial_H=507, name="Èæç‰πãÊûúÂØ¶", itemid=70163, count=1},
+       { Num="018", type="E", serial_L=308, serial_H=407, name="ÂâØÊú¨Á°¨Âπ£", itemid=70200, count=20},
+       { Num="019", type="E", serial_L=208, serial_H=307, name="Â∞ÅÁÆ±Á°¨Âπ£", itemid=70201, count=10},
+       { Num="020", type="E", serial_L=108, serial_H=207, name="ÈñÉÁÇ´ÊñπÂ°ä(Á®ÄÊúâ)", itemid=71017, count=1},
+       { Num="021", type="E", serial_L=7, serial_H=107, name="1000È≠îÂπ£‰∫§ÊèõÂç°", itemid=70016, count=1},
 }
 
+--[[
 local itemMenu={
-        {"[001]","úy‘áµ¿æﬂ",1},
-        {"[002]","úy‘áµ¿æﬂ2",1},
-        {"[003]","úy‘áµ¿æﬂ3",1},
-        {"[004]","úy‘áµ¿æﬂ4",1},
-        {"[005]","úy‘áµ¿æﬂ5",1},
-        {"[006]","úy‘áµ¿æﬂ6",1},
-        {"[007]","úy‘áµ¿æﬂ7",1},
-        {"[008]","úy‘áµ¿æﬂ8",1},
-        {"[009]","úy‘áµ¿æﬂ9",1},
-        {"[010]","úy‘áµ¿æﬂ10",1},
-        {"[011]","úy‘áµ¿æﬂ11",1},
-        {"[012]","úy‘áµ¿æﬂ",1},
-        {"[013]","úy‘áµ¿æﬂ",1},
-        {"[014]","úy‘áµ¿æﬂ",1},
-}
+        {"001","Ê∏¨Ë©¶ÈÅìÂÖ∑",69000,1},
+        {"002","Ê∏¨Ë©¶ÈÅìÂÖ∑",69000,1},}
+]]
 
-
-local function calcWarp()--º∆À„“≥ ˝∫Õ◊Ó∫Û“ª“≥ ˝¡ø
+local function calcWarp()--ËÆ°ÁÆóÈ°µÊï∞ÂíåÊúÄÂêé‰∏ÄÈ°µÊï∞Èáè
   local totalpage = math.modf(#itemMenu / 6) + 1
   local remainder = math.fmod(#itemMenu, 6)
   return totalpage, remainder
@@ -51,132 +51,198 @@ end
 function MatchDraw:onLoad()
     self:logInfo('load')
     self:regCallback("ItemString", Func.bind(self.onMatchDraw, self), 'LUA_useDraw');
-    local managerNPC = self:NPC_createNormal('ª≤Ò≥È™ÑΩõ¿Ì', 104927, { x = 227, y = 83, mapType = 0, map = 1000, direction = 4 });
+    local managerNPC = self:NPC_createNormal('ÁÅ´Êü¥ÊäΩÁçéÁ∂ìÁêÜ', 104927, { x = 227, y = 83, mapType = 0, map = 1000, direction = 4 });
     self:NPC_regWindowTalkedEvent(managerNPC, function(npc, player, _seqno, _select, _data)
         local column = tonumber(_data)
         local page = tonumber(_seqno)
         local data = tonumber(_data)
         local warpPage = page;
-        local winButton = CONST.BUTTON_œ¬»°œ˚;
-        local totalPage, remainder = calcWarp()
-        --…œ“≥16 œ¬“≥32 πÿ±’/»°œ˚2
+        local winButton = CONST.BUTTON_ÂÖ≥Èó≠;
+        --local totalPage, remainder = calcWarp()
+        --‰∏ãËΩΩÊï∞ÊçÆ
+        local cdk = Char.GetData(player,CONST.ÂØπË±°_CDK);
+        local sqldata = SQL.Run("select MatchDraw1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
+        local itemData = {};
+        if (type(sqldata)=="string") then
+               itemData = JSON.decode(sqldata);
+               itemMenu = itemData;
+        else
+               itemMenu={};
+        end
+        --‰∏äÈ°µ16 ‰∏ãÈ°µ32 ÂÖ≥Èó≠/ÂèñÊ∂à2
         if _select > 0 then
-                    --∏¯”Ëµ¿æﬂ
-                    local choose = tonumber(_seqno);
-                    if (_select == CONST.BUTTON_»∑∂®) then
+                if _select == CONST.BUTTON_ÂÖ≥Èó≠ then
+                    return;
+                end
+                --Áªô‰∫àÈÅìÂÖ∑
+                local choose = tonumber(_seqno);
+                if (_select == CONST.BUTTON_Á°ÆÂÆö) then
                         if (data==nil or math.floor(data)~=data) then
                               return;
                         else
-                              for k=1, #itemMenu do
-                                  if (choose == 1000+k) then
-                                    Char.GiveItem(player,69000,data);
-                                    return;
-                                  end
+                              local key=choose - 1000;
+                              if (data<=itemMenu[key][4]) then
+                                       if Char.ItemSlot(player)<=19 then
+                                            itemData[key][4] = itemData[key][4] - data;
+                                            Char.GiveItem(player,itemMenu[key][3],data);
+                                       else
+                                            NLG.Say(player, -1, "Ê≥®ÊÑèÊèêÂèñÊï∏ÈáèË∂ÖÈÅéÁâ©ÂìÅÊ¨ÑÔºÅ", CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);
+                                            return;
+                                       end
+                                       if (itemData[key][4]==0) then
+                                            table.remove(itemData,key);
+                                            itemMenu = itemData;
+                                       end
+                                       if (#itemMenu==0) then
+                                                itemMenu={};
+                                                SQL.Run("update lua_hook_character set MatchDraw1= NULL where CdKey='"..cdk.."'")
+                                                NLG.UpChar(player);
+                                                return;
+                                       else
+                                                local sqldata = itemData;
+                                                local newdata = JSON.encode(sqldata);
+                                                SQL.Run("update lua_hook_character set MatchDraw1= '"..newdata.."' where CdKey='"..cdk.."'")
+                                                NLG.UpChar(player);
+                                                return;
+                                       end
+                              else
+                                       NLG.Say(player, -1, "„Äé".. itemMenu[key][2] .."„ÄèÊèêÂèñÊï∏ÈáèË∂ÖÈÅé„Äé".. itemMenu[key][4] .."„Äè", CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);
+                                       return;
                               end
                         end
-                    end
-
-                    --µ¿æﬂ¡–±Ì
-                    if _select == CONST.BUTTON_œ¬“ª“≥ then
+                end
+                if (itemMenu~=nil and itemMenu~={}) then
+                    local totalPage, remainder = calcWarp()
+                    --ÈÅìÂÖ∑ÂàóË°®
+                    if _select == CONST.BUTTON_‰∏ã‰∏ÄÈ°µ then
                         warpPage = warpPage + 1
                         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-                                winButton = CONST.BUTTON_…œ»°œ˚
+                                winButton = CONST.BUTTON_‰∏äÂèñÊ∂à
                         else
-                                winButton = CONST.BUTTON_…œœ¬»°œ˚
+                                winButton = CONST.BUTTON_‰∏ä‰∏ãÂèñÊ∂à
                         end
-                    elseif _select == CONST.BUTTON_…œ“ª“≥ then
+                    elseif _select == CONST.BUTTON_‰∏ä‰∏ÄÈ°µ then
                         warpPage = warpPage - 1
                         if warpPage == 1 then
-                                winButton = CONST.BUTTON_œ¬»°œ˚
+                                winButton = CONST.BUTTON_‰∏ãÂèñÊ∂à
+                                if totalPage == 1 then
+                                        winButton = CONST.BUTTON_ÂÖ≥Èó≠;
+                                end
                         else
-                                winButton = CONST.BUTTON_…œœ¬»°œ˚
+                                winButton = CONST.BUTTON_‰∏ä‰∏ãÂèñÊ∂à
                         end
                     elseif _select == 2 then
                         warpPage = 1
                         return
                     end
                     local count = 6 * (warpPage - 1)
-                    local winMsg = "3\\nª≤Ò≥È™Ñ±≥∞¸¡–±Ì".. warpPage .."/".. totalPage .."\\n"
-                                                        .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                                        .."–ÚÃñ°°°°°°µ¿æﬂ√˚∑Q°°°°°°°°°°°°°°îµ¡ø\\n";
+                    local winMsg = "3\\nÁÅ´Êü¥ÊäΩÁçéËÉåÂåÖÂàóË°®".. warpPage .."/".. totalPage .."\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
                     if warpPage == totalPage then
                         for i = 1 + count, remainder + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .. itemMenu[i][1] .."°°°°".. itemMenu[i][2]
-                                if len <= 22 then
-                                      spacelen = 22 - len;
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
+                                if len <= 20 then
+                                      spacelen = 20 - len;
                                       spaceMsg = " ";
                                       for i = 1, math.modf(spacelen) do
                                               spaceMsg = spaceMsg .." ";
                                       end
                                 end
-                                winMsg = winMsg .. spaceMsg .. itemMenu[i][3] .."\\n"
+                                winMsg = winMsg .. spaceMsg .. itemMenu[i][4] .."\\n"
                         end
                     else
                         for i = 1 + count, 6 + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .. itemMenu[i][1] .."°°°°".. itemMenu[i][2]
-                                if len <= 22 then
-                                      spacelen = 22 - len;
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
+                                if len <= 20 then
+                                      spacelen = 20 - len;
                                       spaceMsg = " ";
                                       for i = 1, math.modf(spacelen) do
                                               spaceMsg = spaceMsg .." ";
                                       end
                                 end
-                                winMsg = winMsg .. spaceMsg .. itemMenu[i][3] .."\\n"
+                                winMsg = winMsg .. spaceMsg .. itemMenu[i][4] .."\\n"
                         end
                     end
-                    NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_—°‘ÒøÚ, winButton, warpPage, winMsg);
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, winButton, warpPage, winMsg);
+                else
+                    local winMsg = "3\\nÁÅ´Êü¥ÊäΩÁçéËÉåÂåÖÂàóË°®0/0\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, CONST.BUTTON_ÂÖ≥Èó≠, 1, winMsg);
+                end
         else
                 local choose_item = 6 * (warpPage - 1) + column
-                --∏¯”Ëµ¿æﬂ
-                local winMsg = "ª≤Ò≥È™Ñ±≥∞¸\\n"
-                                           .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                           .."’˝‘⁄»°≥ˆµ¿æﬂ...\\n"
-                                           .."\\n°°°°°°°°°°°°°°".. itemMenu[choose_item][2] .."\\n"
-                                           .."\\n°°°°°°°°°°°°°°Æî«∞ìÌ”–µƒîµ¡ø£∫".. itemMenu[choose_item][3] .."\\n"
-                                           .."\\n’à›î»Î»°≥ˆîµ¡ø£∫\\n";
+                --Áªô‰∫àÈÅìÂÖ∑
+                local winMsg = "ÁÅ´Êü¥ÊäΩÁçéËÉåÂåÖ\\n"
+                                           .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                           .."Ê≠£Âú®ÂèñÂá∫ÈÅìÂÖ∑...\\n"
+                                           .."\\n„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ".. itemMenu[choose_item][2] .."\\n"
+                                           .."\\n„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÁï∂ÂâçÊìÅÊúâÁöÑÊï∏ÈáèÔºö".. itemMenu[choose_item][4] .."\\n"
+                                           .."\\nË´ãËº∏ÂÖ•ÂèñÂá∫Êï∏ÈáèÔºö\\n";
                 local choose = choose_item+1000;
-                NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_ ‰»ÎøÚ, CONST.BUTTON_»∑∂®πÿ±’, choose, winMsg);
+                NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ËæìÂÖ•Ê°Ü, CONST.BUTTON_Á°ÆÂÆöÂÖ≥Èó≠, choose, winMsg);
 
         end
     end)
-    self:NPC_regTalkedEvent(managerNPC, function(npc, player)  ----ª≤Ò≥ÈΩ±±≥∞¸managerMenu{}
+    self:NPC_regTalkedEvent(managerNPC, function(npc, player)  ----ÁÅ´Êü¥ÊäΩÂ•ñËÉåÂåÖmanagerMenu{}
+            local cdk = Char.GetData(player,CONST.ÂØπË±°_CDK);
+            local sqldata = SQL.Run("select MatchDraw1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
+            local itemData = {};
+            if (type(sqldata)=="string") then
+                   itemData = JSON.decode(sqldata);
+                   itemMenu = itemData;
+            else
+                   itemMenu={};
+            end
             if (NLG.CanTalk(npc, player) == true) then
-                local warpPage = 1;
-                local totalPage, remainder = calcWarp()
-                local count = 6 * (warpPage - 1)
-                local winMsg = "3\\nª≤Ò≥È™Ñ±≥∞¸¡–±Ì".. warpPage .."/".. totalPage .."\\n"
-                                                        .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                                        .."–ÚÃñ°°°°°°µ¿æﬂ√˚∑Q°°°°°°°°°°°°°°îµ¡ø\\n";
+                if (itemMenu~=nil and itemMenu~={}) then
+                    local winButton = CONST.BUTTON_‰∏ãÂèñÊ∂à;
+                    local warpPage = 1;
+                    local totalPage, remainder = calcWarp()
+                    local count = 6 * (warpPage - 1)
+                    local winMsg = "3\\nÁÅ´Êü¥ÊäΩÁçéËÉåÂåÖÂàóË°®".. warpPage .."/".. totalPage .."\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
+                    if totalPage == 1 then
+                                winButton = CONST.BUTTON_ÂÖ≥Èó≠;
+                    end
                     if warpPage == totalPage then
                         for i = 1 + count, remainder + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .. itemMenu[i][1] .."°°°°".. itemMenu[i][2]
-                                if len <= 22 then
-                                      spacelen = 22 - len;
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
+                                if len <= 20 then
+                                      spacelen = 20 - len;
                                       spaceMsg = " ";
                                       for i = 1, math.modf(spacelen) do
                                               spaceMsg = spaceMsg .." ";
                                       end
                                 end
-                                winMsg = winMsg .. spaceMsg .. itemMenu[i][3] .."\\n"
+                                winMsg = winMsg .. spaceMsg .. itemMenu[i][4] .."\\n"
                         end
                     else
                         for i = 1 + count, 6 + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .. itemMenu[i][1] .."°°°°".. itemMenu[i][2]
-                                if len <= 22 then
-                                      spacelen = 22 - len;
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
+                                if len <= 20 then
+                                      spacelen = 20 - len;
                                       spaceMsg = " ";
                                       for i = 1, math.modf(spacelen) do
                                               spaceMsg = spaceMsg .." ";
                                       end
                                 end
-                                winMsg = winMsg .. spaceMsg .. itemMenu[i][3] .."\\n"
+                                winMsg = winMsg .. spaceMsg .. itemMenu[i][4] .."\\n"
                         end
                     end
-                NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_—°‘ÒøÚ, CONST.BUTTON_œ¬»°œ˚, 1, winMsg);
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, winButton, 1, winMsg);
+                else
+                    local winMsg = "3\\nÁÅ´Êü¥ÊäΩÁçéËÉåÂåÖÂàóË°®0/0\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, CONST.BUTTON_ÂÖ≥Èó≠, 1, winMsg);
+                end
             end
             return
     end)
@@ -186,27 +252,78 @@ end
 
 function MatchDraw:onMatchDraw(player, targetcharIndex, itemSlot)
           local itemIndex = Char.GetItemIndex(player, itemSlot);
-          local ItemID = Item.GetData(itemIndex, CONST.µ¿æﬂ_ID);
+          local ItemID = Item.GetData(itemIndex, CONST.ÈÅìÂÖ∑_ID);
           Char.DelItem(player, ItemID, 1)
           local WinNum = NLG.Rand(7, 1000);
           print(WinNum)
           for k, v in ipairs(DrawTbl) do
              if (WinNum>=v.serial_L and WinNum<=v.serial_H) then
                    if (v.type=="S") then
-                         NLG.Say(player, -1, "Ãÿµ»™Ñ[0.1%]°£", CONST.—’…´_∫Ï…´, CONST.◊÷ÃÂ_÷–);
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠ÁÅ´Êü¥„Äé".. v.name .."„ÄèÁâπÁ≠âÁçé„ÄÇ", CONST.È¢úËâ≤_Á∫¢Ëâ≤, CONST.Â≠ó‰Ωì_‰∏≠);               --ÁâπÁ≠âÁçé[0.1%]
                    elseif (v.type=="A") then
-                         NLG.Say(player, -1, "“ªµ»™Ñ[0.9%]°£", CONST.—’…´_ª∆…´, CONST.◊÷ÃÂ_÷–);
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠ÁÅ´Êü¥„Äé".. v.name .."„Äè‰∏ÄÁ≠âÁçé„ÄÇ", CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);               --‰∏ÄÁ≠âÁçé[0.9%]
                    elseif (v.type=="B") then
-                         NLG.Say(player, -1, "∂˛µ»™Ñ[2%]°£",CONST.—’…´_«‡…´, CONST.◊÷ÃÂ_÷–);
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠ÁÅ´Êü¥„Äé".. v.name .."„Äè‰∫åÁ≠âÁçé„ÄÇ",CONST.È¢úËâ≤_ÈùíËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);                --‰∫åÁ≠âÁçé[2%]
                    elseif (v.type=="C") then
-                         NLG.Say(player, -1, "»˝µ»™Ñ[6%]°£",CONST.—’…´_ª“¿∂…´, CONST.◊÷ÃÂ_÷–);
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠ÁÅ´Êü¥„Äé".. v.name .."„Äè‰∏âÁ≠âÁçé„ÄÇ",CONST.È¢úËâ≤_ÁÅ∞ËìùËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);            --‰∏âÁ≠âÁçé[6%]
                    elseif (v.type=="D") then
-                         NLG.Say(player, -1, "Àƒµ»™Ñ[30%]°£",CONST.—’…´_ª“¬Ã…´, CONST.◊÷ÃÂ_÷–);
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠ÁÅ´Êü¥„Äé".. v.name .."„ÄèÂõõÁ≠âÁçé„ÄÇ",CONST.È¢úËâ≤_ÁÅ∞ÁªøËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);            --ÂõõÁ≠âÁçé[30%]
                    elseif (v.type=="E") then
-                         NLG.Say(player, -1, "∞≤Œø™Ñ[60%]°£", CONST.—’…´_ª“…´, CONST.◊÷ÃÂ_÷–);
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠ÁÅ´Êü¥„Äé".. v.name .."„ÄèÂÆâÊÖ∞Áçé„ÄÇ", CONST.È¢úËâ≤_ÁÅ∞Ëâ≤, CONST.Â≠ó‰Ωì_‰∏≠);               --ÂÆâÊÖ∞Áçé[60%]
                    end
              end
           end
+end
+
+function renewItemBag(player,Num,name,itemid,count)
+              --print(Num);
+              --print(name);
+              --print(itemid);
+              --print(count);
+              --‰∏ãËΩΩÊï∞ÊçÆ
+              local cdk = Char.GetData(player,CONST.ÂØπË±°_CDK);
+              local sqldata = SQL.Run("select MatchDraw1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
+              local itemData = {};
+              if (type(sqldata)=="string" and sqldata~='') then
+                   itemData = JSON.decode(sqldata);
+              else
+                   itemData = {};
+              end
+              --Êõ¥Êñ∞Êï∞ÊçÆ
+              local boxCheck = 0;
+              for k, v in pairs(itemData) do
+                   if (itemData[k]~=nil and itemData[k][3]==itemid)  then
+                         itemData[k][4] = itemData[k][4] + count;
+                   elseif (itemData[k][3]~=itemid) then
+                         boxCheck = boxCheck+1;
+                   end
+              end
+              local boxlen = tonumber(#itemData);
+              if ( boxCheck==boxlen )  then
+                         local boxEX=boxlen+1;
+                         itemData[boxEX] = {}
+                         table.insert(itemData[boxEX], Num);
+                         table.insert(itemData[boxEX], name);
+                         table.insert(itemData[boxEX], itemid);
+                         table.insert(itemData[boxEX], count);
+              end
+              --ÊéíÂ∫èÊï∞ÊçÆ
+              function my_comp(a, b)
+                            return a[1] < b[1]
+              end
+              table.sort(itemData, my_comp);
+              --‰∏ä‰º†Êï∞ÊçÆ
+              local sqldata = itemData;
+              local newdata = JSON.encode(sqldata);
+              SQL.Run("update lua_hook_character set MatchDraw1= '"..newdata.."' where CdKey='"..cdk.."'")
+              NLG.UpChar(player);
+
 end
 
 function MatchDraw:onUnload()
