@@ -5,6 +5,7 @@ MatchDraw:addMigration(1, 'init lua_hook_character', function()
       CREATE TABLE if not exists `lua_hook_character` (
     `Name` char(32) COLLATE gbk_bin NOT NULL,
     `CdKey` char(32) COLLATE gbk_bin NOT NULL,
+    `Tenjo` int(10) NOT NULL Default 0,
     `MatchDraw1` mediumtext COLLATE gbk_bin NULL,
     PRIMARY KEY (`CdKey`),
     KEY `Name` (`Name`) USING BTREE
@@ -82,7 +83,12 @@ function MatchDraw:onLoad()
                         else
                               local key=choose - 1000;
                               if (data<=itemMenu[key][4]) then
-                                       if Char.ItemSlot(player)<=19 then
+                                       local ItemsetIndex = Data.ItemsetGetIndex(itemMenu[key][3]);
+                                       local stack = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_MAXREMAIN);
+                                       local slot = math.modf(data / stack);                --此数量占用格数(s组)
+                                       local excess = math.fmod(data, stack);            --不成组的数量(1格)
+                                       if (excess>0) then slot=slot+1; end
+                                       if (Char.ItemSlot(player)<=20-slot) then
                                             itemData[key][4] = itemData[key][4] - data;
                                             Char.GiveItem(player,itemMenu[key][3],data);
                                        else
@@ -256,8 +262,15 @@ function MatchDraw:onMatchDraw(player, targetcharIndex, itemSlot)
           Char.DelItem(player, ItemID, 1)
           local WinNum = NLG.Rand(7, 1000);
           print(WinNum)
+          local cdk = Char.GetData(player,CONST.对象_CDK);
+          local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
           for k, v in ipairs(DrawTbl) do
              if (WinNum>=v.serial_L and WinNum<=v.serial_H) then
+                   if (tenjo>=699) then
+                         renewItemBag(player, DrawTbl[1].Num, DrawTbl[1].name, DrawTbl[1].itemid, DrawTbl[1].count);
+                         NLG.Say(player, -1, "天井抽中火柴『".. DrawTbl[1].name .."』特等獎。", CONST.颜色_红色, CONST.字体_中);               --天井
+                         return;
+                   end
                    if (v.type=="S") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
                          NLG.Say(player, -1, "恭喜抽中火柴『".. v.name .."』特等獎。", CONST.颜色_红色, CONST.字体_中);               --特等獎[0.1%]
@@ -288,6 +301,7 @@ function renewItemBag(player,Num,name,itemid,count)
               --print(count);
               --下载数据
               local cdk = Char.GetData(player,CONST.对象_CDK);
+              local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
               local sqldata = SQL.Run("select MatchDraw1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
               local itemData = {};
               if (type(sqldata)=="string" and sqldata~='') then
@@ -322,6 +336,9 @@ function renewItemBag(player,Num,name,itemid,count)
               local sqldata = itemData;
               local newdata = JSON.encode(sqldata);
               SQL.Run("update lua_hook_character set MatchDraw1= '"..newdata.."' where CdKey='"..cdk.."'")
+              local tenjo = tenjo+1;
+              if (tenjo==700) then tenjo=0; end
+              SQL.Run("update lua_hook_character set Tenjo= '"..tenjo.."' where CdKey='"..cdk.."'")
               NLG.UpChar(player);
 
 end
