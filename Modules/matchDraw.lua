@@ -13,6 +13,12 @@ MatchDraw:addMigration(1, 'init lua_hook_character', function()
   ]])
 end);
 
+MatchDraw:addMigration(2, 'insertinto lua_hook_character', function()
+  SQL.querySQL([[
+      INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character;
+  ]])
+end);
+
 local DrawTbl={
        { Num="001", type="S", serial_L=999, serial_H=1000, name="依代召喚書", itemid=70011, count=1},        --S(1)
        { Num="002", type="A", serial_L=996, serial_H=998, name="金色王冠", itemid=68017, count=1},             --A(2~3)
@@ -263,11 +269,8 @@ function MatchDraw:onMatchDraw(player, targetcharIndex, itemSlot)
           local WinNum = NLG.Rand(7, 1000);
           print(WinNum)
           local cdk = Char.GetData(player,CONST.对象_CDK);
+          SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE CdKey='"..cdk.."'");
           local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
-          if (tenjo == nil) then
-                  SQL.Run("INSERT INTO lua_hook_character (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE CdKey = '"..cdk.."'");
-                  return;
-          end
           for k, v in ipairs(DrawTbl) do
              if (WinNum>=v.serial_L and WinNum<=v.serial_H) then
                    if (tenjo>=699) then
