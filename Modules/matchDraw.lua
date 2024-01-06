@@ -264,6 +264,10 @@ function MatchDraw:onMatchDraw(player, targetcharIndex, itemSlot)
           print(WinNum)
           local cdk = Char.GetData(player,CONST.对象_CDK);
           local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
+          if (tenjo == nil) then
+                  SQL.Run("INSERT INTO lua_hook_character (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE CdKey = '"..cdk.."'");
+                  return;
+          end
           for k, v in ipairs(DrawTbl) do
              if (WinNum>=v.serial_L and WinNum<=v.serial_H) then
                    if (tenjo>=699) then
