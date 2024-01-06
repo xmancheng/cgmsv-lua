@@ -13,16 +13,16 @@ MatchDraw:addMigration(1, 'init lua_hook_character', function()
 end);
 
 local DrawTbl={
-       { Num="001", type="S", serial_L=1000, serial_H=1000, name="依代召喚書", itemid=70011, count=1},        --S(1)
-       { Num="002", type="A", serial_L=996, serial_H=999, name="金色王冠", itemid=68017, count=1},             --A(2~3)
-       { Num="003", type="A", serial_L=991, serial_H=995, name="元氣滿滿烤爐", itemid=70039, count=1},
+       { Num="001", type="S", serial_L=999, serial_H=1000, name="依代召喚書", itemid=70011, count=1},        --S(1)
+       { Num="002", type="A", serial_L=996, serial_H=998, name="金色王冠", itemid=68017, count=1},             --A(2~3)
+       { Num="003", type="A", serial_L=991, serial_H=995, name="狗狗圖鑑", itemid=70024, count=1},
        { Num="004", type="B", serial_L=985, serial_H=990, name="銀色王冠", itemid=68018, count=1},             --B(4~6)
-       { Num="005", type="B", serial_L=978, serial_H=984, name="狗狗圖鑑", itemid=70024, count=1},
+       { Num="005", type="B", serial_L=978, serial_H=984, name="元氣滿滿烤爐", itemid=70039, count=1},
        { Num="006", type="B", serial_L=970, serial_H=977, name="殘破的寶箱", itemid=70220, count=1},
-       { Num="007", type="C", serial_L=955, serial_H=969, name="冥龍召喚書", itemid=70224, count=1},             --C(7~10)
-       { Num="008", type="C", serial_L=940, serial_H=954, name="毒龍召喚書", itemid=70225, count=1},
-       { Num="009", type="C", serial_L=925, serial_H=939, name="魔龍召喚書", itemid=70226, count=1},
-       { Num="010", type="C", serial_L=909, serial_H=924, name="邪龍召喚書", itemid=70227, count=1},
+       { Num="007", type="C", serial_L=950, serial_H=969, name="大蒜油", itemid=900497, count=1},             --C(7~10)
+       { Num="008", type="C", serial_L=930, serial_H=949, name="怪物餅乾", itemid=900498, count=1},
+       { Num="009", type="C", serial_L=915, serial_H=929, name="滿怪香水", itemid=900500, count=1},
+       { Num="010", type="C", serial_L=909, serial_H=914, name="黃金噴霧", itemid=900501, count=1},
        { Num="011", type="D", serial_L=849, serial_H=908, name="深淵魂魄", itemid=66666, count=100},             --D(11~15)
        { Num="012", type="D", serial_L=789, serial_H=848, name="調查兵團積分", itemid=68999, count=100},
        { Num="013", type="D", serial_L=729, serial_H=788, name="魔力銀幣卡", itemid=68001, count=3},
