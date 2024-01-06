@@ -294,6 +294,7 @@ function QuickUI:onLoad()
                 Item.SetData(AccessoryIndex, CONST.道具_丢地消失, 1);
                 Item.SetData(AccessoryIndex,CONST.道具_宠邮, 0);
                 Item.UpItem(player, Slot);
+                NLG.SetHeadIcon(player,1) 
             elseif Item.GetData(AccessoryIndex, CONST.道具_ID) == 900331  then
                 self:headcover(player, hcID);
             end
@@ -520,6 +521,7 @@ end
 function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
     local cdk = Char.GetData(charIndex,CONST.对象_CDK);
     local name = Char.GetData(charIndex, CONST.CHAR_名字);
+    SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE Name = '"..name.."'");
     local Name_data =  SQL.Run("select Name from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
 
     local itemSlot = Char.FindItemId(charIndex, 69990);
@@ -528,11 +530,6 @@ function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
     local Para1 = tonumber(Item.GetData(ItemIndex,CONST.道具_子参一));
     local Para2 = tonumber(Item.GetData(ItemIndex,CONST.道具_子参二));
 
-    if (Name_data == nil) then
-        SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE Name = '"..name.."'");
-        NLG.SystemMessage(charIndex, '人物形象收藏激活，請再次重新登記造型！');
-        return;
-    end
     if (Name_data == name) then
         if (Special == 14 and Para1 == 1 and Para2 ~= 0) then
             for image=2,10 do
