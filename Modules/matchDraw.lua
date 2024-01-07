@@ -68,6 +68,7 @@ function MatchDraw:onLoad()
         --local totalPage, remainder = calcWarp()
         --下载数据
         local cdk = Char.GetData(player,CONST.对象_CDK);
+        local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
         local sqldata = SQL.Run("select MatchDraw1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
         local itemData = {};
         if (type(sqldata)=="string") then
@@ -148,7 +149,7 @@ function MatchDraw:onLoad()
                         return
                     end
                     local count = 6 * (warpPage - 1)
-                    local winMsg = "3\\n火柴抽獎背包列表".. warpPage .."/".. totalPage .."\\n"
+                    local winMsg = "3\\n火柴抽獎背包列表".. warpPage .."/".. totalPage .."　　　　保底天井：".. tenjo .."/700\\n"
                                                         .."═════════════════════\\n"
                                                         .."序號　　　道具名稱　　　　　　　數量\\n";
                     if warpPage == totalPage then
@@ -180,7 +181,7 @@ function MatchDraw:onLoad()
                     end
                     NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
                 else
-                    local winMsg = "3\\n火柴抽獎背包列表0/0\\n"
+                    local winMsg = "3\\n火柴抽獎背包列表0/0　　　　保底天井：".. tenjo .."/700\\n"
                                                         .."═════════════════════\\n"
                                                         .."序號　　　道具名稱　　　　　　　數量\\n";
                     NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 1, winMsg);
@@ -201,6 +202,7 @@ function MatchDraw:onLoad()
     end)
     self:NPC_regTalkedEvent(managerNPC, function(npc, player)  ----火柴抽奖背包managerMenu{}
             local cdk = Char.GetData(player,CONST.对象_CDK);
+            local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
             local sqldata = SQL.Run("select MatchDraw1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
             local itemData = {};
             if (type(sqldata)=="string") then
@@ -215,7 +217,7 @@ function MatchDraw:onLoad()
                     local warpPage = 1;
                     local totalPage, remainder = calcWarp()
                     local count = 6 * (warpPage - 1)
-                    local winMsg = "3\\n火柴抽獎背包列表".. warpPage .."/".. totalPage .."\\n"
+                    local winMsg = "3\\n火柴抽獎背包列表".. warpPage .."/".. totalPage .."　　　　保底天井：".. tenjo .."/700\\n"
                                                         .."═════════════════════\\n"
                                                         .."序號　　　道具名稱　　　　　　　數量\\n";
                     if totalPage == 1 then
@@ -250,7 +252,7 @@ function MatchDraw:onLoad()
                     end
                     NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, 1, winMsg);
                 else
-                    local winMsg = "3\\n火柴抽獎背包列表0/0\\n"
+                    local winMsg = "3\\n火柴抽獎背包列表0/0　　　　保底天井：".. tenjo .."/700\\n"
                                                         .."═════════════════════\\n"
                                                         .."序號　　　道具名稱　　　　　　　數量\\n";
                     NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 1, winMsg);
