@@ -42,7 +42,7 @@ end
 function StrAddEffect:DementorRepair(battle)
     for DementorWhile = 0,9 do
         local player = Battle.GetPlayer(battle,DementorWhile);
-        local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
+        local ViceWeaponIndex = Char.GetViceWeapon(player);                --左右手
         local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
         local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字);
         local GTime = NLG.GetGameTime();
