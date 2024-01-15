@@ -36,39 +36,8 @@ function StrAddEffect:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self))
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
-  self:regCallback('BattleExitEvent', Func.bind(self.DementorRepair,self))
 end
 
-function StrAddEffect:DementorRepair(battle)
-    for DementorWhile = 0,9 do
-        local player = Battle.GetPlayer(battle,DementorWhile);
-        local ViceWeaponIndex = Char.GetViceWeapon(player);                --左右手
-        local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
-        local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字);
-        local GTime = NLG.GetGameTime();
-        local StrAdd_V = 0;
-        if ViceWeapon_Name~=nil then
-            local StrPlus = string.find(ViceWeapon_Name, "+");
-                if StrPlus~=nil then
-                    StrAdd_V = tonumber(string.sub(ViceWeapon_Name, StrPlus+1, -1));
-                end
-        end
-
-        if Char.GetData(player,%对象_类型%) == 1 and StrAdd_V >= 1 and ViceWeapon_Effect ~= GTime then
-            for i = 0 , 7 do
-                    local itemIndex = Char.GetItemIndex(player,i)
-                    if itemIndex > 0 then
-                        local itemdu = Item.GetData(itemIndex,CONST.道具_耐久);
-                        local itemmaxdu = Item.GetData(itemIndex,CONST.道具_最大耐久);
-                        if (itemdu <= itemmaxdu-StrAdd_V) then
-                            Item.SetData(itemIndex,CONST.道具_耐久,itemdu+StrAdd_V);
-                        end
-                    end
-            end
-            NLG.Say(player,-1,"附念吸取怪物的魂魄，並回復全身裝備耐久，每+1效果提升1點",4,3);
-        end
-    end
-end
 
 function StrAddEffect:battleOverEventCallback(battleIndex)
          for i = 0,19 do
@@ -78,6 +47,33 @@ function StrAddEffect:battleOverEventCallback(battleIndex)
                              Char.SetTempData(defCharIndex, '影子标记层数', 0);
                       end
                end
+         end
+         for DementorWhile = 0,9 do
+              local player = Battle.GetPlayer(battleIndex,DementorWhile);
+              local ViceWeaponIndex = Char.GetViceWeapon(player);                --左右手
+              local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
+              local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字);
+              local GTime = NLG.GetGameTime();
+              local StrAdd_V = 0;
+              if ViceWeapon_Name~=nil then
+                 local StrPlus = string.find(ViceWeapon_Name, "+");
+                 if StrPlus~=nil then
+                    StrAdd_V = tonumber(string.sub(ViceWeapon_Name, StrPlus+1, -1));
+                 end
+              end
+              if Char.GetData(player,%对象_类型%) == 1 and StrAdd_V >= 1 and ViceWeapon_Effect ~= GTime then
+                 for i = 0 , 7 do
+                       local itemIndex = Char.GetItemIndex(player,i)
+                       if itemIndex > 0 then
+                           local itemdu = Item.GetData(itemIndex,CONST.道具_耐久);
+                           local itemmaxdu = Item.GetData(itemIndex,CONST.道具_最大耐久);
+                           if (itemdu <= itemmaxdu-StrAdd_V) then
+                               Item.SetData(itemIndex,CONST.道具_耐久,itemdu+StrAdd_V);
+                           end
+                       end
+                 end
+                 NLG.Say(player,-1,"附念吸取怪物的魂魄，並回復全身裝備耐久，每+1效果提升1點",4,3);
+              end
          end
 end
 
