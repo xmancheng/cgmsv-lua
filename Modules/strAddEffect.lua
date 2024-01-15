@@ -36,6 +36,38 @@ function StrAddEffect:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self))
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
+  self:regCallback('BattleExitEvent', Func.bind(self.DementorRepair,self))
+end
+
+function StrAddEffect:DementorRepair(battle)
+    for DementorWhile = 0,9 do
+        local player = Battle.GetPlayer(battle,DementorWhile);
+        local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
+        local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
+        local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字);
+        local GTime = NLG.GetGameTime();
+        local StrAdd_V = 0;
+        if ViceWeapon_Name~=nil then
+            local StrPlus = string.find(ViceWeapon_Name, "+");
+                if StrPlus~=nil then
+                    StrAdd_V = tonumber(string.sub(ViceWeapon_Name, StrPlus+1, -1));
+                end
+        end
+
+        if Char.GetData(player,%对象_类型%) == 1 and StrAdd_V >= 1 and ViceWeapon_Effect ~= GTime then
+            for i = 0 , 7 do
+                    local itemIndex = Char.GetItemIndex(player,i)
+                    if itemIndex > 0 then
+                        local itemdu = Item.GetData(itemIndex,CONST.道具_耐久);
+                        local itemmaxdu = Item.GetData(itemIndex,CONST.道具_最大耐久);
+                        if (itemdu <= itemmaxdu-StrAdd_V) then
+                            Item.SetData(itemIndex,CONST.道具_耐久,itemdu+StrAdd_V);
+                            NLG.Say(player,-1,"附念吸取怪物的魂魄，並回復全身裝備耐久，每+1效果提升1點",4,3);
+                        end
+                    end
+            end
+        end
+    end
 end
 
 function StrAddEffect:battleOverEventCallback(battleIndex)
@@ -66,31 +98,29 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
                local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
                local GTime = NLG.GetGameTime();
-               local StrAdd_W = 0;
-               local StrAdd_S = 0;
+               local StrAdd
                if Weapon_Name~=nil then
                  local StrPlus = string.find(Weapon_Name, "+");
                  if StrPlus~=nil then
-                   StrAdd_W = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
+                   StrAdd = tonumber(string.sub(Weapon_Name, StrPlus+1, -1));
                  end
                else
                  if Shield_Name~=nil then
                    local StrPlus = string.find(Shield_Name, "+");
                    if StrPlus~=nil then
-                     StrAdd_S = tonumber(string.sub(Shield_Name, StrPlus+1, -1));
+                     StrAdd = tonumber(string.sub(Shield_Name, StrPlus+1, -1));
                    end
                  end
                end
-               if ( StrAdd_W >= 0 ) then
-                 local StrEffect_W = 1 + (StrAdd_W*0.03);
-                 local StrEffect_S = 1 + (StrAdd_S*0.01);
+               if ( StrAdd >= 0 ) then
+                 local StrEffect = 1 + (StrAdd*0.03);
                  --print(StrEffect)
                  if NLG.Rand(1,10)>=1  then
-                        damage = damage * StrEffect_W;
-                        --NLG.Say(charIndex,-1,"武器附加強化特殊效果每+1傷害提升3%，目前傷害"..(StrAdd_W*3).."%",4,3);
+                        damage = damage * StrEffect;
+                        --NLG.Say(charIndex,-1,"武器附加強化特殊效果每+1傷害提升3%，目前傷害"..(StrAdd*3).."%",4,3);
                         if ( ViceWeapon_Effect == GTime ) then
-                               damage = damage+(1000 * StrEffect_S);
-                               --NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升1%",4,3);
+                               damage = (damage+1000) * StrEffect;
+                               --NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升3%",4,3);
                         end
                         if ( Item.GetData(WeaponIndex, CONST.道具_类型) == 5 or Item.GetData(WeaponIndex, CONST.道具_类型) == 6) then
                                for k, v in ipairs(signType) do
@@ -107,11 +137,11 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                                     local agi = Char.GetData(charIndex, CONST.CHAR_敏捷);
                                                     local SAD = v.layer * v.ratio * agi;                         --影子偷袭附加伤害
                                                     damage = damage+SAD;
-                                                    --NLG.Say(charIndex,-1,"影子偷襲暴擊".. SAD .."！",4,3);
+                                                    NLG.Say(charIndex,-1,"影子偷襲暴擊".. SAD .."！",4,3);
                                              else
                                                     Char.SetTempData(defCharIndex, '影子标记层数', v.layer);
                                                     Char.SetTempData(defCharIndex, '影子标记回合', Round);
-                                                    --NLG.Say(charIndex,-1,"影子標記".. v.layer .."層".. v.round .."回合，下回合起算第1回合",4,3);
+                                                    NLG.Say(charIndex,-1,"影子標記".. v.layer .."層".. v.round .."回合，下回合起算第1回合",4,3);
                                              end
                                       end
                                end
