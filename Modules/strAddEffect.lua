@@ -22,13 +22,21 @@ local TechTbl = {
       { techID_b = 26609, techID_h = 26609, StrAdd_b = 9, StrAdd_h = 9, option = 'AR:', val = -30},
 }
 
-local signType = {
+local signShadow = {
     { type=Shadow, min=1, max=2, layer=1, round=1, ratio=0.2},        --影子标记、最小攻击次数、最大攻击次数、层数、回合、暴击系数
     { type=Shadow, min=2, max=2, layer=1, round=2, ratio=0.2},
-    { type=Shadow, min=2, max=3, layer=2, round=2, ratio=0.4},
+    { type=Shadow, min=2, max=3, layer=2, round=2, ratio=0.41},
     { type=Shadow, min=3, max=3, layer=2, round=3, ratio=0.4},
     { type=Shadow, min=3, max=4, layer=3, round=3, ratio=0.8},
-  }
+}
+
+local signAbsorb = {
+    { type=Absorb, min=1, max=2, bruise=10000},    --集伤标记、最小攻击次数、最大攻击次数、转换数值上限
+    { type=Absorb, min=2, max=2, bruise=15000},
+    { type=Absorb, min=2, max=3, bruise=20000},
+    { type=Absorb, min=3, max=3, bruise=25000},
+    { type=Absorb, min=3, max=4, bruise=30000},
+}
 
 --- 加载模块钩子
 function StrAddEffect:onLoad()
@@ -41,10 +49,13 @@ end
 
 function StrAddEffect:battleOverEventCallback(battleIndex)
          for i = 0,19 do
-               local defCharIndex = Battle.GetPlayer(battleIndex, i);
-               if (defCharIndex > 0) then    --标记层数初始化
-                      if (Char.GetTempData(defCharIndex, '影子标记层数')==nil or Char.GetTempData(defCharIndex, '影子标记层数') > 0 )  then
-                             Char.SetTempData(defCharIndex, '影子标记层数', 0);
+               local markCharIndex = Battle.GetPlayer(battleIndex, i);
+               if (markCharIndex > 0) then    --标记层数初始化
+                      if (Char.GetTempData(markCharIndex, '影子标记层数')==nil or Char.GetTempData(markCharIndex, '影子标记层数') > 0 )  then
+                             Char.SetTempData(markCharIndex, '影子标记层数', 0);
+                      end
+                      if (Char.GetTempData(markCharIndex, '集伤标记转换')==nil or Char.GetTempData(markCharIndex, '集伤标记转换') > 0 )  then
+                             Char.SetTempData(markCharIndex, '集伤标记转换', 0);
                       end
                end
          end
@@ -94,7 +105,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
                local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
                local GTime = NLG.GetGameTime();
-               local StrAdd
+               local StrAdd = 0;
                if Weapon_Name~=nil then
                  local StrPlus = string.find(Weapon_Name, "+");
                  if StrPlus~=nil then
@@ -119,7 +130,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                --NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升3%",4,3);
                         end
                         if ( Item.GetData(WeaponIndex, CONST.道具_类型) == 5 or Item.GetData(WeaponIndex, CONST.道具_类型) == 6) then
-                               for k, v in ipairs(signType) do
+                               for k, v in ipairs(signShadow) do
                                       local Round = Battle.GetTurn(battleIndex);
                                       local yzbj_round= Char.GetTempData(defCharIndex, '影子标记回合') or 0
                                       local min_w = Item.GetData(WeaponIndex, CONST.道具_最小攻击数量);
@@ -142,6 +153,20 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                       end
                                end
                         end
+                        if ( Item.GetData(ShieldIndex, CONST.道具_类型) == 7) then
+                               for k, v in ipairs(signAbsorb) do
+                                      local min_w = Item.GetData(ShieldIndex, CONST.道具_最小攻击数量);
+                                      local max_w = Item.GetData(ShieldIndex, CONST.道具_最大攻击数量);
+                                      if (v.type == Absorb and min_w==v.min and max_w==v.max ) then
+                                             local ysbj_value = Char.GetTempData(charIndex, '集伤标记转换') or 0
+                                             if (ysbj_value>=1 and com1==4) then
+                                                    damage = damage+ysbj_value;
+                                                    Char.SetTempData(charIndex, '集伤标记转换', 0);
+                                                    NLG.Say(charIndex,-1,"集氣傷害".. ysbj_value .."進行全反擊",4,3);
+                                             end
+                                      end
+                               end
+                        end
                  end
                  print(damage)
                  return damage;
@@ -156,6 +181,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                local StrAdd_0 = 0;
                local StrAdd_1 = 0;
                local StrAdd_4 = 0;
+               local ShieldIndex = Char.GetShield(defCharIndex);                         --详情底部Fn
                if Armour0_Name~=nil then
                  local StrPlus = string.find(Armour0_Name, "+");
                  if StrPlus~=nil then
@@ -177,6 +203,24 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                  local StrEffect = 1 - (StrAdd*0.01);
                  --print(StrEffect)
                  if NLG.Rand(1,10)>=1  then
+                        if ( Item.GetData(ShieldIndex, CONST.道具_类型) == 7) then
+                               for k, v in ipairs(signAbsorb) do
+                                      local Round = Battle.GetTurn(battleIndex);
+                                      local min_w = Item.GetData(ShieldIndex, CONST.道具_最小攻击数量);
+                                      local max_w = Item.GetData(ShieldIndex, CONST.道具_最大攻击数量);
+                                      if (v.type == Absorb and min_w==v.min and max_w==v.max ) then
+                                             local ysbj_value = Char.GetTempData(defCharIndex, '集伤标记转换') or 0
+                                             local Absorb = ysbj_value + damage;
+                                             if (v.bruise>=Absorb) then
+                                                    Char.SetTempData(defCharIndex, '集伤标记转换', Absorb);
+                                                     NLG.Say(defCharIndex,-1,"集傷標記目前累積".. Absorb .."/".. v.bruise .."全反擊傷害",4,3);
+                                             else
+                                                    Char.SetTempData(defCharIndex, '集伤标记转换', v.bruise);
+                                                    NLG.Say(defCharIndex,-1,"集傷標記目前累積".. Absorb .."/".. v.bruise .."全反擊傷害",4,3);
+                                             end
+                                      end
+                               end
+                        end
                         damage = damage * StrEffect;
                         --NLG.Say(defCharIndex,-1,"防具附加強化特殊效果每+1傷害減少1%，目前減傷"..(StrAdd*1).."%",4,3);
                  end
