@@ -53,9 +53,11 @@ function StrAddEffect:battleOverEventCallback(battleIndex)
                if (markCharIndex > 0) then    --标记层数初始化
                       if (Char.GetTempData(markCharIndex, '影子标记层数')==nil or Char.GetTempData(markCharIndex, '影子标记层数') > 0 )  then
                              Char.SetTempData(markCharIndex, '影子标记层数', 0);
+                             NLG.UpChar(markCharIndex)
                       end
                       if (Char.GetTempData(markCharIndex, '集伤标记转换')==nil or Char.GetTempData(markCharIndex, '集伤标记转换') > 0 )  then
                              Char.SetTempData(markCharIndex, '集伤标记转换', 0);
+                             NLG.UpChar(markCharIndex)
                       end
                end
          end
@@ -138,6 +140,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                       if (v.type == Shadow and min_w==v.min and max_w==v.max ) then
                                              if ( (Round - yzbj_round)<0 or (Round - yzbj_round)>=v.round+1 ) then
                                                     Char.SetTempData(defCharIndex, '影子标记层数', 0);      --标记层数初始化
+                                                    NLG.UpChar(defCharIndex)
                                              end
                                              local yzbj_layer = Char.GetTempData(defCharIndex, '影子标记层数') or 0
                                              if (yzbj_layer>=1) then
@@ -148,6 +151,8 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                              else
                                                     Char.SetTempData(defCharIndex, '影子标记层数', v.layer);
                                                     Char.SetTempData(defCharIndex, '影子标记回合', Round);
+                                                    Char.SetData(defCharIndex, CONST.对象_ENEMY_HeadGraNo,111121);
+                                                    Char.SetData(defCharIndex, CONST.对象_NPC_HeadGraNo,111121);
                                                     NLG.Say(charIndex,-1,"影子標記".. v.layer .."層".. v.round .."回合，下回合起算第1回合",4,3);
                                              end
                                       end
@@ -162,6 +167,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                              if (ysbj_value>=1 and com1==4) then
                                                     damage = damage+ysbj_value;
                                                     Char.SetTempData(charIndex, '集伤标记转换', 0);
+                                                    NLG.UpChar(charIndex)
                                                     NLG.Say(charIndex,-1,"集氣傷害".. ysbj_value .."進行全反擊",4,3);
                                              end
                                       end
@@ -213,9 +219,11 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                              local Absorb = ysbj_value + damage;
                                              if (v.bruise>=Absorb) then
                                                     Char.SetTempData(defCharIndex, '集伤标记转换', Absorb);
-                                                     NLG.Say(defCharIndex,-1,"集傷標記目前累積".. Absorb .."/".. v.bruise .."全反擊傷害",4,3);
+                                                    NLG.SetHeadIcon(defCharIndex, 111247);
+                                                    NLG.Say(defCharIndex,-1,"集傷標記目前累積".. Absorb .."/".. v.bruise .."全反擊傷害",4,3);
                                              else
                                                     Char.SetTempData(defCharIndex, '集伤标记转换', v.bruise);
+                                                    NLG.SetHeadIcon(defCharIndex, 111247);
                                                     NLG.Say(defCharIndex,-1,"集傷標記目前累積".. Absorb .."/".. v.bruise .."全反擊傷害",4,3);
                                              end
                                       end
@@ -281,7 +289,7 @@ end
 
 Char.GetViceWeapon = function(charIndex)
   local itemType = {
-    { type=60},{ type=61},{ type=62},{ type=63},{ type=64},{ type=65},
+    { type=65},{ type=66},{ type=67},{ type=68},{ type=69},{ type=70},
   }
   local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
   if ItemIndex >= 0 then
