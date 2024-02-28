@@ -140,6 +140,9 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                       if (v.type == Shadow and min_w==v.min and max_w==v.max ) then
                                              if ( (Round - yzbj_round)<0 or (Round - yzbj_round)>=v.round+1 ) then
                                                     Char.SetTempData(defCharIndex, '影子标记层数', 0);      --标记层数初始化
+                                                    Char.SetData(defCharIndex, CONST.对象_ENEMY_HeadGraNo,0);
+                                                    Char.SetData(defCharIndex, CONST.对象_NPC_HeadGraNo,0);
+                                                    Char.SetData(defCharIndex, CONST.对象_PET_HeadGraNo,0);
                                                     NLG.UpChar(defCharIndex)
                                              end
                                              local yzbj_layer = Char.GetTempData(defCharIndex, '影子标记层数') or 0
@@ -153,6 +156,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                                     Char.SetTempData(defCharIndex, '影子标记回合', Round);
                                                     Char.SetData(defCharIndex, CONST.对象_ENEMY_HeadGraNo,111121);
                                                     Char.SetData(defCharIndex, CONST.对象_NPC_HeadGraNo,111121);
+                                                    Char.SetData(defCharIndex, CONST.对象_PET_HeadGraNo,111121);
                                                     NLG.Say(charIndex,-1,"影子標記".. v.layer .."層".. v.round .."回合，下回合起算第1回合",4,3);
                                              end
                                       end
