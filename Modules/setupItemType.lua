@@ -1,26 +1,28 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('setupItemType')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   local itemType = {
-    { type=60, name="ÁîÆì", place=2, job=1, level=10 },
-    { type=61, name="Ä§„¦", place=3, job=2001, level=10 },
-    { type=62, name="ÏİÚå", place=3, job=2002, level=10 },
-    { type=63, name="•ø¼®", place=3, job=2003, level=10 },
-    { type=64, name="ïLÄ§", place=3, job=2004, level=10 },
-    { type=65, name="È­Ì×", place=3, job=2005, level=10 },
+    { type=65, name="ä»¤æ——", defaultImage=27821, place=2, flags=0, job=1, level=10 },
+    { type=66, name="é­”åŠ", defaultImage=20075, place=3, flags=0, job=2001, level=10 },
+    { type=67, name="é™·é˜±", defaultImage=27938, place=3, flags=0, job=2002, level=10 },
+    { type=68, name="æ›¸ç±", defaultImage=27446, place=3, flags=0, job=2003, level=10 },
+    { type=69, name="é¢¨é­”", defaultImage=99521, place=3, flags=0, job=2004, level=10 },
+    { type=70, name="æ‹³å¥—", defaultImage=21303, place=3, flags=0, job=2005, level=10 },
   }
   for k, v in ipairs(itemType) do
-      Item.SetItemTypeName( v.type, v.name )
-      Item.SetItemTypeEquipPlace(v.type, v.place)
+      Item.CreateNewItemType(v.type, v.name, v.defaultImage, v.place, v.flags)
+      --Item.SetItemTypeName( v.type, v.name )
+      --Item.SetItemTypeEquipPlace(v.type, v.place)
       Item.SetItemTypeEquipLevelForJob(v.job, v.type, v.level)
   end
-
+  --self:regCallback('ItemAttachEvent', Func.bind(self.ItemAttachEvent, self))
+  --self:regCallback('ItemDetachEvent', Func.bind(self.ItemDetachEvent, self))
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
