@@ -1,11 +1,11 @@
 # cgmsv-lua
 cgmsv lua Module/Modules
 
-適用cgmsv_21.2a之Lua
+適用cgmsv_21.2a/cgmsv_24.2b之Lua
 
-舊框架 (原始cgmsv_21.2a自帶) 的Module
+舊框架 (原始cgmsv自帶) 的Module
 
-新框架 (https://github.com/Muscipular/cgmsv-lua) 的Modules
+新框架 (https://github.com/Muscipular/cgmsv-lua) 的v0.3.0 Modules
 
 模組加載皆在ModuleConfig.lua操作
 
