@@ -1,11 +1,11 @@
 local AddTK = ModuleBase:createModule('addTK')
 
 local ItemTypeTable = {}
-ItemTypeTable[71032] = 61
-ItemTypeTable[71033] = 62
-ItemTypeTable[71034] = 63
-ItemTypeTable[71035] = 64
-ItemTypeTable[71036] = 65
+ItemTypeTable[71032] = 66
+ItemTypeTable[71033] = 67
+ItemTypeTable[71034] = 68
+ItemTypeTable[71035] = 69
+ItemTypeTable[71036] = 70
 
 local TelekinesisTable = {
              { Info=7000211, Rate=10},
@@ -22,11 +22,11 @@ local TelekinesisTable = {
 function AddTK:onLoad()
   self:logInfo('load');
   self:regCallback('ItemString', Func.bind(self.telekinesis, self),"LUA_useAddTK");
-  self.addTKNpc = self:NPC_createNormal('ÈÙÒ«´«Ëµ¾íÖá', 14682, { x = 36, y = 33, mapType = 0, map = 777, direction = 6 });
+  self.addTKNpc = self:NPC_createNormal('è£è€€ä¼ è¯´å·è½´', 14682, { x = 36, y = 33, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.addTKNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾¸±Îä¸½Äî¡¿" ..	"\\n\\n´Ëé¸±ÎäŒ£ÓÃµÄ˜sÒ«‚÷Õf¾íİS\\n\\nÃ¿‚€¸±Îä¸½ÄîµÄÉÏÏŞé10´Î\\n\\n²»Õ“³É¹¦»òÊ§”¡¶¼•şœpÉÙ´Î”µ\\n\\nÈ«¸½ÄîÍêß_7´ÎÒÔÉÏ³É¹¦é_†¢ÌØÊâĞ§¹û£¡\\n\\n";	
-        NLG.ShowWindowTalked(player, self.addTKNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+        local msg = "\\n@cã€å‰¯æ­¦é™„å¿µã€‘" ..	"\\n\\næ­¤ç‚ºå‰¯æ­¦å°ˆç”¨çš„æ¦®è€€å‚³èªªå·è»¸\\n\\næ¯å€‹å‰¯æ­¦é™„å¿µçš„ä¸Šé™ç‚º10æ¬¡\\n\\nä¸è«–æˆåŠŸæˆ–å¤±æ•—éƒ½æœƒæ¸›å°‘æ¬¡æ•¸\\n\\nå…¨é™„å¿µå®Œé”7æ¬¡ä»¥ä¸ŠæˆåŠŸé–‹å•Ÿç‰¹æ®Šæ•ˆæœï¼\\n\\n";	
+        NLG.ShowWindowTalked(player, self.addTKNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
@@ -35,54 +35,54 @@ function AddTK:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    local ViceWeaponIndex =Char.GetViceWeapon(player);                --×óÓÒÊÖ
+    local ViceWeaponIndex =Char.GetViceWeapon(player);                --å·¦å³æ‰‹
     if select > 0 then
-      if seqno == 1 and select == CONST.°´Å¥_È·¶¨ then
+      if seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
           if (ViceWeaponIndex ~= nil) then
-              local ViceName = Item.GetData(ViceWeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
-              local ViceType = Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_ÀàĞÍ);
-              local Vicehint = Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_Explanation1);                                   --Ê£ğN¾í”µµÀ¾ßÕfÃ÷
-              local Special = Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_ÌØÊâÀàĞÍ);
-              local Para1 = tonumber(Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_×Ó²ÎÒ»));
-              local Para2 = tonumber(Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_×Ó²Î¶ş));
+              local ViceName = Item.GetData(ViceWeaponIndex, CONST.é“å…·_åå­—);
+              local ViceType = Item.GetData(ViceWeaponIndex,CONST.é“å…·_ç±»å‹);
+              local Vicehint = Item.GetData(ViceWeaponIndex,CONST.é“å…·_Explanation1);                                   --å‰©é¤˜å·æ•¸é“å…·èªªæ˜
+              local Special = Item.GetData(ViceWeaponIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹);
+              local Para1 = tonumber(Item.GetData(ViceWeaponIndex,CONST.é“å…·_å­å‚ä¸€));
+              local Para2 = tonumber(Item.GetData(ViceWeaponIndex,CONST.é“å…·_å­å‚äºŒ));
               if (ViceType == ItemTypeTable[ItemID] and Vicehint == 189557 and Special ~= 14) then
-                            Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_ÌØÊâÀàĞÍ, 14);
-                            Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_×Ó²ÎÒ», 6);
-                            Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_×Ó²Î¶ş, 1);
-                            Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_Explanation1, 7000211);
-                            Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_ÉúÃü, 500);
-                            Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_Ä§Á¦, 500);
-                            Item.UpItem(player,3);               --ÓÒÊÖ¸±Îä
+                            Item.SetData(ViceWeaponIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹, 14);
+                            Item.SetData(ViceWeaponIndex,CONST.é“å…·_å­å‚ä¸€, 6);
+                            Item.SetData(ViceWeaponIndex,CONST.é“å…·_å­å‚äºŒ, 1);
+                            Item.SetData(ViceWeaponIndex,CONST.é“å…·_Explanation1, 7000211);
+                            Item.SetData(ViceWeaponIndex,CONST.é“å…·_ç”Ÿå‘½, 500);
+                            Item.SetData(ViceWeaponIndex,CONST.é“å…·_é­”åŠ›, 500);
+                            Item.UpItem(player,3);               --å³æ‰‹å‰¯æ­¦
                             Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
-                            NLG.SystemMessage(player, "¹§Ï²£¡"..ViceName.."µÄµÚ1´Î¸½Äî³É¹¦£¡");
+                            NLG.SystemMessage(player, "æ­å–œï¼"..ViceName.."çš„ç¬¬1æ¬¡é™„å¿µæˆåŠŸï¼");
                             NLG.UpChar(player);
               elseif (ViceType == ItemTypeTable[ItemID] and Special == 14 and Para1 == 6) then
                       local SRate = math.random(1,100);
                       for k, v in ipairs(TelekinesisTable) do
                             if (Vicehint == v.Info and SRate >= v.Rate) then
                                 local Para2 = Para2 + 1;
-                                Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_Explanation1, v.Info+1);
-                                Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_×Ó²Î¶ş, Para2);
-                                Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_ÉúÃü, Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_ÉúÃü)+500);
-                                Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_Ä§Á¦, Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_Ä§Á¦)+500);
+                                Item.SetData(ViceWeaponIndex,CONST.é“å…·_Explanation1, v.Info+1);
+                                Item.SetData(ViceWeaponIndex,CONST.é“å…·_å­å‚äºŒ, Para2);
+                                Item.SetData(ViceWeaponIndex,CONST.é“å…·_ç”Ÿå‘½, Item.GetData(ViceWeaponIndex,CONST.é“å…·_ç”Ÿå‘½)+500);
+                                Item.SetData(ViceWeaponIndex,CONST.é“å…·_é­”åŠ›, Item.GetData(ViceWeaponIndex,CONST.é“å…·_é­”åŠ›)+500);
                                 Item.UpItem(player,3);
                                 Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
-                                NLG.SystemMessage(player, "¹§Ï²£¡"..ViceName.."ÒÑ½›¸½Äî³É¹¦"..Para2.."´Î£¡");
+                                NLG.SystemMessage(player, "æ­å–œï¼"..ViceName.."å·²ç¶“é™„å¿µæˆåŠŸ"..Para2.."æ¬¡ï¼");
                                 NLG.UpChar(player);
                             elseif (Vicehint == v.Info and SRate < v.Rate) then
-                                Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_Explanation1, v.Info+1);
+                                Item.SetData(ViceWeaponIndex,CONST.é“å…·_Explanation1, v.Info+1);
                                 Item.UpItem(player,3);
                                 Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
-                                NLG.SystemMessage(player, "šˆÄî£¡"..ViceName.."µÄ¸½ÄîÊ§”¡ÁË£¡");
+                                NLG.SystemMessage(player, "æ®˜å¿µï¼"..ViceName.."çš„é™„å¿µå¤±æ•—äº†ï¼");
                             end
-                            local New_Vicehint = Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_Explanation1);
-                            local New_Para2 = tonumber(Item.GetData(ViceWeaponIndex,CONST.µÀ¾ß_×Ó²Î¶ş));
+                            local New_Vicehint = Item.GetData(ViceWeaponIndex,CONST.é“å…·_Explanation1);
+                            local New_Para2 = tonumber(Item.GetData(ViceWeaponIndex,CONST.é“å…·_å­å‚äºŒ));
                             if (New_Vicehint == 7000220 and New_Para2 >= 7) then
                                 local GameTime= math.random(0,3);
-                                Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_ĞÒÔË, GameTime);
-                                Item.SetData(ViceWeaponIndex,CONST.µÀ¾ß_Explanation1, 7000221+GameTime);
+                                Item.SetData(ViceWeaponIndex,CONST.é“å…·_å¹¸è¿, GameTime);
+                                Item.SetData(ViceWeaponIndex,CONST.é“å…·_Explanation1, 7000221+GameTime);
                                 Item.UpItem(player,3);
-                                NLG.SystemMessage(player, "×¢Òâ£¡"..ViceName.."±Å°l³öÌØÊâĞ§¹û£¡");
+                                NLG.SystemMessage(player, "æ³¨æ„ï¼"..ViceName.."è¿¸ç™¼å‡ºç‰¹æ®Šæ•ˆæœï¼");
                             end
                       end
               end
@@ -101,28 +101,28 @@ end
 
 function AddTK:telekinesis(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
-    local msg = "\\n@c¡¾¸±Îä¸½Äî¡¿" ..	"\\n\\n´Ëé¸±ÎäŒ£ÓÃµÄ˜sÒ«‚÷Õf¾íİS\\n\\nÃ¿‚€¸±Îä¸½ÄîµÄÉÏÏŞé10´Î\\n\\n²»Õ“³É¹¦»òÊ§”¡¶¼•şœpÉÙ´Î”µ\\n\\nÈ«¸½ÄîÍêß_7´ÎÒÔÉÏ³É¹¦é_†¢ÌØÊâĞ§¹û£¡\\n\\n";	
-    NLG.ShowWindowTalked(charIndex, self.addTKNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+    local msg = "\\n@cã€å‰¯æ­¦é™„å¿µã€‘" ..	"\\n\\næ­¤ç‚ºå‰¯æ­¦å°ˆç”¨çš„æ¦®è€€å‚³èªªå·è»¸\\n\\næ¯å€‹å‰¯æ­¦é™„å¿µçš„ä¸Šé™ç‚º10æ¬¡\\n\\nä¸è«–æˆåŠŸæˆ–å¤±æ•—éƒ½æœƒæ¸›å°‘æ¬¡æ•¸\\n\\nå…¨é™„å¿µå®Œé”7æ¬¡ä»¥ä¸ŠæˆåŠŸé–‹å•Ÿç‰¹æ®Šæ•ˆæœï¼\\n\\n";	
+    NLG.ShowWindowTalked(charIndex, self.addTKNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     return 1;
 end
 
 
 Char.GetViceWeapon = function(charIndex)
   local itemType = {
-    { type=60},{ type=61},{ type=62},{ type=63},{ type=64},{ type=65},
+    { type=65},{ type=66},{ type=67},{ type=68},{ type=69},{ type=70},
   }
-  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_×óÊÖ);
+  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å·¦æ‰‹);
   if ItemIndex >= 0 then
     for k, v in ipairs(itemType) do
-      if Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==v.type then
+      if Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==v.type then
         return ItemIndex;
       end
     end
   end
-  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_ÓÒÊÖ)
+  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å³æ‰‹)
   if ItemIndex >= 0 then
     for k, v in ipairs(itemType) do
-      if Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==v.type then
+      if Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==v.type then
         return ItemIndex;
       end
     end
