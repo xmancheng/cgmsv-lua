@@ -271,7 +271,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 			end
 			Char.SetData(enemy, CONST.CHAR_血, HP);
 			Char.SetData(enemy, CONST.CHAR_魔, MP);
-                                                            NLG.UpChar(enemy);
+			NLG.UpChar(enemy);
 		end
 	end
 
@@ -395,7 +395,7 @@ function DevilNpc_BattleWin(battleIndex, charIndex)
 		local player = Battle.GetPlayIndex(battleIndex, p);
 		local drop = math.random(0,3);
 		if player>=0 and Char.GetData(player, CONST.CHAR_类型) == CONST.对象类型_人 then
-                                                            print(lv,lvRank,drop)
+			--print(lv,lvRank,drop)
 			for k, v in ipairs(dropMenu) do
 				if k==lvRank and lvRank>=1  then
 					Char.GiveItem(player, dropMenu[k][2], dropMenu[k][3]*drop);
