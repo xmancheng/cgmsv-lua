@@ -79,4 +79,6 @@ loadModule('addTK')|副武器附念
 loadModule('quickUI')|動作快捷
 loadModule('petHatching')|飼育小屋
 loadModule('matchDraw')|抽獎背包
+loadModule('petHeadIcon')|寵物頭飾
+loadModule('battleMirrorDevil')|水鏡惡魔
 
