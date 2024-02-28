@@ -59,23 +59,39 @@ useModule('RankingScript');|頭目挑戰
 
 
 ## 新框架Modules
+### 未完善
 模組加載代碼 | 說明 
 --- | --- 
 loadModule('uniShop')|鏡像擺攤(未完善)
 loadModule('autoRanking')|自助天梯(未完善)
+### 傷害相關
+模組加載代碼 | 說明 
+--- | --- 
 loadModule('ybPetSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化
 loadModule('attackSkill')|聖盾無敵、追月消巫、手下留情、法術附加狀態、合擊增傷
 loadModule('setupMagicAttr')|魔法屬性技能
 loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
+### 傭兵相關
+模組加載代碼 | 說明 
+--- | --- 
 loadModule('hbSummonLuac')|一鍵召喚鏡像寵物夥伴
 loadModule('hbReinforceLuac')|動作技能卡、經驗儲存物品
 loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
+### 野外相關
+模組加載代碼 | 說明 
+--- | --- 
 loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
+### 裝備強化相關
+模組加載代碼 | 說明 
+--- | --- 
 loadModule('strAddEffect')|強化效果、附念效果、影子效果
 loadModule('setupItemType')|副武器擴充
 loadModule('addTK')|副武器附念
+### 其他功能
+模組加載代碼 | 說明 
+--- | --- 
 loadModule('quickUI')|動作快捷
 loadModule('petHatching')|飼育小屋
 loadModule('matchDraw')|抽獎背包
