@@ -10,7 +10,7 @@ QuickUI:addMigration(1, 'init lua_hook_character', function()
     `Name` char(32) COLLATE gbk_bin NOT NULL,
     `CdKey` char(32) COLLATE gbk_bin NOT NULL,
     `RankedPoints` int(10) NOT NULL Default 0,
-    --`WingCover` int(10) NOT NULL Default 0,
+    `WingCover` int(10) NOT NULL Default 1,
     `OriginalImageNumber` int(10) NOT NULL,
     `SwitchImageNumber2` int(10) Default 1,
     `SwitchImageNumber3` int(10) Default 1,
@@ -286,6 +286,7 @@ function QuickUI:onLoad()
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
+--[[
       local AccessoryIndex,Slot = Char.GetAccessory(player);
       if seqno == 1 and select == CONST.按钮_确定 and AccessoryIndex>=0 then
             if Item.GetData(AccessoryIndex, CONST.道具_ID) ~= 900331  then
@@ -303,6 +304,32 @@ function QuickUI:onLoad()
       elseif seqno == 1 and select == CONST.按钮_关闭 then
                 local charPtr = Char.GetCharPointer(player)
                 ffi.setMemoryInt32(charPtr + 0x5e8 + 0x188 + 0x18, 100);   --walkSpeed
+                NLG.UpChar(player)
+      end
+]]
+      if seqno == 1 and select == CONST.按钮_确定 then
+          if Char.EndEvent(player,0) == 1 then
+                Char.SetData(player, CONST.对象_移速,130);
+                NLG.UpChar(player)
+                NLG.SetHeadIcon(player, 114206);
+          end
+          if  Char.EndEvent(player,21) == 1 then
+                Char.SetData(player, CONST.对象_移速,150);
+                NLG.UpChar(player)
+                NLG.SetHeadIcon(player, 114177);
+          end
+          if  Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
+                Char.SetData(player, CONST.对象_移速,170);
+                NLG.UpChar(player)
+                NLG.SetHeadIcon(player, 120054);
+          end
+          if  Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 and Char.EndEvent(player,143) == 1 then
+                Char.SetData(player, CONST.对象_移速,200);
+                NLG.UpChar(player)
+                NLG.SetHeadIcon(player, 108510)
+          end
+      elseif seqno == 1 and select == CONST.按钮_关闭 then
+                Char.SetData(player, CONST.对象_移速,100);
                 NLG.UpChar(player)
       end
     end
