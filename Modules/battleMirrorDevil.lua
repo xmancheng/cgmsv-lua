@@ -229,7 +229,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		local enemy = Battle.GetPlayIndex(battleIndex, i)
 		local player = Battle.GetPlayIndex(battleIndex, i-10)
                                         --print(enemy, player)
-		if enemy>=0 and Char.GetData(enemy, CONST.CHAR_名字) == "水鏡惡魔史萊姆"  then
+		if enemy>=0 and Char.GetData(enemy, CONST.CHAR_名字) == "水鏡惡魔史萊姆" and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
 			if player>=0 then
  				for k, v in ipairs(playerInfo) do
 					Char.SetData(enemy, v.Info, Char.GetData(player, v.Info))
@@ -243,10 +243,10 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		if Round==0 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
+		if Round==0 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆" and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
 			Char.SetData(enemy, CONST.CHAR_血, Char.GetData(enemy,CONST.CHAR_最大血));
 			Char.SetData(enemy, CONST.CHAR_魔, Char.GetData(enemy,CONST.CHAR_最大魔));
-		elseif Round==2 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
+		elseif Round==2 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆" and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
 			Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,0)
 		end
 	end
