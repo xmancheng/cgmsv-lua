@@ -284,9 +284,9 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
             local player = Battle.GetPlayIndex(battleIndex, i-10);
             if devil_charIndex >= 0 then
                   local sidetable = {{10,30,41},{0,20,40}}
-                  if Round>=1 and Char.GetData(devil_charIndex, CONST.CHAR_名字) == "水鏡惡魔史萊姆"  then
+                  if Round>=1 and Char.GetData(devil_charIndex, CONST.CHAR_名字) == "水鏡惡魔史萊姆" and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)<= 406189  then
                       SetCom(devil_charIndex, action, CONST.BATTLE_COM.BATTLE_COM_ESCAPE, -1, 15001);
-                  elseif Round>=1 and Char.GetData(devil_charIndex, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆" and player>=0  then
+                  elseif player>=0 and Round>=1 and Char.GetData(devil_charIndex, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆" and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)<= 406189  then
                       --SetCom(devil_charIndex, action, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[devilside][1], 403);
                          local skillSlot = NLG.Rand(0, 9);
                          for k, v in ipairs(skillParams) do
