@@ -243,11 +243,15 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		if Round==0 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆" and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
-			Char.SetData(enemy, CONST.CHAR_血, Char.GetData(enemy,CONST.CHAR_最大血));
-			Char.SetData(enemy, CONST.CHAR_魔, Char.GetData(enemy,CONST.CHAR_最大魔));
-		elseif Round==2 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆" and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
-			Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,0)
+		if Round==0 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
+			if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
+				Char.SetData(enemy, CONST.CHAR_血, Char.GetData(enemy,CONST.CHAR_最大血));
+				Char.SetData(enemy, CONST.CHAR_魔, Char.GetData(enemy,CONST.CHAR_最大魔));
+			end
+		elseif Round==2 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
+			if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
+				Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,0)
+			end
 		end
 	end
 	if Round>=1 then
@@ -285,7 +289,7 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
             if devil_charIndex >= 0 then
                   local sidetable = {{10,30,41},{0,20,40}}
                   if Round>=1 and Char.GetData(devil_charIndex, CONST.CHAR_名字) == "水鏡惡魔史萊姆" and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)<= 406189  then
-                      SetCom(devil_charIndex, action, CONST.BATTLE_COM.BATTLE_COM_ESCAPE, -1, 15001);
+                          SetCom(devil_charIndex, action, CONST.BATTLE_COM.BATTLE_COM_ESCAPE, -1, 15001);
                   elseif player>=0 and Round>=1 and Char.GetData(devil_charIndex, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆" and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(devil_charIndex, CONST.对象_ENEMY_ID)<= 406189  then
                       --SetCom(devil_charIndex, action, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[devilside][1], 403);
                          local skillSlot = NLG.Rand(0, 9);
@@ -311,7 +315,6 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
                                  end
                              end
                          end
-                  end
             end
       end
 end
