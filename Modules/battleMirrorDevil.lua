@@ -228,7 +228,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	for i=10, 19 do
 		local enemy = Battle.GetPlayIndex(battleIndex, i)
 		local player = Battle.GetPlayIndex(battleIndex, i-10)
-                                        --print(enemy, player)
+		 --print(enemy, player)
 		if enemy>=0 and Char.GetData(enemy, CONST.CHAR_名字) == "水鏡惡魔史萊姆" and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
 			if player>=0 then
  				for k, v in ipairs(playerInfo) do
@@ -315,6 +315,7 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
                                  end
                              end
                          end
+                  end
             end
       end
 end
