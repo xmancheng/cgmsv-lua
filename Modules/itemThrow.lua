@@ -28,6 +28,7 @@ local DmgType = CONST.DamageFlags
 function ItemThrow:onLoad()
   self:logInfo('load')
   self:regCallback('ItemUseEvent', Func.bind(self.onItemUseEvent, self))
+  --self:regCallback('BattleActionEvent', Func.bind(self.onBattleActionEvent,self))
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -50,7 +51,7 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
                end
                Throw_control[charIndex] = true;
                Char.DelItem(charIndex,ItemID,1);
-               NLG.Say(charIndex,charIndex,"【準備投擲】下回合建議防禦！！",4,3);
+               NLG.Say(charIndex,charIndex,"這回合【準備投擲】！！",4,3);
       end
   end
 
@@ -119,6 +120,50 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
          end
   return damage;
 end
+
+--[[
+function ItemThrow:onBattleActionEvent(charIndex, com1, com2, com3, actionNum)
+  if com1 == 9 then
+    local itemSlot = com3
+    local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
+    local battleIndex = Char.GetBattleIndex(charIndex);
+    local ItemID = Item.GetData(itemIndex, CONST.道具_ID);
+    --local boom = Char.HaveSkill(charIndex,2002);
+    --local skillLV = Char.GetSkillLevel(charIndex,boom);
+    --local itemlv = Item.GetData(itemIndex, CONST.道具_等级)
+    if (Item.GetData(itemIndex, CONST.道具_类型)==51) then
+           --第一階段(準備)
+           local enemySlot = com2
+           local Throw_pos = enemySlot+20;
+           Throw_control[charIndex] = true;
+           Char.DelItem(charIndex,ItemID,1);
+           NLG.Say(charIndex,charIndex,"【準備投擲】下回合建議防禦！！",4,3);
+           --第二階段(投擲)
+           for i = 0, 19 do
+                  local charIndex = Battle.GetPlayer(battleIndex, i);
+                  if charIndex >= 0 then
+                         local sidetable = {{10,40,41,30,20},{0,41,40,30,20}}
+                         local charside = 1
+                         local ybside = Char.GetData(charIndex,%对象_战斗Side%)
+                         if ybside == 1 then
+                                charside = 2
+                         end
+                         local ybjn = Battle.IsWaitingCommand(charIndex);
+                         if ybjn and Throw_control[charIndex] == true and actionNum == 1  then
+                                --lv = tostring(skillLV-1)
+                                --lv = ("20020"..lv)
+                                --Battle.ActionSelect(CharIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, sidetable[charside][3], tonumber(lv));
+                                Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, Throw_pos, 200209);
+                                --Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403);
+                                Throw_control[charIndex] = false;
+                         end
+                  end
+           end
+    end
+  end
+  return;
+end
+]]
 
 function ItemThrow:onUnload()
   self:logInfo('unload')
