@@ -89,6 +89,11 @@ loadModule('encountEX')|滿怪香水
 loadModule('strAddEffect')|強化效果、附念效果、影子效果
 loadModule('setupItemType')|副武器擴充
 loadModule('addTK')|副武器附念
+### 特殊副本
+模組加載代碼 | 說明 
+--- | --- 
+loadModule('battleMirrorDevil')|水鏡惡魔
+loadModule('deathJJC')|死亡競技
 ### 其他功能
 模組加載代碼 | 說明 
 --- | --- 
@@ -96,5 +101,4 @@ loadModule('quickUI')|動作快捷
 loadModule('petHatching')|飼育小屋
 loadModule('matchDraw')|抽獎背包
 loadModule('petHeadIcon')|寵物頭飾
-loadModule('battleMirrorDevil')|水鏡惡魔
 
