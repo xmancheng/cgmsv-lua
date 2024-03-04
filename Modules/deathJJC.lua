@@ -660,12 +660,12 @@ function Module:OnBattleSurpriseCallBack(battleIndex, result)
             end
       end
       local Target_FloorId = Char.GetData(Battle.GetPlayer(battleIndex, 0), CONST.CHAR_地图)
-      if APN>=1 and Target_FloorId==20233  then
+      if APN>=1 and Target_FloorId==BossMap[1]  then
             if Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.CHAR_队聊开关) == 1  then
                   NLG.SystemMessageToMap(0, BossMap[1],"誒，你終於作弊啦！真的糟透了，能力太好也是會發生偶然的事情啦！");
             end
             result=2;
-      elseif Target_FloorId==20233  then
+      elseif Target_FloorId==BossMap[1]  then
             result=0;
       end
   return result;
@@ -676,9 +676,9 @@ function Module:OnBattleInjuryCallBack(fIndex, aIndex, battleIndex, inject)
       --print(Round)
       local Target_FloorId = Char.GetData(fIndex, CONST.CHAR_地图)
       local defHpE = Char.GetData(fIndex,CONST.CHAR_血);
-      if defHpE >=100 and Target_FloorId==20233  then
+      if defHpE >=100 and Target_FloorId==BossMap[1]  then
                  inject = inject*0;
-      elseif  Target_FloorId==20233  then
+      elseif  Target_FloorId==BossMap[1]  then
                  inject = inject;
       end
   return inject;
