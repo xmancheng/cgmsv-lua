@@ -38,9 +38,13 @@ local EnemySet_WC = {600060,600129,600118,600119}
 local EnemySet_WG = {600147}
 local EnemySet_WR = {600054,600079}
 local EnemySet_WV = {600148}
-local DelList = {600029,600030,600032,600033,600046,600047,600048,600049,600054,
-                            600060,600079,600084,600102,600108,600111,600113,600115,600118,
-                            600119,600123,600127,600128,600129,600147,600148}
+local DelList = {
+       {count=1, PetID=600029}, {count=1, PetID=600032}, {count=1, PetID=600048}, {count=1, PetID=600084}, {count=1, PetID=600111}, {count=1, PetID=600060}, {count=1, PetID=600129}, {count=1, PetID=600118}, {count=1, PetID=600119},
+       {count=2, PetID=600033}, {count=2, PetID=600046}, {count=2, PetID=600047}, {count=2, PetID=600108}, {count=2, PetID=600147},
+       {count=3, PetID=600030}, {count=3, PetID=600049}, {count=3, PetID=600113}, {count=3, PetID=600115}, {count=3, PetID=600054}, {count=3, PetID=600079},
+       {count=4, PetID=600123}, {count=4, PetID=600127}, {count=4, PetID=600128}, {count=4, PetID=600148},
+}
+
 --怪物分布区域
 local EnemyArea = {}
 --草地
@@ -307,11 +311,12 @@ end
 function Qualifications_LoopEvent(player)
 	if (Char.ItemNum(player, WildSetting.Item_1)>0 or Char.ItemNum(player, WildSetting.Item_3)>0 ) then
 		--NLG.SystemMessage(player,"[系統]仍符合待在狩獵地帶的資格。");
-		table.forEach(DelList, function(e)
-			if (Char.HavePet(player, e)>= 0) then
-				Char.DelSlotPet(player, Char.HavePet(player, e));
+		for k, v in ipairs(DelList) do
+			if (Char.HavePet(player, v.PetID)>= 0) then
+				Char.DelSlotPet(player, Char.HavePet(player, v.PetID));
+				local PointCount = v.count;
 			end
-		end)
+		end
 		return;
 	else
 		Char.LeaveParty(player);
