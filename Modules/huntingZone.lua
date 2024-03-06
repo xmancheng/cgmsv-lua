@@ -1,16 +1,16 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('huntingZone')
 local ItemMenus = {
-  { "[¡¡¡¡¡¡Âûİ®¹û¡¡¡¡¡¡¡¡]x1¡¡¡¡¡¡¡¡¡¡30", 69018, 30, 1},
-  { "[¡¡¡¡¡¡½¶Ïã¹û¡¡¡¡¡¡¡¡]x1¡¡¡¡¡¡¡¡¡¡30", 69028, 30, 1},
-  { "[¡¡¡¡¡¡¡¡Äà°Í¡¡¡¡¡¡¡¡]x5¡¡¡¡¡¡¡¡¡¡10", 75014, 10, 5},
-  { "[¡¡¡¡¡¡¡¡ÕTğD¡¡¡¡¡¡¡¡]x5¡¡¡¡¡¡¡¡¡¡10", 75015, 10, 5},
-  { "[¡¡¡¡¡¡á÷«CÇò¡¡¡¡¡¡¡¡]x10¡¡¡¡¡¡¡¡20", 75013, 20, 10},
-  { "[¡¡¡¡¡¡·e·ÖÈ¯¡¡¡¡¡¡¡¡]x10¡¡¡¡¡¡¡¡10", 69000, 10, 10},
+  { "[ã€€ã€€ã€€è”“è“æœã€€ã€€ã€€ã€€]x1ã€€ã€€ã€€ã€€ã€€30", 69018, 30, 1},
+  { "[ã€€ã€€ã€€è•‰é¦™æœã€€ã€€ã€€ã€€]x1ã€€ã€€ã€€ã€€ã€€30", 69028, 30, 1},
+  { "[ã€€ã€€ã€€ã€€æ³¥å·´ã€€ã€€ã€€ã€€]x5ã€€ã€€ã€€ã€€ã€€10", 75014, 10, 5},
+  { "[ã€€ã€€ã€€ã€€èª˜é¤Œã€€ã€€ã€€ã€€]x5ã€€ã€€ã€€ã€€ã€€10", 75015, 10, 5},
+  { "[ã€€ã€€ã€€ç‹©çµçƒã€€ã€€ã€€ã€€]x10ã€€ã€€ã€€ã€€20", 75013, 20, 10},
+  { "[ã€€ã€€ã€€ç©åˆ†åˆ¸ã€€ã€€ã€€ã€€]x10ã€€ã€€ã€€ã€€10", 69000, 10, 10},
 }
-local Pts= 69000;                        --»ı·ÖÈ¯
+local Pts= 69000;                        --ç§¯åˆ†åˆ¸
 -----------------------------------------------------------------------------------------------
---¾«ÁéÇòÎï×ÊÎ»ÖÃ
+--ç²¾çµçƒç‰©èµ„ä½ç½®
 local wilditemNpc = {}
 local WildBoxArea = {}
 WildBoxArea[1]={48,72}
@@ -29,7 +29,7 @@ WildBoxArea[13]={27,74}
 WildBoxArea[14]={17,76}
 -----------------------------------------------------------------------------------------------
 local WildSetting = {Map=20233, X=50, Y=87, Item_1=75012, Item_3=75013}
---²İµØ¡¢Ë®±ßÏ¡ÓĞ¶È·ÖÀà
+--è‰åœ°ã€æ°´è¾¹ç¨€æœ‰åº¦åˆ†ç±»
 local EnemySet_C = {600029,600032,600048,600084,600102,600111}
 local EnemySet_G = {600033,600046,600047,600108}
 local EnemySet_R = {600030,600049,600113,600115}
@@ -41,9 +41,9 @@ local EnemySet_WV = {600148}
 local DelList = {600029,600030,600032,600033,600046,600047,600048,600049,600054,
                             600060,600079,600084,600102,600108,600111,600113,600115,600118,
                             600119,600123,600127,600128,600129,600147,600148}
---¹ÖÎï·Ö²¼ÇøÓò
+--æ€ªç‰©åˆ†å¸ƒåŒºåŸŸ
 local EnemyArea = {}
---²İµØ
+--è‰åœ°
 EnemyArea[1]={38,65,42,75,EnemySet_C,EnemySet_G,EnemySet_R,EnemySet_V}
 EnemyArea[2]={39,80,47,86,EnemySet_C,EnemySet_G,EnemySet_R,EnemySet_V}
 EnemyArea[3]={57,74,61,84,EnemySet_C,EnemySet_G,EnemySet_R,EnemySet_V}
@@ -55,7 +55,7 @@ EnemyArea[8]={33,39,38,52,EnemySet_C,EnemySet_G,EnemySet_R,EnemySet_V}
 EnemyArea[9]={53,25,60,34,EnemySet_C,EnemySet_G,EnemySet_R,EnemySet_V}
 EnemyArea[10]={27,26,33,32,EnemySet_C,EnemySet_G,EnemySet_R,EnemySet_V}
 EnemyArea[11]={6,82,22,85,EnemySet_C,EnemySet_G,EnemySet_R,EnemySet_V}
---Ë®±ß
+--æ°´è¾¹
 EnemyArea[12]={44,71,55,75,EnemySet_WC,EnemySet_WG,EnemySet_WR,EnemySet_WV}
 EnemyArea[13]={77,61,82,66,EnemySet_WC,EnemySet_WG,EnemySet_WR,EnemySet_WV}
 EnemyArea[14]={33,49,35,53,EnemySet_WC,EnemySet_WG,EnemySet_WR,EnemySet_WV}
@@ -64,105 +64,106 @@ EnemyArea[16]={33,33,35,37,EnemySet_WC,EnemySet_WG,EnemySet_WR,EnemySet_WV}
 EnemyArea[17]={8,73,13,75,EnemySet_WC,EnemySet_WG,EnemySet_WR,EnemySet_WV}
 
 -----------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self));
   self:regCallback('VSEnemyCreateEvent', Func.bind(self.OnVSEnemyCreateEvent, self));
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self));
-  self:regCallback('ItemString', Func.bind(self.onMudUse, self), 'LUA_useMud');  --Äà
-  self:regCallback('ItemString', Func.bind(self.onBaitUse, self), 'LUA_useBait');  --ğD
+  self:regCallback('ItemUseEvent', Func.bind(self.onItemUseEvent, self));
+  self:regCallback('ItemString', Func.bind(self.onMudUse, self), 'LUA_useMud');  --æ³¥
+  self:regCallback('ItemString', Func.bind(self.onBaitUse, self), 'LUA_useBait');  --é¤Œ
   self:regCallback('SealEvent', Func.bind(self.OnSealEventCallBack, self));
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self));
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self));
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self));
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
-  local wildnpc = self:NPC_createNormal('á÷«CµØ§Ó^²ì†T', 98043, { map = 1000, x = 226, y = 79, direction = 4, mapType = 0 })
+  local wildnpc = self:NPC_createNormal('ç‹©çµåœ°å¸¶è§€å¯Ÿå“¡', 98043, { map = 1000, x = 226, y = 79, direction = 4, mapType = 0 })
   self:regCallback('LoopEvent', Func.bind(self.Qualifications_LoopEvent,self))
   self:NPC_regWindowTalkedEvent(wildnpc, function(npc, player, _seqno, _select, _data)
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)			
 	if seqno == 1 then
-		if data == 2 then  ----±¨Ãû
+		if data == 2 then  ----æŠ¥å
 			if(Char.ItemNum(player, WildSetting.Item_1)>0 or Char.ItemNum(player, WildSetting.Item_3)>0 ) then
-				NLG.SystemMessage(player,"[Ïµ½y]ßMÈëá÷«CµØ§²»ÄÜÓĞÈëˆöÈ¯¡£");
+				NLG.SystemMessage(player,"[ç³»çµ±]é€²å…¥ç‹©çµåœ°å¸¶ä¸èƒ½æœ‰å…¥å ´åˆ¸ã€‚");
 				return;
 			else
-				local msg = "3\\n@cˆóÃû…¢¼Óá÷«CµØ§µÄÑ²²é\\n"
-					.."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T"
-					.. "\\n¡¡2000Ä§Å£¡…¢¼Ó1Ğ¡•r£¡\\n"
-					.. "\\n¡¡5000Ä§Å£¡…¢¼Ó3Ğ¡•r£¡\\n";
-				NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 21, msg);
+				local msg = "3\\n@cå ±ååƒåŠ ç‹©çµåœ°å¸¶çš„å·¡æŸ¥\\n"
+					.."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•"
+					.. "\\nã€€2000é­”å¹£ï¼åƒåŠ 1å°æ™‚ï¼\\n"
+					.. "\\nã€€5000é­”å¹£ï¼åƒåŠ 3å°æ™‚ï¼\\n";
+				NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 21, msg);
 			end
 		end
-		if data == 3 then  ----¹Û¿´ËµÃ÷
+		if data == 3 then  ----è§‚çœ‹è¯´æ˜
 			if (NLG.CanTalk(npc, player) == true) then
-			local msg = "\\n@cÕˆÔ”¼šé†×xá÷«CµØ§ÕfÃ÷\\n"
-				.. "\\nÏŞ•r×Ğ¡•rßMĞĞ²¶×½á÷«C\\n"
-				.. "\\nËÑŒ¤KÈ¡µÃÔ­Ò°ÉÏµÄÎïÙY\\n"
-				.. "\\n×¢ÒâÈÕ¡¢Ò¹¹ÖÎï”µÁ¿¸Ä×ƒ\\n"
-				.. "\\nÔ­Ò°¹ÖÎïŸo·¨”y§³öí\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_È·¶¨, 31, msg);
+			local msg = "\\n@cè«‹è©³ç´°é–±è®€ç‹©çµåœ°å¸¶èªªæ˜\\n"
+				.. "\\né™æ™‚å¹¾å°æ™‚é€²è¡Œæ•æ‰ç‹©çµ\\n"
+				.. "\\næœå°‹ä¸¦å–å¾—åŸé‡ä¸Šçš„ç‰©è³‡\\n"
+				.. "\\næ³¨æ„æ—¥ã€å¤œæ€ªç‰©æ•¸é‡æ”¹è®Š\\n"
+				.. "\\nåŸé‡æ€ªç‰©ç„¡æ³•æ”œå¸¶å‡ºä¾†\\n";
+			NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_ç¡®å®š, 31, msg);
 			end
 		end
 
 
-		if data == 4 then  ----Ã¿ÖÜµãÊıÅÅÃû
+		if data == 4 then  ----æ¯å‘¨ç‚¹æ•°æ’å
 			if (NLG.CanTalk(npc, player) == true) then
 			local key = Char.FindItemId(player,Pts);
 			local item = Char.GetItemIndex(player,key);
 			local PointCount = Char.ItemNum(player,Pts);
-			local msg = "\\n@cÃ¿ÖÜá÷«Cüc”µÅÅÃû\\n"
-				.. "\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-				.. "\\n¡¡á÷«C·e·ÖÈ¯¡¡¡¾".. PointCount .. "¡¿È«²¿ÉÏ‚÷†á?\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÊÇ·ñ, 41, msg);
+			local msg = "\\n@cæ¯å‘¨ç‹©çµé»æ•¸æ’å\\n"
+				.. "\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+				.. "\\nã€€ç‹©çµç©åˆ†åˆ¸ã€€ã€".. PointCount .. "ã€‘å…¨éƒ¨ä¸Šå‚³å—?\\n";
+			NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 41, msg);
 			end
 		end
-		if data == 5 then  ----²éÑ¯µãÊı&Ö´ĞĞ
+		if data == 5 then  ----æŸ¥è¯¢ç‚¹æ•°&æ‰§è¡Œ
 			if (NLG.CanTalk(npc, player) == true) then
 			local PointCount = tonumber(SQL.Run("select RankedPoints from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
-			local msg = "\\n@c²éÔƒá÷«Cüc”µ¹¦ÄÜ\\n"
-				.. "\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-				.. "\\n¡¡á÷«C·e·Ö¡¡¡¡¡¡".. PointCount .. "È¯\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_È·¶¨, 51, msg);
+			local msg = "\\n@cæŸ¥è©¢ç‹©çµé»æ•¸åŠŸèƒ½\\n"
+				.. "\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+				.. "\\nã€€ç‹©çµç©åˆ†ã€€ã€€ã€€".. PointCount .. "åˆ¸\\n";
+			NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_ç¡®å®š, 51, msg);
 			end
 		end
-		if data == 6 then  ----¶Ò»»½±Àø
+		if data == 6 then  ----å…‘æ¢å¥–åŠ±
 			if (NLG.CanTalk(npc, player) == true) then
-			local msg = "3\\n@cƒ¶“Qá÷«Cª„„î¹¦ÄÜ\\n"
-				.."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
+			local msg = "3\\n@cå…Œæ›ç‹©çµçå‹µåŠŸèƒ½\\n"
+				.."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
 				for i = 1, 6 do
 					msg = msg .. ItemMenus[i][1] .. "\\n"
 				end
-			NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 61, msg);
+			NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 61, msg);
 			end
 		end
 	end
 	------------------------------------------------------------
-	if seqno == 21 then  ----±¨ÃûÖ´ĞĞ
+	if seqno == 21 then  ----æŠ¥åæ‰§è¡Œ
 		key = data
 		if select == 2 then
 			return;
 		end
 		if key == data then
-			local playerName = Char.GetData(player,CONST.CHAR_Ãû×Ö);
+			local playerName = Char.GetData(player,CONST.CHAR_åå­—);
 			--print(key)
-			if (Char.GetData(player,CONST.CHAR_½ğ±Ò)<2000) then
-				local msg = "\\n@c…¢¼ÓíšÒª‚€ÈËßMĞĞˆóÃû£¡£¡\\n"
-					.."\\nÖ§¸¶ÈëˆöÙMÓÃ2000Ä§Å\\n"
-					.."\\nßMÈëáá¿ÉÒÔŒ¤ÕÒâ·°é½Mê \\n"
-					.."\\nÁôÒâÈëˆöÈ¯ÉÏµ¹”µµÄ•rég\\n";
-				NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_È·¶¨, 22, msg);
+			if (Char.GetData(player,CONST.CHAR_é‡‘å¸)<2000) then
+				local msg = "\\n@cåƒåŠ é ˆè¦å€‹äººé€²è¡Œå ±åï¼ï¼\\n"
+					.."\\næ”¯ä»˜å…¥å ´è²»ç”¨2000é­”å¹£\\n"
+					.."\\né€²å…¥å¾Œå¯ä»¥å°‹æ‰¾å¤¥ä¼´çµ„éšŠ\\n"
+					.."\\nç•™æ„å…¥å ´åˆ¸ä¸Šå€’æ•¸çš„æ™‚é–“\\n";
+				NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_ç¡®å®š, 22, msg);
 				return;
 			elseif (Char.PartyNum(player)>=2) then
-				local msg = "\\n@c…¢¼ÓíšÒª‚€ÈËßMĞĞˆóÃû£¡£¡\\n"
-					.."\\nÖ§¸¶ÈëˆöÙMÓÃ2000Ä§Å\\n"
-					.."\\nßMÈëáá¿ÉÒÔŒ¤ÕÒâ·°é½Mê \\n"
-					.."\\nÁôÒâÈëˆöÈ¯ÉÏµ¹”µµÄ•rég\\n";
-				NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_È·¶¨, 22, msg);
+				local msg = "\\n@cåƒåŠ é ˆè¦å€‹äººé€²è¡Œå ±åï¼ï¼\\n"
+					.."\\næ”¯ä»˜å…¥å ´è²»ç”¨2000é­”å¹£\\n"
+					.."\\né€²å…¥å¾Œå¯ä»¥å°‹æ‰¾å¤¥ä¼´çµ„éšŠ\\n"
+					.."\\nç•™æ„å…¥å ´åˆ¸ä¸Šå€’æ•¸çš„æ™‚é–“\\n";
+				NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_ç¡®å®š, 22, msg);
 				return;
 			else
 				if key==1 then
@@ -183,7 +184,7 @@ function Module:onLoad()
 		end
 	end
 
-	if seqno == 41 then  ----Ã¿ÖÜµãÊıÅÅÃû
+	if seqno == 41 then  ----æ¯å‘¨ç‚¹æ•°æ’å
 		if select == 4 then
 			local key = Char.FindItemId(player,Pts);
 			local item = Char.GetItemIndex(player,key);
@@ -193,12 +194,12 @@ function Module:onLoad()
 			SQL.Run("update lua_hook_character set RankedPoints= '"..Restcount.."' where CdKey='"..cdk.."'")
 			NLG.UpChar(player);
 			Char.DelItem(player,Pts,PointCount);
-			NLG.SystemMessage(player,"[Ïµ½y]ÒÑ³É¹¦ÉÏ‚÷ËùÓĞá÷«C·e·ÖÈ¯£¡");
+			NLG.SystemMessage(player,"[ç³»çµ±]å·²æˆåŠŸä¸Šå‚³æ‰€æœ‰ç‹©çµç©åˆ†åˆ¸ï¼");
 		else
 			return 0;
 		end
 	end
-	if seqno == 61 then  ----¶Ò»»½±ÀøÖ´ĞĞ
+	if seqno == 61 then  ----å…‘æ¢å¥–åŠ±æ‰§è¡Œ
 		key = data
 		if select == 2 then
 			return;
@@ -212,7 +213,7 @@ function Module:onLoad()
 				NLG.UpChar(player);
 				Char.GiveItem(player,ItemMenus[data][2],ItemMenus[data][4]);
 			else
-				NLG.SystemMessage(player,"[Ïµ½y]á÷«C·e·Ö”µÁ¿²»×ã£¡");
+				NLG.SystemMessage(player,"[ç³»çµ±]ç‹©çµç©åˆ†æ•¸é‡ä¸è¶³ï¼");
 				return 0;
 			end
 		end
@@ -220,26 +221,26 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(wildnpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-               local msg = "1\\n@cšgÓ­ˆóÃûá÷«CµØ§µÄÑ²²é\\n\\n"
-                                             .."[¡¡ˆóÃû…¢¼Óá÷«C¡¡]\\n" 
-                                             .."[¡¡Ó^¿´á÷«CÕfÃ÷¡¡]\\n"  
-                                             .."[¡¡Ã¿ÖÜüc”µÅÅÃû¡¡]\\n" 
-                                             .."[¡¡²éÔƒá÷«Cüc”µ¡¡]\\n" 
-                                             .."[¡¡ƒ¶“Qá÷«Cª„„î¡¡]\\n" ;
-               NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, msg);
+               local msg = "1\\n@cæ­¡è¿å ±åç‹©çµåœ°å¸¶çš„å·¡æŸ¥\\n\\n"
+                                             .."[ã€€å ±ååƒåŠ ç‹©çµã€€]\\n" 
+                                             .."[ã€€è§€çœ‹ç‹©çµèªªæ˜ã€€]\\n"  
+                                             .."[ã€€æ¯å‘¨é»æ•¸æ’åã€€]\\n" 
+                                             .."[ã€€æŸ¥è©¢ç‹©çµé»æ•¸ã€€]\\n" 
+                                             .."[ã€€å…Œæ›ç‹©çµçå‹µã€€]\\n" ;
+               NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1, msg);
     end
     return
   end)
 
   self:regCallback('LoopEvent', Func.bind(self.WildBoxNpc_LoopEvent,self))
   for id=1,#WildBoxArea do
-        wilditemNpc[id] = self:NPC_createNormal('¾«ì`ÇòÎïÙY', 500109, { map = 20233, x = WildBoxArea[id][1], y = WildBoxArea[id][2], direction = 6, mapType = 0 })
+        wilditemNpc[id] = self:NPC_createNormal('ç²¾éˆçƒç‰©è³‡', 500109, { map = 20233, x = WildBoxArea[id][1], y = WildBoxArea[id][2], direction = 6, mapType = 0 })
         self:NPC_regWindowTalkedEvent(wilditemNpc[id], function(npc, player, _seqno, _select, _data)
         end)
         self:NPC_regTalkedEvent(wilditemNpc[id], function(npc, player)
 	if (NLG.CanTalk(npc, player) == true) then
 		if Char.ItemSlot(player) >= 19 then
-			NLG.SystemMessage(player,"[Ïµ½y]ÄãµÄ±³°üÌ«M£¬ÄÃ²»ÁËÎïÙY£¡");
+			NLG.SystemMessage(player,"[ç³»çµ±]ä½ çš„èƒŒåŒ…å¤ªæ»¿ï¼Œæ‹¿ä¸äº†ç‰©è³‡ï¼");
 			return;
 		else
 			local itemTbl= {75014,75015,75016};
@@ -253,7 +254,7 @@ function Module:onLoad()
 				NLG.UpChar(player);
 			else
 				local timesec = 180 - (os.time() - CTime);
-				NLG.SystemMessage(player,"[Ïµ½y]ÕˆµÈ´ı"..timesec.."ÃëááÔÙîIÈ¡¡£");
+				NLG.SystemMessage(player,"[ç³»çµ±]è«‹ç­‰å¾…"..timesec.."ç§’å¾Œå†é ˜å–ã€‚");
 			end
 		end
 	end
@@ -264,27 +265,27 @@ function Module:onLoad()
 end
 
 -----------------------------------------------------------------------------------------------
----ÒÔÏÂÎª¸÷function¹¦ÄÜ
---Ö¸Áî²éÑ¯²¶»ñ¡¢ÌÓÅÜÂÊ
+---ä»¥ä¸‹ä¸ºå„functionåŠŸèƒ½
+--æŒ‡ä»¤æŸ¥è¯¢æ•è·ã€é€ƒè·‘ç‡
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="/poke" or msg=="/POKE")then
-		local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
+		local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
 		local battleIndex = Char.GetBattleIndex(charIndex);
 		if (Target_FloorId==20233 and battleIndex<0) then
-			NLG.SystemMessage(charIndex, "[Ïµ½y]·Ç‘ğôYÖĞŸo·¨²éÔƒ²¶«@¡¢ÌÓÅÜÂÊ¡£");
+			NLG.SystemMessage(charIndex, "[ç³»çµ±]éæˆ°é¬¥ä¸­ç„¡æ³•æŸ¥è©¢æ•ç²ã€é€ƒè·‘ç‡ã€‚");
 			return 0;
 		elseif (Target_FloorId==20233 and battleIndex>=0) then
 			--NLG.SystemMessage(charIndex, "---------------------------------------");
-			--NLG.SystemMessage(charIndex, "£´¡¡¡¡¡¡£²¡¡¡¡¡¡£°¡¡¡¡¡¡£±¡¡¡¡¡¡£³");
-			--NLG.SystemMessage(charIndex, "£¹¡¡¡¡¡¡£·¡¡¡¡¡¡£µ¡¡¡¡¡¡£¶¡¡¡¡¡¡£¸");
+			--NLG.SystemMessage(charIndex, "ï¼”ã€€ã€€ã€€ï¼’ã€€ã€€ã€€ï¼ã€€ã€€ã€€ï¼‘ã€€ã€€ã€€ï¼“");
+			--NLG.SystemMessage(charIndex, "ï¼™ã€€ã€€ã€€ï¼—ã€€ã€€ã€€ï¼•ã€€ã€€ã€€ï¼–ã€€ã€€ã€€ï¼˜");
 			NLG.SystemMessage(charIndex, "---------------------------------------");
 			for i = 10, 19 do
 				local pokmon = Battle.GetPlayer(battleIndex, i);
 				local infoSlot = i-10;
 				if pokmon >= 0 then
-					local capture = Char.GetTempData(pokmon, '²¶«@ÂÊ') or 0;
-					local runaway = Char.GetTempData(pokmon, 'ÌÓÅÜÂÊ') or 0;
-					NLG.SystemMessage(charIndex, "µÚ "..infoSlot.." Î»  ²¶«@³Ì¶È£º"..capture.."  ÌÓÅÜ³Ì¶È£º"..runaway.."");
+					local capture = Char.GetTempData(pokmon, 'æ•ç²ç‡') or 0;
+					local runaway = Char.GetTempData(pokmon, 'é€ƒè·‘ç‡') or 0;
+					NLG.SystemMessage(charIndex, "ç¬¬ "..infoSlot.." ä½  æ•ç²ç¨‹åº¦ï¼š"..capture.."  é€ƒè·‘ç¨‹åº¦ï¼š"..runaway.."");
 				end
 			end
 			NLG.SystemMessage(charIndex, "---------------------------------------");
@@ -293,7 +294,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	end
 	return 1;
 end
---Áô³¡×Ê¸ñ
+--ç•™åœºèµ„æ ¼
 function WildBoxNpc_LoopEvent(player)
 	local CTime = Char.GetTempData(player, 'CTime') or 0;
 	if (os.time() - CTime) >= 180 then
@@ -305,7 +306,7 @@ end
 
 function Qualifications_LoopEvent(player)
 	if (Char.ItemNum(player, WildSetting.Item_1)>0 or Char.ItemNum(player, WildSetting.Item_3)>0 ) then
-		--NLG.SystemMessage(player,"[Ïµ½y]ÈÔ·ûºÏ´ıÔÚá÷«CµØ§µÄÙY¸ñ¡£");
+		--NLG.SystemMessage(player,"[ç³»çµ±]ä»ç¬¦åˆå¾…åœ¨ç‹©çµåœ°å¸¶çš„è³‡æ ¼ã€‚");
 		table.forEach(DelList, function(e)
 			if (Char.HavePet(player, e)>= 0) then
 				Char.DelSlotPet(player, Char.HavePet(player, e));
@@ -317,17 +318,17 @@ function Qualifications_LoopEvent(player)
 		Battle.ExitBattle(player);
 		Char.Warp(player,0,1000,226,80);
 		Char.UnsetLoopEvent(player);
-		NLG.SystemMessage(player,"[Ïµ½y]•régµ½ÁË‚÷ËÍëxé_á÷«CµØ§¡£");
+		NLG.SystemMessage(player,"[ç³»çµ±]æ™‚é–“åˆ°äº†å‚³é€é›¢é–‹ç‹©çµåœ°å¸¶ã€‚");
 	end
 end
 
---¹ÖÎï³öÃ»
+--æ€ªç‰©å‡ºæ²¡
 function Module:OnVSEnemyCreateEvent(player, groupId, enemyNum, enemyList)
 	--self:logDebug('OnVSEnemyCreateCallBack', player, groupId, enemyNum, enemyList)
-	-- bossÕ½²»ÉúĞ§
+	-- bossæˆ˜ä¸ç”Ÿæ•ˆ
 	local isBoss = false
 	table.forEach(enemyList, function(e)
-		if Data.EnemyGetData(e, CONST.Enemy_ÊÇ·ñBOSS) == 1 then
+		if Data.EnemyGetData(e, CONST.Enemy_æ˜¯å¦BOSS) == 1 then
 			isBoss = true
 		end
 	end)
@@ -335,11 +336,11 @@ function Module:OnVSEnemyCreateEvent(player, groupId, enemyNum, enemyList)
 		return 0
 	end
 
-	-- ÈôÔÚá÷«CµØ§
-	local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--µØÍ¼ÀàĞÍ
-	local Target_FloorId = Char.GetData(player,CONST.CHAR_µØÍ¼)--µØÍ¼±àºÅ
-	local Target_X = Char.GetData(player,CONST.CHAR_X)--µØÍ¼x
-	local Target_Y = Char.GetData(player,CONST.CHAR_Y)--µØÍ¼y
+	-- è‹¥åœ¨ç‹©çµåœ°å¸¶
+	local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--åœ°å›¾ç±»å‹
+	local Target_FloorId = Char.GetData(player,CONST.CHAR_åœ°å›¾)--åœ°å›¾ç¼–å·
+	local Target_X = Char.GetData(player,CONST.CHAR_X)--åœ°å›¾x
+	local Target_Y = Char.GetData(player,CONST.CHAR_Y)--åœ°å›¾y
  	local GTime = NLG.GetGameTime();
  	local enemyListAft = {}
 	if Target_FloorId==20233 and groupId==1003  then
@@ -374,18 +375,34 @@ function Module:OnVSEnemyCreateEvent(player, groupId, enemyNum, enemyList)
 	return enemyListAft
 end
 
---Äà°ÍÊ¹ÓÃ
+--é“å…·ä½¿ç”¨
+function Module:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
+  local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
+  local battleIndex = Char.GetBattleIndex(charIndex);
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾)
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç±»å‹)==40) then
+      if (Target_FloorId==20233 and ItemID~=75014) then
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]è«‹ç”¨ç‹©çµçƒæ•æ‰ï¼");
+               return -1;
+      else
+               return 0;
+      end
+  end
+end
+
+--æ³¥å·´ä½¿ç”¨
 function Module:onMudUse(charIndex, targetCharIndex, itemSlot)
   local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
   local battleIndex = Char.GetBattleIndex(charIndex);
-  local ItemID = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
-  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼)
-  if (Item.GetData(itemIndex, CONST.µÀ¾ß_ÀàĞÍ)==53) then
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾)
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç±»å‹)==53) then
       if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)<=0) then
-               NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
       else
             if (Target_FloorId~=20233) then
-                NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]Ö»ÄÜÔÚá÷«CµØ§Ê¹ÓÃµÄµÀ¾ß");
+                NLG.SystemMessage(charIndex,"[é“å…·æç¤º]åªèƒ½åœ¨ç‹©çµåœ°å¸¶ä½¿ç”¨çš„é“å…·");
             else
                 if (ItemID==75015) then
                      for i = 10, 19 do
@@ -397,24 +414,24 @@ function Module:onMudUse(charIndex, targetCharIndex, itemSlot)
                      end
                      Char.SetTempData(charIndex, 'MudOn', 1);
                      Char.DelItem(charIndex,75015,1);
-                     NLG.Say(charIndex,charIndex,"ÏÂ»ØºÏ²Å¡¾Í¶”SÄà°Í¡¿£¡£¡",4,3);
+                     NLG.Say(charIndex,charIndex,"ä¸‹å›åˆæ‰ã€æŠ•æ“²æ³¥å·´ã€‘ï¼ï¼",4,3);
                 end
             end
       end
   end
 end
---ÓÕ¶üÊ¹ÓÃ
+--è¯±é¥µä½¿ç”¨
 function Module:onBaitUse(charIndex, targetCharIndex, itemSlot)
   local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
   local battleIndex = Char.GetBattleIndex(charIndex);
-  local ItemID = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
-  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼)
-  if (Item.GetData(itemIndex, CONST.µÀ¾ß_ÀàĞÍ)==53) then
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾)
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç±»å‹)==53) then
       if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)<=0) then
-               NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
       else
             if (Target_FloorId~=20233) then
-                NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]Ö»ÄÜÔÚá÷«CµØ§Ê¹ÓÃµÄµÀ¾ß");
+                NLG.SystemMessage(charIndex,"[é“å…·æç¤º]åªèƒ½åœ¨ç‹©çµåœ°å¸¶ä½¿ç”¨çš„é“å…·");
             else
                 if (ItemID==75016) then
                      for i = 10, 19 do
@@ -426,13 +443,13 @@ function Module:onBaitUse(charIndex, targetCharIndex, itemSlot)
                      end
                      Char.SetTempData(charIndex, 'BaitOn', 1);
                      Char.DelItem(charIndex,75016,1);
-                     NLG.Say(charIndex,charIndex,"ÏÂ»ØºÏ²Å¡¾Í¶”SÕTğD¡¿£¡£¡",4,3);
+                     NLG.Say(charIndex,charIndex,"ä¸‹å›åˆæ‰ã€æŠ•æ“²èª˜é¤Œã€‘ï¼ï¼",4,3);
                 end
             end
       end
   end
 end
---Äà°Í¡¢ÓÕ¶ü¶¯×÷Ïà¹Ø
+--æ³¥å·´ã€è¯±é¥µåŠ¨ä½œç›¸å…³
 function Module:handleBattleAutoCommand(battleIndex)
   for i = 0, 9 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
@@ -452,35 +469,35 @@ function Module:handleBattleAutoCommand(battleIndex)
   return Throw;
 end
 
---²¶»ñÂÊ¡¢ÌÓÅÜÂÊÉËº¦½Ó¿Ú
+--æ•è·ç‡ã€é€ƒè·‘ç‡ä¼¤å®³æ¥å£
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
-         local capture = Char.GetTempData(defCharIndex, '²¶«@ÂÊ') or 0;
-         local runaway = Char.GetTempData(defCharIndex, 'ÌÓÅÜÂÊ') or 0;
-         local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
-         if Char.GetData(charIndex,CONST.¶ÔÏó_Õ½¶·×´Ì¬) ~= CONST.Õ½¶·_BOSSÕ½ and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_¹Ö  then
+         local capture = Char.GetTempData(defCharIndex, 'æ•ç²ç‡') or 0;
+         local runaway = Char.GetTempData(defCharIndex, 'é€ƒè·‘ç‡') or 0;
+         local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
+         if Char.GetData(charIndex,CONST.å¯¹è±¡_æˆ˜æ–—çŠ¶æ€) ~= CONST.æˆ˜æ–—_BOSSæˆ˜ and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_æ€ª  then
                 if com3 == 2330 and Target_FloorId==20233  then
                     if capture<=5 then
-                        Char.SetTempData(defCharIndex, '²¶«@ÂÊ',capture+1);
-                        --NLG.SystemMessage(charIndex,"[Ïµ½y]²¶«@ÂÊÉÏÉı");
+                        Char.SetTempData(defCharIndex, 'æ•ç²ç‡',capture+1);
+                        --NLG.SystemMessage(charIndex,"[ç³»çµ±]æ•ç²ç‡ä¸Šå‡");
                         local down= NLG.Rand(1,5);
                         if down==3 then
                             if runaway<=5 then
-                                Char.SetTempData(defCharIndex, 'ÌÓÅÜÂÊ',runaway+1);
-                                --NLG.SystemMessage(charIndex,"[Ïµ½y]ÌÓÅÜÂÊÉÏÉı");
+                                Char.SetTempData(defCharIndex, 'é€ƒè·‘ç‡',runaway+1);
+                                --NLG.SystemMessage(charIndex,"[ç³»çµ±]é€ƒè·‘ç‡ä¸Šå‡");
                             end
                         end
                         damage = damage*0;
                     end
                 elseif com3 == 2530 and Target_FloorId==20233  then
                     if runaway>=-5 then
-                        Char.SetTempData(defCharIndex, 'ÌÓÅÜÂÊ',runaway-1);
-                        --NLG.SystemMessage(charIndex,"[Ïµ½y]ÌÓÅÜÂÊÏÂ½µ");
+                        Char.SetTempData(defCharIndex, 'é€ƒè·‘ç‡',runaway-1);
+                        --NLG.SystemMessage(charIndex,"[ç³»çµ±]é€ƒè·‘ç‡ä¸‹é™");
                         local down= NLG.Rand(1,5);
                         if down==3 then
                             if capture>=-5 then
-                                Char.SetTempData(defCharIndex, '²¶«@ÂÊ',capture-1);
-                                --NLG.SystemMessage(charIndex,"[Ïµ½y]²¶«@ÂÊÏÂ½µ");
+                                Char.SetTempData(defCharIndex, 'æ•ç²ç‡',capture-1);
+                                --NLG.SystemMessage(charIndex,"[ç³»çµ±]æ•ç²ç‡ä¸‹é™");
                             end
                         end
                         damage = damage*0;
@@ -490,15 +507,15 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
   return damage;
 end
 
---ÌÓÅÜÖ´ĞĞ
+--é€ƒè·‘æ‰§è¡Œ
 function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       local Round = Battle.GetTurn(battleIndex);
       for i = 10, 19 do
             local defCharIndex = Battle.GetPlayer(battleIndex, i);
             local charIndex = Battle.GetPlayIndex(battleIndex, i-10);
             if defCharIndex >= 0 then
-                local runaway = Char.GetTempData(defCharIndex, 'ÌÓÅÜÂÊ') or 0;
-                local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
+                local runaway = Char.GetTempData(defCharIndex, 'é€ƒè·‘ç‡') or 0;
+                local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
                 if Target_FloorId==20233 then
                     local RandRun = runaway*50;
                     local ESCAPE = NLG.Rand(0,255);
@@ -521,13 +538,13 @@ function SetCom(charIndex, action, com1, com2, com3)
   end
 end
 
---·âÓ¡½á¹û
+--å°å°ç»“æœ
 function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
   --self:logDebug('OnSealEventCallBack', charIndex, enemyIndex, ret)
-         local capture = Char.GetTempData(enemyIndex, '²¶«@ÂÊ') or 0;
-         local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
+         local capture = Char.GetTempData(enemyIndex, 'æ•ç²ç‡') or 0;
+         local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
          if Char.PetNum(charIndex)==5 then
-             NLG.SystemMessage(charIndex,"[Ïµ½y]Œ™Îï™ÚÒÑMŸo·¨×¥È¡");
+             NLG.SystemMessage(charIndex,"[ç³»çµ±]å¯µç‰©æ¬„å·²æ»¿ç„¡æ³•æŠ“å–");
          end
          if Target_FloorId==20233 then
              local RandCap = capture*50;
@@ -539,7 +556,7 @@ function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
   return ret;
 end
 
---½áÊø¡¢×¢Ïú³õÊ¼»¯
+--ç»“æŸã€æ³¨é”€åˆå§‹åŒ–
 function Module:battleOverEventCallback(battleIndex)
   for i = 0, 9 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
@@ -565,14 +582,14 @@ function Module:onLogoutEvent(charIndex)
 end
 
 function Module:onLoginEvent(charIndex)
-	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
+	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
 	if Target_FloorId==20233 then
 		Char.Warp(charIndex,0,1000,226,80);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]‚÷ËÍëxé_á÷«CµØ§¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]å‚³é€é›¢é–‹ç‹©çµåœ°å¸¶ã€‚");	
 	end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
