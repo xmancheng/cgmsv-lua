@@ -3,9 +3,9 @@ local Module = ModuleBase:createModule('huntingZone')
 local ItemMenus = {
   { "[　　　蔓莓果　　　　]x1　　　　　30", 69018, 30, 1},
   { "[　　　蕉香果　　　　]x1　　　　　30", 69028, 30, 1},
-  { "[　　　　泥巴　　　　]x5　　　　　10", 75014, 10, 5},
-  { "[　　　　誘餌　　　　]x5　　　　　10", 75015, 10, 5},
-  { "[　　　狩獵球　　　　]x10　　　　20", 75013, 20, 10},
+  { "[　　　　泥巴　　　　]x5　　　　　10", 75015, 10, 5},
+  { "[　　　　誘餌　　　　]x5　　　　　10", 75016, 10, 5},
+  { "[　　　狩獵球　　　　]x10　　　　20", 75014, 20, 10},
   { "[　　　積分券　　　　]x10　　　　10", 69000, 10, 10},
 }
 local Pts= 69000;                        --积分券
@@ -113,36 +113,67 @@ function Module:onLoad()
 			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 31, msg);
 			end
 		end
-
-
 		if data == 4 then  ----每周点数排名
 			if (NLG.CanTalk(npc, player) == true) then
-			local key = Char.FindItemId(player,Pts);
-			local item = Char.GetItemIndex(player,key);
-			local PointCount = Char.ItemNum(player,Pts);
-			local msg = "\\n@c每周狩獵點數排名\\n"
-				.. "\\n　　════════════════════\\n"
-				.. "\\n　狩獵積分券　【".. PointCount .. "】全部上傳嗎?\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 41, msg);
+			local limit = 5;
+			local ret = SQL.Run("select Name,RankedPoints from lua_hook_character order by RankedPoints desc limit "..limit.." ")
+			local msg = "\\n@c排名　　　　玩家名字　　　　狩獵積分券\\n"
+				.. "\\n　　════════════════════";
+				for i=0,limit do
+					if(type(ret)=="table" and ret[i.."_0"]~=nil)then
+						local len = string.len(ret[i.."_0"]);
+						if len <= 16 then
+							spacelen = 16 - len;
+							spaceMsg = " ";
+							for i = 1, math.modf(spacelen) do
+								spaceMsg = spaceMsg .." ";
+							end
+						end
+						msg = msg .. "\\n"..tostring(i+1).. spaceMsg ..ret[i.."_0"].. spaceMsg .."Pt:"..ret[i.."_1"].."\\n";
+					end
+				end
+			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 41, msg);
 			end
 		end
-		if data == 5 then  ----查询点数&执行
+		if data == 5 then  ----点数排名
+			if (NLG.CanTalk(npc, player) == true) then
+			local limit = 5;
+			local ret = SQL.Run("select Name,RankedPoints from lua_hook_character order by RankedPoints desc limit "..limit.." ")
+			local msg = "\\n@c排名　　　　玩家名字　　　　狩獵積分券\\n"
+				.. "\\n　　════════════════════";
+				for i=0,limit do
+					if(type(ret)=="table" and ret[i.."_0"]~=nil)then
+						local len = string.len(ret[i.."_0"]);
+						if len <= 16 then
+							spacelen = 16 - len;
+							spaceMsg = " ";
+							for i = 1, math.modf(spacelen) do
+								spaceMsg = spaceMsg .." ";
+							end
+						end
+						msg = msg .. "\\n"..tostring(i+1).. spaceMsg ..ret[i.."_0"].. spaceMsg .."Pt:"..ret[i.."_1"].."\\n";
+					end
+				end
+			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 51, msg);
+			end
+		end
+		if data == 6 then  ----查询点数&执行
 			if (NLG.CanTalk(npc, player) == true) then
 			local PointCount = tonumber(SQL.Run("select RankedPoints from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
 			local msg = "\\n@c查詢狩獵點數功能\\n"
 				.. "\\n　　════════════════════\\n"
 				.. "\\n　狩獵積分　　　".. PointCount .. "券\\n";
-			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 51, msg);
+			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 61, msg);
 			end
 		end
-		if data == 6 then  ----兑换奖励
+		if data == 7 then  ----兑换奖励
 			if (NLG.CanTalk(npc, player) == true) then
 			local msg = "3\\n@c兌換狩獵獎勵功能\\n"
 				.."\\n　　════════════════════\\n";
 				for i = 1, 6 do
 					msg = msg .. ItemMenus[i][1] .. "\\n"
 				end
-			NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 61, msg);
+			NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 71, msg);
 			end
 		end
 	end
@@ -174,12 +205,12 @@ function Module:onLoad()
 					Char.AddGold(player, -2000);
 					Char.GiveItem(player, WildSetting.Item_1, 1);
 					Char.Warp(player,0, WildSetting.Map, WildSetting.X, WildSetting.Y);
-					Char.SetLoopEvent('./lua/Modules/huntingZone.lua','Qualifications_LoopEvent',player,10000);
+					Char.SetLoopEvent('./lua/Modules/huntingZone.lua','Qualifications_LoopEvent',player,5000);
 				elseif key==3 then
 					Char.AddGold(player, -5000);
 					Char.GiveItem(player, WildSetting.Item_3, 1);
 					Char.Warp(player,0, WildSetting.Map, WildSetting.X, WildSetting.Y);
-					Char.SetLoopEvent('./lua/Modules/huntingZone.lua','Qualifications_LoopEvent',player,10000);
+					Char.SetLoopEvent('./lua/Modules/huntingZone.lua','Qualifications_LoopEvent',player,5000);
 				end
 			end
 			
@@ -187,23 +218,7 @@ function Module:onLoad()
 			return 0;
 		end
 	end
-
-	if seqno == 41 then  ----每周点数排名
-		if select == 4 then
-			local key = Char.FindItemId(player,Pts);
-			local item = Char.GetItemIndex(player,key);
-			local PointCount = Char.ItemNum(player,Pts);
-			local Restcount = tonumber(SQL.Run("select RankedPoints from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
-			local Restcount = Restcount + PointCount;
-			SQL.Run("update lua_hook_character set RankedPoints= '"..Restcount.."' where CdKey='"..cdk.."'")
-			NLG.UpChar(player);
-			Char.DelItem(player,Pts,PointCount);
-			NLG.SystemMessage(player,"[系統]已成功上傳所有狩獵積分券！");
-		else
-			return 0;
-		end
-	end
-	if seqno == 61 then  ----兑换奖励执行
+	if seqno == 71 then  ----兑换奖励执行
 		key = data
 		if select == 2 then
 			return;
@@ -227,8 +242,9 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
                local msg = "1\\n@c歡迎報名狩獵地帶的巡查\\n\\n"
                                              .."[　報名參加狩獵　]\\n" 
-                                             .."[　觀看狩獵說明　]\\n"  
-                                             .."[　每周點數排名　]\\n" 
+                                             .."[　觀看狩獵說明　]\\n" 
+                                             .."[　每週點數排名　]\\n" 
+                                             .."[　總和點數排名　]\\n" 
                                              .."[　查詢狩獵點數　]\\n" 
                                              .."[　兌換狩獵獎勵　]\\n" ;
                NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 1, msg);
@@ -298,7 +314,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	end
 	return 1;
 end
---留场资格
+--物资冷却
 function WildBoxNpc_LoopEvent(player)
 	local CTime = Char.GetTempData(player, 'CTime') or 0;
 	if (os.time() - CTime) >= 180 then
@@ -307,18 +323,29 @@ function WildBoxNpc_LoopEvent(player)
 		NLG.UpChar(player);
 	end
 end
-
+--留场资格
 function Qualifications_LoopEvent(player)
+	local cdk = Char.GetData(player,CONST.对象_CDK);
 	if (Char.ItemNum(player, WildSetting.Item_1)>0 or Char.ItemNum(player, WildSetting.Item_3)>0 ) then
 		--NLG.SystemMessage(player,"[系統]仍符合待在狩獵地帶的資格。");
 		for k, v in ipairs(DelList) do
 			if (Char.HavePet(player, v.PetID)>= 0) then
 				Char.DelSlotPet(player, Char.HavePet(player, v.PetID));
 				local PointCount = v.count;
+				local Restcount = tonumber(SQL.Run("select RankedPoints from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
+				local Restcount = Restcount + PointCount;
+				SQL.Run("update lua_hook_character set RankedPoints= '"..Restcount.."' where CdKey='"..cdk.."'")
+				NLG.SystemMessage(player,"[系統]獲得 "..PointCount.." 張狩獵積分券。");
+				NLG.UpChar(player);
 			end
 		end
 		return;
 	else
+		for k, v in ipairs(DelList) do
+			if (Char.HavePet(player, v.PetID)>= 0) then
+				Char.DelSlotPet(player, Char.HavePet(player, v.PetID));
+			end
+		end
 		Char.LeaveParty(player);
 		Battle.ExitBattle(player);
 		Char.Warp(player,0,1000,226,80);
@@ -380,7 +407,7 @@ function Module:OnVSEnemyCreateEvent(player, groupId, enemyNum, enemyList)
 	return enemyListAft
 end
 
---道具使用
+--封印卡道具使用限制
 function Module:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
   local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
   local battleIndex = Char.GetBattleIndex(charIndex);
@@ -585,7 +612,7 @@ function Module:onLogoutEvent(charIndex)
 		Char.SetTempData(charIndex, 'BaitOn', 0);
 	end
 end
-
+--原登即出场
 function Module:onLoginEvent(charIndex)
 	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_地图);
 	if Target_FloorId==20233 then
