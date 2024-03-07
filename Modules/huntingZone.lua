@@ -129,7 +129,7 @@ function Module:onLoad()
 								spaceMsg = spaceMsg .." ";
 							end
 						end
-						msg = msg .. "\\n"..tostring(i+1).. spaceMsg ..ret[i.."_0"].. spaceMsg .."Pt:"..ret[i.."_1"].."\\n";
+						msg = msg .. "\\n"..tostring(i+1).. spaceMsg ..ret[i.."_0"].. "　　　　　　　Pt:"..ret[i.."_1"].."\\n";
 					end
 				end
 			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 41, msg);
@@ -151,7 +151,7 @@ function Module:onLoad()
 								spaceMsg = spaceMsg .." ";
 							end
 						end
-						msg = msg .. "\\n"..tostring(i+1).. spaceMsg ..ret[i.."_0"].. spaceMsg .."Pt:"..ret[i.."_1"].."\\n";
+						msg = msg .. "\\n"..tostring(i+1).. spaceMsg ..ret[i.."_0"].."　　　　　　　Pt:"..ret[i.."_1"].."\\n";
 					end
 				end
 			NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 51, msg);
