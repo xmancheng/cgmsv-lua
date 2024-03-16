@@ -21,6 +21,8 @@ QuickUI:addMigration(1, 'init lua_hook_character', function()
     `SwitchImageNumber8` int(10) Default 1,
     `SwitchImageNumber9` int(10) Default 1,
     `SwitchImageNumber10` int(10) Default 1,
+    `Tenjo` int(10) NOT NULL Default 0,
+    `MatchDraw1` mediumtext COLLATE gbk_bin NULL,
     PRIMARY KEY (`CdKey`),
     KEY `Name` (`Name`) USING BTREE
   ) ENGINE=Innodb DEFAULT CHARSET=gbk COLLATE=gbk_bin
@@ -548,7 +550,7 @@ end
 function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
     local cdk = Char.GetData(charIndex,CONST.对象_CDK);
     local name = Char.GetData(charIndex, CONST.CHAR_名字);
-    SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE Name = '"..name.."'");
+    SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE CdKey='"..cdk.."')");
     local Name_data =  SQL.Run("select Name from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
 
     local itemSlot = Char.FindItemId(charIndex, 69990);
