@@ -5,6 +5,18 @@ MatchDraw:addMigration(1, 'init lua_hook_character', function()
       CREATE TABLE if not exists `lua_hook_character` (
     `Name` char(32) COLLATE gbk_bin NOT NULL,
     `CdKey` char(32) COLLATE gbk_bin NOT NULL,
+    `RankedPoints` int(10) NOT NULL Default 0,
+    `WingCover` int(10) NOT NULL Default 1,
+    `OriginalImageNumber` int(10) NOT NULL,
+    `SwitchImageNumber2` int(10) Default 1,
+    `SwitchImageNumber3` int(10) Default 1,
+    `SwitchImageNumber4` int(10) Default 1,
+    `SwitchImageNumber5` int(10) Default 1,
+    `SwitchImageNumber6` int(10) Default 1,
+    `SwitchImageNumber7` int(10) Default 1,
+    `SwitchImageNumber8` int(10) Default 1,
+    `SwitchImageNumber9` int(10) Default 1,
+    `SwitchImageNumber10` int(10) Default 1,
     `Tenjo` int(10) NOT NULL Default 0,
     `MatchDraw1` mediumtext COLLATE gbk_bin NULL,
     PRIMARY KEY (`CdKey`),
@@ -271,7 +283,7 @@ function MatchDraw:onMatchDraw(player, targetcharIndex, itemSlot)
           local WinNum = NLG.Rand(7, 1000);
           print(WinNum)
           local cdk = Char.GetData(player,CONST.对象_CDK);
-          --SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE CdKey='"..cdk.."'");
+          SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE CdKey='"..cdk.."')");
           local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
           for k, v in ipairs(DrawTbl) do
              if (WinNum>=v.serial_L and WinNum<=v.serial_H) then
