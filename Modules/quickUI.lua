@@ -550,7 +550,7 @@ end
 function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
     local cdk = Char.GetData(charIndex,CONST.对象_CDK);
     local name = Char.GetData(charIndex, CONST.CHAR_名字);
-    SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE CdKey='"..cdk.."')");
+    SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE CdKey='"..cdk.."' WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE CdKey='"..cdk.."')");
     local Name_data =  SQL.Run("select Name from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
 
     local itemSlot = Char.FindItemId(charIndex, 69990);
