@@ -195,7 +195,7 @@ function Module:onLoad()
 				return;
 			elseif (Char.PartyNum(player)>=2) then
 				local msg = "\\n@c參加須要個人進行報名！！\\n"
-					.."\\n支付入場費用2000魔幣\\n"
+					.."\\n支付入場費用2000、5000魔幣\\n"
 					.."\\n進入後可以尋找夥伴組隊\\n"
 					.."\\n留意入場券上倒數的時間\\n";
 				NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 22, msg);
@@ -389,6 +389,7 @@ function Module:OnVSEnemyCreateEvent(player, groupId, enemyNum, enemyList)
 					end
 				end
 			end
+			return enemyListAft
 		elseif GTime ==1 or GTime ==2 then
 			local enemyNum= NLG.Rand(3,5);
 			for enemyslot=1,enemyNum do
@@ -402,9 +403,10 @@ function Module:OnVSEnemyCreateEvent(player, groupId, enemyNum, enemyList)
 					end
 				end
 			end
+			return enemyListAft
 		end
 	end
-	return enemyListAft
+	return 0
 end
 
 --封印卡道具使用限制
