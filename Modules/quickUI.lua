@@ -87,7 +87,7 @@ function QuickUI:shortcut(player, actionID)
 end
 
 function QuickUI:walkingspeed(npc, player)
-      local msg = "\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【130】\\n\\n2.女神卡連[六曜之塔]【150】\\n\\n3.受傷的女人[森羅萬象]【170】\\n\\n4.賽格梅特之魂[失翼之龍]【200】\\n";
+      local msg = "\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【150】\\n\\n2.女神卡連[六曜之塔]【200】\\n\\n3.受傷的女人[森羅萬象]【250】\\n\\n4.賽格梅特之魂[失翼之龍]【300】\\n";
       NLG.ShowWindowTalked(player, self.speedNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
 end
 
@@ -311,22 +311,22 @@ function QuickUI:onLoad()
 ]]
       if seqno == 1 and select == CONST.按钮_确定 then
           if Char.EndEvent(player,0) == 1 then
-                Char.SetData(player, CONST.对象_移速,130);
+                Char.SetData(player, CONST.对象_移速,150);
                 NLG.UpChar(player)
                 NLG.SetHeadIcon(player, 114206);
           end
           if  Char.EndEvent(player,21) == 1 then
-                Char.SetData(player, CONST.对象_移速,150);
+                Char.SetData(player, CONST.对象_移速,200);
                 NLG.UpChar(player)
                 NLG.SetHeadIcon(player, 114177);
           end
           if  Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
-                Char.SetData(player, CONST.对象_移速,170);
+                Char.SetData(player, CONST.对象_移速,250);
                 NLG.UpChar(player)
                 NLG.SetHeadIcon(player, 120054);
           end
           if  Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 and Char.EndEvent(player,143) == 1 then
-                Char.SetData(player, CONST.对象_移速,200);
+                Char.SetData(player, CONST.对象_移速,300);
                 NLG.UpChar(player)
                 NLG.SetHeadIcon(player, 108510)
           end
