@@ -1,29 +1,29 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('mazeWorld')
-local playerexp_itemid = 68011;    --ÈËÎï½›ò¼Ó±¶È¯(1H)
-local petexp_itemid = 68013;         --Œ™Îï½›ò¼Ó±¶È¯(1H)
-local exp_itemid = 70040;               --½ÇÉ«ÕĞ½›òØˆ(1.5±¶)
-local expshare_itemid = 70041;     --Œ™ÎïŒWÁ•ÑbÖÃ
+local playerexp_itemid = 68011;    --äººç‰©ç¶“é©—åŠ å€åˆ¸(1H)
+local petexp_itemid = 68013;         --å¯µç‰©ç¶“é©—åŠ å€åˆ¸(1H)
+local exp_itemid = 70040;               --è§’è‰²æ‹›ç¶“é©—è²“(1.5å€)
+local expshare_itemid = 70041;     --å¯µç‰©å­¸ç¿’è£ç½®
 
 local worldPoints = {
-  { "Ìì½ç¿Õ´åLv1", 0, 60001, 21, 30 },
-  { "ÃÔìFÉ­ÁÖLv30", 0, 60002, 114, 104 },
-  { "¹Å´úßzÛELv50", 0, 60004, 10, 10 },
-  { "ºÚÒ¹Øˆ´åLv70", 0, 60006, 10, 10 },
-  { "ä“èF…²ÁÖLv90", 0, 60008, 10, 10 },
-  { "ÎåĞĞ‹‘Lv110", 0, 60010, 10, 10 },
-  { "õı”uZLv130", 0, 60012, 10, 10 },
-  { "ÈºıˆÖ®pLv150", 0, 60014, 10, 10 },
+  { "å¤©ç•Œç©ºæ‘Lv1", 0, 60001, 21, 30 },
+  { "è¿·éœ§æ£®æ—Lv30", 0, 60002, 114, 104 },
+  { "å¤ä»£éºè·¡Lv50", 0, 60004, 10, 10 },
+  { "é»‘å¤œè²“æ‘Lv70", 0, 60006, 10, 10 },
+  { "é‹¼éµå¢æ—Lv90", 0, 60008, 10, 10 },
+  { "äº”è¡Œå´‘å´™Lv110", 0, 60010, 10, 10 },
+  { "çƒé¾œå³¶å¶¼Lv130", 0, 60012, 10, 10 },
+  { "ç¾¤é¾ä¹‹å·”Lv150", 0, 60014, 10, 10 },
 }
 
---- Ò³Êı¼ÆËã
+--- é¡µæ•°è®¡ç®—
 local function calcWarp()
   local totalpage = math.modf(#worldPoints / 6) + 1
   local remainder = math.fmod(#worldPoints, 6)
   return totalpage, remainder
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('GetExpEvent', Func.bind(self.onGetExpEvent,self));
@@ -31,31 +31,31 @@ function Module:onLoad()
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.InTheWorld_LoopEvent,self))
-  local mazeNPC = self:NPC_createNormal('ÑYÊÀ½ç‚÷ËÍéT', 108511, { map = 25003, x = 15, y = 28, direction = 0, mapType = 0 })
+  local mazeNPC = self:NPC_createNormal('è£ä¸–ç•Œå‚³é€é–€', 108511, { map = 25003, x = 15, y = 28, direction = 0, mapType = 0 })
   self:NPC_regWindowTalkedEvent(mazeNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "3\\n@cÇ°ÍùŞDÉúááµÄÑYÊÀ½çÃ°ëU\\n"
-                           .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
+    local winMsg = "3\\n@cå‰å¾€è½‰ç”Ÿå¾Œçš„è£ä¸–ç•Œå†’éšª\\n"
+                           .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
                            .. worldPoints[1][1] .. "\\n";
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winButton = CONST.BUTTON_å…³é—­;
     local totalPage, remainder = calcWarp()
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -71,16 +71,16 @@ function Module:onLoad()
           winMsg = winMsg .. worldPoints[i][1] .. "\\n"
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local count = 6 * (warpPage - 1) + column
       local short = worldPoints[count]
       local lastTimes = Char.GetExtData(player, "MazeTimeF") or 0;
-      if (Char.GetData(player,CONST.CHAR_½ğ±Ò)<5000) then
-          NLG.SystemMessage(player,"[Ïµ½y]]ÑYÊÀ½ç‚÷ËÍ´úƒr5000Ä§Å£¡£¡");
+      if (Char.GetData(player,CONST.CHAR_é‡‘å¸)<5000) then
+          NLG.SystemMessage(player,"[ç³»çµ±]]è£ä¸–ç•Œå‚³é€ä»£åƒ¹5000é­”å¹£ï¼ï¼");
           return;
       elseif (Char.PartyNum(player)>=2) then
-          NLG.SystemMessage(player,"[Ïµ½y]ÑYÊÀ½çíšÒª†ÎÈËßMĞĞ‚÷ËÍ£¡£¡");
+          NLG.SystemMessage(player,"[ç³»çµ±]è£ä¸–ç•Œé ˆè¦å–®äººé€²è¡Œå‚³é€ï¼ï¼");
           return;
       else
           if lastTimes == 0 then
@@ -98,26 +98,26 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(mazeNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winCase = CONST.´°¿Ú_Ñ¡Ôñ¿ò
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "3\\n@cÇ°ÍùŞDÉúááµÄÑYÊÀ½çÃ°ëU\\n"
-                           .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
+      local winCase = CONST.çª—å£_é€‰æ‹©æ¡†
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "3\\n@cå‰å¾€è½‰ç”Ÿå¾Œçš„è£ä¸–ç•Œå†’éšª\\n"
+                           .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
                            .. worldPoints[1][1] .. "\\n";
       for i = 1,7 do
         local flag=i+300;
         if (Char.EndEvent(player,flag) == 1) then
             msg = msg .. worldPoints[i+1][1] .. "\\n"
             if (i>=7) then
-                winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
             end
         else
             msg = msg
         end
       end
-      --[[if (Char.GetData(player, CONST.¶ÔÏó_ÃûÉ«)<=0 or Char.GetData(player, CONST.ALBUM31)<=0) then
-                msg = "\\n\\n\\n@cÄãµÄŒÁ¦ß€²»‰ò\\n"
-                                            .."\\nŞDÉúááÔÙíß@Ñe\\n";
-                winCase = CONST.´°¿Ú_ĞÅÏ¢¿ò;
+      --[[if (Char.GetData(player, CONST.å¯¹è±¡_åè‰²)<=0 or Char.GetData(player, CONST.ALBUM31)<=0) then
+                msg = "\\n\\n\\n@cä½ çš„å¯¦åŠ›é‚„ä¸å¤ \\n"
+                                            .."\\nè½‰ç”Ÿå¾Œå†ä¾†é€™è£¡\\n";
+                winCase = CONST.çª—å£_ä¿¡æ¯æ¡†;
       end]]
       NLG.ShowWindowTalked(player, npc, winCase, winButton, 1, msg);
     end
@@ -154,33 +154,33 @@ function Module:onGetExpEvent(charIndex, exp)
 	worldLayer4 = Char.EndEvent(charIndex,304);	worldLayer5 = Char.EndEvent(charIndex,305);	worldLayer6 = Char.EndEvent(charIndex,306);
 	worldLayer7 = Char.EndEvent(charIndex,307);
 	]]
-	if (Char.GetData(charIndex, CONST.¶ÔÏó_ÃûÉ«)>0 or Char.GetData(charIndex, CONST.ALBUM31)>0) then
-		if Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶) >= 30 and worldLayer1 == 0 then
-			NLG.SystemMessage(charIndex,"ÄúÒÑ¸ßì¶ŞDÉúáá30¼‰£¬ÕˆÅcÍæ¼ÒºÏ×÷Í¨êPBOSS£¬®”Ç°½›òÒÑ±»æi¶¨¡£")
+	if (Char.GetData(charIndex, CONST.å¯¹è±¡_åè‰²)<0 or Char.GetData(charIndex, CONST.ALBUM31)>0) then
+		if Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§) >= 30 and worldLayer1 == nil then
+			NLG.SystemMessage(charIndex,"æ‚¨å·²é«˜æ–¼è½‰ç”Ÿå¾Œ30ç´šï¼Œè«‹èˆ‡ç©å®¶åˆä½œé€šé—œBOSSï¼Œç•¶å‰ç¶“é©—å·²è¢«é–å®šã€‚")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶) >= 50 and worldLayer2 == 0 then
-			NLG.SystemMessage(charIndex,"ÄúÒÑ¸ßì¶ŞDÉúáá50¼‰£¬ÕˆÅcÍæ¼ÒºÏ×÷Í¨êPBOSS£¬®”Ç°½›òÒÑ±»æi¶¨¡£")
+		if Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§) >= 50 and worldLayer2 == nil then
+			NLG.SystemMessage(charIndex,"æ‚¨å·²é«˜æ–¼è½‰ç”Ÿå¾Œ50ç´šï¼Œè«‹èˆ‡ç©å®¶åˆä½œé€šé—œBOSSï¼Œç•¶å‰ç¶“é©—å·²è¢«é–å®šã€‚")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶) >= 70 and worldLayer3 == 0 then
-			NLG.SystemMessage(charIndex,"ÄúÒÑ¸ßì¶ŞDÉúáá70¼‰£¬ÕˆÅcÍæ¼ÒºÏ×÷Í¨êPBOSS£¬®”Ç°½›òÒÑ±»æi¶¨¡£")
+		if Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§) >= 70 and worldLayer3 == nil then
+			NLG.SystemMessage(charIndex,"æ‚¨å·²é«˜æ–¼è½‰ç”Ÿå¾Œ70ç´šï¼Œè«‹èˆ‡ç©å®¶åˆä½œé€šé—œBOSSï¼Œç•¶å‰ç¶“é©—å·²è¢«é–å®šã€‚")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶) >= 90 and worldLayer4 == 0 then
-			NLG.SystemMessage(charIndex,"ÄúÒÑ¸ßì¶ŞDÉúáá90¼‰£¬ÕˆÅcÍæ¼ÒºÏ×÷Í¨êPBOSS£¬®”Ç°½›òÒÑ±»æi¶¨¡£")
+		if Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§) >= 90 and worldLayer4 == nil then
+			NLG.SystemMessage(charIndex,"æ‚¨å·²é«˜æ–¼è½‰ç”Ÿå¾Œ90ç´šï¼Œè«‹èˆ‡ç©å®¶åˆä½œé€šé—œBOSSï¼Œç•¶å‰ç¶“é©—å·²è¢«é–å®šã€‚")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶) >= 110 and worldLayer5 == 0 then
-			NLG.SystemMessage(charIndex,"ÄúÒÑ¸ßì¶ŞDÉúáá110¼‰£¬ÕˆÅcÍæ¼ÒºÏ×÷Í¨êPBOSS£¬®”Ç°½›òÒÑ±»æi¶¨¡£")
+		if Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§) >= 110 and worldLayer5 == nil then
+			NLG.SystemMessage(charIndex,"æ‚¨å·²é«˜æ–¼è½‰ç”Ÿå¾Œ110ç´šï¼Œè«‹èˆ‡ç©å®¶åˆä½œé€šé—œBOSSï¼Œç•¶å‰ç¶“é©—å·²è¢«é–å®šã€‚")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶) >= 130 and worldLayer6 == 0 then
-			NLG.SystemMessage(charIndex,"ÄúÒÑ¸ßì¶ŞDÉúáá130¼‰£¬ÕˆÅcÍæ¼ÒºÏ×÷Í¨êPBOSS£¬®”Ç°½›òÒÑ±»æi¶¨¡£")
+		if Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§) >= 130 and worldLayer6 == nil then
+			NLG.SystemMessage(charIndex,"æ‚¨å·²é«˜æ–¼è½‰ç”Ÿå¾Œ130ç´šï¼Œè«‹èˆ‡ç©å®¶åˆä½œé€šé—œBOSSï¼Œç•¶å‰ç¶“é©—å·²è¢«é–å®šã€‚")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶) >= 150 and worldLayer7 == 0 then
-			NLG.SystemMessage(charIndex,"ÄúÒÑ¸ßì¶ŞDÉúáá150¼‰£¬ÕˆÅcÍæ¼ÒºÏ×÷Í¨êPBOSS£¬®”Ç°½›òÒÑ±»æi¶¨¡£")
+		if Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§) >= 150 and worldLayer7 == nil then
+			NLG.SystemMessage(charIndex,"æ‚¨å·²é«˜æ–¼è½‰ç”Ÿå¾Œ150ç´šï¼Œè«‹èˆ‡ç©å®¶åˆä½œé€šé—œBOSSï¼Œç•¶å‰ç¶“é©—å·²è¢«é–å®šã€‚")
 			return 0
 		end
 	else
@@ -189,27 +189,27 @@ function Module:onGetExpEvent(charIndex, exp)
 				for Slot=0,4 do
 					local PetIndex = Char.GetPet(charIndex,Slot);
 					if(PetIndex >=0 and Char.ItemNum(charIndex,petexp_itemid) == 0) then
-						local Exp = Char.GetData(PetIndex,%¶ÔÏó_¾­Ñé%);
+						local Exp = Char.GetData(PetIndex,%å¯¹è±¡_ç»éªŒ%);
 						local Ne = Exp + exp;
-						Char.SetData(PetIndex,%¶ÔÏó_¾­Ñé%,Ne);
+						Char.SetData(PetIndex,%å¯¹è±¡_ç»éªŒ%,Ne);
 						NLG.UpChar(PetIndex);
-						--NLG.TalkToCli(charIndex,-1,"[³èÎïÑ§Ï°Æ÷] ½ÇÉ«Ô­Ê¼¾­ÑéÒÑ¹²Ïí¸øËùÓĞ³èÎï£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+						--NLG.TalkToCli(charIndex,-1,"[å® ç‰©å­¦ä¹ å™¨] è§’è‰²åŸå§‹ç»éªŒå·²å…±äº«ç»™æ‰€æœ‰å® ç‰©ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 					end
 					if(PetIndex >=0 and Char.ItemNum(charIndex,petexp_itemid) == 1) then
-						local Exp = Char.GetData(PetIndex,%¶ÔÏó_¾­Ñé%);
+						local Exp = Char.GetData(PetIndex,%å¯¹è±¡_ç»éªŒ%);
 						local Ne = Exp + exp* 2;
-						Char.SetData(PetIndex,%¶ÔÏó_¾­Ñé%,Ne);
+						Char.SetData(PetIndex,%å¯¹è±¡_ç»éªŒ%,Ne);
 						NLG.UpChar(PetIndex);
-						--NLG.TalkToCli(charIndex,-1,"[³èÎïÑ§Ï°Æ÷] ½ÇÉ«Ô­Ê¼¾­ÑéÒÑË«±¶¹²Ïí¸øËùÓĞ³èÎï£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+						--NLG.TalkToCli(charIndex,-1,"[å® ç‰©å­¦ä¹ å™¨] è§’è‰²åŸå§‹ç»éªŒå·²åŒå€å…±äº«ç»™æ‰€æœ‰å® ç‰©ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 					end
 				end
 			end
 			if(Char.ItemNum(charIndex,exp_itemid) > 0 and Char.ItemNum(charIndex,playerexp_itemid) > 0) then
-				return exp * 3;  --½ÇÉ«»ñÈ¡µÄ¾­Ñé3±¶
+				return exp * 3;  --è§’è‰²è·å–çš„ç»éªŒ3å€
 			elseif(Char.ItemNum(charIndex,exp_itemid) > 0 and Char.ItemNum(charIndex,playerexp_itemid) == 0) then
-				return exp * 1.5;  --½ÇÉ«»ñÈ¡µÄ¾­Ñé1.5±¶
+				return exp * 1.5;  --è§’è‰²è·å–çš„ç»éªŒ1.5å€
 			elseif(Char.ItemNum(charIndex,exp_itemid) == 0 and Char.ItemNum(charIndex,playerexp_itemid) > 0) then
-				return exp * 2;  --½ÇÉ«»ñÈ¡µÄ¾­ÑéË«±¶
+				return exp * 2;  --è§’è‰²è·å–çš„ç»éªŒåŒå€
 			end
 		end
 	end
@@ -218,27 +218,27 @@ end
 function InTheWorld_LoopEvent(player)
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
-  local Target_FloorId = Char.GetData(player,CONST.CHAR_µØÍ¼);
+  local Target_FloorId = Char.GetData(player,CONST.CHAR_åœ°å›¾);
   if FTime > 0 then
     if STime >0 then
         if ( (os.time() - STime) + (STime - FTime) ) >= 12000 and Target_FloorId>=60002 and Target_FloorId<=60007 then
             Char.Warp(player,0,25003,14,27);
-            NLG.SystemMessage(player,"[Ïµ½y]•rÏŞ½YÊø‚÷ËÍëxé_ÑYÊÀ½ç¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]æ™‚é™çµæŸå‚³é€é›¢é–‹è£ä¸–ç•Œã€‚");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.UnsetLoopEvent(player);
         elseif ( (os.time() - STime) + (STime - FTime) ) >= 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            NLG.SystemMessage(player,"[Ïµ½y]Ê£ÏÂÎå·ÖçŠŒ¢‚÷ËÍëxé_ÑYÊÀ½ç¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]å‰©ä¸‹äº”åˆ†é˜å°‡å‚³é€é›¢é–‹è£ä¸–ç•Œã€‚");
         end
     else
         if (os.time() - FTime) >= 12000 and Target_FloorId>=60002 and Target_FloorId<=60007 then
             Char.Warp(player,0,25003,14,27);
-            NLG.SystemMessage(player,"[Ïµ½y]•rÏŞ½YÊø‚÷ËÍëxé_ÑYÊÀ½ç¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]æ™‚é™çµæŸå‚³é€é›¢é–‹è£ä¸–ç•Œã€‚");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.UnsetLoopEvent(player);
         elseif (os.time() - FTime) >= 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            NLG.SystemMessage(player,"[Ïµ½y]Ê£ÏÂÎå·ÖçŠŒ¢‚÷ËÍëxé_ÑYÊÀ½ç¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]å‰©ä¸‹äº”åˆ†é˜å°‡å‚³é€é›¢é–‹è£ä¸–ç•Œã€‚");
         end
     end
   else
@@ -265,15 +265,15 @@ function Module:onLoginEvent(player)
   if FTime > 0 then
             Char.SetLoopEvent('./lua/Modules/mazeWorld.lua','InTheWorld_LoopEvent',player,60000);
   else
-            local Target_FloorId = Char.GetData(player,CONST.CHAR_µØÍ¼);
+            local Target_FloorId = Char.GetData(player,CONST.CHAR_åœ°å›¾);
             if Target_FloorId>=60002 and Target_FloorId<=60007 then
                 Char.Warp(player,0,25003,14,27);
-                NLG.SystemMessage(player,"[Ïµ½y]•r¿Õ‚÷ËÍ»ØÔ­±¾ÊÀ½ç¡£");
+                NLG.SystemMessage(player,"[ç³»çµ±]æ™‚ç©ºå‚³é€å›åŸæœ¬ä¸–ç•Œã€‚");
             end
   end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
