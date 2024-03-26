@@ -128,58 +128,65 @@ end
 
 
 function Module:onGetExpEvent(charIndex, exp)
-	local ret1 = SQL.Run("select EndEvent301 from tbl_character order by EndEvent301 desc ");
-	local ret2 = SQL.Run("select EndEvent302 from tbl_character order by EndEvent302 desc ");
-	local ret3 = SQL.Run("select EndEvent303 from tbl_character order by EndEvent303 desc ");
-	local ret4 = SQL.Run("select EndEvent304 from tbl_character order by EndEvent304 desc ");
-	local ret5 = SQL.Run("select EndEvent305 from tbl_character order by EndEvent305 desc ");
-	local ret6 = SQL.Run("select EndEvent306 from tbl_character order by EndEvent306 desc ");
-	local ret7 = SQL.Run("select EndEvent307 from tbl_character order by EndEvent307 desc ");
-	if (type(ret1)=="table" and ret1["1_0"]~=nil) then
-		worldLayer1 = ret1["1_0"];
-	elseif (type(ret2)=="table" and ret2["1_0"]~=nil) then
-		worldLayer2 = ret2["1_0"];
-	elseif (type(ret3)=="table" and ret3["1_0"]~=nil) then
-		worldLayer3 = ret3["1_0"];
-	elseif (type(ret4)=="table" and ret4["1_0"]~=nil) then
-		worldLayer4 = ret4["1_0"];
-	elseif (type(ret5)=="table" and ret5["1_0"]~=nil) then
-		worldLayer5 = ret5["1_0"];
-	elseif (type(ret6)=="table" and ret6["1_0"]~=nil) then
-		worldLayer6 = ret6["1_0"];
-	elseif (type(ret7)=="table" and ret7["1_0"]~=nil) then
-		worldLayer7 = ret7["1_0"];
+	local ret1 = SQL.Run("select Name,LordEnd1 from tbl_character order by LordEnd1 desc ");
+	local ret2 = SQL.Run("select Name,LordEnd2 from tbl_character order by LordEnd2 desc ");
+	local ret3 = SQL.Run("select Name,LordEnd3 from tbl_character order by LordEnd3 desc ");
+	local ret4 = SQL.Run("select Name,LordEnd4 from tbl_character order by LordEnd4 desc ");
+	local ret5 = SQL.Run("select Name,LordEnd5 from tbl_character order by LordEnd5 desc ");
+	local ret6 = SQL.Run("select Name,LordEnd6 from tbl_character order by LordEnd6 desc ");
+	local ret7 = SQL.Run("select Name,LordEnd7 from tbl_character order by LordEnd7 desc ");
+	if (type(ret1)=="table" and ret1["0_1"]~=nil) then
+		worldLayer1 = ret1["0_1"];
+	elseif (type(ret2)=="table" and ret2["0_1"]~=nil) then
+		worldLayer2 = ret2["0_1"];
+	elseif (type(ret3)=="table" and ret3["0_1"]~=nil) then
+		worldLayer3 = ret3["0_1"];
+	elseif (type(ret4)=="table" and ret4["0_1"]~=nil) then
+		worldLayer4 = ret4["0_1"];
+	elseif (type(ret5)=="table" and ret5["0_1"]~=nil) then
+		worldLayer5 = ret5["0_1"];
+	elseif (type(ret6)=="table" and ret6["0_1"]~=nil) then
+		worldLayer6 = ret6["0_1"];
+	elseif (type(ret7)=="table" and ret7["0_1"]~=nil) then
+		worldLayer7 = ret7["0_1"];
 	end
 	--[[worldLayer1 = Char.EndEvent(charIndex,301);	worldLayer2 = Char.EndEvent(charIndex,302);	worldLayer3 = Char.EndEvent(charIndex,303);
 	worldLayer4 = Char.EndEvent(charIndex,304);	worldLayer5 = Char.EndEvent(charIndex,305);	worldLayer6 = Char.EndEvent(charIndex,306);
 	worldLayer7 = Char.EndEvent(charIndex,307);
 	]]
+	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_地图);
 	if (Char.GetData(charIndex, CONST.对象_名色)<0 or Char.GetData(charIndex, CONST.ALBUM31)>0) then
-		if Char.GetData(charIndex,CONST.对象_等级) >= 30 and worldLayer1 == nil then
+		if Char.GetData(charIndex,CONST.对象_等级) >= 30 and worldLayer1 == 0 then
 			NLG.SystemMessage(charIndex,"您已高於轉生後30級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 			return 0
-		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 50 and worldLayer2 == nil then
-			NLG.SystemMessage(charIndex,"您已高於轉生後50級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+		elseif Char.GetData(charIndex,CONST.对象_等级)<30 and Target_FloorId~=60002 then
+			NLG.SystemMessage(charIndex,"轉生後請前往裏世界，當前經驗已被鎖定。")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 70 and worldLayer3 == nil then
+		if Char.GetData(charIndex,CONST.对象_等级) >= 50 and worldLayer2 == 0 then
+			NLG.SystemMessage(charIndex,"您已高於轉生後50級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+			return 0
+		elseif Char.GetData(charIndex,CONST.对象_等级)>30 and Char.GetData(charIndex,CONST.对象_等级)<50 and Target_FloorId~=60004 then
+			NLG.SystemMessage(charIndex,"請前往下一個裏世界區域，當前經驗已被鎖定。")
+			return 0
+		end
+		if Char.GetData(charIndex,CONST.对象_等级) >= 70 and worldLayer3 == 0 then
 			NLG.SystemMessage(charIndex,"您已高於轉生後70級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 90 and worldLayer4 == nil then
+		if Char.GetData(charIndex,CONST.对象_等级) >= 90 and worldLayer4 == 0 then
 			NLG.SystemMessage(charIndex,"您已高於轉生後90級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 110 and worldLayer5 == nil then
+		if Char.GetData(charIndex,CONST.对象_等级) >= 110 and worldLayer5 == 0 then
 			NLG.SystemMessage(charIndex,"您已高於轉生後110級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 130 and worldLayer6 == nil then
+		if Char.GetData(charIndex,CONST.对象_等级) >= 130 and worldLayer6 == 0 then
 			NLG.SystemMessage(charIndex,"您已高於轉生後130級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 			return 0
 		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 150 and worldLayer7 == nil then
+		if Char.GetData(charIndex,CONST.对象_等级) >= 150 and worldLayer7 == 0 then
 			NLG.SystemMessage(charIndex,"您已高於轉生後150級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 			return 0
 		end
