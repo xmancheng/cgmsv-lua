@@ -7,7 +7,7 @@ local expshare_itemid = 70041;     --寵物學習裝置
 
 local worldPoints = {
   { "天界空村Lv1", 0, 60001, 21, 30 },
-  { "迷霧森林Lv30", 0, 60002, 114, 104 },
+  { "迷霧森林Lv30", 0, 60002, 115, 104 },
   { "古代遺跡Lv50", 0, 60004, 10, 10 },
   { "黑夜貓村Lv70", 0, 60006, 10, 10 },
   { "鋼鐵叢林Lv90", 0, 60008, 10, 10 },
@@ -97,6 +97,7 @@ function Module:onLoad()
     end
   end)
   self:NPC_regTalkedEvent(mazeNPC, function(npc, player)
+    local cdk = Char.GetData(player,CONST.对象_CDK);
     if (NLG.CanTalk(npc, player) == true) then
       local winCase = CONST.窗口_选择框
       local winButton = CONST.BUTTON_关闭;
@@ -104,8 +105,9 @@ function Module:onLoad()
                            .."\\n　　════════════════════\\n"
                            .. worldPoints[1][1] .. "\\n";
       for i = 1,7 do
-        local flag=i+300;
-        if (Char.EndEvent(player,flag) == 1) then
+        local flag=i;
+        local event = tonumber(SQL.Run("select LordEnd"..flag.." from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+        if (event == 1) then
             msg = msg .. worldPoints[i+1][1] .. "\\n"
             if (i>=7) then
                 winButton = CONST.BUTTON_下取消;
@@ -136,19 +138,19 @@ function Module:onGetExpEvent(charIndex, exp)
 	local ret6 = SQL.Run("select Name,LordEnd6 from tbl_character order by LordEnd6 desc ");
 	local ret7 = SQL.Run("select Name,LordEnd7 from tbl_character order by LordEnd7 desc ");
 	if (type(ret1)=="table" and ret1["0_1"]~=nil) then
-		worldLayer1 = ret1["0_1"];
+		worldLayer1 = tonumber(ret1["0_1"]);
 	elseif (type(ret2)=="table" and ret2["0_1"]~=nil) then
-		worldLayer2 = ret2["0_1"];
+		worldLayer2 = tonumber(ret2["0_1"]);
 	elseif (type(ret3)=="table" and ret3["0_1"]~=nil) then
-		worldLayer3 = ret3["0_1"];
+		worldLayer3 = tonumber(ret3["0_1"]);
 	elseif (type(ret4)=="table" and ret4["0_1"]~=nil) then
-		worldLayer4 = ret4["0_1"];
+		worldLayer4 = tonumber(ret4["0_1"]);
 	elseif (type(ret5)=="table" and ret5["0_1"]~=nil) then
-		worldLayer5 = ret5["0_1"];
+		worldLayer5 = tonumber(ret5["0_1"]);
 	elseif (type(ret6)=="table" and ret6["0_1"]~=nil) then
-		worldLayer6 = ret6["0_1"];
+		worldLayer6 = tonumber(ret6["0_1"]);
 	elseif (type(ret7)=="table" and ret7["0_1"]~=nil) then
-		worldLayer7 = ret7["0_1"];
+		worldLayer7 = tonumber(ret7["0_1"]);
 	end
 	--[[worldLayer1 = Char.EndEvent(charIndex,301);	worldLayer2 = Char.EndEvent(charIndex,302);	worldLayer3 = Char.EndEvent(charIndex,303);
 	worldLayer4 = Char.EndEvent(charIndex,304);	worldLayer5 = Char.EndEvent(charIndex,305);	worldLayer6 = Char.EndEvent(charIndex,306);
@@ -229,7 +231,7 @@ function InTheWorld_LoopEvent(player)
   if FTime > 0 then
     if STime >0 then
         if ( (os.time() - STime) + (STime - FTime) ) >= 12000 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            Char.Warp(player,0,25003,14,27);
+            Char.Warp(player,0,25003,14,29);
             NLG.SystemMessage(player,"[系統]時限結束傳送離開裏世界。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
@@ -239,7 +241,7 @@ function InTheWorld_LoopEvent(player)
         end
     else
         if (os.time() - FTime) >= 12000 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            Char.Warp(player,0,25003,14,27);
+            Char.Warp(player,0,25003,14,29);
             NLG.SystemMessage(player,"[系統]時限結束傳送離開裏世界。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
@@ -274,7 +276,7 @@ function Module:onLoginEvent(player)
   else
             local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
             if Target_FloorId>=60002 and Target_FloorId<=60007 then
-                Char.Warp(player,0,25003,14,27);
+                Char.Warp(player,0,25003,14,29);
                 NLG.SystemMessage(player,"[系統]時空傳送回原本世界。");
             end
   end
