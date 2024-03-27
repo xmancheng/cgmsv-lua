@@ -239,7 +239,7 @@ function InTheWorld_LoopEvent(player)
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.UnsetLoopEvent(player);
-        elseif ( (os.time() - STime) + (STime - FTime) ) >= 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
+        elseif ( (os.time() - STime) + (STime - FTime) ) == 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
             NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏世界。");
         end
     else
@@ -249,7 +249,7 @@ function InTheWorld_LoopEvent(player)
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.UnsetLoopEvent(player);
-        elseif (os.time() - FTime) >= 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
+        elseif (os.time() - FTime) == 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
             NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏世界。");
         end
     end
