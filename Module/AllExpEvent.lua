@@ -1,12 +1,13 @@
-NL.RegGetExpEvent(nil,"AllExpEvent");
-NL.RegBattleSkillExpEvent(nil,"AllSkillExpEvent");
+--NL.RegGetExpEvent(nil,"AllExpEvent");
+NL.RegBattleSkillExpEvent(nil,"BattleSkillExpEvent");
 NL.RegProductSkillExpEvent(nil,"ProductSkillExpEvent");
-expshare_itemid = 70041;
-exp_itemid = 70040;
-playerexp_itemid = 68011;
+--expshare_itemid = 70041;
+--exp_itemid = 70040;
+--playerexp_itemid = 68011;
 skillexp_itemid = 68012;
-petexp_itemid = 68013;
+--petexp_itemid = 68013;
 
+--[[
 function AllExpEvent(CharIndex, Exp)
 	if(Char.IsFeverTime(CharIndex) == 1) then
 		Exp = Exp * 2;
@@ -47,10 +48,23 @@ function AllExpEvent(CharIndex, Exp)
 			return ne;  --角色获取的经验双倍
 		end
 	end
+	--if (Char.GetData(CharIndex,%对象_序%) == %对象类型_人%) and (not Char.IsDummy(CharIndex)) then
+	--	for i = 1 , 5 do
+	--		if Char.HaveItem(CharIndex,900100) > -1 then
+	--		local petIndex = Char.GetPet(CharIndex, i - 1)
+	--			if petIndex > 0 then 
+	--				Char.SetData(petIndex,CONST.CHAR_经验,Char.GetData(petIndex,CONST.CHAR_经验)+Exp)
+	--				return 0
+	--			end
+	--		end
+	--	end
+	--end
+
 	return Exp;
 end
+]]
 
-function AllSkillExpEvent(CharIndex, SkillID, Exp)
+function BattleSkillExpEvent(CharIndex, SkillID, Exp)
 	if(Char.ItemNum(CharIndex,skillexp_itemid) > 0) then
 		local ne = Exp * 2;
 		--NLG.TalkToCli(CharIndex,-1,"[系统] 角色获取的战斗技能经验双倍！",%颜色_黄色%,%字体_中%);
