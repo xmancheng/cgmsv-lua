@@ -113,7 +113,7 @@ function Module:onLoad()
 			if (type(ret)=="table" and ret["0_1"]~=nil) then
 				worldLayer1 = tonumber(ret["0_1"]);
 			end
-			print(worldLayer1)
+			--print(worldLayer1)
 			if(Char.ItemNum(player,BossKey[1])>0 or Char.ItemNum(player,BossKey[2])>0 or Char.ItemNum(player,BossKey[3])>0) then
 				NLG.SystemMessage(player,"[系統]想進行討伐不能持有過期憑證。");
 				return;
@@ -388,7 +388,9 @@ function def_round_start(player, callback)
 			local Rank = Item.GetData(item_indexA,CONST.道具_幸运);
 			if (Num>=v.posNum_L and Num<v.posNum_R and Rank==v.bossRank)then
 				Char.HealAll(player);
-				NLG.SystemMessage(-1,"領主挑戰者:  " ..Char.GetData(player,CONST.CHAR_名字).. "隊");
+				if (v.bossRank==3) then
+					NLG.SystemMessage(-1,"" ..v.lordName.. "挑戰者:  " ..Char.GetData(player,CONST.CHAR_名字).. "隊");
+				end
 				local battleindex = Battle.PVE( player, player, nil, Pos[Num][2], Pos[Num][3], nil)
 				Battle.SetWinEvent("./lua/Modules/mazeBoss.lua", "def_round_wincallback", battleindex);
 			end
