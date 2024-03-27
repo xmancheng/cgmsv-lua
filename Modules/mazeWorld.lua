@@ -107,8 +107,11 @@ function Module:onLoad()
       for i = 1,7 do
         local flag=i;
         local event = tonumber(SQL.Run("select LordEnd"..flag.." from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+        if (i==1) then
+            msg = msg .. worldPoints[2][1] .. "\\n";
+        end
         if (event == 1) then
-            msg = msg .. worldPoints[i+1][1] .. "\\n"
+            msg = msg .. worldPoints[i+2][1] .. "\\n";
             if (i>=7) then
                 winButton = CONST.BUTTON_下取消;
             end
