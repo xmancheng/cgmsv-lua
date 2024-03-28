@@ -16,6 +16,19 @@ local worldPoints = {
   { "群龍之巔Lv150", 0, 60014, 10, 10 },
 }
 
+local mazeMap = {
+    { 60002 }, { 60004 }, { 60006 }, { 60008 }, { 60010 }, { 60012 }, { 60014 },
+}
+local worldExp = {
+    { Event="LordEnd1", L_level=0, R_level=30, UniItem=70188},
+    { Event="LordEnd2", L_level=30, R_level=50, UniItem=70187},
+    { Event="LordEnd3", L_level=50, R_level=70, UniItem=70187},
+    { Event="LordEnd4", L_level=70, R_level=90, UniItem=70187},
+    { Event="LordEnd5", L_level=90, R_level=110, UniItem=70187},
+    { Event="LordEnd6", L_level=110, R_level=130, UniItem=70187},
+    { Event="LordEnd7", L_level=130, R_level=150, UniItem=70187},
+}
+
 --- 页数计算
 local function calcWarp()
   local totalpage = math.modf(#worldPoints / 6) + 1
@@ -98,6 +111,7 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(mazeNPC, function(npc, player)
     local cdk = Char.GetData(player,CONST.对象_CDK);
+    SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
     if (NLG.CanTalk(npc, player) == true) then
       local winCase = CONST.窗口_选择框
       local winButton = CONST.BUTTON_关闭;
@@ -133,95 +147,85 @@ end
 
 
 function Module:onGetExpEvent(charIndex, exp)
-	local ret1 = SQL.Run("select Name,LordEnd1 from tbl_character order by LordEnd1 desc ");
-	local ret2 = SQL.Run("select Name,LordEnd2 from tbl_character order by LordEnd2 desc ");
-	local ret3 = SQL.Run("select Name,LordEnd3 from tbl_character order by LordEnd3 desc ");
-	local ret4 = SQL.Run("select Name,LordEnd4 from tbl_character order by LordEnd4 desc ");
-	local ret5 = SQL.Run("select Name,LordEnd5 from tbl_character order by LordEnd5 desc ");
-	local ret6 = SQL.Run("select Name,LordEnd6 from tbl_character order by LordEnd6 desc ");
-	local ret7 = SQL.Run("select Name,LordEnd7 from tbl_character order by LordEnd7 desc ");
-	if (type(ret1)=="table" and ret1["0_1"]~=nil) then
-		worldLayer1 = tonumber(ret1["0_1"]);
-	elseif (type(ret2)=="table" and ret2["0_1"]~=nil) then
-		worldLayer2 = tonumber(ret2["0_1"]);
-	elseif (type(ret3)=="table" and ret3["0_1"]~=nil) then
-		worldLayer3 = tonumber(ret3["0_1"]);
-	elseif (type(ret4)=="table" and ret4["0_1"]~=nil) then
-		worldLayer4 = tonumber(ret4["0_1"]);
-	elseif (type(ret5)=="table" and ret5["0_1"]~=nil) then
-		worldLayer5 = tonumber(ret5["0_1"]);
-	elseif (type(ret6)=="table" and ret6["0_1"]~=nil) then
-		worldLayer6 = tonumber(ret6["0_1"]);
-	elseif (type(ret7)=="table" and ret7["0_1"]~=nil) then
-		worldLayer7 = tonumber(ret7["0_1"]);
-	end
 	--[[worldLayer1 = Char.EndEvent(charIndex,301);	worldLayer2 = Char.EndEvent(charIndex,302);	worldLayer3 = Char.EndEvent(charIndex,303);
 	worldLayer4 = Char.EndEvent(charIndex,304);	worldLayer5 = Char.EndEvent(charIndex,305);	worldLayer6 = Char.EndEvent(charIndex,306);
 	worldLayer7 = Char.EndEvent(charIndex,307);
 	]]
 	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_地图);
-	if (Char.GetData(charIndex, CONST.对象_名色)<0 or Char.GetData(charIndex, CONST.ALBUM31)>0) then
-		if Char.GetData(charIndex,CONST.对象_等级) >= 30 and worldLayer1 == 0 then
-			NLG.SystemMessage(charIndex,"您已高於轉生後30級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-			return 0
-		elseif Char.GetData(charIndex,CONST.对象_等级)<30 and Target_FloorId~=60002 then
-			NLG.SystemMessage(charIndex,"轉生後請前往裏世界，當前經驗已被鎖定。")
-			return 0
-		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 50 and worldLayer2 == 0 then
-			NLG.SystemMessage(charIndex,"您已高於轉生後50級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-			return 0
-		elseif Char.GetData(charIndex,CONST.对象_等级)>30 and Char.GetData(charIndex,CONST.对象_等级)<50 and Target_FloorId~=60004 then
-			NLG.SystemMessage(charIndex,"請前往下一個裏世界區域，當前經驗已被鎖定。")
-			return 0
-		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 70 and worldLayer3 == 0 then
-			NLG.SystemMessage(charIndex,"您已高於轉生後70級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-			return 0
-		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 90 and worldLayer4 == 0 then
-			NLG.SystemMessage(charIndex,"您已高於轉生後90級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-			return 0
-		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 110 and worldLayer5 == 0 then
-			NLG.SystemMessage(charIndex,"您已高於轉生後110級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-			return 0
-		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 130 and worldLayer6 == 0 then
-			NLG.SystemMessage(charIndex,"您已高於轉生後130級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-			return 0
-		end
-		if Char.GetData(charIndex,CONST.对象_等级) >= 150 and worldLayer7 == 0 then
-			NLG.SystemMessage(charIndex,"您已高於轉生後150級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-			return 0
-		end
-	else
-		if(Char.ItemNum(charIndex,playerexp_itemid) >= 0 or Char.ItemNum(charIndex,petexp_itemid) >= 0 or Char.ItemNum(charIndex,expshare_itemid) >= 0 or Char.ItemNum(charIndex,exp_itemid) >= 0) then
-			if(Char.ItemNum(charIndex,expshare_itemid) > 0) then
-				for Slot=0,4 do
-					local PetIndex = Char.GetPet(charIndex,Slot);
-					if(PetIndex >=0 and Char.ItemNum(charIndex,petexp_itemid) == 0) then
-						local Exp = Char.GetData(PetIndex,%对象_经验%);
-						local Ne = Exp + exp;
-						Char.SetData(PetIndex,%对象_经验%,Ne);
-						NLG.UpChar(PetIndex);
-						--NLG.TalkToCli(charIndex,-1,"[宠物学习器] 角色原始经验已共享给所有宠物！",%颜色_黄色%,%字体_中%);
-					end
-					if(PetIndex >=0 and Char.ItemNum(charIndex,petexp_itemid) == 1) then
-						local Exp = Char.GetData(PetIndex,%对象_经验%);
-						local Ne = Exp + exp* 2;
-						Char.SetData(PetIndex,%对象_经验%,Ne);
-						NLG.UpChar(PetIndex);
-						--NLG.TalkToCli(charIndex,-1,"[宠物学习器] 角色原始经验已双倍共享给所有宠物！",%颜色_黄色%,%字体_中%);
+	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)==0 or Char.GetData(charIndex, CONST.ALBUM31)>0) then
+		for i, v in ipairs(mazeMap) do
+			for _, FloorId in ipairs(v) do
+				local LordEnd = worldExp[i].Event;
+				local ret = SQL.Run("select Name,"..LordEnd.." from lua_hook_worldboss order by "..LordEnd.." desc ");
+				if (type(ret)=="table" and ret["0_1"]~=nil) then
+					worldLayer = tonumber(ret["0_1"]);
+				end
+				print(worldLayer)
+				if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[i].R_level and Target_FloorId==FloorId and worldLayer == 0) then
+					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[i].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+					return 0
+				elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[i].R_level and Target_FloorId==FloorId and worldLayer == 1) then
+					NLG.SystemMessage(charIndex,"請前往下一層世界，當前經驗已被鎖定。")
+					return 0
+				elseif (Char.GetData(charIndex,CONST.对象_等级)>worldExp[i].L_level and Target_FloorId~=FloorId) then
+					NLG.SystemMessage(charIndex,"轉生後請前往裏世界，當前經驗已被鎖定。")
+					return 0
+				else
+					for Slot=0,4 do
+						local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+						if (Char.GetData(charIndex,CONST.对象_等级)<=worldExp[i].R_level and PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[i].UniItem)>0 and Target_FloorId==FloorId) then    --队友有独特装备
+							NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+							return exp * 1.5;  --角色获取的经验1.5倍
+						end
 					end
 				end
+				
 			end
-			if(Char.ItemNum(charIndex,exp_itemid) > 0 and Char.ItemNum(charIndex,playerexp_itemid) > 0) then
-				return exp * 3;  --角色获取的经验3倍
-			elseif(Char.ItemNum(charIndex,exp_itemid) > 0 and Char.ItemNum(charIndex,playerexp_itemid) == 0) then
-				return exp * 1.5;  --角色获取的经验1.5倍
-			elseif(Char.ItemNum(charIndex,exp_itemid) == 0 and Char.ItemNum(charIndex,playerexp_itemid) > 0) then
-				return exp * 2;  --角色获取的经验双倍
+		end
+	else
+		if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠) then
+			local PetIndex = charIndex;
+			local OwnercharIndex = Pet.GetOwner(PetIndex);
+			if (Char.ItemNum(OwnercharIndex,petexp_itemid) == 1) then
+				local exp=exp * 2;
+				if (Char.ItemNum(OwnercharIndex,expshare_itemid) > 0) then
+					for Slot=0,4 do
+						local PocketPetIndex = Char.GetPet(OwnercharIndex,Slot);
+						if (PocketPetIndex>=0 and PocketPetIndex~=PetIndex) then
+							local Exp = Char.GetData(PocketPetIndex,%对象_经验%);
+							local Ne = Exp + exp;
+							Char.SetData(PocketPetIndex,%对象_经验%,Ne);
+							Pet.UpPet(OwnercharIndex, PocketPetIndex);
+							--NLG.TalkToCli(OwnercharIndex,-1,"[宠物学习器] 宠物经验已双倍共享给其他宠物！",%颜色_黄色%,%字体_中%);
+						end
+					end
+				end
+				return exp;  --宠物获取的经验2倍
+			elseif (Char.ItemNum(OwnercharIndex,petexp_itemid) == 0) then
+				local exp=exp;
+				if (Char.ItemNum(OwnercharIndex,expshare_itemid) > 0) then
+					for Slot=0,4 do
+						local PocketPetIndex = Char.GetPet(OwnercharIndex,Slot);
+						if (PocketPetIndex>=0 and PocketPetIndex~=PetIndex) then
+							local Exp = Char.GetData(PocketPetIndex,%对象_经验%);
+							local Ne = Exp + exp;
+							Char.SetData(PocketPetIndex,%对象_经验%,Ne);
+							Pet.UpPet(OwnercharIndex, PocketPetIndex);
+							--NLG.TalkToCli(OwnercharIndex,-1,"[宠物学习器] 宠物经验已共享给其他宠物！",%颜色_黄色%,%字体_中%);
+						end
+					end
+				end
+				return exp;  --宠物获取的经验无加倍
+			end
+		elseif (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人) then
+ 			if (Char.ItemNum(charIndex,playerexp_itemid) >= 0 or Char.ItemNum(charIndex,exp_itemid) >= 0) then
+				if(Char.ItemNum(charIndex,exp_itemid) > 0 and Char.ItemNum(charIndex,playerexp_itemid) > 0) then
+					return exp * 3;  --角色获取的经验3倍
+				elseif(Char.ItemNum(charIndex,exp_itemid) > 0 and Char.ItemNum(charIndex,playerexp_itemid) == 0) then
+					return exp * 1.5;  --角色获取的经验1.5倍
+				elseif(Char.ItemNum(charIndex,exp_itemid) == 0 and Char.ItemNum(charIndex,playerexp_itemid) > 0) then
+					return exp * 2;  --角色获取的经验双倍
+				end
 			end
 		end
 	end
@@ -280,6 +284,7 @@ function Module:onLoginEvent(player)
             local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
             if Target_FloorId>=60002 and Target_FloorId<=60007 then
                 Char.Warp(player,0,25003,14,29);
+                Char.UnsetLoopEvent(player);
                 NLG.SystemMessage(player,"[系統]時空傳送回原本世界。");
             end
   end
