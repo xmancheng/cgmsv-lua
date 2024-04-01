@@ -1,21 +1,21 @@
-local NPCName = "²âÊÔ"
+local NPCName = "æµ‹è¯•"
 local NPCPoint = {106277,777,10,10,6}
 local EnemySet = {}
 local BaseLevelSet = {}
 local STime = os.time()
-local YS = 30 --½Å±¾ÑÓÊ±¶àÉÙÃë´´½¨NPC
-local SXTime = 15 --NPCË¢ĞÂÊ±¼ä¡¤Ãë
---¶ÓÁĞ½âÊÍ
---     Îå	Èı	Ò»	¶ş	ËÄ
---     Ê®	°Ë	Áù	Æß	¾Å
-EnemySet[1] = {360092, 0, 0, 0, 0, 360071, 360017, 360018, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
-EnemySet[2] = {360093, 0, 0, 0, 0, 360082, 360017, 360018, 0, 0}
+local YS = 30 --è„šæœ¬å»¶æ—¶å¤šå°‘ç§’åˆ›å»ºNPC
+local SXTime = 15 --NPCåˆ·æ–°æ—¶é—´Â·ç§’
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”	ä¸‰	ä¸€	äºŒ	å››
+--     å	å…«	å…­	ä¸ƒ	ä¹
+EnemySet[1] = {360093, 0, 0, 0, 0, 360071, 360017, 360018, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
+EnemySet[2] = {360094, 0, 0, 0, 0, 360082, 360017, 360018, 0, 0}
 EnemySet[3] = {360106, 360071, 360082, 360031, 360032, 0, 360033, 360034, 0, 0}
 BaseLevelSet[1] = {89, 0, 0, 0, 0, 69, 40, 40, 0, 0}
 BaseLevelSet[2] = {89, 0, 0, 0, 0, 77, 40, 40, 0, 0}
 BaseLevelSet[3] = {89, 69, 77, 57, 57, 0, 57, 57, 0, 0}
-------------Ëæ»úNPCÉèÖÃ
-local Pos = {{"Ä§½çĞ¡±ø",101800,1000,242,86,4},{"Ä§½ç±ø³¤",101801,1000,242,90,0},{"Ä§½ç´ó¾ü",117024,1000,244,88,2}}--Ãû×Ö²»ÄÜÒ»Ñù
+------------éšæœºNPCè®¾ç½®
+local Pos = {{"ç‹‚é­”é˜¿å¡æ–¯",108166,1000,279,86,6},{"é‚ªç¥å·´æ´›æ–¯",108167,1000,279,90,6},{"è»ç‹æè²ç•™æ–¯",108168,1000,277,88,6}}--åå­—ä¸èƒ½ä¸€æ ·
 tbl_RandomNpcIndex = tbl_RandomNpcIndex or {}
 ------------------------------------------------
 Delegate.RegInit("Wild_main");
@@ -28,13 +28,13 @@ end
 function Wild_Create()
 	if WildNpc == nil then
 		WildNpc=NL.CreateNpc("lua/Module/WildBoss.lua","WildNpc_Init")
-		Char.SetData(WildNpc,%¶ÔÏó_ĞÎÏó%,NPCPoint[1]);
-		Char.SetData(WildNpc,%¶ÔÏó_Ô­ĞÎ%,NPCPoint[1]);
-		Char.SetData(WildNpc,%¶ÔÏó_µØÍ¼%,NPCPoint[2]);
-		Char.SetData(WildNpc,%¶ÔÏó_X%,NPCPoint[3]);
-		Char.SetData(WildNpc,%¶ÔÏó_Y%,NPCPoint[4]);
-		Char.SetData(WildNpc,%¶ÔÏó_·½Ïò%,NPCPoint[5]);
-		Char.SetData(WildNpc,%¶ÔÏó_Ô­Ãû%,NPCName);
+		Char.SetData(WildNpc,%å¯¹è±¡_å½¢è±¡%,NPCPoint[1]);
+		Char.SetData(WildNpc,%å¯¹è±¡_åŸå½¢%,NPCPoint[1]);
+		Char.SetData(WildNpc,%å¯¹è±¡_åœ°å›¾%,NPCPoint[2]);
+		Char.SetData(WildNpc,%å¯¹è±¡_X%,NPCPoint[3]);
+		Char.SetData(WildNpc,%å¯¹è±¡_Y%,NPCPoint[4]);
+		Char.SetData(WildNpc,%å¯¹è±¡_æ–¹å‘%,NPCPoint[5]);
+		Char.SetData(WildNpc,%å¯¹è±¡_åŸå%,NPCName);
 		NLG.UpChar(WildNpc);
 		Char.SetLoopEvent(nil, "Wild_LoopEvent", WildNpc, SXTime*1000)
 		Char.SetWindowTalkedEvent("lua/Module/WildBoss.lua","Wild_WindowTalked",WildNpc)
@@ -42,7 +42,7 @@ function Wild_Create()
 	end
 end
 function Wild_LoopEvent(_MeIndex)
-	--´´½¨¼ÙÈË
+	--åˆ›å»ºå‡äºº
 	local DTime = os.time()
 	if DTime - STime >= YS then
 		local Posn = NLG.Rand(1,#Pos)
@@ -51,30 +51,30 @@ function Wild_LoopEvent(_MeIndex)
 		if tbl_RandomNpcIndex[Name] == nil then	
 			local NpcIndex = CreateWildNpc(Image, Name, 0, Pos[Posn][3], Pos[Posn][4], Pos[Posn][5], Pos[Posn][6])
 			tbl_RandomNpcIndex[Name] = NpcIndex
-			NLG.SystemMessage(-1, "[ÏµÍ³]"..Name.."³öÏÖÁË£¬¿ìÈ¥ÌôÕ½°É£¡")
+			NLG.SystemMessage(-1, "[ç³»ç»Ÿ]"..Name.."å‡ºç°äº†ï¼Œå¿«å»æŒ‘æˆ˜å§ï¼")
 		end
 	end
 end
---NPC¶Ô»°ÊÂ¼ş(NPCË÷Òı)
+--NPCå¯¹è¯äº‹ä»¶(NPCç´¢å¼•)
 function Wild_Talked(_NpcIndex, _PlayerIndex)
 tbl_RandomNpcIndex = {}
 end
 
---NPC´°¿ÚÊÂ¼ş(NPCË÷Òı)
+--NPCçª—å£äº‹ä»¶(NPCç´¢å¼•)
 function Wild_WindowTalked ( _NpcIndex, _PlayerIndex, _seqno, _select, _data)
 	
 end
 function CreateWildNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	local NpcIndex = NL.CreateNpc("./lua/System/BaseModule/Base.lua", "Myinit");
-	Char.SetData( NpcIndex, %¶ÔÏó_ĞÎÏó%, Image);
-	Char.SetData( NpcIndex, %¶ÔÏó_Ô­ĞÎ%, Image);
-	Char.SetData( NpcIndex, %¶ÔÏó_µØÍ¼ÀàĞÍ%, MapType);
-	Char.SetData( NpcIndex, %¶ÔÏó_µØÍ¼%, MapID);
-	Char.SetData( NpcIndex, %¶ÔÏó_X%, PosX);
-	Char.SetData( NpcIndex, %¶ÔÏó_Y%, PosY);
-	Char.SetData( NpcIndex, %¶ÔÏó_·½Ïò%, Dir);
-	Char.SetData( NpcIndex, %¶ÔÏó_Ô­Ãû%, Name);
-	Char.SetData( NpcIndex, %¶ÔÏó_ÃûÉ«%, NameColor);
+	Char.SetData( NpcIndex, %å¯¹è±¡_å½¢è±¡%, Image);
+	Char.SetData( NpcIndex, %å¯¹è±¡_åŸå½¢%, Image);
+	Char.SetData( NpcIndex, %å¯¹è±¡_åœ°å›¾ç±»å‹%, MapType);
+	Char.SetData( NpcIndex, %å¯¹è±¡_åœ°å›¾%, MapID);
+	Char.SetData( NpcIndex, %å¯¹è±¡_X%, PosX);
+	Char.SetData( NpcIndex, %å¯¹è±¡_Y%, PosY);
+	Char.SetData( NpcIndex, %å¯¹è±¡_æ–¹å‘%, Dir);
+	Char.SetData( NpcIndex, %å¯¹è±¡_åŸå%, Name);
+	Char.SetData( NpcIndex, %å¯¹è±¡_åè‰²%, NameColor);
 	tbl_LuaNpcIndex = tbl_LuaNpcIndex or {}
 	tbl_LuaNpcIndex["WildNpc"] = NpcIndex
 	Char.SetTalkedEvent(nil, "WildNpc__Talked", NpcIndex)
@@ -90,38 +90,42 @@ function WildNpc__Talked(_NpcIndex, _PlayerIndex)
 	if(NLG.CheckInFront(_PlayerIndex, _NpcIndex, 1)==false and _Mode~=1) then
 		return ;
 	end
-	--ÃæÏòÍæ¼Ò
+	--é¢å‘ç©å®¶
 	local i;
-	i = Char.GetData(_PlayerIndex, %¶ÔÏó_·½Ïò%);
+	i = Char.GetData(_PlayerIndex, %å¯¹è±¡_æ–¹å‘%);
 	if i >= 4 then 
 		i = i - 4;
 	else
 		i = i + 4;		
 	end
-	Char.SetData(_NpcIndex, %¶ÔÏó_·½Ïò%,i);
+	Char.SetData(_NpcIndex, %å¯¹è±¡_æ–¹å‘%,i);
 	NLG.UpChar( _NpcIndex);
-	local mz = "¡º"..Char.GetData(_PlayerIndex,%¶ÔÏó_Ãû×Ö%).. "¡»"
-	local	token ="\n\n\n\nÄ§×å×îÇ¿´ó£¬ÈËÀàÒ»¸ö¶¼²»Áô£¡£¿"
+	local mz = "ã€"..Char.GetData(_PlayerIndex,%å¯¹è±¡_åå­—%).. "ã€"
+	local	token ="\n\n\n\né­”æ—æœ€å¼ºå¤§ï¼Œäººç±»ä¸€ä¸ªéƒ½ä¸ç•™ï¼ï¼Ÿ"
 
        NLG.ShowWindowTalked(_PlayerIndex, _NpcIndex, 0, 1, 1, token)
 
 end
 function WildNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
 	if _Seqno == 1 then
-	local tName = Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%)
-	--´´½¨BossÕ½¶·
-	local RandN = NLG.Rand(1,#EnemySet)
+	local tName = Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%)
+	--åˆ›å»ºBossæˆ˜æ–—
+	for i=1,#EnemySet do
+		if (tName==Pos[i][1]) then
+			Posn = i;
+		end
+	end
 	local tBossLv = 1
 --	local tWildBattleIndex = Battle.PVE( _PlayerIndex, tbl_LuaNpcIndex["WildNpc"], nil, tBossList, tLvList, nil)
-	local tWildBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, EnemySet[RandN], BaseLevelSet[RandN], nil)
+	local tWildBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, EnemySet[Posn], BaseLevelSet[Posn], nil)
 	Battle.SetWinEvent( nil, "WildNpc_BattleWin", tWildBattleIndex);
-	NLG.SystemMessage(-1, Char.GetData(_PlayerIndex,%¶ÔÏó_Ãû×Ö%).."ÕıÔÚÌôÕ½" .. tName)
+	NLG.SystemMessage(-1, Char.GetData(_PlayerIndex,%å¯¹è±¡_åå­—%).."æ­£åœ¨æŒ‘æˆ˜" .. tName)
  end
 end
 function WildNpc_BattleWin(_BattleIndex, _NpcIndex)
 		local tPlayerIndex = Battle.GetPlayIndex( _BattleIndex, 0)
-		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%¶ÔÏó_ÀàĞÍ%)==1 then
-			NLG.SystemMessage(-1, "[ÏµÍ³]"..Char.GetData(tPlayerIndex,%¶ÔÏó_Ãû×Ö%).."ÂÊÁì¶ÓÓÑ»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%))
+		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%å¯¹è±¡_ç±»å‹%)==1 then
+			NLG.SystemMessage(-1, "[ç³»ç»Ÿ]"..Char.GetData(tPlayerIndex,%å¯¹è±¡_åå­—%).."ç‡é¢†é˜Ÿå‹å‡»è´¥äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%))
 			NL.DelNpc(_NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomNpcIndex)
 			tbl_RandomNpcIndex[kk] = nil
