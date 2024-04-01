@@ -95,8 +95,9 @@ loadModule('addTK')|副武器附念
 loadModule('battleMirrorDevil')|水鏡惡魔
 loadModule('deathJJC')|死亡競技
 loadModule('huntingZone')|狩獵地帶
-loadModule('mazeWorld')|裏世界區域
-loadModule('mazeBoss')|裏世界王戰
+loadModule('mazeWorld')|裏空間區域
+loadModule('mazeBoss')|裏空間王戰
+loadModule('mazeHorcrux')|裏空間魂器
 ### 其他功能
 模組加載代碼 | 說明 
 --- | --- 
