@@ -48,14 +48,14 @@ local Setting = 0;
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
 EnemySet[1] = {401074, 401074, 401074, 401074, 401074, 401073, 401073, 401073, 401073, 401073}    --0代表没有怪
-EnemySet[2] = {406091, 401074, 401074, 0, 0, 401073, 401073, 401073, 0, 0}
-EnemySet[3] = {0, 401074, 401074, 0, 0, 406091, 0, 0, 401073, 401073}
+EnemySet[2] = {406190, 401074, 401074, 0, 0, 401073, 401073, 401073, 0, 0}
+EnemySet[3] = {0, 401074, 401074, 0, 0, 406190, 0, 0, 401073, 401073}
 BaseLevelSet[1] = {20, 20, 20, 20, 20, 20, 20, 20, 20, 20}
 BaseLevelSet[2] = {30, 25, 25, 0, 0, 25, 25, 25, 0, 0}
 BaseLevelSet[3] = {0, 25, 25, 0, 0, 30, 0, 0, 25, 25}
-Pos[1] = {"森林魔物",EnemySet[1],BaseLevelSet[1]}
-Pos[2] = {"森林領主",EnemySet[2],BaseLevelSet[2]}
-Pos[3] = {"森林領主",EnemySet[3],BaseLevelSet[3]}
+Pos[1] = {"迷藏蝙蝠",EnemySet[1],BaseLevelSet[1]}
+Pos[2] = {"紅櫻長老",EnemySet[2],BaseLevelSet[2]}
+Pos[3] = {"紅櫻長老",EnemySet[3],BaseLevelSet[3]}
 ------------------------------------------------
 --背景设置
 local Switch = 1;                          --组队人数限制开关1开0关
@@ -67,19 +67,16 @@ local BossKey= {70195,70195,70195} -- 虚弱、普通、超级
 local Pts= 70206;                                    --真女神苹果
 local BossRoom = {
       { key=1, keyItem=70195, keyItem_count=1, bossRank=1, limit=-1, posNum_L=1, posNum_R=2,
-          win={warpWMap=60001, warpWX=21, warpWY=30, getItem = 70206, getItem_count = 10},
-          lose={warpLMap=60001, warpLX=21, warpLY=30, getItem = 70206, getItem_count = 1},
-          lordName="森林魔物",
+          win={warpWMap=60001, warpWX=21, warpWY=30, getItem = 70257, getItem_count = 1},
+          lordName="迷藏蝙蝠",
        },    -- 虚弱(1)
       { key=3, keyItem=70195, keyItem_count=1, bossRank=2, limit=3, posNum_L=2, posNum_R=3,
-          win={warpWMap=60001, warpWX=21, warpWY=30, getItem = 70206, getItem_count = 15},
-          lose={warpLMap=60001, warpLX=21, warpLY=30, getItem = 70206, getItem_count = 2},
-          lordName="森林領主",
+          win={warpWMap=60001, warpWX=21, warpWY=30, getItem = 70257, getItem_count = 6},
+          lordName="紅櫻長老",
        },    -- 普通(2)
       { key=5, keyItem=70195, keyItem_count=1, bossRank=3, limit=5, posNum_L=3, posNum_R=4,
           win={warpWMap=60001, warpWX=21, warpWY=30, getItem = 70206, getItem_count = 25},
-          lose={warpLMap=60001, warpLX=21, warpLY=30, getItem = 70206, getItem_count = 4},
-          lordName="森林領主",
+          lordName="紅櫻長老",
        },    -- 超级(3)
 }
 tbl_duel_user = {};			--当前场次玩家的列表
@@ -109,23 +106,23 @@ function Module:onLoad()
 		end
 	if seqno == 1 then
 		if data == 1 then  ----参加领主讨伐
-			local ret = SQL.Run("select Name,LordEnd1 from lua_hook_worldboss order by LordEnd1 desc ");
-			if (type(ret)=="table" and ret["0_1"]~=nil) then
-				worldLayer1 = tonumber(ret["0_1"]);
+			local retEnd = SQL.Run("select Name,LordEnd1 from lua_hook_worldboss order by LordEnd1 desc ");
+			if (type(retEnd)=="table" and retEnd["0_1"]~=nil) then
+				worldLayer = tonumber(retEnd["0_1"]);
 			end
-			--print(worldLayer1)
+			--print(worldLayer)
 			if(Char.ItemNum(player,BossKey[1])>0 or Char.ItemNum(player,BossKey[2])>0 or Char.ItemNum(player,BossKey[3])>0) then
 				NLG.SystemMessage(player,"[系統]想進行討伐不能持有過期憑證。");
 				return;
 			else
-				if worldLayer1 == 0 then
+				if worldLayer == 0 then
 					local msg = "7\\n@c選擇區域領主討伐的模式\\n"
 						.."\\n　　════════════════════"
 						.. "\\n虛弱模式：未開啟\\n"
 						.. "\\n普通模式：未開啟\\n"
 						.. "\\n超級模式：共鬥合作\\n";
 					NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 11, msg);
-				elseif worldLayer1 == 1 then
+				elseif worldLayer == 1 then
 					local msg = "3\\n@c選擇區域領主討伐的模式\\n"
 						.."\\n　　════════════════════"
 						.. "\\n虛弱模式：一般戰鬥\\n"
@@ -295,10 +292,11 @@ function Module:onLoad()
 				local slot = Char.FindItemId(player, BossKey[1]);
 				local item_indexA = Char.GetItemIndex(player,slot);
 				Char.DelItem(player, BossKey[1], 1);
-				Char.GiveItem(player, 69000, 1);
+				Char.GiveItem(player, 70206, 1);
 				Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
 				NLG.SystemMessage(player,"可惜敗下陣，明天再來挑戰區域領主！");
 			else
+				Char.GiveItem(player, 70206, 1);
 				Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
 				NLG.SystemMessage(player,"可惜敗下陣，明天再來挑戰區域領主！");
 			end
@@ -308,8 +306,8 @@ function Module:onLoad()
 				local slot = Char.FindItemId(player, v.keyItem);
 				local item_indexA = Char.GetItemIndex(player,slot);
 				Char.DelItem(player, v.keyItem, v.keyItem_count);
-				Char.GiveItem(player, v.lose.getItem, v.lose.getItem_count);
-				Char.Warp(player,0,v.win.warpWMap,v.win.warpWX,v.win.warpWY);
+				Char.GiveItem(player, 70206, 5);
+				Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
 			end
 			end
 		end
@@ -519,6 +517,7 @@ function wincallbackfunc(tbl_win_user)
 					Char.DelItem(w, v.keyItem, v.keyItem_count);
 					Char.GiveItem(w, v.win.getItem, v.win.getItem_count);
 					if (v.bossRank==3) then
+						Char.GiveItem(w, 70258, 1);
 						NLG.SystemMessage(-1,"恭喜玩家: "..Char.GetData(w,%对象_名字%).."隊 討伐成功"..v.lordName.."。");
 					end
 					local cdk = Char.GetData(w,CONST.对象_CDK);
@@ -613,7 +612,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local HP = LordHP1;
-		if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406091  then
+		if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
 			Char.SetData(enemy, CONST.CHAR_最大血, 9999999);
 			Char.SetData(enemy, CONST.CHAR_血, HP);
 		end
@@ -629,10 +628,10 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local HP = LordHP1;
-		if Round==0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406091  then
+		if Round==0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 			Char.SetData(enemy, CONST.CHAR_血, HP);
-		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406091  then
+		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 			Char.SetData(enemy, CONST.CHAR_血, HP);
 			if Round>=5 then
@@ -663,16 +662,19 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 	end
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406091  then
+		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
                                                             local HP = Char.GetData(enemy,CONST.CHAR_血);
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 			Char.SetData(enemy, CONST.CHAR_血, HP);
+			NLG.SystemMessage(player,"[系統]區域領主目前剩餘血量"..HP.."！");
 			NLG.UpChar(enemy);
 			--Lord血量写入库
-			local cdk = Char.GetData(player,CONST.对象_CDK);
-			SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
-			SQL.Run("update lua_hook_worldboss set WorldLord1= '"..HP.."' where CdKey='"..cdk.."'")
-			NLG.UpChar(player);
+			local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
+			if (cdk~=nil) then
+				SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
+				SQL.Run("update lua_hook_worldboss set WorldLord1= '"..HP.."' where CdKey='"..cdk.."'")
+				NLG.UpChar(player);
+			end
 		end
 	end
 end
@@ -681,9 +683,9 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       local Round = Battle.GetTurn(battleIndex);
       for i = 10, 19 do
             local enemy = Battle.GetPlayer(battleIndex, i);
-            if Round>=5 and Round<=9 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406091  then
+            if Round>=5 and Round<=9 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-            elseif Round>=10 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406091  then
+            elseif Round>=10 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
             end
       end
