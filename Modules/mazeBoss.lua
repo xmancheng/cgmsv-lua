@@ -529,7 +529,7 @@ function wincallbackfunc(tbl_win_user)
 							local TeamPlayer = Char.GetPartyMember(w,Slot);
 							if Char.IsDummy(TeamPlayer)==false then
 								local cdk = Char.GetData(TeamPlayer,CONST.对象_CDK);
-								SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
+								SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE tbl_character.CdKey=lua_hook_worldboss.CdKey)");
 								SQL.Run("update lua_hook_worldboss set LordEnd1= '1' where CdKey='"..cdk.."'")
 								NLG.UpChar(TeamPlayer);
 							end
