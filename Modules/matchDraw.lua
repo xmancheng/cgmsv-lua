@@ -214,6 +214,7 @@ function MatchDraw:onLoad()
     end)
     self:NPC_regTalkedEvent(managerNPC, function(npc, player)  ----火柴抽奖背包managerMenu{}
             local cdk = Char.GetData(player,CONST.对象_CDK);
+            SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
             local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
             local sqldata = SQL.Run("select MatchDraw1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
             local itemData = {};
@@ -283,7 +284,7 @@ function MatchDraw:onMatchDraw(player, targetcharIndex, itemSlot)
           local WinNum = NLG.Rand(7, 1000);
           print(WinNum)
           local cdk = Char.GetData(player,CONST.对象_CDK);
-          SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE CdKey='"..cdk.."')");
+          SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
           local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
           for k, v in ipairs(DrawTbl) do
              if (WinNum>=v.serial_L and WinNum<=v.serial_H) then
