@@ -44,12 +44,12 @@ function Module:onLoad()
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.InTheWorld_LoopEvent,self))
-  local mazeNPC = self:NPC_createNormal('裏世界傳送門', 108511, { map = 25003, x = 15, y = 28, direction = 0, mapType = 0 })
+  local mazeNPC = self:NPC_createNormal('裏空間傳送門', 108511, { map = 1000, x = 242, y = 88, direction = 0, mapType = 0 })
   self:NPC_regWindowTalkedEvent(mazeNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "3\\n@c前往轉生後的裏世界冒險\\n"
+    local winMsg = "3\\n@c前往轉生後的裏空間冒險\\n"
                            .."\\n　　════════════════════\\n"
                            .. worldPoints[1][1] .. "\\n";
     local winButton = CONST.BUTTON_关闭;
@@ -90,10 +90,10 @@ function Module:onLoad()
       local short = worldPoints[count]
       local lastTimes = Char.GetExtData(player, "MazeTimeF") or 0;
       if (Char.GetData(player,CONST.CHAR_金币)<5000) then
-          NLG.SystemMessage(player,"[系統]]裏世界傳送代價5000魔幣！！");
+          NLG.SystemMessage(player,"[系統]]裏空間傳送代價5000魔幣！！");
           return;
       elseif (Char.PartyNum(player)>=2) then
-          NLG.SystemMessage(player,"[系統]裏世界須要單人進行傳送！！");
+          NLG.SystemMessage(player,"[系統]裏空間須要單人進行傳送！！");
           return;
       else
           if lastTimes == 0 then
@@ -101,6 +101,7 @@ function Module:onLoad()
               Char.Warp(player, short[2], short[3], short[4], short[5])
               Char.SetExtData(player, "MazeTimeF", os.time());
               Char.SetExtData(player, "MazeTimeS", 0);
+              Char.SetExtData(player, "MazeTimeT", 0);
               Char.SetLoopEvent('./lua/Modules/mazeWorld.lua','InTheWorld_LoopEvent',player,60000);
           else
               Char.Warp(player, short[2], short[3], short[4], short[5])
@@ -115,7 +116,7 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local winCase = CONST.窗口_选择框
       local winButton = CONST.BUTTON_关闭;
-      local msg = "3\\n@c前往轉生後的裏世界冒險\\n"
+      local msg = "3\\n@c前往轉生後的裏空間冒險\\n"
                            .."\\n　　════════════════════\\n"
                            .. worldPoints[1][1] .. "\\n";
       for i = 1,7 do
@@ -168,7 +169,7 @@ function Module:onGetExpEvent(charIndex, exp)
 					NLG.SystemMessage(charIndex,"請前往下一層世界，當前經驗已被鎖定。")
 					return 0
 				elseif (Char.GetData(charIndex,CONST.对象_等级)>worldExp[i].L_level and Target_FloorId~=FloorId) then
-					NLG.SystemMessage(charIndex,"轉生後請前往裏世界，當前經驗已被鎖定。")
+					NLG.SystemMessage(charIndex,"轉生後請前往裏空間，當前經驗已被鎖定。")
 					return 0
 				else
 					for Slot=0,4 do
@@ -234,27 +235,30 @@ end
 function InTheWorld_LoopEvent(player)
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
+  local TTime = Char.GetExtData(player, "MazeTimeT") or 0;
   local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
   if FTime > 0 then
     if STime >0 then
-        if ( (os.time() - STime) + (STime - FTime) ) >= 12000 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            Char.Warp(player,0,25003,14,29);
-            NLG.SystemMessage(player,"[系統]時限結束傳送離開裏世界。");
+        if (os.time() - TTime) >= 12000 - (STime - FTime) and Target_FloorId>=60002 and Target_FloorId<=60007 then
+            Char.Warp(player,0,1000,241,88);
+            NLG.SystemMessage(player,"[系統]時限結束傳送離開裏空間。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
+            Char.SetExtData(player, "MazeTimeT", 0);
             Char.UnsetLoopEvent(player);
-        elseif ( (os.time() - STime) + (STime - FTime) ) == 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏世界。");
+        elseif (os.time() - TTime) == 300 - (STime - FTime) and Target_FloorId>=60002 and Target_FloorId<=60007 then
+            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏空間。");
         end
     else
         if (os.time() - FTime) >= 12000 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            Char.Warp(player,0,25003,14,29);
-            NLG.SystemMessage(player,"[系統]時限結束傳送離開裏世界。");
+            Char.Warp(player,0,1000,241,88);
+            NLG.SystemMessage(player,"[系統]時限結束傳送離開裏空間。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
+            Char.SetExtData(player, "MazeTimeT", 0);
             Char.UnsetLoopEvent(player);
         elseif (os.time() - FTime) == 300 and Target_FloorId>=60002 and Target_FloorId<=60007 then
-            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏世界。");
+            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏空間。");
         end
     end
   else
@@ -265,10 +269,12 @@ end
 function Module:onLogoutEvent(player)
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
+  local TTime = Char.GetExtData(player, "MazeTimeT") or 0;
   if FTime > 0 then
     if STime >0 then
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
+            Char.SetExtData(player, "MazeTimeT", 0);
     else
             Char.SetExtData(player, "MazeTimeS", os.time());
     end
@@ -278,12 +284,14 @@ end
 function Module:onLoginEvent(player)
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
+  local TTime = Char.GetExtData(player, "MazeTimeT") or 0;
   if FTime > 0 then
+            Char.SetExtData(player, "MazeTimeT", os.time());
             Char.SetLoopEvent('./lua/Modules/mazeWorld.lua','InTheWorld_LoopEvent',player,60000);
   else
             local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
             if Target_FloorId>=60002 and Target_FloorId<=60007 then
-                Char.Warp(player,0,25003,14,29);
+                Char.Warp(player,0,1000,241,88);
                 Char.UnsetLoopEvent(player);
                 NLG.SystemMessage(player,"[系統]時空傳送回原本世界。");
             end
