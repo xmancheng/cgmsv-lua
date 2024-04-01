@@ -103,6 +103,7 @@ end
 
 function QuickUI:metamo(npc, player)
       local cdk = Char.GetData(player,CONST.对象_CDK);
+      SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
       local dressing_OImage = tonumber(SQL.Run("select OriginalImageNumber from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
       local msg = ""..dressing_OImage.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      1 / 10\\n";
       NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, 4, msg);
@@ -465,7 +466,7 @@ function QuickUI:onLoad()
   self:NPC_regTalkedEvent(self.imageNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
       local cdk = Char.GetData(player,CONST.对象_CDK);
-      SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey");
+      SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
       local dressing_OImage = tonumber(SQL.Run("select OriginalImageNumber from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
       local msg = ""..dressing_OImage.."|【人物形象衣櫃】\\n\\n選[是]使角色更換此形象\\n\\n選[否]換下一頁的形象\\n\\n      1 / 10\\n";
       NLG.ShowWindowTalked(player, self.imageNpc, CONST.窗口_图框, CONST.按钮_是否, 4, msg);
@@ -551,7 +552,7 @@ end
 function QuickUI:imageCollection(charIndex,targetIndex,itemSlot)
     local cdk = Char.GetData(charIndex,CONST.对象_CDK);
     local name = Char.GetData(charIndex, CONST.CHAR_名字);
-    SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey");
+    SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
     local Name_data =  SQL.Run("select Name from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
 
     local itemSlot = Char.FindItemId(charIndex, 69990);
