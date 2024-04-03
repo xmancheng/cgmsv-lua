@@ -217,11 +217,41 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(devilNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winMsg = "\\n\\n\\n@c你想要挑戰水鏡惡魔史萊姆嗎？\\n";
+      local winMsg = "\\n\\n\\n@c你想要挑戰水鏡惡魔史萊姆嗎？\\n"
+                                          .. "\\n　　\\n"
+                                          .. "\\n警告！此魔物喜好鏡射複製的特性\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 1, winMsg);
     end
     return
   end)
+
+  local remainsNpc = self:NPC_createNormal('水鏡惡魔史萊姆', 101503, { map = 60004, x = 61, y = 101, direction = 6, mapType = 0 })
+  self:NPC_regWindowTalkedEvent(remainsNpc, function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.对象_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select == CONST.BUTTON_否 then
+        return;
+    end
+    if select == CONST.BUTTON_是 then
+        local EnemyIdAr = {406180, 406181, 406182, 406183, 406184, 406185, 406186, 406187, 406188, 406189}
+        local BaseLevelAr = {66, 66, 66, 66, 66, 66, 66, 66, 66, 66}
+        local BattleIndex = Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
+        Battle.SetWinEvent("./lua/Modules/battleMirrorDevil.lua", "DevilNpc_BattleWin", BattleIndex);
+        --Battle.Encount(npc, player, "3|||0|||||3|406180|5|2|5|2|")
+    end
+  end)
+  self:NPC_regTalkedEvent(remainsNpc, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+      local winMsg = "\\n\\n\\n@c警告！此魔物喜好鏡射複製\\n"
+                                          .. "\\n　　\\n"
+                                          .. "\\n你想要挑戰水鏡惡魔史萊姆嗎？\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 1, winMsg);
+    end
+    return
+  end)
+
 end
 
 function Module:OnbattleStartEventCallback(battleIndex)
@@ -391,6 +421,9 @@ function DevilNpc_BattleWin(battleIndex, charIndex)
 			m = m+Dm[p];
 			k = k+1;
 		end
+	end
+	if (Char.GetData(charIndex, CONST.CHAR_地图)==60004) then
+		Char.GiveItem(charIndex, 70188, 1);
 	end
 	local lv = math.floor(m/k);
 	local lvRank = math.floor(lv/10);
