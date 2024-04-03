@@ -20,13 +20,13 @@ local mazeMap = {
     { 60002 }, { 60004 }, { 60006 }, { 60008 }, { 60010 }, { 60012 }, { 60014 },
 }
 local worldExp = {
-    { Event="LordEnd1", L_level=0, R_level=30, UniItem=70188},
-    { Event="LordEnd2", L_level=30, R_level=50, UniItem=70187},
-    { Event="LordEnd3", L_level=50, R_level=70, UniItem=70187},
-    { Event="LordEnd4", L_level=70, R_level=90, UniItem=70187},
-    { Event="LordEnd5", L_level=90, R_level=110, UniItem=70187},
-    { Event="LordEnd6", L_level=110, R_level=130, UniItem=70187},
-    { Event="LordEnd7", L_level=130, R_level=150, UniItem=70187},
+    { Event="LordEnd1", L_level=0, R_level=30, UniItem=70258},
+    { Event="LordEnd2", L_level=30, R_level=50, UniItem=70260},
+    { Event="LordEnd3", L_level=50, R_level=70, UniItem=70262},
+    { Event="LordEnd4", L_level=70, R_level=90, UniItem=70264},
+    { Event="LordEnd5", L_level=90, R_level=110, UniItem=70266},
+    { Event="LordEnd6", L_level=110, R_level=130, UniItem=70267},
+    { Event="LordEnd7", L_level=130, R_level=150, UniItem=70270},
 }
 
 --- 页数计算
