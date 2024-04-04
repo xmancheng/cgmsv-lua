@@ -1,54 +1,54 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('mazeHorcrux')
 
 local worldHorcrux = {
-  { "[¡¡µÚÒ»×ï£º°ÁÂı", 70258, 301, 119010 },
-  { "[¡¡µÚ¶ş×ï£º¼µ¶Ê", 70260, 302, 119022 },
-  { "[¡¡µÚÈı×ï£º‘Å­", 70262, 303, 119020 },
-  { "[¡¡µÚËÄ×ï£ºµ¡¶è", 70264, 304, 119018 },
-  { "[¡¡µÚÎå×ï£ºØÀ·", 70266, 305, 119021 },
-  { "[¡¡µÚÁù×ï£º±©Ê³", 70267, 306, 119019 },
-  { "[¡¡µÚÆß×ï£ºÉ«‘j", 70270, 307, 119011 },
+  { "[ã€€ç¬¬ä¸€ç½ªï¼šå‚²æ…¢", 70258, 301, 119010 },
+  { "[ã€€ç¬¬äºŒç½ªï¼šå«‰å¦’", 70260, 302, 119022 },
+  { "[ã€€ç¬¬ä¸‰ç½ªï¼šæ†¤æ€’", 70262, 303, 119020 },
+  { "[ã€€ç¬¬å››ç½ªï¼šæ€ æƒ°", 70264, 304, 119018 },
+  { "[ã€€ç¬¬äº”ç½ªï¼šè²ªå©ª", 70266, 305, 119021 },
+  { "[ã€€ç¬¬å…­ç½ªï¼šæš´é£Ÿ", 70267, 306, 119019 },
+  { "[ã€€ç¬¬ä¸ƒç½ªï¼šè‰²æ…¾", 70270, 307, 119011 },
 }
 
---- Ò³Êı¼ÆËã
+--- é¡µæ•°è®¡ç®—
 local function calcWarp()
   local totalpage = math.modf(#worldHorcrux / 6) + 1
   local remainder = math.fmod(#worldHorcrux, 6)
   return totalpage, remainder
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self));
-
-  local HorcruxNPC = self:NPC_createNormal('Æß×ï»êÆ÷ÖøÑb', 104840, { map = 1000, x = 241, y = 70, direction = 0, mapType = 0 })
+  self:regCallback('ItemString', Func.bind(self.onSinUse, self), 'LUA_useSin');
+  local HorcruxNPC = self:NPC_createNormal('ä¸ƒç½ªé­‚å™¨è‘—è£', 104840, { map = 1000, x = 241, y = 70, direction = 0, mapType = 0 })
   self:NPC_regWindowTalkedEvent(HorcruxNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "3\\n@cßx“ñÒÑÌî³äµÄ»êÆ÷È¡µÃÆß×ï¼¼ÄÜ\\n"
-                           .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "3\\n@cé¸æ“‡å·²å¡«å……çš„é­‚å™¨å–å¾—ä¸ƒç½ªæŠ€èƒ½\\n"
+                           .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
+    local winButton = CONST.BUTTON_å…³é—­;
     local totalPage, remainder = calcWarp()
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -59,22 +59,22 @@ function Module:onLoad()
         for i = 1 + count, remainder + count do
           local flagEvent = Char.EndEvent(player,worldHorcrux[i][1]);
           if (flagEvent == 1) then
-              winMsg = winMsg .. worldHorcrux[i][1] .. "¡¡¡¡¡ñÒÑ†¢„Ó]\\n"
+              winMsg = winMsg .. worldHorcrux[i][1] .. "ã€€ã€€â—å·²å•Ÿå‹•]\\n"
           else
-              winMsg = winMsg .. worldHorcrux[i][1] .. "¡¡¡¡¡ğÎ´¼¤»î]\\n"
+              winMsg = winMsg .. worldHorcrux[i][1] .. "ã€€ã€€â—‹æœªæ¿€æ´»]\\n"
           end
         end
       else
         for i = 1 + count, 6 + count do
           local flagEvent = Char.EndEvent(player,worldHorcrux[i][1]);
           if (flagEvent == 1) then
-              winMsg = winMsg .. worldHorcrux[i][1] .. "¡¡¡¡¡ñÒÑ†¢„Ó]\\n"
+              winMsg = winMsg .. worldHorcrux[i][1] .. "ã€€ã€€â—å·²å•Ÿå‹•]\\n"
           else
-              winMsg = winMsg .. worldHorcrux[i][1] .. "¡¡¡¡¡ğÎ´¼¤»î]\\n"
+              winMsg = winMsg .. worldHorcrux[i][1] .. "ã€€ã€€â—‹æœªæ¿€æ´»]\\n"
           end
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local count = 6 * (warpPage - 1) + column
       local short = worldHorcrux[count]
@@ -83,24 +83,24 @@ function Module:onLoad()
           NLG.SetHeadIcon(player, short[4]);
           Char.SetExtData(player, "Saligia", short[4]);
       else
-          NLG.SystemMessage(player,"[Ïµ½y]ÉĞÎ´¼¤»î´ËÆß´ó×ï»êÆ÷£¡£¡");
+          NLG.SystemMessage(player,"[ç³»çµ±]å°šæœªæ¿€æ´»æ­¤ä¸ƒå¤§ç½ªé­‚å™¨ï¼ï¼");
           return;
       end
     end
   end)
   self:NPC_regTalkedEvent(HorcruxNPC, function(npc, player)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     if (NLG.CanTalk(npc, player) == true) then
-      local winCase = CONST.´°¿Ú_Ñ¡Ôñ¿ò
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "3\\n@cßx“ñÒÑÌî³äµÄ»êÆ÷È¡µÃÆß×ï¼¼ÄÜ\\n"
-                           .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
+      local winCase = CONST.çª—å£_é€‰æ‹©æ¡†
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "3\\n@cé¸æ“‡å·²å¡«å……çš„é­‚å™¨å–å¾—ä¸ƒç½ªæŠ€èƒ½\\n"
+                           .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
       for i = 1,7 do
         local flagEvent = Char.EndEvent(player,worldHorcrux[i][3]);
         if (flagEvent == 1) then
-            msg = msg .. worldHorcrux[i][1] .. "¡¡¡¡¡ñÒÑ†¢„Ó]\\n"
+            msg = msg .. worldHorcrux[i][1] .. "ã€€ã€€â—å·²å•Ÿå‹•]\\n"
         else
-            msg = msg .. worldHorcrux[i][1] .. "¡¡¡¡¡ğÎ´¼¤»î]\\n"
+            msg = msg .. worldHorcrux[i][1] .. "ã€€ã€€â—‹æœªæ¿€æ´»]\\n"
         end
       end
       NLG.ShowWindowTalked(player, npc, winCase, winButton, 1, msg);
@@ -123,7 +123,24 @@ function Module:onLoginEvent(player)
   end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--ä¸ƒå¤§ç½ªä½¿ç”¨
+function Module:onSinUse(charIndex, targetCharIndex, itemSlot)
+  local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  for i, v in ipairs(worldHorcrux) do
+      if (ItemID==v[2]) then
+          if (Char.EndEvent(charIndex,v[3])==0) then
+              Char.DelItem(charIndex,v[2],1);
+              Char.EndEvent(charIndex,v[3],1);
+               NLG.SystemMessage(charIndex,"[ç³»çµ±]ä¸ƒå¤§ç½ªé­‚å™¨æ¿€æ´»ä¸­ï¼ï¼");
+          elseif (Char.EndEvent(charIndex,v[3])==1) then
+               NLG.SystemMessage(charIndex,"[ç³»çµ±]å·²ç¶“å•Ÿå‹•éæ­¤é­‚å™¨ï¼ï¼");
+          end
+      end
+  end
+end
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
