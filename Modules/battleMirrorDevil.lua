@@ -286,7 +286,8 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 			end
 		elseif Round>=1 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
 			if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
-				player = Battle.GetPlayIndex(battleIndex, 0);
+				local player = Battle.GetPlayIndex(battleIndex, 0);
+				NLG.SystemMessage(player,"[系統]水鏡惡魔史萊姆，隨著回合慢慢失去血量");
 				if (Char.EndEvent(player,301)==1) then
 					HP= 1 - (Round*0.05);
 					if Round>=20 then
@@ -303,11 +304,9 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 			end
 		end
 	end
-	if Round>=2 then
-		player = Battle.GetPlayIndex(battleIndex, 0);
-		NLG.SystemMessage(player,"[系統]水鏡惡魔史萊姆，隨著回合慢慢失去力量");
+	--[[if Round>=2 then
 		Battle.SetDexRearrangeRate(battleIndex,50);
-	end
+	end]]
 end
 function Module:OnAfterBattleTurnCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
