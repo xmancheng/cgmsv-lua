@@ -217,9 +217,9 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(devilNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winMsg = "\\n\\n\\n@c你想要挑戰水鏡惡魔史萊姆嗎？\\n"
+      local winMsg = "\\n\\n\\n@c警告！此魔物喜好鏡射複製\\n"
                                           .. "\\n　　\\n"
-                                          .. "\\n警告！此魔物喜好鏡射複製的特性\\n";
+                                          .. "\\n你想要挑戰水鏡惡魔史萊姆嗎？\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 1, winMsg);
     end
     return
@@ -244,10 +244,16 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(remainsNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winMsg = "\\n\\n\\n@c警告！此魔物喜好鏡射複製\\n"
-                                          .. "\\n　　\\n"
-                                          .. "\\n你想要挑戰水鏡惡魔史萊姆嗎？\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 1, winMsg);
+          if (Char.EndEvent(player,301)==1) then
+                winMsg = "\\n\\n\\n@c看不出來你是擁有傲慢魂器之人\\n"
+                                                  .. "\\n就讓我來秤秤你的斤兩吧！\\n"
+                                                  .. "\\n水鏡惡魔不會對你們放水了\\n";
+          else
+                winMsg = "\\n\\n\\n@c警告！此魔物喜好鏡射複製\\n"
+                                              .. "\\n你想要挑戰水鏡惡魔史萊姆嗎？\\n"
+                                              .. "\\n(敵人血量隨回合數會大幅減少)\\n";
+          end
+          NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 1, winMsg);
     end
     return
   end)
@@ -278,13 +284,28 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 				Char.SetData(enemy, CONST.CHAR_血, Char.GetData(enemy,CONST.CHAR_最大血));
 				Char.SetData(enemy, CONST.CHAR_魔, Char.GetData(enemy,CONST.CHAR_最大魔));
 			end
-		elseif Round==2 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
+		elseif Round>=1 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
 			if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
+				player = Battle.GetPlayIndex(battleIndex, 0);
+				if (Char.EndEvent(player,301)==1) then
+					HP= 1 - (Round*0.05);
+					if Round>=20 then
+						HP = 0.01;
+					end	
+				else
+					HP= 1 - (Round*0.1);
+					if Round>=10 then
+						HP = 0.01;
+					end
+				end
+				Char.SetData(enemy, CONST.CHAR_血, Char.GetData(enemy,CONST.CHAR_最大血)*HP);
 				Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,0)
 			end
 		end
 	end
-	if Round>=1 then
+	if Round>=2 then
+		player = Battle.GetPlayIndex(battleIndex, 0);
+		NLG.SystemMessage(player,"[系統]水鏡惡魔史萊姆，隨著回合慢慢失去力量");
 		Battle.SetDexRearrangeRate(battleIndex,50);
 	end
 end
