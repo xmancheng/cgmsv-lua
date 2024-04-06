@@ -21,41 +21,66 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         --print(charIndex)
+         --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
          if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
                leader = leader2
          end
-         if defCom1 == 43  then    --聖盾(無限抵擋死亡)
+         if (defCom1==2502)  then    --0x9C6不死不壞/defCom1==43聖盾(無限抵擋死亡)
                local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
-               if damage>=defHpE-1  then
+               if damage>=defHpE-1 then
                  Char.SetData(defCharIndex, CONST.CHAR_血, defHpE+damage*0.1);
                  Char.SetData(defCharIndex, CONST.CHAR_受伤, 0);
+                 Char.SetData(defCharIndex, CONST.CHAR_BattleLpRecovery, 2);
                  NLG.UpChar(defCharIndex);
                  damage = damage*0;
                  if Char.GetData(leader,%对象_队聊开关%) == 1  then
-                         NLG.Say(leader,-1,"【力場結界】聖盾抵銷了致命的傷害！！",4,3);
+                         NLG.Say(defCharIndex,-1,"【不死不壞】抵銷了致命的傷害！！",4,3);
                  end
                else
                  damage = damage;
                end
+               if Char.GetData(defCharIndex,%对象_队聊开关%) == 0  then
+                   NLG.Say(defCharIndex,-1,"【不死不壞】！！",4,3);
+               end
                return damage;
          end
-         if (com3 >= 200500 and com3 <= 200509)  then    --追月(消除巫術)
+         if (com3 == 200539)  then    --200539空裂月痕/200500~200509追月(消除巫術)
                for k, v in ipairs(clearType) do
                  local sorcery = Char.GetData(defCharIndex, v.type);
                  if sorcery>=1 then
                          Char.SetData(defCharIndex, v.type, 0);
                          damage = damage*0;
                          if Char.GetData(leader,%对象_队聊开关%) == 1  then
-                                 NLG.Say(charIndex,-1,"【空裂月痕】追月消除了"..v.name.."！！",4,3);
+                                 NLG.Say(charIndex,-1,"【空裂月痕】消除了"..v.name.."！！",4,3);
                          end
                  else
                          damage = damage;
                  end
                end
+               if Char.GetData(charIndex,%对象_队聊开关%) == 0  then
+                   NLG.Say(charIndex,-1,"【空裂月痕】！！",4,3);
+               end
                return damage;
          end
-  
+
+         if (com3 == 26739)  then    --26739術式反轉/26700~26709精神衝擊波(攻擊力補正)
+               local defHp = Char.GetData(charIndex,CONST.CHAR_血);
+               local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
+               local Hp05 = defHp/defHpM;
+               local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
+               if Hp05>=0.5 then
+                       local AC = Attack * 0.5;
+                       damage = damage + AC;
+                       if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                               NLG.Say(charIndex,-1,"【術式反轉】威力正反變化！！",4,3);
+                       end
+               end
+               if Char.GetData(charIndex,%对象_队聊开关%) == 0  then
+                   NLG.Say(charIndex,-1,"【術式反轉】！！",4,3);
+               end
+               return damage;
+         end
+
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
 --抓寵技能刀背攻擊
                if com3 == 8137  then
