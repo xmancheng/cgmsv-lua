@@ -88,6 +88,8 @@ function Module:onLoad()
       local flagEvent = Char.EndEvent(player, short[3]);
       if (flagEvent == 1) then
           if Char.HaveSkill(player,short[5])>=0 then
+              NLG.SetHeadIcon(player, short[4]);
+              Char.SetExtData(player, "Saligia", short[4]);
               NLG.SystemMessage(player,"[系統]七大罪技能已連接設置！！");
               return;
           else
@@ -108,9 +110,9 @@ function Module:onLoad()
               --Char.SetSkillExp(player, Char.HaveSkill(player,short[5]),0,0);
               NLG.SystemMessage(player,"[系統]七大罪連接中，請重新登入來設置。");
               NLG.UpChar(player);
+              NLG.SetHeadIcon(player, short[4]);
+              Char.SetExtData(player, "Saligia", short[4]);
           end
-          NLG.SetHeadIcon(player, short[4]);
-          Char.SetExtData(player, "Saligia", short[4]);
       else
           NLG.SystemMessage(player,"[系統]尚未激活此七大罪魂器！！");
           return;
