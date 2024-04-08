@@ -83,7 +83,7 @@ function Module:onLoad()
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self));
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
-  local wildnpc = self:NPC_createNormal('狩獵地帶觀察員', 98043, { map = 1000, x = 226, y = 79, direction = 4, mapType = 0 })
+  local wildnpc = self:NPC_createNormal('狩獵地帶觀察員', 98043, { map = 60008, x = 48, y = 27, direction = 4, mapType = 0 })
   self:regCallback('LoopEvent', Func.bind(self.Qualifications_LoopEvent,self))
   self:NPC_regWindowTalkedEvent(wildnpc, function(npc, player, _seqno, _select, _data)
 	local cdk = Char.GetData(player,CONST.对象_CDK);
@@ -98,8 +98,8 @@ function Module:onLoad()
 			else
 				local msg = "3\\n@c報名參加狩獵地帶的巡查\\n"
 					.."\\n　　════════════════════"
-					.. "\\n　2000魔幣！參加1小時！\\n"
-					.. "\\n　5000魔幣！參加3小時！\\n";
+					.. "\\n　200魔幣！參加1小時！\\n"
+					.. "\\n　500魔幣！參加3小時！\\n";
 				NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 21, msg);
 			end
 		end
@@ -186,28 +186,28 @@ function Module:onLoad()
 		if key == data then
 			local playerName = Char.GetData(player,CONST.CHAR_名字);
 			--print(key)
-			if (Char.GetData(player,CONST.CHAR_金币)<2000) then
+			if (Char.GetData(player,CONST.CHAR_金币)<200) then
 				local msg = "\\n@c參加須要個人進行報名！！\\n"
-					.."\\n支付入場費用2000魔幣\\n"
+					.."\\n支付入場費用200魔幣\\n"
 					.."\\n進入後可以尋找夥伴組隊\\n"
 					.."\\n留意入場券上倒數的時間\\n";
 				NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 22, msg);
 				return;
 			elseif (Char.PartyNum(player)>=2) then
 				local msg = "\\n@c參加須要個人進行報名！！\\n"
-					.."\\n支付入場費用2000、5000魔幣\\n"
+					.."\\n支付入場費用200、500魔幣\\n"
 					.."\\n進入後可以尋找夥伴組隊\\n"
 					.."\\n留意入場券上倒數的時間\\n";
 				NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定, 22, msg);
 				return;
 			else
 				if key==1 then
-					Char.AddGold(player, -2000);
+					Char.AddGold(player, -200);
 					Char.GiveItem(player, WildSetting.Item_1, 1);
 					Char.Warp(player,0, WildSetting.Map, WildSetting.X, WildSetting.Y);
 					Char.SetLoopEvent('./lua/Modules/huntingZone.lua','Qualifications_LoopEvent',player,5000);
 				elseif key==3 then
-					Char.AddGold(player, -5000);
+					Char.AddGold(player, -500);
 					Char.GiveItem(player, WildSetting.Item_3, 1);
 					Char.Warp(player,0, WildSetting.Map, WildSetting.X, WildSetting.Y);
 					Char.SetLoopEvent('./lua/Modules/huntingZone.lua','Qualifications_LoopEvent',player,5000);
