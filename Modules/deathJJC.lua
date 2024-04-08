@@ -51,21 +51,21 @@ BaseLevelSet[12] = {160, 160, 160, 160, 160, 160, 160, 160, 160, 160}
 BaseLevelSet[13] = {160, 160, 160, 160, 160, 160, 160, 160, 160, 160}
 BaseLevelSet[14] = {160, 160, 160, 160, 160, 160, 160, 160, 160, 160}
 BaseLevelSet[15] = {160, 160, 160, 160, 160, 160, 160, 160, 160, 160}
-Pos[1] = {"死亡獵手",EnemySet[1],BaseLevelSet[1]}      -- 初级(1~5)
-Pos[2] = {"死亡獵手",EnemySet[2],BaseLevelSet[2]}
-Pos[3] = {"死亡獵手",EnemySet[3],BaseLevelSet[3]}
-Pos[4] = {"死亡獵手",EnemySet[4],BaseLevelSet[4]}
-Pos[5] = {"死亡獵手",EnemySet[5],BaseLevelSet[5]}
-Pos[6] = {"死亡獵手",EnemySet[6],BaseLevelSet[6]}                  -- 高级(6~10)
-Pos[7] = {"死亡獵手",EnemySet[7],BaseLevelSet[7]}
-Pos[8] = {"死亡獵手",EnemySet[8],BaseLevelSet[8]}
-Pos[9] = {"死亡獵手",EnemySet[9],BaseLevelSet[9]} 
-Pos[10] = {"死亡獵手",EnemySet[10],BaseLevelSet[10]}
-Pos[11] = {"死亡獵手",EnemySet[11],BaseLevelSet[11]}             -- 绝级(11~15)
-Pos[12] = {"死亡獵手",EnemySet[12],BaseLevelSet[12]}
-Pos[13] = {"死亡獵手",EnemySet[13],BaseLevelSet[13]}
-Pos[14] = {"死亡獵手",EnemySet[14],BaseLevelSet[14]}
-Pos[15] = {"死亡獵手",EnemySet[15],BaseLevelSet[15]}
+Pos[1] = {"影子暗部",EnemySet[1],BaseLevelSet[1]}      -- 初级(1~5)
+Pos[2] = {"影子暗部",EnemySet[2],BaseLevelSet[2]}
+Pos[3] = {"影子暗部",EnemySet[3],BaseLevelSet[3]}
+Pos[4] = {"影子暗部",EnemySet[4],BaseLevelSet[4]}
+Pos[5] = {"影子暗部",EnemySet[5],BaseLevelSet[5]}
+Pos[6] = {"影子暗部",EnemySet[6],BaseLevelSet[6]}                  -- 高级(6~10)
+Pos[7] = {"影子暗部",EnemySet[7],BaseLevelSet[7]}
+Pos[8] = {"影子暗部",EnemySet[8],BaseLevelSet[8]}
+Pos[9] = {"影子暗部",EnemySet[9],BaseLevelSet[9]} 
+Pos[10] = {"影子暗部",EnemySet[10],BaseLevelSet[10]}
+Pos[11] = {"影子暗部",EnemySet[11],BaseLevelSet[11]}             -- 绝级(11~15)
+Pos[12] = {"影子暗部",EnemySet[12],BaseLevelSet[12]}
+Pos[13] = {"影子暗部",EnemySet[13],BaseLevelSet[13]}
+Pos[14] = {"影子暗部",EnemySet[14],BaseLevelSet[14]}
+Pos[15] = {"影子暗部",EnemySet[15],BaseLevelSet[15]}
 ------------------------------------------------
 local CharSet = {700000,700001,700002,700003,700004,700005,700006,700007,700008,700009,700010,
                                              700011,700012,700013,700014,700015,700016,700017,700018,700019,700020,
@@ -82,20 +82,20 @@ local Switch = 1;                          --组队人数限制开关1开0关
 local Rank = 0;                             --难度分类
 local BossMap= {25292,24,25} -- 战斗场景Floor,X,Y(初、高、绝同场景)
 local OutMap= {25293,35,14}  -- 失败传送Floor,X,Y(初、高、绝同场景)
-local LeaveMap= {1000,237,99}  -- 离开传送Floor,X,Y(初、高、绝同场景)
+local LeaveMap= {60006,11,29}  -- 离开传送Floor,X,Y(初、高、绝同场景)
 local BossKey= {70213,70213,70213} -- 初级、高级、绝级
 local Pts= 69000;                        --积分券
 local BossRoom = {
       { key=1, keyItem=70213, keyItem_count=1, bossRank=1, limit=-1, posNum_L=1, posNum_R=6,
-          win={warpWMap=1000, warpWX=237, warpWY=99, getItem = 69000, getItem_count = 5},
+          win={warpWMap=60006, warpWX=11, warpWY=29, getItem = 69000, getItem_count = 5},
           lose={warpLMap=25293, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
        },    -- 初级(1~5)
       { key=3, keyItem=70213, keyItem_count=1, bossRank=2, limit=3, posNum_L=6, posNum_R=11,
-          win={warpWMap=1000, warpWX=237, warpWY=99, getItem = 69000, getItem_count = 10},
+          win={warpWMap=60006, warpWX=11, warpWY=29, getItem = 69000, getItem_count = 10},
           lose={warpLMap=25293, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
        },    -- 高级(6~10)
       { key=5, keyItem=70213, keyItem_count=1, bossRank=3, limit=5, posNum_L=11, posNum_R=16,
-          win={warpWMap=1000, warpWX=237, warpWY=99, getItem = 69000, getItem_count = 20},
+          win={warpWMap=60006, warpWX=11, warpWY=29, getItem = 69000, getItem_count = 20},
           lose={warpLMap=25293, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
        },    -- 绝级(11~15)
 }
@@ -107,7 +107,7 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleSurpriseEvent', Func.bind(self.OnBattleSurpriseCallBack, self))
   self:regCallback('BattleInjuryEvent', Func.bind(self.OnBattleInjuryCallBack, self))
-  local deathnpc = self:NPC_createNormal('死亡競技場對戰', 235174, { map = 1000, x = 237, y = 98, direction = 4, mapType = 0 })
+  local deathnpc = self:NPC_createNormal('死亡競技場對戰', 235174, { map = 60006, x = 11, y = 19, direction = 4, mapType = 0 })
   self:regCallback('LoopEvent', Func.bind(self.AutoRanking_LoopEvent,self))
   self:NPC_regWindowTalkedEvent(deathnpc, function(npc, player, _seqno, _select, _data)
 	local cdk = Char.GetData(player,CONST.对象_CDK);
@@ -663,8 +663,10 @@ function Module:OnBattleSurpriseCallBack(battleIndex, result)
       if APN>=1 and Target_FloorId==BossMap[1]  then
             if Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.CHAR_队聊开关) == 1  then
                   NLG.SystemMessageToMap(0, BossMap[1],"誒，你終於作弊啦！真的糟透了，能力太好也是會發生偶然的事情啦！");
+                  result=2;
+            else
+                  result=0;
             end
-            result=2;
       elseif Target_FloorId==BossMap[1]  then
             result=0;
       end
