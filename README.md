@@ -69,7 +69,7 @@ loadModule('autoRanking')|自助天梯(未完善)
 --- | --- 
 loadModule('ybPetSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化
-loadModule('attackSkill')|聖盾無敵、追月消巫、手下留情、法術附加狀態、合擊增傷
+loadModule('attackSkill')|七大罪特殊技能、手下留情、法術附加狀態、合擊增傷
 loadModule('setupMagicAttr')|魔法屬性技能
 loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
 ### 傭兵相關
@@ -99,6 +99,8 @@ loadModule('mazeWorld')|裏空間區域
 loadModule('mazeBoss')|裏空間王戰(X)
 loadModule('mazeBoss1')|裏空間1王戰
 loadModule('mazeBoss2')|裏空間2王戰
+loadModule('mazeBoss3')|裏空間3王戰
+loadModule('mazeBoss4')|裏空間4王戰
 loadModule('mazeHorcrux')|裏空間魂器
 ### 其他功能
 模組加載代碼 | 說明 
