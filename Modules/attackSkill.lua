@@ -41,27 +41,27 @@ function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, orih
                end
                return heal;
          end
-         if (ExFlg==Heal)  then    --補血治療魔法
+         if (flg==CONST.HealDamageFlags.Heal)  then    --補血治療魔法
                local deBuff = Char.GetTempData(defCharIndex, '回复减益') or 0;
                if (deBuff > 0)  then
                        if (deBuff==2)  then
-                           heal = heal * 0.1;
+                           heal = heal * 0.5;
                            Char.SetTempData(defCharIndex, '回复减益', 1);
                        elseif (deBuff==1)  then
-                           heal = heal * 0.1;
+                           heal = heal * 0.5;
                            Char.SetTempData(defCharIndex, '回复减益', 0);
                        end
                else
                        heal = heal;
                end
                return heal;
-         elseif (ExFlg==Recovery)  then    --恢復魔法
+         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --恢復魔法
                local deBuff = Char.GetTempData(defCharIndex, '回复减益') or 0;
                local Buff = Char.GetTempData(defCharIndex, '恢复增益') or 0;
                if (Buff > 0)  then
                    if (deBuff>0)  then
                       local HpHeal = Buff * 0.5;
-                      heal = heal * 0.1+HpHeal;
+                      heal = heal * 0.5+HpHeal;
                       Char.SetTempData(defCharIndex, '恢复增益', HpHeal);
                    else
                       local HpHeal = Buff * 0.5;
@@ -70,7 +70,7 @@ function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, orih
                    end
                elseif (Buff <= 0)  then
                    if (deBuff>0)  then
-                      heal = heal * 0.1;
+                      heal = heal * 0.5;
                    else
                       heal = heal;
                    end
@@ -78,14 +78,14 @@ function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, orih
                    heal = heal;
                end
                return heal;
-         elseif (ExFlg==Consentration)  then    --明鏡止水
+         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --明鏡止水
                Char.SetTempData(defCharIndex, '傷口', 0);
-               local deBuff = Char.GetTempData(defCharIndex, '回复减益') or 0
+               local deBuff = Char.GetTempData(defCharIndex, '回复减益') or 0;
                if (deBuff > 0)  then
-                           heal = heal * 0.1;
-                           Char.SetTempData(defCharIndex, '回复减益', 0);
+                       heal = heal * 0.1;
+                       Char.SetTempData(defCharIndex, '回复减益', 0);
                else
-                           heal = heal;
+                       heal = heal;
                end
                return heal;
          end
