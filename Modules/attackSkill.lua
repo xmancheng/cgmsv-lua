@@ -80,6 +80,7 @@ function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, orih
                return heal;
          elseif (flg==CONST.HealDamageFlags.Consentration)  then    --明鏡止水
                Char.SetTempData(defCharIndex, '傷口', 0);
+               Char.SetTempData(defCharIndex, '猛毒', 0);
                local deBuff = Char.GetTempData(defCharIndex, '回复减益') or 0;
                if (deBuff > 0)  then
                        heal = heal * 0.1;
@@ -196,7 +197,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      if (deBuff==0) then
                        Char.SetTempData(defCharIndex, '猛毒', 2);
                        damage = damage;
-                       --NLG.Say(-1,-1,"【虛數空間】對象當前FP削減20%，並給予中毒時猛毒傷害2回合！！",4,3);
+                       --NLG.Say(-1,-1,"【虛數空間】對象當前FP削減20%，並給予中毒時猛毒傷害2回次！！",4,3);
                      end
                      return damage;
                elseif (com3 == 26739)  then    --26739肌肉魔法/26700~26709精神衝擊波(攻擊力補正)
