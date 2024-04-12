@@ -133,6 +133,9 @@ function Module:onLoad()
         else
             msg = msg .. worldHorcrux[i][1] .. "　　○未激活]\\n"
         end
+        if (i>=7) then
+            winButton = CONST.BUTTON_下取消;
+        end
       end
       NLG.ShowWindowTalked(player, npc, winCase, winButton, 1, msg);
     end
@@ -222,7 +225,7 @@ function Module:onBattleSkillCheckEvent(charIndex, battleIndex, arrayOfSkillEnab
 			local techIndex = Tech.GetTechIndex(CD_tech);
 			local Skill_Id = Tech.GetData(techIndex, CONST.TECH_SKILLID);
 			local TechName = Tech.GetData(techIndex, CONST.TECH_NAME);
-			print(techIndex,Skill_Id,TechName)
+			--print(techIndex,Skill_Id,TechName)
 			for i, v in ipairs(skillIdHorcrux) do
 				for i = 1, #skillIdHorcrux do
 				if ( Skill_Id==v[1]) then
