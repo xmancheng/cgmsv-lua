@@ -18,8 +18,8 @@ local skillIdHorcrux = {
 
 --- 页数计算
 local function calcWarp()
-  local totalpage = math.modf(#worldHorcrux / 6) + 1
-  local remainder = math.fmod(#worldHorcrux, 6)
+  local totalpage = math.modf(#worldHorcrux / 7) + 1
+  local remainder = math.fmod(#worldHorcrux, 7)
   return totalpage, remainder
 end
 
@@ -37,8 +37,8 @@ function Module:onLoad()
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "3\\n@c選擇已填充的魂器取得七罪技能\\n"
-                           .."\\n　　════════════════════\\n";
+    local winMsg = "2\\n@c選擇已填充的魂器取得七罪技能\\n"
+                           .."　　════════════════════\\n";
     local winButton = CONST.BUTTON_关闭;
     local totalPage, remainder = calcWarp()
     --上页16 下页32 关闭/取消2
@@ -61,7 +61,7 @@ function Module:onLoad()
         warpPage = 1
         return
       end
-      local count = 6 * (warpPage - 1)
+      local count = 7 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
           local flagEvent = Char.EndEvent(player,worldHorcrux[i][1]);
@@ -72,7 +72,7 @@ function Module:onLoad()
           end
         end
       else
-        for i = 1 + count, 6 + count do
+        for i = 1 + count, 7 + count do
           local flagEvent = Char.EndEvent(player,worldHorcrux[i][1]);
           if (flagEvent == 1) then
               winMsg = winMsg .. worldHorcrux[i][1] .. "　　●已啟動]\\n"
@@ -83,7 +83,7 @@ function Module:onLoad()
       end
       NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
     else
-      local count = 6 * (warpPage - 1) + column
+      local count = 7 * (warpPage - 1) + column
       local short = worldHorcrux[count]
       local flagEvent = Char.EndEvent(player, short[3]);
       if (flagEvent == 1) then
@@ -124,17 +124,14 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local winCase = CONST.窗口_选择框
       local winButton = CONST.BUTTON_关闭;
-      local msg = "3\\n@c選擇已填充的魂器取得七罪技能\\n"
-                           .."\\n　　════════════════════\\n";
+      local msg = "2\\n@c選擇已填充的魂器取得七罪技能\\n"
+                           .."　　════════════════════\\n";
       for i = 1,7 do
         local flagEvent = Char.EndEvent(player,worldHorcrux[i][3]);
         if (flagEvent == 1) then
             msg = msg .. worldHorcrux[i][1] .. "　　●已啟動]\\n"
         else
             msg = msg .. worldHorcrux[i][1] .. "　　○未激活]\\n"
-        end
-        if (i>=7) then
-            winButton = CONST.BUTTON_下取消;
         end
       end
       NLG.ShowWindowTalked(player, npc, winCase, winButton, 1, msg);
