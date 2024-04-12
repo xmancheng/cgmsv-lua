@@ -652,12 +652,12 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
                                                             local HP = Char.GetData(enemy,CONST.CHAR_血);
 			if (HP>=HP_More[1]) then
 				HP_More[1]=HP;
+				NLG.SystemMessage(player,"[系統]強硬特性發動！");
 			else
 				HP_More[1]=HP_More[1];
 			end
 		end
 	end
-	NLG.SystemMessage(player,"[系統]強硬特性發動，雷暴水母目前剩餘血量"..HP_More[1].."！");
 	--剩余血量写入库
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
