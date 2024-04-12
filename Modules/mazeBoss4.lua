@@ -688,11 +688,6 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 			Char.SetData(enemy, CONST.CHAR_血, HP);
 			Char.SetData(enemy, CONST.CHAR_防御力, 420);
-			if NLG.Rand(1,10)>=9  then
-				local BuffData = {CONST.CHAR_BattleDamageReflec, CONST.CHAR_BattleDamageMagicReflec, CONST.CHAR_BattleLpRecovery};
-				local ch = NLG.Rand(1,3);
-				Char.SetData(enemy, BuffData[ch], 1);
-			end
 			if Round>=5 then
 				Char.SetData(enemy, CONST.CHAR_攻击力, 2000);
 				Char.SetData(enemy, CONST.CHAR_精神, 2000);
@@ -700,6 +695,12 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 				Char.SetData(enemy, CONST.CHAR_闪躲, 100);
 				Char.SetData(enemy, CONST.CHAR_反击, 70);
 			end
+			if NLG.Rand(1,10)>=9  then
+				local BuffData = {CONST.CHAR_BattleDamageReflec, CONST.CHAR_BattleDamageMagicReflec, CONST.CHAR_BattleLpRecovery};
+				local ch = NLG.Rand(1,3);
+				Char.SetData(enemy, BuffData[ch], 1);
+			end
+			NLG.UpChar(enemy);
 			if Round>=4 and Round<=8 then
 				Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,114260);
 			elseif Round>=9 then
