@@ -11,9 +11,9 @@ local worldPoints = {
   { "古代遺跡Lv50", 0, 60004, 11, 64 },
   { "黑夜貓村Lv70", 0, 60006, 107, 80 },
   { "荒漠峽谷Lv90", 0, 60008, 33, 24 },
-  { "精靈之都Lv110", 0, 60010, 10, 10 },
-  { "烏龜島嶼Lv130", 0, 60012, 10, 10 },
-  { "群龍之巔Lv150", 0, 60014, 10, 10 },
+  { "精靈之都Lv110", 0, 60010, 46, 42 },
+  { "烏龜秘境Lv130", 0, 60012, 15, 15 },
+  { "天馬原野Lv150", 0, 60014, 44, 51 },
 }
 
 local mazeMap = {
@@ -31,8 +31,8 @@ local worldExp = {
 
 --- 页数计算
 local function calcWarp()
-  local totalpage = math.modf(#worldPoints / 6) + 1
-  local remainder = math.fmod(#worldPoints, 6)
+  local totalpage = math.modf(#worldPoints / 7) + 1
+  local remainder = math.fmod(#worldPoints, 7)
   return totalpage, remainder
 end
 
@@ -49,9 +49,6 @@ function Module:onLoad()
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "3\\n@c前往轉生後的裏空間冒險\\n"
-                           .."\\n　　════════════════════\\n"
-                           .. worldPoints[1][1] .. "\\n";
     local winButton = CONST.BUTTON_关闭;
     local totalPage, remainder = calcWarp()
     --上页16 下页32 关闭/取消2
@@ -74,19 +71,50 @@ function Module:onLoad()
         warpPage = 1
         return
       end
-      local count = 6 * (warpPage - 1)
+      local count = 7 * (warpPage - 1)
       if warpPage == totalPage then
+        local cdk = Char.GetData(player,CONST.对象_CDK);
+        local winMsg = "2\\n@c前往轉生後的裏空間冒險\\n"
+                               .."　　════════════════════\\n";
         for i = 1 + count, remainder + count do
-          winMsg = winMsg .. worldPoints[i][1] .. "\\n"
+            local flag=i-2;
+            local event = tonumber(SQL.Run("select LordEnd"..flag.." from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+            if (event == 1) then
+                if (i>=9) then
+                        winMsg = winMsg
+                else
+                        winMsg = winMsg .. worldPoints[i][1] .. "\\n"
+                end
+            else
+                winMsg = winMsg
+            end
         end
+        NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
       else
-        for i = 1 + count, 6 + count do
-          winMsg = winMsg .. worldPoints[i][1] .. "\\n"
+        local winMsg = "2\\n@c前往轉生後的裏空間冒險\\n"
+                           .."　　════════════════════\\n"
+                           .. worldPoints[1][1] .. "\\n";
+        local cdk = Char.GetData(player,CONST.对象_CDK);
+        for i = 1 + count, 7 + count do
+            local flag=i;
+            local event = tonumber(SQL.Run("select LordEnd"..flag.." from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+            if (i==1) then
+                winMsg = winMsg .. worldPoints[2][1] .. "\\n"
+            end
+            if (event == 1) then
+                if (i>=6) then
+                    winMsg = winMsg
+                else
+                    winMsg = winMsg .. worldPoints[i+2][1] .. "\\n"
+                end
+            else
+                winMsg= winMsg
+            end
         end
+        NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
       end
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
     else
-      local count = 6 * (warpPage - 1) + column
+      local count = 7 * (warpPage - 1) + column
       local short = worldPoints[count]
       local lastTimes = Char.GetExtData(player, "MazeTimeF") or 0;
       if (Char.GetData(player,CONST.CHAR_金币)<5000) then
@@ -116,30 +144,32 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local winCase = CONST.窗口_选择框
       local winButton = CONST.BUTTON_关闭;
-      local msg = "3\\n@c前往轉生後的裏空間冒險\\n"
-                           .."\\n　　════════════════════\\n"
+      local winMsg = "2\\n@c前往轉生後的裏空間冒險\\n"
+                           .."　　════════════════════\\n"
                            .. worldPoints[1][1] .. "\\n";
       for i = 1,7 do
-        local flag=i;
-        local event = tonumber(SQL.Run("select LordEnd"..flag.." from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
-        if (i==1) then
-            msg = msg .. worldPoints[2][1] .. "\\n";
-        end
-        if (event == 1) then
-            msg = msg .. worldPoints[i+2][1] .. "\\n";
-            if (i>=7) then
-                winButton = CONST.BUTTON_下取消;
+            local flag=i;
+            local event = tonumber(SQL.Run("select LordEnd"..flag.." from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+            if (i==1) then
+                winMsg = winMsg .. worldPoints[2][1] .. "\\n"
             end
-        else
-            msg = msg
-        end
+            if (event == 1) then
+                if (i>=6) then
+                    winButton = CONST.BUTTON_下取消;
+                    winMsg = winMsg
+                else
+                    winMsg = winMsg .. worldPoints[i+2][1] .. "\\n"
+                end
+            else
+                winMsg = winMsg
+            end
       end
-      if (Char.GetData(player, CONST.对象_名色)<=0 or Char.GetData(player, CONST.ALBUM31)<=0) then
-                msg = "\\n\\n\\n@c你的實力還不夠\\n"
+      if (Char.GetData(player, CONST.对象_名色)<=0) then
+                winMsg = "\\n\\n\\n@c你的實力還不夠\\n"
                                             .."\\n轉生後再來這裡\\n";
                 winCase = CONST.窗口_信息框;
       end
-      NLG.ShowWindowTalked(player, npc, winCase, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, winCase, winButton, 1, winMsg);
     end
     return
   end)
@@ -153,7 +183,7 @@ function Module:onGetExpEvent(charIndex, exp)
 	worldLayer7 = Char.EndEvent(charIndex,307);
 	]]
 	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_地图);
-	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0 or Char.GetData(charIndex, CONST.ALBUM31)>0) then
+	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0) then
 		for i, v in ipairs(mazeMap) do
 			for _, FloorId in ipairs(v) do
 				local LordEnd = worldExp[i].Event;
