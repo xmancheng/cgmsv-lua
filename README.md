@@ -97,7 +97,7 @@ loadModule('deathJJC')|死亡競技
 loadModule('huntingZone')|狩獵地帶
 loadModule('mazeWorld')|裏空間區域
 loadModule('mazeBoss')|裏空間王戰(X)
-loadModule('mazeBoss1')|裏空間1王戰(~5)
+loadModule('mazeBoss1')|裏空間1王戰(~7)
 loadModule('mazeHorcrux')|裏空間魂器
 ### 其他功能
 模組加載代碼 | 說明 
