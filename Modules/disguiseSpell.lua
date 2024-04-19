@@ -4,8 +4,8 @@ local DisguiseSpell = ModuleBase:createModule('disguiseSpell')
 Spell_control ={}
 for ddd = 0,10 do
 	Spell_control[ddd] = {}
-	Spell_control[ddd][0] = 0  --初始化指标回合数
-	Spell_control[ddd][1] = 0  --初始化持续回合数
+	Spell_control[ddd][1] = 0  --初始化指标回合数
+	Spell_control[ddd][2] = 0  --初始化持续回合数
 end
 
 Spell_tbl = {}
@@ -48,15 +48,15 @@ function DisguiseSpell:handleBattleAutoCommand(battleIndex)
                            if Char.IsDummy(charIndex)==false and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 then
                                  if (battleturn == 0) then
                                      ztBattleturn = 0;
-                                     Spell_control[charIndex][0] = 0;
                                      Spell_control[charIndex][1] = 0;
+                                     Spell_control[charIndex][2] = 0;
                                   --回合计算
-                                 elseif (battleturn > Spell_control[charIndex][0]) then
+                                 elseif (battleturn > Spell_control[charIndex][1]) then
                                      ztBattleturn = battleturn;
-                                     Spell_control[charIndex][0] = battleturn;
-                                     Spell_control[charIndex][1] = Spell_control[charIndex][1] + 1;
+                                     Spell_control[charIndex][1] = battleturn;
+                                     Spell_control[charIndex][2] = Spell_control[charIndex][2] + 1;
                                      for i,w in pairs(Spell_tbl.Tech) do
-                                         if (Spell_control[charIndex][1] >= w[2]) then                               --伤害动作回合变形还原
+                                         if (Spell_control[charIndex][2] >= w[2]) then                               --伤害动作回合变形还原
                                              local PlayerImage = Char.GetData(charIndex,%对象_原始图档%);
                                              Char.SetData(charIndex,%对象_原形%,PlayerImage);
                                              NLG.UpChar(charIndex);
@@ -89,7 +89,7 @@ function DisguiseSpell:OnTechOptionEventCallBack(charIndex, option, techID, val)
                   --NLG.Say(charIndex,charIndex,"【女神加護】！！",4,3);
                   Char.SetData(charIndex,%对象_原形%,w[1]);
                   NLG.UpChar(charIndex);
-                  Spell_control[charIndex][1] = 0;
+                  Spell_control[charIndex][2] = 0;
                end
          end
 
