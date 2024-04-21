@@ -106,4 +106,5 @@ loadModule('quickUI')|動作快捷
 loadModule('petHatching')|飼育小屋
 loadModule('matchDraw')|抽獎背包
 loadModule('petHeadIcon')|寵物頭飾
+loadModule('easyPet')|簡易寵物
 
