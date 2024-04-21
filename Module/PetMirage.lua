@@ -3,7 +3,7 @@ local itemid_card = 70001;
 local itemid_ball = 69993;
 ------------------------------------------------------------------------------
 local OverSoulEnable = {}
-OverSoulEnable[9305] = 0  --0 ½ûÖ¹³¬ÁéÌåÒÀ¸½µÄË®¾§£¬À¨ºÅÎªµÀ¾ßID
+OverSoulEnable[9305] = 0  --0 ç¦æ­¢è¶…çµä½“ä¾é™„çš„æ°´æ™¶ï¼Œæ‹¬å·ä¸ºé“å…·ID
 OverSoulEnable[9315] = 0
 OverSoulEnable[9325] = 0
 OverSoulEnable[9335] = 0
@@ -24,20 +24,20 @@ OverSoulEnable[69214] = 0
 Delegate.RegInit("PetMirage_Init");
 
 function initPetMirageNpc_Init(index)
-	print("³èÎï»Ã»¯NPC_index = " .. index);
+	print("å® ç‰©å¹»åŒ–NPC_index = " .. index);
 	return 1;
 end
 
 function PetMirage_create()
 	if (PetMirageNPC == nil) then
 		PetMirageNPC = NL.CreateNpc("lua/Module/PetMirage.lua", "initPetMirageNpc_Init");
-		Char.SetData(PetMirageNPC,%¶ÔÏó_ĞÎÏó%,104893);
-		Char.SetData(PetMirageNPC,%¶ÔÏó_Ô­ĞÎ%,104893);
-		Char.SetData(PetMirageNPC,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(PetMirageNPC,%¶ÔÏó_X%,232);
-		Char.SetData(PetMirageNPC,%¶ÔÏó_Y%,83);
-		Char.SetData(PetMirageNPC,%¶ÔÏó_·½Ïò%,4);
-		Char.SetData(PetMirageNPC,%¶ÔÏó_Ãû×Ö%,"Í¨ÁéÈË");
+		Char.SetData(PetMirageNPC,%å¯¹è±¡_å½¢è±¡%,104893);
+		Char.SetData(PetMirageNPC,%å¯¹è±¡_åŸå½¢%,104893);
+		Char.SetData(PetMirageNPC,%å¯¹è±¡_åœ°å›¾%,1000);
+		Char.SetData(PetMirageNPC,%å¯¹è±¡_X%,232);
+		Char.SetData(PetMirageNPC,%å¯¹è±¡_Y%,83);
+		Char.SetData(PetMirageNPC,%å¯¹è±¡_æ–¹å‘%,4);
+		Char.SetData(PetMirageNPC,%å¯¹è±¡_åå­—%,"é€šçµäºº");
 		NLG.UpChar(PetMirageNPC);
 		Char.SetTalkedEvent("lua/Module/PetMirage.lua", "PetMirageWindow", PetMirageNPC);
 		Char.SetWindowTalkedEvent("lua/Module/PetMirage.lua", "PetMirageFunction", PetMirageNPC);
@@ -46,117 +46,117 @@ end
 
 function PetMirageWindow(_NpcIndex,_PlayerIndex)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
-		WindowMsg = "3|\\n\\n           ÇëÑ¡ÔñÄúÒªÖÆ×÷³ÉÁéÌåµÄ³èÎï  \\n\\n";
+		WindowMsg = "3|\\n\\nâ†“é€‰æ‹©åˆ¶ä½œæˆçµä½“çš„å® ç‰©(å›æ”¶å¹¶æå–å½¢è±¡)â†“ \\n\\n";
 		for i=0,4 do
 			local pet = Char.GetPet(_PlayerIndex,i);
 	
 			if(VaildChar(pet)==false)then
-				WindowMsg = WindowMsg .. "¿Õ\\n";
+				WindowMsg = WindowMsg .. "ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%¶ÔÏó_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%å¯¹è±¡_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,WindowMsg);
 	end
 	return;
 end
 
 NL.RegItemString("lua/Module/PetMirage.lua","TransPet","LUA_useTransPet");
-function TransPet(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
+function TransPet(_PlayerIndex,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
 	ItemID = Item.GetData(Char.GetItemIndex(_PlayerIndex,_itemslot),0);
-	local TalkMsg =		"\\n                ¡ô³èÎï³¬ÁéÌå¡ô" ..
-				"\\n½«³èÎïĞÎÏóºÍÊôĞÔ¸½ÉíÖÁË®¾§" ..
-				"\\n²¢Ê¹½ÇÉ«Íâ¹Û¸Ä±äÎª³èÎïĞÎÏó" ..
+	local TalkMsg =		"\\n                â—†å® ç‰©è¶…çµä½“â—†" ..
+				"\\nå°†å® ç‰©å½¢è±¡å’Œå±æ€§é™„èº«è‡³æ°´æ™¶" ..
+				"\\nå¹¶ä½¿è§’è‰²å¤–è§‚æ”¹å˜ä¸ºå® ç‰©å½¢è±¡" ..
 				"\\n " ..
-				"\\nĞ¶ÏÂË®¾§¼´½â³ı³¬ÁéÌå×´Ì¬" ..
-				"\\n×°±¸Ë®¾§¼´»Ø¸´³¬ÁéÌå×´Ì¬" ..
+				"\\nå¸ä¸‹æ°´æ™¶å³è§£é™¤è¶…çµä½“çŠ¶æ€" ..
+				"\\nè£…å¤‡æ°´æ™¶å³å›å¤è¶…çµä½“çŠ¶æ€" ..
 				"\\n " ..
-				"\\nÑ¡Ôñ    ¡ºÒÀ¸½ÔÚË®¾§¡»"..
+				"\\né€‰æ‹©    ã€ä¾é™„åœ¨æ°´æ™¶ã€"..
 				"\\n " 
-	NLG.ShowWindowTalked(_PlayerIndex, PetMirageNPC,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%, 2, TalkMsg);
+	NLG.ShowWindowTalked(_PlayerIndex, PetMirageNPC,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%, 2, TalkMsg);
 	return 1;
 end
 
---³èÎï»Ã»¯
+--å® ç‰©å¹»åŒ–
 function PetMirageFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 	if (_SqeNo ==1) then
 		local selectitem = tonumber(_data) - 1;
 		print(tonumber(_data));
 		if(selectitem == nil or selectitem > 4 or selectitem < 0) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³£!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸!");
 			return;
 		end
 
 		local _PetIndex = Char.GetPet(_PlayerIndex,selectitem);
 		if (VaildChar(_PetIndex) == false) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·¶¨Äú¶ÔÓ¦µÄ³èÎïÀ¸ÓĞ³èÎï!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®å®šæ‚¨å¯¹åº”çš„å® ç‰©æ æœ‰å® ç‰©!");
 			return;
 		end
---		if(Char.GetData(_PetIndex,%¶ÔÏó_µÈ¼¶%) ~= 1) then
---			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨¶Ô·Ç1¼¶³èÎï½øĞĞ»Ã»¯!");
+--		if(Char.GetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%) ~= 1) then
+--			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ— æ³•å¯¹é1çº§å® ç‰©è¿›è¡Œå¹»åŒ–!");
 --			return;
 --		end
---		if(Char.GetData(_PetIndex,%¶ÔÏó_ÃûÉ«%) ~= 0) then
---			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨¶Ô×ªÉú³èÎï½øĞĞ»Ã»¯!");
+--		if(Char.GetData(_PetIndex,%å¯¹è±¡_åè‰²%) ~= 0) then
+--			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ— æ³•å¯¹è½¬ç”Ÿå® ç‰©è¿›è¡Œå¹»åŒ–!");
 --			return;
 --		end
---		if Char.GetData(_PetIndex,%³èÎï_»ñÈ¡Ê±µÈ¼¶%) ~= 1 then
---			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] Ò°Éú³èÎïÎŞ·¨»Ã»¯¡£")
+--		if Char.GetData(_PetIndex,%å® ç‰©_è·å–æ—¶ç­‰çº§%) ~= 1 then
+--			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ] é‡ç”Ÿå® ç‰©æ— æ³•å¹»åŒ–ã€‚")
 --			return;
 --		end
-		local Gold = Char.GetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%)
-		local nameA = Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%);
-		local mirage = Char.GetData(_PetIndex,%¶ÔÏó_ĞÎÏó%);
-		local mirage1 = Char.GetData(_PetIndex,%¶ÔÏó_Ô­ĞÎ%);
-		local ground = Char.GetData(_PetIndex,%¶ÔÏó_µØÊôĞÔ%);
-		local water = Char.GetData(_PetIndex,%¶ÔÏó_Ë®ÊôĞÔ%);
-		local fire = Char.GetData(_PetIndex,%¶ÔÏó_»ğÊôĞÔ%);
-		local wind = Char.GetData(_PetIndex,%¶ÔÏó_·çÊôĞÔ%);
+		local Gold = Char.GetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%)
+		local nameA = Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%);
+		local mirage = Char.GetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%);
+		local mirage1 = Char.GetData(_PetIndex,%å¯¹è±¡_åŸå½¢%);
+		local ground = Char.GetData(_PetIndex,%å¯¹è±¡_åœ°å±æ€§%);
+		local water = Char.GetData(_PetIndex,%å¯¹è±¡_æ°´å±æ€§%);
+		local fire = Char.GetData(_PetIndex,%å¯¹è±¡_ç«å±æ€§%);
+		local wind = Char.GetData(_PetIndex,%å¯¹è±¡_é£å±æ€§%);
 
 		local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
-		local nameB = Item.GetData(item_indexB,%µÀ¾ß_Ãû×Ö%);
-		local type = Item.GetData(item_indexB,%µÀ¾ß_ÌØÊâÀàĞÍ%);
-		local Para1 = Item.GetData(item_indexB,%µÀ¾ß_×Ó²ÎÒ»%);
-		local Para2 = Item.GetData(item_indexB,%µÀ¾ß_×Ó²Î¶ş%);
+		local nameB = Item.GetData(item_indexB,%é“å…·_åå­—%);
+		local type = Item.GetData(item_indexB,%é“å…·_ç‰¹æ®Šç±»å‹%);
+		local Para1 = Item.GetData(item_indexB,%é“å…·_å­å‚ä¸€%);
+		local Para2 = Item.GetData(item_indexB,%é“å…·_å­å‚äºŒ%);
 
 		if (Char.ItemNum(_PlayerIndex,itemid_card) > 0 and Char.ItemNum(_PlayerIndex,itemid_ball) > 0) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸Ö»ÄÜÓĞ³èÎï±äÉí¿¨»ò³èÎï¸½ÉíÃ½½é");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤ç‰©å“æ åªèƒ½æœ‰å® ç‰©å˜èº«å¡æˆ–å® ç‰©é™„èº«åª’ä»‹");
 			return;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_card) > 0 and Para2 == 0 and type == 14 and Gold < 10000) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏ½ğÇ®ÉĞÓĞÒ»Íò!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤é‡‘é’±å°šæœ‰ä¸€ä¸‡!");
 			return;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_card) > 0 and Para2 == 0 and type == 14 and Gold >= 10000 and Char.ItemNum(_PlayerIndex,itemid_ball) <=0 ) then
 			local Newname = nameA .. nameB;
-			Item.SetData(item_indexB,%µÀ¾ß_×Ó²Î¶ş%,mirage1);
-			Item.SetData(item_indexB,%µÀ¾ß_Ãû×Ö%,Newname);
+			Item.SetData(item_indexB,%é“å…·_å­å‚äºŒ%,mirage1);
+			Item.SetData(item_indexB,%é“å…·_åå­—%,Newname);
 			Item.UpItem(_PlayerIndex,8);
 			Char.AddGold(_PlayerIndex,-10000);
-			Msg = "\\n\\n\\n     ÄúµÄ³èÎï "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).." ÁéÌå¸½ÉíÔÚ¿¨Æ¬ÁË!   \\n"
+			Msg = "\\n\\n\\n     æ‚¨çš„å® ç‰© "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).." çµä½“é™„èº«åœ¨å¡ç‰‡äº†!   \\n"
 					.."  \\n"
-					.."            Ñ°ÕÒÅÁÆõ×å¸½ÉíºÏÌå\\n"
-					.."            ½«ÈÎÒâ³èÎïĞÎÏó¸Ä±ä\\n";
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,3,Msg);
+					.."            å¯»æ‰¾å¸•å¥‘æ—é™„èº«åˆä½“\\n"
+					.."            å°†ä»»æ„å® ç‰©å½¢è±¡æ”¹å˜\\n";
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,3,Msg);
 			return 0;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_card) > 0 and Para2 ~= 0 and type == 14) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎªÎ´Ê¹ÓÃ³èÎï±äÉí¿¨£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤ç‰©å“æ ç¬¬ä¸€æ æ˜¯å¦ä¸ºæœªä½¿ç”¨å® ç‰©å˜èº«å¡ï¼");
 			return;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_card) >= 0 and type ~= 14) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎª³èÎï±äÉí¿¨»ò³èÎï¸½ÉíÃ½½é£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤ç‰©å“æ ç¬¬ä¸€æ æ˜¯å¦ä¸ºå® ç‰©å˜èº«å¡æˆ–å® ç‰©é™„èº«åª’ä»‹ï¼");
 			return;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_ball) > 0 and Para2 == 0 and type == 14 and Gold < 100000) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏ½ğÇ®ÉĞÓĞÊ®Íò!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤é‡‘é’±å°šæœ‰åä¸‡!");
 			return;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_ball) > 0 and Para2 == 0 and type == 14 and Gold >= 100000 and Char.ItemNum(_PlayerIndex,itemid_card) <=0 ) then
 			local Newname = nameA .. nameB;
-			Item.SetData(item_indexB,%µÀ¾ß_×Ó²Î¶ş%,mirage1);
-			Item.SetData(item_indexB,%µÀ¾ß_Ãû×Ö%,Newname);
-			if (ground >0 and fire < 0)then
+			Item.SetData(item_indexB,%é“å…·_å­å‚äºŒ%,mirage1);
+			Item.SetData(item_indexB,%é“å…·_åå­—%,Newname);
+			if (ground >0 and fire <= 10)then
 				Atype_1 = 1;
 				Ameter_1 = ground;
 				if (water >0)then
@@ -179,75 +179,75 @@ function PetMirageFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 					Ameter_2 = wind;
 				end
 			end
-			Item.SetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»%,Atype_1);
-			Item.SetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»Öµ%,Ameter_1);
-			Item.SetData(item_indexB,%µÀ¾ß_ÊôĞÔ¶ş%,Atype_2);
-			Item.SetData(item_indexB,%µÀ¾ß_ÊôĞÔ¶şÖµ%,Ameter_2);
+			Item.SetData(item_indexB,%é“å…·_å±æ€§ä¸€%,Atype_1);
+			Item.SetData(item_indexB,%é“å…·_å±æ€§ä¸€å€¼%,Ameter_1);
+			Item.SetData(item_indexB,%é“å…·_å±æ€§äºŒ%,Atype_2);
+			Item.SetData(item_indexB,%é“å…·_å±æ€§äºŒå€¼%,Ameter_2);
 			Item.UpItem(_PlayerIndex,8);
 			Char.AddGold(_PlayerIndex,-100000);
-			Msg = "\\n\\n\\n     ÄúµÄ³èÎï "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).." ÁéÌå¸½ÉíÔÚÃ½½éÁË!   \\n"
-					.."            ÇëË«»÷³èÎï¸½ÉíÃ½½é\\n"
-					.."            ÈÃË®¾§¿ÉÒÔ³èÎï±äÉí\\n"
+			Msg = "\\n\\n\\n     æ‚¨çš„å® ç‰© "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).." çµä½“é™„èº«åœ¨åª’ä»‹äº†!   \\n"
+					.."            è¯·åŒå‡»å® ç‰©é™„èº«åª’ä»‹\\n"
+					.."            è®©æ°´æ™¶å¯ä»¥å® ç‰©å˜èº«\\n"
 					.."  \\n"
-					.."            ÈËÎï×°±¸Ê±³¬ÁéÌå×´Ì¬\\n"
-					.."            ĞÎÏó±äÉí³É¸Ã³èÎïÍâ¹Û\\n";
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,3,Msg);
+					.."            äººç‰©è£…å¤‡æ—¶è¶…çµä½“çŠ¶æ€\\n"
+					.."            å½¢è±¡å˜èº«æˆè¯¥å® ç‰©å¤–è§‚\\n";
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,3,Msg);
 			return 0;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_ball) > 0 and Para2 ~= 0 and type == 14) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎªÎ´Ê¹ÓÃ³èÎï¸½ÉíÃ½½é£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤ç‰©å“æ ç¬¬ä¸€æ æ˜¯å¦ä¸ºæœªä½¿ç”¨å® ç‰©é™„èº«åª’ä»‹ï¼");
 			return;
 		end
 		if (Char.ItemNum(_PlayerIndex,itemid_ball) >= 0 and type ~= 14) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎª³èÎï±äÉí¿¨»ò³èÎï¸½ÉíÃ½½é£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤ç‰©å“æ ç¬¬ä¸€æ æ˜¯å¦ä¸ºå® ç‰©å˜èº«å¡æˆ–å® ç‰©é™„èº«åª’ä»‹ï¼");
 			return;
 		end
 	end
 	if (_SqeNo ==2) then
-		--È¡Ïû°´Å¥
+		--å–æ¶ˆæŒ‰é’®
 		local item_indexB = Char.GetItemIndex(_PlayerIndex,Char.FindItemId(_PlayerIndex,ItemID));
 		local item_indexC = Char.GetItemIndex(_PlayerIndex,7);
 		local TargetItemID = Item.GetData(item_indexC,0);
-		local nameC = Item.GetData(item_indexC,%µÀ¾ß_Ãû×Ö%);
+		local nameC = Item.GetData(item_indexC,%é“å…·_åå­—%);
 		if (_select==8) then
 			return
 		end
-		if (_select==4 and Item.GetData(item_indexB,%µÀ¾ß_×Ó²Î¶ş%)==0) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏ³èÎïÁéÌåÊÇ·ñ¸½ÉíÔÚÃ½½éÁË£¡");
+		if (_select==4 and Item.GetData(item_indexB,%é“å…·_å­å‚äºŒ%)==0) then
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®è®¤å® ç‰©çµä½“æ˜¯å¦é™„èº«åœ¨åª’ä»‹äº†ï¼");
 			return;
 		end
 		if (nameC == nill) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·¶¨ÄúµÄ×°±¸À¸ÓĞË®¾§!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]è¯·ç¡®å®šæ‚¨çš„è£…å¤‡æ æœ‰æ°´æ™¶!");
 			return;
 		end
 		if(string.find(nameC,"in") ~= nill ) then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]Ë®¾§ÎŞ·¨ÔÙÒÀ¸½³èÎïÁéÌå¡£");
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ°´æ™¶æ— æ³•å†ä¾é™„å® ç‰©çµä½“ã€‚");
 			return;
 		end
-		if (_select==4 and Item.GetData(item_indexB,%µÀ¾ß_×Ó²Î¶ş%)~=0 and OverSoulEnable[TargetItemID] ~= 0) then
-			local figure = Char.GetData(_PlayerIndex,%¶ÔÏó_Ô­Ê¼Í¼µµ%);
-			local nameB = Item.GetData(item_indexB,%µÀ¾ß_Ãû×Ö%);
-			local nameC = Item.GetData(item_indexC,%µÀ¾ß_Ãû×Ö%);
-			local nameB_R = string.find(nameB,"Œ™");
+		if (_select==4 and Item.GetData(item_indexB,%é“å…·_å­å‚äºŒ%)~=0 and OverSoulEnable[TargetItemID] ~= 0) then
+			local figure = Char.GetData(_PlayerIndex,%å¯¹è±¡_åŸå§‹å›¾æ¡£%);
+			local nameB = Item.GetData(item_indexB,%é“å…·_åå­—%);
+			local nameC = Item.GetData(item_indexC,%é“å…·_åå­—%);
+			local nameB_R = string.find(nameB,"å¯µ");
 			local nameA_P= string.sub(nameB, 1, nameB_R-1);
-			local Newname = "[" .. nameA_P .. "] in Ë®¾§" ;
-			local Sitting = Item.GetData(item_indexB,%µÀ¾ß_×Ó²Î¶ş%);
-			local Atype_1 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»%);
-			local Ameter_1 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»Öµ%);
-			local Atype_2 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔ¶ş%);
-			local Ameter_2 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔ¶şÖµ%);
-			Char.SetData(_PlayerIndex,%¶ÔÏó_ĞÎÏó%,Sitting);
-			Char.SetData(_PlayerIndex,%¶ÔÏó_Ô­ĞÎ%,Sitting);
-			Char.SetData(_PlayerIndex,%¶ÔÏó_Ô­Ê¼Í¼µµ%,Sitting);
+			local Newname = "[" .. nameA_P .. "] in æ°´æ™¶" ;
+			local Sitting = Item.GetData(item_indexB,%é“å…·_å­å‚äºŒ%);
+			local Atype_1 = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€%);
+			local Ameter_1 = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€å€¼%);
+			local Atype_2 = Item.GetData(item_indexB,%é“å…·_å±æ€§äºŒ%);
+			local Ameter_2 = Item.GetData(item_indexB,%é“å…·_å±æ€§äºŒå€¼%);
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_å½¢è±¡%,Sitting);
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_åŸå½¢%,Sitting);
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_åŸå§‹å›¾æ¡£%,Sitting);
 			NLG.UpChar(_PlayerIndex);
-			Item.SetData(item_indexC,%µÀ¾ß_¼øÇ°Ãû%,Newname);
-			Item.SetData(item_indexC,%µÀ¾ß_Ãû×Ö%,Newname);
-			Item.SetData(item_indexC,%µÀ¾ß_×Ó²Î¶ş%,Sitting);
-			Item.SetData(item_indexC,%µÀ¾ß_×Ó²ÎÒ»%,figure);
-			Item.SetData(item_indexC,%µÀ¾ß_ÊôĞÔÒ»%,Atype_1);
-			Item.SetData(item_indexC,%µÀ¾ß_ÊôĞÔÒ»Öµ%,Ameter_1);
-			Item.SetData(item_indexC,%µÀ¾ß_ÊôĞÔ¶ş%,Atype_2);
-			Item.SetData(item_indexC,%µÀ¾ß_ÊôĞÔ¶şÖµ%,Ameter_2);
+			Item.SetData(item_indexC,%é“å…·_é‰´å‰å%,Newname);
+			Item.SetData(item_indexC,%é“å…·_åå­—%,Newname);
+			Item.SetData(item_indexC,%é“å…·_å­å‚äºŒ%,Sitting);
+			Item.SetData(item_indexC,%é“å…·_å­å‚ä¸€%,figure);
+			Item.SetData(item_indexC,%é“å…·_å±æ€§ä¸€%,Atype_1);
+			Item.SetData(item_indexC,%é“å…·_å±æ€§ä¸€å€¼%,Ameter_1);
+			Item.SetData(item_indexC,%é“å…·_å±æ€§äºŒ%,Atype_2);
+			Item.SetData(item_indexC,%é“å…·_å±æ€§äºŒå€¼%,Ameter_2);
 			if (Atype_1 ==1 and Atype_1 ~=3) then
 				if (Atype_2 == 2) then
 					itemimage = 27513;
@@ -267,13 +267,13 @@ function PetMirageFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 					itemdirect = 179223;
 				end
 			end
-			Item.SetData(item_indexC,%µÀ¾ß_Í¼%,itemimage);
+			Item.SetData(item_indexC,%é“å…·_å›¾%,itemimage);
 			Item.SetData(item_indexC,58,itemdirect);
 			Item.UpItem(_PlayerIndex,7);
 			Char.DelItem(_PlayerIndex,ItemID,1);
-			NLG.SystemMessage(_PlayerIndex,"³¬ÁéÌå×´Ì¬OVER-SOUL£¡");
+			NLG.SystemMessage(_PlayerIndex,"è¶…çµä½“çŠ¶æ€OVER-SOULï¼");
 		else
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨³¬ÁéÌåÒÀ¸½µÄË®¾§£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ— æ³•è¶…çµä½“ä¾é™„çš„æ°´æ™¶ï¼");
 		end
 	end
 end
