@@ -5,56 +5,61 @@ local StrMax_AB = {}
 local StrPetID = {}
 local StrItemID = {}
 local StrEnemyID = {}
+local StrJudgment = {}
 
---  Ò»ÖÖµÀ¾ßÒ»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 68006                                            --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
+--  ä¸€ç§é“å…·ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 68006                                            --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
 StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68006                                       --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
-StrMax_BP[ItemID] = 160                                         --×ÜºÍBP×î´óÖµ
-StrMax_CI[ItemID] = 20                                          --×ÜºÍËÄĞŞÕı×î´óÖµ
-StrMax_AB[ItemID] = 10                                          --×ÜºÍËÄÊôĞÔ×î´óÖµ
-StrPetID[ItemID] = {107710,107711,107712,107713,110396,104338}	--¿ª·Å×Ô¶¨ÒåÍ¼™n±àºÅ
-StrEnemyID[ItemID] = 500007                                     --Enemybase±àºÅ
+StrItemID[ItemID] = 68006                                       --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
+StrMax_BP[ItemID] = 160                                         --æ€»å’ŒBPæœ€å¤§å€¼
+StrMax_CI[ItemID] = 20                                          --æ€»å’Œå››ä¿®æ­£æœ€å¤§å€¼
+StrMax_AB[ItemID] = 10                                          --æ€»å’Œå››å±æ€§æœ€å¤§å€¼
+StrPetID[ItemID] = {107710,107711,107712,107713,110396,104338}	--å¼€æ”¾è‡ªå®šä¹‰å›¾æª”ç¼–å·
+StrEnemyID[ItemID] = 500007                                     --Enemybaseç¼–å·
+StrJudgment[ItemID] = 0                                              --è‡ªå®šä¹‰å›¾æª”åˆæ³•åˆ¤æ–­
 --
-local ItemID = 68007                                            --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
+local ItemID = 68007                                            --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
 StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68007                                       --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
-StrMax_BP[ItemID] = 170                                         --×ÜºÍBP×î´óÖµ
-StrMax_CI[ItemID] = 30                                          --×ÜºÍËÄĞŞÕı×î´óÖµ
-StrMax_AB[ItemID] = 14                                          --×ÜºÍËÄÊôĞÔ×î´óÖµ
-StrPetID[ItemID] = {101712,101713,101714}	                --¿ª·Å×Ô¶¨ÒåÍ¼™n±àºÅ
-StrEnemyID[ItemID] = 500001                                     --Enemybase±àºÅ
+StrItemID[ItemID] = 68007                                       --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
+StrMax_BP[ItemID] = 170                                         --æ€»å’ŒBPæœ€å¤§å€¼
+StrMax_CI[ItemID] = 30                                          --æ€»å’Œå››ä¿®æ­£æœ€å¤§å€¼
+StrMax_AB[ItemID] = 14                                          --æ€»å’Œå››å±æ€§æœ€å¤§å€¼
+StrPetID[ItemID] = {101712,101713,101714}	                --å¼€æ”¾è‡ªå®šä¹‰å›¾æª”ç¼–å·
+StrEnemyID[ItemID] = 500001                                     --Enemybaseç¼–å·
+StrJudgment[ItemID] = 1                                              --è‡ªå®šä¹‰å›¾æª”åˆæ³•åˆ¤æ–­
 --
-local ItemID = 68008                                            --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
+local ItemID = 68008                                            --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
 StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68008                                       --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
-StrMax_BP[ItemID] = 180                                         --×ÜºÍBP×î´óÖµ
-StrMax_CI[ItemID] = 35                                          --×ÜºÍËÄĞŞÕı×î´óÖµ
-StrMax_AB[ItemID] = 16                                          --×ÜºÍËÄÊôĞÔ×î´óÖµ
-StrPetID[ItemID] = {110556,110557,110558,110559,110560,110561}	--¿ª·Å×Ô¶¨ÒåÍ¼™n±àºÅ
-StrEnemyID[ItemID] = 500002                                     --Enemybase±àºÅ
+StrItemID[ItemID] = 68008                                       --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
+StrMax_BP[ItemID] = 180                                         --æ€»å’ŒBPæœ€å¤§å€¼
+StrMax_CI[ItemID] = 35                                          --æ€»å’Œå››ä¿®æ­£æœ€å¤§å€¼
+StrMax_AB[ItemID] = 16                                          --æ€»å’Œå››å±æ€§æœ€å¤§å€¼
+StrPetID[ItemID] = {110556,110557,110558,110559,110560,110561}	--å¼€æ”¾è‡ªå®šä¹‰å›¾æª”ç¼–å·
+StrEnemyID[ItemID] = 500002                                     --Enemybaseç¼–å·
+StrJudgment[ItemID] = 1                                              --è‡ªå®šä¹‰å›¾æª”åˆæ³•åˆ¤æ–­
 --
-local ItemID = 68009                                            --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
+local ItemID = 68009                                            --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
 StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68009                                       --×Ô¶¨Òå³èÎïµ°µÀ¾ß±àºÅ
-StrMax_BP[ItemID] = 190                                         --×ÜºÍBP×î´óÖµ
-StrMax_CI[ItemID] = 40                                          --×ÜºÍËÄĞŞÕı×î´óÖµ
-StrMax_AB[ItemID] = 18                                          --×ÜºÍËÄÊôĞÔ×î´óÖµ
-StrPetID[ItemID] = {101622,101623,101934,101244,101245,101824}	--¿ª·Å×Ô¶¨ÒåÍ¼™n±àºÅ
-StrEnemyID[ItemID] = 500009                                     --Enemybase±àºÅ
+StrItemID[ItemID] = 68009                                       --è‡ªå®šä¹‰å® ç‰©è›‹é“å…·ç¼–å·
+StrMax_BP[ItemID] = 190                                         --æ€»å’ŒBPæœ€å¤§å€¼
+StrMax_CI[ItemID] = 40                                          --æ€»å’Œå››ä¿®æ­£æœ€å¤§å€¼
+StrMax_AB[ItemID] = 18                                          --æ€»å’Œå››å±æ€§æœ€å¤§å€¼
+StrPetID[ItemID] = {101622,101623,101934,101244,101245,101824}	--å¼€æ”¾è‡ªå®šä¹‰å›¾æª”ç¼–å·
+StrEnemyID[ItemID] = 500009                                     --Enemybaseç¼–å·
+StrJudgment[ItemID] = 1                                              --è‡ªå®šä¹‰å›¾æª”åˆæ³•åˆ¤æ–­
 ----------------------------------------------------------------------------------------
 Delegate.RegInit("ModularPetNpc_Init");
 Delegate.RegDelTalkEvent("ModularPet_TalkEvent");
 
 function ModularPetNpc_Init()
 	ModularPetNpc = NL.CreateNpc(nil, "Myinit");
-	Char.SetData(ModularPetNpc,%¶ÔÏó_ĞÎÏó%,14682);
-	Char.SetData(ModularPetNpc,%¶ÔÏó_Ô­ĞÎ%,14682);
-	Char.SetData(ModularPetNpc,%¶ÔÏó_X%,36);
-	Char.SetData(ModularPetNpc,%¶ÔÏó_Y%,35);
-	Char.SetData(ModularPetNpc,%¶ÔÏó_µØÍ¼%,777);
-	Char.SetData(ModularPetNpc,%¶ÔÏó_·½Ïò%,0);
-	Char.SetData(ModularPetNpc,%¶ÔÏó_Ãû×Ö%,"×Ô¶¨Òå³èÎïµ°");
+	Char.SetData(ModularPetNpc,%å¯¹è±¡_å½¢è±¡%,14682);
+	Char.SetData(ModularPetNpc,%å¯¹è±¡_åŸå½¢%,14682);
+	Char.SetData(ModularPetNpc,%å¯¹è±¡_X%,36);
+	Char.SetData(ModularPetNpc,%å¯¹è±¡_Y%,35);
+	Char.SetData(ModularPetNpc,%å¯¹è±¡_åœ°å›¾%,777);
+	Char.SetData(ModularPetNpc,%å¯¹è±¡_æ–¹å‘%,0);
+	Char.SetData(ModularPetNpc,%å¯¹è±¡_åå­—%,"è‡ªå®šä¹‰å® ç‰©è›‹");
 	NLG.UpChar(ModularPetNpc);
 	tbl_ModularPetNpc = tbl_ModularPetNpc or {}
 	tbl_ModularPetNpc["ModularPetNpc"] = ModularPetNpc;
@@ -69,58 +74,58 @@ end
 
 function ModularPetNpc_Talked( _MeIndex, _PlayerIndex, _Mode)
 	if (Char.PetNum(_PlayerIndex) >= 5) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³èÎïÀ¸Î»ÖÃ²»¹»¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å® ç‰©æ ä½ç½®ä¸å¤Ÿã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500000)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500001)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500002)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500003)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500004)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500005)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500006)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500007)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500008)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500009)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸Ö»ÄÜÓĞÒ»Ö»×Ô¶¨Òå³èÎï¡£")
+		NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ“ä½œæ—¶å® ç‰©æ åªèƒ½æœ‰ä¸€åªè‡ªå®šä¹‰å® ç‰©ã€‚")
 		return;
 	end
-	local TalkMsg =	"4\\n¡ô×Ô¶¨Òå³èÎïµ°¡ô" ..
-			"\\n×ÔÓÉ±à¼­Ò»Ö»³èÎïµÄÏµÍ³" ..
-			"\\n°üº¬µµ´Î¡¢ĞŞÕı¡¢ÊôĞÔ¡¢ÔìĞÍ¡¢Ô­Ê¼Ãû×Ö" ..
-			"\\nÇëÒÀĞò½øĞĞ²¢ÔÚÉÏÏß×´Ì¬Íê³É" ..
-			"\\n¡º1.µµ´Î¡»" ..
-			"\\n¡º2.ĞŞÕı¡»" ..
-			"\\n¡º3.ÊôĞÔ¡»" ..
-			"\\n¡º4.ÔìĞÍ¡»"..
-			"\\n¡º5.È¡ÃûÈ·ÈÏ¡»" 
+	local TalkMsg =	"4\\nâ—†è‡ªå®šä¹‰å® ç‰©è›‹â—†" ..
+			"\\nè‡ªç”±ç¼–è¾‘ä¸€åªå® ç‰©çš„ç³»ç»Ÿ" ..
+			"\\nåŒ…å«æ¡£æ¬¡ã€ä¿®æ­£ã€å±æ€§ã€é€ å‹ã€åŸå§‹åå­—" ..
+			"\\nè¯·ä¾åºè¿›è¡Œå¹¶åœ¨ä¸Šçº¿çŠ¶æ€å®Œæˆ" ..
+			"\\nã€1.æ¡£æ¬¡ã€" ..
+			"\\nã€2.ä¿®æ­£ã€" ..
+			"\\nã€3.å±æ€§ã€" ..
+			"\\nã€4.é€ å‹ã€"..
+			"\\nã€5.å–åç¡®è®¤ã€" 
 	TalkMsg =Shor_GAMsgFormat(TalkMsg);
 	Shor_ShowGAWindowTalk(_PlayerIndex, 2, 2, 1,TalkMsg,_MeIndex);
 	return ;
@@ -161,7 +166,7 @@ function Shor_strFormat(str,str_len,str_type)
 end
 
 NL.RegItemString("lua/Module/ModularPet.lua","ModularPet","LUA_useModPet");
-function ModularPet(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
+function ModularPet(_PlayerIndex,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
 	ModularPetNpc_Talked(tbl_ModularPetNpc["ModularPetNpc"], _PlayerIndex, 0, 0, 0)
 	return 1;
 end
@@ -173,7 +178,7 @@ function ModularPet_TalkEvent(player,msg,color,range,size)
 end
 
 function ModularPetNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Data)
-	local CdKey = Char.GetData(_PlayerIndex, %¶ÔÏó_CDK%)
+	local CdKey = Char.GetData(_PlayerIndex, %å¯¹è±¡_CDK%)
 	for i=8,20 do
 		tItemIndex = Char.GetItemIndex(_PlayerIndex, i);
 		tItemID = Item.GetData(tItemIndex, 0);
@@ -184,348 +189,352 @@ function ModularPetNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 			tMax_AB = StrMax_AB[tItemID]
 			tPetID = StrPetID[tItemID]
 			tEnemyID = StrEnemyID[tItemID]
+			tJudgment = StrJudgment[tItemID]
 		end
 		if StrModpetEnable[tItemID] ~= 1 then
-			--NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]È±ÉÙ¶ÔÓ¦µÄµÀ¾ß¡£")
+			--NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ç¼ºå°‘å¯¹åº”çš„é“å…·ã€‚")
 		end
 	end
-	--È¡Ïû°´Å¥
+	--å–æ¶ˆæŒ‰é’®
 	if _Select==2 then
 		return
 	end
 	
+
 	if _Seqno==1 then
 		local PlayerSelect = tonumber(_Data)
-		--²éÑ¯
+		--æŸ¥è¯¢
 		if PlayerSelect==1 then
-			local TalkBuf =	"4\\nµµ´ÎÏîÄ¿¹²"..tMax_BP.."µã£º" ..
-					"\\nµ¥Ïî×îµÍ13µã£¬×î¸ß55µã" ..
-					"\\nÇëÒÀĞò½øĞĞ±à¼­" ..
+			local TalkBuf =	"4\\næ¡£æ¬¡é¡¹ç›®å…±"..tMax_BP.."ç‚¹ï¼š" ..
+					"\\nå•é¡¹æœ€ä½13ç‚¹ï¼Œæœ€é«˜55ç‚¹" ..
+					"\\nè¯·ä¾åºè¿›è¡Œç¼–è¾‘" ..
 					"\\n " ..
-					"\\n¡ºÌåÁ¦¡»" ..
-					"\\n¡ºÁ¦Á¿¡»" ..
-					"\\n¡ºÇ¿¶È¡»" ..
-					"\\n¡ºËÙ¶È¡»"..
-					"\\n¡ºÄ§·¨¡»" 
+					"\\nã€ä½“åŠ›ã€" ..
+					"\\nã€åŠ›é‡ã€" ..
+					"\\nã€å¼ºåº¦ã€" ..
+					"\\nã€é€Ÿåº¦ã€"..
+					"\\nã€é­”æ³•ã€" 
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 10, TalkBuf);
 			return;
 		end
 		if PlayerSelect==2 then
-			local TalkBuf =	"4\\nĞŞÕıÏîÄ¿¹²"..tMax_CI.."µã£º" ..
-					"\\nµ¥Ïî×îµÍ0µã£¬×î¸ß30µã" ..
-					"\\nÇëÒÀĞò½øĞĞ±à¼­" ..
+			local TalkBuf =	"4\\nä¿®æ­£é¡¹ç›®å…±"..tMax_CI.."ç‚¹ï¼š" ..
+					"\\nå•é¡¹æœ€ä½0ç‚¹ï¼Œæœ€é«˜30ç‚¹" ..
+					"\\nè¯·ä¾åºè¿›è¡Œç¼–è¾‘" ..
 					"\\n " ..
-					"\\n¡º±ØÉ±¡»" ..
-					"\\n¡º·´»÷¡»" ..
-					"\\n¡ºÃüÖĞ¡»" ..
-					"\\n¡ºÉÁ¶ã¡»" 
+					"\\nã€å¿…æ€ã€" ..
+					"\\nã€åå‡»ã€" ..
+					"\\nã€å‘½ä¸­ã€" ..
+					"\\nã€é—ªèº²ã€" 
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 11, TalkBuf);
 			return;
 		end
 		if PlayerSelect==3 then
-			local TalkBuf =	"4\\nÊôĞÔÏîÄ¿¹²"..tMax_AB.."µã£º" ..
-					"\\nµ¥Ïî×îµÍ0µã£¬×î¸ß10µã" ..
-					"\\nÇëÒÀĞò½øĞĞ±à¼­" ..
+			local TalkBuf =	"4\\nå±æ€§é¡¹ç›®å…±"..tMax_AB.."ç‚¹ï¼š" ..
+					"\\nå•é¡¹æœ€ä½0ç‚¹ï¼Œæœ€é«˜10ç‚¹" ..
+					"\\nè¯·ä¾åºè¿›è¡Œç¼–è¾‘" ..
 					"\\n " ..
-					"\\n¡ºµØÊôĞÔ¡»" ..
-					"\\n¡ºË®ÊôĞÔ¡»" ..
-					"\\n¡º»ğÊôĞÔ¡»" ..
-					"\\n¡º·çÊôĞÔ¡»" 
+					"\\nã€åœ°å±æ€§ã€" ..
+					"\\nã€æ°´å±æ€§ã€" ..
+					"\\nã€ç«å±æ€§ã€" ..
+					"\\nã€é£å±æ€§ã€" 
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 12, TalkBuf);
 			return;
 		end
 		if PlayerSelect==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,13,"\n¿ª·Å×Ô¶¨Òå³èÎï\n\nÔìĞÍĞÎÏó±àºÅ\n\n²ÎÕÕ¹Ù·½¹«¸æÁ¬½á\n\nÇëÊäÈë±àºÅÀıÈç101824£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,13,"\nå¼€æ”¾è‡ªå®šä¹‰å® ç‰©\n\né€ å‹å½¢è±¡ç¼–å·\n\nå‚ç…§å®˜æ–¹å…¬å‘Šè¿ç»“\n\nè¯·è¾“å…¥ç¼–å·ä¾‹å¦‚101824ï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect==5 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,14,"\n×îºóÒ»¸ö²½ÖèÁË\n\nÇëÎªÄãµÄ³èÎï\n\nÈ¡¸öÃû×Ö£¬²»ÒËÌ«³¤£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,14,"\næœ€åä¸€ä¸ªæ­¥éª¤äº†\n\nè¯·ä¸ºä½ çš„å® ç‰©\n\nå–ä¸ªåå­—ï¼Œä¸å®œå¤ªé•¿ï¼",_MeIndex);
 			return;
 		end
 	end
 	if _Seqno==10 then
 		local PlayerSelect1 = tonumber(_Data)
 		if PlayerSelect1==1 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,15,"\nµµ´ÎÏîÄ¿¹²"..tMax_BP.."µã£º\n\nÌåÁ¦µ¥Ïî×îµÍ13µã£¬ÌåÁ¦µ¥Ïî×î¸ß55µã\n\nÇëÊäÈëÌåÁ¦BP£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,15,"\næ¡£æ¬¡é¡¹ç›®å…±"..tMax_BP.."ç‚¹ï¼š\n\nä½“åŠ›å•é¡¹æœ€ä½13ç‚¹ï¼Œä½“åŠ›å•é¡¹æœ€é«˜55ç‚¹\n\nè¯·è¾“å…¥ä½“åŠ›BPï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==2 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,16,"\nµµ´ÎÏîÄ¿Ê£ÏÂ"..Left_BP2.."µã£º\n\nÁ¦Á¿µ¥Ïî×îµÍ13µã£¬Á¦Á¿µ¥Ïî×î¸ß55µã\n\nÇëÊäÈëÁ¦Á¿BP£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,16,"\næ¡£æ¬¡é¡¹ç›®å‰©ä¸‹"..Left_BP2.."ç‚¹ï¼š\n\nåŠ›é‡å•é¡¹æœ€ä½13ç‚¹ï¼ŒåŠ›é‡å•é¡¹æœ€é«˜55ç‚¹\n\nè¯·è¾“å…¥åŠ›é‡BPï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==3 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,17,"\nµµ´ÎÏîÄ¿Ê£ÏÂ"..Left_BP3.."µã£º\n\nÇ¿¶Èµ¥Ïî×îµÍ13µã£¬Ç¿¶Èµ¥Ïî×î¸ß55µã\n\nÇëÊäÈëÇ¿¶ÈBP£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,17,"\næ¡£æ¬¡é¡¹ç›®å‰©ä¸‹"..Left_BP3.."ç‚¹ï¼š\n\nå¼ºåº¦å•é¡¹æœ€ä½13ç‚¹ï¼Œå¼ºåº¦å•é¡¹æœ€é«˜55ç‚¹\n\nè¯·è¾“å…¥å¼ºåº¦BPï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,18,"\nµµ´ÎÏîÄ¿Ê£ÏÂ"..Left_BP4.."µã£º\n\nËÙ¶Èµ¥Ïî×îµÍ13µã£¬ËÙ¶Èµ¥Ïî×î¸ß55µã\n\nÇëÊäÈëËÙ¶ÈBP£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,18,"\næ¡£æ¬¡é¡¹ç›®å‰©ä¸‹"..Left_BP4.."ç‚¹ï¼š\n\né€Ÿåº¦å•é¡¹æœ€ä½13ç‚¹ï¼Œé€Ÿåº¦å•é¡¹æœ€é«˜55ç‚¹\n\nè¯·è¾“å…¥é€Ÿåº¦BPï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==5 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,19,"\nµµ´ÎÏîÄ¿Ê£ÏÂ"..Left_BP5.."µã£º\n\nÄ§·¨µ¥Ïî×îµÍ13µã£¬Ä§·¨µ¥Ïî×î¸ß55µã\n\nÇëÊäÈëÄ§·¨BP£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,19,"\næ¡£æ¬¡é¡¹ç›®å‰©ä¸‹"..Left_BP5.."ç‚¹ï¼š\n\né­”æ³•å•é¡¹æœ€ä½13ç‚¹ï¼Œé­”æ³•å•é¡¹æœ€é«˜55ç‚¹\n\nè¯·è¾“å…¥é­”æ³•BPï¼",_MeIndex);
 			return;
 		end
 	end
-	if(tonumber(_Seqno)==15 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==15 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		arr_rank11 = tonumber("".._Data.."")
 		if arr_rank11 <= 12 or arr_rank11 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öµµ´Î·¶Î§¡£µ±Ç°ÏîÄ¿BPµ¥Ïî×îµÍÎª13µã£¬×î¸ßÎª55µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºæ¡£æ¬¡èŒƒå›´ã€‚å½“å‰é¡¹ç›®BPå•é¡¹æœ€ä½ä¸º13ç‚¹ï¼Œæœ€é«˜ä¸º55ç‚¹ã€‚")
 			return;
 		end
 		if arr_rank11 <= 55 and arr_rank11 >= 13 then
 			Left_BP2 = tMax_BP - arr_rank11;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´Î·ÖÅä:ÌåÁ¦"..arr_rank11.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡åˆ†é…:ä½“åŠ›"..arr_rank11.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´ÎµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==16 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==16 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		arr_rank21 = tonumber("".._Data.."")
 		if arr_rank21 <= 12 or arr_rank21 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öµµ´Î·¶Î§¡£µ±Ç°ÏîÄ¿BPµ¥Ïî×îµÍÎª13µã£¬×î¸ßÎª55µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºæ¡£æ¬¡èŒƒå›´ã€‚å½“å‰é¡¹ç›®BPå•é¡¹æœ€ä½ä¸º13ç‚¹ï¼Œæœ€é«˜ä¸º55ç‚¹ã€‚")
 			return;
 		end
 		if arr_rank21 <= 55 and arr_rank21 >= 13 then
 			Left_BP3 = Left_BP2 - arr_rank21;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´Î·ÖÅä:ÌåÁ¦"..arr_rank11..",Á¦Á¿"..arr_rank21.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡åˆ†é…:ä½“åŠ›"..arr_rank11..",åŠ›é‡"..arr_rank21.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´ÎµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==17 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==17 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		arr_rank31 = tonumber("".._Data.."")
 		if arr_rank31 <= 12 or arr_rank31 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öµµ´Î·¶Î§¡£µ±Ç°ÏîÄ¿BPµ¥Ïî×îµÍÎª13µã£¬×î¸ßÎª55µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºæ¡£æ¬¡èŒƒå›´ã€‚å½“å‰é¡¹ç›®BPå•é¡¹æœ€ä½ä¸º13ç‚¹ï¼Œæœ€é«˜ä¸º55ç‚¹ã€‚")
 			return;
 		end
 		if arr_rank31 <= 55 and arr_rank31 >= 13 then
 			Left_BP4 = Left_BP3 - arr_rank31;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´Î·ÖÅä:ÌåÁ¦"..arr_rank11..",Á¦Á¿"..arr_rank21..",Ç¿¶È"..arr_rank31.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡åˆ†é…:ä½“åŠ›"..arr_rank11..",åŠ›é‡"..arr_rank21..",å¼ºåº¦"..arr_rank31.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´ÎµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==18 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==18 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		arr_rank41 = tonumber("".._Data.."")
 		if arr_rank41 <= 12 or arr_rank41 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öµµ´Î·¶Î§¡£µ±Ç°ÏîÄ¿BPµ¥Ïî×îµÍÎª13µã£¬×î¸ßÎª55µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºæ¡£æ¬¡èŒƒå›´ã€‚å½“å‰é¡¹ç›®BPå•é¡¹æœ€ä½ä¸º13ç‚¹ï¼Œæœ€é«˜ä¸º55ç‚¹ã€‚")
 			return;
 		end
 		if arr_rank41 <= 55 and arr_rank41 >= 13 then
 			Left_BP5 = Left_BP4 - arr_rank41;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´Î·ÖÅä:ÌåÁ¦"..arr_rank11..",Á¦Á¿"..arr_rank21..",Ç¿¶È"..arr_rank31..",ËÙ¶È"..arr_rank41.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡åˆ†é…:ä½“åŠ›"..arr_rank11..",åŠ›é‡"..arr_rank21..",å¼ºåº¦"..arr_rank31..",é€Ÿåº¦"..arr_rank41.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´ÎµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==19 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==19 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		arr_rank51 = tonumber("".._Data.."")
 		if arr_rank51 <= 12 or arr_rank51 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öµµ´Î·¶Î§¡£µ±Ç°ÏîÄ¿BPµ¥Ïî×îµÍÎª13µã£¬×î¸ßÎª55µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºæ¡£æ¬¡èŒƒå›´ã€‚å½“å‰é¡¹ç›®BPå•é¡¹æœ€ä½ä¸º13ç‚¹ï¼Œæœ€é«˜ä¸º55ç‚¹ã€‚")
 			return;
 		end
 		if arr_rank51 <= 55 and arr_rank51 >= 13 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´Î·ÖÅä:ÌåÁ¦"..arr_rank11..",Á¦Á¿"..arr_rank21..",Ç¿¶È"..arr_rank31..",ËÙ¶È"..arr_rank41..",Ä§·¨"..arr_rank51.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡åˆ†é…:ä½“åŠ›"..arr_rank11..",åŠ›é‡"..arr_rank21..",å¼ºåº¦"..arr_rank31..",é€Ÿåº¦"..arr_rank41..",é­”æ³•"..arr_rank51.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]µµ´ÎµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ¡£æ¬¡ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
 	if _Seqno==11 then
 		local PlayerSelect1 = tonumber(_Data)
 		if PlayerSelect1==1 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,20,"\nĞŞÕıÏîÄ¿¹²"..tMax_CI.."µã£º\n\n±ØÉ±µ¥Ïî×îµÍ0µã£¬±ØÉ±µ¥Ïî×î¸ß30µã\n\nÇëÊäÈë±ØÉ±£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,20,"\nä¿®æ­£é¡¹ç›®å…±"..tMax_CI.."ç‚¹ï¼š\n\nå¿…æ€å•é¡¹æœ€ä½0ç‚¹ï¼Œå¿…æ€å•é¡¹æœ€é«˜30ç‚¹\n\nè¯·è¾“å…¥å¿…æ€ï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==2 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,21,"\nĞŞÕıÏîÄ¿Ê£ÏÂ"..Left_CI2.."µã£º\n\n·´»÷µ¥Ïî×îµÍ0µã£¬·´»÷µ¥Ïî×î¸ß30µã\n\nÇëÊäÈë·´»÷£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,21,"\nä¿®æ­£é¡¹ç›®å‰©ä¸‹"..Left_CI2.."ç‚¹ï¼š\n\nåå‡»å•é¡¹æœ€ä½0ç‚¹ï¼Œåå‡»å•é¡¹æœ€é«˜30ç‚¹\n\nè¯·è¾“å…¥åå‡»ï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==3 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,22,"\nĞŞÕıÏîÄ¿Ê£ÏÂ"..Left_CI3.."µã£º\n\nÃüÖĞµ¥Ïî×îµÍ0µã£¬ÃüÖĞµ¥Ïî×î¸ß30µã\n\nÇëÊäÈëÃüÖĞ£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,22,"\nä¿®æ­£é¡¹ç›®å‰©ä¸‹"..Left_CI3.."ç‚¹ï¼š\n\nå‘½ä¸­å•é¡¹æœ€ä½0ç‚¹ï¼Œå‘½ä¸­å•é¡¹æœ€é«˜30ç‚¹\n\nè¯·è¾“å…¥å‘½ä¸­ï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,23,"\nĞŞÕıÏîÄ¿Ê£ÏÂ"..Left_CI4.."µã£º\n\nÉÁ¶ãµ¥Ïî×îµÍ0µã£¬ÉÁ¶ãµ¥Ïî×î¸ß30µã\n\nÇëÊäÈëÉÁ¶ã£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,23,"\nä¿®æ­£é¡¹ç›®å‰©ä¸‹"..Left_CI4.."ç‚¹ï¼š\n\né—ªèº²å•é¡¹æœ€ä½0ç‚¹ï¼Œé—ªèº²å•é¡¹æœ€é«˜30ç‚¹\n\nè¯·è¾“å…¥é—ªèº²ï¼",_MeIndex);
 			return;
 		end
 	end
-	if(tonumber(_Seqno)==20 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==20 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		critical = tonumber("".._Data.."")
 		if critical < 0 or critical >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öĞŞÕı·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª30µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºä¿®æ­£èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º30ç‚¹ã€‚")
 			return;
 		end
 		if critical <= 30 and critical >= 0 then
 			Left_CI2 = tMax_CI - critical;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕı·ÖÅä:±ØÉ±"..critical.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£åˆ†é…:å¿…æ€"..critical.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕıµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==21 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==21 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		counter = tonumber("".._Data.."")
 		if counter < 0 or counter >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öĞŞÕı·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª30µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºä¿®æ­£èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º30ç‚¹ã€‚")
 			return;
 		end
 		if counter <= 30 and counter >= 0 then
 			Left_CI3 = Left_CI2 - counter;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕı·ÖÅä:±ØÉ±"..critical..",·´»÷"..counter.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£åˆ†é…:å¿…æ€"..critical..",åå‡»"..counter.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕıµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==22 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==22 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		hitrate = tonumber("".._Data.."")
 		if hitrate < 0 or hitrate >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öĞŞÕı·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª30µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºä¿®æ­£èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º30ç‚¹ã€‚")
 			return;
 		end
 		if hitrate <= 30 and hitrate >= 0 then
 			Left_CI4 = Left_CI3 - hitrate;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕı·ÖÅä:±ØÉ±"..critical..",·´»÷"..counter..",ÃüÖĞ"..hitrate.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£åˆ†é…:å¿…æ€"..critical..",åå‡»"..counter..",å‘½ä¸­"..hitrate.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕıµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==23 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==23 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		avoid = tonumber("".._Data.."")
 		if avoid < 0 or avoid >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öĞŞÕı·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª30µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºä¿®æ­£èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º30ç‚¹ã€‚")
 			return;
 		end
 		CI = critical + counter + hitrate + avoid;
 		if CI < tMax_CI or CI > tMax_CI then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕıµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 			return;
 		end
 		if (avoid <= 30 and avoid >= 0 ) then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ĞŞÕı·ÖÅä:±ØÉ±"..critical..",·´»÷"..counter..",ÃüÖĞ"..hitrate..",ÉÁ¶ã"..avoid.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]ä¿®æ­£åˆ†é…:å¿…æ€"..critical..",åå‡»"..counter..",å‘½ä¸­"..hitrate..",é—ªèº²"..avoid.."ã€‚")
 		else
-			--NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÎŞ·¨×Ô¶¨ÒåµÄ³èÎï¡£")
+			--NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ— æ³•è‡ªå®šä¹‰çš„å® ç‰©ã€‚")
 		end
 	end
 	if _Seqno==12 then
 		local PlayerSelect1 = tonumber(_Data)
 		if PlayerSelect1==1 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,24,"\nÊôĞÔÏîÄ¿¹²"..tMax_AB.."µã£º\n\nµØÊôĞÔµ¥Ïî×îµÍ0µã£¬µØÊôĞÔµ¥Ïî×î¸ß10µã\n\nÇëÊäÈëµØÊôĞÔ£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,24,"\nå±æ€§é¡¹ç›®å…±"..tMax_AB.."ç‚¹ï¼š\n\nåœ°å±æ€§å•é¡¹æœ€ä½0ç‚¹ï¼Œåœ°å±æ€§å•é¡¹æœ€é«˜10ç‚¹\n\nè¯·è¾“å…¥åœ°å±æ€§ï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==2 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,25,"\nÊôĞÔÏîÄ¿Ê£ÏÂ"..Left_AB2.."µã£º\n\nË®ÊôĞÔµ¥Ïî×îµÍ0µã£¬Ë®ÊôĞÔµ¥Ïî×î¸ß10µã\n\nÇëÊäÈëË®ÊôĞÔ£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,25,"\nå±æ€§é¡¹ç›®å‰©ä¸‹"..Left_AB2.."ç‚¹ï¼š\n\næ°´å±æ€§å•é¡¹æœ€ä½0ç‚¹ï¼Œæ°´å±æ€§å•é¡¹æœ€é«˜10ç‚¹\n\nè¯·è¾“å…¥æ°´å±æ€§ï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==3 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,26,"\nÊôĞÔÏîÄ¿Ê£ÏÂ"..Left_AB3.."µã£º\n\n»ğÊôĞÔµ¥Ïî×îµÍ0µã£¬»ğÊôĞÔµ¥Ïî×î¸ß10µã\n\nÇëÊäÈë»ğÊôĞÔ£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,26,"\nå±æ€§é¡¹ç›®å‰©ä¸‹"..Left_AB3.."ç‚¹ï¼š\n\nç«å±æ€§å•é¡¹æœ€ä½0ç‚¹ï¼Œç«å±æ€§å•é¡¹æœ€é«˜10ç‚¹\n\nè¯·è¾“å…¥ç«å±æ€§ï¼",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%°´Å¥_È·¶¨%,27,"\nÊôĞÔÏîÄ¿Ê£ÏÂ"..Left_AB4.."µã£º\n\n·çÊôĞÔµ¥Ïî×îµÍ0µã£¬·çÊôĞÔµ¥Ïî×î¸ß10µã\n\nÇëÊäÈë·çÊôĞÔ£¡",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%æŒ‰é’®_ç¡®å®š%,27,"\nå±æ€§é¡¹ç›®å‰©ä¸‹"..Left_AB4.."ç‚¹ï¼š\n\né£å±æ€§å•é¡¹æœ€ä½0ç‚¹ï¼Œé£å±æ€§å•é¡¹æœ€é«˜10ç‚¹\n\nè¯·è¾“å…¥é£å±æ€§ï¼",_MeIndex);
 			return;
 		end
 	end
-	if(tonumber(_Seqno)==24 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==24 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		ground = tonumber("".._Data.."")
 		if ground < 0 or ground >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öÊôĞÔ·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª10µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºå±æ€§èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º10ç‚¹ã€‚")
 			return;
 		end
 		if ground <= 10 and ground >= 0 then
 			Left_AB2 = tMax_AB - ground;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔ·ÖÅä:µØÊôĞÔ"..ground.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§åˆ†é…:åœ°å±æ€§"..ground.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==25 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==25 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		water = tonumber("".._Data.."")
 		if water < 0 or water >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öÊôĞÔ·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª10µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºå±æ€§èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º10ç‚¹ã€‚")
 			return;
 		end
 		if water <= 10 and water >= 0 then
 			Left_AB3 = Left_AB2 - water;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔ·ÖÅä:µØÊôĞÔ"..ground..",Ë®ÊôĞÔ"..water.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§åˆ†é…:åœ°å±æ€§"..ground..",æ°´å±æ€§"..water.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==26 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==26 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		fire = tonumber("".._Data.."")
 		if fire < 0 or fire >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öÊôĞÔ·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª10µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºå±æ€§èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º10ç‚¹ã€‚")
 			return;
 		end
 		if fire <= 10 and fire >= 0 then
 			Left_AB4 = Left_AB3 - fire;
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔ·ÖÅä:µØÊôĞÔ"..ground..",Ë®ÊôĞÔ"..water..",»ğÊôĞÔ"..fire.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§åˆ†é…:åœ°å±æ€§"..ground..",æ°´å±æ€§"..water..",ç«å±æ€§"..fire.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==27 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==27 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		wind = tonumber("".._Data.."")
 		if wind < 0 or wind >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³¬³öÊôĞÔ·¶Î§¡£µ±Ç°ÏîÄ¿µ¥Ïî×îµÍÎª0µã£¬×î¸ßÎª10µã¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¶…å‡ºå±æ€§èŒƒå›´ã€‚å½“å‰é¡¹ç›®å•é¡¹æœ€ä½ä¸º0ç‚¹ï¼Œæœ€é«˜ä¸º10ç‚¹ã€‚")
 			return;
 		end
 		AB = ground + water + fire + wind;
 		if AB < tMax_AB or AB > tMax_AB then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔµãÊı²»×ã£¬ÎŞ·¨³É¹¦·ÖÅä¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§ç‚¹æ•°ä¸è¶³ï¼Œæ— æ³•æˆåŠŸåˆ†é…ã€‚")
 			return;
 		end
 		if (wind <= 10 and wind >= 0) then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÊôĞÔ·ÖÅä:µØÊôĞÔ"..ground..",Ë®ÊôĞÔ"..water..",»ğÊôĞÔ"..fire..",·çÊôĞÔ"..wind.."¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]å±æ€§åˆ†é…:åœ°å±æ€§"..ground..",æ°´å±æ€§"..water..",ç«å±æ€§"..fire..",é£å±æ€§"..wind.."ã€‚")
 		else
-			--NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÎŞ·¨×Ô¶¨ÒåµÄ³èÎï¡£")
+			--NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]æ— æ³•è‡ªå®šä¹‰çš„å® ç‰©ã€‚")
 		end
 	end
-	if(tonumber(_Seqno)==13 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="")then
+	if(tonumber(_Seqno)==13 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="")then
 		PetTD1 = tonumber("".._Data.."")
-		if PET_CheckInTable(tPetID,PetTD1)==true then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÔìĞÍĞÎÏó±àºÅµÇÂ¼Íê³É:"..PetTD1.."¡£")
+		if tJudgment == 0 then
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]é€ å‹å½¢è±¡ç¼–å·ç™»å½•å®Œæˆ:"..PetTD1.."ã€‚")
+		elseif tJudgment == 1 and PET_CheckInTable(tPetID,PetTD1)==true then
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]é€ å‹å½¢è±¡ç¼–å·ç™»å½•å®Œæˆ:"..PetTD1.."ã€‚")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÔìĞÍĞÎÏó±àºÅ£¬Çë²ÎÕÕ¹Ù·½¹«¸æÁ¬½á¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]é€ å‹å½¢è±¡ç¼–å·ï¼Œè¯·å‚ç…§å®˜æ–¹å…¬å‘Šè¿ç»“ã€‚")
 			return;
 		end
 	end
-	if(tonumber(_Seqno)==14 and tonumber(_Select)==%°´Å¥_È·¶¨% and _Data~="") then
+	if(tonumber(_Seqno)==14 and tonumber(_Select)==%æŒ‰é’®_ç¡®å®š% and _Data~="") then
 		local name = _Data;
 		BP = arr_rank11 + arr_rank21 + arr_rank31 + arr_rank41 + arr_rank51;
 		if BP < tMax_BP or BP > tMax_BP then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÇëÈ·ÈÏµµ´ÎµãÊıÊäÈëÕıÈ·¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¯·ç¡®è®¤æ¡£æ¬¡ç‚¹æ•°è¾“å…¥æ­£ç¡®ã€‚")
 			return;
 		end
 		if (BP == tMax_BP and CI == tMax_CI and AB == tMax_AB) then
 			Char.AddPet(_PlayerIndex,tEnemyID);
 		else
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]ÇëÈ·ÈÏÇ°¼¸ÏîµãÊıÊäÈëÕıÈ·¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è¯·ç¡®è®¤å‰å‡ é¡¹ç‚¹æ•°è¾“å…¥æ­£ç¡®ã€‚")
 		end
 		for Slot=0,4 do
 			local _PetIndex = Char.GetPet(_PlayerIndex,Slot);
-			local image = Char.GetData(_PetIndex,%¶ÔÏó_ĞÎÏó%);
+			local image = Char.GetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%);
 			if (BP == tMax_BP and CI == tMax_CI and AB == tMax_AB and image == 100902) then
-				Pet.SetArtRank(_PetIndex,%³èµµ_Ìå³É%,arr_rank11 - math.random(0,0));  --×Ô¶¨Òå·Ö²¼ºóËæ»úµô™n0~4
-				Pet.SetArtRank(_PetIndex,%³èµµ_Á¦³É%,arr_rank21 - math.random(0,0));
-				Pet.SetArtRank(_PetIndex,%³èµµ_Ç¿³É%,arr_rank31 - math.random(0,0));
-				Pet.SetArtRank(_PetIndex,%³èµµ_Ãô³É%,arr_rank41 - math.random(0,0));
-				Pet.SetArtRank(_PetIndex,%³èµµ_Ä§³É%,arr_rank51 - math.random(0,0));
+				Pet.SetArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%,arr_rank11 - math.random(0,0));  --è‡ªå®šä¹‰åˆ†å¸ƒåéšæœºæ‰æª”0~4
+				Pet.SetArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%,arr_rank21 - math.random(0,0));
+				Pet.SetArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%,arr_rank31 - math.random(0,0));
+				Pet.SetArtRank(_PetIndex,%å® æ¡£_æ•æˆ%,arr_rank41 - math.random(0,0));
+				Pet.SetArtRank(_PetIndex,%å® æ¡£_é­”æˆ%,arr_rank51 - math.random(0,0));
 				Pet.ReBirth(_PlayerIndex, _PetIndex);
-				Char.SetData(_PetIndex,%¶ÔÏó_±ØÉ±%,critical);
-				Char.SetData(_PetIndex,%¶ÔÏó_·´»÷%,counter);
-				Char.SetData(_PetIndex,%¶ÔÏó_ÃüÖĞ%,hitrate);
-				Char.SetData(_PetIndex,%¶ÔÏó_ÉÁ¶ã%,avoid);
-				Char.SetData(_PetIndex,%¶ÔÏó_µØÊôĞÔ%,ground*10);
-				Char.SetData(_PetIndex,%¶ÔÏó_Ë®ÊôĞÔ%,water*10);
-				Char.SetData(_PetIndex,%¶ÔÏó_»ğÊôĞÔ%,fire*10);
-				Char.SetData(_PetIndex,%¶ÔÏó_·çÊôĞÔ%,wind*10);
-				Char.SetData(_PetIndex,%¶ÔÏó_ĞÎÏó%,PetTD1);
-				Char.SetData(_PetIndex,%¶ÔÏó_Ô­ĞÎ%,PetTD1);
-				Char.SetData(_PetIndex,%¶ÔÏó_Ãû×Ö%,name);
-				Char.SetData(_PetIndex,%¶ÔÏó_ÃûÉ«%,6);  --×Ô¶¨Òå³èÎïÎªºìÉ«Ãû×Ö
+				Char.SetData(_PetIndex,%å¯¹è±¡_å¿…æ€%,critical);
+				Char.SetData(_PetIndex,%å¯¹è±¡_åå‡»%,counter);
+				Char.SetData(_PetIndex,%å¯¹è±¡_å‘½ä¸­%,hitrate);
+				Char.SetData(_PetIndex,%å¯¹è±¡_é—ªèº²%,avoid);
+				Char.SetData(_PetIndex,%å¯¹è±¡_åœ°å±æ€§%,ground*10);
+				Char.SetData(_PetIndex,%å¯¹è±¡_æ°´å±æ€§%,water*10);
+				Char.SetData(_PetIndex,%å¯¹è±¡_ç«å±æ€§%,fire*10);
+				Char.SetData(_PetIndex,%å¯¹è±¡_é£å±æ€§%,wind*10);
+				Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,PetTD1);
+				Char.SetData(_PetIndex,%å¯¹è±¡_åŸå½¢%,PetTD1);
+				Char.SetData(_PetIndex,%å¯¹è±¡_åå­—%,name);
+				Char.SetData(_PetIndex,%å¯¹è±¡_åè‰²%,6);  --è‡ªå®šä¹‰å® ç‰©ä¸ºçº¢è‰²åå­—
 				Pet.UpPet(_PlayerIndex,_PetIndex);
 				Char.DelItem(_PlayerIndex,bItemID,1);
-				NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]×Ô¶¨Òå³èÎïÒÑÍêÃÀ½áÊø¡£")
+				NLG.SystemMessage(_PlayerIndex, "[ç³»ç»Ÿ]è‡ªå®šä¹‰å® ç‰©å·²å®Œç¾ç»“æŸã€‚")
 			end
 		end
 	end
