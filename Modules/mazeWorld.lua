@@ -17,16 +17,16 @@ local worldPoints = {
 }
 
 local mazeMap = {
-    { 60002 }, { 60004 }, { 60006 }, { 60008 }, { 60010 }, { 60012 }, { 60014 },
+    { 60002, 60001 }, { 60004, 60001 }, { 60006, 60006 }, { 60008, 60001 }, { 60010, 60001 }, { 60012, 60001 }, { 60014, 60001 },
 }
 local worldExp = {
-    { Event="LordEnd1", L_level=0, R_level=30, UniItem=70258},
-    { Event="LordEnd2", L_level=30, R_level=50, UniItem=70260},
-    { Event="LordEnd3", L_level=50, R_level=70, UniItem=70262},
-    { Event="LordEnd4", L_level=70, R_level=90, UniItem=70264},
-    { Event="LordEnd5", L_level=90, R_level=110, UniItem=70266},
-    { Event="LordEnd6", L_level=110, R_level=130, UniItem=70267},
-    { Event="LordEnd7", L_level=130, R_level=150, UniItem=70270},
+    { Event="LordEnd1", L_level=1, R_level=30, Upload=50, UniItem=70258},
+    { Event="LordEnd2", L_level=31, R_level=50, Upload=70, UniItem=70260},
+    { Event="LordEnd3", L_level=51, R_level=70, Upload=90, UniItem=70262},
+    { Event="LordEnd4", L_level=71, R_level=90, Upload=110, UniItem=70264},
+    { Event="LordEnd5", L_level=91, R_level=110, Upload=130, UniItem=70266},
+    { Event="LordEnd6", L_level=111, R_level=130, Upload=150, UniItem=70267},
+    { Event="LordEnd7", L_level=131, R_level=150, Upload=180, UniItem=70270},
 }
 
 --- 页数计算
@@ -183,35 +183,130 @@ function Module:onGetExpEvent(charIndex, exp)
 	worldLayer7 = Char.EndEvent(charIndex,307);
 	]]
 	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_地图);
+	print(Target_FloorId)
 	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0) then
-		for i, v in ipairs(mazeMap) do
-			for _, FloorId in ipairs(v) do
-				local LordEnd = worldExp[i].Event;
-				local ret = SQL.Run("select Name,"..LordEnd.." from lua_hook_worldboss order by "..LordEnd.." desc ");
-				if (type(ret)=="table" and ret["0_1"]~=nil) then
-					worldLayer = tonumber(ret["0_1"]);
-				end
-				print(worldLayer)
-				if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[i].R_level and Target_FloorId==FloorId and worldLayer == 0) then
-					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[i].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
-					return 0
-				elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[i].R_level and Target_FloorId==FloorId and worldLayer == 1) then
-					NLG.SystemMessage(charIndex,"請前往下一層世界，當前經驗已被鎖定。")
-					return 0
-				elseif (Char.GetData(charIndex,CONST.对象_等级)>worldExp[i].L_level and Target_FloorId~=FloorId) then
-					NLG.SystemMessage(charIndex,"轉生後請前往裏空間，當前經驗已被鎖定。")
-					return 0
-				else
-					for Slot=0,4 do
-						local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
-						if (Char.GetData(charIndex,CONST.对象_等级)<=worldExp[i].R_level and PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[i].UniItem)>0 and Target_FloorId==FloorId) then    --队友有独特装备
-							NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
-							return exp * 1.5;  --角色获取的经验1.5倍
-						end
+		if (Target_FloorId==mazeMap[1][1] or Target_FloorId==mazeMap[1][2]) then
+			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].R_level and Char.GetWorldCheck(1) == 0) then
+				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[1].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].Upload and Char.GetWorldCheck(1) == 1) then
+				NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].L_level and Char.GetData(charIndex,CONST.对象_等级)<worldExp[1].R_level) then
+				for Slot=0,4 do
+					local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+					if (PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[1].UniItem)>0 and Target_FloorId==mazeMap[1][1]) then    --队友有独特装备
+						NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+						return exp * 1.5;  --角色获取的经验1.5倍
 					end
 				end
-				
+				return exp;
 			end
+		elseif (Target_FloorId==mazeMap[2][1] or Target_FloorId==mazeMap[2][2]) then
+			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[2].R_level and Char.GetWorldCheck(2) == 0) then
+				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[2].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[2].Upload and Char.GetWorldCheck(2) == 1) then
+				NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[2].L_level and Char.GetData(charIndex,CONST.对象_等级)<worldExp[2].R_level) then
+				for Slot=0,4 do
+					local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+					if (PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[2].UniItem)>0 and Target_FloorId==mazeMap[2][1]) then    --队友有独特装备
+						NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+						return exp * 1.5;  --角色获取的经验1.5倍
+					end
+				end
+				return exp;
+			end
+		elseif (Target_FloorId==mazeMap[3][1] or Target_FloorId==mazeMap[3][2]) then
+			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[3].R_level and Char.GetWorldCheck(3) == 0) then
+				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[3].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[3].Upload and Char.GetWorldCheck(3) == 1) then
+				NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[3].L_level and Char.GetData(charIndex,CONST.对象_等级)<worldExp[3].R_level) then
+				for Slot=0,4 do
+					local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+					if (PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[3].UniItem)>0 and Target_FloorId==mazeMap[3][1]) then    --队友有独特装备
+						NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+						return exp * 1.5;  --角色获取的经验1.5倍
+					end
+				end
+				return exp;
+			end
+		elseif (Target_FloorId==mazeMap[4][1] or Target_FloorId==mazeMap[4][2]) then
+			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[4].R_level and Char.GetWorldCheck(4) == 0) then
+				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[4].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[4].Upload and Char.GetWorldCheck(4) == 1) then
+				NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[4].L_level and Char.GetData(charIndex,CONST.对象_等级)<worldExp[4].R_level) then
+				for Slot=0,4 do
+					local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+					if (PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[4].UniItem)>0 and Target_FloorId==mazeMap[4][1]) then    --队友有独特装备
+						NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+						return exp * 1.5;  --角色获取的经验1.5倍
+					end
+				end
+				return exp;
+			end
+		elseif (Target_FloorId==mazeMap[5][1] or Target_FloorId==mazeMap[5][2]) then
+			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[5].R_level and Char.GetWorldCheck(5) == 0) then
+				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[5].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[5].Upload and Char.GetWorldCheck(5) == 1) then
+				NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[5].L_level and Char.GetData(charIndex,CONST.对象_等级)<worldExp[5].R_level) then
+				for Slot=0,4 do
+					local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+					if (PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[5].UniItem)>0 and Target_FloorId==mazeMap[5][1]) then    --队友有独特装备
+						NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+						return exp * 1.5;  --角色获取的经验1.5倍
+					end
+				end
+				return exp;
+			end
+		elseif (Target_FloorId==mazeMap[6][1] or Target_FloorId==mazeMap[6][2]) then
+			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[6].R_level and Char.GetWorldCheck(6) == 0) then
+				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[6].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[6].Upload and Char.GetWorldCheck(6) == 1) then
+				NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[6].L_level and Char.GetData(charIndex,CONST.对象_等级)<worldExp[6].R_level) then
+				for Slot=0,4 do
+					local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+					if (PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[6].UniItem)>0 and Target_FloorId==mazeMap[6][1]) then    --队友有独特装备
+						NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+						return exp * 1.5;  --角色获取的经验1.5倍
+					end
+				end
+				return exp;
+			end
+		elseif (Target_FloorId==mazeMap[7][1] or Target_FloorId==mazeMap[7][2]) then
+			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[7].R_level and Char.GetWorldCheck(7) == 0) then
+				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[7].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[7].Upload and Char.GetWorldCheck(7) == 1) then
+				NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
+				return 0
+			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[7].L_level and Char.GetData(charIndex,CONST.对象_等级)<worldExp[7].R_level) then
+				for Slot=0,4 do
+					local PartyCharIndex = Char.GetPartyMember(charIndex,Slot);
+					if (PartyCharIndex>=0 and Char.ItemNum(PartyCharIndex,worldExp[7].UniItem)>0 and Target_FloorId==mazeMap[7][1]) then    --队友有独特装备
+						NLG.SystemMessage(charIndex,"[隊友獨特裝備] 經驗加成1.5倍！");
+						return exp * 1.5;  --角色获取的经验1.5倍
+					end
+				end
+				return exp;
+			end
+		else
+			NLG.SystemMessage(charIndex,"轉生後請前往裏空間或下一章世界，當前經驗已被鎖定。")
+			return 0
 		end
 	else
 		if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠) then
@@ -328,6 +423,14 @@ function Module:onLoginEvent(player)
   end
 end
 
+Char.GetWorldCheck = function(chapter)
+	local LordEnd = worldExp[chapter].Event;
+	local ret = SQL.Run("select Name,"..LordEnd.." from lua_hook_worldboss order by "..LordEnd.." desc ");
+	if (type(ret)=="table" and ret["0_1"]~=nil) then
+		worldLayer = tonumber(ret["0_1"]);
+	end
+	return worldLayer;
+end
 --- 卸载模块钩子
 function Module:onUnload()
   self:logInfo('unload')
