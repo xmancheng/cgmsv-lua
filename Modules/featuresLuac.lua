@@ -41,6 +41,53 @@ function featuresLuac:onLoad()
 			return;
 		end
 	end
+	if text == '再生剧药' then
+		local nameColor = Char.GetData(player,CONST.CHAR_名色);
+		local playerLevel = Char.GetData(player,CONST.CHAR_等级);
+		if (nameColor == 0)  then
+			local point = (playerLevel-1)*4 + 30;
+			Char.SetData(player,CONST.CHAR_体力, 0);
+			Char.SetData(player,CONST.CHAR_力量, 0);
+			Char.SetData(player,CONST.CHAR_强度, 0);
+			Char.SetData(player,CONST.CHAR_速度, 0);
+			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_升级点, point);
+			NLG.UpChar(player);
+			Char.DelItem(player, 900505, 1);
+		elseif (nameColor == 1)  then
+			local point = (playerLevel-1)*4 + 60;
+			Char.SetData(player,CONST.CHAR_体力, 0);
+			Char.SetData(player,CONST.CHAR_力量, 0);
+			Char.SetData(player,CONST.CHAR_强度, 0);
+			Char.SetData(player,CONST.CHAR_速度, 0);
+			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_升级点, point);
+			NLG.UpChar(player);
+			Char.DelItem(player, 900505, 1);
+		elseif (nameColor == 5)  then
+			local point = (playerLevel-1)*4 + 90;
+			Char.SetData(player,CONST.CHAR_体力, 0);
+			Char.SetData(player,CONST.CHAR_力量, 0);
+			Char.SetData(player,CONST.CHAR_强度, 0);
+			Char.SetData(player,CONST.CHAR_速度, 0);
+			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_升级点, point);
+			NLG.UpChar(player);
+			Char.DelItem(player, 900505, 1);
+		elseif (nameColor == 4)  then
+			local point = (playerLevel-1)*4 + 180;
+			Char.SetData(player,CONST.CHAR_体力, 0);
+			Char.SetData(player,CONST.CHAR_力量, 0);
+			Char.SetData(player,CONST.CHAR_强度, 0);
+			Char.SetData(player,CONST.CHAR_速度, 0);
+			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_升级点, point);
+			NLG.UpChar(player);
+			Char.DelItem(player, 900505, 1);
+		else
+			return;
+		end
+	end
 	if text == '金冠徽章' then
 		local itemIndex = Char.HaveItem(player,68017);
 		local Slot = Char.GetItemSlot(player, itemIndex);
