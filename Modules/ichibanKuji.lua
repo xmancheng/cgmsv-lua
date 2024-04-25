@@ -42,66 +42,96 @@ local KujiAll_2 = {
          "I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11","I12","I13","I14","I15","I16","I17","I18",
 }
 local KujiTbl={
-       { Num="001", type="L", serial_L=51, serial_H=51, name="ÃÏ π÷Æ◊£∏£", itemid=45953, count=1},
-       { Num="002", type="A", serial_L=1, serial_H=1, name="ÃÏ π÷Æ◊£∏£", itemid=45953, count=1},
-       { Num="003", type="B", serial_L=2, serial_H=2, name="—∏ÀŸπ˚î‡÷ÆÑ¶", itemid=46903, count=1},
-       { Num="004", type="C", serial_L=3, serial_H=3, name="Ω‰ÚúΩ‰‘Í÷Æ∏´", itemid=46901, count=1},
-       { Num="005", type="C", serial_L=4, serial_H=4, name="“ª Ø∂˛¯B÷Æòå", itemid=46902, count=1},
-       { Num="006", type="D", serial_L=5, serial_H=5, name="±¨ìÙ÷Æï¯", itemid=45979, count=1},
-       { Num="007", type="D", serial_L=6, serial_H=6, name="±ÿ÷–÷Æï¯", itemid=45980, count=1},
-       { Num="008", type="E", serial_L=7, serial_H=7, name="…Òåß ø ÿ◊o", itemid=45968, count=1},
-       { Num="009", type="F", serial_L=8, serial_H=8, name="¥Û∑®éü÷ÆªÍ", itemid=45967, count=1},
-       { Num="010", type="G", serial_L=9, serial_H=20, name="èä¡¶π•ìÙ ÷≠h", itemid=45510, count=1},
-       { Num="011", type="H", serial_L=21, serial_H=32, name="ÔL…Ò∏ﬂÀŸ ÷≠h", itemid=45512, count=1},
-       { Num="012", type="I", serial_L=33, serial_H=50, name="Ω^å¶∑¿∂R ÷≠h", itemid=45511, count=1},
+       { Num="001", type="L", serial_L=51, serial_H=51, name="Â§©‰Ωø‰πãÁ•ùÁ¶è", itemid=45953, count=1},
+       { Num="002", type="A", serial_L=1, serial_H=1, name="Â§©‰Ωø‰πãÁ•ùÁ¶è", itemid=45953, count=1},
+       { Num="003", type="B", serial_L=2, serial_H=2, name="ËøÖÈÄüÊûúÊñ∑‰πãÂäç", itemid=46903, count=1},
+       { Num="004", type="C", serial_L=3, serial_H=3, name="ÊàíÈ©ïÊàíË∫Å‰πãÊñß", itemid=46901, count=1},
+       { Num="005", type="C", serial_L=4, serial_H=4, name="‰∏ÄÁü≥‰∫åÈ≥•‰πãÊßç", itemid=46902, count=1},
+       { Num="006", type="D", serial_L=5, serial_H=5, name="ÁàÜÊìä‰πãÊõ∏", itemid=45979, count=1},
+       { Num="007", type="D", serial_L=6, serial_H=6, name="ÂøÖ‰∏≠‰πãÊõ∏", itemid=45980, count=1},
+       { Num="008", type="E", serial_L=7, serial_H=7, name="Á•ûÂ∞éÂ£´ÂÆàË≠∑", itemid=45968, count=1},
+       { Num="009", type="F", serial_L=8, serial_H=8, name="Â§ßÊ≥ïÂ∏´‰πãÈ≠Ç", itemid=45967, count=1},
+       { Num="010", type="G", serial_L=9, serial_H=20, name="Âº∑ÂäõÊîªÊìäÊâãÁí∞", itemid=45510, count=1},
+       { Num="011", type="H", serial_L=21, serial_H=32, name="È¢®Á•ûÈ´òÈÄüÊâãÁí∞", itemid=45512, count=1},
+       { Num="012", type="I", serial_L=33, serial_H=50, name="ÁµïÂ∞çÈò≤Á¶¶ÊâãÁí∞", itemid=45511, count=1},
 }
 
 
-local function calcWarp()--º∆À„“≥ ˝∫Õ◊Ó∫Û“ª“≥ ˝¡ø
+local function calcWarp()--ËÆ°ÁÆóÈ°µÊï∞ÂíåÊúÄÂêé‰∏ÄÈ°µÊï∞Èáè
   local totalpage = math.modf(#itemMenu / 6) + 1
   local remainder = math.fmod(#itemMenu, 6)
   return totalpage, remainder
 end
 
---- º”‘ÿƒ£øÈπ≥◊”
+--- Âä†ËΩΩÊ®°ÂùóÈí©Â≠ê
 function IchibanKuji:onLoad()
     self:logInfo('load')
     self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self));
     self:regCallback("ItemString", Func.bind(self.onIchibanKuji, self), 'LUA_useKuji');
-    local noticeNPC = self:NPC_createNormal('“ª∑¨ŸpŸèŸI∏Ê æ', 11556, { x = 226, y = 106, mapType = 0, map = 1000, direction = 0 });
+    local noticeNPC = self:NPC_createNormal('‰∏ÄÁï™Ë≥ûË≥ºË≤∑ÂëäÁ§∫', 11556, { x = 226, y = 106, mapType = 0, map = 1000, direction = 0 });
     self:NPC_regWindowTalkedEvent(noticeNPC, function(npc, player, _seqno, _select, _data)
         local column = tonumber(_data)
         local page = tonumber(_seqno)
         local data = tonumber(_data)
-        if _select == CONST.BUTTON_ «  then
-                local winMsg = "ƒß¡¶“ª∑¨ŸpŸèŸI≥È™Ñª`\\n"
-                                           .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                           .."’˝‘⁄ŸèŸIµ¿æﬂ...\\n"
-                                           .."\\n°°°°°°°°°°°°°°\\n"
-                                           .."\\n°°°°°°°°°°°°°°¿‰Ïo∆⁄ £œ¬ïrÈg£∫\\n"
-                                           .."\\n’à›î»ÎŸèŸIîµ¡ø(√ø¥Œ≤ªµ√≥¨ﬂ^5èà)£∫\\n";
-                NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_ ‰»ÎøÚ, CONST.BUTTON_»∑∂®πÿ±’, 11, winMsg);
+          --ËØªÂèñÁ≠æÁ≠í
+        local gmIndex = NLG.FindUser(GMcdk);
+        local sqldata_1 = Field.Get(gmIndex, 'ichiban_set_1');
+        local KujiAll_1 = {};
+        if (type(sqldata_1)=="string" and sqldata_1~='') then
+               KujiAll_1 = JSON.decode(sqldata_1);
+        else
+               KujiAll_1 = {};
+        end
+        local sqldata_2 = Field.Get(gmIndex, 'ichiban_set_2');
+        local KujiAll_2 = {};
+        if (type(sqldata_2)=="string" and sqldata_2~='') then
+               KujiAll_2 = JSON.decode(sqldata_2);
+        else
+               KujiAll_2 = {};
+        end
+        local KujiAll = {};
+        for i=1,#KujiAll_1 do
+              table.insert(KujiAll, KujiAll_1[i]);
+        end
+        for i=1,#KujiAll_2 do
+              table.insert(KujiAll, KujiAll_2[i]);
+        end
+        if _select == CONST.BUTTON_ÊòØ  then
+                --ÂÜ∑ÈùôÊó∂Èó¥ËÆ°ÁÆó
+
+                --ÊâÄÈúÄÈì∂Â∏ÅËÆ°ÁÆó
+
+                local winMsg = "È≠îÂäõ‰∏ÄÁï™Ë≥ûË≥ºË≤∑ÊäΩÁçéÁ±§\\n"
+                                           .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                           .."Ê≠£Âú®Ë≥ºË≤∑ÈÅìÂÖ∑...\\n"
+                                           .."\\n„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÂÜ∑ÈùúÊúüÂâ©‰∏ãÊôÇÈñìÔºö\\n"
+                                           .."\\n„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ‰∏ÄÊäΩÊâÄÈúÄÈäÄÂπ£Ôºö\\n"
+                                           .."\\nË´ãËº∏ÂÖ•Ë≥ºË≤∑Êï∏Èáè(ÊØèÊ¨°‰∏çÂæóË∂ÖÈÅé5Âºµ)Ôºö\\n";
+                NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ËæìÂÖ•Ê°Ü, CONST.BUTTON_Á°ÆÂÆöÂÖ≥Èó≠, 11, winMsg);
         elseif _select > 0 then
-                if _select == CONST.BUTTON_πÿ±’ then
+                if _select == CONST.BUTTON_ÂÖ≥Èó≠ then
                     return;
                 end
-                --Ωo”Ë“ª∑¨Ÿpª`
-                if (_select == CONST.BUTTON_»∑∂®) then
-                       if (data<=5) then
+                --Áªô‰∫à‰∏ÄÁï™ËµèÁ≠æ
+                if (_select == CONST.BUTTON_Á°ÆÂÆö) then
+                       if (data>#KujiAll) then
+                             NLG.Say(player, -1, "[Á≥ªÁµ±]Ë≥ºË≤∑Êï∏ÈáèË∂ÖÈÅéÁõÆÂâçÁ±§ÁöÑ‰∏äÈôê", CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);
+                             return;
+                       elseif (data<=5) then
                              for i=1,data do
                                  --Char.GiveItem(player, 70095, 1);
                                  --local itemSlot = Char.FindItemId(player, 70095);
                                  self:onIchibanKuji(player, targetcharIndex, itemSlot);
                              end
                        else
-                             NLG.Say(player, -1, "[œµΩy]ŸèŸIîµ¡ø≥¨ﬂ^“ª¥Œ…œœﬁ£µèà", CONST.—’…´_ª∆…´, CONST.◊÷ÃÂ_÷–);
+                             NLG.Say(player, -1, "[Á≥ªÁµ±]Ë≥ºË≤∑Êï∏ÈáèË∂ÖÈÅé‰∏ÄÊ¨°‰∏äÈôêÔºïÂºµ", CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);
                              return;
                        end
                 end
         end
     end)
-    self:NPC_regTalkedEvent(noticeNPC, function(npc, player)  ----“ª∑¨ŸpŸY”ç∏Ê æ
-          --∂¡»°«©Õ≤
+    self:NPC_regTalkedEvent(noticeNPC, function(npc, player)  ----‰∏ÄÁï™Ë≥ûË≥áË®äÂëäÁ§∫
+          --ËØªÂèñÁ≠æÁ≠í
           local gmIndex = NLG.FindUser(GMcdk);
           local sqldata_1 = Field.Get(gmIndex, 'ichiban_set_1');
           local KujiAll_1 = {};
@@ -124,44 +154,45 @@ function IchibanKuji:onLoad()
           for i=1,#KujiAll_2 do
               table.insert(KujiAll, KujiAll_2[i]);
           end
-          --º∆À„∏˜÷÷¿‡ £”‡«© ˝
+          --ËÆ°ÁÆóÂêÑÁßçÁ±ªÂâ©‰ΩôÁ≠æÊï∞
+
           if (NLG.CanTalk(npc, player) == true) then
               if (KujiAll~=nil and KujiAll~={}) then
-                    local winMsg = "\\n          °Ô°Ô°Ô°Ô°Ô°Ôƒß¡¶“ª∑¨Ÿp’f√˜∏Ê æ°Ô°Ô°Ô°Ô°Ô°Ô\\n"
-                                               .."\\n°°–¬ﬂ[ëÚÕÍ’˚µƒª`îµøÇπ≤”–50èà£¨ƒø«∞ £Nª`îµ£∫\\n"
-                                               .."\\n®X®T®T®T®j®T®T®T®j®T®T®T®j®T®T®T®j®T®T®T®j®T®T®T®j®T®T®T®["
-                                               .."\\n®U°°£¡°°®U°°£¬°°®U°°£√°°®U°°£ƒ°°®U°°£≈°°®U°°£∆°°®U°°£«°°®U"
-                                               .."\\n®d®T®T®T®p®T®T®T®p®T®T®T®p®T®T®T®p®T®T®T®p®T®T®T®p®T®T®T®g"
-                                               .."\\n®U°°°°°°®U°°°°°°®U°°°°°°®U°°°°°°®U°°°°°°®U°°°°°°®U°°°°°°®U"
-                                               .."\\n®^®T®T®T®m®T®T®T®m®T®T®T®m®T®T®T®m®T®T®T®m®T®T®T®m®T®T®T®a"
-                                               .."\\n°°£¡°°Ÿp°°°æ°°"..KujiTbl[1].name.."°°°ø°°£¬°°Ÿp°°°æ°°"..KujiTbl[2].name.."°°°ø"
-                                               .."\\n°°£√°°Ÿp°°°æ°°"..KujiTbl[3].name.." °¢ "..KujiTbl[4].name.."°ø"
-                                               .."\\n°°£ƒ°°Ÿp°°°æ°°"..KujiTbl[5].name.." °¢ "..KujiTbl[6].name.."°ø"
-                                               .."\\n°°£≈°°Ÿp°°°æ°°"..KujiTbl[7].name.." °°°ø°°£∆°°Ÿp°°°æ°°"..KujiTbl[8].name.."°°°ø"
-                                               .."\\n°°£«°°Ÿp°°°æ°°"..KujiTbl[9].name.."°°°ø"
-                                               .."\\n°°£»°°Ÿp°°°æ°°"..KujiTbl[10].name.."°°°ø"
-                                               .."\\n°°£…°°Ÿp°°°æ°°"..KujiTbl[11].name.."°°°ø"
-                                               .."\\n°°◊Ó··Ÿp°°°æ°°ÇŒ—báä∆·µ¿æﬂ°°°ø\\n"
-                                               .."\\n°°√ø≥È1¥Œ£∫1√∂°¥“ª∑¨é≈°µ£¨√ø5≥È··¿€∑e…œùq1√∂°¥“ª∑¨é≈°µ"
-                                               .."\\n°°≥Èª`··Ωõﬂ^∞À–°ïrµƒ¿‰ÖsïrÈg£¨÷ÿ÷√ªÿµΩ1√∂°¥“ª∑¨é≈°µ"
-                                               .."\\n°°◊Ó··≥È»°µΩµ⁄80≥È’ﬂ£¨´@µ√°∂◊Ó··Ÿp°∑Ó~Õ‚™ÑÑÓ";
-                    NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_æﬁ–≈œ¢øÚ, CONST.BUTTON_ «∑Ò, 1, winMsg);
+                    local winMsg = "\\n          ‚òÖ‚òÖ‚òÖ‚òÖ‚òÖ‚òÖÈ≠îÂäõ‰∏ÄÁï™Ë≥ûË™™ÊòéÂëäÁ§∫‚òÖ‚òÖ‚òÖ‚òÖ‚òÖ‚òÖ\\n"
+                                               .."\\n„ÄÄÊñ∞ÈÅäÊà≤ÂÆåÊï¥ÁöÑÁ±§Êï∏Á∏ΩÂÖ±Êúâ50ÂºµÔºåÁõÆÂâçÂâ©È§òÁ±§Êï∏Ôºö\\n"
+                                               .."\\n‚ïî‚ïê‚ïê‚ïê‚ï¶‚ïê‚ïê‚ïê‚ï¶‚ïê‚ïê‚ïê‚ï¶‚ïê‚ïê‚ïê‚ï¶‚ïê‚ïê‚ïê‚ï¶‚ïê‚ïê‚ïê‚ï¶‚ïê‚ïê‚ïê‚ïó"
+                                               .."\\n‚ïë„ÄÄÔº°„ÄÄ‚ïë„ÄÄÔº¢„ÄÄ‚ïë„ÄÄÔº£„ÄÄ‚ïë„ÄÄÔº§„ÄÄ‚ïë„ÄÄÔº•„ÄÄ‚ïë„ÄÄÔº¶„ÄÄ‚ïë„ÄÄÔºß„ÄÄ‚ïë"
+                                               .."\\n‚ï†‚ïê‚ïê‚ïê‚ï¨‚ïê‚ïê‚ïê‚ï¨‚ïê‚ïê‚ïê‚ï¨‚ïê‚ïê‚ïê‚ï¨‚ïê‚ïê‚ïê‚ï¨‚ïê‚ïê‚ïê‚ï¨‚ïê‚ïê‚ïê‚ï£"
+                                               .."\\n‚ïë„ÄÄ„ÄÄ„ÄÄ‚ïë„ÄÄ„ÄÄ„ÄÄ‚ïë„ÄÄ„ÄÄ„ÄÄ‚ïë„ÄÄ„ÄÄ„ÄÄ‚ïë„ÄÄ„ÄÄ„ÄÄ‚ïë„ÄÄ„ÄÄ„ÄÄ‚ïë„ÄÄ„ÄÄ„ÄÄ‚ïë"
+                                               .."\\n‚ïö‚ïê‚ïê‚ïê‚ï©‚ïê‚ïê‚ïê‚ï©‚ïê‚ïê‚ïê‚ï©‚ïê‚ïê‚ïê‚ï©‚ïê‚ïê‚ïê‚ï©‚ïê‚ïê‚ïê‚ï©‚ïê‚ïê‚ïê‚ïù"
+                                               .."\\n„ÄÄÔº°„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[2].name.."„ÄÄ„Äë„ÄÄÔº¢„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[3].name.."„ÄÄ„Äë"
+                                               .."\\n„ÄÄÔº£„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[4].name.."„ÄÄ„Äë „Äê„ÄÄ"..KujiTbl[5].name.."„ÄÄ„Äë"
+                                               .."\\n„ÄÄÔº§„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[6].name.."„ÄÄ„Äë „Äê„ÄÄ"..KujiTbl[7].name.."„ÄÄ„Äë"
+                                               .."\\n„ÄÄÔº•„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[8].name.." „ÄÄ„Äë„ÄÄÔº¶„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[9].name.."„ÄÄ„Äë"
+                                               .."\\n„ÄÄÔºß„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[10].name.."„ÄÄ„Äë"
+                                               .."\\n„ÄÄÔº®„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[11].name.."„ÄÄ„Äë"
+                                               .."\\n„ÄÄÔº©„ÄÄË≥û„ÄÄ„Äê„ÄÄ"..KujiTbl[12].name.."„ÄÄ„Äë"
+                                               .."\\n„ÄÄÊúÄÂæåË≥û„ÄÄ„Äê„ÄÄÂÅΩË£ùÂô¥ÊºÜÈÅìÂÖ∑„ÄÄ„Äë\\n"
+                                               .."\\n„ÄÄÊØèÊäΩ1Ê¨°Ôºö1Êûö„ÄàÈäÄÂπ£„ÄâÔºåÊØè5ÊäΩÂæåÁ¥ØÁ©ç‰∏äÊº≤1Êûö„ÄàÈäÄÂπ£„Äâ"
+                                               .."\\n„ÄÄÊäΩÁ±§ÂæåÁ∂ìÈÅéÂÖ´Â∞èÊôÇÁöÑÂÜ∑ÂçªÊôÇÈñìÔºåÈáçÁΩÆÂõûÂà∞1Êûö„ÄàÈäÄÂπ£„Äâ"
+                                               .."\\n„ÄÄÊúÄÂæåÊäΩÂèñÂà∞Á¨¨80ÊäΩËÄÖÔºåÁç≤Âæó„ÄäÊúÄÂæåË≥û„ÄãÈ°çÂ§ñÁçéÂãµ";
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_Â∑®‰ø°ÊÅØÊ°Ü, CONST.BUTTON_ÊòØÂê¶, 1, winMsg);
               end
           end
           return
     end)
 
 
-    local clerkNPC = self:NPC_createNormal('“ª∑¨Ÿp±£π‹µÍÜT', 104925, { x = 228, y = 106, mapType = 0, map = 1000, direction = 4 });
+    local clerkNPC = self:NPC_createNormal('‰∏ÄÁï™Ë≥û‰øùÁÆ°Â∫óÂì°', 104925, { x = 228, y = 106, mapType = 0, map = 1000, direction = 4 });
     self:NPC_regWindowTalkedEvent(clerkNPC, function(npc, player, _seqno, _select, _data)
         local column = tonumber(_data)
         local page = tonumber(_seqno)
         local data = tonumber(_data)
         local warpPage = page;
-        local winButton = CONST.BUTTON_πÿ±’;
+        local winButton = CONST.BUTTON_ÂÖ≥Èó≠;
         --local totalPage, remainder = calcWarp()
-        --œ¬‘ÿ ˝æ›
-        local cdk = Char.GetData(player,CONST.∂‘œÛ_CDK);
+        --‰∏ãËΩΩÊï∞ÊçÆ
+        local cdk = Char.GetData(player,CONST.ÂØπË±°_CDK);
         local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
         local sqldata = SQL.Run("select IchibanKuji1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
         local itemData = {};
@@ -171,14 +202,14 @@ function IchibanKuji:onLoad()
         else
                itemMenu={};
         end
-        --…œ“≥16 œ¬“≥32 πÿ±’/»°œ˚2
+        --‰∏äÈ°µ16 ‰∏ãÈ°µ32 ÂÖ≥Èó≠/ÂèñÊ∂à2
         if _select > 0 then
-                if _select == CONST.BUTTON_πÿ±’ then
+                if _select == CONST.BUTTON_ÂÖ≥Èó≠ then
                     return;
                 end
-                --∏¯”Ëµ¿æﬂ
+                --Áªô‰∫àÈÅìÂÖ∑
                 local choose = tonumber(_seqno);
-                if (_select == CONST.BUTTON_»∑∂®) then
+                if (_select == CONST.BUTTON_Á°ÆÂÆö) then
                         if (data==nil or math.floor(data)~=data) then
                               return;
                         else
@@ -186,14 +217,14 @@ function IchibanKuji:onLoad()
                               if (data<=itemMenu[key][4]) then
                                        local ItemsetIndex = Data.ItemsetGetIndex(itemMenu[key][3]);
                                        local stack = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_MAXREMAIN);
-                                       local slot = math.modf(data / stack);                --¥À ˝¡ø’º”√∏Ò ˝(s◊È)
-                                       local excess = math.fmod(data, stack);            --≤ª≥…◊Èµƒ ˝¡ø(1∏Ò)
+                                       local slot = math.modf(data / stack);                --Ê≠§Êï∞ÈáèÂç†Áî®Ê†ºÊï∞(sÁªÑ)
+                                       local excess = math.fmod(data, stack);            --‰∏çÊàêÁªÑÁöÑÊï∞Èáè(1Ê†º)
                                        if (excess>0) then slot=slot+1; end
                                        if (Char.ItemSlot(player)<=20-slot) then
                                             itemData[key][4] = itemData[key][4] - data;
                                             Char.GiveItem(player,itemMenu[key][3],data);
                                        else
-                                            NLG.Say(player, -1, "◊¢“‚Ã·»°îµ¡ø≥¨ﬂ^ŒÔ∆∑ô⁄£°", CONST.—’…´_ª∆…´, CONST.◊÷ÃÂ_÷–);
+                                            NLG.Say(player, -1, "Ê≥®ÊÑèÊèêÂèñÊï∏ÈáèË∂ÖÈÅéÁâ©ÂìÅÊ¨ÑÔºÅ", CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);
                                             return;
                                        end
                                        if (itemData[key][4]==0) then
@@ -213,43 +244,43 @@ function IchibanKuji:onLoad()
                                                 return;
                                        end
                               else
-                                       NLG.Say(player, -1, "°∫".. itemMenu[key][2] .."°ªÃ·»°îµ¡ø≥¨ﬂ^°∫".. itemMenu[key][4] .."°ª", CONST.—’…´_ª∆…´, CONST.◊÷ÃÂ_÷–);
+                                       NLG.Say(player, -1, "„Äé".. itemMenu[key][2] .."„ÄèÊèêÂèñÊï∏ÈáèË∂ÖÈÅé„Äé".. itemMenu[key][4] .."„Äè", CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);
                                        return;
                               end
                         end
                 end
                 if (itemMenu~=nil and itemMenu~={}) then
                     local totalPage, remainder = calcWarp()
-                    --µ¿æﬂ¡–±Ì
-                    if _select == CONST.BUTTON_œ¬“ª“≥ then
+                    --ÈÅìÂÖ∑ÂàóË°®
+                    if _select == CONST.BUTTON_‰∏ã‰∏ÄÈ°µ then
                         warpPage = warpPage + 1
                         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-                                winButton = CONST.BUTTON_…œ»°œ˚
+                                winButton = CONST.BUTTON_‰∏äÂèñÊ∂à
                         else
-                                winButton = CONST.BUTTON_…œœ¬»°œ˚
+                                winButton = CONST.BUTTON_‰∏ä‰∏ãÂèñÊ∂à
                         end
-                    elseif _select == CONST.BUTTON_…œ“ª“≥ then
+                    elseif _select == CONST.BUTTON_‰∏ä‰∏ÄÈ°µ then
                         warpPage = warpPage - 1
                         if warpPage == 1 then
-                                winButton = CONST.BUTTON_œ¬»°œ˚
+                                winButton = CONST.BUTTON_‰∏ãÂèñÊ∂à
                                 if totalPage == 1 then
-                                        winButton = CONST.BUTTON_πÿ±’;
+                                        winButton = CONST.BUTTON_ÂÖ≥Èó≠;
                                 end
                         else
-                                winButton = CONST.BUTTON_…œœ¬»°œ˚
+                                winButton = CONST.BUTTON_‰∏ä‰∏ãÂèñÊ∂à
                         end
                     elseif _select == 2 then
                         warpPage = 1
                         return
                     end
                     local count = 6 * (warpPage - 1)
-                    local winMsg = "3\\n“ª∑¨Ÿp≥È™Ñ±≥∞¸¡–±Ì".. warpPage .."/".. totalPage .."°°°°°°°°\\n"
-                                                        .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                                        .."–ÚÃñ°°°°°°µ¿æﬂ√˚∑Q°°°°°°°°°°°°°°îµ¡ø\\n";
+                    local winMsg = "3\\n‰∏ÄÁï™Ë≥ûÊäΩÁçéËÉåÂåÖÂàóË°®".. warpPage .."/".. totalPage .."„ÄÄ„ÄÄ„ÄÄ„ÄÄ\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
                     if warpPage == totalPage then
                         for i = 1 + count, remainder + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .."[".. itemMenu[i][1] .."]°°°°°°".. itemMenu[i][2]
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
                                 if len <= 20 then
                                       spacelen = 20 - len;
                                       spaceMsg = " ";
@@ -262,7 +293,7 @@ function IchibanKuji:onLoad()
                     else
                         for i = 1 + count, 6 + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .."[".. itemMenu[i][1] .."]°°°°°°".. itemMenu[i][2]
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
                                 if len <= 20 then
                                       spacelen = 20 - len;
                                       spaceMsg = " ";
@@ -273,29 +304,29 @@ function IchibanKuji:onLoad()
                                 winMsg = winMsg .. spaceMsg .. itemMenu[i][4] .."\\n"
                         end
                     end
-                    NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_—°‘ÒøÚ, winButton, warpPage, winMsg);
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, winButton, warpPage, winMsg);
                 else
-                    local winMsg = "3\\n“ª∑¨Ÿp≥È™Ñ±≥∞¸¡–±Ì0/0°°°°°°°°\\n"
-                                                        .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                                        .."–ÚÃñ°°°°°°µ¿æﬂ√˚∑Q°°°°°°°°°°°°°°îµ¡ø\\n";
-                    NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_—°‘ÒøÚ, CONST.BUTTON_πÿ±’, 1, winMsg);
+                    local winMsg = "3\\n‰∏ÄÁï™Ë≥ûÊäΩÁçéËÉåÂåÖÂàóË°®0/0„ÄÄ„ÄÄ„ÄÄ„ÄÄ\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, CONST.BUTTON_ÂÖ≥Èó≠, 1, winMsg);
                 end
         else
                 local choose_item = 6 * (warpPage - 1) + column
-                --∏¯”Ëµ¿æﬂ
-                local winMsg = "“ª∑¨Ÿp≥È™Ñ±≥∞¸\\n"
-                                           .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                           .."’˝‘⁄»°≥ˆµ¿æﬂ...\\n"
-                                           .."\\n°°°°°°°°°°°°°°".. itemMenu[choose_item][2] .."\\n"
-                                           .."\\n°°°°°°°°°°°°°°Æî«∞ìÌ”–µƒîµ¡ø£∫".. itemMenu[choose_item][4] .."\\n"
-                                           .."\\n’à›î»Î»°≥ˆîµ¡ø£∫\\n";
+                --Áªô‰∫àÈÅìÂÖ∑
+                local winMsg = "‰∏ÄÁï™Ë≥ûÊäΩÁçéËÉåÂåÖ\\n"
+                                           .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                           .."Ê≠£Âú®ÂèñÂá∫ÈÅìÂÖ∑...\\n"
+                                           .."\\n„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ".. itemMenu[choose_item][2] .."\\n"
+                                           .."\\n„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÁï∂ÂâçÊìÅÊúâÁöÑÊï∏ÈáèÔºö".. itemMenu[choose_item][4] .."\\n"
+                                           .."\\nË´ãËº∏ÂÖ•ÂèñÂá∫Êï∏ÈáèÔºö\\n";
                 local choose = choose_item+1000;
-                NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_ ‰»ÎøÚ, CONST.BUTTON_»∑∂®πÿ±’, choose, winMsg);
+                NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ËæìÂÖ•Ê°Ü, CONST.BUTTON_Á°ÆÂÆöÂÖ≥Èó≠, choose, winMsg);
 
         end
     end)
-    self:NPC_regTalkedEvent(clerkNPC, function(npc, player)  ----“ª∑¨Ÿp≥ÈΩ±±≥∞¸managerMenu{}
-            local cdk = Char.GetData(player,CONST.∂‘œÛ_CDK);
+    self:NPC_regTalkedEvent(clerkNPC, function(npc, player)  ----‰∏ÄÁï™Ë≥ûÊäΩÂ•ñËÉåÂåÖmanagerMenu{}
+            local cdk = Char.GetData(player,CONST.ÂØπË±°_CDK);
             SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
             local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
             local sqldata = SQL.Run("select IchibanKuji1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
@@ -308,20 +339,20 @@ function IchibanKuji:onLoad()
             end
             if (NLG.CanTalk(npc, player) == true) then
                 if (itemMenu~=nil and itemMenu~={}) then
-                    local winButton = CONST.BUTTON_œ¬»°œ˚;
+                    local winButton = CONST.BUTTON_‰∏ãÂèñÊ∂à;
                     local warpPage = 1;
                     local totalPage, remainder = calcWarp()
                     local count = 6 * (warpPage - 1)
-                    local winMsg = "3\\n“ª∑¨Ÿp≥È™Ñ±≥∞¸¡–±Ì".. warpPage .."/".. totalPage .."°°°°°°°°\\n"
-                                                        .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                                        .."–ÚÃñ°°°°°°µ¿æﬂ√˚∑Q°°°°°°°°°°°°°°îµ¡ø\\n";
+                    local winMsg = "3\\n‰∏ÄÁï™Ë≥ûÊäΩÁçéËÉåÂåÖÂàóË°®".. warpPage .."/".. totalPage .."„ÄÄ„ÄÄ„ÄÄ„ÄÄ\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
                     if totalPage == 1 then
-                                winButton = CONST.BUTTON_πÿ±’;
+                                winButton = CONST.BUTTON_ÂÖ≥Èó≠;
                     end
                     if warpPage == totalPage then
                         for i = 1 + count, remainder + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .."[".. itemMenu[i][1] .."]°°°°°°".. itemMenu[i][2]
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
                                 if len <= 20 then
                                       spacelen = 20 - len;
                                       spaceMsg = " ";
@@ -334,7 +365,7 @@ function IchibanKuji:onLoad()
                     else
                         for i = 1 + count, 6 + count do
                                 local len = #itemMenu[i][2];
-                                winMsg = winMsg .."[".. itemMenu[i][1] .."]°°°°°°".. itemMenu[i][2]
+                                winMsg = winMsg .."[".. itemMenu[i][1] .."]„ÄÄ„ÄÄ„ÄÄ".. itemMenu[i][2]
                                 if len <= 20 then
                                       spacelen = 20 - len;
                                       spaceMsg = " ";
@@ -345,12 +376,12 @@ function IchibanKuji:onLoad()
                                 winMsg = winMsg .. spaceMsg .. itemMenu[i][4] .."\\n"
                         end
                     end
-                    NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_—°‘ÒøÚ, winButton, 1, winMsg);
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, winButton, 1, winMsg);
                 else
-                    local winMsg = "3\\n“ª∑¨Ÿp≥È™Ñ±≥∞¸¡–±Ì0/0°°°°°°°°\\n"
-                                                        .."®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T®T\\n"
-                                                        .."–ÚÃñ°°°°°°µ¿æﬂ√˚∑Q°°°°°°°°°°°°°°îµ¡ø\\n";
-                    NLG.ShowWindowTalked(player, npc, CONST.¥∞ø⁄_—°‘ÒøÚ, CONST.BUTTON_πÿ±’, 1, winMsg);
+                    local winMsg = "3\\n‰∏ÄÁï™Ë≥ûÊäΩÁçéËÉåÂåÖÂàóË°®0/0„ÄÄ„ÄÄ„ÄÄ„ÄÄ\\n"
+                                                        .."‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê\\n"
+                                                        .."Â∫èËôü„ÄÄ„ÄÄ„ÄÄÈÅìÂÖ∑ÂêçÁ®±„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄ„ÄÄÊï∏Èáè\\n";
+                    NLG.ShowWindowTalked(player, npc, CONST.Á™óÂè£_ÈÄâÊã©Ê°Ü, CONST.BUTTON_ÂÖ≥Èó≠, 1, winMsg);
                 end
             end
             return
@@ -361,9 +392,9 @@ end
 
 function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
           local itemIndex = Char.GetItemIndex(player, itemSlot);
-          local ItemID = Item.GetData(itemIndex, CONST.µ¿æﬂ_ID);
+          local ItemID = Item.GetData(itemIndex, CONST.ÈÅìÂÖ∑_ID);
           Char.DelItem(player, ItemID, 1)
-          --∂¡»°«©Õ≤
+          --ËØªÂèñÁ≠æÁ≠í
           local gmIndex = NLG.FindUser(GMcdk);
           local sqldata_1 = Field.Get(gmIndex, 'ichiban_set_1');
           local KujiAll_1 = {};
@@ -388,7 +419,7 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
           end
           local WinNum = NLG.Rand(1, #KujiAll);
           print(WinNum)
-          --œ¥≈∆«©Õ≤
+          --Ê¥óÁâåÁ≠æÁ≠í
           local xr = NLG.Rand(1,3);
           for i=1,#KujiAll-1-xr do
                     r = NLG.Rand(1,i+1+xr);
@@ -396,41 +427,93 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
                     KujiAll[r]=KujiAll[i];
                     KujiAll[i]=temp;
           end
-          --≥ÈΩ±æÕŒª
+          --ÊäΩÂ•ñÂ∞±‰Ωç
           SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
           for k, v in ipairs(KujiTbl) do
              local stick = string.sub(KujiAll[WinNum], 1, 1);
-             --print(stick)
+             local kind = string.sub(KujiAll[WinNum], 2);
+             --print(stick,kind)
              if (WinNum>=1 and WinNum<=#KujiAll) then
                    if (stick=="A" and v.type=="A") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªAŸp°£", CONST.—’…´_∫Ï…´, CONST.◊÷ÃÂ_÷–);               --AŸp[2%]
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèAË≥û„ÄÇ", CONST.È¢úËâ≤_Á∫¢Ëâ≤, CONST.Â≠ó‰Ωì_‰∏≠);               --AË≥û[2%]
                    elseif (stick=="B" and v.type=="B") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªBŸp°£", CONST.—’…´_∫Ï…´, CONST.◊÷ÃÂ_÷–);               --BŸp[2%]
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèBË≥û„ÄÇ", CONST.È¢úËâ≤_Á∫¢Ëâ≤, CONST.Â≠ó‰Ωì_‰∏≠);               --BË≥û[2%]
                    elseif (stick=="C" and v.type=="C") then
-                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªCŸp°£",CONST.—’…´_ª∆…´, CONST.◊÷ÃÂ_÷–);                --CŸp[4%]
+                         if (kind==1 and v.serial_L==3) then
+                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                             NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèCË≥û„ÄÇ",CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);                --CË≥û[2%]
+                         elseif (kind==2 and v.serial_L==4) then
+                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                             NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèCË≥û„ÄÇ",CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);                --CË≥û[2%]
+                         end
                    elseif (stick=="D" and v.type=="D") then
-                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªDŸp°£",CONST.—’…´_ª∆…´, CONST.◊÷ÃÂ_÷–);                --DŸp[4%]
+                         if (kind==1 and v.serial_L==5) then
+                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                             NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèDË≥û„ÄÇ",CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);                --DË≥û[2%]
+                         elseif (kind==2 and v.serial_L==6) then
+                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                             NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèDË≥û„ÄÇ",CONST.È¢úËâ≤_ÈªÑËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);                --DË≥û[2%]
+                         end
                    elseif (stick=="E" and v.type=="E") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªEŸp°£",CONST.—’…´_«‡…´, CONST.◊÷ÃÂ_÷–);                 --EŸp[2%]
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèEË≥û„ÄÇ",CONST.È¢úËâ≤_ÈùíËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);                 --EË≥û[2%]
                    elseif (stick=="F" and v.type=="F") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªFŸp°£",CONST.—’…´_«‡…´, CONST.◊÷ÃÂ_÷–);                 --FŸp[2%]
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèFË≥û„ÄÇ",CONST.È¢úËâ≤_ÈùíËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);                 --FË≥û[2%]
                    elseif (stick=="G" and v.type=="G") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªGŸp°£",CONST.—’…´_ª“¿∂…´, CONST.◊÷ÃÂ_÷–);            --GŸp[24%]
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèGË≥û„ÄÇ",CONST.È¢úËâ≤_ÁÅ∞ËìùËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);            --GË≥û[24%]
                    elseif (stick=="H" and v.type=="G") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªHŸp°£",CONST.—’…´_ª“¿∂…´, CONST.◊÷ÃÂ_÷–);            --HŸp[24%]
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèHË≥û„ÄÇ",CONST.È¢úËâ≤_ÁÅ∞ËìùËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);            --HË≥û[24%]
                    elseif (stick=="I" and v.type=="I") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "πßœ≤≥È÷–ƒß¡¶“ª∑¨Ÿp°∫".. v.name .."°ªIŸp°£",CONST.—’…´_ª“¬Ã…´, CONST.◊÷ÃÂ_÷–);             --IŸp[36%]
+                         NLG.Say(player, -1, "ÊÅ≠ÂñúÊäΩ‰∏≠È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. v.name .."„ÄèIË≥û„ÄÇ",CONST.È¢úËâ≤_ÁÅ∞ÁªøËâ≤, CONST.Â≠ó‰Ωì_‰∏≠);             --IË≥û[36%]
                    end
              end
+          end
+          if (#KujiAll==1) then
+                    renewItemBag(player, KujiTbl[1].Num, KujiTbl[1].name, KujiTbl[1].itemid, KujiTbl[1].count);
+                    NLG.Say(player, -1, "ÊÅ≠ÂñúÂæóÂà∞È≠îÂäõ‰∏ÄÁï™Ë≥û„Äé".. KujiTbl[1].name .."„ÄèÊúÄÂæåË≥û„ÄÇ", CONST.È¢úËâ≤_Á∫¢Ëâ≤, CONST.Â≠ó‰Ωì_‰∏≠);               --ÊúÄÂæåË≥û[%]
+                    local KujiAll_1 = {
+                             "A1", "B1", "C1", "C2", "D1", "D2", "E1", "F1",
+                             "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12",
+                    }
+                    local KujiAll_2 = {
+                             "H1","H2","H3","H4","H5","H6","H7","H8","H9","H10","H11","H12",
+                             "I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11","I12","I13","I14","I15","I16","I17","I18",
+                    }
+                    Field.Set(gmIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
+                    Field.Set(gmIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
+                    NLG.UpChar(gmIndex);
+                    NLG.SystemMessageToMap(0, 1000, "[ÂÖ¨Âëä]Êñ∞‰∏ÄËº™ÁöÑ‰∏ÄÁï™Ë≥ûÂ∑≤Á∂ìÈñãÂßãÔºåÁé©ÂÆ∂ÂèØ‰ª•ÂéªË©¶Ë©¶ÊâãÊ∞£ÔºÅ");
+          end
+          --ÁßªÈô§ËØ•Ê¨°Â∑≤‰∏≠Á≠æ
+          table.remove(KujiAll, WinNum);
+          --ËµãÂΩíÂâ©‰∏ãÁ≠æ
+          if (#KujiAll>=20) then
+             local KujiAll_1={}
+             local KujiAll_2={}
+             for i=1,20 do
+                 table.insert(KujiAll_1, KujiAll[i]);
+             end
+             for i=21,#KujiAll do
+                 table.insert(KujiAll_2, KujiAll[i]);
+             end
+             Field.Set(gmIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
+             Field.Set(gmIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
+             NLG.UpChar(gmIndex);
+          else
+             local KujiAll_1={}
+             local KujiAll_2={}
+             for i=1,#KujiAll do
+                 table.insert(KujiAll_1, KujiAll[i]);
+             end
+             Field.Set(gmIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
+             Field.Set(gmIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
+             NLG.UpChar(gmIndex);
           end
 end
 
@@ -439,8 +522,8 @@ function renewItemBag(player,Num,name,itemid,count)
               --print(name);
               --print(itemid);
               --print(count);
-              --œ¬‘ÿ ˝æ›
-              local cdk = Char.GetData(player,CONST.∂‘œÛ_CDK);
+              --‰∏ãËΩΩÊï∞ÊçÆ
+              local cdk = Char.GetData(player,CONST.ÂØπË±°_CDK);
               local sqldata = SQL.Run("select IchibanKuji1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
               local itemData = {};
               if (type(sqldata)=="string" and sqldata~='') then
@@ -448,7 +531,7 @@ function renewItemBag(player,Num,name,itemid,count)
               else
                    itemData = {};
               end
-              --∏¸–¬ ˝æ›
+              --Êõ¥Êñ∞Êï∞ÊçÆ
               local boxCheck = 0;
               for k, v in pairs(itemData) do
                    if (itemData[k]~=nil and itemData[k][3]==itemid)  then
@@ -466,12 +549,12 @@ function renewItemBag(player,Num,name,itemid,count)
                          table.insert(itemData[boxEX], itemid);
                          table.insert(itemData[boxEX], count);
               end
-              --≈≈–Ú ˝æ›
+              --ÊéíÂ∫èÊï∞ÊçÆ
               function my_comp(a, b)
                             return a[1] < b[1]
               end
               table.sort(itemData, my_comp);
-              --…œ¥´ ˝æ›
+              --‰∏ä‰º†Êï∞ÊçÆ
               local sqldata = itemData;
               local newdata = JSON.encode(sqldata);
               SQL.Run("update lua_hook_character set IchibanKuji1= '"..newdata.."' where CdKey='"..cdk.."'")
@@ -481,11 +564,12 @@ end
 
 function IchibanKuji:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr ichiban restart]") then
-		local cdk = Char.GetData(charIndex,CONST.∂‘œÛ_CDK);
+		local cdk = Char.GetData(charIndex,CONST.ÂØπË±°_CDK);
 		if (cdk == GMcdk) then
 			Field.Set(charIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
 			Field.Set(charIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
-			NLG.SystemMessage(charIndex, "[œµΩy]“ª∑¨Ÿp÷ÿÜ¢°£");
+			NLG.SystemMessage(charIndex, "[Á≥ªÁµ±]‰∏ÄÁï™Ë≥ûÈáçÂïü„ÄÇ");
+                                                            NLG.UpChar(charIndex);
 			return 0;
 		end
 	end
