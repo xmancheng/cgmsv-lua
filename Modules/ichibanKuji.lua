@@ -33,27 +33,24 @@ IchibanKuji:addMigration(2, 'insertinto lua_hook_character', function()
 end);
 
 local GMcdk = "123456";
-local KujiAll_1 = {
-         "A1", "B1", "C1", "C2", "D1", "D2", "E1", "F1",
+local KujiAll = {
+         "A1", "B1", "C1", "D1", "E1", "E2", "F1", "F2",
          "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12",
-}
-local KujiAll_2 = {
          "H1","H2","H3","H4","H5","H6","H7","H8","H9","H10","H11","H12",
          "I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11","I12","I13","I14","I15","I16","I17","I18",
 }
+
 local KujiTbl={
        { Num="001", type="L", serial_L=51, serial_H=51, name="天使之祝福", itemid=45953, count=1},
        { Num="002", type="A", serial_L=1, serial_H=1, name="天使之祝福", itemid=45953, count=1},
        { Num="003", type="B", serial_L=2, serial_H=2, name="迅速果斷之劍", itemid=46903, count=1},
        { Num="004", type="C", serial_L=3, serial_H=3, name="戒驕戒躁之斧", itemid=46901, count=1},
-       { Num="005", type="C", serial_L=4, serial_H=4, name="一石二鳥之槍", itemid=46902, count=1},
-       { Num="006", type="D", serial_L=5, serial_H=5, name="爆擊之書", itemid=45979, count=1},
-       { Num="007", type="D", serial_L=6, serial_H=6, name="必中之書", itemid=45980, count=1},
-       { Num="008", type="E", serial_L=7, serial_H=7, name="神導士守護", itemid=45968, count=1},
-       { Num="009", type="F", serial_L=8, serial_H=8, name="大法師之魂", itemid=45967, count=1},
-       { Num="010", type="G", serial_L=9, serial_H=20, name="強力攻擊手環", itemid=45510, count=1},
-       { Num="011", type="H", serial_L=21, serial_H=32, name="風神高速手環", itemid=45512, count=1},
-       { Num="012", type="I", serial_L=33, serial_H=50, name="絕對防禦手環", itemid=45511, count=1},
+       { Num="005", type="D", serial_L=4, serial_H=4, name="一石二鳥之槍", itemid=46902, count=1},
+       { Num="006", type="E", serial_L=5, serial_H=6, name="爆擊之書", itemid=45979, count=1},
+       { Num="007", type="F", serial_L=7, serial_H=8, name="必中之書", itemid=45980, count=1},
+       { Num="008", type="G", serial_L=9, serial_H=20, name="神導士守護", itemid=45968, count=1},
+       { Num="009", type="H", serial_L=21, serial_H=32, name="大法師之魂", itemid=45967, count=1},
+       { Num="010", type="I", serial_L=33, serial_H=50, name="強力攻擊手環", itemid=45510, count=1},
 }
 
 
@@ -75,26 +72,12 @@ function IchibanKuji:onLoad()
         local data = tonumber(_data)
           --读取签筒
         local gmIndex = NLG.FindUser(GMcdk);
-        local sqldata_1 = Field.Get(gmIndex, 'ichiban_set_1');
-        local KujiAll_1 = {};
-        if (type(sqldata_1)=="string" and sqldata_1~='') then
-               KujiAll_1 = JSON.decode(sqldata_1);
-        else
-               KujiAll_1 = {};
-        end
-        local sqldata_2 = Field.Get(gmIndex, 'ichiban_set_2');
-        local KujiAll_2 = {};
-        if (type(sqldata_2)=="string" and sqldata_2~='') then
-               KujiAll_2 = JSON.decode(sqldata_2);
-        else
-               KujiAll_2 = {};
-        end
+        local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
         local KujiAll = {};
-        for i=1,#KujiAll_1 do
-              table.insert(KujiAll, KujiAll_1[i]);
-        end
-        for i=1,#KujiAll_2 do
-              table.insert(KujiAll, KujiAll_2[i]);
+        if (type(sqldata)=="string" and sqldata~='') then
+               KujiAll = JSON.decode(sqldata);
+        else
+               KujiAll = {};
         end
         if _select == CONST.BUTTON_是  then
                 --冷静时间计算
@@ -105,7 +88,7 @@ function IchibanKuji:onLoad()
                                            .."═════════════════════\\n"
                                            .."正在購買道具...\\n"
                                            .."\\n　　　　　　　冷靜期剩下時間：\\n"
-                                           .."\\n　　　　　　　一抽所需銀幣：\\n"
+                                           .."\\n　　　　　　　一抽所需銀幣：「」枚\\n"
                                            .."\\n請輸入購買數量(每次不得超過5張)：\\n";
                 NLG.ShowWindowTalked(player, npc, CONST.窗口_输入框, CONST.BUTTON_确定关闭, 11, winMsg);
         elseif _select > 0 then
@@ -114,68 +97,77 @@ function IchibanKuji:onLoad()
                 end
                 --给予一番赏签
                 if (_select == CONST.BUTTON_确定) then
+                   if (data ~=nil and math.ceil(data)==data) then
                        if (data>#KujiAll) then
                              NLG.Say(player, -1, "[系統]購買數量超過目前籤的上限", CONST.颜色_黄色, CONST.字体_中);
                              return;
                        elseif (data<=5) then
-                             for i=1,data do
+                             myNumber = 1;
+                             while myNumber < data+1 do
                                  --Char.GiveItem(player, 70095, 1);
                                  --local itemSlot = Char.FindItemId(player, 70095);
-                                 self:onIchibanKuji(player, targetcharIndex, itemSlot);
+                                 local res,err =pcall( function() 
+                                     self:onIchibanKuji(player, targetcharIndex, itemSlot);
+                                     myNumber = myNumber + 1;
+                                 end)
                              end
                        else
                              NLG.Say(player, -1, "[系統]購買數量超過一次上限５張", CONST.颜色_黄色, CONST.字体_中);
                              return;
                        end
+                   else
+                       return;
+                   end
                 end
         end
     end)
     self:NPC_regTalkedEvent(noticeNPC, function(npc, player)  ----一番賞資訊告示
+          local cdk = Char.GetData(player,CONST.对象_CDK);
+          SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
           --读取签筒
           local gmIndex = NLG.FindUser(GMcdk);
-          local sqldata_1 = Field.Get(gmIndex, 'ichiban_set_1');
-          local KujiAll_1 = {};
-          if (type(sqldata_1)=="string" and sqldata_1~='') then
-               KujiAll_1 = JSON.decode(sqldata_1);
-          else
-               KujiAll_1 = {};
-          end
-          local sqldata_2 = Field.Get(gmIndex, 'ichiban_set_2');
-          local KujiAll_2 = {};
-          if (type(sqldata_2)=="string" and sqldata_2~='') then
-               KujiAll_2 = JSON.decode(sqldata_2);
-          else
-               KujiAll_2 = {};
-          end
+          local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
           local KujiAll = {};
-          for i=1,#KujiAll_1 do
-              table.insert(KujiAll, KujiAll_1[i]);
-          end
-          for i=1,#KujiAll_2 do
-              table.insert(KujiAll, KujiAll_2[i]);
+          if (type(sqldata)=="string" and sqldata~='') then
+               KujiAll = JSON.decode(sqldata);
+          else
+               KujiAll = {};
           end
           --计算各种类剩余签数
-
+          local KujiLen = #KujiAll; local Kuji_A=0; local Kuji_B=0; local Kuji_C=0; local Kuji_D=0; local Kuji_E=0; local Kuji_F=0; local Kuji_G=0; local Kuji_H=0; local Kuji_I=0;
+          table.forEach(KujiAll, function(e)
+                    if string.sub(e, 1, 1)=="A" then Kuji_A = Kuji_A+1;
+                    elseif string.sub(e, 1, 1)=="B" then Kuji_B = Kuji_B+1;
+                    elseif string.sub(e, 1, 1)=="C" then Kuji_C = Kuji_C+1;
+                    elseif string.sub(e, 1, 1)=="D" then Kuji_D = Kuji_D+1;
+                    elseif string.sub(e, 1, 1)=="E" then Kuji_E = Kuji_E+1;
+                    elseif string.sub(e, 1, 1)=="F" then Kuji_F = Kuji_F+1;
+                    elseif string.sub(e, 1, 1)=="G" then Kuji_G = Kuji_G+1;
+                    elseif string.sub(e, 1, 1)=="H" then Kuji_H = Kuji_H+1;
+                    elseif string.sub(e, 1, 1)=="I" then Kuji_I = Kuji_I+1;
+                    end
+          end)
           if (NLG.CanTalk(npc, player) == true) then
               if (KujiAll~=nil and KujiAll~={}) then
                     local winMsg = "\\n          ★★★★★★魔力一番賞說明告示★★★★★★\\n"
-                                               .."\\n　新遊戲完整的籤數總共有50張，目前剩餘籤數：\\n"
-                                               .."\\n╔═══╦═══╦═══╦═══╦═══╦═══╦═══╗"
-                                               .."\\n║　Ａ　║　Ｂ　║　Ｃ　║　Ｄ　║　Ｅ　║　Ｆ　║　Ｇ　║"
-                                               .."\\n╠═══╬═══╬═══╬═══╬═══╬═══╬═══╣"
-                                               .."\\n║　　　║　　　║　　　║　　　║　　　║　　　║　　　║"
-                                               .."\\n╚═══╩═══╩═══╩═══╩═══╩═══╩═══╝"
-                                               .."\\n　Ａ　賞　【　"..KujiTbl[2].name.."　】　Ｂ　賞　【　"..KujiTbl[3].name.."　】"
-                                               .."\\n　Ｃ　賞　【　"..KujiTbl[4].name.."　】 【　"..KujiTbl[5].name.."　】"
-                                               .."\\n　Ｄ　賞　【　"..KujiTbl[6].name.."　】 【　"..KujiTbl[7].name.."　】"
-                                               .."\\n　Ｅ　賞　【　"..KujiTbl[8].name.." 　】　Ｆ　賞　【　"..KujiTbl[9].name.."　】"
-                                               .."\\n　Ｇ　賞　【　"..KujiTbl[10].name.."　】"
-                                               .."\\n　Ｈ　賞　【　"..KujiTbl[11].name.."　】"
-                                               .."\\n　Ｉ　賞　【　"..KujiTbl[12].name.."　】"
+                                               .."\\n　新遊戲完整的籤數總共有50張，目前剩餘籤數："..KujiLen.."\\n"
+                                               .."\\n╔═══════════════════════════╗"
+                                               .."\\n║　Ａ賞　"..KujiTbl[2].name.."　"..Kuji_A.."║"
+                                               .."\\n║　Ｂ賞　"..KujiTbl[3].name.."　"..Kuji_B.."║"
+                                               .."\\n║　Ｃ賞　"..KujiTbl[4].name.."　"..Kuji_C.."║"
+                                               .."\\n║　Ｄ賞　"..KujiTbl[5].name.."　"..Kuji_D.."║"
+                                               .."\\n╠═══════════════════════════╣"
+                                               .."\\n║　Ｅ賞　"..KujiTbl[6].name.."　"..Kuji_E.."║"
+                                               .."\\n║　Ｆ賞　"..KujiTbl[7].name.."　"..Kuji_F.."║"
+                                               .."\\n╠═══════════════════════════╣"
+                                               .."\\n║　Ｇ賞　"..KujiTbl[8].name.."　"..Kuji_G.."║"
+                                               .."\\n║　Ｈ賞　"..KujiTbl[9].name.."　"..Kuji_H.."║"
+                                               .."\\n║　Ｉ賞　"..KujiTbl[10].name.."　"..Kuji_I.."║"
+                                               .."\\n╚═══════════════════════════╝"
                                                .."\\n　最後賞　【　偽裝噴漆道具　】\\n"
                                                .."\\n　每抽1次：1枚〈銀幣〉，每5抽後累積上漲1枚〈銀幣〉"
                                                .."\\n　抽籤後經過八小時的冷卻時間，重置回到1枚〈銀幣〉"
-                                               .."\\n　最後抽取到第80抽者，獲得《最後賞》額外獎勵";
+                                               .."\\n　最後抽取到第50抽者，獲得《最後賞》額外獎勵";
                     NLG.ShowWindowTalked(player, npc, CONST.窗口_巨信息框, CONST.BUTTON_是否, 1, winMsg);
               end
           end
@@ -396,75 +388,51 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
           Char.DelItem(player, ItemID, 1)
           --读取签筒
           local gmIndex = NLG.FindUser(GMcdk);
-          local sqldata_1 = Field.Get(gmIndex, 'ichiban_set_1');
-          local KujiAll_1 = {};
-          if (type(sqldata_1)=="string" and sqldata_1~='') then
-               KujiAll_1 = JSON.decode(sqldata_1);
-          else
-               KujiAll_1 = {};
-          end
-          local sqldata_2 = Field.Get(gmIndex, 'ichiban_set_2');
-          local KujiAll_2 = {};
-          if (type(sqldata_2)=="string" and sqldata_2~='') then
-               KujiAll_2 = JSON.decode(sqldata_2);
-          else
-               KujiAll_2 = {};
-          end
+          local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
           local KujiAll = {};
-          for i=1,#KujiAll_1 do
-              table.insert(KujiAll, KujiAll_1[i]);
-          end
-          for i=1,#KujiAll_2 do
-              table.insert(KujiAll, KujiAll_2[i]);
+          if (type(sqldata)=="string" and sqldata~='') then
+               KujiAll = JSON.decode(sqldata);
+          else
+               KujiAll = {};
           end
           local WinNum = NLG.Rand(1, #KujiAll);
           print(WinNum)
           --洗牌签筒
-          local xr = NLG.Rand(1,3);
+          local xr = NLG.Rand(1,2);
           for i=1,#KujiAll-1-xr do
-                    r = NLG.Rand(1,i+1+xr);
-                    temp=KujiAll[r];
-                    KujiAll[r]=KujiAll[i];
-                    KujiAll[i]=temp;
+                  r = NLG.Rand(1,i+1+xr);
+                  temp=KujiAll[r];
+                  KujiAll[r]=KujiAll[i];
+                  KujiAll[i]=temp;
           end
           --抽奖就位
-          SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
+          --SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
           for k, v in ipairs(KujiTbl) do
              local stick = string.sub(KujiAll[WinNum], 1, 1);
              local kind = string.sub(KujiAll[WinNum], 2);
-             --print(stick,kind)
+             print(stick,kind)
              if (WinNum>=1 and WinNum<=#KujiAll) then
                    if (stick=="A" and v.type=="A") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
                          NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』A賞。", CONST.颜色_红色, CONST.字体_中);               --A賞[2%]
                    elseif (stick=="B" and v.type=="B") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』B賞。", CONST.颜色_红色, CONST.字体_中);               --B賞[2%]
+                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』B賞。", CONST.颜色_绿色, CONST.字体_中);               --B賞[2%]
                    elseif (stick=="C" and v.type=="C") then
-                         if (kind==1 and v.serial_L==3) then
-                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                             NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』C賞。",CONST.颜色_黄色, CONST.字体_中);                --C賞[2%]
-                         elseif (kind==2 and v.serial_L==4) then
-                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                             NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』C賞。",CONST.颜色_黄色, CONST.字体_中);                --C賞[2%]
-                         end
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』C賞。",CONST.颜色_黄色, CONST.字体_中);                --C賞[2%]
                    elseif (stick=="D" and v.type=="D") then
-                         if (kind==1 and v.serial_L==5) then
-                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                             NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』D賞。",CONST.颜色_黄色, CONST.字体_中);                --D賞[2%]
-                         elseif (kind==2 and v.serial_L==6) then
-                             renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                             NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』D賞。",CONST.颜色_黄色, CONST.字体_中);                --D賞[2%]
-                         end
+                         renewItemBag(player, v.Num, v.name, v.itemid, v.count);
+                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』D賞。",CONST.颜色_蓝色, CONST.字体_中);                --D賞[2%]
                    elseif (stick=="E" and v.type=="E") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』E賞。",CONST.颜色_青色, CONST.字体_中);                 --E賞[2%]
+                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』E賞。",CONST.颜色_青色, CONST.字体_中);                 --E賞[4%]
                    elseif (stick=="F" and v.type=="F") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』F賞。",CONST.颜色_青色, CONST.字体_中);                 --F賞[2%]
+                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』F賞。",CONST.颜色_青色, CONST.字体_中);                 --F賞[4%]
                    elseif (stick=="G" and v.type=="G") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
-                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』G賞。",CONST.颜色_灰蓝色, CONST.字体_中);            --G賞[24%]
+                         NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』G賞。",CONST.颜色_灰色, CONST.字体_中);                --G賞[24%]
                    elseif (stick=="H" and v.type=="G") then
                          renewItemBag(player, v.Num, v.name, v.itemid, v.count);
                          NLG.Say(player, -1, "恭喜抽中魔力一番賞『".. v.name .."』H賞。",CONST.颜色_灰蓝色, CONST.字体_中);            --H賞[24%]
@@ -476,44 +444,31 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
           end
           if (#KujiAll==1) then
                     renewItemBag(player, KujiTbl[1].Num, KujiTbl[1].name, KujiTbl[1].itemid, KujiTbl[1].count);
-                    NLG.Say(player, -1, "恭喜得到魔力一番賞『".. KujiTbl[1].name .."』最後賞。", CONST.颜色_红色, CONST.字体_中);               --最後賞[%]
-                    local KujiAll_1 = {
-                             "A1", "B1", "C1", "C2", "D1", "D2", "E1", "F1",
-                             "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12",
-                    }
-                    local KujiAll_2 = {
-                             "H1","H2","H3","H4","H5","H6","H7","H8","H9","H10","H11","H12",
-                             "I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11","I12","I13","I14","I15","I16","I17","I18",
-                    }
-                    Field.Set(gmIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
-                    Field.Set(gmIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
-                    NLG.UpChar(gmIndex);
-                    NLG.SystemMessageToMap(0, 1000, "[公告]新一輪的一番賞已經開始，玩家可以去試試手氣！");
+                    NLG.Say(player, -1, "恭喜得到魔力一番賞『".. KujiTbl[1].name .."』最後賞。", CONST.颜色_紫色, CONST.字体_中);               --最後賞[%]
           end
           --移除该次已中签
           table.remove(KujiAll, WinNum);
           --赋归剩下签
-          if (#KujiAll>=20) then
-             local KujiAll_1={}
-             local KujiAll_2={}
-             for i=1,20 do
-                 table.insert(KujiAll_1, KujiAll[i]);
-             end
-             for i=21,#KujiAll do
-                 table.insert(KujiAll_2, KujiAll[i]);
-             end
-             Field.Set(gmIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
-             Field.Set(gmIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
-             NLG.UpChar(gmIndex);
-          else
-             local KujiAll_1={}
-             local KujiAll_2={}
-             for i=1,#KujiAll do
-                 table.insert(KujiAll_1, KujiAll[i]);
-             end
-             Field.Set(gmIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
-             Field.Set(gmIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
-             NLG.UpChar(gmIndex);
+          Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
+          NLG.UpChar(gmIndex);
+          if (#KujiAll==0) then
+                    local KujiAll = {
+                             "A1", "B1", "C1", "D1", "E1", "E2", "F1", "F2",
+                             "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12",
+                             "H1","H2","H3","H4","H5","H6","H7","H8","H9","H10","H11","H12",
+                             "I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11","I12","I13","I14","I15","I16","I17","I18",
+                    }
+                    --洗牌签筒
+                    local xr = NLG.Rand(1,3);
+                    for i=1,#KujiAll-1-xr do
+                            r = NLG.Rand(1,i+1+xr);
+                            temp=KujiAll[r];
+                            KujiAll[r]=KujiAll[i];
+                            KujiAll[i]=temp;
+                    end
+                    Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
+                    NLG.UpChar(gmIndex);
+                    NLG.SystemMessageToMap(0, 1000, "[公告]新一輪的一番賞已經開始，玩家可以去試試手氣！");
           end
 end
 
@@ -566,10 +521,17 @@ function IchibanKuji:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr ichiban restart]") then
 		local cdk = Char.GetData(charIndex,CONST.对象_CDK);
 		if (cdk == GMcdk) then
-			Field.Set(charIndex, 'ichiban_set_1', JSON.encode(KujiAll_1));
-			Field.Set(charIndex, 'ichiban_set_2', JSON.encode(KujiAll_2));
+			--洗牌签筒
+			local xr = NLG.Rand(1,3);
+			for i=1,#KujiAll-1-xr do
+				r = NLG.Rand(1,i+1+xr);
+				temp=KujiAll[r];
+				KujiAll[r]=KujiAll[i];
+				KujiAll[i]=temp;
+			end
+			Char.SetExtData(charIndex, 'ichiban_set', JSON.encode(KujiAll));
 			NLG.SystemMessage(charIndex, "[系統]一番賞重啟。");
-                                                            NLG.UpChar(charIndex);
+			NLG.UpChar(charIndex);
 			return 0;
 		end
 	end
