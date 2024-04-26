@@ -545,8 +545,6 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
                     --Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
                     local newdata = JSON.encode(KujiAll);
                     SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
-                    SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_count'")
-                    SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_time'")
                     NLG.UpChar(gmIndex);
                     NLG.SystemMessageToMap(0, 1000, "[公告]新一輪的一番賞已經開始，玩家可以去試試手氣！");
           end
@@ -612,8 +610,6 @@ function IchibanKuji:handleTalkEvent(charIndex,msg,color,range,size)
 			Char.SetExtData(charIndex, 'ichiban_set', JSON.encode(KujiAll));
 			--local newdata = JSON.encode(KujiAll);
 			--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
-			SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_count'")
-			SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_time'")
 			NLG.SystemMessage(charIndex, "[系統]一番賞重啟。");
 			NLG.UpChar(charIndex);
 			return 0;
