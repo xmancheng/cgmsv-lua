@@ -100,12 +100,12 @@ function IchibanKuji:onLoad()
                 local hours = tonumber(os.date("%H",os.time())) - tonumber(os.date("%H",IBtime));
                 local minutes = tonumber(os.date("%M",os.time())) - tonumber(os.date("%M",IBtime));
                 totalMinutes = days*24*60+hours*60+minutes;
-                if (totalMinutes>=480) then
+                if (totalMinutes>=10) then
                     Char.SetExtData(player, 'ichiban_count', 0);
                     Char.SetExtData(player, 'ichiban_time', 0);
                     timestamp = 0;
                 else
-                    timestamp = 480 - totalMinutes;
+                    timestamp = 10 - totalMinutes;
                 end
                 local winMsg = "魔力一番賞購買抽獎籤\\n"
                                            .."═════════════════════\\n"
@@ -241,7 +241,7 @@ function IchibanKuji:onLoad()
                                                .."\\n╚═══════════════════════════╝"
                                                .."\\n　　最後賞　【　"..KujiTbl[1].name.."　】\\n"
                                                .."\\n　每抽1次：1枚〈銀幣〉，每5抽後累積上漲1枚〈銀幣〉"
-                                               .."\\n　抽籤後經過八小時的冷卻時間，重置回到1枚〈銀幣〉"
+                                               .."\\n　抽籤後經過10分鐘的冷卻時間，重置回到1枚〈銀幣〉"
                                                .."\\n　最後抽取到第50抽者，獲得《最後賞》額外獎勵";
                     NLG.ShowWindowTalked(player, npc, CONST.窗口_巨信息框, CONST.BUTTON_是否, 1, winMsg);
               end
@@ -545,6 +545,8 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
                     --Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
                     local newdata = JSON.encode(KujiAll);
                     SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
+                    SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_count'")
+                    SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_time'")
                     NLG.UpChar(gmIndex);
                     NLG.SystemMessageToMap(0, 1000, "[公告]新一輪的一番賞已經開始，玩家可以去試試手氣！");
           end
@@ -608,8 +610,10 @@ function IchibanKuji:handleTalkEvent(charIndex,msg,color,range,size)
 				KujiAll[i]=temp;
 			end
 			Char.SetExtData(charIndex, 'ichiban_set', JSON.encode(KujiAll));
-                                                            --local newdata = JSON.encode(KujiAll);
-                                                            --SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
+			--local newdata = JSON.encode(KujiAll);
+			--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
+			SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_count'")
+			SQL.Run("update hook_charaext set val= '0' where sKey='ichiban_time'")
 			NLG.SystemMessage(charIndex, "[系統]一番賞重啟。");
 			NLG.UpChar(charIndex);
 			return 0;
