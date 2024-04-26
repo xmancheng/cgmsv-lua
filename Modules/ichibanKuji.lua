@@ -84,7 +84,8 @@ function IchibanKuji:onLoad()
         local data = tonumber(_data)
           --读取签筒
         local gmIndex = NLG.FindUser(GMcdk);
-        local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
+        --local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
+        local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='"..GMcdk.."' and sKey='ichiban_set'")["0_0"])
         local KujiAll = {};
         if (type(sqldata)=="string" and sqldata~='') then
                KujiAll = JSON.decode(sqldata);
@@ -199,7 +200,8 @@ function IchibanKuji:onLoad()
           SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
           --读取签筒
           local gmIndex = NLG.FindUser(GMcdk);
-          local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
+          --local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
+          local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='"..GMcdk.."' and sKey='ichiban_set'")["0_0"])
           local KujiAll = {};
           if (type(sqldata)=="string" and sqldata~='') then
                KujiAll = JSON.decode(sqldata);
@@ -459,7 +461,8 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
           Char.DelItem(player, ItemID, 1)
           --读取签筒
           local gmIndex = NLG.FindUser(GMcdk);
-          local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
+          --local sqldata = Char.GetExtData(gmIndex, 'ichiban_set');
+          local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='"..GMcdk.."' and sKey='ichiban_set'")["0_0"])
           local KujiAll = {};
           if (type(sqldata)=="string" and sqldata~='') then
                KujiAll = JSON.decode(sqldata);
@@ -520,7 +523,9 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
           --移除该次已中签
           table.remove(KujiAll, WinNum);
           --赋归剩下签
-          Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
+          --Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
+          local newdata = JSON.encode(KujiAll);
+          SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
           NLG.UpChar(gmIndex);
           if (#KujiAll==0) then
                     local KujiAll = {
@@ -537,7 +542,9 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
                             KujiAll[r]=KujiAll[i];
                             KujiAll[i]=temp;
                     end
-                    Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
+                    --Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
+                    local newdata = JSON.encode(KujiAll);
+                    SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
                     NLG.UpChar(gmIndex);
                     NLG.SystemMessageToMap(0, 1000, "[公告]新一輪的一番賞已經開始，玩家可以去試試手氣！");
           end
@@ -601,6 +608,8 @@ function IchibanKuji:handleTalkEvent(charIndex,msg,color,range,size)
 				KujiAll[i]=temp;
 			end
 			Char.SetExtData(charIndex, 'ichiban_set', JSON.encode(KujiAll));
+                                                            --local newdata = JSON.encode(KujiAll);
+                                                            --SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
 			NLG.SystemMessage(charIndex, "[系統]一番賞重啟。");
 			NLG.UpChar(charIndex);
 			return 0;
