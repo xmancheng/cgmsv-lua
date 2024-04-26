@@ -258,7 +258,6 @@ function IchibanKuji:onLoad()
         --local totalPage, remainder = calcWarp()
         --下载数据
         local cdk = Char.GetData(player,CONST.对象_CDK);
-        local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
         local sqldata = SQL.Run("select IchibanKuji1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
         local itemData = {};
         if (type(sqldata)=="string") then
@@ -393,7 +392,6 @@ function IchibanKuji:onLoad()
     self:NPC_regTalkedEvent(clerkNPC, function(npc, player)  ----一番賞抽奖背包managerMenu{}
             local cdk = Char.GetData(player,CONST.对象_CDK);
             SQL.Run("INSERT INTO lua_hook_character (Name,CdKey,OriginalImageNumber) SELECT Name,CdKey,OriginalImageNumber FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_character WHERE tbl_character.CdKey=lua_hook_character.CdKey)");
-            local tenjo = tonumber(SQL.Run("select Tenjo from lua_hook_character where CdKey='"..cdk.."'")["0_0"])
             local sqldata = SQL.Run("select IchibanKuji1 from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
             local itemData = {};
             if (type(sqldata)=="string") then
