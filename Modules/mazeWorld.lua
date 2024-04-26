@@ -6,14 +6,15 @@ local exp_itemid = 70040;               --角色招經驗貓(1.5倍)
 local expshare_itemid = 70041;     --寵物學習裝置
 
 local worldPoints = {
-  { "天界空村Lv1", 0, 60001, 21, 30 },
-  { "迷霧森林Lv30", 0, 60002, 115, 104 },
-  { "古代遺跡Lv50", 0, 60004, 11, 64 },
-  { "黑夜貓村Lv70", 0, 60006, 107, 80 },
-  { "荒漠峽谷Lv90", 0, 60008, 33, 24 },
-  { "精靈之都Lv110", 0, 60010, 46, 42 },
-  { "烏龜秘境Lv130", 0, 60012, 15, 15 },
-  { "天馬原野Lv150", 0, 60014, 44, 51 },
+  { "天界空村Lv1      5000G", 0, 60001, 21, 30 },
+  { "迷霧森林Lv30     5000G", 0, 60002, 115, 104 },
+  { "古代遺跡Lv50     5000G", 0, 60004, 11, 64 },
+  { "黑夜貓村Lv70     5000G", 0, 60006, 107, 80 },
+  { "荒漠峽谷Lv90     5000G", 0, 60008, 33, 24 },
+  { "精靈之都Lv110    5000G", 0, 60010, 46, 42 },
+  { "烏龜秘境Lv130    5000G", 0, 60012, 15, 15 },
+  { "天馬原野Lv150    5000G", 0, 60014, 44, 51 },
+  { "龍族墳場Lv180    5000G", 0, 60016, 26, 47 },
 }
 
 local mazeMap = {
@@ -29,6 +30,9 @@ local worldExp = {
     { Event="LordEnd7", L_level=131, R_level=150, Upload=180, UniItem=70270},
 }
 
+local Horcrux = {
+  { 301, },  { 302, },  { 303, },  { 304, },  { 305, },  { 306, },  { 307, },
+}
 --- 页数计算
 local function calcWarp()
   local totalpage = math.modf(#worldPoints / 7) + 1
@@ -88,6 +92,9 @@ function Module:onLoad()
             else
                 winMsg = winMsg
             end
+            if (i>=9) then
+                        winMsg = winMsg .. worldPoints[i][1] .. "\\n"
+            end
         end
         NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
       else
@@ -123,6 +130,21 @@ function Module:onLoad()
       elseif (Char.PartyNum(player)>=2) then
           NLG.SystemMessage(player,"[系統]裏空間須要單人進行傳送！！");
           return;
+      elseif (count==9) then
+          local flagEvent1 = Char.EndEvent(player,Horcrux[1][1]);
+          local flagEvent2 = Char.EndEvent(player,Horcrux[2][1]);
+          local flagEvent3 = Char.EndEvent(player,Horcrux[3][1]);
+          local flagEvent4 = Char.EndEvent(player,Horcrux[4][1]);
+          local flagEvent5 = Char.EndEvent(player,Horcrux[5][1]);
+          local flagEvent6 = Char.EndEvent(player,Horcrux[6][1]);
+          local flagEvent7 = Char.EndEvent(player,Horcrux[7][1]);
+          if (flagEvent1==1 and flagEvent2==1 and flagEvent3==1 and flagEvent4==1 and flagEvent5==1 and flagEvent6==1 and flagEvent7==1) then
+                  Char.AddGold(player, -5000);
+                  Char.Warp(player, short[2], short[3], short[4], short[5])
+          else
+                  NLG.SystemMessage(player,"[系統]七罪魂器都啟動才符合進入資格！！");
+                  return;
+          end
       else
           if lastTimes == 0 then
               Char.AddGold(player, -5000);
