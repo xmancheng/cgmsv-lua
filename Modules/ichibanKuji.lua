@@ -43,14 +43,14 @@ local KujiAll = {
 local KujiTbl={
        { Num="001", type="L", serial_L=51, serial_H=51, name="天使之祝福", itemid=45953, count=1},
        { Num="002", type="A", serial_L=1, serial_H=1, name="天使之祝福", itemid=45953, count=1},
-       { Num="003", type="B", serial_L=2, serial_H=2, name="迅速果斷之劍", itemid=46903, count=1},
-       { Num="004", type="C", serial_L=3, serial_H=3, name="戒驕戒躁之斧", itemid=46901, count=1},
-       { Num="005", type="D", serial_L=4, serial_H=4, name="一石二鳥之槍", itemid=46902, count=1},
-       { Num="006", type="E", serial_L=5, serial_H=6, name="爆擊之書", itemid=45979, count=1},
-       { Num="007", type="F", serial_L=7, serial_H=8, name="必中之書", itemid=45980, count=1},
-       { Num="008", type="G", serial_L=9, serial_H=20, name="神導士守護", itemid=45968, count=1},
-       { Num="009", type="H", serial_L=21, serial_H=32, name="大法師之魂", itemid=45967, count=1},
-       { Num="010", type="I", serial_L=33, serial_H=50, name="強力攻擊手環", itemid=45510, count=1},
+       { Num="003", type="B", serial_L=2, serial_H=2, name="強力攻擊手環", itemid=45510, count=1},
+       { Num="004", type="C", serial_L=3, serial_H=3, name="大法師之魂", itemid=45967, count=1},
+       { Num="005", type="D", serial_L=4, serial_H=4, name="神導士守護", itemid=45968, count=1},
+       { Num="006", type="E", serial_L=5, serial_H=6, name="結晶石寶箱", itemid=46538, count=1},
+       { Num="007", type="F", serial_L=7, serial_H=8, name="黃金大公雞", itemid=46514, count=1},
+       { Num="008", type="G", serial_L=9, serial_H=20, name="黃金寶石鼠", itemid=46515, count=1},
+       { Num="009", type="H", serial_L=21, serial_H=32, name="黃金公雞蛋", itemid=46516, count=1},
+       { Num="010", type="I", serial_L=33, serial_H=50, name="黃金小鼠蛋", itemid=46517, count=1},
 }
 
 
@@ -94,11 +94,23 @@ function IchibanKuji:onLoad()
         if (page == 1)  then
             if (_select == CONST.BUTTON_是)  then
                 --冷静时间计算
+                local IBtime = Char.GetExtData(player, 'ichiban_time') or 0;
+                local days = tonumber(os.date("%j",os.time())) - tonumber(os.date("%j",IBtime));
+                local hours = tonumber(os.date("%H",os.time())) - tonumber(os.date("%H",IBtime));
+                local minutes = tonumber(os.date("%M",os.time())) - tonumber(os.date("%M",IBtime));
+                totalMinutes = days*24*60+hours*60+minutes;
+                if (totalMinutes>=480) then
+                    Char.SetExtData(player, 'ichiban_count', 0);
+                    Char.SetExtData(player, 'ichiban_time', 0);
+                    timestamp = 0;
+                else
+                    timestamp = 480 - totalMinutes;
+                end
                 local winMsg = "魔力一番賞購買抽獎籤\\n"
                                            .."═════════════════════\\n"
                                            .."正在購買抽獎籤...\\n"
                                            .."\\n　　　　　　　\\n"
-                                           .."\\n　　　　　　　冷靜期剩下時間：\\n"
+                                           .."\\n　　　　　　　冷靜期剩下時間： "..timestamp.." 分\\n"
                                            .."\\n請輸入購買數量(每次不得超過5張)：\\n";
                 NLG.ShowWindowTalked(player, npc, CONST.窗口_输入框, CONST.BUTTON_确定关闭, 11, winMsg);
             else
@@ -141,8 +153,8 @@ function IchibanKuji:onLoad()
                        local winMsg = "魔力一番賞購買抽獎籤\\n"
                                                   .."═════════════════════\\n"
                                                   .."正在準備抽獎中...\\n"
-                                                  .."\\n　　　　　　　一抽可能最高價銀幣：「"..silver.."」枚\\n"
-                                                  .."\\n　　　　　　　總共所需銀幣：「"..cash.."」枚\\n"
+                                                  .."\\n　　　　　一抽可能最高銀幣：◎ "..silver.." 枚\\n"
+                                                  .."\\n　　　　　　　總共所需銀幣：◎ "..cash.." 枚\\n"
                                                   .."\\n　　　　　是否確定進行一番賞抽獎？\\n";
                        NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定关闭, 12, winMsg);
                    end
@@ -173,7 +185,11 @@ function IchibanKuji:onLoad()
                                  end)
                              end
                              local count = Char.GetExtData(player, 'ichiban_count') or 0;
+                             local time = Char.GetExtData(player, 'ichiban_time') or 0;
                              Char.SetExtData(player, 'ichiban_count', count+number);
+                             if (time==0)  then
+                                 Char.SetExtData(player, 'ichiban_time', os.time() );
+                             end
                    end
                 end
         end
