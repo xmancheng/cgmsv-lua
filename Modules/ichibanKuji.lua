@@ -60,6 +60,18 @@ local function calcWarp()--计算页数和最后一页数量
   return totalpage, remainder
 end
 
+local function calcSpace(textlen)
+  local len = textlen
+  if len <= 20 then
+      spacelen = 20 - len;
+      spaceMsg = " ";
+      for i = 1, math.modf(spacelen) do
+          spaceMsg = spaceMsg .." ";
+      end
+  end
+  return spaceMsg
+end
+
 --- 加载模块钩子
 function IchibanKuji:onLoad()
     self:logInfo('load')
@@ -79,31 +91,80 @@ function IchibanKuji:onLoad()
         else
                KujiAll = {};
         end
-        if _select == CONST.BUTTON_是  then
+        if (page == 1)  then
+            if (_select == CONST.BUTTON_是)  then
                 --冷静时间计算
-
-                --所需银币计算
-
                 local winMsg = "魔力一番賞購買抽獎籤\\n"
                                            .."═════════════════════\\n"
-                                           .."正在購買道具...\\n"
+                                           .."正在購買抽獎籤...\\n"
+                                           .."\\n　　　　　　　\\n"
                                            .."\\n　　　　　　　冷靜期剩下時間：\\n"
-                                           .."\\n　　　　　　　一抽所需銀幣：「」枚\\n"
                                            .."\\n請輸入購買數量(每次不得超過5張)：\\n";
                 NLG.ShowWindowTalked(player, npc, CONST.窗口_输入框, CONST.BUTTON_确定关闭, 11, winMsg);
-        elseif _select > 0 then
-                if _select == CONST.BUTTON_关闭 then
+            else
+                return;
+            end
+        end
+        if (page == 11)  then
+                if (_select == CONST.BUTTON_关闭)  then
                     return;
                 end
-                --给予一番赏签
-                if (_select == CONST.BUTTON_确定) then
+                if (_select == CONST.BUTTON_确定)  then
                    if (data ~=nil and math.ceil(data)==data) then
                        if (data>#KujiAll) then
                              NLG.Say(player, -1, "[系統]購買數量超過目前籤的上限", CONST.颜色_黄色, CONST.字体_中);
                              return;
-                       elseif (data<=5) then
+                       elseif (data>5) then
+                             NLG.Say(player, -1, "[系統]購買數量超過一次上限５張", CONST.颜色_黄色, CONST.字体_中);
+                             return;
+                       end
+                       --所需银币计算
+                       local count = Char.GetExtData(player, 'ichiban_count') or 0;
+                       local stack = math.modf(count/5);                     --此数量组数(s组)
+                       local silver = stack+1;                                             --当前数量下有的银币最高价
+                       excess, decimals = math.modf((data+count)/5);                      --不成组的数量
+                       print(excess,decimals)
+                       if stack>=0 then
+                           number= data;
+                           cash = 1*silver*data;
+                       end
+                       if (excess>=stack+1) then
+                           remain = excess*5 - count;    --凑满一组余差额签数
+                           if (decimals==0) then
+                               decimals = 0;                         --刚好凑满一组(可交易)
+                           else
+                               decimals = -1;                       --超出原价银币之数量(拒绝交易)
+                           end
+                       else
+                           decimals = 0;                             --数量无超出(可交易)
+                       end
+                       local winMsg = "魔力一番賞購買抽獎籤\\n"
+                                                  .."═════════════════════\\n"
+                                                  .."正在準備抽獎中...\\n"
+                                                  .."\\n　　　　　　　一抽可能最高價銀幣：「"..silver.."」枚\\n"
+                                                  .."\\n　　　　　　　總共所需銀幣：「"..cash.."」枚\\n"
+                                                  .."\\n　　　　　是否確定進行一番賞抽獎？\\n";
+                       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_确定关闭, 12, winMsg);
+                   end
+                end
+        end
+        if (page == 12) then
+                if (_select == CONST.BUTTON_关闭)  then
+                    return;
+                end
+                if (_select == CONST.BUTTON_确定)  then
+                   if (decimals<0) then
+                             NLG.Say(player, -1, "[系統]此組銀幣費率只能再購買"..remain.."張！", CONST.颜色_黄色, CONST.字体_中);
+                             return;
+                   end
+                   --给予一番赏签
+                   if (Char.ItemNum(player, 67777)<cash) then
+                             NLG.Say(player, -1, "[系統]一番賞銀幣不足！", CONST.颜色_黄色, CONST.字体_中);
+                             return;
+                   else
+                             Char.DelItem(player, 67777, cash);
                              myNumber = 1;
-                             while myNumber < data+1 do
+                             while myNumber < number+1 do
                                  --Char.GiveItem(player, 70095, 1);
                                  --local itemSlot = Char.FindItemId(player, 70095);
                                  local res,err =pcall( function() 
@@ -111,12 +172,8 @@ function IchibanKuji:onLoad()
                                      myNumber = myNumber + 1;
                                  end)
                              end
-                       else
-                             NLG.Say(player, -1, "[系統]購買數量超過一次上限５張", CONST.颜色_黄色, CONST.字体_中);
-                             return;
-                       end
-                   else
-                       return;
+                             local count = Char.GetExtData(player, 'ichiban_count') or 0;
+                             Char.SetExtData(player, 'ichiban_count', count+number);
                    end
                 end
         end
@@ -152,19 +209,19 @@ function IchibanKuji:onLoad()
                     local winMsg = "\\n          ★★★★★★魔力一番賞說明告示★★★★★★\\n"
                                                .."\\n　新遊戲完整的籤數總共有50張，目前剩餘籤數："..KujiLen.."\\n"
                                                .."\\n╔═══════════════════════════╗"
-                                               .."\\n║　Ａ賞　"..KujiTbl[2].name.."　"..Kuji_A.."║"
-                                               .."\\n║　Ｂ賞　"..KujiTbl[3].name.."　"..Kuji_B.."║"
-                                               .."\\n║　Ｃ賞　"..KujiTbl[4].name.."　"..Kuji_C.."║"
-                                               .."\\n║　Ｄ賞　"..KujiTbl[5].name.."　"..Kuji_D.."║"
+                                               .."\\n║　Ａ　賞　"..KujiTbl[2].name..""..calcSpace(#KujiTbl[2].name)..""..Kuji_A..""..calcSpace(#tostring(Kuji_A)).."║"
+                                               .."\\n║　Ｂ　賞　"..KujiTbl[3].name..""..calcSpace(#KujiTbl[3].name)..""..Kuji_B..""..calcSpace(#tostring(Kuji_B)).."║"
+                                               .."\\n║　Ｃ　賞　"..KujiTbl[4].name..""..calcSpace(#KujiTbl[4].name)..""..Kuji_C..""..calcSpace(#tostring(Kuji_C)).."║"
+                                               .."\\n║　Ｄ　賞　"..KujiTbl[5].name..""..calcSpace(#KujiTbl[5].name)..""..Kuji_D..""..calcSpace(#tostring(Kuji_D)).."║"
                                                .."\\n╠═══════════════════════════╣"
-                                               .."\\n║　Ｅ賞　"..KujiTbl[6].name.."　"..Kuji_E.."║"
-                                               .."\\n║　Ｆ賞　"..KujiTbl[7].name.."　"..Kuji_F.."║"
+                                               .."\\n║　Ｅ　賞　"..KujiTbl[6].name..""..calcSpace(#KujiTbl[6].name)..""..Kuji_E..""..calcSpace(#tostring(Kuji_E)).."║"
+                                               .."\\n║　Ｆ　賞　"..KujiTbl[7].name..""..calcSpace(#KujiTbl[7].name)..""..Kuji_F..""..calcSpace(#tostring(Kuji_F)).."║"
                                                .."\\n╠═══════════════════════════╣"
-                                               .."\\n║　Ｇ賞　"..KujiTbl[8].name.."　"..Kuji_G.."║"
-                                               .."\\n║　Ｈ賞　"..KujiTbl[9].name.."　"..Kuji_H.."║"
-                                               .."\\n║　Ｉ賞　"..KujiTbl[10].name.."　"..Kuji_I.."║"
+                                               .."\\n║　Ｇ　賞　"..KujiTbl[8].name..""..calcSpace(#KujiTbl[8].name)..""..Kuji_G..""..calcSpace(#tostring(Kuji_G)).."║"
+                                               .."\\n║　Ｈ　賞　"..KujiTbl[9].name..""..calcSpace(#KujiTbl[9].name)..""..Kuji_H..""..calcSpace(#tostring(Kuji_H)).."║"
+                                               .."\\n║　Ｉ　賞　"..KujiTbl[10].name..""..calcSpace(#KujiTbl[10].name)..""..Kuji_I..""..calcSpace(#tostring(Kuji_I)).."║"
                                                .."\\n╚═══════════════════════════╝"
-                                               .."\\n　最後賞　【　偽裝噴漆道具　】\\n"
+                                               .."\\n　　最後賞　【　"..KujiTbl[1].name.."　】\\n"
                                                .."\\n　每抽1次：1枚〈銀幣〉，每5抽後累積上漲1枚〈銀幣〉"
                                                .."\\n　抽籤後經過八小時的冷卻時間，重置回到1枚〈銀幣〉"
                                                .."\\n　最後抽取到第50抽者，獲得《最後賞》額外獎勵";
@@ -398,7 +455,7 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
           local WinNum = NLG.Rand(1, #KujiAll);
           print(WinNum)
           --洗牌签筒
-          local xr = NLG.Rand(1,2);
+          local xr = NLG.Rand(1,3);
           for i=1,#KujiAll-1-xr do
                   r = NLG.Rand(1,i+1+xr);
                   temp=KujiAll[r];
