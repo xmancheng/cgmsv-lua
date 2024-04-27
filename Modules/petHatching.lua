@@ -156,9 +156,12 @@ function PetHatching:onLoad()
              self:regCallback('pnloop', function(NpcIndex)
                      local dir = math.random(0, 7);
                      local walk = 1;
-                     NLG.SetAction(NpcIndex,walk);
-                     NLG.WalkMove(NpcIndex,dir);
-                     NLG.UpChar(NpcIndex);
+                     local X,Y = Char.GetLocation(NpcIndex,dir);
+                     if (NLG.Walkable(0, 250010, X, Y)==1) then
+                         NLG.SetAction(NpcIndex,walk);
+                         NLG.WalkMove(NpcIndex,dir);
+                         NLG.UpChar(NpcIndex);
+                     end
              end)
              Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][1], math.random(1000,5000));
              Char.SetData(petNpcIndex[player][1], CONST.CHAR_等级, pet_level);
@@ -281,9 +284,12 @@ function PetHatching:onLoad()
              self:regCallback('pnloop', function(NpcIndex)
                      local dir = math.random(0, 7);
                      local walk = 1;
-                     NLG.SetAction(NpcIndex,walk);
-                     NLG.WalkMove(NpcIndex,dir);
-                     NLG.UpChar(NpcIndex);
+                     local X,Y = Char.GetLocation(NpcIndex,dir);
+                     if (NLG.Walkable(0, 250010, X, Y)==1) then
+                         NLG.SetAction(NpcIndex,walk);
+                         NLG.WalkMove(NpcIndex,dir);
+                         NLG.UpChar(NpcIndex);
+                     end
              end)
              Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][2], math.random(1000,5000));
              Char.SetData(petNpcIndex[player][2], CONST.CHAR_等级, pet_level);
@@ -525,6 +531,33 @@ function PetHatching:insertPetData(petIndex,petData)
   end
 
 
+end
+
+Char.GetLocation = function(NpcIndex,dir)
+	local X = Char.GetData(NpcIndex,CONST.CHAR_X)--地图x
+	local Y = Char.GetData(NpcIndex,CONST.CHAR_Y)--地图y
+	if dir==0 then
+		Y=Y-1;
+	elseif dir==1 then
+		X=X+1;
+		Y=Y-1;
+	elseif dir==2 then
+		X=X+1;
+	elseif dir==3 then
+		X=X+1;
+		Y=Y+1;
+	elseif dir==4 then
+		Y=Y+1;
+	elseif dir==5 then
+		X=X-1;
+		Y=Y+1;
+	elseif dir==6 then
+		X=X-1;
+	elseif dir==7 then
+		X=X-1;
+		Y=Y-1;
+	end
+	return X,Y;
 end
 
 function PetHatching:onUnload()
