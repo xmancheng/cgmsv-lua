@@ -63,7 +63,7 @@ function Module:LoginGateEvent(player)
 			end
 		end
 	end
-	NLG.SystemMessage(player,"自动遇敌、不遇敌、滿怪关闭了！");
+	NLG.SystemMessage(player,"自動遇敵、不遇敵、滿怪關閉了！");
   return 0;
 end
 
@@ -83,7 +83,7 @@ function Module:LogoutEvent(player)
 			end
 		end
 	end
-	NLG.SystemMessage(player,"自动遇敌、不遇敌、滿怪关闭了！");
+	NLG.SystemMessage(player,"自動遇敵、不遇敵、滿怪關閉了！");
   return 0;
 end
 
@@ -138,27 +138,27 @@ function Module:onLoad()
 				else
 					Battle.Encount(player, player);
 				end
-				NLG.SystemMessage(player,'自动遇敌剩余'..(ymbs-980)..'步')
+				NLG.SystemMessage(player,'自動遇敵剩餘'..(ymbs-980)..'步')
 			else
 				if ymxsnum > 1 then
 					Char.SetData(player,%对象_香步数%,998);
 					Char.DelItem(player,ymxs,1);
 					Item.UpItem(player,-1);
 					NLG.UpChar(player);
-					NLG.SystemMessage(player,'消耗一个怪物饼干，自动遇敌继续，还有'..(ymxsnum-1)..'个怪物饼干。');
+					NLG.SystemMessage(player,'消耗一個怪物餅乾，自動遇敵繼續，還有'..(ymxsnum-1)..'個怪物餅乾。');
 					Battle.Encount(player, player);
 				elseif ymxsnum == 1 then
 					Char.SetData(player,%对象_香步数%,998);
 					Char.DelItem(player,ymxs,1);
 					Item.UpItem(player,-1);
 					NLG.UpChar(player);
-					NLG.SystemMessage(player,'自动遇敌最后一次生效,请及时补充怪物饼干！');
+					NLG.SystemMessage(player,'自動遇敵最後一次生效,請及時補充怪物餅乾！');
 					Battle.Encount(player, player);
 				else
 					Char.SetData(player,%对象_香步数%,0);
 					Char.SetData(player,%对象_香上限%,0);
 					Char.SetLoopEvent(nil,'ymloop',player,0);
-					NLG.SystemMessage(player,'怪物饼干消耗殆尽，自动遇敌关闭！')
+					NLG.SystemMessage(player,'怪物餅乾消耗殆盡，自動遇敵關閉！')
 				end
 			end
 		end
@@ -170,16 +170,16 @@ function Module:onLoad()
 	if qmxsnum > 1 then
 		Char.DelItem(player,qmxs,1);
 		Item.UpItem(player, -1);
-		NLG.SystemMessage(player,'消耗一瓶大蒜油，不遇敌继续，还有'..(qmxsnum-1)..'瓶大蒜油。');
+		NLG.SystemMessage(player,'消耗一瓶大蒜油，不遇敵繼續，還有'..(qmxsnum-1)..'瓶大蒜油。');
 	elseif qmxsnum == 1 then
 		Char.DelItem(player,qmxs,1);
 		Item.UpItem(player,-1);
-		NLG.SystemMessage(player,'不遇敌最后一次生效,请及时补充大蒜油！');
+		NLG.SystemMessage(player,'不遇敵最後一次生效,請及時補充大蒜油！');
 	else
 		Char.SetData(player,%对象_不遇敌开关%,0);
 		Char.SetLoopEvent(nil,'qmloop',player,0);
 		NLG.UpChar(player);
-		NLG.SystemMessage(player,'大蒜油消耗殆尽，不遇敌关闭！')
+		NLG.SystemMessage(player,'大蒜油消耗殆盡，不遇敵關閉！')
 	end
 	end)
 	self:regCallback('TalkEvent', function(player, msg)
@@ -200,49 +200,49 @@ function Module:onLoad()
 			table.insert(EnemyTbl[cdk],cdk);
 		end
 		if Char.GetData(player,%对象_不遇敌开关%) == 1 then
-			NLG.SystemMessage(player,"你正在使用大蒜油，无法使用自动遇敌");
+			NLG.SystemMessage(player,"你正在使用大蒜油，無法使用自動遇敵");
 		elseif Char.GetData(player,%对象_香步数%) > 0 then
 			Char.SetData(player,%对象_香步数%,0);
 			Char.SetData(player,%对象_香上限%,0);
 			Char.SetLoopEvent(nil,'ymloop',player,0);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"自动遇敌关闭了！");
+			NLG.SystemMessage(player,"自動遇敵關閉了！");
 		elseif 不消耗诱魔水 then
 			Char.SetData(player,%对象_香步数%,999);
 			Char.SetData(player,%对象_香上限%,999);
-			Char.SetLoopEvent(nil,'ymloop',player,5000);
+			Char.SetLoopEvent(nil,'ymloop',player,10000);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"自动遇敌开始了，每5秒尝试一次。");
+			NLG.SystemMessage(player,"自動遇敵開始了，每10秒嘗試一次。");
 		elseif not 不消耗诱魔水 and ymxsnum > 0 then
 			Char.SetData(player,%对象_香步数%,999);
 			Char.SetData(player,%对象_香上限%,999);
-			Char.SetLoopEvent(nil,'ymloop',player,5000);
+			Char.SetLoopEvent(nil,'ymloop',player,10000);
 			Char.DelItem(player,ymxs,1);
 			Item.UpItem(player,-1);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"自动遇敌开始了，每5秒尝试一次。");
+			NLG.SystemMessage(player,"自動遇敵開始了，每10秒嘗試一次。");
 		elseif not 不消耗诱魔水 and ymxsnum == 0 then
-			NLG.SystemMessage(player,'缺少怪物饼干，自动遇敌无法开启！');
+			NLG.SystemMessage(player,'缺少怪物餅乾，自動遇敵無法開啟！');
 		end
 	elseif (msg == "/2" or msg == "、2") then
 		if Char.GetData(player,%对象_香步数%)>0 then
-			NLG.SystemMessage(player,"你正在使用步步遇敌，无法使用大蒜油！");
+			NLG.SystemMessage(player,"你正在使用步步遇敵，無法使用大蒜油！");
 		elseif Char.GetData(player,%对象_不遇敌开关%)==1 then
 			Char.SetData(player,%对象_不遇敌开关%,0);
 			Char.SetLoopEvent(nil,'qmloop',player,0);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"不遇敌功能关闭！");
+			NLG.SystemMessage(player,"不遇敵功能關閉！");
 		elseif 不消耗驱魔水 then
 			Char.SetData(player,%对象_不遇敌开关%,1);
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"不遇敌已经开启！");
+			NLG.SystemMessage(player,"不遇敵已經開啟！");
 		elseif not 不消耗驱魔水 and qmxsnum > 0 then
 			Char.SetData(player,%对象_不遇敌开关%,1);
 			Char.SetLoopEvent(nil,'qmloop',player,120000);--修改驱魔水持续时间，单位毫秒
 			NLG.UpChar(player);
-			NLG.SystemMessage(player,"不遇敌已经开启！");
+			NLG.SystemMessage(player,"不遇敵已經開啟！");
 		elseif not 不消耗驱魔水 and qmxsnum == 0 then
-			NLG.SystemMessage(player,'缺少大蒜油，不遇敌无法开启！');
+			NLG.SystemMessage(player,'缺少大蒜油，不遇敵無法開啟！');
 		end
 	end
 	end)
