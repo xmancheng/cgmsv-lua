@@ -2,98 +2,98 @@ local EnemySet = {}
 local BaseLevelSet = {}
 local Pos = {}
 local STime = os.time()
-local YS = 30 --½Å±¾ÑÓÊ±¶àÉÙÃë´´½¨NPC
-local SXTime = 60 --NPCË¢ĞÂÊ±¼ä¡¤Ãë
+local YS = 30 --è„šæœ¬å»¶æ—¶å¤šå°‘ç§’åˆ›å»ºNPC
+local SXTime = 60 --NPCåˆ·æ–°æ—¶é—´Â·ç§’
 local PlantStep = 0
---¶ÓÁĞ½âÊÍ
---     Îå	Èı	Ò»	¶ş	ËÄ
---     Ê®	°Ë	Áù	Æß	¾Å
-------------Ëæ»úBOSSÉèÖÃ------------
-EnemySet[1] = {100087, 102320, 102320, 0, 0, 0, 0, 0, 102321, 102321}--0´ú±íÃ»ÓĞ¹Ö
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”	ä¸‰	ä¸€	äºŒ	å››
+--     å	å…«	å…­	ä¸ƒ	ä¹
+------------éšæœºBOSSè®¾ç½®------------
+EnemySet[1] = {100087, 102320, 102320, 0, 0, 0, 0, 0, 102321, 102321}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[1] = {50, 30, 30, 0, 0, 0, 0, 0, 30, 30}
 ------------------------------------------------
-Pos[1] = {{"™Ñ×Ó¹û",500178,25011,9,5,0,EnemySet[1],1,BaseLevelSet[1]}}
-Pos[2] = {{"ÌOÒ°¹û",500179,25011,9,6,0,EnemySet[1],2,BaseLevelSet[1]}}
-Pos[3] = {{"ÁñÊ¯¹û",500180,25011,9,7,0,EnemySet[1],3,BaseLevelSet[1]}}
-Pos[4] = {{"Ö¦Àó¹û",500198,25011,21,12,0,EnemySet[1],4,BaseLevelSet[1]}}
-Pos[5] = {{"ÀûÄ¾¹û",500194,25011,15,5,0,EnemySet[1],5,BaseLevelSet[1]}}
-Pos[6] = {{"ÎÄèÖ¹û",500195,25011,15,6,0,EnemySet[1],6,BaseLevelSet[1]}}
-Pos[7] = {{"»ËÀæ¹û",500196,25011,15,7,0,EnemySet[1],7,BaseLevelSet[1]}}
-Pos[8] = {{"Âûİ®¹û",500197,25011,5,1,0,EnemySet[1],8,BaseLevelSet[1]}}
-Pos[9] = {{"®Ææ¹û",500184,25011,21,5,0,EnemySet[1],9,BaseLevelSet[1]}}
-Pos[10] = {{"Ä«İ®¹û",500185,25011,21,6,0,EnemySet[1],10,BaseLevelSet[1]}}
-Pos[11] = {{"Ò¬Ä¾¹û",500186,25011,21,7,0,EnemySet[1],11,BaseLevelSet[1]}}
-Pos[12] = {{"¹şÃÜ¹û",500193,25011,21,14,0,EnemySet[1],12,BaseLevelSet[1]}}
-Pos[13] = {{"³È³È¹û",500181,25011,9,12,0,EnemySet[1],13,BaseLevelSet[1]}}
-Pos[14] = {{"·¬Àó¹û",500182,25011,9,13,0,EnemySet[1],14,BaseLevelSet[1]}}
-Pos[15] = {{"ìFÉ¹û",500183,25011,9,14,0,EnemySet[1],15,BaseLevelSet[1]}}
-Pos[16] = {{"İ®İ®¹û",500191,25011,21,13,0,EnemySet[1],16,BaseLevelSet[1]}}
-Pos[17] = {{"Ã¢Ã¢¹û",500188,25011,15,12,0,EnemySet[1],17,BaseLevelSet[1]}}
-Pos[18] = {{"½¶Ïã¹û",500189,25011,5,0,0,EnemySet[1],18,BaseLevelSet[1]}}
-Pos[19] = {{"ÔÀÖñ¹û",500190,25011,15,13,0,EnemySet[1],19,BaseLevelSet[1]}}
-Pos[20] = {{"±È°Í¹û",500199,25011,15,14,0,EnemySet[1],20,BaseLevelSet[1]}}
+Pos[1] = {{"æ«»å­æœ",500178,25011,9,5,0,EnemySet[1],1,BaseLevelSet[1]}}
+Pos[2] = {{"è˜‹é‡æœ",500179,25011,9,6,0,EnemySet[1],2,BaseLevelSet[1]}}
+Pos[3] = {{"æ¦´çŸ³æœ",500180,25011,9,7,0,EnemySet[1],3,BaseLevelSet[1]}}
+Pos[4] = {{"æè”æœ",500198,25011,21,12,0,EnemySet[1],4,BaseLevelSet[1]}}
+Pos[5] = {{"åˆ©æœ¨æœ",500194,25011,15,5,0,EnemySet[1],5,BaseLevelSet[1]}}
+Pos[6] = {{"æ–‡æŸšæœ",500195,25011,15,6,0,EnemySet[1],6,BaseLevelSet[1]}}
+Pos[7] = {{"å‡°æ¢¨æœ",500196,25011,15,7,0,EnemySet[1],7,BaseLevelSet[1]}}
+Pos[8] = {{"è”“è“æœ",500197,25011,5,1,0,EnemySet[1],8,BaseLevelSet[1]}}
+Pos[9] = {{"ç•°å¥‡æœ",500184,25011,21,5,0,EnemySet[1],9,BaseLevelSet[1]}}
+Pos[10] = {{"å¢¨è“æœ",500185,25011,21,6,0,EnemySet[1],10,BaseLevelSet[1]}}
+Pos[11] = {{"æ¤°æœ¨æœ",500186,25011,21,7,0,EnemySet[1],11,BaseLevelSet[1]}}
+Pos[12] = {{"å“ˆå¯†æœ",500193,25011,21,14,0,EnemySet[1],12,BaseLevelSet[1]}}
+Pos[13] = {{"æ©™æ©™æœ",500181,25011,9,12,0,EnemySet[1],13,BaseLevelSet[1]}}
+Pos[14] = {{"ç•ªè”æœ",500182,25011,9,13,0,EnemySet[1],14,BaseLevelSet[1]}}
+Pos[15] = {{"éœ§è“®æœ",500183,25011,9,14,0,EnemySet[1],15,BaseLevelSet[1]}}
+Pos[16] = {{"è“è“æœ",500191,25011,21,13,0,EnemySet[1],16,BaseLevelSet[1]}}
+Pos[17] = {{"èŠ’èŠ’æœ",500188,25011,15,12,0,EnemySet[1],17,BaseLevelSet[1]}}
+Pos[18] = {{"è•‰é¦™æœ",500189,25011,5,0,0,EnemySet[1],18,BaseLevelSet[1]}}
+Pos[19] = {{"å²³ç«¹æœ",500190,25011,15,13,0,EnemySet[1],19,BaseLevelSet[1]}}
+Pos[20] = {{"æ¯”å·´æœ",500199,25011,15,14,0,EnemySet[1],20,BaseLevelSet[1]}}
 
 tbl_PlantberryNpcIndex = tbl_PlantberryNpcIndex or {}
 ------------------------------------------------
 local petBerryTable = {
-      --¼ÓÌåÁ¦Ê÷¹û
-      { itemID = 69011, value_plus = CONST.CHAR_ÌåÁ¦, val_plus = 1000, value_minus = CONST.CHAR_Á¦Á¿, val_minus = 1000, name="™Ñ×Ó¹û", imageID=500178},
-      { itemID = 69012, value_plus = CONST.CHAR_ÌåÁ¦, val_plus = 1000, value_minus = CONST.CHAR_Ç¿¶È, val_minus = 1000, name="ÌOÒ°¹û", imageID=500179},
-      { itemID = 69013, value_plus = CONST.CHAR_ÌåÁ¦, val_plus = 1000, value_minus = CONST.CHAR_ËÙ¶È, val_minus = 1000, name="ÁñÊ¯¹û", imageID=500180},
-      { itemID = 69014, value_plus = CONST.CHAR_ÌåÁ¦, val_plus = 1000, value_minus = CONST.CHAR_Ä§·¨, val_minus = 1000, name="Ö¦Àó¹û", imageID=500198},
-      --¼ÓÁ¦Á¿Ê÷¹û
-      { itemID = 69015, value_plus = CONST.CHAR_Á¦Á¿, val_plus = 1000, value_minus = CONST.CHAR_ÌåÁ¦, val_minus = 1000, name="ÀûÄ¾¹û", imageID=500194},
-      { itemID = 69016, value_plus = CONST.CHAR_Á¦Á¿, val_plus = 1000, value_minus = CONST.CHAR_Ç¿¶È, val_minus = 1000, name="ÎÄèÖ¹û", imageID=500195},
-      { itemID = 69017, value_plus = CONST.CHAR_Á¦Á¿, val_plus = 1000, value_minus = CONST.CHAR_ËÙ¶È, val_minus = 1000, name="»ËÀæ¹û", imageID=500196},
-      { itemID = 69018, value_plus = CONST.CHAR_Á¦Á¿, val_plus = 1000, value_minus = CONST.CHAR_Ä§·¨, val_minus = 1000, name="Âûİ®¹û", imageID=500197},
-      --¼ÓÇ¿¶ÈÊ÷¹û
-      { itemID = 69019, value_plus = CONST.CHAR_Ç¿¶È, val_plus = 1000, value_minus = CONST.CHAR_ÌåÁ¦, val_minus = 1000, name="®Ææ¹û", imageID=500184},
-      { itemID = 69020, value_plus = CONST.CHAR_Ç¿¶È, val_plus = 1000, value_minus = CONST.CHAR_Á¦Á¿, val_minus = 1000, name="Ä«İ®¹û", imageID=500185},
-      { itemID = 69021, value_plus = CONST.CHAR_Ç¿¶È, val_plus = 1000, value_minus = CONST.CHAR_ËÙ¶È, val_minus = 1000, name="Ò¬Ä¾¹û", imageID=500186},
-      { itemID = 69022, value_plus = CONST.CHAR_Ç¿¶È, val_plus = 1000, value_minus = CONST.CHAR_Ä§·¨, val_minus = 1000, name="¹şÃÜ¹û", imageID=500193},
-      --¼ÓËÙ¶ÈÊ÷¹û
-      { itemID = 69023, value_plus = CONST.CHAR_ËÙ¶È, val_plus = 1000, value_minus = CONST.CHAR_ÌåÁ¦, val_minus = 1000, name="³È³È¹û", imageID=500181},
-      { itemID = 69024, value_plus = CONST.CHAR_ËÙ¶È, val_plus = 1000, value_minus = CONST.CHAR_Á¦Á¿, val_minus = 1000, name="·¬Àó¹û", imageID=500182},
-      { itemID = 69025, value_plus = CONST.CHAR_ËÙ¶È, val_plus = 1000, value_minus = CONST.CHAR_Ç¿¶È, val_minus = 1000, name="ìFÉ¹û", imageID=500183},
-      { itemID = 69026, value_plus = CONST.CHAR_ËÙ¶È, val_plus = 1000, value_minus = CONST.CHAR_Ä§·¨, val_minus = 1000, name="İ®İ®¹û", imageID=500191},
-      --¼ÓÄ§·¨Ê÷¹û
-      { itemID = 69027, value_plus = CONST.CHAR_Ä§·¨, val_plus = 1000, value_minus = CONST.CHAR_ÌåÁ¦, val_minus = 1000, name="Ã¢Ã¢¹û", imageID=500188},
-      { itemID = 69028, value_plus = CONST.CHAR_Ä§·¨, val_plus = 1000, value_minus = CONST.CHAR_Á¦Á¿, val_minus = 1000, name="½¶Ïã¹û", imageID=500189},
-      { itemID = 69029, value_plus = CONST.CHAR_Ä§·¨, val_plus = 1000, value_minus = CONST.CHAR_Ç¿¶È, val_minus = 1000, name="ÔÀÖñ¹û", imageID=500190},
-      { itemID = 69030, value_plus = CONST.CHAR_Ä§·¨, val_plus = 1000, value_minus = CONST.CHAR_ËÙ¶È, val_minus = 1000, name="±È°Í¹û", imageID=500199},
+      --åŠ ä½“åŠ›æ ‘æœ
+      { itemID = 69011, value_plus = CONST.CHAR_ä½“åŠ›, val_plus = 1000, value_minus = CONST.CHAR_åŠ›é‡, val_minus = 1000, name="æ«»å­æœ", imageID=500178},
+      { itemID = 69012, value_plus = CONST.CHAR_ä½“åŠ›, val_plus = 1000, value_minus = CONST.CHAR_å¼ºåº¦, val_minus = 1000, name="è˜‹é‡æœ", imageID=500179},
+      { itemID = 69013, value_plus = CONST.CHAR_ä½“åŠ›, val_plus = 1000, value_minus = CONST.CHAR_é€Ÿåº¦, val_minus = 1000, name="æ¦´çŸ³æœ", imageID=500180},
+      { itemID = 69014, value_plus = CONST.CHAR_ä½“åŠ›, val_plus = 1000, value_minus = CONST.CHAR_é­”æ³•, val_minus = 1000, name="æè”æœ", imageID=500198},
+      --åŠ åŠ›é‡æ ‘æœ
+      { itemID = 69015, value_plus = CONST.CHAR_åŠ›é‡, val_plus = 1000, value_minus = CONST.CHAR_ä½“åŠ›, val_minus = 1000, name="åˆ©æœ¨æœ", imageID=500194},
+      { itemID = 69016, value_plus = CONST.CHAR_åŠ›é‡, val_plus = 1000, value_minus = CONST.CHAR_å¼ºåº¦, val_minus = 1000, name="æ–‡æŸšæœ", imageID=500195},
+      { itemID = 69017, value_plus = CONST.CHAR_åŠ›é‡, val_plus = 1000, value_minus = CONST.CHAR_é€Ÿåº¦, val_minus = 1000, name="å‡°æ¢¨æœ", imageID=500196},
+      { itemID = 69018, value_plus = CONST.CHAR_åŠ›é‡, val_plus = 1000, value_minus = CONST.CHAR_é­”æ³•, val_minus = 1000, name="è”“è“æœ", imageID=500197},
+      --åŠ å¼ºåº¦æ ‘æœ
+      { itemID = 69019, value_plus = CONST.CHAR_å¼ºåº¦, val_plus = 1000, value_minus = CONST.CHAR_ä½“åŠ›, val_minus = 1000, name="ç•°å¥‡æœ", imageID=500184},
+      { itemID = 69020, value_plus = CONST.CHAR_å¼ºåº¦, val_plus = 1000, value_minus = CONST.CHAR_åŠ›é‡, val_minus = 1000, name="å¢¨è“æœ", imageID=500185},
+      { itemID = 69021, value_plus = CONST.CHAR_å¼ºåº¦, val_plus = 1000, value_minus = CONST.CHAR_é€Ÿåº¦, val_minus = 1000, name="æ¤°æœ¨æœ", imageID=500186},
+      { itemID = 69022, value_plus = CONST.CHAR_å¼ºåº¦, val_plus = 1000, value_minus = CONST.CHAR_é­”æ³•, val_minus = 1000, name="å“ˆå¯†æœ", imageID=500193},
+      --åŠ é€Ÿåº¦æ ‘æœ
+      { itemID = 69023, value_plus = CONST.CHAR_é€Ÿåº¦, val_plus = 1000, value_minus = CONST.CHAR_ä½“åŠ›, val_minus = 1000, name="æ©™æ©™æœ", imageID=500181},
+      { itemID = 69024, value_plus = CONST.CHAR_é€Ÿåº¦, val_plus = 1000, value_minus = CONST.CHAR_åŠ›é‡, val_minus = 1000, name="ç•ªè”æœ", imageID=500182},
+      { itemID = 69025, value_plus = CONST.CHAR_é€Ÿåº¦, val_plus = 1000, value_minus = CONST.CHAR_å¼ºåº¦, val_minus = 1000, name="éœ§è“®æœ", imageID=500183},
+      { itemID = 69026, value_plus = CONST.CHAR_é€Ÿåº¦, val_plus = 1000, value_minus = CONST.CHAR_é­”æ³•, val_minus = 1000, name="è“è“æœ", imageID=500191},
+      --åŠ é­”æ³•æ ‘æœ
+      { itemID = 69027, value_plus = CONST.CHAR_é­”æ³•, val_plus = 1000, value_minus = CONST.CHAR_ä½“åŠ›, val_minus = 1000, name="èŠ’èŠ’æœ", imageID=500188},
+      { itemID = 69028, value_plus = CONST.CHAR_é­”æ³•, val_plus = 1000, value_minus = CONST.CHAR_åŠ›é‡, val_minus = 1000, name="è•‰é¦™æœ", imageID=500189},
+      { itemID = 69029, value_plus = CONST.CHAR_é­”æ³•, val_plus = 1000, value_minus = CONST.CHAR_å¼ºåº¦, val_minus = 1000, name="å²³ç«¹æœ", imageID=500190},
+      { itemID = 69030, value_plus = CONST.CHAR_é­”æ³•, val_plus = 1000, value_minus = CONST.CHAR_é€Ÿåº¦, val_minus = 1000, name="æ¯”å·´æœ", imageID=500199},
 }
 
 ------------------------------------------------
 Delegate.RegInit("PetBerry_Init");
 
 function initPetBerryNpc_Init(index)
-	print("³èÎïÊ÷¹ûnpc_index = " .. index);
+	print("å® ç‰©æ ‘æœnpc_index = " .. index);
 	return 1;
 end
 
 function PetBerry_create() 
 	if (berryNpc == nil) then
 		berryNpc = NL.CreateNpc("lua/Module/PetBerry.lua", "initPetBerryNpc_Init");
-		Char.SetData(berryNpc,%¶ÔÏó_ĞÎÏó%,231063);
-		Char.SetData(berryNpc,%¶ÔÏó_Ô­ĞÎ%,231063);
-		Char.SetData(berryNpc,%¶ÔÏó_X%,6);
-		Char.SetData(berryNpc,%¶ÔÏó_Y%,1);
-		Char.SetData(berryNpc,%¶ÔÏó_µØÍ¼%,25011);
-		Char.SetData(berryNpc,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(berryNpc,%¶ÔÏó_Ãû×Ö%,"˜ä¹ûÃûÈË");
+		Char.SetData(berryNpc,%å¯¹è±¡_å½¢è±¡%,231063);
+		Char.SetData(berryNpc,%å¯¹è±¡_åŸå½¢%,231063);
+		Char.SetData(berryNpc,%å¯¹è±¡_X%,6);
+		Char.SetData(berryNpc,%å¯¹è±¡_Y%,1);
+		Char.SetData(berryNpc,%å¯¹è±¡_åœ°å›¾%,25011);
+		Char.SetData(berryNpc,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(berryNpc,%å¯¹è±¡_åå­—%,"æ¨¹æœåäºº");
 		NLG.UpChar(berryNpc);
 		Char.SetTalkedEvent("lua/Module/PetBerry.lua", "BerryWindow", berryNpc);
 		Char.SetWindowTalkedEvent("lua/Module/PetBerry.lua", "BerryFunction", berryNpc);
 	end
 	if (PlantberryNpc == nil) then
 		PlantberryNpc = NL.CreateNpc("lua/Module/PetBerry.lua", "initPetBerryNpc_Init");
-		Char.SetData(PlantberryNpc,%¶ÔÏó_ĞÎÏó%,231116);
-		Char.SetData(PlantberryNpc,%¶ÔÏó_Ô­ĞÎ%,231116);
-		Char.SetData(PlantberryNpc,%¶ÔÏó_X%,19);
-		Char.SetData(PlantberryNpc,%¶ÔÏó_Y%,19);
-		Char.SetData(PlantberryNpc,%¶ÔÏó_µØÍ¼%,777);
-		Char.SetData(PlantberryNpc,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(PlantberryNpc,%¶ÔÏó_Ô­Ãû%,"Ê÷¹ûÖ²ÎïÉèÖÃ");
+		Char.SetData(PlantberryNpc,%å¯¹è±¡_å½¢è±¡%,231116);
+		Char.SetData(PlantberryNpc,%å¯¹è±¡_åŸå½¢%,231116);
+		Char.SetData(PlantberryNpc,%å¯¹è±¡_X%,19);
+		Char.SetData(PlantberryNpc,%å¯¹è±¡_Y%,19);
+		Char.SetData(PlantberryNpc,%å¯¹è±¡_åœ°å›¾%,777);
+		Char.SetData(PlantberryNpc,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(PlantberryNpc,%å¯¹è±¡_åŸå%,"æ¨¹æœæ¤ç‰©è¨­ç½®");
 		NLG.UpChar(PlantberryNpc);
 		Char.SetLoopEvent(nil, "Plantberry_LoopEvent",PlantberryNpc, SXTime*1000)
 		Char.SetWindowTalkedEvent("lua/Module/PetBerry.lua","PlantBerryWindow",PlantberryNpc);
@@ -102,52 +102,52 @@ function PetBerry_create()
 end
 
 NL.RegItemString("lua/Module/PetBerry.lua","BerryItem","LUA_useBerry");
-function BerryItem(player,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
+function BerryItem(player,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
     if (NLG.CanTalk(berryNpc,player) == false) then
           local itemIndex = Char.GetItemIndex(player, _itemslot);
-          ItemID = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
-          local msg = "3|\\nÄãÒªßx“ñÄÄëbŒ™ÎïğjÊ³˜ä¹û£¿˜ä¹û¿ÉÒÔ¸Ä×ƒŒ™ÎïµÄBPËØÙ|£¬Ä¿Ç°Æ··N•şÔö¼Ó10ücµ«œpÉÙÁíÒ»í—10üc£¡\\n\\n";
+          ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+          local msg = "3|\\nä½ è¦é¸æ“‡å“ªéš»å¯µç‰©é¤µé£Ÿæ¨¹æœï¼Ÿæ¨¹æœå¯ä»¥æ”¹è®Šå¯µç‰©çš„BPç´ è³ªï¼Œç›®å‰å“ç¨®æœƒå¢åŠ 10é»ä½†æ¸›å°‘å¦ä¸€é …10é»ï¼\\n\\n";
           for i=0,4 do
                 local pet = Char.GetPet(player,i);
                 if(pet<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, berryNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, berryNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return;
 end
 
 function BerryWindow(npc,player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "3|\\nÄãÒªßx“ñÄÄëbŒ™ÎïğjÊ³˜ä¹û£¿˜ä¹û¿ÉÒÔ¸Ä×ƒŒ™ÎïµÄBPËØÙ|£¬Ä¿Ç°Æ··N•şÔö¼Ó10ücµ«œpÉÙÁíÒ»í—10üc£¡\\n\\n";
+          local msg = "3|\\nä½ è¦é¸æ“‡å“ªéš»å¯µç‰©é¤µé£Ÿæ¨¹æœï¼Ÿæ¨¹æœå¯ä»¥æ”¹è®Šå¯µç‰©çš„BPç´ è³ªï¼Œç›®å‰å“ç¨®æœƒå¢åŠ 10é»ä½†æ¸›å°‘å¦ä¸€é …10é»ï¼\\n\\n";
           for i=0,4 do
                 local pet = Char.GetPet(player,i);
                 if(pet<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, berryNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, berryNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return
 end
 
 function BerryFunction(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    --ßx“ñ³Ô˜ä¹ûŒ™Îï
+    --é¸æ“‡åƒæ¨¹æœå¯µç‰©
     if select == 0 then
       if seqno == 1 and data >= 1 then
         local slot = data-1;
         local petIndex = Char.GetPet(player,slot);
         if petIndex>=0 and ItemID ~=nil  then
-             local pet_name = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
+             local pet_name = Char.GetData(petIndex,CONST.CHAR_åå­—);
              for k,v in pairs(petBerryTable) do
                 local pet_minus = Char.GetData(petIndex, v.value_minus);
                 if pet_minus >1000 and ItemID == v.itemID  then
@@ -155,7 +155,7 @@ function BerryFunction(npc, player, _seqno, _select, _data)
                      Char.SetData(petIndex, v.value_minus, Char.GetData(petIndex,v.value_minus) - v.val_minus);
                      Pet.UpPet(player, petIndex);
                      Char.DelItem(player, v.itemID, 1);
-                     NLG.SystemMessage(player, 'Œ™Îï '..pet_name..' ³ÔÏÂ˜ä¹û®aÉú×ƒ»¯£¡');
+                     NLG.SystemMessage(player, 'å¯µç‰© '..pet_name..' åƒä¸‹æ¨¹æœç”¢ç”Ÿè®ŠåŒ–ï¼');
                 end
              end
         end
@@ -165,12 +165,12 @@ function BerryFunction(npc, player, _seqno, _select, _data)
 end
 
 function Plantberry_LoopEvent(_MeIndex)
-	--´´½¨Ö²Îï
+	--åˆ›å»ºæ¤ç‰©
 	local DTime = os.time()
 	if DTime - STime >= YS then
 		for i=1,20 do
 		local Image = 114206
-		local Name = Pos[i][1][1].."Ó×Ãç"
+		local Name = Pos[i][1][1].."å¹¼è‹—"
 		local Num = Pos[i][1][8]
 			if tbl_PlantberryNpcIndex[Num] == nil then
 				local PlantberryNpcIndex = CreatePlantNpc(Image, Name, 0, Pos[i][1][3], Pos[i][1][4], Pos[i][1][5], Pos[i][1][6])
@@ -179,26 +179,26 @@ function Plantberry_LoopEvent(_MeIndex)
 		end
 	end
 end
---NPC¶Ô»°ÊÂ¼ş(NPCË÷Òı)
+--NPCå¯¹è¯äº‹ä»¶(NPCç´¢å¼•)
 function PlantBerryFunction(_NpcIndex, _PlayerIndex)
 tbl_PlantberryNpcIndex = {}
 end
---NPC´°¿ÚÊÂ¼ş(NPCË÷Òı)
+--NPCçª—å£äº‹ä»¶(NPCç´¢å¼•)
 function PlantBerryWindow( _NpcIndex, _PlayerIndex, _seqno, _select, _data)
 
 end
 
 function CreatePlantNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	local PlantNpcIndex = NL.CreateNpc("./lua/System/BaseModule/Base.lua", "Myinit");
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_ĞÎÏó%, Image);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_Ô­ĞÎ%, Image);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_µØÍ¼ÀàĞÍ%, MapType);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_µØÍ¼%, MapID);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_X%, PosX);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_Y%, PosY);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_·½Ïò%, Dir);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_Ô­Ãû%, Name);
-	Char.SetData( PlantNpcIndex, %¶ÔÏó_ÃûÉ«%, NameColor);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_å½¢è±¡%, Image);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_åŸå½¢%, Image);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_åœ°å›¾ç±»å‹%, MapType);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_åœ°å›¾%, MapID);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_X%, PosX);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_Y%, PosY);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_æ–¹å‘%, Dir);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_åŸå%, Name);
+	Char.SetData( PlantNpcIndex, %å¯¹è±¡_åè‰²%, NameColor);
 	tbl_LuaPlantNpcIndex = tbl_LuaPlantNpcIndex or {}
 	tbl_LuaPlantNpcIndex["PlantNpc"] = PlantNpcIndex
 	Char.SetTalkedEvent(nil, "PlantNpc__Talked", PlantNpcIndex)
@@ -208,16 +208,16 @@ function CreatePlantNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	return PlantNpcIndex
 end
 function PlantNpc_LoopEvent(_MeIndex)
-	local tName = Char.GetData(_MeIndex, %¶ÔÏó_Ô­Ãû%)
-	local tImage = Char.GetData(_MeIndex, %¶ÔÏó_ĞÎÏó%)
+	local tName = Char.GetData(_MeIndex, %å¯¹è±¡_åŸå%)
+	local tImage = Char.GetData(_MeIndex, %å¯¹è±¡_å½¢è±¡%)
 	for k,v in pairs(petBerryTable) do
-		if (tName == v.name.."Ó×Ãç" and tImage == 114206 and PlantStep==0)  then
+		if (tName == v.name.."å¹¼è‹—" and tImage == 114206 and PlantStep==0)  then
 			PlantStep=1;
-		elseif (tName == v.name.."Ó×Ãç" and tImage == 114206 and PlantStep==1)  then
+		elseif (tName == v.name.."å¹¼è‹—" and tImage == 114206 and PlantStep==1)  then
 			PlantStep=0;
-			Char.SetData(_MeIndex, %¶ÔÏó_ĞÎÏó%, v.imageID);
-			Char.SetData(_MeIndex, %¶ÔÏó_Ô­ĞÎ%, v.imageID);
-			Char.SetData(_MeIndex, %¶ÔÏó_Ô­Ãû%, v.name);
+			Char.SetData(_MeIndex, %å¯¹è±¡_å½¢è±¡%, v.imageID);
+			Char.SetData(_MeIndex, %å¯¹è±¡_åŸå½¢%, v.imageID);
+			Char.SetData(_MeIndex, %å¯¹è±¡_åŸå%, v.name);
 			NLG.UpChar(_MeIndex);
 		end
 	end
@@ -226,35 +226,35 @@ function PlantNpc__Talked(_NpcIndex, _PlayerIndex)
 	if(NLG.CheckInFront(_PlayerIndex, _NpcIndex, 1)==false and _Mode~=1) then
 		return ;
 	end
-	--ÃæÏòÍæ¼Ò
+	--é¢å‘ç©å®¶
 	local i;
-	i = Char.GetData(_PlayerIndex, %¶ÔÏó_·½Ïò%);
+	i = Char.GetData(_PlayerIndex, %å¯¹è±¡_æ–¹å‘%);
 	if i >= 4 then 
 		i = i - 4;
 	else
 		i = i + 4;		
 	end
-	Char.SetData(_NpcIndex, %¶ÔÏó_·½Ïò%,i);
+	Char.SetData(_NpcIndex, %å¯¹è±¡_æ–¹å‘%,i);
 	NLG.UpChar( _NpcIndex);
-	local tName = Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%)
-	local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
+	local tName = Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%)
+	local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
 	if(tImage ~= 114206) then
-		msg ="\\n\\n\\n\\n@c´_¶¨ÒªÕªÈ¡ "..tName.." ¹ûŒ†á£¿"
+		msg ="\\n\\n\\n\\n@cç¢ºå®šè¦æ‘˜å– "..tName.." æœå¯¦å—ï¼Ÿ"
 	else
-		msg ="\\n\\n\\n\\n@c "..tName.." ÉĞÎ´³ÉÊì£¬Õˆ¼šĞÄÕÕÁÏµÈ´ı£¡"
+		msg ="\\n\\n\\n\\n@c "..tName.." å°šæœªæˆç†Ÿï¼Œè«‹ç´°å¿ƒç…§æ–™ç­‰å¾…ï¼"
 	end
 	NLG.ShowWindowTalked(_PlayerIndex, _NpcIndex, 0, 1, 1, msg);
 end
 
 function PlantNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
 	if _Seqno == 1 then
-	local tName = Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%)
-	local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
+	local tName = Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%)
+	local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
 	if(tImage ~= 114206) then
 		for k,v in pairs(petBerryTable) do
 			if tImage == v.imageID  then
 				Char.GiveItem(_PlayerIndex, v.itemID, 1);
-				if(math.random(1,10) >= 8) then           --Ëæ»ú½øÈëÊ÷¹ûÊØ»¤ÊŞÕ½¶·
+				if(math.random(1,10) >= 8) then           --éšæœºè¿›å…¥æ ‘æœå®ˆæŠ¤å…½æˆ˜æ–—
 					local tPlantBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[1][1][7], Pos[1][1][9], nil)
 					Battle.SetWinEvent( nil, "PlantNpc_BattleWin", tPlantBattleIndex);
 				else
@@ -271,13 +271,13 @@ function PlantNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 end
 
 function PlantNpc_BattleWin(_BattleIndex, _NpcIndex)
-		local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
+		local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
 		local tPlayerIndex = Battle.GetPlayIndex( _BattleIndex, 0)
 		local plantBoss_drop = {};
 		plantBoss_drop = {69018,69028};
 		local drop_type = math.random(1,2);
 		local drop_val = math.random(3,5);
-		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%¶ÔÏó_ÀàĞÍ%)==1 then
+		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%å¯¹è±¡_ç±»å‹%)==1 then
 			if(tImage ~= 114206) then
 				Char.GiveItem(tPlayerIndex, plantBoss_drop[drop_type], drop_val);
 				NL.DelNpc(_NpcIndex)
