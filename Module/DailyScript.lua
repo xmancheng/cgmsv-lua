@@ -2,13 +2,13 @@ local EnemySet = {}
 local BaseLevelSet = {}
 local Pos = {}
 local STime = os.time()
-local YS = 30 --½Å±¾ÑÓÊ±¶àÉÙÃë´´½¨NPC
-local SXTime = 15 --NPCË¢ĞÂÊ±¼ä¡¤Ãë
---¶ÓÁĞ½âÊÍ
---     Îå	Èı	Ò»	¶ş	ËÄ
---     Ê®	°Ë	Áù	Æß	¾Å
-------------ê×ÈÕ¸±±¾NPCÉèÖÃ------------
-EnemySet[1] = {406165, 0, 0, 406166, 406166, 0, 406166, 406166, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+local YS = 30 --è„šæœ¬å»¶æ—¶å¤šå°‘ç§’åˆ›å»ºNPC
+local SXTime = 15 --NPCåˆ·æ–°æ—¶é—´Â·ç§’
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”	ä¸‰	ä¸€	äºŒ	å››
+--     å	å…«	å…­	ä¸ƒ	ä¹
+------------æ›œæ—¥å‰¯æœ¬NPCè®¾ç½®------------
+EnemySet[1] = {406165, 0, 0, 406166, 406166, 0, 406166, 406166, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 EnemySet[2] = {406167, 0, 0, 406168, 406168, 0, 406168, 406168, 0, 0}
 EnemySet[3] = {406169, 0, 0, 406170, 406170, 0, 406170, 406170, 0, 0}
 EnemySet[4] = {406171, 0, 0, 406172, 406172, 0, 406172, 406172, 0, 0}
@@ -22,13 +22,13 @@ BaseLevelSet[4] = {59, 0, 0, 49, 49, 0, 49, 49, 0, 0}
 BaseLevelSet[5] = {59, 0, 0, 49, 49, 0, 49, 49, 0, 0}
 BaseLevelSet[6] = {59, 0, 0, 49, 49, 0, 49, 49, 0, 0}
 BaseLevelSet[7] = {59, 0, 0, 49, 49, 0, 49, 49, 0, 0}
-Pos[1] = {{"ÈÕê×ÈÕ",100576,19202,60,35,6,EnemySet[1],1,BaseLevelSet[1]}}
-Pos[2] = {{"ÔÂê×Ò»",100602,19202,60,30,6,EnemySet[2],2,BaseLevelSet[2]}}
-Pos[3] = {{"»ğê×¶ş",100725,19202,49,31,4,EnemySet[3],3,BaseLevelSet[3]}}
-Pos[4] = {{"Ë®ê×Èı",100555,19202,54,31,4,EnemySet[4],4,BaseLevelSet[4]}}
-Pos[5] = {{"Ä¾ê×ËÄ",100678,19202,49,39,0,EnemySet[5],5,BaseLevelSet[5]}}
-Pos[6] = {{"½ğê×Îå",100754,19202,54,39,0,EnemySet[6],6,BaseLevelSet[6]}}
-Pos[7] = {{"ÍÁê×Áù",100528,19202,60,40,6,EnemySet[7],7,BaseLevelSet[7]}}
+Pos[1] = {{"æ—¥æ›œæ—¥",100576,19202,60,35,6,EnemySet[1],1,BaseLevelSet[1]}}
+Pos[2] = {{"æœˆæ›œä¸€",100602,19202,60,30,6,EnemySet[2],2,BaseLevelSet[2]}}
+Pos[3] = {{"ç«æ›œäºŒ",100725,19202,49,31,4,EnemySet[3],3,BaseLevelSet[3]}}
+Pos[4] = {{"æ°´æ›œä¸‰",100555,19202,54,31,4,EnemySet[4],4,BaseLevelSet[4]}}
+Pos[5] = {{"æœ¨æ›œå››",100678,19202,49,39,0,EnemySet[5],5,BaseLevelSet[5]}}
+Pos[6] = {{"é‡‘æ›œäº”",100754,19202,54,39,0,EnemySet[6],6,BaseLevelSet[6]}}
+Pos[7] = {{"åœŸæ›œå…­",100528,19202,60,40,6,EnemySet[7],7,BaseLevelSet[7]}}
 
 
 tbl_RandomDailyNpcIndex = tbl_RandomDailyNpcIndex or {}
@@ -50,7 +50,7 @@ script_map_daily_user_count[6] = {};
 local script_map_amount = {};
 script_map_amount[2] = {};
 
-script_map_name[2] = "¡¶¹íÖ®µºê×ÈÕ¸±±¾¡·";
+script_map_name[2] = "ã€Šé¬¼ä¹‹å³¶æ›œæ—¥å‰¯æœ¬ã€‹";
 script_map_point[2] = {19202,38,11};
 script_map_lvlimit[2] = 50;
 script_map_payfor[2] = 1000;
@@ -64,12 +64,12 @@ function initDailyScriptNpc_Init(index)
 end
 
 function mykgold(_PlayerIndex,gold)
-	local tjb = Char.GetData(_PlayerIndex,%¶ÔÏó_½ğ±Ò%);
+	local tjb = Char.GetData(_PlayerIndex,%å¯¹è±¡_é‡‘å¸%);
 	tjb = tjb - gold; 
 	if(tjb >= 0)then
-		Char.SetData(_PlayerIndex,%¶ÔÏó_½ğ±Ò%,tjb);
+		Char.SetData(_PlayerIndex,%å¯¹è±¡_é‡‘å¸%,tjb);
 		NLG.UpChar(_PlayerIndex);
-		NLG.SystemMessage(_PlayerIndex,"½»³öÁË"..gold.." GÄ§±Ò¡£");
+		NLG.SystemMessage(_PlayerIndex,"äº¤å‡ºäº†"..gold.." Gé­”å¹£ã€‚");
 		return true;
 	end
 	return false;
@@ -78,39 +78,39 @@ end
 function initDailyScriptNpc()
 	if (DailyScriptNps == nil) then
 		DailyScriptNps = NL.CreateNpc("lua/Module/DailyScript.lua", "initDailyScriptNpc_Init");
-		Char.SetData(DailyScriptNps,%¶ÔÏó_ĞÎÏó%,231146);
-		Char.SetData(DailyScriptNps,%¶ÔÏó_Ô­ĞÎ%,231146);
-		Char.SetData(DailyScriptNps,%¶ÔÏó_X%,228);
-		Char.SetData(DailyScriptNps,%¶ÔÏó_Y%,83);
-		Char.SetData(DailyScriptNps,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(DailyScriptNps,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(DailyScriptNps,%¶ÔÏó_Ô­Ãû%,"¹íÖ®µºê×ÈÕ¸±±¾");
+		Char.SetData(DailyScriptNps,%å¯¹è±¡_å½¢è±¡%,231146);
+		Char.SetData(DailyScriptNps,%å¯¹è±¡_åŸå½¢%,231146);
+		Char.SetData(DailyScriptNps,%å¯¹è±¡_X%,228);
+		Char.SetData(DailyScriptNps,%å¯¹è±¡_Y%,83);
+		Char.SetData(DailyScriptNps,%å¯¹è±¡_åœ°å›¾%,1000);
+		Char.SetData(DailyScriptNps,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(DailyScriptNps,%å¯¹è±¡_åŸå%,"é¬¼ä¹‹å³¶æ›œæ—¥å‰¯æœ¬");
 		NLG.UpChar(DailyScriptNps);
 		Char.SetWindowTalkedEvent("lua/Module/DailyScript.lua","DailyScriptA",DailyScriptNps);
 		Char.SetTalkedEvent("lua/Module/DailyScript.lua","DailyScriptMsg", DailyScriptNps);
 	end
 	if (DailyScriptNpsB == nil) then
 		DailyScriptNpsB = NL.CreateNpc("lua/Module/DailyScript.lua", "initDailyScriptNpc_Init");
-		Char.SetData(DailyScriptNpsB,%¶ÔÏó_ĞÎÏó%,231147);
-		Char.SetData(DailyScriptNpsB,%¶ÔÏó_Ô­ĞÎ%,231147);
-		Char.SetData(DailyScriptNpsB,%¶ÔÏó_X%,57);
-		Char.SetData(DailyScriptNpsB,%¶ÔÏó_Y%,45);
-		Char.SetData(DailyScriptNpsB,%¶ÔÏó_µØÍ¼%,19202);
-		Char.SetData(DailyScriptNpsB,%¶ÔÏó_·½Ïò%,1);
-		Char.SetData(DailyScriptNpsB,%¶ÔÏó_Ô­Ãû%,"±»Çô½ûµÄ¹«Ö÷");
+		Char.SetData(DailyScriptNpsB,%å¯¹è±¡_å½¢è±¡%,231147);
+		Char.SetData(DailyScriptNpsB,%å¯¹è±¡_åŸå½¢%,231147);
+		Char.SetData(DailyScriptNpsB,%å¯¹è±¡_X%,57);
+		Char.SetData(DailyScriptNpsB,%å¯¹è±¡_Y%,45);
+		Char.SetData(DailyScriptNpsB,%å¯¹è±¡_åœ°å›¾%,19202);
+		Char.SetData(DailyScriptNpsB,%å¯¹è±¡_æ–¹å‘%,1);
+		Char.SetData(DailyScriptNpsB,%å¯¹è±¡_åŸå%,"è¢«å›šç¦çš„å…¬ä¸»");
 		NLG.UpChar(DailyScriptNpsB);
 		Char.SetWindowTalkedEvent("lua/Module/DailyScript.lua","DailyScriptB",DailyScriptNpsB);
 		Char.SetTalkedEvent("lua/Module/DailyScript.lua","DailyScriptMsgB", DailyScriptNpsB);
 	end
 	if (DailyScriptNpsC == nil) then
 		DailyScriptNpsC = NL.CreateNpc("lua/Module/DailyScript.lua", "initDailyScriptNpc_Init");
-		Char.SetData(DailyScriptNpsC,%¶ÔÏó_ĞÎÏó%,231116);
-		Char.SetData(DailyScriptNpsC,%¶ÔÏó_Ô­ĞÎ%,231116);
-		Char.SetData(DailyScriptNpsC,%¶ÔÏó_X%,18);
-		Char.SetData(DailyScriptNpsC,%¶ÔÏó_Y%,18);
-		Char.SetData(DailyScriptNpsC,%¶ÔÏó_µØÍ¼%,777);
-		Char.SetData(DailyScriptNpsC,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(DailyScriptNpsC,%¶ÔÏó_Ô­Ãû%,"Ã÷¹ÖÉèÖÃ");
+		Char.SetData(DailyScriptNpsC,%å¯¹è±¡_å½¢è±¡%,231116);
+		Char.SetData(DailyScriptNpsC,%å¯¹è±¡_åŸå½¢%,231116);
+		Char.SetData(DailyScriptNpsC,%å¯¹è±¡_X%,18);
+		Char.SetData(DailyScriptNpsC,%å¯¹è±¡_Y%,18);
+		Char.SetData(DailyScriptNpsC,%å¯¹è±¡_åœ°å›¾%,777);
+		Char.SetData(DailyScriptNpsC,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(DailyScriptNpsC,%å¯¹è±¡_åŸå%,"æ˜æ€ªè¨­ç½®");
 		NLG.UpChar(DailyScriptNpsC);
 		Char.SetLoopEvent(nil, "DailyScript_LoopEvent",DailyScriptNpsC, SXTime*1000)
 		Char.SetWindowTalkedEvent("lua/Module/DailyScript.lua","DailyScriptC",DailyScriptNpsC);
@@ -120,10 +120,10 @@ end
 
 function DailyScriptMsgA(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
-		local PlayerLevel = tonumber(Char.GetData(_tome,%¶ÔÏó_µÈ¼¶%));
+		local PlayerLevel = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç­‰çº§%));
 		
 		if (PlayerLevel < 50) then
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÏÈµ½´ï50¼¶ÔÙÀ´°É£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nå…ˆåˆ°é”50ç´šå†ä¾†å§ï¼"));
 			return;
 		end
 
@@ -135,11 +135,11 @@ function DailyScriptMsgA(_me,_tome)
 		end
 
 		if (script_map_daily_user_count[1][Playerkey(_tome)] == 1) then
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÃ÷ÌìÔÙÀ´°É£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\næ˜å¤©å†ä¾†å§ï¼"));
 			return;
 		end
 		script_map_daily_user_count[1][Playerkey(_tome)] = 1;
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÄãÔ¸Òâ²Î¼Óê×ÈÕ¸±±¾µÃµ½ê×ÈÕÕäÖéÂğ£¿"));
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nä½ é¡˜æ„åƒåŠ æ›œæ—¥å‰¯æœ¬å¾—åˆ°æ›œæ—¥çç å—ï¼Ÿ"));
 	end
 	return;
 end
@@ -149,18 +149,18 @@ end
 function DailyScriptMsg(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
 		local _obj = script_map_daily_user[Playerkey(_tome)];
-		--Èç¹ûÊ×´ÎµÇÂ¼
+		--å¦‚æœé¦–æ¬¡ç™»å½•
 		if (_obj == nil) then 
 			script_map_daily_user[Playerkey(_tome)] = os.time();
 		end
-		if(os.date("%d",_obj) ~= os.date("%d",os.time())) then --ÅĞ¶¨Ò»ÌìÖØÖÃ
+		if(os.date("%d",_obj) ~= os.date("%d",os.time())) then --åˆ¤å®šä¸€å¤©é‡ç½®
 			script_map_daily_user[Playerkey(_tome)] = os.time();
 			for i=1,6 do
 				script_map_daily_user_count[i][Playerkey(_tome)] = nil;
 			end
 		end
 
-		str_ChangeWindow = "4|\\n\\n 			ÄãºÃ!ÎÒÊÇ¸±±¾¹ÜÀíÔ±.\\n	 			ÄãÒªÈ¥¹íÖ®µºÂğ?...\\n\\n";
+		str_ChangeWindow = "4|\\n\\n 			ä½ å¥½!æˆ‘æ˜¯å‰¯æœ¬ç®¡ç†å“¡.\\n	 			ä½ è¦å»é¬¼ä¹‹å³¶å—?...\\n\\n";
 		local tcount = script_map_daily_user_count[2][Playerkey(_tome)];
 		if(tcount == nil)then
 			tcount = 3;
@@ -168,9 +168,9 @@ function DailyScriptMsg(_me,_tome)
 		else
 			tcount = 3 - tcount;
 		end
-		str_ChangeWindow = str_ChangeWindow .. "<"..script_map_payfor[2].."G>".." "..script_map_name[2].." Ê£Óà".."<"..tcount..">´Î".."\\n";
+		str_ChangeWindow = str_ChangeWindow .. "<"..script_map_payfor[2].."G>".." "..script_map_name[2].." å‰©é¤˜".."<"..tcount..">æ¬¡".."\\n";
 
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,str_ChangeWindow);
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,str_ChangeWindow);
 	end
 	return;
 end
@@ -181,12 +181,12 @@ function DailyScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 		local selectitem = tonumber(_data)+1;
 		
 		if (selectitem==nil or (selectitem~=nil and (selectitem > 2 or selectitem <= 0))) then
-				NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³£!");
+				--NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸!");
 				return;
 		end
 		local getlvlit = script_map_lvlimit[selectitem];
-		if(getlvlit > Char.GetData(_PlayerIndex,%¶ÔÏó_µÈ¼¶%))then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄµÈ¼¶²»¹»£¬ĞèÒª"..getlvlit.."²Å¿É½øÈë¡£");
+		if(getlvlit > Char.GetData(_PlayerIndex,%å¯¹è±¡_ç­‰çº§%))then
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„ç­‰ç´šä¸å¤ ï¼Œéœ€è¦"..getlvlit.."æ‰å¯é€²å…¥ã€‚");
 			return;
 		end
 		local getcountless = script_map_daily_user_count[selectitem][Playerkey(_PlayerIndex)];
@@ -195,11 +195,11 @@ function DailyScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 			script_map_daily_user_count[selectitem][Playerkey(_PlayerIndex)] = 0;
 		end
 		if (getcountless >= 3)then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄ´ÎÊıÒÑ¾­ÓÃÍêÁË¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„æ¬¡æ•¸å·²ç¶“ç”¨å®Œäº†ã€‚");
 			return;
 		end
 		if(Char.PartyNum(_PlayerIndex) > 1)then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÇë½âÉ¢¶ÓÎé¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\nè«‹è§£æ•£éšŠä¼ã€‚");
 			return;
 		end
 		if(mykgold(_PlayerIndex,script_map_payfor[selectitem]))then
@@ -214,7 +214,7 @@ function DailyScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 			Char.DischargeParty(_PlayerIndex)
 			Char.Warp(_PlayerIndex,0,script_map_point[selectitem][1],script_map_point[selectitem][2],script_map_point[selectitem][3]);
 		else
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄÄ§±Ò²»¹»¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„é­”å¹£ä¸å¤ ã€‚");
 			return;
 		end
 	end
@@ -227,17 +227,17 @@ function DailyScriptMsgB(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
 		if (Char.ItemNum(_tome,69215) > 0 and Char.ItemNum(_tome,69216) > 0 and Char.ItemNum(_tome,69217) > 0 and Char.ItemNum(_tome,69218) > 0 and Char.ItemNum(_tome,69219) > 0 and Char.ItemNum(_tome,69220) > 0 and Char.ItemNum(_tome,69221) > 0) then
 			if(Char.ItemSlot(_tome)>17)then
-				NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÖÁÉÙÁô³ö3¸ö±³°üÎ»ÖÃ£¡"));
+				NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹è‡³å°‘ç•™å‡º3å€‹èƒŒåŒ…ä½ç½®ï¼"));
 				return;
 			end
 			local gift = math.random(1,3);
 			Char.GiveItem(_tome,70238,1);
 			Char.GiveItem(_tome,script_map_gift[2][gift],1);
-			local PlayerFame = Char.GetData(_tome,%¶ÔÏó_ÉùÍû%);
+			local PlayerFame = Char.GetData(_tome,%å¯¹è±¡_å£°æœ›%);
 			PlayerFame = PlayerFame + 600;
-			Char.SetData(_tome,%¶ÔÏó_ÉùÍû%,PlayerFame);
-			local money = Char.GetData(_tome,%¶ÔÏó_½ğ±Ò%);
-			Char.SetData(_tome,%¶ÔÏó_½ğ±Ò%,money+7000);
+			Char.SetData(_tome,%å¯¹è±¡_å£°æœ›%,PlayerFame);
+			local money = Char.GetData(_tome,%å¯¹è±¡_é‡‘å¸%);
+			Char.SetData(_tome,%å¯¹è±¡_é‡‘å¸%,money+7000);
 			NLG.UpChar(_tome);
 			Char.DelItem(_tome,69215,1);
 			Char.DelItem(_tome,69216,1);
@@ -246,17 +246,17 @@ function DailyScriptMsgB(_me,_tome)
 			Char.DelItem(_tome,69219,1);
 			Char.DelItem(_tome,69220,1);
 			Char.DelItem(_tome,69221,1);
-			NLG.SystemMessage(_tome, "[ÏµÍ³]ÇëÊÕÏÂÎÒµÄĞ»Àñ£¡")
+			NLG.SystemMessage(_tome, "[ç³»çµ±]è«‹æ”¶ä¸‹æˆ‘çš„è¬ç¦®ï¼")
 		end
 		if (Char.ItemNum(_tome,70239) == 0) then
 			Char.GiveItem(_tome,70239,1);
 		end
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÊÕ¼¯Æß²ÊÕäÖé°ïÖúÎÒ°É£¡"));
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\næ”¶é›†ä¸ƒå½©çç å¹«åŠ©æˆ‘å§ï¼"));
 	end
 	return;
 end
 function DailyScript_LoopEvent(_MeIndex)
-	--´´½¨¼ÙÈË
+	--åˆ›å»ºå‡äºº
 	local DTime = os.time()
 	if DTime - STime >= YS then
 		for i=1,7 do
@@ -270,26 +270,26 @@ function DailyScript_LoopEvent(_MeIndex)
 		end
 	end
 end
---NPC¶Ô»°ÊÂ¼ş(NPCË÷Òı)
+--NPCå¯¹è¯äº‹ä»¶(NPCç´¢å¼•)
 function DailyScriptMsgC(_NpcIndex, _PlayerIndex)
 tbl_RandomDailyNpcIndex = {}
 end
 
---NPC´°¿ÚÊÂ¼ş(NPCË÷Òı)
+--NPCçª—å£äº‹ä»¶(NPCç´¢å¼•)
 function DailyScriptC ( _NpcIndex, _PlayerIndex, _seqno, _select, _data)
 	
 end
 function CreateDailyNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	local DailyScriptNpcIndex = NL.CreateNpc("./lua/System/BaseModule/Base.lua", "Myinit");
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_ĞÎÏó%, Image);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_Ô­ĞÎ%, Image);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_µØÍ¼ÀàĞÍ%, MapType);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_µØÍ¼%, MapID);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_X%, PosX);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_Y%, PosY);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_·½Ïò%, Dir);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_Ô­Ãû%, Name);
-	Char.SetData( DailyScriptNpcIndex, %¶ÔÏó_ÃûÉ«%, NameColor);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_å½¢è±¡%, Image);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_åŸå½¢%, Image);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_åœ°å›¾ç±»å‹%, MapType);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_åœ°å›¾%, MapID);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_X%, PosX);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_Y%, PosY);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_æ–¹å‘%, Dir);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_åŸå%, Name);
+	Char.SetData( DailyScriptNpcIndex, %å¯¹è±¡_åè‰²%, NameColor);
 	tbl_LuaNpcIndex = tbl_LuaNpcIndex or {}
 	tbl_LuaNpcIndex["DailyNpc"] = DailyScriptNpcIndex
 	Char.SetTalkedEvent(nil, "DailyNpc__Talked", DailyScriptNpcIndex)
@@ -307,31 +307,31 @@ function DailyNpc__Talked(_NpcIndex, _PlayerIndex)
 	if(NLG.CheckInFront(_PlayerIndex, _NpcIndex, 1)==false and _Mode~=1) then
 		return ;
 	end
-	--ÃæÏòÍæ¼Ò
+	--é¢å‘ç©å®¶
 	local i;
-	i = Char.GetData(_PlayerIndex, %¶ÔÏó_·½Ïò%);
+	i = Char.GetData(_PlayerIndex, %å¯¹è±¡_æ–¹å‘%);
 	if i >= 4 then 
 		i = i - 4;
 	else
 		i = i + 4;		
 	end
-	Char.SetData(_NpcIndex, %¶ÔÏó_·½Ïò%,i);
+	Char.SetData(_NpcIndex, %å¯¹è±¡_æ–¹å‘%,i);
 	NLG.UpChar( _NpcIndex);
-	local mz = "¡º"..Char.GetData(_PlayerIndex,%¶ÔÏó_Ãû×Ö%).. "¡»"
-	local	token ="\n\n\n\nÌôÕ½Õß"..mz.."×¼±¸½øÈëÕ½¶·Âğ£¿"
+	local mz = "ã€"..Char.GetData(_PlayerIndex,%å¯¹è±¡_åå­—%).. "ã€"
+	local	token ="\n\n\n\næŒ‘æˆ°è€…"..mz.."æº–å‚™é€²å…¥æˆ°é¬¥å—ï¼Ÿ"
 
        NLG.ShowWindowTalked(_PlayerIndex, _NpcIndex, 0, 1, 1, token)
 
 end
 function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
 	if _Seqno == 1 then
-	local tName = Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%)
-	local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
-	--´´½¨BossÕ½¶·
+	local tName = Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%)
+	local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
+	--åˆ›å»ºBossæˆ˜æ–—
 	local tBossLv = 1
 --	local tDailyBattleIndex = Battle.PVE( _PlayerIndex, tbl_LuaNpcIndex["DailyNpc"], nil, tBossList, tLvList, nil)
 	if(Char.PartyNum(_PlayerIndex) > 1)then
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,2,"\\n\\n\\nÇëµ¥ÈË½øĞĞÌôÕ½¡£");
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,2,"\\n\\n\\nè«‹å–®äººé€²è¡ŒæŒ‘æˆ°ã€‚");
 		return;
 	end
 	if(tImage == 100576) then
@@ -340,7 +340,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[1][1][7], Pos[1][1][9], nil)
 			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
-			NLG.SystemMessage(_PlayerIndex,"ÄãÃ»ÓĞê×ÈÕÍ¨ĞĞÖ¤¡£");
+			NLG.SystemMessage(_PlayerIndex,"ä½ æ²’æœ‰æ›œæ—¥é€šè¡Œè­‰ã€‚");
 			return;
 		end
 	end
@@ -350,7 +350,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[2][1][7], Pos[2][1][9], nil)
 			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
-			NLG.SystemMessage(_PlayerIndex,"ÄãÃ»ÓĞê×ÈÕÍ¨ĞĞÖ¤¡£");
+			NLG.SystemMessage(_PlayerIndex,"ä½ æ²’æœ‰æ›œæ—¥é€šè¡Œè­‰ã€‚");
 			return;
 		end
 	end
@@ -360,7 +360,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[3][1][7], Pos[3][1][9], nil)
 			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
-			NLG.SystemMessage(_PlayerIndex,"ÄãÃ»ÓĞê×ÈÕÍ¨ĞĞÖ¤¡£");
+			NLG.SystemMessage(_PlayerIndex,"ä½ æ²’æœ‰æ›œæ—¥é€šè¡Œè­‰ã€‚");
 			return;
 		end
 	end
@@ -370,7 +370,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[4][1][7], Pos[4][1][9], nil)
 			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
-			NLG.SystemMessage(_PlayerIndex,"ÄãÃ»ÓĞê×ÈÕÍ¨ĞĞÖ¤¡£");
+			NLG.SystemMessage(_PlayerIndex,"ä½ æ²’æœ‰æ›œæ—¥é€šè¡Œè­‰ã€‚");
 			return;
 		end
 	end
@@ -380,7 +380,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[5][1][7], Pos[5][1][9], nil)
 			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
-			NLG.SystemMessage(_PlayerIndex,"ÄãÃ»ÓĞê×ÈÕÍ¨ĞĞÖ¤¡£");
+			NLG.SystemMessage(_PlayerIndex,"ä½ æ²’æœ‰æ›œæ—¥é€šè¡Œè­‰ã€‚");
 			return;
 		end
 	end
@@ -390,7 +390,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[6][1][7], Pos[6][1][9], nil)
 			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
-			NLG.SystemMessage(_PlayerIndex,"ÄãÃ»ÓĞê×ÈÕÍ¨ĞĞÖ¤¡£");
+			NLG.SystemMessage(_PlayerIndex,"ä½ æ²’æœ‰æ›œæ—¥é€šè¡Œè­‰ã€‚");
 			return;
 		end
 	end
@@ -400,17 +400,17 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[7][1][7], Pos[7][1][9], nil)
 			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
-			NLG.SystemMessage(_PlayerIndex,"ÄãÃ»ÓĞê×ÈÕÍ¨ĞĞÖ¤¡£");
+			NLG.SystemMessage(_PlayerIndex,"ä½ æ²’æœ‰æ›œæ—¥é€šè¡Œè­‰ã€‚");
 			return;
 		end
 	end
  end
 end
 function DailyNpc_BattleWin(_BattleIndex, _NpcIndex)
-		local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
+		local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
 		local tPlayerIndex = Battle.GetPlayIndex( _BattleIndex, 0)
 		local drop = math.random(3,7);
-		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%¶ÔÏó_ÀàĞÍ%)==1 then
+		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%å¯¹è±¡_ç±»å‹%)==1 then
 			if(tImage == 100576) then
 				Char.GiveItem(tPlayerIndex,script_map_drop[2][1],drop);
 			end
