@@ -90,6 +90,9 @@ function Module:onLoad()
 			if(Char.ItemNum(player,BossKey[1])>0 or Char.ItemNum(player,BossKey[2])>0 or Char.ItemNum(player,BossKey[3])>0) then
 				NLG.SystemMessage(player,"[系統]想進行討伐不能持有過期憑證。");
 				return;
+			elseif (Char.ItemNum(player,16444)<=0) then
+				NLG.SystemMessage(player,"[系統]此處刻著怠惰印記，似乎須要怠惰的罪書來共鳴。");
+				return;
 			else
 				if worldLayer == 0 then
 					local msg = "7\\n@c選擇區域領主討伐的模式\\n"
