@@ -2,13 +2,13 @@ local EnemySet = {}
 local BaseLevelSet = {}
 local Pos = {}
 local STime = os.time()
-local YS = 30 --½Å±¾ÑÓÊ±¶àÉÙÃë´´½¨NPC
-local SXTime = 15 --NPCË¢ĞÂÊ±¼ä¡¤Ãë
---¶ÓÁĞ½âÊÍ
---     Îå	Èı	Ò»	¶ş	ËÄ
---     Ê®	°Ë	Áù	Æß	¾Å
-------------ÌôÕ½µÀ³¡NPCÉèÖÃ------------
-EnemySet[1] = {406141, 0, 0, 0, 0, 406142, 406142, 406142, 406142, 406142}--0´ú±íÃ»ÓĞ¹Ö
+local YS = 30 --è„šæœ¬å»¶æ—¶å¤šå°‘ç§’åˆ›å»ºNPC
+local SXTime = 15 --NPCåˆ·æ–°æ—¶é—´Â·ç§’
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”	ä¸‰	ä¸€	äºŒ	å››
+--     å	å…«	å…­	ä¸ƒ	ä¹
+------------æŒ‘æˆ˜é“åœºNPCè®¾ç½®------------
+EnemySet[1] = {406141, 0, 0, 0, 0, 406142, 406142, 406142, 406142, 406142}--0ä»£è¡¨æ²¡æœ‰æ€ª
 EnemySet[2] = {406143, 0, 0, 0, 0, 406144, 406144, 406144, 406144, 406144}
 EnemySet[3] = {406145, 0, 0, 0, 0, 406146, 406146, 406146, 406146, 406146}
 EnemySet[4] = {406147, 406148, 406148, 0, 0, 406148, 0, 0, 0, 0}
@@ -28,16 +28,16 @@ BaseLevelSet[7] = {119, 0, 0, 0, 0, 0, 0, 0, 100, 100}
 BaseLevelSet[8] = {119, 0, 0, 100, 100, 0, 100, 100, 0, 0}
 BaseLevelSet[9] = {119, 0, 0, 0, 0, 100, 0, 0, 0, 0}
 BaseLevelSet[10] = {0, 119, 100, 0, 0, 0, 0, 0, 0, 0}
-Pos[1] = {{"ÍşîD",106014,19201,16,17,4,EnemySet[1],1,BaseLevelSet[1]}}
-Pos[2] = {{"ÀÙÒğ",105377,19201,16,17,4,EnemySet[2],1,BaseLevelSet[2]}}
-Pos[3] = {{"É£ß_",100158,19201,16,17,4,EnemySet[3],1,BaseLevelSet[3]}}
-Pos[4] = {{"¼{Èû",110562,19201,16,17,4,EnemySet[4],1,BaseLevelSet[4]}}
-Pos[5] = {{"°¢ÈğË¹",117023,19201,16,17,4,EnemySet[5],1,BaseLevelSet[5]}}
-Pos[6] = {{"®½ç¹ÖÎï",110378,19201,16,17,4,EnemySet[6],1,BaseLevelSet[6]}}
-Pos[7] = {{"éœÒ¹±©¾ı",110334,19201,16,17,4,EnemySet[7],1,BaseLevelSet[7]}}
-Pos[8] = {{"ÄÈÖZÀÙÎ÷†",106702,19201,16,17,4,EnemySet[8],1,BaseLevelSet[8]}}
-Pos[9] = {{"»ØíµÄµÏÌ«",101803,19201,16,17,4,EnemySet[9],1,BaseLevelSet[9]}}
-Pos[10] = {{"»ğÅ£Ä§Íõ",120064,19201,16,17,4,EnemySet[10],1,BaseLevelSet[10]}}
+Pos[1] = {{"å¨é “",106014,19201,16,17,4,EnemySet[1],1,BaseLevelSet[1]}}
+Pos[2] = {{"è•¾èŒµ",105377,19201,16,17,4,EnemySet[2],1,BaseLevelSet[2]}}
+Pos[3] = {{"æ¡‘é”",100158,19201,16,17,4,EnemySet[3],1,BaseLevelSet[3]}}
+Pos[4] = {{"ç´å¡",110562,19201,16,17,4,EnemySet[4],1,BaseLevelSet[4]}}
+Pos[5] = {{"é˜¿ç‘æ–¯",117023,19201,16,17,4,EnemySet[5],1,BaseLevelSet[5]}}
+Pos[6] = {{"ç•°ç•Œæ€ªç‰©",110378,19201,16,17,4,EnemySet[6],1,BaseLevelSet[6]}}
+Pos[7] = {{"é—‡å¤œæš´å›",110334,19201,16,17,4,EnemySet[7],1,BaseLevelSet[7]}}
+Pos[8] = {{"å¨œè«¾è•¾è¥¿äº",106702,19201,16,17,4,EnemySet[8],1,BaseLevelSet[8]}}
+Pos[9] = {{"å›ä¾†çš„è¿ªå¤ª",101803,19201,16,17,4,EnemySet[9],1,BaseLevelSet[9]}}
+Pos[10] = {{"ç«ç‰›é­”ç‹",120064,19201,16,17,4,EnemySet[10],1,BaseLevelSet[10]}}
 
 tbl_RandomBravadoNpcIndex = tbl_RandomBravadoNpcIndex or {}
 ------------------------------------------------
@@ -60,25 +60,25 @@ script_map_amount[3] = {};
 script_map_amount[4] = {};
 script_map_amount[5] = {};
 
-script_map_name[2] = "¡¶µ¥ÈËÌôÕ½¶şÁ¬Ê¤¡·";
+script_map_name[2] = "ã€Šå–®äººæŒ‘æˆ°äºŒé€£å‹ã€‹";
 script_map_point[2] = {19201,16,30};
 script_map_lvlimit[2] = 120;
 script_map_payfor[2] = 5000;
 script_map_drop[2] = {70206,661054,661054,661054,661055,661055,661055};
 
-script_map_name[3] = "¡¶µ¥ÈËÌôÕ½ÈıÁ¬Ê¤¡·";
+script_map_name[3] = "ã€Šå–®äººæŒ‘æˆ°ä¸‰é€£å‹ã€‹";
 script_map_point[3] = {19201,16,30};
 script_map_lvlimit[3] = 120;
 script_map_payfor[3] = 5000;
 script_map_drop[3] = {70206,661056,661056,661056,661057,661057,661057};
 
-script_map_name[4] = "¡¶µ¥ÈËÌôÕ½ÎåÁ¬Ê¤¡·";
+script_map_name[4] = "ã€Šå–®äººæŒ‘æˆ°äº”é€£å‹ã€‹";
 script_map_point[4] = {19201,16,30};
 script_map_lvlimit[4] = 120;
 script_map_payfor[4] = 5000;
 script_map_drop[4] = {70206,661058,661059,661060,661058,661059,661060};
 
-script_map_name[5] = "¡¶µ¥ÈËÌôÕ½Ê®Á¬Ê¤¡·";
+script_map_name[5] = "ã€Šå–®äººæŒ‘æˆ°åé€£å‹ã€‹";
 script_map_point[5] = {19201,16,30};
 script_map_lvlimit[5] = 120;
 script_map_payfor[5] = 5000;
@@ -91,12 +91,12 @@ function initBravadoScriptNpc_Init(index)
 end
 
 function mykgold(_PlayerIndex,gold)
-	local tjb = Char.GetData(_PlayerIndex,%¶ÔÏó_½ğ±Ò%);
+	local tjb = Char.GetData(_PlayerIndex,%å¯¹è±¡_é‡‘å¸%);
 	tjb = tjb - gold; 
 	if(tjb >= 0)then
-		Char.SetData(_PlayerIndex,%¶ÔÏó_½ğ±Ò%,tjb);
+		Char.SetData(_PlayerIndex,%å¯¹è±¡_é‡‘å¸%,tjb);
 		NLG.UpChar(_PlayerIndex);
-		NLG.SystemMessage(_PlayerIndex,"½»³öÁË"..gold.." GÄ§±Ò¡£");
+		NLG.SystemMessage(_PlayerIndex,"äº¤å‡ºäº†"..gold.." Gé­”å¹£ã€‚");
 		return true;
 	end
 	return false;
@@ -105,39 +105,39 @@ end
 function initBravadoScriptNpc()
 	if (BravadoScriptNps == nil) then
 		BravadoScriptNps = NL.CreateNpc("lua/Module/BravadoScript.lua", "initBravadoScriptNpc_Init");
-		Char.SetData(BravadoScriptNps,%¶ÔÏó_ĞÎÏó%,14111);
-		Char.SetData(BravadoScriptNps,%¶ÔÏó_Ô­ĞÎ%,14111);
-		Char.SetData(BravadoScriptNps,%¶ÔÏó_X%,238);
-		Char.SetData(BravadoScriptNps,%¶ÔÏó_Y%,66);
-		Char.SetData(BravadoScriptNps,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(BravadoScriptNps,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(BravadoScriptNps,%¶ÔÏó_Ô­Ãû%,"µ¥ÈËÌôÕ½µÀ³¡");
+		Char.SetData(BravadoScriptNps,%å¯¹è±¡_å½¢è±¡%,14111);
+		Char.SetData(BravadoScriptNps,%å¯¹è±¡_åŸå½¢%,14111);
+		Char.SetData(BravadoScriptNps,%å¯¹è±¡_X%,238);
+		Char.SetData(BravadoScriptNps,%å¯¹è±¡_Y%,66);
+		Char.SetData(BravadoScriptNps,%å¯¹è±¡_åœ°å›¾%,1000);
+		Char.SetData(BravadoScriptNps,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(BravadoScriptNps,%å¯¹è±¡_åŸå%,"å–®äººæŒ‘æˆ°é“å ´");
 		NLG.UpChar(BravadoScriptNps);
 		Char.SetWindowTalkedEvent("lua/Module/BravadoScript.lua","BravadoScriptA",BravadoScriptNps);
 		Char.SetTalkedEvent("lua/Module/BravadoScript.lua","BravadoScriptMsg", BravadoScriptNps);
 	end
 	if (BravadoScriptNpsB == nil) then
 		BravadoScriptNpsB = NL.CreateNpc("lua/Module/BravadoScript.lua", "initBravadoScriptNpc_Init");
-		Char.SetData(BravadoScriptNpsB,%¶ÔÏó_ĞÎÏó%,14193);
-		Char.SetData(BravadoScriptNpsB,%¶ÔÏó_Ô­ĞÎ%,14193);
-		Char.SetData(BravadoScriptNpsB,%¶ÔÏó_X%,31);
-		Char.SetData(BravadoScriptNpsB,%¶ÔÏó_Y%,32);
-		Char.SetData(BravadoScriptNpsB,%¶ÔÏó_µØÍ¼%,19201);
-		Char.SetData(BravadoScriptNpsB,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(BravadoScriptNpsB,%¶ÔÏó_Ô­Ãû%,"½±Àø·¢·ÅÔ±");
+		Char.SetData(BravadoScriptNpsB,%å¯¹è±¡_å½¢è±¡%,14193);
+		Char.SetData(BravadoScriptNpsB,%å¯¹è±¡_åŸå½¢%,14193);
+		Char.SetData(BravadoScriptNpsB,%å¯¹è±¡_X%,31);
+		Char.SetData(BravadoScriptNpsB,%å¯¹è±¡_Y%,32);
+		Char.SetData(BravadoScriptNpsB,%å¯¹è±¡_åœ°å›¾%,19201);
+		Char.SetData(BravadoScriptNpsB,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(BravadoScriptNpsB,%å¯¹è±¡_åŸå%,"çå‹µç™¼æ”¾å“¡");
 		NLG.UpChar(BravadoScriptNpsB);
 		Char.SetWindowTalkedEvent("lua/Module/BravadoScript.lua","BravadoScriptB",BravadoScriptNpsB);
 		Char.SetTalkedEvent("lua/Module/BravadoScript.lua","BravadoScriptMsgB", BravadoScriptNpsB);
 	end
 	if (BravadoScriptNpsC == nil) then
 		BravadoScriptNpsC = NL.CreateNpc("lua/Module/BravadoScript.lua", "initBravadoScriptNpc_Init");
-		Char.SetData(BravadoScriptNpsC,%¶ÔÏó_ĞÎÏó%,231116);
-		Char.SetData(BravadoScriptNpsC,%¶ÔÏó_Ô­ĞÎ%,231116);
-		Char.SetData(BravadoScriptNpsC,%¶ÔÏó_X%,17);
-		Char.SetData(BravadoScriptNpsC,%¶ÔÏó_Y%,17);
-		Char.SetData(BravadoScriptNpsC,%¶ÔÏó_µØÍ¼%,777);
-		Char.SetData(BravadoScriptNpsC,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(BravadoScriptNpsC,%¶ÔÏó_Ô­Ãû%,"Ã÷¹ÖÉèÖÃ");
+		Char.SetData(BravadoScriptNpsC,%å¯¹è±¡_å½¢è±¡%,231116);
+		Char.SetData(BravadoScriptNpsC,%å¯¹è±¡_åŸå½¢%,231116);
+		Char.SetData(BravadoScriptNpsC,%å¯¹è±¡_X%,17);
+		Char.SetData(BravadoScriptNpsC,%å¯¹è±¡_Y%,17);
+		Char.SetData(BravadoScriptNpsC,%å¯¹è±¡_åœ°å›¾%,777);
+		Char.SetData(BravadoScriptNpsC,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(BravadoScriptNpsC,%å¯¹è±¡_åŸå%,"æ˜æ€ªè¨­ç½®");
 		NLG.UpChar(BravadoScriptNpsC);
 		Char.SetLoopEvent(nil, "BravadoScript_LoopEvent",BravadoScriptNpsC, SXTime*1000)
 		Char.SetWindowTalkedEvent("lua/Module/BravadoScript.lua","BravadoScriptC",BravadoScriptNpsC);
@@ -147,10 +147,10 @@ end
 
 function BravadoScriptMsgA(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
-		local PlayerLevel = tonumber(Char.GetData(_tome,%¶ÔÏó_µÈ¼¶%));
+		local PlayerLevel = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç­‰çº§%));
 		
 		if (PlayerLevel < 120) then
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÏÈµ½´ï120¼¶ÔÙÀ´°É£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nå…ˆåˆ°é”120ç´šå†ä¾†å§ï¼"));
 			return;
 		end
 
@@ -162,11 +162,11 @@ function BravadoScriptMsgA(_me,_tome)
 		end
 
 		if (script_map_daily_user_count[1][Playerkey(_tome)] == 1) then
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÏÂÖÜÔÙÀ´°É£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nä¸‹å‘¨å†ä¾†å§ï¼"));
 			return;
 		end
 		script_map_daily_user_count[1][Playerkey(_tome)] = 1;
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÄãÔ¸Òâ²Î¼Óµ¥ÈËÌôÕ½µÃµ½¸÷Ê½²ÄÁÏÂğ£¿"));
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nä½ é¡˜æ„åƒåŠ å–®äººæŒ‘æˆ°å¾—åˆ°å„å¼ææ–™å—ï¼Ÿ"));
 	end
 	return;
 end
@@ -176,18 +176,18 @@ end
 function BravadoScriptMsg(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
 		local _obj = script_map_daily_user[Playerkey(_tome)];
-		--Èç¹ûÊ×´ÎµÇÂ¼
+		--å¦‚æœé¦–æ¬¡ç™»å½•
 		if (_obj == nil) then 
 			script_map_daily_user[Playerkey(_tome)] = os.time();
 		end
-		if(os.date("%w",_obj) ~= os.date("%w",os.time())) then --ÅĞ¶¨Ò»ĞÇÆÚÖØÖÃ
+		if(os.date("%w",_obj) ~= os.date("%w",os.time())) then --åˆ¤å®šä¸€æ˜ŸæœŸé‡ç½®
 			script_map_daily_user[Playerkey(_tome)] = os.time();
 			for i=1,6 do
 				script_map_daily_user_count[i][Playerkey(_tome)] = nil;
 			end
 		end
 
-		str_ChangeWindow = "4|\\n\\n 			ÄãºÃ!ÎÒÊÇÌôÕ½¹ÜÀíÔ±.\\n	 			ÇëÎÊÄãÒªÌôÕ½¼¸Ê¤!...\\n\\n";
+		str_ChangeWindow = "4|\\n\\n 			ä½ å¥½!æˆ‘æ˜¯æŒ‘æˆ°ç®¡ç†å“¡.\\n	 			è«‹å•ä½ è¦æŒ‘æˆ°å¹¾å‹!...\\n\\n";
 		for i=2,5 do
 			local tcount = script_map_daily_user_count[i][Playerkey(_tome)];
 			if(tcount == nil)then
@@ -196,10 +196,10 @@ function BravadoScriptMsg(_me,_tome)
 			else
 				tcount = 1 - tcount;
 			end
-			str_ChangeWindow = str_ChangeWindow .. "<"..script_map_payfor[i].."G>".." "..script_map_name[i].." Ê£Óà".."<"..tcount..">´Î".."\\n";
+			str_ChangeWindow = str_ChangeWindow .. "<"..script_map_payfor[i].."G>".." "..script_map_name[i].." å‰©é¤˜".."<"..tcount..">æ¬¡".."\\n";
 
 		end
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,str_ChangeWindow);
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,str_ChangeWindow);
 	end
 	return;
 end
@@ -210,12 +210,12 @@ function BravadoScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 		local selectitem = tonumber(_data)+1;
 		
 		if (selectitem==nil or (selectitem~=nil and (selectitem > 5 or selectitem <= 0))) then
-				NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³£!");
+				--NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸!");
 				return;
 		end
 		local getlvlit = script_map_lvlimit[selectitem];
-		if(getlvlit > Char.GetData(_PlayerIndex,%¶ÔÏó_µÈ¼¶%))then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄµÈ¼¶²»¹»£¬ĞèÒª"..getlvlit.."²Å¿É½øÈë¡£");
+		if(getlvlit > Char.GetData(_PlayerIndex,%å¯¹è±¡_ç­‰çº§%))then
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„ç­‰ç´šä¸å¤ ï¼Œéœ€è¦"..getlvlit.."æ‰å¯é€²å…¥ã€‚");
 			return;
 		end
 		local getcountless = script_map_daily_user_count[selectitem][Playerkey(_PlayerIndex)];
@@ -224,15 +224,15 @@ function BravadoScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 			script_map_daily_user_count[selectitem][Playerkey(_PlayerIndex)] = 0;
 		end
 		if (getcountless >= 1)then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄ´ÎÊıÒÑ¾­ÓÃÍêÁË¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„æ¬¡æ•¸å·²ç¶“ç”¨å®Œäº†ã€‚");
 			return;
 		end
 		if(Char.PartyNum(_PlayerIndex) > 1)then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÇë½âÉ¢¶ÓÎé¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\nè«‹è§£æ•£éšŠä¼ã€‚");
 			return;
 		end
 		if(Char.ItemNum(_PlayerIndex,70211)>0 or Char.ItemNum(_PlayerIndex,70212)>0 or Char.ItemNum(_PlayerIndex,70213)>0 or Char.ItemNum(_PlayerIndex,70214)>0)then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\n½øÈëµÀ³¡Ç°²»ÄÜÓĞÈÎºÎ×Ê¸ñÏîÁ´¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\né€²å…¥é“å ´å‰ä¸èƒ½æœ‰ä»»ä½•è³‡æ ¼é …éŠã€‚");
 			return;
 		end
 		if(mykgold(_PlayerIndex,script_map_payfor[selectitem]))then
@@ -244,7 +244,7 @@ function BravadoScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 			Char.DischargeParty(_PlayerIndex)
 			Char.Warp(_PlayerIndex,0,script_map_point[selectitem][1],script_map_point[selectitem][2],script_map_point[selectitem][3]);
 		else
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄÄ§±Ò²»¹»¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„é­”å¹£ä¸å¤ ã€‚");
 			return;
 		end
 	end
@@ -257,110 +257,110 @@ function BravadoScriptMsgB(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
 		if (Char.ItemNum(_tome,70211) > 0) then
 			if(Char.ItemSlot(_tome)>17)then
-				NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÖÁÉÙÁô³ö3¸ö±³°üÎ»ÖÃ£¡"));
+				NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹è‡³å°‘ç•™å‡º3å€‹èƒŒåŒ…ä½ç½®ï¼"));
 				return;
 			end
 			local slot = Char.FindItemId(_tome,70211);
 			local item_indexA = Char.GetItemIndex(_tome,slot);
-			local win = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
+			local win = Item.GetData(item_indexA,%é“å…·_é­…åŠ›%);
 			if (win==2) then
 				Char.GiveItem(_tome,70002,25);
 				Char.GiveItem(_tome,70015,40);
 				Char.GiveItem(_tome,70052,1);
-				local PlayerFame = Char.GetData(_tome,%¶ÔÏó_ÉùÍû%);
+				local PlayerFame = Char.GetData(_tome,%å¯¹è±¡_å£°æœ›%);
 				PlayerFame = PlayerFame + 300;
-				Char.SetData(_tome,%¶ÔÏó_ÉùÍû%,PlayerFame);
-				local money = Char.GetData(_tome,%¶ÔÏó_½ğ±Ò%);
-				Char.SetData(_tome,%¶ÔÏó_½ğ±Ò%,money+5000);
+				Char.SetData(_tome,%å¯¹è±¡_å£°æœ›%,PlayerFame);
+				local money = Char.GetData(_tome,%å¯¹è±¡_é‡‘å¸%);
+				Char.SetData(_tome,%å¯¹è±¡_é‡‘å¸%,money+5000);
 				NLG.UpChar(_tome);
 				Char.DelItem(_tome,70211,1);
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÒÑÁìÈ¡²ÄÁÏ½±Àø£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]å·²é ˜å–ææ–™çå‹µï¼")
 			else
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÁìÈ¡×Ê¸ñ²»·û£¡£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]é ˜å–è³‡æ ¼ä¸ç¬¦ï¼ï¼")
 			end
 			Char.Warp(_tome,0,1000,237,66);
 		end
 		if (Char.ItemNum(_tome,70212) > 0) then
 			if(Char.ItemSlot(_tome)>17)then
-				NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÖÁÉÙÁô³ö3¸ö±³°üÎ»ÖÃ£¡"));
+				NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹è‡³å°‘ç•™å‡º3å€‹èƒŒåŒ…ä½ç½®ï¼"));
 				return;
 			end
 			local slot = Char.FindItemId(_tome,70212);
 			local item_indexA = Char.GetItemIndex(_tome,slot);
-			local win = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
+			local win = Item.GetData(item_indexA,%é“å…·_é­…åŠ›%);
 			if (win==3) then
 				Char.GiveItem(_tome,66666,50);
 				Char.GiveItem(_tome,68999,70);
 				Char.GiveItem(_tome,71016,1);
-				local PlayerFame = Char.GetData(_tome,%¶ÔÏó_ÉùÍû%);
+				local PlayerFame = Char.GetData(_tome,%å¯¹è±¡_å£°æœ›%);
 				PlayerFame = PlayerFame + 600;
-				Char.SetData(_tome,%¶ÔÏó_ÉùÍû%,PlayerFame);
-				local money = Char.GetData(_tome,%¶ÔÏó_½ğ±Ò%);
-				Char.SetData(_tome,%¶ÔÏó_½ğ±Ò%,money+8000);
+				Char.SetData(_tome,%å¯¹è±¡_å£°æœ›%,PlayerFame);
+				local money = Char.GetData(_tome,%å¯¹è±¡_é‡‘å¸%);
+				Char.SetData(_tome,%å¯¹è±¡_é‡‘å¸%,money+8000);
 				NLG.UpChar(_tome);
 				Char.DelItem(_tome,70212,1);
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÒÑÁìÈ¡²ÄÁÏ½±Àø£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]å·²é ˜å–ææ–™çå‹µï¼")
 			else
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÁìÈ¡×Ê¸ñ²»·û£¡£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]é ˜å–è³‡æ ¼ä¸ç¬¦ï¼ï¼")
 			end
 			Char.Warp(_tome,0,1000,237,66);
 		end
 		if (Char.ItemNum(_tome,70213) > 0) then
 			if(Char.ItemSlot(_tome)>17)then
-				NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÖÁÉÙÁô³ö3¸ö±³°üÎ»ÖÃ£¡"));
+				NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹è‡³å°‘ç•™å‡º3å€‹èƒŒåŒ…ä½ç½®ï¼"));
 				return;
 			end
 			local slot = Char.FindItemId(_tome,70213);
 			local item_indexA = Char.GetItemIndex(_tome,slot);
-			local win = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
+			local win = Item.GetData(item_indexA,%é“å…·_é­…åŠ›%);
 			if (win==5) then
 				Char.GiveItem(_tome,68001,10);
 				Char.GiveItem(_tome,69157,64);
 				Char.GiveItem(_tome,71017,1);
-				local PlayerFame = Char.GetData(_tome,%¶ÔÏó_ÉùÍû%);
+				local PlayerFame = Char.GetData(_tome,%å¯¹è±¡_å£°æœ›%);
 				PlayerFame = PlayerFame + 1200;
-				Char.SetData(_tome,%¶ÔÏó_ÉùÍû%,PlayerFame);
-				local money = Char.GetData(_tome,%¶ÔÏó_½ğ±Ò%);
-				Char.SetData(_tome,%¶ÔÏó_½ğ±Ò%,money+11000);
+				Char.SetData(_tome,%å¯¹è±¡_å£°æœ›%,PlayerFame);
+				local money = Char.GetData(_tome,%å¯¹è±¡_é‡‘å¸%);
+				Char.SetData(_tome,%å¯¹è±¡_é‡‘å¸%,money+11000);
 				NLG.UpChar(_tome);
 				Char.DelItem(_tome,70213,1);
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÒÑÁìÈ¡²ÄÁÏ½±Àø£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]å·²é ˜å–ææ–™çå‹µï¼")
 			else
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÁìÈ¡×Ê¸ñ²»·û£¡£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]é ˜å–è³‡æ ¼ä¸ç¬¦ï¼ï¼")
 			end
 			Char.Warp(_tome,0,1000,237,66);
 		end
 		if (Char.ItemNum(_tome,70214) > 0) then
 			if(Char.ItemSlot(_tome)>17)then
-				NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÖÁÉÙÁô³ö3¸ö±³°üÎ»ÖÃ£¡"));
+				NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹è‡³å°‘ç•™å‡º3å€‹èƒŒåŒ…ä½ç½®ï¼"));
 				return;
 			end
 			local slot = Char.FindItemId(_tome,70214);
 			local item_indexA = Char.GetItemIndex(_tome,slot);
-			local win = Item.GetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%);
+			local win = Item.GetData(item_indexA,%é“å…·_é­…åŠ›%);
 			if (win==10) then
 				Char.GiveItem(_tome,68000,10);
 				Char.GiveItem(_tome,70161,1);
 				Char.GiveItem(_tome,71018,1);
-				local PlayerFame = Char.GetData(_tome,%¶ÔÏó_ÉùÍû%);
+				local PlayerFame = Char.GetData(_tome,%å¯¹è±¡_å£°æœ›%);
 				PlayerFame = PlayerFame + 2500;
-				Char.SetData(_tome,%¶ÔÏó_ÉùÍû%,PlayerFame);
-				local money = Char.GetData(_tome,%¶ÔÏó_½ğ±Ò%);
-				Char.SetData(_tome,%¶ÔÏó_½ğ±Ò%,money+20000);
+				Char.SetData(_tome,%å¯¹è±¡_å£°æœ›%,PlayerFame);
+				local money = Char.GetData(_tome,%å¯¹è±¡_é‡‘å¸%);
+				Char.SetData(_tome,%å¯¹è±¡_é‡‘å¸%,money+20000);
 				NLG.UpChar(_tome);
 				Char.DelItem(_tome,70214,1);
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÒÑÁìÈ¡²ÄÁÏ½±Àø£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]å·²é ˜å–ææ–™çå‹µï¼")
 			else
-				NLG.SystemMessage(_tome, "[ÏµÍ³]ÁìÈ¡×Ê¸ñ²»·û£¡£¡")
+				NLG.SystemMessage(_tome, "[ç³»çµ±]é ˜å–è³‡æ ¼ä¸ç¬¦ï¼ï¼")
 			end
 			Char.Warp(_tome,0,1000,237,66);
 		end
-		--NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÏÂÖÜÔÙÀ´ÁìÈ¡ÉùÍûºÍ¸÷Ê½²ÄÁÏ°É£¡"));
+		--NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nä¸‹å‘¨å†ä¾†é ˜å–è²æœ›å’Œå„å¼ææ–™å§ï¼"));
 	end
 	return;
 end
 function BravadoScript_LoopEvent(_MeIndex)
-	--´´½¨¼ÙÈË
+	--åˆ›å»ºå‡äºº
 	local DTime = os.time()
 	if DTime - STime >= YS then
 		local i = NLG.Rand(1,10)
@@ -373,26 +373,26 @@ function BravadoScript_LoopEvent(_MeIndex)
 			end
 	end
 end
---NPC¶Ô»°ÊÂ¼ş(NPCË÷Òı)
+--NPCå¯¹è¯äº‹ä»¶(NPCç´¢å¼•)
 function BravadoScriptMsgC(_NpcIndex, _PlayerIndex)
 tbl_RandomBravadoNpcIndex = {}
 end
 
---NPC´°¿ÚÊÂ¼ş(NPCË÷Òı)
+--NPCçª—å£äº‹ä»¶(NPCç´¢å¼•)
 function BravadoScriptC ( _NpcIndex, _PlayerIndex, _seqno, _select, _data)
 	
 end
 function CreateBravadoNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	local BravadoScriptNpcIndex = NL.CreateNpc("./lua/System/BaseModule/Base.lua", "Myinit");
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_ĞÎÏó%, Image);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_Ô­ĞÎ%, Image);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_µØÍ¼ÀàĞÍ%, MapType);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_µØÍ¼%, MapID);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_X%, PosX);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_Y%, PosY);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_·½Ïò%, Dir);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_Ô­Ãû%, Name);
-	Char.SetData( BravadoScriptNpcIndex, %¶ÔÏó_ÃûÉ«%, NameColor);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_å½¢è±¡%, Image);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_åŸå½¢%, Image);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_åœ°å›¾ç±»å‹%, MapType);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_åœ°å›¾%, MapID);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_X%, PosX);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_Y%, PosY);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_æ–¹å‘%, Dir);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_åŸå%, Name);
+	Char.SetData( BravadoScriptNpcIndex, %å¯¹è±¡_åè‰²%, NameColor);
 	tbl_LuaNpcIndex = tbl_LuaNpcIndex or {}
 	tbl_LuaNpcIndex["BravadoNpc"] = BravadoScriptNpcIndex
 	Char.SetTalkedEvent(nil, "BravadoNpc__Talked", BravadoScriptNpcIndex)
@@ -410,31 +410,31 @@ function BravadoNpc__Talked(_NpcIndex, _PlayerIndex)
 	if(NLG.CheckInFront(_PlayerIndex, _NpcIndex, 1)==false and _Mode~=1) then
 		return ;
 	end
-	--ÃæÏòÍæ¼Ò
+	--é¢å‘ç©å®¶
 	local i;
-	i = Char.GetData(_PlayerIndex, %¶ÔÏó_·½Ïò%);
+	i = Char.GetData(_PlayerIndex, %å¯¹è±¡_æ–¹å‘%);
 	if i >= 4 then 
 		i = i - 4;
 	else
 		i = i + 4;		
 	end
-	Char.SetData(_NpcIndex, %¶ÔÏó_·½Ïò%,i);
+	Char.SetData(_NpcIndex, %å¯¹è±¡_æ–¹å‘%,i);
 	NLG.UpChar( _NpcIndex);
-	local mz = "¡º"..Char.GetData(_PlayerIndex,%¶ÔÏó_Ãû×Ö%).. "¡»"
-	local	token ="\n\n\n\nÌôÕ½Õß"..mz.."×¼±¸½øÈëÕ½¶·Âğ£¿"
+	local mz = "ã€"..Char.GetData(_PlayerIndex,%å¯¹è±¡_åå­—%).. "ã€"
+	local	token ="\n\n\n\næŒ‘æˆ°è€…"..mz.."æº–å‚™é€²å…¥æˆ°é¬¥å—ï¼Ÿ"
 
        NLG.ShowWindowTalked(_PlayerIndex, _NpcIndex, 0, 1, 1, token)
 
 end
 function BravadoNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
 	if _Seqno == 1 then
-	local tName = Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%)
-	local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
-	--´´½¨BossÕ½¶·
+	local tName = Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%)
+	local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
+	--åˆ›å»ºBossæˆ˜æ–—
 	local tBossLv = 1
 --	local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, tbl_LuaNpcIndex["BravadoNpc"], nil, tBossList, tLvList, nil)
 	if(Char.PartyNum(_PlayerIndex) > 1)then
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,2,"\\n\\n\\nÇëµ¥ÈË½øĞĞÌôÕ½¡£");
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,2,"\\n\\n\\nè«‹å–®äººé€²è¡ŒæŒ‘æˆ°ã€‚");
 		return;
 	end
 	if(tImage == 106014) then
@@ -480,7 +480,7 @@ function BravadoNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Da
  end
 end
 function BravadoNpc_BattleWin(_BattleIndex, _NpcIndex)
-		local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
+		local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
 		local tPlayerIndex = Battle.GetPlayIndex( _BattleIndex, 0)
 		getamountless_2 = script_map_amount[2][Playerkey(tPlayerIndex)];
 		getamountless_3 = script_map_amount[3][Playerkey(tPlayerIndex)];
@@ -503,17 +503,17 @@ function BravadoNpc_BattleWin(_BattleIndex, _NpcIndex)
 			script_map_amount[5][Playerkey(tPlayerIndex)] = 0;
 		end
 		local drop = math.random(1,7);
-		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%¶ÔÏó_ÀàĞÍ%)==1 then
+		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%å¯¹è±¡_ç±»å‹%)==1 then
 			if(Char.ItemNum(tPlayerIndex,70211) > 0) then
 				script_map_amount[2][Playerkey(tPlayerIndex)] = getamountless_2 + 1;
 				local getamountless_2 = script_map_amount[2][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ1·Ö,ÀÛ»ı´ïµ½"..getamountless_2.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—1åˆ†,ç´¯ç©é”åˆ°"..getamountless_2.."åˆ†")
 				Char.GiveItem(tPlayerIndex,script_map_drop[2][drop],1);
 				if (getamountless_2 >= 2)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶µ¥ÈËÌôÕ½¶şÁ¬Ê¤¡·³É¾Í´ï³É£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šå–®äººæŒ‘æˆ°äºŒé€£å‹ã€‹æˆå°±é”æˆï¼")
 					local slot = Char.FindItemId(tPlayerIndex,70211);
 					local item_indexA = Char.GetItemIndex(tPlayerIndex,slot);
-					Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,2);
+					Item.SetData(item_indexA,%é“å…·_é­…åŠ›%,2);
 					Item.UpItem(tPlayerIndex,slot);
 					getamountless_2 = 0;
 					script_map_amount[2][Playerkey(tPlayerIndex)] = 0;
@@ -523,13 +523,13 @@ function BravadoNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(Char.ItemNum(tPlayerIndex,70212) > 0) then
 				script_map_amount[3][Playerkey(tPlayerIndex)] = getamountless_3 + 1;
 				local getamountless_3 = script_map_amount[3][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ1·Ö,ÀÛ»ı´ïµ½"..getamountless_3.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—1åˆ†,ç´¯ç©é”åˆ°"..getamountless_3.."åˆ†")
 				Char.GiveItem(tPlayerIndex,script_map_drop[3][drop],1);
 				if (getamountless_3 >= 3)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶µ¥ÈËÌôÕ½ÈıÁ¬Ê¤¡·³É¾Í´ï³É£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šå–®äººæŒ‘æˆ°ä¸‰é€£å‹ã€‹æˆå°±é”æˆï¼")
 					local slot = Char.FindItemId(tPlayerIndex,70212);
 					local item_indexA = Char.GetItemIndex(tPlayerIndex,slot);
-					Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,3);
+					Item.SetData(item_indexA,%é“å…·_é­…åŠ›%,3);
 					Item.UpItem(tPlayerIndex,slot);
 					getamountless_3 = 0;
 					script_map_amount[3][Playerkey(tPlayerIndex)] = 0;
@@ -539,13 +539,13 @@ function BravadoNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(Char.ItemNum(tPlayerIndex,70213) > 0) then
 				script_map_amount[4][Playerkey(tPlayerIndex)] = getamountless_4 + 1;
 				local getamountless_4 = script_map_amount[4][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ1·Ö,ÀÛ»ı´ïµ½"..getamountless_4.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—1åˆ†,ç´¯ç©é”åˆ°"..getamountless_4.."åˆ†")
 				Char.GiveItem(tPlayerIndex,script_map_drop[4][drop],1);
 				if (getamountless_4 >= 5)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶µ¥ÈËÌôÕ½ÎåÁ¬Ê¤¡·³É¾Í´ï³É£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šå–®äººæŒ‘æˆ°äº”é€£å‹ã€‹æˆå°±é”æˆï¼")
 					local slot = Char.FindItemId(tPlayerIndex,70213);
 					local item_indexA = Char.GetItemIndex(tPlayerIndex,slot);
-					Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,5);
+					Item.SetData(item_indexA,%é“å…·_é­…åŠ›%,5);
 					getamountless_4 = 0;
 					script_map_amount[4][Playerkey(tPlayerIndex)] = 0;
 					Char.Warp(tPlayerIndex,0,19201,28,35);
@@ -554,13 +554,13 @@ function BravadoNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(Char.ItemNum(tPlayerIndex,70214) > 0) then
 				script_map_amount[5][Playerkey(tPlayerIndex)] = getamountless_5 + 1;
 				local getamountless_5 = script_map_amount[5][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ1·Ö,ÀÛ»ı´ïµ½"..getamountless_5.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—1åˆ†,ç´¯ç©é”åˆ°"..getamountless_5.."åˆ†")
 				Char.GiveItem(tPlayerIndex,script_map_drop[5][drop],1);
 				if (getamountless_5 >= 10)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶µ¥ÈËÌôÕ½Ê®Á¬Ê¤¡·³É¾Í´ï³É£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šå–®äººæŒ‘æˆ°åé€£å‹ã€‹æˆå°±é”æˆï¼")
 					local slot = Char.FindItemId(tPlayerIndex,70214);
 					local item_indexA = Char.GetItemIndex(tPlayerIndex,slot);
-					Item.SetData(item_indexA,%µÀ¾ß_÷ÈÁ¦%,10);
+					Item.SetData(item_indexA,%é“å…·_é­…åŠ›%,10);
 					getamountless_5 = 0;
 					script_map_amount[5][Playerkey(tPlayerIndex)] = 0;
 					Char.Warp(tPlayerIndex,0,19201,28,35);
