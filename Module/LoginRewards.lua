@@ -3,32 +3,32 @@ local script_daily_rewards_user_count = {};
 script_daily_rewards_user_count[1] = {};
 script_daily_rewards_user_count[2] = {};
 local rewards_list = {};
-rewards_list[1] = {"éWìÅ·½‰K(‚÷Õf)",71019,1};
-rewards_list[2] = {"¼¼ÄÜ½›ò¼Ó±¶°ü",68015,1};
-rewards_list[3] = {"ÈËÎï½›ò¼Ó±¶°ü",68014,1};
-rewards_list[4] = {"Œ™Îï½›ò¼Ó±¶°ü",68016,1};
-rewards_list[5] = {"ÈËÎï½›ò¼Ó±¶°ü",68014,1};
-rewards_list[6] = {"¿¨•rË®¾§(9H)",69999,1};
-rewards_list[7] = {"¿¨•rË®¾§(9H)",69999,1};
+rewards_list[1] = {"é–ƒç‚«æ–¹å¡Š(å‚³èªª)",71019,1};
+rewards_list[2] = {"æŠ€èƒ½ç¶“é©—åŠ å€åŒ…",68015,1};
+rewards_list[3] = {"äººç‰©ç¶“é©—åŠ å€åŒ…",68014,1};
+rewards_list[4] = {"å¯µç‰©ç¶“é©—åŠ å€åŒ…",68016,1};
+rewards_list[5] = {"äººç‰©ç¶“é©—åŠ å€åŒ…",68014,1};
+rewards_list[6] = {"å¡æ™‚æ°´æ™¶(9H)",69999,1};
+rewards_list[7] = {"å¡æ™‚æ°´æ™¶(9H)",69999,1};
 
 Delegate.RegInit("LoginRewards_Init");
 Delegate.RegDelLoginEvent("Rewards_LoginEvent");
 
 function initLoginRewardsNpc_Init(index)
-	print("µÇÈë½±Àønpc_index = " .. index);
+	print("ç™»å…¥å¥–åŠ±npc_index = " .. index);
 	return 1;
 end
 
 function LoginRewards_create() 
 	if (RewardsNPC == nil) then
 		RewardsNPC = NL.CreateNpc("lua/Module/LoginRewards.lua", "initLoginRewardsNpc_Init");
-		Char.SetData(RewardsNPC,%¶ÔÏó_ĞÎÏó%,106602);
-		Char.SetData(RewardsNPC,%¶ÔÏó_Ô­ĞÎ%,106602);
-		Char.SetData(RewardsNPC,%¶ÔÏó_X%,34);
-		Char.SetData(RewardsNPC,%¶ÔÏó_Y%,33);
-		Char.SetData(RewardsNPC,%¶ÔÏó_µØÍ¼%,777);
-		Char.SetData(RewardsNPC,%¶ÔÏó_·½Ïò%,4);
-		Char.SetData(RewardsNPC,%¶ÔÏó_Ãû×Ö%,"µÇÈë½±Àø´óÊ¹");
+		Char.SetData(RewardsNPC,%å¯¹è±¡_å½¢è±¡%,106602);
+		Char.SetData(RewardsNPC,%å¯¹è±¡_åŸå½¢%,106602);
+		Char.SetData(RewardsNPC,%å¯¹è±¡_X%,34);
+		Char.SetData(RewardsNPC,%å¯¹è±¡_Y%,33);
+		Char.SetData(RewardsNPC,%å¯¹è±¡_åœ°å›¾%,777);
+		Char.SetData(RewardsNPC,%å¯¹è±¡_æ–¹å‘%,4);
+		Char.SetData(RewardsNPC,%å¯¹è±¡_åå­—%,"ç™»å…¥å¥–åŠ±å¤§ä½¿");
 		NLG.UpChar(RewardsNPC);
 		Char.SetTalkedEvent("lua/Module/LoginRewards.lua", "RewardsWindow", RewardsNPC);
 		Char.SetWindowTalkedEvent("lua/Module/LoginRewards.lua", "RewardsFunction", RewardsNPC);
@@ -38,11 +38,11 @@ end
 
 function Rewards_LoginEvent(_PlayerIndex)
 		local _obj = script_daily_rewards_user[Playerkey(_PlayerIndex)];
-		--Èç¹ûÊ×´ÎµÇÂ¼
+		--å¦‚æœé¦–æ¬¡ç™»å½•
 		if (_obj == nil) then 
 			script_daily_rewards_user[Playerkey(_PlayerIndex)] = os.time();
 		end
-		if(os.date("%d",_obj) ~= os.date("%d",os.time())) then --ÅĞ¶¨Ò»ÌìÖØÖÃ
+		if(os.date("%d",_obj) ~= os.date("%d",os.time())) then --åˆ¤å®šä¸€å¤©é‡ç½®
 			script_daily_rewards_user[Playerkey(_PlayerIndex)] = os.time();
 			script_daily_rewards_user_count[1][Playerkey(_PlayerIndex)] = nil;
 		end
@@ -55,25 +55,25 @@ function Rewards_LoginEvent(_PlayerIndex)
 			return;
 		end
 		if(Char.ItemSlot(_PlayerIndex)>18)then
-			NLG.ShowWindowTalked(_PlayerIndex,RewardsNPC,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÁô³ö±³°üÁìÈ¡Ã¿ÈÕ½±Àø£¡"));
+			NLG.ShowWindowTalked(_PlayerIndex,RewardsNPC,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹ç•™å‡ºèƒŒåŒ…é ˜å–æ¯æ—¥çå‹µï¼"));
 			return;
 		end
-		WindowMsg = "\\n            ¡ï¡ï¡ï¡ï¡ï¡ïµÇÈëÁìÈ¡Ã¿ÈÕ½±Àø¡ï¡ï¡ï¡ï¡ï¡ï"..
-					"\\n\\n¡¡Ã¿ÖÜÒÀ¾İĞÇÆÚ¼¸¸øÓèÏÂÃæÊı×Ö¶ÔÓ¦µÄ½±Àø£¬²»¶¨Ê±¸üĞÂ½±ÀøÄÚÈİ!\\n"..
-					"\\n¨X¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨["..
-					"\\n¨U¡¡Ò»¡¡¨U¡¡¶ş¡¡¨U¡¡Èı¡¡¨U¡¡ËÄ¡¡¨U¡¡Îå¡¡¨U¡¡Áù¡¡¨U¡¡ÈÕ¡¡¨U"..
-					"\\n¨d¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨g"..
-					"\\n¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U"..
-					"\\n¨U¡¡¢Ù¡¡¨U¡¡¢Ú¡¡¨U¡¡¢Û¡¡¨U¡¡¢Ü¡¡¨U¡¡¢İ¡¡¨U¡¡¢Ş¡¡¨U¡¡¢ß¡¡¨U"..
-					"\\n¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U"..
-					"\\n¨^¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨a"..
-					"\\n¡¡¢Ù¡¡¡¾¡¡"..rewards_list[1][1].."¡¡¡¿"..
-					"\\n¡¡¢Ú¡¡¡¾¡¡"..rewards_list[2][1].."¡¡¡¿\\n"..
-					"\\n¡¡¢Û¡¡¡¾¡¡"..rewards_list[3][1].."¡¡¡¿"..
-					"\\n¡¡¢Ü¡¡¡¾¡¡"..rewards_list[4][1].."¡¡¡¿\\n"..
-					"\\n¡¡¢İ¡¡¡¾¡¡"..rewards_list[5][1].."¡¡¡¿"..
-					"\\n¡¡¢Ş¡¡¡¾¡¡"..rewards_list[6][1].."¡¡¡¿\\n"..
-					"\\n¡¡¢ß¡¡¡¾¡¡"..rewards_list[7][1].."¡¡¡¿"
+		WindowMsg = "\\n            â˜…â˜…â˜…â˜…â˜…â˜…ç™»å…¥é ˜å–æ¯æ—¥çå‹µâ˜…â˜…â˜…â˜…â˜…â˜…"..
+					"\\n\\nã€€æ¯é€±ä¾æ“šæ˜ŸæœŸå¹¾çµ¦äºˆä¸‹é¢æ•¸å­—å°æ‡‰çš„çå‹µï¼Œä¸å®šæ™‚æ›´æ–°çå‹µå…§å®¹!\\n"..
+					"\\nâ•”â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•—"..
+					"\\nâ•‘ã€€ä¸€ã€€â•‘ã€€äºŒã€€â•‘ã€€ä¸‰ã€€â•‘ã€€å››ã€€â•‘ã€€äº”ã€€â•‘ã€€å…­ã€€â•‘ã€€æ—¥ã€€â•‘"..
+					"\\nâ• â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•£"..
+					"\\nâ•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘"..
+					"\\nâ•‘ã€€â‘ ã€€â•‘ã€€â‘¡ã€€â•‘ã€€â‘¢ã€€â•‘ã€€â‘£ã€€â•‘ã€€â‘¤ã€€â•‘ã€€â‘¥ã€€â•‘ã€€â‘¦ã€€â•‘"..
+					"\\nâ•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘"..
+					"\\nâ•šâ•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•"..
+					"\\nã€€â‘ ã€€ã€ã€€"..rewards_list[1][1].."ã€€ã€‘"..
+					"\\nã€€â‘¡ã€€ã€ã€€"..rewards_list[2][1].."ã€€ã€‘\\n"..
+					"\\nã€€â‘¢ã€€ã€ã€€"..rewards_list[3][1].."ã€€ã€‘"..
+					"\\nã€€â‘£ã€€ã€ã€€"..rewards_list[4][1].."ã€€ã€‘\\n"..
+					"\\nã€€â‘¤ã€€ã€ã€€"..rewards_list[5][1].."ã€€ã€‘"..
+					"\\nã€€â‘¥ã€€ã€ã€€"..rewards_list[6][1].."ã€€ã€‘\\n"..
+					"\\nã€€â‘¦ã€€ã€ã€€"..rewards_list[7][1].."ã€€ã€‘"
 		NLG.ShowWindowTalked(_PlayerIndex,RewardsNPC, 10, 1, 7, WindowMsg);
 	return;
 end
@@ -82,11 +82,11 @@ end
 function RewardsWindow(_NpcIndex,_PlayerIndex)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
 		local _obj = script_daily_rewards_user[Playerkey(_PlayerIndex)];
-		--Èç¹ûÊ×´ÎµÇÂ¼
+		--å¦‚æœé¦–æ¬¡ç™»å½•
 		if (_obj == nil) then 
 			script_daily_rewards_user[Playerkey(_PlayerIndex)] = os.time();
 		end
-		if(os.date("%d",_obj) ~= os.date("%d",os.time())) then --ÅĞ¶¨Ò»ÌìÖØÖÃ
+		if(os.date("%d",_obj) ~= os.date("%d",os.time())) then --åˆ¤å®šä¸€å¤©é‡ç½®
 			script_daily_rewards_user[Playerkey(_PlayerIndex)] = os.time();
 			script_daily_rewards_user_count[1][Playerkey(_PlayerIndex)] = nil;
 		end
@@ -99,25 +99,25 @@ function RewardsWindow(_NpcIndex,_PlayerIndex)
 			return;
 		end
 		if(Char.ItemSlot(_PlayerIndex)>18)then
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÁô³ö±³°üÁìÈ¡Ã¿ÈÕ½±Àø£¡"));
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹ç•™å‡ºèƒŒåŒ…é ˜å–æ¯æ—¥çå‹µï¼"));
 			return;
 		end
-		WindowMsg = "\\n            ¡ï¡ï¡ï¡ï¡ï¡ïµÇÈëÁìÈ¡Ã¿ÈÕ½±Àø¡ï¡ï¡ï¡ï¡ï¡ï"..
-					"\\n\\n¡¡Ã¿ÖÜÒÀ¾İĞÇÆÚ¼¸¸øÓèÏÂÃæÊı×Ö¶ÔÓ¦µÄ½±Àø£¬²»¶¨Ê±¸üĞÂ½±ÀøÄÚÈİ!\\n"..
-					"\\n¨X¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨j¨T¨T¨T¨["..
-					"\\n¨U¡¡Ò»¡¡¨U¡¡¶ş¡¡¨U¡¡Èı¡¡¨U¡¡ËÄ¡¡¨U¡¡Îå¡¡¨U¡¡Áù¡¡¨U¡¡ÈÕ¡¡¨U"..
-					"\\n¨d¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨p¨T¨T¨T¨g"..
-					"\\n¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U"..
-					"\\n¨U¡¡¢Ù¡¡¨U¡¡¢Ú¡¡¨U¡¡¢Û¡¡¨U¡¡¢Ü¡¡¨U¡¡¢İ¡¡¨U¡¡¢Ş¡¡¨U¡¡¢ß¡¡¨U"..
-					"\\n¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U¡¡¡¡¡¡¨U"..
-					"\\n¨^¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨m¨T¨T¨T¨a"..
-					"\\n¡¡¢Ù¡¡¡¾¡¡"..rewards_list[1][1].."¡¡¡¿"..
-					"\\n¡¡¢Ú¡¡¡¾¡¡"..rewards_list[2][1].."¡¡¡¿\\n"..
-					"\\n¡¡¢Û¡¡¡¾¡¡"..rewards_list[3][1].."¡¡¡¿"..
-					"\\n¡¡¢Ü¡¡¡¾¡¡"..rewards_list[4][1].."¡¡¡¿\\n"..
-					"\\n¡¡¢İ¡¡¡¾¡¡"..rewards_list[5][1].."¡¡¡¿"..
-					"\\n¡¡¢Ş¡¡¡¾¡¡"..rewards_list[6][1].."¡¡¡¿\\n"..
-					"\\n¡¡¢ß¡¡¡¾¡¡"..rewards_list[7][1].."¡¡¡¿"
+		WindowMsg = "\\n            â˜…â˜…â˜…â˜…â˜…â˜…ç™»å…¥é ˜å–æ¯æ—¥çå‹µâ˜…â˜…â˜…â˜…â˜…â˜…"..
+					"\\n\\nã€€æ¯é€±ä¾æ“šæ˜ŸæœŸå¹¾çµ¦äºˆä¸‹é¢æ•¸å­—å°æ‡‰çš„çå‹µï¼Œä¸å®šæ™‚æ›´æ–°çå‹µå…§å®¹!\\n"..
+					"\\nâ•”â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•¦â•â•â•â•—"..
+					"\\nâ•‘ã€€ä¸€ã€€â•‘ã€€äºŒã€€â•‘ã€€ä¸‰ã€€â•‘ã€€å››ã€€â•‘ã€€äº”ã€€â•‘ã€€å…­ã€€â•‘ã€€æ—¥ã€€â•‘"..
+					"\\nâ• â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•¬â•â•â•â•£"..
+					"\\nâ•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘"..
+					"\\nâ•‘ã€€â‘ ã€€â•‘ã€€â‘¡ã€€â•‘ã€€â‘¢ã€€â•‘ã€€â‘£ã€€â•‘ã€€â‘¤ã€€â•‘ã€€â‘¥ã€€â•‘ã€€â‘¦ã€€â•‘"..
+					"\\nâ•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘ã€€ã€€ã€€â•‘"..
+					"\\nâ•šâ•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•©â•â•â•â•"..
+					"\\nã€€â‘ ã€€ã€ã€€"..rewards_list[1][1].."ã€€ã€‘"..
+					"\\nã€€â‘¡ã€€ã€ã€€"..rewards_list[2][1].."ã€€ã€‘\\n"..
+					"\\nã€€â‘¢ã€€ã€ã€€"..rewards_list[3][1].."ã€€ã€‘"..
+					"\\nã€€â‘£ã€€ã€ã€€"..rewards_list[4][1].."ã€€ã€‘\\n"..
+					"\\nã€€â‘¤ã€€ã€ã€€"..rewards_list[5][1].."ã€€ã€‘"..
+					"\\nã€€â‘¥ã€€ã€ã€€"..rewards_list[6][1].."ã€€ã€‘\\n"..
+					"\\nã€€â‘¦ã€€ã€ã€€"..rewards_list[7][1].."ã€€ã€‘"
 		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex, 10, 1, 7, WindowMsg);
 	end
 	return;
@@ -133,7 +133,7 @@ function RewardsFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 		if(os.date("%w",os.time()) =="4")then Char.GiveItem(_PlayerIndex,rewards_list[4][2],rewards_list[4][3]) end
 		if(os.date("%w",os.time()) =="5")then Char.GiveItem(_PlayerIndex,rewards_list[5][2],rewards_list[5][3]) end
 		if(os.date("%w",os.time()) =="6")then Char.GiveItem(_PlayerIndex,rewards_list[6][2],rewards_list[6][3]) end
-		--NLG.SystemMessage(_PlayerIndex,"ÄãÒÑ¾­ÁìÈ¡±¾ÈÕ½±Àø¡£");
+		--NLG.SystemMessage(_PlayerIndex,"ä½ å·²ç¶“é ˜å–æœ¬æ—¥çå‹µã€‚");
 	end
 end
 
