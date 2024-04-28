@@ -4,14 +4,15 @@ NL.RegMergeItemEvent(nil,"Subsidy");
 
 function Subsidy(PlayerIndex, SkillID, SkillLv, ItemIndex)
 	if(ItemIndex ~=-1) then
-		local Gold = SkillLv*100;
+		local rand = NLG.Rand(1, SkillLv);
+		local Gold = rand*100;
 		Char.AddGold(PlayerIndex,Gold);
-		NLG.SystemMessage(PlayerIndex,"[ÏµÍ³] »ñµÃ"..Gold.."½ğ±Ò£¡");
+		NLG.SystemMessage(PlayerIndex,"[ç³»çµ±] ç²å¾—"..Gold.."é‡‘å¹£ï¼");
 		local Rand = math.random(1,100);
 		local id = math.random(1,7);
-		if(Rand == 100) then
+		if(Rand >= 90) then
 			Char.GiveItem(PlayerIndex,mystery[id],1);
-			NLG.SystemMessage(PlayerIndex,"[ÏµÍ³] ¹§Ï²»ñµÃÉñÃØÎïÆ·£¡");
+			NLG.SystemMessage(PlayerIndex,"[ç³»çµ±] æ­å–œç²å¾—ç¥ç§˜ç‰©å“ï¼");
 		end
 	end
 end
