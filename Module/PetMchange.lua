@@ -5,20 +5,20 @@ local itemid_70001 = 70001;
 Delegate.RegInit("PetMchange_Init");
 
 function initPetMchangeNpc_Init(index)
-	print("¾ßÏÖ»Ã»¯NPC_index = " .. index);
+	print("å…·ç°å¹»åŒ–NPC_index = " .. index);
 	return 1;
 end
 
 function PetMchange_create()
 	if (PetMchangeNPC == nil) then
 		PetMchangeNPC = NL.CreateNpc("lua/Module/PetMchange.lua", "initPetMchangeNpc_Init");
-		Char.SetData(PetMchangeNPC,%¶ÔÏó_ĞÎÏó%,104892);
-		Char.SetData(PetMchangeNPC,%¶ÔÏó_Ô­ĞÎ%,104892);
-		Char.SetData(PetMchangeNPC,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(PetMchangeNPC,%¶ÔÏó_X%,233);
-		Char.SetData(PetMchangeNPC,%¶ÔÏó_Y%,83);
-		Char.SetData(PetMchangeNPC,%¶ÔÏó_·½Ïò%,4);
-		Char.SetData(PetMchangeNPC,%¶ÔÏó_Ãû×Ö%,"ÅÁÆõ×å");
+		Char.SetData(PetMchangeNPC,%å¯¹è±¡_å½¢è±¡%,104892);
+		Char.SetData(PetMchangeNPC,%å¯¹è±¡_åŸå½¢%,104892);
+		Char.SetData(PetMchangeNPC,%å¯¹è±¡_åœ°å›¾%,1180);
+		Char.SetData(PetMchangeNPC,%å¯¹è±¡_X%,10);
+		Char.SetData(PetMchangeNPC,%å¯¹è±¡_Y%,16);
+		Char.SetData(PetMchangeNPC,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(PetMchangeNPC,%å¯¹è±¡_åå­—%,"å¸•å¥‘æ—");
 		NLG.UpChar(PetMchangeNPC);
 		Char.SetTalkedEvent("lua/Module/PetMchange.lua", "PetMchangeWindow", PetMchangeNPC);
 		Char.SetWindowTalkedEvent("lua/Module/PetMchange.lua", "PetMchangeFunction", PetMchangeNPC);
@@ -27,74 +27,74 @@ end
 
 function PetMchangeWindow(_NpcIndex,_PlayerIndex)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
-		WindowMsg = "3|\\n\\n           ÇëÑ¡ÔñÄúÒª¸½ÉíºÏÌåµÄ³èÎï  \\n\\n";
+		WindowMsg = "3|\\n\\nâ†“é¸æ“‡é™„èº«åˆé«”çš„å¯µç‰©(ä½¿ç”¨æå–çš„å½¢è±¡)â†“ \\n\\n";
 		for i=0,4 do
 			local pet = Char.GetPet(_PlayerIndex,i);
 	
 			if(VaildChar(pet)==false)then
-				WindowMsg = WindowMsg .. "¿Õ\\n";
+				WindowMsg = WindowMsg .. "ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%¶ÔÏó_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%å¯¹è±¡_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,WindowMsg);
 	end
 	return;
 end
 
---³èÎï¾ßÏÖ
+--å® ç‰©å…·ç°
 function PetMchangeFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 	local selectitem = tonumber(_data) - 1;
 	print(tonumber(_data));
 	if(selectitem == nil or selectitem > 4 or selectitem < 0) then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³£!");
+		--NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸!");
 		return;
 	end
 
 	local _PetIndex = Char.GetPet(_PlayerIndex,selectitem);
 	if (VaildChar(_PetIndex) == false) then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·¶¨Äú¶ÔÓ¦µÄ³èÎïÀ¸ÓĞ³èÎï!");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºå®šæ‚¨å°æ‡‰çš„å¯µç‰©æ¬„æœ‰å¯µç‰©!");
 		return;
 	end
---	if(Char.GetData(_PetIndex,%¶ÔÏó_µÈ¼¶%) ~= 1) then
---		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨¶Ô·Ç1¼¶³èÎï½øĞĞ¸½ÉíºÏÌå!");
+--	if(Char.GetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%) ~= 1) then
+--		NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ— æ³•å¯¹é1çº§å® ç‰©è¿›è¡Œé™„èº«åˆä½“!");
 --		return;
 --	end
---	if(Char.GetData(_PetIndex,%¶ÔÏó_ÃûÉ«%) ~= 0) then
---		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨¶Ô×ªÉú³èÎï½øĞĞ¸½ÉíºÏÌå!");
+--	if(Char.GetData(_PetIndex,%å¯¹è±¡_åè‰²%) ~= 0) then
+--		NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ— æ³•å¯¹è½¬ç”Ÿå® ç‰©è¿›è¡Œé™„èº«åˆä½“!");
 --		return;
 --	end
---	if Char.GetData(_PetIndex,%³èÎï_»ñÈ¡Ê±µÈ¼¶%) ~= 1 then
---		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] Ò°Éú³èÎïÎŞ·¨¸½ÉíºÏÌå¡£")
+--	if Char.GetData(_PetIndex,%å® ç‰©_è·å–æ—¶ç­‰çº§%) ~= 1 then
+--		NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ] é‡ç”Ÿå® ç‰©æ— æ³•é™„èº«åˆä½“ã€‚")
 --		return;
 --	end
-	local nameA = Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%);
-	local mirage = Char.GetData(_PetIndex,%¶ÔÏó_ĞÎÏó%);
-	local mirage1 = Char.GetData(_PetIndex,%¶ÔÏó_Ô­ĞÎ%);
+	local nameA = Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%);
+	local mirage = Char.GetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%);
+	local mirage1 = Char.GetData(_PetIndex,%å¯¹è±¡_åŸå½¢%);
 	local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
-	local nameB = Item.GetData(item_indexB,%µÀ¾ß_Ãû×Ö%);
-	local type = Item.GetData(item_indexB,%µÀ¾ß_ÌØÊâÀàĞÍ%);
-	local Para1 = Item.GetData(item_indexB,%µÀ¾ß_×Ó²ÎÒ»%);
-	local Para2 = Item.GetData(item_indexB,%µÀ¾ß_×Ó²Î¶ş%);
+	local nameB = Item.GetData(item_indexB,%é“å…·_åå­—%);
+	local type = Item.GetData(item_indexB,%é“å…·_ç‰¹æ®Šç±»å‹%);
+	local Para1 = Item.GetData(item_indexB,%é“å…·_å­å‚ä¸€%);
+	local Para2 = Item.GetData(item_indexB,%é“å…·_å­å‚äºŒ%);
 
 	if (Char.ItemNum(_PlayerIndex,itemid_70001) > 0 and Para2 ~= 0 and Para1 == 2 and type == 14) then
-		Char.SetData(_PetIndex,%¶ÔÏó_ĞÎÏó%,Para2);
-		Char.SetData(_PetIndex,%¶ÔÏó_Ô­ĞÎ%,Para2);
+		Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,Para2);
+		Char.SetData(_PetIndex,%å¯¹è±¡_åŸå½¢%,Para2);
 		Pet.UpPet(_PlayerIndex,_PetIndex);
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúµÄ³èÎï "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).." ¸½ÉíºÏÌåÍê±Ï!");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]æ‚¨çš„å¯µç‰© "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).." é™„èº«åˆé«”å®Œç•¢!");
 		Item.Kill(_PlayerIndex,item_indexB,8);
 		return 0;
 	end
 	if (Char.ItemNum(_PlayerIndex,itemid_70001) > 0 and Para2 == 0 and type == 14) then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎªÒÑÊ¹ÓÃ³èÎï±äÉí¿¨£¡");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„ç¬¬ä¸€æ¬„æ˜¯å¦ç‚ºå·²ä½¿ç”¨å¯µç‰©è®Šèº«å¡ï¼");
 		return;
 	end
 	if (Char.ItemNum(_PlayerIndex,itemid_70001) >= 0 and type ~= 14) then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎª³èÎï±äÉí¿¨£¡");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„ç¬¬ä¸€æ¬„æ˜¯å¦ç‚ºå¯µç‰©è®Šèº«å¡ï¼");
 		return;
 	end
 	if (Char.ItemNum(_PlayerIndex,itemid_70001) == 0) then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎª³èÎï±äÉí¿¨£¡");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„ç¬¬ä¸€æ¬„æ˜¯å¦ç‚ºå¯µç‰©è®Šèº«å¡ï¼");
 		return;
 	end
 end
