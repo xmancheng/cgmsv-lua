@@ -8,65 +8,65 @@ PetTechTable[4] = {8105,8106,8107,8108,8109}
 function PetLevelUpEvent(CharIndex)
 	for p=0,4 do
 		local pet = Char.GetPet(CharIndex,p);
-		if (VaildChar(pet)==true and Char.GetData(pet,%¶ÔÏó_µÈ¼¶%) >= 120) then
+		if (VaildChar(pet)==true and Char.GetData(pet,%å¯¹è±¡_ç­‰çº§%) >= 120) then
 			for t = 1,4 do
 				for i = 0,9 do
 				if Pet.GetSkill(pet,i) == PetTechTable[t][1] then
 				Pet.DelSkill(pet,i);
 				Pet.AddSkill(pet,PetTechTable[t][2]);
 				Pet.UpPet(CharIndex,pet)
-				NLG.SystemMessage(CharIndex, "[ÏµÍ³] ³èÎï¼¼ÄÜÉı¼¶Lv2£¡")
+				NLG.SystemMessage(CharIndex, "[ç³»çµ±] å¯µç‰©æŠ€èƒ½å‡ç´šLv2ï¼")
 				else
 				end
 				end
 			end
 		else
-			--NLG.SystemMessage(CharIndex, "[ÏµÍ³] Ã»ÓĞ³èÎï¼¼ÄÜÉı¼¶£¡")
+			--NLG.SystemMessage(CharIndex, "[ç³»çµ±] æ²’æœ‰å¯µç‰©æŠ€èƒ½å‡ç´šï¼")
 		end
-		if (VaildChar(pet)==true and Char.GetData(pet,%¶ÔÏó_µÈ¼¶%) >= 140) then
+		if (VaildChar(pet)==true and Char.GetData(pet,%å¯¹è±¡_ç­‰çº§%) >= 140) then
 			for t = 1,4 do
 				for i = 0,9 do
 				if Pet.GetSkill(pet,i) == PetTechTable[t][2] then
 				Pet.DelSkill(pet,i);
 				Pet.AddSkill(pet,PetTechTable[t][3]);
 				Pet.UpPet(CharIndex,pet)
-				NLG.SystemMessage(CharIndex, "[ÏµÍ³] ³èÎï¼¼ÄÜÉı¼¶Lv3£¡")
+				NLG.SystemMessage(CharIndex, "[ç³»çµ±] å¯µç‰©æŠ€èƒ½å‡ç´šLv3ï¼")
 				else
 				end
 				end
 			end
 		else
-			--NLG.SystemMessage(CharIndex, "[ÏµÍ³] Ã»ÓĞ³èÎï¼¼ÄÜÉı¼¶£¡")
+			--NLG.SystemMessage(CharIndex, "[ç³»çµ±] æ²’æœ‰å¯µç‰©æŠ€èƒ½å‡ç´šï¼")
 		end
-		if (VaildChar(pet)==true and Char.GetData(pet,%¶ÔÏó_µÈ¼¶%) >= 160) then
+		if (VaildChar(pet)==true and Char.GetData(pet,%å¯¹è±¡_ç­‰çº§%) >= 160) then
 			for t = 1,4 do
 				for i = 0,9 do
 				if Pet.GetSkill(pet,i) == PetTechTable[t][3] then
 				Pet.DelSkill(pet,i);
 				Pet.AddSkill(pet,PetTechTable[t][4]);
 				Pet.UpPet(CharIndex,pet)
-				NLG.SystemMessage(CharIndex, "[ÏµÍ³] ³èÎï¼¼ÄÜÉı¼¶Lv4£¡")
+				NLG.SystemMessage(CharIndex, "[ç³»çµ±] å¯µç‰©æŠ€èƒ½å‡ç´šLv4ï¼")
 				else
 				end
 				end
 			end
 		else
-			--NLG.SystemMessage(CharIndex, "[ÏµÍ³] Ã»ÓĞ³èÎï¼¼ÄÜÉı¼¶£¡")
+			--NLG.SystemMessage(CharIndex, "[ç³»çµ±] æ²’æœ‰å¯µç‰©æŠ€èƒ½å‡ç´šï¼")
 		end
-		if (VaildChar(pet)==true and Char.GetData(pet,%¶ÔÏó_µÈ¼¶%) >= 180) then
+		if (VaildChar(pet)==true and Char.GetData(pet,%å¯¹è±¡_ç­‰çº§%) >= 180) then
 			for t = 1,4 do
 				for i = 0,9 do
 				if Pet.GetSkill(pet,i) == PetTechTable[t][4] then
 				Pet.DelSkill(pet,i);
 				Pet.AddSkill(pet,PetTechTable[t][5]);
 				Pet.UpPet(CharIndex,pet)
-				NLG.SystemMessage(CharIndex, "[ÏµÍ³] ³èÎï¼¼ÄÜÉı¼¶Lv5£¡")
+				NLG.SystemMessage(CharIndex, "[ç³»çµ±] å¯µç‰©æŠ€èƒ½å‡ç´šLv5ï¼")
 				else
 				end
 				end
 			end
 		else
-			--NLG.SystemMessage(CharIndex, "[ÏµÍ³] Ã»ÓĞ³èÎï¼¼ÄÜÉı¼¶£¡")
+			--NLG.SystemMessage(CharIndex, "[ç³»çµ±] æ²’æœ‰å¯µç‰©æŠ€èƒ½å‡ç´šï¼")
 		end
 	end
 	return 0;
