@@ -157,7 +157,7 @@ function PetHatching:onLoad()
                      local dir = math.random(0, 7);
                      local walk = 1;
                      local X,Y = Char.GetLocation(NpcIndex,dir);
-                     if (NLG.Walkable(0, 250010, X, Y)==1) then
+                     if (NLG.Walkable(0, 25010, X, Y)==1) then
                          NLG.SetAction(NpcIndex,walk);
                          NLG.WalkMove(NpcIndex,dir);
                          NLG.UpChar(NpcIndex);
@@ -285,7 +285,7 @@ function PetHatching:onLoad()
                      local dir = math.random(0, 7);
                      local walk = 1;
                      local X,Y = Char.GetLocation(NpcIndex,dir);
-                     if (NLG.Walkable(0, 250010, X, Y)==1) then
+                     if (NLG.Walkable(0, 25010, X, Y)==1) then
                          NLG.SetAction(NpcIndex,walk);
                          NLG.WalkMove(NpcIndex,dir);
                          NLG.UpChar(NpcIndex);
