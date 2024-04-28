@@ -41,16 +41,16 @@ local KujiAll = {
 }
 
 local KujiTbl={
-       { Num="001", type="L", serial_L=51, serial_H=51, name="天使之祝福", itemid=45953, count=1},
-       { Num="002", type="A", serial_L=1, serial_H=1, name="天使之祝福", itemid=45953, count=1},
-       { Num="003", type="B", serial_L=2, serial_H=2, name="強力攻擊手環", itemid=45510, count=1},
-       { Num="004", type="C", serial_L=3, serial_H=3, name="大法師之魂", itemid=45967, count=1},
-       { Num="005", type="D", serial_L=4, serial_H=4, name="神導士守護", itemid=45968, count=1},
-       { Num="006", type="E", serial_L=5, serial_H=6, name="結晶石寶箱", itemid=46538, count=1},
-       { Num="007", type="F", serial_L=7, serial_H=8, name="黃金大公雞", itemid=46514, count=1},
-       { Num="008", type="G", serial_L=9, serial_H=20, name="黃金寶石鼠", itemid=46515, count=1},
-       { Num="009", type="H", serial_L=21, serial_H=32, name="黃金公雞蛋", itemid=46516, count=1},
-       { Num="010", type="I", serial_L=33, serial_H=50, name="黃金小鼠蛋", itemid=46517, count=1},
+       { Num="001", type="L", serial_L=51, serial_H=51, name="黃金轉蛋", itemid=70025, count=1},
+       { Num="002", type="A", serial_L=1, serial_H=1, name="盜獵紫龍召喚書", itemid=70107, count=1},
+       { Num="003", type="B", serial_L=2, serial_H=2, name="盜獵綠龍召喚書", itemid=70108, count=1},
+       { Num="004", type="C", serial_L=3, serial_H=3, name="盜獵橙龍召喚書", itemid=70109, count=1},
+       { Num="005", type="D", serial_L=4, serial_H=4, name="盜獵黃龍召喚書", itemid=70110, count=1},
+       { Num="006", type="E", serial_L=5, serial_H=6, name="金色王冠", itemid=68017, count=1},
+       { Num="007", type="F", serial_L=7, serial_H=8, name="銀色王冠", itemid=68018, count=1},
+       { Num="008", type="G", serial_L=9, serial_H=20, name="火柴抽抽樂", itemid=70094, count=1},
+       { Num="009", type="H", serial_L=21, serial_H=32, name="龍之豆莢", itemid=70165, count=1},
+       { Num="010", type="I", serial_L=33, serial_H=50, name="青銅轉蛋", itemid=70027, count=1},
 }
 
 
@@ -544,7 +544,9 @@ function IchibanKuji:onIchibanKuji(player, targetcharIndex, itemSlot)
                     end
                     --Char.SetExtData(gmIndex, 'ichiban_set', JSON.encode(KujiAll));
                     local newdata = JSON.encode(KujiAll);
-                    SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
+                    SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
+                    SQL.querySQL("update hook_charaext set val= '0' where sKey='ichiban_count'")
+                    SQL.querySQL("update hook_charaext set val= '0' where sKey='ichiban_time'")
                     NLG.UpChar(gmIndex);
                     NLG.SystemMessageToMap(0, 1000, "[公告]新一輪的一番賞已經開始，玩家可以去試試手氣！");
           end
@@ -608,8 +610,10 @@ function IchibanKuji:handleTalkEvent(charIndex,msg,color,range,size)
 				KujiAll[i]=temp;
 			end
 			Char.SetExtData(charIndex, 'ichiban_set', JSON.encode(KujiAll));
-			--local newdata = JSON.encode(KujiAll);
-			--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
+			local newdata = JSON.encode(KujiAll);
+			SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='ichiban_set'")
+			SQL.querySQL("update hook_charaext set val= '0' where sKey='ichiban_count'")
+			SQL.querySQL("update hook_charaext set val= '0' where sKey='ichiban_time'")
 			NLG.SystemMessage(charIndex, "[系統]一番賞重啟。");
 			NLG.UpChar(charIndex);
 			return 0;
