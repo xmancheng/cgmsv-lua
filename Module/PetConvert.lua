@@ -1,35 +1,35 @@
 ------------------------------------------------------------------------------
 local StrPetConvertEnable = {}
 ------------------------------------------------------------------------------
---  Ò»ÖÖ¸ÄÔìÒ»ÁÐ                                          --
-StrPetConvertEnable[1] = {"´óµØÊó","¸ÄÔì´óµØÊó",2013,18602,18603,18604}      --Ô­Ãû,¸ÄÔìÔ­Ãû,¸ÄÔì±àºÅ,ËùÐè¸ÄÔìÍ¼µÀ¾ß±àºÅ
-StrPetConvertEnable[2] = {"»ðÑæÊó","¸ÄÔì»ðÑæÊó",2014,18605,18606,18607}
-StrPetConvertEnable[3] = {"øBÈË","¸ÄÔìøBÈË",2015,18608,18609,18610,18611}
-StrPetConvertEnable[4] = {"º®±ùÒíýˆ","¸ÄÔìº®±ùÒíýˆ",2016,18612,18613,18614,18615}
-StrPetConvertEnable[5] = {"¼ƒ°×‡˜ÈËÏä","¸ÄÔìÐýÂÉÓ°×Ó",2017,18616,18617,18618,18619,18620}
+--  ä¸€ç§æ”¹é€ ä¸€åˆ—                                          --
+StrPetConvertEnable[1] = {"å¤§åœ°é¼ ","æ”¹é€ å¤§åœ°é¼ ",2013,18602,18603,18604}      --åŽŸå,æ”¹é€ åŽŸå,æ”¹é€ ç¼–å·,æ‰€éœ€æ”¹é€ å›¾é“å…·ç¼–å·
+StrPetConvertEnable[2] = {"ç«ç„°é¼ ","æ”¹é€ ç«ç„°é¼ ",2014,18605,18606,18607}
+StrPetConvertEnable[3] = {"é³¥äºº","æ”¹é€ é³¥äºº",2015,18608,18609,18610,18611}
+StrPetConvertEnable[4] = {"å¯’å†°ç¿¼é¾","æ”¹é€ å¯’å†°ç¿¼é¾",2016,18612,18613,18614,18615}
+StrPetConvertEnable[5] = {"ç´”ç™½åš‡äººç®±","æ”¹é€ æ—‹å¾‹å½±å­",2017,18616,18617,18618,18619,18620}
 
-StrPetConvertEnable[6] = {"½©ŒÆ","¸ÄÔì½©ŒÆ",2019,18641,18642,18643}
-StrPetConvertEnable[7] = {"Ë®Ö©Öë","¸ÄÔìË®Ö©Öë",2020,18644,18645,18646,18647}
-StrPetConvertEnable[8] = {"¾GÉ«¿Ú³ô¹í","¸ÄÔì¾GÉ«¿Ú³ô¹í",2021,18648,18649,18650,18651,18652}
-StrPetConvertEnable[9] = {"ÍÃ¶ú‡˜ÈËÏä","¸ÄÔìêŽÓ°",2022,18653,18654,18655,18656,18657}
+StrPetConvertEnable[6] = {"åƒµå±","æ”¹é€ åƒµå±",2019,18641,18642,18643}
+StrPetConvertEnable[7] = {"æ°´èœ˜è››","æ”¹é€ æ°´èœ˜è››",2020,18644,18645,18646,18647}
+StrPetConvertEnable[8] = {"ç¶ è‰²å£è‡­é¬¼","æ”¹é€ ç¶ è‰²å£è‡­é¬¼",2021,18648,18649,18650,18651,18652}
+StrPetConvertEnable[9] = {"å…”è€³åš‡äººç®±","æ”¹é€ é™°å½±",2022,18653,18654,18655,18656,18657}
 
-StrPetConvertEnable[10] = {"Ê·ÈRÄ·","¸ÄÔìÊ·ÈRÄ·",2027,18918,18919,18920}
-StrPetConvertEnable[11] = {"òáòæ‘ðÊ¿","¸ÄÔìòáòæ‘ðÊ¿",2028,18921,18922,18923,18924}
-StrPetConvertEnable[12] = {"ÃÔÄãòùòð","¸ÄÔìÃÔÄãòùòð",2029,18925,18926,18927,18928,18929}
-StrPetConvertEnable[13] = {"ÁÒïL¸ç²¼ÁÖ","¸ÄÔìÁÒïL¸ç²¼ÁÖ",2030,18934,18935,18936,18937,18938}
-StrPetConvertEnable[14] = {"¸ÄÔìË®Ö©Öë","¶þ´Î¸ÄÔìË®Ö©Öë",2031,18939,18940,18941,18942,18943}
-StrPetConvertEnable[15] = {"µØªzÑýÈ®","¸ÄÔìµØªzÑýÈ®",2032,17747,17748,17749,17750}
+StrPetConvertEnable[10] = {"å²èŠå§†","æ”¹é€ å²èŠå§†",2027,18918,18919,18920}
+StrPetConvertEnable[11] = {"èœ¥èœ´æˆ°å£«","æ”¹é€ èœ¥èœ´æˆ°å£«",2028,18921,18922,18923,18924}
+StrPetConvertEnable[12] = {"è¿·ä½ è™è ","æ”¹é€ è¿·ä½ è™è ",2029,18925,18926,18927,18928,18929}
+StrPetConvertEnable[13] = {"çƒˆé¢¨å“¥å¸ƒæž—","æ”¹é€ çƒˆé¢¨å“¥å¸ƒæž—",2030,18934,18935,18936,18937,18938}
+StrPetConvertEnable[14] = {"æ”¹é€ æ°´èœ˜è››","äºŒæ¬¡æ”¹é€ æ°´èœ˜è››",2031,18939,18940,18941,18942,18943}
+StrPetConvertEnable[15] = {"åœ°ç„å¦–çŠ¬","æ”¹é€ åœ°ç„å¦–çŠ¬",2032,17747,17748,17749,17750}
 
-StrPetConvertEnable[16] = {"æ@ÐÍÏx","Ræ@ÐÍÏx",307390,623520,623521,623522,623523}
-StrPetConvertEnable[17] = {"Ë®Ë{¹½","RË®Ë{¹½",307391,623524,623525,623526,623527}
-StrPetConvertEnable[18] = {"Ó°ÑÒ","RÓ°ÑÒ",307392,623528,623528,623530}
-StrPetConvertEnable[19] = {"ŸŸÁ_","RŸŸÁ_",307393,623531,623532,623533}
-StrPetConvertEnable[20] = {"’ß°Ñòùòð","¸ÄÔì’ß°Ñòùòð",307394,623534,623535,623536,623537,623538}
-StrPetConvertEnable[21] = {"üSÏ","¸ÄÔìüSÏ",307395,623539,623540,623541}
-StrPetConvertEnable[22] = {"˜ä¾«","¸ÄÔì˜ä¾«",307396,623542,623543,623544}
+StrPetConvertEnable[16] = {"é¬åž‹èŸ²","Ré¬åž‹èŸ²",307390,623520,623521,623522,623523}
+StrPetConvertEnable[17] = {"æ°´è—è‡","Ræ°´è—è‡",307391,623524,623525,623526,623527}
+StrPetConvertEnable[18] = {"å½±å²©","Rå½±å²©",307392,623528,623528,623530}
+StrPetConvertEnable[19] = {"ç…™ç¾…","Rç…™ç¾…",307393,623531,623532,623533}
+StrPetConvertEnable[20] = {"æŽƒæŠŠè™è ","æ”¹é€ æŽƒæŠŠè™è ",307394,623534,623535,623536,623537,623538}
+StrPetConvertEnable[21] = {"é»ƒè ","æ”¹é€ é»ƒè ",307395,623539,623540,623541}
+StrPetConvertEnable[22] = {"æ¨¹ç²¾","æ”¹é€ æ¨¹ç²¾",307396,623542,623543,623544}
 
-StrPetConvertEnable[23] = {"ê‘ÐÐõ","ê‘ÐÐõááÆÚÐÍ",300005,620029}
-StrPetConvertEnable[24] = {"²¼¿¨","²¼¿¨ËÄÖØ×à",311600,631008,631009,631010,631011,631012,631013,631014,631015}
+StrPetConvertEnable[23] = {"é™¸è¡Œé¯Š","é™¸è¡Œé¯Šå¾ŒæœŸåž‹",300005,620029}
+StrPetConvertEnable[24] = {"å¸ƒå¡","å¸ƒå¡å››é‡å¥",311600,631008,631009,631010,631011,631012,631013,631014,631015}
 ------------------------------------------------------------------------------
 local a1 = {101020,101021,101022,101023};
 local a2 = {101831,101832,101833,101834};
@@ -47,20 +47,20 @@ local ConvertImage = {a1,a2,a3,a4,a5,a6,a7,a8,a9,a10};
 Delegate.RegInit("PetConvert_Init");
 
 function initPetConvertNpc_Init(index)
-	print("³èÎï²»±ä¸ÄÔìNPC_index = " .. index);
+	print("å® ç‰©ä¸å˜æ”¹é€ NPC_index = " .. index);
 	return 1;
 end
 
 function PetConvert_create()
 	if (PetConvertNPC == nil) then
 		PetConvertNPC = NL.CreateNpc("lua/Module/PetConvert.lua", "initPetConvertNpc_Init");
-		Char.SetData(PetConvertNPC,%¶ÔÏó_ÐÎÏó%,14146);
-		Char.SetData(PetConvertNPC,%¶ÔÏó_Ô­ÐÎ%,14146);
-		Char.SetData(PetConvertNPC,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(PetConvertNPC,%¶ÔÏó_X%,195);
-		Char.SetData(PetConvertNPC,%¶ÔÏó_Y%,67);
-		Char.SetData(PetConvertNPC,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(PetConvertNPC,%¶ÔÏó_Ãû×Ö%,"ôÃÉªØ");
+		Char.SetData(PetConvertNPC,%å¯¹è±¡_å½¢è±¡%,14146);
+		Char.SetData(PetConvertNPC,%å¯¹è±¡_åŽŸå½¢%,14146);
+		Char.SetData(PetConvertNPC,%å¯¹è±¡_åœ°å›¾%,1000);
+		Char.SetData(PetConvertNPC,%å¯¹è±¡_X%,195);
+		Char.SetData(PetConvertNPC,%å¯¹è±¡_Y%,67);
+		Char.SetData(PetConvertNPC,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(PetConvertNPC,%å¯¹è±¡_åå­—%,"è£˜ç‘Ÿè²");
 		NLG.UpChar(PetConvertNPC);
 		Char.SetTalkedEvent("lua/Module/PetConvert.lua", "PetConvertWindow", PetConvertNPC);
 		Char.SetWindowTalkedEvent("lua/Module/PetConvert.lua", "PetConvertFunction", PetConvertNPC);
@@ -68,19 +68,19 @@ function PetConvert_create()
 end
 
 NL.RegItemString("lua/Module/PetConvert.lua","PetConvert","LUA_usePetConv");
-function PetConvert(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ÐÐº¯Êý
+function PetConvert(_PlayerIndex,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
 	if (NLG.CanTalk(PetConvertNPC,_PlayerIndex) == false) then
-		WindowMsg = "4|\\n\\nÅ¶£®£®£®ÄãÊÖÉÏÄÃµÄÊÇ®É«ßM»¯Ê¯Âï£®£®£®Ž§Ò»ëb¸ÄÔì³èÎïí£¬ÎÒ¾ÍŽÍÄãÊÖÊõ¡£  \\n\\n";
+		WindowMsg = "4|\\n\\nå“¦ï¼Žï¼Žï¼Žä½ æ‰‹ä¸Šæ‹¿çš„æ˜¯ç•°è‰²é€²åŒ–çŸ³å˜›ï¼Žï¼Žï¼Žå¸¶ä¸€éš»æ”¹é€ å¯µç‰©ä¾†ï¼Œæˆ‘å°±å¹«ä½ æ‰‹è¡“ã€‚ \\n\\n";
 		for i=0,4 do
 			local pet = Char.GetPet(_PlayerIndex,i);
 	
 			if(VaildChar(pet)==false)then
-				WindowMsg = WindowMsg .. "¿Õ\\n";
+				WindowMsg = WindowMsg .. "ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%¶ÔÏó_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%å¯¹è±¡_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,PetConvertNPC,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,5,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,PetConvertNPC,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,5,WindowMsg);
 	end
 	return;
 end
@@ -89,73 +89,73 @@ end
 function PetConvertWindow(_NpcIndex,_PlayerIndex)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
 		if (Char.PetNum(_PlayerIndex) >= 5) then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]³èÎïÀ¸Î»ÖÃ²»¹»¡£")
+			NLG.SystemMessage(_PlayerIndex, "[ç³»çµ±]å¯µç‰©æ¬„ä½ç½®ä¸å¤ ã€‚")
 			return;
 		end
 		for slot=0,4 do
 			local R_PetIndex = Char.GetPet(_PlayerIndex,slot);
-			local PetID = Char.GetData(R_PetIndex,%¶ÔÏó_Ô­Ãû%);
+			local PetID = Char.GetData(R_PetIndex,%å¯¹è±¡_åŽŸå%);
 			for i=1,24 do
 			if (PetID == StrPetConvertEnable[i][2]) then
-				NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸²»ÄÜÓÐ¸ÄÔì³èÎï¡£")
+				NLG.SystemMessage(_PlayerIndex, "[ç³»çµ±]æ“ä½œæ™‚å¯µç‰©æ¬„ä¸èƒ½æœ‰æ”¹é€ å¯µç‰©ã€‚")
 				return;
 			end
 			end
 		end
-		WindowMsg = "4|\\n\\nÅ¶£®£®£®ÄãÊÖÉÏÄÃµÄÊÇ¸ÄÔìˆDÂï£®£®£®ÊÕ¼¯È«Ö®ááŽ§Ò»ëbí£¬ÎÒ¾ÍŽÍÄã¸ÄÔì¡£  \\n\\n";
+		WindowMsg = "4|\\n\\nå“¦ï¼Žï¼Žï¼Žä½ æ‰‹ä¸Šæ‹¿çš„æ˜¯æ”¹é€ åœ–å˜›ï¼Žï¼Žï¼Žæ”¶é›†é½Šå…¨ä¹‹å¾Œå¸¶ä¸€éš»ä¾†ï¼Œæˆ‘å°±å¹«ä½ æ”¹é€ ã€‚  \\n\\n";
 		for i=0,4 do
 			local pet = Char.GetPet(_PlayerIndex,i);
 	
 			if(VaildChar(pet)==false)then
-				WindowMsg = WindowMsg .. "¿Õ\\n";
+				WindowMsg = WindowMsg .. "ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%¶ÔÏó_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%å¯¹è±¡_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,WindowMsg);
 	end
 	return;
 end
 
---³èÎï¸ÄÔì
+--å® ç‰©æ”¹é€ 
 function PetConvertFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 	if (_SqeNo==1) then
 		selectitem = tonumber(_data) - 1;
 		print(tonumber(_data));
 		if(selectitem == nil or selectitem > 4 or selectitem < 0) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õý³£!");
+			--NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸!");
 			return;
 		end
 		_PetIndex = Char.GetPet(_PlayerIndex,selectitem);
-		EnemyID = Char.GetData(_PetIndex,%¶ÔÏó_Ô­Ãû%);
+		EnemyID = Char.GetData(_PetIndex,%å¯¹è±¡_åŽŸå%);
 
 		if (VaildChar(_PetIndex) == false) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·¶¨Äú¶ÔÓ¦µÄ³èÎïÀ¸ÓÐ³èÎï!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºå®šæ‚¨å°æ‡‰çš„å¯µç‰©æ¬„æœ‰å¯µç‰©!");
 			return;
 		end
---		if(Char.GetData(_PetIndex,%¶ÔÏó_µÈ¼¶%) ~= 1) then
---			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎÞ·¨¶Ô·Ç1¼¶³èÎï½øÐÐ¸ÄÔì!");
+--		if(Char.GetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%) ~= 1) then
+--			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ— æ³•å¯¹éž1çº§å® ç‰©è¿›è¡Œæ”¹é€ !");
 --			return;
 --		end
-		if(Char.GetData(_PetIndex,%¶ÔÏó_ÃûÉ«%) ~= 0) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎÞ·¨¶Ô×ªÉú³èÎï½øÐÐ¸ÄÔì!");
+		if(Char.GetData(_PetIndex,%å¯¹è±¡_åè‰²%) ~= 0) then
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]ç„¡æ³•å°è½‰ç”Ÿå¯µç‰©é€²è¡Œæ”¹é€ !");
 			return;
 		end
---		if Char.GetData(_PetIndex,%³èÎï_»ñÈ¡Ê±µÈ¼¶%) ~= 1 then
---			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] Ò°Éú³èÎïÎÞ·¨¸ÄÔì¡£")
+--		if Char.GetData(_PetIndex,%å® ç‰©_èŽ·å–æ—¶ç­‰çº§%) ~= 1 then
+--			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ] é‡Žç”Ÿå® ç‰©æ— æ³•æ”¹é€ ã€‚")
 --			return;
 --		end
-		Level = Char.GetData(_PetIndex,%¶ÔÏó_µÈ¼¶%);
-		arr_rank1 = Pet.GetArtRank(_PetIndex,%³èµµ_Ìå³É%);
-		arr_rank11 = Pet.FullArtRank(_PetIndex,%³èµµ_Ìå³É%);
-		arr_rank2 = Pet.GetArtRank(_PetIndex,%³èµµ_Á¦³É%);
-		arr_rank21 = Pet.FullArtRank(_PetIndex,%³èµµ_Á¦³É%);
-		arr_rank3 = Pet.GetArtRank(_PetIndex,%³èµµ_Ç¿³É%);
-		arr_rank31 = Pet.FullArtRank(_PetIndex,%³èµµ_Ç¿³É%);
-		arr_rank4 = Pet.GetArtRank(_PetIndex,%³èµµ_Ãô³É%);
-		arr_rank41 = Pet.FullArtRank(_PetIndex,%³èµµ_Ãô³É%);
-		arr_rank5 = Pet.GetArtRank(_PetIndex,%³èµµ_Ä§³É%);
-		arr_rank51 = Pet.FullArtRank(_PetIndex,%³èµµ_Ä§³É%);
+		Level = Char.GetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%);
+		arr_rank1 = Pet.GetArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%);
+		arr_rank11 = Pet.FullArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%);
+		arr_rank2 = Pet.GetArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%);
+		arr_rank21 = Pet.FullArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%);
+		arr_rank3 = Pet.GetArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%);
+		arr_rank31 = Pet.FullArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%);
+		arr_rank4 = Pet.GetArtRank(_PetIndex,%å® æ¡£_æ•æˆ%);
+		arr_rank41 = Pet.FullArtRank(_PetIndex,%å® æ¡£_æ•æˆ%);
+		arr_rank5 = Pet.GetArtRank(_PetIndex,%å® æ¡£_é­”æˆ%);
+		arr_rank51 = Pet.FullArtRank(_PetIndex,%å® æ¡£_é­”æˆ%);
 		a1 = math.abs(arr_rank1 - arr_rank11);
 		a2 = math.abs(arr_rank2 - arr_rank21);
 		a3 = math.abs(arr_rank3 - arr_rank31);
@@ -163,255 +163,255 @@ function PetConvertFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 		a5 = math.abs(arr_rank5 - arr_rank51);
 		a6 = a1 + a2+ a3+ a4+ a5;
 		if a6 > 20 then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎÞ·¨¶Ô°×»¯³èÎï½øÐÐ¸ÄÔì!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]ç„¡æ³•å°ç™½åŒ–å¯µç‰©é€²è¡Œæ”¹é€ !");
 			return;
 		end
-		local	PetInfoMsg = "³è Îï Ãû:  "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).."\\n"
-					.."         ¡¾µµ´Î·Ö²¼¡¿\\n"
-					.."ÌåÁ¦µµÊý:  -"..a1.." µµ \\n"
-					.."Á¦Á¿µµÊý:  -"..a2.." µµ \\n"
-					.."·ÀÓùµµÊý:  -"..a3.." µµ \\n"
-					.."Ãô½ÝµµÊý:  -"..a4.." µµ \\n"
-					.."Ä§·¨µµÊý:  -"..a5.." µµ \\n"
-					.."µô µµ Êý:  -"..a6.." \\n"
-					.."Ñ¡¡¾ÊÇ¡¿½øÐÐ¸ÄÔì \\n";
+		local	PetInfoMsg = "å¯µ ç‰© å:  "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).."\\n"
+					.."         ã€æª”æ¬¡åˆ†ä½ˆã€‘\\n"
+					.."é«”åŠ›æª”æ•¸:  -"..a1.." æª” \\n"
+					.."åŠ›é‡æª”æ•¸:  -"..a2.." æª” \\n"
+					.."é˜²ç¦¦æª”æ•¸:  -"..a3.." æª” \\n"
+					.."æ•æ·æª”æ•¸:  -"..a4.." æª” \\n"
+					.."é­”æ³•æª”æ•¸:  -"..a5.." æª” \\n"
+					.."æŽ‰ æª” æ•¸:  -"..a6.." \\n"
+					.."é¸ã€æ˜¯ã€‘é€²è¡Œæ”¹é€  \\n";
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[1][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[1][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[1][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[1][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[1][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 1;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[2][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[2][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[2][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[2][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[2][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 2;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[3][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[3][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[3][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[3][7]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[3][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[3][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 3;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[4][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[4][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[4][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[4][7]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[4][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[4][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 4;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[5][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[5][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[5][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[5][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[5][8]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[5][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[5][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 5;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[6][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[6][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[6][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[6][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[6][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 6;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[7][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[7][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[7][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[7][7]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[7][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[7][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 7;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[8][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[8][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[8][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[8][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[8][8]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[8][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[8][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 8;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[9][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[9][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[9][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[9][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[9][8]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[9][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[9][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 9;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[10][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[10][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[10][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[10][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[10][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 10;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[11][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[11][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[11][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[11][7]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[11][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[11][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 11;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[12][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[12][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[12][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[12][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[12][8]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[12][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[12][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 12;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[13][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[13][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[13][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[13][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[13][8]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[13][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[13][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 13;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[14][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[14][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[14][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[14][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[14][8]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[14][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[14][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 14;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[15][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[15][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[15][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[15][7]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[15][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[15][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 15;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[16][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[16][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[16][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[16][7]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[16][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[16][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 16;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[17][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[17][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[17][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[17][7]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[17][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[17][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 17;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[18][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[18][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[18][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[18][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[18][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 18;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[19][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[19][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[19][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[19][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[19][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 19;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[20][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[20][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[20][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[20][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[20][8]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[20][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[20][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 20;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[21][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[21][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[21][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[21][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[21][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 21;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[22][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[22][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[22][6]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[22][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[22][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 22;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[23][4]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[23][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[23][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 23;
 			end
 		end
 		if (Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][4]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][5]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][6]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][7]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][8]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][9]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][10]) == 0 or Char.ItemNum(_PlayerIndex,StrPetConvertEnable[24][11]) == 0 ) then
 			if (EnemyID == StrPetConvertEnable[24][1]) then
-				NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓÐ¸ÄÔìÉè¼ÆÍ¼");
+				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ”¹é€ è¨­è¨ˆåœ–");
 			end
 		else
 			if (EnemyID == StrPetConvertEnable[24][1]) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ÐÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 				EnemyNum = 24;
 			end
 		end
@@ -421,13 +421,13 @@ function PetConvertFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 
 		for Slot=0,4 do
 			R_PetIndex = Char.GetPet(_PlayerIndex,Slot);
-			PetID = Char.GetData(R_PetIndex,%¶ÔÏó_Ô­Ãû%);
+			PetID = Char.GetData(R_PetIndex,%å¯¹è±¡_åŽŸå%);
 			if (PetID == StrPetConvertEnable[EnemyNum][2]) then
-			Pet.SetArtRank(R_PetIndex,%³èµµ_Ìå³É%,Pet.FullArtRank(R_PetIndex,%³èµµ_Ìå³É%) - a1);
-			Pet.SetArtRank(R_PetIndex,%³èµµ_Á¦³É%,Pet.FullArtRank(R_PetIndex,%³èµµ_Á¦³É%) - a2);
-			Pet.SetArtRank(R_PetIndex,%³èµµ_Ç¿³É%,Pet.FullArtRank(R_PetIndex,%³èµµ_Ç¿³É%) - a3);
-			Pet.SetArtRank(R_PetIndex,%³èµµ_Ãô³É%,Pet.FullArtRank(R_PetIndex,%³èµµ_Ãô³É%) - a4);
-			Pet.SetArtRank(R_PetIndex,%³èµµ_Ä§³É%,Pet.FullArtRank(R_PetIndex,%³èµµ_Ä§³É%) - a5);
+			Pet.SetArtRank(R_PetIndex,%å® æ¡£_ä½“æˆ%,Pet.FullArtRank(R_PetIndex,%å® æ¡£_ä½“æˆ%) - a1);
+			Pet.SetArtRank(R_PetIndex,%å® æ¡£_åŠ›æˆ%,Pet.FullArtRank(R_PetIndex,%å® æ¡£_åŠ›æˆ%) - a2);
+			Pet.SetArtRank(R_PetIndex,%å® æ¡£_å¼ºæˆ%,Pet.FullArtRank(R_PetIndex,%å® æ¡£_å¼ºæˆ%) - a3);
+			Pet.SetArtRank(R_PetIndex,%å® æ¡£_æ•æˆ%,Pet.FullArtRank(R_PetIndex,%å® æ¡£_æ•æˆ%) - a4);
+			Pet.SetArtRank(R_PetIndex,%å® æ¡£_é­”æˆ%,Pet.FullArtRank(R_PetIndex,%å® æ¡£_é­”æˆ%) - a5);
 			Pet.ReBirth(_PlayerIndex, R_PetIndex);
 			Pet.UpPet(_PlayerIndex,R_PetIndex);
 			Char.DelItem(_PlayerIndex,StrPetConvertEnable[EnemyNum][4],1);
@@ -439,19 +439,19 @@ function PetConvertFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 			Char.DelItem(_PlayerIndex,StrPetConvertEnable[EnemyNum][10],1);
 			Char.DelItem(_PlayerIndex,StrPetConvertEnable[EnemyNum][11],1);
 			Char.DelSlotPet(_PlayerIndex,selectitem);
-			local arr_rank1_new = Pet.GetArtRank(R_PetIndex,%³èµµ_Ìå³É%);
-			local arr_rank2_new = Pet.GetArtRank(R_PetIndex,%³èµµ_Á¦³É%);
-			local arr_rank3_new = Pet.GetArtRank(R_PetIndex,%³èµµ_Ç¿³É%);
-			local arr_rank4_new = Pet.GetArtRank(R_PetIndex,%³èµµ_Ãô³É%);
-			local arr_rank5_new = Pet.GetArtRank(R_PetIndex,%³èµµ_Ä§³É%);
+			local arr_rank1_new = Pet.GetArtRank(R_PetIndex,%å® æ¡£_ä½“æˆ%);
+			local arr_rank2_new = Pet.GetArtRank(R_PetIndex,%å® æ¡£_åŠ›æˆ%);
+			local arr_rank3_new = Pet.GetArtRank(R_PetIndex,%å® æ¡£_å¼ºæˆ%);
+			local arr_rank4_new = Pet.GetArtRank(R_PetIndex,%å® æ¡£_æ•æˆ%);
+			local arr_rank5_new = Pet.GetArtRank(R_PetIndex,%å® æ¡£_é­”æˆ%);
 			if(Level~=1) then
-				Char.SetData(R_PetIndex,%¶ÔÏó_Éý¼¶µã%,Level-1);
-				Char.SetData(R_PetIndex,%¶ÔÏó_µÈ¼¶%,Level);
-				Char.SetData(R_PetIndex,%¶ÔÏó_ÌåÁ¦%, (Char.GetData(R_PetIndex,%¶ÔÏó_ÌåÁ¦%) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
-				Char.SetData(R_PetIndex,%¶ÔÏó_Á¦Á¿%, (Char.GetData(R_PetIndex,%¶ÔÏó_Á¦Á¿%) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
-				Char.SetData(R_PetIndex,%¶ÔÏó_Ç¿¶È%, (Char.GetData(R_PetIndex,%¶ÔÏó_Ç¿¶È%) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
-				Char.SetData(R_PetIndex,%¶ÔÏó_ËÙ¶È%, (Char.GetData(R_PetIndex,%¶ÔÏó_ËÙ¶È%) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
-				Char.SetData(R_PetIndex,%¶ÔÏó_Ä§·¨%, (Char.GetData(R_PetIndex,%¶ÔÏó_Ä§·¨%) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
+				Char.SetData(R_PetIndex,%å¯¹è±¡_å‡çº§ç‚¹%,Level-1);
+				Char.SetData(R_PetIndex,%å¯¹è±¡_ç­‰çº§%,Level);
+				Char.SetData(R_PetIndex,%å¯¹è±¡_ä½“åŠ›%, (Char.GetData(R_PetIndex,%å¯¹è±¡_ä½“åŠ›%) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
+				Char.SetData(R_PetIndex,%å¯¹è±¡_åŠ›é‡%, (Char.GetData(R_PetIndex,%å¯¹è±¡_åŠ›é‡%) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
+				Char.SetData(R_PetIndex,%å¯¹è±¡_å¼ºåº¦%, (Char.GetData(R_PetIndex,%å¯¹è±¡_å¼ºåº¦%) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
+				Char.SetData(R_PetIndex,%å¯¹è±¡_é€Ÿåº¦%, (Char.GetData(R_PetIndex,%å¯¹è±¡_é€Ÿåº¦%) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
+				Char.SetData(R_PetIndex,%å¯¹è±¡_é­”æ³•%, (Char.GetData(R_PetIndex,%å¯¹è±¡_é­”æ³•%) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
 				Pet.UpPet(_PlayerIndex,R_PetIndex);
 			end
 			end
@@ -463,78 +463,78 @@ function PetConvertFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 	if (_SqeNo==5) then
 		selectitem = tonumber(_data) - 1;
 		_PetIndex = Char.GetPet(_PlayerIndex,selectitem);
-		EnemyID = Char.GetData(_PetIndex,%¶ÔÏó_Ô­Ãû%);
+		EnemyID = Char.GetData(_PetIndex,%å¯¹è±¡_åŽŸå%);
 		if(selectitem == nil or selectitem > 4 or selectitem < 0) then
-			NLG.SystemMessage(_PlayerIndex, "[ÏµÍ³]²Ù×÷Ê±³èÎïÀ¸ÐèÓÐ¸ÄÔì³èÎï¡£");
+			NLG.SystemMessage(_PlayerIndex, "[ç³»çµ±]æ“ä½œæ™‚å¯µç‰©æ¬„éœ€æœ‰æ”¹é€ å¯µç‰©ã€‚");
 			return;
 		end
 		if (EnemyID == StrPetConvertEnable[1][2] or EnemyID == StrPetConvertEnable[2][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[1][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[1][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[1][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[1][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[3][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[2][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[2][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[2][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[2][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[6][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[3][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[3][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[3][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[3][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[7][2] or EnemyID == StrPetConvertEnable[14][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[4][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[4][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[4][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[4][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[8][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[5][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[5][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[5][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[5][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[11][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[6][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[6][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[6][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[6][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[12][2] or EnemyID == StrPetConvertEnable[20][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[7][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[7][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[7][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[7][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[17][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[8][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[8][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[8][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[8][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[22][2]) then
 			local ar = math.random(1,5);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[9][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[9][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[9][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[9][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
 		if (EnemyID == StrPetConvertEnable[23][2]) then
 			local ar = math.random(1,4);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÐÎÏó%,ConvertImage[10][ar]);
-			Char.SetData(_PetIndex,%¶ÔÏó_Ô­ÐÎ%,ConvertImage[10][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_å½¢è±¡%,ConvertImage[10][ar]);
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŽŸå½¢%,ConvertImage[10][ar]);
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 			Char.DelItem(_PlayerIndex,68010,1);
 		end
