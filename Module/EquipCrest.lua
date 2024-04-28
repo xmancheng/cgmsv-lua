@@ -2,17 +2,17 @@ local CountCrest = {}
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 local CrestEnable = {}
-CrestEnable[20016] = 0  --0 ½ûÖ¹ÎÆÕÂ£¬À¨ºÅÎªµÀ¾ßID
+CrestEnable[20016] = 0  --0 ç¦æ­¢çº¹ç« ï¼Œæ‹¬å·ä¸ºé“å…·ID
 local ItemPosTable = {}
 ItemPosTable[70207] = 0
 ItemPosTable[70208] = 1
 ItemPosTable[70209] = 4
 ItemPosTable[70210] = 2
 local CrestName = {}
-CrestName[1] = {"Ëş¸ñŠW",7000207,"µØŒÙĞÔ",%¶ÔÏó_µØÊôĞÔ%,%¶ÔÏó_»Ø¸´%,1.5,"[²»„ÓÃ÷Íõ] Œ™Îï»ØÍÌáÉı50%£¡"}
-CrestName[2] = {"ËşÀ­ÏÄ",7000208,"Ë®ŒÙĞÔ",%¶ÔÏó_Ë®ÊôĞÔ%,%¶ÔÏó_·ÀÓùÁ¦%,1.2,"[ˆÔ¶¨Å­Ä¿] Œ™Îï·À¶RÁ¦ÌáÉı20%£¡"}
-CrestName[3] = {"°¬ –¶à",7000209,"»ğŒÙĞÔ",%¶ÔÏó_»ğÊôĞÔ%,%¶ÔÏó_¹¥»÷Á¦%,1.2,"[ÓÂÃÍ¹û¸Ò] Œ™Îï¹¥“ôÁ¦ÌáÉı20%£¡"}
-CrestName[4] = {"ÄÈËş†",7000210,"ïLŒÙĞÔ",%¶ÔÏó_·çÊôĞÔ%,%¶ÔÏó_Ãô½İ%,1.3,"[ÃÔÛ™»ÃÓ°] Œ™ÎïÃô½İÌáÉı30%£¡"}
+CrestName[1] = {"å¡”æ ¼å¥§",7000207,"åœ°å±¬æ€§",%å¯¹è±¡_åœ°å±æ€§%,%å¯¹è±¡_å›å¤%,1.5,"[ä¸å‹•æ˜ç‹] å¯µç‰©å›å¾©æå‡50%ï¼"}
+CrestName[2] = {"å¡”æ‹‰å¤",7000208,"æ°´å±¬æ€§",%å¯¹è±¡_æ°´å±æ€§%,%å¯¹è±¡_é˜²å¾¡åŠ›%,1.2,"[å …å®šæ€’ç›®] å¯µç‰©é˜²ç¦¦åŠ›æå‡20%ï¼"}
+CrestName[3] = {"è‰¾çˆ¾å¤š",7000209,"ç«å±¬æ€§",%å¯¹è±¡_ç«å±æ€§%,%å¯¹è±¡_æ”»å‡»åŠ›%,1.2,"[å‹‡çŒ›æœæ•¢] å¯µç‰©æ”»æ“ŠåŠ›æå‡20%ï¼"}
+CrestName[4] = {"å¨œå¡”äº",7000210,"é¢¨å±¬æ€§",%å¯¹è±¡_é£å±æ€§%,%å¯¹è±¡_æ•æ·%,1.3,"[è¿·è¹¤å¹»å½±] å¯µç‰©æ•æ·æå‡30%ï¼"}
 ------------------------------------------------------------------------------
 
 Delegate.RegDelBattleStartEvent("Crest_BattleStart");
@@ -39,52 +39,52 @@ function Crest_BattleStart(BattleIndex)
 				CountCrest[4] = CountCrest[4] + 1
 			end
 		end
-		if(CountCrest[1] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[1] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[1];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïÌáÉıµØŒÙĞÔ"..plus.."üc£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_µØÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_µØÊôĞÔ%) + plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©æå‡åœ°å±¬æ€§"..plus.."é»ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_åœ°å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_åœ°å±æ€§%) + plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			if(plus >= 3) then
-				local heal = Char.GetData(_PlayerIndex,%¶ÔÏó_»Ø¸´%);
+				local heal = Char.GetData(_PlayerIndex,%å¯¹è±¡_å›å¤%);
 				local New_50heal = heal * 1.5;
-				Char.SetData(_PlayerIndex,%¶ÔÏó_»Ø¸´%,New_50heal);
-				--NLG.TalkToCli(-1,-1,"[²»„ÓÃ÷Íõ] µÚÒ»»ØºÏŒ™Îï»ØÍÌáÉı50%£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+				Char.SetData(_PlayerIndex,%å¯¹è±¡_å›å¤%,New_50heal);
+				--NLG.TalkToCli(-1,-1,"[ä¸å‹•æ˜ç‹] ç¬¬ä¸€å›åˆå¯µç‰©å›å¾©æå‡50%ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			end
 		end
-		if(CountCrest[2] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[2] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[2];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïÌáÉıË®ŒÙĞÔ"..plus.."üc£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_Ë®ÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_Ë®ÊôĞÔ%) + plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©æå‡æ°´å±¬æ€§"..plus.."é»ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_æ°´å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_æ°´å±æ€§%) + plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			if(plus >= 3) then
-				local tough = Char.GetData(_PlayerIndex,%¶ÔÏó_·ÀÓùÁ¦%);
+				local tough = Char.GetData(_PlayerIndex,%å¯¹è±¡_é˜²å¾¡åŠ›%);
 				local New_20tough = tough * 1.2;
-				Char.SetData(_PlayerIndex,%¶ÔÏó_·ÀÓùÁ¦%,New_20tough);
-				--NLG.TalkToCli(-1,-1,"[ˆÔ¶¨Å­Ä¿] µÚÒ»»ØºÏŒ™Îï·À¶RÁ¦ÌáÉı20%£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+				Char.SetData(_PlayerIndex,%å¯¹è±¡_é˜²å¾¡åŠ›%,New_20tough);
+				--NLG.TalkToCli(-1,-1,"[å …å®šæ€’ç›®] ç¬¬ä¸€å›åˆå¯µç‰©é˜²ç¦¦åŠ›æå‡20%ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			end
 		end
-		if(CountCrest[3] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[3] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[3];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïÌáÉı»ğŒÙĞÔ"..plus.."üc£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_»ğÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_»ğÊôĞÔ%) + plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©æå‡ç«å±¬æ€§"..plus.."é»ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_ç«å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_ç«å±æ€§%) + plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			if(plus >= 3) then
-				local power = Char.GetData(_PlayerIndex,%¶ÔÏó_¹¥»÷Á¦%);
+				local power = Char.GetData(_PlayerIndex,%å¯¹è±¡_æ”»å‡»åŠ›%);
 				local New_20power = power * 1.2;
-				Char.SetData(_PlayerIndex,%¶ÔÏó_¹¥»÷Á¦%,New_20power);
-				--NLG.TalkToCli(-1,-1,"[ÓÂÃÍ¹û¸Ò] µÚÒ»»ØºÏŒ™Îï¹¥“ôÁ¦ÌáÉı20%£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+				Char.SetData(_PlayerIndex,%å¯¹è±¡_æ”»å‡»åŠ›%,New_20power);
+				--NLG.TalkToCli(-1,-1,"[å‹‡çŒ›æœæ•¢] ç¬¬ä¸€å›åˆå¯µç‰©æ”»æ“ŠåŠ›æå‡20%ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			end
 		end
-		if(CountCrest[4] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[4] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[4];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïÌáÉıïLŒÙĞÔ"..plus.."üc£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_·çÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_·çÊôĞÔ%) + plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©æå‡é¢¨å±¬æ€§"..plus.."é»ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_é£å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_é£å±æ€§%) + plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			if(plus >= 3) then
-				local agi = Char.GetData(_PlayerIndex,%¶ÔÏó_Ãô½İ%);
+				local agi = Char.GetData(_PlayerIndex,%å¯¹è±¡_æ•æ·%);
 				local New_30agi = agi * 1.3;
-				Char.SetData(_PlayerIndex,%¶ÔÏó_Ãô½İ%,New_30agi);
-				--NLG.TalkToCli(-1,-1,"[ÃÔÛ™»ÃÓ°] µÚÒ»»ØºÏŒ™ÎïÃô½İÌáÉı30%£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+				Char.SetData(_PlayerIndex,%å¯¹è±¡_æ•æ·%,New_30agi);
+				--NLG.TalkToCli(-1,-1,"[è¿·è¹¤å¹»å½±] ç¬¬ä¸€å›åˆå¯µç‰©æ•æ·æå‡30%ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			end
 		end
 	end
@@ -94,29 +94,29 @@ Delegate.RegDelBattleOverEvent("Crest_BattleOver");
 function Crest_BattleOver(BattleIndex)
 	for i=0,9 do
 		local _PlayerIndex = Battle.GetPlayer(BattleIndex, i)
-		if(CountCrest[1] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[1] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[1];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïŒÙĞÔ»ØÍÔ­ î£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_µØÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_µØÊôĞÔ%) - plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©å±¬æ€§å›å¾©åŸç‹€ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_åœ°å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_åœ°å±æ€§%) - plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 		end
-		if(CountCrest[2] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[2] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[2];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïŒÙĞÔ»ØÍÔ­ î£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_Ë®ÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_Ë®ÊôĞÔ%) - plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©å±¬æ€§å›å¾©åŸç‹€ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_æ°´å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_æ°´å±æ€§%) - plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 		end
-		if(CountCrest[3] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[3] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[3];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïŒÙĞÔ»ØÍÔ­ î£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_»ğÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_»ğÊôĞÔ%) - plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©å±¬æ€§å›å¾©åŸç‹€ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_ç«å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_ç«å±æ€§%) - plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 		end
-		if(CountCrest[4] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[4] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[4];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïŒÙĞÔ»ØÍÔ­ î£¡"
-			Char.SetData(_PlayerIndex,%¶ÔÏó_·çÊôĞÔ%, Char.GetData(_PlayerIndex,%¶ÔÏó_·çÊôĞÔ%) - plus*10);
-			--NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©å±¬æ€§å›å¾©åŸç‹€ï¼"
+			Char.SetData(_PlayerIndex,%å¯¹è±¡_é£å±æ€§%, Char.GetData(_PlayerIndex,%å¯¹è±¡_é£å±æ€§%) - plus*10);
+			--NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 		end
 	end
 	return 0
@@ -127,16 +127,16 @@ NL.RegBattleActionEvent(nil,"Crest_A")
 
 function Crest_A(_PlayerIndex, battle, Com1, Com2, Com3, ActionNum)
 	for i=1,4 do
-		if(CountCrest[i] > 0 and Char.GetData(_PlayerIndex,%¶ÔÏóÀàĞÍ_³è%) == 3) then
+		if(CountCrest[i] > 0 and Char.GetData(_PlayerIndex,%å¯¹è±¡ç±»å‹_å® %) == 3) then
 			local plus = CountCrest[i];
-			local msg = "[¼yÕÂĞ§¹û] Œ™ÎïÌáÉı"..CrestName[i][3]..plus.."üc£¡"
+			local msg = "[ç´‹ç« æ•ˆæœ] å¯µç‰©æå‡"..CrestName[i][3]..plus.."é»ï¼"
 			Char.SetData(_PlayerIndex, CrestName[i][4], Char.GetData(_PlayerIndex, CrestName[i][4]) + plus);
-			NLG.TalkToCli(-1,-1,msg,%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			NLG.TalkToCli(-1,-1,msg,%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			if(plus >= 3) then
 				local ability = Char.GetData(_PlayerIndex,CrestName[i][5]);
 				local New_ability = ability * CrestName[i][6];
 				Char.SetData(_PlayerIndex,CrestName[i][5],New_ability);
-				NLG.TalkToCli(-1,-1,CrestName[i][7],%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+				NLG.TalkToCli(-1,-1,CrestName[i][7],%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 			end
 		end
 	end
@@ -147,13 +147,13 @@ Delegate.RegInit("EquipCrestNpc_Init");
 
 function EquipCrestNpc_Init()
 	EquipCrestNpc = NL.CreateNpc(nil, "Myinit");
-	Char.SetData(EquipCrestNpc,%¶ÔÏó_ĞÎÏó%,14682);
-	Char.SetData(EquipCrestNpc,%¶ÔÏó_Ô­ĞÎ%,14682);
-	Char.SetData(EquipCrestNpc,%¶ÔÏó_X%,38);
-	Char.SetData(EquipCrestNpc,%¶ÔÏó_Y%,31);
-	Char.SetData(EquipCrestNpc,%¶ÔÏó_µØÍ¼%,777);
-	Char.SetData(EquipCrestNpc,%¶ÔÏó_·½Ïò%,0);
-	Char.SetData(EquipCrestNpc,%¶ÔÏó_Ãû×Ö%,"³èÎïÎÆÕÂ");
+	Char.SetData(EquipCrestNpc,%å¯¹è±¡_å½¢è±¡%,14682);
+	Char.SetData(EquipCrestNpc,%å¯¹è±¡_åŸå½¢%,14682);
+	Char.SetData(EquipCrestNpc,%å¯¹è±¡_X%,38);
+	Char.SetData(EquipCrestNpc,%å¯¹è±¡_Y%,31);
+	Char.SetData(EquipCrestNpc,%å¯¹è±¡_åœ°å›¾%,777);
+	Char.SetData(EquipCrestNpc,%å¯¹è±¡_æ–¹å‘%,0);
+	Char.SetData(EquipCrestNpc,%å¯¹è±¡_åå­—%,"å® ç‰©çº¹ç« ");
 	NLG.UpChar(EquipCrestNpc);
 	Char.SetTalkedEvent(nil, "EquipCrestNpc_Talked", EquipCrestNpc);
 	Char.SetWindowTalkedEvent(nil, "EquipCrestNpc_WindowTalked", EquipCrestNpc);
@@ -165,41 +165,41 @@ function Myinit(_MeIndex)
 end
 
 NL.RegItemString("lua/Module/EquipCrest.lua","Crest","LUA_useCrest");
-function Crest(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
+function Crest(_PlayerIndex,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
 	ItemID = Item.GetData(Char.GetItemIndex(_PlayerIndex,_itemslot),0);
-	local TalkMsg =		"\\n                ¡ô³èÎïÎÆÕÂ¡ô" ..
-				"\\n½«×°±¸Ëæ»ú¸³ÓèËÄÖÖÎÆÕÂ" ..
-				"\\nÎÆÕÂÔÚÕ½¶·ÌáÉı³èÎïÊôĞÔ" ..
+	local TalkMsg =		"\\n                â—†å¯µç‰©ç´‹ç« â—†" ..
+				"\\nå°‡è£å‚™éš¨æ©Ÿè³¦äºˆå››ç¨®ç´‹ç« " ..
+				"\\nç´‹ç« åœ¨æˆ°é¬¥æå‡å¯µç‰©å±¬æ€§" ..
 				"\\n " ..
-				"\\nÎÆÕÂÖØ¸´¸³Óè½«¸²¸Ç" ..
-				"\\nÎŞ·¨ÓëÓ°×ÓÎäÆ÷¹²´æ" ..
+				"\\nç´‹ç« é‡è¤‡è³¦äºˆå°‡è¦†è“‹" ..
+				"\\nç„¡æ³•èˆ‡å½±å­æ­¦å™¨å…±å­˜" ..
 				"\\n " ..
-				"\\nÑ¡Ôñ    ¡º¸³ÓèÎÆÕÂ¡»"..
-				"\\n " 
-	NLG.ShowWindowTalked(_PlayerIndex, EquipCrestNpc,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%, 1, TalkMsg);
+				"\\né¸æ“‡    ã€è³¦äºˆç´‹ç« ã€"..
+				"\\n "
+	NLG.ShowWindowTalked(_PlayerIndex, EquipCrestNpc,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%, 1, TalkMsg);
 	return 1;
 end
 
 function EquipCrestNpc_Talked( _NpcIndex, _PlayerIndex, _Mode)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
-		local WindowMsg = "3|\\n                ¡ô³èÎïÎÆÕÂ¡ô" ..	"\\nÒÆ³ıÎÆÕÂ½«ÎŞ·¨»Ø¸´£¬ËùĞè·ÑÓÃÎª½ğÇ®Ê®Íò\\n\\n";
+		local WindowMsg = "3|\\n                â—†å¯µç‰©ç´‹ç« â—†" ..	"\\nç§»é™¤ç´‹ç« å°‡ç„¡æ³•å›å¾©ï¼Œæ‰€éœ€è²»ç”¨ç‚ºé‡‘éŒ¢åè¬\\n\\n";
 		for i=0,4 do
 			local item = Char.GetItemIndex(_PlayerIndex,i);
 
 			if(VaildChar(item)==false)then
-				WindowMsg = WindowMsg .. " 			 			¿Õ\\n";
+				WindowMsg = WindowMsg .. " 			 			ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. " 			 			"..Item.GetData(item,%µÀ¾ß_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. " 			 			"..Item.GetData(item,%é“å…·_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,2,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,2,WindowMsg);
 	end
 	return ;
 end
 
 
 function EquipCrestNpc_WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
-	local Gold = Char.GetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%);
+	local Gold = Char.GetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%);
 	local item_indexA = Char.GetItemIndex(_PlayerIndex,Char.FindItemId(_PlayerIndex,ItemID));
 	local item_indexB = Char.GetItemIndex(_PlayerIndex,ItemPosTable[ItemID]);
 	local TargetItemID = Item.GetData(item_indexB,0);
@@ -210,49 +210,49 @@ function EquipCrestNpc_WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _
 		if (_Select==4 and item_indexB == -2) then
 			return
 		end
-		if (_Select==4 and Item.GetData(item_indexB,%µÀ¾ß_×î´ó¹¥»÷ÊıÁ¿%)>=2) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] ÎŞ·¨¸³Óè³èÎïÎÆÕÂ£¡");
+		if (_Select==4 and Item.GetData(item_indexB,%é“å…·_æœ€å¤§æ”»å‡»æ•°é‡%)>=2) then
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] ç„¡æ³•è³¦äºˆå¯µç‰©ç´‹ç« ï¼");
 			return
 		end
 		if (_Select==4 and item_indexB ~= -2 and CrestEnable[TargetItemID] ~= 0) then
 			local suit = math.random(1,4);
-			Item.SetData(item_indexB,%µÀ¾ß_¿ÌÓ¡%,1);
-			Item.SetData(item_indexB,%µÀ¾ß_¿ÌÓ¡Íæ¼Ò%,CrestName[suit][1]);
+			Item.SetData(item_indexB,%é“å…·_åˆ»å°%,1);
+			Item.SetData(item_indexB,%é“å…·_åˆ»å°ç©å®¶%,CrestName[suit][1]);
 			Item.SetData(item_indexB,58,CrestName[suit][2]);
 			Item.UpItem(_PlayerIndex,ItemPosTable[ItemID]);
 
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] ³èÎïÎÆÕÂ³É¹¦£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] å¯µç‰©ç´‹ç« æˆåŠŸï¼");
 			Char.DelItem(_PlayerIndex,ItemID,1);
 		else
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] ÎŞ·¨¸³Óè³èÎïÎÆÕÂ£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] ç„¡æ³•è³¦äºˆå¯µç‰©ç´‹ç« ï¼");
 		end
 	end
 	if (_Seqno==2) then
-		--È¡Ïû°´Å¥
+		--å–æ¶ˆæŒ‰é’®
 		local selectitem = tonumber(_Data) - 1;
 		if (selectitem==nil or (selectitem~=nil and (selectitem > 4 or selectitem < 0))) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,3,"\\n\\n\\nÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³££¡");
+				--NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,3,"\\n\\n\\næ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸ï¼");
 				return;
 		end
 		local item_indexB = Char.GetItemIndex(_PlayerIndex,selectitem);
 		if (VaildChar(item_indexB) == false) then
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,4,"\\n\\n\\nÇëÈ·¶¨Äú¶ÔÓ¦µÄ×°±¸À¸ÓĞ×°±¸£¡");
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,4,"\\n\\n\\nè«‹ç¢ºå®šæ‚¨å°æ‡‰çš„è£å‚™æ¬„æœ‰è£å‚™ï¼");
 			return;
 		end
-		if (selectitem<=4 and Item.GetData(item_indexB,%µÀ¾ß_×î´ó¹¥»÷ÊıÁ¿%)>=2) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] ÎŞ·¨ÒÆ³ıÎÆÕÂ£¡");
+		if (selectitem<=4 and Item.GetData(item_indexB,%é“å…·_æœ€å¤§æ”»å‡»æ•°é‡%)>=2) then
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] ç„¡æ³•ç§»é™¤ç´‹ç« ï¼");
 			return;
 		end
-		if (selectitem<=4 and Item.GetData(item_indexB,%µÀ¾ß_×î´ó¹¥»÷ÊıÁ¿%)<=1 and Item.GetData(item_indexB,58)~=0 and Gold >= 100000) then
-			Item.SetData(item_indexB,%µÀ¾ß_¿ÌÓ¡%,0);
-			Item.SetData(item_indexB,%µÀ¾ß_¿ÌÓ¡Íæ¼Ò%,0);
+		if (selectitem<=4 and Item.GetData(item_indexB,%é“å…·_æœ€å¤§æ”»å‡»æ•°é‡%)<=1 and Item.GetData(item_indexB,58)~=0 and Gold >= 100000) then
+			Item.SetData(item_indexB,%é“å…·_åˆ»å°%,0);
+			Item.SetData(item_indexB,%é“å…·_åˆ»å°ç©å®¶%,0);
 			Item.SetData(item_indexB,58,0);
 			Item.UpItem(_PlayerIndex,selectitem);
 			Char.AddGold(_PlayerIndex,-100000);
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] ÒÆ³ıÎÆÕÂ³É¹¦£¡");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] ç§»é™¤ç´‹ç« æˆåŠŸï¼");
 		end
 		if (selectitem<=4 and Gold < 100000) then
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,3,"\\n\\n\\nÇëÈ·ÈÏ½ğÇ®×ã¹»Ê®Íò£¡");
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,3,"\\n\\n\\nè«‹ç¢ºèªé‡‘éŒ¢è¶³å¤ åè¬ï¼");
 		end
 	end
 end
