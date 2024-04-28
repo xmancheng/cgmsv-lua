@@ -5,23 +5,23 @@ function AutoRecovery(battle)
 	for BPWhile=0,9 do
 		local BPlayerIndex = Battle.GetPlayer(battle,BPWhile);
 		if(BPlayerIndex >= 0 and Char.ItemNum(BPlayerIndex,full_itemid) > 0) then
-			local HP = Char.GetData(BPlayerIndex,%¶ÔÏó_Ñª%);
-			local MP = Char.GetData(BPlayerIndex,%¶ÔÏó_Ä§%);
+			local HP = Char.GetData(BPlayerIndex,%å¯¹è±¡_è¡€%);
+			local MP = Char.GetData(BPlayerIndex,%å¯¹è±¡_é­”%);
 			local Full_HP = HP + 1000;
 			local Full_MP = MP + 1000;
-			Char.SetData(BPlayerIndex,%¶ÔÏó_Ñª%,Full_HP);
-			Char.SetData(BPlayerIndex,%¶ÔÏó_Ä§%,Full_MP);
-			NLG.TalkToCli(BPlayerIndex,-1,"¿¾Â¯½«Ä§Îï×÷³ÉÃÀÎ¶ÁÏÀí£¬ÈÃÈËÔªÆøÂúÂú£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			Char.SetData(BPlayerIndex,%å¯¹è±¡_è¡€%,Full_HP);
+			Char.SetData(BPlayerIndex,%å¯¹è±¡_é­”%,Full_MP);
+			NLG.TalkToCli(BPlayerIndex,-1,"çƒ¤çˆå°‡é­”ç‰©ä½œæˆç¾å‘³æ–™ç†ï¼Œè®“äººå…ƒæ°£æ»¿æ»¿ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 		end
-		if(BPlayerIndex >= 0 and Char.GetData(BPlayerIndex,%¶ÔÏó_µÈ¼¶%) <= 100 and Char.GetData(BPlayerIndex,%¶ÔÏó_Ñª%)<Char.GetData(BPlayerIndex,%¶ÔÏó_×î´óÑª%)) then
-			Char.SetData(BPlayerIndex,%¶ÔÏó_Ñª%,Char.GetData(BPlayerIndex,%¶ÔÏó_×î´óÑª%));
-			Char.SetData(BPlayerIndex,%¶ÔÏó_Ä§%,Char.GetData(BPlayerIndex,%¶ÔÏó_×î´óÄ§%));
+		if(BPlayerIndex >= 0 and Char.GetData(BPlayerIndex,%å¯¹è±¡_ç­‰çº§%) <= 100 and Char.GetData(BPlayerIndex,%å¯¹è±¡_è¡€%)<Char.GetData(BPlayerIndex,%å¯¹è±¡_æœ€å¤§è¡€%)) then
+			Char.SetData(BPlayerIndex,%å¯¹è±¡_è¡€%,Char.GetData(BPlayerIndex,%å¯¹è±¡_æœ€å¤§è¡€%));
+			Char.SetData(BPlayerIndex,%å¯¹è±¡_é­”%,Char.GetData(BPlayerIndex,%å¯¹è±¡_æœ€å¤§é­”%));
 			NLG.UpChar(BPlayerIndex);
-			NLG.TalkToCli(BPlayerIndex,-1,"[´óÌìÊ¹ÆøÏ¢]Î´ÂúLv100ÊÜµ½ÌìÊ¹µÄ×£¸£,ÉúÃüÖµÓëÄ§Á¦Öµ»Ö¸´È«Âú£¡",%ÑÕÉ«_»ÆÉ«%,%×ÖÌå_ÖĞ%);
+			NLG.TalkToCli(BPlayerIndex,-1,"[å¤§å¤©ä½¿æ°£æ¯]æœªæ»¿Lv100å—åˆ°å¤©ä½¿çš„ç¥ç¦,ç”Ÿå‘½å€¼èˆ‡é­”åŠ›å€¼æ¢å¾©å…¨æ»¿ï¼",%é¢œè‰²_é»„è‰²%,%å­—ä½“_ä¸­%);
 		end
-		if(VaildChar(BPlayerIndex)==true and Char.GetData(BPlayerIndex,%¶ÔÏó_ÀàĞÍ%) == %¶ÔÏóÀàĞÍ_ÈË%)then
+		if(VaildChar(BPlayerIndex)==true and Char.GetData(BPlayerIndex,%å¯¹è±¡_ç±»å‹%) == %å¯¹è±¡ç±»å‹_äºº%)then
 			NLG.SortItem(BPlayerIndex);
-			--NLG.SystemMessage(BPlayerIndex,"±³°üÕûÀíÍê±Ï¡£");
+			--NLG.SystemMessage(BPlayerIndex,"èƒŒåŒ…æ•´ç†å®Œç•¢ã€‚");
 		end
 	end
 	return 1;
