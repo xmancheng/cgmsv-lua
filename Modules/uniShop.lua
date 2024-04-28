@@ -1,11 +1,12 @@
 local UniShop = ModuleBase:createModule('uniShop')
 local UniMenus = {
-  { "[¡¡×â½è¾µÏñ°ÚÌ¯¡¡]¡¡" },
-  { "[¡¡É¾³ı¾µÏñ°ÚÌ¯¡¡]¡¡" },
-  { "[¡¡ÁìÈ¡Óà¶î¿îÏî¡¡]¡¡" },
-  { "[¡¡ÉÏ¼Ü¼ÄÊÛµÀ¾ß¡¡]¡¡" },
-  { "[¡¡Áì»Ø¼ÄÊÛµÀ¾ß¡¡]¡¡" },
-  --[[{ "[¡¡ĞŞ¸ÄµêÆÌÃû³Æ¡¡]¡¡" },]]
+  { "[ã€€ç§Ÿå€Ÿé¡åƒæ“ºæ”¤ã€€]ã€€" },
+  { "[ã€€åˆªé™¤é¡åƒæ“ºæ”¤ã€€]ã€€" },
+  { "[ã€€é ˜å–é¤˜é¡æ¬¾é …ã€€]ã€€" },
+  { "[ã€€ä¸Šæ¶å¯„å”®é“å…·ã€€]ã€€" },
+  { "[ã€€é ˜å›å¯„å”®é“å…·ã€€]ã€€" },
+  --[[{ "[ã€€ä¿®æ”¹åº—é‹ªåç¨±ã€€]ã€€" },]]
+
 }
 
 local Number = 0
@@ -29,47 +30,47 @@ UniShop_Map= {
   {0,1000,226,115},
 }
 
----»ù±¾ÉèÖÃÎğĞŞ¸Ä
+---åŸºæœ¬è®¾ç½®å‹¿ä¿®æ”¹
 UniList = {}
 for sss = 1,100 do
 UniList[sss] = {}
 UniList[sss][1] = {
-{ name = 'µÀ¾ßÉÏ¼ÜĞí¿ÉÓ¡ÕÂ', image = 26569, price = 0, desc = 'ÎïÆ·ÉĞÎ´ÉÏ¼ÜxÇëÎğ¹ºÂò', count = 1, maxCount = 1, itemid = -1, gold = 0 },
-{ name = 'µÀ¾ßÉÏ¼ÜĞí¿ÉÓ¡ÕÂ', image = 26569, price = 0, desc = 'ÎïÆ·ÉĞÎ´ÉÏ¼ÜxÇëÎğ¹ºÂò', count = 1, maxCount = 1, itemid = -1, gold = 0 },
-{ name = 'µÀ¾ßÉÏ¼ÜĞí¿ÉÓ¡ÕÂ', image = 26569, price = 0, desc = 'ÎïÆ·ÉĞÎ´ÉÏ¼ÜxÇëÎğ¹ºÂò', count = 1, maxCount = 1, itemid = -1, gold = 0 },
-{ name = 'µÀ¾ßÉÏ¼ÜĞí¿ÉÓ¡ÕÂ', image = 26569, price = 0, desc = 'ÎïÆ·ÉĞÎ´ÉÏ¼ÜxÇëÎğ¹ºÂò', count = 1, maxCount = 1, itemid = -1, gold = 0 },
-{ name = 'µÀ¾ßÉÏ¼ÜĞí¿ÉÓ¡ÕÂ', image = 26569, price = 0, desc = 'ÎïÆ·ÉĞÎ´ÉÏ¼ÜxÇëÎğ¹ºÂò', count = 1, maxCount = 1, itemid = -1, gold = 0 },
+{ name = 'é“å…·ä¸Šæ¶è¨±å¯å°ç« ', image = 26569, price = 0, desc = 'ç‰©å“å°šæœªä¸Šæ¶xè«‹å‹¿è³¼è²·', count = 1, maxCount = 1, itemid = -1, gold = 0 },
+{ name = 'é“å…·ä¸Šæ¶è¨±å¯å°ç« ', image = 26569, price = 0, desc = 'ç‰©å“å°šæœªä¸Šæ¶xè«‹å‹¿è³¼è²·', count = 1, maxCount = 1, itemid = -1, gold = 0 },
+{ name = 'é“å…·ä¸Šæ¶è¨±å¯å°ç« ', image = 26569, price = 0, desc = 'ç‰©å“å°šæœªä¸Šæ¶xè«‹å‹¿è³¼è²·', count = 1, maxCount = 1, itemid = -1, gold = 0 },
+{ name = 'é“å…·ä¸Šæ¶è¨±å¯å°ç« ', image = 26569, price = 0, desc = 'ç‰©å“å°šæœªä¸Šæ¶xè«‹å‹¿è³¼è²·', count = 1, maxCount = 1, itemid = -1, gold = 0 },
+{ name = 'é“å…·ä¸Šæ¶è¨±å¯å°ç« ', image = 26569, price = 0, desc = 'ç‰©å“å°šæœªä¸Šæ¶xè«‹å‹¿è³¼è²·', count = 1, maxCount = 1, itemid = -1, gold = 0 },
 }
 end
 
 itemTypeList ={}
-itemTypeList[22] = {'Ë®¾§'}
-itemTypeList[23] = {'ÁÏÀí'}
-itemTypeList[25] = {'ËØ²Ä'}
-itemTypeList[26] = {'²»Ã÷'}
-itemTypeList[29] = {'¿óÊ¯'}
-itemTypeList[30] = {'Ä¾²Ä'}
-itemTypeList[31] = {'²¼¾í'}
-itemTypeList[32] = {'ÈâÀà'}
-itemTypeList[33] = {'º£ÏÊ'}
-itemTypeList[34] = {'Êß²Ë'}
-itemTypeList[35] = {'ÆäËûÊ³²Ä'}
-itemTypeList[36] = {'Ïã²İ'}
-itemTypeList[37] = {'Ò©²İ'}
-itemTypeList[38] = {'±¦Ê¯'}
-itemTypeList[39] = {'BÀà²ÄÁÏ'}
-itemTypeList[41] = {'ÆäËû¿¨Æ¬'}
-itemTypeList[43] = {'Ò©'}
-itemTypeList[44] = {'Êé±¾'}
-itemTypeList[45] = {'µØÍ¼'}
-itemTypeList[47] = {'²ÊÈ¯'}
-itemTypeList[53] = {'µãĞÄ'}
---- ¼ÓÔØÄ£¿é¹³×Ó
+itemTypeList[22] = {'æ°´æ™¶'}
+itemTypeList[23] = {'æ–™ç†'}
+itemTypeList[25] = {'ç´ æ'}
+itemTypeList[26] = {'ä¸æ˜'}
+itemTypeList[29] = {'ç¤¦çŸ³'}
+itemTypeList[30] = {'æœ¨æ'}
+itemTypeList[31] = {'å¸ƒå·'}
+itemTypeList[32] = {'è‚‰é¡'}
+itemTypeList[33] = {'æµ·é®®'}
+itemTypeList[34] = {'è”¬èœ'}
+itemTypeList[35] = {'å…¶ä»–é£Ÿæ'}
+itemTypeList[36] = {'é¦™è‰'}
+itemTypeList[37] = {'è—¥è‰'}
+itemTypeList[38] = {'å¯¶çŸ³'}
+itemTypeList[39] = {'Bé¡ææ–™'}
+itemTypeList[41] = {'å…¶ä»–å¡ç‰‡'}
+itemTypeList[43] = {'è—¥'}
+itemTypeList[44] = {'æ›¸æœ¬'}
+itemTypeList[45] = {'åœ°åœ–'}
+itemTypeList[47] = {'å½©åˆ¸'}
+itemTypeList[53] = {'é»å¿ƒ'}
+--- åŠ è½½æ¨¡å—é’©å­
 function UniShop:onLoad()
   self:logInfo('load')
-  local uninpc = self:NPC_createNormal('¾µÏñ°ÚÌ¯×â½è', 231051, { map = 1000, x = 223, y = 109, direction = 4, mapType = 0 })
+  local uninpc = self:NPC_createNormal('é¡åƒæ“ºæ”¤ç§Ÿå€Ÿ', 231051, { map = 1000, x = 223, y = 109, direction = 4, mapType = 0 })
   self:NPC_regWindowTalkedEvent(uninpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
@@ -78,14 +79,14 @@ function UniShop:onLoad()
     --print(data)
     print(cdk)
     print(tbl_playerunishop[cdk])
-    if seqno == 1 then  ----×â½è¾µÏñ°ÚÌ¯&Ö´ĞĞ
+    if seqno == 1 then  ----ç§Ÿå€Ÿé•œåƒæ‘†æ‘Š&æ‰§è¡Œ
      if data == 1 then
       if (tbl_playerunishop[cdk]==nil) then
             tbl_playerunishop[cdk] = {}
             table.insert(tbl_playerunishop[cdk],cdk);
-            local playerSkin = Char.GetData(player,CONST.CHAR_ĞÎÏó);
-            local playerName = Char.GetData(player,CONST.CHAR_Ãû×Ö);
-            --local playerName_New = playerName .. "£­°ÚÌ¯";
+            local playerSkin = Char.GetData(player,CONST.CHAR_å½¢è±¡);
+            local playerName = Char.GetData(player,CONST.CHAR_åå­—);
+            --local playerName_New = playerName .. "ï¼æ‘†æ‘Š";
             if (Number==0) then
               Number = 1;
             end
@@ -102,7 +103,7 @@ function UniShop:onLoad()
               --tbl_playerunishop[cdk][3] = UniList[Number][1]
               --tbl_playerunishop[cdk][4] = Number
               Number = Number + 1;
-              NLG.SystemMessage(player,"[Ïµ½y]ÒÑ×â½èçRÏñ”[”‚£¡");
+              NLG.SystemMessage(player,"[ç³»çµ±]å·²ç§Ÿå€Ÿé¡åƒæ“ºæ”¤ï¼");
             end
             if (Number<=16) then
               local UniShop_X = UniShop_Map[Number][3];
@@ -117,17 +118,17 @@ function UniShop:onLoad()
               --tbl_playerunishop[cdk][3] = UniList[Number][1]
               --tbl_playerunishop[cdk][4] = Number
               Number = Number + 1;
-              NLG.SystemMessage(player,"[Ïµ½y]ÒÑ×â½èçRÏñ”[”‚£¡");
+              NLG.SystemMessage(player,"[ç³»çµ±]å·²ç§Ÿå€Ÿé¡åƒæ“ºæ”¤ï¼");
             end
       end
      end
-     if data == 2 then  ----É¾³ı¾µÏñ°ÚÌ¯&Ö´ĞĞ
+     if data == 2 then  ----åˆ é™¤é•œåƒæ‘†æ‘Š&æ‰§è¡Œ
        if (tbl_playerunishop[cdk]==nil) then
-         NLG.SystemMessage(player,"[Ïµ½y]Äã›]ÓĞçRÏñ”[”‚£¡");
+         NLG.SystemMessage(player,"[ç³»çµ±]ä½ æ²’æœ‰é¡åƒæ“ºæ”¤ï¼");
          return;
        end
        if (cdk == tbl_playerunishop[cdk][1]) then
-       ----ÁìÈ¡Óà¶î¿îÏî (Í¬¹¦ÄÜ3)
+       ----é¢†å–ä½™é¢æ¬¾é¡¹ (åŒåŠŸèƒ½3)
             local ProfitGold =0;
             local Number = tonumber(tbl_playerunishop[cdk][4])
             for i = 1, 5 do
@@ -140,11 +141,11 @@ function UniShop:onLoad()
                 for  i = 1, 5 do
                    UniList[Number][1][i].gold = 0;
                 end
-                --NLG.SystemMessage(player,"[Ïµ½y]ÒÑîIÈ¡ÊÛ³öËùÓĞ½ğåX£¡");
+                --NLG.SystemMessage(player,"[ç³»çµ±]å·²é ˜å–å”®å‡ºæ‰€æœ‰é‡‘éŒ¢ï¼");
             else
-                --NLG.SystemMessage(player,"[Ïµ½y]›]ÓĞ¿ÉÒÔîIÈ¡µÄ½ğåX£¡");
+                --NLG.SystemMessage(player,"[ç³»çµ±]æ²’æœ‰å¯ä»¥é ˜å–çš„é‡‘éŒ¢ï¼");
             end
-       ----Áì»Ø¼ÄÊÛµÀ¾ß (Í¬¹¦ÄÜ5)
+       ----é¢†å›å¯„å”®é“å…· (åŒåŠŸèƒ½5)
             for k = 1, 5 do
                 local Number = tonumber(tbl_playerunishop[cdk][4])
                 local itemid = UniList[Number][1][k].itemid;
@@ -154,10 +155,10 @@ function UniShop:onLoad()
                 end
                 local maxCount = 0;
                 if (maxCount ==0) then
-                     UniList[Number][1][k].name = 'µÀ¾ßÉÏ¼ÜĞí¿ÉÓ¡ÕÂ';
+                     UniList[Number][1][k].name = 'é“å…·ä¸Šæ¶è¨±å¯å°ç« ';
                      UniList[Number][1][k].image = 26569;
                      UniList[Number][1][k].price = 0;
-                     UniList[Number][1][k].desc = 'ÎïÆ·ÉĞÎ´ÉÏ¼ÜxÇëÎğ¹ºÂò';
+                     UniList[Number][1][k].desc = 'ç‰©å“å°šæœªä¸Šæ¶xè«‹å‹¿è³¼è²·';
                      UniList[Number][1][k].count = 1;
                      UniList[Number][1][k].maxCount = 1;
                      UniList[Number][1][k].itemid = -1;
@@ -172,17 +173,17 @@ function UniShop:onLoad()
             NL.DelNpc(tbl_playerunishop[cdk][2]);
             table.remove(tbl_playerunishop[cdk],i);
             tbl_playerunishop[cdk] = nil;
-            NLG.SystemMessage(player,"[Ïµ½y]ÒÑ„h³ıçRÏñ”[”‚£¡");
+            NLG.SystemMessage(player,"[ç³»çµ±]å·²åˆªé™¤é¡åƒæ“ºæ”¤ï¼");
           end
        end
      end
-     if data == 3 then  ----ÁìÈ¡Óà¶î¿îÏî&Ö´ĞĞ
+     if data == 3 then  ----é¢†å–ä½™é¢æ¬¾é¡¹&æ‰§è¡Œ
        if (tbl_playerunishop[cdk]==nil) then
-         NLG.SystemMessage(player,"[Ïµ½y]Äã›]ÓĞçRÏñ”[”‚£¡");
+         NLG.SystemMessage(player,"[ç³»çµ±]ä½ æ²’æœ‰é¡åƒæ“ºæ”¤ï¼");
          return;
        end
        if (cdk == tbl_playerunishop[cdk][1]) then
-       ----ÁìÈ¡Óà¶î¿îÏî
+       ----é¢†å–ä½™é¢æ¬¾é¡¹
              local ProfitGold =0;
              local Number = tonumber(tbl_playerunishop[cdk][4])
              for i = 1, 5 do
@@ -195,38 +196,38 @@ function UniShop:onLoad()
                 for  i = 1, 5 do
                    UniList[Number][1][i].gold = 0;
                 end
-                NLG.SystemMessage(player,"[Ïµ½y]ÒÑîIÈ¡ÊÛ³öËùÓĞ½ğåX£¡");
+                NLG.SystemMessage(player,"[ç³»çµ±]å·²é ˜å–å”®å‡ºæ‰€æœ‰é‡‘éŒ¢ï¼");
              else
-                NLG.SystemMessage(player,"[Ïµ½y]›]ÓĞ¿ÉÒÔîIÈ¡µÄ½ğåX£¡");
+                NLG.SystemMessage(player,"[ç³»çµ±]æ²’æœ‰å¯ä»¥é ˜å–çš„é‡‘éŒ¢ï¼");
              end
        end
      end
-     if data == 4 then  ----ÉÏ¼Ü¼ÄÊÛµÀ¾ß
+     if data == 4 then  ----ä¸Šæ¶å¯„å”®é“å…·
        if (tbl_playerunishop[cdk]==nil) then
-         NLG.SystemMessage(player,"[Ïµ½y]ÕˆÏÈ×â½èçRÏñ”[”‚£¡");
+         NLG.SystemMessage(player,"[ç³»çµ±]è«‹å…ˆç§Ÿå€Ÿé¡åƒæ“ºæ”¤ï¼");
          return;
        end
        if (cdk == tbl_playerunishop[cdk][1]) then
-         local msg_4 = "3\\n@cÇë½«ÒªÉÏ¼ÜµÄµÀ¾ß\\n"
-                             .. "·ÅÔÚÎïÆ·À¸Ç°Îå¸ñ\\n\\n";
+         local msg_4 = "3\\n@cè«‹å°‡è¦ä¸Šæ¶çš„é“å…·\\n"
+                             .. "æ”¾åœ¨ç‰©å“æ¬„å‰äº”æ ¼\\n\\n";
          for i = 8, 12 do
                local item = Char.GetItemIndex(player,i);
                if (item==-2) then
-                  msg_4 = msg_4 .. "¿Õ\\n"
+                  msg_4 = msg_4 .. "ç©º\\n"
                else
-                  msg_4 = msg_4 .. ""..Item.GetData(item,CONST.µÀ¾ß_Ãû×Ö).."\\n"
+                  msg_4 = msg_4 .. ""..Item.GetData(item,CONST.é“å…·_åå­—).."\\n"
                end
          end
-         NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 4, msg_4);
+         NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 4, msg_4);
        end
      end
-     if data == 5 then  ----Áì»Ø¼ÄÊÛµÀ¾ß
+     if data == 5 then  ----é¢†å›å¯„å”®é“å…·
        if (tbl_playerunishop[cdk]==nil) then
-         NLG.SystemMessage(player,"[Ïµ½y]Äã›]ÓĞçRÏñ”[”‚£¡");
+         NLG.SystemMessage(player,"[ç³»çµ±]ä½ æ²’æœ‰é¡åƒæ“ºæ”¤ï¼");
          return;
        end
        if (cdk == tbl_playerunishop[cdk][1]) then
-       ----ÁìÈ¡Óà¶î¿îÏî (Í¬¹¦ÄÜ3)
+       ----é¢†å–ä½™é¢æ¬¾é¡¹ (åŒåŠŸèƒ½3)
             local ProfitGold =0;
             local Number = tonumber(tbl_playerunishop[cdk][4])
             for i = 1, 5 do
@@ -239,11 +240,11 @@ function UniShop:onLoad()
                 for  i = 1, 5 do
                    UniList[Number][1][i].gold = 0;
                 end
-                --NLG.SystemMessage(player,"[Ïµ½y]ÒÑîIÈ¡ÊÛ³öËùÓĞ½ğåX£¡");
+                --NLG.SystemMessage(player,"[ç³»çµ±]å·²é ˜å–å”®å‡ºæ‰€æœ‰é‡‘éŒ¢ï¼");
             else
-                --NLG.SystemMessage(player,"[Ïµ½y]›]ÓĞ¿ÉÒÔîIÈ¡µÄ½ğåX£¡");
+                --NLG.SystemMessage(player,"[ç³»çµ±]æ²’æœ‰å¯ä»¥é ˜å–çš„é‡‘éŒ¢ï¼");
             end
-       ----Áì»Ø¼ÄÊÛµÀ¾ßÖ´ĞĞ
+       ----é¢†å›å¯„å”®é“å…·æ‰§è¡Œ
             for k = 1, 5 do
                 local Number = tonumber(tbl_playerunishop[cdk][4])
                 local itemid = UniList[Number][1][k].itemid;
@@ -253,10 +254,10 @@ function UniShop:onLoad()
                 end
                 local maxCount = 0;
                 if (maxCount ==0) then
-                     UniList[Number][1][k].name = 'µÀ¾ßÉÏ¼ÜĞí¿ÉÓ¡ÕÂ';
+                     UniList[Number][1][k].name = 'é“å…·ä¸Šæ¶è¨±å¯å°ç« ';
                      UniList[Number][1][k].image = 26569;
                      UniList[Number][1][k].price = 0;
-                     UniList[Number][1][k].desc = 'ÎïÆ·ÉĞÎ´ÉÏ¼ÜxÇëÎğ¹ºÂò';
+                     UniList[Number][1][k].desc = 'ç‰©å“å°šæœªä¸Šæ¶xè«‹å‹¿è³¼è²·';
                      UniList[Number][1][k].count = 1;
                      UniList[Number][1][k].maxCount = 1;
                      UniList[Number][1][k].itemid = -1;
@@ -267,41 +268,41 @@ function UniShop:onLoad()
             end
        end
      end
-     if data == 6 then  ----ĞŞ¸ÄµêÆÌÃû³Æ
+     if data == 6 then  ----ä¿®æ”¹åº—é“ºåç§°
        if (tbl_playerunishop[cdk]==nil) then
-         NLG.SystemMessage(player,"[Ïµ½y]ÕˆÏÈ×â½èçRÏñ”[”‚£¡");
+         NLG.SystemMessage(player,"[ç³»çµ±]è«‹å…ˆç§Ÿå€Ÿé¡åƒæ“ºæ”¤ï¼");
          return;
        end
        if (cdk == tbl_playerunishop[cdk][1]) then
-         local msg = "\\n@c»¶Ó­Ê¹ÓÃ¾µÏñ°ÚÌ¯·şÎñ\\n"
-                             .. "\\nÇëÊäÈëĞÂµÄµêÆÌÃû³Æ\\n";
-         NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_È·¶¨¹Ø±Õ, 6, msg);
+         local msg = "\\n@cæ­¡è¿ä½¿ç”¨é¡åƒæ“ºæ”¤æœå‹™\\n"
+                             .. "\\nè«‹è¼¸å…¥æ–°çš„åº—é‹ªåç¨±\\n";
+         NLG.ShowWindowTalked(player, npc, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ç¡®å®šå…³é—­, 6, msg);
        end
      end
     end
 
 
-    if seqno == 4 then  ----ÉÏ¼Ü¼ÄÊÛµÀ¾ßÖ´ĞĞ1
+    if seqno == 4 then  ----ä¸Šæ¶å¯„å”®é“å…·æ‰§è¡Œ1
      key = data
      if data == key then
          local item = Char.GetItemIndex(player,key+7)
-         local durable = Item.GetData(item,CONST.µÀ¾ß_ÄÍ¾Ã)
-         local deal = Item.GetData(item,CONST.µÀ¾ß_³èÓÊ)
+         local durable = Item.GetData(item,CONST.é“å…·_è€ä¹…)
+         local deal = Item.GetData(item,CONST.é“å…·_å® é‚®)
          if (item==-2) then
             return;
          end
          if ( durable>=1 or deal==0 ) then
-            NLG.SystemMessage(player,"[Ïµ½y]´ËµÀ¾ß½ûÖ¹ÉÏ¼Ü£¡");
+            NLG.SystemMessage(player,"[ç³»çµ±]æ­¤é“å…·ç¦æ­¢ä¸Šæ¶ï¼");
             return;
          end
-         local name = Item.GetData(item,CONST.µÀ¾ß_Ãû×Ö)
-         local msg = "\\n@c»¶Ó­Ê¹ÓÃÉÏ¼Ü¼ÄÊÛµÀ¾ß·şÎñ\\n"
-                             .. "\\nÇëÊäÈë¡¸".. name .."¡¹µÄµ¥¼Û\\n";
-         NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_È·¶¨¹Ø±Õ, 41, msg);
+         local name = Item.GetData(item,CONST.é“å…·_åå­—)
+         local msg = "\\n@cæ­¡è¿ä½¿ç”¨ä¸Šæ¶å¯„å”®é“å…·æœå‹™\\n"
+                             .. "\\nè«‹è¼¸å…¥ã€Œ".. name .."ã€çš„å–®åƒ¹\\n";
+         NLG.ShowWindowTalked(player, npc, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ç¡®å®šå…³é—­, 41, msg);
      end
     end
 
-    if seqno == 41 then  ----ÉÏ¼Ü¼ÄÊÛµÀ¾ßÖ´ĞĞ2
+    if seqno == 41 then  ----ä¸Šæ¶å¯„å”®é“å…·æ‰§è¡Œ2
      if select == 1 then
        print(itemid)
        local Number = tonumber(tbl_playerunishop[cdk][4])
@@ -309,14 +310,14 @@ function UniShop:onLoad()
        if ( itemid == -1 ) then
          local price = tonumber(_data);
          local item = Char.GetItemIndex(player,key+7)
-         local name = Item.GetData(item,CONST.µÀ¾ß_Ãû×Ö)
-         local image = Item.GetData(item,CONST.µÀ¾ß_Í¼)
-         local itemid = Item.GetData(item,CONST.µÀ¾ß_ID)
+         local name = Item.GetData(item,CONST.é“å…·_åå­—)
+         local image = Item.GetData(item,CONST.é“å…·_å›¾)
+         local itemid = Item.GetData(item,CONST.é“å…·_ID)
          local maxCount = Char.ItemNum(player,itemid)
-         local itemlevel = Item.GetData(item,CONST.µÀ¾ß_µÈ¼¶)
-         local itemtype = Item.GetData(item,CONST.µÀ¾ß_ÀàĞÍ)
+         local itemlevel = Item.GetData(item,CONST.é“å…·_ç­‰çº§)
+         local itemtype = Item.GetData(item,CONST.é“å…·_ç±»å‹)
          local itemtypename = itemTypeList[itemtype][1];
-         local desc = "µÈ¼¶ ".. itemlevel .. "\\nÖÖÀà " .. itemtypename .. "\\n";
+         local desc = "ç­‰ç´š ".. itemlevel .. "\\nç¨®é¡ " .. itemtypename .. "\\n";
          local count = 1;
          local gold = 0;
          UniList[Number][1][key].name = name;
@@ -330,20 +331,20 @@ function UniShop:onLoad()
          NLG.UpChar(tbl_playerunishop[cdk][2]);
          NLG.UpChar(tbl_playerunishop[cdk][3]);
          Char.DelItem(player,itemid,maxCount);
-         NLG.SystemMessage(player,"[Ïµ½y]ÒÑÉÏ¼Ü¼ÄÊÛµÄÎïÆ·£¡");
+         NLG.SystemMessage(player,"[ç³»çµ±]å·²ä¸Šæ¶å¯„å”®çš„ç‰©å“ï¼");
        else
-         NLG.SystemMessage(player,"[Ïµ½y]´Ë¸ñ×ÓÒÑÓĞÉÏ¼ÜÎïÆ·£¡");
+         NLG.SystemMessage(player,"[ç³»çµ±]æ­¤æ ¼å­å·²æœ‰ä¸Šæ¶ç‰©å“ï¼");
          return;
        end
      end
     end
 
     --[[
-    if seqno == 6 then  ----ĞŞ¸ÄµêÆÌÃû³ÆÖ´ĞĞ
+    if seqno == 6 then  ----ä¿®æ”¹åº—é“ºåç§°æ‰§è¡Œ
      if select == 1 then
        local shopname = _data;
        --print(_data)
-       Char.SetData(tbl_playerunishop[cdk][2], CONST.CHAR_Ãû×Ö, shopname);
+       Char.SetData(tbl_playerunishop[cdk][2], CONST.CHAR_åå­—, shopname);
        NLG.UpChar(tbl_playerunishop[cdk][2]);
      else
        return 0;
@@ -353,13 +354,13 @@ function UniShop:onLoad()
 
   end)
 
-  self:NPC_regTalkedEvent(uninpc, function(npc, player)  ----¾µÏñ°ÚÌ¯ÁùÖÖ¹¦ÄÜUniMenus{}
+  self:NPC_regTalkedEvent(uninpc, function(npc, player)  ----é•œåƒæ‘†æ‘Šå…­ç§åŠŸèƒ½UniMenus{}
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "1\\n@c»¶Ó­Ê¹ÓÃ¾µÏñ°ÚÌ¯·şÎñ\\n";
+      local msg = "1\\n@cæ­¡è¿ä½¿ç”¨é¡åƒæ“ºæ”¤æœå‹™\\n";
       for i = 1, 5 do
         msg = msg .. UniMenus[i][1] .. "\\n"
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1, msg);
     end
     return
   end)
@@ -367,14 +368,14 @@ function UniShop:onLoad()
 end
 
 
-function UniShop:onSellerTalked(npc, player)  ----ÉèÁ¢¾µÏñÌ¯Î»
+function UniShop:onSellerTalked(npc, player)  ----è®¾ç«‹é•œåƒæ‘Šä½
   if (NLG.CanTalk(npc, player) == true) then
-    local npcname = Char.GetData(npc,CONST.CHAR_Ãû×Ö);
+    local npcname = Char.GetData(npc,CONST.CHAR_åå­—);
     local cdk = SQL.Run("select CdKey from tbl_character where Name='"..npcname.."'")["0_0"]
     local Number = tonumber(tbl_playerunishop[cdk][4])
-    local npcSkin = Char.GetData(npc,CONST.CHAR_ĞÎÏó);
-    NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ÉÌµêÂò, CONST.BUTTON_ÊÇ, 0,
-      self:NPC_buildBuyWindowData(npcSkin, '¾µÏñ°ÚÌ¯', '··ÂôÉÌÆ·', '½ğÇ®²»×ã', '±³°üÒÑÂú', UniList[Number][1]))
+    local npcSkin = Char.GetData(npc,CONST.CHAR_å½¢è±¡);
+    NLG.ShowWindowTalked(player, npc, CONST.çª—å£_å•†åº—ä¹°, CONST.BUTTON_æ˜¯, 0,
+      self:NPC_buildBuyWindowData(npcSkin, 'é¡åƒæ“ºæ”¤', 'è²©è³£å•†å“', 'é‡‘éŒ¢ä¸è¶³', 'èƒŒåŒ…å·²æ»¿', UniList[Number][1]))
   end
 end
 
@@ -384,11 +385,11 @@ function UniShop:onSellerSelected(npc, player, seqNo, select, data)
   if select == 2 then
      return
   end
-  local name = Char.GetData(npc,CONST.CHAR_Ãû×Ö);
+  local name = Char.GetData(npc,CONST.CHAR_åå­—);
   local cdk_shop = SQL.Run("select CdKey from tbl_character where Name='"..name.."'")["0_0"]
   local Number = tonumber(tbl_playerunishop[cdk_shop][4])
   local items = string.split(data, '|');
-  local gold = Char.GetData(player, CONST.CHAR_½ğ±Ò)
+  local gold = Char.GetData(player, CONST.CHAR_é‡‘å¸)
   local totalGold = 0;
   local UniList = UniList[Number][1]
   for i = 1, #items / 2 do
@@ -399,7 +400,7 @@ function UniShop:onSellerSelected(npc, player, seqNo, select, data)
         maxCount = c.maxCount - count;
       else
         maxCount = c.maxCount;
-        NLG.SystemMessage(player,"[Ïµ½y]´ËÎïÆ·ÒÑÊÛÍê£¡");
+        NLG.SystemMessage(player,"[ç³»çµ±]æ­¤ç‰©å“å·²å”®å®Œï¼");
         return;
       end
       if c.itemid > 1 then
@@ -410,22 +411,22 @@ function UniShop:onSellerSelected(npc, player, seqNo, select, data)
       totalGold = totalGold + c.price * count;
     end
   end
-  if itemid == -1 then  ----ÅÅ³ıÍ¸¹ı°´Å¥È¡µÃµÀ¾ß
+  if itemid == -1 then  ----æ’é™¤é€è¿‡æŒ‰é’®å–å¾—é“å…·
      return;
   end
   if maxCount < 0 then
-    NLG.SystemMessage(player,"[Ïµ½y]ÊıÁ¿³¬¹ı¿â´æ£¡");
+    NLG.SystemMessage(player,"[ç³»çµ±]æ•¸é‡è¶…éåº«å­˜ï¼");
     return;
   end
   if gold < totalGold then
-    NLG.SystemMessage(player, '½ğ±Ò²»×ã');
+    NLG.SystemMessage(player, 'é‡‘å¹£ä¸è¶³');
     return
   end
   Char.AddGold(player, -totalGold);
   NLG.UpChar(player);
   Char.GiveItem(player,itemid,count)
 
-  ------------»Ø´«Ê£ÓàµÀ¾ßÊıÁ¿¡¢ÊÛ³öÈ¡µÃ½ğÇ®------------
+  ------------å›ä¼ å‰©ä½™é“å…·æ•°é‡ã€å”®å‡ºå–å¾—é‡‘é’±------------
   if totalGold > 0 then
       for i = 1, #items / 2 do
         local c = UniList[items[(i - 1) * 2 + 1] + 1]
@@ -445,7 +446,7 @@ function UniShop:onSellerSelected(npc, player, seqNo, select, data)
 
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function UniShop:onUnload()
   self:logInfo('unload')
 end
