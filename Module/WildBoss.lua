@@ -51,7 +51,7 @@ function Wild_LoopEvent(_MeIndex)
 		if tbl_RandomNpcIndex[Name] == nil then	
 			local NpcIndex = CreateWildNpc(Image, Name, 0, Pos[Posn][3], Pos[Posn][4], Pos[Posn][5], Pos[Posn][6])
 			tbl_RandomNpcIndex[Name] = NpcIndex
-			NLG.SystemMessage(-1, "[系统]"..Name.."出现了，快去挑战吧！")
+			--NLG.SystemMessage(-1, "[系統]"..Name.."出現了，快去挑戰吧！")
 		end
 	end
 end
@@ -101,7 +101,7 @@ function WildNpc__Talked(_NpcIndex, _PlayerIndex)
 	Char.SetData(_NpcIndex, %对象_方向%,i);
 	NLG.UpChar( _NpcIndex);
 	local mz = "『"..Char.GetData(_PlayerIndex,%对象_名字%).. "』"
-	local	token ="\n\n\n\n魔族最强大，人类一个都不留！？"
+	local	token ="\n\n\n\n魔族最強大，人類一個都不留！？"
 
        NLG.ShowWindowTalked(_PlayerIndex, _NpcIndex, 0, 1, 1, token)
 
@@ -119,13 +119,13 @@ function WildNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
 --	local tWildBattleIndex = Battle.PVE( _PlayerIndex, tbl_LuaNpcIndex["WildNpc"], nil, tBossList, tLvList, nil)
 	local tWildBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, EnemySet[Posn], BaseLevelSet[Posn], nil)
 	Battle.SetWinEvent( nil, "WildNpc_BattleWin", tWildBattleIndex);
-	NLG.SystemMessage(-1, Char.GetData(_PlayerIndex,%对象_名字%).."正在挑战" .. tName)
+	NLG.SystemMessage(-1, "傳說勇者 "..Char.GetData(_PlayerIndex,%对象_名字%).." 挑起了與 " .. tName.." 的戰鬥")
  end
 end
 function WildNpc_BattleWin(_BattleIndex, _NpcIndex)
 		local tPlayerIndex = Battle.GetPlayIndex( _BattleIndex, 0)
 		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%对象_类型%)==1 then
-			NLG.SystemMessage(-1, "[系统]"..Char.GetData(tPlayerIndex,%对象_名字%).."率领队友击败了"..Char.GetData(_NpcIndex, %对象_原名%))
+			NLG.SystemMessage(-1, "傳說勇者 "..Char.GetData(tPlayerIndex,%对象_名字%).." 率領隊友擊敗了"..Char.GetData(_NpcIndex, %对象_原名%))
 			NL.DelNpc(_NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomNpcIndex)
 			tbl_RandomNpcIndex[kk] = nil
