@@ -2,21 +2,21 @@ NL.RegItemAttachEvent(nil,"RegItemAttachEvent");
 NL.RegItemDetachEvent(nil,"RegItemDetachEvent");
 
 CardTable= {}
-CardTable[1] = {%¶ÔÏó_ÌåÁ¦%,5000,14,8,3,%¶ÔÏó_ÃüÖĞ%,Plus1,"ÃüÖĞ"};
-CardTable[2] = {%¶ÔÏó_Ç¿¶È%,5000,14,8,1,%¶ÔÏó_·´»÷%,Plus1,"·´»÷"};
-CardTable[3] = {%¶ÔÏó_ËÙ¶È%,5000,14,8,4,%¶ÔÏó_±ØÉ±%,Plus1,"±ØÉ±"};
-CardTable[4] = {%¶ÔÏó_Ä§·¨%,5000,14,8,2,%¶ÔÏó_ÉÁ¶ã%,Plus1,"ÉÁ¶ã"};
+CardTable[1] = {%å¯¹è±¡_ä½“åŠ›%,5000,14,8,3,%å¯¹è±¡_å‘½ä¸­%,Plus1,"å‘½ä¸­"};
+CardTable[2] = {%å¯¹è±¡_å¼ºåº¦%,5000,14,8,1,%å¯¹è±¡_åå‡»%,Plus1,"åå‡»"};
+CardTable[3] = {%å¯¹è±¡_é€Ÿåº¦%,5000,14,8,4,%å¯¹è±¡_å¿…æ€%,Plus1,"å¿…æ€"};
+CardTable[4] = {%å¯¹è±¡_é­”æ³•%,5000,14,8,2,%å¯¹è±¡_é—ªèº²%,Plus1,"é—ªèº²"};
 
-CardTable[5] = {%¶ÔÏó_Á¦Á¿%,700,14,9,1,%¶ÔÏó_Ç¿¶È%,Plus,"Ç¿¶È"};
-CardTable[6] = {%¶ÔÏó_Á¦Á¿%,700,14,9,2,%¶ÔÏó_ÌåÁ¦%,Plus,"ÌåÁ¦"};
-CardTable[7] = {%¶ÔÏó_Á¦Á¿%,700,14,9,3,%¶ÔÏó_Ä§·¨%,Plus,"Ä§·¨"};
-CardTable[8] = {%¶ÔÏó_Á¦Á¿%,700,14,9,4,%¶ÔÏó_ËÙ¶È%,Plus,"ËÙ¶È"};
+CardTable[5] = {%å¯¹è±¡_åŠ›é‡%,700,14,9,1,%å¯¹è±¡_å¼ºåº¦%,Plus,"å¼ºåº¦"};
+CardTable[6] = {%å¯¹è±¡_åŠ›é‡%,700,14,9,2,%å¯¹è±¡_ä½“åŠ›%,Plus,"ä½“åŠ›"};
+CardTable[7] = {%å¯¹è±¡_åŠ›é‡%,700,14,9,3,%å¯¹è±¡_é­”æ³•%,Plus,"é­”æ³•"};
+CardTable[8] = {%å¯¹è±¡_åŠ›é‡%,700,14,9,4,%å¯¹è±¡_é€Ÿåº¦%,Plus,"é€Ÿåº¦"};
 
 function RegItemAttachEvent(player,item)
-	local Special = Item.GetData(item,%µÀ¾ß_ÌØÊâÀàĞÍ%);
-	local Para1 = Item.GetData(item,%µÀ¾ß_×Ó²ÎÒ»%);
-	local Para2 = Item.GetData(item,%µÀ¾ß_×Ó²Î¶ş%);
-	local Luck = Item.GetData(item,%µÀ¾ß_ĞÒÔË%);
+	local Special = Item.GetData(item,%é“å…·_ç‰¹æ®Šç±»å‹%);
+	local Para1 = Item.GetData(item,%é“å…·_å­å‚ä¸€%);
+	local Para2 = Item.GetData(item,%é“å…·_å­å‚äºŒ%);
+	local Luck = Item.GetData(item,%é“å…·_å¹¸è¿%);
 	local FromItemID = Item.GetData(item,0);
 	local Slot = Char.FindItemId(player,FromItemID);
 	for i = 1,4 do
@@ -26,9 +26,9 @@ function RegItemAttachEvent(player,item)
 			local PretArr= Char.GetData(player,CardTable[i][6]);
 			Char.SetData(player,CardTable[i][6], PretArr+CardTable[i][7]);
 			NLG.UpChar(player);
-			Item.SetData(item,%µÀ¾ß_ĞÒÔË%, CardTable[i][7]);
+			Item.SetData(item,%é“å…·_å¹¸è¿%, CardTable[i][7]);
 			Item.UpItem(item,Slot);
-			NLG.SystemMessage(player,"¡î¿¨Æ¬¼Ó³É¡î »ñµÃ".. CardTable[i][8] .."ĞŞÕıÊôĞÔ".. CardTable[i][7] .."µã¶îÍâ¼Ó³É");
+			NLG.SystemMessage(player,"â˜†å¡ç‰‡åŠ æˆâ˜† ç²å¾—".. CardTable[i][8] .."ä¿®æ­£å±¬æ€§".. CardTable[i][7] .."é»é¡å¤–åŠ æˆ");
 		end
 	end
 	for j = 5,8 do
@@ -38,22 +38,22 @@ function RegItemAttachEvent(player,item)
 			local PretArr= Char.GetData(player,CardTable[j][6]);
 			Char.SetData(player,CardTable[j][6], PretArr+CardTable[j][7]);
 			NLG.UpChar(player);
-			Item.SetData(item,%µÀ¾ß_ĞÒÔË%, CardTable[j][7]);
+			Item.SetData(item,%é“å…·_å¹¸è¿%, CardTable[j][7]);
 			Item.UpItem(item,Slot);
-			NLG.SystemMessage(player,"¡î¿¨Æ¬¼Ó³É¡î »ñµÃ".. CardTable[j][8] .."ÄÜÁ¦ÊôĞÔ".. CardTable[j][7]/100 .."µã¶îÍâ¼Ó³É");
+			NLG.SystemMessage(player,"â˜†å¡ç‰‡åŠ æˆâ˜† ç²å¾—".. CardTable[j][8] .."èƒ½åŠ›å±¬æ€§".. CardTable[j][7]/100 .."é»é¡å¤–åŠ æˆ");
 		end
 	end
-	local Gold = Char.GetData(player, %¶ÔÏó_½ğ±Ò%);
-	if(Item.GetData(item,%µÀ¾ß_ÀàĞÍ%) == 22)then
-		if(Item.GetData(item,%µÀ¾ß_×Ó²Î¶ş%) == 0)then
-			--NLG.SystemMessage(player,"[ÏµÍ³] Ë®¾§ÎŞ×éºÏ³èÎï×ùÆï£¡");
+	local Gold = Char.GetData(player, %å¯¹è±¡_é‡‘å¸%);
+	if(Item.GetData(item,%é“å…·_ç±»å‹%) == 22)then
+		if(Item.GetData(item,%é“å…·_å­å‚äºŒ%) == 0)then
+			--NLG.SystemMessage(player,"[ç³»ç»Ÿ] æ°´æ™¶æ— ç»„åˆå® ç‰©åº§éª‘ï¼");
 		else
-			if(Item.GetData(item,%µÀ¾ß_ÌØÊâÀàĞÍ%) == 0)then
-			local figure = Item.GetData(item,%µÀ¾ß_×Ó²ÎÒ»%);
-			local Sitting = Item.GetData(item,%µÀ¾ß_×Ó²Î¶ş%);
-			Char.SetData(player,%¶ÔÏó_ĞÎÏó%,Sitting);
-			Char.SetData(player,%¶ÔÏó_Ô­ĞÎ%,Sitting);
-			Char.SetData(player,%¶ÔÏó_Ô­Ê¼Í¼µµ%,Sitting);
+			if(Item.GetData(item,%é“å…·_ç‰¹æ®Šç±»å‹%) == 0)then
+			local figure = Item.GetData(item,%é“å…·_å­å‚ä¸€%);
+			local Sitting = Item.GetData(item,%é“å…·_å­å‚äºŒ%);
+			Char.SetData(player,%å¯¹è±¡_å½¢è±¡%,Sitting);
+			Char.SetData(player,%å¯¹è±¡_åŸå½¢%,Sitting);
+			Char.SetData(player,%å¯¹è±¡_åŸå§‹å›¾æ¡£%,Sitting);
 			--NLG.SetHeadIcon(player,figure);
 			NLG.UpChar(player);
 			end
@@ -62,10 +62,10 @@ function RegItemAttachEvent(player,item)
 end
 
 function RegItemDetachEvent(player,item)
-	local Special = Item.GetData(item,%µÀ¾ß_ÌØÊâÀàĞÍ%);
-	local Para1 = Item.GetData(item,%µÀ¾ß_×Ó²ÎÒ»%);
-	local Para2 = Item.GetData(item,%µÀ¾ß_×Ó²Î¶ş%);
-	local Luck = Item.GetData(item,%µÀ¾ß_ĞÒÔË%);
+	local Special = Item.GetData(item,%é“å…·_ç‰¹æ®Šç±»å‹%);
+	local Para1 = Item.GetData(item,%é“å…·_å­å‚ä¸€%);
+	local Para2 = Item.GetData(item,%é“å…·_å­å‚äºŒ%);
+	local Luck = Item.GetData(item,%é“å…·_å¹¸è¿%);
 	local FromItemID = Item.GetData(item,0);
 	local Slot = Char.FindItemId(player,FromItemID);
 	for i = 1,4 do
@@ -73,10 +73,10 @@ function RegItemDetachEvent(player,item)
 		if (Special == CardTable[i][3] and Para1 == CardTable[i][4] and Para2 == CardTable[i][5])then
 			Char.SetData(player,CardTable[i][6], PostArr - Luck);
 			NLG.UpChar(player);
-			Item.SetData(item,%µÀ¾ß_ĞÒÔË%, 0);
+			Item.SetData(item,%é“å…·_å¹¸è¿%, 0);
 			Item.UpItem(item,Slot);
 			--CardResetEvent_D(player);
-			NLG.SystemMessage(player,"¡î¿¨Æ¬¼Ó³É¡î È¡Ïû".. CardTable[i][8] .."ĞŞÕıÊôĞÔ".. Luck .."µã¶îÍâ¼Ó³É");
+			NLG.SystemMessage(player,"â˜†å¡ç‰‡åŠ æˆâ˜† å–æ¶ˆ".. CardTable[i][8] .."ä¿®æ­£å±¬æ€§".. Luck .."é»é¡å¤–åŠ æˆ");
 		end
 	end
 	for j = 5,8 do
@@ -84,23 +84,23 @@ function RegItemDetachEvent(player,item)
 		if (Special == CardTable[j][3] and Para1 == CardTable[j][4] and Para2 == CardTable[j][5])then
 			Char.SetData(player,CardTable[j][6], PostArr - Luck);
 			NLG.UpChar(player);
-			Item.SetData(item,%µÀ¾ß_ĞÒÔË%, 0);
+			Item.SetData(item,%é“å…·_å¹¸è¿%, 0);
 			Item.UpItem(item,Slot);
 			--CardResetEvent_W(player);
-			NLG.SystemMessage(player,"¡î¿¨Æ¬¼Ó³É¡î È¡Ïû".. CardTable[j][8] .."ÄÜÁ¦ÊôĞÔ".. Luck/100 .."µã¶îÍâ¼Ó³É");
+			NLG.SystemMessage(player,"â˜†å¡ç‰‡åŠ æˆâ˜† å–æ¶ˆ".. CardTable[j][8] .."èƒ½åŠ›å±¬æ€§".. Luck/100 .."é»é¡å¤–åŠ æˆ");
 		end
 	end
-	local Gold = Char.GetData(player, %¶ÔÏó_½ğ±Ò%);
-	if(Item.GetData(item,%µÀ¾ß_ÀàĞÍ%) == 22)then
-		if(Item.GetData(item,%µÀ¾ß_×Ó²Î¶ş%) == 0)then
-			--NLG.SystemMessage(player,"[ÏµÍ³] Ë®¾§ÎŞ×éºÏ³èÎï×ùÆï£¡");
+	local Gold = Char.GetData(player, %å¯¹è±¡_é‡‘å¸%);
+	if(Item.GetData(item,%é“å…·_ç±»å‹%) == 22)then
+		if(Item.GetData(item,%é“å…·_å­å‚äºŒ%) == 0)then
+			--NLG.SystemMessage(player,"[ç³»ç»Ÿ] æ°´æ™¶æ— ç»„åˆå® ç‰©åº§éª‘ï¼");
 		else
-			if(Item.GetData(item,%µÀ¾ß_ÌØÊâÀàĞÍ%) == 0)then
-			local figure = Item.GetData(item,%µÀ¾ß_×Ó²ÎÒ»%);
-			local Sitting = Item.GetData(item,%µÀ¾ß_×Ó²Î¶ş%);
-			Char.SetData(player,%¶ÔÏó_ĞÎÏó%,figure);
-			Char.SetData(player,%¶ÔÏó_Ô­ĞÎ%,figure);
-			Char.SetData(player,%¶ÔÏó_Ô­Ê¼Í¼µµ%,figure);
+			if(Item.GetData(item,%é“å…·_ç‰¹æ®Šç±»å‹%) == 0)then
+			local figure = Item.GetData(item,%é“å…·_å­å‚ä¸€%);
+			local Sitting = Item.GetData(item,%é“å…·_å­å‚äºŒ%);
+			Char.SetData(player,%å¯¹è±¡_å½¢è±¡%,figure);
+			Char.SetData(player,%å¯¹è±¡_åŸå½¢%,figure);
+			Char.SetData(player,%å¯¹è±¡_åŸå§‹å›¾æ¡£%,figure);
 			--NLG.SetHeadIcon(player,1);
 			NLG.UpChar(player);
 			end
