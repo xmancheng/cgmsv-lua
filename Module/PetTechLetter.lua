@@ -19,13 +19,13 @@ function My10ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,403);
 		Char.DelItem(_Player,71020,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -38,13 +38,13 @@ function My11ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,405);
 		Char.DelItem(_Player,71021,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -57,13 +57,13 @@ function My12ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,201610);
 		Char.DelItem(_Player,71022,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -76,13 +76,13 @@ function My13ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,11105);
 		Char.DelItem(_Player,71023,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -95,13 +95,13 @@ function My14ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,200705);
 		Char.DelItem(_Player,71024,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -114,13 +114,13 @@ function My15ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,8105);
 		Char.DelItem(_Player,71025,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -133,13 +133,13 @@ function My16ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,1319);
 		Char.DelItem(_Player,71026,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -152,13 +152,13 @@ function My17ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,1419);
 		Char.DelItem(_Player,71027,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -171,13 +171,13 @@ function My18ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,1519);
 		Char.DelItem(_Player,71028,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -190,13 +190,13 @@ function My19ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,1619);
 		Char.DelItem(_Player,71029,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
 
@@ -209,12 +209,12 @@ function My20ItemUse(_Player,_toPlayer,_itemSlot)
 		Pet.AddSkill(pet,1719);
 		Char.DelItem(_Player,71030,1);
 		Pet.UpPet(_Player,pet)
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎï¼¼ÄÜÑ§Ï°³É¹¦£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æŠ€èƒ½å­¸ç¿’æˆåŠŸï¼")
 		else
 
 		end
 		end
 	else
-		NLG.SystemMessage(_Player, "[ÏµÍ³] µÚÒ»¸ñ³èÎïÀ¸Ã»ÓĞ³èÎï£¡")
+		NLG.SystemMessage(_Player, "[ç³»çµ±] ç¬¬ä¸€æ ¼å¯µç‰©æ¬„æ²’æœ‰å¯µç‰©ï¼")
 	end
 end
