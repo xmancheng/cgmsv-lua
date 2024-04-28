@@ -2,13 +2,13 @@ local EnemySet = {}
 local BaseLevelSet = {}
 local Pos = {}
 local STime = os.time()
-local YS = 30 --½Å±¾ÑÓÊ±¶àÉÙÃë´´½¨NPC
-local SXTime = 15 --NPCË¢ĞÂÊ±¼ä¡¤Ãë
---¶ÓÁĞ½âÊÍ
---     Îå	Èı	Ò»	¶ş	ËÄ
---     Ê®	°Ë	Áù	Æß	¾Å
-------------µ°¸âµºÃ°ÏÕËæ»úNPCÉèÖÃ------------
-EnemySet[1] = {0, 406135, 406135, 0, 0, 0, 0, 0, 406135, 406135}--0´ú±íÃ»ÓĞ¹Ö
+local YS = 30 --è„šæœ¬å»¶æ—¶å¤šå°‘ç§’åˆ›å»ºNPC
+local SXTime = 15 --NPCåˆ·æ–°æ—¶é—´Â·ç§’
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”	ä¸‰	ä¸€	äºŒ	å››
+--     å	å…«	å…­	ä¸ƒ	ä¹
+------------è›‹ç³•å²›å†’é™©éšæœºNPCè®¾ç½®------------
+EnemySet[1] = {0, 406135, 406135, 0, 0, 0, 0, 0, 406135, 406135}--0ä»£è¡¨æ²¡æœ‰æ€ª
 EnemySet[2] = {0, 406136, 406136, 0, 0, 0, 0, 0, 406136, 406136}
 EnemySet[3] = {0, 406137, 406137, 0, 0, 0, 0, 0, 406137, 406137}
 EnemySet[4] = {0, 406138, 406138, 0, 0, 0, 0, 0, 406138, 406138}
@@ -20,12 +20,12 @@ BaseLevelSet[3] = {0, 90, 90, 0, 0, 0, 0, 0, 90, 90}
 BaseLevelSet[4] = {0, 90, 90, 0, 0, 0, 0, 0, 90, 90}
 BaseLevelSet[5] = {0, 90, 90, 0, 0, 0, 0, 0, 90, 90}
 BaseLevelSet[6] = {100, 90, 90, 0, 0, 90, 0, 0, 90, 90}
-Pos[1] = {{"¿É¿Éµ°¸â¹Ö",104845,38301,70,40,4,EnemySet[1],1,BaseLevelSet[1]},{"ÓóÄàµ°¸â¹Ö",104846,38301,75,50,0,EnemySet[2],2,BaseLevelSet[2]},{"±¡ºÉµ°¸â¹Ö",104847,38301,65,45,2,EnemySet[3],3,BaseLevelSet[3]},{"ÄÌÓÍµ°¸â¹Ö",104848,38301,45,52,1,EnemySet[4],4,BaseLevelSet[4]},{"Ä¨²èµ°¸â¹Ö",104849,38301,93,55,5,EnemySet[5],5,BaseLevelSet[5]}}
-Pos[2] = {{"¿É¿Éµ°¸â¹Ö",104845,38301,77,62,4,EnemySet[1],6,BaseLevelSet[1]},{"ÓóÄàµ°¸â¹Ö",104846,38301,54,59,0,EnemySet[2],7,BaseLevelSet[2]},{"±¡ºÉµ°¸â¹Ö",104847,38301,53,74,2,EnemySet[3],8,BaseLevelSet[3]},{"ÄÌÓÍµ°¸â¹Ö",104848,38301,73,72,1,EnemySet[4],9,BaseLevelSet[4]},{"Ä¨²èµ°¸â¹Ö",104849,38301,91,81,5,EnemySet[5],10,BaseLevelSet[5]}}
-Pos[3] = {{"¿É¿Éµ°¸â¹Ö",104845,38301,61,99,4,EnemySet[1],11,BaseLevelSet[1]},{"ÓóÄàµ°¸â¹Ö",104846,38301,84,98,0,EnemySet[2],12,BaseLevelSet[2]},{"±¡ºÉµ°¸â¹Ö",104847,38301,70,82,2,EnemySet[3],13,BaseLevelSet[3]},{"ÄÌÓÍµ°¸â¹Ö",104848,38301,78,113,1,EnemySet[4],14,BaseLevelSet[4]},{"Ä¨²èµ°¸â¹Ö",104849,38301,92,68,5,EnemySet[5],15,BaseLevelSet[5]}}
-Pos[4] = {{"BIG¡¤MOM",104313,38301,49,34,4,EnemySet[6],60,BaseLevelSet[6]}}
+Pos[1] = {{"å¯å¯è›‹ç³•æ€ª",104845,38301,70,40,4,EnemySet[1],1,BaseLevelSet[1]},{"èŠ‹æ³¥è›‹ç³•æ€ª",104846,38301,75,50,0,EnemySet[2],2,BaseLevelSet[2]},{"è–„è·è›‹ç³•æ€ª",104847,38301,65,45,2,EnemySet[3],3,BaseLevelSet[3]},{"å¥¶æ²¹è›‹ç³•æ€ª",104848,38301,45,52,1,EnemySet[4],4,BaseLevelSet[4]},{"æŠ¹èŒ¶è›‹ç³•æ€ª",104849,38301,93,55,5,EnemySet[5],5,BaseLevelSet[5]}}
+Pos[2] = {{"å¯å¯è›‹ç³•æ€ª",104845,38301,77,62,4,EnemySet[1],6,BaseLevelSet[1]},{"èŠ‹æ³¥è›‹ç³•æ€ª",104846,38301,54,59,0,EnemySet[2],7,BaseLevelSet[2]},{"è–„è·è›‹ç³•æ€ª",104847,38301,53,74,2,EnemySet[3],8,BaseLevelSet[3]},{"å¥¶æ²¹è›‹ç³•æ€ª",104848,38301,73,72,1,EnemySet[4],9,BaseLevelSet[4]},{"æŠ¹èŒ¶è›‹ç³•æ€ª",104849,38301,91,81,5,EnemySet[5],10,BaseLevelSet[5]}}
+Pos[3] = {{"å¯å¯è›‹ç³•æ€ª",104845,38301,61,99,4,EnemySet[1],11,BaseLevelSet[1]},{"èŠ‹æ³¥è›‹ç³•æ€ª",104846,38301,84,98,0,EnemySet[2],12,BaseLevelSet[2]},{"è–„è·è›‹ç³•æ€ª",104847,38301,70,82,2,EnemySet[3],13,BaseLevelSet[3]},{"å¥¶æ²¹è›‹ç³•æ€ª",104848,38301,78,113,1,EnemySet[4],14,BaseLevelSet[4]},{"æŠ¹èŒ¶è›‹ç³•æ€ª",104849,38301,92,68,5,EnemySet[5],15,BaseLevelSet[5]}}
+Pos[4] = {{"BIGÂ·MOM",104313,38301,49,34,4,EnemySet[6],60,BaseLevelSet[6]}}
 
-------------ÄÏ¹Ï´ó½ø»÷Ëæ»úNPCÉèÖÃ------------
+------------å—ç“œå¤§è¿›å‡»éšæœºNPCè®¾ç½®------------
 EnemySet[7] = {406130, 406130, 406130, 0, 0, 406130, 406130, 406130, 0, 0}
 EnemySet[8] = {406131, 406131, 406131, 0, 0, 406131, 406131, 406131, 0, 0}
 EnemySet[9] = {406132, 406132, 406132, 0, 0, 406132, 406132, 406132, 0, 0}
@@ -36,12 +36,12 @@ BaseLevelSet[8] = {70, 70, 70, 0, 0, 70, 70, 70, 0, 0}
 BaseLevelSet[9] = {70, 70, 70, 0, 0, 70, 70, 70, 0, 0}
 BaseLevelSet[10] = {70, 70, 70, 0, 0, 70, 70, 70, 0, 0}
 BaseLevelSet[11] = {70, 0, 0, 70, 70, 0, 70, 70, 0, 0}
-Pos[5] = {{"Áø³ÈÄÏ¹ÏµÆ",104685,38190,70,134,0,EnemySet[7],16,BaseLevelSet[7]},{"°µºìÄÏ¹ÏµÆ",104686,38190,71,115,4,EnemySet[8],17,BaseLevelSet[8]},{"ÁÁ»ÆÄÏ¹ÏµÆ",104398,38190,86,111,1,EnemySet[9],18,BaseLevelSet[9]},{"ÉîÂÌÄÏ¹ÏµÆ",104399,38190,101,115,2,EnemySet[10],19,BaseLevelSet[10]}}
-Pos[6] = {{"Áø³ÈÄÏ¹ÏµÆ",104685,38190,85,91,0,EnemySet[7],20,BaseLevelSet[7]},{"°µºìÄÏ¹ÏµÆ",104686,38190,69,99,4,EnemySet[8],21,BaseLevelSet[8]},{"ÁÁ»ÆÄÏ¹ÏµÆ",104398,38190,100,86,1,EnemySet[9],22,BaseLevelSet[9]},{"ÉîÂÌÄÏ¹ÏµÆ",104399,38190,83,72,2,EnemySet[10],23,BaseLevelSet[10]}}
-Pos[7] = {{"Áø³ÈÄÏ¹ÏµÆ",104685,38190,117,105,0,EnemySet[7],24,BaseLevelSet[7]},{"°µºìÄÏ¹ÏµÆ",104686,38190,103,100,4,EnemySet[8],25,BaseLevelSet[8]},{"ÁÁ»ÆÄÏ¹ÏµÆ",104398,38190,121,113,1,EnemySet[9],26,BaseLevelSet[9]},{"ÉîÂÌÄÏ¹ÏµÆ",104399,38190,103,130,2,EnemySet[10],27,BaseLevelSet[10]}}
-Pos[8] = {{"¾Ş´óÍòÊ¥ÄÏ¹Ï",104937,38190,114,81,6,EnemySet[11],61,BaseLevelSet[11]}}
+Pos[5] = {{"æŸ³æ©™å—ç“œç‡ˆ",104685,38190,70,134,0,EnemySet[7],16,BaseLevelSet[7]},{"æš—ç´…å—ç“œç‡ˆ",104686,38190,71,115,4,EnemySet[8],17,BaseLevelSet[8]},{"äº®é»ƒå—ç“œç‡ˆ",104398,38190,86,111,1,EnemySet[9],18,BaseLevelSet[9]},{"æ·±ç¶ å—ç“œç‡ˆ",104399,38190,101,115,2,EnemySet[10],19,BaseLevelSet[10]}}
+Pos[6] = {{"æŸ³æ©™å—ç“œç‡ˆ",104685,38190,85,91,0,EnemySet[7],20,BaseLevelSet[7]},{"æš—ç´…å—ç“œç‡ˆ",104686,38190,69,99,4,EnemySet[8],21,BaseLevelSet[8]},{"äº®é»ƒå—ç“œç‡ˆ",104398,38190,100,86,1,EnemySet[9],22,BaseLevelSet[9]},{"æ·±ç¶ å—ç“œç‡ˆ",104399,38190,83,72,2,EnemySet[10],23,BaseLevelSet[10]}}
+Pos[7] = {{"æŸ³æ©™å—ç“œç‡ˆ",104685,38190,117,105,0,EnemySet[7],24,BaseLevelSet[7]},{"æš—ç´…å—ç“œç‡ˆ",104686,38190,103,100,4,EnemySet[8],25,BaseLevelSet[8]},{"äº®é»ƒå—ç“œç‡ˆ",104398,38190,121,113,1,EnemySet[9],26,BaseLevelSet[9]},{"æ·±ç¶ å—ç“œç‡ˆ",104399,38190,103,130,2,EnemySet[10],27,BaseLevelSet[10]}}
+Pos[8] = {{"å·¨å¤§è¬è–å—ç“œ",104937,38190,114,81,6,EnemySet[11],61,BaseLevelSet[11]}}
 
-------------ÓÆÏĞÖ®ôÕÏÄËæ»úNPCÉèÖÃ------------
+------------æ‚ é—²ä¹‹ç²½å¤éšæœºNPCè®¾ç½®------------
 EnemySet[12] = {406125, 406125, 406125, 406125, 406125, 406125, 406125, 406125, 0, 0}
 EnemySet[13] = {406126, 406126, 406126, 406126, 406126, 406126, 406126, 406126, 0, 0}
 EnemySet[14] = {406127, 406127, 406127, 406127, 406127, 406127, 406127, 406127, 0, 0}
@@ -52,12 +52,12 @@ BaseLevelSet[13] = {50, 50, 50, 50, 50, 50, 50, 50, 0, 0}
 BaseLevelSet[14] = {50, 50, 50, 50, 50, 50, 50, 50, 0, 0}
 BaseLevelSet[15] = {50, 50, 50, 50, 50, 50, 50, 50, 0, 0}
 BaseLevelSet[16] = {50, 50, 50, 50, 50, 0, 0, 0, 0, 0}
-Pos[9] = {{"¹ûËáôÕĞ¡×Ó",104759,38304,51,76,0,EnemySet[12],28,BaseLevelSet[12]},{"ÂéÀ±ôÕĞ¡×Ó",104760,38304,34,61,4,EnemySet[13],29,BaseLevelSet[13]},{"Ò©¿àôÕĞ¡×Ó",104761,38304,64,81,1,EnemySet[14],30,BaseLevelSet[14]},{"¹ÏÌğôÕĞ¡×Ó",104762,38304,78,75,2,EnemySet[15],31,BaseLevelSet[15]}}
-Pos[10] = {{"¹ûËáôÕĞ¡×Ó",104759,38304,66,96,0,EnemySet[12],32,BaseLevelSet[12]},{"ÂéÀ±ôÕĞ¡×Ó",104760,38304,78,99,4,EnemySet[13],33,BaseLevelSet[13]},{"Ò©¿àôÕĞ¡×Ó",104761,38304,93,88,1,EnemySet[14],34,BaseLevelSet[14]},{"¹ÏÌğôÕĞ¡×Ó",104762,38304,87,70,2,EnemySet[15],35,BaseLevelSet[15]}}
-Pos[11] = {{"¹ûËáôÕĞ¡×Ó",104759,38304,71,49,0,EnemySet[12],36,BaseLevelSet[12]},{"ÂéÀ±ôÕĞ¡×Ó",104760,38304,54,49,4,EnemySet[13],37,BaseLevelSet[13]},{"Ò©¿àôÕĞ¡×Ó",104761,38304,70,32,1,EnemySet[14],38,BaseLevelSet[14]},{"¹ÏÌğôÕĞ¡×Ó",104762,38304,57,32,2,EnemySet[15],39,BaseLevelSet[15]}}
-Pos[12] = {{"¶ËÎç»®ÁúÖÛ",104758,38304,67,67,5,EnemySet[16],62,BaseLevelSet[16]}}
+Pos[9] = {{"æœé…¸ç²½å°å­",104759,38304,51,76,0,EnemySet[12],28,BaseLevelSet[12]},{"éº»è¾£ç²½å°å­",104760,38304,34,61,4,EnemySet[13],29,BaseLevelSet[13]},{"è—¥è‹¦ç²½å°å­",104761,38304,64,81,1,EnemySet[14],30,BaseLevelSet[14]},{"ç“œç”œç²½å°å­",104762,38304,78,75,2,EnemySet[15],31,BaseLevelSet[15]}}
+Pos[10] = {{"æœé…¸ç²½å°å­",104759,38304,66,96,0,EnemySet[12],32,BaseLevelSet[12]},{"éº»è¾£ç²½å°å­",104760,38304,78,99,4,EnemySet[13],33,BaseLevelSet[13]},{"è—¥è‹¦ç²½å°å­",104761,38304,93,88,1,EnemySet[14],34,BaseLevelSet[14]},{"ç“œç”œç²½å°å­",104762,38304,87,70,2,EnemySet[15],35,BaseLevelSet[15]}}
+Pos[11] = {{"æœé…¸ç²½å°å­",104759,38304,71,49,0,EnemySet[12],36,BaseLevelSet[12]},{"éº»è¾£ç²½å°å­",104760,38304,54,49,4,EnemySet[13],37,BaseLevelSet[13]},{"è—¥è‹¦ç²½å°å­",104761,38304,70,32,1,EnemySet[14],38,BaseLevelSet[14]},{"ç“œç”œç²½å°å­",104762,38304,57,32,2,EnemySet[15],39,BaseLevelSet[15]}}
+Pos[12] = {{"ç«¯åˆåˆ’é¾èˆŸ",104758,38304,67,67,5,EnemySet[16],62,BaseLevelSet[16]}}
 
-------------ÏÉ¾³Ğ¡ÑıÉ­Ëæ»úNPCÉèÖÃ------------
+------------ä»™å¢ƒå°å¦–æ£®éšæœºNPCè®¾ç½®------------
 EnemySet[17] = {406120, 406120, 406120, 406120, 406120, 406120, 406120, 406120, 406120, 406120}
 EnemySet[18] = {406121, 406121, 406121, 406121, 406121, 406121, 406121, 406121, 406121, 406121}
 EnemySet[19] = {406122, 406122, 406122, 406122, 406122, 406122, 406122, 406122, 406122, 406122}
@@ -68,10 +68,10 @@ BaseLevelSet[18] = {30, 30, 30, 30, 30, 30, 30, 30, 30, 30}
 BaseLevelSet[19] = {30, 30, 30, 30, 30, 30, 30, 30, 30, 30}
 BaseLevelSet[20] = {30, 30, 30, 30, 30, 30, 30, 30, 30, 30}
 BaseLevelSet[21] = {30, 30, 30, 30, 30, 30, 30, 30, 30, 30}
-Pos[13] = {{"ÂÌÒ¶Áé",104680,38191,97,114,0,EnemySet[17],40,BaseLevelSet[17]},{"ºìÒ¶Áé",104681,38191,103,147,4,EnemySet[18],41,BaseLevelSet[18]},{"Ä§Ò¶Áé",104682,38191,102,154,1,EnemySet[19],42,BaseLevelSet[19]},{"À¶Ò¶Áé",104683,38191,91,157,2,EnemySet[20],43,BaseLevelSet[20]},{"»ÆÒ¶Áé",104684,38191,93,147,5,EnemySet[21],44,BaseLevelSet[21]}}
-Pos[14] = {{"ÂÌÒ¶Áé",104680,38191,67,113,0,EnemySet[17],45,BaseLevelSet[17]},{"ºìÒ¶Áé",104681,38191,71,117,4,EnemySet[18],46,BaseLevelSet[18]},{"Ä§Ò¶Áé",104682,38191,57,120,1,EnemySet[19],47,BaseLevelSet[19]},{"À¶Ò¶Áé",104683,38191,69,128,2,EnemySet[20],48,BaseLevelSet[20]},{"»ÆÒ¶Áé",104684,38191,63,133,5,EnemySet[21],49,BaseLevelSet[21]}}
-Pos[15] = {{"ÂÌÒ¶Áé",104680,38191,104,76,0,EnemySet[17],50,BaseLevelSet[17]},{"ºìÒ¶Áé",104681,38191,107,82,4,EnemySet[18],51,BaseLevelSet[18]},{"Ä§Ò¶Áé",104682,38191,104,90,1,EnemySet[19],52,BaseLevelSet[19]},{"À¶Ò¶Áé",104683,38191,95,83,2,EnemySet[20],53,BaseLevelSet[20]},{"»ÆÒ¶Áé",104684,38191,106,98,5,EnemySet[21],54,BaseLevelSet[21]}}
-Pos[16] = {{"ÂÌÒ¶Áé",104680,38191,127,89,0,EnemySet[17],55,BaseLevelSet[17]},{"ºìÒ¶Áé",104681,38191,131,98,4,EnemySet[18],56,BaseLevelSet[18]},{"Ä§Ò¶Áé",104682,38191,131,106,1,EnemySet[19],57,BaseLevelSet[19]},{"À¶Ò¶Áé",104683,38191,127,116,2,EnemySet[20],58,BaseLevelSet[20]},{"»ÆÒ¶Áé",104684,38191,118,106,5,EnemySet[21],59,BaseLevelSet[21]}}
+Pos[13] = {{"ç¶ è‘‰éˆ",104680,38191,97,114,0,EnemySet[17],40,BaseLevelSet[17]},{"ç´…è‘‰éˆ",104681,38191,103,147,4,EnemySet[18],41,BaseLevelSet[18]},{"é­”è‘‰éˆ",104682,38191,102,154,1,EnemySet[19],42,BaseLevelSet[19]},{"è—è‘‰éˆ",104683,38191,91,157,2,EnemySet[20],43,BaseLevelSet[20]},{"é»ƒè‘‰éˆ",104684,38191,93,147,5,EnemySet[21],44,BaseLevelSet[21]}}
+Pos[14] = {{"ç¶ è‘‰éˆ",104680,38191,67,113,0,EnemySet[17],45,BaseLevelSet[17]},{"ç´…è‘‰éˆ",104681,38191,71,117,4,EnemySet[18],46,BaseLevelSet[18]},{"é­”è‘‰éˆ",104682,38191,57,120,1,EnemySet[19],47,BaseLevelSet[19]},{"è—è‘‰éˆ",104683,38191,69,128,2,EnemySet[20],48,BaseLevelSet[20]},{"é»ƒè‘‰éˆ",104684,38191,63,133,5,EnemySet[21],49,BaseLevelSet[21]}}
+Pos[15] = {{"ç¶ è‘‰éˆ",104680,38191,104,76,0,EnemySet[17],50,BaseLevelSet[17]},{"ç´…è‘‰éˆ",104681,38191,107,82,4,EnemySet[18],51,BaseLevelSet[18]},{"é­”è‘‰éˆ",104682,38191,104,90,1,EnemySet[19],52,BaseLevelSet[19]},{"è—è‘‰éˆ",104683,38191,95,83,2,EnemySet[20],53,BaseLevelSet[20]},{"é»ƒè‘‰éˆ",104684,38191,106,98,5,EnemySet[21],54,BaseLevelSet[21]}}
+Pos[16] = {{"ç¶ è‘‰éˆ",104680,38191,127,89,0,EnemySet[17],55,BaseLevelSet[17]},{"ç´…è‘‰éˆ",104681,38191,131,98,4,EnemySet[18],56,BaseLevelSet[18]},{"é­”è‘‰éˆ",104682,38191,131,106,1,EnemySet[19],57,BaseLevelSet[19]},{"è—è‘‰éˆ",104683,38191,127,116,2,EnemySet[20],58,BaseLevelSet[20]},{"é»ƒè‘‰éˆ",104684,38191,118,106,5,EnemySet[21],59,BaseLevelSet[21]}}
 
 tbl_RandomActivityNpcIndex = tbl_RandomActivityNpcIndex or {}
 ------------------------------------------------
@@ -94,25 +94,25 @@ script_map_amount[3] = {};
 script_map_amount[4] = {};
 script_map_amount[5] = {};
 
-script_map_name[2] = "¡¶ÏÉ¾³Ğ¡ÑıÉ­¡·";
+script_map_name[2] = "ã€Šä»™å¢ƒå°å¦–æ£®ã€‹";
 script_map_point[2] = {38191,107,65};
 script_map_lvlimit[2] = 30;
 script_map_payfor[2] = 2000;
 script_map_drop[2] = {70200,70200,70200,70201,70202,70202,70202};
 
-script_map_name[3] = "¡¶ÓÆÏĞÖ®ôÕÏÄ¡·";
+script_map_name[3] = "ã€Šæ‚ é–’ä¹‹ç²½å¤ã€‹";
 script_map_point[3] = {38304,64,24};
 script_map_lvlimit[3] = 50;
 script_map_payfor[3] = 2000;
 script_map_drop[3] = {70200,70200,70200,70201,70203,70203,70203};
 
-script_map_name[4] = "¡¶ÄÏ¹Ï´ó½ø»÷¡·";
+script_map_name[4] = "ã€Šå—ç“œå¤§é€²æ“Šã€‹";
 script_map_point[4] = {38190,67,118};
 script_map_lvlimit[4] = 70;
 script_map_payfor[4] = 2000;
 script_map_drop[4] = {70200,70201,70201,70204,70204,70204,70204};
 
-script_map_name[5] = "¡¶µ°¸âµºÃ°ÏÕ¡·";
+script_map_name[5] = "ã€Šè›‹ç³•å³¶å†’éšªã€‹";
 script_map_point[5] = {38301,67,37};
 script_map_lvlimit[5] = 90;
 script_map_payfor[5] = 2000;
@@ -125,12 +125,12 @@ function initActivityScriptNpc_Init(index)
 end
 
 function mykgold(_PlayerIndex,gold)
-	local tjb = Char.GetData(_PlayerIndex,%¶ÔÏó_½ğ±Ò%);
+	local tjb = Char.GetData(_PlayerIndex,%å¯¹è±¡_é‡‘å¸%);
 	tjb = tjb - gold; 
 	if(tjb >= 0)then
-		Char.SetData(_PlayerIndex,%¶ÔÏó_½ğ±Ò%,tjb);
+		Char.SetData(_PlayerIndex,%å¯¹è±¡_é‡‘å¸%,tjb);
 		NLG.UpChar(_PlayerIndex);
-		NLG.SystemMessage(_PlayerIndex,"½»³öÁË"..gold.." GÄ§±Ò¡£");
+		NLG.SystemMessage(_PlayerIndex,"äº¤å‡ºäº†"..gold.." Gé­”å¹£ã€‚");
 		return true;
 	end
 	return false;
@@ -139,39 +139,39 @@ end
 function initActivityScriptNpc()
 	if (ActivityScriptNps == nil) then
 		ActivityScriptNps = NL.CreateNpc("lua/Module/ActivityScript.lua", "initActivityScriptNpc_Init");
-		Char.SetData(ActivityScriptNps,%¶ÔÏó_ĞÎÏó%,260069);
-		Char.SetData(ActivityScriptNps,%¶ÔÏó_Ô­ĞÎ%,260069);
-		Char.SetData(ActivityScriptNps,%¶ÔÏó_X%,219);
-		Char.SetData(ActivityScriptNps,%¶ÔÏó_Y%,84);
-		Char.SetData(ActivityScriptNps,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(ActivityScriptNps,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(ActivityScriptNps,%¶ÔÏó_Ô­Ãû%,"Ã¿ÈÕ»î¶¯¸±±¾");
+		Char.SetData(ActivityScriptNps,%å¯¹è±¡_å½¢è±¡%,260069);
+		Char.SetData(ActivityScriptNps,%å¯¹è±¡_åŸå½¢%,260069);
+		Char.SetData(ActivityScriptNps,%å¯¹è±¡_X%,219);
+		Char.SetData(ActivityScriptNps,%å¯¹è±¡_Y%,84);
+		Char.SetData(ActivityScriptNps,%å¯¹è±¡_åœ°å›¾%,1000);
+		Char.SetData(ActivityScriptNps,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(ActivityScriptNps,%å¯¹è±¡_åŸå%,"æ¯æ—¥æ´»å‹•å‰¯æœ¬");
 		NLG.UpChar(ActivityScriptNps);
 		Char.SetWindowTalkedEvent("lua/Module/ActivityScript.lua","ActivityScriptA",ActivityScriptNps);
 		Char.SetTalkedEvent("lua/Module/ActivityScript.lua","ActivityScriptMsg", ActivityScriptNps);
 	end
 	if (ActivityScriptNpsB == nil) then
 		ActivityScriptNpsB = NL.CreateNpc("lua/Module/ActivityScript.lua", "initActivityScriptNpc_Init");
-		Char.SetData(ActivityScriptNpsB,%¶ÔÏó_ĞÎÏó%,231119);
-		Char.SetData(ActivityScriptNpsB,%¶ÔÏó_Ô­ĞÎ%,231119);
-		Char.SetData(ActivityScriptNpsB,%¶ÔÏó_X%,218);
-		Char.SetData(ActivityScriptNpsB,%¶ÔÏó_Y%,83);
-		Char.SetData(ActivityScriptNpsB,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(ActivityScriptNpsB,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(ActivityScriptNpsB,%¶ÔÏó_Ô­Ãû%,"½±Àø·¢·ÅÔ±");
+		Char.SetData(ActivityScriptNpsB,%å¯¹è±¡_å½¢è±¡%,231119);
+		Char.SetData(ActivityScriptNpsB,%å¯¹è±¡_åŸå½¢%,231119);
+		Char.SetData(ActivityScriptNpsB,%å¯¹è±¡_X%,218);
+		Char.SetData(ActivityScriptNpsB,%å¯¹è±¡_Y%,83);
+		Char.SetData(ActivityScriptNpsB,%å¯¹è±¡_åœ°å›¾%,1000);
+		Char.SetData(ActivityScriptNpsB,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(ActivityScriptNpsB,%å¯¹è±¡_åŸå%,"çå‹µç™¼æ”¾å“¡");
 		NLG.UpChar(ActivityScriptNpsB);
 		Char.SetWindowTalkedEvent("lua/Module/ActivityScript.lua","ActivityScriptB",ActivityScriptNpsB);
 		Char.SetTalkedEvent("lua/Module/ActivityScript.lua","ActivityScriptMsgB", ActivityScriptNpsB);
 	end
 	if (ActivityScriptNpsC == nil) then
 		ActivityScriptNpsC = NL.CreateNpc("lua/Module/ActivityScript.lua", "initActivityScriptNpc_Init");
-		Char.SetData(ActivityScriptNpsC,%¶ÔÏó_ĞÎÏó%,231116);
-		Char.SetData(ActivityScriptNpsC,%¶ÔÏó_Ô­ĞÎ%,231116);
-		Char.SetData(ActivityScriptNpsC,%¶ÔÏó_X%,16);
-		Char.SetData(ActivityScriptNpsC,%¶ÔÏó_Y%,16);
-		Char.SetData(ActivityScriptNpsC,%¶ÔÏó_µØÍ¼%,777);
-		Char.SetData(ActivityScriptNpsC,%¶ÔÏó_·½Ïò%,6);
-		Char.SetData(ActivityScriptNpsC,%¶ÔÏó_Ô­Ãû%,"Ã÷¹ÖÉèÖÃ");
+		Char.SetData(ActivityScriptNpsC,%å¯¹è±¡_å½¢è±¡%,231116);
+		Char.SetData(ActivityScriptNpsC,%å¯¹è±¡_åŸå½¢%,231116);
+		Char.SetData(ActivityScriptNpsC,%å¯¹è±¡_X%,16);
+		Char.SetData(ActivityScriptNpsC,%å¯¹è±¡_Y%,16);
+		Char.SetData(ActivityScriptNpsC,%å¯¹è±¡_åœ°å›¾%,777);
+		Char.SetData(ActivityScriptNpsC,%å¯¹è±¡_æ–¹å‘%,6);
+		Char.SetData(ActivityScriptNpsC,%å¯¹è±¡_åŸå%,"æ˜æ€ªè¨­ç½®");
 		NLG.UpChar(ActivityScriptNpsC);
 		Char.SetLoopEvent(nil, "ActivityScript_LoopEvent",ActivityScriptNpsC, SXTime*1000)
 		Char.SetWindowTalkedEvent("lua/Module/ActivityScript.lua","ActivityScriptC",ActivityScriptNpsC);
@@ -181,10 +181,10 @@ end
 
 function ActivityScriptMsgA(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
-		local PlayerLevel = tonumber(Char.GetData(_tome,%¶ÔÏó_µÈ¼¶%));
+		local PlayerLevel = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç­‰çº§%));
 		
 		if (PlayerLevel < 20) then
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÏÈµ½´ï20¼¶ÔÙÀ´°É£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nå…ˆåˆ°é”20ç´šå†ä¾†å§ï¼"));
 			return;
 		end
 
@@ -196,11 +196,11 @@ function ActivityScriptMsgA(_me,_tome)
 		end
 
 		if (script_map_daily_user_count[1][Playerkey(_tome)] == 1) then
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÃ÷ÌìÔÙÀ´°É£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\næ˜å¤©å†ä¾†å§ï¼"));
 			return;
 		end
 		script_map_daily_user_count[1][Playerkey(_tome)] = 1;
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\nÄãÔ¸Òâ²Î¼Ó»î¶¯¸±±¾µÃµ½¾­ÑéÖµºÍÏ¡ÓĞµÀ¾ßÂğ£¿"));
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nä½ é¡˜æ„åƒåŠ æ´»å‹•å‰¯æœ¬å¾—åˆ°ç¶“é©—å€¼å’Œç¨€æœ‰é“å…·å—ï¼Ÿ"));
 	end
 	return;
 end
@@ -210,18 +210,18 @@ end
 function ActivityScriptMsg(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
 		local _obj = script_map_daily_user[Playerkey(_tome)];
-		--Èç¹ûÊ×´ÎµÇÂ¼
+		--å¦‚æœé¦–æ¬¡ç™»å½•
 		if (_obj == nil) then 
 			script_map_daily_user[Playerkey(_tome)] = os.time();
 		end
-		if (os.date("%P",_obj) ~= os.date("%P",os.time())) then --ÅĞ¶¨ÉÏ¡¢ÏÂÎçÖØÖÃ
+		if (os.date("%P",_obj) ~= os.date("%P",os.time())) then --åˆ¤å®šä¸Šã€ä¸‹åˆé‡ç½®
 			script_map_daily_user[Playerkey(_tome)] = os.time();
 			for i=1,6 do
 				script_map_daily_user_count[i][Playerkey(_tome)] = nil;
 			end
 		end
 
-		str_ChangeWindow = "4|\\n\\n 			ÄãºÃ!ÎÒÊÇ¸±±¾¹ÜÀíÔ±.\\n	 			ÇëÎÊÄãÒªÈ¥ÄÄ!...\\n\\n";
+		str_ChangeWindow = "4|\\n\\n 			ä½ å¥½!æˆ‘æ˜¯å‰¯æœ¬ç®¡ç†å“¡.\\n	 			è«‹å•ä½ è¦å»å“ª!...\\n\\n";
 		for i=2,5 do
 			local tcount = script_map_daily_user_count[i][Playerkey(_tome)];
 			if(tcount == nil)then
@@ -230,10 +230,10 @@ function ActivityScriptMsg(_me,_tome)
 			else
 				tcount = 1 - tcount;
 			end
-			str_ChangeWindow = str_ChangeWindow .. "<"..script_map_payfor[i].."G>".." "..script_map_name[i].." Ê£Óà".."<"..tcount..">´Î".."\\n";
+			str_ChangeWindow = str_ChangeWindow .. "<"..script_map_payfor[i].."G>".." "..script_map_name[i].." å‰©é¤˜".."<"..tcount..">æ¬¡".."\\n";
 
 		end
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,str_ChangeWindow);
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,str_ChangeWindow);
 	end
 	return;
 end
@@ -245,13 +245,13 @@ function ActivityScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 		
 
 		if (selectitem==nil or (selectitem~=nil and (selectitem > 5 or selectitem <= 0))) then
-				NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³£!");
+				--NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸!");
 				return;
 		end
 
 		local getlvlit = script_map_lvlimit[selectitem];
-		if(getlvlit > Char.GetData(_PlayerIndex,%¶ÔÏó_µÈ¼¶%))then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄµÈ¼¶²»¹»£¬ĞèÒª"..getlvlit.."²Å¿É½øÈë¡£");
+		if(getlvlit > Char.GetData(_PlayerIndex,%å¯¹è±¡_ç­‰çº§%))then
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„ç­‰ç´šä¸å¤ ï¼Œéœ€è¦"..getlvlit.."æ‰å¯é€²å…¥ã€‚");
 			return;
 
 		end
@@ -263,13 +263,13 @@ function ActivityScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 		
 		
 		if (getcountless >= 1)then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄ´ÎÊıÒÑ¾­ÓÃÍêÁË¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„æ¬¡æ•¸å·²ç¶“ç”¨å®Œäº†ã€‚");
 			return;
 
 		end
 
 		if(Char.PartyNum(_PlayerIndex) > 1)then
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÇë½âÉ¢¶ÓÎé¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\nè«‹è§£æ•£éšŠä¼ã€‚");
 			return;
 		end
 
@@ -278,7 +278,7 @@ function ActivityScriptA(_MeIndex,_PlayerIndex,_seqno,_select,_data)
 			Char.DischargeParty(_PlayerIndex)
 			Char.Warp(_PlayerIndex,0,script_map_point[selectitem][1],script_map_point[selectitem][2],script_map_point[selectitem][3]);
 		else
-			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúµÄÄ§±Ò²»¹»¡£");
+			NLG.ShowWindowTalked(_PlayerIndex,_MeIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨çš„é­”å¹£ä¸å¤ ã€‚");
 			return;
 		end
 	end
@@ -292,70 +292,70 @@ function ActivityScriptMsgB(_me,_tome)
 	if (NLG.CanTalk(_me,_tome) == true) then
 		if (Char.ItemNum(_tome,70196) > 0) then
 			Char.DelItem(_tome,70196,1);
-			local PlayerLevel = tonumber(Char.GetData(_tome,%¶ÔÏó_µÈ¼¶%));
-			local PlayerExp = tonumber(Char.GetData(_tome,%¶ÔÏó_¾­Ñé%));
-			Char.SetData(_tome,%¶ÔÏó_¾­Ñé%,PlayerExp+PlayerLevel*PlayerLevel*10);
+			local PlayerLevel = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç­‰çº§%));
+			local PlayerExp = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç»éªŒ%));
+			Char.SetData(_tome,%å¯¹è±¡_ç»éªŒ%,PlayerExp+PlayerLevel*PlayerLevel*10);
 			NLG.UpChar(_tome);
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\n×öµÄºÃ£¬ÕâÊÇÄãµÃµ½µÄ¾­ÑéÖµ£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nåšçš„å¥½ï¼Œé€™æ˜¯ä½ å¾—åˆ°çš„ç¶“é©—å€¼ï¼"));
 		end
 		if (Char.ItemNum(_tome,70197) > 0) then
 			Char.DelItem(_tome,70197,1);
-			local PlayerLevel = tonumber(Char.GetData(_tome,%¶ÔÏó_µÈ¼¶%));
-			local PlayerExp = tonumber(Char.GetData(_tome,%¶ÔÏó_¾­Ñé%));
-			Char.SetData(_tome,%¶ÔÏó_¾­Ñé%,PlayerExp+PlayerLevel*PlayerLevel*12);
+			local PlayerLevel = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç­‰çº§%));
+			local PlayerExp = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç»éªŒ%));
+			Char.SetData(_tome,%å¯¹è±¡_ç»éªŒ%,PlayerExp+PlayerLevel*PlayerLevel*12);
 			NLG.UpChar(_tome);
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\n×öµÄºÃ£¬ÕâÊÇÄãµÃµ½µÄ¾­ÑéÖµ£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nåšçš„å¥½ï¼Œé€™æ˜¯ä½ å¾—åˆ°çš„ç¶“é©—å€¼ï¼"));
 		end
 		if (Char.ItemNum(_tome,70198) > 0) then
 			Char.DelItem(_tome,70198,1);
-			local PlayerLevel = tonumber(Char.GetData(_tome,%¶ÔÏó_µÈ¼¶%));
-			local PlayerExp = tonumber(Char.GetData(_tome,%¶ÔÏó_¾­Ñé%));
-			Char.SetData(_tome,%¶ÔÏó_¾­Ñé%,PlayerExp+PlayerLevel*PlayerLevel*15);
+			local PlayerLevel = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç­‰çº§%));
+			local PlayerExp = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç»éªŒ%));
+			Char.SetData(_tome,%å¯¹è±¡_ç»éªŒ%,PlayerExp+PlayerLevel*PlayerLevel*15);
 			NLG.UpChar(_tome);
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\n×öµÄºÃ£¬ÕâÊÇÄãµÃµ½µÄ¾­ÑéÖµ£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nåšçš„å¥½ï¼Œé€™æ˜¯ä½ å¾—åˆ°çš„ç¶“é©—å€¼ï¼"));
 		end
 		if (Char.ItemNum(_tome,70199) > 0) then
 			Char.DelItem(_tome,70199,1);
-			local PlayerLevel = tonumber(Char.GetData(_tome,%¶ÔÏó_µÈ¼¶%));
-			local PlayerExp = tonumber(Char.GetData(_tome,%¶ÔÏó_¾­Ñé%));
-			Char.SetData(_tome,%¶ÔÏó_¾­Ñé%,PlayerExp+PlayerLevel*PlayerLevel*20);
+			local PlayerLevel = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç­‰çº§%));
+			local PlayerExp = tonumber(Char.GetData(_tome,%å¯¹è±¡_ç»éªŒ%));
+			Char.SetData(_tome,%å¯¹è±¡_ç»éªŒ%,PlayerExp+PlayerLevel*PlayerLevel*20);
 			NLG.UpChar(_tome);
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_È·¶¨%,1,NLG.c("\\n\\n\\n×öµÄºÃ£¬ÕâÊÇÄãµÃµ½µÄ¾­ÑéÖµ£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_ç¡®å®š%,1,NLG.c("\\n\\n\\nåšçš„å¥½ï¼Œé€™æ˜¯ä½ å¾—åˆ°çš„ç¶“é©—å€¼ï¼"));
 		end
 		if (Char.ItemNum(_tome,70200) > 0) then
 			if(Char.ItemSlot(_tome)>19)then
-				NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÖÁÉÙÁô³ö1¸ö±³°üÎ»ÖÃ£¡"));
+				NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹è‡³å°‘ç•™å‡º1å€‹èƒŒåŒ…ä½ç½®ï¼"));
 				return;
 			end
-			local PlayerFame = Char.GetData(_tome,%¶ÔÏó_ÉùÍû%);
+			local PlayerFame = Char.GetData(_tome,%å¯¹è±¡_å£°æœ›%);
 			PlayerFame = PlayerFame + 30;
-			Char.SetData(_tome,%¶ÔÏó_ÉùÍû%,PlayerFame);
-			local money = Char.GetData(_tome,%¶ÔÏó_½ğ±Ò%);
-			Char.SetData(_tome,%¶ÔÏó_½ğ±Ò%,money+500);
+			Char.SetData(_tome,%å¯¹è±¡_å£°æœ›%,PlayerFame);
+			local money = Char.GetData(_tome,%å¯¹è±¡_é‡‘å¸%);
+			Char.SetData(_tome,%å¯¹è±¡_é‡‘å¸%,money+500);
 			NLG.UpChar(_tome);
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÊÕºÃ½ñÌìµÄ½±Àø£¡£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹æ”¶å¥½ä»Šå¤©çš„çå‹µï¼ï¼"));
 		end
 		if (Char.ItemNum(_tome,70201) > 0) then
 			if(Char.ItemSlot(_tome)>19)then
-				NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÖÁÉÙÁô³ö1¸ö±³°üÎ»ÖÃ£¡"));
+				NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹è‡³å°‘ç•™å‡º1å€‹èƒŒåŒ…ä½ç½®ï¼"));
 				return;
 			end
-			local PlayerFame = Char.GetData(_tome,%¶ÔÏó_ÉùÍû%);
+			local PlayerFame = Char.GetData(_tome,%å¯¹è±¡_å£°æœ›%);
 			PlayerFame = PlayerFame + 60;
-			Char.SetData(_tome,%¶ÔÏó_ÉùÍû%,PlayerFame);
-			local money = Char.GetData(_tome,%¶ÔÏó_½ğ±Ò%);
-			Char.SetData(_tome,%¶ÔÏó_½ğ±Ò%,money+1000);
-			local KaShi = Char.GetData(_tome,%¶ÔÏó_¿¨Ê±%);
-			Char.SetData(_tome,%¶ÔÏó_¿¨Ê±%,KaShi+900);
+			Char.SetData(_tome,%å¯¹è±¡_å£°æœ›%,PlayerFame);
+			local money = Char.GetData(_tome,%å¯¹è±¡_é‡‘å¸%);
+			Char.SetData(_tome,%å¯¹è±¡_é‡‘å¸%,money+1000);
+			local KaShi = Char.GetData(_tome,%å¯¹è±¡_å¡æ—¶%);
+			Char.SetData(_tome,%å¯¹è±¡_å¡æ—¶%,KaShi+900);
 			NLG.UpChar(_tome);
-			NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÇëÊÕºÃ½ñÌìµÄ½±Àø£¡£¡"));
+			NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\nè«‹æ”¶å¥½ä»Šå¤©çš„çå‹µï¼ï¼"));
 		end
-		NLG.ShowWindowTalked(_tome,_me,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,NLG.c("\\n\\n\\nÃ÷ÌìÔÙÀ´ÁìÈ¡¾­ÑéÖµºÍÏ¡ÓĞµÀ¾ß°É£¡"));
+		NLG.ShowWindowTalked(_tome,_me,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,NLG.c("\\n\\n\\næ˜å¤©å†ä¾†é ˜å–ç¶“é©—å€¼å’Œç¨€æœ‰é“å…·å§ï¼"));
 	end
 	return;
 end
 function ActivityScript_LoopEvent(_MeIndex)
-	--´´½¨¼ÙÈË
+	--åˆ›å»ºå‡äºº
 	local DTime = os.time()
 	if DTime - STime >= YS then
 		for i = 1,3 do
@@ -415,26 +415,26 @@ function ActivityScript_LoopEvent(_MeIndex)
 		end
 	end
 end
---NPC¶Ô»°ÊÂ¼ş(NPCË÷Òı)
+--NPCå¯¹è¯äº‹ä»¶(NPCç´¢å¼•)
 function ActivityScriptMsgC(_NpcIndex, _PlayerIndex)
 tbl_RandomActivityNpcIndex = {}
 end
 
---NPC´°¿ÚÊÂ¼ş(NPCË÷Òı)
+--NPCçª—å£äº‹ä»¶(NPCç´¢å¼•)
 function ActivityScriptC ( _NpcIndex, _PlayerIndex, _seqno, _select, _data)
 	
 end
 function CreateActivityNpc(Image, Name, MapType, MapID, PosX, PosY, Dir)
 	local ActivityScriptNpcIndex = NL.CreateNpc("./lua/System/BaseModule/Base.lua", "Myinit");
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_ĞÎÏó%, Image);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_Ô­ĞÎ%, Image);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_µØÍ¼ÀàĞÍ%, MapType);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_µØÍ¼%, MapID);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_X%, PosX);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_Y%, PosY);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_·½Ïò%, Dir);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_Ô­Ãû%, Name);
-	Char.SetData( ActivityScriptNpcIndex, %¶ÔÏó_ÃûÉ«%, NameColor);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_å½¢è±¡%, Image);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_åŸå½¢%, Image);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_åœ°å›¾ç±»å‹%, MapType);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_åœ°å›¾%, MapID);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_X%, PosX);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_Y%, PosY);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_æ–¹å‘%, Dir);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_åŸå%, Name);
+	Char.SetData( ActivityScriptNpcIndex, %å¯¹è±¡_åè‰²%, NameColor);
 	tbl_LuaNpcIndex = tbl_LuaNpcIndex or {}
 	tbl_LuaNpcIndex["ActivityNpc"] = ActivityScriptNpcIndex
 	Char.SetTalkedEvent(nil, "ActivityNpc__Talked", ActivityScriptNpcIndex)
@@ -454,27 +454,27 @@ function ActivityNpc__Talked(_NpcIndex, _PlayerIndex)
 	if(NLG.CheckInFront(_PlayerIndex, _NpcIndex, 1)==false and _Mode~=1) then
 		return ;
 	end
-	--ÃæÏòÍæ¼Ò
+	--é¢å‘ç©å®¶
 	local i;
-	i = Char.GetData(_PlayerIndex, %¶ÔÏó_·½Ïò%);
+	i = Char.GetData(_PlayerIndex, %å¯¹è±¡_æ–¹å‘%);
 	if i >= 4 then 
 		i = i - 4;
 	else
 		i = i + 4;		
 	end
-	Char.SetData(_NpcIndex, %¶ÔÏó_·½Ïò%,i);
+	Char.SetData(_NpcIndex, %å¯¹è±¡_æ–¹å‘%,i);
 	NLG.UpChar( _NpcIndex);
-	local mz = "¡º"..Char.GetData(_PlayerIndex,%¶ÔÏó_Ãû×Ö%).. "¡»"
-	local	token ="\n\n\n\nËü±»×¥µ½×¼±¸½øÈëÕ½¶·£¡£¿"
+	local mz = "ã€"..Char.GetData(_PlayerIndex,%å¯¹è±¡_åå­—%).. "ã€"
+	local	token ="\n\n\n\nå®ƒè¢«æŠ“åˆ°æº–å‚™é€²å…¥æˆ°é¬¥ï¼ï¼Ÿ"
 
        NLG.ShowWindowTalked(_PlayerIndex, _NpcIndex, 0, 1, 1, token)
 
 end
 function ActivityNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
 	if _Seqno == 1 then
-	local tName = Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%)
-	local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
-	--´´½¨BossÕ½¶·
+	local tName = Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%)
+	local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
+	--åˆ›å»ºBossæˆ˜æ–—
 	local tBossLv = 1
 --	local tActivityBattleIndex = Battle.PVE( _PlayerIndex, tbl_LuaNpcIndex["ActivityNpc"], nil, tBossList, tLvList, nil)
 	--local script_partymember_list = {};
@@ -523,7 +523,7 @@ function ActivityNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _D
  end
 end
 function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
-		local tImage = Char.GetData(_NpcIndex, %¶ÔÏó_ĞÎÏó%)
+		local tImage = Char.GetData(_NpcIndex, %å¯¹è±¡_å½¢è±¡%)
 		local tPlayerIndex = Battle.GetPlayIndex( _BattleIndex, 0)
 		getamountless_2 = script_map_amount[2][Playerkey(tPlayerIndex)];
 		getamountless_3 = script_map_amount[3][Playerkey(tPlayerIndex)];
@@ -546,19 +546,19 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			script_map_amount[5][Playerkey(tPlayerIndex)] = 0;
 		end
 		local drop = math.random(1,7);
-		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%¶ÔÏó_ÀàĞÍ%)==1 then
+		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%å¯¹è±¡_ç±»å‹%)==1 then
 			if(tImage == 104845 or tImage == 104846 or tImage == 104847 or tImage == 104848 or tImage == 104849) then
 				script_map_amount[5][Playerkey(tPlayerIndex)] = getamountless_5 + 10;
 				local getamountless_5 = script_map_amount[5][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ10·Ö,ÀÛ»ı´ïµ½"..getamountless_5.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—10åˆ†,ç´¯ç©é”åˆ°"..getamountless_5.."åˆ†")
 				--Char.GiveItem(tPlayerIndex,script_map_drop[5][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[5][drop],1);    end
 				if (getamountless_5 >= 100)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶µ°¸âµºÃ°ÏÕ¡·İ¼Ó¢Ç¿µĞ¼´½«³öÏÖ£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šè›‹ç³•å³¶å†’éšªã€‹èè‹±å¼·æ•µå³å°‡å‡ºç¾ï¼")
 				end
 			end
 			if(tImage == 104313) then
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶µ°¸âµºÃ°ÏÕ¡·¸±±¾ÒÑ¾­½áÊø£¡")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šè›‹ç³•å³¶å†’éšªã€‹å‰¯æœ¬å·²ç¶“çµæŸï¼")
 				--Char.GiveItem(tPlayerIndex,70199,1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),70199,1);    end
 				getamountless_5 = 0;
@@ -568,15 +568,15 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(tImage == 104686 or tImage == 104685 or tImage == 104399 or tImage == 104398) then
 				script_map_amount[4][Playerkey(tPlayerIndex)] = getamountless_4 + 5;
 				local getamountless_4 = script_map_amount[4][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ5·Ö,ÀÛ»ı´ïµ½"..getamountless_4.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—5åˆ†,ç´¯ç©é”åˆ°"..getamountless_4.."åˆ†")
 				--Char.GiveItem(tPlayerIndex,script_map_drop[4][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[4][drop],1);    end
 				if (getamountless_4 >= 40)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶ÄÏ¹Ï´ó½ø»÷¡·İ¼Ó¢Ç¿µĞ¼´½«³öÏÖ£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šå—ç“œå¤§é€²æ“Šã€‹èè‹±å¼·æ•µå³å°‡å‡ºç¾ï¼")
 				end
 			end
 			if(tImage == 104937) then
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶ÄÏ¹Ï´ó½ø»÷¡·¸±±¾ÒÑ¾­½áÊø£¡")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»ç»Ÿ]ã€Šå—ç“œå¤§è¿›å‡»ã€‹å‰¯æœ¬å·²ç»ç»“æŸï¼")
 				--Char.GiveItem(tPlayerIndex,70198,1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),70198,1);    end
 				getamountless_4 = 0;
@@ -586,15 +586,15 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(tImage == 104759 or tImage == 104760 or tImage == 104761 or tImage == 104762) then
 				script_map_amount[3][Playerkey(tPlayerIndex)] = getamountless_3 + 5;
 				local getamountless_3 = script_map_amount[3][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ5·Ö,ÀÛ»ı´ïµ½"..getamountless_3.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—5åˆ†,ç´¯ç©é”åˆ°"..getamountless_3.."åˆ†")
 				--Char.GiveItem(tPlayerIndex,script_map_drop[3][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[3][drop],1);    end
 				if (getamountless_3 >= 25)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶ÓÆÏĞÖ®ôÕÏÄ¡·İ¼Ó¢Ç¿µĞ¼´½«³öÏÖ£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»ç»Ÿ]ã€Šæ‚ é—²ä¹‹ç²½å¤ã€‹èè‹±å¼ºæ•Œå³å°†å‡ºç°ï¼")
 				end
 			end
 			if(tImage == 104758) then
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶ÓÆÏĞÖ®ôÕÏÄ¡·¸±±¾ÒÑ¾­½áÊø£¡")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»ç»Ÿ]ã€Šæ‚ é—²ä¹‹ç²½å¤ã€‹å‰¯æœ¬å·²ç»ç»“æŸï¼")
 				--Char.GiveItem(tPlayerIndex,70197,1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),70197,1);    end
 				getamountless_3 = 0;
@@ -604,11 +604,11 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(tImage == 104680 or tImage == 104681 or tImage == 104682 or tImage == 104683 or tImage == 104684) then
 				script_map_amount[2][Playerkey(tPlayerIndex)] = getamountless_2 + 1;
 				local getamountless_2 = script_map_amount[2][Playerkey(tPlayerIndex)];
-				NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]»÷°ÜÁË"..Char.GetData(_NpcIndex, %¶ÔÏó_Ô­Ãû%).."»ñµÃ1·Ö,ÀÛ»ı´ïµ½"..getamountless_2.."·Ö")
+				NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]æ“Šæ•—äº†"..Char.GetData(_NpcIndex, %å¯¹è±¡_åŸå%).."ç²å¾—1åˆ†,ç´¯ç©é”åˆ°"..getamountless_2.."åˆ†")
 				--Char.GiveItem(tPlayerIndex,script_map_drop[2][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[2][drop],1);    end
 				if (getamountless_2 >= 100)then
-					NLG.SystemMessage(tPlayerIndex, "[ÏµÍ³]¡¶ÏÉ¾³Ğ¡ÑıÉ­¡·¸±±¾ÒÑ¾­½áÊø£¡")
+					NLG.SystemMessage(tPlayerIndex, "[ç³»çµ±]ã€Šä»™å¢ƒå°å¦–æ£®ã€‹å‰¯æœ¬å·²ç¶“çµæŸï¼")
 					--Char.GiveItem(tPlayerIndex,70196,1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),70196,1);    end
 					getamountless_2 = 0;
