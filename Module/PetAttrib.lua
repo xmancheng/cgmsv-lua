@@ -5,20 +5,20 @@ local itemid_70052 = 70052;
 Delegate.RegInit("PetAttrib_Init");
 
 function initPetAttribNpc_Init(index)
-	print("³èÎïÊôĞÔÏ´µµNPC_index = " .. index);
+	print("å® ç‰©å±æ€§æ´—æ¡£NPC_index = " .. index);
 	return 1;
 end
 
 function PetAttrib_create()
 	if (PetAttribNPC == nil) then
 		PetAttribNPC = NL.CreateNpc("lua/Module/PetAttrib.lua", "initPetAttribNpc_Init");
-		Char.SetData(PetAttribNPC,%¶ÔÏó_ĞÎÏó%,101025);
-		Char.SetData(PetAttribNPC,%¶ÔÏó_Ô­ĞÎ%,101025);
-		Char.SetData(PetAttribNPC,%¶ÔÏó_µØÍ¼%,1000);
-		Char.SetData(PetAttribNPC,%¶ÔÏó_X%,224);
-		Char.SetData(PetAttribNPC,%¶ÔÏó_Y%,83);
-		Char.SetData(PetAttribNPC,%¶ÔÏó_·½Ïò%,4);
-		Char.SetData(PetAttribNPC,%¶ÔÏó_Ãû×Ö%,"³èÎïÏ´µµ´óÊ¦");
+		Char.SetData(PetAttribNPC,%å¯¹è±¡_å½¢è±¡%,101025);
+		Char.SetData(PetAttribNPC,%å¯¹è±¡_åŸå½¢%,101025);
+		Char.SetData(PetAttribNPC,%å¯¹è±¡_åœ°å›¾%,1180);
+		Char.SetData(PetAttribNPC,%å¯¹è±¡_X%,10);
+		Char.SetData(PetAttribNPC,%å¯¹è±¡_Y%,5);
+		Char.SetData(PetAttribNPC,%å¯¹è±¡_æ–¹å‘%,4);
+		Char.SetData(PetAttribNPC,%å¯¹è±¡_åå­—%,"å¯µç‰©æ´—æª”å¤§å¸«");
 		NLG.UpChar(PetAttribNPC);
 		Char.SetTalkedEvent("lua/Module/PetAttrib.lua", "PetAttribWindow", PetAttribNPC);
 		Char.SetWindowTalkedEvent("lua/Module/PetAttrib.lua", "PetAttribFunction", PetAttribNPC);
@@ -26,19 +26,19 @@ function PetAttrib_create()
 end
 
 NL.RegItemString("lua/Module/PetAttrib.lua","PetAttrib","LUA_usePetAtt");
-function PetAttrib(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
+function PetAttrib(_PlayerIndex,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
 	if (NLG.CanTalk(PetAttribNPC,_PlayerIndex) == false) then
-		WindowMsg = "3|\\n\\n           ÇëÑ¡ÔñÄúÒªÏ´µµµÄ³èÎïÃû³Æ  \\n\\n";
+		WindowMsg = "3|\\n\\n           è«‹é¸æ“‡æ‚¨è¦æ´—æª”çš„å¯µç‰©åç¨±  \\n\\n";
 		for i=0,4 do
 			local pet = Char.GetPet(_PlayerIndex,i);
 	
 			if(VaildChar(pet)==false)then
-				WindowMsg = WindowMsg .. "¿Õ\\n";
+				WindowMsg = WindowMsg .. "ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%¶ÔÏó_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%å¯¹è±¡_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,PetAttribNPC,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,PetAttribNPC,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,WindowMsg);
 	end
 	return;
 end
@@ -46,58 +46,58 @@ end
 
 function PetAttribWindow(_NpcIndex,_PlayerIndex)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
-		WindowMsg = "3|\\n\\n           ÇëÑ¡ÔñÄúÒªÏ´µµµÄ³èÎïÃû³Æ  \\n\\n";
+		WindowMsg = "3|\\n\\n           è«‹é¸æ“‡æ‚¨è¦æ´—æª”çš„å¯µç‰©åç¨±  \\n\\n";
 		for i=0,4 do
 			local pet = Char.GetPet(_PlayerIndex,i);
 	
 			if(VaildChar(pet)==false)then
-				WindowMsg = WindowMsg .. "¿Õ\\n";
+				WindowMsg = WindowMsg .. "ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%¶ÔÏó_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. ""..Char.GetData(pet,%å¯¹è±¡_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,WindowMsg);
 	end
 	return;
 end
 
---³èÎïÊôĞÔ
+--å® ç‰©å±æ€§
 function PetAttribFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 	if (_SqeNo==1) then
 		local selectitem = tonumber(_data) - 1;
 		print(tonumber(_data));
 		if(selectitem == nil or selectitem > 4 or selectitem < 0) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³£!");
+			--NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸!");
 			return;
 		end
 		_PetIndex = Char.GetPet(_PlayerIndex,selectitem);
 		if (VaildChar(_PetIndex) == false) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·¶¨Äú¶ÔÓ¦µÄ³èÎïÀ¸ÓĞ³èÎï!");
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºå®šæ‚¨å°æ‡‰çš„å¯µç‰©æ¬„æœ‰å¯µç‰©!");
 			return;
 		end
---		if(Char.GetData(_PetIndex,%¶ÔÏó_µÈ¼¶%) ~= 1) then
---			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨¶Ô·Ç1¼¶³èÎï½øĞĞÏ´µµ!");
+--		if(Char.GetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%) ~= 1) then
+--			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ]æ— æ³•å¯¹é1çº§å® ç‰©è¿›è¡Œæ´—æ¡£!");
 --			return;
 --		end
-		if(Char.GetData(_PetIndex,%¶ÔÏó_ÃûÉ«%) ~= 0) then
-			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨¶Ô×ªÉú³èÎï½øĞĞÏ´µµ!");
+		if(Char.GetData(_PetIndex,%å¯¹è±¡_åè‰²%) ~= 0) then
+			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]ç„¡æ³•å°è½‰ç”Ÿå¯µç‰©é€²è¡Œæ´—æª”!");
 			return;
 		end
---		if Char.GetData(_PetIndex,%³èÎï_»ñÈ¡Ê±µÈ¼¶%) ~= 1 then
---			NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³] Ò°Éú³èÎïÎŞ·¨Ï´µµ¡£")
+--		if Char.GetData(_PetIndex,%å® ç‰©_è·å–æ—¶ç­‰çº§%) ~= 1 then
+--			NLG.SystemMessage(_PlayerIndex,"[ç³»ç»Ÿ] é‡ç”Ÿå® ç‰©æ— æ³•æ´—æ¡£ã€‚")
 --			return;
 --		end
-		Level = Char.GetData(_PetIndex,%¶ÔÏó_µÈ¼¶%);
-		arr_rank1 = Pet.GetArtRank(_PetIndex,%³èµµ_Ìå³É%);
-		arr_rank11 = Pet.FullArtRank(_PetIndex,%³èµµ_Ìå³É%);
-		arr_rank2 = Pet.GetArtRank(_PetIndex,%³èµµ_Á¦³É%);
-		arr_rank21 = Pet.FullArtRank(_PetIndex,%³èµµ_Á¦³É%);
-		arr_rank3 = Pet.GetArtRank(_PetIndex,%³èµµ_Ç¿³É%);
-		arr_rank31 = Pet.FullArtRank(_PetIndex,%³èµµ_Ç¿³É%);
-		arr_rank4 = Pet.GetArtRank(_PetIndex,%³èµµ_Ãô³É%);
-		arr_rank41 = Pet.FullArtRank(_PetIndex,%³èµµ_Ãô³É%);
-		arr_rank5 = Pet.GetArtRank(_PetIndex,%³èµµ_Ä§³É%);
-		arr_rank51 = Pet.FullArtRank(_PetIndex,%³èµµ_Ä§³É%);
+		Level = Char.GetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%);
+		arr_rank1 = Pet.GetArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%);
+		arr_rank11 = Pet.FullArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%);
+		arr_rank2 = Pet.GetArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%);
+		arr_rank21 = Pet.FullArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%);
+		arr_rank3 = Pet.GetArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%);
+		arr_rank31 = Pet.FullArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%);
+		arr_rank4 = Pet.GetArtRank(_PetIndex,%å® æ¡£_æ•æˆ%);
+		arr_rank41 = Pet.FullArtRank(_PetIndex,%å® æ¡£_æ•æˆ%);
+		arr_rank5 = Pet.GetArtRank(_PetIndex,%å® æ¡£_é­”æˆ%);
+		arr_rank51 = Pet.FullArtRank(_PetIndex,%å® æ¡£_é­”æˆ%);
 		a1 = math.abs(arr_rank1 - arr_rank11);
 		a2 = math.abs(arr_rank2 - arr_rank21);
 		a3 = math.abs(arr_rank3 - arr_rank31);
@@ -106,32 +106,32 @@ function PetAttribFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 		a6 = a1 + a2+ a3+ a4+ a5;
 	end
 	if a6 == 0 then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúµÄ³èÎï "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).." ÒÑ¾­ÊÇÂúµµ!");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]æ‚¨çš„å¯µç‰© "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).." å·²ç¶“æ˜¯æ»¿æª”!");
 		return;
 	end
 	if a6 > 20 then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÎŞ·¨¶Ô°×»¯³èÎï½øĞĞÏ´µµ!");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]ç„¡æ³•å°ç™½åŒ–å¯µç‰©é€²è¡Œæ´—æª”!");
 		return;
 	end
 	if (_SqeNo==1 and Char.ItemNum(_PlayerIndex,itemid_70052) == 0) then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÇëÈ·ÈÏÎïÆ·À¸ÓĞÏ´™nµÀ¾ß");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]è«‹ç¢ºèªç‰©å“æ¬„æœ‰æ´—æª”é“å…·");
 		return;
 	end
 	if (_SqeNo==1 and Char.ItemNum(_PlayerIndex,itemid_70052) > 0) then
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ìå³É%,Pet.FullArtRank(_PetIndex,%³èµµ_Ìå³É%) - math.random(0,4));
-		Pet.SetArtRank(_PetIndex,%³èµµ_Á¦³É%,Pet.FullArtRank(_PetIndex,%³èµµ_Á¦³É%) - math.random(0,4));
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ç¿³É%,Pet.FullArtRank(_PetIndex,%³èµµ_Ç¿³É%) - math.random(0,4));
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ãô³É%,Pet.FullArtRank(_PetIndex,%³èµµ_Ãô³É%) - math.random(0,4));
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ä§³É%,Pet.FullArtRank(_PetIndex,%³èµµ_Ä§³É%) - math.random(0,4));
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%,Pet.FullArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%) - math.random(0,4));
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%,Pet.FullArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%) - math.random(0,4));
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%,Pet.FullArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%) - math.random(0,4));
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_æ•æˆ%,Pet.FullArtRank(_PetIndex,%å® æ¡£_æ•æˆ%) - math.random(0,4));
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_é­”æˆ%,Pet.FullArtRank(_PetIndex,%å® æ¡£_é­”æˆ%) - math.random(0,4));
 
 		Pet.ReBirth(_PlayerIndex, _PetIndex);
 		Pet.UpPet(_PlayerIndex,_PetIndex);
 		Char.DelItem(_PlayerIndex,itemid_70052,1);
-		local arr_rank1_new = Pet.GetArtRank(_PetIndex,%³èµµ_Ìå³É%);
-		local arr_rank2_new = Pet.GetArtRank(_PetIndex,%³èµµ_Á¦³É%);
-		local arr_rank3_new = Pet.GetArtRank(_PetIndex,%³èµµ_Ç¿³É%);
-		local arr_rank4_new = Pet.GetArtRank(_PetIndex,%³èµµ_Ãô³É%);
-		local arr_rank5_new = Pet.GetArtRank(_PetIndex,%³èµµ_Ä§³É%);
+		local arr_rank1_new = Pet.GetArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%);
+		local arr_rank2_new = Pet.GetArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%);
+		local arr_rank3_new = Pet.GetArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%);
+		local arr_rank4_new = Pet.GetArtRank(_PetIndex,%å® æ¡£_æ•æˆ%);
+		local arr_rank5_new = Pet.GetArtRank(_PetIndex,%å® æ¡£_é­”æˆ%);
 		local a1_new = math.abs(arr_rank1_new - arr_rank11);
 		local a2_new = math.abs(arr_rank2_new - arr_rank21);
 		local a3_new = math.abs(arr_rank3_new - arr_rank31);
@@ -139,49 +139,49 @@ function PetAttribFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 		local a5_new = math.abs(arr_rank5_new - arr_rank51);
 		local a6_new = a1_new + a2_new+ a3_new+ a4_new+ a5_new;
 		if(Level~=1) then
-			Char.SetData(_PetIndex,%¶ÔÏó_Éı¼¶µã%,Level-1);
-			Char.SetData(_PetIndex,%¶ÔÏó_µÈ¼¶%,Level);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÌåÁ¦%, (Char.GetData(_PetIndex,%¶ÔÏó_ÌåÁ¦%) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_Á¦Á¿%, (Char.GetData(_PetIndex,%¶ÔÏó_Á¦Á¿%) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_Ç¿¶È%, (Char.GetData(_PetIndex,%¶ÔÏó_Ç¿¶È%) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_ËÙ¶È%, (Char.GetData(_PetIndex,%¶ÔÏó_ËÙ¶È%) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_Ä§·¨%, (Char.GetData(_PetIndex,%¶ÔÏó_Ä§·¨%) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_å‡çº§ç‚¹%,Level-1);
+			Char.SetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%,Level);
+			Char.SetData(_PetIndex,%å¯¹è±¡_ä½“åŠ›%, (Char.GetData(_PetIndex,%å¯¹è±¡_ä½“åŠ›%) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŠ›é‡%, (Char.GetData(_PetIndex,%å¯¹è±¡_åŠ›é‡%) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_å¼ºåº¦%, (Char.GetData(_PetIndex,%å¯¹è±¡_å¼ºåº¦%) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_é€Ÿåº¦%, (Char.GetData(_PetIndex,%å¯¹è±¡_é€Ÿåº¦%) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_é­”æ³•%, (Char.GetData(_PetIndex,%å¯¹è±¡_é­”æ³•%) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 		end
-		local	PetInfoMsg = "³è Îï Ãû:  "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).."\\n"
-					.."         ¡¾ĞÂµô™n¡¿    ¡¾Ç°µô™n¡¿ \\n"
-					.."ÌåÁ¦µµÊı:  -"..a1_new.." µµ       -"..a1.." µµ \\n"
-					.."Á¦Á¿µµÊı:  -"..a2_new.." µµ       -"..a2.." µµ \\n"
-					.."·ÀÓùµµÊı:  -"..a3_new.." µµ       -"..a3.." µµ \\n"
-					.."Ãô½İµµÊı:  -"..a4_new.." µµ       -"..a4.." µµ \\n"
-					.."Ä§·¨µµÊı:  -"..a5_new.." µµ       -"..a5.." µµ \\n"
-					.."µô µµ Êı:  -"..a6_new.."         -"..a6.." \\n"
-					.."Ñ¡¡¾ÊÇ¡¿±£ÁôĞÂµô™n     Ñ¡¡¾·ñ¡¿»Ø¸´Ç°µô™n \\n"
-					.."¡ùÈç²»Ñ¡Ôñ¶ø¹Ø±Õ´°¿Ú»áÊÇĞÂµô™n \\n";
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ·ñ%,12,PetInfoMsg);
+		local	PetInfoMsg = "å¯µ ç‰© å:  "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).."\\n"
+					.."         ã€æ–°æ‰æª”ã€‘    ã€å‰æ‰æª”ã€‘ \\n"
+					.."é«”åŠ›æª”æ•¸:  -"..a1_new.." æª”       -"..a1.." æª” \\n"
+					.."åŠ›é‡æª”æ•¸:  -"..a2_new.." æª”       -"..a2.." æª” \\n"
+					.."é˜²ç¦¦æª”æ•¸:  -"..a3_new.." æª”       -"..a3.." æª” \\n"
+					.."æ•æ·æª”æ•¸:  -"..a4_new.." æª”       -"..a4.." æª” \\n"
+					.."é­”æ³•æª”æ•¸:  -"..a5_new.." æª”       -"..a5.." æª” \\n"
+					.."æ‰ æª” æ•¸:  -"..a6_new.."         -"..a6.." \\n"
+					.."é¸ã€æ˜¯ã€‘ä¿ç•™æ–°æ‰æª”     é¸ã€å¦ã€‘å›å¾©å‰æ‰æª” \\n"
+					.."â€»å¦‚ä¸é¸æ“‡è€Œé—œé–‰è¦–çª—æœƒæ˜¯æ–°æ‰æª” \\n";
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯å¦%,12,PetInfoMsg);
 	end
 	if (_SqeNo==12 and _select==4) then
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúµÄ³èÎï "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).." Ï´µµÍê±Ï!");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]æ‚¨çš„å¯µç‰© "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).." æ´—æª”å®Œç•¢!");
 	end
 	if (_SqeNo==12 and _select==8) then
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ìå³É%,arr_rank1);
-		Pet.SetArtRank(_PetIndex,%³èµµ_Á¦³É%,arr_rank2);
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ç¿³É%,arr_rank3);
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ãô³É%,arr_rank4);
-		Pet.SetArtRank(_PetIndex,%³èµµ_Ä§³É%,arr_rank5);
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_ä½“æˆ%,arr_rank1);
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_åŠ›æˆ%,arr_rank2);
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_å¼ºæˆ%,arr_rank3);
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_æ•æˆ%,arr_rank4);
+		Pet.SetArtRank(_PetIndex,%å® æ¡£_é­”æˆ%,arr_rank5);
 		Pet.ReBirth(_PlayerIndex, _PetIndex);
 		Pet.UpPet(_PlayerIndex,_PetIndex);
 		if(Level~=1) then
-			Char.SetData(_PetIndex,%¶ÔÏó_Éı¼¶µã%,Level-1);
-			Char.SetData(_PetIndex,%¶ÔÏó_µÈ¼¶%,Level);
-			Char.SetData(_PetIndex,%¶ÔÏó_ÌåÁ¦%, (Char.GetData(_PetIndex,%¶ÔÏó_ÌåÁ¦%) + (arr_rank1 * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_Á¦Á¿%, (Char.GetData(_PetIndex,%¶ÔÏó_Á¦Á¿%) + (arr_rank2 * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_Ç¿¶È%, (Char.GetData(_PetIndex,%¶ÔÏó_Ç¿¶È%) + (arr_rank3 * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_ËÙ¶È%, (Char.GetData(_PetIndex,%¶ÔÏó_ËÙ¶È%) + (arr_rank4 * (1/24) * (Level - 1)*100)) );
-			Char.SetData(_PetIndex,%¶ÔÏó_Ä§·¨%, (Char.GetData(_PetIndex,%¶ÔÏó_Ä§·¨%) + (arr_rank5 * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_å‡çº§ç‚¹%,Level-1);
+			Char.SetData(_PetIndex,%å¯¹è±¡_ç­‰çº§%,Level);
+			Char.SetData(_PetIndex,%å¯¹è±¡_ä½“åŠ›%, (Char.GetData(_PetIndex,%å¯¹è±¡_ä½“åŠ›%) + (arr_rank1 * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_åŠ›é‡%, (Char.GetData(_PetIndex,%å¯¹è±¡_åŠ›é‡%) + (arr_rank2 * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_å¼ºåº¦%, (Char.GetData(_PetIndex,%å¯¹è±¡_å¼ºåº¦%) + (arr_rank3 * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_é€Ÿåº¦%, (Char.GetData(_PetIndex,%å¯¹è±¡_é€Ÿåº¦%) + (arr_rank4 * (1/24) * (Level - 1)*100)) );
+			Char.SetData(_PetIndex,%å¯¹è±¡_é­”æ³•%, (Char.GetData(_PetIndex,%å¯¹è±¡_é­”æ³•%) + (arr_rank5 * (1/24) * (Level - 1)*100)) );
 			Pet.UpPet(_PlayerIndex,_PetIndex);
 		end
-		NLG.SystemMessage(_PlayerIndex,"[ÏµÍ³]ÄúµÄ³èÎï "..Char.GetData(_PetIndex,%¶ÔÏó_Ãû×Ö%).." »Ø¸´µµ´Î!");
+		NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±]æ‚¨çš„å¯µç‰© "..Char.GetData(_PetIndex,%å¯¹è±¡_åå­—%).." å›å¾©æª”æ¬¡!");
 	end
 end
 
