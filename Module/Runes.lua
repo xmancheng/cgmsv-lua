@@ -8,20 +8,20 @@ local itemid_69166 = 69166;
 Delegate.RegInit("Runes_Init");
 
 function initRunesNpc_Init(index)
-	print("¸½¼ÓÊôĞÔnpc_index = " .. index);
+	print("é™„åŠ å±æ€§npc_index = " .. index);
 	return 1;
 end
 
 function Runes_create() 
 	if (appendNPC == nil) then
 		appendNPC = NL.CreateNpc("lua/Module/Runes.lua", "initRunesNpc_Init");
-		Char.SetData(appendNPC,%¶ÔÏó_ĞÎÏó%,105514);
-		Char.SetData(appendNPC,%¶ÔÏó_Ô­ĞÎ%,105514);
-		Char.SetData(appendNPC,%¶ÔÏó_X%,26);
-		Char.SetData(appendNPC,%¶ÔÏó_Y%,7);
-		Char.SetData(appendNPC,%¶ÔÏó_µØÍ¼%,25000);
-		Char.SetData(appendNPC,%¶ÔÏó_·½Ïò%,4);
-		Char.SetData(appendNPC,%¶ÔÏó_Ãû×Ö%,"¸½¼ÓÊôĞÔ´óÊ¦");
+		Char.SetData(appendNPC,%å¯¹è±¡_å½¢è±¡%,105514);
+		Char.SetData(appendNPC,%å¯¹è±¡_åŸå½¢%,105514);
+		Char.SetData(appendNPC,%å¯¹è±¡_X%,26);
+		Char.SetData(appendNPC,%å¯¹è±¡_Y%,7);
+		Char.SetData(appendNPC,%å¯¹è±¡_åœ°å›¾%,25000);
+		Char.SetData(appendNPC,%å¯¹è±¡_æ–¹å‘%,4);
+		Char.SetData(appendNPC,%å¯¹è±¡_åå­—%,"é™„åŠ å±¬æ€§å¤§å¸«");
 		NLG.UpChar(appendNPC);
 		Char.SetTalkedEvent("lua/Module/Runes.lua", "AppendWindow", appendNPC);
 		Char.SetWindowTalkedEvent("lua/Module/Runes.lua", "AppendFunction", appendNPC);
@@ -29,36 +29,36 @@ function Runes_create()
 end
 
 NL.RegItemString("lua/Module/Runes.lua","Runes","LUA_useRunes");
-function Runes(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
+function Runes(_PlayerIndex,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
 	if (NLG.CanTalk(appendNPC,_PlayerIndex) == false) then
-		WindowMsg = "4|\\n\\n 		»¶Ó­Ê¹ÓÃ¸½¼ÓÊôĞÔÏµÍ³£¡\\n	 		²é¿´Ñ¡ÔñÊÇ·ñ¸½¼ÓÊôĞÔ»ò½«²¿Î»¸½¼ÓÊôĞÔ\\n\\n";
+		WindowMsg = "4|\\n\\n 		æ­¡è¿ä½¿ç”¨é™„åŠ å±¬æ€§ç³»çµ±ï¼\\n	 		æŸ¥çœ‹é¸æ“‡æ˜¯å¦é™„åŠ å±¬æ€§æˆ–å°‡éƒ¨ä½é™„åŠ å±¬æ€§\\n\\n";
 		for i=0,4 do
 			local item = Char.GetItemIndex(_PlayerIndex,i);
 
 			if(VaildChar(item)==false)then
-				WindowMsg = WindowMsg .. " 			 			¿Õ\\n";
+				WindowMsg = WindowMsg .. " 			 			ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. " 			 			"..Item.GetData(item,%µÀ¾ß_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. " 			 			"..Item.GetData(item,%é“å…·_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,appendNPC,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,appendNPC,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,WindowMsg);
 	end
 	return;
 end
 
 function AppendWindow(_NpcIndex,_PlayerIndex)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
-		WindowMsg = "4|\\n\\n 		»¶Ó­Ê¹ÓÃ¸½¼ÓÊôĞÔÏµÍ³£¡\\n	 		²é¿´Ñ¡ÔñÊÇ·ñ¸½¼ÓÊôĞÔ»ò½«²¿Î»¸½¼ÓÊôĞÔ\\n\\n";
+		WindowMsg = "4|\\n\\n 		æ­¡è¿ä½¿ç”¨é™„åŠ å±¬æ€§ç³»çµ±ï¼\\n	 		æŸ¥çœ‹é¸æ“‡æ˜¯å¦é™„åŠ å±¬æ€§æˆ–å°‡éƒ¨ä½é™„åŠ å±¬æ€§\\n\\n";
 		for i=0,4 do
 			local item = Char.GetItemIndex(_PlayerIndex,i);
 
 			if(VaildChar(item)==false)then
-				WindowMsg = WindowMsg .. " 			 			¿Õ\\n";
+				WindowMsg = WindowMsg .. " 			 			ç©º\\n";
 			else
-				WindowMsg = WindowMsg .. " 			 			"..Item.GetData(item,%µÀ¾ß_Ãû×Ö%).."\\n";
+				WindowMsg = WindowMsg .. " 			 			"..Item.GetData(item,%é“å…·_åå­—%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,WindowMsg);
 	end
 	return;
 end
@@ -67,126 +67,126 @@ function AppendFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 	if ((_select == 0 or _select == "0") and (_data ~= "")) then
 		local selectitem = tonumber(_data) - 1;
 		if (selectitem==nil or (selectitem~=nil and (selectitem > 4 or selectitem < 0))) then
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÄúËùÑ¡ÔñµÄÎ»ÖÃ²»Õı³££¡");
+				--NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\næ‚¨æ‰€é€‰æ‹©çš„ä½ç½®ä¸æ­£å¸¸ï¼");
 				return;
 		end
 		local item_indexA = Char.GetItemIndex(_PlayerIndex,selectitem);
 		if (VaildChar(item_indexA) == false) then
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,"\\n\\n\\nÇëÈ·¶¨Äú¶ÔÓ¦µÄ×°±¸À¸ÓĞ×°±¸£¡");
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,"\\n\\n\\nè«‹ç¢ºå®šæ‚¨å°æ‡‰çš„è£å‚™æ¬„æœ‰è£å‚™ï¼");
 			return;
 		end
 		local itemIndex = Item.GetData(item_indexA,1);
-		local Category = Item.GetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»%);
-		local Value1 = Item.GetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»Öµ%);
-		local resist_a = Item.GetData(item_indexA,%µÀ¾ß_ÂÒ¿¹%);
-		local resist_b = Item.GetData(item_indexA,%µÀ¾ß_×í¿¹%);
-		local resist_c = Item.GetData(item_indexA,%µÀ¾ß_¶¾¿¹%);
-		local resist_d = Item.GetData(item_indexA,%µÀ¾ß_Ë¯¿¹%);
+		local Category = Item.GetData(item_indexA,%é“å…·_å±æ€§ä¸€%);
+		local Value1 = Item.GetData(item_indexA,%é“å…·_å±æ€§ä¸€å€¼%);
+		local resist_a = Item.GetData(item_indexA,%é“å…·_ä¹±æŠ—%);
+		local resist_b = Item.GetData(item_indexA,%é“å…·_é†‰æŠ—%);
+		local resist_c = Item.GetData(item_indexA,%é“å…·_æ¯’æŠ—%);
+		local resist_d = Item.GetData(item_indexA,%é“å…·_ç¡æŠ—%);
 		if (Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69163) > 0) then
-			local colorA = Char.GetData(item_indexA,%¶ÔÏó_ÃûÉ«%);
+			local colorA = Char.GetData(item_indexA,%å¯¹è±¡_åè‰²%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
-			local type = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»%);
+			local type = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€%);
 			if (type == 1) then
-				local meter1 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»Öµ%);
+				local meter1 = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€å€¼%);
 				local resist_aa = resist_a+10;
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»%,type);
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»Öµ%,meter1);
-				Item.SetData(item_indexA,%µÀ¾ß_ÂÒ¿¹%,resist_aa);
-				Item.SetData(item_indexA,%µÀ¾ß_×í¿¹%,resist_b);
-				Item.SetData(item_indexA,%µÀ¾ß_¶¾¿¹%,resist_c);
-				Item.SetData(item_indexA,%µÀ¾ß_Ë¯¿¹%,resist_d);
-				Item.SetData(item_indexA,%¶ÔÏó_ÃûÉ«%,5);
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÒÑ½«"..Item.GetData(item_indexB,%µÀ¾ß_Ãû×Ö%).."ÊôĞÔ¸½¼ÓÓÚ×°±¸£¡");
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€%,type);
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€å€¼%,meter1);
+				Item.SetData(item_indexA,%é“å…·_ä¹±æŠ—%,resist_aa);
+				Item.SetData(item_indexA,%é“å…·_é†‰æŠ—%,resist_b);
+				Item.SetData(item_indexA,%é“å…·_æ¯’æŠ—%,resist_c);
+				Item.SetData(item_indexA,%é“å…·_ç¡æŠ—%,resist_d);
+				Item.SetData(item_indexA,%å¯¹è±¡_åè‰²%,5);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nå·²å°‡"..Item.GetData(item_indexB,%é“å…·_åå­—%).."å±¬æ€§é™„åŠ æ–¼è£å‚™ï¼");
 				Char.DelItem(_PlayerIndex,itemid_69163,1);
 			end
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎªÊôĞÔ½á¾§£¡");
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nè«‹ç¢ºèªç‰©å“æ¬„ç¬¬ä¸€æ¬„æ˜¯å¦ç‚ºå±¬æ€§çµæ™¶ï¼");
 		end
 		if (Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69164) > 0) then
-			local colorA = Item.GetData(item_indexA,%¶ÔÏó_ÃûÉ«%);
+			local colorA = Item.GetData(item_indexA,%å¯¹è±¡_åè‰²%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
-			local type = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»%);
+			local type = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€%);
 			if (type == 2) then
-				local meter1 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»Öµ%);
+				local meter1 = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€å€¼%);
 				local resist_bb = resist_b+10;
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»%,type);
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»Öµ%,meter1);
-				Item.SetData(item_indexA,%µÀ¾ß_×í¿¹%,resist_bb);
-				Item.SetData(item_indexA,%µÀ¾ß_ÂÒ¿¹%,resist_a);
-				Item.SetData(item_indexA,%µÀ¾ß_¶¾¿¹%,resist_c);
-				Item.SetData(item_indexA,%µÀ¾ß_Ë¯¿¹%,resist_d);
-				Item.SetData(item_indexA,%¶ÔÏó_ÃûÉ«%,3);
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÒÑ½«"..Item.GetData(item_indexB,%µÀ¾ß_Ãû×Ö%).."ÊôĞÔ¸½¼ÓÓÚ×°±¸£¡");
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€%,type);
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€å€¼%,meter1);
+				Item.SetData(item_indexA,%é“å…·_é†‰æŠ—%,resist_bb);
+				Item.SetData(item_indexA,%é“å…·_ä¹±æŠ—%,resist_a);
+				Item.SetData(item_indexA,%é“å…·_æ¯’æŠ—%,resist_c);
+				Item.SetData(item_indexA,%é“å…·_ç¡æŠ—%,resist_d);
+				Item.SetData(item_indexA,%å¯¹è±¡_åè‰²%,3);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nå·²å°‡"..Item.GetData(item_indexB,%é“å…·_åå­—%).."å±¬æ€§é™„åŠ æ–¼è£å‚™ï¼");
 				Char.DelItem(_PlayerIndex,itemid_69164,1);
 			end
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎªÊôĞÔ½á¾§£¡");
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nè«‹ç¢ºèªç‰©å“æ¬„ç¬¬ä¸€æ¬„æ˜¯å¦ç‚ºå±¬æ€§çµæ™¶ï¼");
 		end
 		if (Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69165) > 0) then
-			local colorA = Item.GetData(item_indexA,%¶ÔÏó_ÃûÉ«%);
+			local colorA = Item.GetData(item_indexA,%å¯¹è±¡_åè‰²%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
-			local type = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»%);
+			local type = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€%);
 			if (type == 3) then
-				local meter1 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»Öµ%);
+				local meter1 = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€å€¼%);
 				local resist_cc = resist_c+10;
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»%,type);
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»Öµ%,meter1);
-				Item.SetData(item_indexA,%µÀ¾ß_¶¾¿¹%,resist_cc);
-				Item.SetData(item_indexA,%µÀ¾ß_×í¿¹%,resist_b);
-				Item.SetData(item_indexA,%µÀ¾ß_ÂÒ¿¹%,resist_a);
-				Item.SetData(item_indexA,%µÀ¾ß_Ë¯¿¹%,resist_d);
-				Item.SetData(item_indexA,%¶ÔÏó_ÃûÉ«%,6);
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÒÑ½«"..Item.GetData(item_indexB,%µÀ¾ß_Ãû×Ö%).."ÊôĞÔ¸½¼ÓÓÚ×°±¸£¡");
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€%,type);
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€å€¼%,meter1);
+				Item.SetData(item_indexA,%é“å…·_æ¯’æŠ—%,resist_cc);
+				Item.SetData(item_indexA,%é“å…·_é†‰æŠ—%,resist_b);
+				Item.SetData(item_indexA,%é“å…·_ä¹±æŠ—%,resist_a);
+				Item.SetData(item_indexA,%é“å…·_ç¡æŠ—%,resist_d);
+				Item.SetData(item_indexA,%å¯¹è±¡_åè‰²%,6);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nå·²å°‡"..Item.GetData(item_indexB,%é“å…·_åå­—%).."å±¬æ€§é™„åŠ æ–¼è£å‚™ï¼");
 				Char.DelItem(_PlayerIndex,itemid_69165,1);
 			end
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎªÊôĞÔ½á¾§£¡");
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nè«‹ç¢ºèªç‰©å“æ¬„ç¬¬ä¸€æ¬„æ˜¯å¦ç‚ºå±¬æ€§çµæ™¶ï¼");
 		end
 		if (Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69166) > 0) then
-			local colorA = Item.GetData(item_indexA,%¶ÔÏó_ÃûÉ«%);
+			local colorA = Item.GetData(item_indexA,%å¯¹è±¡_åè‰²%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
-			local type = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»%);
+			local type = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€%);
 			if (type == 4) then
-				local meter1 = Item.GetData(item_indexB,%µÀ¾ß_ÊôĞÔÒ»Öµ%);
+				local meter1 = Item.GetData(item_indexB,%é“å…·_å±æ€§ä¸€å€¼%);
 				local resist_dd = resist_d+10;
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»%,type);
-				Item.SetData(item_indexA,%µÀ¾ß_ÊôĞÔÒ»Öµ%,meter1);
-				Item.SetData(item_indexA,%µÀ¾ß_Ë¯¿¹%,resist_dd);
-				Item.SetData(item_indexA,%µÀ¾ß_¶¾¿¹%,resist_c);
-				Item.SetData(item_indexA,%µÀ¾ß_×í¿¹%,resist_b);
-				Item.SetData(item_indexA,%µÀ¾ß_ÂÒ¿¹%,resist_a);
-				Item.SetData(item_indexA,%¶ÔÏó_ÃûÉ«%,4);
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÒÑ½«"..Item.GetData(item_indexB,%µÀ¾ß_Ãû×Ö%).."ÊôĞÔ¸½¼ÓÓÚ×°±¸£¡");
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€%,type);
+				Item.SetData(item_indexA,%é“å…·_å±æ€§ä¸€å€¼%,meter1);
+				Item.SetData(item_indexA,%é“å…·_ç¡æŠ—%,resist_dd);
+				Item.SetData(item_indexA,%é“å…·_æ¯’æŠ—%,resist_c);
+				Item.SetData(item_indexA,%é“å…·_é†‰æŠ—%,resist_b);
+				Item.SetData(item_indexA,%é“å…·_ä¹±æŠ—%,resist_a);
+				Item.SetData(item_indexA,%å¯¹è±¡_åè‰²%,4);
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nå·²å°‡"..Item.GetData(item_indexB,%é“å…·_åå­—%).."å±¬æ€§é™„åŠ æ–¼è£å‚™ï¼");
 				Char.DelItem(_PlayerIndex,itemid_69166,1);
 			end
-			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_ÊÇ%,1,"\\n\\n\\nÇëÈ·ÈÏÎïÆ·À¸µÚÒ»À¸ÊÇ·ñÎªÊôĞÔ½á¾§£¡");
+			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_æ˜¯%,1,"\\n\\n\\nè«‹ç¢ºèªç‰©å“æ¬„ç¬¬ä¸€æ¬„æ˜¯å¦ç‚ºå±¬æ€§çµæ™¶ï¼");
 		end
 		if (Category ~= 0) then
 			if(Category == 1) then
-				Msg = "×°±¸Ãû:  "..Item.GetData(item_indexA,%µÀ¾ß_Ãû×Ö%).."  \\n"
-						.."¸½  ¼Ó:  ÊôĞÔ½á¾§¸½¼Ó×°±¸µØÊôĞÔ20\\n";
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,Msg);
+				Msg = "è£å‚™å:  "..Item.GetData(item_indexA,%é“å…·_åå­—%).."  \\n"
+						.."é™„  åŠ :  å±¬æ€§çµæ™¶é™„åŠ è£å‚™åœ°å±¬æ€§20\\n";
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,Msg);
 				return;
 			end
 			if(Category == 2) then
-				Msg = "×°±¸Ãû:  "..Item.GetData(item_indexA,%µÀ¾ß_Ãû×Ö%).."  \\n"
-						.."¸½  ¼Ó:  ÊôĞÔ½á¾§¸½¼Ó×°±¸Ë®ÊôĞÔ20\\n";
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,Msg);
+				Msg = "è£å‚™å:  "..Item.GetData(item_indexA,%é“å…·_åå­—%).."  \\n"
+						.."é™„  åŠ :  å±¬æ€§çµæ™¶é™„åŠ è£å‚™æ°´å±¬æ€§20\\n";
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,Msg);
 				return;
 			end
 			if(Category == 3) then
-				Msg = "×°±¸Ãû:  "..Item.GetData(item_indexA,%µÀ¾ß_Ãû×Ö%).."  \\n"
-						.."¸½  ¼Ó:  ÊôĞÔ½á¾§¸½¼Ó×°±¸»ğÊôĞÔ20\\n";
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,Msg);
+				Msg = "è£å‚™å:  "..Item.GetData(item_indexA,%é“å…·_åå­—%).."  \\n"
+						.."é™„  åŠ :  å±¬æ€§çµæ™¶é™„åŠ è£å‚™ç«å±¬æ€§20\\n";
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,Msg);
 				return;
 			end
 			if(Category == 4) then
-				Msg = "×°±¸Ãû:  "..Item.GetData(item_indexA,%µÀ¾ß_Ãû×Ö%).."  \\n"
-						.."¸½  ¼Ó:  ÊôĞÔ½á¾§¸½¼Ó×°±¸·çÊôĞÔ20\\n";
-				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,Msg);
+				Msg = "è£å‚™å:  "..Item.GetData(item_indexA,%é“å…·_åå­—%).."  \\n"
+						.."é™„  åŠ :  å±¬æ€§çµæ™¶é™„åŠ è£å‚™é¢¨å±¬æ€§20\\n";
+				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,Msg);
 				return;
 			end
 		end
-		Msg = "×°±¸Ãû:  "..Item.GetData(item_indexA,%µÀ¾ß_Ãû×Ö%).."  \\n"
-				.."¸½  ¼Ó:  ¿Õ\\n";
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_ĞÅÏ¢¿ò%,%°´Å¥_¹Ø±Õ%,1,Msg);
+		Msg = "è£å‚™å:  "..Item.GetData(item_indexA,%é“å…·_åå­—%).."  \\n"
+				.."é™„  åŠ :  ç©º\\n";
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_ä¿¡æ¯æ¡†%,%æŒ‰é’®_å…³é—­%,1,Msg);
 	end
 end
 
