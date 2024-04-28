@@ -74,58 +74,58 @@ end
 
 function ModularPetNpc_Talked( _MeIndex, _PlayerIndex, _Mode)
 	if (Char.PetNum(_PlayerIndex) >= 5) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]宠物栏位置不够。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]寵物欄位置不夠。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500000)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500001)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500002)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500003)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500004)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500005)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500006)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500007)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500008)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
 	if (VaildChar(Char.HavePet(_PlayerIndex,500009)) == true) then
-		NLG.SystemMessage(_PlayerIndex, "[系统]操作时宠物栏只能有一只自定义宠物。")
+		NLG.SystemMessage(_PlayerIndex, "[系統]操作時寵物欄只能有一隻自訂寵物。")
 		return;
 	end
-	local TalkMsg =	"4\\n◆自定义宠物蛋◆" ..
-			"\\n自由编辑一只宠物的系统" ..
-			"\\n包含档次、修正、属性、造型、原始名字" ..
-			"\\n请依序进行并在上线状态完成" ..
-			"\\n『1.档次』" ..
+	local TalkMsg =	"4\\n◆自訂寵物蛋◆" ..
+			"\\n自由編輯一隻寵物的系統" ..
+			"\\n包含檔次、修正、屬性、造型、原始名字" ..
+			"\\n請依序進行並在上線狀態完成" ..
+			"\\n『1.檔次』" ..
 			"\\n『2.修正』" ..
-			"\\n『3.属性』" ..
+			"\\n『3.屬性』" ..
 			"\\n『4.造型』"..
-			"\\n『5.取名确认』" 
+			"\\n『5.取名確認』"
 	TalkMsg =Shor_GAMsgFormat(TalkMsg);
 	Shor_ShowGAWindowTalk(_PlayerIndex, 2, 2, 1,TalkMsg,_MeIndex);
 	return ;
@@ -192,7 +192,7 @@ function ModularPetNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 			tJudgment = StrJudgment[tItemID]
 		end
 		if StrModpetEnable[tItemID] ~= 1 then
-			--NLG.SystemMessage(_PlayerIndex, "[系统]缺少对应的道具。")
+			--NLG.SystemMessage(_PlayerIndex, "[系統]缺少對應的道具。")
 		end
 	end
 	--取消按钮
@@ -205,296 +205,296 @@ function ModularPetNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 		local PlayerSelect = tonumber(_Data)
 		--查询
 		if PlayerSelect==1 then
-			local TalkBuf =	"4\\n档次项目共"..tMax_BP.."点：" ..
-					"\\n单项最低13点，最高55点" ..
-					"\\n请依序进行编辑" ..
+			local TalkBuf =	"4\\n檔次項目共"..tMax_BP.."點：" ..
+					"\\n單項最低13點，最高55點" ..
+					"\\n請依序進行編輯" ..
 					"\\n " ..
-					"\\n『体力』" ..
+					"\\n『體力』" ..
 					"\\n『力量』" ..
-					"\\n『强度』" ..
+					"\\n『強度』" ..
 					"\\n『速度』"..
-					"\\n『魔法』" 
+					"\\n『魔法』"
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 10, TalkBuf);
 			return;
 		end
 		if PlayerSelect==2 then
-			local TalkBuf =	"4\\n修正项目共"..tMax_CI.."点：" ..
-					"\\n单项最低0点，最高30点" ..
-					"\\n请依序进行编辑" ..
+			local TalkBuf =	"4\\n修正項目共"..tMax_CI.."點：" ..
+					"\\n單項最低0點，最高30點" ..
+					"\\n請依序進行編輯" ..
 					"\\n " ..
-					"\\n『必杀』" ..
-					"\\n『反击』" ..
+					"\\n『必殺』" ..
+					"\\n『反擊』" ..
 					"\\n『命中』" ..
-					"\\n『闪躲』" 
+					"\\n『閃躲』"
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 11, TalkBuf);
 			return;
 		end
 		if PlayerSelect==3 then
-			local TalkBuf =	"4\\n属性项目共"..tMax_AB.."点：" ..
-					"\\n单项最低0点，最高10点" ..
-					"\\n请依序进行编辑" ..
+			local TalkBuf =	"4\\n屬性專案共"..tMax_AB.."點：" ..
+					"\\n單項最低0點，最高10點" ..
+					"\\n請依序進行編輯" ..
 					"\\n " ..
-					"\\n『地属性』" ..
-					"\\n『水属性』" ..
-					"\\n『火属性』" ..
-					"\\n『风属性』" 
+					"\\n『地屬性』" ..
+					"\\n『水屬性』" ..
+					"\\n『火屬性』" ..
+					"\\n『風屬性』"
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 12, TalkBuf);
 			return;
 		end
 		if PlayerSelect==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,13,"\n开放自定义宠物\n\n造型形象编号\n\n参照官方公告连结\n\n请输入编号例如101824！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,13,"\n開放自訂寵物\n\n造型形象編號\n\n參照官方公告連結\n\n請輸入編號例如101824！",_MeIndex);
 			return;
 		end
 		if PlayerSelect==5 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,14,"\n最后一个步骤了\n\n请为你的宠物\n\n取个名字，不宜太长！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,14,"\n最後一個步驟了\n\n請為你的寵物\n\n取個名字，不宜太長！",_MeIndex);
 			return;
 		end
 	end
 	if _Seqno==10 then
 		local PlayerSelect1 = tonumber(_Data)
 		if PlayerSelect1==1 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,15,"\n档次项目共"..tMax_BP.."点：\n\n体力单项最低13点，体力单项最高55点\n\n请输入体力BP！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,15,"\n檔次項目共"..tMax_BP.."點：\n\n體力單項最低13點，體力單項最高55點\n\n請輸入體力BP！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==2 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,16,"\n档次项目剩下"..Left_BP2.."点：\n\n力量单项最低13点，力量单项最高55点\n\n请输入力量BP！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,16,"\n檔次項目剩下"..Left_BP2.."點：\n\n力量單項最低13點，力量單項最高55點\n\n請輸入力量BP！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==3 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,17,"\n档次项目剩下"..Left_BP3.."点：\n\n强度单项最低13点，强度单项最高55点\n\n请输入强度BP！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,17,"\n檔次項目剩下"..Left_BP3.."點：\n\n強度單項最低13點，強度單項最高55點\n\n請輸入強度BP！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,18,"\n档次项目剩下"..Left_BP4.."点：\n\n速度单项最低13点，速度单项最高55点\n\n请输入速度BP！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,18,"\n檔次項目剩下"..Left_BP4.."點：\n\n速度單項最低13點，速度單項最高55點\n\n請輸入速度BP！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==5 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,19,"\n档次项目剩下"..Left_BP5.."点：\n\n魔法单项最低13点，魔法单项最高55点\n\n请输入魔法BP！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,19,"\n檔次項目剩下"..Left_BP5.."點：\n\n魔法單項最低13點，魔法單項最高55點\n\n請輸入魔法BP！",_MeIndex);
 			return;
 		end
 	end
 	if(tonumber(_Seqno)==15 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		arr_rank11 = tonumber("".._Data.."")
 		if arr_rank11 <= 12 or arr_rank11 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出档次范围。当前项目BP单项最低为13点，最高为55点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出檔次範圍。當前項目BP單項最低為13點，最高為55點。")
 			return;
 		end
 		if arr_rank11 <= 55 and arr_rank11 >= 13 then
 			Left_BP2 = tMax_BP - arr_rank11;
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次分配:体力"..arr_rank11.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次分配:體力"..arr_rank11.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==16 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		arr_rank21 = tonumber("".._Data.."")
 		if arr_rank21 <= 12 or arr_rank21 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出档次范围。当前项目BP单项最低为13点，最高为55点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出檔次範圍。當前項目BP單項最低為13點，最高為55點。")
 			return;
 		end
 		if arr_rank21 <= 55 and arr_rank21 >= 13 then
 			Left_BP3 = Left_BP2 - arr_rank21;
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次分配:体力"..arr_rank11..",力量"..arr_rank21.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次分配:體力"..arr_rank11..",力量"..arr_rank21.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==17 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		arr_rank31 = tonumber("".._Data.."")
 		if arr_rank31 <= 12 or arr_rank31 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出档次范围。当前项目BP单项最低为13点，最高为55点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出檔次範圍。當前項目BP單項最低為13點，最高為55點。")
 			return;
 		end
 		if arr_rank31 <= 55 and arr_rank31 >= 13 then
 			Left_BP4 = Left_BP3 - arr_rank31;
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次分配:体力"..arr_rank11..",力量"..arr_rank21..",强度"..arr_rank31.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次分配:體力"..arr_rank11..",力量"..arr_rank21..",強度"..arr_rank31.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==18 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		arr_rank41 = tonumber("".._Data.."")
 		if arr_rank41 <= 12 or arr_rank41 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出档次范围。当前项目BP单项最低为13点，最高为55点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出檔次範圍。當前項目BP單項最低為13點，最高為55點。")
 			return;
 		end
 		if arr_rank41 <= 55 and arr_rank41 >= 13 then
 			Left_BP5 = Left_BP4 - arr_rank41;
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次分配:体力"..arr_rank11..",力量"..arr_rank21..",强度"..arr_rank31..",速度"..arr_rank41.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次分配:體力"..arr_rank11..",力量"..arr_rank21..",強度"..arr_rank31..",速度"..arr_rank41.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==19 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		arr_rank51 = tonumber("".._Data.."")
 		if arr_rank51 <= 12 or arr_rank51 >= 56 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出档次范围。当前项目BP单项最低为13点，最高为55点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出檔次範圍。當前項目BP單項最低為13點，最高為55點。")
 			return;
 		end
 		if arr_rank51 <= 55 and arr_rank51 >= 13 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次分配:体力"..arr_rank11..",力量"..arr_rank21..",强度"..arr_rank31..",速度"..arr_rank41..",魔法"..arr_rank51.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次分配:體力"..arr_rank11..",力量"..arr_rank21..",強度"..arr_rank31..",速度"..arr_rank41..",魔法"..arr_rank51.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]档次点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]檔次點數不足，無法成功分配。")
 		end
 	end
 	if _Seqno==11 then
 		local PlayerSelect1 = tonumber(_Data)
 		if PlayerSelect1==1 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,20,"\n修正项目共"..tMax_CI.."点：\n\n必杀单项最低0点，必杀单项最高30点\n\n请输入必杀！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,20,"\n修正專案共"..tMax_CI.."點：\n\n必殺單項最低0點，必殺單項最高30點\n\n請輸入必殺！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==2 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,21,"\n修正项目剩下"..Left_CI2.."点：\n\n反击单项最低0点，反击单项最高30点\n\n请输入反击！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,21,"\n修正專案剩下"..Left_CI2.."點：\n\n反擊單項最低0點，反擊單項最高30點\n\n請輸入反擊！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==3 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,22,"\n修正项目剩下"..Left_CI3.."点：\n\n命中单项最低0点，命中单项最高30点\n\n请输入命中！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,22,"\n修正專案剩下"..Left_CI3.."點：\n\n命中單項最低0點，命中單項最高30點\n\n請輸入命中！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,23,"\n修正项目剩下"..Left_CI4.."点：\n\n闪躲单项最低0点，闪躲单项最高30点\n\n请输入闪躲！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,23,"\n修正專案剩下"..Left_CI4.."點：\n\n閃躲單項最低0點，閃躲單項最高30點\n\n請輸入閃躲！",_MeIndex);
 			return;
 		end
 	end
 	if(tonumber(_Seqno)==20 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		critical = tonumber("".._Data.."")
 		if critical < 0 or critical >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出修正范围。当前项目单项最低为0点，最高为30点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出修正範圍。當前項目單項最低為0點，最高為30點。")
 			return;
 		end
 		if critical <= 30 and critical >= 0 then
 			Left_CI2 = tMax_CI - critical;
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正分配:必杀"..critical.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正分配:必殺"..critical.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==21 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		counter = tonumber("".._Data.."")
 		if counter < 0 or counter >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出修正范围。当前项目单项最低为0点，最高为30点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出修正範圍。當前項目單項最低為0點，最高為30點。")
 			return;
 		end
 		if counter <= 30 and counter >= 0 then
 			Left_CI3 = Left_CI2 - counter;
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正分配:必杀"..critical..",反击"..counter.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正分配:必殺"..critical..",反擊"..counter.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==22 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		hitrate = tonumber("".._Data.."")
 		if hitrate < 0 or hitrate >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出修正范围。当前项目单项最低为0点，最高为30点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出修正範圍。當前項目單項最低為0點，最高為30點。")
 			return;
 		end
 		if hitrate <= 30 and hitrate >= 0 then
 			Left_CI4 = Left_CI3 - hitrate;
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正分配:必杀"..critical..",反击"..counter..",命中"..hitrate.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正分配:必殺"..critical..",反擊"..counter..",命中"..hitrate.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==23 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		avoid = tonumber("".._Data.."")
 		if avoid < 0 or avoid >= 31 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出修正范围。当前项目单项最低为0点，最高为30点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出修正範圍。當前項目單項最低為0點，最高為30點。")
 			return;
 		end
 		CI = critical + counter + hitrate + avoid;
 		if CI < tMax_CI or CI > tMax_CI then
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正點數不足，無法成功分配。")
 			return;
 		end
 		if (avoid <= 30 and avoid >= 0 ) then
-			NLG.SystemMessage(_PlayerIndex, "[系统]修正分配:必杀"..critical..",反击"..counter..",命中"..hitrate..",闪躲"..avoid.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]修正分配:必殺"..critical..",反擊"..counter..",命中"..hitrate..",閃躲"..avoid.."。")
 		else
-			--NLG.SystemMessage(_PlayerIndex, "[系统]无法自定义的宠物。")
+			--NLG.SystemMessage(_PlayerIndex, "[系統]無法自訂的寵物。")
 		end
 	end
 	if _Seqno==12 then
 		local PlayerSelect1 = tonumber(_Data)
 		if PlayerSelect1==1 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,24,"\n属性项目共"..tMax_AB.."点：\n\n地属性单项最低0点，地属性单项最高10点\n\n请输入地属性！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,24,"\n屬性專案共"..tMax_AB.."點：\n\n地屬性單項最低0點，地屬性單項最高10點\n\n請輸入地屬性！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==2 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,25,"\n属性项目剩下"..Left_AB2.."点：\n\n水属性单项最低0点，水属性单项最高10点\n\n请输入水属性！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,25,"\n屬性專案剩下"..Left_AB2.."點：\n\n水屬性單項最低0點，水屬性單項最高10點\n\n請輸入水屬性！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==3 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,26,"\n属性项目剩下"..Left_AB3.."点：\n\n火属性单项最低0点，火属性单项最高10点\n\n请输入火属性！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,26,"\n屬性專案剩下"..Left_AB3.."點：\n\n火屬性單項最低0點，火屬性單項最高10點\n\n請輸入火屬性！",_MeIndex);
 			return;
 		end
 		if PlayerSelect1==4 then
-			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,27,"\n属性项目剩下"..Left_AB4.."点：\n\n风属性单项最低0点，风属性单项最高10点\n\n请输入风属性！",_MeIndex);
+			Shor_ShowGAWindowTalk(_PlayerIndex,1,%按钮_确定%,27,"\n屬性專案剩下"..Left_AB4.."點：\n\n風屬性單項最低0點，風屬性單項最高10點\n\n請輸入風屬性！",_MeIndex);
 			return;
 		end
 	end
 	if(tonumber(_Seqno)==24 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		ground = tonumber("".._Data.."")
 		if ground < 0 or ground >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出属性范围。当前项目单项最低为0点，最高为10点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出屬性範圍。當前項目單項最低為0點，最高為10點。")
 			return;
 		end
 		if ground <= 10 and ground >= 0 then
 			Left_AB2 = tMax_AB - ground;
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性分配:地属性"..ground.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性分配:地屬性"..ground.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==25 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		water = tonumber("".._Data.."")
 		if water < 0 or water >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出属性范围。当前项目单项最低为0点，最高为10点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出屬性範圍。當前項目單項最低為0點，最高為10點。")
 			return;
 		end
 		if water <= 10 and water >= 0 then
 			Left_AB3 = Left_AB2 - water;
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性分配:地属性"..ground..",水属性"..water.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性分配:地屬性"..ground..",水屬性"..water.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==26 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		fire = tonumber("".._Data.."")
 		if fire < 0 or fire >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出属性范围。当前项目单项最低为0点，最高为10点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出屬性範圍。當前項目單項最低為0點，最高為10點。")
 			return;
 		end
 		if fire <= 10 and fire >= 0 then
 			Left_AB4 = Left_AB3 - fire;
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性分配:地属性"..ground..",水属性"..water..",火属性"..fire.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性分配:地屬性"..ground..",水屬性"..water..",火屬性"..fire.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性點數不足，無法成功分配。")
 		end
 	end
 	if(tonumber(_Seqno)==27 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		wind = tonumber("".._Data.."")
 		if wind < 0 or wind >= 11 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]超出属性范围。当前项目单项最低为0点，最高为10点。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]超出屬性範圍。當前項目單項最低為0點，最高為10點。")
 			return;
 		end
 		AB = ground + water + fire + wind;
 		if AB < tMax_AB or AB > tMax_AB then
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性点数不足，无法成功分配。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性點數不足，無法成功分配。")
 			return;
 		end
 		if (wind <= 10 and wind >= 0) then
-			NLG.SystemMessage(_PlayerIndex, "[系统]属性分配:地属性"..ground..",水属性"..water..",火属性"..fire..",风属性"..wind.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]屬性分配:地屬性"..ground..",水屬性"..water..",火屬性"..fire..",風屬性"..wind.."。")
 		else
-			--NLG.SystemMessage(_PlayerIndex, "[系统]无法自定义的宠物。")
+			--NLG.SystemMessage(_PlayerIndex, "[系統]無法自訂的寵物。")
 		end
 	end
 	if(tonumber(_Seqno)==13 and tonumber(_Select)==%按钮_确定% and _Data~="")then
 		PetTD1 = tonumber("".._Data.."")
 		if tJudgment == 0 then
-			NLG.SystemMessage(_PlayerIndex, "[系统]造型形象编号登录完成:"..PetTD1.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]造型形象編號登錄完成:"..PetTD1.."。")
 		elseif tJudgment == 1 and PET_CheckInTable(tPetID,PetTD1)==true then
-			NLG.SystemMessage(_PlayerIndex, "[系统]造型形象编号登录完成:"..PetTD1.."。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]造型形象編號登錄完成:"..PetTD1.."。")
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]造型形象编号，请参照官方公告连结。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]造型形象編號，請參照官方公告連結。")
 			return;
 		end
 	end
@@ -502,13 +502,13 @@ function ModularPetNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 		local name = _Data;
 		BP = arr_rank11 + arr_rank21 + arr_rank31 + arr_rank41 + arr_rank51;
 		if BP < tMax_BP or BP > tMax_BP then
-			NLG.SystemMessage(_PlayerIndex, "[系统]请确认档次点数输入正确。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]請確認檔次點數輸入正確。")
 			return;
 		end
 		if (BP == tMax_BP and CI == tMax_CI and AB == tMax_AB) then
 			Char.AddPet(_PlayerIndex,tEnemyID);
 		else
-			NLG.SystemMessage(_PlayerIndex, "[系统]请确认前几项点数输入正确。")
+			NLG.SystemMessage(_PlayerIndex, "[系統]請確認前幾項點數輸入正確。")
 		end
 		for Slot=0,4 do
 			local _PetIndex = Char.GetPet(_PlayerIndex,Slot);
@@ -534,7 +534,7 @@ function ModularPetNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 				Char.SetData(_PetIndex,%对象_名色%,6);  --自定义宠物为红色名字
 				Pet.UpPet(_PlayerIndex,_PetIndex);
 				Char.DelItem(_PlayerIndex,bItemID,1);
-				NLG.SystemMessage(_PlayerIndex, "[系统]自定义宠物已完美结束。")
+				NLG.SystemMessage(_PlayerIndex, "[系統]自訂寵物已完美結束。")
 			end
 		end
 	end
