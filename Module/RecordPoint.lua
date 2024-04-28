@@ -1,26 +1,26 @@
-local record_point_user = {};                  --PlayerÃûµ¥
-local record_point_user_list = {};             --¼ÍÂ¼µã±íµ¥
+local record_point_user = {};                  --Playeråå•
+local record_point_user_list = {};             --çºªå½•ç‚¹è¡¨å•
 ------------------------------------------------------------------------------
 local MapEnable = {}
-MapEnable[1000] = 0          --0 ½ûÖ¹×÷Îª¼ÍÂ¼µã£¬À¨ºÅÎªµØÍ¼ID
+MapEnable[1000] = 0          --0 ç¦æ­¢ä½œä¸ºçºªå½•ç‚¹ï¼Œæ‹¬å·ä¸ºåœ°å›¾ID
 ------------------------------------------------------------------------------
 Delegate.RegInit("RecordPoint_Init");
 
 function initRecordPointNpc_Init(index)
-	print("¼ÍÂ¼µãnpc_index = " .. index);
+	print("çºªå½•ç‚¹npc_index = " .. index);
 	return 1;
 end
 
 function RecordPoint_create() 
 	if (RecordNPC == nil) then
 		RecordNPC = NL.CreateNpc("lua/Module/RecordPoint.lua", "initRecordPointNpc_Init");
-		Char.SetData(RecordNPC,%¶ÔÏó_ĞÎÏó%,106602);
-		Char.SetData(RecordNPC,%¶ÔÏó_Ô­ĞÎ%,106602);
-		Char.SetData(RecordNPC,%¶ÔÏó_X%,34);
-		Char.SetData(RecordNPC,%¶ÔÏó_Y%,31);
-		Char.SetData(RecordNPC,%¶ÔÏó_µØÍ¼%,777);
-		Char.SetData(RecordNPC,%¶ÔÏó_·½Ïò%,4);
-		Char.SetData(RecordNPC,%¶ÔÏó_Ãû×Ö%,"¼ÍÂ¼µã´óÊ¹");
+		Char.SetData(RecordNPC,%å¯¹è±¡_å½¢è±¡%,106602);
+		Char.SetData(RecordNPC,%å¯¹è±¡_åŸå½¢%,106602);
+		Char.SetData(RecordNPC,%å¯¹è±¡_X%,34);
+		Char.SetData(RecordNPC,%å¯¹è±¡_Y%,31);
+		Char.SetData(RecordNPC,%å¯¹è±¡_åœ°å›¾%,777);
+		Char.SetData(RecordNPC,%å¯¹è±¡_æ–¹å‘%,4);
+		Char.SetData(RecordNPC,%å¯¹è±¡_åå­—%,"çºªå½•ç‚¹å¤§ä½¿");
 		NLG.UpChar(RecordNPC);
 		Char.SetTalkedEvent("lua/Module/RecordPoint.lua", "RecordWindow", RecordNPC);
 		Char.SetWindowTalkedEvent("lua/Module/RecordPoint.lua", "RecordFunction", RecordNPC);
@@ -29,12 +29,12 @@ end
 
 
 NL.RegItemString("lua/Module/RecordPoint.lua","RecordPoint","LUA_useCrystal");
-function RecordPoint(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
+function RecordPoint(_PlayerIndex,_toIndex,_itemslot) --åŒå‡»é“å…·æ‰§è¡Œå‡½æ•°
 	if (NLG.CanTalk(RecordNPC,_PlayerIndex) == false) then
 		local _obj = record_point_user[Playerkey(_PlayerIndex)];
 		if (_obj == nil) then 
 			record_point_user[Playerkey(_PlayerIndex)] = {};
-			table.insert(record_point_user[Playerkey(_PlayerIndex)] ,Char.GetData(_PlayerIndex,%¶ÔÏó_ÕËºÅ%));
+			table.insert(record_point_user[Playerkey(_PlayerIndex)] ,Char.GetData(_PlayerIndex,%å¯¹è±¡_è´¦å·%));
 			record_point_user_list[Playerkey(_PlayerIndex)] = {};
 			for i=1,5 do
 				record_point_user_list[Playerkey(_PlayerIndex)][i] = {};
@@ -44,19 +44,19 @@ function RecordPoint(_PlayerIndex,_toIndex,_itemslot) --Ë«»÷µÀ¾ßÖ´ĞĞº¯Êı
 				record_point_user_list[Playerkey(_PlayerIndex)][i].Y = 0;
 			end
 		end
-		RecordWindowMsg = "4|\\n      ¡ï¡ï¡ï¡ï´¢´æ×ø±ê»ò½øĞĞ´«ËÍ¡ï¡ï¡ï¡ï"..
-				"\\n¡¡¡¡¡¡¡¡¡¡¡¡¡ùÃ¿´Î´«ËÍ·ÑÓÃ1000Ôª"..
-				"\\n¡¡¡¡¡¡¡¡¡¡µØÍ¼¡¡¡¡¡¡¡¡×ø±ê¶«¡¡¡¡¡¡×ø±êÄÏ¡¡¡¡"..
-				"\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
+		RecordWindowMsg = "4|\\n      â˜…â˜…â˜…â˜…å„²å­˜åº§æ¨™æˆ–é€²è¡Œå‚³é€â˜…â˜…â˜…â˜…"..
+				"\\nã€€ã€€ã€€ã€€ã€€ã€€â€»æ¯æ¬¡å‚³é€è²»ç”¨1000å…ƒ"..
+				"\\nã€€ã€€ã€€ã€€ã€€åœ°åœ–ã€€ã€€ã€€ã€€åº§æ¨™æ±ã€€ã€€ã€€åº§æ¨™å—ã€€ã€€"..
+				"\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
 		for i=1,5 do
 			local Mappoint = record_point_user_list[Playerkey(_PlayerIndex)][i].MapId;
 			if(Mappoint == 0)then
-				RecordWindowMsg = RecordWindowMsg .. "¡¡¡¡¡¡¡¡¡¡¿Õ\\n";
+				RecordWindowMsg = RecordWindowMsg .. "ã€€ã€€ã€€ã€€ã€€ç©º\\n";
 			else
-				RecordWindowMsg = RecordWindowMsg .. "¡¡¡¡¡¡¡¡<"..record_point_user_list[Playerkey(_PlayerIndex)][i].MapId..">¡¡¡¡¡¡¡¡<"..record_point_user_list[Playerkey(_PlayerIndex)][i].X..">¡¡¡¡¡¡ <"..record_point_user_list[Playerkey(_PlayerIndex)][i].Y..">\\n";
+				RecordWindowMsg = RecordWindowMsg .. "ã€€ã€€ã€€ã€€<"..record_point_user_list[Playerkey(_PlayerIndex)][i].MapId..">ã€€ã€€ã€€ã€€<"..record_point_user_list[Playerkey(_PlayerIndex)][i].X..">ã€€ã€€ã€€ <"..record_point_user_list[Playerkey(_PlayerIndex)][i].Y..">\\n";
 			end
 		end
-		NLG.ShowWindowTalked(_PlayerIndex,RecordNPC,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,RecordWindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,RecordNPC,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,RecordWindowMsg);
 	end
 	return;
 end
@@ -66,8 +66,8 @@ function RecordWindow(_NpcIndex,_PlayerIndex)
 	if (NLG.CanTalk(_NpcIndex,_PlayerIndex) == true) then
 		local _obj = record_point_user[Playerkey(_PlayerIndex)];
 		if (_obj == nil) then 
-			record_point_user[Playerkey(_PlayerIndex)] = Char.GetData(_PlayerIndex,%¶ÔÏó_ÕËºÅ%);
-			table.insert(record_point_user[Playerkey(_PlayerIndex)] ,Char.GetData(_PlayerIndex,%¶ÔÏó_ÕËºÅ%));
+			record_point_user[Playerkey(_PlayerIndex)] = Char.GetData(_PlayerIndex,%å¯¹è±¡_è´¦å·%);
+			table.insert(record_point_user[Playerkey(_PlayerIndex)] ,Char.GetData(_PlayerIndex,%å¯¹è±¡_è´¦å·%));
 			record_point_user_list[Playerkey(_PlayerIndex)] = {};
 			for i=1,5 do
 				record_point_user_list[Playerkey(_PlayerIndex)][i] = {};
@@ -78,20 +78,20 @@ function RecordWindow(_NpcIndex,_PlayerIndex)
 
 			end
 		end
-		RecordWindowMsg = "4|\\n      ¡ï¡ï¡ï¡ï´¢´æ×ø±ê»ò½øĞĞ´«ËÍ¡ï¡ï¡ï¡ï"..
-				"\\n¡¡¡¡¡¡¡¡¡¡¡¡¡ùÃ¿´Î´«ËÍ·ÑÓÃ1000Ôª"..
-				"\\n¡¡¡¡¡¡¡¡¡¡µØÍ¼¡¡¡¡¡¡¡¡×ø±ê¶«¡¡¡¡¡¡×ø±êÄÏ¡¡¡¡"..
-				"\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
+		RecordWindowMsg = "4|\\n      â˜…â˜…â˜…â˜…å„²å­˜åº§æ¨™æˆ–é€²è¡Œå‚³é€â˜…â˜…â˜…â˜…"..
+				"\\nã€€ã€€ã€€ã€€ã€€ã€€â€»æ¯æ¬¡å‚³é€è²»ç”¨1000å…ƒ"..
+				"\\nã€€ã€€ã€€ã€€ã€€åœ°åœ–ã€€ã€€ã€€ã€€åº§æ¨™æ±ã€€ã€€ã€€åº§æ¨™å—ã€€ã€€"..
+				"\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
 		for i=1,5 do
 			local Mappoint = record_point_user_list[Playerkey(_PlayerIndex)][i].MapId;
 			if(Mappoint == 0)then
-				RecordWindowMsg = RecordWindowMsg .. "¡¡¡¡¡¡¡¡¡¡¿Õ\\n";
+				RecordWindowMsg = RecordWindowMsg .. "ã€€ã€€ã€€ã€€ã€€ç©º\\n";
 			else
-				RecordWindowMsg = RecordWindowMsg .. "¡¡¡¡¡¡¡¡<"..record_point_user_list[Playerkey(_PlayerIndex)][i].MapId..">¡¡¡¡¡¡¡¡<"..record_point_user_list[Playerkey(_PlayerIndex)][i].X..">¡¡¡¡¡¡ <"..record_point_user_list[Playerkey(_PlayerIndex)][i].Y..">\\n";
+				RecordWindowMsg = RecordWindowMsg .. "ã€€ã€€ã€€ã€€<"..record_point_user_list[Playerkey(_PlayerIndex)][i].MapId..">ã€€ã€€ã€€ã€€<"..record_point_user_list[Playerkey(_PlayerIndex)][i].X..">ã€€ã€€ã€€ <"..record_point_user_list[Playerkey(_PlayerIndex)][i].Y..">\\n";
 				
 			end
 		end
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%´°¿Ú_Ñ¡Ôñ¿ò%,%°´Å¥_¹Ø±Õ%,1,RecordWindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%çª—å£_é€‰æ‹©æ¡†%,%æŒ‰é’®_å…³é—­%,1,RecordWindowMsg);
 	end
 	return;
 end
@@ -100,13 +100,13 @@ function RecordFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 	if ((_select == 0 or _select == "0") and (_data ~= "")) then
 		local selectitem = tonumber(_data);
 		local Mappoint = record_point_user_list[Playerkey(_PlayerIndex)][selectitem].MapId;
-		local record_MapType = Char.GetData(_PlayerIndex,%¶ÔÏó_MAP%);
-		local record_MapId = Char.GetData(_PlayerIndex,%¶ÔÏó_µØÍ¼%);
-		local record_X = Char.GetData(_PlayerIndex,%¶ÔÏó_X%);
-		local record_Y = Char.GetData(_PlayerIndex,%¶ÔÏó_Y%);
-		local Gold = Char.GetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%);
+		local record_MapType = Char.GetData(_PlayerIndex,%å¯¹è±¡_MAP%);
+		local record_MapId = Char.GetData(_PlayerIndex,%å¯¹è±¡_åœ°å›¾%);
+		local record_X = Char.GetData(_PlayerIndex,%å¯¹è±¡_X%);
+		local record_Y = Char.GetData(_PlayerIndex,%å¯¹è±¡_Y%);
+		local Gold = Char.GetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%);
 		if (Mappoint == 0 and record_MapType == 0 and MapEnable[record_MapId] == 0) then
-			NLG.SystemMessage(_PlayerIndex,"´ËµØÍ¼½ûÖ¹¼ÍÂ¼µã¡£");
+			NLG.SystemMessage(_PlayerIndex,"æ­¤åœ°åœ–ç¦æ­¢ç´€éŒ„é»ã€‚");
 			return;
 		end
 		if (Mappoint == 0 and record_MapType == 0 and MapEnable[record_MapId] ~= 0) then
@@ -114,14 +114,14 @@ function RecordFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 			record_point_user_list[Playerkey(_PlayerIndex)][selectitem].MapId = record_MapId;
 			record_point_user_list[Playerkey(_PlayerIndex)][selectitem].X = record_X;
 			record_point_user_list[Playerkey(_PlayerIndex)][selectitem].Y = record_Y;
-			NLG.SystemMessage(_PlayerIndex,"×ø±êÎ»ÖÃ´¢´æ³É¹¦¡£");
+			NLG.SystemMessage(_PlayerIndex,"åº§æ¨™ä½ç½®å„²å­˜æˆåŠŸã€‚");
 		end
 		--if (Mappoint ~= 0 and Char.PartyNum(_PlayerIndex) > 1)then
-		--	NLG.SystemMessage(_PlayerIndex,"Ö»ÄÜµ¥ÈË½øĞĞ´«ËÍ¡£");
+		--	NLG.SystemMessage(_PlayerIndex,"åªèƒ½å•äººè¿›è¡Œä¼ é€ã€‚");
 		--	return;
 		--end
 		if (Gold < 1000) then
-			NLG.SystemMessage(_PlayerIndex,"Ã¿´Î´«ËÍ·ÑÓÃ1000Ôª¡£");
+			NLG.SystemMessage(_PlayerIndex,"æ¯æ¬¡å‚³é€è²»ç”¨1000å…ƒã€‚");
 			return;
 		end
 		if (Mappoint ~= 0 and Gold >= 1000) then
@@ -131,7 +131,7 @@ function RecordFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 			record_point_user_list[Playerkey(_PlayerIndex)][selectitem].X = 0;
 			record_point_user_list[Playerkey(_PlayerIndex)][selectitem].Y = 0;
 			Char.AddGold(_PlayerIndex,-1000);
-			NLG.SystemMessage(_PlayerIndex,"×ø±ê¼ÍÂ¼»Ø¸´³õÊ¼¡£");
+			NLG.SystemMessage(_PlayerIndex,"åº§æ¨™ç´€éŒ„å›å¾©åˆå§‹ã€‚");
 		end
 	end
 end
