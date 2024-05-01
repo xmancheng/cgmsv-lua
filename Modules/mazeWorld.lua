@@ -190,6 +190,7 @@ function Module:onLoad()
                 winMsg = "\\n\\n\\n@c你的實力還不夠\\n"
                                             .."\\n轉生後再來這裡\\n";
                 winCase = CONST.窗口_信息框;
+                winButton = CONST.BUTTON_关闭;
       end
       NLG.ShowWindowTalked(player, npc, winCase, winButton, 1, winMsg);
     end
