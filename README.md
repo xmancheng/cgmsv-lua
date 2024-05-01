@@ -89,6 +89,7 @@ loadModule('encountEX')|滿怪香水
 loadModule('strAddEffect')|強化效果、附念效果、影子效果
 loadModule('setupItemType')|副武器擴充
 loadModule('addTK')|副武器附念
+loadModule('sprayPaint')|裝備鍍膜
 ### 特殊副本
 模組加載代碼 | 說明 
 --- | --- 
@@ -108,4 +109,3 @@ loadModule('matchDraw')|抽獎背包
 loadModule('petHeadIcon')|寵物頭飾
 loadModule('easyPet')|簡易寵物
 loadModule('ichibanKuji')|一番賞抽獎
-
