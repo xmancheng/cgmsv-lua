@@ -1,4 +1,4 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('sprayPaint')
 
 local sprayList = {
@@ -14,39 +14,39 @@ local sprayList = {
 local EquipType = {}
 function ChooseType(sprayType,targetType)
     local EquipType = {};
-    if sprayType==0 then            --Í·
-        EquipType={ {"Ã±×Ó",9}, {"î^¿ø",8} };
-    elseif sprayType==1 then    --Éí
-        EquipType={ {"ÒÂ·ş",11}, {"æz¼×",10}, {"éLÅÛ",12} };
-    elseif sprayType==2 then    --ÓÒ
-        if (targetType==0) then TypeName="„¦";
-        elseif (targetType==1) then TypeName="¸«";
-        elseif (targetType==2) then TypeName="˜Œ";
-        elseif (targetType==3) then TypeName="ÕÈ";
-        elseif (targetType==4) then TypeName="¹­";
-        elseif (targetType==5) then TypeName="Ğ¡µ¶";
-        elseif (targetType==6) then TypeName="Ş’Á¦çS";
+    if sprayType==0 then            --å¤´
+        EquipType={ {"å¸½å­",9}, {"é ­ç›”",8} };
+    elseif sprayType==1 then    --èº«
+        EquipType={ {"è¡£æœ",11}, {"é§ç”²",10}, {"é•·è¢",12} };
+    elseif sprayType==2 then    --å³
+        if (targetType==0) then TypeName="åŠ";
+        elseif (targetType==1) then TypeName="æ–§";
+        elseif (targetType==2) then TypeName="æ§";
+        elseif (targetType==3) then TypeName="æ–";
+        elseif (targetType==4) then TypeName="å¼“";
+        elseif (targetType==5) then TypeName="å°åˆ€";
+        elseif (targetType==6) then TypeName="è¿´åŠ›é¢";
         end
         EquipType={ {TypeName,targetType} };
-    elseif sprayType==4 then    --×ã
-        EquipType={ {"Ğ¬×Ó",14}, {"Ñ¥×Ó",13} };
-    elseif sprayType==5 then    --ÊÎ
-        EquipType={ {"ÊÖ­h",15}, {"˜·Æ÷",16}, {"í—å€",17}, {"½äÖ¸",18}, {"î^§",19}, {"¶ú­h",20}, {"×oÉí·û",21} };
+    elseif sprayType==4 then    --è¶³
+        EquipType={ {"é‹å­",14}, {"é´å­",13} };
+    elseif sprayType==5 then    --é¥°
+        EquipType={ {"æ‰‹ç’°",15}, {"æ¨‚å™¨",16}, {"é …éŠ",17}, {"æˆ’æŒ‡",18}, {"é ­å¸¶",19}, {"è€³ç’°",20}, {"è­·èº«ç¬¦",21} };
     end
     return EquipType;
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemDurabilityChangedEvent', Func.bind(self.OnItemDurabilityChangedEventCallback, self));
   self:regCallback('ItemString', Func.bind(self.sprayTools, self),"LUA_useProFilm");
-  self.paintingNPC = self:NPC_createNormal('ÌØÊâ‡ŠÆáåƒÄ¤Ÿ¸µ', 14682, { x = 36, y = 31, mapType = 0, map = 777, direction = 6 });
+  self.paintingNPC = self:NPC_createNormal('ç‰¹æ®Šå™´æ¼†éè†œå¸«å‚…', 14682, { x = 36, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.paintingNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾Ñb‚ä‡ŠÆáåƒÄ¤¡¿" ..	"\\n\\n‡ŠÆáåƒÄ¤ááµÄÑb‚ä¿ÉÒÔ±ÜÃâÖÂËÀ´ò“ô¡¢³ÁÖØ´ò“ôËùÔì³ÉµÄ¸ßÄÍ¾Ã“pºÄ¡£®”Íê³ÉÍ¬ÏµÁĞÉÏÄ¤µÄÌ×Ñb£¬«@µÃÌ×ÑbÄÜÁ¦ËØÙ|¼Ó³ÉĞ§¹û¡£\\n¡ù×¢Òâ£ºåƒÄ¤ááŒ¢Ÿo·¨ßMĞĞÙxÓèŠ»¯"
-                                                                               ..	"\\n\\n´_¶¨Ê¹ÓÃ ‡ŠÆá¹¤¾ß£¬é ÎäÆ÷¡¢·À¾ß ‡ŠÆáåƒÄ¤†á£¿";
-        NLG.ShowWindowTalked(player, self.paintingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+        local msg = "\\n@cã€è£å‚™å™´æ¼†éè†œã€‘" ..	"\\n\\nå™´æ¼†éè†œå¾Œçš„è£å‚™å¯ä»¥é¿å…è‡´æ­»æ‰“æ“Šã€æ²‰é‡æ‰“æ“Šæ‰€é€ æˆçš„é«˜è€ä¹…æè€—ã€‚ç•¶å®ŒæˆåŒç³»åˆ—ä¸Šè†œçš„å¥—è£ï¼Œç²å¾—å¥—è£èƒ½åŠ›ç´ è³ªåŠ æˆæ•ˆæœã€‚\\nâ€»æ³¨æ„ï¼šéè†œå¾Œå°‡ç„¡æ³•é€²è¡Œè³¦äºˆå¼·åŒ–"
+                                                                               ..	"\\n\\nç¢ºå®šä½¿ç”¨ å™´æ¼†å·¥å…·ï¼Œç‚º æ­¦å™¨ã€é˜²å…· å™´æ¼†éè†œå—ï¼Ÿ";
+        NLG.ShowWindowTalked(player, self.paintingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
@@ -55,61 +55,62 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    --ÅçÆá¹¤¾ß
+    --å–·æ¼†å·¥å…·
     local ItemIndex =Char.HaveItemID(player, ItemID);
     local ItemSlot = Char.FindItemId(player, ItemID);
-    local sprayType = Item.GetData(ItemIndex, CONST.µÀ¾ß_×Ó²ÎÒ»);
-    local sprayImage = Item.GetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
-    --Ä¿±ê×°±¸
-    local targetSlot = sprayType;      --×°±¸Î»ÖÃ¸ñ
+    local sprayType = Item.GetData(ItemIndex, CONST.é“å…·_å­å‚ä¸€);
+    local sprayImage = Item.GetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ);
+    --ç›®æ ‡è£…å¤‡
+    local targetSlot = sprayType;      --è£…å¤‡ä½ç½®æ ¼
     local targetItemIndex = Char.GetItemIndex(player,targetSlot);
-    local targetType = Item.GetData(targetItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
-    local targetName = Item.GetData(targetItemIndex, CONST.µÀ¾ß_Ãû×Ö);
+    local targetType = Item.GetData(targetItemIndex, CONST.é“å…·_ç±»å‹);
+    local targetName = Item.GetData(targetItemIndex, CONST.é“å…·_åå­—);
     local spraySkin = tonumber(EquipPlusStat(targetItemIndex, "P")) or 0;
     --print(ItemSlot,sprayType,sprayImage,targetName,spraySkin)
     print(data)
     if select > 0 then
       if (targetItemIndex<0) then
-                 NLG.SystemMessage(player, "[Ïµ½y]ÕˆÏÈ´©ÉÏŒ¦‘ª²¿Î»µÄÑb‚ä£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]è«‹å…ˆç©¿ä¸Šå°æ‡‰éƒ¨ä½çš„è£å‚™ï¼");
                  return;
       elseif (targetType>=65 and targetType<=70) then
-                 NLG.SystemMessage(player, "[Ïµ½y]¸±ÎäÆ÷Ÿo·¨ßMĞĞ‡ŠÆáåƒÄ¤£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]å‰¯æ­¦å™¨ç„¡æ³•é€²è¡Œå™´æ¼†éè†œï¼");
                  return;
       end
-      if (seqno == 1 and select == CONST.°´Å¥_È·¶¨ and spraySkin>0)  then
-                 local msg = "\\n@c¡¾Ñb‚ä‡ŠÆáåƒÄ¤¡¿" ..	"\\n\\n\\n´ËÑb‚äÒÑ½›ßMĞĞß^‡ŠÆáåƒÄ¤\\n\\n\\nßx¡ºÊÇ¡»´_¶¨ÒÔĞÂµÄ‡ŠÆá¸²ÉwåƒÄ¤\\n\\n";
-                 NLG.ShowWindowTalked(player, self.paintingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 11, msg);
-      elseif (seqno == 1 and select == CONST.°´Å¥_È·¶¨)  then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š and spraySkin>0)  then
+                 local msg = "\\n@cã€è£å‚™å™´æ¼†éè†œã€‘" ..	"\\n\\n\\næ­¤è£å‚™å·²ç¶“é€²è¡Œéå™´æ¼†éè†œ\\n\\n\\né¸ã€æ˜¯ã€ç¢ºå®šä»¥æ–°çš„å™´æ¼†è¦†è“‹éè†œ\\n\\n";
+                 NLG.ShowWindowTalked(player, self.paintingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 11, msg);
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š)  then
                  EquipType = ChooseType(sprayType,targetType);
-                 local msg = "2\\n@c¡¾Ñb‚ä‡ŠÆáåƒÄ¤¡¿\\n¡ı›Q¶¨‡ŠÆá¿ÉŞD»¯µÄÑb‚äîĞÍ¡ı\\n";
+                 local msg = "2\\n@cã€è£å‚™å™´æ¼†éè†œã€‘\\nâ†“æ±ºå®šå™´æ¼†å¯è½‰åŒ–çš„è£å‚™é¡å‹â†“\\n";
                  for i=1,#EquipType do
                                   msg = msg .. EquipType[i][1].."\\n"
                  end
-                 NLG.ShowWindowTalked(player, self.paintingNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 12, msg);
-      elseif (seqno == 11 and select == CONST.°´Å¥_ÊÇ)  then
+                 NLG.ShowWindowTalked(player, self.paintingNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 12, msg);
+      elseif (seqno == 11 and select == CONST.æŒ‰é’®_æ˜¯)  then
                  EquipType = ChooseType(sprayType,targetType);
-                 local msg = "2\\n@c¡¾Ñb‚ä‡ŠÆáåƒÄ¤¡¿\\n¡ı›Q¶¨‡ŠÆá¿ÉŞD»¯µÄÑb‚äîĞÍ¡ı\\n";
+                 local msg = "2\\n@cã€è£å‚™å™´æ¼†éè†œã€‘\\nâ†“æ±ºå®šå™´æ¼†å¯è½‰åŒ–çš„è£å‚™é¡å‹â†“\\n";
                  for i=1,#EquipType do
                                   msg = msg .. EquipType[i][1].."\\n"
                  end
-                 NLG.ShowWindowTalked(player, self.paintingNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 12, msg);
+                 NLG.ShowWindowTalked(player, self.paintingNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 12, msg);
       else
                  return;
       end
 
     else
-      --ÅçÆá²Ù×÷
-      if (seqno == 12 and select == CONST.°´Å¥_¹Ø±Õ) then
+      --å–·æ¼†æ“ä½œ
+      if (seqno == 12 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       elseif (seqno == 12 and data>0) then
           if (targetItemIndex ~=nil) then
                  Char.DelItem(player, ItemID, 1);
-                 if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.µÀ¾ß_¼øÇ°Ãû, targetName); end
+                 if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.é“å…·_é‰´å‰å, targetName); end
                  EquipPlusStat(targetItemIndex, "P", sprayImage);
-                 Item.SetData(targetItemIndex,CONST.µÀ¾ß_Í¼, sprayImage);
-                 Item.SetData(targetItemIndex,CONST.µÀ¾ß_ÀàĞÍ, EquipType[data][2]);
+                 Item.SetData(targetItemIndex,CONST.é“å…·_ID, ItemID);
+                 Item.SetData(targetItemIndex,CONST.é“å…·_å›¾, sprayImage);
+                 Item.SetData(targetItemIndex,CONST.é“å…·_ç±»å‹, EquipType[data][2]);
                  Item.UpItem(targetItemIndex, targetSlot);
-                 NLG.SystemMessage(player, "[Ïµ½y]ÕˆĞ¶ÏÂÖØĞÂÑb‚ä£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]è«‹å¸ä¸‹é‡æ–°è£å‚™ï¼");
                  NLG.UpChar(player);
           end
       else
@@ -125,28 +126,28 @@ end
 function Module:sprayTools(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     local ItemIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local sprayName = Item.GetData(ItemIndex, CONST.µÀ¾ß_Ãû×Ö);
-    local sprayType = Item.GetData(ItemIndex, CONST.µÀ¾ß_×Ó²ÎÒ»);
-    local sprayImage = Item.GetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+    local sprayName = Item.GetData(ItemIndex, CONST.é“å…·_åå­—);
+    local sprayType = Item.GetData(ItemIndex, CONST.é“å…·_å­å‚ä¸€);
+    local sprayImage = Item.GetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ);
     local targetSlot= sprayType;
     if (Char.GetItemIndex(charIndex,targetSlot)>0) then
-             targetName = Item.GetData(Char.GetItemIndex(charIndex,targetSlot), CONST.µÀ¾ß_Ãû×Ö);
+             targetName = Item.GetData(Char.GetItemIndex(charIndex,targetSlot), CONST.é“å…·_åå­—);
     else
-             targetName = "¿Õ";
+             targetName = "ç©º";
     end
-    local msg = "\\n@c¡¾Ñb‚ä‡ŠÆáåƒÄ¤¡¿" ..	"\\n\\n‡ŠÆáåƒÄ¤ááµÄÑb‚ä¿ÉÒÔ±ÜÃâÖÂËÀ´ò“ô¡¢³ÁÖØ´ò“ôËùÔì³ÉµÄ¸ßÄÍ¾Ã“pºÄ¡£®”Íê³ÉÍ¬ÏµÁĞÉÏÄ¤µÄÌ×Ñb£¬«@µÃÌ×ÑbÄÜÁ¦ËØÙ|¼Ó³ÉĞ§¹û¡£\\n¡ù×¢Òâ£ºåƒÄ¤ááŒ¢Ÿo·¨ßMĞĞÙxÓèŠ»¯"
-                                                                           ..	"\\n\\n´_¶¨Ê¹ÓÃ "..sprayName.." ¹¤¾ß£¬ÔÚ "..targetName.." Ñb‚äÉÏÃæ‡ŠÆáåƒÄ¤†á£¿";
-    NLG.ShowWindowTalked(charIndex, self.paintingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+    local msg = "\\n@cã€è£å‚™å™´æ¼†éè†œã€‘" ..	"\\n\\nå™´æ¼†éè†œå¾Œçš„è£å‚™å¯ä»¥é¿å…è‡´æ­»æ‰“æ“Šã€æ²‰é‡æ‰“æ“Šæ‰€é€ æˆçš„é«˜è€ä¹…æè€—ã€‚ç•¶å®ŒæˆåŒç³»åˆ—ä¸Šè†œçš„å¥—è£ï¼Œç²å¾—å¥—è£èƒ½åŠ›ç´ è³ªåŠ æˆæ•ˆæœã€‚\\nâ€»æ³¨æ„ï¼šéè†œå¾Œå°‡ç„¡æ³•é€²è¡Œè³¦äºˆå¼·åŒ–"
+                                                                           ..	"\\n\\nç¢ºå®šä½¿ç”¨ "..sprayName.." å·¥å…·ï¼Œåœ¨ "..targetName.." è£å‚™ä¸Šé¢å™´æ¼†éè†œå—ï¼Ÿ";
+    NLG.ShowWindowTalked(charIndex, self.paintingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     return 1;
 end
 
 
 function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
-	--  E-¸³Óè£¬P- ÅçÆá
+	--  E-èµ‹äºˆï¼ŒP- å–·æ¼†
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
-		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı));
+		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°));
 		if string.find(tItemStat, ",")==nil then
 			return nil;
 		end
@@ -167,7 +168,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 		for k,v in pairs(_StatTab) do
 			tStat = tStat .. k .. "," .. v .. "|";
 		end
-		Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tStat);
+		Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tStat);
 	elseif type(_StatTab)=="string" and type(_StatValue)=="nil" then
 		--GetSub
 		local tStatTab = EquipPlusStat(_ItemIndex) or {};
@@ -185,29 +186,29 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 	end
 end
 
----ItemDurabilityChangedEventµÄ»Øµ÷º¯Êı
+---ItemDurabilityChangedEventçš„å›è°ƒå‡½æ•°
 ---[@group NL.RegItemDurabilityChangedEvent]
 ---@param itemIndex number ItemIndex
----@param oldDurability number Ô­À´µÄÄÍ¾Ã
----@param newDurability number ±ä»¯ºóµÄÄÍ¾Ã
----@param value number ±ä»¯Öµ
----@param mode number 0Õı³£Õ½¶·ËğºÄ£¨1-2ÄÍ¾Ã£©£¬1ÖÂËÀ´ò»÷£¨-50%µ±Ç°ÄÍ¾Ã£©£¬2³ÁÖØ´ò»÷£¨-10%×î´óÄÍ¾Ã£©£¬3×°±¸ÆÆ»µ¼¼ÄÜ
----@return number @ĞÂµÄmode£¬ÓÃÓÚmodeÎª1¡¢2Ê±·µ»Ø0È¡Ïû¶ÔÓ¦ÌáÊ¾
+---@param oldDurability number åŸæ¥çš„è€ä¹…
+---@param newDurability number å˜åŒ–åçš„è€ä¹…
+---@param value number å˜åŒ–å€¼
+---@param mode number 0æ­£å¸¸æˆ˜æ–—æŸè€—ï¼ˆ1-2è€ä¹…ï¼‰ï¼Œ1è‡´æ­»æ‰“å‡»ï¼ˆ-50%å½“å‰è€ä¹…ï¼‰ï¼Œ2æ²‰é‡æ‰“å‡»ï¼ˆ-10%æœ€å¤§è€ä¹…ï¼‰ï¼Œ3è£…å¤‡ç ´åæŠ€èƒ½
+---@return number @æ–°çš„modeï¼Œç”¨äºmodeä¸º1ã€2æ—¶è¿”å›0å–æ¶ˆå¯¹åº”æç¤º
 function OnItemDurabilityChangedEventCallback(itemIndex, oldDurability, newDurability, value, mode)
-    local itemName = Item.GetData(itemIndex, CONST.µÀ¾ß_Ãû×Ö);
+    local itemName = Item.GetData(itemIndex, CONST.é“å…·_åå­—);
     local spraySkin = tonumber(EquipPlusStat(targetItemIndex, "P")) or 0;
     local player = Item.GetOwner(itemIndex)
     if mode== 1 or mode==2 then
           table.forEach(sprayList, function(e)
                     if (spraySkin==e) then
-                              NLG.Say(player, -1, ""..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." µÄ ".. itemName .." Òòé‰TÁÏÊÜµ½ÌØÊâ±£×o£¡",CONST.ÑÕÉ«_»ÆÉ«, CONST.×ÖÌå_ÖĞ);
+                              NLG.Say(player, -1, ""..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." çš„ ".. itemName .." å› ç‚ºå¡—æ–™å—åˆ°ç‰¹æ®Šä¿è­·ï¼",CONST.é¢œè‰²_é»„è‰², CONST.å­—ä½“_ä¸­);
                               return 0;
                     end
           end)
     end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
