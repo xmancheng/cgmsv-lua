@@ -206,6 +206,7 @@ function OnItemDurabilityChangedEventCallback(itemIndex, oldDurability, newDurab
                     end
           end)
     end
+    return mode;
 end
 
 --- 卸载模块钩子
