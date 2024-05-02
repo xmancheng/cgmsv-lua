@@ -6,14 +6,14 @@ local exp_itemid = 70040;               --角色招經驗貓(1.5倍)
 local expshare_itemid = 70041;     --寵物學習裝置
 
 local worldPoints = {
-  { "天界空村Lv1      5000G", 0, 60001, 21, 30 },
-  { "迷霧森林Lv30     5000G", 0, 60002, 115, 104 },
-  { "古代遺跡Lv50     5000G", 0, 60004, 11, 64 },
-  { "黑夜貓村Lv70     5000G", 0, 60006, 107, 80 },
-  { "荒漠峽谷Lv90     5000G", 0, 60008, 33, 24 },
-  { "精靈之都Lv110    5000G", 0, 60010, 46, 42 },
-  { "烏龜秘境Lv130    5000G", 0, 60012, 15, 15 },
-  { "天馬原野Lv150    5000G", 0, 60014, 44, 51 },
+  { "天界空村Lv100    5000G", 0, 60001, 21, 30 },
+  { "迷霧森林Lv110    5000G", 0, 60002, 115, 104 },
+  { "古代遺跡Lv120    5000G", 0, 60004, 11, 64 },
+  { "黑夜貓村Lv130    5000G", 0, 60006, 107, 80 },
+  { "荒漠峽谷Lv140    5000G", 0, 60008, 33, 24 },
+  { "精靈之都Lv150    5000G", 0, 60010, 46, 42 },
+  { "烏龜秘境Lv160    5000G", 0, 60012, 15, 15 },
+  { "天馬原野Lv170    5000G", 0, 60014, 44, 51 },
   { "龍族墳場Lv180    5000G", 0, 60016, 26, 47 },
 }
 
@@ -21,13 +21,13 @@ local mazeMap = {
     { 60002, 60001 }, { 60004, 60001 }, { 60006, 60006 }, { 60008, 60001 }, { 60010, 60001 }, { 60012, 60001 }, { 60014, 60001 },
 }
 local worldExp = {
-    { Event="LordEnd1", L_level=1, R_level=30, Upload=50, UniItem=70258},
-    { Event="LordEnd2", L_level=31, R_level=50, Upload=70, UniItem=70260},
-    { Event="LordEnd3", L_level=51, R_level=70, Upload=90, UniItem=70262},
-    { Event="LordEnd4", L_level=71, R_level=90, Upload=110, UniItem=70264},
-    { Event="LordEnd5", L_level=91, R_level=110, Upload=130, UniItem=70266},
-    { Event="LordEnd6", L_level=111, R_level=130, Upload=150, UniItem=70267},
-    { Event="LordEnd7", L_level=131, R_level=150, Upload=180, UniItem=70270},
+    { Event="LordEnd1", L_level=101, R_level=110, Upload=120, UniItem=70258},
+    { Event="LordEnd2", L_level=111, R_level=120, Upload=130, UniItem=70260},
+    { Event="LordEnd3", L_level=121, R_level=130, Upload=140, UniItem=70262},
+    { Event="LordEnd4", L_level=131, R_level=140, Upload=150, UniItem=70264},
+    { Event="LordEnd5", L_level=141, R_level=150, Upload=160, UniItem=70266},
+    { Event="LordEnd6", L_level=151, R_level=160, Upload=170, UniItem=70267},
+    { Event="LordEnd7", L_level=161, R_level=170, Upload=180, UniItem=70270},
 }
 
 local Horcrux = {
@@ -207,7 +207,7 @@ function Module:onGetExpEvent(charIndex, exp)
 	]]
 	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_地图);
 	print(Target_FloorId)
-	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0) then
+	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0 and Char.GetData(charIndex,CONST.对象_等级)>=101) then
 		if (Target_FloorId==mazeMap[1][1] or Target_FloorId==mazeMap[1][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].R_level and Char.GetWorldCheck(1) == 0) then
 				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[1].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
