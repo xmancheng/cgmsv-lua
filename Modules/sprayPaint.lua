@@ -39,7 +39,22 @@ end
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
-  self:regCallback('ItemDurabilityChangedEvent', Func.bind(self.OnItemDurabilityChangedEventCallback, self));
+  self:regCallback('ItemDurabilityChangedEvent', function(itemIndex, oldDurability, newDurability, value, mode)
+    local itemName = Item.GetData(itemIndex, CONST.道具_名字);
+    local spraySkin = EquipPlusStat(itemIndex, "P") or 0;
+    local player = Item.GetOwner(itemIndex)
+    print(value,mode,itemName,spraySkin)
+    if mode== 1 or mode==2 then
+          table.forEach(sprayList, function(e)
+                    if (spraySkin==e) then
+                              NLG.Say(player, -1, ""..Char.GetData(player,CONST.对象_名字).." 的 ".. itemName .." 因為塗料受到特殊保護！",CONST.颜色_黄色, CONST.字体_中);
+                              mode =0;
+                              return mode;
+                    end
+          end)
+    end
+    return mode;
+  end)
   self:regCallback('ItemString', Func.bind(self.sprayTools, self),"LUA_useProFilm");
   self.paintingNPC = self:NPC_createNormal('特殊噴漆鍍膜師傅', 14682, { x = 36, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.paintingNPC, function(npc, player)
@@ -184,29 +199,6 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 		tStatTab[_StatTab]=_StatValue;
 		EquipPlusStat(_ItemIndex, tStatTab);
 	end
-end
-
----ItemDurabilityChangedEvent的回调函数
----[@group NL.RegItemDurabilityChangedEvent]
----@param itemIndex number ItemIndex
----@param oldDurability number 原来的耐久
----@param newDurability number 变化后的耐久
----@param value number 变化值
----@param mode number 0正常战斗损耗（1-2耐久），1致死打击（-50%当前耐久），2沉重打击（-10%最大耐久），3装备破坏技能
----@return number @新的mode，用于mode为1、2时返回0取消对应提示
-function OnItemDurabilityChangedEventCallback(itemIndex, oldDurability, newDurability, value, mode)
-    local itemName = Item.GetData(itemIndex, CONST.道具_名字);
-    local spraySkin = tonumber(EquipPlusStat(targetItemIndex, "P")) or 0;
-    local player = Item.GetOwner(itemIndex)
-    if mode== 1 or mode==2 then
-          table.forEach(sprayList, function(e)
-                    if (spraySkin==e) then
-                              NLG.Say(player, -1, ""..Char.GetData(player,CONST.对象_名字).." 的 ".. itemName .." 因為塗料受到特殊保護！",CONST.颜色_黄色, CONST.字体_中);
-                              return 0;
-                    end
-          end)
-    end
-    return mode;
 end
 
 --- 卸载模块钩子
