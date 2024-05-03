@@ -19,18 +19,19 @@ Spell_tbl[4] = {5314,5319}
 
 Spell_tbl.Tech = {}
 -----------------------------------------------------------
-Spell_tbl.Tech[5014] = {110351,4,CONST.CHAR_防御力,0.5,CONST.CHAR_BattleDamageVanish,4}   --变成的原形编号、迷彩持续回合、真实伤害来源、转换倍率
-Spell_tbl.Tech[5019] = {110351,4,CONST.CHAR_防御力,0.5,CONST.CHAR_BattleDamageMagicVanish,4}
+Spell_tbl.Tech[5014] = {110351,4,CONST.CHAR_防御力,0.5,CONST.CHAR_BattleDamageVanish,4,4}   --变成的原形编号、迷彩持续回合、真实伤害来源、转换倍率
+Spell_tbl.Tech[5019] = {110351,4,CONST.CHAR_防御力,0.5,CONST.CHAR_BattleDamageMagicVanish,4,7}
 -----------------------------------------------------------
-Spell_tbl.Tech[5114] = {110357,4,CONST.CHAR_回复,0.25,CONST.CHAR_BattleDamageVanish,4}
-Spell_tbl.Tech[5119] = {110357,4,CONST.CHAR_回复,0.25,CONST.CHAR_BattleDamageMagicVanish,4}
+Spell_tbl.Tech[5114] = {110357,4,CONST.CHAR_回复,0.25,CONST.CHAR_BattleDamageVanish,4,4}
+Spell_tbl.Tech[5119] = {110357,4,CONST.CHAR_回复,0.25,CONST.CHAR_BattleDamageMagicVanish,4,7}
 -----------------------------------------------------------
-Spell_tbl.Tech[5214] = {110363,4,CONST.CHAR_攻击力,0.125,CONST.CHAR_BattleDamageVanish,4}
-Spell_tbl.Tech[5219] = {110363,4,CONST.CHAR_攻击力,0.125,CONST.CHAR_BattleDamageMagicVanish,4}
+Spell_tbl.Tech[5214] = {110363,4,CONST.CHAR_攻击力,0.125,CONST.CHAR_BattleDamageVanish,4,4}
+Spell_tbl.Tech[5219] = {110363,4,CONST.CHAR_攻击力,0.125,CONST.CHAR_BattleDamageMagicVanish,4,7}
 -----------------------------------------------------------
-Spell_tbl.Tech[5314] = {110369,4,CONST.CHAR_敏捷,0.25,CONST.CHAR_BattleDamageVanish,4}
-Spell_tbl.Tech[5319] = {110369,4,CONST.CHAR_敏捷,0.25,CONST.CHAR_BattleDamageMagicVanish,4}
+Spell_tbl.Tech[5314] = {110369,4,CONST.CHAR_敏捷,0.25,CONST.CHAR_BattleDamageVanish,4,4}
+Spell_tbl.Tech[5319] = {110369,4,CONST.CHAR_敏捷,0.25,CONST.CHAR_BattleDamageMagicVanish,4,7}
 -----------------------------------------------------------
+Spell_tbl.Tech[8819] = {1,4,CONST.CHAR_敏捷,0.25,CONST.CHAR_BattleDamageMagicVanish,4,6}
 
 --- 加载模块钩子
 function DisguiseSpell:onLoad()
@@ -42,6 +43,9 @@ function DisguiseSpell:onLoad()
 end
 
 function DisguiseSpell:handleBattleAutoCommand(battleIndex)
+               local Attribute,TurnCount,AttributePower = Battle.GetBattleFieldAttribute(battleIndex);
+               print(Attribute,TurnCount,AttributePower)
+               Battle.SetBattleFieldAttribute(battleIndex, Attribute, TurnCount, AttributePower);
                local battleturn = Battle.GetTurn(battleIndex);
                for i = 0, 19 do
                      local charIndex = Battle.GetPlayer(battleIndex, i);
