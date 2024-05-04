@@ -17,11 +17,11 @@ end
 function EquipCard_create() 
 	if (divinerNPC == nil) then
 		divinerNPC = NL.CreateNpc("lua/Module/EquipCard.lua", "initEquipCardNpc_Init");
-		Char.SetData(divinerNPC,%对象_形象%,105527);
-		Char.SetData(divinerNPC,%对象_原形%,105527);
-		Char.SetData(divinerNPC,%对象_X%,28);
-		Char.SetData(divinerNPC,%对象_Y%,7);
-		Char.SetData(divinerNPC,%对象_地图%,25000);
+		Char.SetData(divinerNPC,%对象_形象%,105070);
+		Char.SetData(divinerNPC,%对象_原形%,105070);
+		Char.SetData(divinerNPC,%对象_X%,34);
+		Char.SetData(divinerNPC,%对象_Y%,35);
+		Char.SetData(divinerNPC,%对象_地图%,777);
 		Char.SetData(divinerNPC,%对象_方向%,4);
 		Char.SetData(divinerNPC,%对象_名字%,"裝備插卡學徒");
 		NLG.UpChar(divinerNPC);
