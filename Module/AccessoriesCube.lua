@@ -41,9 +41,9 @@ function AccessoriesCube_create()
 		local exploitNPC = NL.CreateNpc("lua/Module/AccessoriesCube.lua", "initAccessoriesCubeNpc_Init");
 		Char.SetData(exploitNPC,%对象_形象%,105389);
 		Char.SetData(exploitNPC,%对象_原形%,105389);
-		Char.SetData(exploitNPC,%对象_X%,27);
-		Char.SetData(exploitNPC,%对象_Y%,7);
-		Char.SetData(exploitNPC,%对象_地图%,25000);
+		Char.SetData(exploitNPC,%对象_X%,33);
+		Char.SetData(exploitNPC,%对象_Y%,35);
+		Char.SetData(exploitNPC,%对象_地图%,777);
 		Char.SetData(exploitNPC,%对象_方向%,4);
 		Char.SetData(exploitNPC,%对象_名字%,"浅能開發專家");
 		NLG.UpChar(exploitNPC);
