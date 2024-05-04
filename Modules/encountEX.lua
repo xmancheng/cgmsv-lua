@@ -108,17 +108,61 @@ function Module:onLoad()
 				Char.SetData(player,%对象_香步数%,ymbs-1);
 				NLG.UpChar(player);
 				if cdk == EnemyTbl[cdk][1] and EnemyTbl[cdk][2] == nill then
-					Battle.Encount(player, player);
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.Encount(player, player);
+					else
+						Battle.Encount(player, player);
+					end
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum == 0 then          --满怪香水
 					Char.DelItem(player,hmxs,1);
-					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					else
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					end
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum > 1 then             --满怪香水&黄金喷雾
 					Char.DelItem(player,hmxs,1);
 					Char.DelItem(player,gmxs,1);
-					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					else
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					end
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 and gmxsnum == 0 then       --满怪香水
 					Char.DelItem(player,hmxs,1);
-					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					else
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					end
 					for i,v in ipairs(EnemyTbl[cdk]) do
 						if ( cdk==v )then
 							table.remove(EnemyTbl[cdk],i);
@@ -128,7 +172,18 @@ function Module:onLoad()
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 and gmxsnum >= 1 then         --满怪香水&黄金喷雾
 					Char.DelItem(player,hmxs,1);
 					Char.DelItem(player,gmxs,1);
-					Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					else
+						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+					end
 					for i,v in ipairs(EnemyTbl[cdk]) do
 						if ( cdk==v )then
 							table.remove(EnemyTbl[cdk],i);
@@ -136,7 +191,18 @@ function Module:onLoad()
 						end
 					end
 				else
-					Battle.Encount(player, player);
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.Encount(player, player);
+					else
+						Battle.Encount(player, player);
+					end
 				end
 				NLG.SystemMessage(player,'自動遇敵剩餘'..(ymbs-980)..'步')
 			else
@@ -146,14 +212,36 @@ function Module:onLoad()
 					Item.UpItem(player,-1);
 					NLG.UpChar(player);
 					NLG.SystemMessage(player,'消耗一個怪物餅乾，自動遇敵繼續，還有'..(ymxsnum-1)..'個怪物餅乾。');
-					Battle.Encount(player, player);
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.Encount(player, player);
+					else
+						Battle.Encount(player, player);
+					end
 				elseif ymxsnum == 1 then
 					Char.SetData(player,%对象_香步数%,998);
 					Char.DelItem(player,ymxs,1);
 					Item.UpItem(player,-1);
 					NLG.UpChar(player);
 					NLG.SystemMessage(player,'自動遇敵最後一次生效,請及時補充怪物餅乾！');
-					Battle.Encount(player, player);
+					local PartyNum = Char.PartyNum(player);
+					if (PartyNum>1) then
+						for Slot=1,PartyNum do
+							local TeamPlayer = Char.GetPartyMember(player,Slot);
+							if Char.GetBattleIndex(player) >= 0 then
+								return
+							end
+						end
+						Battle.Encount(player, player);
+					else
+						Battle.Encount(player, player);
+					end
 				else
 					Char.SetData(player,%对象_香步数%,0);
 					Char.SetData(player,%对象_香上限%,0);
