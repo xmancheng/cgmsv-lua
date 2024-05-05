@@ -83,6 +83,7 @@ loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
 --- | --- 
 loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
+loadModule('setupGetProfit')|限制獲取
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
