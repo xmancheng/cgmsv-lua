@@ -90,7 +90,7 @@ function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, orih
                end
                return heal;
          end
-
+         return heal;
 end
 
 function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
@@ -218,6 +218,19 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                              end
                      else
                              damage = damage;
+                     end
+                     return damage;
+               elseif (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
+                     --NLG.Say(charIndex,charIndex,"【精神衝擊波】補正傷害公式！！",4,3);
+                     local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+                     local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+                     local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
+                     local TechLv = math.fmod(com3,26700)+1;
+                     print(LvRate,Spirit,Mattack,TechLv)
+                     if (Spirit>303 and Mattack>320) then
+                             damage = (320+303*1.2)*TechLv*0.1+((Spirit-303)*2+(Mattack-320)*(LvRate*0.01))*0.5*TechLv*0.1;
+                     else
+                             damage = (Mattack+Spirit*1.2)*TechLv*0.1;
                      end
                      return damage;
                end
