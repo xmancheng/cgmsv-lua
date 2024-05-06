@@ -1,38 +1,49 @@
 local Module = ModuleBase:createModule('manaPool')
 local _ = require "lua/Modules/underscore"
 local itemList = {
-  { name = 'Ñª³ØÑa³ä£¨1000LP£©', image = 27243, price = 1500, desc = 'Ña³äÑª³ØÊ¹ÓÃÁ¿1000üc', count = 1, maxCount = 999, value = 1000, type = 'lp' },
-  { name = 'Ñª³ØÑa³ä£¨10000LP£©', image = 27243, price = 14500, desc = 'Ña³äÑª³ØÊ¹ÓÃÁ¿10000üc', count = 1, maxCount = 999, value = 10000, type = 'lp' },
-  { name = 'Ñª³ØÑa³ä£¨50000LP£©', image = 27243, price = 70000, desc = 'Ña³äÑª³ØÊ¹ÓÃÁ¿50000üc', count = 1, maxCount = 999, value = 50000, type = 'lp' },
-  { name = 'Ä§³ØÑa³ä£¨1000FP£©', image = 26206, price = 1700, desc = 'Ña³äÄ§³ØÊ¹ÓÃÁ¿1000üc', count = 1, maxCount = 999, value = 1000, type = 'fp' },
-  { name = 'Ä§³ØÑa³ä£¨10000FP£©', image = 26206, price = 17500, desc = 'Ña³äÄ§³ØÊ¹ÓÃÁ¿10000üc', count = 1, maxCount = 999, value = 10000, type = 'fp' },
-  { name = 'Ä§³ØÑa³ä£¨50000FP£©', image = 26206, price = 87000, desc = 'Ña³äÄ§³ØÊ¹ÓÃÁ¿50000üc', count = 1, maxCount = 999, value = 50000, type = 'fp' },
-  -- { name = '»Ø¸´¡¤ÇïİË×£¸£', image = 494861, price = 10000, desc = 'Ğ¯´øÊ±, Õ½¶·½áÊø½ÇÉ«ÉúÃü»Ö¸´200, Ä§·¨»Ö¸´200', count = 1, maxCount = 1, value = 100000, type = ''}
+  { name = 'è¡€æ± è£œå……ï¼ˆ1000LPï¼‰', image = 27243, price = 1500, desc = 'è£œå……è¡€æ± ä½¿ç”¨é‡1000é»', count = 1, maxCount = 999, value = 1000, type = 'lp' },
+  { name = 'è¡€æ± è£œå……ï¼ˆ10000LPï¼‰', image = 27243, price = 14500, desc = 'è£œå……è¡€æ± ä½¿ç”¨é‡10000é»', count = 1, maxCount = 999, value = 10000, type = 'lp' },
+  { name = 'è¡€æ± è£œå……ï¼ˆ50000LPï¼‰', image = 27243, price = 70000, desc = 'è£œå……è¡€æ± ä½¿ç”¨é‡50000é»', count = 1, maxCount = 999, value = 50000, type = 'lp' },
+  { name = 'é­”æ± è£œå……ï¼ˆ1000FPï¼‰', image = 26206, price = 1700, desc = 'è£œå……é­”æ± ä½¿ç”¨é‡1000é»', count = 1, maxCount = 999, value = 1000, type = 'fp' },
+  { name = 'é­”æ± è£œå……ï¼ˆ10000FPï¼‰', image = 26206, price = 17500, desc = 'è£œå……é­”æ± ä½¿ç”¨é‡10000é»', count = 1, maxCount = 999, value = 10000, type = 'fp' },
+  { name = 'é­”æ± è£œå……ï¼ˆ50000FPï¼‰', image = 26206, price = 87000, desc = 'è£œå……é­”æ± ä½¿ç”¨é‡50000é»', count = 1, maxCount = 999, value = 50000, type = 'fp' },
+  -- { name = 'å›å¤Â·ç§‹èŸç¥ç¦', image = 494861, price = 10000, desc = 'æºå¸¦æ—¶, æˆ˜æ–—ç»“æŸè§’è‰²ç”Ÿå‘½æ¢å¤200, é­”æ³•æ¢å¤200', count = 1, maxCount = 1, value = 100000, type = ''}
 }
 
-local ×Ô¶¯ÂôÄ§Ê¯ = true
+local è‡ªåŠ¨å–é­”çŸ³ = true
 local soldrate=1
 local maxMoney=10000000
 
--- È«¾ÖµôÂäµÀ¾ß
+-- å…¨å±€æ‰è½é“å…·
 local itemSetting={
-  -- {µÀ¾ßid£¬Ëæ»úÊı×îĞ¡Öµ£¬Ëæ»úÊı×î´óÖµ£¬Ëæ»ú1~1000}
-  {60056,1,50}, --Ëæ»úµôÂä×êÊ¯
+  -- {é“å…·idï¼Œéšæœºæ•°æœ€å°å€¼ï¼Œéšæœºæ•°æœ€å¤§å€¼ï¼Œéšæœº1~1000}
+  {60056,1,50}, --éšæœºæ‰è½é’»çŸ³
   -- {20211055,950,980},
 }
 
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  local npc = self:NPC_createNormal('ÑªÄ§³Ø', 99262, { x = 230, y = 58, mapType = 0, map = 1000, direction = 6 })
+  local npc = self:NPC_createNormal('è¡€é­”æ± ', 99262, { x = 230, y = 58, mapType = 0, map = 1000, direction = 6 })
   self:NPC_regTalkedEvent(npc, Func.bind(self.onSellerTalked, self))
   self:NPC_regWindowTalkedEvent(npc, Func.bind(self.onSellerSelected, self));
   -- self:regCallback('BattleStartEvent', Func.bind(self.onBattleStart, self))
   self:regCallback('BattleOverEvent', Func.bind(self.onBattleOver, self))
+  self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
 end
 
 
+function Module:handleTalkEvent(charIndex,msg,color,range,size)
+	if (msg=="/shm" or msg=="/SHM" ) then
+		local lpPool = tonumber(Field.Get(charIndex, 'LpPool')) or 0;
+		local fpPool = tonumber(Field.Get(charIndex, 'FpPool')) or 0;
+		NLG.SystemMessage(charIndex, '[è¡€é­”æ± ] è¡€æ± å…±: ' .. lpPool .. ', é­”æ± å…±: ' .. fpPool .. 'ã€‚');
+		NLG.UpChar(charIndex);
+		return 0;
+	end
+	return 1;
+end
 
 function Module:onBattleOver(battleIndex)
   local poss={}
@@ -43,7 +54,7 @@ function Module:onBattleOver(battleIndex)
   _.each(poss,function(pos) 
     local charIndex = Battle.GetPlayer(battleIndex, pos);
 
-    if Char.GetData(charIndex,CONST.CHAR_ÀàĞÍ)~=CONST.¶ÔÏóÀàĞÍ_ÈË then
+    if Char.GetData(charIndex,CONST.CHAR_ç±»å‹)~=CONST.å¯¹è±¡ç±»å‹_äºº then
       return
     end
 
@@ -53,27 +64,27 @@ function Module:onBattleOver(battleIndex)
       return
     end
 
-    -- »ñÈ¡Ó¶±ø
+    -- è·å–ä½£å…µ
     local campHeroesData = getModule('heroesFn'):getCampHeroesData(charIndex)
-    -- Íæ¼Ò×Ô¼º²¹ÑªÄ§
+    -- ç©å®¶è‡ªå·±è¡¥è¡€é­”
     self:heal(charIndex,charIndex)
 
-    -- Íæ¼ÒµÄÓ¶±ø²¹ÑªÄ§
+    -- ç©å®¶çš„ä½£å…µè¡¥è¡€é­”
     for k,v in pairs(campHeroesData) do
       self:heal(charIndex,v.index)
-      if Char.GetData(charIndex,%¶ÔÏó_½»Ò×¿ª¹Ø%) == 1 then
+      if Char.GetData(charIndex,%å¯¹è±¡_äº¤æ˜“å¼€å…³%) == 1 then
         self:clearBag(charIndex,v.index)
       end
       NLG.UpChar(v.index);
       Item.UpItem(v.index, -1);
     end
 
-    if Char.GetData(charIndex,%¶ÔÏó_½»Ò×¿ª¹Ø%) == 1 then
+    if Char.GetData(charIndex,%å¯¹è±¡_äº¤æ˜“å¼€å…³%) == 1 then
       self:clearBag(charIndex,charIndex)
-      NLG.Say(charIndex,-1,"™zœyµ½Äãé_†¢ÁË½»Ò×£¬‘ğôYáá°ü°ü×Ô„ÓÇåÀíÍê®…¡£",1,3);
+      NLG.Say(charIndex,-1,"æª¢æ¸¬åˆ°ä½ é–‹å•Ÿäº†äº¤æ˜“ï¼Œæˆ°é¬¥å¾ŒåŒ…åŒ…è‡ªå‹•æ¸…ç†å®Œç•¢ã€‚",1,3);
     end
 
-      --¿ªÊ¼·ÖÅä µÀ¾ß
+      --å¼€å§‹åˆ†é… é“å…·
     local randValue = NLG.Rand(1,1000);
     for i = 1,#itemSetting do
       local min= itemSetting[i][2]
@@ -82,10 +93,10 @@ function Module:onBattleOver(battleIndex)
       if randValue>=min and randValue<=max then
         itemIndex = Char.GiveItem(charIndex,itemId,1);
         if itemIndex<0 then
-          --NLG.Say(charIndex,-1,"±³°üÂúÁË" ,CONST.ÑÕÉ«_ºìÉ«,0)
+          --NLG.Say(charIndex,-1,"èƒŒåŒ…æ»¡äº†" ,CONST.é¢œè‰²_çº¢è‰²,0)
           return
         end
-        Item.SetData( itemIndex , CONST.µÀ¾ß_ÒÑ¼ø¶¨ ,1)
+        Item.SetData( itemIndex , CONST.é“å…·_å·²é‰´å®š ,1)
         goto continue;
       end
       ::continue::
@@ -99,36 +110,36 @@ end
 
 function Module:clearBag(charIndex,targetIndex)
   
-  for laji = 14801,15055 do--3.0Í¼¼ø
+  for laji = 14801,15055 do--3.0å›¾é‰´
     Char.DelItem(targetIndex,laji,1);
   end
-  for laji2 = 606600,606691 do--7.0Í¼¼ø
+  for laji2 = 606600,606691 do--7.0å›¾é‰´
     Char.DelItem(targetIndex,laji2,99);
   end
-  for laji3 = 18310,18313 do--Ë®¾§ËéÆ¬
+  for laji3 = 18310,18313 do--æ°´æ™¶ç¢ç‰‡
     Char.DelItem(targetIndex,laji3,99);
   end
-  Char.DelItem(targetIndex,18194,99)--ºìÍ·¿ø
-  Char.DelItem(targetIndex,18195,99)--ÂÌÍ·¿ø
+  Char.DelItem(targetIndex,18194,99)--çº¢å¤´ç›”
+  Char.DelItem(targetIndex,18195,99)--ç»¿å¤´ç›”
   local price = 0
-  local money = Char.GetData(charIndex, CONST.CHAR_½ğ±Ò)
-  for laji4 = 18005,18088 do--Ä§Ê¯
+  local money = Char.GetData(charIndex, CONST.CHAR_é‡‘å¸)
+  for laji4 = 18005,18088 do--é­”çŸ³
     if Char.HaveItem(targetIndex,laji4) > -1 then
-      local msprice = Item.GetData(Char.HaveItem(targetIndex,laji4),%µÀ¾ß_¼Û¸ñ%)
+      local msprice = Item.GetData(Char.HaveItem(targetIndex,laji4),%é“å…·_ä»·æ ¼%)
       price = price + msprice
       Char.DelItem(targetIndex,laji4,1)
     end
   end
-  if ×Ô¶¯ÂôÄ§Ê¯ then
-    local targetName = Char.GetData(targetIndex,CONST.CHAR_Ãû×Ö)
-    -- local soldrate = 20;  --20±¶
+  if è‡ªåŠ¨å–é­”çŸ³ then
+    local targetName = Char.GetData(targetIndex,CONST.CHAR_åå­—)
+    -- local soldrate = 20;  --20å€
     local money1 = money+price*soldrate;
     if money1 <= maxMoney and price > 0 then
-      Char.SetData(charIndex, CONST.CHAR_½ğ±Ò, money1);
-      NLG.SystemMessage(charIndex, targetName.."Ä§Ê¯ÒÑÊÛ³ö£¬«@µÃ¡¾" .. price*soldrate .. "¡¿Ä§Å¡£");
+      Char.SetData(charIndex, CONST.CHAR_é‡‘å¸, money1);
+      NLG.SystemMessage(charIndex, targetName.."é­”çŸ³å·²å”®å‡ºï¼Œç²å¾—ã€" .. price*soldrate .. "ã€‘é­”å¹£ã€‚");
     elseif money1 > maxMoney then
-      Char.SetData(charIndex, CONST.CHAR_½ğ±Ò, maxMoney);
-      NLG.SystemMessage(charIndex, "åX°üMÁË£¡");
+      Char.SetData(charIndex, CONST.CHAR_é‡‘å¸, maxMoney);
+      NLG.SystemMessage(charIndex, "éŒ¢åŒ…æ»¿äº†ï¼");
     end
   end
   --NLG.SortItem(player);
@@ -139,20 +150,20 @@ function Module:clearBag(charIndex,targetIndex)
 end
 
 function Module:heal(charIndex,targetIndex)
-  local name = Char.GetData(targetIndex,CONST.CHAR_Ãû×Ö)
+  local name = Char.GetData(targetIndex,CONST.CHAR_åå­—)
   local lpPool = tonumber(Field.Get(charIndex, 'LpPool')) or 0;
   local fpPool = tonumber(Field.Get(charIndex, 'FpPool')) or 0;
   if lpPool <= 0 and fpPool <= 0 then
-    NLG.SystemMessage(charIndex, '[ÑªÄ§³Ø] Ê£ğNÈİÁ¿²»×ã£¬Õˆ¼°•rÑa³ä¡£');
+    NLG.SystemMessage(charIndex, '[è¡€é­”æ± ] å‰©é¤˜å®¹é‡ä¸è¶³ï¼Œè«‹åŠæ™‚è£œå……ã€‚');
     return
   end
   
-  local lp = Char.GetData(targetIndex, CONST.CHAR_Ñª)
-  local maxLp = Char.GetData(targetIndex, CONST.CHAR_×î´óÑª)
-  local fp = Char.GetData(targetIndex, CONST.CHAR_Ä§)
-  local maxFp = Char.GetData(targetIndex, CONST.CHAR_×î´óÄ§)
+  local lp = Char.GetData(targetIndex, CONST.CHAR_è¡€)
+  local maxLp = Char.GetData(targetIndex, CONST.CHAR_æœ€å¤§è¡€)
+  local fp = Char.GetData(targetIndex, CONST.CHAR_é­”)
+  local maxFp = Char.GetData(targetIndex, CONST.CHAR_æœ€å¤§é­”)
   if lpPool > 0 and lp < maxLp then
-    if Char.GetData(charIndex,%¶ÔÏó_×é¶Ó¿ª¹Ø%) == 1 then
+    if Char.GetData(charIndex,%å¯¹è±¡_ç»„é˜Ÿå¼€å…³%) == 1 then
       lpPool = lpPool - maxLp + lp;
       if lpPool < 0 then
         maxLp = maxLp + lpPool;
@@ -161,15 +172,15 @@ function Module:heal(charIndex,targetIndex)
     else
       maxLp = lp;
     end
-    if Char.GetData(charIndex,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1 then
-        NLG.SystemMessage(charIndex, '[ÑªÄ§³Ø] ÒÑé'..name..'»ÖÍ: ' .. (maxLp - lp) .. 'LP, Ñª³ØÊ£ğN: ' .. lpPool);
+    if Char.GetData(charIndex,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1 then
+        NLG.SystemMessage(charIndex, '[è¡€é­”æ± ] å·²ç‚º'..name..'æ¢å¾©: ' .. (maxLp - lp) .. 'LP, è¡€æ± å‰©é¤˜: ' .. lpPool);
     end
   else
     maxLp = lp;
   end
 
   if fpPool > 0 and fp < maxFp then
-    if Char.GetData(charIndex,%¶ÔÏó_×é¶Ó¿ª¹Ø%) == 1 then
+    if Char.GetData(charIndex,%å¯¹è±¡_ç»„é˜Ÿå¼€å…³%) == 1 then
       fpPool = fpPool - maxFp + fp;
       if fpPool < 0 then
         maxFp = maxFp + fpPool;
@@ -178,26 +189,26 @@ function Module:heal(charIndex,targetIndex)
     else
       maxFp = fp;
     end
-    if Char.GetData(charIndex,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1 then
-        NLG.SystemMessage(charIndex, '[ÑªÄ§³Ø] ÒÑé'..name..'»ÖÍ: ' .. (maxFp - fp) .. 'FP, Ä§³ØÊ£ğN: ' .. fpPool);
+    if Char.GetData(charIndex,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1 then
+        NLG.SystemMessage(charIndex, '[è¡€é­”æ± ] å·²ç‚º'..name..'æ¢å¾©: ' .. (maxFp - fp) .. 'FP, é­”æ± å‰©é¤˜: ' .. fpPool);
     end
   else
     maxFp = fp;
   end
   
-  Char.SetData(targetIndex, CONST.CHAR_Ñª, maxLp)
-  Char.SetData(targetIndex, CONST.CHAR_Ä§, maxFp)
+  Char.SetData(targetIndex, CONST.CHAR_è¡€, maxLp)
+  Char.SetData(targetIndex, CONST.CHAR_é­”, maxFp)
   
-  local petSlot = Char.GetData(targetIndex, CONST.CHAR_Õ½³è);
+  local petSlot = Char.GetData(targetIndex, CONST.CHAR_æˆ˜å® );
   if petSlot >= 0 then
     petIndex = Char.GetPet(targetIndex, petSlot);
-    lp = Char.GetData(petIndex, CONST.CHAR_Ñª)
-    maxLp = Char.GetData(petIndex, CONST.CHAR_×î´óÑª)
-    fp = Char.GetData(petIndex, CONST.CHAR_Ä§)
-    maxFp = Char.GetData(petIndex, CONST.CHAR_×î´óÄ§)
+    lp = Char.GetData(petIndex, CONST.CHAR_è¡€)
+    maxLp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§è¡€)
+    fp = Char.GetData(petIndex, CONST.CHAR_é­”)
+    maxFp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§é­”)
     
     if lpPool > 0 and lp < maxLp then
-      if Char.GetData(charIndex,%¶ÔÏó_×é¶Ó¿ª¹Ø%) == 1 then
+      if Char.GetData(charIndex,%å¯¹è±¡_ç»„é˜Ÿå¼€å…³%) == 1 then
         lpPool = lpPool - maxLp + lp;
         if lpPool < 0 then
           maxLp = maxLp + lpPool;
@@ -206,15 +217,15 @@ function Module:heal(charIndex,targetIndex)
       else
         maxLp = lp;
       end
-      if Char.GetData(charIndex,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1 then
-          NLG.SystemMessage(charIndex, '[ÑªÄ§³Ø] ÒÑ»ÖÍŒ™Îï: ' .. (maxLp - lp) .. 'LP, Ñª³ØÊ£ğN: ' .. lpPool);
+      if Char.GetData(charIndex,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1 then
+          NLG.SystemMessage(charIndex, '[è¡€é­”æ± ] å·²æ¢å¾©å¯µç‰©: ' .. (maxLp - lp) .. 'LP, è¡€æ± å‰©é¤˜: ' .. lpPool);
       end
     else
       maxLp = lp;
     end
 
     if fpPool > 0 and fp < maxFp then
-      if Char.GetData(charIndex,%¶ÔÏó_×é¶Ó¿ª¹Ø%) == 1 then
+      if Char.GetData(charIndex,%å¯¹è±¡_ç»„é˜Ÿå¼€å…³%) == 1 then
         fpPool = fpPool - maxFp + fp;
         if fpPool < 0 then
           maxFp = maxFp + fpPool;
@@ -223,15 +234,15 @@ function Module:heal(charIndex,targetIndex)
       else
         maxFp = fp;
       end
-      if Char.GetData(charIndex,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1 then
-          NLG.SystemMessage(charIndex, '[ÑªÄ§³Ø] ÒÑ»ÖÍŒ™Îï: ' .. (maxFp - fp) .. 'FP, Ä§³ØÊ£ğN: ' .. fpPool);
+      if Char.GetData(charIndex,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1 then
+          NLG.SystemMessage(charIndex, '[è¡€é­”æ± ] å·²æ¢å¾©å¯µç‰©: ' .. (maxFp - fp) .. 'FP, é­”æ± å‰©é¤˜: ' .. fpPool);
       end
     else
       maxFp = fp;
     end
 
-    Char.SetData(petIndex, CONST.CHAR_Ñª, maxLp)
-    Char.SetData(petIndex, CONST.CHAR_Ä§, maxFp)
+    Char.SetData(petIndex, CONST.CHAR_è¡€, maxLp)
+    Char.SetData(petIndex, CONST.CHAR_é­”, maxFp)
     NLG.UpChar(petIndex);
   end
 
@@ -243,8 +254,8 @@ end
 
 function Module:onSellerTalked(npc, player)
   if NLG.CanTalk(npc, player) then
-    local npcInfo = self:NPC_buildBuyWindowData(101024, 'ÑªÄ§³ØÑa³ä', '³äÖµÑªÄ§³Ø', '½ğåX²»×ã', '±³°üÒÑM', itemList);
-    NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ÉÌµêÂò, CONST.BUTTON_ÊÇ, 0,npcInfo)
+    local npcInfo = self:NPC_buildBuyWindowData(101024, 'è¡€é­”æ± è£œå……', 'å……å€¼è¡€é­”æ± ', 'é‡‘éŒ¢ä¸è¶³', 'èƒŒåŒ…å·²æ»¿', itemList);
+    NLG.ShowWindowTalked(player, npc, CONST.çª—å£_å•†åº—ä¹°, CONST.BUTTON_æ˜¯, 0,npcInfo)
   end
 end
 
@@ -252,7 +263,7 @@ function Module:onSellerSelected(npc, player, seqNo, select, data)
   local items = string.split(data, '|');
   local lpPool = tonumber(Field.Get(player, 'LpPool')) or 0;
   local fpPool = tonumber(Field.Get(player, 'FpPool')) or 0;
-  local gold = Char.GetData(player, CONST.CHAR_½ğ±Ò)
+  local gold = Char.GetData(player, CONST.CHAR_é‡‘å¸)
   local totalGold = 0;
   local totalLp = 0;
   local totalFp = 0;
@@ -269,15 +280,15 @@ function Module:onSellerSelected(npc, player, seqNo, select, data)
     end
   end
   if gold < totalGold then
-    NLG.SystemMessage(player, 'ÄãµÄåX²»‰ò¡£');
+    NLG.SystemMessage(player, 'ä½ çš„éŒ¢ä¸å¤ ã€‚');
     return
   end
-  if lpPool + totalLp > 50000 then
-    NLG.SystemMessage(player, 'ÑªÄ§³ØÉÏÏŞ:²»ÄÜ³¬ß^50000¡£Ñª³ØÊ£ğN²îî~:'..(50000-lpPool)..'');
+  if lpPool + totalLp > 250000 then
+    NLG.SystemMessage(player, 'è¡€é­”æ± ä¸Šé™:ä¸èƒ½è¶…é250000ã€‚è¡€æ± å‰©é¤˜å·®é¡:'..(250000-lpPool)..'');
     return
   end
-  if fpPool + totalFp > 50000 then
-    NLG.SystemMessage(player, 'ÑªÄ§³ØÉÏÏŞ:²»ÄÜ³¬ß^50000¡£Ä§³ØÊ£ğN²îî~:'..(50000-fpPool)..'');
+  if fpPool + totalFp > 250000 then
+    NLG.SystemMessage(player, 'è¡€é­”æ± ä¸Šé™:ä¸èƒ½è¶…é250000ã€‚é­”æ± å‰©é¤˜å·®é¡:'..(250000-fpPool)..'');
     return
   end
   Char.AddGold(player, -totalGold);
@@ -285,14 +296,14 @@ function Module:onSellerSelected(npc, player, seqNo, select, data)
   Field.Set(player, 'FpPool', tostring(fpPool + totalFp));
   NLG.UpChar(player);
   if totalLp > 0 then
-    NLG.SystemMessage(player, '[ÑªÄ§³Ø] Ña³äÑª³Ø: ' .. totalLp .. ', ¹²: ' .. (lpPool + totalLp));
+    NLG.SystemMessage(player, '[è¡€é­”æ± ] è£œå……è¡€æ± : ' .. totalLp .. ', å…±: ' .. (lpPool + totalLp));
   end
   if totalFp > 0 then
-    NLG.SystemMessage(player, '[ÑªÄ§³Ø] Ña³äÄ§³Ø: ' .. totalFp .. ', ¹²: ' .. (fpPool + totalFp));
+    NLG.SystemMessage(player, '[è¡€é­”æ± ] è£œå……é­”æ± : ' .. totalFp .. ', å…±: ' .. (fpPool + totalFp));
   end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
