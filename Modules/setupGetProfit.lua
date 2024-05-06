@@ -1,13 +1,24 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('setupGetProfit')
 
+local ipmacRestrict ={}
 local itemRestrict = { 70016, }
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleGetProfitEvent', function(battleIndex, side, pos, charaIndex, type, reward)
-      local player = charaIndex;
+      if Char.IsDummy(charaIndex) then
+          heroesOnline=sgModule:getGlobal("heroesOnline")
+          heroData = heroesOnline[charaIndex]
+          player= heroData.owner
+      else
+          player = charaIndex;
+      end
+      local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+      local myIP = NLG.GetIp(player);
+      --local myMAC = NLG.GetMAC(player);
+      --print(cdk,myIP)
       if (type==0 or type==1 or type==2) then
           local itemIndex = reward;
           local dayLimit = tonumber(Field.Get(player, 'DayLimit')) or 0;
@@ -17,18 +28,34 @@ function Module:onLoad()
               local dayLimit=0;
               Field.Set(player, 'DayLimit', tostring(dayLimit));
               Field.Set(player, 'OneDay', tostring(onDay));
+              if ipmacRestrict[cdk] ~= nill then
+                  table.remove(ipmacRestrict[cdk],tostring(myIP));
+              end
           end
           local dayLimit = tonumber(Field.Get(player, 'DayLimit'));
           table.forEach(itemRestrict, function(e)
-              if (Item.GetData(itemIndex,CONST.µÀ¾ß_ID)==e) then
+              if (Item.GetData(itemIndex,CONST.é“å…·_ID)==e) then
                   local dayLimit=dayLimit+1;
                   Field.Set(player, 'DayLimit', tostring(dayLimit));
               end
           end)
           local dayLimit = tonumber(Field.Get(player, 'DayLimit'));
           if dayLimit>100 then
-              NLG.SystemMessage(player, "[Ïµ½y]´ËµÀ¾ßÈ¡µÃÒÑß_Ã¿ÈÕÏŞÖÆµÄ”µÁ¿£¡");
+              if ipmacRestrict[cdk] == nill then
+                  ipmacRestrict[cdk]={}
+              end
+              table.insert(ipmacRestrict[cdk],tostring(myIP));
+              NLG.SystemMessage(player, "[ç³»çµ±]æ­¤é“å…·å–å¾—å·²é”æ¯æ—¥é™åˆ¶çš„æ•¸é‡ï¼");
               return 0;
+          else
+              if ipmacRestrict[cdk] ~= nill then
+                    table.forEach(ipmacRestrict[cdk], function(e)
+                          if (tostring(myIP)==e) then
+                              NLG.SystemMessage(player, "[ç³»çµ±]æ­¤é“å…·å–å¾—å·²é”æ¯æ—¥é™åˆ¶çš„æ•¸é‡ï¼");
+                              return 0;
+                          end
+                    end)
+              end
           end
       end
       return reward;
@@ -36,7 +63,7 @@ function Module:onLoad()
 
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
