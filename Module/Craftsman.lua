@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
---                 ¡¾¡¾¡¾ÊôĞÔÇ¿»¯ÉèÖÃ¡¿¡¿¡¿
+--                 ã€ã€ã€å±æ€§å¼ºåŒ–è®¾ç½®ã€‘ã€‘ã€‘
 ------------------------------------------------------------------------------
 local StrStrengEnable = {}
 local StrStrengMaxLv = {}
@@ -12,54 +12,54 @@ local StrBreakRate = {}
 local StrRequireItemID = {}
 local StrRequireItemNum = {}
 local StrRequireGold = {}
-local StrBinding = 0								--Ç¿»¯ºó×°±¸ÊÇ·ñ²»¿É½»Ò×£¨Ñ¡Ïî£º0-²»°ó¶¨£¬1-°ó¶¨£©
-StrStrengEnable[-1] = 0	--ÊÇ·ñ¿ªÆôÄ¬ÈÏÉèÖÃ
-StrStrengEnable[-2] = 1	--ÊÇ·ñ¿ªÆôÄ¬ÈÏÉèÖÃ
-StrStrengEnable[-3] = 1	--ÊÇ·ñ¿ªÆôÄ¬ÈÏÉèÖÃ
---¡¾ÎäÆ÷Ç¿»¯¡¿
-local ItemType = -2	--ÉèÖÃµÄÎïÆ·ÀàĞÍ(0~6)
-StrStrengMaxLv[ItemType] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemType] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemType] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemType] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemType] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemType] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemType] = {71037, 71037, 71037, 71037, 71037, 71037, 71037, 71037, 71037}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemType] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemType] = {500, 2000, 4500, 8000, 12500, 18000, 24500, 32000, 40500, 50000}	--Ç¿»¯ËùĞè½ğ±Ò
---¡¾·À¾ßÇ¿»¯¡¿
-local ItemType = -3	--ÉèÖÃµÄÎïÆ·ÀàĞÍ(7~14)
-StrStrengMaxLv[ItemType] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemType] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemType] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemType] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemType] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemType] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemType] = {71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemType] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemType] = {500, 2000, 4500, 8000, 12500, 18000, 24500, 32000, 40500, 50000}	--Ç¿»¯ËùĞè½ğ±Ò
---¡¾ÆäËû²»ÄÜÇ¿»¯¡¿
+local StrBinding = 0								--å¼ºåŒ–åè£…å¤‡æ˜¯å¦ä¸å¯äº¤æ˜“ï¼ˆé€‰é¡¹ï¼š0-ä¸ç»‘å®šï¼Œ1-ç»‘å®šï¼‰
+StrStrengEnable[-1] = 0	--æ˜¯å¦å¼€å¯é»˜è®¤è®¾ç½®
+StrStrengEnable[-2] = 1	--æ˜¯å¦å¼€å¯é»˜è®¤è®¾ç½®
+StrStrengEnable[-3] = 1	--æ˜¯å¦å¼€å¯é»˜è®¤è®¾ç½®
+--ã€æ­¦å™¨å¼ºåŒ–ã€‘
+local ItemType = -2	--è®¾ç½®çš„ç‰©å“ç±»å‹(0~6)
+StrStrengMaxLv[ItemType] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemType] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemType] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemType] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemType] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemType] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemType] = {71037, 71037, 71037, 71037, 71037, 71037, 71037, 71037, 71037}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemType] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemType] = {500, 2000, 4500, 8000, 12500, 18000, 24500, 32000, 40500, 50000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--ã€é˜²å…·å¼ºåŒ–ã€‘
+local ItemType = -3	--è®¾ç½®çš„ç‰©å“ç±»å‹(7~14)
+StrStrengMaxLv[ItemType] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemType] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemType] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemType] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemType] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemType] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemType] = {71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemType] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemType] = {500, 2000, 4500, 8000, 12500, 18000, 24500, 32000, 40500, 50000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--ã€å…¶ä»–ä¸èƒ½å¼ºåŒ–ã€‘
 local ItemType = -1
-StrStrengMaxLv[ItemType] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemType] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemType] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemType] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemType] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemType] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemType] = {71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemType] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemType] = {500, 2000, 4500, 8000, 12500, 18000, 24500, 32000, 40500, 50000}	--Ç¿»¯ËùĞè½ğ±Ò
+StrStrengMaxLv[ItemType] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemType] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemType] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemType] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemType] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemType] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemType] = {71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038, 71038}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemType] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemType] = {500, 2000, 4500, 8000, 12500, 18000, 24500, 32000, 40500, 50000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
 
---¡¾½ûÖ¹Ç¿»¯¡¿
---  Ò»¸ö×°±¸Ò»ĞĞ£¬ÊıÖµÌîĞ´0¼´¿É
+--ã€ç¦æ­¢å¼ºåŒ–ã€‘
+--  ä¸€ä¸ªè£…å¤‡ä¸€è¡Œï¼Œæ•°å€¼å¡«å†™0å³å¯
 local StrItemEnable = {}
 StrItemEnable[980491] = 0
-StrItemEnable[250] = 0    --Ë®ıˆÖ®·ş
-StrItemEnable[69105] = 0    --ÔªËØÁ¦Á¿Ôö·ùÆ÷
+StrItemEnable[250] = 0    --æ°´é¾ä¹‹æœ
+StrItemEnable[69105] = 0    --å…ƒç´ åŠ›é‡å¢å¹…å™¨
 StrItemEnable[69106] = 0
 StrItemEnable[69107] = 0
 StrItemEnable[69108] = 0
-StrItemEnable[70053] = 0    --¡ïÍêÈ«Ö§ÅäĞg¡ï
+StrItemEnable[70053] = 0    --â˜…å®Œå…¨æ”¯é…è¡“â˜…
 StrItemEnable[70054] = 0
 StrItemEnable[70055] = 0
 StrItemEnable[70056] = 0
@@ -67,17 +67,17 @@ StrItemEnable[70057] = 0
 StrItemEnable[70058] = 0
 StrItemEnable[70059] = 0
 StrItemEnable[70060] = 0
-StrItemEnable[79060] = 0    --¸±ÎäÆ÷
+StrItemEnable[79060] = 0    --å‰¯æ­¦å™¨
 StrItemEnable[79061] = 0
 StrItemEnable[79062] = 0
 StrItemEnable[79063] = 0
 StrItemEnable[79064] = 0
 StrItemEnable[79065] = 0
-StrItemEnable[69226] = 0    --¹ÅÀÏ¾Şıˆ
+StrItemEnable[69226] = 0    --å¤è€å·¨é¾
 StrItemEnable[69227] = 0
 StrItemEnable[69228] = 0
 StrItemEnable[69229] = 0
-StrItemEnable[79215] = 0    --‡ŠÆáß^¾Ì–
+StrItemEnable[79215] = 0    --å™´æ¼†éç·¨è™Ÿ
 StrItemEnable[79216] = 0
 StrItemEnable[79217] = 0
 StrItemEnable[79218] = 0
@@ -116,9 +116,9 @@ StrItemEnable[79249] = 0
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
---                 ¡¾¡¾¡¾½Å±¾ÏµÍ³ÉèÖÃ¡¿¡¿¡¿£¨·Ç×¨ÒµÈËÊÂÇëÎğĞŞ¸Ä£©
+--                 ã€ã€ã€è„šæœ¬ç³»ç»Ÿè®¾ç½®ã€‘ã€‘ã€‘ï¼ˆéä¸“ä¸šäººäº‹è¯·å‹¿ä¿®æ”¹ï¼‰
 ------------------------------------------------------------------------------
-local ItemPosName = {"î^ ²¿", "Éí Ìå", "ÓÒ ÊÖ", "×ó ÊÖ", "×ã ²¿", "ï—Æ·1", "ï—Æ·2", "Ë® ¾§"}
+local ItemPosName = {"é ­ éƒ¨", "èº« ä½“", "å³ æ‰‹", "å·¦ æ‰‹", "è¶³ éƒ¨", "é£¾å“1", "é£¾å“2", "æ°´ æ™¶"}
 ------------------------------------------------------------------------------
 
 function CraftsmanNpc_Func(index)
@@ -129,25 +129,25 @@ end
 Delegate.RegInit("CraftsmanNpc_Init");
 function CraftsmanNpc_Init()
 	local CraftsmanNpc = NL.CreateNpc("lua/Module/Craftsman.lua", "CraftsmanNpc_Func");
-	Char.SetData( CraftsmanNpc, %¶ÔÏó_ĞÎÏó%,105502);
-	Char.SetData( CraftsmanNpc, %¶ÔÏó_Ô­ĞÎ%,105502);
-	Char.SetData( CraftsmanNpc, %¶ÔÏó_µØÍ¼%,25000);
-	Char.SetData( CraftsmanNpc, %¶ÔÏó_X%,28);
-	Char.SetData( CraftsmanNpc, %¶ÔÏó_Y%,7);
-	Char.SetData( CraftsmanNpc, %¶ÔÏó_·½Ïò%,4);
-	Char.SetData( CraftsmanNpc, %¶ÔÏó_Ãû×Ö%,"Ñb‚ä¾«Ÿ’Éñ½³");
+	Char.SetData( CraftsmanNpc, %å¯¹è±¡_å½¢è±¡%,105502);
+	Char.SetData( CraftsmanNpc, %å¯¹è±¡_åŸå½¢%,105502);
+	Char.SetData( CraftsmanNpc, %å¯¹è±¡_åœ°å›¾%,25000);
+	Char.SetData( CraftsmanNpc, %å¯¹è±¡_X%,28);
+	Char.SetData( CraftsmanNpc, %å¯¹è±¡_Y%,7);
+	Char.SetData( CraftsmanNpc, %å¯¹è±¡_æ–¹å‘%,4);
+	Char.SetData( CraftsmanNpc, %å¯¹è±¡_åå­—%,"è£å‚™ç²¾ç…‰ç¥åŒ ");
 	NLG.UpChar( CraftsmanNpc)
 
 	tbl_LuaNpcIndex = {}
 	tbl_LuaNpcIndex["CraftsmanNpc"] = CraftsmanNpc
 
 	if (Char.SetTalkedEvent(nil, "CraftsmanNpc_Talked", CraftsmanNpc) < 0) then
-		print("CraftsmanNpc_Talked ×¢²áÊÂ¼şÊ§°Ü¡£");
+		print("CraftsmanNpc_Talked æ³¨å†Œäº‹ä»¶å¤±è´¥ã€‚");
 		return false;
 	end
 
 	if (Char.SetWindowTalkedEvent(nil, "CraftsmanNpc_WindowTalked", CraftsmanNpc) < 0) then
-		print("CraftsmanNpc_WindowTalked ×¢²áÊÂ¼şÊ§°Ü¡£");
+		print("CraftsmanNpc_WindowTalked æ³¨å†Œäº‹ä»¶å¤±è´¥ã€‚");
 		return false;
 	end
 
@@ -161,15 +161,15 @@ function CraftsmanNpc_Talked( _MeIndex, _PlayerIndex, _Mode)
 	end 
 
 	NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 1,
-			"8\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ô" .. "Ñb‚ä¾«Ÿ’Éñ½³" .. "¡ô" ..
-			"\n¡¡¡¡Ò»Î»í×Ô°¬ –°ÍÄá†µÄÁ÷ÀËÉñ½³£¬ÓĞÖø¾p¼tÉ«" ..
-			"\nî^óŒµÄÕFˆÍâÓ^£¬ËûµÄ‡ø¼ÒÔøÅcÍĞ –·¨¼ª†½»ësÖø" ..
-			"\n¸÷·NœYÔ´Åc ¶Ë¡£Òò´ËËû²»”àÑĞ¾¿ÈçºÎŒ¢ÎïÙ|â¿s" ..
-			"\n³ÉÉñ¼‰ËØ²Ä£¬ÄÜÊ¹å‘ÔìÎï×ƒµÃ®³£ähÀû¡£" ..
-			"\n¡¡¡¡ß@Î»°¬‡øµÄÁ÷ÀËÉñ½³£¬éÁË´òÆÆÉ³Â©²»ÔÙİ†Ş’" ..
-			"\nµØ°lÉú‘ğ £¬ÕıÔÚéÃ°ëUÓÂÕß‚ƒ¾«Ÿ’Ñb‚ä¡£" .. 
+			"8\nã€€ã€€ã€€ã€€ã€€ã€€ã€€â—†" .. "è£å‚™ç²¾ç…‰ç¥åŒ " .. "â—†" ..
+			"\nã€€ã€€ä¸€ä½ä¾†è‡ªè‰¾çˆ¾å·´å°¼äºçš„æµæµªç¥åŒ ï¼Œæœ‰è‘—ç·‹ç´…è‰²" ..
+			"\né ­é«®çš„èª‡å¼µå¤–è§€ï¼Œä»–çš„åœ‹å®¶æ›¾èˆ‡æ‰˜çˆ¾æ³•å‰äºäº¤é›œè‘—" ..
+			"\nå„ç¨®æ·µæºèˆ‡çˆ­ç«¯ã€‚å› æ­¤ä»–ä¸æ–·ç ”ç©¶å¦‚ä½•å°‡ç‰©è³ªæ¿ƒç¸®" ..
+			"\næˆç¥ç´šç´ æï¼Œèƒ½ä½¿é›é€ ç‰©è®Šå¾—ç•°å¸¸é‹’åˆ©ã€‚" ..
+			"\nã€€ã€€é€™ä½è‰¾åœ‹çš„æµæµªç¥åŒ ï¼Œç‚ºäº†æ‰“ç ´æ²™æ¼ä¸å†è¼ªè¿´" ..
+			"\nåœ°ç™¼ç”Ÿæˆ°çˆ­ï¼Œæ­£åœ¨ç‚ºå†’éšªå‹‡è€…å€‘ç²¾ç…‰è£å‚™ã€‚" .. 
 			"\n" ..
-			"\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ºâ¿s¾«Ÿ’¡»"
+			"\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ¿ƒç¸®ç²¾ç…‰ã€"
 			);
 
 	return ;
@@ -179,7 +179,7 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 
 	--print("\n_MeIndex=" .. _MeIndex .. ", _PlayerIndex=" .. _PlayerIndex .. ", _Seqno=" .. _Seqno .. ", _Data=" .. _Data)
 	
-	--È¡Ïû°´Å¥
+	--å–æ¶ˆæŒ‰é’®
 	if _Select==2 then
 		return
 	end
@@ -187,16 +187,16 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 	if _Seqno==1 then
 		local PlayerSelect = tonumber(_Data)
 		if PlayerSelect==1 then
-			--ÊôĞÔÇ¿»¯
-			local TalkBuf = "1|\nÕˆßx“ñĞèÒªâ¿s¾«Ÿ’Š»¯µÄÑb‚ä£º\n"
+			--å±æ€§å¼ºåŒ–
+			local TalkBuf = "1|\nè«‹é¸æ“‡éœ€è¦æ¿ƒç¸®ç²¾ç…‰å¼·åŒ–çš„è£å‚™ï¼š\n"
 			for i = 0,7 do
 				local tItemIndex = Char.GetItemIndex(_PlayerIndex, i);
 				if tItemIndex>=0 then
-					local tItemID = Item.GetData(tItemIndex, %µÀ¾ß_ID%)
+					local tItemID = Item.GetData(tItemIndex, %é“å…·_ID%)
 					--print("tItemID=" .. tItemID)
-					local tItemName = Item.GetData(tItemIndex, %µÀ¾ß_Ãû×Ö%)
+					local tItemName = Item.GetData(tItemIndex, %é“å…·_åå­—%)
 					local tStrLv = EquipPlusStat(tItemIndex, "S") or 0
-					local tType = Item.GetData(tItemIndex, %µÀ¾ß_ÀàĞÍ%);
+					local tType = Item.GetData(tItemIndex, %é“å…·_ç±»å‹%);
 					if (tType>=0 and tType<=6) then
 						tTypeID = -2;
 					elseif (tType>=7 and tType<=14) then 
@@ -204,28 +204,28 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 					else
 						tTypeID = -1;
 					end
-					--ÒÔÏÂÄÚÈİÓĞ¸Ä¶¯
+					--ä»¥ä¸‹å†…å®¹æœ‰æ”¹åŠ¨
 					local tMaxLv = StrStrengMaxLv[tTypeID]
 					local tNeedItemNumTab = StrRequireItemNum[tTypeID]
 					local tNeedItemNum = tNeedItemNumTab[tStrLv+1]
 					local tNeedGoldTab = StrRequireGold[tTypeID]
 					local tNeedGold = tNeedGoldTab[tStrLv+1]
-					local tItemCan = "[Ç¿»¯£Ï]  " .. tNeedItemNum .. "‚€|"  .. string.format("%.2f", tNeedGold/10000) .. "W"
+					local tItemCan = "[å¼ºåŒ–ï¼¯]  " .. tNeedItemNum .. "å€‹|"  .. string.format("%.2f", tNeedGold/10000) .. "W"
 					if StrItemEnable[tItemID]==0 and StrStrengEnable[tTypeID]==1 then
-						tItemCan="[Ç¿»¯£Ø]"
+						tItemCan="[å¼ºåŒ–ï¼¸]"
 					elseif StrStrengEnable[tTypeID]==1 then
-						tItemCan="[Ç¿»¯£Ï]  " .. tNeedItemNum .. "‚€|"  .. string.format("%.2f", tNeedGold/10000) .. "W"
+						tItemCan="[å¼ºåŒ–ï¼¯]  " .. tNeedItemNum .. "å€‹|"  .. string.format("%.2f", tNeedGold/10000) .. "W"
 					elseif StrStrengEnable[tTypeID]~=1 then
-						tItemCan="[Ç¿»¯£Ø]"
+						tItemCan="[å¼ºåŒ–ï¼¸]"
 					end
-					if tStrLv>=tMaxLv then tItemCan="[Ç¿»¯Max]" end
-					if EquipPlusStat(tItemIndex, "D")~=nil then tItemCan="[Ç¿»¯£Ø]" end
-					if EquipPlusStat(tItemIndex, "E")~=nil then tItemCan="[Ç¿»¯£Ø]" end
-					if EquipPlusStat(tItemIndex, "R")~=nil then tItemCan="[Ç¿»¯£Ø]" end
+					if tStrLv>=tMaxLv then tItemCan="[å¼ºåŒ–Max]" end
+					if EquipPlusStat(tItemIndex, "D")~=nil then tItemCan="[å¼ºåŒ–ï¼¸]" end
+					if EquipPlusStat(tItemIndex, "E")~=nil then tItemCan="[å¼ºåŒ–ï¼¸]" end
+					if EquipPlusStat(tItemIndex, "R")~=nil then tItemCan="[å¼ºåŒ–ï¼¸]" end
 					local Buf = tItemName .. " " .. tItemCan
-					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "£º" .. Buf .. "\n"
+					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "ï¼š" .. Buf .. "\n"
 				else
-					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "£º" .. "\n"
+					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "ï¼š" .. "\n"
 				end
 			end
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 10, TalkBuf)
@@ -233,16 +233,16 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 		end
 	end
 
-	--ÊôĞÔÇ¿»¯
+	--å±æ€§å¼ºåŒ–
 	if _Seqno==10 then
 		local PlayerSelect = tonumber(_Data)
-		local tPlayerGold = Char.GetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%)
+		local tPlayerGold = Char.GetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%)
 		local tItemPos = PlayerSelect - 1
 		local tItemIndex = Char.GetItemIndex(_PlayerIndex, tItemPos);
 		if tItemIndex>=0 then
-			local tItemID = Item.GetData(tItemIndex, %µÀ¾ß_ID%)
-			local tItemName = Item.GetData(tItemIndex, %µÀ¾ß_Ãû×Ö%)
-			local tType = Item.GetData(tItemIndex, %µÀ¾ß_ÀàĞÍ%);
+			local tItemID = Item.GetData(tItemIndex, %é“å…·_ID%)
+			local tItemName = Item.GetData(tItemIndex, %é“å…·_åå­—%)
+			local tType = Item.GetData(tItemIndex, %é“å…·_ç±»å‹%);
 			if (tType>=0 and tType<=6) then
 				tTypeID = -2;
 			elseif (tType>=7 and tType<=14) then 
@@ -254,38 +254,38 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 			local tStrLv = EquipPlusStat(tItemIndex, "S") or 0
 			local tMaxLv = StrStrengMaxLv[tTypeID]
 			if StrItemEnable[tItemID]==0 and StrStrengEnable[tTypeID]==1 then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[²»¿ÉŠ»¯]£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[ä¸å¯å¼·åŒ–]ï¼")
 				return
 			elseif StrStrengEnable[tTypeID]==1 then
 			elseif StrStrengEnable[tTypeID]~=1 then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[²»¿ÉŠ»¯]£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[ä¸å¯å¼·åŒ–]ï¼")
 				return
 			end
 			if tStrLv>=tMaxLv then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]ÒÑß_µ½[Š»¯Max]£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]å·²é”åˆ°[å¼·åŒ–Max]ï¼")
 				return
 			end
 			if StrStrengEnable[tTypeID]==0 then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[²»¿ÉŠ»¯]£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[ä¸å¯å¼·åŒ–]ï¼")
 				return
 			end
 			if EquipPlusStat(tItemIndex, "D")~=nil then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[Ä§»¯Ñb‚ä]£¬ÒÑß_µ½˜OÏŞ£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[é­”åŒ–è£å‚™]ï¼Œå·²é”åˆ°æ¥µé™ï¼")
 				return
 			end
 			if EquipPlusStat(tItemIndex, "E")~=nil then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]ÒÑÑªŸ’¸½Ä§£¬Ÿo·¨À^ÀmŠ»¯£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]å·²è¡€ç…‰é™„é­”ï¼Œç„¡æ³•ç¹¼çºŒå¼·åŒ–ï¼")
 				return
 			end
 			if EquipPlusStat(tItemIndex, "R")~=nil then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]ÒÑè‚Ç¶·ûÎÄ£¬Ÿo·¨À^ÀmŠ»¯£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]å·²é‘²åµŒç¬¦æ–‡ï¼Œç„¡æ³•ç¹¼çºŒå¼·åŒ–ï¼")
 				return
 			end
 			--CheckGold
 			local tNeedGoldTab = StrRequireGold[tTypeID]
 			local tNeedGold = tonumber(tNeedGoldTab[tStrLv+1]) or 0
 			if tPlayerGold<tNeedGold then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Š»¯ĞèÒª" .. tNeedGold .. "G£¬ËùĞè½ğÅ²»×ã£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] å¼·åŒ–éœ€è¦" .. tNeedGold .. "Gï¼Œæ‰€éœ€é‡‘å¹£ä¸è¶³ï¼")
 				return
 			end
 			--CheckRequireItem
@@ -295,12 +295,12 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 			local RequireItemNum = RequireItemNumTab[tStrLv+1]
 			if type(RequireItemID)=="number" and RequireItemID>0 and type(RequireItemNum)=="number" and RequireItemNum>0 then
 				if Char.ItemNum(_PlayerIndex, RequireItemID)<RequireItemNum then
-					NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] Š»¯ËùĞèµÀ¾ß²»×ã£¡")
+					NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] å¼·åŒ–æ‰€éœ€é“å…·ä¸è¶³ï¼")
 					return
 				end
 			end
 			--DelGold
-			Char.SetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%, tPlayerGold-tNeedGold)
+			Char.SetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%, tPlayerGold-tNeedGold)
 			--DelItem
 			Char.DelItem(_PlayerIndex, RequireItemID, RequireItemNum)
 			--CheckBreak
@@ -311,11 +311,11 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 				local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2)
 				local tLuck = math.random(1, 100)
 				if tLuck>=tMin and tLuck<=tMax then
-					--Item.SetData(tItemIndex, %µÀ¾ß_ID%, 10203947)
+					--Item.SetData(tItemIndex, %é“å…·_ID%, 10203947)
 					--Char.DelItem(_PlayerIndex, 10203947)
 					--Char.DelItemByPos(_PlayerIndex, tItemPos)
 					Item.Kill(_PlayerIndex, tItemIndex, tItemPos)
-					NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] ß@½^Œ¦ÊÇ‚€Äëy£¡ÓÉì¶»ğÁ¦›]¿ØÖÆºÃ£¬ÄãµÄÑb‚äØµ×š§‰ÄÁË¡­¡­")
+					NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] é€™çµ•å°æ˜¯å€‹ç½é›£ï¼ç”±æ–¼ç«åŠ›æ²’æ§åˆ¶å¥½ï¼Œä½ çš„è£å‚™å¾¹åº•æ¯€å£äº†â€¦â€¦")
 					--CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 					return
 				end
@@ -328,7 +328,7 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 				local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2)
 				local tLuck = math.random(1, 100)
 				if tLuck<tMin or tLuck>tMax then
-					NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] ºÜ²»ĞÒ£¬ÄãµÄÑb‚äŠ»¯Ê§”¡¡­¡­ËùĞÒÑb‚äK›]ÓĞ“p‰Ä¡­¡­")
+					NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] å¾ˆä¸å¹¸ï¼Œä½ çš„è£å‚™å¼·åŒ–å¤±æ•—â€¦â€¦æ‰€å¹¸è£å‚™ä¸¦æ²’æœ‰æå£â€¦â€¦")
 					CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 					return
 				end
@@ -336,29 +336,29 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 			--SetData
 			setItemStrData(tItemIndex, tStrLv)
 			--SetStat
-			--if Item.GetData(tItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%)=="" then Item.SetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%, tItemName) end
-			if EquipPlusStat(tItemIndex)==nil then Item.SetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%, tItemName) end
+			--if Item.GetData(tItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%)=="" then Item.SetData(tItemIndex, %é“å…·_é‰´å‰å%, tItemName) end
+			if EquipPlusStat(tItemIndex)==nil then Item.SetData(tItemIndex, %é“å…·_é‰´å‰å%, tItemName) end
 			EquipPlusStat(tItemIndex, "S", tStrLv+1)
 			setItemName(tItemIndex)
 			--Set Binding
 			if StrBinding==1 or StrBinding==true then
-				Item.SetData(tItemIndex, %µÀ¾ß_¿É³öÊÛ%, 0)
-				Item.SetData(tItemIndex, %µÀ¾ß_³èÓÊ%, 0)
-				Item.SetData(tItemIndex, %µÀ¾ß_¶ªµØÏûÊ§%, 1)
+				Item.SetData(tItemIndex, %é“å…·_å¯å‡ºå”®%, 0)
+				Item.SetData(tItemIndex, %é“å…·_å® é‚®%, 0)
+				Item.SetData(tItemIndex, %é“å…·_ä¸¢åœ°æ¶ˆå¤±%, 1)
 			end
 			--UpItem
 			Item.UpItem(_PlayerIndex, tItemPos)
 			NLG.UpChar(_PlayerIndex)
-			NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] ¹§Ï²Äã£¡Ñb‚ä³É¹¦Š»¯µ½+" .. tStrLv+1 .. "£¡")
+			NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] æ­å–œä½ ï¼è£å‚™æˆåŠŸå¼·åŒ–åˆ°+" .. tStrLv+1 .. "ï¼")
 			if (tStrLv+1>=7) then
-				NLG.SystemMessage(-1, "[" .. "Á÷ÀËÉñ½³" .. "] ¹§Ï² "..Char.GetData(_PlayerIndex, %¶ÔÏó_Ãû×Ö%).."£¡Œ¢ Item.GetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%) ³É¹¦Š»¯µ½+" .. tStrLv+1 .. "£¡")
+				NLG.SystemMessage(-1, "[" .. "æµæµªç¥åŒ " .. "] æ­å–œ "..Char.GetData(_PlayerIndex, %å¯¹è±¡_åå­—%).."ï¼å°‡ "..Item.GetData(tItemIndex, %é“å…·_é‰´å‰å%).." æˆåŠŸå¼·åŒ–åˆ°+" .. tStrLv+1 .. "ï¼")
 			end
-			--print("Î´¼ø¶¨Ãû=" .. Item.GetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%))
-			--print("ÒÑ¼ø¶¨Ãû=" .. Item.GetData(tItemIndex, %µÀ¾ß_Ãû×Ö%))
-			--print("×ÔÓÃ²ÎÊı=" .. Item.GetData(tItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%))
+			--print("æœªé‰´å®šå=" .. Item.GetData(tItemIndex, %é“å…·_é‰´å‰å%))
+			--print("å·²é‰´å®šå=" .. Item.GetData(tItemIndex, %é“å…·_åå­—%))
+			--print("è‡ªç”¨å‚æ•°=" .. Item.GetData(tItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%))
 			CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 		else
-			NLG.SystemMessage(_PlayerIndex, "[" .. "Á÷ÀËÉñ½³" .. "] ß@Ñe›]ÓĞÑb‚ä£¬ÄãÏëŠ»¯ÄãµÄÆ¤Äw†á£¿")
+			NLG.SystemMessage(_PlayerIndex, "[" .. "æµæµªç¥åŒ " .. "] é€™è£¡æ²’æœ‰è£å‚™ï¼Œä½ æƒ³å¼·åŒ–ä½ çš„çš®è†šå—ï¼Ÿ")
 			--CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 		end
 	end
@@ -367,11 +367,11 @@ function CraftsmanNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _Da
 end
 
 function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
-	--  S-Ç¿»¯£¬R-·ûÎÄ£¬D-Ä§»¯£¬L-ÏŞÊ±
+	--  S-å¼ºåŒ–ï¼ŒR-ç¬¦æ–‡ï¼ŒD-é­”åŒ–ï¼ŒL-é™æ—¶
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
-		local tItemStat = Item.GetData(_ItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%)
+		local tItemStat = Item.GetData(_ItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%)
 		if string.find(tItemStat, ",")==nil then
 			return nil
 		end
@@ -392,7 +392,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 		for k,v in pairs(_StatTab) do
 			tStat = tStat .. k .. "," .. v .. "|"
 		end
-		Item.SetData(_ItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%, tStat)
+		Item.SetData(_ItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%, tStat)
 	elseif type(_StatTab)=="string" and type(_StatValue)=="nil" then
 		--GetSub
 		local tStatTab = EquipPlusStat(_ItemIndex) or {}
@@ -412,7 +412,7 @@ end
 
 function setItemStrData( _ItemIndex, _StrLv )
 	local tItemID = Item.GetData(_ItemIndex, 0)
-	local tType = Item.GetData(_ItemIndex, %µÀ¾ß_ÀàĞÍ%);
+	local tType = Item.GetData(_ItemIndex, %é“å…·_ç±»å‹%);
 	if (tType>=0 and tType<=6) then
 		tTypeID = -2;
 	elseif (tType>=7 and tType<=14) then 
@@ -422,38 +422,38 @@ function setItemStrData( _ItemIndex, _StrLv )
 	end
 	local bRateTab = StrBaseRate[tTypeID]
 	local bRate = 1 + bRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %µÀ¾ß_¹¥»÷%, Item.GetData(_ItemIndex, %µÀ¾ß_¹¥»÷%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_·ÀÓù%, Item.GetData(_ItemIndex, %µÀ¾ß_·ÀÓù%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ãô½İ%, Item.GetData(_ItemIndex, %µÀ¾ß_Ãô½İ%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_¾«Éñ%, Item.GetData(_ItemIndex, %µÀ¾ß_¾«Éñ%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_»Ø¸´%, Item.GetData(_ItemIndex, %µÀ¾ß_»Ø¸´%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_HP%, Item.GetData(_ItemIndex, %µÀ¾ß_HP%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_MP%, Item.GetData(_ItemIndex, %µÀ¾ß_MP%)*bRate)
-	--Item.SetData(_ItemIndex, %µÀ¾ß_Ä§¹¥%, Item.GetData(_ItemIndex, %µÀ¾ß_Ä§¹¥%)*bRate)
-	--Item.SetData(_ItemIndex, %µÀ¾ß_Ä§¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Ä§¿¹%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_æ”»å‡»%, Item.GetData(_ItemIndex, %é“å…·_æ”»å‡»%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_é˜²å¾¡%, Item.GetData(_ItemIndex, %é“å…·_é˜²å¾¡%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_æ•æ·%, Item.GetData(_ItemIndex, %é“å…·_æ•æ·%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_ç²¾ç¥%, Item.GetData(_ItemIndex, %é“å…·_ç²¾ç¥%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_å›å¤%, Item.GetData(_ItemIndex, %é“å…·_å›å¤%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_HP%, Item.GetData(_ItemIndex, %é“å…·_HP%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_MP%, Item.GetData(_ItemIndex, %é“å…·_MP%)*bRate)
+	--Item.SetData(_ItemIndex, %é“å…·_é­”æ”»%, Item.GetData(_ItemIndex, %é“å…·_é­”æ”»%)*bRate)
+	--Item.SetData(_ItemIndex, %é“å…·_é­”æŠ—%, Item.GetData(_ItemIndex, %é“å…·_é­”æŠ—%)*bRate)
 	--Resist
 	local rRateTab = StrResistRate[tTypeID]
 	local rRate = 1 + rRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %µÀ¾ß_¶¾¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_¶¾¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ë¯¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Ë¯¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ê¯¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Ê¯¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_×í¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_×í¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_ÂÒ¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_ÂÒ¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Íü¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Íü¿¹%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_æ¯’æŠ—%, Item.GetData(_ItemIndex, %é“å…·_æ¯’æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_ç¡æŠ—%, Item.GetData(_ItemIndex, %é“å…·_ç¡æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_çŸ³æŠ—%, Item.GetData(_ItemIndex, %é“å…·_çŸ³æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_é†‰æŠ—%, Item.GetData(_ItemIndex, %é“å…·_é†‰æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_ä¹±æŠ—%, Item.GetData(_ItemIndex, %é“å…·_ä¹±æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_å¿˜æŠ—%, Item.GetData(_ItemIndex, %é“å…·_å¿˜æŠ—%)*rRate)
 	--Fix
 	local fRateTab = StrFixRate[tTypeID]
 	local fRate = 1 + fRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %µÀ¾ß_±ØÉ±%, Item.GetData(_ItemIndex, %µÀ¾ß_±ØÉ±%)*fRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_·´»÷%, Item.GetData(_ItemIndex, %µÀ¾ß_·´»÷%)*fRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_ÃüÖĞ%, Item.GetData(_ItemIndex, %µÀ¾ß_ÃüÖĞ%)*fRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_ÉÁ¶ã%, Item.GetData(_ItemIndex, %µÀ¾ß_ÉÁ¶ã%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_å¿…æ€%, Item.GetData(_ItemIndex, %é“å…·_å¿…æ€%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_åå‡»%, Item.GetData(_ItemIndex, %é“å…·_åå‡»%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_å‘½ä¸­%, Item.GetData(_ItemIndex, %é“å…·_å‘½ä¸­%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_é—ªèº²%, Item.GetData(_ItemIndex, %é“å…·_é—ªèº²%)*fRate)
 	
 end
 
 function setItemName( _ItemIndex , _Name)
 	local StatTab = EquipPlusStat( _ItemIndex )
-	local ItemName = Item.GetData(_ItemIndex, %µÀ¾ß_¼øÇ°Ãû%)
-	--¡Ñ¡è??§¶§æ€¡ò¡ñ¡ó¡ô¡õ¡ö¡ï¡î©I
+	local ItemName = Item.GetData(_ItemIndex, %é“å…·_é‰´å‰å%)
+	--âŠ™Â¤??Ğ¤Ñ„â‚¬â—â—â—‡â—†â–¡â– â˜…â˜†ãŠ£
 	for k,v in pairs(StatTab) do
 		if k=="S" then
 			ItemName = ItemName .. "+" .. v
@@ -463,7 +463,7 @@ function setItemName( _ItemIndex , _Name)
 			end
 		elseif k=="D" then
 			if v~=nil and v>0 then
-				ItemName = "€" .. ItemName
+				ItemName = "â‚¬" .. ItemName
 			end
 		elseif k=="L" then
 			if v~=nil and v>0 then
@@ -471,9 +471,9 @@ function setItemName( _ItemIndex , _Name)
 			end
 		elseif k=="E" then
 			if v~=nil and v>0 then
-				ItemName = "…d" .. ItemName
+				ItemName = "å" .. ItemName
 			end
 		end
 	end
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ãû×Ö%, ItemName)
+	Item.SetData(_ItemIndex, %é“å…·_åå­—%, ItemName)
 end
