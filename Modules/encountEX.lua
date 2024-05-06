@@ -31,6 +31,7 @@ function Module:battleStartEventCallback(battleIndex)
 				local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
 				table.insert(EnemyTbl[cdk],EnemyIdAr);
 				table.insert(EnemyTbl[cdk],BaseLevelAr);
+				return EnemyTbl[cdk];
 			end
 		elseif enemy>=0 and hmxsnum >= 1 and gmxsnum >= 1 and Char.GetData(enemy, CONST.CHAR_类型) == CONST.对象类型_怪 and Char.GetData(enemy,CONST.对象_战斗状态) ~= CONST.战斗_BOSS战 then
 			local enemyId = Char.GetData(enemy, CONST.CHAR_ENEMY_ID);
@@ -42,6 +43,7 @@ function Module:battleStartEventCallback(battleIndex)
 				local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
 				table.insert(EnemyTbl[cdk],EnemyIdAr);
 				table.insert(EnemyTbl[cdk],BaseLevelAr);
+				return EnemyTbl[cdk];
 			end
 		end
 	end
@@ -108,20 +110,8 @@ function Module:onLoad()
 				Char.SetData(player,%对象_香步数%,ymbs-1);
 				NLG.UpChar(player);
 				if cdk == EnemyTbl[cdk][1] and EnemyTbl[cdk][2] == nill then
-					local PartyNum = Char.PartyNum(player);
-					if (PartyNum>1) then
-						for Slot=1,PartyNum do
-							local TeamPlayer = Char.GetPartyMember(player,Slot);
-							if Char.GetBattleIndex(player) >= 0 then
-								return
-							end
-						end
-						Battle.Encount(player, player);
-					else
-						Battle.Encount(player, player);
-					end
+					Battle.Encount(player, player);
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum == 0 then          --满怪香水
-					Char.DelItem(player,hmxs,1);
 					local PartyNum = Char.PartyNum(player);
 					if (PartyNum>1) then
 						for Slot=1,PartyNum do
@@ -130,13 +120,13 @@ function Module:onLoad()
 								return
 							end
 						end
+						Char.DelItem(player,hmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
+						Char.DelItem(player,hmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
-				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum > 1 then             --满怪香水&黄金喷雾
-					Char.DelItem(player,hmxs,1);
-					Char.DelItem(player,gmxs,1);
+				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum >= 1 then             --满怪香水&黄金喷雾
 					local PartyNum = Char.PartyNum(player);
 					if (PartyNum>1) then
 						for Slot=1,PartyNum do
@@ -145,12 +135,15 @@ function Module:onLoad()
 								return
 							end
 						end
+						Char.DelItem(player,hmxs,1);
+						Char.DelItem(player,gmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
+						Char.DelItem(player,hmxs,1);
+						Char.DelItem(player,gmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 and gmxsnum == 0 then       --满怪香水
-					Char.DelItem(player,hmxs,1);
 					local PartyNum = Char.PartyNum(player);
 					if (PartyNum>1) then
 						for Slot=1,PartyNum do
@@ -159,8 +152,10 @@ function Module:onLoad()
 								return
 							end
 						end
+						Char.DelItem(player,hmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
+						Char.DelItem(player,hmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
 					for i,v in ipairs(EnemyTbl[cdk]) do
@@ -170,8 +165,6 @@ function Module:onLoad()
 						end
 					end
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 and gmxsnum >= 1 then         --满怪香水&黄金喷雾
-					Char.DelItem(player,hmxs,1);
-					Char.DelItem(player,gmxs,1);
 					local PartyNum = Char.PartyNum(player);
 					if (PartyNum>1) then
 						for Slot=1,PartyNum do
@@ -180,8 +173,12 @@ function Module:onLoad()
 								return
 							end
 						end
+						Char.DelItem(player,hmxs,1);
+						Char.DelItem(player,gmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
+						Char.DelItem(player,hmxs,1);
+						Char.DelItem(player,gmxs,1);
 						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
 					for i,v in ipairs(EnemyTbl[cdk]) do
