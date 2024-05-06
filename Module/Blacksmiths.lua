@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
---                 ¡¾¡¾¡¾ÊôĞÔÇ¿»¯ÉèÖÃ¡¿¡¿¡¿
+--                 ã€ã€ã€å±æ€§å¼ºåŒ–è®¾ç½®ã€‘ã€‘ã€‘
 ------------------------------------------------------------------------------
 local StrStrengEnable = {}
 local StrStrengMaxLv = {}
@@ -12,149 +12,149 @@ local StrBreakRate = {}
 local StrRequireItemID = {}
 local StrRequireItemNum = {}
 local StrRequireGold = {}
-local StrBinding = 0								--Ç¿»¯ºó×°±¸ÊÇ·ñ²»¿É½»Ò×£¨Ñ¡Ïî£º0-²»°ó¶¨£¬1-°ó¶¨£©
---¡¾Ä¬ÈÏÉèÖÃ¡¿
---  ¿ªÆôºóËùÓĞ×°±¸¾ù¿ÉÇ¿»¯
-StrStrengEnable[-1] = 1	--ÊÇ·ñ¿ªÆôÄ¬ÈÏÉèÖÃ
-StrStrengMaxLv[-1] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[-1] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[-1] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[-1] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[-1] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[-1] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[-1] = {69126, 69126, 69126, 69126, 69126, 69126, 69126, 69126, 69126}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[-1] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[-1] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---¡¾ÌØÊâÇ¿»¯¡¿
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 69109	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+local StrBinding = 0								--å¼ºåŒ–åè£…å¤‡æ˜¯å¦ä¸å¯äº¤æ˜“ï¼ˆé€‰é¡¹ï¼š0-ä¸ç»‘å®šï¼Œ1-ç»‘å®šï¼‰
+--ã€é»˜è®¤è®¾ç½®ã€‘
+--  å¼€å¯åæ‰€æœ‰è£…å¤‡å‡å¯å¼ºåŒ–
+StrStrengEnable[-1] = 1	--æ˜¯å¦å¼€å¯é»˜è®¤è®¾ç½®
+StrStrengMaxLv[-1] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[-1] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[-1] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[-1] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[-1] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[-1] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[-1] = {69126, 69126, 69126, 69126, 69126, 69126, 69126, 69126, 69126}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[-1] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[-1] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--ã€ç‰¹æ®Šå¼ºåŒ–ã€‘
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 69109	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{10, 10, 5, 4, 3, 2, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 5, 5, 5, 5}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 16424	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{10, 10, 5, 4, 3, 2, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 5, 5, 5, 5}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 16424	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 69129	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 69129	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 69130	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 69130	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 69131	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 69131	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 69132	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 69132	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 70034	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 70034	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 70036	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 70036	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 70037	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 70037	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---  Ò»¸ö×°±¸Ò»¶Î£¬ÇëÕû¶Î¸´ÖÆºóÔÙĞŞ¸Ä
-local ItemID = 70038	--ÌØÊâÉèÖÃµÄÎïÆ·ID
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--  ä¸€ä¸ªè£…å¤‡ä¸€æ®µï¼Œè¯·æ•´æ®µå¤åˆ¶åå†ä¿®æ”¹
+local ItemID = 70038	--ç‰¹æ®Šè®¾ç½®çš„ç‰©å“ID
 StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--×î´ó¿ÉÇ¿»¯µÈ¼¶£¨´ÎÊı£©
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6¿¹ĞÔ°Ù·Ö±È
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ĞŞÕı°Ù·Ö±È
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--Ç¿»¯³É¹¦ÂÊ
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--Ç¿»¯ÆÆ»µÂÊ
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--Ç¿»¯ĞèÇóÎïÆ·ID£¨Ç¿»¯Ê¯ID£©
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--Ç¿»¯ĞèÇóÎïÆ·ÊıÁ¿£¨Ç¿»¯Ê¯ÊıÁ¿£©
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--Ç¿»¯ËùĞè½ğ±Ò
---¡¾½ûÖ¹Ç¿»¯¡¿
---  Ò»¸ö×°±¸Ò»ĞĞ£¬ÊıÖµÌîĞ´0¼´¿É
+StrStrengMaxLv[ItemID] = 9									--æœ€å¤§å¯å¼ºåŒ–ç­‰çº§ï¼ˆæ¬¡æ•°ï¼‰
+StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6æŠ—æ€§ç™¾åˆ†æ¯”
+StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4ä¿®æ­£ç™¾åˆ†æ¯”
+StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--å¼ºåŒ–æˆåŠŸç‡
+StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--å¼ºåŒ–ç ´åç‡
+StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--å¼ºåŒ–éœ€æ±‚ç‰©å“IDï¼ˆå¼ºåŒ–çŸ³IDï¼‰
+StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--å¼ºåŒ–éœ€æ±‚ç‰©å“æ•°é‡ï¼ˆå¼ºåŒ–çŸ³æ•°é‡ï¼‰
+StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--å¼ºåŒ–æ‰€éœ€é‡‘å¸
+--ã€ç¦æ­¢å¼ºåŒ–ã€‘
+--  ä¸€ä¸ªè£…å¤‡ä¸€è¡Œï¼Œæ•°å€¼å¡«å†™0å³å¯
 StrStrengEnable[980491] = 0
-StrStrengEnable[250] = 0    --Ë®ıˆÖ®·ş
-StrStrengEnable[69105] = 0    --ÔªËØÁ¦Á¿Ôö·ùÆ÷
+StrStrengEnable[250] = 0    --æ°´é¾ä¹‹æœ
+StrStrengEnable[69105] = 0    --å…ƒç´ åŠ›é‡å¢å¹…å™¨
 StrStrengEnable[69106] = 0
 StrStrengEnable[69107] = 0
 StrStrengEnable[69108] = 0
-StrStrengEnable[70053] = 0    --¡ïÍêÈ«Ö§ÅäĞg¡ï
+StrStrengEnable[70053] = 0    --â˜…å®Œå…¨æ”¯é…è¡“â˜…
 StrStrengEnable[70054] = 0
 StrStrengEnable[70055] = 0
 StrStrengEnable[70056] = 0
@@ -162,17 +162,17 @@ StrStrengEnable[70057] = 0
 StrStrengEnable[70058] = 0
 StrStrengEnable[70059] = 0
 StrStrengEnable[70060] = 0
-StrStrengEnable[79060] = 0    --¸±ÎäÆ÷
+StrStrengEnable[79060] = 0    --å‰¯æ­¦å™¨
 StrStrengEnable[79061] = 0
 StrStrengEnable[79062] = 0
 StrStrengEnable[79063] = 0
 StrStrengEnable[79064] = 0
 StrStrengEnable[79065] = 0
-StrStrengEnable[69226] = 0    --¹ÅÀÏ¾Şıˆ
+StrStrengEnable[69226] = 0    --å¤è€å·¨é¾
 StrStrengEnable[69227] = 0
 StrStrengEnable[69228] = 0
 StrStrengEnable[69229] = 0
-StrStrengEnable[79215] = 0    --‡ŠÆáß^¾Ì–
+StrStrengEnable[79215] = 0    --å™´æ¼†éç·¨è™Ÿ
 StrStrengEnable[79216] = 0
 StrStrengEnable[79217] = 0
 StrStrengEnable[79218] = 0
@@ -211,9 +211,9 @@ StrStrengEnable[79249] = 0
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
---                 ¡¾¡¾¡¾½Å±¾ÏµÍ³ÉèÖÃ¡¿¡¿¡¿£¨·Ç×¨ÒµÈËÊÂÇëÎğĞŞ¸Ä£©
+--                 ã€ã€ã€è„šæœ¬ç³»ç»Ÿè®¾ç½®ã€‘ã€‘ã€‘ï¼ˆéä¸“ä¸šäººäº‹è¯·å‹¿ä¿®æ”¹ï¼‰
 ------------------------------------------------------------------------------
-local ItemPosName = {"î^ ²¿", "Éí Ìå", "ÓÒ ÊÖ", "×ó ÊÖ", "×ã ²¿", "ï—Æ·1", "ï—Æ·2", "Ë® ¾§"}
+local ItemPosName = {"é ­ éƒ¨", "èº« ä½“", "å³ æ‰‹", "å·¦ æ‰‹", "è¶³ éƒ¨", "é£¾å“1", "é£¾å“2", "æ°´ æ™¶"}
 ------------------------------------------------------------------------------
 
 function BlacksmithNpc_Func(index)
@@ -224,25 +224,25 @@ end
 Delegate.RegInit("BlacksmithNpc_Init");
 function BlacksmithNpc_Init()
 	local BlacksmithNpc = NL.CreateNpc("lua/Module/Blacksmiths.lua", "BlacksmithNpc_Func");
-	Char.SetData( BlacksmithNpc, %¶ÔÏó_ĞÎÏó%,105527);
-	Char.SetData( BlacksmithNpc, %¶ÔÏó_Ô­ĞÎ%,105527);
-	Char.SetData( BlacksmithNpc, %¶ÔÏó_µØÍ¼%,25000);
-	Char.SetData( BlacksmithNpc, %¶ÔÏó_X%,29);
-	Char.SetData( BlacksmithNpc, %¶ÔÏó_Y%,7);
-	Char.SetData( BlacksmithNpc, %¶ÔÏó_·½Ïò%,4);
-	Char.SetData( BlacksmithNpc, %¶ÔÏó_Ãû×Ö%,"Ñb‚ä¾«Ÿ’èF½³");
+	Char.SetData( BlacksmithNpc, %å¯¹è±¡_å½¢è±¡%,105527);
+	Char.SetData( BlacksmithNpc, %å¯¹è±¡_åŸå½¢%,105527);
+	Char.SetData( BlacksmithNpc, %å¯¹è±¡_åœ°å›¾%,25000);
+	Char.SetData( BlacksmithNpc, %å¯¹è±¡_X%,29);
+	Char.SetData( BlacksmithNpc, %å¯¹è±¡_Y%,7);
+	Char.SetData( BlacksmithNpc, %å¯¹è±¡_æ–¹å‘%,4);
+	Char.SetData( BlacksmithNpc, %å¯¹è±¡_åå­—%,"è£å‚™ç²¾ç…‰éµåŒ ");
 	NLG.UpChar( BlacksmithNpc)
 
 	tbl_LuaNpcIndex = {}
 	tbl_LuaNpcIndex["BlacksmithNpc"] = BlacksmithNpc
 
 	if (Char.SetTalkedEvent(nil, "BlacksmithNpc_Talked", BlacksmithNpc) < 0) then
-		print("BlacksmithNpc_Talked ×¢²áÊÂ¼şÊ§°Ü¡£");
+		print("BlacksmithNpc_Talked æ³¨å†Œäº‹ä»¶å¤±è´¥ã€‚");
 		return false;
 	end
 
 	if (Char.SetWindowTalkedEvent(nil, "BlacksmithNpc_WindowTalked", BlacksmithNpc) < 0) then
-		print("BlacksmithNpc_WindowTalked ×¢²áÊÂ¼şÊ§°Ü¡£");
+		print("BlacksmithNpc_WindowTalked æ³¨å†Œäº‹ä»¶å¤±è´¥ã€‚");
 		return false;
 	end
 
@@ -256,15 +256,15 @@ function BlacksmithNpc_Talked( _MeIndex, _PlayerIndex, _Mode)
 	end 
 
 	NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 1,
-			"8\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ô" .. "Ñb‚ä¾«Ÿ’èF½³" .. "¡ô" ..
-			"\n¡¡¡¡Ò»Î»í×ÔÍĞ –·¨¼ª†µÄÉñÃØèF½³£¬¼ƒÕæµÄÍâ±í" ..
-			"\nÏÂÓĞÖø²»éÈËÖªµÄÁ¦Á¿£¬ÔÚËıµÄ¹ÊàlÁ÷‚÷Öøßh¹ÅÄ§" ..
-			"\n·¨•rÆÚµÄì`»êÈİÆ÷Ñu×÷·¨£¬“şÕfÈÎºÎÑb‚ä½›ß^Ëû‚ƒ" ..
-			"\nµÄÉñÖ®ÊÖå‘Ôì¸ÄÁ¼£¬¶¼•ş×ƒµÃ¸ü¼ÓˆÔíg¡£" ..
-			"\n¡¡¡¡ß@Î»Íõ‡øëyÃñµÄÉñÃØèF½³£¬éÁËĞŞĞĞ£¬éÁËµÃ" ..
-			"\nµ½ÉñÖ®èFæm·âÌ–£¬ÕıÔÚÙuË‡éÈË‚ƒ¾«Ÿ’Ñb‚ä¡£" .. 
+			"8\nã€€ã€€ã€€ã€€ã€€ã€€ã€€â—†" .. "è£å‚™ç²¾ç…‰éµåŒ " .. "â—†" ..
+			"\nã€€ã€€ä¸€ä½ä¾†è‡ªæ‰˜çˆ¾æ³•å‰äºçš„ç¥ç§˜éµåŒ ï¼Œç´”çœŸçš„å¤–è¡¨" ..
+			"\nä¸‹æœ‰è‘—ä¸ç‚ºäººçŸ¥çš„åŠ›é‡ï¼Œåœ¨å¥¹çš„æ•…é„‰æµå‚³è‘—é å¤é­”" ..
+			"\næ³•æ™‚æœŸçš„éˆé­‚å®¹å™¨è£½ä½œæ³•ï¼Œæ“šèªªä»»ä½•è£å‚™ç¶“éä»–å€‘" ..
+			"\nçš„ç¥ä¹‹æ‰‹é›é€ æ”¹è‰¯ï¼Œéƒ½æœƒè®Šå¾—æ›´åŠ å …éŸŒã€‚" ..
+			"\nã€€ã€€é€™ä½ç‹åœ‹é›£æ°‘çš„ç¥ç§˜éµåŒ ï¼Œç‚ºäº†ä¿®è¡Œï¼Œç‚ºäº†å¾—" ..
+			"\nåˆ°ç¥ä¹‹éµéšå°è™Ÿï¼Œæ­£åœ¨è³£è—ç‚ºäººå€‘ç²¾ç…‰è£å‚™ã€‚" .. 
 			"\n" ..
-			"\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡º¾«Ÿ’Š»¯¡»"
+			"\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç²¾ç…‰å¼·åŒ–ã€"
 			);
 
 	return ;
@@ -274,7 +274,7 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 
 	--print("\n_MeIndex=" .. _MeIndex .. ", _PlayerIndex=" .. _PlayerIndex .. ", _Seqno=" .. _Seqno .. ", _Data=" .. _Data)
 	
-	--È¡Ïû°´Å¥
+	--å–æ¶ˆæŒ‰é’®
 	if _Select==2 then
 		return
 	end
@@ -282,31 +282,31 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 	if _Seqno==1 then
 		local PlayerSelect = tonumber(_Data)
 		if PlayerSelect==1 then
-			--ÊôĞÔÇ¿»¯
-			local TalkBuf = "1|\nÕˆßx“ñĞèÒª¾«Ÿ’Š»¯µÄÑb‚ä£º\n"
+			--å±æ€§å¼ºåŒ–
+			local TalkBuf = "1|\nè«‹é¸æ“‡éœ€è¦ç²¾ç…‰å¼·åŒ–çš„è£å‚™ï¼š\n"
 			for i = 0,7 do
 				local tItemIndex = Char.GetItemIndex(_PlayerIndex, i);
 				if tItemIndex>=0 then
-					local tItemID = Item.GetData(tItemIndex, %µÀ¾ß_ID%)
+					local tItemID = Item.GetData(tItemIndex, %é“å…·_ID%)
 					--print("tItemID=" .. tItemID)
-					local tItemName = Item.GetData(tItemIndex, %µÀ¾ß_Ãû×Ö%)
+					local tItemName = Item.GetData(tItemIndex, %é“å…·_åå­—%)
 					local tStrLv = EquipPlusStat(tItemIndex, "S") or 0
 					local tMaxLv = StrStrengMaxLv[tItemID] or StrStrengMaxLv[-1]
 					local tNeedItemNumTab = StrRequireItemNum[tItemID] or StrRequireItemNum[-1]
 					local tNeedItemNum = tNeedItemNumTab[tStrLv+1]
 					local tNeedGoldTab = StrRequireGold[tItemID] or StrRequireGold[-1]
 					local tNeedGold = tNeedGoldTab[tStrLv+1]
-					local tItemCan = "[Ç¿»¯£Ï]  " .. tNeedItemNum .. "‚€|"  .. string.format("%.2f", tNeedGold/10000) .. "W"
-					if StrStrengEnable[tItemID]~=1 and StrStrengEnable[-1]~=1 then tItemCan="[Ç¿»¯£Ø]" end
-					if tStrLv>=tMaxLv then tItemCan="[Ç¿»¯Max]" end
-					if StrStrengEnable[tItemID]==0 then tItemCan="[Ç¿»¯X]" end
-					if EquipPlusStat(tItemIndex, "D")~=nil then tItemCan="[Ç¿»¯£Ø]" end
-					if EquipPlusStat(tItemIndex, "E")~=nil then tItemCan="[Ç¿»¯£Ø]" end
-					if EquipPlusStat(tItemIndex, "R")~=nil then tItemCan="[Ç¿»¯£Ø]" end
+					local tItemCan = "[å¼ºåŒ–ï¼¯]  " .. tNeedItemNum .. "å€‹|"  .. string.format("%.2f", tNeedGold/10000) .. "W"
+					if StrStrengEnable[tItemID]~=1 and StrStrengEnable[-1]~=1 then tItemCan="[å¼ºåŒ–ï¼¸]" end
+					if tStrLv>=tMaxLv then tItemCan="[å¼ºåŒ–Max]" end
+					if StrStrengEnable[tItemID]==0 then tItemCan="[å¼ºåŒ–X]" end
+					if EquipPlusStat(tItemIndex, "D")~=nil then tItemCan="[å¼ºåŒ–ï¼¸]" end
+					if EquipPlusStat(tItemIndex, "E")~=nil then tItemCan="[å¼ºåŒ–ï¼¸]" end
+					if EquipPlusStat(tItemIndex, "R")~=nil then tItemCan="[å¼ºåŒ–ï¼¸]" end
 					local Buf = tItemName .. " " .. tItemCan
-					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "£º" .. Buf .. "\n"
+					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "ï¼š" .. Buf .. "\n"
 				else
-					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "£º" .. "\n"
+					TalkBuf = TalkBuf .. ItemPosName[i+1] .. "ï¼š" .. "\n"
 				end
 			end
 			NLG.ShowWindowTalked(_PlayerIndex, _MeIndex, 2, 2, 10, TalkBuf)
@@ -314,47 +314,47 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 		end
 	end
 
-	--ÊôĞÔÇ¿»¯
+	--å±æ€§å¼ºåŒ–
 	if _Seqno==10 then
 		local PlayerSelect = tonumber(_Data)
-		local tPlayerGold = Char.GetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%)
+		local tPlayerGold = Char.GetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%)
 		local tItemPos = PlayerSelect - 1
 		local tItemIndex = Char.GetItemIndex(_PlayerIndex, tItemPos);
 		if tItemIndex>=0 then
-			local tItemID = Item.GetData(tItemIndex, %µÀ¾ß_ID%)
-			local tItemName = Item.GetData(tItemIndex, %µÀ¾ß_Ãû×Ö%)
+			local tItemID = Item.GetData(tItemIndex, %é“å…·_ID%)
+			local tItemName = Item.GetData(tItemIndex, %é“å…·_åå­—%)
 			--CheckEnable
 			local tStrLv = EquipPlusStat(tItemIndex, "S") or 0
 			local tMaxLv = StrStrengMaxLv[tItemID] or StrStrengMaxLv[-1]
 			if StrStrengEnable[tItemID]~=1 and StrStrengEnable[-1]~=1 then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[²»¿ÉŠ»¯]£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[ä¸å¯å¼·åŒ–]ï¼")
 				return
 			end
 			if tStrLv>=tMaxLv then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]ÒÑß_µ½[Š»¯Max]£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]å·²é”åˆ°[å¼·åŒ–Max]ï¼")
 				return
 			end
 			if StrStrengEnable[tItemID]==0 then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[²»¿ÉŠ»¯]£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[ä¸å¯å¼·åŒ–]ï¼")
 				return
 			end
 			if EquipPlusStat(tItemIndex, "D")~=nil then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[Ä§»¯Ñb‚ä]£¬ÒÑß_µ½˜OÏŞ£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[é­”åŒ–è£å‚™]ï¼Œå·²é”åˆ°æ¥µé™ï¼")
 				return
 			end
 			if EquipPlusStat(tItemIndex, "E")~=nil then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]ÒÑÑªŸ’¸½Ä§£¬Ÿo·¨À^ÀmŠ»¯£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]å·²è¡€ç…‰é™„é­”ï¼Œç„¡æ³•ç¹¼çºŒå¼·åŒ–ï¼")
 				return
 			end
 			if EquipPlusStat(tItemIndex, "R")~=nil then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]ÒÑè‚Ç¶·ûÎÄ£¬Ÿo·¨À^ÀmŠ»¯£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]å·²é‘²åµŒç¬¦æ–‡ï¼Œç„¡æ³•ç¹¼çºŒå¼·åŒ–ï¼")
 				return
 			end
 			--CheckGold
 			local tNeedGoldTab = StrRequireGold[tItemID] or StrRequireGold[-1]
 			local tNeedGold = tonumber(tNeedGoldTab[tStrLv+1]) or 0
 			if tPlayerGold<tNeedGold then
-				NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Š»¯ĞèÒª" .. tNeedGold .. "G£¬ËùĞè½ğÅ²»×ã£¡")
+				NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] å¼·åŒ–éœ€è¦" .. tNeedGold .. "Gï¼Œæ‰€éœ€é‡‘å¹£ä¸è¶³ï¼")
 				return
 			end
 			--CheckRequireItem
@@ -364,31 +364,14 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 			local RequireItemNum = RequireItemNumTab[tStrLv+1]
 			if type(RequireItemID)=="number" and RequireItemID>0 and type(RequireItemNum)=="number" and RequireItemNum>0 then
 				if Char.ItemNum(_PlayerIndex, RequireItemID)<RequireItemNum then
-					NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] Š»¯ËùĞèµÀ¾ß²»×ã£¡")
+					NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] å¼·åŒ–æ‰€éœ€é“å…·ä¸è¶³ï¼")
 					return
 				end
 			end
 			--DelGold
-			Char.SetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%, tPlayerGold-tNeedGold)
+			Char.SetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%, tPlayerGold-tNeedGold)
 			--DelItem
 			Char.DelItem(_PlayerIndex, RequireItemID, RequireItemNum)
-			--CheckBreak
-			local BreakRateTab = StrBreakRate[tItemID] or StrBreakRate[-1]
-			local BreakRate = BreakRateTab[tStrLv+1]
-			if type(BreakRate)=="number" and BreakRate>0 then
-				local tMin = 50 - math.floor(BreakRate/2) + 1
-				local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2)
-				local tLuck = math.random(1, 100)
-				if tLuck>=tMin and tLuck<=tMax then
-					--Item.SetData(tItemIndex, %µÀ¾ß_ID%, 10203947)
-					--Char.DelItem(_PlayerIndex, 10203947)
-					--Char.DelItemByPos(_PlayerIndex, tItemPos)
-					Item.Kill(_PlayerIndex, tItemIndex, tItemPos)
-					NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] ß@½^Œ¦ÊÇ‚€Äëy£¡ÓÉì¶»ğÁ¦›]¿ØÖÆºÃ£¬ÄãµÄÑb‚äØµ×š§‰ÄÁË¡­¡­")
-					--BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
-					return
-				end
-			end
 			--CheckSuccess
 			local SuccRateTab = StrSuccRate[tItemID] or StrSuccRate[-1]
 			local SuccRate = SuccRateTab[tStrLv+1]
@@ -397,37 +380,55 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 				local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2)
 				local tLuck = math.random(1, 100)
 				if tLuck<tMin or tLuck>tMax then
-					NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] ºÜ²»ĞÒ£¬ÄãµÄÑb‚äŠ»¯Ê§”¡¡­¡­ËùĞÒÑb‚äK›]ÓĞ“p‰Ä¡­¡­")
+					NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] å¾ˆä¸å¹¸ï¼Œä½ çš„è£å‚™å¼·åŒ–å¤±æ•—â€¦â€¦æ‰€å¹¸è£å‚™ä¸¦æ²’æœ‰æå£â€¦â€¦")
 					BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 					return
+				else
+					--CheckBreak
+					local BreakRateTab = StrBreakRate[tItemID] or StrBreakRate[-1]
+					local BreakRate = BreakRateTab[tStrLv+1]
+					if type(BreakRate)=="number" and BreakRate>0 then
+						local tMin = 50 - math.floor(BreakRate/2) + 1
+						local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2)
+						local tLuck = math.random(1, 100)
+						if tLuck>=tMin and tLuck<=tMax then
+							--Item.SetData(tItemIndex, %é“å…·_ID%, 10203947)
+							--Char.DelItem(_PlayerIndex, 10203947)
+							--Char.DelItemByPos(_PlayerIndex, tItemPos)
+							Item.Kill(_PlayerIndex, tItemIndex, tItemPos)
+							NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] é€™çµ•å°æ˜¯å€‹ç½é›£ï¼ç”±æ–¼ç«åŠ›æ²’æ§åˆ¶å¥½ï¼Œä½ çš„è£å‚™å¾¹åº•æ¯€å£äº†â€¦â€¦")
+							--BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
+							return
+						end
+					end
 				end
 			end
 			--SetData
 			setItemStrData(tItemIndex, tStrLv)
 			--SetStat
-			--if Item.GetData(tItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%)=="" then Item.SetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%, tItemName) end
-			if EquipPlusStat(tItemIndex)==nil then Item.SetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%, tItemName) end
+			--if Item.GetData(tItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%)=="" then Item.SetData(tItemIndex, %é“å…·_é‰´å‰å%, tItemName) end
+			if EquipPlusStat(tItemIndex)==nil then Item.SetData(tItemIndex, %é“å…·_é‰´å‰å%, tItemName) end
 			EquipPlusStat(tItemIndex, "S", tStrLv+1)
 			setItemName(tItemIndex)
 			--Set Binding
 			if StrBinding==1 or StrBinding==true then
-				Item.SetData(tItemIndex, %µÀ¾ß_¿É³öÊÛ%, 0)
-				Item.SetData(tItemIndex, %µÀ¾ß_³èÓÊ%, 0)
-				Item.SetData(tItemIndex, %µÀ¾ß_¶ªµØÏûÊ§%, 1)
+				Item.SetData(tItemIndex, %é“å…·_å¯å‡ºå”®%, 0)
+				Item.SetData(tItemIndex, %é“å…·_å® é‚®%, 0)
+				Item.SetData(tItemIndex, %é“å…·_ä¸¢åœ°æ¶ˆå¤±%, 1)
 			end
 			--UpItem
 			Item.UpItem(_PlayerIndex, tItemPos)
 			NLG.UpChar(_PlayerIndex)
-			NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] ¹§Ï²Äã£¡Ñb‚ä³É¹¦Š»¯µ½+" .. tStrLv+1 .. "£¡")
+			NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] æ­å–œä½ ï¼è£å‚™æˆåŠŸå¼·åŒ–åˆ°+" .. tStrLv+1 .. "ï¼")
 			if (tStrLv+1>=7) then
-				NLG.SystemMessage(-1, "[" .. "ÉñÃØèF½³" .. "] ¹§Ï² "..Char.GetData(_PlayerIndex, %¶ÔÏó_Ãû×Ö%).."£¡Œ¢ Item.GetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%) ³É¹¦Š»¯µ½+" .. tStrLv+1 .. "£¡")
+				NLG.SystemMessage(-1, "[" .. "ç¥ç§˜éµåŒ " .. "] æ­å–œ "..Char.GetData(_PlayerIndex, %å¯¹è±¡_åå­—%).."ï¼å°‡ "..Item.GetData(tItemIndex, %é“å…·_é‰´å‰å%).." æˆåŠŸå¼·åŒ–åˆ°+" .. tStrLv+1 .. "ï¼")
 			end
-			--print("Î´¼ø¶¨Ãû=" .. Item.GetData(tItemIndex, %µÀ¾ß_¼øÇ°Ãû%))
-			--print("ÒÑ¼ø¶¨Ãû=" .. Item.GetData(tItemIndex, %µÀ¾ß_Ãû×Ö%))
-			--print("×ÔÓÃ²ÎÊı=" .. Item.GetData(tItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%))
+			--print("æœªé‰´å®šå=" .. Item.GetData(tItemIndex, %é“å…·_é‰´å‰å%))
+			--print("å·²é‰´å®šå=" .. Item.GetData(tItemIndex, %é“å…·_åå­—%))
+			--print("è‡ªç”¨å‚æ•°=" .. Item.GetData(tItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%))
 			BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 		else
-			NLG.SystemMessage(_PlayerIndex, "[" .. "ÉñÃØèF½³" .. "] ß@Ñe›]ÓĞÑb‚ä£¬ÄãÏëŠ»¯ÄãµÄÆ¤Äw†á£¿")
+			NLG.SystemMessage(_PlayerIndex, "[" .. "ç¥ç§˜éµåŒ " .. "] é€™è£¡æ²’æœ‰è£å‚™ï¼Œä½ æƒ³å¼·åŒ–ä½ çš„çš®è†šå—ï¼Ÿ")
 			--BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 		end
 	end
@@ -436,11 +437,11 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 end
 
 function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
-	--  S-Ç¿»¯£¬R-·ûÎÄ£¬D-Ä§»¯£¬L-ÏŞÊ±
+	--  S-å¼ºåŒ–ï¼ŒR-ç¬¦æ–‡ï¼ŒD-é­”åŒ–ï¼ŒL-é™æ—¶
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
-		local tItemStat = Item.GetData(_ItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%)
+		local tItemStat = Item.GetData(_ItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%)
 		if string.find(tItemStat, ",")==nil then
 			return nil
 		end
@@ -461,7 +462,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 		for k,v in pairs(_StatTab) do
 			tStat = tStat .. k .. "," .. v .. "|"
 		end
-		Item.SetData(_ItemIndex, %µÀ¾ß_×ÔÓÃ²ÎÊı%, tStat)
+		Item.SetData(_ItemIndex, %é“å…·_è‡ªç”¨å‚æ•°%, tStat)
 	elseif type(_StatTab)=="string" and type(_StatValue)=="nil" then
 		--GetSub
 		local tStatTab = EquipPlusStat(_ItemIndex) or {}
@@ -483,38 +484,38 @@ function setItemStrData( _ItemIndex, _StrLv )
 	local tItemID = Item.GetData(_ItemIndex, 0)
 	local bRateTab = StrBaseRate[tItemID] or StrBaseRate[-1]
 	local bRate = 1 + bRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %µÀ¾ß_¹¥»÷%, Item.GetData(_ItemIndex, %µÀ¾ß_¹¥»÷%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_·ÀÓù%, Item.GetData(_ItemIndex, %µÀ¾ß_·ÀÓù%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ãô½İ%, Item.GetData(_ItemIndex, %µÀ¾ß_Ãô½İ%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_¾«Éñ%, Item.GetData(_ItemIndex, %µÀ¾ß_¾«Éñ%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_»Ø¸´%, Item.GetData(_ItemIndex, %µÀ¾ß_»Ø¸´%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_HP%, Item.GetData(_ItemIndex, %µÀ¾ß_HP%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_MP%, Item.GetData(_ItemIndex, %µÀ¾ß_MP%)*bRate)
-	--Item.SetData(_ItemIndex, %µÀ¾ß_Ä§¹¥%, Item.GetData(_ItemIndex, %µÀ¾ß_Ä§¹¥%)*bRate)
-	--Item.SetData(_ItemIndex, %µÀ¾ß_Ä§¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Ä§¿¹%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_æ”»å‡»%, Item.GetData(_ItemIndex, %é“å…·_æ”»å‡»%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_é˜²å¾¡%, Item.GetData(_ItemIndex, %é“å…·_é˜²å¾¡%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_æ•æ·%, Item.GetData(_ItemIndex, %é“å…·_æ•æ·%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_ç²¾ç¥%, Item.GetData(_ItemIndex, %é“å…·_ç²¾ç¥%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_å›å¤%, Item.GetData(_ItemIndex, %é“å…·_å›å¤%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_HP%, Item.GetData(_ItemIndex, %é“å…·_HP%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_MP%, Item.GetData(_ItemIndex, %é“å…·_MP%)*bRate)
+	--Item.SetData(_ItemIndex, %é“å…·_é­”æ”»%, Item.GetData(_ItemIndex, %é“å…·_é­”æ”»%)*bRate)
+	--Item.SetData(_ItemIndex, %é“å…·_é­”æŠ—%, Item.GetData(_ItemIndex, %é“å…·_é­”æŠ—%)*bRate)
 	--Resist
 	local rRateTab = StrResistRate[tItemID] or StrResistRate[-1]
 	local rRate = 1 + rRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %µÀ¾ß_¶¾¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_¶¾¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ë¯¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Ë¯¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ê¯¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Ê¯¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_×í¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_×í¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_ÂÒ¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_ÂÒ¿¹%)*rRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Íü¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Íü¿¹%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_æ¯’æŠ—%, Item.GetData(_ItemIndex, %é“å…·_æ¯’æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_ç¡æŠ—%, Item.GetData(_ItemIndex, %é“å…·_ç¡æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_çŸ³æŠ—%, Item.GetData(_ItemIndex, %é“å…·_çŸ³æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_é†‰æŠ—%, Item.GetData(_ItemIndex, %é“å…·_é†‰æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_ä¹±æŠ—%, Item.GetData(_ItemIndex, %é“å…·_ä¹±æŠ—%)*rRate)
+	Item.SetData(_ItemIndex, %é“å…·_å¿˜æŠ—%, Item.GetData(_ItemIndex, %é“å…·_å¿˜æŠ—%)*rRate)
 	--Fix
 	local fRateTab = StrFixRate[tItemID] or StrFixRate[-1]
 	local fRate = 1 + fRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %µÀ¾ß_±ØÉ±%, Item.GetData(_ItemIndex, %µÀ¾ß_±ØÉ±%)*fRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_·´»÷%, Item.GetData(_ItemIndex, %µÀ¾ß_·´»÷%)*fRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_ÃüÖĞ%, Item.GetData(_ItemIndex, %µÀ¾ß_ÃüÖĞ%)*fRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_ÉÁ¶ã%, Item.GetData(_ItemIndex, %µÀ¾ß_ÉÁ¶ã%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_å¿…æ€%, Item.GetData(_ItemIndex, %é“å…·_å¿…æ€%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_åå‡»%, Item.GetData(_ItemIndex, %é“å…·_åå‡»%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_å‘½ä¸­%, Item.GetData(_ItemIndex, %é“å…·_å‘½ä¸­%)*fRate)
+	Item.SetData(_ItemIndex, %é“å…·_é—ªèº²%, Item.GetData(_ItemIndex, %é“å…·_é—ªèº²%)*fRate)
 	
 end
 
 function setItemName( _ItemIndex , _Name)
 	local StatTab = EquipPlusStat( _ItemIndex )
-	local ItemName = Item.GetData(_ItemIndex, %µÀ¾ß_¼øÇ°Ãû%)
-	--¡Ñ¡è??§¶§æ€¡ò¡ñ¡ó¡ô¡õ¡ö¡ï¡î©I
+	local ItemName = Item.GetData(_ItemIndex, %é“å…·_é‰´å‰å%)
+	--âŠ™Â¤??Ğ¤Ñ„â‚¬â—â—â—‡â—†â–¡â– â˜…â˜†ãŠ£
 	for k,v in pairs(StatTab) do
 		if k=="S" then
 			ItemName = ItemName .. "+" .. v
@@ -524,7 +525,7 @@ function setItemName( _ItemIndex , _Name)
 			end
 		elseif k=="D" then
 			if v~=nil and v>0 then
-				ItemName = "€" .. ItemName
+				ItemName = "â‚¬" .. ItemName
 			end
 		elseif k=="L" then
 			if v~=nil and v>0 then
@@ -532,9 +533,9 @@ function setItemName( _ItemIndex , _Name)
 			end
 		elseif k=="E" then
 			if v~=nil and v>0 then
-				ItemName = "…d" .. ItemName
+				ItemName = "å" .. ItemName
 			end
 		end
 	end
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ãû×Ö%, ItemName)
+	Item.SetData(_ItemIndex, %é“å…·_åå­—%, ItemName)
 end
