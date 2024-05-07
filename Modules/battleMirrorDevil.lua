@@ -209,7 +209,7 @@ function Module:onLoad()
     end
     if select == CONST.BUTTON_是 then
         local EnemyIdAr = {406180, 406181, 406182, 406183, 406184, 406185, 406186, 406187, 406188, 406189}
-        local BaseLevelAr = {66, 66, 66, 66, 66, 66, 66, 66, 66, 66}
+        local BaseLevelAr = {199, 199, 199, 199, 199, 199, 199, 199, 199, 199}
         local BattleIndex = Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
         Battle.SetWinEvent("./lua/Modules/battleMirrorDevil.lua", "DevilNpc_BattleWin", BattleIndex);
         --Battle.Encount(npc, player, "3|||0|||||3|406180|5|2|5|2|")
