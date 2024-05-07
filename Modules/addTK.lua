@@ -53,7 +53,8 @@ function AddTK:onLoad()
                             Item.SetData(ViceWeaponIndex,CONST.道具_生命, 500);
                             Item.SetData(ViceWeaponIndex,CONST.道具_魔力, 500);
                             Item.UpItem(player,3);               --右手副武
-                            Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                            --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                            Char.DelItem(player, ItemID,1);
                             NLG.SystemMessage(player, "恭喜！"..ViceName.."的第1次附念成功！");
                             NLG.UpChar(player);
               elseif (ViceType == ItemTypeTable[ItemID] and Special == 14 and Para1 == 6) then
@@ -66,13 +67,15 @@ function AddTK:onLoad()
                                 Item.SetData(ViceWeaponIndex,CONST.道具_生命, Item.GetData(ViceWeaponIndex,CONST.道具_生命)+500);
                                 Item.SetData(ViceWeaponIndex,CONST.道具_魔力, Item.GetData(ViceWeaponIndex,CONST.道具_魔力)+500);
                                 Item.UpItem(player,3);
-                                Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                                --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                                Char.DelItem(player, ItemID,1);
                                 NLG.SystemMessage(player, "恭喜！"..ViceName.."已經附念成功"..Para2.."次！");
                                 NLG.UpChar(player);
                             elseif (Vicehint == v.Info and SRate < v.Rate) then
                                 Item.SetData(ViceWeaponIndex,CONST.道具_Explanation1, v.Info+1);
                                 Item.UpItem(player,3);
-                                Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                                --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                                Char.DelItem(player, ItemID,1);
                                 NLG.SystemMessage(player, "殘念！"..ViceName.."的附念失敗了！");
                             end
                             local New_Vicehint = Item.GetData(ViceWeaponIndex,CONST.道具_Explanation1);
