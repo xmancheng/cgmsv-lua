@@ -213,6 +213,7 @@ function Module:onGetExpEvent(charIndex, exp)
 				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[1].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
+				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].Upload and Char.GetWorldCheck(1) == 1) then
 				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
