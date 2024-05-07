@@ -59,7 +59,7 @@ function Module:onLoad()
   self.paintingNPC = self:NPC_createNormal('特殊噴漆鍍膜師傅', 14682, { x = 36, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.paintingNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c【裝備噴漆鍍膜】" ..	"\\n\\n噴漆鍍膜後的裝備可以避免致死打擊、沉重打擊所造成的高耐久損耗。當完成同系列上膜的套裝，獲得套裝能力素質加成效果。\\n※注意：鍍膜後將無法進行賦予強化"
+        local msg = "\\n@c【裝備噴漆鍍膜】" ..	"\\n\\n噴漆鍍膜後的裝備可以避免致死打擊、沉重打擊所造成的高耐久損耗。當完成同系列上膜的套裝，獲得套裝能力素質加成效果。\\n※注意：鍍膜後將無法進行精煉、賦予"
                                                                                ..	"\\n\\n確定使用 噴漆工具，為 武器、防具 噴漆鍍膜嗎？";
         NLG.ShowWindowTalked(player, self.paintingNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     end
@@ -150,7 +150,7 @@ function Module:sprayTools(charIndex,targetIndex,itemSlot)
     else
              targetName = "空";
     end
-    local msg = "\\n@c【裝備噴漆鍍膜】" ..	"\\n\\n噴漆鍍膜後的裝備可以避免致死打擊、沉重打擊所造成的高耐久損耗。當完成同系列上膜的套裝，獲得套裝能力素質加成效果。\\n※注意：鍍膜後將無法進行賦予強化"
+    local msg = "\\n@c【裝備噴漆鍍膜】" ..	"\\n\\n噴漆鍍膜後的裝備可以避免致死打擊、沉重打擊所造成的高耐久損耗。當完成同系列上膜的套裝，獲得套裝能力素質加成效果。\\n※注意：鍍膜後將無法進行精煉、賦予"
                                                                            ..	"\\n\\n確定使用 "..sprayName.." 工具，在 "..targetName.." 裝備上面噴漆鍍膜嗎？";
     NLG.ShowWindowTalked(charIndex, self.paintingNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     return 1;
