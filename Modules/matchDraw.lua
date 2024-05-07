@@ -32,27 +32,27 @@ MatchDraw:addMigration(2, 'insertinto lua_hook_character', function()
 end);
 
 local DrawTbl={
-       { Num="001", type="S", serial_L=999, serial_H=1000, name="依代召喚書", itemid=70011, count=1},        --S(1)
+       { Num="001", type="S", serial_L=999, serial_H=1000, name="技能欄擴充卡", itemid=900506, count=1},        --S(1)
        { Num="002", type="A", serial_L=996, serial_H=998, name="金色王冠", itemid=68017, count=1},             --A(2~3)
-       { Num="003", type="A", serial_L=991, serial_H=995, name="狗狗圖鑑", itemid=70024, count=1},
+       { Num="003", type="A", serial_L=991, serial_H=995, name="閃炫方塊(傳說)", itemid=71019, count=1},
        { Num="004", type="B", serial_L=985, serial_H=990, name="銀色王冠", itemid=68018, count=1},             --B(4~6)
-       { Num="005", type="B", serial_L=978, serial_H=984, name="元氣滿滿烤爐", itemid=70039, count=1},
-       { Num="006", type="B", serial_L=970, serial_H=977, name="殘破的寶箱", itemid=70220, count=1},
-       { Num="007", type="C", serial_L=950, serial_H=969, name="大蒜油", itemid=900497, count=1},             --C(7~10)
-       { Num="008", type="C", serial_L=930, serial_H=949, name="怪物餅乾", itemid=900498, count=1},
+       { Num="005", type="B", serial_L=978, serial_H=984, name="閃炫方塊(罕見)", itemid=71018, count=1},
+       { Num="006", type="B", serial_L=970, serial_H=977, name="異變核心", itemid=72000, count=1},
+       { Num="007", type="C", serial_L=950, serial_H=969, name="濃縮武器強化石", itemid=71037, count=1},             --C(7~10)
+       { Num="008", type="C", serial_L=930, serial_H=949, name="濃縮防具強化石", itemid=71038, count=1},
        { Num="009", type="C", serial_L=915, serial_H=929, name="滿怪香水", itemid=900500, count=1},
        { Num="010", type="C", serial_L=909, serial_H=914, name="黃金噴霧", itemid=900501, count=1},
        { Num="011", type="D", serial_L=849, serial_H=908, name="深淵魂魄", itemid=66666, count=100},             --D(11~15)
-       { Num="012", type="D", serial_L=789, serial_H=848, name="調查兵團積分", itemid=68999, count=100},
-       { Num="013", type="D", serial_L=729, serial_H=788, name="魔力銀幣卡", itemid=68001, count=3},
-       { Num="014", type="D", serial_L=669, serial_H=728, name="頭目積分券", itemid=69000, count=5},
-       { Num="015", type="D", serial_L=608, serial_H=668, name="心之碎片", itemid=70002, count=20},
-       { Num="016", type="E", serial_L=508, serial_H=607, name="龍之利牙", itemid=70162, count=1},             --E(16~21)
-       { Num="017", type="E", serial_L=408, serial_H=507, name="龍之果實", itemid=70163, count=1},
-       { Num="018", type="E", serial_L=308, serial_H=407, name="副本硬幣", itemid=70200, count=20},
-       { Num="019", type="E", serial_L=208, serial_H=307, name="封箱硬幣", itemid=70201, count=10},
-       { Num="020", type="E", serial_L=108, serial_H=207, name="閃炫方塊(稀有)", itemid=71017, count=1},
-       { Num="021", type="E", serial_L=7, serial_H=107, name="1000魔幣交換卡", itemid=70016, count=1},
+       { Num="012", type="D", serial_L=789, serial_H=848, name="地的水晶碎片", itemid=18310, count=1},
+       { Num="013", type="D", serial_L=729, serial_H=788, name="水的水晶碎片", itemid=18311, count=1},
+       { Num="014", type="D", serial_L=669, serial_H=728, name="火的水晶碎片", itemid=18312, count=1},
+       { Num="015", type="D", serial_L=608, serial_H=668, name="風的水晶碎片", itemid=18313, count=1},
+       { Num="016", type="E", serial_L=508, serial_H=607, name="龍之彩葉", itemid=70162, count=1},             --E(16~21)
+       { Num="017", type="E", serial_L=408, serial_H=507, name="龍之霜降", itemid=70163, count=2},
+       { Num="018", type="E", serial_L=308, serial_H=407, name="藍色回復藥水", itemid=69151, count=1},
+       { Num="019", type="E", serial_L=208, serial_H=307, name="紅色回復藥水", itemid=69152, count=2},
+       { Num="020", type="E", serial_L=108, serial_H=207, name="毆茲那克人物變身卡", itemid=900507, count=1},
+       { Num="021", type="E", serial_L=7, serial_H=107, name="歐茲尼克人物變身卡", itemid=900508, count=1},
 }
 
 --[[
@@ -70,7 +70,7 @@ end
 function MatchDraw:onLoad()
     self:logInfo('load')
     self:regCallback("ItemString", Func.bind(self.onMatchDraw, self), 'LUA_useDraw');
-    local managerNPC = self:NPC_createNormal('火柴抽獎經理', 104927, { x = 227, y = 83, mapType = 0, map = 1000, direction = 4 });
+    local managerNPC = self:NPC_createNormal('火柴抽獎經理', 104927, { x = 231, y = 106, mapType = 0, map = 1000, direction = 4 });
     self:NPC_regWindowTalkedEvent(managerNPC, function(npc, player, _seqno, _select, _data)
         local column = tonumber(_data)
         local page = tonumber(_seqno)
