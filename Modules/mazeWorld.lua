@@ -210,12 +210,12 @@ function Module:onGetExpEvent(charIndex, exp)
 	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0 and Char.GetData(charIndex,CONST.对象_等级)>=101) then
 		if (Target_FloorId==mazeMap[1][1] or Target_FloorId==mazeMap[1][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].R_level and Char.GetWorldCheck(1) == 0) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[1].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].Upload and Char.GetWorldCheck(1) == 1) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
@@ -231,12 +231,12 @@ function Module:onGetExpEvent(charIndex, exp)
 			end
 		elseif (Target_FloorId==mazeMap[2][1] or Target_FloorId==mazeMap[2][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[2].R_level and Char.GetWorldCheck(2) == 0) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[2].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[2].Upload and Char.GetWorldCheck(2) == 1) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
@@ -252,12 +252,12 @@ function Module:onGetExpEvent(charIndex, exp)
 			end
 		elseif (Target_FloorId==mazeMap[3][1] or Target_FloorId==mazeMap[3][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[3].R_level and Char.GetWorldCheck(3) == 0) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[3].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[3].Upload and Char.GetWorldCheck(3) == 1) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
@@ -273,12 +273,12 @@ function Module:onGetExpEvent(charIndex, exp)
 			end
 		elseif (Target_FloorId==mazeMap[4][1] or Target_FloorId==mazeMap[4][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[4].R_level and Char.GetWorldCheck(4) == 0) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[4].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[4].Upload and Char.GetWorldCheck(4) == 1) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
@@ -294,12 +294,12 @@ function Module:onGetExpEvent(charIndex, exp)
 			end
 		elseif (Target_FloorId==mazeMap[5][1] or Target_FloorId==mazeMap[5][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[5].R_level and Char.GetWorldCheck(5) == 0) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[5].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[5].Upload and Char.GetWorldCheck(5) == 1) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
@@ -315,12 +315,12 @@ function Module:onGetExpEvent(charIndex, exp)
 			end
 		elseif (Target_FloorId==mazeMap[6][1] or Target_FloorId==mazeMap[6][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[6].R_level and Char.GetWorldCheck(6) == 0) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[6].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[6].Upload and Char.GetWorldCheck(6) == 1) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
@@ -336,12 +336,12 @@ function Module:onGetExpEvent(charIndex, exp)
 			end
 		elseif (Target_FloorId==mazeMap[7][1] or Target_FloorId==mazeMap[7][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[7].R_level and Char.GetWorldCheck(7) == 0) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[7].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
 			elseif (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[7].Upload and Char.GetWorldCheck(7) == 1) then
-				if Char.GetData(charIndex,CONST.CHAR_交易开关) == 1 then
+				if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
 					NLG.SystemMessage(charIndex,"請前往下一章世界與玩家合作通關BOSS，當前經驗已被鎖定。")
 					return 0
 				end
