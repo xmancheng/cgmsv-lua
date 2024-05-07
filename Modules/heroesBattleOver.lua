@@ -5,8 +5,8 @@ local itemList = {
   { name = '血池補充（10000LP）', image = 27243, price = 14500, desc = '補充血池使用量10000點', count = 1, maxCount = 999, value = 10000, type = 'lp' },
   { name = '血池補充（50000LP）', image = 27243, price = 70000, desc = '補充血池使用量50000點', count = 1, maxCount = 999, value = 50000, type = 'lp' },
   { name = '魔池補充（1000FP）', image = 26206, price = 1700, desc = '補充魔池使用量1000點', count = 1, maxCount = 999, value = 1000, type = 'fp' },
-  { name = '魔池補充（10000FP）', image = 26206, price = 17500, desc = '補充魔池使用量10000點', count = 1, maxCount = 999, value = 10000, type = 'fp' },
-  { name = '魔池補充（50000FP）', image = 26206, price = 87000, desc = '補充魔池使用量50000點', count = 1, maxCount = 999, value = 50000, type = 'fp' },
+  { name = '魔池補充（10000FP）', image = 26206, price = 16500, desc = '補充魔池使用量10000點', count = 1, maxCount = 999, value = 10000, type = 'fp' },
+  { name = '魔池補充（50000FP）', image = 26206, price = 80000, desc = '補充魔池使用量50000點', count = 1, maxCount = 999, value = 50000, type = 'fp' },
   -- { name = '回复·秋菟祝福', image = 494861, price = 10000, desc = '携带时, 战斗结束角色生命恢复200, 魔法恢复200', count = 1, maxCount = 1, value = 100000, type = ''}
 }
 
@@ -279,16 +279,47 @@ function Module:onSellerSelected(npc, player, seqNo, select, data)
       totalGold = totalGold + c.price * count;
     end
   end
+  if lpPool >= 250000 and fpPool >= 250000 then
+    NLG.SystemMessage(player, '血池上限:不能超過250000。');
+    NLG.SystemMessage(player, '魔池上限:不能超過250000。');
+    return
+  elseif lpPool+totalLp >= 250000 and fpPool + totalFp >= 250000 then
+    totalLp = (250000-lpPool);
+    totalLpGold = (250000-lpPool)*1.5;
+    if lpPool==250000 then
+        totalLp = 0;
+        totalLpGold = 0;
+    end
+    totalFp = (250000-fpPool);
+    totalFpGold = (250000-fpPool)*1.7;
+    if fpPool==250000 then
+        totalFp = 0;
+        totalFpGold = 0;
+    end
+    totalGold = totalLpGold+totalFpGold;
+  elseif lpPool+totalLp >= 250000 and fpPool + totalFp < 250000 then
+    totalLp = (250000-lpPool);
+    totalLpGold = (250000-lpPool)*1.5;
+    if lpPool==250000 then
+        totalLp = 0;
+        totalLpGold = 0;
+    end
+    totalFp = totalFp;
+    totalFpGold = totalFp*1.6;
+    totalGold = totalLpGold+totalFpGold;
+  elseif lpPool+totalLp < 250000 and fpPool + totalFp >= 250000 then
+    totalLp = totalLp;
+    totalLpGold = totalLp*1.4;
+    totalFp = (250000-fpPool);
+    totalFpGold = (250000-fpPool)*1.7;
+    if fpPool==250000 then
+        totalFp = 0;
+        totalFpGold = 0;
+    end
+    totalGold = totalLpGold+totalFpGold;
+  end
   if gold < totalGold then
-    NLG.SystemMessage(player, '你的錢不夠。');
-    return
-  end
-  if lpPool + totalLp > 250000 then
-    NLG.SystemMessage(player, '血魔池上限:不能超過250000。血池剩餘差額:'..(250000-lpPool)..'');
-    return
-  end
-  if fpPool + totalFp > 250000 then
-    NLG.SystemMessage(player, '血魔池上限:不能超過250000。魔池剩餘差額:'..(250000-fpPool)..'');
+    NLG.SystemMessage(player, '購買所需總金額: '..totalGold..'，你的錢不夠。');
     return
   end
   Char.AddGold(player, -totalGold);
