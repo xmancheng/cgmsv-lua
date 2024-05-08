@@ -2,18 +2,18 @@
 local Module = ModuleBase:createModule('Strengthen')
 
 local cardList = {
-    500215,500216,500217,500218,500219,
-    500220,500221,500222,500223,500224,
-    500225,500226,500227,500228,500229,
-    500230,500231,500232,500233,500234,
-    500235,500236,500237,500238,500239,
-    500240,500241,500242,500243,500244,
-    500245,500246,500247,500248,500249,
+    {bookNum=1, itemNum=14801, kind=CONST.道具_生命, value=50},
+    {bookNum=2, itemNum=14802, kind=CONST.道具_魔力, value=50},
+    {bookNum=3, itemNum=14803, kind=CONST.道具_回复, value=10},
+    {bookNum=4, itemNum=14804, kind=CONST.道具_敏捷, value=10},
+    {bookNum=5, itemNum=14805, kind=CONST.道具_防御, value=10},
+    {bookNum=6, itemNum=14806, kind=CONST.道具_攻击, value=15},
 }
 
 local StrStrengMaxLv = 9;
-local StrSuccRate = {70, 65, 50, 45, 25, 20, 10, 5, 1}                                                                  --赋予成功率
-local StrRequireGold = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000}               --赋予所需魔币
+local StrSuccRate = {70, 65, 50, 35, 27, 22, 16, 11, 7}                                                                  --赋予成功率
+local StrBreakRate = {0, 0, 0, 0, 0, 8, 10, 12, 14}                                                                           --赋予破坏率
+local StrRequireGold = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000}                 --赋予所需魔币
 
 local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾品1", "飾品2", "水 晶"}
 --【开放赋予】
@@ -32,10 +32,10 @@ StrItemEnable[69229] = 1
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
-  self.enchanterNPC = self:NPC_createNormal('賦予卡片附魔師', 104746, { x = 27, y = 7, mapType = 0, map = 25000, direction = 4 });
+  self.enchanterNPC = self:NPC_createNormal('魔力賦予卷軸魔人', 104746, { x = 27, y = 7, mapType = 0, map = 25000, direction = 4 });
   self:NPC_regTalkedEvent(self.enchanterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local winMsg = "1\\n請選擇需要賦予的裝備：\\n"
+        local winMsg = "1\\n請選擇需要魔力賦予的裝備：\\n"
         for targetSlot = 0,7 do
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
                 if targetItemIndex>=0 then
@@ -92,7 +92,7 @@ function Module:onLoad()
                         NLG.SystemMessage(player, "[" .. "古力莫" .. "] 你選擇的裝備[" .. tItemName .. "]已達到[賦予Max]！");
                         return;
                  else
-                        local winMsg = "1\\n請選擇要使用的圖鑑卡片(附魔能力)：\\n";
+                        local winMsg = "1\\n請選擇要使用的魔法卷軸(賦予的能力)：\\n";
                         for itemSlot = 8,16 do
                               CardIndex = Char.GetItemIndex(player,itemSlot);
                               CardID = Item.GetData(CardIndex,CONST.道具_ID);
@@ -100,7 +100,7 @@ function Module:onLoad()
                               CardType = Item.GetData(CardIndex,CONST.道具_类型);
                               CardName = Item.GetData(CardIndex, CONST.道具_名字);
                               if (tStrLv+1==CardLv and CardType==41) then
-                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:" .. CardName .. "：" .. "\\n"
+                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:〈" .. CardName .. "〉" .. "\\n"
                               else
                                    winMsg = winMsg .. "第".. itemSlot-7 .."格:無物品.卡片等級[賦予Ｘ]" .. "\\n"
                               end
@@ -131,19 +131,38 @@ function Module:onLoad()
                             local tMin = 50 - math.floor(SuccRate/2) + 1;
                             local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
                             local tLuck = math.random(1, 100);
-                            if (tLuck<tMin or tLuck>tMax) then
-                                    NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備賦予失敗……附魔都會造成耐久下降……");
+                            if (tLuck<tMin or tLuck>tMax)  then
+                                if (tStrLv+1>=6) then
+                                    local BreakRate = StrBreakRate[tStrLv+1]
+                                    if (type(BreakRate)=="number" and BreakRate>0) then
+                                        local tMin = 50 - math.floor(BreakRate/2) + 1;
+                                        local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2);
+                                        local tLuck = math.random(1, 100);
+                                        if (tLuck>=tMin and tLuck<=tMax)  then
+                                            Item.Kill(player, tItemIndex, targetSlot);
+                                            NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予大失敗……永久損毀……");
+                                            return;
+                                        end
+                                    end
+                                else
+                                    Item.SetData(targetItemIndex,CONST.道具_最大耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久)-5);
+                                    if (Item.GetData(targetItemIndex,CONST.道具_耐久)>Item.GetData(targetItemIndex,CONST.道具_最大耐久)) then
+                                           Item.SetData(targetItemIndex,CONST.道具_耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久));
+                                    end
+                                    Item.UpItem(targetItemIndex, targetSlot);
+                                    NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予失敗……造成耐久下降……");
                                     return;
+                                end
                             end
                             if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.道具_鉴前名, targetName); end
                             EquipPlusStat(targetItemIndex, "E", tStrLv+1);
                             setItemName(targetItemIndex);
-                            Item.SetData(targetItemIndex,CONST.道具_攻击, 500);
+                            --Item.SetData(targetItemIndex,CONST.道具_攻击, 500);
                             Item.UpItem(targetItemIndex, targetSlot);
-                            NLG.SystemMessage(player, "[" .. "古力莫" .. "] 恭喜你！裝備成功賦予到+" .. tStrLv+1 .. "！");
+                            NLG.SystemMessage(player, "[" .. "古力莫" .. "] 恭喜你！魔力賦予成功到+" .. tStrLv+1 .. "！");
                             NLG.UpChar(player);
                             if (tStrLv+1>=7) then
-                                          NLG.SystemMessage(-1, "[" .. "古力莫" .. "] 恭喜 "..Char.GetData(player, CONST.对象_名字).."！將 "..Item.GetData(targetItemIndex, CONST.道具_鉴前名).." 成功賦予到+" .. tStrLv+1 .. "！");
+                                          NLG.SystemMessage(-1, "[" .. "古力莫" .. "] 恭喜 "..Char.GetData(player, CONST.对象_名字).."！將 "..Item.GetData(targetItemIndex, CONST.道具_鉴前名).." 魔力賦予成功到+" .. tStrLv+1 .. "！");
                             end
                      else
                      end
