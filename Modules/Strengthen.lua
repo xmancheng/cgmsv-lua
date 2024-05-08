@@ -139,7 +139,7 @@ function Module:onLoad()
                                         local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2);
                                         local tLuck = math.random(1, 100);
                                         if (tLuck>=tMin and tLuck<=tMax)  then
-                                            Item.Kill(player, tItemIndex, targetSlot);
+                                            Item.Kill(player, targetItemIndex, targetSlot);
                                             NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予大失敗……永久損毀……");
                                             return;
                                         end
