@@ -16,13 +16,23 @@ function ItemUseA(CharIndex,ToCharIndex,ItemSlot)
 	else
 		local ItemIndex = Char.GetItemIndex(CharIndex,ItemSlot)
 		local ItemVal = tonumber(Item.GetData(ItemIndex,%道具_自用参数%))
+		local ItemID = Item.GetData(ItemIndex,%道具_ID%);
+		local battleIndex = Char.GetBattleIndex(CharIndex);
+		local leader = Battle.GetPlayer(battleIndex, 0);
+		local leaderpet = Battle.GetPlayer(battleIndex, 5);
+		if (Char.GetData(leader, %对象_类型%) ==  %对象类型_人%) then
+			leader5 = leader
+		else
+			leader5 = leaderpet
+		end
 		if tbl_IUse[ToCharIndex] == nil then
 			tbl_Round[ToCharIndex] = 0
 			tbl_IUse[ToCharIndex] = ItemVal
-			NLG.SystemMessage(ToCharIndex,tbl_ItemUse[ItemVal][3])
-			Item.Kill(CharIndex, ItemIndex, ItemSlot)
+			NLG.SystemMessage(leader5,tbl_ItemUse[ItemVal][3])
+			Char.DelItem(CharIndex, ItemID, 1);
+			--Item.Kill(CharIndex, ItemIndex, ItemSlot)
 		else
-			NLG.SystemMessage(ToCharIndex,"[道具提示]每場戰鬥只能使用該道具一次")
+			NLG.SystemMessage(leader5,"[道具提示]每場戰鬥只能使用該道具一次")
 		end	
 	end
 	return 0
