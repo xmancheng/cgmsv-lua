@@ -2,8 +2,8 @@ local EnemySet = {}
 local BaseLevelSet = {}
 local Pos = {}
 local STime = os.time()
-local YS = 30 --脚本延时多少秒创建NPC
-local SXTime = 15 --NPC刷新时间·秒
+local YS = 600 --脚本延时多少秒创建NPC
+local SXTime = 60 --NPC刷新时间·秒
 --队列解释
 --     五	三	一	二	四
 --     十	八	六	七	九
@@ -550,8 +550,10 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(tImage == 104845 or tImage == 104846 or tImage == 104847 or tImage == 104848 or tImage == 104849) then
 				script_map_amount[5][Playerkey(tPlayerIndex)] = getamountless_5 + 10;
 				local getamountless_5 = script_map_amount[5][Playerkey(tPlayerIndex)];
+				local ichiban = math.random(5,6);
+				Char.GiveItem(tPlayerIndex, 67778, ichiban);
 				NLG.SystemMessage(tPlayerIndex, "[系統]擊敗了"..Char.GetData(_NpcIndex, %对象_原名%).."獲得10分,累積達到"..getamountless_5.."分")
-				--Char.GiveItem(tPlayerIndex,script_map_drop[5][drop],1);
+				Char.GiveItem(tPlayerIndex,script_map_drop[5][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[5][drop],1);    end
 				if (getamountless_5 >= 100)then
 					NLG.SystemMessage(tPlayerIndex, "[系統]《蛋糕島冒險》菁英強敵即將出現！")
@@ -568,8 +570,10 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(tImage == 104686 or tImage == 104685 or tImage == 104399 or tImage == 104398) then
 				script_map_amount[4][Playerkey(tPlayerIndex)] = getamountless_4 + 5;
 				local getamountless_4 = script_map_amount[4][Playerkey(tPlayerIndex)];
+				local ichiban = math.random(3,4);
+				Char.GiveItem(tPlayerIndex, 67778, ichiban);
 				NLG.SystemMessage(tPlayerIndex, "[系統]擊敗了"..Char.GetData(_NpcIndex, %对象_原名%).."獲得5分,累積達到"..getamountless_4.."分")
-				--Char.GiveItem(tPlayerIndex,script_map_drop[4][drop],1);
+				Char.GiveItem(tPlayerIndex,script_map_drop[4][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[4][drop],1);    end
 				if (getamountless_4 >= 40)then
 					NLG.SystemMessage(tPlayerIndex, "[系統]《南瓜大進擊》菁英強敵即將出現！")
@@ -586,8 +590,10 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(tImage == 104759 or tImage == 104760 or tImage == 104761 or tImage == 104762) then
 				script_map_amount[3][Playerkey(tPlayerIndex)] = getamountless_3 + 5;
 				local getamountless_3 = script_map_amount[3][Playerkey(tPlayerIndex)];
+				local ichiban = math.random(2,3);
+				Char.GiveItem(tPlayerIndex, 67778, ichiban);
 				NLG.SystemMessage(tPlayerIndex, "[系統]擊敗了"..Char.GetData(_NpcIndex, %对象_原名%).."獲得5分,累積達到"..getamountless_3.."分")
-				--Char.GiveItem(tPlayerIndex,script_map_drop[3][drop],1);
+				Char.GiveItem(tPlayerIndex,script_map_drop[3][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[3][drop],1);    end
 				if (getamountless_3 >= 25)then
 					NLG.SystemMessage(tPlayerIndex, "[系统]《悠闲之粽夏》菁英强敌即将出现！")
@@ -604,8 +610,10 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			if(tImage == 104680 or tImage == 104681 or tImage == 104682 or tImage == 104683 or tImage == 104684) then
 				script_map_amount[2][Playerkey(tPlayerIndex)] = getamountless_2 + 1;
 				local getamountless_2 = script_map_amount[2][Playerkey(tPlayerIndex)];
+				local ichiban = math.random(1,2);
+				Char.GiveItem(tPlayerIndex, 67778, ichiban);
 				NLG.SystemMessage(tPlayerIndex, "[系統]擊敗了"..Char.GetData(_NpcIndex, %对象_原名%).."獲得1分,累積達到"..getamountless_2.."分")
-				--Char.GiveItem(tPlayerIndex,script_map_drop[2][drop],1);
+				Char.GiveItem(tPlayerIndex,script_map_drop[2][drop],1);
 				for i=0,9 do    Char.GiveItem(Battle.GetPlayIndex( _BattleIndex, i),script_map_drop[2][drop],1);    end
 				if (getamountless_2 >= 100)then
 					NLG.SystemMessage(tPlayerIndex, "[系統]《仙境小妖森》副本已經結束！")
