@@ -65,7 +65,7 @@ function AccessoriesCube(_PlayerIndex,_toIndex,_itemslot) --双击道具执行�
 				WindowMsg = WindowMsg .. " 			 			"..Item.GetData(item,%道具_名字%).."\\n";
 			end
 		end		
-		NLG.ShowWindowTalked(_PlayerIndex,promoteNPC,%窗口_选择框%,%按钮_关闭%,1,WindowMsg);
+		NLG.ShowWindowTalked(_PlayerIndex,exploitNPC,%窗口_选择框%,%按钮_关闭%,1,WindowMsg);
 	end
 	return;
 end
