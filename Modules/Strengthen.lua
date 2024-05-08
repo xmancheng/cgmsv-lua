@@ -1,4 +1,4 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('Strengthen')
 
 local cardList = {
@@ -12,48 +12,48 @@ local cardList = {
 }
 
 local StrStrengMaxLv = 9;
-local StrSuccRate = {70, 65, 50, 45, 25, 20, 10, 5, 1}                                                                  --¸³Óè³É¹¦ÂÊ
-local StrRequireGold = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000}               --¸³ÓèËùĞèÄ§±Ò
+local StrSuccRate = {70, 65, 50, 45, 25, 20, 10, 5, 1}                                                                  --èµ‹äºˆæˆåŠŸç‡
+local StrRequireGold = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000}               --èµ‹äºˆæ‰€éœ€é­”å¸
 
-local ItemPosName = {"î^ ²¿", "Éí Ìå", "ÓÒ ÊÖ", "×ó ÊÖ", "×ã ²¿", "ï—Æ·1", "ï—Æ·2", "Ë® ¾§"}
---¡¾¿ª·Å¸³Óè¡¿
+local ItemPosName = {"é ­ éƒ¨", "èº« ä½“", "å³ æ‰‹", "å·¦ æ‰‹", "è¶³ éƒ¨", "é£¾å“1", "é£¾å“2", "æ°´ æ™¶"}
+--ã€å¼€æ”¾èµ‹äºˆã€‘
 local StrItemEnable = {}
-StrItemEnable[79060] = 1    --¸±ÎäÆ÷
+StrItemEnable[79060] = 1    --å‰¯æ­¦å™¨
 StrItemEnable[79061] = 1
 StrItemEnable[79062] = 1
 StrItemEnable[79063] = 1
 StrItemEnable[79064] = 1
 StrItemEnable[79065] = 1
-StrItemEnable[69226] = 1    --¹ÅÀÏ¾Şıˆ
+StrItemEnable[69226] = 1    --å¤è€å·¨é¾
 StrItemEnable[69227] = 1
 StrItemEnable[69228] = 1
 StrItemEnable[69229] = 1
 ---------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self.enchanterNPC = self:NPC_createNormal('ÙxÓè¿¨Æ¬¸½Ä§Ÿ', 104746, { x = 27, y = 7, mapType = 0, map = 25000, direction = 4 });
+  self.enchanterNPC = self:NPC_createNormal('è³¦äºˆå¡ç‰‡é™„é­”å¸«', 104746, { x = 27, y = 7, mapType = 0, map = 25000, direction = 4 });
   self:NPC_regTalkedEvent(self.enchanterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local winMsg = "1\\nÕˆßx“ñĞèÒªÙxÓèµÄÑb‚ä£º\\n"
+        local winMsg = "1\\nè«‹é¸æ“‡éœ€è¦è³¦äºˆçš„è£å‚™ï¼š\\n"
         for targetSlot = 0,7 do
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
                 if targetItemIndex>=0 then
-                        local tItemID = Item.GetData(targetItemIndex, CONST.µÀ¾ß_ID);
-                        local tItemName = Item.GetData(targetItemIndex, CONST.µÀ¾ß_Ãû×Ö);
+                        local tItemID = Item.GetData(targetItemIndex, CONST.é“å…·_ID);
+                        local tItemName = Item.GetData(targetItemIndex, CONST.é“å…·_åå­—);
                         local tStrLv = EquipPlusStat(targetItemIndex, "E") or 0;
                         local tMaxLv = StrStrengMaxLv;
                         local tNeedGold = StrRequireGold[tStrLv+1];
-                        local tItemCan = "[ÙxÓè£Ï]";
-                        if (StrItemEnable[tItemID]~=1) then tItemCan="[ÙxÓè£Ø]"end
-                        if (tStrLv>=tMaxLv) then tItemCan="[ÙxÓèMax]" end
+                        local tItemCan = "[è³¦äºˆï¼¯]";
+                        if (StrItemEnable[tItemID]~=1) then tItemCan="[è³¦äºˆï¼¸]"end
+                        if (tStrLv>=tMaxLv) then tItemCan="[è³¦äºˆMax]" end
                         local msg = tItemName .. " " .. tItemCan;
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. msg .. "\n"
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. msg .. "\n"
                 else
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. "\n"
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. "\n"
                 end
         end
-        NLG.ShowWindowTalked(player, self.enchanterNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, winMsg);
+        NLG.ShowWindowTalked(player, self.enchanterNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, winMsg);
     end
     return
   end)
@@ -63,88 +63,92 @@ function Module:onLoad()
     local select = tonumber(_select)
     local data = tonumber(_data)
     --print(data)
-    local tPlayerGold = Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò);
+    local tPlayerGold = Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸);
     if select > 0 then
-      --ÊÇ·ñ´°¿Ú»Øµ÷
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ)  then
+      --æ˜¯å¦çª—å£å›è°ƒ
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­)  then
                  return;
       end
-      if (seqno == 12 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 12 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
     else
-      --Ñ¡Ôñ´°¿Ú»Øµ÷
-      if (seqno == 1 and data>0)  then      --Ñ¡Ôñ¸½Ä§ÄÜÁ¦
-          targetSlot = data-1;  --×°±¸¸ñ²ÎÊı (Ñ¡ÏîÉÙ1)
+      --é€‰æ‹©çª—å£å›è°ƒ
+      if (seqno == 1 and data>0)  then      --é€‰æ‹©é™„é­”èƒ½åŠ›
+          targetSlot = data-1;  --è£…å¤‡æ ¼å‚æ•° (é€‰é¡¹å°‘1)
           targetItemIndex = Char.GetItemIndex(player, targetSlot);
-          tItemID = Item.GetData(targetItemIndex, CONST.µÀ¾ß_ID);
-          tItemName = Item.GetData(targetItemIndex, CONST.µÀ¾ß_Ãû×Ö);
+          tItemID = Item.GetData(targetItemIndex, CONST.é“å…·_ID);
+          tItemName = Item.GetData(targetItemIndex, CONST.é“å…·_åå­—);
           tStrLv = EquipPlusStat(targetItemIndex, "E") or 0;
           tMaxLv = StrStrengMaxLv;
           tNeedGold = StrRequireGold[tStrLv+1];
           print(targetItemIndex,tItemName)
           if targetItemIndex>=0 then
                  if (StrItemEnable[tItemID]~=1) then
-                        NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[²»¿ÉÙxÓè]£¡");
+                        NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[ä¸å¯è³¦äºˆ]ï¼");
                         return;
                  end
                  if (tStrLv>=tMaxLv) then
-                        NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]ÒÑß_µ½[ÙxÓèMax]£¡");
+                        NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]å·²é”åˆ°[è³¦äºˆMax]ï¼");
                         return;
                  else
-                        local winMsg = "1\\nÕˆßx“ñÒªÊ¹ÓÃµÄˆDèa¿¨Æ¬(¸½Ä§ÄÜÁ¦)£º\\n";
+                        local winMsg = "1\\nè«‹é¸æ“‡è¦ä½¿ç”¨çš„åœ–é‘‘å¡ç‰‡(é™„é­”èƒ½åŠ›)ï¼š\\n";
                         for itemSlot = 8,16 do
                               CardIndex = Char.GetItemIndex(player,itemSlot);
-                              CardID = Item.GetData(CardIndex,CONST.µÀ¾ß_ID);
-                              CardLv = Item.GetData(CardIndex,CONST.µÀ¾ß_µÈ¼¶);
-                              CardType = Item.GetData(CardIndex,CONST.µÀ¾ß_ÀàĞÍ);
-                              CardName = Item.GetData(CardIndex, CONST.µÀ¾ß_Ãû×Ö);
+                              CardID = Item.GetData(CardIndex,CONST.é“å…·_ID);
+                              CardLv = Item.GetData(CardIndex,CONST.é“å…·_ç­‰çº§);
+                              CardType = Item.GetData(CardIndex,CONST.é“å…·_ç±»å‹);
+                              CardName = Item.GetData(CardIndex, CONST.é“å…·_åå­—);
                               if (tStrLv+1==CardLv and CardType==41) then
-                                   winMsg = winMsg .. "µÚ".. itemSlot-7 .."¸ñ:" .. CardName .. "£º" .. "\\n"
+                                   winMsg = winMsg .. "ç¬¬".. itemSlot-7 .."æ ¼:" .. CardName .. "ï¼š" .. "\\n"
                               else
-                                   winMsg = winMsg .. "µÚ".. itemSlot-7 .."¸ñ:ŸoÎïÆ·.¿¨Æ¬µÈ¼‰²»ßmºÏ´ËÙxÓè" .. "\\n"
+                                   winMsg = winMsg .. "ç¬¬".. itemSlot-7 .."æ ¼:ç„¡ç‰©å“.å¡ç‰‡ç­‰ç´š[è³¦äºˆï¼¸]" .. "\\n"
                               end
                         end
-                        NLG.ShowWindowTalked(player, self.enchanterNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 12, winMsg);
+                        NLG.ShowWindowTalked(player, self.enchanterNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 12, winMsg);
                  end
           else
-                 NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] Äãßx“ñµÄ²¿Î»ŸoÑb‚ä£¡");
+                 NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] ä½ é¸æ“‡çš„éƒ¨ä½ç„¡è£å‚™ï¼");
                  return;
           end
-      elseif (seqno == 12 and data>0) then      --½øĞĞ¸³Óè
+      elseif (seqno == 12 and data>0) then      --è¿›è¡Œèµ‹äºˆ
           if (targetItemIndex ~=nil) then
                  if (tPlayerGold<tNeedGold) then
-                                  NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] ÙxÓèĞèÒª" .. tNeedGold .. "G£¬ËùĞè½ğÅ²»×ã£¡");
+                                  NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] è³¦äºˆéœ€è¦" .. tNeedGold .. "Gï¼Œæ‰€éœ€é‡‘å¹£ä¸è¶³ï¼");
                                   return;
                  end
-                 locla itemSlot = data+7;
+                 local itemSlot = data+7;
                  CardIndex = Char.GetItemIndex(player,itemSlot);
-                 CardID = Item.GetData(CardIndex,CONST.µÀ¾ß_ID);
-                 CardLv = Item.GetData(CardIndex,CONST.µÀ¾ß_µÈ¼¶);
-                 CardType = Item.GetData(CardIndex,CONST.µÀ¾ß_ÀàĞÍ);
-                 CardName = Item.GetData(CardIndex, CONST.µÀ¾ß_Ãû×Ö);
+                 CardID = Item.GetData(CardIndex,CONST.é“å…·_ID);
+                 CardLv = Item.GetData(CardIndex,CONST.é“å…·_ç­‰çº§);
+                 CardType = Item.GetData(CardIndex,CONST.é“å…·_ç±»å‹);
+                 CardName = Item.GetData(CardIndex, CONST.é“å…·_åå­—);
                  if (tStrLv+1==CardLv and CardType==41) then
-                     Char.SetData(player, CONST.¶ÔÏó_½ğ±Ò, tPlayerGold-tNeedGold);
+                     Char.SetData(player, CONST.å¯¹è±¡_é‡‘å¸, tPlayerGold-tNeedGold);
                      Char.DelItem(player, CardID, 1);
                      local SuccRate = StrSuccRate[tStrLv+1];
                      if (type(SuccRate)=="number" and SuccRate>0) then
-                                  local tMin = 50 - math.floor(SuccRate/2) + 1;
-                                  local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
-                                  local tLuck = math.random(1, 100);
-                                  if tLuck<tMin or tLuck>tMax then
-                                                   NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] Ñb‚äÙxÓèÊ§”¡¡­¡­¸½Ä§¶¼•şÔì³ÉÄÍ¾ÃÏÂ½µ¡­¡­");
-                                                   return;
-                                  end
+                            local tMin = 50 - math.floor(SuccRate/2) + 1;
+                            local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
+                            local tLuck = math.random(1, 100);
+                            if (tLuck<tMin or tLuck>tMax) then
+                                    NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] è£å‚™è³¦äºˆå¤±æ•—â€¦â€¦é™„é­”éƒ½æœƒé€ æˆè€ä¹…ä¸‹é™â€¦â€¦");
+                                    return;
+                            end
+                            if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.é“å…·_é‰´å‰å, targetName); end
+                            EquipPlusStat(targetItemIndex, "E", tStrLv+1);
+                            setItemName(targetItemIndex);
+                            Item.SetData(targetItemIndex,CONST.é“å…·_æ”»å‡», 500);
+                            Item.UpItem(targetItemIndex, targetSlot);
+                            NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] æ­å–œä½ ï¼è£å‚™æˆåŠŸè³¦äºˆåˆ°+" .. tStrLv+1 .. "ï¼");
+                            NLG.UpChar(player);
+                            if (tStrLv+1>=7) then
+                                          NLG.SystemMessage(-1, "[" .. "å¤åŠ›è«" .. "] æ­å–œ "..Char.GetData(player, CONST.å¯¹è±¡_åå­—).."ï¼å°‡ "..Item.GetData(targetItemIndex, CONST.é“å…·_é‰´å‰å).." æˆåŠŸè³¦äºˆåˆ°+" .. tStrLv+1 .. "ï¼");
+                            end
+                     else
                      end
-                     if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.µÀ¾ß_¼øÇ°Ãû, targetName); end
-                     EquipPlusStat(targetItemIndex, "E", tStrLv+1);
-                     setItemName(targetItemIndex);
-                     Item.SetData(targetItemIndex,CONST.µÀ¾ß_¹¥»÷, 500);
-                     Item.UpItem(targetItemIndex, targetSlot);
-                     NLG.SystemMessage(player, "[Ïµ½y]ÕˆĞ¶ÏÂÖØĞÂÑb‚ä£¡");
-                     NLG.UpChar(player);
                  else
-                     NLG.SystemMessage(player, "[Ïµ½y]ŸoĞ§µÄßx“ñ£¡");
+                     NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] ç„¡æ•ˆçš„é¸æ“‡ï¼");
                      return;
                  end
           end
@@ -159,11 +163,11 @@ end
 
 
 function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
-	--  E-¸³Óè£¬P- ÅçÆá
+	--  E-èµ‹äºˆï¼ŒP- å–·æ¼†
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
-		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı));
+		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°));
 		if string.find(tItemStat, ",")==nil then
 			return nil;
 		end
@@ -184,7 +188,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 		for k,v in pairs(_StatTab) do
 			tStat = tStat .. k .. "," .. v .. "|";
 		end
-		Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tStat);
+		Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tStat);
 	elseif type(_StatTab)=="string" and type(_StatValue)=="nil" then
 		--GetSub
 		local tStatTab = EquipPlusStat(_ItemIndex) or {};
@@ -204,17 +208,17 @@ end
 
 function setItemName( _ItemIndex , _Name)
 	local StatTab = EquipPlusStat( _ItemIndex );
-	local ItemName = Item.GetData(_ItemIndex, CONST.µÀ¾ß_¼øÇ°Ãû);
-	--¡Ñ¡è??§¶§æ€¡ò¡ñ¡ó¡ô¡õ¡ö¡ï¡î©I
+	local ItemName = Item.GetData(_ItemIndex, CONST.é“å…·_é‰´å‰å);
+	--âŠ™Â¤??Ğ¤Ñ„â‚¬â—â—â—‡â—†â–¡â– â˜…â˜†ãŠ£
 	for k,v in pairs(StatTab) do
 		if k=="E" then
 			ItemName = ItemName .. "+" .. v
 		end
 	end
-	Item.SetData(_ItemIndex, CONST.µÀ¾ß_Ãû×Ö, ItemName);
+	Item.SetData(_ItemIndex, CONST.é“å…·_åå­—, ItemName);
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
