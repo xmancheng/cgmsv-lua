@@ -38,7 +38,7 @@ end
 
 function AccessoriesCube_create() 
 	if (exploitNPC == nil) then
-		local exploitNPC = NL.CreateNpc("lua/Module/AccessoriesCube.lua", "initAccessoriesCubeNpc_Init");
+		exploitNPC = NL.CreateNpc("lua/Module/AccessoriesCube.lua", "initAccessoriesCubeNpc_Init");
 		Char.SetData(exploitNPC,%对象_形象%,105389);
 		Char.SetData(exploitNPC,%对象_原形%,105389);
 		Char.SetData(exploitNPC,%对象_X%,33);
