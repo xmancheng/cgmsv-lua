@@ -1,30 +1,30 @@
 ---模块类
 local Module = ModuleBase:createModule('Strengthen')
 
-local cardList = {
-CONST.道具_攻击,
-CONST.道具_防御,
-CONST.道具_敏捷,
-CONST.道具_精神,
-CONST.道具_回复,
-CONST.道具_必杀,
-CONST.道具_反击,
-CONST.道具_命中,
-CONST.道具_闪躲,
-CONST.道具_生命,
-CONST.道具_魔力,
-CONST.道具_耐力,
-CONST.道具_灵巧,
-CONST.道具_智力,
-CONST.道具_毒抗,
-CONST.道具_睡抗,
-CONST.道具_石抗,
-CONST.道具_醉抗,
-CONST.道具_乱抗,
-CONST.道具_忘抗,
-CONST.道具_魔抗,
-CONST.道具_魔攻,
-}
+--[[local cardList = {
+  {value=CONST.道具_攻击},
+  {value=CONST.道具_防御},
+  {value=CONST.道具_敏捷},
+  {value=CONST.道具_精神},
+  {value=CONST.道具_回复},
+  {value=CONST.道具_必杀},
+  {value=CONST.道具_反击},
+  {value=CONST.道具_命中},
+  {value=CONST.道具_闪躲},
+  {value=CONST.道具_生命},
+  {value=CONST.道具_魔力},
+  {value=CONST.道具_耐力},
+  {value=CONST.道具_灵巧},
+  {value=CONST.道具_智力},
+  {value=CONST.道具_毒抗},
+  {value=CONST.道具_睡抗},
+  {value=CONST.道具_石抗},
+  {value=CONST.道具_醉抗},
+  {value=CONST.道具_乱抗},
+  {value=CONST.道具_忘抗},
+  {value=CONST.道具_魔抗},
+  {value=CONST.道具_魔攻},
+}]]
 
 local StrStrengMaxLv = 9;
 local StrSuccRate = {70, 65, 50, 35, 27, 22, 16, 11, 7}                                                                  --赋予成功率
@@ -109,13 +109,13 @@ function Module:onLoad()
       if (seqno == 1 and data>0)  then      --选择附魔能力
           targetSlot = data-1;  --装备格参数 (选项少1)
           targetItemIndex = Char.GetItemIndex(player, targetSlot);
-          tItemID = Item.GetData(targetItemIndex, CONST.道具_ID);
-          tItemName = Item.GetData(targetItemIndex, CONST.道具_名字);
-          tStrLv = EquipPlusStat(targetItemIndex, "E") or 0;
-          tMaxLv = StrStrengMaxLv;
-          tNeedGold = StrRequireGold[tStrLv+1];
-          print(targetItemIndex,tItemName)
-          if targetItemIndex>=0 then
+          if (targetItemIndex>0) then
+                 tItemID = Item.GetData(targetItemIndex, CONST.道具_ID);
+                 tItemName = Item.GetData(targetItemIndex, CONST.道具_名字);
+                 tStrLv = EquipPlusStat(targetItemIndex, "E") or 0;
+                 tMaxLv = StrStrengMaxLv;
+                 tNeedGold = StrRequireGold[tStrLv+1];
+                 --print(targetItemIndex,tItemName)
                  if (StrItemEnable[tItemID]~=1) then
                         NLG.SystemMessage(player, "[" .. "古力莫" .. "] 你選擇的裝備[" .. tItemName .. "]為[不可賦予]！");
                         return;
@@ -153,22 +153,22 @@ function Module:onLoad()
                  return;
           end
       elseif (seqno == 12 and data>0) then      --进行赋予
-          if (targetItemIndex ~=nil) then
-                 if (tPlayerGold<tNeedGold) then
-                                  NLG.SystemMessage(player, "[" .. "古力莫" .. "] 賦予需要" .. tNeedGold .. "G，所需金幣不足！");
-                                  return;
-                 end
-                 local itemSlot = data+7;
-                 CardIndex = Char.GetItemIndex(player,itemSlot);
+          if (tPlayerGold<tNeedGold) then
+               NLG.SystemMessage(player, "[" .. "古力莫" .. "] 賦予需要" .. tNeedGold .. "G，所需金幣不足！");
+               return;
+          end
+          if (targetItemIndex>0) then
+              local itemSlot = data+7;
+              CardIndex = Char.GetItemIndex(player,itemSlot);
+              if (CardIndex>0) then
                  CardID = Item.GetData(CardIndex,CONST.道具_ID);
                  CardLv = Item.GetData(CardIndex,CONST.道具_等级);
                  CardDur = Item.GetData(CardIndex,CONST.道具_耐久);
-                 CardType = Item.GetData(CardIndex,CONST.道具_类型);
                  CardName = Item.GetData(CardIndex, CONST.道具_名字);
                  CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
                  CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
                  CardPara2 = Item.GetData(CardIndex, CONST.道具_子参二);         --此卷轴使用次数
-                 if (CardIndex>0 and tStrLv+1==CardLv and CardSpecial==41 and CardPara1==targetSlot and CardDur>0) then
+                 if (tStrLv+1==CardLv and CardSpecial==41 and CardPara1==targetSlot and CardDur>0) then
                      Char.SetData(player, CONST.对象_金币, tPlayerGold-tNeedGold);
                      local SuccRate = StrSuccRate[tStrLv+1];
                      if (type(SuccRate)=="number" and SuccRate>0) then
@@ -205,39 +205,39 @@ function Module:onLoad()
                                     NLG.UpChar(player);
                                     return;
                                 end
-                            end
-                            Char.DelItem(player, CardID, 1);
-                            if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.道具_鉴前名, targetName); end
-                            EquipPlusStat(targetItemIndex, "E", tStrLv+1);
-                            setItemName(targetItemIndex);
-                            --Item.SetData(targetItemIndex,CONST.道具_攻击, 500);
-                            for k, v in ipairs(cardList) do
-                                   local temp = Item.GetData(CardIndex, v) or 0;
-                                   if (temp>=0) then
-                                        Item.SetData(targetItemIndex,v, Item.GetData(targetItemIndex,v)+temp);
-                                   end
-                            end
-                            Item.UpItem(player, targetSlot);
-                            NLG.UpChar(player);
-                            NLG.SystemMessage(player, "[" .. "古力莫" .. "] 恭喜你！魔力賦予成功到+" .. tStrLv+1 .. "！");
-                            if (tStrLv+1>=7) then
+                            else
+                                Char.DelItem(player, CardID, 1);
+                                if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.道具_鉴前名, targetName); end
+                                EquipPlusStat(targetItemIndex, "E", tStrLv+1);
+                                setItemName(targetItemIndex);
+                                --Item.SetData(targetItemIndex,CONST.道具_攻击, 500);
+                                setItemStrData(targetItemIndex,CardIndex);
+                                Item.UpItem(player, targetSlot);
+                                NLG.UpChar(player);
+                                NLG.SystemMessage(player, "[" .. "古力莫" .. "] 恭喜你！魔力賦予成功到+" .. tStrLv+1 .. "！");
+                                if (tStrLv+1>=7) then
                                           NLG.SystemMessage(-1, "[" .. "古力莫" .. "] 恭喜 "..Char.GetData(player, CONST.对象_名字).."！將 "..Item.GetData(targetItemIndex, CONST.道具_鉴前名).." 魔力賦予成功到+" .. tStrLv+1 .. "！");
+                                end
                             end
-                     else
                      end
-                 elseif (CardIndex>0 and tStrLv+1==CardLv and CardSpecial==41 and CardPara1~=targetSlot and CardDur>0) then
+                 elseif (tStrLv+1==CardLv and CardSpecial==41 and CardPara1~=targetSlot and CardDur>0) then
                      NLG.SystemMessage(player, "[" .. "古力莫" .. "] 此部位不能使用這魔法卷軸！");
                      return;
-                 elseif (CardIndex>0 and tStrLv+1==CardLv and CardSpecial==41 and CardDur==0) then
+                 elseif (tStrLv+1==CardLv and CardSpecial==41 and CardDur==0) then
                      NLG.SystemMessage(player, "[" .. "古力莫" .. "] 魔法卷軸失效了！");
                      return;
                  else
                      NLG.SystemMessage(player, "[" .. "古力莫" .. "] 無效的選擇！");
                      return;
                  end
+              else
+                     return;     --无物品
+              end
+          else
+                 return;
           end
       else
-                 return;
+                 return;         --无操作
       end
     end
   end)
@@ -302,6 +302,30 @@ function setItemName( _ItemIndex , _Name)
 	Item.SetData(_ItemIndex, CONST.道具_名字, ItemName);
 end
 
+function setItemStrData(targetItemIndex,CardIndex)
+	Item.SetData(targetItemIndex, CONST.道具_攻击, Item.GetData(targetItemIndex, CONST.道具_攻击)+Item.GetData(CardIndex,CONST.道具_攻击));
+	Item.SetData(targetItemIndex, CONST.道具_防御, Item.GetData(targetItemIndex, CONST.道具_防御)+Item.GetData(CardIndex,CONST.道具_防御));
+	Item.SetData(targetItemIndex, CONST.道具_敏捷, Item.GetData(targetItemIndex, CONST.道具_敏捷)+Item.GetData(CardIndex,CONST.道具_敏捷));
+	Item.SetData(targetItemIndex, CONST.道具_精神, Item.GetData(targetItemIndex, CONST.道具_精神)+Item.GetData(CardIndex,CONST.道具_精神));
+	Item.SetData(targetItemIndex, CONST.道具_回复, Item.GetData(targetItemIndex, CONST.道具_回复)+Item.GetData(CardIndex,CONST.道具_回复));
+	Item.SetData(targetItemIndex, CONST.道具_必杀, Item.GetData(targetItemIndex, CONST.道具_必杀)+Item.GetData(CardIndex,CONST.道具_必杀));
+	Item.SetData(targetItemIndex, CONST.道具_反击, Item.GetData(targetItemIndex, CONST.道具_反击)+Item.GetData(CardIndex,CONST.道具_反击));
+	Item.SetData(targetItemIndex, CONST.道具_命中, Item.GetData(targetItemIndex, CONST.道具_命中)+Item.GetData(CardIndex,CONST.道具_命中));
+	Item.SetData(targetItemIndex, CONST.道具_闪躲, Item.GetData(targetItemIndex, CONST.道具_闪躲)+Item.GetData(CardIndex,CONST.道具_闪躲));
+	Item.SetData(targetItemIndex, CONST.道具_生命, Item.GetData(targetItemIndex, CONST.道具_生命)+Item.GetData(CardIndex,CONST.道具_生命));
+	Item.SetData(targetItemIndex, CONST.道具_魔力, Item.GetData(targetItemIndex, CONST.道具_魔力)+Item.GetData(CardIndex,CONST.道具_魔力));
+	--Item.SetData(targetItemIndex, CONST.道具_耐力, Item.GetData(targetItemIndex, CONST.道具_耐力)+Item.GetData(CardIndex,CONST.道具_耐力));
+	--Item.SetData(targetItemIndex, CONST.道具_灵巧, Item.GetData(targetItemIndex, CONST.道具_灵巧)+Item.GetData(CardIndex,CONST.道具_灵巧));
+	--Item.SetData(targetItemIndex, CONST.道具_智力, Item.GetData(targetItemIndex, CONST.道具_智力)+Item.GetData(CardIndex,CONST.道具_智力));
+	Item.SetData(targetItemIndex, CONST.道具_毒抗, Item.GetData(targetItemIndex, CONST.道具_毒抗)+Item.GetData(CardIndex,CONST.道具_毒抗));
+	Item.SetData(targetItemIndex, CONST.道具_睡抗, Item.GetData(targetItemIndex, CONST.道具_睡抗)+Item.GetData(CardIndex,CONST.道具_睡抗));
+	Item.SetData(targetItemIndex, CONST.道具_石抗, Item.GetData(targetItemIndex, CONST.道具_石抗)+Item.GetData(CardIndex,CONST.道具_石抗));
+	Item.SetData(targetItemIndex, CONST.道具_醉抗, Item.GetData(targetItemIndex, CONST.道具_醉抗)+Item.GetData(CardIndex,CONST.道具_醉抗));
+	Item.SetData(targetItemIndex, CONST.道具_乱抗, Item.GetData(targetItemIndex, CONST.道具_乱抗)+Item.GetData(CardIndex,CONST.道具_乱抗));
+	Item.SetData(targetItemIndex, CONST.道具_忘抗, Item.GetData(targetItemIndex, CONST.道具_忘抗)+Item.GetData(CardIndex,CONST.道具_忘抗));
+	Item.SetData(targetItemIndex, CONST.道具_魔抗, Item.GetData(targetItemIndex, CONST.道具_魔抗)+Item.GetData(CardIndex,CONST.道具_魔抗));
+	Item.SetData(targetItemIndex, CONST.道具_魔攻, Item.GetData(targetItemIndex, CONST.道具_魔攻)+Item.GetData(CardIndex,CONST.道具_魔攻));
+end
 --- 卸载模块钩子
 function Module:onUnload()
   self:logInfo('unload')
