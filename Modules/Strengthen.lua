@@ -166,7 +166,7 @@ function Module:onLoad()
                                         end
                                     end
                                 else
-                                    Item.SetData(CardIndex,CONST.道具_耐久, math.floor(CardDur * DurDamageRate[CardPara2+1]/100) );
+                                    Item.SetData(CardIndex,CONST.道具_耐久, CardDur - math.floor(CardDur * DurDamageRate[CardPara2+1]/100) );
                                     if (CardDur<1) then
                                            Item.SetData(CardIndex,CONST.道具_耐久, 0);
                                     end
