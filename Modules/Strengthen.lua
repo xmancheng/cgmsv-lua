@@ -33,6 +33,21 @@ local StrRequireGold = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000}   
 local DurDamageRate = {70, 60, 50, 40, 30, 22, 20, 18, 15, 12, 10, 8, 7, 5}                                    --卷轴失败耐久下降率
 
 local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾品1", "飾品2", "水 晶"}
+function PartName(CardPara1)
+    local PartName={}
+    if CardPara1==0 then            --头
+        PartName={"頭 部"};
+    elseif CardPara1==1 then    --身
+        PartName={"身 体"};
+    elseif CardPara1==3 then    --右
+        PartName={"副武器"};
+    elseif CardPara1==4 then    --足
+        PartName={"足 部"};
+    elseif CardPara1==5 then    --饰
+        PartName={"飾 品"};
+    end
+    return PartName;
+end
 --【开放赋予】
 local StrItemEnable = {}
 StrItemEnable[79060] = 1    --副武器
@@ -111,16 +126,25 @@ function Module:onLoad()
                  else
                         local winMsg = "1\\n請選擇要使用的魔法卷軸(賦予的能力)：\\n";
                         for itemSlot = 8,16 do
-                              CardIndex = Char.GetItemIndex(player,itemSlot);
+                           CardIndex = Char.GetItemIndex(player,itemSlot);
+                           if (CardIndex>0) then
                               CardID = Item.GetData(CardIndex,CONST.道具_ID);
                               CardLv = Item.GetData(CardIndex,CONST.道具_等级);
                               CardType = Item.GetData(CardIndex,CONST.道具_类型);
                               CardName = Item.GetData(CardIndex, CONST.道具_名字);
-                              if (tStrLv+1==CardLv and CardType==41) then
-                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:〈" .. CardName .. "〉" .. "\\n"
-                              else
-                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:無物品.卡片等級[賦予Ｘ]" .. "\\n"
+                              local last = string.find(CardName, "的", 1);
+                              local CardName = string.sub(CardName, 1, last-1);
+                              CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
+                              CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
+                              equipName = PartName(CardPara1);
+                              if (tStrLv+1==CardLv and CardSpecial==41 and CardPara1==targetSlot) then
+                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:〈" .. CardName .. "〉魔力賦予cost| " ..tNeedGold.. "G\\n"
+                              elseif (CardSpecial==41) then
+                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:〈" .. CardName .. "〉" .. "使用在".. equipName[1] .."+"..CardLv.." [賦予Ｘ]\\n"
                               end
+                           else
+                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:  無物品" .. "\\n"
+                           end
                         end
                         NLG.ShowWindowTalked(player, self.enchanterNPC, CONST.窗口_选择框, CONST.BUTTON_关闭, 12, winMsg);
                  end
@@ -144,7 +168,7 @@ function Module:onLoad()
                  CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
                  CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
                  CardPara2 = Item.GetData(CardIndex, CONST.道具_子参二);         --此卷轴使用次数
-                 if (tStrLv+1==CardLv and CardSpecial==41 and CardDur>0) then
+                 if (CardIndex>0 and tStrLv+1==CardLv and CardSpecial==41 and CardPara1==targetSlot and CardDur>0) then
                      Char.SetData(player, CONST.对象_金币, tPlayerGold-tNeedGold);
                      local SuccRate = StrSuccRate[tStrLv+1];
                      if (type(SuccRate)=="number" and SuccRate>0) then
@@ -167,16 +191,18 @@ function Module:onLoad()
                                     end
                                 else
                                     Item.SetData(CardIndex,CONST.道具_耐久, CardDur - math.floor(CardDur * DurDamageRate[CardPara2+1]/100) );
+                                    Item.SetData(CardIndex, CONST.道具_子参二, CardPara2+1);
                                     if (CardDur<1) then
                                            Item.SetData(CardIndex,CONST.道具_耐久, 0);
                                     end
-                                    Item.UpItem(CardIndex, targetSlot);
+                                    Item.UpItem(player, itemSlot);
                                     Item.SetData(targetItemIndex,CONST.道具_最大耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久)-5);
                                     if (Item.GetData(targetItemIndex,CONST.道具_耐久)>Item.GetData(targetItemIndex,CONST.道具_最大耐久)) then
                                            Item.SetData(targetItemIndex,CONST.道具_耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久));
                                     end
-                                    Item.UpItem(targetItemIndex, targetSlot);
+                                    Item.UpItem(player, targetSlot);
                                     NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予失敗……造成耐久下降……");
+                                    NLG.UpChar(player);
                                     return;
                                 end
                             end
@@ -186,20 +212,23 @@ function Module:onLoad()
                             setItemName(targetItemIndex);
                             --Item.SetData(targetItemIndex,CONST.道具_攻击, 500);
                             for k, v in ipairs(cardList) do
-                                   local temp = Item.GetData(CardIndex,v);
-                                   if temp>0 then
+                                   local temp = Item.GetData(CardIndex, v) or 0;
+                                   if (temp>=0) then
                                         Item.SetData(targetItemIndex,v, Item.GetData(targetItemIndex,v)+temp);
                                    end
                             end
-                            Item.UpItem(targetItemIndex, targetSlot);
-                            NLG.SystemMessage(player, "[" .. "古力莫" .. "] 恭喜你！魔力賦予成功到+" .. tStrLv+1 .. "！");
+                            Item.UpItem(player, targetSlot);
                             NLG.UpChar(player);
+                            NLG.SystemMessage(player, "[" .. "古力莫" .. "] 恭喜你！魔力賦予成功到+" .. tStrLv+1 .. "！");
                             if (tStrLv+1>=7) then
                                           NLG.SystemMessage(-1, "[" .. "古力莫" .. "] 恭喜 "..Char.GetData(player, CONST.对象_名字).."！將 "..Item.GetData(targetItemIndex, CONST.道具_鉴前名).." 魔力賦予成功到+" .. tStrLv+1 .. "！");
                             end
                      else
                      end
-                 elseif (tStrLv+1==CardLv and CardSpecial==41 and CardDur==0) then
+                 elseif (CardIndex>0 and tStrLv+1==CardLv and CardSpecial==41 and CardPara1~=targetSlot and CardDur>0) then
+                     NLG.SystemMessage(player, "[" .. "古力莫" .. "] 此部位不能使用這魔法卷軸！");
+                     return;
+                 elseif (CardIndex>0 and tStrLv+1==CardLv and CardSpecial==41 and CardDur==0) then
                      NLG.SystemMessage(player, "[" .. "古力莫" .. "] 魔法卷軸失效了！");
                      return;
                  else
