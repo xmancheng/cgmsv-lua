@@ -2,18 +2,35 @@
 local Module = ModuleBase:createModule('Strengthen')
 
 local cardList = {
-    {bookNum=1, itemNum=14801, kind=CONST.道具_生命, value=50},
-    {bookNum=2, itemNum=14802, kind=CONST.道具_魔力, value=50},
-    {bookNum=3, itemNum=14803, kind=CONST.道具_回复, value=10},
-    {bookNum=4, itemNum=14804, kind=CONST.道具_敏捷, value=10},
-    {bookNum=5, itemNum=14805, kind=CONST.道具_防御, value=10},
-    {bookNum=6, itemNum=14806, kind=CONST.道具_攻击, value=15},
+CONST.道具_攻击,
+CONST.道具_防御,
+CONST.道具_敏捷,
+CONST.道具_精神,
+CONST.道具_回复,
+CONST.道具_必杀,
+CONST.道具_反击,
+CONST.道具_命中,
+CONST.道具_闪躲,
+CONST.道具_生命,
+CONST.道具_魔力,
+CONST.道具_耐力,
+CONST.道具_灵巧,
+CONST.道具_智力,
+CONST.道具_毒抗,
+CONST.道具_睡抗,
+CONST.道具_石抗,
+CONST.道具_醉抗,
+CONST.道具_乱抗,
+CONST.道具_忘抗,
+CONST.道具_魔抗,
+CONST.道具_魔攻,
 }
 
 local StrStrengMaxLv = 9;
 local StrSuccRate = {70, 65, 50, 35, 27, 22, 16, 11, 7}                                                                  --赋予成功率
 local StrBreakRate = {0, 0, 0, 0, 0, 8, 10, 12, 14}                                                                           --赋予破坏率
 local StrRequireGold = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000}                 --赋予所需魔币
+local DurDamageRate = {70, 60, 50, 40, 30, 22, 20, 18, 15, 12, 10, 8, 7, 5}                                    --卷轴失败耐久下降率
 
 local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾品1", "飾品2", "水 晶"}
 --【开放赋予】
@@ -121,11 +138,14 @@ function Module:onLoad()
                  CardIndex = Char.GetItemIndex(player,itemSlot);
                  CardID = Item.GetData(CardIndex,CONST.道具_ID);
                  CardLv = Item.GetData(CardIndex,CONST.道具_等级);
+                 CardDur = Item.GetData(CardIndex,CONST.道具_耐久);
                  CardType = Item.GetData(CardIndex,CONST.道具_类型);
                  CardName = Item.GetData(CardIndex, CONST.道具_名字);
-                 if (tStrLv+1==CardLv and CardType==41) then
+                 CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
+                 CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
+                 CardPara2 = Item.GetData(CardIndex, CONST.道具_子参二);         --此卷轴使用次数
+                 if (tStrLv+1==CardLv and CardSpecial==41 and CardDur>0) then
                      Char.SetData(player, CONST.对象_金币, tPlayerGold-tNeedGold);
-                     Char.DelItem(player, CardID, 1);
                      local SuccRate = StrSuccRate[tStrLv+1];
                      if (type(SuccRate)=="number" and SuccRate>0) then
                             local tMin = 50 - math.floor(SuccRate/2) + 1;
@@ -139,12 +159,18 @@ function Module:onLoad()
                                         local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2);
                                         local tLuck = math.random(1, 100);
                                         if (tLuck>=tMin and tLuck<=tMax)  then
+                                            Char.DelItem(player, CardID, 1);
                                             Item.Kill(player, targetItemIndex, targetSlot);
                                             NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予大失敗……永久損毀……");
                                             return;
                                         end
                                     end
                                 else
+                                    Item.SetData(CardIndex,CONST.道具_耐久, math.floor(CardDur * DurDamageRate[CardPara2+1]/100) );
+                                    if (CardDur<1) then
+                                           Item.SetData(CardIndex,CONST.道具_耐久, 0);
+                                    end
+                                    Item.UpItem(CardIndex, targetSlot);
                                     Item.SetData(targetItemIndex,CONST.道具_最大耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久)-5);
                                     if (Item.GetData(targetItemIndex,CONST.道具_耐久)>Item.GetData(targetItemIndex,CONST.道具_最大耐久)) then
                                            Item.SetData(targetItemIndex,CONST.道具_耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久));
@@ -154,10 +180,17 @@ function Module:onLoad()
                                     return;
                                 end
                             end
+                            Char.DelItem(player, CardID, 1);
                             if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.道具_鉴前名, targetName); end
                             EquipPlusStat(targetItemIndex, "E", tStrLv+1);
                             setItemName(targetItemIndex);
                             --Item.SetData(targetItemIndex,CONST.道具_攻击, 500);
+                            for k, v in ipairs(cardList) do
+                                   local temp = Item.GetData(CardIndex,v);
+                                   if temp>0 then
+                                        Item.SetData(targetItemIndex,v, Item.GetData(targetItemIndex,v)+temp);
+                                   end
+                            end
                             Item.UpItem(targetItemIndex, targetSlot);
                             NLG.SystemMessage(player, "[" .. "古力莫" .. "] 恭喜你！魔力賦予成功到+" .. tStrLv+1 .. "！");
                             NLG.UpChar(player);
@@ -166,6 +199,9 @@ function Module:onLoad()
                             end
                      else
                      end
+                 elseif (tStrLv+1==CardLv and CardSpecial==41 and CardDur==0) then
+                     NLG.SystemMessage(player, "[" .. "古力莫" .. "] 魔法卷軸失效了！");
+                     return;
                  else
                      NLG.SystemMessage(player, "[" .. "古力莫" .. "] 無效的選擇！");
                      return;
