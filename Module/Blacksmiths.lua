@@ -483,22 +483,23 @@ function setItemStrData( _ItemIndex, _StrLv)
 	Item.SetData(_ItemIndex, %道具_MP%, Item.GetData(_ItemIndex, %道具_MP%)*bRate)
 	Item.SetData(_ItemIndex, %道具_魔攻%, Item.GetData(_ItemIndex, %道具_魔攻%)*bRate)
 	Item.SetData(_ItemIndex, %道具_魔抗%, Item.GetData(_ItemIndex, %道具_魔抗%)*bRate)
+	--非0者固定加值
+	local strData={%道具_毒抗%,%道具_睡抗%,%道具_石抗%,%道具_醉抗%,%道具_乱抗%,%道具_忘抗%,%道具_必杀%,%道具_反击%,%道具_命中%,%道具_闪躲%}
 	--Resist
 	local rRateTab = StrResistRate[tItemID] or StrResistRate[-1]
 	local rRate = rRateTab[_StrLv+1]
-	Item.SetData(_ItemIndex, %道具_毒抗%, Item.GetData(_ItemIndex, %道具_毒抗%)+rRate)
-	Item.SetData(_ItemIndex, %道具_睡抗%, Item.GetData(_ItemIndex, %道具_睡抗%)+rRate)
-	Item.SetData(_ItemIndex, %道具_石抗%, Item.GetData(_ItemIndex, %道具_石抗%)+rRate)
-	Item.SetData(_ItemIndex, %道具_醉抗%, Item.GetData(_ItemIndex, %道具_醉抗%)+rRate)
-	Item.SetData(_ItemIndex, %道具_乱抗%, Item.GetData(_ItemIndex, %道具_乱抗%)+rRate)
-	Item.SetData(_ItemIndex, %道具_忘抗%, Item.GetData(_ItemIndex, %道具_忘抗%)+rRate)
 	--Fix
 	local fRateTab = StrFixRate[tItemID] or StrFixRate[-1]
 	local fRate = fRateTab[_StrLv+1]
-	Item.SetData(_ItemIndex, %道具_必杀%, Item.GetData(_ItemIndex, %道具_必杀%)+fRate)
-	Item.SetData(_ItemIndex, %道具_反击%, Item.GetData(_ItemIndex, %道具_反击%)+fRate)
-	Item.SetData(_ItemIndex, %道具_命中%, Item.GetData(_ItemIndex, %道具_命中%)+fRate)
-	Item.SetData(_ItemIndex, %道具_闪躲%, Item.GetData(_ItemIndex, %道具_闪躲%)+fRate)
+	for k,v in pairs(strData) do
+ 		if Item.GetData(_ItemIndex, v)>0 then
+			if (k>=1 and k<=6) then
+				Item.SetData(_ItemIndex, v, Item.GetData(_ItemIndex, v)+rRate)
+			elseif (k>=7 and k<=10) then
+				Item.SetData(_ItemIndex, v, Item.GetData(_ItemIndex, v)+fRate)
+			end
+		end
+	end
 	
 end
 
