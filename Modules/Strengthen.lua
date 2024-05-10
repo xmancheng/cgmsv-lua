@@ -116,12 +116,12 @@ function Module:onLoad()
                               CardLv = Item.GetData(CardIndex,CONST.道具_等级);
                               CardType = Item.GetData(CardIndex,CONST.道具_类型);
                               CardName = Item.GetData(CardIndex, CONST.道具_名字);
+                              CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
+                              CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
                               if (CardSpecial==41) then
                                    last = string.find(CardName, "的", 1);
                                    CardName = string.sub(CardName, 1, last-1);
                               end
-                              CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
-                              CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
                               equipName = PartName(CardPara1);
                               if (tStrLv+1==CardLv and CardSpecial==41 and CardPara1==targetSlot) then
                                    winMsg = winMsg .. "第".. itemSlot-7 .."格:〈" .. CardName .. "〉魔力賦予cost| " ..tNeedGold.. "G\\n"
