@@ -116,8 +116,10 @@ function Module:onLoad()
                               CardLv = Item.GetData(CardIndex,CONST.道具_等级);
                               CardType = Item.GetData(CardIndex,CONST.道具_类型);
                               CardName = Item.GetData(CardIndex, CONST.道具_名字);
-                              local last = string.find(CardName, "的", 1);
-                              local CardName = string.sub(CardName, 1, last-1);
+                              if (CardSpecial==41) then
+                                   last = string.find(CardName, "的", 1);
+                                   CardName = string.sub(CardName, 1, last-1);
+                              end
                               CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
                               CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
                               equipName = PartName(CardPara1);
@@ -125,6 +127,8 @@ function Module:onLoad()
                                    winMsg = winMsg .. "第".. itemSlot-7 .."格:〈" .. CardName .. "〉魔力賦予cost| " ..tNeedGold.. "G\\n"
                               elseif (CardSpecial==41) then
                                    winMsg = winMsg .. "第".. itemSlot-7 .."格:〈" .. CardName .. "〉" .. "使用在".. equipName[1] .."+"..CardLv.." [賦予Ｘ]\\n"
+                              else
+                                   winMsg = winMsg .. "第".. itemSlot-7 .."格:  非魔法卷軸" .. "\\n"
                               end
                            else
                                    winMsg = winMsg .. "第".. itemSlot-7 .."格:  無物品" .. "\\n"
