@@ -18,8 +18,8 @@ local StrBinding = 0								--强化后装备是否不可交易（选项：0-不
 StrStrengEnable[-1] = 1	--是否开启默认设置
 StrStrengMaxLv[-1] = 9									--最大可强化等级（次数）
 StrBaseRate[-1] = 	{4, 4, 3, 3, 3, 2, 2, 2, 2}			--普通属性百分比
-StrResistRate[-1] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6抗性百分比
-StrFixRate[-1] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4修正百分比
+StrResistRate[-1] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[-1] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
 StrSuccRate[-1] = 	{50, 45, 40, 35, 25, 20, 20, 20, 15}	--强化成功率
 StrBreakRate[-1] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
 StrRequireItemID[-1] = {69126, 69126, 69126, 69126, 69126, 69126, 69126, 69126, 69126}		--强化需求物品ID（强化石ID）
@@ -27,125 +27,115 @@ StrRequireItemNum[-1] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数
 StrRequireGold[-1] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --【特殊强化】
 --  一个装备一段，请整段复制后再修改
-local ItemID = 69109	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--普通属性百分比
-StrResistRate[ItemID] = 	{10, 10, 5, 4, 3, 2, 1, 1, 1}			--6抗性百分比
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 5, 5, 5, 5}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
-StrBreakRate[ItemID] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--强化破坏率
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[69109] = 1
+StrStrengMaxLv[69109] = 9									--最大可强化等级（次数）
+StrBaseRate[69109] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--普通属性百分比
+StrResistRate[69109] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[69109] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[69109] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
+StrBreakRate[69109] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--强化破坏率
+StrRequireItemID[69109] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[69109] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[69109] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 16424	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--普通属性百分比
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6抗性百分比
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
-StrBreakRate[ItemID] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--强化破坏率
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--强化所需金币
+StrStrengEnable[16424] = 1
+StrStrengMaxLv[16424] = 9									--最大可强化等级（次数）
+StrBaseRate[16424] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--普通属性百分比
+StrResistRate[16424] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[16424] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[16424] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
+StrBreakRate[16424] = 	{5, 5, 5, 5, 5, 5, 5, 10, 15}		--强化破坏率
+StrRequireItemID[16424] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[16424] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[16424] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 69129	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6抗性百分比
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[69129] = 1
+StrStrengMaxLv[69129] = 9									--最大可强化等级（次数）
+StrBaseRate[69129] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
+StrResistRate[69129] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[69129] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[69129] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
+StrBreakRate[69129] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[69129] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[69129] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[69129] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 69130	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6抗性百分比
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--强化所需金币
+StrStrengEnable[69130] = 1
+StrStrengMaxLv[69130] = 9									--最大可强化等级（次数）
+StrBaseRate[69130] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
+StrResistRate[69130] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[69130] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[69130] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
+StrBreakRate[69130] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[69130] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[69130] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[69130] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 69131	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6抗性百分比
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[69131] = 1
+StrStrengMaxLv[69131] = 9									--最大可强化等级（次数）
+StrBaseRate[69131] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
+StrResistRate[69131] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[69131] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[69131] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
+StrBreakRate[69131] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[69131] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[69131] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[69131] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 69132	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
-StrResistRate[ItemID] = 	{1, 1, 1, 1, 1, 1, 1, 1, 1}			--6抗性百分比
-StrFixRate[ItemID] = 		{1, 1, 1, 1, 1, 1, 1, 1, 1}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[69132] = 1
+StrStrengMaxLv[69132] = 9									--最大可强化等级（次数）
+StrBaseRate[69132] = 	{10, 5, 5, 4, 4, 3, 3, 2, 2}			--普通属性百分比
+StrResistRate[69132] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[69132] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[69132] =	{100, 80, 80, 70, 60, 50, 40, 30, 20}	--强化成功率
+StrBreakRate[69132] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[69132] = {69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128, 69128}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[69132] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[69132] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 70034	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6抗性百分比
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[70034] = 1
+StrStrengMaxLv[70034] = 9									--最大可强化等级（次数）
+StrBaseRate[70034] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
+StrResistRate[70034] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[70034] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[70034] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
+StrBreakRate[70034] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[70034] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[70034] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[70034] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 70036	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6抗性百分比
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[70036] = 1
+StrStrengMaxLv[70036] = 9									--最大可强化等级（次数）
+StrBaseRate[70036] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
+StrResistRate[70036] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[70036] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[70036] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
+StrBreakRate[70036] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[70036] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[70036] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[70036] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 70037	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6抗性百分比
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[70037] = 1
+StrStrengMaxLv[70037] = 9									--最大可强化等级（次数）
+StrBaseRate[70037] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
+StrResistRate[70037] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[70037] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[70037] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
+StrBreakRate[70037] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[70037] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[70037] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[70037] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --  一个装备一段，请整段复制后再修改
-local ItemID = 70038	--特殊设置的物品ID
-StrStrengEnable[ItemID] = 1
-StrStrengMaxLv[ItemID] = 9									--最大可强化等级（次数）
-StrBaseRate[ItemID] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
-StrResistRate[ItemID] = 	{4, 4, 4, 5, 5, 6, 7, 8, 9}			--6抗性百分比
-StrFixRate[ItemID] = 		{4, 4, 4, 5, 5, 6, 7, 8, 9}			--4修正百分比
-StrSuccRate[ItemID] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
-StrBreakRate[ItemID] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
-StrRequireItemID[ItemID] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
-StrRequireItemNum[ItemID] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
-StrRequireGold[ItemID] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
+StrStrengEnable[70038] = 1
+StrStrengMaxLv[70038] = 9									--最大可强化等级（次数）
+StrBaseRate[70038] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4}			--普通属性百分比
+StrResistRate[70038] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2}			--6抗性
+StrFixRate[70038] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2}			--4修正
+StrSuccRate[70038] =	{100, 100, 80, 80, 50, 40, 30, 20, 10}	--强化成功率
+StrBreakRate[70038] = 	{10, 10, 10, 10, 10, 10, 10, 10, 10}		--强化破坏率
+StrRequireItemID[70038] = {69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127, 69127}		--强化需求物品ID（强化石ID）
+StrRequireItemNum[70038] = {1, 1, 2, 2, 2, 4, 4, 5, 5, 5}			--强化需求物品数量（强化石数量）
+StrRequireGold[70038] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--强化所需金币
 --【禁止强化】
 --  一个装备一行，数值填写0即可
 StrStrengEnable[980491] = 0
@@ -480,7 +470,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 	end
 end
 
-function setItemStrData( _ItemIndex, _StrLv )
+function setItemStrData( _ItemIndex, _StrLv)
 	local tItemID = Item.GetData(_ItemIndex, 0)
 	local bRateTab = StrBaseRate[tItemID] or StrBaseRate[-1]
 	local bRate = 1 + bRateTab[_StrLv+1]/100
@@ -491,24 +481,24 @@ function setItemStrData( _ItemIndex, _StrLv )
 	Item.SetData(_ItemIndex, %道具_回复%, Item.GetData(_ItemIndex, %道具_回复%)*bRate)
 	Item.SetData(_ItemIndex, %道具_HP%, Item.GetData(_ItemIndex, %道具_HP%)*bRate)
 	Item.SetData(_ItemIndex, %道具_MP%, Item.GetData(_ItemIndex, %道具_MP%)*bRate)
-	--Item.SetData(_ItemIndex, %道具_魔攻%, Item.GetData(_ItemIndex, %道具_魔攻%)*bRate)
-	--Item.SetData(_ItemIndex, %道具_魔抗%, Item.GetData(_ItemIndex, %道具_魔抗%)*bRate)
+	Item.SetData(_ItemIndex, %道具_魔攻%, Item.GetData(_ItemIndex, %道具_魔攻%)*bRate)
+	Item.SetData(_ItemIndex, %道具_魔抗%, Item.GetData(_ItemIndex, %道具_魔抗%)*bRate)
 	--Resist
 	local rRateTab = StrResistRate[tItemID] or StrResistRate[-1]
-	local rRate = 1 + rRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %道具_毒抗%, Item.GetData(_ItemIndex, %道具_毒抗%)*rRate)
-	Item.SetData(_ItemIndex, %道具_睡抗%, Item.GetData(_ItemIndex, %道具_睡抗%)*rRate)
-	Item.SetData(_ItemIndex, %道具_石抗%, Item.GetData(_ItemIndex, %道具_石抗%)*rRate)
-	Item.SetData(_ItemIndex, %道具_醉抗%, Item.GetData(_ItemIndex, %道具_醉抗%)*rRate)
-	Item.SetData(_ItemIndex, %道具_乱抗%, Item.GetData(_ItemIndex, %道具_乱抗%)*rRate)
-	Item.SetData(_ItemIndex, %道具_忘抗%, Item.GetData(_ItemIndex, %道具_忘抗%)*rRate)
+	local rRate = rRateTab[_StrLv+1]
+	Item.SetData(_ItemIndex, %道具_毒抗%, Item.GetData(_ItemIndex, %道具_毒抗%)+rRate)
+	Item.SetData(_ItemIndex, %道具_睡抗%, Item.GetData(_ItemIndex, %道具_睡抗%)+rRate)
+	Item.SetData(_ItemIndex, %道具_石抗%, Item.GetData(_ItemIndex, %道具_石抗%)+rRate)
+	Item.SetData(_ItemIndex, %道具_醉抗%, Item.GetData(_ItemIndex, %道具_醉抗%)+rRate)
+	Item.SetData(_ItemIndex, %道具_乱抗%, Item.GetData(_ItemIndex, %道具_乱抗%)+rRate)
+	Item.SetData(_ItemIndex, %道具_忘抗%, Item.GetData(_ItemIndex, %道具_忘抗%)+rRate)
 	--Fix
 	local fRateTab = StrFixRate[tItemID] or StrFixRate[-1]
-	local fRate = 1 + fRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %道具_必杀%, Item.GetData(_ItemIndex, %道具_必杀%)*fRate)
-	Item.SetData(_ItemIndex, %道具_反击%, Item.GetData(_ItemIndex, %道具_反击%)*fRate)
-	Item.SetData(_ItemIndex, %道具_命中%, Item.GetData(_ItemIndex, %道具_命中%)*fRate)
-	Item.SetData(_ItemIndex, %道具_闪躲%, Item.GetData(_ItemIndex, %道具_闪躲%)*fRate)
+	local fRate = fRateTab[_StrLv+1]
+	Item.SetData(_ItemIndex, %道具_必杀%, Item.GetData(_ItemIndex, %道具_必杀%)+fRate)
+	Item.SetData(_ItemIndex, %道具_反击%, Item.GetData(_ItemIndex, %道具_反击%)+fRate)
+	Item.SetData(_ItemIndex, %道具_命中%, Item.GetData(_ItemIndex, %道具_命中%)+fRate)
+	Item.SetData(_ItemIndex, %道具_闪躲%, Item.GetData(_ItemIndex, %道具_闪躲%)+fRate)
 	
 end
 
