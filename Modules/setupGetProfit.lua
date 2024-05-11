@@ -1,5 +1,6 @@
 ---模块类
 local Module = ModuleBase:createModule('setupGetProfit')
+local sgModule = getModule("setterGetter")
 
 local ipmacRestrict ={}
 local itemRestrict = { 70016, }
