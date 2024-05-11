@@ -8,45 +8,41 @@ local StrEnemyID = {}
 local StrJudgment = {}
 
 --  一种道具一段，请整段复制后再修改
-local ItemID = 68006                                            --自定义宠物蛋道具编号
-StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68006                                       --自定义宠物蛋道具编号
-StrMax_BP[ItemID] = 160                                         --总和BP最大值
-StrMax_CI[ItemID] = 20                                          --总和四修正最大值
-StrMax_AB[ItemID] = 10                                          --总和四属性最大值
-StrPetID[ItemID] = {107710,107711,107712,107713,110396,104338}	--开放自定义图檔编号
-StrEnemyID[ItemID] = 500007                                     --Enemybase编号
-StrJudgment[ItemID] = 0                                              --自定义图檔合法判断
+StrModpetEnable[68006] = 1                                     --
+StrItemID[68006] = 68006                                       --自定义宠物蛋道具编号
+StrMax_BP[68006] = 160                                         --总和BP最大值
+StrMax_CI[68006] = 20                                          --总和四修正最大值
+StrMax_AB[68006] = 10                                          --总和四属性最大值
+StrPetID[68006] = {107710,107711,107712,107713,110396,104338}	--开放自定义图檔编号
+StrEnemyID[68006] = 500007                                     --Enemybase编号
+StrJudgment[68006] = 0                                              --自定义图檔合法判断
 --
-local ItemID = 68007                                            --自定义宠物蛋道具编号
-StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68007                                       --自定义宠物蛋道具编号
-StrMax_BP[ItemID] = 170                                         --总和BP最大值
-StrMax_CI[ItemID] = 30                                          --总和四修正最大值
-StrMax_AB[ItemID] = 14                                          --总和四属性最大值
-StrPetID[ItemID] = {101712,101713,101714}	                --开放自定义图檔编号
-StrEnemyID[ItemID] = 500001                                     --Enemybase编号
-StrJudgment[ItemID] = 1                                              --自定义图檔合法判断
+StrModpetEnable[68007] = 1                                     --
+StrItemID[68007] = 68007                                       --自定义宠物蛋道具编号
+StrMax_BP[68007] = 170                                         --总和BP最大值
+StrMax_CI[68007] = 30                                          --总和四修正最大值
+StrMax_AB[68007] = 14                                          --总和四属性最大值
+StrPetID[68007] = {101712,101713,101714}	                --开放自定义图檔编号
+StrEnemyID[68007] = 500001                                     --Enemybase编号
+StrJudgment[68007] = 1                                              --自定义图檔合法判断
 --
-local ItemID = 68008                                            --自定义宠物蛋道具编号
-StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68008                                       --自定义宠物蛋道具编号
-StrMax_BP[ItemID] = 180                                         --总和BP最大值
-StrMax_CI[ItemID] = 35                                          --总和四修正最大值
-StrMax_AB[ItemID] = 16                                          --总和四属性最大值
-StrPetID[ItemID] = {110556,110557,110558,110559,110560,110561}	--开放自定义图檔编号
-StrEnemyID[ItemID] = 500002                                     --Enemybase编号
-StrJudgment[ItemID] = 1                                              --自定义图檔合法判断
+StrModpetEnable[68008] = 1                                     --
+StrItemID[68008] = 68008                                       --自定义宠物蛋道具编号
+StrMax_BP[68008] = 180                                         --总和BP最大值
+StrMax_CI[68008] = 35                                          --总和四修正最大值
+StrMax_AB[68008] = 16                                          --总和四属性最大值
+StrPetID[68008] = {110556,110557,110558,110559,110560,110561}	--开放自定义图檔编号
+StrEnemyID[68008] = 500002                                     --Enemybase编号
+StrJudgment[68008] = 1                                              --自定义图檔合法判断
 --
-local ItemID = 68009                                            --自定义宠物蛋道具编号
-StrModpetEnable[ItemID] = 1                                     --
-StrItemID[ItemID] = 68009                                       --自定义宠物蛋道具编号
-StrMax_BP[ItemID] = 190                                         --总和BP最大值
-StrMax_CI[ItemID] = 40                                          --总和四修正最大值
-StrMax_AB[ItemID] = 18                                          --总和四属性最大值
-StrPetID[ItemID] = {101622,101623,101934,101244,101245,101824}	--开放自定义图檔编号
-StrEnemyID[ItemID] = 500009                                     --Enemybase编号
-StrJudgment[ItemID] = 1                                              --自定义图檔合法判断
+StrModpetEnable[68009] = 1                                     --
+StrItemID[68009] = 68009                                       --自定义宠物蛋道具编号
+StrMax_BP[68009] = 190                                         --总和BP最大值
+StrMax_CI[68009] = 40                                          --总和四修正最大值
+StrMax_AB[68009] = 18                                          --总和四属性最大值
+StrPetID[68009] = {101622,101623,101934,101244,101245,101824}	--开放自定义图檔编号
+StrEnemyID[68009] = 500009                                     --Enemybase编号
+StrJudgment[68009] = 1                                              --自定义图檔合法判断
 ----------------------------------------------------------------------------------------
 Delegate.RegInit("ModularPetNpc_Init");
 Delegate.RegDelTalkEvent("ModularPet_TalkEvent");
