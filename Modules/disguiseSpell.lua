@@ -80,12 +80,14 @@ end
 function DisguiseSpell:battleOverEventCallback(battleIndex)
          for jlbs = 0,19 do
                local charIndex = Battle.GetPlayer(battleIndex, jlbs);
-               for i,w in pairs(Spell_tbl.Tech) do
+               if (charIndex>0) then
+                   for i,w in pairs(Spell_tbl.Tech) do
                          if (Char.GetData(charIndex,%对象_原形%) == w[1]) then
                             local PlayerImage = Char.GetData(charIndex,%对象_原始图档%);
                             Char.SetData(charIndex,%对象_原形%,PlayerImage);
                             NLG.UpChar(charIndex);
                          end
+                   end
                end
          end
 end
