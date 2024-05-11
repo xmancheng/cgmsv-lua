@@ -126,7 +126,7 @@ function WildNpc_BattleWin(_BattleIndex, _NpcIndex)
 		local tPlayerIndex = Battle.GetPlayIndex( _BattleIndex, 0)
 		local EnemyIndex = Battle.GetPlayIndex( _BattleIndex, 10)
 		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%对象_类型%)==1 then
-			NLG.SystemMessage(-1, "傳說勇者 "..Char.GetData(tPlayerIndex,%对象_名字%).." 率領隊友擊敗了"..Char.GetData(EnemyIndex, %对象_原名%))
+			NLG.SystemMessage(-1, "傳說勇者 "..Char.GetData(tPlayerIndex,%对象_名字%).." 率領隊友擊敗了"..Char.GetData(EnemyIndex, %对象_名字%));
 			NL.DelNpc(_NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomNpcIndex)
 			tbl_RandomNpcIndex[kk] = nil
