@@ -63,12 +63,12 @@ function StrAddEffect:battleOverEventCallback(battleIndex)
          end
          for DementorWhile = 0,9 do
               local player = Battle.GetPlayer(battleIndex,DementorWhile);
-              local ViceWeaponIndex = Char.GetViceWeapon(player);                --左右手
-              local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
-              local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字);
-              local GTime = NLG.GetGameTime();
-              local StrAdd_V = 0;
               if (player>0) then
+                 local ViceWeaponIndex = Char.GetViceWeapon(player);                --左右手
+                 local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运);
+                 local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字);
+                 local GTime = NLG.GetGameTime();
+                 local StrAdd_V = 0;
                  if ViceWeapon_Name~=nil then
                     local StrPlus = string.find(ViceWeapon_Name, "+");
                     if StrPlus~=nil then
@@ -133,7 +133,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                damage = (damage+100) * StrEffect;
                                --NLG.Say(charIndex,-1,"附念造成額外真實傷害100，每+1真實傷害再提升3%",4,3);
                         end
-                        if ( Item.GetData(WeaponIndex, CONST.道具_类型) == 5 or Item.GetData(WeaponIndex, CONST.道具_类型) == 6) then
+                        if ( WeaponIndex>0 and Item.GetData(WeaponIndex, CONST.道具_类型) == 5 or Item.GetData(WeaponIndex, CONST.道具_类型) == 6) then
                                for k, v in ipairs(signShadow) do
                                       local Round = Battle.GetTurn(battleIndex);
                                       local yzbj_round= Char.GetTempData(defCharIndex, '影子标记回合') or 0
@@ -164,7 +164,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                       end
                                end
                         end
-                        if ( Item.GetData(ShieldIndex, CONST.道具_类型) == 7) then
+                        if ( ShieldIndex>0 and Item.GetData(ShieldIndex, CONST.道具_类型) == 7) then
                                for k, v in ipairs(signAbsorb) do
                                       local min_w = Item.GetData(ShieldIndex, CONST.道具_最小攻击数量);
                                       local max_w = Item.GetData(ShieldIndex, CONST.道具_最大攻击数量);
@@ -214,7 +214,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                if ( StrAdd >= 0 ) then
                  local StrEffect = 1 - (StrAdd*0.01);
                  --print(StrEffect)
-                 if NLG.Rand(1,10)>=1  then
+                 if NLG.Rand(1,10)>=1 and ShieldIndex>0  then
                         if ( Item.GetData(ShieldIndex, CONST.道具_类型) == 7) then
                                for k, v in ipairs(signAbsorb) do
                                       local Round = Battle.GetTurn(battleIndex);
