@@ -74,6 +74,7 @@ loadModule('specialSkill')|人物種族特異能力、人物種族技能強化(X
 loadModule('attackSkill')|七大罪特殊技能、手下留情、法術附加狀態、合擊增傷
 loadModule('setupMagicAttr')|魔法屬性技能(X)
 loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
+loadModule('bossField')|魔物增強
 ### 傭兵相關
 模組加載代碼 | 說明 
 --- | --- 
