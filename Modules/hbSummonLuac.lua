@@ -12,13 +12,15 @@ for bbb = 0,100 do
 end
 
 function hbSummonLuac:yboffline(player)--玩家下线清空自己召唤的ai
-	for xxqk = 1,#wanjia[player] do
-		if wanjia[player][xxqk] > 0 then
-			Char.DelDummy(wanjia[player][xxqk])
+	if (wanjia[player]~=nil) then
+		for xxqk = 1,#wanjia[player] do
+			if wanjia[player][xxqk] > 0 then
+				Char.DelDummy(wanjia[player][xxqk])
+			end
 		end
+		wanjia[player][0] = 0
+		Char.EndEvent(player,17,0);
 	end
-	wanjia[player][0] = 0
-	Char.EndEvent(player,17,0);
 end
 
 local hbsp = {900330,900333}--饰品
@@ -97,8 +99,7 @@ function hbSummonLuac:onLoad()
 				if wanjia[player][num] <= 0 and petIndex1 >= 0 then
 					local charIndex1 = Char.CreateDummy()--生成ai佣兵
 					wanjia[player][0] = wanjia[player][0] + 1--统计ai佣兵数量
-					allyb = charIndex1
-					print("编号："..charIndex1.."")
+					--print("编号："..charIndex1.."")
 					wanjia[player][num] = charIndex1
 					local TL = Pet.GetArtRank(petIndex1,CONST.PET_体成);
 					local GJ = Pet.GetArtRank(petIndex1,CONST.PET_力成);
@@ -119,7 +120,7 @@ function hbSummonLuac:onLoad()
 					Char.SetData(charIndex1, CONST.CHAR_形象, Char.GetData(petIndex1,CONST.CHAR_形象));
 					Char.SetData(charIndex1, CONST.CHAR_原形, Char.GetData(petIndex1,CONST.CHAR_原形));
 					Char.SetData(charIndex1, CONST.CHAR_原始图档, Char.GetData(petIndex1,CONST.CHAR_原始图档));
-					print('charIndex1', charIndex1)
+					--print('charIndex1', charIndex1)
 					--print(player)
 					Char.SetData(charIndex1, CONST.CHAR_体力, Char.GetData(petIndex1,CONST.CHAR_体力));
 					Char.SetData(charIndex1, CONST.CHAR_力量, Char.GetData(petIndex1,CONST.CHAR_力量));
@@ -129,32 +130,32 @@ function hbSummonLuac:onLoad()
 					Char.SetData(charIndex1, CONST.CHAR_等级, Char.GetData(petIndex1,CONST.CHAR_等级));
 					Char.SetData(charIndex1, CONST.CHAR_种族, Char.GetData(petIndex1,CONST.CHAR_种族));
 					NLG.UpChar(charIndex1);
-					local dsj= Char.GetData(petIndex1,CONST.CHAR_地属性)
-					local ssj= Char.GetData(petIndex1,CONST.CHAR_水属性)
-					local hsj= Char.GetData(petIndex1,CONST.CHAR_火属性)
-					local fsj= Char.GetData(petIndex1,CONST.CHAR_风属性)
+					local dsj= Char.GetData(petIndex1,CONST.CHAR_地属性);
+					local ssj= Char.GetData(petIndex1,CONST.CHAR_水属性);
+					local hsj= Char.GetData(petIndex1,CONST.CHAR_火属性);
+					local fsj= Char.GetData(petIndex1,CONST.CHAR_风属性);
 					if dsj>0 and ssj>0 then
-						mf=1
-						sj=math.floor(dsj/10)
+						mf=1;
+						sj=math.floor(dsj/10);
 					elseif ssj>0 and hsj>0 then
-						mf=2
-						sj=math.floor(ssj/10)
+						mf=2;
+						sj=math.floor(ssj/10);
 					elseif hsj>0 and fsj>0 then
-						mf=3
-						sj=math.floor(hsj/10)
+						mf=3;
+						sj=math.floor(hsj/10);
 					elseif fsj>0 and dsj>0 then
-						mf=4
-						sj=math.floor(fsj/10)
+						mf=4;
+						sj=math.floor(fsj/10);
 					else
-						mf=math.random(1,4)
-						sj=10
+						mf=math.random(1,4);
+						sj=10;
 					end
 					Char.GiveItem(charIndex1, mfsj[mf][sj], 1);
 					Char.GiveItem(charIndex1, hbsp[1], 1);--饰品1
 					Char.GiveItem(charIndex1, hbsp[2], 1);--饰品2
-					Char.MoveItem(charIndex1, 8, CONST.EQUIP_水晶, -1)
-					Char.MoveItem(charIndex1, 9, CONST.EQUIP_首饰1, -1)
-					Char.MoveItem(charIndex1, 10, CONST.EQUIP_首饰2, -1)
+					Char.MoveItem(charIndex1, 8, CONST.EQUIP_水晶, -1);
+					Char.MoveItem(charIndex1, 9, CONST.EQUIP_首饰1, -1);
+					Char.MoveItem(charIndex1, 10, CONST.EQUIP_首饰2, -1);
 					Char.GiveItem(charIndex1, 18196, 1);--实验药
 					Char.GiveItem(charIndex1, 18315, 1);--火把
 					Char.GiveItem(charIndex1, 900202, 1);--攻击《基本》卡
