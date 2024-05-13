@@ -1,33 +1,62 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local PetHeadIcon = ModuleBase:createModule('petHeadIcon')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function PetHeadIcon:onLoad()
   self:logInfo('load')
   self:regCallback('PetFieldEvent', function(CharIndex, PetIndex, PetPos)
     local a6, a1, a2, a3, a4, a5 = Char.GetPetRank(CharIndex,PetPos);
     if (a6==0) then
         --NLG.SetHeadIcon(PetIndex,110060)
-        Char.SetData(PetIndex, CONST.¶ÔÏó_PET_HeadGraNo,110060)
+        Char.SetData(PetIndex, CONST.å¯¹è±¡_PET_HeadGraNo,110060)
         NLG.UpChar(PetIndex);
     end
     return 0;
   end)
+
+  self:regCallback('GatherItemEvent', function(charIndex, skillId, skillLv, itemNo)
+    for Slot=0,4 do
+        local petIndex = Char.GetPet(charIndex, Slot);
+        if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_æˆ˜æ–—) then
+            if (itemNo>0 and Char.GetData(petIndex,CONST.å® ç‰©_PETID)==401031) then
+                  local injury = Char.GetData(charIndex, CONST.CHAR_å—ä¼¤);
+                  local PalLife = Char.GetData(petIndex,CONST.å¯¹è±¡_è¡€);
+                  local Hit = PalLife-injury;
+                  print(injury,PalLife,Hit)
+                  if ( injury < 1) then
+                      return;
+                  else
+                      if (Hit>0) then
+                          Char.SetData(petIndex,CONST.å¯¹è±¡_è¡€,Hit);
+                          Pet.UpPet(charIndex,petIndex);
+                          Char.SetData(charIndex, CONST.CHAR_å—ä¼¤, 0);
+                          NLG.UpChar(charIndex);
+                          NLG.SystemMessage(charIndex, "[ç³»çµ±]ä½ çš„å¯µç‰©çµ¦äºˆä½ æ²»ç™‚");
+                      else
+                          NLG.SystemMessage(charIndex, "[ç³»çµ±]ä½ çš„å¯µç‰©éœ€è¦ä¼‘æ¯äº†");
+                      end
+                  end
+            end
+        end
+    end
+    return;
+  end)
+
 end
 
 Char.GetPetRank = function(playerIndex,slot)
   local petIndex = Char.GetPet(playerIndex, slot);
   if petIndex >= 0 then
-    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_Ìå³É);
-    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_Á¦³É);
-    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_Ç¿³É);
-    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_Ãô³É);
-    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_Ä§³É);
-    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_Ìå³É);
-    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_Á¦³É);
-    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_Ç¿³É);
-    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_Ãô³É);
-    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_Ä§³É);
+    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
+    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_ä½“æˆ);
+    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_åŠ›æˆ);
+    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_å¼ºæˆ);
+    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_æ•æˆ);
+    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_é­”æˆ);
     local a1 = math.abs(arr_rank11 - arr_rank1);
     local a2 = math.abs(arr_rank21 - arr_rank2);
     local a3 = math.abs(arr_rank31 - arr_rank3);
@@ -39,7 +68,7 @@ Char.GetPetRank = function(playerIndex,slot)
   return -1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function PetHeadIcon:onUnload()
   self:logInfo('unload')
 end
