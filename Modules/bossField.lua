@@ -1,9 +1,9 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('bossField')
 
-local damage_Max = 99999;
+local damage_Max = 9999;
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
@@ -17,10 +17,10 @@ function Module:OnbattleStartEventCallback(battleIndex)
               local player = Battle.GetPlayIndex(battleIndex, i-10)
                --print(enemy, player)
               if enemy>=0 and Char.IsEnemy(enemy) then
-                  Char.SetTempData(enemy, 'ÊØ×¡', 3);
-                  Char.SetTempData(enemy, '¿ñ±©', 3);
-                  if Char.GetData(player,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                     NLG.Say(player,-1,"¡¾ÊØ×¡îIÓò¡¿¡¾¿ñ±©îIÓò¡¿",4,3);
+                  Char.SetTempData(enemy, 'å®ˆä½', 3);
+                  Char.SetTempData(enemy, 'ç‹‚æš´', 3);
+                  if Char.GetData(player,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                     NLG.Say(player,-1,"ã€å®ˆä½é ˜åŸŸã€‘ã€ç‹‚æš´é ˜åŸŸã€‘",4,3);
                  end
               end
          end
@@ -31,25 +31,25 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
          if (com3==6219 or com3==6319 )  then
              if Char.IsEnemy(defCharIndex) then
-                 local Buff1 = Char.GetTempData(defCharIndex, 'ÊØ×¡') or 0;
-                 local Buff2 = Char.GetTempData(defCharIndex, '¿ñ±©') or 0;
+                 local Buff1 = Char.GetTempData(defCharIndex, 'å®ˆä½') or 0;
+                 local Buff2 = Char.GetTempData(defCharIndex, 'ç‹‚æš´') or 0;
                  if (Buff1 > 0 or Buff2 > 0)  then
                        if (Buff1>=2 or Buff2>=2)  then
-                           Char.SetTempData(defCharIndex, 'ÊØ×¡', 1);
-                           Char.SetTempData(defCharIndex, '¿ñ±©', 1);
-                           if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                               NLG.Say(leader,-1,"¡¾ÊØ×¡îIÓò¡¿¡¾¿ñ±©îIÓò¡¿½µé1ŒÓ",4,3);
+                           Char.SetTempData(defCharIndex, 'å®ˆä½', 1);
+                           Char.SetTempData(defCharIndex, 'ç‹‚æš´', 1);
+                           if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                               NLG.Say(leader,-1,"ã€å®ˆä½é ˜åŸŸã€‘ã€ç‹‚æš´é ˜åŸŸã€‘é™ç‚º1å±¤",4,3);
                            end
                        elseif (Buff1==1 or Buff2==1)  then
-                           Char.SetTempData(defCharIndex, 'ÊØ×¡', 0);
-                           Char.SetTempData(defCharIndex, '¿ñ±©', 0);
-                           if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                               NLG.Say(leader,-1,"¡¾ÊØ×¡îIÓò¡¿¡¾¿ñ±©îIÓò¡¿½µé0ŒÓ",4,3);
+                           Char.SetTempData(defCharIndex, 'å®ˆä½', 0);
+                           Char.SetTempData(defCharIndex, 'ç‹‚æš´', 0);
+                           if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                               NLG.Say(leader,-1,"ã€å®ˆä½é ˜åŸŸã€‘ã€ç‹‚æš´é ˜åŸŸã€‘é™ç‚º0å±¤",4,3);
                            end
                        end
                  end
@@ -65,24 +65,22 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
 
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsEnemy(defCharIndex)  then
                local GTime = NLG.GetGameTime();
                if (GTime>=0)  then
-                     local State = Char.GetTempData(defCharIndex, 'ÊØ×¡') or 0;
+                     local State = Char.GetTempData(defCharIndex, 'å®ˆä½') or 0;
                      if (damage>=damage_Max) then
                          if (State>0) then
                              if (State>=1)  then
-                                 Char.SetTempData(defCharIndex, 'ÊØ×¡', 2);
                                  damage = damage_Max;
-                                 if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                                     NLG.Say(leader,-1,"¡¾ÊØ×¡¡¿¹ÖÎïÊÜµ½µÄ‚ûº¦ÉÏÏŞÖµé"..damage_Max.."£¬ÊØ×¡Ê£ğN"..State.."ŒÓ",4,3);
+                                 if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                                     NLG.Say(leader,-1,"ã€å®ˆä½ã€‘æ€ªç‰©å—åˆ°çš„å‚·å®³ä¸Šé™å€¼ç‚º"..damage_Max.."ï¼Œå®ˆä½å‰©é¤˜"..State.."å±¤",4,3);
                                  end
                                  return damage;
-                             end
                          else
                              damage = damage;
                          end
@@ -96,20 +94,20 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.IsEnemy(charIndex)  then
                local GTime = NLG.GetGameTime();
                if (GTime<=3)  then
-                     local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+                     local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
                      if (Char.GetData(charIndex, CONST.CHAR_EnemyBossFlg) == 1) then
-                         local d1= Char.GetData(charIndex, CONST.CHAR_¹¥»÷Á¦);
-                         local d2= Char.GetData(defCharIndex, CONST.CHAR_¹¥»÷Á¦);
-                         local d3= Char.GetData(defCharIndex, CONST.CHAR_·ÀÓùÁ¦);
-                         local d4= Char.GetData(defCharIndex, CONST.CHAR_¾«Éñ);
+                         local d1= Char.GetData(charIndex, CONST.CHAR_æ”»å‡»åŠ›);
+                         local d2= Char.GetData(defCharIndex, CONST.CHAR_æ”»å‡»åŠ›);
+                         local d3= Char.GetData(defCharIndex, CONST.CHAR_é˜²å¾¡åŠ›);
+                         local d4= Char.GetData(defCharIndex, CONST.CHAR_ç²¾ç¥);
                          if (State>0) then
                             if d2>=500 and d2<=4000 then
                                  local damage_Max = (d1*0.8)-(d3-120)*10+(d4*State/100);
                                  if damage_Max<=9 then damage_Max = 9; end
                                  if damage_Max>=99 then damage_Max = 99; end
                                  damage = damage+damage_Max;
-                                 if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                                     NLG.Say(leader,-1,"¡¾¿ñ±©¡¿¹ÖÎïÌá¸ßŒ¦ÄãµÄî~Íâ‚ûº¦é"..damage_Max.."£¬¿ñ±©Ê£ğN"..State.."ŒÓ",4,3);
+                                 if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                                     NLG.Say(leader,-1,"ã€ç‹‚æš´ã€‘æ€ªç‰©æé«˜å°ä½ çš„é¡å¤–å‚·å®³ç‚º"..damage_Max.."ï¼Œç‹‚æš´å‰©é¤˜"..State.."å±¤",4,3);
                                  end
                                  return damage;
                             elseif d2>=4001 and d2<=9999 then
@@ -117,8 +115,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                                  if damage_Max<=99 then damage_Max = 99; end
                                  if damage_Max>=999 then damage_Max = 999; end
                                  damage = damage+damage_Max;
-                                 if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                                     NLG.Say(leader,-1,"¡¾¿ñ±©¡¿¹ÖÎïÌá¸ßŒ¦ÄãµÄî~Íâ‚ûº¦é"..damage_Max.."£¬¿ñ±©Ê£ğN"..State.."ŒÓ",4,3);
+                                 if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                                     NLG.Say(leader,-1,"ã€ç‹‚æš´ã€‘æ€ªç‰©æé«˜å°ä½ çš„é¡å¤–å‚·å®³ç‚º"..damage_Max.."ï¼Œç‹‚æš´å‰©é¤˜"..State.."å±¤",4,3);
                                  end
                                  return damage;
                             elseif d2>=10000 then
@@ -126,8 +124,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                                  if damage_Max<=999 then damage_Max = 999; end
                                  if damage_Max>=9999 then damage_Max = 9999; end
                                  damage = damage+damage_Max;
-                                 if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                                     NLG.Say(leader,-1,"¡¾¿ñ±©¡¿¹ÖÎïÌá¸ßŒ¦ÄãµÄî~Íâ‚ûº¦é"..damage_Max.."£¬¿ñ±©Ê£ğN"..State.."ŒÓ",4,3);
+                                 if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                                     NLG.Say(leader,-1,"ã€ç‹‚æš´ã€‘æ€ªç‰©æé«˜å°ä½ çš„é¡å¤–å‚·å®³ç‚º"..damage_Max.."ï¼Œç‹‚æš´å‰©é¤˜"..State.."å±¤",4,3);
                                  end
                                  return damage;
                             else
@@ -141,20 +139,20 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.IsEnemy(charIndex)  then
                local GTime = NLG.GetGameTime();
                if (GTime<=3)  then
-                     local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+                     local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
                      if (Char.GetData(charIndex, CONST.CHAR_EnemyBossFlg) == 1) then
-                         local d1= Char.GetData(charIndex, CONST.CHAR_¾«Éñ);
-                         local d2= Char.GetData(defCharIndex, CONST.CHAR_¾«Éñ);
-                         local d3= Char.GetData(defCharIndex, CONST.CHAR_Ä§¿¹);
-                         local d4= Char.GetData(defCharIndex, CONST.CHAR_¹¥»÷Á¦);
+                         local d1= Char.GetData(charIndex, CONST.CHAR_ç²¾ç¥);
+                         local d2= Char.GetData(defCharIndex, CONST.CHAR_ç²¾ç¥);
+                         local d3= Char.GetData(defCharIndex, CONST.CHAR_é­”æŠ—);
+                         local d4= Char.GetData(defCharIndex, CONST.CHAR_æ”»å‡»åŠ›);
                          if (State>0) then
                             if d2>=500 and d2<=2000 then
                                  local damage_Max = (d1*0.8)-(d3-50)*10+(d4*State/100);
                                  if damage_Max<=9 then damage_Max = 9; end
                                  if damage_Max>=99 then damage_Max = 99; end
                                  damage = damage+damage_Max;
-                                 if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                                     NLG.Say(leader,-1,"¡¾¿ñ±©¡¿¹ÖÎïÌá¸ßŒ¦ÄãµÄî~Íâ‚ûº¦é"..damage_Max.."£¬¿ñ±©Ê£ğN"..State.."ŒÓ",4,3);
+                                 if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                                     NLG.Say(leader,-1,"ã€ç‹‚æš´ã€‘æ€ªç‰©æé«˜å°ä½ çš„é¡å¤–å‚·å®³ç‚º"..damage_Max.."ï¼Œç‹‚æš´å‰©é¤˜"..State.."å±¤",4,3);
                                  end
                                  return damage;
                             elseif d2>=2001 and d2<=9999 then
@@ -162,8 +160,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                                  if damage_Max<=99 then damage_Max = 99; end
                                  if damage_Max>=999 then damage_Max = 999; end
                                  damage = damage+damage_Max;
-                                 if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                                     NLG.Say(leader,-1,"¡¾¿ñ±©¡¿¹ÖÎïÌá¸ßŒ¦ÄãµÄî~Íâ‚ûº¦é"..damage_Max.."£¬¿ñ±©Ê£ğN"..State.."ŒÓ",4,3);
+                                 if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                                     NLG.Say(leader,-1,"ã€ç‹‚æš´ã€‘æ€ªç‰©æé«˜å°ä½ çš„é¡å¤–å‚·å®³ç‚º"..damage_Max.."ï¼Œç‹‚æš´å‰©é¤˜"..State.."å±¤",4,3);
                                  end
                                  return damage;
                             elseif d2>=10000 then
@@ -171,8 +169,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                                  if damage_Max<=999 then damage_Max = 999; end
                                  if damage_Max>=9999 then damage_Max = 9999; end
                                  damage = damage+damage_Max;
-                                 if Char.GetData(leader,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                                     NLG.Say(leader,-1,"¡¾¿ñ±©¡¿¹ÖÎïÌá¸ßŒ¦ÄãµÄî~Íâ‚ûº¦é"..damage_Max.."£¬¿ñ±©Ê£ğN"..State.."ŒÓ",4,3);
+                                 if Char.GetData(leader,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                                     NLG.Say(leader,-1,"ã€ç‹‚æš´ã€‘æ€ªç‰©æé«˜å°ä½ çš„é¡å¤–å‚·å®³ç‚º"..damage_Max.."ï¼Œç‹‚æš´å‰©é¤˜"..State.."å±¤",4,3);
                                  end
                                  return damage;
                             else
@@ -188,7 +186,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
   return damage;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
