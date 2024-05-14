@@ -1,14 +1,15 @@
 local ItemThrow = ModuleBase:createModule('itemThrow')
 
-Throw_control ={}
+--[[Throw_control ={}
 for hhh = 0,5 do
 	Throw_control[hhh] = {}
 	Throw_control[hhh] = false;     --初始化投掷开关
-end
+end]]
 local MaxLv = 200
 local GetitEnable_list = {};
-GetitEnable_list[400014] = 1;  --enemy.txt编号，设置1可捕捉、设置0或无设置不可捕捉
-GetitEnable_list[400015] = 1;
+GetitEnable_list[400014] = {1,400014};  --enemy.txt编号，设置1可捕捉、设置0或无设置不可捕捉
+GetitEnable_list[400015] = {1,400015};
+GetitEnable_list[400125] = {1,401275};
 
 -----------------------------------------------------------------
 function ItemThrow:setItemData(itemIndex, value)
@@ -27,7 +28,8 @@ local DmgType = CONST.DamageFlags
 
 function ItemThrow:onLoad()
   self:logInfo('load')
-  self:regCallback('ItemUseEvent', Func.bind(self.onItemUseEvent, self))
+  --self:regCallback('ItemUseEvent', Func.bind(self.onItemUseEvent, self))
+  self:regCallback('ItemString', Func.bind(self.onItemUseEvent, self), 'LUA_usePoke');
   --self:regCallback('BattleActionEvent', Func.bind(self.onBattleActionEvent,self))
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
@@ -39,9 +41,10 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
   local battleIndex = Char.GetBattleIndex(charIndex);
   local ItemID = Item.GetData(itemIndex, CONST.道具_ID);
   if (Item.GetData(itemIndex, CONST.道具_类型)==51) then
-      if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)==-1) then
+      if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)<=0) then
                NLG.SystemMessage(charIndex,"[道具提示]戰鬥中才能使用的道具");
       else
+            if (ItemID==75011) then
                for i = 10, 19 do
                      local enemy = Battle.GetPlayer(battleIndex, i);
                      if enemy == targetCharIndex then
@@ -49,9 +52,11 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
                             Throw_pos = i+20;
                      end
                end
-               Throw_control[charIndex] = true;
-               Char.DelItem(charIndex,ItemID,1);
-               NLG.Say(charIndex,charIndex,"這回合【準備投擲】！！",4,3);
+               --Throw_control[charIndex] = true;
+               Char.SetTempData(charIndex, 'PokeBall', 1);
+               Char.DelItem(charIndex,75011,1);
+               NLG.Say(charIndex,charIndex,"【準備投擲】下回合才丟出！！",4,3);
+            end
       end
   end
 
@@ -62,7 +67,11 @@ function ItemThrow:battleOverEventCallback(battleIndex)
   for i = 0, 19 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
         if charIndex >= 0 then
-               Throw_control[charIndex] = false;
+               local Poke = Char.GetTempData(charIndex, 'PokeBall') or 0;
+               if Poke==1 then
+                 Char.SetTempData(charIndex, 'PokeBall', 0);
+               end
+               --Throw_control[charIndex] = false;
         end
   end
 end
@@ -78,10 +87,12 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
                         charside = 2
                 end
                 local ybjn = Battle.IsWaitingCommand(charIndex);
-                if ybjn and Throw_control[charIndex] == true  then
+                local Poke = Char.GetTempData(charIndex, 'PokeBall') or 0;
+                if ybjn and Poke == 1  then
                        Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, Throw_pos, 200209);
+                       Char.SetTempData(charIndex, 'PokeBall', 0);
                        --Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403);
-                       Throw_control[charIndex] = false;
+                       --Throw_control[charIndex] = false;
                 end
         end
   end
@@ -94,15 +105,16 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
          local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_最大血);
          local HpE05 = defHpE/defHpEM;
          local getit= NLG.Rand(1, math.ceil(HpE05*4) );
-         local LvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
+         local LvE = math.ceil(Char.GetData(defCharIndex,CONST.CHAR_等级)*0.8);
          local LvMR = NLG.Rand(1,MaxLv);
-         if com3 == 200209 and Char.GetData(charIndex,CONST.对象_战斗状态) ~= CONST.战斗_BOSS战 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
+         if com3 == 200209 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
                 if damage>=defHpE  then
                         if getit == 1 and LvMR >= LvE then
                                local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
                                --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
-                               if GetitEnable_list[enemyId] == 1  then
-                                      Char.AddPet(charIndex,enemyId);
+                               if GetitEnable_list[enemyId][1] == 1  then
+                                      --Char.AddPet(charIndex,GetitEnable_list[enemyId][2]);
+                                      Char.GivePet(charIndex,GetitEnable_list[enemyId][2],0);
                                else
                                       NLG.Say(charIndex,-1,"【尚未開放捕捉】！！",4,3);
                                end
@@ -133,11 +145,11 @@ function ItemThrow:onBattleActionEvent(charIndex, com1, com2, com3, actionNum)
     --local itemlv = Item.GetData(itemIndex, CONST.道具_等级)
     if (Item.GetData(itemIndex, CONST.道具_类型)==51) then
            --第一階段(準備)
-           local enemySlot = com2
-           local Throw_pos = enemySlot+20;
-           Throw_control[charIndex] = true;
-           Char.DelItem(charIndex,ItemID,1);
-           NLG.Say(charIndex,charIndex,"【準備投擲】下回合建議防禦！！",4,3);
+           --local enemySlot = com2
+           --local Throw_pos = enemySlot+20;
+           --Throw_control[charIndex] = true;
+           --Char.DelItem(charIndex,ItemID,1);
+           --NLG.Say(charIndex,charIndex,"【準備投擲】下回合建議防禦！！",4,3);
            --第二階段(投擲)
            for i = 0, 19 do
                   local charIndex = Battle.GetPlayer(battleIndex, i);
@@ -149,13 +161,14 @@ function ItemThrow:onBattleActionEvent(charIndex, com1, com2, com3, actionNum)
                                 charside = 2
                          end
                          local ybjn = Battle.IsWaitingCommand(charIndex);
-                         if ybjn and Throw_control[charIndex] == true and actionNum == 1  then
+                         local Poke = Char.GetTempData(charIndex, 'PokeBall') or 0;
+                         if ybjn and Poke==1 and actionNum == 1  then
                                 --lv = tostring(skillLV-1)
                                 --lv = ("20020"..lv)
                                 --Battle.ActionSelect(CharIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, sidetable[charside][3], tonumber(lv));
                                 Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, Throw_pos, 200209);
                                 --Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403);
-                                Throw_control[charIndex] = false;
+                                --Throw_control[charIndex] = false;
                          end
                   end
            end
