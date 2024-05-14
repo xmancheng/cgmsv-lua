@@ -18,7 +18,7 @@ function PetHeadIcon:onLoad()
     for Slot=0,4 do
         local petIndex = Char.GetPet(charIndex, Slot);
         if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗) then
-            if (itemNo>0 and Char.GetData(petIndex,CONST.宠物_PETID)==401031) then
+            if (itemNo>0 and Char.GetData(petIndex,CONST.宠物_PETID)==401275) then
                   local injury = Char.GetData(charIndex, CONST.CHAR_受伤);
                   local PalLife = Char.GetData(petIndex,CONST.对象_血);
                   local Hit = PalLife-injury;
