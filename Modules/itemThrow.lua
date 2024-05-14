@@ -108,25 +108,25 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
          local LvE = math.ceil(Char.GetData(defCharIndex,CONST.CHAR_等级)*0.8);
          local LvMR = NLG.Rand(1,MaxLv);
          if com3 == 200209 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_怪  then
-                if damage>=defHpE  then
-                        if getit == 1 and LvMR >= LvE then
-                               local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
-                               --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
-                               if GetitEnable_list[enemyId][1] == 1  then
-                                      --Char.AddPet(charIndex,GetitEnable_list[enemyId][2]);
-                                      Char.GivePet(charIndex,GetitEnable_list[enemyId][2],0);
-                               else
-                                      NLG.Say(charIndex,-1,"【尚未開放捕捉】！！",4,3);
-                               end
+                if getit == 1 and LvMR >= LvE  then
+                        local enemyId = Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID);
+                        --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
+                        if GetitEnable_list[enemyId][1] == 1  then
+                                --Char.AddPet(charIndex,GetitEnable_list[enemyId][2]);
+                                Char.GivePet(charIndex,GetitEnable_list[enemyId][2],0);
+                                damage = 7777777;
+                                return damage;
                         else
-                               if Char.GetData(charIndex,%对象_组队开关%) == 1  then
-                                      NLG.Say(charIndex,-1,"【抓取失敗且目標陣亡】！！",4,3);
-                               end
+                                damage = damage;
+                                NLG.Say(charIndex,-1,"【尚未開放捕捉】！！",4,3);
+                                return damage;
                         end
                 else
                         if Char.GetData(charIndex,%对象_组队开关%) == 1  then
                                local HpRe = defHpE - damage;
-                               NLG.Say(charIndex,-1,"目標血量剩餘【"..HpRe.."】！！",4,3);
+                               if (HpRe>0) then
+                                   NLG.Say(charIndex,-1,"目標血量剩餘【"..HpRe.."】！！",4,3);
+                               end
                         end
                 end
          end
