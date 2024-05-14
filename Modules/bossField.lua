@@ -1,7 +1,7 @@
 ---模块类
 local Module = ModuleBase:createModule('bossField')
 
-local damage_Max = 9999;
+local damage_Max = 99999;
 
 --- 加载模块钩子
 function Module:onLoad()
@@ -86,6 +86,14 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                          end
                      else
                          damage = damage;
+                     end
+               else
+                     local State = Char.GetTempData(defCharIndex, '守住') or 0;
+                     if (damage>=999 and Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID) == 400125) then
+                         if (State>0 and Char.IsEnemy(defCharIndex)) then
+                                 damage = 999;
+                                 return damage;
+                         end
                      end
                end
                return damage;
