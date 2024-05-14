@@ -256,7 +256,7 @@ function PlantNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 				Char.GiveItem(_PlayerIndex, v.itemID, 1);
 				if(math.random(1,10) >= 8) then           --随机进入树果守护兽战斗
 					local tPlantBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[1][1][7], Pos[1][1][9], nil)
-					Battle.SetWinEvent( nil, "PlantNpc_BattleWin", tPlantBattleIndex);
+					Battle.SetWinEvent("./lua/Module/PetBerry.lua", "PlantNpc_BattleWin", tPlantBattleIndex);
 				else
 					NL.DelNpc(_NpcIndex)
 					local dp = table_n(_NpcIndex,0,'v',tbl_PlantberryNpcIndex)
