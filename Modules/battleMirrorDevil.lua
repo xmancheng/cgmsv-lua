@@ -198,6 +198,7 @@ function Module:onLoad()
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
+  self:regCallback('BattleSurpriseEvent', Func.bind(self.OnBattleSurpriseCallBack, self))
   local devilNpc = self:NPC_createNormal('水鏡惡魔史萊姆', 101503, { map = 1000, x = 215, y = 90, direction = 4, mapType = 0 })
   self:NPC_regWindowTalkedEvent(devilNpc, function(npc, player, _seqno, _select, _data)
     local cdk = Char.GetData(player,CONST.对象_CDK);
@@ -460,6 +461,18 @@ function DevilNpc_BattleWin(battleIndex, charIndex)
 			end
 		end
 	end
+end
+
+--偷袭设置
+function Module:OnBattleSurpriseCallBack(battleIndex, result)
+      --self:logDebug('OnBattleSurpriseCallBack', battleIndex, result)
+      local Round = Battle.GetTurn(battleIndex);
+      --print(Round)
+      local Target_FloorId = Char.GetData(Battle.GetPlayer(battleIndex, 0), CONST.CHAR_地图)
+      if Target_FloorId==1000  then
+            result=2;
+      end
+  return result;
 end
 
 --- 卸载模块钩子
