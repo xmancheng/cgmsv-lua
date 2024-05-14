@@ -330,15 +330,15 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 	--创建Boss战斗
 	local tBossLv = 1
 --	local tDailyBattleIndex = Battle.PVE( _PlayerIndex, tbl_LuaNpcIndex["DailyNpc"], nil, tBossList, tLvList, nil)
-	if(Char.PartyNum(_PlayerIndex) > 1)then
-		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_关闭%,2,"\\n\\n\\n請單人進行挑戰。");
-		return;
-	end
+--	if(Char.PartyNum(_PlayerIndex) > 1)then
+--		NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_关闭%,2,"\\n\\n\\n請單人進行挑戰。");
+--		return;
+--	end
 	if(tImage == 100576) then
 		if(os.date("%w",os.time()) =="0" and Char.ItemNum(_PlayerIndex,70240) >=1)then
 			Char.DelItem(_PlayerIndex,70240,1);
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[1][1][7], Pos[1][1][9], nil)
-			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
+			Battle.SetWinEvent("./lua/Module/DailyScript.lua", "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
 			NLG.SystemMessage(_PlayerIndex,"你沒有曜日通行證。");
 			return;
@@ -348,7 +348,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 		if(os.date("%w",os.time()) =="1" and Char.ItemNum(_PlayerIndex,70241) >=1)then
 			Char.DelItem(_PlayerIndex,70241,1);
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[2][1][7], Pos[2][1][9], nil)
-			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
+			Battle.SetWinEvent("./lua/Module/DailyScript.lua", "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
 			NLG.SystemMessage(_PlayerIndex,"你沒有曜日通行證。");
 			return;
@@ -358,7 +358,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 		if(os.date("%w",os.time()) =="2" and Char.ItemNum(_PlayerIndex,70242) >=1)then
 			Char.DelItem(_PlayerIndex,70242,1);
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[3][1][7], Pos[3][1][9], nil)
-			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
+			Battle.SetWinEvent("./lua/Module/DailyScript.lua", "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
 			NLG.SystemMessage(_PlayerIndex,"你沒有曜日通行證。");
 			return;
@@ -368,7 +368,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 		if(os.date("%w",os.time()) =="3" and Char.ItemNum(_PlayerIndex,70243) >=1)then
 			Char.DelItem(_PlayerIndex,70243,1);
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[4][1][7], Pos[4][1][9], nil)
-			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
+			Battle.SetWinEvent("./lua/Module/DailyScript.lua", "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
 			NLG.SystemMessage(_PlayerIndex,"你沒有曜日通行證。");
 			return;
@@ -378,7 +378,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 		if(os.date("%w",os.time()) =="4" and Char.ItemNum(_PlayerIndex,70244) >=1)then
 			Char.DelItem(_PlayerIndex,70244,1);
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[5][1][7], Pos[5][1][9], nil)
-			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
+			Battle.SetWinEvent("./lua/Module/DailyScript.lua", "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
 			NLG.SystemMessage(_PlayerIndex,"你沒有曜日通行證。");
 			return;
@@ -388,7 +388,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 		if(os.date("%w",os.time()) =="5" and Char.ItemNum(_PlayerIndex,70245) >=1)then
 			Char.DelItem(_PlayerIndex,70245,1);
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[6][1][7], Pos[6][1][9], nil)
-			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
+			Battle.SetWinEvent("./lua/Module/DailyScript.lua", "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
 			NLG.SystemMessage(_PlayerIndex,"你沒有曜日通行證。");
 			return;
@@ -398,7 +398,7 @@ function DailyNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 		if(os.date("%w",os.time()) =="6" and Char.ItemNum(_PlayerIndex,70246) >=1)then
 			Char.DelItem(_PlayerIndex,70246,1);
 			local tDailyBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[7][1][7], Pos[7][1][9], nil)
-			Battle.SetWinEvent( nil, "DailyNpc_BattleWin", tDailyBattleIndex);
+			Battle.SetWinEvent("./lua/Module/DailyScript.lua", "DailyNpc_BattleWin", tDailyBattleIndex);
 		else
 			NLG.SystemMessage(_PlayerIndex,"你沒有曜日通行證。");
 			return;
