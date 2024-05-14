@@ -486,39 +486,39 @@ function ActivityNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _D
 	if(tImage == 104845 or tImage == 104846 or tImage == 104847 or tImage == 104848 or tImage == 104849) then
 		local P5 = tImage - 104844;
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[1][P5][7], Pos[1][P5][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
 	if(tImage == 104313) then
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[4][1][7], Pos[4][1][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
 	if(tImage == 104686 or tImage == 104685) then
 		local P4 = tImage - 104684;
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[5][P4][7], Pos[5][P4][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
 	if(tImage == 104399 or tImage == 104398) then
 		local P4 = tImage - 104395;
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[5][P4][7], Pos[5][P4][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
 	if(tImage == 104937) then
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[8][1][7], Pos[8][1][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
 	if(tImage == 104759 or tImage == 104760 or tImage == 104761 or tImage == 104762) then
 		local P3 = tImage - 104758;
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[9][P3][7], Pos[9][P3][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
 	if(tImage == 104758) then
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[12][1][7], Pos[12][1][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
 	if(tImage == 104680 or tImage == 104681 or tImage == 104682 or tImage == 104683 or tImage == 104684) then
 		local P2 = tImage - 104679;
 		local tActivityBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[13][P2][7], Pos[13][P2][9], nil)
-		Battle.SetWinEvent( nil, "ActivityNpc_BattleWin", tActivityBattleIndex);
+		Battle.SetWinEvent("./lua/Module/ActivityScript.lua", "ActivityNpc_BattleWin", tActivityBattleIndex);
 	end
  end
 end
