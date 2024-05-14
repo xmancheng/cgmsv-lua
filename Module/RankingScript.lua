@@ -464,7 +464,7 @@ function def_round_start(player, callback)
 			if (Num>=v.posNum_L and Num<v.posNum_R)then
 				NLG.SystemMessage(-1,"挑戰組合:"..Pos[Num][1][1].." VS "..Char.GetData(player,%对象_名字%));
 				local battleindex = Battle.PVE( player, player, nil, Pos[Num][1][7], Pos[Num][1][9], nil)
-				Battle.SetWinEvent( nil, "def_round_wincallback", battleindex);
+				Battle.SetWinEvent("./lua/Module/RankingScript.lua", "def_round_wincallback", battleindex);
 			end
 		end
 	end
