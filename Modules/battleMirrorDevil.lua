@@ -469,8 +469,12 @@ function Module:OnBattleSurpriseCallBack(battleIndex, result)
       local Round = Battle.GetTurn(battleIndex);
       --print(Round)
       local Target_FloorId = Char.GetData(Battle.GetPlayer(battleIndex, 0), CONST.CHAR_地图)
+      local Target_X = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.CHAR_X)
+      local Target_Y = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.CHAR_Y)
       if Target_FloorId==1000  then
+         if (Target_X>=214 and Target_X<=216 and Target_Y>=89 and Target_Y<=91) then 
             result=2;
+         end
       end
   return result;
 end
