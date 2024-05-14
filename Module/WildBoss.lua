@@ -118,7 +118,7 @@ function WildNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data)
 	local tBossLv = 1
 --	local tWildBattleIndex = Battle.PVE( _PlayerIndex, tbl_LuaNpcIndex["WildNpc"], nil, tBossList, tLvList, nil)
 	local tWildBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, EnemySet[Posn], BaseLevelSet[Posn], nil)
-	Battle.SetWinEvent( nil, "WildNpc_BattleWin", tWildBattleIndex);
+	Battle.SetWinEvent("./lua/Module/WildBoss.lua", "WildNpc_BattleWin", tWildBattleIndex);
 	NLG.SystemMessage(-1, "傳說勇者 "..Char.GetData(_PlayerIndex,%对象_名字%).." 挑起了與 " .. tName.." 的戰鬥")
  end
 end
