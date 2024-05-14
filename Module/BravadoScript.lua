@@ -439,43 +439,43 @@ function BravadoNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Da
 	end
 	if(tImage == 106014) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[1][1][7], Pos[1][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 105377) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[2][1][7], Pos[2][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 100158) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[3][1][7], Pos[3][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 110562) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[4][1][7], Pos[4][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 117023) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[5][1][7], Pos[5][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 110378) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[6][1][7], Pos[6][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 110334) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[7][1][7], Pos[7][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 106702) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[8][1][7], Pos[8][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 101803) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[9][1][7], Pos[9][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
 	if(tImage == 120064) then
 		local tBravadoBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[10][1][7], Pos[10][1][9], nil)
-		Battle.SetWinEvent( nil, "BravadoNpc_BattleWin", tBravadoBattleIndex);
+		Battle.SetWinEvent("./lua/Module/BravadoScript.lua", "BravadoNpc_BattleWin", tBravadoBattleIndex);
 	end
  end
 end
