@@ -1,7 +1,7 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('achieveMagician')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
@@ -11,12 +11,12 @@ end
 
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="/magician") then
-		local flag_earth = math.floor(tonumber( Field.Get( charIndex, 'magician_flag_earth'))) or 0;
-		local flag_water = math.floor(tonumber( Field.Get( charIndex, 'magician_flag_water'))) or 0;
-		local flag_fire = math.floor(tonumber( Field.Get( charIndex, 'magician_flag_fire'))) or 0;
-		local flag_wind = math.floor(tonumber( Field.Get( charIndex, 'magician_flag_wind'))) or 0;
-		NLG.SystemMessage(charIndex, "³¬ŠëEÊ¯Ä§·¨¡¾"..flag_earth.."¡¿´Î.³¬Š±ùƒöÄ§·¨¡¾"..flag_water.."¡¿´Î");
-		NLG.SystemMessage(charIndex, "³¬Š»ğÑæÄ§·¨¡¾"..flag_fire.."¡¿´Î.³¬ŠïLÈĞÄ§·¨¡¾"..flag_wind.."¡¿´Î");
+		local flag_earth = tonumber( Field.Get( charIndex, 'magician_flag_earth')) or 0;
+		local flag_water = tonumber( Field.Get( charIndex, 'magician_flag_water')) or 0;
+		local flag_fire = tonumber( Field.Get( charIndex, 'magician_flag_fire')) or 0;
+		local flag_wind = tonumber( Field.Get( charIndex, 'magician_flag_wind')) or 0;
+		NLG.SystemMessage(charIndex, "è¶…å¼·éš•çŸ³é­”æ³•ã€"..flag_earth.."ã€‘æ¬¡.è¶…å¼·å†°å‡é­”æ³•ã€"..flag_water.."ã€‘æ¬¡");
+		NLG.SystemMessage(charIndex, "è¶…å¼·ç«ç„°é­”æ³•ã€"..flag_fire.."ã€‘æ¬¡.è¶…å¼·é¢¨åˆƒé­”æ³•ã€"..flag_wind.."ã€‘æ¬¡");
 		return 0;
 	end
 	return 1;
@@ -29,21 +29,21 @@ function Module:OnTechOptionEventCallBack(charIndex, option, techID, val)
             local leader1 = Battle.GetPlayer(battleIndex,0)
             local leader2 = Battle.GetPlayer(battleIndex,5)
             local leader = leader1
-            if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+            if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                   leader = leader2
             end
             local WeaponIndex = Char.GetWeapon(charIndex);
             local Round = Battle.GetTurn(battleIndex);
-            local symf_round= Char.GetTempData(charIndex, 'Ä§·¨»ØºÏ') or 0;
+            local symf_round= Char.GetTempData(charIndex, 'é­”æ³•å›åˆ') or 0;
             if (WeaponIndex>0) then
-                  local wandId = Item.GetData(WeaponIndex, CONST.µÀ¾ß_ID);
+                  local wandId = Item.GetData(WeaponIndex, CONST.é“å…·_ID);
                   if ( Round==0 or (Round - symf_round)>=1) then
                       local flag_earth = tonumber( Field.Get( charIndex, 'magician_flag_earth')) or 0;
                       local flag_water = tonumber( Field.Get( charIndex, 'magician_flag_water')) or 0;
                       local flag_fire = tonumber( Field.Get( charIndex, 'magician_flag_fire')) or 0;
                       local flag_wind = tonumber( Field.Get( charIndex, 'magician_flag_wind')) or 0;
-                      if (techID == 2709 and wandId == 79013)  then    --×°±¸[Ò¼Ö®ĞÍ]¹í¿ŞÊ¹ÓÃ³¬ÔÉLv10
-                         Char.SetTempData(charIndex, 'Ä§·¨»ØºÏ', Round);
+                      if (techID == 2709 and wandId == 79013)  then    --è£…å¤‡[å£¹ä¹‹å‹]é¬¼å“­ä½¿ç”¨è¶…é™¨Lv10
+                         Char.SetTempData(charIndex, 'é­”æ³•å›åˆ', Round);
                          NLG.UpChar(charIndex);
                          if ( Round==0) then
                             Field.Set(charIndex, 'magician_flag_earth', tonumber( flag_earth+(1/20)));
@@ -51,7 +51,7 @@ function Module:OnTechOptionEventCallBack(charIndex, option, techID, val)
                             Field.Set(charIndex, 'magician_flag_earth', tonumber( flag_earth+1));
                          end
                       elseif (techID == 2809 and wandId == 79013)  then
-                            Char.SetTempData(charIndex, 'Ä§·¨»ØºÏ', Round);
+                            Char.SetTempData(charIndex, 'é­”æ³•å›åˆ', Round);
                             NLG.UpChar(charIndex);
                          if ( Round==0) then
                             Field.Set(charIndex, 'magician_flag_water', tonumber( flag_water+(1/20)));
@@ -59,7 +59,7 @@ function Module:OnTechOptionEventCallBack(charIndex, option, techID, val)
                             Field.Set(charIndex, 'magician_flag_water', tonumber( flag_water+1));
                          end
                       elseif (techID == 2909 and wandId == 79013)  then
-                            Char.SetTempData(charIndex, 'Ä§·¨»ØºÏ', Round);
+                            Char.SetTempData(charIndex, 'é­”æ³•å›åˆ', Round);
                             NLG.UpChar(charIndex);
                          if ( Round==0) then
                             Field.Set(charIndex, 'magician_flag_fire', tonumber( flag_fire+(1/20)));
@@ -67,7 +67,7 @@ function Module:OnTechOptionEventCallBack(charIndex, option, techID, val)
                             Field.Set(charIndex, 'magician_flag_fire', tonumber( flag_fire+1));
                          end
                       elseif (techID == 3009 and wandId == 79013)  then
-                            Char.SetTempData(charIndex, 'Ä§·¨»ØºÏ', Round);
+                            Char.SetTempData(charIndex, 'é­”æ³•å›åˆ', Round);
                             NLG.UpChar(charIndex);
                          if ( Round==0) then
                             Field.Set(charIndex, 'magician_flag_wind', tonumber( flag_wind+(1/20)));
@@ -87,19 +87,19 @@ function Module:OnBattleOverCallBack(battleIndex)
             if player>=0 and Char.IsPlayer(player) then
                 local WeaponIndex,targetSlot = Char.GetWeapon(player);
                 if (WeaponIndex>0) then
-                  local wandId = Item.GetData(WeaponIndex, CONST.µÀ¾ß_ID);
+                  local wandId = Item.GetData(WeaponIndex, CONST.é“å…·_ID);
                   if (wandId == 79013)  then
-                      local flag_earth = math.floor(tonumber( Field.Get( player, 'magician_flag_earth'))) or 0;
-                      local flag_water = math.floor(tonumber( Field.Get( player, 'magician_flag_water'))) or 0;
-                      local flag_fire = math.floor(tonumber( Field.Get( player, 'magician_flag_fire'))) or 0;
-                      local flag_wind = math.floor(tonumber( Field.Get( player, 'magician_flag_wind'))) or 0;
+                      local flag_earth = tonumber( Field.Get( player, 'magician_flag_earth')) or 0;
+                      local flag_water = tonumber( Field.Get( player, 'magician_flag_water')) or 0;
+                      local flag_fire = tonumber( Field.Get( player, 'magician_flag_fire')) or 0;
+                      local flag_wind = tonumber( Field.Get( player, 'magician_flag_wind')) or 0;
                       if (Char.ItemSlot(player)<20) then
                           if (flag_earth>=3000 and flag_water>=3000 and flag_fire>=3000 and flag_wind>=3000)  then
                               Field.Set(player, 'magician_flag_earth', 0);
                               Field.Set(player, 'magician_flag_water', 0);
                               Field.Set(player, 'magician_flag_fire', 0);
                               Field.Set(player, 'magician_flag_wind', 0);
-                              NLG.SystemMessage(player,"[Ïµ½y]ÄãµÄÎäÆ÷°l³öéWÒ«µÄĞÇ¹â£¬ÍâĞÍ®aÉú×ƒ»¯£¡");
+                              NLG.SystemMessage(player,"[ç³»çµ±]ä½ çš„æ­¦å™¨ç™¼å‡ºé–ƒè€€çš„æ˜Ÿå…‰ï¼Œå¤–å‹ç”¢ç”Ÿè®ŠåŒ–ï¼");
                               Char.DelItemBySlot(player, targetSlot);
                               local itemID={79213,79214};
                               local rate = NLG.Rand(1,2);
@@ -113,7 +113,7 @@ function Module:OnBattleOverCallBack(battleIndex)
        end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
