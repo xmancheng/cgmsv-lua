@@ -71,9 +71,15 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsEnemy(defCharIndex)  then
                local GTime = NLG.GetGameTime();
-               if (GTime==0)  then
+               if (GTime>=0)  then
                      local State = Char.GetTempData(defCharIndex, '守住') or 0;
-                     if (damage>=damage_Max and Char.GetData(defCharIndex, CONST.CHAR_EnemyBossFlg) == 1) then
+                     if (damage>=999 and Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID) == 400125) then
+                             if (State>0 and Char.IsEnemy(defCharIndex)) then
+                                 damage = 999;
+                                 return damage;
+                             end
+                     end
+                     if (GTime==0 and damage>=damage_Max and Char.GetData(defCharIndex, CONST.CHAR_EnemyBossFlg) == 1) then
                          if (State>0) then
                              if (State>=1)  then
                                  damage = damage_Max;
@@ -81,21 +87,14 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                                      NLG.Say(leader,-1,"【守住】怪物受到的傷害上限值為"..damage_Max.."，守住剩餘"..State.."層",4,3);
                                  end
                                  return damage;
+                             end
                          else
                              damage = damage;
                          end
                      else
                          damage = damage;
                      end
-               end
-               if (GTime>=0)  then
-                     local State = Char.GetTempData(defCharIndex, '守住') or 0;
-                     if (damage>=999 and Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID) == 400125) then
-                         if (State>0 and Char.IsEnemy(defCharIndex)) then
-                                 damage = 999;
-                                 return damage;
-                         end
-                     end
+               else
                end
                return damage;
          end
