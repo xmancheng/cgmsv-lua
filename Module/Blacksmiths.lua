@@ -369,7 +369,8 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 				local tMin = 50 - math.floor(SuccRate/2) + 1
 				local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2)
 				local tLuck = math.random(1, 100)
-				if tLuck<tMin or tLuck>tMax then
+				--if tLuck<tMin or tLuck>tMax then
+				if tLuck>=tMin and tLuck<=tMax then
 					NLG.SystemMessage(_PlayerIndex, "[" .. "神秘鐵匠" .. "] 很不幸，你的裝備強化失敗……所幸裝備並沒有損壞……")
 					BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
 					return
