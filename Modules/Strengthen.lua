@@ -164,7 +164,7 @@ function Module:onLoad()
                             local tMin = 50 - math.floor(SuccRate/2) + 1;
                             local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
                             local tLuck = math.random(1, 100);
-                            if (tLuck<tMin or tLuck>tMax)  then
+                            if (tLuck>=tMin and tLuck<=tMax)  then
                                 if (tStrLv+1>=6) then
                                     local BreakRate = StrBreakRate[tStrLv+1]
                                     if (type(BreakRate)=="number" and BreakRate>0) then
@@ -185,7 +185,9 @@ function Module:onLoad()
                                            Item.SetData(CardIndex,CONST.道具_耐久, 0);
                                     end
                                     Item.UpItem(player, itemSlot);
-                                    Item.SetData(targetItemIndex,CONST.道具_最大耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久)-5);
+                                    local down ={0.95,0.90,0.85,0.80};
+                                    local rand= NLG.Rand(1,4);
+                                    Item.SetData(targetItemIndex,CONST.道具_最大耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久)*down[rand]);
                                     if (Item.GetData(targetItemIndex,CONST.道具_耐久)>Item.GetData(targetItemIndex,CONST.道具_最大耐久)) then
                                            Item.SetData(targetItemIndex,CONST.道具_耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久));
                                     end
