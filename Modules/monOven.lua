@@ -1,36 +1,37 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('monOven')
 
 local reelList = {
   {14801,2,73801},{16900,90,73801},
+  {14802,2,73802},{16901,90,73802},
 }
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemString', Func.bind(self.roastTools, self),"LUA_useOven");
-  self.bakerNPC = self:NPC_createNormal('Ä§ÎïÖË¿¾Ÿ¸µ', 14682, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
+  self.bakerNPC = self:NPC_createNormal('é­”ç‰©ç‚™çƒ¤å¸«å‚…', 14682, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.bakerNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local winMsg = "2\\nÕˆßx“ñÒªÌí¼ÓßMÈ¥¿¾ tµÄ²ñ»ğ(µÀ¾ßÏûÊ§)£º\\n¡¡¡¡¡ùÓĞ™CÂÊÈ¡µÃÏ¡ÓĞµÄÄ§·¨¾íİS\\n";
+        local winMsg = "2\\nè«‹é¸æ“‡è¦æ·»åŠ é€²å»çƒ¤çˆçš„æŸ´ç«(é“å…·æ¶ˆå¤±)ï¼š\\nã€€ã€€â€»æœ‰æ©Ÿç‡å–å¾—ç¨€æœ‰çš„é­”æ³•å·è»¸\\n";
         for wasteSlot = 23,27 do
             WasteIndex = Char.GetItemIndex(player,wasteSlot);
             if (WasteIndex>0) then
-                 WasteID = Item.GetData(WasteIndex,CONST.µÀ¾ß_ID);
-                 WasteLv = Item.GetData(WasteIndex,CONST.µÀ¾ß_µÈ¼¶);
-                 --WasteType = Item.GetData(WasteIndex,CONST.µÀ¾ß_ÀàĞÍ);
-                 WasteName = Item.GetData(WasteIndex, CONST.µÀ¾ß_Ãû×Ö);
+                 local WasteID = Item.GetData(WasteIndex,CONST.é“å…·_ID);
+                 local WasteLv = Item.GetData(WasteIndex,CONST.é“å…·_ç­‰çº§);
+                 --WasteType = Item.GetData(WasteIndex,CONST.é“å…·_ç±»å‹);
+                 local WasteName = Item.GetData(WasteIndex, CONST.é“å…·_åå­—);
                  local checkWaste = GrillingMaterials(player,wasteSlot);
                  if (checkWaste==1) then
-                                  winMsg = winMsg .. "µÚ".. wasteSlot-7 .."¸ñ:¡´" .. WasteName .. "¡µ[Ìí¼Ó£Ï]\\n"
+                                  winMsg = winMsg .. "ç¬¬".. wasteSlot-7 .."æ ¼:ã€ˆ" .. WasteName .. "ã€‰[æ·»åŠ ï¼¯]\\n"
                  elseif (checkWaste==0) then
-                                  winMsg = winMsg .. "µÚ".. wasteSlot-7 .."¸ñ:¡´" .. WasteName .. "¡µ[Ìí¼Ó£Ø]\\n"
+                                  winMsg = winMsg .. "ç¬¬".. wasteSlot-7 .."æ ¼:ã€ˆ" .. WasteName .. "ã€‰[æ·»åŠ ï¼¸]\\n"
                  end
             else
-                 winMsg = winMsg .. "µÚ".. wasteSlot-7 .."¸ñ:  ŸoÎïÆ·" .. "\\n"
+                 winMsg = winMsg .. "ç¬¬".. wasteSlot-7 .."æ ¼:  ç„¡ç‰©å“" .. "\\n"
             end
         end
-        NLG.ShowWindowTalked(player, self.bakerNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, winMsg);
+        NLG.ShowWindowTalked(player, self.bakerNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1, winMsg);
     end
     return
   end)
@@ -39,49 +40,67 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    --ÉÕ¿¾¹¤¾ß
+    --çƒ§çƒ¤å·¥å…·
     local OvenIndex =Char.HaveItemID(player, ItemID);
     local OvenSlot = Char.FindItemId(player, ItemID);
-    local OvenDur = Item.GetData(OvenIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local OvenDur = Item.GetData(OvenIndex, CONST.é“å…·_è€ä¹…) or 0;
     local OvenDurMax = 10000;
     if select > 0 then
-      --È·ÈÏ²ñ»ğºóÖ´ĞĞ
-      if (seqno == 12 and select == CONST.BUTTON_·ñ) then
+      --ç¡®è®¤æŸ´ç«åæ‰§è¡Œ
+      if (seqno == 12 and select == CONST.BUTTON_å¦) then
                  return;
-      elseif (seqno == 12 and select == CONST.BUTTON_ÊÇ)  then
+      elseif (seqno == 12 and select == CONST.BUTTON_æ˜¯)  then
+                 local checkWaste,whatWaste = GrillingMaterials(player,wasteSlot);
                  --Char.DelItem(player, WasteID, 1);
                  Char.DelItemBySlot(player, wasteSlot);
-                 Item.SetData(OvenIndex,CONST.µÀ¾ß_ÄÍ¾Ã, OvenDur+WasteLv);
-                 Item.SetData(OvenIndex,CONST.µÀ¾ß_×î´óÄÍ¾Ã, OvenDurMax);
-                 Item.UpItem(OvenIndex, OvenSlot);
+                 local SuccRate = reelList[whatWaste][2]+math.floor(OvenDur/100);
+                 print(SuccRate)
+                 if (SuccRate>100) then SuccRate=100; end
+                 if (type(SuccRate)=="number" and SuccRate>0) then
+                      local tMin = 50 - math.floor(SuccRate/2) + 1;
+                      local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
+                      local tLuck = math.random(1, 100);
+                      --if (tLuck<tMin or tLuck>tMax)  then
+                      if (tLuck>=tMin and tLuck<=tMax)  then
+                           Char.GiveItem(player, reelList[whatWaste][3], 1);
+                      end
+                 end
+                 Item.SetData(OvenIndex,CONST.é“å…·_è€ä¹…, OvenDur+WasteLv);
+                 Item.SetData(OvenIndex,CONST.é“å…·_æœ€å¤§è€ä¹…, OvenDurMax);
+                 Item.UpItem(player, OvenSlot);
                  NLG.UpChar(player);
       else
                  return;
       end
     else
-      local wasteSlot=data+22;
-      local WasteIndex = Char.GetItemIndex(player,wasteSlot);
-      --Ñ¡Ôñ²ñ»ğ
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      wasteSlot=data+22;
+      WasteIndex = Char.GetItemIndex(player,wasteSlot);
+      if (WasteIndex>0) then
+          WasteID = Item.GetData(WasteIndex,CONST.é“å…·_ID);
+          WasteLv = Item.GetData(WasteIndex,CONST.é“å…·_ç­‰çº§);
+          WasteName = Item.GetData(WasteIndex, CONST.é“å…·_åå­—);
+      end
+      --é€‰æ‹©æŸ´ç«
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       elseif (seqno == 1 and WasteIndex<0) then
-                 NLG.SystemMessage(player, "[Ïµ½y]ÎïÆ·™ÚŸoÎïÆ·£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]ç‰©å“æ¬„ç„¡ç‰©å“ï¼");
                  return;
       end
       if (seqno == 1 and data>0) then
           local checkWaste,whatWaste = GrillingMaterials(player,wasteSlot);
           if (checkWaste==0) then
-                 NLG.SystemMessage(player, "[Ïµ½y]Ÿo·¨Ìí¼ÓßM¿¾ tµÄ²ñ»ğ£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]ç„¡æ³•æ·»åŠ é€²çƒ¤çˆçš„æŸ´ç«ï¼");
                  return;
           end
           if (WasteIndex ~=nil) then
-                local msg = "¡¾ÖËŸıŒ£ÓÃ¿¾ t¡¿\\n"
-                                           .."¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                                           .."¡ı¼´Œ¢±»äNš§µÄ²ñ»ğ¡ı\\n"
-                                           .."\\n¡¡¡¡¡¡Ãû·Q:".. WasteName .."¡¡¡¡Lv:"..WasteLv.."\\n"
-                                           .."\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡\\n"
-                                           .."\\nÊÇ·ñ´_¶¨Œ¢´ËÎïÌí¼ÓßMÈ¥¿¾ tÄØ£¿\\n";
-                 NLG.ShowWindowTalked(player, self.bakerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÊÇ·ñ, 12, msg);
+                local msg = "ã€ç‚™ç‡’å°ˆç”¨çƒ¤çˆã€‘\\n"
+                                           .."â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                                           .."â†“å³å°‡è¢«éŠ·æ¯€çš„æŸ´ç«â†“\\n"
+                                           .."\\nã€€ã€€ã€€åç¨±:".. WasteName .."ã€€ã€€Lv:"..WasteLv.."\\n"
+                                           .."\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€\\n"
+                                           .."\\næ˜¯å¦ç¢ºå®šå°‡æ­¤ç‰©æ·»åŠ é€²å»çƒ¤çˆå‘¢ï¼Ÿ\\n";
+                 NLG.ShowWindowTalked(player, self.bakerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 12, msg);
           end
       else
                  return;
@@ -97,47 +116,45 @@ function Module:roastTools(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     OvenSlot =itemSlot;
     local OvenIndex = Char.GetItemIndex(charIndex,itemSlot);
-        local winMsg = "2\\nÕˆßx“ñÒªÌí¼ÓßMÈ¥¿¾ tµÄ²ñ»ğ(µÀ¾ßÏûÊ§)£º\\n¡¡¡¡¡ùÓĞ™CÂÊÈ¡µÃÏ¡ÓĞµÄÄ§·¨¾íİS\\n";
+        local winMsg = "2\\nè«‹é¸æ“‡è¦æ·»åŠ é€²å»çƒ¤çˆçš„æŸ´ç«(é“å…·æ¶ˆå¤±)ï¼š\\nã€€ã€€â€»æœ‰æ©Ÿç‡å–å¾—ç¨€æœ‰çš„é­”æ³•å·è»¸\\n";
         for wasteSlot = 23,27 do
             WasteIndex = Char.GetItemIndex(charIndex,wasteSlot);
             if (WasteIndex>0) then
-                 WasteID = Item.GetData(WasteIndex,CONST.µÀ¾ß_ID);
-                 WasteLv = Item.GetData(WasteIndex,CONST.µÀ¾ß_µÈ¼¶);
-                 WasteType = Item.GetData(WasteIndex,CONST.µÀ¾ß_ÀàĞÍ);
-                 WasteName = Item.GetData(WasteIndex, CONST.µÀ¾ß_Ãû×Ö);
+                 local WasteID = Item.GetData(WasteIndex,CONST.é“å…·_ID);
+                 local WasteLv = Item.GetData(WasteIndex,CONST.é“å…·_ç­‰çº§);
+                 local WasteType = Item.GetData(WasteIndex,CONST.é“å…·_ç±»å‹);
+                 local WasteName = Item.GetData(WasteIndex, CONST.é“å…·_åå­—);
                  local checkWaste = GrillingMaterials(charIndex,wasteSlot);
                  if (checkWaste==1) then
-                                  winMsg = winMsg .. "µÚ".. wasteSlot-7 .."¸ñ:¡´" .. WasteName .. "¡µ[Ìí¼Ó£Ï]\\n"
+                                  winMsg = winMsg .. "ç¬¬".. wasteSlot-7 .."æ ¼:ã€ˆ" .. WasteName .. "ã€‰[æ·»åŠ ï¼¯]\\n"
                  elseif (checkWaste==0) then
-                                  winMsg = winMsg .. "µÚ".. wasteSlot-7 .."¸ñ:¡´" .. WasteName .. "¡µ[Ìí¼Ó£Ø]\\n"
+                                  winMsg = winMsg .. "ç¬¬".. wasteSlot-7 .."æ ¼:ã€ˆ" .. WasteName .. "ã€‰[æ·»åŠ ï¼¸]\\n"
                  end
             else
-                 winMsg = winMsg .. "µÚ".. wasteSlot-7 .."¸ñ:  ŸoÎïÆ·" .. "\\n"
+                 winMsg = winMsg .. "ç¬¬".. wasteSlot-7 .."æ ¼:  ç„¡ç‰©å“" .. "\\n"
             end
         end
-        NLG.ShowWindowTalked(charIndex, self.bakerNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, winMsg);
+        NLG.ShowWindowTalked(charIndex, self.bakerNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1, winMsg);
     return 1;
 end
 
 function GrillingMaterials(player,wasteSlot)
           local WasteIndex = Char.GetItemIndex(player,wasteSlot);
-          local WasteID = Item.GetData(WasteIndex,CONST.µÀ¾ß_ID);
-          local checkWaste=0;
-          local whatWaste=-1;
-          table.forEach(reelList, function(e)
-              for k=1,#reelList do
-                  if (e[k][1]==WasteID) then
-                     checkWaste=1;
-                     whatWaste=e;
+          local WasteID = Item.GetData(WasteIndex,CONST.é“å…·_ID);
+          local checkWaste = 0;
+          local whatWaste = 0;
+          for k=1,#reelList do
+                  if (reelList[k][1]==WasteID) then
+                     local checkWaste = 1;
+                     local whatWaste = k;
                      return checkWaste,whatWaste;
                   else
-                     checkWaste=0;
+                     checkWaste = 0;
                   end
-              end
-          end)
+          end
           return checkWaste,whatWaste;
 end
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
