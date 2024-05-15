@@ -87,7 +87,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                      else
                          damage = damage;
                      end
-               else
+               end
+               if (GTime>=0)  then
                      local State = Char.GetTempData(defCharIndex, '守住') or 0;
                      if (damage>=999 and Char.GetData(defCharIndex, CONST.CHAR_ENEMY_ID) == 400125) then
                          if (State>0 and Char.IsEnemy(defCharIndex)) then
@@ -146,7 +147,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                return damage;
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.IsEnemy(charIndex)  then
                local GTime = NLG.GetGameTime();
-               if (GTime<=3)  then
+               if (GTime==2)  then
                      local State = Char.GetTempData(charIndex, '狂暴') or 0;
                      if (Char.GetData(charIndex, CONST.CHAR_EnemyBossFlg) == 1) then
                          local d1= Char.GetData(charIndex, CONST.CHAR_精神);
