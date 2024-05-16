@@ -1,14 +1,41 @@
 local Module = ModuleBase:createModule('StrengthShop');
 
+local itemFields={
+CONST.é“å…·_ç±»å‹,
+CONST.é“å…·_å †å æ•°,
+CONST.é“å…·_ç­‰çº§,
+CONST.é“å…·_è€ä¹…,
+CONST.é“å…·_æœ€å¤§è€ä¹…,
+CONST.é“å…·_æ”»å‡»,
+CONST.é“å…·_é˜²å¾¡,
+CONST.é“å…·_æ•æ·,
+CONST.é“å…·_ç²¾ç¥,
+CONST.é“å…·_å›å¤,
+CONST.é“å…·_å¿…æ€,
+CONST.é“å…·_åå‡»,
+CONST.é“å…·_å‘½ä¸­,
+CONST.é“å…·_é—ªèº²,
+CONST.é“å…·_ç”Ÿå‘½,
+CONST.é“å…·_é­”åŠ›,
+CONST.é“å…·_æ¯’æŠ—,
+CONST.é“å…·_ç¡æŠ—,
+CONST.é“å…·_çŸ³æŠ—,
+CONST.é“å…·_é†‰æŠ—,
+CONST.é“å…·_ä¹±æŠ—,
+CONST.é“å…·_å¿˜æŠ—,
+CONST.é“å…·_é­”æŠ—,
+CONST.é“å…·_é­”æ”»,
+}
+
 function Module:onLoad()
   self:logInfo('load')
-  local StrengthShopNPC = self:NPC_createNormal('Ä§·¨¾íİS‚}ì', 231050, { x = 235, y = 114, mapType = 0, map = 1000, direction = 0 });
+  local StrengthShopNPC = self:NPC_createNormal('é­”æ³•å·è»¸å€‰åº«', 231050, { x = 235, y = 114, mapType = 0, map = 1000, direction = 0 });
   self:NPC_regTalkedEvent(StrengthShopNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        -- »Øµ÷ data = 1:Âò, 2:Âô
-        -- Êı¾İ½á¹¹ NPCÍ¼µµ|´°¿Ú±êÌâ|NPC¶Ô»°|ÂòÂôÀàĞÍ 0:ÎŞ°´Å¥, 1:Âò, 2:Âô, 3:ÂòÂô|
-        local windowStr = '231050|¾íİS‚}ì|Ä§·¨¾íİS´æÈ¡¹¦ÄÜ\n•º•rŒ¢¾íİS´æÈë‚}ì|3|'
-        NLG.ShowWindowTalked(player, StrengthShopNPC, CONST.´°¿Ú_ÂòÂô¿ò, CONST.°´Å¥_¹Ø±Õ, 1, windowStr);
+        -- å›è°ƒ data = 1:ä¹°, 2:å–
+        -- æ•°æ®ç»“æ„ NPCå›¾æ¡£|çª—å£æ ‡é¢˜|NPCå¯¹è¯|ä¹°å–ç±»å‹ 0:æ— æŒ‰é’®, 1:ä¹°, 2:å–, 3:ä¹°å–|
+        local windowStr = '231050|å·è»¸å€‰åº«|é­”æ³•å·è»¸å­˜å–åŠŸèƒ½\næš«æ™‚å°‡å·è»¸å­˜å…¥å€‰åº«|3|'
+        NLG.ShowWindowTalked(player, StrengthShopNPC, CONST.çª—å£_ä¹°å–æ¡†, CONST.BUTTON_å…³é—­, 1, windowStr);
     end
     return
   end)
@@ -18,32 +45,118 @@ function Module:onLoad()
     local select = tonumber(_select)
     local data = tonumber(_data)
     print(seqno,select,data)
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     if seqno == 1 then
      if data == 1 then
-        -- »Øµ÷ data = 0:ÎïÆ·ĞòºÅ(»ùÓÚ±¾´Î½»Ò×)|N:¹ºÂòÊıÁ¿|ÎïÆ·2ĞòºÅ|ÎïÆ·2ÊıÁ¿...
-        -- Êı¾İ½á¹¹ NPCÍ¼µµ|´°¿Ú±êÌâ|NPC¶Ô»°|Ç®²»¹»¶Ô»°|ÄÃ²»ÏÂ»òÊıÁ¿²»¹»¶Ô»°|ÎïÆ·NÃû³Æ|ÎïÆ·NÍ¼µµ|ÎïÆ·N¼Û¸ñ|ÎïÆ·N½éÉÜ|ÎïÆ·NÀàĞÍ|¿É·ñ¹ºÂò, 0²»¿É, 1¿É|
-        local windowStr = '231050|¾íİS‚}ì|œÊ‚äÈ¡³ö¾íİS¡­\nß@Ğ©ÊÇÄãÔø½›´æÈëµÄ\n¸÷Ê½¸÷˜ÓµÄ¾íİSÅ¶|\nÄãåX²»‰ò|\nÄãÄÃ²»ÏÂÁË|';
-        for i=1, 20 do
-                windowStr = windowStr..'ÎïÆ·'..i..'Ãû³Æ|'..27131+i..'|0|$5ÎïÆ·'..i..'½éÉÜ|29|1|';
+        SQL.querySQL([[ALTER TABLE lua_hook_character ADD ReelBag mediumtext COLLATE gbk_bin NULL;]])
+        local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+        local sqldata = SQL.Run("select ReelBag from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
+        local itemData = {};
+        if (type(sqldata)=="string") then
+               itemData = JSON.decode(sqldata);
+               itemMenu = itemData;
+        else
+               itemMenu={};
         end
-        NLG.ShowWindowTalked(player, StrengthShopNPC, CONST.´°¿Ú_Âò¿ò, CONST.°´Å¥_¹Ø±Õ, 11, windowStr);
+        -- å›è°ƒ data = 0:ç‰©å“åºå·(åŸºäºæœ¬æ¬¡äº¤æ˜“)|N:è´­ä¹°æ•°é‡|ç‰©å“2åºå·|ç‰©å“2æ•°é‡...
+        -- æ•°æ®ç»“æ„ NPCå›¾æ¡£|çª—å£æ ‡é¢˜|NPCå¯¹è¯|é’±ä¸å¤Ÿå¯¹è¯|æ‹¿ä¸ä¸‹æˆ–æ•°é‡ä¸å¤Ÿå¯¹è¯|ç‰©å“Nåç§°|ç‰©å“Nå›¾æ¡£|ç‰©å“Nä»·æ ¼|ç‰©å“Nä»‹ç»|ç‰©å“Nç±»å‹|å¯å¦è´­ä¹°, 0ä¸å¯, 1å¯|
+        local windowStr = '231050|å·è»¸å€‰åº«|æº–å‚™å–å‡ºå·è»¸â€¦\né€™äº›æ˜¯ä½ æ›¾ç¶“å­˜å…¥çš„\nå„å¼å„æ¨£çš„å·è»¸å“¦|\nä½ éŒ¢ä¸å¤ |\nä½ æ‹¿ä¸ä¸‹äº†|';
+        for itemSlot=1, 20 do
+            local ItemIndex = Char.GetItemIndex(player,itemSlot);
+            if (ItemIndex>0) then
+                 local ItemName = Item.GetData(ItemIndex, CONST.é“å…·_åå­—);
+                 local ItemImage = Item.GetData(ItemIndex, CONST.é“å…·_å›¾);
+                 local ItemType = Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹);
+                 local ItemID = Item.GetData(ItemIndex,CONST.é“å…·_ID);
+                 local itemInfo = self:extractItemData(ItemIndex);
+                 windowStr = windowStr..''..ItemName..'|'..ItemImage..'|0|$5ç‰©å“'..itemSlot..'ä»‹ç»|'..ItemType..'|1|';
+            end
+        end
+        NLG.ShowWindowTalked(player, StrengthShopNPC, CONST.çª—å£_ä¹°æ¡†, CONST.BUTTON_å…³é—­, 11, windowStr);
      elseif data == 2 then
-        -- »Øµ÷ data = 0:ÎïÆ·ĞòºÅ(»ùÓÚ±¾´Î½»Ò×)|N:¹ºÂòÊıÁ¿|ÎïÆ·2ĞòºÅ|ÎïÆ·2ÊıÁ¿...
-        -- Êı¾İ½á¹¹ NPCÍ¼µµ|´°¿Ú±êÌâ|NPC¶Ô»°|ÎïÆ·NÃû³Æ|ÎïÆ·NÒÑÓĞÊıÁ¿|ÎïÆ·NÍ¼µµ|ÎïÆ·Nµ¥¼Û|ÎïÆ·id,½¨ÒéÎªitemIndex|Î´Öª1|Î´Öª2|ÎïÆ·N½éÉÜ|¿É·ñÊÛÂô, 0²»¿É, 1¿É|ÎïÆ·NÃ¿×éÊıÁ¿|
-        local windowStr = '231050|¾íİS‚}ì|œÊ‚ä´æÈë¾íİS¡­\nß@Ğ©ÊÇÄãÓĞµÄ–|Î÷Å¶|';
-        for i=1, 20 do
-                windowStr = windowStr..'ÎïÆ·'..i..'Ãû³Æ|500|27132|0|'..10086+i..'|1|2|$5ÎïÆ·'..i..'½éÉÜ|1|3|';
-        end
-        NLG.ShowWindowTalked(player, StrengthShopNPC, CONST.´°¿Ú_Âô¿ò, CONST.°´Å¥_¹Ø±Õ, 12, windowStr);
+         local winMsg = "3\\nã€å·è»¸å€‰åº«ã€‘\\n"
+                             .. "è«‹å°‡è¦å­˜å…¥çš„å·è»¸æ”¾åœ¨ç‰©å“æ¬„å‰äº”æ ¼\\n"
+                             .. "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
+         for itemSlot = 8, 12 do
+               local ItemIndex = Char.GetItemIndex(player,itemSlot);
+               if (ItemIndex>0) then
+                  local ItemName = Item.GetData(ItemIndex, CONST.é“å…·_åå­—);
+                  winMsg = winMsg .. "ç¬¬".. itemSlot-7 .."æ ¼:ã€ˆ".. ItemName .."ã€‰\\n"
+               else
+                  winMsg = winMsg .. "ç¬¬".. itemSlot-7 .."æ ¼:  ç„¡ç‰©å“" .. "\\n"
+               end
+         end
+         NLG.ShowWindowTalked(player, StrengthShopNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 12, winMsg);
      end
     end
 
 
 
+    if seqno == 12 then
+       if (select == CONST.æŒ‰é’®_å…³é—­) then
+                 return;
+       end
+       local itemSlot=data+7;
+       local ItemIndex = Char.GetItemIndex(player,itemSlot);
+       if (ItemIndex>0) then
+           local name = Item.GetData(ItemIndex, CONST.é“å…·_åå­—);
+           local itemid = Item.GetData(ItemIndex,CONST.é“å…·_ID);
+           local count = Item.GetData(ItemIndex,CONST.é“å…·_å †å æ•°);
+           if (itemid>=73801 and itemid<=73958) then
+              local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+              local sqldata = SQL.Run("select ReelBag from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
+              local itemData = {};
+              if (type(sqldata)=="string" and sqldata~='') then
+                   itemData = JSON.decode(sqldata);
+              else
+                   itemData = {};
+              end
+              --æ›´æ–°æ•°æ®
+              local boxCheck = 0;
+              for k, v in pairs(itemData) do
+                   if (itemData[k]~=nil and itemData[k][2]==itemid)  then
+                         itemData[k][3] = itemData[k][3] + count;
+                   elseif (itemData[k][2]~=itemid) then
+                         boxCheck = boxCheck+1;
+                   end
+              end
+              local boxlen = tonumber(#itemData);
+              if ( boxCheck==boxlen )  then
+                         local boxEX=boxlen+1;
+                         itemData[boxEX] = {}
+                         table.insert(itemData[boxEX], name);
+                         table.insert(itemData[boxEX], itemid);
+                         table.insert(itemData[boxEX], count);
+              end
+              --æ’åºæ•°æ®
+              function my_comp(a, b)
+                            return a[2] < b[2]
+              end
+              table.sort(itemData, my_comp);
+              --ä¸Šä¼ æ•°æ®
+              local sqldata = itemData;
+              local newdata = JSON.encode(sqldata);
+              SQL.Run("update lua_hook_character set ReelBag= '"..newdata.."' where CdKey='"..cdk.."'")
+              NLG.UpChar(player);
+           else
+              NLG.SystemMessage(player, "[ç³»çµ±]å¦‚æœä¸æ˜¯é­”æ³•å·è»¸å°‡ç„¡æ³•å­˜å…¥ï¼");
+           end
+       end
+    end
+
   end)
 
 end
 
+function Module:extractItemData(ItemIndex)
+  local item = {
+    attr={},
+  };
+  for _, v in pairs(itemFields) do
+    item.attr[tostring(v)] = Item.GetData(ItemIndex, v);
+  end
+  return item;
+end
 
 function Module:onUnload()
     self:logInfo('unload')
