@@ -40,6 +40,7 @@ function PetHeadIcon:onLoad()
                   if (itemNo==70162 or itemNo==70163) then
                       if (burst==1) then
                           Char.GiveItem(charIndex, itemNo, 3);
+                          NLG.SortItem(charIndex);
                           NLG.SystemMessage(charIndex, "[系統]雅芙莉特幫忙採集");
                       end
                   end
