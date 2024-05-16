@@ -356,7 +356,7 @@ function QuickUI:onLoad()
         for slot = 0,4 do
           local p = Char.GetPartyMember(player,slot)
           if(p>=0) then
-                local daka = Char.GetData(p, 4008);
+                local daka = Char.GetData(p, CONST.对象_打卡);
                 local name = Char.GetData(p,CONST.CHAR_名字);
                 if daka == 1 then
                       Char.FeverStop(p);
