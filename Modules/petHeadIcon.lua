@@ -44,7 +44,33 @@ function PetHeadIcon:onLoad()
                           NLG.SystemMessage(charIndex, "[系統]雅芙莉特幫忙採集");
                       end
                   end
+            elseif (itemNo>0 and Char.GetData(petIndex,CONST.宠物_PETID)==401277) then
+                  local burst = NLG.Rand(1, 5);
+                  if (itemNo==70162 or itemNo==70163) then
+                      if (burst==1) then
+                          Char.GiveItem(charIndex, itemNo, 3);
+                          NLG.SortItem(charIndex);
+                          NLG.SystemMessage(charIndex, "[系統]雅芙莉特幫忙採集");
+                      end
+                  end
+                  local injury = Char.GetData(charIndex, CONST.CHAR_受伤);
+                  local PalLife = Char.GetData(petIndex,CONST.对象_血);
+                  local Hit = PalLife-injury;
+                  if ( injury < 1) then
+                      return;
+                  else
+                      if (Hit>0) then
+                          Char.SetData(petIndex,CONST.对象_血,Hit);
+                          Pet.UpPet(charIndex,petIndex);
+                          Char.SetData(charIndex, CONST.CHAR_受伤, 0);
+                          NLG.UpChar(charIndex);
+                          NLG.SystemMessage(charIndex, "[系統]你的寵物給予你治療");
+                      else
+                          NLG.SystemMessage(charIndex, "[系統]你的寵物需要休息了");
+                      end
+                  end
             end
+
         end
     end
     return;
