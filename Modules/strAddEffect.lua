@@ -249,6 +249,7 @@ end
 
 function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)         
          --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
+      if Char.IsPlayer(charIndex) then
          local battleIndex = Char.GetBattleIndex(charIndex)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -278,6 +279,7 @@ function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)
                  end
                end
          end
+      end
 end
 
 
