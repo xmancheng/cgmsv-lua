@@ -54,7 +54,7 @@ function My12ItemUse(_Player,_toPlayer,_itemSlot)
 		for i = 0,9 do
 		if Pet.GetSkill(pet,i) == 15002 then
 		Pet.DelSkill(pet,i);
-		Pet.AddSkill(pet,201610);
+		Pet.AddSkill(pet,11100);
 		Char.DelItem(_Player,71022,1);
 		Pet.UpPet(_Player,pet)
 		NLG.SystemMessage(_Player, "[系統] 第一格寵物技能學習成功！")
