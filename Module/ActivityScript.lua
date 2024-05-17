@@ -628,7 +628,7 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomActivityNpcIndex)
 			tbl_RandomActivityNpcIndex[kk] = nil
 		end
-	return 1
+	--return 1
 end
 
 function table_n(c1,c2,n,t)
