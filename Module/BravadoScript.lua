@@ -570,7 +570,7 @@ function BravadoNpc_BattleWin(_BattleIndex, _NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomBravadoNpcIndex)
 			tbl_RandomBravadoNpcIndex[kk] = nil
 		end
-	return 1
+	--return 1
 end
 
 function table_n(c1,c2,n,t)
