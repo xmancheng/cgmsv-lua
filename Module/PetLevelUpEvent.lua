@@ -1,6 +1,6 @@
 NL.RegPetLevelUpEvent(nil,"PetLevelUpEvent");
 PetTechTable= {}
-PetTechTable[1] = {201610,201611,201612,201613,201614}
+PetTechTable[1] = {11100,11101,11102,11103,11104}
 PetTechTable[2] = {11105,11106,11107,11108,11109}
 PetTechTable[3] = {200705,200706,200707,200708,200709}
 PetTechTable[4] = {8105,8106,8107,8108,8109}
