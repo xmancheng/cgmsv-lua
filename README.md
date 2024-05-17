@@ -66,6 +66,10 @@ useModule('RankingScript');|頭目挑戰(X)
 --- | --- 
 loadModule('uniShop')|鏡像擺攤(未完善)
 loadModule('autoRanking')|自助天梯(未完善)(X)
+### 職業成就相關
+模組加載代碼 | 說明 
+--- | --- 
+loadModule('achieveMagician')|大魔導師之路
 ### 傷害相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -87,6 +91,7 @@ loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
 loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
 loadModule('setupGetProfit')|限制獲取
+loadModule('petHeadIcon')|帕魯幫助
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -95,6 +100,7 @@ loadModule('setupItemType')|副武器擴充
 loadModule('addTK')|副武器附念
 loadModule('sprayPaint')|噴漆鍍膜
 loadModule('Strengthen')|魔力賦予
+loadModule('StrengthShop')|魔法卷軸倉庫
 ### 特殊副本
 模組加載代碼 | 說明 
 --- | --- 
@@ -109,6 +115,7 @@ loadModule('mazeHorcrux')|裏空間魂器
 模組加載代碼 | 說明 
 --- | --- 
 loadModule('quickUI')|動作快捷
+loadModule('manaPool')|自設血魔池
 loadModule('petHatching')|飼育小屋
 loadModule('matchDraw')|抽獎背包
 loadModule('petHeadIcon')|寵物頭飾
