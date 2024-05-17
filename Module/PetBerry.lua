@@ -285,7 +285,7 @@ function PlantNpc_BattleWin(_BattleIndex, _NpcIndex)
 				tbl_PlantberryNpcIndex[dp] = nil
 			end
 		end
-	return 1
+	--return 1
 end
 
 
