@@ -180,7 +180,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                                end
                         end
                  end
-                 print(damage)
+                 --print(damage)
                  return damage;
                end
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
@@ -238,7 +238,7 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                         damage = damage * StrEffect;
                         --NLG.Say(defCharIndex,-1,"防具附加強化特殊效果每+1傷害減少1%，目前減傷"..(StrAdd*1).."%",4,3);
                  end
-                 print(damage)
+                 --print(damage)
                  return damage;
                end
          else
