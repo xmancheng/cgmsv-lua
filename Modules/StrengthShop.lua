@@ -58,10 +58,11 @@ function Module:onLoad()
   self:NPC_regWindowTalkedEvent(StrengthShopNPC, function(npc, player, _seqno, _select, _data)
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
-    local data = tonumber(_data)
-    print(seqno,select,data)
+    --local data = tonumber(_data)
+    --print(seqno,select,data)
     local cdk = Char.GetData(player,CONST.对象_CDK);
     if seqno == 1 then
+     local data = tonumber(_data)
      if data == 1 then
         SQL.querySQL([[ALTER TABLE lua_hook_character ADD ReelBag mediumtext COLLATE gbk_bin NULL;]])
         local cdk = Char.GetData(player,CONST.对象_CDK);
@@ -69,16 +70,15 @@ function Module:onLoad()
         local itemData = {};
         if (type(sqldata)=="string") then
                itemData = JSON.decode(sqldata);
-               itemMenu = itemData;
         else
-               itemMenu={};
+               itemData={};
         end
         itemList={};
         -- 回调 data = 0:物品序号(基于本次交易)|N:购买数量|物品2序号|物品2数量...
         -- 数据结构 NPC图档|窗口标题|NPC对话|钱不够对话|拿不下或数量不够对话|物品N名称|物品N图档|物品N价格|物品N介绍|物品N类型|可否购买, 0不可, 1可|
-        local windowStr = '231050|卷軸倉庫|準備取出卷軸…\n這些是你曾經存入的\n各式各樣的卷軸哦|\n你錢不夠|\n你拿不下了|';
-        for im=1,#itemMenu do
-            local ItemsetIndex = Data.ItemsetGetIndex(itemMenu[im][2]);
+        local windowStr = '231050|卷軸倉庫|準備取出卷軸…\n這些是你曾經存入的\n各式各樣的卷軸哦\n\n※每次只取相同的|\n你錢不夠|\n你拿不下了|';
+        for im=1,#itemData do
+            local ItemsetIndex = Data.ItemsetGetIndex(itemData[im][2]);
             if (ItemsetIndex>0) then
                  --local ItemName = Item.GetData(ItemIndex, CONST.道具_名字);
                  local ItemName = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_TRUENAME);
@@ -95,23 +95,25 @@ function Module:onLoad()
                          elseif param=="最大耐久" then
                              ItemMsg = ItemMsg .. "/0100"
                          elseif param=="等級" then
-                             ItemMsg = ItemMsg .. "　$4等級".. ItemInfo.attr[tostring(v[1])] ..""
+                             ItemMsg = ItemMsg .. " $4等級 $4".. ItemInfo.attr[tostring(v[1])] ..""
                          elseif param=="其他卡片" then
                              ItemMsg = ItemMsg .. " $0種類 其他卡片"
                          elseif param=="SPECIALEFFECTVALUE" then
                              partMsg = WhichPart(ItemInfo.attr[tostring(v[1])]);
                              ItemMsg = ItemMsg .. "\\n".. partMsg[1] ..""
                          elseif param=="數量" then
-                             ItemMsg = ItemMsg .. "\\n\\n倉庫剩餘數量: ".. itemMenu[im][3] ..""
+                             ItemMsg = ItemMsg .. "\\n\\n倉庫剩餘數量: ".. tonumber(itemData[im][3]) ..""
                          else
                              if (ItemInfo.attr[tostring(v[1])]~=0) then
-                                 ItemMsg = ItemMsg .. " ".. param .."+".. ItemInfo.attr[tostring(v[1])] .." "
+                                 ItemMsg = ItemMsg .. param .."+".. ItemInfo.attr[tostring(v[1])] .." "
                              end
                          end
                      end
                  end
                  windowStr = windowStr..''..ItemName..'|'..ItemImage..'|0|'..ItemMsg..'|41|1|';
-                 itemList[im] = {name='..ItemName..', image='..ItemImage..', price=0, desc='..ItemMsg..', count=1, maxCount='..itemMenu[im][3]..', itemid=-1};
+                 local maxCount = tonumber(itemData[im][3]);
+                 local itemid = tonumber(itemData[im][2]);
+                 itemList[im] = {name='..ItemName..', image='..ItemImage..', price=0, desc='..ItemMsg..', count=1, maxCount=maxCount, itemid=itemid};
             end
         end
         NLG.ShowWindowTalked(player, StrengthShopNPC, CONST.窗口_买框, CONST.BUTTON_关闭, 11, windowStr);
@@ -132,6 +134,7 @@ function Module:onLoad()
      end
     end
     if seqno == 11 then
+       local data = tostring(_data)
        if (select == CONST.按钮_关闭) then
                  return;
        end
@@ -140,20 +143,18 @@ function Module:onLoad()
        local itemData = {};
        if (type(sqldata)=="string") then
               itemData = JSON.decode(sqldata);
-              itemMenu = itemData;
        else
-              itemMenu={};
+              itemData={};
        end
        local items = string.split(data, '|');
-       for k,v in ipairs(items) do
-           print(items[k])
-       end
+       local itemList = itemList;
        for key = 1, #items / 2 do
          local c = itemList[items[(key - 1) * 2 + 1] + 1]
          if c then
            count = (tonumber(items[(key - 1) * 2 + 2]) or 0);
            if c.maxCount > 0 then
              maxCount = c.maxCount - count;
+             keyNum = items[(key - 1) * 2 + 1] + 1;
            else
              maxCount = c.maxCount;
              NLG.SystemMessage(player,"[系統]此物品倉庫已無存貨！");
@@ -165,40 +166,52 @@ function Module:onLoad()
              itemid = -1;
            end
          end
+         if itemid == -1 then  ----排除透过按钮取得道具
+            return;
+         end
+         if maxCount < 0 then
+           NLG.SystemMessage(player,"[系統]數量超過庫存！");
+           return;
+         end
+         if (Char.ItemSlot(player)<20) then
+                itemData[keyNum][3] = itemData[keyNum][3] - count;
+                Char.GiveItem(player,itemData[keyNum][2],count);
+                for NewItemSlot = 8,27 do
+                    local NewItemIndex = Char.GetItemIndex(player, NewItemSlot);
+                    if (NewItemIndex > 0) then
+                      if (Item.GetData(NewItemIndex, CONST.道具_已鉴定)==0) then
+                        Item.SetData(NewItemIndex, CONST.道具_已鉴定, 1);
+                        Item.UpItem(player, NewItemSlot);
+                        NLG.UpChar(player);
+                      end
+                    end
+                end
+         else
+                NLG.Say(player, -1, "注意提取數量超過物品欄！", CONST.颜色_黄色, CONST.字体_中);
+                return;
+         end
+         if (itemData[keyNum][3]==0) then
+                table.remove(itemData,keyNum);
+                itemData = itemData;
+         end
+         if (#itemData==0) then
+                itemData={};
+                SQL.Run("update lua_hook_character set ReelBag= NULL where CdKey='"..cdk.."'")
+                NLG.UpChar(player);
+                return;
+         else
+                local sqldata = itemData;
+                local newdata = JSON.encode(sqldata);
+                SQL.Run("update lua_hook_character set ReelBag= '"..newdata.."' where CdKey='"..cdk.."'")
+                NLG.UpChar(player);
+                return;
+         end
        end
-       if itemid == -1 then  ----排除透过按钮取得道具
-          return;
-       end
-       if maxCount < 0 then
-         NLG.SystemMessage(player,"[系統]數量超過庫存！");
-         return;
-       end
-       if (Char.ItemSlot(player)==20) then
-              maxCount = maxCount - count;
-              Char.GiveItem(player,itemid,count);
-       else
-              NLG.Say(player, -1, "注意提取數量超過物品欄！", CONST.颜色_黄色, CONST.字体_中);
-              return;
-       end
-       if (maxCount==0) then
-              table.remove(itemData,key);
-              itemMenu = itemData;
-       end
-       if (#itemMenu==0) then
-              itemMenu={};
-              SQL.Run("update lua_hook_character set ReelBag= NULL where CdKey='"..cdk.."'")
-              NLG.UpChar(player);
-              return;
-       else
-              local sqldata = itemData;
-              local newdata = JSON.encode(sqldata);
-              SQL.Run("update lua_hook_character set ReelBag= '"..newdata.."' where CdKey='"..cdk.."'")
-              NLG.UpChar(player);
-              return;
-       end
+
 
     end
     if seqno == 12 then
+       local data = tonumber(_data)
        if (select == CONST.按钮_关闭) then
                  return;
        end
@@ -208,7 +221,11 @@ function Module:onLoad()
            local name = Item.GetData(ItemIndex, CONST.道具_名字);
            local itemid = Item.GetData(ItemIndex,CONST.道具_ID);
            local count = Item.GetData(ItemIndex,CONST.道具_堆叠数);
-           if (itemid>=73801 and itemid<=73958) then
+           local itemdur = Item.GetData(ItemIndex,CONST.道具_耐久);
+           if (itemid>=73801 and itemid<=73958 and itemdur<100) then
+              NLG.SystemMessage(player, "[系統]非全新的魔法卷軸無法存入！");
+              return;
+           elseif (itemid>=73801 and itemid<=73958) then
               local cdk = Char.GetData(player,CONST.对象_CDK);
               local sqldata = SQL.Run("select ReelBag from lua_hook_character where CdKey='"..cdk.."'")["0_0"]
               local itemData = {};
@@ -243,9 +260,10 @@ function Module:onLoad()
               local sqldata = itemData;
               local newdata = JSON.encode(sqldata);
               SQL.Run("update lua_hook_character set ReelBag= '"..newdata.."' where CdKey='"..cdk.."'")
+              Char.DelItemBySlot(player, itemSlot);
               NLG.UpChar(player);
            else
-              NLG.SystemMessage(player, "[系統]如果不是魔法卷軸將無法存入！");
+              NLG.SystemMessage(player, "[系統]只有魔法卷軸可以存入！");
            end
        end
     end
