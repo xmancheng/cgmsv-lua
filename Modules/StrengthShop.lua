@@ -76,7 +76,7 @@ function Module:onLoad()
         itemList={};
         -- 回调 data = 0:物品序号(基于本次交易)|N:购买数量|物品2序号|物品2数量...
         -- 数据结构 NPC图档|窗口标题|NPC对话|钱不够对话|拿不下或数量不够对话|物品N名称|物品N图档|物品N价格|物品N介绍|物品N类型|可否购买, 0不可, 1可|
-        local windowStr = '231050|卷軸倉庫|準備取出卷軸…\n這些是你曾經存入的\n各式各樣的卷軸哦\n\n※每次只取相同的|\n你錢不夠|\n你拿不下了|';
+        local windowStr = '231050|卷軸倉庫|這些是你曾經存入的\n各式各樣的卷軸哦\n\n※每次只取相同的…|\n你錢不夠|\n你拿不下了|';
         for im=1,#itemData do
             local ItemsetIndex = Data.ItemsetGetIndex(itemData[im][2]);
             if (ItemsetIndex>0) then
