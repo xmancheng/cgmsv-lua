@@ -1,4 +1,4 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('worldBoss')
 
 local EnemySet = {}
@@ -6,55 +6,55 @@ local BaseLevelSet = {}
 local Pos = {}
 local FTime = os.time()
 local Setting = 0;
---¶ÓÁĞ½âÊÍ
---     Îå(4)	Èı(2)	Ò»(0)	¶ş(1)	ËÄ(3)
---     Ê®(9)	°Ë(7)	Áù(5)	Æß(6)	¾Å(8)
-------------¶ÔÕ½NPCÉèÖÃ------------
-EnemySet[1] = {0, 400073, 400073, 0, 0, 406190, 0, 0, 400072, 400072}--0´ú±íÃ»ÓĞ¹Ö
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”(4)	ä¸‰(2)	ä¸€(0)	äºŒ(1)	å››(3)
+--     å(9)	å…«(7)	å…­(5)	ä¸ƒ(6)	ä¹(8)
+------------å¯¹æˆ˜NPCè®¾ç½®------------
+EnemySet[1] = {0, 400073, 400073, 0, 0, 406190, 0, 0, 400072, 400072}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[1] = {0, 300, 300, 0, 0, 300, 0, 0, 300, 300}
-Pos[1] = {"»ØíÍ³ğµÄ¾Ş™Ñ˜äÍõ",EnemySet[1],BaseLevelSet[1]}
+Pos[1] = {"å›ä¾†å¾©ä»‡çš„å·¨æ«»æ¨¹ç‹",EnemySet[1],BaseLevelSet[1]}
 EnemySet[2] = {0, 400075, 400075, 0, 0, 406191, 0, 0, 400074, 400074}
 BaseLevelSet[2] = {0, 300, 300, 0, 0, 300, 0, 0, 300, 300}
-Pos[2] = {"»ØíÍ³ğµÄÒº‘BÊ·ÒÁ",EnemySet[2],BaseLevelSet[2]}
+Pos[2] = {"å›ä¾†å¾©ä»‡çš„æ¶²æ…‹å²ä¼Š",EnemySet[2],BaseLevelSet[2]}
 EnemySet[3] = {0, 0, 0, 0, 0, 0, 406192, 406192, 0, 0}
 BaseLevelSet[3] = {0, 0, 0, 0, 0, 0, 300, 300, 0, 0}
-Pos[3] = {"»ØíÍ³ğµÄÒ¹µØªzĞÇ",EnemySet[3],BaseLevelSet[3]}
+Pos[3] = {"å›ä¾†å¾©ä»‡çš„å¤œåœ°ç„æ˜Ÿ",EnemySet[3],BaseLevelSet[3]}
 EnemySet[4] = {406193, 0, 0, 0, 0, 0, 406193, 406193, 0, 0}
 BaseLevelSet[4] = {300, 0, 0, 0, 0, 0, 300, 300, 0, 0}
-Pos[4] = {"»ØíÍ³ğµÄÚ¤¸®Ö®Ö÷",EnemySet[4],BaseLevelSet[4]}
+Pos[4] = {"å›ä¾†å¾©ä»‡çš„å†¥åºœä¹‹ä¸»",EnemySet[4],BaseLevelSet[4]}
 EnemySet[5] = {406220, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 BaseLevelSet[5] = {300, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[5] = {"»ØíÍ³ğµÄË®Ä¸°ÔÍõ",EnemySet[5],BaseLevelSet[5]}
+Pos[5] = {"å›ä¾†å¾©ä»‡çš„æ°´æ¯éœ¸ç‹",EnemySet[5],BaseLevelSet[5]}
 EnemySet[6] = {0, 0, 0, 0, 0, 0, 406226, 406206, 0, 0}
 BaseLevelSet[6] = {0, 0, 0, 0, 0, 0, 300, 300, 0, 0}
-Pos[6] = {"»ØíÍ³ğµÄ±©×ß°ÔÍõ",EnemySet[6],BaseLevelSet[6]}
+Pos[6] = {"å›ä¾†å¾©ä»‡çš„æš´èµ°éœ¸ç‹",EnemySet[6],BaseLevelSet[6]}
 EnemySet[7] = {0, 0, 0, 0, 0, 406233, 0, 0, 0, 0}
 BaseLevelSet[7] = {0, 0, 0, 0, 0, 300, 0, 0, 0, 0}
-Pos[7] = {"»ØíÍ³ğµÄôœô~°ÔÍõ",EnemySet[7],BaseLevelSet[7]}
+Pos[7] = {"å›ä¾†å¾©ä»‡çš„é­·é­šéœ¸ç‹",EnemySet[7],BaseLevelSet[7]}
 ------------------------------------------------------
---±³¾°ÉèÖÃ
-local Pts= 70206;                                    --ÕæÅ®ÉñÆ»¹û
+--èƒŒæ™¯è®¾ç½®
+local Pts= 70206;                                    --çœŸå¥³ç¥è‹¹æœ
 local WorldBoss = {
-      { weekday=1, lordName="Í³ğ¾Ş™Ñ˜äÍõ", lordImage=104889 , waitingArea={map=777,X=36,Y=41}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=1, lordName="å¾©ä»‡å·¨æ«»æ¨¹ç‹", lordImage=104889 , waitingArea={map=777,X=36,Y=41}, onfieldArea={map=1000,X=218,Y=88},
         win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
-      { weekday=2, lordName="Í³ğÒº‘BÊ·ÒÁ", lordImage=108206 , waitingArea={map=777,X=36,Y=43}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=2, lordName="å¾©ä»‡æ¶²æ…‹å²ä¼Š", lordImage=108206 , waitingArea={map=777,X=36,Y=43}, onfieldArea={map=1000,X=218,Y=88},
         win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
-      { weekday=3, lordName="Í³ğÒ¹µØªzĞÇ", lordImage=108228 , waitingArea={map=777,X=36,Y=45}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=3, lordName="å¾©ä»‡å¤œåœ°ç„æ˜Ÿ", lordImage=108228 , waitingArea={map=777,X=36,Y=45}, onfieldArea={map=1000,X=218,Y=88},
         win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
-      { weekday=4, lordName="Í³ğÚ¤¸®Ö®Ö÷", lordImage=108205 , waitingArea={map=777,X=36,Y=47}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=4, lordName="å¾©ä»‡å†¥åºœä¹‹ä¸»", lordImage=108205 , waitingArea={map=777,X=36,Y=47}, onfieldArea={map=1000,X=218,Y=88},
         win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
-      { weekday=5, lordName="Í³ğË®Ä¸°ÔÍõ", lordImage=108127 , waitingArea={map=777,X=36,Y=49}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=5, lordName="å¾©ä»‡æ°´æ¯éœ¸ç‹", lordImage=108127 , waitingArea={map=777,X=36,Y=49}, onfieldArea={map=1000,X=218,Y=88},
         win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
-      { weekday=6, lordName="Í³ğ±©×ß°ÔÍõ", lordImage=108179 , waitingArea={map=777,X=36,Y=51}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=6, lordName="å¾©ä»‡æš´èµ°éœ¸ç‹", lordImage=108179 , waitingArea={map=777,X=36,Y=51}, onfieldArea={map=1000,X=218,Y=88},
         win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
-      { weekday=7, lordName="Í³ğôœô~°ÔÍõ", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=7, lordName="å¾©ä»‡é­·é­šéœ¸ç‹", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=1000,X=218,Y=88},
         win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
 }
-tbl_duel_user = {};			--µ±Ç°³¡´ÎÍæ¼ÒµÄÁĞ±í
+tbl_duel_user = {};			--å½“å‰åœºæ¬¡ç©å®¶çš„åˆ—è¡¨
 tbl_win_user = {};
 tbl_WorldBossNPCIndex = tbl_WorldBossNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
@@ -63,9 +63,9 @@ function Module:onLoad()
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
   self:regCallback('LoopEvent', Func.bind(self.WorldBoss_LoopEvent,self))
-    WorldBossNPC = self:NPC_createNormal('ÊÀ½çŠ”³Ó‘·¥', 110308, { map = 777, x = 36, y = 39, direction = 6, mapType = 0 })
+    WorldBossNPC = self:NPC_createNormal('ä¸–ç•Œå¼·æ•µè¨ä¼', 110308, { map = 777, x = 36, y = 39, direction = 4, mapType = 0 })
     self:NPC_regWindowTalkedEvent(WorldBossNPC, function(npc, player, _seqno, _select, _data)
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)
@@ -78,17 +78,17 @@ function Module:onLoad()
                local bossDay = tonumber(os.date("%w",os.time()))
                if (bossDay==0) then bossDay=7; end
                print(bossDay)
-               --ÃæÏòÍæ¼Ò
+               --é¢å‘ç©å®¶
                local i;
-               i = Char.GetData(player, CONST.¶ÔÏó_·½Ïò);
+               i = Char.GetData(player, CONST.å¯¹è±¡_æ–¹å‘);
                if i >= 4 then 
                               i = i - 4;
                else
                               i = i + 4;		
                               end
-               Char.SetData(player, CONST.¶ÔÏó_·½Ïò,i);
+               Char.SetData(player, CONST.å¯¹è±¡_æ–¹å‘,i);
                NLG.UpChar(player);
-               --ÊÀ½çBOSS
+               --ä¸–ç•ŒBOSS
 	local json = Field.Get(player, 'WorldDate');
 	local ret, WorldDate = nil, nil;
 	if json then
@@ -98,7 +98,7 @@ function Module:onLoad()
 	end
 	if ret and #WorldDate > 0 then
 		if WorldDate[bossDay][1]==os.date("%d",os.time()) then
-			NLG.SystemMessage(player,"[Ïµ½y]Ã¿ÈÕƒHÄÜßMĞĞ1´ÎÓ‘·¥¡£");
+			NLG.SystemMessage(player,"[ç³»çµ±]æ¯æ—¥åƒ…èƒ½é€²è¡Œ1æ¬¡è¨ä¼ã€‚");
 			return;
 		end
 
@@ -108,8 +108,8 @@ function Module:onLoad()
 			WorldDate[i]={"32",};
 		end
 	end
-	local playerName = Char.GetData(player,CONST.CHAR_Ãû×Ö);
-	local partyname = playerName .. "£­ê ";
+	local playerName = Char.GetData(player,CONST.CHAR_åå­—);
+	local partyname = playerName .. "ï¼éšŠ";
 	for k,v in pairs(WorldBoss) do
 		if ( bossDay==v.weekday ) then
 			table.insert(tbl_duel_user,player);
@@ -136,23 +136,23 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---Õ½¶·Ç°È«»Ö¸´
+-------åŠŸèƒ½è®¾ç½®
+--æˆ˜æ–—å‰å…¨æ¢å¤
 function Char.HealAll(player)
-	Char.SetData(player,%¶ÔÏó_Ñª%, Char.GetData(player,%¶ÔÏó_×î´óÑª%));
-	Char.SetData(player,%¶ÔÏó_Ä§%, Char.GetData(player,%¶ÔÏó_×î´óÄ§%));
-	Char.SetData(player, %¶ÔÏó_ÊÜÉË%, 0);
-	Char.SetData(player, %¶ÔÏó_µô»ê%, 0);
+	Char.SetData(player,%å¯¹è±¡_è¡€%, Char.GetData(player,%å¯¹è±¡_æœ€å¤§è¡€%));
+	Char.SetData(player,%å¯¹è±¡_é­”%, Char.GetData(player,%å¯¹è±¡_æœ€å¤§é­”%));
+	Char.SetData(player, %å¯¹è±¡_å—ä¼¤%, 0);
+	Char.SetData(player, %å¯¹è±¡_æ‰é­‚%, 0);
 	NLG.UpdateParty(player);
 	NLG.UpChar(player);
 	for petSlot  = 0,4 do
 		local petIndex = Char.GetPet(player,petSlot);
 		if petIndex >= 0 then
-			local maxLp = Char.GetData(petIndex, CONST.CHAR_×î´óÑª);
-			local maxFp = Char.GetData(petIndex, CONST.CHAR_×î´óÄ§);
-			Char.SetData(petIndex, CONST.CHAR_Ñª, maxLp);
-			Char.SetData(petIndex, CONST.CHAR_Ä§, maxFp);
-			Char.SetData(petIndex, %¶ÔÏó_ÊÜÉË%, 0);
+			local maxLp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§è¡€);
+			local maxFp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§é­”);
+			Char.SetData(petIndex, CONST.CHAR_è¡€, maxLp);
+			Char.SetData(petIndex, CONST.CHAR_é­”, maxFp);
+			Char.SetData(petIndex, %å¯¹è±¡_å—ä¼¤%, 0);
 			Pet.UpPet(player, petIndex);
 		end
 	end
@@ -161,20 +161,20 @@ function Char.HealAll(player)
 		for Slot=1,4 do
 		local TeamPlayer = Char.GetPartyMember(player,Slot);
 		if (TeamPlayer>0) then
-			Char.SetData(TeamPlayer,%¶ÔÏó_Ñª%, Char.GetData(TeamPlayer,%¶ÔÏó_×î´óÑª%));
-			Char.SetData(TeamPlayer,%¶ÔÏó_Ä§%, Char.GetData(TeamPlayer,%¶ÔÏó_×î´óÄ§%));
-			Char.SetData(TeamPlayer, %¶ÔÏó_ÊÜÉË%, 0);
-			Char.SetData(TeamPlayer, %¶ÔÏó_µô»ê%, 0);
+			Char.SetData(TeamPlayer,%å¯¹è±¡_è¡€%, Char.GetData(TeamPlayer,%å¯¹è±¡_æœ€å¤§è¡€%));
+			Char.SetData(TeamPlayer,%å¯¹è±¡_é­”%, Char.GetData(TeamPlayer,%å¯¹è±¡_æœ€å¤§é­”%));
+			Char.SetData(TeamPlayer, %å¯¹è±¡_å—ä¼¤%, 0);
+			Char.SetData(TeamPlayer, %å¯¹è±¡_æ‰é­‚%, 0);
 			NLG.UpdateParty(TeamPlayer);
 			NLG.UpChar(TeamPlayer);
 			for petSlot  = 0,4 do
 				local petIndex = Char.GetPet(TeamPlayer,petSlot);
 				if petIndex >= 0 then
-					local maxLp = Char.GetData(petIndex, CONST.CHAR_×î´óÑª);
-					local maxFp = Char.GetData(petIndex, CONST.CHAR_×î´óÄ§);
-					Char.SetData(petIndex, CONST.CHAR_Ñª, maxLp);
-					Char.SetData(petIndex, CONST.CHAR_Ä§, maxFp);
-					Char.SetData(petIndex, %¶ÔÏó_ÊÜÉË%, 0);
+					local maxLp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§è¡€);
+					local maxFp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§é­”);
+					Char.SetData(petIndex, CONST.CHAR_è¡€, maxLp);
+					Char.SetData(petIndex, CONST.CHAR_é­”, maxFp);
+					Char.SetData(petIndex, %å¯¹è±¡_å—ä¼¤%, 0);
 					Pet.UpPet(TeamPlayer, petIndex);
 				end
 			end
@@ -183,22 +183,40 @@ function Char.HealAll(player)
 	end
 end
 
---Ö¸ÁîÆô¶¯Ñ­»·
+--æŒ‡ä»¤å¯åŠ¨å¾ªç¯
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr worldboss start]") then
-		local cdk = Char.GetData(charIndex,CONST.¶ÔÏó_CDK);
+		local cdk = Char.GetData(charIndex,CONST.å¯¹è±¡_CDK);
 		if (cdk == "123456") then
-			Char.SetLoopEvent('./lua/Modules/worldBoss.lua','WorldBoss_LoopEvent',charIndex,10000);
-			NLG.SystemMessage(charIndex, "[Ïµ½y]ÊÀ½ç¹²ôYÍõé_Ê¼¡£");
+			Char.SetLoopEvent('./lua/Modules/worldBoss.lua','WorldBoss_LoopEvent',WorldBossNPC,1000);
+			NLG.SystemMessage(charIndex, "[ç³»çµ±]ä¸–ç•Œå¼·æ•µå…±é¬¥é–‹å§‹ã€‚");
 			NLG.UpChar(charIndex);
 			return 0;
 		end
 	end
 	return 1;
 end
---ÖÆ×÷Ã¿ÈÕÊÀ½çÍõ
-function WorldBoss_LoopEvent(npc)
-
+--è½¬ç§»æ¯æ—¥ä¸–ç•Œå¼ºæ•Œ
+function WorldBoss_LoopEvent(WorldBossNPC)
+	if (os.date("%X",os.time())=="00:00:01") then
+		local bossDay = tonumber(os.date("%w",os.time()))
+		if (bossDay==0) then bossDay=7; end
+		for k,v in pairs(WorldBoss) do
+			if ( bossDay==v.weekday ) then
+				Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_åå­—, v.lordName);
+				Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_å½¢è±¡, v.lordImage);
+				Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_X, v.onfieldArea.X);
+				Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_Y, v.onfieldArea.Y);
+				Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_åœ°å›¾, v.onfieldArea.map);
+				NLG.UpChar(WorldBossNPC);
+			end
+		end
+	elseif (os.date("%X",os.time())=="23:59:00") then
+		Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_X, 36);
+		Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_Y, 41);
+		Char.SetData(WorldBossNPC,CONST.å¯¹è±¡_åœ°å›¾, 777);
+		NLG.UpChar(WorldBossNPC);
+	end
 end
 
 function boss_round_start(player, callback)
@@ -207,7 +225,7 @@ function boss_round_start(player, callback)
 	tbl_duel_user = {};
 	table.insert(tbl_duel_user,player);
 
-	--¿ªÊ¼Õ½¶·
+	--å¼€å§‹æˆ˜æ–—
 	tbl_UpIndex = {}
 	battleindex = {}
 
@@ -227,24 +245,24 @@ function boss_round_callback(battleindex, player)
 	local winside = Battle.GetWinSide(battleindex);
 	local sideM = 0;
 
-	--»ñÈ¡Ê¤Àû·½
+	--è·å–èƒœåˆ©æ–¹
 	if (winside == 0) then
 		sideM = 0;
 	end
 	if (winside == 1) then
 		sideM = 10;
 	end
-	--»ñÈ¡Ê¤Àû·½µÄÍæ¼ÒÖ¸Õë£¬¿ÉÄÜÕ¾ÔÚÇ°·½ºÍºó·½
+	--è·å–èƒœåˆ©æ–¹çš„ç©å®¶æŒ‡é’ˆï¼Œå¯èƒ½ç«™åœ¨å‰æ–¹å’Œåæ–¹
 	local w1 = Battle.GetPlayIndex(battleindex, 0 + sideM);
 	local w2 = Battle.GetPlayIndex(battleindex, 5 + sideM);
 	local ww = nil;
 
-	--°ÑÊ¤ÀûÍæ¼Ò¼ÓÈëÁĞ±í
+	--æŠŠèƒœåˆ©ç©å®¶åŠ å…¥åˆ—è¡¨
 	tbl_win_user = {}
-	if ( Char.GetData(w1, %¶ÔÏó_ÀàĞÍ%) >= %¶ÔÏóÀàĞÍ_ÈË% ) then
+	if ( Char.GetData(w1, %å¯¹è±¡_ç±»å‹%) >= %å¯¹è±¡ç±»å‹_äºº% ) then
 		local ww = w1;
 		table.insert(tbl_win_user, ww);
-	elseif ( Char.GetData(w2, %¶ÔÏó_ÀàĞÍ%) >= %¶ÔÏóÀàĞÍ_ÈË% ) then
+	elseif ( Char.GetData(w2, %å¯¹è±¡_ç±»å‹%) >= %å¯¹è±¡ç±»å‹_äºº% ) then
 		local ww = w2;
 		table.insert(tbl_win_user, ww);
 	else
@@ -255,7 +273,7 @@ function boss_round_callback(battleindex, player)
 end
 
 
---³¬¼¶ÁìÖ÷ÉèÖÃ
+--è¶…çº§é¢†ä¸»è®¾ç½®
 function Module:OnbattleStartEventCallback(battleIndex)
 	local ret = SQL.Run("select Name,WorldLord1 from lua_hook_worldboss order by WorldLord1 asc limit 3");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
@@ -264,9 +282,9 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local HP = LordHP1;
-		if enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406190  then
-			Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);
-			Char.SetData(enemy, CONST.CHAR_Ñª, HP);
+		if enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406190  then
+			Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);
+			Char.SetData(enemy, CONST.CHAR_è¡€, HP);
 		end
 	end
 end
@@ -280,23 +298,23 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local HP = LordHP1;
-		if Round==0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406190  then
-			Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);     --ÑªÁ¿ÉÏÏŞ100Íò
-			Char.SetData(enemy, CONST.CHAR_Ñª, HP);
-		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406190  then
-			Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);     --ÑªÁ¿ÉÏÏŞ100Íò
-			Char.SetData(enemy, CONST.CHAR_Ñª, HP);
+		if Round==0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406190  then
+			Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);     --è¡€é‡ä¸Šé™100ä¸‡
+			Char.SetData(enemy, CONST.CHAR_è¡€, HP);
+		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406190  then
+			Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);     --è¡€é‡ä¸Šé™100ä¸‡
+			Char.SetData(enemy, CONST.CHAR_è¡€, HP);
 			if Round>=5 then
-				Char.SetData(enemy, CONST.CHAR_¹¥»÷Á¦, 10000);
-				Char.SetData(enemy, CONST.CHAR_¾«Éñ, 10000);
-				Char.SetData(enemy, CONST.CHAR_ÃüÖĞ, 100);
-				Char.SetData(enemy, CONST.CHAR_ÉÁ¶ã, 100);
-				Char.SetData(enemy, CONST.CHAR_·´»÷, 70);
+				Char.SetData(enemy, CONST.CHAR_æ”»å‡»åŠ›, 10000);
+				Char.SetData(enemy, CONST.CHAR_ç²¾ç¥, 10000);
+				Char.SetData(enemy, CONST.CHAR_å‘½ä¸­, 100);
+				Char.SetData(enemy, CONST.CHAR_é—ªèº², 100);
+				Char.SetData(enemy, CONST.CHAR_åå‡», 70);
 			end
 			if Round>=4 and Round<=8 then
-				Char.SetData(enemy, CONST.¶ÔÏó_ENEMY_HeadGraNo,114260);
+				Char.SetData(enemy, CONST.å¯¹è±¡_ENEMY_HeadGraNo,114260);
 			elseif Round>=9 then
-				Char.SetData(enemy, CONST.¶ÔÏó_ENEMY_HeadGraNo,114261);
+				Char.SetData(enemy, CONST.å¯¹è±¡_ENEMY_HeadGraNo,114261);
 			end
 		end
 	end
@@ -307,21 +325,21 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 	local leaderpet0 = Battle.GetPlayer(battleIndex, 5);
 	local player = leader0
 	local leaderpet = leaderpet0
-	if Char.GetData(player, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(player, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		player = leader0
 	else
 		player = leaderpet
 	end
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406190  then
-                                                            local HP = Char.GetData(enemy,CONST.CHAR_Ñª);
-			Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);
-			Char.SetData(enemy, CONST.CHAR_Ñª, HP);
-			NLG.SystemMessage(player,"[Ïµ½y]…^ÓòîIÖ÷Ä¿Ç°Ê£ğNÑªÁ¿"..HP.."£¡");
+		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406190  then
+                                                            local HP = Char.GetData(enemy,CONST.CHAR_è¡€);
+			Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);
+			Char.SetData(enemy, CONST.CHAR_è¡€, HP);
+			NLG.SystemMessage(player,"[ç³»çµ±]å€åŸŸé ˜ä¸»ç›®å‰å‰©é¤˜è¡€é‡"..HP.."ï¼");
 			NLG.UpChar(enemy);
-			--LordÑªÁ¿Ğ´Èë¿â
-			local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK) or nil;
+			--Lordè¡€é‡å†™å…¥åº“
+			local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK) or nil;
 			if (cdk~=nil) then
 				SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
 				SQL.Run("update lua_hook_worldboss set WorldLord1= '"..HP.."' where CdKey='"..cdk.."'")
@@ -330,14 +348,14 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		end
 	end
 end
---±©×ßÄ£Ê½¼¼ÄÜÊ©·Å
+--æš´èµ°æ¨¡å¼æŠ€èƒ½æ–½æ”¾
 function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       local Round = Battle.GetTurn(battleIndex);
       for i = 10, 19 do
             local enemy = Battle.GetPlayer(battleIndex, i);
-            if Round>=5 and Round<=9 and enemy>= 0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406190  then
+            if Round>=5 and Round<=9 and enemy>= 0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-            elseif Round>=10 and enemy>= 0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406190  then
+            elseif Round>=10 and enemy>= 0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
             end
       end
@@ -360,7 +378,7 @@ end
             local WorldBossNPC = self:NPC_createNormal(v.lordName, v.lordImage, { map = v.waitingArea.map, x = v.waitingArea.X, y = v.waitingArea.Y, direction = 6, mapType = 0 })
             tbl_WorldBossNPCIndex[k] = WorldBossNPC
 	self:NPC_regWindowTalkedEvent(tbl_WorldBossNPCIndex[k], function(npc, player, _seqno, _select, _data)
-		local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+		local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 		local seqno = tonumber(_seqno)
 		local select = tonumber(_select)
 		local data = tonumber(_data)
@@ -373,17 +391,17 @@ end
 			local bossDay = tonumber(os.date("%w",os.time()))
 			if (bossDay==0) then bossDay=7; end
 			print(bossDay)
-			--ÃæÏòÍæ¼Ò
+			--é¢å‘ç©å®¶
 			local i;
-			i = Char.GetData(player, CONST.¶ÔÏó_·½Ïò);
+			i = Char.GetData(player, CONST.å¯¹è±¡_æ–¹å‘);
 			if i >= 4 then 
 				i = i - 4;
 			else
 				i = i + 4;		
 			end
-			Char.SetData(player, CONST.¶ÔÏó_·½Ïò,i);
+			Char.SetData(player, CONST.å¯¹è±¡_æ–¹å‘,i);
 			NLG.UpChar(player);
-			--ÊÀ½çBOSS
+			--ä¸–ç•ŒBOSS
 			local json = Field.Get(player, 'WorldDate');
 			local ret, WorldDate = nil, nil;
 			if json then
@@ -393,7 +411,7 @@ end
 			end
 			if ret and #WorldDate > 0 then
 				if WorldDate[bossDay][1]==os.date("%d",os.time()) then
-					NLG.SystemMessage(player,"[Ïµ½y]Ã¿ÈÕƒHÄÜßMĞĞ1´ÎÓ‘·¥¡£");
+					NLG.SystemMessage(player,"[ç³»çµ±]æ¯æ—¥åƒ…èƒ½é€²è¡Œ1æ¬¡è¨ä¼ã€‚");
 					return;
 				end
 
@@ -403,8 +421,8 @@ end
 					WorldDate[i]={"32",};
 				end
 			end
-			local playerName = Char.GetData(player,CONST.CHAR_Ãû×Ö);
-			local partyname = playerName .. "£­ê ";
+			local playerName = Char.GetData(player,CONST.CHAR_åå­—);
+			local partyname = playerName .. "ï¼éšŠ";
 			for k,v in pairs(WorldBoss) do
 				if ( bossDay==v.weekday ) then
 					table.insert(tbl_duel_user,player);
@@ -431,7 +449,7 @@ end
         end
     end
 ]]
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
