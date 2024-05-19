@@ -628,6 +628,7 @@ function ActivityNpc_BattleWin(_BattleIndex, _NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomActivityNpcIndex)
 			tbl_RandomActivityNpcIndex[kk] = nil
 		end
+		Battle.UnsetWinEvent( _BattleIndex);
 	--return 1
 end
 
