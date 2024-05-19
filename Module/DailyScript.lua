@@ -436,6 +436,7 @@ function DailyNpc_BattleWin(_BattleIndex, _NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomDailyNpcIndex)
 			tbl_RandomDailyNpcIndex[kk] = nil
 		end
+		Battle.UnsetWinEvent( _BattleIndex);
 	--return 1
 end
 
