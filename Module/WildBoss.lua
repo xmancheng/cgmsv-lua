@@ -131,6 +131,7 @@ function WildNpc_BattleWin(_BattleIndex, _NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomNpcIndex)
 			tbl_RandomNpcIndex[kk] = nil
 		end
+		Battle.UnsetWinEvent( _BattleIndex);
 	--return 1
 end
 function Wild_main()
