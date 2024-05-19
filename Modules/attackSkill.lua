@@ -250,6 +250,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                end
 
 --合擊狀態增傷
+--[[
                if flg == CONST.DamageFlags.Combo  then
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModConfusion)>=1  then
                         damage = damage * 1.01;
@@ -288,6 +289,85 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         return damage;
                  end
                end
+]]
+
+               local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
+               local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
+               --基本資訊
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+               local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+               local Blood = Char.GetData(charIndex,CONST.CHAR_血);
+               local Mana = Char.GetData(charIndex,CONST.CHAR_魔);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
+               local JobLv = Char.GetData(charIndex,CONST.CHAR_职阶)+1;
+               local JobLv_tbl = {200,310,340,370,400,430};
+               if LvRate <= 50  then
+                        LvRate = 1;
+               else
+                        LvRate = LvRate/50;
+               end
+               if Weapon_Name~=nil then
+                 local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
+                 if (wandId== 79250)  then
+                        damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
+                        NLG.Say(leader,charIndex,"【光明之力】！！",4,3);
+                        if NLG.Rand(1,4)==2  then
+                               for  i=0, 19 do
+                                   local player = Battle.GetPlayIndex(battleIndex, i)
+                                   if player>=0 and Char.IsPlayer(player) then
+                                       Char.SetData(player, CONST.CHAR_BattleDamageAbsrob, 1);
+                                       NLG.UpChar(player);
+                                   end
+                               end
+                        end
+                        return damage;
+                 elseif (wandId== 79251)  then
+                        damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
+                        NLG.Say(leader,charIndex,"【黑暗之力】！！",4,3);
+                        if NLG.Rand(1,4)==2  then
+                               for  i=0, 19 do
+                                   local player = Battle.GetPlayIndex(battleIndex, i)
+                                   if player>=0 and Char.IsPlayer(player) then
+                                       Char.SetData(player, CONST.CHAR_BattleDamageMagicAbsrob, 1);
+                                       NLG.UpChar(player);
+                                   end
+                               end
+                        end
+                        return damage;
+                 elseif (wandId== 79252)  then
+                        damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        NLG.Say(leader,charIndex,"【狡猾戲法】！！",4,3);
+                        if NLG.Rand(1,10)>=8  then
+                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModSleep};
+                               local rate = NLG.Rand(1,3);
+                               Char.SetData(defCharIndex, debuff[rate], 3);
+                               NLG.UpChar(defCharIndex);
+                        end
+                        return damage;
+                 elseif (wandId== 79253)  then
+                        damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        NLG.Say(leader,charIndex,"【奸智戲法】！！",4,3);
+                        if NLG.Rand(1,10)>=8  then
+                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModAmnesia};
+                               local rate = NLG.Rand(1,3);
+                               Char.SetData(defCharIndex, debuff[rate], 3);
+                               NLG.UpChar(defCharIndex);
+                        end
+                        return damage;
+                 elseif (wandId== 79254)  then
+                        damage = damage + Blood * 0.15 + Mana * 0.15 + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        NLG.Say(leader,charIndex,"【鐵之身軀】！！",4,3);
+                        if Blood>=Mana  then
+                               Char.SetData(charIndex, CONST.CHAR_BattleDamageVanish, 1);
+                               NLG.UpChar(charIndex);
+                        elseif Blood<Mana  then
+                               Char.SetData(charIndex, CONST.CHAR_BattleDamageMagicVanish, 1);
+                               NLG.UpChar(charIndex);
+                        end
+                        return damage;
+                 end
+               end
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                if (com3 == 26739)  then    --26739肌肉魔法/26700~26709精神衝擊波(攻擊力補正)
@@ -296,14 +376,14 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      local defHp = Char.GetData(charIndex,CONST.CHAR_血);
                      local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
-                     local Hp08 = defHp/defHpM;
+                     local Hp02 = defHp/defHpM;
                      local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
-                     if Hp08>=0.8 then
-                             local AC = Attack * 1.2;
+                     if Hp02<0.2 then
+                             local AC = Attack * 1.15;
                              damage = damage + AC;
-                             --NLG.Say(-1,-1,"【肌肉魔法】血量80%以上傷害取決於攻擊力，30%使對象機率混亂！！",4,3);
-                             if NLG.Rand(1,10)>=8  then
-                                    Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
+                             --NLG.Say(-1,-1,"【肌肉魔法】血量20%以下傷害取決於攻擊力，10%使對象機率混亂！！",4,3);
+                             if NLG.Rand(1,10)>=10  then
+                                    Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 1);
                                     Char.UpCharStatus(defCharIndex);
                              end
                      else
