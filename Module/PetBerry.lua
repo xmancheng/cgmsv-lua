@@ -285,6 +285,7 @@ function PlantNpc_BattleWin(_BattleIndex, _NpcIndex)
 				tbl_PlantberryNpcIndex[dp] = nil
 			end
 		end
+		Battle.UnsetWinEvent( _BattleIndex);
 	--return 1
 end
 
