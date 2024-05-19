@@ -570,6 +570,7 @@ function BravadoNpc_BattleWin(_BattleIndex, _NpcIndex)
 			local kk = table_n(_NpcIndex,0,'v',tbl_RandomBravadoNpcIndex)
 			tbl_RandomBravadoNpcIndex[kk] = nil
 		end
+		Battle.UnsetWinEvent( _BattleIndex);
 	--return 1
 end
 
