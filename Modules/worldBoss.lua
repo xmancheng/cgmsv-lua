@@ -207,7 +207,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 end
 --转移每日世界强敌
 function WorldBoss_LoopEvent(WorldBossNPC)
-	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="06:15:01") or (os.date("%X",os.time())=="07:15:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="20:15:01") then
+	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="06:15:01") or (os.date("%X",os.time())=="07:15:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="20:15:01") then
 		local bossDay = tonumber(os.date("%w",os.time()))
 		if (bossDay==0) then bossDay=7; end
 		for k,v in pairs(WorldBoss) do
@@ -220,7 +220,7 @@ function WorldBoss_LoopEvent(WorldBossNPC)
 				NLG.UpChar(WorldBossNPC);
 			end
 		end
-	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="06:45:01") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="12:45:01") or (os.date("%X",os.time())=="13:45:01")  then
+	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="06:45:01") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="12:45:01") or (os.date("%X",os.time())=="18:45:01") or (os.date("%X",os.time())=="13:45:01")  then
 		Char.SetData(WorldBossNPC,CONST.对象_X, 36);
 		Char.SetData(WorldBossNPC,CONST.对象_Y, 41);
 		Char.SetData(WorldBossNPC,CONST.对象_地图, 777);
@@ -304,6 +304,18 @@ end
 
 function Module:battleOverEventCallback(battleIndex)
 	if worldBossBattle~=nil then
+		for i = 10, 19 do
+			local enemy = Battle.GetPlayer(battleIndex, i);
+			table.forEach(worldBossBattle, function(e)
+			if Round>=0 and enemy>=0 and e==battleIndex  then
+				local HP = Char.GetData(enemy,CONST.CHAR_血);
+				if (HP<=1) then
+					local HP = 800000;
+					SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' ")
+				end
+			end
+			end)
+		end
 		worldBossBattle ={};
 	end
 end
