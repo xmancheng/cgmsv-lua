@@ -62,7 +62,7 @@ function Module:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
-  self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
+  --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
   self:regCallback('LoopEvent', Func.bind(self.WorldBoss_LoopEvent,self))
     WorldBossNPC = self:NPC_createNormal('世界強敵討伐', 110308, { map = 777, x = 36, y = 39, direction = 4, mapType = 0 })
@@ -289,6 +289,7 @@ function boss_round_callback(battleindex, player)
 			if ( bossDay==v.weekday ) then
 				local rand = NLG.Rand(1,#v.rewardsItem);
 				Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+				NLG.SystemMessage(-1,"恭喜玩家: "..Char.GetData(player,CONST.对象_名字).." 討伐成功"..v.lordName.."。");
 			end
 		end
 	end
@@ -313,29 +314,16 @@ function boss_round_callback(battleindex, player)
 	worldBossBattle ={};
 end
 
-function Module:battleOverEventCallback(battleIndex)
-	if worldBossBattle~=nil then
-		for i = 10, 19 do
-			local enemy = Battle.GetPlayer(battleIndex, i);
-			table.forEach(worldBossBattle, function(e)
-			if enemy>=0 and e==battleIndex  then
-				local HP = Char.GetData(enemy,CONST.CHAR_血);
-				if (HP<=1) then
-					local HP = 800000;
-					SQL.querySQL("update lua_hook_worldboss set WorldLord8= '"..HP.."' where LordEnd8='0' ")
-				end
-			end
-			end)
-		end
-		worldBossBattle ={};
-	end
-end
-
 --超级领主设置
 function Module:OnbattleStartEventCallback(battleIndex)
 	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord8 desc limit 1");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP8=tonumber(ret["0_1"]);
+	end
+	if LordHP8<=4000 then
+		LordHP8 = 800000;
+		local HP = LordHP8;
+		SQL.querySQL("update lua_hook_worldboss set WorldLord8= '"..HP.."' where LordEnd8='0' ")
 	end
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
@@ -355,7 +343,7 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP8=tonumber(ret["0_1"]);
 	end
-	--print(LordHP1)
+	--print(LordHP8)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local HP = LordHP8;
