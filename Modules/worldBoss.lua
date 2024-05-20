@@ -308,7 +308,7 @@ function Module:battleOverEventCallback(battleIndex)
 		for i = 10, 19 do
 			local enemy = Battle.GetPlayer(battleIndex, i);
 			table.forEach(worldBossBattle, function(e)
-			if Round>=0 and enemy>=0 and e==battleIndex  then
+			if enemy>=0 and e==battleIndex  then
 				local HP = Char.GetData(enemy,CONST.CHAR_血);
 				if (HP<=1) then
 					local HP = 800000;
@@ -410,9 +410,9 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       for i = 10, 19 do
             local enemy = Battle.GetPlayer(battleIndex, i);
             table.forEach(worldBossBattle, function(e)
-            if Round>=2 and Round<=3 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+            if Round>=5 and Round<=10 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-            elseif Round>=4 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+            elseif Round>=15 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
             end
             end)
