@@ -282,9 +282,15 @@ function boss_round_callback(battleindex, player)
 	end
 
 	local player = tbl_win_user[1];
+	local bossDay = tonumber(os.date("%w",os.time()))
+	if (bossDay==0) then bossDay=7; end
 	if (Char.EndEvent(player, 308) == 1) then
-		local rand = NLG.Rand(1,#v.rewardsItem);
-		Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+		for k,v in pairs(WorldBoss) do
+			if ( bossDay==v.weekday ) then
+				local rand = NLG.Rand(1,#v.rewardsItem);
+				Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+			end
+		end
 	end
 	local PartyNum = Char.PartyNum(player);
 	if (PartyNum>1) then
@@ -293,8 +299,12 @@ function boss_round_callback(battleindex, player)
 			if Char.IsDummy(TeamPlayer)==false then
 				Field.Set(TeamPlayer, 'WorldDate', JSON.encode(WorldDate));
 				if (Char.EndEvent(TeamPlayer, 308) == 1) then
-					local rand = NLG.Rand(1,#v.rewardsItem);
-					Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
+					for k,v in pairs(WorldBoss) do
+						if ( bossDay==v.weekday ) then
+							local rand = NLG.Rand(1,#v.rewardsItem);
+							Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
+						end
+					end
 				end
 			end
 		end
@@ -312,7 +322,7 @@ function Module:battleOverEventCallback(battleIndex)
 				local HP = Char.GetData(enemy,CONST.CHAR_血);
 				if (HP<=1) then
 					local HP = 800000;
-					SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' ")
+					SQL.querySQL("update lua_hook_worldboss set WorldLord8= '"..HP.."' where LordEnd8='0' ")
 				end
 			end
 			end)
@@ -323,7 +333,7 @@ end
 
 --超级领主设置
 function Module:OnbattleStartEventCallback(battleIndex)
-	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord1 desc limit 1");
+	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord8 desc limit 1");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP8=tonumber(ret["0_1"]);
 	end
@@ -341,7 +351,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 end
 function Module:OnBeforeBattleTurnCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
-	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord1 desc limit 1");
+	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord8 desc limit 1");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP8=tonumber(ret["0_1"]);
 	end
@@ -358,10 +368,10 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 			Char.SetData(enemy, CONST.CHAR_血, HP);
 			if Round>=1 then
 				Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
-				Char.SetData(enemy, CONST.CHAR_防御力, 10000);
+				Char.SetData(enemy, CONST.CHAR_防御力, 5000);
 				Char.SetData(enemy, CONST.CHAR_敏捷, 10000);
 				Char.SetData(enemy, CONST.CHAR_精神, 10000);
-				Char.SetData(enemy, CONST.CHAR_回复, 10000);
+				Char.SetData(enemy, CONST.CHAR_回复, 5000);
 				Char.SetData(enemy, CONST.CHAR_必杀, 100);
 				Char.SetData(enemy, CONST.CHAR_闪躲, 100);
 				Char.SetData(enemy, CONST.CHAR_命中, 100);
@@ -410,9 +420,11 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       for i = 10, 19 do
             local enemy = Battle.GetPlayer(battleIndex, i);
             table.forEach(worldBossBattle, function(e)
-            if Round>=5 and Round<=10 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+            if Round>=5 and Round<=6 and enemy>= 0 and e==battleIndex  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-            elseif Round>=15 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+            elseif Round>=9 and Round<=10 and enemy>= 0 and e==battleIndex  then
+                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
+            elseif Round>=15 and enemy>= 0 and e==battleIndex  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
             end
             end)
