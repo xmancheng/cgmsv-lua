@@ -36,19 +36,19 @@ Pos[7] = {"回來復仇的魷魚霸王",EnemySet[7],BaseLevelSet[7]}
 local Pts= 70206;                                    --真女神苹果
 local WorldBoss = {
       { weekday=1, lordName="復仇巨櫻樹王", lordImage=104889 , waitingArea={map=777,X=36,Y=41}, onfieldArea={map=1000,X=218,Y=88},
-        win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
+        rewardsItem={73940,73941,73893}, rewardsItem_count=1, prizeItem={73876,73878,73880,73890,73891}, prizeItem_count=1},
       { weekday=2, lordName="復仇液態史伊", lordImage=108206 , waitingArea={map=777,X=36,Y=43}, onfieldArea={map=1000,X=218,Y=88},
-        win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
+        rewardsItem={73923,73924}, rewardsItem_count=1, prizeItem={73921,73922,73930,73932}, prizeItem_count=1},
       { weekday=3, lordName="復仇夜地獄星", lordImage=108228 , waitingArea={map=777,X=36,Y=45}, onfieldArea={map=1000,X=218,Y=88},
-        win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
+        rewardsItem={73808,73809,73820,73821}, rewardsItem_count=1, prizeItem={73818,73819,73806,73938,73939}, prizeItem_count=1},
       { weekday=4, lordName="復仇冥府之主", lordImage=108205 , waitingArea={map=777,X=36,Y=47}, onfieldArea={map=1000,X=218,Y=88},
-        win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
+        rewardsItem={73833,73834,73912,73913}, rewardsItem_count=1, prizeItem={73835,73826,73828,73830,73831}, prizeItem_count=1},
       { weekday=5, lordName="復仇水母霸王", lordImage=108127 , waitingArea={map=777,X=36,Y=49}, onfieldArea={map=1000,X=218,Y=88},
-        win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
+        rewardsItem={73934,73935,73887,73888}, rewardsItem_count=1, prizeItem={73853,73854,73856,73885,73886}, prizeItem_count=1},
       { weekday=6, lordName="復仇暴走霸王", lordImage=108179 , waitingArea={map=777,X=36,Y=51}, onfieldArea={map=1000,X=218,Y=88},
-        win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
+        rewardsItem={73857,73859,73946,73948}, rewardsItem_count=1, prizeItem={73858,73860,73951,73952,73953}, prizeItem_count=1},
       { weekday=7, lordName="復仇魷魚霸王", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=1000,X=218,Y=88},
-        win={getItem=70257, getItem_count=1}, lose={getItem=70257, getItem_count=1}},
+        rewardsItem={73866,73870,73843,73845}, rewardsItem_count=1, prizeItem={73861,73863,73865,73955,73957,73958}, prizeItem_count=1},
 }
 tbl_duel_user = {};			--当前场次玩家的列表
 tbl_win_user = {};
@@ -61,6 +61,7 @@ function Module:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
+  self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
   self:regCallback('LoopEvent', Func.bind(self.WorldBoss_LoopEvent,self))
     WorldBossNPC = self:NPC_createNormal('世界強敵討伐', 110308, { map = 777, x = 36, y = 39, direction = 4, mapType = 0 })
@@ -119,12 +120,20 @@ function Module:onLoad()
 			os.date("%d",os.time()),
 			}
 			Field.Set(player, 'WorldDate', JSON.encode(WorldDate));
+			if (Char.EndEvent(player, 308) == 1) then
+				local rand = NLG.Rand(1,#v.prizeItem);
+				Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
+			end
 			local PartyNum = Char.PartyNum(player);
 			if (PartyNum>1) then
 				for Slot=1,4 do
 					local TeamPlayer = Char.GetPartyMember(player,Slot);
 					if Char.IsDummy(TeamPlayer)==false then
 						Field.Set(TeamPlayer, 'WorldDate', JSON.encode(WorldDate));
+						if (Char.EndEvent(TeamPlayer, 308) == 1) then
+							local rand = NLG.Rand(1,#v.prizeItem);
+							Char.GiveItem(TeamPlayer, v.prizeItem[rand], v.prizeItem_count);
+						end
 					end
 				end
 			end
@@ -198,7 +207,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 end
 --转移每日世界强敌
 function WorldBoss_LoopEvent(WorldBossNPC)
-	if (os.date("%X",os.time())=="00:00:01") then
+	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="06:15:01") or (os.date("%X",os.time())=="07:15:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="20:15:01") then
 		local bossDay = tonumber(os.date("%w",os.time()))
 		if (bossDay==0) then bossDay=7; end
 		for k,v in pairs(WorldBoss) do
@@ -211,7 +220,7 @@ function WorldBoss_LoopEvent(WorldBossNPC)
 				NLG.UpChar(WorldBossNPC);
 			end
 		end
-	elseif (os.date("%X",os.time())=="23:59:00") then
+	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="06:45:01") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="12:45:01") or (os.date("%X",os.time())=="13:45:01")  then
 		Char.SetData(WorldBossNPC,CONST.对象_X, 36);
 		Char.SetData(WorldBossNPC,CONST.对象_Y, 41);
 		Char.SetData(WorldBossNPC,CONST.对象_地图, 777);
@@ -236,6 +245,8 @@ function boss_round_start(player, callback)
 			Char.HealAll(player);
 			local battleindex = Battle.PVE( player, player, nil, Pos[bossDay][2], Pos[bossDay][3], nil)
 			Battle.SetWinEvent("./lua/Modules/worldBoss.lua", "boss_round_callback", battleindex);
+			worldBossBattle ={}
+			table.insert(worldBossBattle, battleindex);
 		end
 	end
 end
@@ -270,53 +281,83 @@ function boss_round_callback(battleindex, player)
 	end
 
 	local player = tbl_win_user[1];
+	if (Char.EndEvent(player, 308) == 1) then
+		local rand = NLG.Rand(1,#v.rewardsItem);
+		Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+	end
+	local PartyNum = Char.PartyNum(player);
+	if (PartyNum>1) then
+		for Slot=1,4 do
+			local TeamPlayer = Char.GetPartyMember(player,Slot);
+			if Char.IsDummy(TeamPlayer)==false then
+				Field.Set(TeamPlayer, 'WorldDate', JSON.encode(WorldDate));
+				if (Char.EndEvent(TeamPlayer, 308) == 1) then
+					local rand = NLG.Rand(1,#v.rewardsItem);
+					Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
+				end
+			end
+		end
+	end
+	Battle.UnsetWinEvent(battleindex);
+	worldBossBattle ={};
 end
 
+function Module:battleOverEventCallback(battleIndex)
+	if worldBossBattle~=nil then
+		worldBossBattle ={};
+	end
+end
 
 --超级领主设置
 function Module:OnbattleStartEventCallback(battleIndex)
-	local ret = SQL.Run("select Name,WorldLord1 from lua_hook_worldboss order by WorldLord1 asc limit 3");
+	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord1 desc limit 1");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
-		LordHP1=tonumber(ret["0_1"]);
+		LordHP8=tonumber(ret["0_1"]);
 	end
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		local HP = LordHP1;
-		if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
-			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
-			Char.SetData(enemy, CONST.CHAR_血, HP);
-		end
+		local HP = LordHP8;
+		table.forEach(worldBossBattle, function(e)
+			if enemy>=0 and e==battleIndex  then
+				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
+				Char.SetData(enemy, CONST.CHAR_血, HP);
+				--NLG.SystemMessage(-1,"[系統]世界強敵血量超激增！");
+			end
+		end)
 	end
 end
 function Module:OnBeforeBattleTurnCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
-	local ret = SQL.Run("select Name,WorldLord1 from lua_hook_worldboss order by WorldLord1 asc limit 3");
+	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord1 desc limit 1");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
-		LordHP1=tonumber(ret["0_1"]);
+		LordHP8=tonumber(ret["0_1"]);
 	end
 	--print(LordHP1)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		local HP = LordHP1;
-		if Round==0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+		local HP = LordHP8;
+		table.forEach(worldBossBattle, function(e)
+		if Round==0 and enemy>=0 and e==battleIndex  then
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 			Char.SetData(enemy, CONST.CHAR_血, HP);
-		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+		elseif Round>0 and enemy>=0 and e==battleIndex  then
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 			Char.SetData(enemy, CONST.CHAR_血, HP);
-			if Round>=5 then
+			if Round>=1 then
 				Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
+				Char.SetData(enemy, CONST.CHAR_防御力, 10000);
+				Char.SetData(enemy, CONST.CHAR_敏捷, 10000);
 				Char.SetData(enemy, CONST.CHAR_精神, 10000);
-				Char.SetData(enemy, CONST.CHAR_命中, 100);
+				Char.SetData(enemy, CONST.CHAR_回复, 10000);
+				Char.SetData(enemy, CONST.CHAR_必杀, 100);
 				Char.SetData(enemy, CONST.CHAR_闪躲, 100);
+				Char.SetData(enemy, CONST.CHAR_命中, 100);
 				Char.SetData(enemy, CONST.CHAR_反击, 70);
-			end
-			if Round>=4 and Round<=8 then
-				Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,114260);
-			elseif Round>=9 then
-				Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,114261);
+				Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,108511);
 			end
 		end
+		--NLG.SystemMessage(-1,"[系統]世界強敵血量超激增！");
+		end)
 	end
 end
 function Module:OnAfterBattleTurnCommand(battleIndex)
@@ -332,20 +373,22 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 	end
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+		table.forEach(worldBossBattle, function(e)
+		if Round>=0 and enemy>=0 and e==battleIndex  then
                                                             local HP = Char.GetData(enemy,CONST.CHAR_血);
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 			Char.SetData(enemy, CONST.CHAR_血, HP);
-			NLG.SystemMessage(player,"[系統]區域領主目前剩餘血量"..HP.."！");
+			--NLG.SystemMessage(player,"[系統]世界強敵目前剩餘血量"..HP.."！");
 			NLG.UpChar(enemy);
 			--Lord血量写入库
 			local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 			if (cdk~=nil) then
 				SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
-				SQL.Run("update lua_hook_worldboss set WorldLord1= '"..HP.."' where CdKey='"..cdk.."'")
+				SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..cdk.."'")
 				NLG.UpChar(player);
 			end
 		end
+		end)
 	end
 end
 --暴走模式技能施放
@@ -353,11 +396,13 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       local Round = Battle.GetTurn(battleIndex);
       for i = 10, 19 do
             local enemy = Battle.GetPlayer(battleIndex, i);
-            if Round>=5 and Round<=9 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+            table.forEach(worldBossBattle, function(e)
+            if Round>=2 and Round<=3 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-            elseif Round>=10 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
+            elseif Round>=4 and enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
             end
+            end)
       end
 end
 function SetCom(charIndex, action, com1, com2, com3)
