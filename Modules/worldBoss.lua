@@ -52,6 +52,7 @@ local WorldBoss = {
 }
 tbl_duel_user = {};			--当前场次玩家的列表
 tbl_win_user = {};
+worldBossBattle = {}
 tbl_WorldBossNPCIndex = tbl_WorldBossNPCIndex or {}
 ------------------------------------------------
 --- 加载模块钩子
@@ -245,7 +246,7 @@ function boss_round_start(player, callback)
 			Char.HealAll(player);
 			local battleindex = Battle.PVE( player, player, nil, Pos[bossDay][2], Pos[bossDay][3], nil)
 			Battle.SetWinEvent("./lua/Modules/worldBoss.lua", "boss_round_callback", battleindex);
-			worldBossBattle ={}
+			worldBossBattle={}
 			table.insert(worldBossBattle, battleindex);
 		end
 	end
