@@ -293,6 +293,8 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 
                local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
                local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
+               local ShieldIndex = Char.GetShield(charIndex);
+               local Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字);
                --基本資訊
                local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
                local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
@@ -355,7 +357,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                                NLG.UpChar(defCharIndex);
                         end
                         return damage;
-                 elseif (wandId== 79254)  then
+                 end
+               end
+               if Shield_Name~=nil then
+                 local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
+                 if (wandId== 79254)  then
                         damage = damage + Blood * 0.15 + Mana * 0.15 + (Mattack+JobLv_tbl[JobLv])*0.5;
                         NLG.Say(leader,charIndex,"【鐵之身軀】！！",4,3);
                         if Blood>=Mana  then
@@ -500,6 +506,18 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
          else
          end
   return damage;
+end
+
+Char.GetShield = function(charIndex)
+  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.道具_类型)==CONST.ITEM_TYPE_盾 then
+    return ItemIndex,CONST.EQUIP_左手;
+  end
+  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_右手)
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.道具_类型)==CONST.ITEM_TYPE_盾 then
+    return ItemIndex,CONST.EQUIP_右手;
+  end
+  return -1,-1;
 end
 
 --- 卸载模块钩子
