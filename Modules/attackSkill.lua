@@ -290,7 +290,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  end
                end
 ]]
-
+             if Char.IsPlayer(charIndex) then
                local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
                local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
                local ShieldIndex = Char.GetShield(charIndex);
@@ -317,9 +317,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         if NLG.Rand(1,4)==2  then
                                for  i=0, 19 do
                                    local player = Battle.GetPlayIndex(battleIndex, i)
-                                   if player>=0 and Char.IsPlayer(player) then
+                                   if player>=0 then
+                                     if Char.IsPlayer(player) or Char.IsPet(player) then
                                        Char.SetData(player, CONST.CHAR_BattleDamageAbsrob, 1);
                                        NLG.UpChar(player);
+                                     end
                                    end
                                end
                         end
@@ -330,9 +332,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         if NLG.Rand(1,4)==2  then
                                for  i=0, 19 do
                                    local player = Battle.GetPlayIndex(battleIndex, i)
-                                   if player>=0 and Char.IsPlayer(player) then
+                                   if player>=0 then
+                                     if Char.IsPlayer(player) or Char.IsPet(player) then
                                        Char.SetData(player, CONST.CHAR_BattleDamageMagicAbsrob, 1);
                                        NLG.UpChar(player);
+                                     end
                                    end
                                end
                         end
@@ -374,6 +378,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         return damage;
                  end
                end
+             end
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                if (com3 == 26739)  then    --26739肌肉魔法/26700~26709精神衝擊波(攻擊力補正)
@@ -412,6 +417,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                end
 
 --法術附加30%狀態
+             if Char.IsPlayer(charIndex) then
                local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
                local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
                --基本資訊
@@ -448,6 +454,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         return damage;
                  end
                end
+             end
 --[[
                if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
                  if com3 >= 1900 and com3 <= 1909  then
