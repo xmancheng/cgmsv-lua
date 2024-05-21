@@ -208,7 +208,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 end
 --转移每日世界强敌
 function WorldBoss_LoopEvent(WorldBossNPC)
-	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="06:15:01") or (os.date("%X",os.time())=="07:15:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="20:15:01") then
+	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="18:15:01") or (os.date("%X",os.time())=="20:15:01") or (os.date("%X",os.time())=="21:15:01") or (os.date("%X",os.time())=="22:15:01") then
 		local bossDay = tonumber(os.date("%w",os.time()))
 		if (bossDay==0) then bossDay=7; end
 		for k,v in pairs(WorldBoss) do
@@ -221,7 +221,14 @@ function WorldBoss_LoopEvent(WorldBossNPC)
 				NLG.UpChar(WorldBossNPC);
 			end
 		end
-	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="06:45:01") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="12:45:01") or (os.date("%X",os.time())=="18:45:01") or (os.date("%X",os.time())=="13:45:01")  then
+		--每轮重置
+		WorldDate = {};
+		for i=1,7 do
+			WorldDate[i]={"32",};
+		end
+		local newdata = JSON.encode(WorldDate);
+		SQL.querySQL("update tbl_globalregvalue set value= '"..newdata.."' where str ='WorldDate' ")
+	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="13:45:01") or (os.date("%X",os.time())=="18:45:01") or (os.date("%X",os.time())=="21:45:01")  then
 		Char.SetData(WorldBossNPC,CONST.对象_X, 36);
 		Char.SetData(WorldBossNPC,CONST.对象_Y, 41);
 		Char.SetData(WorldBossNPC,CONST.对象_地图, 777);
@@ -324,15 +331,20 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		LordHP8 = 800000;
 		local HP = LordHP8;
 		SQL.querySQL("update lua_hook_worldboss set WorldLord8= '"..HP.."' where LordEnd8='0' ")
+	elseif LordHP8>100000 then
+		local HP = 100000;
+		SQL.querySQL("update lua_hook_worldboss set WorldLord8= '"..HP.."' where LordEnd8='0' ")
 	end
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local HP = LordHP8;
 		table.forEach(worldBossBattle, function(e)
 			if enemy>=0 and e==battleIndex  then
-				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
-				Char.SetData(enemy, CONST.CHAR_血, HP);
-				--NLG.SystemMessage(-1,"[系統]世界強敵血量超激增！");
+				if Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406191 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406192 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406193 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406220 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406206 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406233 then
+					Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
+					Char.SetData(enemy, CONST.CHAR_血, HP);
+					--NLG.SystemMessage(-1,"[系統]世界強敵血量超激增！");
+				end
 			end
 		end)
 	end
@@ -349,22 +361,26 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 		local HP = LordHP8;
 		table.forEach(worldBossBattle, function(e)
 		if Round==0 and enemy>=0 and e==battleIndex  then
-			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
-			Char.SetData(enemy, CONST.CHAR_血, HP);
+			if Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406191 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406192 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406193 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406220 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406206 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406233 then
+				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
+				Char.SetData(enemy, CONST.CHAR_血, HP);
+			end
 		elseif Round>0 and enemy>=0 and e==battleIndex  then
-			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
-			Char.SetData(enemy, CONST.CHAR_血, HP);
-			if Round>=1 then
-				Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
-				Char.SetData(enemy, CONST.CHAR_防御力, 5000);
-				Char.SetData(enemy, CONST.CHAR_敏捷, 10000);
-				Char.SetData(enemy, CONST.CHAR_精神, 10000);
-				Char.SetData(enemy, CONST.CHAR_回复, 5000);
-				Char.SetData(enemy, CONST.CHAR_必杀, 100);
-				Char.SetData(enemy, CONST.CHAR_闪躲, 100);
-				Char.SetData(enemy, CONST.CHAR_命中, 100);
-				Char.SetData(enemy, CONST.CHAR_反击, 70);
-				Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,108511);
+			if Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406191 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406192 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406193 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406220 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406206 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406233 then
+				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
+				Char.SetData(enemy, CONST.CHAR_血, HP);
+				if Round>=1 then
+					Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
+					Char.SetData(enemy, CONST.CHAR_防御力, 666);
+					Char.SetData(enemy, CONST.CHAR_敏捷, 10000);
+					Char.SetData(enemy, CONST.CHAR_精神, 10000);
+					Char.SetData(enemy, CONST.CHAR_回复, 66);
+					Char.SetData(enemy, CONST.CHAR_必杀, 100);
+					Char.SetData(enemy, CONST.CHAR_闪躲, 100);
+					Char.SetData(enemy, CONST.CHAR_命中, 100);
+					Char.SetData(enemy, CONST.CHAR_反击, 70);
+					Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,108511);
+				end
 			end
 		end
 		--NLG.SystemMessage(-1,"[系統]世界強敵血量超激增！");
@@ -386,17 +402,19 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		table.forEach(worldBossBattle, function(e)
 		if Round>=0 and enemy>=0 and e==battleIndex  then
-                                                            local HP = Char.GetData(enemy,CONST.CHAR_血);
-			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
-			Char.SetData(enemy, CONST.CHAR_血, HP);
-			--NLG.SystemMessage(player,"[系統]世界強敵目前剩餘血量"..HP.."！");
-			NLG.UpChar(enemy);
-			--Lord血量写入库
-			local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
-			if (cdk~=nil) then
-				SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
-				SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..cdk.."'")
-				NLG.UpChar(player);
+			if Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406191 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406192 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406193 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406220 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406206 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406233 then
+				local HP = Char.GetData(enemy,CONST.CHAR_血);
+				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
+				Char.SetData(enemy, CONST.CHAR_血, HP);
+				NLG.SystemMessage(player,"[系統]世界強敵目前剩餘血量"..HP.."！");
+				NLG.UpChar(enemy);
+				--Lord血量写入库
+				local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
+				if (cdk~=nil) then
+					SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
+					SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..cdk.."'")
+					NLG.UpChar(player);
+				end
 			end
 		end
 		end)
@@ -407,15 +425,17 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       local Round = Battle.GetTurn(battleIndex);
       for i = 10, 19 do
             local enemy = Battle.GetPlayer(battleIndex, i);
-            table.forEach(worldBossBattle, function(e)
-            if Round>=5 and Round<=6 and enemy>= 0 and e==battleIndex  then
+            if enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406191 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406192 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406193 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406220 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406206 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406233 then
+                table.forEach(worldBossBattle, function(e)
+                if Round==5 and e==battleIndex  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-            elseif Round>=9 and Round<=10 and enemy>= 0 and e==battleIndex  then
+                elseif Round==10 and e==battleIndex  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-            elseif Round>=15 and enemy>= 0 and e==battleIndex  then
+                elseif Round>=15 and e==battleIndex  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
+                end
+                end)
             end
-            end)
       end
 end
 function SetCom(charIndex, action, com1, com2, com3)
