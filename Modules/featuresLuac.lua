@@ -51,6 +51,10 @@ function featuresLuac:onLoad()
 			Char.SetData(player,CONST.CHAR_强度, 0);
 			Char.SetData(player,CONST.CHAR_速度, 0);
 			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_必杀, 0);
+			Char.SetData(player,CONST.CHAR_反击, 0);
+			Char.SetData(player,CONST.CHAR_命中, 0);
+			Char.SetData(player,CONST.CHAR_闪躲, 0);
 			Char.SetData(player,CONST.CHAR_升级点, point);
 			NLG.UpChar(player);
 			Char.DelItem(player, 900505, 1);
@@ -61,6 +65,10 @@ function featuresLuac:onLoad()
 			Char.SetData(player,CONST.CHAR_强度, 0);
 			Char.SetData(player,CONST.CHAR_速度, 0);
 			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_必杀, 0);
+			Char.SetData(player,CONST.CHAR_反击, 0);
+			Char.SetData(player,CONST.CHAR_命中, 0);
+			Char.SetData(player,CONST.CHAR_闪躲, 0);
 			Char.SetData(player,CONST.CHAR_升级点, point);
 			NLG.UpChar(player);
 			Char.DelItem(player, 900505, 1);
@@ -71,6 +79,10 @@ function featuresLuac:onLoad()
 			Char.SetData(player,CONST.CHAR_强度, 0);
 			Char.SetData(player,CONST.CHAR_速度, 0);
 			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_必杀, 0);
+			Char.SetData(player,CONST.CHAR_反击, 0);
+			Char.SetData(player,CONST.CHAR_命中, 0);
+			Char.SetData(player,CONST.CHAR_闪躲, 0);
 			Char.SetData(player,CONST.CHAR_升级点, point);
 			NLG.UpChar(player);
 			Char.DelItem(player, 900505, 1);
@@ -81,6 +93,10 @@ function featuresLuac:onLoad()
 			Char.SetData(player,CONST.CHAR_强度, 0);
 			Char.SetData(player,CONST.CHAR_速度, 0);
 			Char.SetData(player,CONST.CHAR_魔法, 0);
+			Char.SetData(player,CONST.CHAR_必杀, 0);
+			Char.SetData(player,CONST.CHAR_反击, 0);
+			Char.SetData(player,CONST.CHAR_命中, 0);
+			Char.SetData(player,CONST.CHAR_闪躲, 0);
 			Char.SetData(player,CONST.CHAR_升级点, point);
 			NLG.UpChar(player);
 			Char.DelItem(player, 900505, 1);
