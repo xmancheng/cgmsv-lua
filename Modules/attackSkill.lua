@@ -314,7 +314,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  if (wandId== 79250)  then
                         damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
                         NLG.Say(leader,charIndex,"【光明之力】！！",4,3);
-                        if NLG.Rand(1,4)==2  then
+                        if com3 == 9519 and NLG.Rand(1,4)==2  then
                                for  i=0, 19 do
                                    local player = Battle.GetPlayIndex(battleIndex, i)
                                    if player>=0 then
@@ -329,7 +329,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  elseif (wandId== 79251)  then
                         damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
                         NLG.Say(leader,charIndex,"【黑暗之力】！！",4,3);
-                        if NLG.Rand(1,4)==2  then
+                        if com3 == 9519 and NLG.Rand(1,4)==2  then
                                for  i=0, 19 do
                                    local player = Battle.GetPlayIndex(battleIndex, i)
                                    if player>=0 then
