@@ -88,8 +88,8 @@ function Module:onLoad()
                else
                               i = i + 4;		
                               end
-               Char.SetData(player, CONST.对象_方向,i);
-               NLG.UpChar(player);
+               Char.SetData(npc, CONST.对象_方向,i);
+               NLG.UpChar(npc);
                --世界BOSS
 	local json = Field.Get(player, 'WorldDate');
 	local ret, WorldDate = nil, nil;
@@ -208,7 +208,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 end
 --转移每日世界强敌
 function WorldBoss_LoopEvent(WorldBossNPC)
-	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="18:15:01") or (os.date("%X",os.time())=="20:15:01") or (os.date("%X",os.time())=="21:15:01") or (os.date("%X",os.time())=="22:15:01") then
+	if (os.date("%X",os.time())=="00:45:01") or (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="18:15:01") or (os.date("%X",os.time())=="20:15:01") or (os.date("%X",os.time())=="21:15:01") or (os.date("%X",os.time())=="22:15:01") then
 		local bossDay = tonumber(os.date("%w",os.time()))
 		if (bossDay==0) then bossDay=7; end
 		for k,v in pairs(WorldBoss) do
@@ -327,8 +327,15 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP8=tonumber(ret["0_1"]);
 	end
+	--local playerCount = #NLG.GetPlayer();
+	table.forEach(worldBossBattle, function(e)
+		if  e==battleIndex  then
+			local playerCount = tonumber(SQL.Run("select count(WorldLord8) from lua_hook_worldboss")["0_0"])
+			NLG.SystemMessage(-1,"[系統]世界強敵血量超激增.總共有"..playerCount.."名玩家x10萬的血量！");
+		end
+	end)
 	if LordHP8<=4000 then
-		LordHP8 = 800000;
+		LordHP8 = 100000;
 		local HP = LordHP8;
 		SQL.querySQL("update lua_hook_worldboss set WorldLord8= '"..HP.."' where LordEnd8='0' ")
 	elseif LordHP8>100000 then
@@ -406,13 +413,15 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 				local HP = Char.GetData(enemy,CONST.CHAR_血);
 				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 				Char.SetData(enemy, CONST.CHAR_血, HP);
-				NLG.SystemMessage(player,"[系統]世界強敵目前剩餘血量"..HP.."！");
+				NLG.SystemMessage(player,"[系統]世界強敵此條剩餘血量"..HP.."，尚還有其他玩家的10萬血量！");
 				NLG.UpChar(enemy);
 				--Lord血量写入库
 				local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 				if (cdk~=nil) then
 					SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
-					SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..cdk.."'")
+					--SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..cdk.."'")
+					local Blood_cdk = SQL.Run("select CdKey from lua_hook_worldboss order by WorldLord8 desc limit 1")["0_0"];
+					SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..Blood_cdk.."'")
 					NLG.UpChar(player);
 				end
 			end
@@ -428,7 +437,7 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
             if enemy>= 0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406190 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406191 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406192 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406193 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406220 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406206 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==406233 then
                 table.forEach(worldBossBattle, function(e)
                 if Round==5 and e==battleIndex  then
-                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
+                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8607);
                 elseif Round==10 and e==battleIndex  then
                           SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
                 elseif Round>=15 and e==battleIndex  then
