@@ -62,6 +62,7 @@ function Module:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
+  self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
   self:regCallback('LoopEvent', Func.bind(self.WorldBoss_LoopEvent,self))
@@ -296,6 +297,7 @@ function boss_round_callback(battleindex, player)
 			if ( bossDay==v.weekday ) then
 				local rand = NLG.Rand(1,#v.rewardsItem);
 				Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+				Char.GiveItem(player, 70016, 20);
 				NLG.SystemMessage(-1,"恭喜玩家: "..Char.GetData(player,CONST.对象_名字).." 討伐成功"..v.lordName.."。");
 			end
 		end
@@ -311,6 +313,7 @@ function boss_round_callback(battleindex, player)
 						if ( bossDay==v.weekday ) then
 							local rand = NLG.Rand(1,#v.rewardsItem);
 							Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
+							Char.GiveItem(TeamPlayer, 70016, 20);
 						end
 					end
 				end
@@ -327,10 +330,10 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP8=tonumber(ret["0_1"]);
 	end
-	--local playerCount = #NLG.GetPlayer();
+	local playerCount = #NLG.GetPlayer();
 	table.forEach(worldBossBattle, function(e)
 		if  e==battleIndex  then
-			local playerCount = tonumber(SQL.Run("select count(WorldLord8) from lua_hook_worldboss")["0_0"])
+			--local playerCount = tonumber(SQL.Run("select count(WorldLord8) from lua_hook_worldboss")["0_0"])
 			NLG.SystemMessage(-1,"[系統]世界強敵血量超激增.總共有"..playerCount.."名玩家x10萬的血量！");
 		end
 	end)
@@ -413,16 +416,19 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 				local HP = Char.GetData(enemy,CONST.CHAR_血);
 				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 				Char.SetData(enemy, CONST.CHAR_血, HP);
-				NLG.SystemMessage(player,"[系統]世界強敵此條剩餘血量"..HP.."，尚還有其他玩家的10萬血量！");
+				if Char.GetData(player,CONST.对象_对战开关) == 1  then
+					NLG.SystemMessage(player,"[系統]世界強敵此條剩餘血量"..HP.."，尚還有其他玩家的10萬血量！");
+				end
 				NLG.UpChar(enemy);
 				--Lord血量写入库
 				local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 				if (cdk~=nil) then
 					SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
 					--SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..cdk.."'")
+					--NLG.UpChar(player);
 					local Blood_cdk = SQL.Run("select CdKey from lua_hook_worldboss order by WorldLord8 desc limit 1")["0_0"];
 					SQL.Run("update lua_hook_worldboss set WorldLord8= '"..HP.."' where CdKey='"..Blood_cdk.."'")
-					NLG.UpChar(player);
+					NLG.UpChar(NLG.FindUser(Blood_cdk));
 				end
 			end
 		end
@@ -457,6 +463,65 @@ function SetCom(charIndex, action, com1, com2, com3)
     Char.SetData(charIndex, CONST.CHAR_BattleCom2, com2)
     Char.SetData(charIndex, CONST.CHAR_BattleCom3, com3)
   end
+end
+
+function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
+      local playerCount = #NLG.GetPlayer()+1;
+      local ret = SQL.Run("select WorldLord8 from lua_hook_worldboss order by WorldLord8 asc limit "..playerCount.." ");
+      local Invincible = 0;
+      local deadCount = 0;
+      if(type(ret)=="table" and ret["0_0"]~=nil)then
+            for i=0,playerCount-1 do
+                local LordHP8=tonumber(ret[i.."_0"]);
+                if LordHP8<=10000 then
+                    deadCount=deadCount+1;
+                end
+            end
+            if deadCount==playerCount-1 then
+                    Invincible = 1;
+            elseif deadCount>playerCount-1 then
+                    Invincible = 2;
+            end
+      end
+      print(deadCount,Invincible)
+      local Round = Battle.GetTurn(battleIndex);
+      if Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406190 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406191 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406192 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406193 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406220 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406206 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406233 then
+          if Invincible==1 then
+              table.forEach(worldBossBattle, function(e)
+              if Round>=0 and e==battleIndex  then
+                  local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
+                  if damage>=defHpE-1 then
+                      Char.SetData(defCharIndex, CONST.CHAR_血, defHpE+damage*0.1);
+                      NLG.UpChar(defCharIndex);
+                      damage = damage*0;
+                  else
+                      damage = damage*0;
+                  end
+              end
+              end)
+              if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
+                  NLG.SystemMessage(charIndex,"[系統]世界強敵無敵狀態，須等待剩餘的血條下回合更新！");
+              end
+              return damage;
+          else
+              table.forEach(worldBossBattle, function(e)
+              if Round>=0 and e==battleIndex  then
+                  local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
+                  if damage<defHpE-1 then
+                      defHpE = defHpE - damage;
+                      damage = damage;
+                  else
+                      defHpE = 1;
+                  end
+                  local Blood_cdk = SQL.Run("select CdKey from lua_hook_worldboss order by WorldLord8 desc limit 1")["0_0"];
+                  SQL.Run("update lua_hook_worldboss set WorldLord8= '"..defHpE.."' where CdKey='"..Blood_cdk.."'")
+                  NLG.UpChar(NLG.FindUser(Blood_cdk));
+                  return damage;
+              end
+              end)
+          end
+      end
+  return damage;
 end
 
 --[[
