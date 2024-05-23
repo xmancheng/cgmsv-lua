@@ -31,6 +31,45 @@ function YbPetSkill:onLoad()
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self))
 end
 
+--获取宠物装备-水晶
+Pet.GetCrystal = function(petIndex)
+  local ItemIndex = Char.GetItemIndex(petIndex, CONST.宠道栏_水晶);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.道具_类型)==CONST.道具类型_宠物水晶 then
+    return ItemIndex,CONST.宠道栏_水晶;
+  end
+  return -1,-1;
+end
+
+function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex)
+        if Char.IsPet(charIndex) then
+            local PetCrystalIndex = Pet.GetCrystal(charIndex);                --左右手
+            local PetCrystal_Name = Item.GetData(PetCrystalIndex, CONST.道具_名字);
+            local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
+            local Defense = Char.GetData(charIndex,CONST.CHAR_防御力);
+            local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
+            local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+            local Recover = Char.GetData(charIndex,CONST.CHAR_回复);
+            if PetCrystal_Name~=nil then
+                 local wandId = Item.GetData(PetCrystalIndex, CONST.道具_ID);
+                 local typeId = Item.GetData(PetCrystalIndex, CONST.道具_子参一);
+                 local typeLv = Item.GetData(PetCrystalIndex, CONST.道具_子参二);
+                 local typeList = { {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}}
+                 if (wandId==69031 or wandId==69040)  then
+                        table.forEach(typeList, function(e)
+                            for k, v in ipairs(typeList) do
+                                if (typeId>0 and typeId==k) then
+                                    local damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                    NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
+                                    return damage;
+                                end
+                            end
+                        end)
+                 end
+            end
+        end
+    return damage;
+end
+
 function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
         for k, v in ipairs(petMettleTable) do
            if (v.MettleType==1 and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠)  then           --攻方BOSS宠物性格
@@ -92,8 +131,9 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
          if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
                leader = leader2
          end
-         self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
          if  flg == CONST.DamageFlags.Normal and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为物理受攻方事件，被动技能只能二选一
+           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage = damage_temp;
            for i=0,9 do
                local skillId = Pet.GetSkill(defCharIndex, i)
                if (skillId == 1319) then  --宠物被动【隱忍自重】
@@ -125,7 +165,10 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  return damage;
                end
            end
+           return damage;
          elseif  flg == CONST.DamageFlags.Magic and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为魔法受攻方事件，被动技能只能二选一
+           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage = damage_temp;
            for i=0,9 do
                local skillId = Pet.GetSkill(defCharIndex, i)
                if (skillId == 1419) then  --宠物被动【萬念皆空】
@@ -157,7 +200,12 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  return damage;
                end
            end
+           return damage;
          elseif  flg == CONST.DamageFlags.Normal and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为攻击方事件，被动技能只能二选一
+           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage = damage_TA;
+           --print(damage_temp,damage_TA,damage)
            for i=0,9 do
                local skillId = Pet.GetSkill(charIndex, i)
                if (skillId == 1619) then  --宠物被动【大胆无畏】
@@ -189,6 +237,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  return damage;
                end
            end
+           return damage;
          elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
                local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
                local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
@@ -216,14 +265,15 @@ end
 
 function YbPetSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
       --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
-      local battleIndex = Char.GetBattleIndex(charIndex)
-      local leader1 = Battle.GetPlayer(battleIndex,0)
-      local leader2 = Battle.GetPlayer(battleIndex,5)
-      local leader = leader1
-      if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
+      if Char.IsDummy(charIndex) then
+         local battleIndex = Char.GetBattleIndex(charIndex)
+         local leader1 = Battle.GetPlayer(battleIndex,0)
+         local leader2 = Battle.GetPlayer(battleIndex,5)
+         local leader = leader1
+         if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
             leader = leader2
-      end
-      if Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 then
+         end
+         if Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 then
             local NEN = Char.GetData(charIndex,CONST.CHAR_种族);
             local JL1 = NLG.Rand(1,4);
             --print(NEN)
@@ -274,6 +324,7 @@ function YbPetSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
                         return val
                   end
             end
+         end
       end
 end
 
