@@ -51,13 +51,16 @@ function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex
             local Recover = Char.GetData(charIndex,CONST.CHAR_回复);
             if PetCrystal_Name~=nil then
                  local wandId = Item.GetData(PetCrystalIndex, CONST.道具_ID);
+                 local bindId = Item.GetData(PetCrystalIndex, CONST.道具_特殊类型);
                  local typeId = Item.GetData(PetCrystalIndex, CONST.道具_子参一);
                  local typeLv = Item.GetData(PetCrystalIndex, CONST.道具_子参二);
+                 local Slot = Char.HavePet(Pet.GetOwner(charIndex), bindId);
+                 local EnemyId = Char.GetPet(Pet.GetOwner(charIndex), Slot);
                  local typeList = { {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}}
                  if (wandId==69031 or wandId==69040)  then
                         table.forEach(typeList, function(e)
                             for k, v in ipairs(typeList) do
-                                if (typeId>0 and typeId==k) then
+                                if (EnemyId==charIndex and Char.GetData(charIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗 and typeId>0 and typeId==k) then
                                     local damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                     NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                     return damage;
