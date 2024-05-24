@@ -40,7 +40,7 @@ Pet.GetCrystal = function(petIndex)
   return -1,-1;
 end
 
-function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex)
+function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg)
         if Char.IsPet(charIndex) then
             local PetCrystalIndex = Pet.GetCrystal(charIndex);                --左右手
             local PetCrystal_Name = Item.GetData(PetCrystalIndex, CONST.道具_名字);
@@ -56,14 +56,24 @@ function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex
                  local typeLv = Item.GetData(PetCrystalIndex, CONST.道具_子参二);
                  local Slot = Char.HavePet(Pet.GetOwner(charIndex), bindId);
                  local EnemyId = Char.GetPet(Pet.GetOwner(charIndex), Slot);
-                 local typeList = { {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}, {0.5,0.5,0.5,0.5,0.5}}
+                 local typeList = { {0.2,0.5,0.5,0.5,0.8}, {0.8,0.5,0.5,0.5,0.2}, {0.5,0.8,0.5,0.3,0.3}, {0.3,0.5,0.8,0.3,0.5}, {0.5,0.3,0.3,0.8,0.5}, {0.5,0.5,0.5,0.5,0.5}}
                  if (wandId==69031 or wandId==69040)  then
                         table.forEach(typeList, function(e)
                             for k, v in ipairs(typeList) do
                                 if (EnemyId==charIndex and Char.GetData(charIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗 and typeId>0 and typeId==k) then
-                                    local damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
-                                    NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
-                                    return damage;
+                                    if flg==CONST.DamageFlags.Normal then
+                                        if (typeId==1 or typeId==2 or typeId==4 or typeId==6) then
+                                            local damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
+                                            return damage;
+                                        end
+                                    elseif flg==CONST.DamageFlags.Magic then
+                                        if (typeId==3 or typeId==5 or typeId==6) then
+                                            local damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
+                                            return damage;
+                                        end
+                                    end
                                 end
                             end
                         end)
@@ -242,6 +252,9 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            end
            return damage;
          elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
+           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage = damage_TA;
                local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
                local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
                if LvRate <= 50  then
@@ -259,7 +272,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                --if Char.GetData(leader,%对象_队聊开关%) == 1  then
                       --NLG.Say(leader,charIndex,"【魔法導力】！！",4,3);
                --end
-              return damage;
+           return damage;
 
          end
   return damage;
