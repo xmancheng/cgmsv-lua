@@ -73,12 +73,11 @@ loadModule('achieveMagician')|大魔導師之路
 ### 傷害相關
 模組加載代碼 | 說明 
 --- | --- 
-loadModule('ybPetSkill')|寵物被動技能、寵物魔法傷害調整、傭兵技能強化
+loadModule('ybPetSkill')|寵物性格、覺醒、被動、傷害調整、傭兵技能強化
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化(X)
-loadModule('attackSkill')|七大罪特殊技能、手下留情、法術附加狀態、合擊增傷
+loadModule('attackSkill')|七大罪技能、手下留情、大師武器、法術附加狀態、合擊增傷
 loadModule('setupMagicAttr')|魔法屬性技能(X)
 loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
-loadModule('bossField')|魔物增強
 ### 傭兵相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -91,7 +90,12 @@ loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
 loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
 loadModule('setupGetProfit')|限制獲取
+loadModule('bossField')|魔物增強
+### 寵物強化相關
+模組加載代碼 | 說明 
+--- | --- 
 loadModule('petHeadIcon')|帕魯幫助
+loadModule('petEvolution')|寵物覺醒(寵裝強化)
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
