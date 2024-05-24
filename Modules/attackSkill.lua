@@ -26,7 +26,7 @@ function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, orih
                leader = leader2
          end
          if (com3==6339)  then    --君主領域(固定量超補附加恢復魔法補量固定增益)
-               if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
+               if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                    NLG.Say(charIndex,charIndex,"【君主領域】！！",4,3);
                end
                local restore = Char.GetData(charIndex,CONST.CHAR_回复);
@@ -120,7 +120,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                if (defCom1==2502)  then    --0x9C6不死不壞/defCom1==43聖盾(無限抵擋死亡)
-                     if Char.GetData(defCharIndex,CONST.对象_队聊开关) == 1  then
+                     if Char.GetData(defCharIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(defCharIndex,defCharIndex,"【不死不壞】！！",4,3);
                      end
                      local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
@@ -140,7 +140,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                if (com3 == 200539)  then    --200539無量空處/200500~200509追月(消除巫術)
-                     if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
+                     if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【無量空處】！！",4,3);
                      end
                      for k, v in ipairs(clearType) do
@@ -155,7 +155,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                elseif (com3 == 10539)  then    --10539晴天大征
-                     if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
+                     if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【晴天大征】！！",4,3);
                      end
                      local State = Char.GetTempData(defCharIndex, '傷口') or 0;
@@ -176,7 +176,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                elseif (com3==26039)  then    --日光槍尖
-                     if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
+                     if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【日光槍尖】！！",4,3);
                      end
                      local deBuff = Char.GetTempData(defCharIndex, '回复减益') or 0;
@@ -187,7 +187,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                elseif (com3==11139)  then    --虛數空間
-                     if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
+                     if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【虛數空間】！！",4,3);
                      end
                      local defMp = Char.GetData(defCharIndex, CONST.CHAR_魔);
@@ -217,7 +217,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                          damage = damage;
                  end
                  --print(defHpE,damage)
-                 if Char.GetData(leader,%对象_队聊开关%) == 1  then
+                 if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【刀背攻擊】傷害前目標剩餘血量".. defHpE .."！！",4,3);
                  end
                  return damage;
@@ -314,7 +314,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  local techList = {9519,25815,25816,25817,25818,25819,415,416,417,418,429}
                  if (wandId== 79250)  then
                         damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
-                        NLG.Say(leader,charIndex,"【光明之力】！！",4,3);
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【光明之力】！！",4,3);
+                        end
                         table.forEach(techList, function(e)
                         if com3 == e and NLG.Rand(1,4)==2  then
                                for  i=0, 19 do
@@ -331,7 +333,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         return damage;
                  elseif (wandId== 79251)  then
                         damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
-                        NLG.Say(leader,charIndex,"【黑暗之力】！！",4,3);
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【黑暗之力】！！",4,3);
+                        end
                         table.forEach(techList, function(e)
                         if com3 == e and NLG.Rand(1,4)==2  then
                                for  i=0, 19 do
@@ -348,7 +352,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         return damage;
                  elseif (wandId== 79252)  then
                         damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        NLG.Say(leader,charIndex,"【狡猾戲法】！！",4,3);
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【狡猾戲法】！！",4,3);
+                        end
                         if NLG.Rand(1,10)>=8  then
                                local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModSleep};
                                local rate = NLG.Rand(1,3);
@@ -358,7 +364,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         return damage;
                  elseif (wandId== 79253)  then
                         damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        NLG.Say(leader,charIndex,"【奸智戲法】！！",4,3);
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                             NLG.Say(leader,charIndex,"【奸智戲法】！！",4,3);
+                        end
                         if NLG.Rand(1,10)>=8  then
                                local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModAmnesia};
                                local rate = NLG.Rand(1,3);
@@ -372,7 +380,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
                  if (wandId== 79254)  then
                         damage = damage + Blood * 0.15 + Mana * 0.15 + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        NLG.Say(leader,charIndex,"【鐵之身軀】！！",4,3);
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【鐵之身軀】！！",4,3);
+                        end
                         if Blood>=Mana  then
                                Char.SetData(charIndex, CONST.CHAR_BattleDamageVanish, 1);
                                NLG.UpChar(charIndex);
@@ -387,7 +397,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                if (com3 == 26739)  then    --26739肌肉魔法/26700~26709精神衝擊波(攻擊力補正)
-                     if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
+                     if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【肌肉魔法】！！",4,3);
                      end
                      local defHp = Char.GetData(charIndex,CONST.CHAR_血);
@@ -445,11 +455,15 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
                  if (wandId== 79213)  then
                         damage = damage * SpRate + Spirit * 0.75 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
-                        NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
+                        end
                         return damage;
                  elseif (wandId== 79214)  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
+                        end
                         if NLG.Rand(1,10)>=8  then
                                local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModStone};
                                local rate = NLG.Rand(1,4);
