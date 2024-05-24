@@ -83,7 +83,10 @@ function StrAddEffect:battleOverEventCallback(battleIndex)
                               local itemmaxdu = Item.GetData(itemIndex,CONST.道具_最大耐久);
                               if (itemdu <= itemmaxdu-StrAdd_V) then
                                   Item.SetData(itemIndex,CONST.道具_耐久,itemdu+StrAdd_V);
+                              else
+                                  Item.SetData(itemIndex,CONST.道具_耐久,itemmaxdu);
                               end
+                              Item.UpItem(player,i);
                           end
                     end
                     NLG.Say(player,-1,"附念吸取怪物的魂魄，並回復全身裝備耐久，每+1效果提升1點",4,3);
