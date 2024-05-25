@@ -42,7 +42,7 @@ function Module:onLoad()
               local bindId = Item.GetData(PetCrystalIndex, CONST.道具_特殊类型) or 0;
               local typeId = Item.GetData(PetCrystalIndex, CONST.道具_子参一) or 0;
               local typeLv = Item.GetData(PetCrystalIndex, CONST.道具_子参二) or 0;
-              if (PetNameColor~=5) then
+              if (PetNameColor~=4) then
                  NLG.SystemMessage(player, "[系統]寵物尚未超級進化！");
                  return;
               end
