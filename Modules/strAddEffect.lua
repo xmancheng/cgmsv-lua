@@ -133,8 +133,8 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                         damage = damage * StrEffect;
                         --NLG.Say(charIndex,-1,"武器附加強化特殊效果每+1傷害提升3%，目前傷害"..(StrAdd*3).."%",4,3);
                         if ( ViceWeapon_Effect == GTime ) then
-                               damage = (damage+100) * StrEffect;
-                               --NLG.Say(charIndex,-1,"附念造成額外真實傷害100，每+1真實傷害再提升3%",4,3);
+                               damage = (damage+1000) * StrEffect;
+                               --NLG.Say(charIndex,-1,"附念造成額外真實傷害1000，每+1真實傷害再提升3%",4,3);
                         end
                         if ( WeaponIndex>0 and Item.GetData(WeaponIndex, CONST.道具_类型) == 5 or Item.GetData(WeaponIndex, CONST.道具_类型) == 6) then
                                for k, v in ipairs(signShadow) do
