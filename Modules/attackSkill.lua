@@ -402,12 +402,12 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      local defHp = Char.GetData(charIndex,CONST.CHAR_血);
                      local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
-                     local Hp02 = defHp/defHpM;
+                     local Hp08 = defHp/defHpM;
                      local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
-                     if Hp02<0.2 then
+                     if Hp08>0.8 then
                              local AC = Attack * 1.15;
                              damage = damage + AC;
-                             --NLG.Say(-1,-1,"【肌肉魔法】血量20%以下傷害取決於攻擊力，10%使對象機率混亂！！",4,3);
+                             --NLG.Say(-1,-1,"【肌肉魔法】血量80%以上傷害取決於攻擊力，10%使對象機率混亂！！",4,3);
                              if NLG.Rand(1,10)>=10  then
                                     Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 1);
                                     Char.UpCharStatus(defCharIndex);
