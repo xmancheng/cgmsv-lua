@@ -297,6 +297,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                local Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字);
                --基本資訊
                local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+               local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
+               local Defense = Char.GetData(charIndex,CONST.CHAR_防御力);
+               local Avoid = Char.GetData(charIndex,CONST.对象_闪躲);
+               local Critical = Char.GetData(charIndex,CONST.对象_必杀);
+               local Counter = Char.GetData(charIndex,CONST.对象_反击);
                local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
                local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
                local Blood = Char.GetData(charIndex,CONST.CHAR_血);
@@ -372,6 +377,36 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                                local rate = NLG.Rand(1,3);
                                Char.SetData(defCharIndex, debuff[rate], 3);
                                NLG.UpChar(defCharIndex);
+                        end
+                        return damage;
+                 elseif (wandId== 79255)  then
+                        damage = damage * (1+(Avoid/1000)) + Defense * 0.35 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79256)  then
+                        damage = damage * (1+(Critical/1000)) + Defense * 0.35 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79257)  then
+                        damage = damage * (1+(Counter/1000)) + Defense * 0.35 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79213)  then
+                        damage = damage + Attack * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79214)  then
+                        damage = damage + Attack * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
                         end
                         return damage;
                  end
