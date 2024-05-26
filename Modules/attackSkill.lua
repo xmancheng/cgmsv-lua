@@ -380,18 +380,33 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         end
                         return damage;
                  elseif (wandId== 79255)  then
+                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '弱點', State+1);
+                            damage = damage * (1+State/100);
+                        end
                         damage = damage * (1+(Avoid/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
                         end
                         return damage;
                  elseif (wandId== 79256)  then
+                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '弱點', State+1);
+                            damage = damage * (1+State/100);
+                        end
                         damage = damage * (1+(Critical/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
                         end
                         return damage;
                  elseif (wandId== 79257)  then
+                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '弱點', State+1);
+                            damage = damage * (1+State/100);
+                        end
                         damage = damage * (1+(Counter/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
