@@ -380,19 +380,19 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         end
                         return damage;
                  elseif (wandId== 79255)  then
-                        damage = damage * (1+(Avoid/1000)) + Defense * 0.35 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        damage = damage * (1+(Avoid/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
                         end
                         return damage;
                  elseif (wandId== 79256)  then
-                        damage = damage * (1+(Critical/1000)) + Defense * 0.35 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        damage = damage * (1+(Critical/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
                         end
                         return damage;
                  elseif (wandId== 79257)  then
-                        damage = damage * (1+(Counter/1000)) + Defense * 0.35 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        damage = damage * (1+(Counter/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
                         end
