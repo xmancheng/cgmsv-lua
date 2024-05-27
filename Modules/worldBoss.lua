@@ -516,7 +516,13 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                       defHpE = defHpE - damage;
                       damage = damage;
                   else
+                      damage = defHpE-1;
                       defHpE = 1;
+                  end
+                  if defHpE==1 and Invincible~=2 then
+                      damage = damage*0;
+                  elseif defHpE==1 and Invincible==2 then
+                      damage = damage;
                   end
                   local Blood_cdk = SQL.Run("select CdKey from lua_hook_worldboss order by WorldLord8 desc limit 1")["0_0"];
                   SQL.Run("update lua_hook_worldboss set WorldLord8= '"..defHpE.."' where CdKey='"..Blood_cdk.."'")
