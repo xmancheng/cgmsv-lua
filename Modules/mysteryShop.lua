@@ -1,69 +1,69 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('mysteryShop')
 
 local itemData = {
-    {"Lv1¾íİS•øƒÔ",900611,10,10},
-    {"Lv2¾íİS•øƒÔ",900612,10,30},
-    {"Lv3¾íİS•øƒÔ",900613,5,100},
-    {"Lv6¾íİS•øƒÔ",900616,3,400},
-    {"Lv7¾íİS•øƒÔ",900617,1,500},
-    {"³àÄ¿ºÚĞÜµÄ¾íİS",73810,2,200},
-    {"ÑªĞÈÖ®ÈĞµÄ¾íİS",73911,2,200},
-    {"ÁÒïLÖ®ÈĞµÄ¾íİS",73914,2,200},
-    {"ØˆĞÜµÄ¾íİS",73811,1,250},
-    {"»ğ¾«µÄ¾íİS",73898,2,200},
-    {"ïL¾«µÄ¾íİS",73899,2,200},
-    {"Ë®¾«µÄ¾íİS",73900,2,200},
-    {"µØ¾«µÄ¾íİS",73901,2,200},
-    {"´óµØÒíıˆµÄ¾íİS",73933,2,200},
-    {"ÁÒïLÒíıˆµÄ¾íİS",73936,2,200},
-    {"Çğ±ÈÌØµÄ¾íİS",73841,1,250},
-    {"üS½ğ˜ä¾«µÄ¾íİS",73877,1,250},
-    {"ÒíıˆµÄ¾íİS",73937,1,250},
-    {"Ë®Ë{ÊóµÄ¾íİS",73816,2,200},
-    {"š¢ÈËó«òëµÄ¾íİS",73867,2,200},
-    {"³àÄ¿ó«òëµÄ¾íİS",73868,2,200},
-    {"ËÀ»Òó«òëµÄ¾íİS",73869,2,200},
-    {"†ÎÑÛ¾ŞÈËµÄ¾íİS",73947,2,200},
-    {"†ÌØÀ­Ë¹¾ŞÉñµÄ¾íİS",73949,2,200},
-    {"ÊóÍõµÄ¾íİS",73817,1,250},
+    {"Lv1å·è»¸æ›¸å†Š",900611,10,10},
+    {"Lv2å·è»¸æ›¸å†Š",900612,10,30},
+    {"Lv3å·è»¸æ›¸å†Š",900613,5,100},
+    {"Lv6å·è»¸æ›¸å†Š",900616,3,400},
+    {"Lv7å·è»¸æ›¸å†Š",900617,1,500},
+    {"èµ¤ç›®é»‘ç†Šçš„å·è»¸",73810,2,200},
+    {"è¡€è…¥ä¹‹åˆƒçš„å·è»¸",73911,2,200},
+    {"çƒˆé¢¨ä¹‹åˆƒçš„å·è»¸",73914,2,200},
+    {"è²“ç†Šçš„å·è»¸",73811,1,250},
+    {"ç«ç²¾çš„å·è»¸",73898,2,200},
+    {"é¢¨ç²¾çš„å·è»¸",73899,2,200},
+    {"æ°´ç²¾çš„å·è»¸",73900,2,200},
+    {"åœ°ç²¾çš„å·è»¸",73901,2,200},
+    {"å¤§åœ°ç¿¼é¾çš„å·è»¸",73933,2,200},
+    {"çƒˆé¢¨ç¿¼é¾çš„å·è»¸",73936,2,200},
+    {"ä¸˜æ¯”ç‰¹çš„å·è»¸",73841,1,250},
+    {"é»ƒé‡‘æ¨¹ç²¾çš„å·è»¸",73877,1,250},
+    {"ç¿¼é¾çš„å·è»¸",73937,1,250},
+    {"æ°´è—é¼ çš„å·è»¸",73816,2,200},
+    {"æ®ºäººè³è‚çš„å·è»¸",73867,2,200},
+    {"èµ¤ç›®è³è‚çš„å·è»¸",73868,2,200},
+    {"æ­»ç°è³è‚çš„å·è»¸",73869,2,200},
+    {"å–®çœ¼å·¨äººçš„å·è»¸",73947,2,200},
+    {"äºç‰¹æ‹‰æ–¯å·¨ç¥çš„å·è»¸",73949,2,200},
+    {"é¼ ç‹çš„å·è»¸",73817,1,250},
 }
 
 local itemFields={
-{CONST.µÀ¾ß_¹¥»÷,CONST.ITEMSET_MODIFYATTACK,"¹¥“ô"},
-{CONST.µÀ¾ß_·ÀÓù,CONST.ITEMSET_MODIFYDEFENCE,"·À¶R"},
-{CONST.µÀ¾ß_Ãô½İ,CONST.ITEMSET_MODIFYAGILITY,"Ãô½İ"},
-{CONST.µÀ¾ß_¾«Éñ,CONST.ITEMSET_MODIFYMAGIC,"¾«Éñ"},
-{CONST.µÀ¾ß_»Ø¸´,CONST.ITEMSET_MODIFYRECOVERY,"»ØÍ"},
-{CONST.µÀ¾ß_±ØÉ±,CONST.ITEMSET_MODIFYCRITICAL,"±Øš¢"},
-{CONST.µÀ¾ß_·´»÷,CONST.ITEMSET_MODIFYCOUNTER,"·´“ô"},
-{CONST.µÀ¾ß_ÃüÖĞ,CONST.ITEMSET_MODIFYHITRATE,"ÃüÖĞ"},
-{CONST.µÀ¾ß_ÉÁ¶ã,CONST.ITEMSET_MODIFYAVOID,"éW¶ã"},
-{CONST.µÀ¾ß_ÉúÃü,CONST.ITEMSET_MODIFYHP,"ÉúÃü"},
-{CONST.µÀ¾ß_Ä§Á¦,CONST.ITEMSET_MODIFYFORCEPOINT,"Ä§Á¦"},
-{CONST.µÀ¾ß_¶¾¿¹,CONST.ITEMSET_POISON,"¿¹¶¾"},
-{CONST.µÀ¾ß_Ë¯¿¹,CONST.ITEMSET_SLEEP,"¿¹Ë¯"},
-{CONST.µÀ¾ß_Ê¯¿¹,CONST.ITEMSET_STONE,"¿¹Ê¯"},
-{CONST.µÀ¾ß_×í¿¹,CONST.ITEMSET_DRUNK,"¿¹×ï"},
-{CONST.µÀ¾ß_ÂÒ¿¹,CONST.ITEMSET_CONFUSION,"¿¹y"},
-{CONST.µÀ¾ß_Íü¿¹,CONST.ITEMSET_AMNESIA,"¿¹Íü"},
-{CONST.µÀ¾ß_µÈ¼¶,CONST.ITEMSET_LEVEL,"µÈ¼‰"},
-{CONST.µÀ¾ß_ÄÍ¾Ã,CONST.ITEMSET_REMAIN,"ÄÍ¾Ã"},
-{CONST.µÀ¾ß_×î´óÄÍ¾Ã,CONST.ITEMSET_MAXREMAIN,"×î´óÄÍ¾Ã"},
-{CONST.µÀ¾ß_ÀàĞÍ,CONST.ITEMSET_TYPE,"ÆäËû¿¨Æ¬"},
-{CONST.µÀ¾ß_×Ó²ÎÒ»,CONST.ITEMSET_SPECIALEFFECTVALUE,"SPECIALEFFECTVALUE"},
-{CONST.µÀ¾ß_¶ÑµşÊı,CONST.ITEMSET_COST,"”µÁ¿"},
+{CONST.é“å…·_æ”»å‡»,CONST.ITEMSET_MODIFYATTACK,"æ”»æ“Š"},
+{CONST.é“å…·_é˜²å¾¡,CONST.ITEMSET_MODIFYDEFENCE,"é˜²ç¦¦"},
+{CONST.é“å…·_æ•æ·,CONST.ITEMSET_MODIFYAGILITY,"æ•æ·"},
+{CONST.é“å…·_ç²¾ç¥,CONST.ITEMSET_MODIFYMAGIC,"ç²¾ç¥"},
+{CONST.é“å…·_å›å¤,CONST.ITEMSET_MODIFYRECOVERY,"å›å¾©"},
+{CONST.é“å…·_å¿…æ€,CONST.ITEMSET_MODIFYCRITICAL,"å¿…æ®º"},
+{CONST.é“å…·_åå‡»,CONST.ITEMSET_MODIFYCOUNTER,"åæ“Š"},
+{CONST.é“å…·_å‘½ä¸­,CONST.ITEMSET_MODIFYHITRATE,"å‘½ä¸­"},
+{CONST.é“å…·_é—ªèº²,CONST.ITEMSET_MODIFYAVOID,"é–ƒèº²"},
+{CONST.é“å…·_ç”Ÿå‘½,CONST.ITEMSET_MODIFYHP,"ç”Ÿå‘½"},
+{CONST.é“å…·_é­”åŠ›,CONST.ITEMSET_MODIFYFORCEPOINT,"é­”åŠ›"},
+{CONST.é“å…·_æ¯’æŠ—,CONST.ITEMSET_POISON,"æŠ—æ¯’"},
+{CONST.é“å…·_ç¡æŠ—,CONST.ITEMSET_SLEEP,"æŠ—ç¡"},
+{CONST.é“å…·_çŸ³æŠ—,CONST.ITEMSET_STONE,"æŠ—çŸ³"},
+{CONST.é“å…·_é†‰æŠ—,CONST.ITEMSET_DRUNK,"æŠ—ç½ª"},
+{CONST.é“å…·_ä¹±æŠ—,CONST.ITEMSET_CONFUSION,"æŠ—äº‚"},
+{CONST.é“å…·_å¿˜æŠ—,CONST.ITEMSET_AMNESIA,"æŠ—å¿˜"},
+{CONST.é“å…·_ç­‰çº§,CONST.ITEMSET_LEVEL,"ç­‰ç´š"},
+{CONST.é“å…·_è€ä¹…,CONST.ITEMSET_REMAIN,"è€ä¹…"},
+{CONST.é“å…·_æœ€å¤§è€ä¹…,CONST.ITEMSET_MAXREMAIN,"æœ€å¤§è€ä¹…"},
+{CONST.é“å…·_ç±»å‹,CONST.ITEMSET_TYPE,"å…¶ä»–å¡ç‰‡"},
+{CONST.é“å…·_å­å‚ä¸€,CONST.ITEMSET_SPECIALEFFECTVALUE,"SPECIALEFFECTVALUE"},
+{CONST.é“å…·_å †å æ•°,CONST.ITEMSET_COST,"æ•¸é‡"},
 }
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self.mysteryNPC = self:NPC_createNormal('ÉñÃØÉÌµê', 98972, { x = 103, y = 199, mapType = 0, map = 25006, direction = 0 });
+  self.mysteryNPC = self:NPC_createNormal('ç¥ç§˜å•†åº—', 98972, { x = 103, y = 199, mapType = 0, map = 25006, direction = 0 });
   self:NPC_regTalkedEvent(self.mysteryNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        -- »Øµ÷ data = 1:Âò, 2:Âô
-        -- Êı¾İ½á¹¹ NPCÍ¼µµ|´°¿Ú±êÌâ|NPC¶Ô»°|ÂòÂôÀàĞÍ 0:ÎŞ°´Å¥, 1:Âò, 2:Âô, 3:ÂòÂô|
-        local windowStr = '98972|ÉñÃØÉÌµê|ëS™CÉÌÆ·µÄÂÃĞĞÉÌÈË\nÉÌÆ·ÏŞÁ¿ƒr¸ñ²»ì³|1|'
-        NLG.ShowWindowTalked(player, self.mysteryNPC, CONST.´°¿Ú_ÂòÂô¿ò, CONST.BUTTON_¹Ø±Õ, 1, windowStr);
+        -- å›è°ƒ data = 1:ä¹°, 2:å–
+        -- æ•°æ®ç»“æ„ NPCå›¾æ¡£|çª—å£æ ‡é¢˜|NPCå¯¹è¯|ä¹°å–ç±»å‹ 0:æ— æŒ‰é’®, 1:ä¹°, 2:å–, 3:ä¹°å–|
+        local windowStr = '98972|ç¥ç§˜å•†åº—|éš¨æ©Ÿå•†å“çš„æ—…è¡Œå•†äºº\nå•†å“é™é‡åƒ¹æ ¼ä¸æ–|1|'
+        NLG.ShowWindowTalked(player, self.mysteryNPC, CONST.çª—å£_ä¹°å–æ¡†, CONST.BUTTON_å…³é—­, 1, windowStr);
     end
     return
   end)
@@ -72,7 +72,7 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     --local data = tonumber(_data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     if seqno == 1 then
      local data = tonumber(_data)
      if data == 1 then
@@ -85,15 +85,15 @@ function Module:onLoad()
         end
         itemList={};
         itemList = itemData;
-        -- »Øµ÷ data = 0:ÎïÆ·ĞòºÅ(»ùÓÚ±¾´Î½»Ò×)|N:¹ºÂòÊıÁ¿|ÎïÆ·2ĞòºÅ|ÎïÆ·2ÊıÁ¿...
-        -- Êı¾İ½á¹¹ NPCÍ¼µµ|´°¿Ú±êÌâ|NPC¶Ô»°|Ç®²»¹»¶Ô»°|ÄÃ²»ÏÂ»òÊıÁ¿²»¹»¶Ô»°|ÎïÆ·NÃû³Æ|ÎïÆ·NÍ¼µµ|ÎïÆ·N¼Û¸ñ|ÎïÆ·N½éÉÜ|ÎïÆ·NÀàĞÍ|¿É·ñ¹ºÂò, 0²»¿É, 1¿É|
-        local windowStr = '98972|ÉñÃØÉÌµê|ÏŞ•r¡¢ÏŞÁ¿Ús¾o“ŒÙ\n¸÷Ê½¸÷˜ÓµÄ¾íİSÅ¶\n\n¡ùÃ¿´ÎÖ»È¡ÏàÍ¬µÄ¡­|\nÄãåX²»‰ò|\nÄãÄÃ²»ÏÂÁË|';
+        -- å›è°ƒ data = 0:ç‰©å“åºå·(åŸºäºæœ¬æ¬¡äº¤æ˜“)|N:è´­ä¹°æ•°é‡|ç‰©å“2åºå·|ç‰©å“2æ•°é‡...
+        -- æ•°æ®ç»“æ„ NPCå›¾æ¡£|çª—å£æ ‡é¢˜|NPCå¯¹è¯|é’±ä¸å¤Ÿå¯¹è¯|æ‹¿ä¸ä¸‹æˆ–æ•°é‡ä¸å¤Ÿå¯¹è¯|ç‰©å“Nåç§°|ç‰©å“Nå›¾æ¡£|ç‰©å“Nä»·æ ¼|ç‰©å“Nä»‹ç»|ç‰©å“Nç±»å‹|å¯å¦è´­ä¹°, 0ä¸å¯, 1å¯|
+        local windowStr = '98972|ç¥ç§˜å•†åº—|é™æ™‚ã€é™é‡è¶•ç·Šæ¶è³¼\nå„å¼å„æ¨£çš„å·è»¸å“¦\n\nâ€»æ¯æ¬¡åªå–ç›¸åŒçš„â€¦|\nä½ éŒ¢ä¸å¤ |\nä½ æ‹¿ä¸ä¸‹äº†|';
         for im=1,5 do
             local ItemsetIndex = Data.ItemsetGetIndex(itemList[im][2]);
             if (ItemsetIndex>0) then
-                 --local ItemName = Item.GetData(ItemIndex, CONST.µÀ¾ß_Ãû×Ö);
+                 --local ItemName = Item.GetData(ItemIndex, CONST.é“å…·_åå­—);
                  local ItemName = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_TRUENAME);
-                 --local ItemImage = Item.GetData(ItemIndex, CONST.µÀ¾ß_Í¼);
+                 --local ItemImage = Item.GetData(ItemIndex, CONST.é“å…·_å›¾);
                  local ItemImage = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_BASEIMAGENUMBER);
                  local ItemInfo = self:extractItemData(ItemsetIndex);
                  local ItemMsg = "$1";
@@ -101,19 +101,19 @@ function Module:onLoad()
                      if ItemInfo.attr[tostring(v[1])] ~=nil  then
                          local param = v[3];
                          --print(param)
-                         if param=="ÄÍ¾Ã" then
+                         if param=="è€ä¹…" then
                              ItemMsg = ItemMsg .. "\\n$4"..param .." 0100"
-                         elseif param=="×î´óÄÍ¾Ã" then
+                         elseif param=="æœ€å¤§è€ä¹…" then
                              ItemMsg = ItemMsg .. "/0100"
-                         elseif param=="µÈ¼‰" then
-                             ItemMsg = ItemMsg .. " $4µÈ¼‰ $4".. ItemInfo.attr[tostring(v[1])] ..""
-                         elseif param=="ÆäËû¿¨Æ¬" then
-                             ItemMsg = ItemMsg .. " $0·Nî ÆäËû¿¨Æ¬"
+                         elseif param=="ç­‰ç´š" then
+                             ItemMsg = ItemMsg .. " $4ç­‰ç´š $4".. ItemInfo.attr[tostring(v[1])] ..""
+                         elseif param=="å…¶ä»–å¡ç‰‡" then
+                             ItemMsg = ItemMsg .. " $0ç¨®é¡ å…¶ä»–å¡ç‰‡"
                          elseif param=="SPECIALEFFECTVALUE" then
                              partMsg = WhichPart(ItemInfo.attr[tostring(v[1])]);
                              ItemMsg = ItemMsg .. "\\n".. partMsg[1] ..""
-                         elseif param=="”µÁ¿" then
-                             ItemMsg = ItemMsg .. "\\n\\n‚}ìÊ£ğN”µÁ¿: ".. tonumber(itemList[im][3]) ..""
+                         elseif param=="æ•¸é‡" then
+                             ItemMsg = ItemMsg .. "\\n\\nå€‰åº«å‰©é¤˜æ•¸é‡: ".. tonumber(itemList[im][3]) ..""
                          else
                              if (ItemInfo.attr[tostring(v[1])]~=0) then
                                  ItemMsg = ItemMsg .. param .."+".. ItemInfo.attr[tostring(v[1])] .." "
@@ -128,11 +128,12 @@ function Module:onLoad()
                  itemList[im] = {name='..ItemName..', image='..ItemImage..', price=price, desc='..ItemMsg..', count=1, maxCount=maxCount, itemid=itemid};
             end
         end
-        NLG.ShowWindowTalked(player, self.mysteryNPC, CONST.´°¿Ú_Âò¿ò, CONST.BUTTON_¹Ø±Õ, 11, windowStr);
+        NLG.ShowWindowTalked(player, self.mysteryNPC, CONST.çª—å£_ä¹°æ¡†, CONST.BUTTON_å…³é—­, 11, windowStr);
+     end
     end
     if seqno == 11 then
        local data = tostring(_data)
-       if (select == CONST.°´Å¥_¹Ø±Õ) then
+       if (select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
        end
        local items = string.split(data, '|');
@@ -147,7 +148,7 @@ function Module:onLoad()
              keyNum = items[(key - 1) * 2 + 1] + 1;
            else
              maxCount = c.maxCount;
-             NLG.SystemMessage(player,"[Ïµ½y]´ËÎïÆ·‚}ìÒÑŸo´æØ›£¡");
+             NLG.SystemMessage(player,"[ç³»çµ±]æ­¤ç‰©å“å€‰åº«å·²ç„¡å­˜è²¨ï¼");
              return;
            end
            if c.itemid > 1 then
@@ -156,15 +157,15 @@ function Module:onLoad()
              itemid = -1;
            end
          end
-         if itemid == -1 then  ----ÅÅ³ıÍ¸¹ı°´Å¥È¡µÃµÀ¾ß
+         if itemid == -1 then  ----æ’é™¤é€è¿‡æŒ‰é’®å–å¾—é“å…·
             return;
          end
          if maxCount < 0 then
-           NLG.SystemMessage(player,"[Ïµ½y]”µÁ¿³¬ß^ì´æ£¡");
+           NLG.SystemMessage(player,"[ç³»çµ±]æ•¸é‡è¶…éåº«å­˜ï¼");
            return;
          end
          if Char.ItemNum(player, 68000) < totalGold then
-           NLG.SystemMessage(player,"[Ïµ½y]Ä§Á¦½ğÅ¿¨”µÁ¿²»×ãŸo·¨ÙÙI£¡");
+           NLG.SystemMessage(player,"[ç³»çµ±]é­”åŠ›é‡‘å¹£å¡æ•¸é‡ä¸è¶³ç„¡æ³•è³¼è²·ï¼");
            return;
          end
          if (Char.ItemSlot(player)<20) then
@@ -173,15 +174,15 @@ function Module:onLoad()
                 for NewItemSlot = 8,27 do
                     local NewItemIndex = Char.GetItemIndex(player, NewItemSlot);
                     if (NewItemIndex > 0) then
-                      if (Item.GetData(NewItemIndex, CONST.µÀ¾ß_ÒÑ¼ø¶¨)==0) then
-                        Item.SetData(NewItemIndex, CONST.µÀ¾ß_ÒÑ¼ø¶¨, 1);
+                      if (Item.GetData(NewItemIndex, CONST.é“å…·_å·²é‰´å®š)==0) then
+                        Item.SetData(NewItemIndex, CONST.é“å…·_å·²é‰´å®š, 1);
                         Item.UpItem(player, NewItemSlot);
                         NLG.UpChar(player);
                       end
                     end
                 end
          else
-                NLG.Say(player, -1, "×¢ÒâÌáÈ¡”µÁ¿³¬ß^ÎïÆ·™Ú£¡", CONST.ÑÕÉ«_»ÆÉ«, CONST.×ÖÌå_ÖĞ);
+                NLG.Say(player, -1, "æ³¨æ„æå–æ•¸é‡è¶…éç‰©å“æ¬„ï¼", CONST.é¢œè‰²_é»„è‰², CONST.å­—ä½“_ä¸­);
                 return;
          end
          if (itemList[keyNum][3]==0) then
@@ -215,7 +216,7 @@ function Module:extractItemData(ItemsetIndex)
   return item;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
