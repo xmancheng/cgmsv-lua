@@ -1,6 +1,7 @@
 ---模块类
 local Module = ModuleBase:createModule('mysteryShop')
 
+local GMcdk="123456";
 local itemData = {
     {"Lv1卷軸書冊",900611,10,10},
     {"Lv2卷軸書冊",900612,10,30},
@@ -54,47 +55,68 @@ local itemFields={
 {CONST.道具_子参一,CONST.ITEMSET_SPECIALEFFECTVALUE,"SPECIALEFFECTVALUE"},
 {CONST.道具_堆叠数,CONST.ITEMSET_COST,"數量"},
 }
+function WhichPart(Para1)
+    local WhichPart={}
+    if Para1==0 then            --头
+        WhichPart={"               $5賦予頭部"};
+    elseif Para1==1 then    --身
+        WhichPart={"               $5賦予身體"};
+    elseif Para1==3 then    --右
+        WhichPart={"               $5賦予副武"};
+    elseif Para1==4 then    --足
+        WhichPart={"               $5賦予足部"};
+    elseif Para1==5 then    --饰
+        WhichPart={"               $5賦予飾品"};
+    else
+        WhichPart={" "};
+    end
+    return WhichPart;
+end
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
-  self.mysteryNPC = self:NPC_createNormal('神秘商店', 98972, { x = 103, y = 199, mapType = 0, map = 25006, direction = 0 });
-  self:NPC_regTalkedEvent(self.mysteryNPC, function(npc, player)
+  self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
+  self:regCallback('LoopEvent', Func.bind(self.MysteryShop_LoopEvent,self))
+  mysteryNPC = self:NPC_createNormal('神秘商店', 98972, { x = 103, y = 199, mapType = 0, map = 25006, direction = 0 });
+  self:NPC_regTalkedEvent(mysteryNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
         -- 回调 data = 1:买, 2:卖
         -- 数据结构 NPC图档|窗口标题|NPC对话|买卖类型 0:无按钮, 1:买, 2:卖, 3:买卖|
         local windowStr = '98972|神秘商店|隨機商品的旅行商人\n商品限量價格不斐|1|'
-        NLG.ShowWindowTalked(player, self.mysteryNPC, CONST.窗口_买卖框, CONST.BUTTON_关闭, 1, windowStr);
+        NLG.ShowWindowTalked(player, mysteryNPC, CONST.窗口_买卖框, CONST.BUTTON_关闭, 1, windowStr);
     end
     return
   end)
 
-  self:NPC_regWindowTalkedEvent(self.mysteryNPC, function(npc, player, _seqno, _select, _data)
+  self:NPC_regWindowTalkedEvent(mysteryNPC, function(npc, player, _seqno, _select, _data)
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     --local data = tonumber(_data)
     local cdk = Char.GetData(player,CONST.对象_CDK);
+    local gmIndex = NLG.FindUser(GMcdk);
     if seqno == 1 then
      local data = tonumber(_data)
      if data == 1 then
-        local xr = NLG.Rand(1,3);
-        for i=1,#itemData-1-xr do
-                r = NLG.Rand(1,i+1+xr);
-                temp=itemData[r];
-                itemData[r]=itemData[i];
-                itemData[i]=temp;
+        local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='"..GMcdk.."' and sKey='mystery_shop'")["0_0"])
+        itemList = {};
+        if (type(sqldata)=="string" and sqldata~='') then
+               itemList = JSON.decode(sqldata);
+        else
+               itemList = {};
         end
-        itemList={};
-        itemList = itemData;
+        itemMenu={};
         -- 回调 data = 0:物品序号(基于本次交易)|N:购买数量|物品2序号|物品2数量...
         -- 数据结构 NPC图档|窗口标题|NPC对话|钱不够对话|拿不下或数量不够对话|物品N名称|物品N图档|物品N价格|物品N介绍|物品N类型|可否购买, 0不可, 1可|
         local windowStr = '98972|神秘商店|限時、限量趕緊搶購\n各式各樣的卷軸哦\n\n※每次只取相同的…|\n你錢不夠|\n你拿不下了|';
-        for im=1,5 do
+        for im=1,#itemList do
             local ItemsetIndex = Data.ItemsetGetIndex(itemList[im][2]);
+            local price = tonumber(itemList[im][4]);
             if (ItemsetIndex>0) then
                  --local ItemName = Item.GetData(ItemIndex, CONST.道具_名字);
                  local ItemName = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_TRUENAME);
                  --local ItemImage = Item.GetData(ItemIndex, CONST.道具_图);
                  local ItemImage = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_BASEIMAGENUMBER);
+                 local ItemType = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_TYPE);
                  local ItemInfo = self:extractItemData(ItemsetIndex);
                  local ItemMsg = "$1";
                  for k,v in pairs(itemFields) do
@@ -121,14 +143,13 @@ function Module:onLoad()
                          end
                      end
                  end
-                 windowStr = windowStr..''..ItemName..'|'..ItemImage..'|0|'..ItemMsg..'|41|1|';
-                 local price = tonumber(itemList[im][4]);
+                 windowStr = windowStr..''..ItemName..'|'..ItemImage..'|'..price..'|'..ItemMsg..'|'..ItemType..'|1|';
                  local maxCount = tonumber(itemList[im][3]);
                  local itemid = tonumber(itemList[im][2]);
-                 itemList[im] = {name='..ItemName..', image='..ItemImage..', price=price, desc='..ItemMsg..', count=1, maxCount=maxCount, itemid=itemid};
+                 itemMenu[im] = {name='..ItemName..', image='..ItemImage..', price=price, desc='..ItemMsg..', count=1, maxCount=maxCount, itemid=itemid};
             end
         end
-        NLG.ShowWindowTalked(player, self.mysteryNPC, CONST.窗口_买框, CONST.BUTTON_关闭, 11, windowStr);
+        NLG.ShowWindowTalked(player, mysteryNPC, CONST.窗口_买框, CONST.BUTTON_关闭, 11, windowStr);
      end
     end
     if seqno == 11 then
@@ -137,9 +158,9 @@ function Module:onLoad()
                  return;
        end
        local items = string.split(data, '|');
-       local itemList = itemList;
+       local itemMenu = itemMenu;
        for key = 1, #items / 2 do
-         local c = itemList[items[(key - 1) * 2 + 1] + 1]
+         local c = itemMenu[items[(key - 1) * 2 + 1] + 1]
          if c then
            count = (tonumber(items[(key - 1) * 2 + 2]) or 0);
            if c.maxCount > 0 then
@@ -171,6 +192,7 @@ function Module:onLoad()
          if (Char.ItemSlot(player)<20) then
                 itemList[keyNum][3] = itemList[keyNum][3] - count;
                 Char.GiveItem(player,itemList[keyNum][2],count);
+                Char.DelItem(player, 68000, totalGold);
                 for NewItemSlot = 8,27 do
                     local NewItemIndex = Char.GetItemIndex(player, NewItemSlot);
                     if (NewItemIndex > 0) then
@@ -191,17 +213,75 @@ function Module:onLoad()
          end
          if (#itemList==0) then
                 itemList={};
-                NLG.UpChar(player);
+                local newdata = JSON.encode(itemList);
+                SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='mystery_shop'")
+                NLG.UpChar(gmIndex);
                 return;
          else
-                itemList = itemList;
-                NLG.UpChar(player);
+                local newdata = JSON.encode(itemList);
+                SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='mystery_shop'")
+                NLG.UpChar(gmIndex);
                 return;
          end
        end
     end
   end)
 
+end
+
+--指令启动循环
+function Module:handleTalkEvent(charIndex,msg,color,range,size)
+	if (msg=="[nr msshop start]") then
+		local cdk = Char.GetData(charIndex,CONST.对象_CDK);
+		if (cdk == GMcdk) then
+			--抽取出5个商品
+			local r1=NLG.Rand(1,#itemData);
+			local r2=NLG.Rand(1,#itemData);
+			local r3=NLG.Rand(1,#itemData);
+			local r4=NLG.Rand(1,#itemData);
+			local r5=NLG.Rand(1,#itemData);
+			itemList={};
+			itemList[1]=itemData[r1];
+			itemList[2]=itemData[r2];
+			itemList[3]=itemData[r3];
+			itemList[4]=itemData[r4];
+			itemList[5]=itemData[r5];
+ 			--存进GM的个人库
+			Char.SetExtData(charIndex, 'mystery_shop', JSON.encode(itemList));
+			local newdata = JSON.encode(itemList);
+			SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='mystery_shop'")
+			Char.SetLoopEvent('./lua/Modules/mysteryShop.lua','MysteryShop_LoopEvent',mysteryNPC,1000);
+			NLG.SystemMessage(charIndex, "[系統]神秘商店開始。");
+			NLG.UpChar(charIndex);
+			return 0;
+		end
+	end
+	return 1;
+end
+--转移神秘商店
+function MysteryShop_LoopEvent(mysteryNPC)
+	if (os.date("%X",os.time())=="00:45:01") or (os.date("%X",os.time())=="00:00:01") then
+		--每轮重置抽取出5个商品
+		local r1=NLG.Rand(1,#itemData);
+		local r2=NLG.Rand(1,#itemData);
+		local r3=NLG.Rand(1,#itemData);
+		local r4=NLG.Rand(1,#itemData);
+		local r5=NLG.Rand(1,#itemData);
+		itemList={};
+		itemList[1]=itemData[r1];
+		itemList[2]=itemData[r2];
+		itemList[3]=itemData[r3];
+		itemList[4]=itemData[r4];
+		itemList[5]=itemData[r5];
+ 		--存进GM的个人库
+		local newdata = JSON.encode(itemList);
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='mystery_shop'")
+	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="07:45:01")  then
+		Char.SetData(mysteryNPC,CONST.对象_X, 103);
+		Char.SetData(mysteryNPC,CONST.对象_Y, 199);
+		Char.SetData(mysteryNPC,CONST.对象_地图, 25006);
+		NLG.UpChar(mysteryNPC);
+	end
 end
 
 
