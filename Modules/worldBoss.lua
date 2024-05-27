@@ -113,6 +113,11 @@ function Module:onLoad()
 	end
 	local playerName = Char.GetData(player,CONST.CHAR_名字);
 	local partyname = playerName .. "－隊";
+	local playerLv = Char.GetData(player,CONST.CHAR_等级);
+	if playerLv<=100 then
+		NLG.SystemMessage(player,"[系統]討伐建議隊長等級要100以上");
+		return;
+	end
 	for k,v in pairs(WorldBoss) do
 		if ( bossDay==v.weekday ) then
 			table.insert(tbl_duel_user,player);
