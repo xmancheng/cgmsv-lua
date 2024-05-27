@@ -372,8 +372,6 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 				if tLuck<tMin or tLuck>tMax then
 					NLG.SystemMessage(_PlayerIndex, "[" .. "神秘鐵匠" .. "] 很不幸，你的裝備強化失敗……所幸裝備並沒有損壞……")
 					BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, 1, 1, 1)
-					return
-				else
 					--CheckBreak
 					local BreakRateTab = StrBreakRate[tItemID] or StrBreakRate[-1]
 					local BreakRate = BreakRateTab[tStrLv+1]
