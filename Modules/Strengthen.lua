@@ -164,21 +164,7 @@ function Module:onLoad()
                             local tMin = 50 - math.floor(SuccRate/2) + 1;
                             local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
                             local tLuck = math.random(1, 100);
-                            if (tLuck>=tMin and tLuck<=tMax)  then
-                                if (tStrLv+1>=6) then
-                                    local BreakRate = StrBreakRate[tStrLv+1]
-                                    if (type(BreakRate)=="number" and BreakRate>0) then
-                                        local tMin = 50 - math.floor(BreakRate/2) + 1;
-                                        local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2);
-                                        local tLuck = math.random(1, 100);
-                                        if (tLuck<tMin or tLuck>tMax) then
-                                            Char.DelItem(player, CardID, 1);
-                                            Item.Kill(player, targetItemIndex, targetSlot);
-                                            NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予大失敗……永久損毀……");
-                                            return;
-                                        end
-                                    end
-                                else
+                            if (tLuck<tMin or tLuck>tMax)  then
                                     Item.SetData(CardIndex,CONST.道具_耐久, CardDur - math.floor(CardDur * DurDamageRate[CardPara2+1]/100) );
                                     Item.SetData(CardIndex, CONST.道具_子参二, CardPara2+1);
                                     if (CardDur<1) then
@@ -194,8 +180,22 @@ function Module:onLoad()
                                     Item.UpItem(player, targetSlot);
                                     NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予失敗……造成耐久下降……");
                                     NLG.UpChar(player);
+                                    --+6以上破坏
+                                    if (tStrLv+1>=6) then
+                                        local BreakRate = StrBreakRate[tStrLv+1]
+                                        if (type(BreakRate)=="number" and BreakRate>0) then
+                                            local tMin = 50 - math.floor(BreakRate/2) + 1;
+                                            local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2);
+                                            local tLuck = math.random(1, 100);
+                                            if (tLuck>=tMin and tLuck<=tMax) then
+                                                Char.DelItem(player, CardID, 1);
+                                                Item.Kill(player, targetItemIndex, targetSlot);
+                                                NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予大失敗……永久損毀……");
+                                                return;
+                                            end
+                                        end
+                                    end
                                     return;
-                                end
                             end
                             Char.DelItem(player, CardID, 1);
                             if EquipPlusStat(targetItemIndex)==nil then Item.SetData(targetItemIndex, CONST.道具_鉴前名, tItemName); end
