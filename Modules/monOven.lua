@@ -90,9 +90,15 @@ function Module:onLoad()
                       local tMin = 50 - math.floor(SuccRate/2) + 1;
                       local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
                       local tLuck = math.random(1, 100);
-                      --if (tLuck<tMin or tLuck>tMax)  then
                       if (tLuck>=tMin and tLuck<=tMax)  then
+                           Item.SetData(OvenIndex,CONST.道具_幸运, Item.GetData(OvenIndex,CONST.道具_幸运)+1);
                            Char.GiveItem(player, reelList[whatWaste][3], 1);
+                           if Item.GetData(OvenIndex,CONST.道具_幸运)+1 == 9 then
+                               NLG.SystemMessage(player, "[系統]烤爐使用年限快到，剩下最後一次了！");
+                           elseif Item.GetData(OvenIndex,CONST.道具_幸运)+1 >= 10 then
+                               Char.DelItemBySlot(player, OvenSlot);
+                               NLG.SystemMessage(player, "[系統]烤爐崩解毀壞了！");
+                           end
                       end
                  end
                  Item.SetData(OvenIndex,CONST.道具_耐久, OvenDur+WasteLv);
