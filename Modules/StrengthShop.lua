@@ -199,6 +199,19 @@ function Module:onLoad()
                 SQL.Run("update lua_hook_character set ReelBag= NULL where CdKey='"..cdk.."'")
                 NLG.UpChar(player);
                 return;
+         elseif (#itemData>=15) then
+                local xr = NLG.Rand(1,3);
+                for i=1,#itemData-1-xr do
+                        r = NLG.Rand(1,i+1+xr);
+                        temp=itemData[r];
+                        itemData[r]=itemData[i];
+                        itemData[i]=temp;
+                end
+                local sqldata = itemData;
+                local newdata = JSON.encode(sqldata);
+                SQL.Run("update lua_hook_character set ReelBag= '"..newdata.."' where CdKey='"..cdk.."'")
+                NLG.UpChar(player);
+                return;
          else
                 local sqldata = itemData;
                 local newdata = JSON.encode(sqldata);
@@ -222,8 +235,12 @@ function Module:onLoad()
            local itemid = Item.GetData(ItemIndex,CONST.道具_ID);
            local count = Item.GetData(ItemIndex,CONST.道具_堆叠数);
            local itemdur = Item.GetData(ItemIndex,CONST.道具_耐久);
+           local itemlv = Item.GetData(ItemIndex,CONST.道具_等级);
            if (itemid>=73801 and itemid<=73958 and itemdur<100) then
               NLG.SystemMessage(player, "[系統]非全新的魔法卷軸無法存入！");
+              return;
+           elseif (itemid>=73801 and itemid<=73958 and itemlv>=7) then
+              NLG.SystemMessage(player, "[系統]等級7以上的魔法卷軸無法存入！");
               return;
            elseif (itemid>=73801 and itemid<=73958) then
               local cdk = Char.GetData(player,CONST.对象_CDK);
