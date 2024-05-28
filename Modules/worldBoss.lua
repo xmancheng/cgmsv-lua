@@ -35,19 +35,19 @@ Pos[7] = {"回來復仇的魷魚霸王",EnemySet[7],BaseLevelSet[7]}
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local WorldBoss = {
-      { weekday=1, lordName="復仇巨櫻樹王", lordImage=104889 , waitingArea={map=777,X=36,Y=41}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=1, lordName="復仇巨櫻樹王", lordImage=104889 , waitingArea={map=777,X=36,Y=41}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73940,73941,73893}, rewardsItem_count=1, prizeItem={73876,73878,73880,73890,73891}, prizeItem_count=1},
-      { weekday=2, lordName="復仇液態史伊", lordImage=108206 , waitingArea={map=777,X=36,Y=43}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=2, lordName="復仇液態史伊", lordImage=108206 , waitingArea={map=777,X=36,Y=43}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73923,73924}, rewardsItem_count=1, prizeItem={73921,73922,73930,73932}, prizeItem_count=1},
-      { weekday=3, lordName="復仇夜地獄星", lordImage=108228 , waitingArea={map=777,X=36,Y=45}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=3, lordName="復仇夜地獄星", lordImage=108228 , waitingArea={map=777,X=36,Y=45}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73808,73809,73820,73821}, rewardsItem_count=1, prizeItem={73818,73819,73806,73938,73939}, prizeItem_count=1},
-      { weekday=4, lordName="復仇冥府之主", lordImage=108205 , waitingArea={map=777,X=36,Y=47}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=4, lordName="復仇冥府之主", lordImage=108205 , waitingArea={map=777,X=36,Y=47}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73833,73834,73912,73913}, rewardsItem_count=1, prizeItem={73835,73826,73828,73830,73831}, prizeItem_count=1},
-      { weekday=5, lordName="復仇水母霸王", lordImage=108127 , waitingArea={map=777,X=36,Y=49}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=5, lordName="復仇水母霸王", lordImage=108127 , waitingArea={map=777,X=36,Y=49}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73934,73935,73887,73888}, rewardsItem_count=1, prizeItem={73853,73854,73856,73885,73886}, prizeItem_count=1},
-      { weekday=6, lordName="復仇暴走霸王", lordImage=108179 , waitingArea={map=777,X=36,Y=51}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=6, lordName="復仇暴走霸王", lordImage=108179 , waitingArea={map=777,X=36,Y=51}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73857,73859,73946,73948}, rewardsItem_count=1, prizeItem={73858,73860,73951,73952,73953}, prizeItem_count=1},
-      { weekday=7, lordName="復仇魷魚霸王", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=1000,X=218,Y=88},
+      { weekday=7, lordName="復仇魷魚霸王", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73866,73870,73843,73845}, rewardsItem_count=1, prizeItem={73861,73863,73865,73955,73957,73958}, prizeItem_count=1},
 }
 tbl_duel_user = {};			--当前场次玩家的列表
@@ -66,7 +66,7 @@ function Module:onLoad()
   --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
   self:regCallback('LoopEvent', Func.bind(self.WorldBoss_LoopEvent,self))
-    WorldBossNPC = self:NPC_createNormal('世界強敵討伐', 110308, { map = 777, x = 36, y = 39, direction = 4, mapType = 0 })
+    WorldBossNPC = self:NPC_createNormal('世界強敵討伐', 110308, { map = 777, x = 36, y = 39, direction = 5, mapType = 0 })
     self:NPC_regWindowTalkedEvent(WorldBossNPC, function(npc, player, _seqno, _select, _data)
 	local cdk = Char.GetData(player,CONST.对象_CDK);
 	local seqno = tonumber(_seqno)
@@ -88,7 +88,7 @@ function Module:onLoad()
                               i = i - 4;
                else
                               i = i + 4;		
-                              end
+               end
                Char.SetData(npc, CONST.对象_方向,i);
                NLG.UpChar(npc);
                --世界BOSS
@@ -146,6 +146,35 @@ function Module:onLoad()
 			end
 		end
 	end
+      end
+      return
+    end)
+
+    WarpBossNPC = self:NPC_createNormal('強敵討伐傳送', 110308, { map = 777, x = 37, y = 39, direction = 4, mapType = 0 })
+    self:NPC_regWindowTalkedEvent(WarpBossNPC, function(npc, player, _seqno, _select, _data)
+	local cdk = Char.GetData(player,CONST.对象_CDK);
+	local seqno = tonumber(_seqno)
+	local select = tonumber(_select)
+	local data = tonumber(_data)
+    end)
+    self:NPC_regTalkedEvent(WarpBossNPC, function(npc, player)
+      if(NLG.CheckInFront(player, npc, 1)==false) then
+          return ;
+      end
+      if (NLG.CanTalk(npc, player) == true) then
+               local bossDay = tonumber(os.date("%w",os.time()))
+               if (bossDay==0) then bossDay=7; end
+               --面向玩家
+               local i;
+               i = Char.GetData(player, CONST.对象_方向);
+               if i >= 4 then 
+                              i = i - 4;
+               else
+                              i = i + 4;		
+               end
+               Char.SetData(npc, CONST.对象_方向,i);
+               NLG.UpChar(npc);
+               Char.Warp(player, 0, 25012, 25, 27);
       end
       return
     end)
@@ -234,11 +263,26 @@ function WorldBoss_LoopEvent(WorldBossNPC)
 		end
 		local newdata = JSON.encode(WorldDate);
 		SQL.querySQL("update tbl_globalregvalue set value= '"..newdata.."' where str ='WorldDate' ")
+		--传送NPC
+		for k,v in pairs(WorldBoss) do
+			if ( bossDay==v.weekday ) then
+				Char.SetData(WarpBossNPC,CONST.对象_名字, v.lordName);
+				Char.SetData(WarpBossNPC,CONST.对象_形象, v.lordImage);
+				Char.SetData(WarpBossNPC,CONST.对象_X, 218);
+				Char.SetData(WarpBossNPC,CONST.对象_Y, 88);
+				Char.SetData(WarpBossNPC,CONST.对象_地图, 1000);
+				NLG.UpChar(WarpBossNPC);
+			end
+		end
 	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="13:45:01") or (os.date("%X",os.time())=="18:45:01") or (os.date("%X",os.time())=="21:45:01")  then
 		Char.SetData(WorldBossNPC,CONST.对象_X, 36);
 		Char.SetData(WorldBossNPC,CONST.对象_Y, 41);
 		Char.SetData(WorldBossNPC,CONST.对象_地图, 777);
 		NLG.UpChar(WorldBossNPC);
+		Char.SetData(WarpBossNPC,CONST.对象_X, 37);
+		Char.SetData(WarpBossNPC,CONST.对象_Y, 41);
+		Char.SetData(WarpBossNPC,CONST.对象_地图, 777);
+		NLG.UpChar(WarpBossNPC);
 	end
 end
 
@@ -342,7 +386,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 			NLG.SystemMessage(-1,"[系統]世界強敵血量超激增.總共有"..playerCount.."名玩家x10萬的血量！");
 		end
 	end)
-	if LordHP8<=4000 then
+	if LordHP8<=10000 then
 		LordHP8 = 100000;
 		local HP = LordHP8;
 		SQL.querySQL("update lua_hook_worldboss set WorldLord8= '"..HP.."' where LordEnd8='0' ")
