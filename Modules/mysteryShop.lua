@@ -87,7 +87,7 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
   self:regCallback('LoopEvent', Func.bind(self.MysteryShop_LoopEvent,self))
-  mysteryNPC = self:NPC_createNormal('神秘商店', 98972, { x = 103, y = 199, mapType = 0, map = 25006, direction = 0 });
+  mysteryNPC = self:NPC_createNormal('神秘商店', 98972, { x = 35, y = 39, mapType = 0, map = 777, direction = 0 });
   self:NPC_regTalkedEvent(mysteryNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
         -- 回调 data = 1:买, 2:卖
@@ -270,7 +270,11 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 end
 --转移神秘商店
 function MysteryShop_LoopEvent(mysteryNPC)
-	if (os.date("%X",os.time())=="00:45:01") or (os.date("%X",os.time())=="00:00:01") then
+	if (os.date("%X",os.time())=="00:45:01") or (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="18:15:01") or (os.date("%X",os.time())=="20:15:01") or (os.date("%X",os.time())=="21:15:01") or (os.date("%X",os.time())=="22:15:01") then
+		Char.SetData(mysteryNPC,CONST.对象_X, 35);
+		Char.SetData(mysteryNPC,CONST.对象_Y, 15);
+		Char.SetData(mysteryNPC,CONST.对象_地图, 25012);
+		NLG.UpChar(mysteryNPC);
 		--每轮重置抽取出5个商品
 		local r1=NLG.Rand(1,#itemData);
 		local r2=NLG.Rand(1,#itemData);
@@ -286,10 +290,10 @@ function MysteryShop_LoopEvent(mysteryNPC)
  		--存进GM的个人库
 		local newdata = JSON.encode(itemList);
 		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='"..GMcdk.."' and sKey='mystery_shop'")
-	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="07:45:01")  then
-		Char.SetData(mysteryNPC,CONST.对象_X, 103);
-		Char.SetData(mysteryNPC,CONST.对象_Y, 199);
-		Char.SetData(mysteryNPC,CONST.对象_地图, 25006);
+	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="13:45:01") or (os.date("%X",os.time())=="18:45:01") or (os.date("%X",os.time())=="21:45:01")  then
+		Char.SetData(mysteryNPC,CONST.对象_X, 35);
+		Char.SetData(mysteryNPC,CONST.对象_Y, 39);
+		Char.SetData(mysteryNPC,CONST.对象_地图, 777);
 		NLG.UpChar(mysteryNPC);
 	end
 end
