@@ -233,7 +233,8 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr worldboss start]") then
 		local cdk = Char.GetData(charIndex,CONST.对象_CDK);
 		if (cdk == "123456") then
-			Char.SetLoopEvent('./lua/Modules/worldBoss.lua','WorldBoss_LoopEvent',WorldBossNPC,1000);
+			Char.SetLoopEvent('./lua/Modules/worldBoss.lua','WorldBoss1_LoopEvent',WorldBossNPC,1000);
+			Char.SetLoopEvent('./lua/Modules/worldBoss.lua','WorldBoss2_LoopEvent',WarpBossNPC,1000);
 			NLG.SystemMessage(charIndex, "[系統]世界強敵共鬥開始。");
 			NLG.UpChar(charIndex);
 			return 0;
@@ -242,7 +243,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	return 1;
 end
 --转移每日世界强敌
-function WorldBoss_LoopEvent(WorldBossNPC)
+function WorldBoss1_LoopEvent(WorldBossNPC)
 	if (os.date("%X",os.time())=="00:45:01") or (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="18:15:01") or (os.date("%X",os.time())=="20:15:01") or (os.date("%X",os.time())=="21:15:01") or (os.date("%X",os.time())=="22:15:01") then
 		local bossDay = tonumber(os.date("%w",os.time()))
 		if (bossDay==0) then bossDay=7; end
@@ -263,6 +264,18 @@ function WorldBoss_LoopEvent(WorldBossNPC)
 		end
 		local newdata = JSON.encode(WorldDate);
 		SQL.querySQL("update tbl_globalregvalue set value= '"..newdata.."' where str ='WorldDate' ")
+	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="13:45:01") or (os.date("%X",os.time())=="18:45:01") or (os.date("%X",os.time())=="21:45:01")  then
+		Char.SetData(WorldBossNPC,CONST.对象_X, 36);
+		Char.SetData(WorldBossNPC,CONST.对象_Y, 41);
+		Char.SetData(WorldBossNPC,CONST.对象_地图, 777);
+		NLG.UpChar(WorldBossNPC);
+	end
+end
+--转移
+function WorldBoss2_LoopEvent(WarpBossNPC)
+	if (os.date("%X",os.time())=="00:45:01") or (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="18:15:01") or (os.date("%X",os.time())=="20:15:01") or (os.date("%X",os.time())=="21:15:01") or (os.date("%X",os.time())=="22:15:01") then
+		local bossDay = tonumber(os.date("%w",os.time()))
+		if (bossDay==0) then bossDay=7; end
 		--传送NPC
 		for k,v in pairs(WorldBoss) do
 			if ( bossDay==v.weekday ) then
@@ -275,10 +288,6 @@ function WorldBoss_LoopEvent(WorldBossNPC)
 			end
 		end
 	elseif (os.date("%X",os.time())=="23:59:00") or (os.date("%X",os.time())=="07:45:01") or (os.date("%X",os.time())=="13:45:01") or (os.date("%X",os.time())=="18:45:01") or (os.date("%X",os.time())=="21:45:01")  then
-		Char.SetData(WorldBossNPC,CONST.对象_X, 36);
-		Char.SetData(WorldBossNPC,CONST.对象_Y, 41);
-		Char.SetData(WorldBossNPC,CONST.对象_地图, 777);
-		NLG.UpChar(WorldBossNPC);
 		Char.SetData(WarpBossNPC,CONST.对象_X, 37);
 		Char.SetData(WarpBossNPC,CONST.对象_Y, 41);
 		Char.SetData(WarpBossNPC,CONST.对象_地图, 777);
