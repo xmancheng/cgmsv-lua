@@ -175,7 +175,11 @@ function Module:onLoad()
                Char.SetData(npc, CONST.对象_方向,i);
                NLG.UpChar(npc);
                Char.Warp(player, 0, 25012, 25, 27);
-               Char.GiveItem(player, v.weekdayItem, 1);
+               for k,v in pairs(WorldBoss) do
+                   if ( bossDay==v.weekday ) then
+                       Char.GiveItem(player, v.weekdayItem, 1);
+                   end
+               end
       end
       return
     end)
