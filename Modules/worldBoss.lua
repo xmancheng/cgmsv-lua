@@ -35,19 +35,19 @@ Pos[7] = {"回來復仇的魷魚霸王",EnemySet[7],BaseLevelSet[7]}
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local WorldBoss = {
-      { weekday=1, lordName="復仇巨櫻樹王", lordImage=104889 , waitingArea={map=777,X=36,Y=41}, onfieldArea={map=25013,X=35,Y=15},
+      { weekday=1, weekdayItem=70241, lordName="復仇巨櫻樹王", lordImage=104889 , waitingArea={map=777,X=36,Y=41}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73940,73941,73893}, rewardsItem_count=1, prizeItem={73876,73878,73880,73890,73891}, prizeItem_count=1},
-      { weekday=2, lordName="復仇液態史伊", lordImage=108206 , waitingArea={map=777,X=36,Y=43}, onfieldArea={map=25013,X=35,Y=15},
+      { weekday=2, weekdayItem=70242, lordName="復仇液態史伊", lordImage=108206 , waitingArea={map=777,X=36,Y=43}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73923,73924}, rewardsItem_count=1, prizeItem={73921,73922,73930,73932}, prizeItem_count=1},
-      { weekday=3, lordName="復仇夜地獄星", lordImage=108228 , waitingArea={map=777,X=36,Y=45}, onfieldArea={map=25013,X=35,Y=15},
+      { weekday=3, weekdayItem=70243, lordName="復仇夜地獄星", lordImage=108228 , waitingArea={map=777,X=36,Y=45}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73808,73809,73820,73821}, rewardsItem_count=1, prizeItem={73818,73819,73806,73938,73939}, prizeItem_count=1},
-      { weekday=4, lordName="復仇冥府之主", lordImage=108205 , waitingArea={map=777,X=36,Y=47}, onfieldArea={map=25013,X=35,Y=15},
+      { weekday=4, weekdayItem=70244, lordName="復仇冥府之主", lordImage=108205 , waitingArea={map=777,X=36,Y=47}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73833,73834,73912,73913}, rewardsItem_count=1, prizeItem={73835,73826,73828,73830,73831}, prizeItem_count=1},
-      { weekday=5, lordName="復仇水母霸王", lordImage=108127 , waitingArea={map=777,X=36,Y=49}, onfieldArea={map=25013,X=35,Y=15},
+      { weekday=5, weekdayItem=70245, lordName="復仇水母霸王", lordImage=108127 , waitingArea={map=777,X=36,Y=49}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73934,73935,73887,73888}, rewardsItem_count=1, prizeItem={73853,73854,73856,73885,73886}, prizeItem_count=1},
-      { weekday=6, lordName="復仇暴走霸王", lordImage=108179 , waitingArea={map=777,X=36,Y=51}, onfieldArea={map=25013,X=35,Y=15},
+      { weekday=6, weekdayItem=70246, lordName="復仇暴走霸王", lordImage=108179 , waitingArea={map=777,X=36,Y=51}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73857,73859,73946,73948}, rewardsItem_count=1, prizeItem={73858,73860,73951,73952,73953}, prizeItem_count=1},
-      { weekday=7, lordName="復仇魷魚霸王", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=25013,X=35,Y=15},
+      { weekday=7, weekdayItem=70240, lordName="復仇魷魚霸王", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73866,73870,73843,73845}, rewardsItem_count=1, prizeItem={73861,73863,73865,73955,73957,73958}, prizeItem_count=1},
 }
 tbl_duel_user = {};			--当前场次玩家的列表
@@ -175,6 +175,7 @@ function Module:onLoad()
                Char.SetData(npc, CONST.对象_方向,i);
                NLG.UpChar(npc);
                Char.Warp(player, 0, 25012, 25, 27);
+               Char.GiveItem(player, v.weekdayItem, 1);
       end
       return
     end)
