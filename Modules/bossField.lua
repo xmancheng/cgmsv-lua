@@ -7,6 +7,7 @@ local damage_Max = 99999;
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
+  self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self))
 end
@@ -24,6 +25,30 @@ function Module:OnbattleStartEventCallback(battleIndex)
                  end
               end
          end
+end
+
+function Module:OnAfterBattleTurnCommand(battleIndex)
+	local Round = Battle.GetTurn(battleIndex);
+	for i = 0, 9 do
+		local player = Battle.GetPlayer(battleIndex, i);
+		local Target_FloorId_1 = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.CHAR_地图);
+		local Target_FloorId_2 = Char.GetData(Battle.GetPlayer(battleIndex, 5),CONST.CHAR_地图);
+		if player>=0  then
+			if (Target_FloorId_1==25013 or Target_FloorId_2==25013) then
+				FieldEffect = 1;
+			end
+			if (FieldEffect==1)  then
+				local playerHP = Char.GetData(player, CONST.CHAR_血);
+				if (playerHP>=500) then
+					Char.SetData(player, CONST.CHAR_血, playerHP*0.7);
+				end
+				--if Char.GetData(player,CONST.对象_对战开关) == 1  then
+					NLG.Say(player,-1,"受到【誅伏賜死】領域影響每回合都會減少30%生命。",4,3);
+				--end
+			end
+		end
+	end
+	FieldEffect = 0;
 end
 
 function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
