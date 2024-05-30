@@ -63,13 +63,13 @@ function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex
                                 if (EnemyId==charIndex and Char.GetData(charIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗 and typeId>0 and typeId==k) then
                                     if flg==CONST.DamageFlags.Normal then
                                         if (typeId==1 or typeId==2 or typeId==4 or typeId==6) then
-                                            local damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                             --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                             return damage;
                                         end
                                     elseif flg==CONST.DamageFlags.Magic then
                                         if (typeId==3 or typeId==5 or typeId==6) then
-                                            local damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                             --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                             return damage;
                                         end
@@ -89,7 +89,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == 1) then
-                       local damage = damage * v.val;
+                       damage = damage * v.val;
                        --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
@@ -98,7 +98,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                for i=0,9 do
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) == 1) then
-                       local damage = damage * v.val;
+                       damage = damage * v.val;
                        --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
@@ -107,7 +107,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) >= 10) then
-                       local damage = damage * v.val;
+                       damage = damage * v.val;
                        --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
@@ -116,7 +116,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                for i=0,9 do
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) >= 10) then
-                       local damage = damage * v.val;
+                       damage = damage * v.val;
                        --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
@@ -125,7 +125,7 @@ function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == v.info) then
-                       local damage = damage * v.val;
+                       damage = damage * v.val;
                        --NLG.Say(-1,-1,"宠物性格被动效果发动",4,3);
                        return damage;
                    end
@@ -218,7 +218,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
            local damage = damage_TA;
-           --print(damage_temp,damage_TA,damage)
+           print(damage_temp,damage_TA,damage)
            for i=0,9 do
                local skillId = Pet.GetSkill(charIndex, i)
                if (skillId == 1619) then  --宠物被动【大胆无畏】
