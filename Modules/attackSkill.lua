@@ -25,7 +25,7 @@ function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, 
                leader = leader2
          end
          --大师武器增伤
-             if Char.IsPlayer(charIndex) then
+         if Char.IsPlayer(charIndex) then
                local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
                local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
                local ShieldIndex = Char.GetShield(charIndex);
@@ -206,7 +206,7 @@ function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, 
                  end
                end
 
-             end
+         end
     return damage;
 end
 
@@ -332,9 +332,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                end
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               local damage_TA = self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
+               local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
                local damage = math.floor(damage_TA*0.8);
-               print(damage_TA,damage)
+               --print(damage_TA,damage)
                if (com3 == 200539)  then    --200539無量空處/200500~200509追月(消除巫術)
                      if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【無量空處】！！",4,3);
@@ -417,7 +417,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                end
-               return damage;
+
 --抓寵技能刀背攻擊
                if com3 == 8137  then
                  local defLvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
@@ -464,6 +464,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  end
                  return damage;
                end
+               return damage;
 
 --合擊狀態增傷
 --[[
@@ -508,9 +509,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 ]]
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               local damage_TA = self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
+               local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
                local damage = math.floor(damage_TA*0.5);
-               print(damage_TA,damage)
+               --print(damage_TA,damage)
                if (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
                      --NLG.Say(charIndex,charIndex,"【精神衝擊波】補正傷害公式！！",4,3);
                      local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
@@ -525,7 +526,6 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                end
-               return damage;
 
 --[[法術附加30%狀態
                if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
