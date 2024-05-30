@@ -17,6 +17,199 @@ function AttackSkill:onLoad()
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self))
 end
 
+function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg)
+         local leader1 = Battle.GetPlayer(battleIndex,0)
+         local leader2 = Battle.GetPlayer(battleIndex,5)
+         local leader = leader1
+         if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
+               leader = leader2
+         end
+         --大师武器增伤
+             if Char.IsPlayer(charIndex) then
+               local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
+               local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
+               local ShieldIndex = Char.GetShield(charIndex);
+               local Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字);
+               --基本資訊
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+               local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
+               local Defense = Char.GetData(charIndex,CONST.CHAR_防御力);
+               local Avoid = Char.GetData(charIndex,CONST.对象_闪躲);
+               local Critical = Char.GetData(charIndex,CONST.对象_必杀);
+               local Counter = Char.GetData(charIndex,CONST.对象_反击);
+               local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+               local Blood = Char.GetData(charIndex,CONST.CHAR_血);
+               local Mana = Char.GetData(charIndex,CONST.CHAR_魔);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
+               local JobLv = Char.GetData(charIndex,CONST.CHAR_职阶)+1;
+               local JobLv_tbl = {200,310,340,370,400,430};
+               if LvRate <= 50  then
+                        LvRate = 1;
+               else
+                        LvRate = LvRate/50;
+               end
+               if Spirit <= 1200  then
+                        SpRate = 1;
+               else
+                        SpRate = Spirit/1200;
+               end
+               if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Weapon_Name~=nil then
+                 local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
+                 local techList = {9519,25815,25816,25817,25818,25819,415,416,417,418,429}
+                 if (wandId== 79250)  then
+                        damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【光明之力】！！",4,3);
+                        end
+                        table.forEach(techList, function(e)
+                        if com3 == e and NLG.Rand(1,4)==2  then
+                               for  i=0, 19 do
+                                   local player = Battle.GetPlayIndex(battleIndex, i)
+                                   if player>=0 then
+                                     if Char.IsPlayer(player) or Char.IsPet(player) then
+                                       Char.SetData(player, CONST.CHAR_BattleDamageAbsrob, 1);
+                                       NLG.UpChar(player);
+                                     end
+                                   end
+                               end
+                        end
+                        end)
+                        return damage;
+                 elseif (wandId== 79251)  then
+                        damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【黑暗之力】！！",4,3);
+                        end
+                        table.forEach(techList, function(e)
+                        if com3 == e and NLG.Rand(1,4)==2  then
+                               for  i=0, 19 do
+                                   local player = Battle.GetPlayIndex(battleIndex, i)
+                                   if player>=0 then
+                                     if Char.IsPlayer(player) or Char.IsPet(player) then
+                                       Char.SetData(player, CONST.CHAR_BattleDamageMagicAbsrob, 1);
+                                       NLG.UpChar(player);
+                                     end
+                                   end
+                               end
+                        end
+                        end)
+                        return damage;
+                 elseif (wandId== 79252)  then
+                        damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【狡猾戲法】！！",4,3);
+                        end
+                        if NLG.Rand(1,10)>=8  then
+                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModSleep};
+                               local rate = NLG.Rand(1,3);
+                               Char.SetData(defCharIndex, debuff[rate], 3);
+                               NLG.UpChar(defCharIndex);
+                        end
+                        return damage;
+                 elseif (wandId== 79253)  then
+                        damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                             NLG.Say(leader,charIndex,"【奸智戲法】！！",4,3);
+                        end
+                        if NLG.Rand(1,10)>=8  then
+                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModAmnesia};
+                               local rate = NLG.Rand(1,3);
+                               Char.SetData(defCharIndex, debuff[rate], 3);
+                               NLG.UpChar(defCharIndex);
+                        end
+                        return damage;
+                 elseif (wandId== 79255)  then
+                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '弱點', State+1);
+                            damage = damage * (1+State/100);
+                        end
+                        damage = damage * (1+(Avoid/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79256)  then
+                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '弱點', State+1);
+                            damage = damage * (1+State/100);
+                        end
+                        damage = damage * (1+(Critical/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79257)  then
+                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '弱點', State+1);
+                            damage = damage * (1+State/100);
+                        end
+                        damage = damage * (1+(Counter/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79213)  then
+                        damage = damage + Attack * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79214)  then
+                        damage = damage + Attack * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
+                        end
+                        return damage;
+                 end
+
+               elseif flg == CONST.DamageFlags.Magic and Weapon_Name~=nil then
+                 local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
+                 if (wandId== 79213)  then
+                        damage = damage * SpRate + Spirit * 0.75 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
+                        end
+                        return damage;
+                 elseif (wandId== 79214)  then
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
+                        end
+                        if NLG.Rand(1,10)>=8  then
+                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModStone};
+                               local rate = NLG.Rand(1,4);
+                               Char.SetData(defCharIndex, debuff[rate], 3);
+                               NLG.UpChar(defCharIndex);
+                        end
+                        return damage;
+                 end
+
+               elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Shield_Name~=nil then
+                 local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
+                 if (wandId== 79254)  then
+                        damage = damage + Blood * 0.15 + Mana * 0.15 + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【鐵之身軀】！！",4,3);
+                        end
+                        if Blood>=Mana  then
+                               Char.SetData(charIndex, CONST.CHAR_BattleDamageVanish, 1);
+                               NLG.UpChar(charIndex);
+                        elseif Blood<Mana  then
+                               Char.SetData(charIndex, CONST.CHAR_BattleDamageMagicVanish, 1);
+                               NLG.UpChar(charIndex);
+                        end
+                        return damage;
+                 end
+               end
+
+             end
+    return damage;
+end
+
 function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -139,6 +332,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                end
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
+               local damage_TA = self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
+               local damage = math.floor(damage_TA*0.8);
+               print(damage_TA,damage)
                if (com3 == 200539)  then    --200539無量空處/200500~200509追月(消除巫術)
                      if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【無量空處】！！",4,3);
@@ -221,7 +417,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                end
-
+               return damage;
 --抓寵技能刀背攻擊
                if com3 == 8137  then
                  local defLvE = Char.GetData(defCharIndex,CONST.CHAR_等级);
@@ -310,162 +506,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                  end
                end
 ]]
-             if Char.IsPlayer(charIndex) then
-               local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
-               local ShieldIndex = Char.GetShield(charIndex);
-               local Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字);
-               --基本資訊
-               local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
-               local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
-               local Defense = Char.GetData(charIndex,CONST.CHAR_防御力);
-               local Avoid = Char.GetData(charIndex,CONST.对象_闪躲);
-               local Critical = Char.GetData(charIndex,CONST.对象_必杀);
-               local Counter = Char.GetData(charIndex,CONST.对象_反击);
-               local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
-               local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
-               local Blood = Char.GetData(charIndex,CONST.CHAR_血);
-               local Mana = Char.GetData(charIndex,CONST.CHAR_魔);
-               local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
-               local JobLv = Char.GetData(charIndex,CONST.CHAR_职阶)+1;
-               local JobLv_tbl = {200,310,340,370,400,430};
-               if LvRate <= 50  then
-                        LvRate = 1;
-               else
-                        LvRate = LvRate/50;
-               end
-               if Weapon_Name~=nil then
-                 local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
-                 local techList = {9519,25815,25816,25817,25818,25819,415,416,417,418,429}
-                 if (wandId== 79250)  then
-                        damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【光明之力】！！",4,3);
-                        end
-                        table.forEach(techList, function(e)
-                        if com3 == e and NLG.Rand(1,4)==2  then
-                               for  i=0, 19 do
-                                   local player = Battle.GetPlayIndex(battleIndex, i)
-                                   if player>=0 then
-                                     if Char.IsPlayer(player) or Char.IsPet(player) then
-                                       Char.SetData(player, CONST.CHAR_BattleDamageAbsrob, 1);
-                                       NLG.UpChar(player);
-                                     end
-                                   end
-                               end
-                        end
-                        end)
-                        return damage;
-                 elseif (wandId== 79251)  then
-                        damage = damage * Agile/800 + Agile * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【黑暗之力】！！",4,3);
-                        end
-                        table.forEach(techList, function(e)
-                        if com3 == e and NLG.Rand(1,4)==2  then
-                               for  i=0, 19 do
-                                   local player = Battle.GetPlayIndex(battleIndex, i)
-                                   if player>=0 then
-                                     if Char.IsPlayer(player) or Char.IsPet(player) then
-                                       Char.SetData(player, CONST.CHAR_BattleDamageMagicAbsrob, 1);
-                                       NLG.UpChar(player);
-                                     end
-                                   end
-                               end
-                        end
-                        end)
-                        return damage;
-                 elseif (wandId== 79252)  then
-                        damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【狡猾戲法】！！",4,3);
-                        end
-                        if NLG.Rand(1,10)>=8  then
-                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModSleep};
-                               local rate = NLG.Rand(1,3);
-                               Char.SetData(defCharIndex, debuff[rate], 3);
-                               NLG.UpChar(defCharIndex);
-                        end
-                        return damage;
-                 elseif (wandId== 79253)  then
-                        damage = damage + Spirit * 1.2 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                             NLG.Say(leader,charIndex,"【奸智戲法】！！",4,3);
-                        end
-                        if NLG.Rand(1,10)>=8  then
-                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModAmnesia};
-                               local rate = NLG.Rand(1,3);
-                               Char.SetData(defCharIndex, debuff[rate], 3);
-                               NLG.UpChar(defCharIndex);
-                        end
-                        return damage;
-                 elseif (wandId== 79255)  then
-                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
-                        if (State>=0) then
-                            Char.SetTempData(defCharIndex, '弱點', State+1);
-                            damage = damage * (1+State/100);
-                        end
-                        damage = damage * (1+(Avoid/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
-                        end
-                        return damage;
-                 elseif (wandId== 79256)  then
-                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
-                        if (State>=0) then
-                            Char.SetTempData(defCharIndex, '弱點', State+1);
-                            damage = damage * (1+State/100);
-                        end
-                        damage = damage * (1+(Critical/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
-                        end
-                        return damage;
-                 elseif (wandId== 79257)  then
-                        local State = Char.GetTempData(defCharIndex, '弱點') or 0;
-                        if (State>=0) then
-                            Char.SetTempData(defCharIndex, '弱點', State+1);
-                            damage = damage * (1+State/100);
-                        end
-                        damage = damage * (1+(Counter/1000)) + Defense * 1.15 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.2;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【戰神之怒】！！",4,3);
-                        end
-                        return damage;
-                 elseif (wandId== 79213)  then
-                        damage = damage + Attack * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
-                        end
-                        return damage;
-                 elseif (wandId== 79214)  then
-                        damage = damage + Attack * 0.25 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.25;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
-                        end
-                        return damage;
-                 end
-               end
-               if Shield_Name~=nil then
-                 local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
-                 if (wandId== 79254)  then
-                        damage = damage + Blood * 0.15 + Mana * 0.15 + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【鐵之身軀】！！",4,3);
-                        end
-                        if Blood>=Mana  then
-                               Char.SetData(charIndex, CONST.CHAR_BattleDamageVanish, 1);
-                               NLG.UpChar(charIndex);
-                        elseif Blood<Mana  then
-                               Char.SetData(charIndex, CONST.CHAR_BattleDamageMagicVanish, 1);
-                               NLG.UpChar(charIndex);
-                        end
-                        return damage;
-                 end
-               end
-             end
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
+               local damage_TA = self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
+               local damage = math.floor(damage_TA*0.5);
+               print(damage_TA,damage)
                if (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
                      --NLG.Say(charIndex,charIndex,"【精神衝擊波】補正傷害公式！！",4,3);
                      local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
@@ -480,51 +525,9 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                end
+               return damage;
 
---法術附加30%狀態
-             if Char.IsPlayer(charIndex) then
-               local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
-               --基本資訊
-               local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
-               local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
-               local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
-               local JobLv = Char.GetData(charIndex,CONST.CHAR_职阶)+1;
-               local JobLv_tbl = {200,310,340,370,400,430};
-               if LvRate <= 50  then
-                        LvRate = 1;
-               else
-                        LvRate = LvRate/50;
-               end
-               if Spirit <= 1200  then
-                        SpRate = 1;
-               else
-                        SpRate = Spirit/1200;
-               end
-               if Weapon_Name~=nil then
-                 local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
-                 if (wandId== 79213)  then
-                        damage = damage * SpRate + Spirit * 0.75 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
-                        end
-                        return damage;
-                 elseif (wandId== 79214)  then
-                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
-                        end
-                        if NLG.Rand(1,10)>=8  then
-                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModStone};
-                               local rate = NLG.Rand(1,4);
-                               Char.SetData(defCharIndex, debuff[rate], 3);
-                               NLG.UpChar(defCharIndex);
-                        end
-                        return damage;
-                 end
-               end
-             end
---[[
+--[[法術附加30%狀態
                if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
                  if com3 >= 1900 and com3 <= 1909  then
                         damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
