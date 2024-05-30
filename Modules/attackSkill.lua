@@ -154,6 +154,26 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                        end
                      end
                      return damage;
+               elseif (com3 == 26739)  then    --26739肌肉魔法/26700~26709精神衝擊波(攻擊力補正)
+                     if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
+                         NLG.Say(charIndex,charIndex,"【肌肉魔法】！！",4,3);
+                     end
+                     local defHp = Char.GetData(charIndex,CONST.CHAR_血);
+                     local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
+                     local Hp08 = defHp/defHpM;
+                     local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
+                     if Hp08>0.8 then
+                             local AC = Attack * 1.5;
+                             damage = damage + AC;
+                             --NLG.Say(-1,-1,"【肌肉魔法】血量80%以上傷害取決於攻擊力，10%使對象機率混亂！！",4,3);
+                             if NLG.Rand(1,10)>=10  then
+                                    Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 1);
+                                    Char.UpCharStatus(defCharIndex);
+                             end
+                     else
+                             damage = damage;
+                     end
+                     return damage;
                elseif (com3 == 10539)  then    --10539晴天大征
                      if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【晴天大征】！！",4,3);
@@ -446,27 +466,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
              end
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               if (com3 == 26739)  then    --26739肌肉魔法/26700~26709精神衝擊波(攻擊力補正)
-                     if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
-                         NLG.Say(charIndex,charIndex,"【肌肉魔法】！！",4,3);
-                     end
-                     local defHp = Char.GetData(charIndex,CONST.CHAR_血);
-                     local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
-                     local Hp08 = defHp/defHpM;
-                     local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
-                     if Hp08>0.8 then
-                             local AC = Attack * 1.15;
-                             damage = damage + AC;
-                             --NLG.Say(-1,-1,"【肌肉魔法】血量80%以上傷害取決於攻擊力，10%使對象機率混亂！！",4,3);
-                             if NLG.Rand(1,10)>=10  then
-                                    Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 1);
-                                    Char.UpCharStatus(defCharIndex);
-                             end
-                     else
-                             damage = damage;
-                     end
-                     return damage;
-               elseif (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
+               if (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
                      --NLG.Say(charIndex,charIndex,"【精神衝擊波】補正傷害公式！！",4,3);
                      local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
                      local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
