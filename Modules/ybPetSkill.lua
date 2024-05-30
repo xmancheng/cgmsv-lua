@@ -218,7 +218,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
            local damage = math.floor(damage_TA*0.5);
-           print(damage_temp,damage_TA,damage)
+           --print(damage_temp,damage_TA,damage)
            for i=0,9 do
                local skillId = Pet.GetSkill(charIndex, i)
                if (skillId == 1619) then  --宠物被动【大胆无畏】
