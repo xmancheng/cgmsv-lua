@@ -33,19 +33,17 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		local player = Battle.GetPlayer(battleIndex, i);
 		local Target_FloorId_1 = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.CHAR_地图);
 		local Target_FloorId_2 = Char.GetData(Battle.GetPlayer(battleIndex, 5),CONST.CHAR_地图);
-		if player>=0  then
-			if (Target_FloorId_1==25013 or Target_FloorId_2==25013) then
-				FieldEffect = 1;
+		if (Target_FloorId_1==25013 or Target_FloorId_2==25013) then
+			FieldEffect = 1;
+		end
+		if (player>=0 and FieldEffect==1)  then
+			local playerHP = Char.GetData(player, CONST.CHAR_血);
+			if (playerHP>=500) then
+				Char.SetData(player, CONST.CHAR_血, playerHP*0.7);
 			end
-			if (FieldEffect==1)  then
-				local playerHP = Char.GetData(player, CONST.CHAR_血);
-				if (playerHP>=500) then
-					Char.SetData(player, CONST.CHAR_血, playerHP*0.7);
-				end
-				--if Char.GetData(player,CONST.对象_对战开关) == 1  then
-					NLG.Say(player,-1,"受到【誅伏賜死】領域影響每回合都會減少30%生命。",4,3);
-				--end
-			end
+			--if Char.GetData(player,CONST.对象_对战开关) == 1  then
+				NLG.Say(player,-1,"受到【誅伏賜死】領域影響每回合都會減少30%生命。",4,3);
+			--end
 		end
 	end
 	FieldEffect = 0;
