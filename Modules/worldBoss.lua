@@ -10,26 +10,26 @@ local Setting = 0;
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
-EnemySet[1] = {0, 400073, 400073, 0, 0, 406190, 0, 0, 400072, 400072}--0代表没有怪
-BaseLevelSet[1] = {0, 300, 300, 0, 0, 300, 0, 0, 300, 300}
+EnemySet[1] = {0, 400073, 400073, 0, 700031, 406190, 0, 0, 400072, 400072}--0代表没有怪
+BaseLevelSet[1] = {0, 300, 300, 0, 199, 300, 0, 0, 300, 300}
 Pos[1] = {"回來復仇的巨櫻樹王",EnemySet[1],BaseLevelSet[1]}
-EnemySet[2] = {0, 400075, 400075, 0, 0, 406191, 0, 0, 400074, 400074}
-BaseLevelSet[2] = {0, 300, 300, 0, 0, 300, 0, 0, 300, 300}
+EnemySet[2] = {0, 400075, 400075, 0, 700031, 406191, 0, 0, 400074, 400074}
+BaseLevelSet[2] = {0, 300, 300, 0, 199, 300, 0, 0, 300, 300}
 Pos[2] = {"回來復仇的液態史伊",EnemySet[2],BaseLevelSet[2]}
-EnemySet[3] = {0, 0, 0, 0, 0, 0, 406192, 406192, 0, 0}
-BaseLevelSet[3] = {0, 0, 0, 0, 0, 0, 300, 300, 0, 0}
+EnemySet[3] = {0, 0, 0, 0, 700031, 0, 406192, 406192, 0, 0}
+BaseLevelSet[3] = {0, 0, 0, 0, 199, 0, 300, 300, 0, 0}
 Pos[3] = {"回來復仇的夜地獄星",EnemySet[3],BaseLevelSet[3]}
-EnemySet[4] = {406193, 0, 0, 0, 0, 0, 406193, 406193, 0, 0}
-BaseLevelSet[4] = {300, 0, 0, 0, 0, 0, 300, 300, 0, 0}
+EnemySet[4] = {406193, 0, 0, 0, 700031, 0, 406193, 406193, 0, 0}
+BaseLevelSet[4] = {300, 0, 0, 0, 199, 0, 300, 300, 0, 0}
 Pos[4] = {"回來復仇的冥府之主",EnemySet[4],BaseLevelSet[4]}
-EnemySet[5] = {406220, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-BaseLevelSet[5] = {300, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[5] = {406220, 0, 0, 0, 700031, 0, 0, 0, 0, 0}
+BaseLevelSet[5] = {300, 0, 0, 0, 199, 0, 0, 0, 0, 0}
 Pos[5] = {"回來復仇的水母霸王",EnemySet[5],BaseLevelSet[5]}
-EnemySet[6] = {0, 0, 0, 0, 0, 0, 406226, 406206, 0, 0}
-BaseLevelSet[6] = {0, 0, 0, 0, 0, 0, 300, 300, 0, 0}
+EnemySet[6] = {0, 0, 0, 0, 700031, 0, 406226, 406206, 0, 0}
+BaseLevelSet[6] = {0, 0, 0, 0, 199, 0, 300, 300, 0, 0}
 Pos[6] = {"回來復仇的暴走霸王",EnemySet[6],BaseLevelSet[6]}
-EnemySet[7] = {0, 0, 0, 0, 0, 406233, 0, 0, 0, 0}
-BaseLevelSet[7] = {0, 0, 0, 0, 0, 300, 0, 0, 0, 0}
+EnemySet[7] = {0, 0, 0, 0, 700031, 406233, 0, 0, 0, 0}
+BaseLevelSet[7] = {0, 0, 0, 0, 199, 300, 0, 0, 0, 0}
 Pos[7] = {"回來復仇的魷魚霸王",EnemySet[7],BaseLevelSet[7]}
 ------------------------------------------------------
 --背景设置
@@ -252,6 +252,7 @@ function WorldBoss1_LoopEvent(WorldBossNPC)
 	if (os.date("%X",os.time())=="00:45:01") or (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:15:01") or (os.date("%X",os.time())=="13:15:01") or (os.date("%X",os.time())=="17:15:01") or (os.date("%X",os.time())=="18:15:01") or (os.date("%X",os.time())=="20:15:01") or (os.date("%X",os.time())=="21:15:01") or (os.date("%X",os.time())=="22:15:01") then
 		local bossDay = tonumber(os.date("%w",os.time()))
 		if (bossDay==0) then bossDay=7; end
+		NLG.SystemMessage(-1,"[系統]新一輪的世界強敵討伐活動開始了，快去法蘭城(218,88)！");
 		for k,v in pairs(WorldBoss) do
 			if ( bossDay==v.weekday ) then
 				Char.SetData(WorldBossNPC,CONST.对象_名字, v.lordName);
@@ -546,7 +547,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                     Invincible = 2;
             end
       end
-      print(deadCount,Invincible)
+      --print(deadCount,Invincible)
       local Round = Battle.GetTurn(battleIndex);
       if Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406190 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406191 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406192 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406193 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406220 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406206 or Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)==406233 then
           if Invincible==1 then
@@ -589,6 +590,22 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
               end
               end)
           end
+      end
+      if Char.IsEnemy(charIndex) and Char.GetData(charIndex, CONST.CHAR_ENEMY_ID) == 700031 and Char.IsPlayer(defCharIndex) then
+          if math.random(1, 100) >= 85 then
+              local slot = Char.GetEmptyItemSlot(defCharIndex);
+              local itemIndex, wslot = Char.GetWeapon(defCharIndex);
+              if itemIndex >= 0 then
+                  NLG.SystemMessage(defCharIndex,"[系統]Char.GetData(defCharIndex, CONST.CHAR_名字)武器被卸下了！");
+                  if slot < 0 then
+                            damage = math.floor(damage * 1.5);
+                  else
+                            Char.MoveItem(defCharIndex, wslot, slot, -1);
+                            NLG.UpChar(defCharIndex);
+                  end
+              end
+          end
+          return damage;
       end
   return damage;
 end
