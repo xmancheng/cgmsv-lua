@@ -61,15 +61,15 @@ function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex
                         table.forEach(typeList, function(e)
                             for k, v in ipairs(typeList) do
                                 if (EnemyId==charIndex and Char.GetData(charIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗 and typeId>0 and typeId==k) then
-                                    if flg==CONST.DamageFlags.Normal then
+                                    if flg==CONST.DamageFlags.Normal or flg==CONST.DamageFlags.Critical then
                                         if (typeId==1 or typeId==2 or typeId==4 or typeId==6) then
-                                            damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            damage = typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                             --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                             return damage;
                                         end
                                     elseif flg==CONST.DamageFlags.Magic then
                                         if (typeId==3 or typeId==5 or typeId==6) then
-                                            damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            damage = typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                             --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                             return damage;
                                         end
@@ -144,7 +144,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
          if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
                leader = leader2
          end
-         if  flg == CONST.DamageFlags.Normal and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为物理受攻方事件，被动技能只能二选一
+         if  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为物理受攻方事件，被动技能只能二选一
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
            for i=0,9 do
@@ -214,10 +214,10 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
            end
            return damage;
-         elseif  flg == CONST.DamageFlags.Normal and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为攻击方事件，被动技能只能二选一
+         elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为攻击方事件，被动技能只能二选一
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
-           local damage = damage_TA;
+           local damage = math.floor(damage_TA*0.5);
            print(damage_temp,damage_TA,damage)
            for i=0,9 do
                local skillId = Pet.GetSkill(charIndex, i)
@@ -254,7 +254,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
          elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
-           local damage = damage_TA;
+           local damage = math.floor(damage_TA*0.5);
                local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
                local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
                if LvRate <= 50  then
