@@ -29,14 +29,19 @@ end
 
 function Module:OnAfterBattleTurnCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
+	local leader1 = Battle.GetPlayer(battleIndex,0)
+	local leader2 = Battle.GetPlayer(battleIndex,5)
+	local leader = leader1
+	if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
+		leader = leader2
+	end
+	local Target_FloorId = Char.GetData(leader,CONST.CHAR_地图);
+	if (Target_FloorId==25013) then
+		FieldEffect = 1;
+	end
 	for i = 0, 9 do
 		local player = Battle.GetPlayer(battleIndex, i);
-		local Target_FloorId_1 = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.CHAR_地图);
-		local Target_FloorId_2 = Char.GetData(Battle.GetPlayer(battleIndex, 5),CONST.CHAR_地图);
-		if (Target_FloorId_1==25013 or Target_FloorId_2==25013) then
-			FieldEffect = 1;
-		end
-		if (player>=0 and FieldEffect==1)  then
+		if (player>=0 and math.fmod(Round, 2)==0 and FieldEffect==1)  then
 			local playerHP = Char.GetData(player, CONST.CHAR_血);
 			if (playerHP>=500) then
 				Char.SetData(player, CONST.CHAR_血, playerHP*0.7);
