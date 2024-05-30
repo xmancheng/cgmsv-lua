@@ -496,10 +496,10 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                else
                         LvRate = LvRate/50;
                end
-               if Spirit <= 800  then
+               if Spirit <= 1200  then
                         SpRate = 1;
                else
-                        SpRate = Spirit/800;
+                        SpRate = Spirit/1200;
                end
                if Weapon_Name~=nil then
                  local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
