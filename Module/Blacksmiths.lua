@@ -389,6 +389,7 @@ function BlacksmithNpc_WindowTalked( _MeIndex, _PlayerIndex, _Seqno, _Select, _D
 							return
 						end
 					end
+					return
 				end
 			end
 			--SetData
