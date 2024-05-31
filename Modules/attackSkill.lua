@@ -526,6 +526,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                end
+               return damage;
 
 --[[法術附加30%狀態
                if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
