@@ -166,28 +166,6 @@ function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, 
                         return damage;
                  end
 
-               elseif flg == CONST.DamageFlags.Magic and Weapon_Name~=nil then
-                 local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
-                 if (wandId== 79213)  then
-                        damage = damage * SpRate + Spirit * 0.75 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
-                        end
-                        return damage;
-                 elseif (wandId== 79214)  then
-                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
-                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
-                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
-                        end
-                        if NLG.Rand(1,10)>=8  then
-                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModStone};
-                               local rate = NLG.Rand(1,4);
-                               Char.SetData(defCharIndex, debuff[rate], 3);
-                               NLG.UpChar(defCharIndex);
-                        end
-                        return damage;
-                 end
-
                elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Shield_Name~=nil then
                  local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
                  if (wandId== 79254)  then
@@ -509,8 +487,8 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 ]]
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
-               local damage = math.floor(damage_TA*0.5);
+               --local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
+               --local damage = math.floor(damage_TA*0.5);
                --print(damage_TA,damage)
                if (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
                      --NLG.Say(charIndex,charIndex,"【精神衝擊波】補正傷害公式！！",4,3);
@@ -526,7 +504,47 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                      end
                      return damage;
                end
-               return damage;
+               if Char.IsPlayer(charIndex) then
+                 local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
+                 local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
+                 if Weapon_Name~=nil then
+                   local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+                   local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+                   local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
+                   local JobLv = Char.GetData(charIndex,CONST.CHAR_职阶)+1;
+                   local JobLv_tbl = {200,310,340,370,400,430};
+                   if LvRate <= 50  then
+                        LvRate = 1;
+                   else
+                        LvRate = LvRate/50;
+                   end
+                   if Spirit <= 1200  then
+                        SpRate = 1;
+                   else
+                        SpRate = Spirit/1200;
+                   end
+                   local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
+                   if (wandId== 79213)  then
+                        damage = damage * SpRate + Spirit * 0.75 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【空間魔法】！！",4,3);
+                        end
+                        return damage;
+                   elseif (wandId== 79214)  then
+                        damage = damage * SpRate + Spirit * 0.5 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.5;
+                        if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                            NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
+                        end
+                        if NLG.Rand(1,10)>=8  then
+                               local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModStone};
+                               local rate = NLG.Rand(1,4);
+                               Char.SetData(defCharIndex, debuff[rate], 3);
+                               NLG.UpChar(defCharIndex);
+                        end
+                        return damage;
+                   end
+                 end
+               end
 
 --[[法術附加30%狀態
                if (com3 >= 1900 and com3 <= 1909) or (com3 >= 2300 and com3 <= 2309) or (com3 >= 2700 and com3 <= 2709)  then    --隕石魔法
