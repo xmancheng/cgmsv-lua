@@ -44,6 +44,13 @@ StrItemEnable[69226] = 1    --古老巨龍
 StrItemEnable[69227] = 1
 StrItemEnable[69228] = 1
 StrItemEnable[69229] = 1
+StrItemEnable[79258] = 1    --解放之環
+StrItemEnable[79259] = 1
+StrItemEnable[79260] = 1
+StrItemEnable[79261] = 1
+StrItemEnable[79262] = 1
+StrItemEnable[79263] = 1
+StrItemEnable[79264] = 1
 ---------------------------------------------------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
