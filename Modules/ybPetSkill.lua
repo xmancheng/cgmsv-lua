@@ -63,13 +63,19 @@ function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex
                                 if (EnemyId==charIndex and Char.GetData(charIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗 and typeId>0 and typeId==k) then
                                     if flg==CONST.DamageFlags.Normal or flg==CONST.DamageFlags.Critical then
                                         if (typeId==1 or typeId==2 or typeId==4 or typeId==6) then
-                                            damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            if typeLv<10 then typeLvRate=1.1;
+                                            elseif typeLv>=10 and typeLv<20  then typeLvRate=1.2;
+                                            elseif typeLv>=20 then typeLvRate=1.3; end
+                                            damage = damage + typeLvRate * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                             --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                             return damage;
                                         end
                                     elseif flg==CONST.DamageFlags.Magic then
                                         if (typeId==3 or typeId==5 or typeId==6) then
-                                            damage = damage + typeLv * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
+                                            if typeLv<10 then typeLvRate=1;
+                                            elseif typeLv>=10 and typeLv<20  then typeLvRate=1.1;
+                                            elseif typeLv>=20 then typeLvRate=1.2; end
+                                            damage = damage + typeLvRate * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                             --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                             return damage;
                                         end
