@@ -17,7 +17,7 @@ function AttackSkill:onLoad()
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self))
 end
 
-function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg)
+function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
@@ -310,7 +310,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                end
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
+               local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                local damage = math.floor(damage_TA*0.8);
                --print(damage_TA,damage)
                if (com3 == 200539)  then    --200539無量空處/200500~200509追月(消除巫術)
@@ -487,7 +487,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 ]]
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               --local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, flg);
+               --local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                --local damage = math.floor(damage_TA*0.5);
                --print(damage_TA,damage)
                if (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
