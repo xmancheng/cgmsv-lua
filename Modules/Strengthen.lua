@@ -14,7 +14,7 @@ local StrStrengMaxLv = 9;
 local StrSuccRate = {70, 65, 50, 35, 27, 22, 16, 11, 7}                                                                  --赋予成功率
 local StrBreakRate = {0, 0, 0, 0, 0, 8, 10, 12, 14}                                                                           --赋予破坏率
 local StrRequireGold = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000}                 --赋予所需魔币
-local DurDamageRate = {70, 60, 50, 40, 30, 22, 20, 18, 15, 12, 10, 8, 7, 5}                                    --卷轴失败耐久下降率
+local DurDamageRate = {5, 5, 5, 10, 12, 15, 18, 20, 22, 30, 40, 50, 60, 70}                             --失败耐久下降率
 
 local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾品1", "飾品2", "水 晶"}
 function PartName(CardPara1)
@@ -172,15 +172,18 @@ function Module:onLoad()
                             local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
                             local tLuck = math.random(1, 100);
                             if (tLuck<tMin or tLuck>tMax)  then
-                                    Item.SetData(CardIndex,CONST.道具_耐久, CardDur - math.floor(CardDur * DurDamageRate[CardPara2+1]/100) );
+                                    local down ={0.80,0.70,0.60,0.50};
+                                    local rand= NLG.Rand(1,4);
+                                    --Item.SetData(CardIndex,CONST.道具_耐久, CardDur - math.floor(CardDur * DurDamageRate[CardPara2+1]/100) );
+                                    Item.SetData(CardIndex,CONST.道具_耐久, CardDur * down[rand]);
                                     Item.SetData(CardIndex, CONST.道具_子参二, CardPara2+1);
-                                    if (CardDur<1) then
+                                    if (CardDur<10) then
                                            Item.SetData(CardIndex,CONST.道具_耐久, 0);
                                     end
                                     Item.UpItem(player, itemSlot);
-                                    local down ={0.95,0.90,0.85,0.80};
-                                    local rand= NLG.Rand(1,4);
-                                    Item.SetData(targetItemIndex,CONST.道具_最大耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久)*down[rand]);
+                                    local TargetDur = Item.GetData(targetItemIndex,CONST.道具_最大耐久);
+                                    --Item.SetData(targetItemIndex,CONST.道具_最大耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久)*down[rand]);
+                                    Item.SetData(targetItemIndex,CONST.道具_最大耐久,  TargetDur - math.floor(TargetDur * DurDamageRate[CardPara2+1]/100) );
                                     if (Item.GetData(targetItemIndex,CONST.道具_耐久)>Item.GetData(targetItemIndex,CONST.道具_最大耐久)) then
                                            Item.SetData(targetItemIndex,CONST.道具_耐久, Item.GetData(targetItemIndex,CONST.道具_最大耐久));
                                     end
