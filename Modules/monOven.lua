@@ -33,6 +33,8 @@ local reelList = {
   {69226,90,900614},{69227,90,900614},{69228,90,900614},{69229,90,900614},
   --寵物裝備包裹
   {70150,20,900601},{70151,20,900601},{70152,20,900601},{70153,20,900601},{70154,20,900601},{70155,20,900601},{70156,20,900601},
+  --龍魂寶玉
+  {79258,40,66667},{79259,40,66667},{79260,40,66667},{79261,40,66667},{79262,40,66667},{79263,40,66667},{79264,40,66667},
 }
 
 --- 加载模块钩子
@@ -83,7 +85,9 @@ function Module:onLoad()
                  --Char.DelItem(player, WasteID, 1);
                  Char.DelItemBySlot(player, wasteSlot);
                  NLG.Say(player,-1,"將"..WasteName.."丟進烤爐。",4,3);
-                 local SuccRate = reelList[whatWaste][2]+math.floor(OvenDur/100);
+                 local SuccPlus= math.floor(OvenDur/100);
+                 if (SuccPlus>60) then SuccPlus=60; end
+                 local SuccRate = reelList[whatWaste][2]+SuccPlus;
                  print(SuccRate)
                  if (SuccRate>100) then SuccRate=100; end
                  if (type(SuccRate)=="number" and SuccRate>0) then
@@ -92,13 +96,18 @@ function Module:onLoad()
                       local tLuck = math.random(1, 100);
                       if (tLuck>=tMin and tLuck<=tMax)  then
                            Item.SetData(OvenIndex,CONST.道具_幸运, Item.GetData(OvenIndex,CONST.道具_幸运)+1);
-                           Char.GiveItem(player, reelList[whatWaste][3], 1);
-                           if Item.GetData(OvenIndex,CONST.道具_幸运)+1 == 9 then
-                               NLG.SystemMessage(player, "[系統]烤爐使用年限快到，剩下最後一次了！");
-                           elseif Item.GetData(OvenIndex,CONST.道具_幸运)+1 >= 10 then
-                               Char.DelItemBySlot(player, OvenSlot);
-                               NLG.SystemMessage(player, "[系統]烤爐崩解毀壞了！");
+                           --Char.GiveItem(player, reelList[whatWaste][3], 1);
+                           if (reelList[whatWaste][3]==66667) then
+                                Char.GiveItem(player, reelList[whatWaste][3], 100);
+                           else
+                                Char.GiveItem(player, reelList[whatWaste][3], 1);
                            end
+                           --if Item.GetData(OvenIndex,CONST.道具_幸运)+1 == 9 then
+                           --    NLG.SystemMessage(player, "[系統]烤爐使用年限快到，剩下最後一次了！");
+                           --elseif Item.GetData(OvenIndex,CONST.道具_幸运)+1 >= 10 then
+                           --    Char.DelItemBySlot(player, OvenSlot);
+                           --    NLG.SystemMessage(player, "[系統]烤爐崩解毀壞了！");
+                           --end
                       end
                  end
                  Item.SetData(OvenIndex,CONST.道具_耐久, OvenDur+WasteLv);
