@@ -72,9 +72,9 @@ function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex
                                         end
                                     elseif flg==CONST.DamageFlags.Magic then
                                         if (typeId==3 or typeId==5 or typeId==6) then
-                                            if typeLv<10 then typeLvRate=1;
-                                            elseif typeLv>=10 and typeLv<20  then typeLvRate=1.1;
-                                            elseif typeLv>=20 then typeLvRate=1.2; end
+                                            if typeLv<10 then typeLvRate=3;
+                                            elseif typeLv>=10 and typeLv<20  then typeLvRate=3.1;
+                                            elseif typeLv>=20 then typeLvRate=3.2; end
                                             damage = damage + typeLvRate * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
                                             --NLG.Say(-1,-1,"【覺醒之念能力】！！",4,3);
                                             return damage;
