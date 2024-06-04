@@ -29,6 +29,8 @@ function PartName(CardPara1)
         PartName={"足 部"};
     elseif CardPara1==5 then    --饰
         PartName={"飾 品"};
+    elseif CardPara1==6 then    --饰
+        PartName={"飾 品"};
     end
     return PartName;
 end
@@ -125,6 +127,7 @@ function Module:onLoad()
                               CardName = Item.GetData(CardIndex, CONST.道具_名字);
                               CardSpecial = Item.GetData(CardIndex, CONST.道具_特殊类型);   --魔法卷轴41
                               CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
+                              if (CardPara1==5 and targetSlot==6) then CardPara1=6; end
                               if (CardSpecial==41) then
                                    last = string.find(CardName, "的", 1);
                                    CardName = string.sub(CardName, 1, last-1);
@@ -164,6 +167,7 @@ function Module:onLoad()
                  CardPara1 = Item.GetData(CardIndex, CONST.道具_子参一);         --装备格0~7
                  CardPara2 = Item.GetData(CardIndex, CONST.道具_子参二);         --此卷轴使用次数
                  local cardData= self:extractItemData(CardIndex);
+                 if (CardPara1==5 and targetSlot==6) then CardPara1=6; end
                  if (tStrLv+1==CardLv and CardSpecial==41 and CardPara1==targetSlot and CardDur>0) then
                      Char.SetData(player, CONST.对象_金币, tPlayerGold-tNeedGold);
                      local SuccRate = StrSuccRate[tStrLv+1];
