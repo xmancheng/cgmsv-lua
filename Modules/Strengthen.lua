@@ -201,10 +201,15 @@ function Module:onLoad()
                                             local tMin = 50 - math.floor(BreakRate/2) + 1;
                                             local tMax = 50 + math.floor(BreakRate/2) + math.fmod(BreakRate,2);
                                             local tLuck = math.random(1, 100);
-                                            if (tLuck>=tMin and tLuck<=tMax) then
+                                            if (tLuck>=tMin and tLuck<=tMax and Char.ItemNum(player, 71041)==0) then
                                                 Char.DelItem(player, CardID, 1);
                                                 Item.Kill(player, targetItemIndex, targetSlot);
                                                 NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予大失敗……永久損毀……");
+                                                return;
+                                            elseif (tLuck>=tMin and tLuck<=tMax and Char.ItemNum(player, 71041)>=1) then
+                                                Char.DelItem(player, CardID, 1);
+                                                Char.DelItem(player, 71041, 1);
+                                                NLG.SystemMessage(player, "[" .. "古力莫" .. "] 裝備魔力賦予大失敗……好險有防爆石……");
                                                 return;
                                             end
                                         end
