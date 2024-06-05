@@ -206,7 +206,7 @@ function AttackSkill:OnBattleHealCalculateCallBack(charIndex, defCharIndex, orih
                if (defRestore < restore) then
                  Char.SetTempData(defCharIndex, '恢复增益', restore);
                  heal = heal+restore;
-                 NLG.Say(-1,-1,"【君主領域】無視被治癒者回復的補血術！！",4,3);
+                 --NLG.Say(-1,-1,"【君主領域】無視被治癒者回復的補血術！！",4,3);
                else
                  heal = heal;
                end
@@ -302,7 +302,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                        Char.UpCharStatus(defCharIndex);
                        NLG.UpChar(defCharIndex);
                        damage = damage*0;
-                       NLG.Say(-1,-1,"【不死不壞】抵銷了致命的傷害！！",4,3);
+                       --NLG.Say(-1,-1,"【不死不壞】抵銷了致命的傷害！！",4,3);
                      else
                        damage = damage;
                      end
@@ -322,7 +322,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                        if sorcery>=1 then
                                Char.SetData(defCharIndex, v.type, 0);
                                damage = damage*0;
-                               NLG.Say(-1,-1,"【無量空處】消除了"..v.name.."！！",4,3);
+                               --NLG.Say(-1,-1,"【無量空處】消除了"..v.name.."！！",4,3);
                        else
                                damage = damage;
                        end
