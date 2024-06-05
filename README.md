@@ -108,6 +108,7 @@ loadModule('strAddEffect')|強化效果、附念效果、影子效果
 loadModule('setupItemType')|副武器擴充
 loadModule('addTK')|副武器附念
 loadModule('sprayPaint')|噴漆鍍膜
+loadModule('incDurable')|魂魄保養
 loadModule('Strengthen')|魔力賦予
 loadModule('StrengthShop')|魔法卷軸倉庫
 ### 特殊副本
