@@ -70,6 +70,10 @@ loadModule('autoRanking')|自助天梯(未完善)(X)
 模組加載代碼 | 說明 
 --- | --- 
 loadModule('achieveMagician')|大魔導師之路
+loadModule('achieveAres')|狂勇戰神成就
+loadModule('achieveElfRanger')|精靈遊俠成就
+loadModule('achieveShadow')|暗夜幻影成就
+loadModule('achieveTitanAsura')|泰坦修羅成就
 ### 傷害相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -96,6 +100,7 @@ loadModule('bossField')|魔物增強
 --- | --- 
 loadModule('petHeadIcon')|帕魯幫助
 loadModule('petEvolution')|寵物覺醒(寵裝強化)
+loadModule('techMachine')|寵物招式機
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -115,6 +120,7 @@ loadModule('mazeWorld')|裏空間區域
 loadModule('mazeBoss')|裏空間王戰(X)
 loadModule('mazeBoss1')|裏空間1王戰(~7)
 loadModule('mazeHorcrux')|裏空間魂器
+loadModule('worldBoss')|世界強敵
 ### 其他功能
 模組加載代碼 | 說明 
 --- | --- 
@@ -125,3 +131,6 @@ loadModule('matchDraw')|抽獎背包
 loadModule('petHeadIcon')|寵物頭飾
 loadModule('easyPet')|簡易寵物
 loadModule('ichibanKuji')|一番賞抽獎
+loadModule('monOven')|炙燒烤爐
+loadModule('mysteryShop')|神秘商店
+
