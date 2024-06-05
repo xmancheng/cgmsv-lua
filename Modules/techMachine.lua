@@ -1,23 +1,23 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('techMachine')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback("ItemString", Func.bind(self.LearnMac, self), 'LUA_useMac');
-  self.learningNPC = self:NPC_createNormal('ÕĞÊ½ŒWÁ•™C', 14682, { x = 38, y = 35, mapType = 0, map = 777, direction = 6 });
+  self.learningNPC = self:NPC_createNormal('æ‹›å¼å­¸ç¿’æ©Ÿ', 14682, { x = 38, y = 35, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.learningNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "4|\\n´ËÕĞÊ½ŒWÁ•™C¿ÉÒÔ™CÂÊĞÔµØ³É¹¦³é³öÖ¸¶¨µÄŒ™Îï¼¼ÄÜKÇÒ³é³öááÔÙ¶ÈÊ¹ÓÃµÀ¾ß£¬×Œ›]ÓĞ´Ë¼¼ÄÜµÄŒ™ÎïŒWÁ•µ½´ËÕĞÊ½¼¼ÄÜ£¡\\n\\n";
+          local msg = "4|\\næ­¤æ‹›å¼å­¸ç¿’æ©Ÿå¯ä»¥æ©Ÿç‡æ€§åœ°æˆåŠŸæŠ½å‡ºæŒ‡å®šçš„å¯µç‰©æŠ€èƒ½ä¸¦ä¸”æŠ½å‡ºå¾Œå†åº¦ä½¿ç”¨é“å…·ï¼Œè®“æ²’æœ‰æ­¤æŠ€èƒ½çš„å¯µç‰©å­¸ç¿’åˆ°æ­¤æ‹›å¼æŠ€èƒ½ï¼\\n\\n";
           for petSlot=0,4 do
                 local petIndex = Char.GetPet(player,petSlot);
                 if(petIndex<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, self.learningNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.learningNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return
   end)
@@ -26,19 +26,19 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    print(data)
+    --print(data)
     local MacIndex = Char.GetItemIndex(player,MacSlot);
-    local MactechId = Item.GetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ») or 0;
+    local MactechId = Item.GetData(MacIndex, CONST.é“å…·_å­å‚ä¸€) or 0;
     if select > 0 then
 
     else
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ) then
+      elseif (seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 11 and select == CONST.°´Å¥_¹Ø±Õ) then
+      elseif (seqno == 11 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 21 and select == CONST.°´Å¥_¹Ø±Õ) then
+      elseif (seqno == 21 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
       if (seqno == 1 and data >= 1) then
@@ -47,20 +47,20 @@ function Module:onLoad()
           if (petIndex>=0) then
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
               local enemyBaseIndex = Data.EnemyBaseGetDataIndex(PetId);
-              local slotNum = Data.EnemyBaseGetData(enemyBaseIndex, CONST.EnemyBase_¼¼ÄÜÀ¸);
-              local PetName = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
-              local PetNameColor = Char.GetData(petIndex, CONST.CHAR_ÃûÉ«);
-              local msg = "1|\\nÕˆßx“ñÒª³éÈ¡³öíµÄŒ™Îï¼¼ÄÜ¡£\\n";
+              local slotNum = Data.EnemyBaseGetData(enemyBaseIndex, CONST.EnemyBase_æŠ€èƒ½æ );
+              local PetName = Char.GetData(petIndex,CONST.CHAR_åå­—);
+              local PetNameColor = Char.GetData(petIndex, CONST.CHAR_åè‰²);
+              local msg = "1|\\nâ†“è«‹é¸æ“‡è¦æŠ½å–å‡ºä¾†çš„å¯µç‰©æŠ€èƒ½â†“\\n";
               for i=2,slotNum-1 do
                     local techId= Pet.GetSkill(petIndex,i);
                     local techIndex = Tech.GetTechIndex(techId);
                     if (techIndex<0) then
-                          msg = msg .. "µÚ".. i+1 .."¸ñ:  " .. "¿Õ\\n";
+                          msg = msg .. "ç¬¬".. i+1 .."æ ¼:  " .. "ç©º\\n";
                     else
-                          msg = msg .. "µÚ".. i+1 .."¸ñ:  " .. ""..Tech.GetData(techIndex, CONST.TECH_NAME).."\\n";
+                          msg = msg .. "ç¬¬".. i+1 .."æ ¼:  " .. ""..Tech.GetData(techIndex, CONST.TECH_NAME).."\\n";
                     end
               end
-              NLG.ShowWindowTalked(player, self.learningNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 11, msg);
+              NLG.ShowWindowTalked(player, self.learningNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 11, msg);
           end
       elseif (seqno == 2 and data >= 1) then
           local petSlot = data-1;
@@ -68,20 +68,20 @@ function Module:onLoad()
           if (petIndex>=0) then
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
               local enemyBaseIndex = Data.EnemyBaseGetDataIndex(PetId);
-              local slotNum = Data.EnemyBaseGetData(enemyBaseIndex, CONST.EnemyBase_¼¼ÄÜÀ¸);
-              local PetName = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
-              local PetNameColor = Char.GetData(petIndex, CONST.CHAR_ÃûÉ«);
-              local msg = "1|\\nÕˆßx“ñ¸²Éw»òŒWÁ•Œ™Îï¼¼ÄÜµÄÎ»ÖÃ¡£\\n";
+              local slotNum = Data.EnemyBaseGetData(enemyBaseIndex, CONST.EnemyBase_æŠ€èƒ½æ );
+              local PetName = Char.GetData(petIndex,CONST.CHAR_åå­—);
+              local PetNameColor = Char.GetData(petIndex, CONST.CHAR_åè‰²);
+              local msg = "1|\\nâ†“è«‹é¸æ“‡è¦†è“‹æˆ–å­¸ç¿’å¯µç‰©æŠ€èƒ½çš„ä½ç½®â†“\\n";
               for i=2,slotNum-1 do
                     local techId= Pet.GetSkill(petIndex,i);
                     local techIndex = Tech.GetTechIndex(techId);
                     if (techIndex<0) then
-                          msg = msg .. "µÚ".. i+1 .."¸ñ:  " .. "¿Õ\\n";
+                          msg = msg .. "ç¬¬".. i+1 .."æ ¼:  " .. "ç©º\\n";
                     else
-                          msg = msg .. "µÚ".. i+1 .."¸ñ:  " .. ""..Tech.GetData(techIndex, CONST.TECH_NAME).."\\n";
+                          msg = msg .. "ç¬¬".. i+1 .."æ ¼:  " .. ""..Tech.GetData(techIndex, CONST.TECH_NAME).."\\n";
                     end
               end
-              NLG.ShowWindowTalked(player, self.learningNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 21, msg);
+              NLG.ShowWindowTalked(player, self.learningNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 21, msg);
           end
       elseif (seqno == 11 and data >= 1) then
           local techSlot = data+1;
@@ -89,27 +89,47 @@ function Module:onLoad()
           local techIndex = Tech.GetTechIndex(techId);
           local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
           if (techId<0) then
-              NLG.SystemMessage(player, "[Ïµ½y]Ÿo·¨±æ×RµÄÕĞÊ½¡£");
+              NLG.SystemMessage(player, "[ç³»çµ±]ç„¡æ³•è¾¨è­˜çš„æ‹›å¼ã€‚");
               return;
           end
           if (techId~=7300 and techId~=7400 and techId~=15002 and techId~=16000) then
-              Item.SetData(MacIndex, CONST.µÀ¾ß_Ãû×Ö, "[".. techName .."]ÕĞÊ½ŒWÁ•™C");
-              Item.SetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ», techId);
-              Item.UpItem(player, MacSlot);
-              NLG.UpChar(player);
-              NLG.SystemMessage(player, "[Ïµ½y]«@µÃ[".. techName .."]ÕĞÊ½ŒWÁ•™C¡£");
+              local SuccRate = 20;
+              if (type(SuccRate)=="number" and SuccRate>0) then
+                  local tMin = 50 - math.floor(SuccRate/2) + 1;
+                  local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
+                  local tLuck = math.random(1, 100);
+                  if (tLuck>=tMin and tLuck<=tMax)  then
+                      Item.SetData(MacIndex, CONST.é“å…·_åå­—, "[".. techName .."]æ‹›å¼å­¸ç¿’æ©Ÿ");
+                      Item.SetData(MacIndex, CONST.é“å…·_å­å‚ä¸€, techId);
+                      Item.UpItem(player, MacSlot);
+                      NLG.UpChar(player);
+                      NLG.SystemMessage(player, "[ç³»çµ±]ç²å¾—[".. techName .."]æ‹›å¼å­¸ç¿’æ©Ÿã€‚");
+                  else
+                      Char.DelItemBySlot(player, MacSlot);
+                      NLG.SystemMessage(player, "[ç³»çµ±]æå–[".. techName .."]æ‹›å¼å¤±æ•—ã€‚");
+                  end
+              end
           else
-              NLG.SystemMessage(player, "[Ïµ½y]´_¶¨Òªßxß@üNÆÕÍ¨µÄÕĞÊ½£¿");
+              NLG.SystemMessage(player, "[ç³»çµ±]ç¢ºå®šè¦é¸é€™éº¼æ™®é€šçš„æ‹›å¼ï¼Ÿ");
               return;
           end
       elseif (seqno == 21 and data >= 1) then
-          --³èÎïÔ­±¾µÄ¼¼ÄÜ
+          --å® ç‰©åŸæœ¬çš„æŠ€èƒ½
           local techSlot = data+1;
           local techId= Pet.GetSkill(petIndex,techSlot);
-          local PetName = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
-          --ÕĞÊ½»ú´¢´æµÄ¼¼ÄÜ
+          local PetName = Char.GetData(petIndex,CONST.CHAR_åå­—);
+          --æ‹›å¼æœºå‚¨å­˜çš„æŠ€èƒ½
           local techIndex = Tech.GetTechIndex(MactechId);
           local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
+          --åˆ¤å®šæœ‰æ— é‡å¤æŠ€èƒ½
+          for i=0,9 do
+              local petskills = Pet.GetSkill(petIndex,i);
+              if (MactechId==petskills) then
+                  NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©å·²å­¸ç¿’éæ­¤æ‹›å¼ï¼");
+                  return;
+              end
+          end
+          --æ›¿æ¢æˆ–ç»™äºˆæ‹›å¼æœºæŠ€èƒ½
           if (techId>0) then
               Pet.DelSkill(petIndex, techSlot)
               Pet.AddSkill(petIndex, MactechId, techSlot);
@@ -120,7 +140,7 @@ function Module:onLoad()
           --Char.DelItem(player,75017,1);
           Char.DelItemBySlot(player, MacSlot);
           NLG.UpChar(player);
-          NLG.SystemMessage(player, "[Ïµ½y]"..PetName.."ŒWÁ•[".. techName .."]ÕĞÊ½¡£");
+          NLG.SystemMessage(player, "[ç³»çµ±]"..PetName.."å­¸ç¿’[".. techName .."]æ‹›å¼ã€‚");
       else
                  return;
       end
@@ -134,43 +154,34 @@ function Module:LearnMac(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     MacSlot = itemSlot;
     local MacIndex = Char.GetItemIndex(charIndex,MacSlot);
-    local techId = Item.GetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ») or 0;
-    if techId==0 then
-          local msg = "4|\\n´ËÕĞÊ½ŒWÁ•™C¿ÉÒÔ™CÂÊĞÔµØ³É¹¦³é³öÖ¸¶¨µÄŒ™Îï¼¼ÄÜKÇÒ³é³öááÔÙ¶ÈÊ¹ÓÃµÀ¾ß£¬×Œ›]ÓĞ´Ë¼¼ÄÜµÄŒ™ÎïŒWÁ•µ½´ËÕĞÊ½¼¼ÄÜ£¡\\n\\n";
+    local MactechId = Item.GetData(MacIndex, CONST.é“å…·_å­å‚ä¸€) or 0;
+    if MactechId==0 then
+          local msg = "4|\\næ­¤æ‹›å¼å­¸ç¿’æ©Ÿå¯ä»¥æ©Ÿç‡æ€§åœ°æˆåŠŸæŠ½å‡ºæŒ‡å®šçš„å¯µç‰©æŠ€èƒ½ä¸¦ä¸”æŠ½å‡ºå¾Œå†åº¦ä½¿ç”¨é“å…·ï¼Œè®“æ²’æœ‰æ­¤æŠ€èƒ½çš„å¯µç‰©å­¸ç¿’åˆ°æ­¤æ‹›å¼æŠ€èƒ½ï¼\\n\\n";
           for petSlot=0,4 do
                 local petIndex = Char.GetPet(charIndex,petSlot);
                 if(petIndex<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(charIndex, self.learningNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
-    elseif techId>0 then
-          local msg = "4|\\n´ËÕĞÊ½ŒWÁ•™C¿ÉÒÔ™CÂÊĞÔµØ³É¹¦³é³öÖ¸¶¨µÄŒ™Îï¼¼ÄÜKÇÒ³é³öááÔÙ¶ÈÊ¹ÓÃµÀ¾ß£¬×Œ›]ÓĞ´Ë¼¼ÄÜµÄŒ™ÎïŒWÁ•µ½´ËÕĞÊ½¼¼ÄÜ£¡\\n\\n";
+          NLG.ShowWindowTalked(charIndex, self.learningNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
+    elseif MactechId>0 then
+          local msg = "4|\\næ­¤æ‹›å¼å­¸ç¿’æ©Ÿå¯ä»¥æ©Ÿç‡æ€§åœ°æˆåŠŸæŠ½å‡ºæŒ‡å®šçš„å¯µç‰©æŠ€èƒ½ä¸¦ä¸”æŠ½å‡ºå¾Œå†åº¦ä½¿ç”¨é“å…·ï¼Œè®“æ²’æœ‰æ­¤æŠ€èƒ½çš„å¯µç‰©å­¸ç¿’åˆ°æ­¤æ‹›å¼æŠ€èƒ½ï¼\\n\\n";
           for petSlot=0,4 do
                 local petIndex = Char.GetPet(charIndex,petSlot);
                 if(petIndex<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(charIndex, self.learningNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          NLG.ShowWindowTalked(charIndex, self.learningNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
     end
     return 1;
 end
 
---»ñÈ¡³èÎï×°±¸-Ë®¾§
-Pet.GetCrystal = function(petIndex)
-  local ItemIndex = Char.GetItemIndex(petIndex, CONST.³èµÀÀ¸_Ë®¾§);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.µÀ¾ßÀàĞÍ_³èÎïË®¾§ then
-    return ItemIndex,CONST.³èµÀÀ¸_Ë®¾§;
-  end
-  return -1,-1;
-end
-
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
