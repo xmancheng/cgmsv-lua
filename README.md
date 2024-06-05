@@ -133,4 +133,5 @@ loadModule('easyPet')|簡易寵物
 loadModule('ichibanKuji')|一番賞抽獎
 loadModule('monOven')|炙燒烤爐
 loadModule('mysteryShop')|神秘商店
+loadModule('trashCan')|垃圾處理
 
