@@ -93,7 +93,7 @@ function Module:onLoad()
               return;
           end
           if (techId~=7300 and techId~=7400 and techId~=15002 and techId~=16000) then
-              local SuccRate = 20;
+              local SuccRate = 15;
               if (type(SuccRate)=="number" and SuccRate>0) then
                   local tMin = 50 - math.floor(SuccRate/2) + 1;
                   local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
