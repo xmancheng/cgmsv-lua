@@ -1,33 +1,33 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('incDurable')
 
-local ItemPosName = {"î^ ²¿", "Éí Ìå", "ÓÒ ÊÖ", "×ó ÊÖ", "×ã ²¿", "ï—Æ·1", "ï—Æ·2", "Ë® ¾§"}
+local ItemPosName = {"é ­ éƒ¨", "èº« ä½“", "å³ æ‰‹", "å·¦ æ‰‹", "è¶³ éƒ¨", "é£¾å“1", "é£¾å“2", "æ°´ æ™¶"}
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self.maintainNPC = self:NPC_createNormal('»êÆÇŞD“Q±£ğBÄ§ÈË', 104745, { x =26 , y = 7, mapType = 0, map = 25000, direction = 4 });
+  self.maintainNPC = self:NPC_createNormal('é­‚é­„è½‰æ›ä¿é¤Šé­”äºº', 104745, { x =26 , y = 7, mapType = 0, map = 25000, direction = 4 });
   self:NPC_regTalkedEvent(self.maintainNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local killNum = Char.GetData(player,CONST.CHAR_ÉËº¦Êı);
-          local winMsg = "1\\nÕˆßx“ñĞèÒª±£ğBÔö¼ÓÄÍ¾ÃµÄÑb‚ä¡¾"..killNum.."¡¿£º\\n"
+          local killNum = Char.GetData(player,CONST.CHAR_ä¼¤å®³æ•°);
+          local winMsg = "1\\nè«‹é¸æ“‡ä¿é¤Šå¢åŠ è€ä¹…çš„è£å‚™:    å‰©é¤˜é­‚é‡ã€"..killNum.."ã€‘\\n"
           for targetSlot = 0,7 do
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
                 if targetItemIndex>=0 then
-                        local tItemID = Item.GetData(targetItemIndex, CONST.µÀ¾ß_ID);
-                        local tItemName = Item.GetData(targetItemIndex, CONST.µÀ¾ß_Ãû×Ö);
-                        local targetDur_MIN = Item.GetData(targetItemIndex,CONST.µÀ¾ß_ÄÍ¾Ã);
-                        local targetDur_MAX = Item.GetData(targetItemIndex,CONST.µÀ¾ß_×î´óÄÍ¾Ã);
+                        local tItemID = Item.GetData(targetItemIndex, CONST.é“å…·_ID);
+                        local tItemName = Item.GetData(targetItemIndex, CONST.é“å…·_åå­—);
+                        local targetDur_MIN = Item.GetData(targetItemIndex,CONST.é“å…·_è€ä¹…);
+                        local targetDur_MAX = Item.GetData(targetItemIndex,CONST.é“å…·_æœ€å¤§è€ä¹…);
                         local tStrLv = EquipPlusStat(targetItemIndex, "E") or 0;
-                        local tItemCan = "[±£ğB£Ø]";
-                        if (tStrLv==9) then tItemCan="[±£ğB£Ï]" end
-                        local msg = tItemName .. " " .. tItemCan;
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. msg .. "\n"
+                        local tItemCan = "[ä¿é¤Šï¼¸]";
+                        if (tStrLv>=7) then tItemCan="[ä¿é¤Šï¼¯]" end
+                        local msg = tItemName .. " "..targetDur_MIN.."/"..targetDur_MAX.. tItemCan;
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. msg .. "\n"
                 else
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. "\n"
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. "\n"
                 end
           end
-          NLG.ShowWindowTalked(player, self.maintainNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+          NLG.ShowWindowTalked(player, self.maintainNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
     end
     return
   end)
@@ -38,56 +38,56 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     if select > 0 then
-      if (seqno == 11 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 11 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
-      if (seqno == 11 and select == CONST.BUTTON_È·¶¨ and data >= 1) then
+      if (seqno == 11 and select == CONST.BUTTON_ç¡®å®š and data >= 1) then
           local keyNum = data;
           if (targetItemIndex>0) then
-              local killNum = Char.GetData(player,CONST.CHAR_ÉËº¦Êı);
-              local tItemID = Item.GetData(targetItemIndex, CONST.µÀ¾ß_ID);
-              local tItemName = Item.GetData(targetItemIndex, CONST.µÀ¾ß_Ãû×Ö);
+              local killNum = Char.GetData(player,CONST.CHAR_ä¼¤å®³æ•°);
+              local tItemID = Item.GetData(targetItemIndex, CONST.é“å…·_ID);
+              local tItemName = Item.GetData(targetItemIndex, CONST.é“å…·_åå­—);
               local tStrLv = EquipPlusStat(targetItemIndex, "E") or 0;
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
                   if (keyNum>killNum) then
-                      NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] ÄãµÄ»êÁ¿Ä¿Ç°é¡¾" .. killNum .. "¡¿Ÿo·¨³¬ß^£¡");
+                      NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] ä½ çš„é­‚é‡ç›®å‰ç‚ºã€" .. killNum .. "ã€‘ç„¡æ³•è¶…éï¼");
                       return;
                   else
-                      local targetDur_MIN = Item.GetData(targetItemIndex,CONST.µÀ¾ß_ÄÍ¾Ã);
-                      local targetDur_MAX = Item.GetData(targetItemIndex,CONST.µÀ¾ß_×î´óÄÍ¾Ã);
-                      Item.SetData(targetItemIndex,CONST.µÀ¾ß_ÄÍ¾Ã, targetDur_MIN + keyNum);
-                      Item.SetData(targetItemIndex,CONST.µÀ¾ß_×î´óÄÍ¾Ã, targetDur_MAX + keyNum);
-                      Char.SetData(player,CONST.CHAR_ÉËº¦Êı, killNum - keyNum);
+                      local targetDur_MIN = Item.GetData(targetItemIndex,CONST.é“å…·_è€ä¹…);
+                      local targetDur_MAX = Item.GetData(targetItemIndex,CONST.é“å…·_æœ€å¤§è€ä¹…);
+                      Item.SetData(targetItemIndex,CONST.é“å…·_è€ä¹…, targetDur_MIN + keyNum);
+                      Item.SetData(targetItemIndex,CONST.é“å…·_æœ€å¤§è€ä¹…, targetDur_MAX + keyNum);
+                      Char.SetData(player,CONST.CHAR_ä¼¤å®³æ•°, killNum - keyNum);
                       Item.UpItem(player, targetSlot);
                       NLG.UpChar(player);
-                      NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] »êÆÇŞD“Q±£ğB³É¹¦»ØÍÄÍ¾Ã" .. keyNum .. "£¡");
+                      NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] é­‚é­„è½‰æ›ä¿é¤ŠæˆåŠŸå›å¾©è€ä¹…" .. keyNum .. "ï¼");
                   end
               end
           end
       end
     else
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
       if (seqno == 1 and data >= 1) then
-          targetSlot = data-1;  --×°±¸¸ñ²ÎÊı (Ñ¡ÏîÉÙ1)
+          targetSlot = data-1;  --è£…å¤‡æ ¼å‚æ•° (é€‰é¡¹å°‘1)
           targetItemIndex = Char.GetItemIndex(player, targetSlot);
           if (targetItemIndex>0) then
-              local killNum = Char.GetData(player,CONST.CHAR_ÉËº¦Êı);
-              local tItemID = Item.GetData(targetItemIndex, CONST.µÀ¾ß_ID);
-              local tItemName = Item.GetData(targetItemIndex, CONST.µÀ¾ß_Ãû×Ö);
+              local killNum = Char.GetData(player,CONST.CHAR_ä¼¤å®³æ•°);
+              local tItemID = Item.GetData(targetItemIndex, CONST.é“å…·_ID);
+              local tItemName = Item.GetData(targetItemIndex, CONST.é“å…·_åå­—);
               local tStrLv = EquipPlusStat(targetItemIndex, "E") or 0;
-              if (tStrLv~=9) then
-                  NLG.SystemMessage(player, "[" .. "¹ÅÁ¦Äª" .. "] Äãßx“ñµÄÑb‚ä[" .. tItemName .. "]é[²»¿É±£ğB]£¡");
+              if (tStrLv<7) then
+                  NLG.SystemMessage(player, "[" .. "å¤åŠ›è«" .. "] ä½ é¸æ“‡çš„è£å‚™[" .. tItemName .. "]ç‚º[ä¸å¯ä¿é¤Š]ï¼");
                   return;
               end
-              local winMsg = "¡¾»êÆÇŞD“Q±£ğB¡¿\\n"
-                                           .."¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                                           .."ÕıÔÚÔO¶¨ÄÍ¾Ã...\\n"
-                                           .."\\n¡¡¡¡¡¡¡¡Ñb¡¡‚ä¡¡Ãû¡¡·Q£º".. tItemName .."\\n"
-                                           .."\\n¡¡¡¡¡¡¡¡®”Ç°“íÓĞµÄ»êÁ¿£º".. killNum .."\\n"
-                                           .."\\nÕˆİ”Èë»ØÍµÄÄÍ¾ÃÁ¿£º\\n";
-              NLG.ShowWindowTalked(player, self.maintainNPC, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_È·¶¨¹Ø±Õ, 11, winMsg);
+              local winMsg = "ã€é­‚é­„è½‰æ›ä¿é¤Šã€‘\\n"
+                                           .."â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                                           .."æ­£åœ¨è¨­å®šè€ä¹…...\\n"
+                                           .."\\nã€€ã€€ã€€ã€€è£ã€€å‚™ã€€åã€€ç¨±ï¼š".. tItemName .."\\n"
+                                           .."\\nã€€ã€€ã€€ã€€ç•¶å‰æ“æœ‰çš„é­‚é‡ï¼š".. killNum .."\\n"
+                                           .."\\nè«‹è¼¸å…¥å›å¾©çš„è€ä¹…é‡ï¼š\\n";
+              NLG.ShowWindowTalked(player, self.maintainNPC, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ç¡®å®šå…³é—­, 11, winMsg);
           end
 
       else
@@ -101,11 +101,11 @@ end
 
 
 function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
-	--  E-¸³Óè£¬P- ÅçÆá
+	--  E-èµ‹äºˆï¼ŒP- å–·æ¼†
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
-		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı));
+		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°));
 		if string.find(tItemStat, ",")==nil then
 			return nil;
 		end
@@ -126,7 +126,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 		for k,v in pairs(_StatTab) do
 			tStat = tStat .. k .. "," .. v .. "|";
 		end
-		Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tStat);
+		Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tStat);
 	elseif type(_StatTab)=="string" and type(_StatValue)=="nil" then
 		--GetSub
 		local tStatTab = EquipPlusStat(_ItemIndex) or {};
@@ -144,7 +144,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 	end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
