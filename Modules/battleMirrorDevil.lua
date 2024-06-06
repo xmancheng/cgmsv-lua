@@ -461,6 +461,7 @@ function DevilNpc_BattleWin(battleIndex, charIndex)
 			end
 		end
 	end
+	Battle.UnsetWinEvent(battleIndex);
 end
 
 --偷袭设置
