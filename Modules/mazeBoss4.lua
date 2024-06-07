@@ -468,6 +468,7 @@ function def_round_wincallback(battleindex, player)
 	end
 	FTime = os.time()
 	wincallbackfunc(tbl_win_user);
+	Battle.UnsetWinEvent(battleindex);
 end
 
 function AutoLord_LoopEvent(_MeIndex)
@@ -723,7 +724,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 	else
 		player = leaderpet
 	end
-	--强硬特性让血量恢复
+	--[[强硬特性让血量恢复
 	local HP_More={};
 	HP_More[1]=1;
 	for i = 10, 19 do
@@ -736,20 +737,21 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 				HP_More[1]=HP_More[1];
 			end
 		end
-	end
+	end]]
 	--剩余血量写入库
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406193  then
+			local HP_More = Char.GetData(enemy,CONST.CHAR_血);  --註解後新加
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
-			Char.SetData(enemy, CONST.CHAR_血, HP_More[1]);
-			NLG.SystemMessage(player,"[系統]強硬特性發動，區域領主目前剩餘血量"..HP_More[1].."！");
+			Char.SetData(enemy, CONST.CHAR_血, HP_More);
+			NLG.SystemMessage(player,"[系統]強硬特性發動，區域領主目前剩餘血量"..HP_More.."！");
 			NLG.UpChar(enemy);
 			--Lord血量写入库
 			local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 			if (cdk~=nil) then
 				SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
-				SQL.Run("update lua_hook_worldboss set WorldLord4= '"..HP_More[1].."' where CdKey='"..cdk.."'")
+				SQL.Run("update lua_hook_worldboss set WorldLord4= '"..HP_More.."' where CdKey='"..cdk.."'")
 				NLG.UpChar(player);
 			end
 		end
