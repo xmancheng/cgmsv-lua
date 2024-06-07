@@ -386,6 +386,7 @@ function boss_round_callback(battleindex, player)
 	end
 	Battle.UnsetWinEvent(battleindex);
 	worldBossBattle ={};
+	Battle.UnsetWinEvent(battleindex);
 end
 
 --超级领主设置
