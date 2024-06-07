@@ -383,6 +383,7 @@ function Module:onGetExpEvent(charIndex, exp)
 end
 
 function InTheWorld_LoopEvent(player)
+ if player>=0 then
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
   local TTime = Char.GetExtData(player, "MazeTimeT") or 0;
@@ -414,9 +415,11 @@ function InTheWorld_LoopEvent(player)
   else
 
   end
+ end
 end
 
 function Module:onLogoutEvent(player)
+ if player>=0 then
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
   local TTime = Char.GetExtData(player, "MazeTimeT") or 0;
@@ -429,9 +432,11 @@ function Module:onLogoutEvent(player)
             Char.SetExtData(player, "MazeTimeS", os.time());
     end
   end
+ end
 end
 
 function Module:onLoginEvent(player)
+ if player>=0 then
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
   local TTime = Char.GetExtData(player, "MazeTimeT") or 0;
@@ -446,6 +451,7 @@ function Module:onLoginEvent(player)
                 NLG.SystemMessage(player,"[系統]時空傳送回原本世界。");
             end
   end
+ end
 end
 
 Char.GetWorldCheck = function(chapter)
