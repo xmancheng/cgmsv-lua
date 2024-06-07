@@ -91,6 +91,22 @@ end
 
 function Module:onLoad()
 	self:logInfo('load')
+	tenMobsNPC = self:NPC_createNormal('滿怪噴霧調用', 14682, { map = 777, x = 40, y = 35, direction = 6, mapType = 0 })
+	self:NPC_regWindowTalkedEvent(tenMobsNPC, function(npc, player, _seqno, _select, _data)
+		local cdk = Char.GetData(player,CONST.对象_CDK);
+		local seqno = tonumber(_seqno)
+		local select = tonumber(_select)
+		local data = tonumber(_data)
+	end)
+	self:NPC_regTalkedEvent(tenMobsNPC, function(npc, player)
+	if(NLG.CheckInFront(player, npc, 1)==false) then
+		return ;
+	end
+	if (NLG.CanTalk(npc, player) == true) then
+	end
+	return
+	end)
+
 	self:regCallback('BattleStartEvent', Func.bind(self.battleStartEventCallback, self))
 	self:regCallback('LoginGateEvent', Func.bind(self.LoginGateEvent, self))
 	self:regCallback('LogoutEvent', Func.bind(self.LogoutEvent, self))
@@ -121,10 +137,10 @@ function Module:onLoad()
 							end
 						end
 						Char.DelItem(player,hmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
 						Char.DelItem(player,hmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum > 1 and gmxsnum >= 1 then             --满怪香水&黄金喷雾
 					local PartyNum = Char.PartyNum(player);
@@ -137,11 +153,11 @@ function Module:onLoad()
 						end
 						Char.DelItem(player,hmxs,1);
 						Char.DelItem(player,gmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
 						Char.DelItem(player,hmxs,1);
 						Char.DelItem(player,gmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
 				elseif cdk == EnemyTbl[cdk][1] and hmxsnum == 1 and gmxsnum == 0 then       --满怪香水
 					local PartyNum = Char.PartyNum(player);
@@ -153,10 +169,10 @@ function Module:onLoad()
 							end
 						end
 						Char.DelItem(player,hmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
 						Char.DelItem(player,hmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
 					for i,v in ipairs(EnemyTbl[cdk]) do
 						if ( cdk==v )then
@@ -175,11 +191,11 @@ function Module:onLoad()
 						end
 						Char.DelItem(player,hmxs,1);
 						Char.DelItem(player,gmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					else
 						Char.DelItem(player,hmxs,1);
 						Char.DelItem(player,gmxs,1);
-						Battle.PVE(player, player, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
+						Battle.PVE(player, tenMobsNPC, nil, EnemyTbl[cdk][2], EnemyTbl[cdk][3],  nil)
 					end
 					for i,v in ipairs(EnemyTbl[cdk]) do
 						if ( cdk==v )then
@@ -338,3 +354,4 @@ function Module:onUnload()
 end
 
 return Module;
+
