@@ -413,6 +413,7 @@ function def_round_wincallback(battleindex, player)
 	end
 	FTime = os.time()
 	wincallbackfunc(tbl_win_user);
+	Battle.UnsetWinEvent(battleindex);
 end
 
 function AutoLord_LoopEvent(_MeIndex)
