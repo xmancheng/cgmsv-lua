@@ -571,6 +571,10 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           else
               table.forEach(worldBossBattle, function(e)
               if Round>=0 and e==battleIndex  then
+                  if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
+                      local playerCount = #NLG.GetPlayer();
+                      NLG.SystemMessage(charIndex,"[系統]世界強敵剩餘的血條"..deadCount.."/"..playerCount.."！");
+                  end
                   local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
                   if damage<defHpE-1 then
                       defHpE = defHpE - damage;
