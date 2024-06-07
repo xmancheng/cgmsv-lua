@@ -416,6 +416,7 @@ function def_round_wincallback(battleindex, player)
 	end
 	FTime = os.time()
 	wincallbackfunc(tbl_win_user);
+	Battle.UnsetWinEvent(battleindex);
 end
 
 function AutoLord_LoopEvent(_MeIndex)
@@ -638,7 +639,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 	else
 		player = leaderpet
 	end
-	--殉情特性让血量追随减低
+	--[[殉情特性让血量追随减低
 	local ret = SQL.Run("select Name,WorldLord3 from lua_hook_worldboss order by WorldLord3 asc limit 3");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP3=tonumber(ret["0_1"]);
@@ -659,20 +660,21 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 				HP_Less[1]=HP_Less[1];
 			end
 		end
-	end
+	end]]
 	--剩余血量写入库
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==406192  then
+			local HP_Less = Char.GetData(enemy,CONST.CHAR_血);  --註解後新加
 			Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
-			Char.SetData(enemy, CONST.CHAR_血, HP_Less[1]);
-			NLG.SystemMessage(player,"[系統]殉情特性發動，區域領主目前剩餘血量"..HP_Less[1].."！");
+			Char.SetData(enemy, CONST.CHAR_血, HP_Less);
+			NLG.SystemMessage(player,"[系統]殉情特性發動，區域領主目前剩餘血量"..HP_Less.."！");
 			NLG.UpChar(enemy);
 			--Lord血量写入库
 			local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 			if (cdk~=nil) then
 				SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
-				SQL.Run("update lua_hook_worldboss set WorldLord3= '"..HP_Less[1].."' where CdKey='"..cdk.."'")
+				SQL.Run("update lua_hook_worldboss set WorldLord3= '"..HP_Less.."' where CdKey='"..cdk.."'")
 				NLG.UpChar(player);
 			end
 		end
