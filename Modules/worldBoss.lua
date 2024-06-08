@@ -59,7 +59,8 @@ tbl_WorldBossNPCIndex = tbl_WorldBossNPCIndex or {}
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
-  self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
+  --self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
+  self:regCallback('BeforeBattleTurnStartEvent', Func.bind(self.OnBeforeBattleTurnStartCommand, self))
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -424,7 +425,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		end)
 	end
 end
-function Module:OnBeforeBattleTurnCommand(battleIndex)
+function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
 	local ret = SQL.Run("select Name,WorldLord8 from lua_hook_worldboss order by WorldLord8 desc limit 1");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
