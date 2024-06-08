@@ -40,12 +40,16 @@ function DisguiseSpell:onLoad()
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self))
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
+  self:regCallback('BeforeBattleTurnStartEvent', Func.bind(self.BeforeBattleTurnStartEvent, self))
 end
 
-function DisguiseSpell:handleBattleAutoCommand(battleIndex)
+function DisguiseSpell:BeforeBattleTurnStartEvent(battleIndex)
                local Attribute,TurnCount,AttributePower = Battle.GetBattleFieldAttribute(battleIndex);
                print(Attribute,TurnCount,AttributePower)
                Battle.SetBattleFieldAttribute(battleIndex, Attribute, TurnCount, AttributePower);
+end
+
+function DisguiseSpell:handleBattleAutoCommand(battleIndex)
                local battleturn = Battle.GetTurn(battleIndex);
                for i = 0, 19 do
                      local charIndex = Battle.GetPlayer(battleIndex, i);
