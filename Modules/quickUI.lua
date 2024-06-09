@@ -264,15 +264,75 @@ function QuickUI:pettalk(player)
 end
 
 
+function QuickUI:handleTalkEvent(charIndex,msg,color,range,size)
+	if (msg=="/book") then
+		local msg = "2\\n@c　特殊便捷功能選單\\n"
+			.."　　════════════════════\\n"
+			.."　《組隊一鍵打卡》\\n"
+			.."　《組隊一鍵恢復》\\n"
+			.."　《形象替換衣櫃》\\n"
+			.."　《走路移動加速》\\n"
+			.."　《寵物一鍵算檔》\\n"
+			.."　《成員集中一點》\\n"
+			.."　《寵物互動(每小時1次)》\\n";
+		NLG.ShowWindowTalked(charIndex, self.quickUInpc, CONST.窗口_选择框, CONST.按钮_关闭, 1, msg);
+		return 0;
+	end
+	return 1;
+end
 
 function QuickUI:onLoad()
   self:logInfo('load');
   self:regCallback('CharActionEvent', Func.bind(self.shortcut, self))
   self:regCallback('HeadCoverEvent', Func.bind(self.headcover, self))
   self:regCallback('ItemString', Func.bind(self.imageCollection, self),"LUA_useMetamoCT");
-  self.quickUINpc = self:NPC_createNormal('动作快捷图示', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
-  self:NPC_regTalkedEvent(self.quickUINpc, Func.bind(self.shortcut, self))
-  self:NPC_regWindowTalkedEvent(self.quickUINpc, Func.bind(self.shortcut, self))
+  self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self));
+  self.quickUInpc = self:NPC_createNormal('动作快捷图示', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.quickUInpc, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+      local msg = "2\\n@c　特殊便捷功能選單\\n"
+            .."　　════════════════════\\n"
+            .."　《組隊一鍵打卡》\\n"
+            .."　《組隊一鍵恢復》\\n"
+            .."　《形象替換衣櫃》\\n"
+            .."　《走路移動加速》\\n"
+            .."　《寵物一鍵算檔》\\n"
+            .."　《成員集中一點》\\n"
+            .."　《寵物互動(每小時1次)》\\n";
+      NLG.ShowWindowTalked(player, self.quickUInpc, CONST.窗口_选择框, CONST.按钮_关闭, 1, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.quickUInpc, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    --print(data)
+    if select > 0 then
+    else
+      if (seqno == 1 and select == CONST.按钮_关闭) then
+                 return;
+      end
+      if (seqno == 1 and data >= 1) then
+          local menuSelect = data;
+          if menuSelect == 1 then
+            self:teamfever(self.feverNpc,player);
+          elseif menuSelect == 2 then
+            self:teamheal(self.healNpc,player);
+          elseif menuSelect == 3 then
+            self:metamo(self.imageNpc,player);
+          elseif menuSelect == 4 then
+            self:walkingspeed(self.speedNpc,player);
+          elseif menuSelect == 5 then
+            self:petinfo(player);
+          elseif menuSelect == 6 then
+            self:gather(player);
+          elseif menuSelect == 7 then
+            self:pettalk(player);
+          end
+      end
+    end
+  end)
 
   --移動速度
   self.speedNpc = self:NPC_createNormal('速度快捷', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
