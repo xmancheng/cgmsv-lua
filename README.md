@@ -74,6 +74,7 @@ loadModule('achieveAres')|狂勇戰神成就
 loadModule('achieveElfRanger')|精靈遊俠成就
 loadModule('achieveShadow')|暗夜幻影成就
 loadModule('achieveTitanAsura')|泰坦修羅成就
+loadModule('setupBattleEX')|狂勇戰神增強補正
 ### 傷害相關
 模組加載代碼 | 說明 
 --- | --- 
