@@ -1,14 +1,15 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('setupBattleEX')
 
 local teamBuff = {}
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('CalcCriticalRateEvent', Func.bind(self.OnCalcCriticalRateEvent, self));
   self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self));
   self:regCallback('BattleCounterRateEvent', Func.bind(self.OnBattleCounterRateEvent, self));
+  self:regCallback('BattleOverEvent', Func.bind(self.OnBattleOverEvent, self));
 end
 
 function Module:OnCalcCriticalRateEvent(aIndex, fIndex, rate)
@@ -18,26 +19,26 @@ function Module:OnCalcCriticalRateEvent(aIndex, fIndex, rate)
                local leader1 = Battle.GetPlayer(battleIndex,0)
                local leader2 = Battle.GetPlayer(battleIndex,5)
                local leader = leader1
-               if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+               if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                    leader = leader2
                end
-               local cdk = Char.GetData(leader,CONST.¶ÔÏó_CDK);
+               local cdk = Char.GetData(leader,CONST.å¯¹è±¡_CDK);
                local Round = Battle.GetTurn(battleIndex);
-               local WeaponIndex = Char.GetWeapon(aIndex);                --×óÓÒÊÖ
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
+               local WeaponIndex = Char.GetWeapon(aIndex);                --å·¦å³æ‰‹
+               local Weapon_Name = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
                if Weapon_Name~=nil then
-                   local wandId = Item.GetData(WeaponIndex, CONST.µÀ¾ß_ID);
+                   local wandId = Item.GetData(WeaponIndex, CONST.é“å…·_ID);
                    if (wandId== 79256)  then
                        rate = 100;
                        local Count = tonumber(TeamBuff_Tbl(cdk,1));
                        if Count>=1 and Count<5  then
-                           --Char.SetData(aIndex, CONST.¶ÔÏó_PET_HeadGraNo, 108510);
+                           --Char.SetData(aIndex, CONST.å¯¹è±¡_PET_HeadGraNo, 108510);
                            --NLG.SetHeadIcon(aIndex, 108510);
-                           Char.SetTempData(leader, '°×»¢×¦', 1);
+                           Char.SetTempData(leader, 'ç™½è™çˆª', 1);
                        elseif Count>=5 and Count<10  then
-                           Char.SetTempData(leader, '°×»¢×¦', 2);
+                           Char.SetTempData(leader, 'ç™½è™çˆª', 2);
                        elseif Count>=10 then
-                           Char.SetTempData(leader, '°×»¢×¦', 3);
+                           Char.SetTempData(leader, 'ç™½è™çˆª', 3);
                        end
                        return rate
                    end
@@ -49,29 +50,29 @@ end
 function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
          --self:logDebug('OnBattleDodgeRateCallBack', battleIndex, aIndex, fIndex, rate)
          if Char.IsPlayer(aIndex) and Char.IsEnemy(fIndex) then
-               local cdk = Char.GetData(aIndex,CONST.¶ÔÏó_CDK);
+               local cdk = Char.GetData(aIndex,CONST.å¯¹è±¡_CDK);
                local battleIndex = Char.GetBattleIndex(aIndex);
                local leader1 = Battle.GetPlayer(battleIndex,0)
                local leader2 = Battle.GetPlayer(battleIndex,5)
                local leader = leader1
-               if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+               if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                    leader = leader2
                end
-               local cdk = Char.GetData(leader,CONST.¶ÔÏó_CDK);
+               local cdk = Char.GetData(leader,CONST.å¯¹è±¡_CDK);
                local Round = Battle.GetTurn(battleIndex);
-               local WeaponIndex = Char.GetWeapon(aIndex);                --×óÓÒÊÖ
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
+               local WeaponIndex = Char.GetWeapon(aIndex);                --å·¦å³æ‰‹
+               local Weapon_Name = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
                if Weapon_Name~=nil then
-                   local wandId = Item.GetData(WeaponIndex, CONST.µÀ¾ß_ID);
+                   local wandId = Item.GetData(WeaponIndex, CONST.é“å…·_ID);
                    if (wandId== 79255)  then
                        rate = 0;
                        local Count = tonumber(TeamBuff_Tbl(cdk,3));
                        if Count>=1 and Count<5  then
-                           Char.SetTempData(leader, 'ºÚ±ªÑÀ', 1);
+                           Char.SetTempData(leader, 'é»‘è±¹ç‰™', 1);
                        elseif Count>=5 and Count<10  then
-                           Char.SetTempData(leader, 'ºÚ±ªÑÀ', 2);
+                           Char.SetTempData(leader, 'é»‘è±¹ç‰™', 2);
                        elseif Count>=10 then
-                           Char.SetTempData(leader, 'ºÚ±ªÑÀ', 3);
+                           Char.SetTempData(leader, 'é»‘è±¹ç‰™', 3);
                        end
                        return rate
                    end
@@ -87,24 +88,24 @@ function Module:OnBattleCounterRateEvent(battleIndex, aIndex, fIndex, rate)
                local leader1 = Battle.GetPlayer(battleIndex,0)
                local leader2 = Battle.GetPlayer(battleIndex,5)
                local leader = leader1
-               if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+               if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                    leader = leader2
                end
-               local cdk = Char.GetData(leader,CONST.¶ÔÏó_CDK);
+               local cdk = Char.GetData(leader,CONST.å¯¹è±¡_CDK);
                local Round = Battle.GetTurn(battleIndex);
-               local WeaponIndex = Char.GetWeapon(aIndex);                --×óÓÒÊÖ
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
+               local WeaponIndex = Char.GetWeapon(aIndex);                --å·¦å³æ‰‹
+               local Weapon_Name = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
                if Weapon_Name~=nil then
-                   local wandId = Item.GetData(WeaponIndex, CONST.µÀ¾ß_ID);
+                   local wandId = Item.GetData(WeaponIndex, CONST.é“å…·_ID);
                    if (wandId== 79257)  then
                        rate = 100;
                        local Count = tonumber(TeamBuff_Tbl(cdk,4));
                        if Count>=1 and Count<5  then
-                           Char.SetTempData(leader, '»ÆÉß½Ç', 1);
+                           Char.SetTempData(leader, 'é»„è›‡è§’', 1);
                        elseif Count>=5 and Count<10  then
-                           Char.SetTempData(leader, '»ÆÉß½Ç', 2);
+                           Char.SetTempData(leader, 'é»„è›‡è§’', 2);
                        elseif Count>=10  then
-                           Char.SetTempData(leader, '»ÆÉß½Ç', 3);
+                           Char.SetTempData(leader, 'é»„è›‡è§’', 3);
                        end
                        return rate
                    end
@@ -138,7 +139,31 @@ function TeamBuff_Tbl(cdk,part)
        end
        return 1
 end
---- Ğ¶ÔØÄ£¿é¹³×Ó
+
+function Module:OnBattleOverEvent(battleIndex)
+         local leader1 = Battle.GetPlayer(battleIndex,0)
+         local leader2 = Battle.GetPlayer(battleIndex,5)
+         local leader = leader1
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+               leader = leader2
+         end
+         if (leader>=0) then
+               local cdk = Char.GetData(leader,CONST.å¯¹è±¡_CDK);
+               local claws = Char.GetTempData(leader, 'ç™½è™çˆª') or 0;
+               local teeth = Char.GetTempData(leader, 'é»‘è±¹ç‰™') or 0;
+               local horns = Char.GetTempData(leader, 'é»„è›‡è§’') or 0;
+               --print(claws,teeth,horns)
+               if (claws>0 or teeth>0 or horns>0 ) then
+                   Char.SetTempData(leader, 'ç™½è™çˆª', 0);
+                   Char.SetTempData(leader, 'é»‘è±¹ç‰™', 0);
+                   Char.SetTempData(leader, 'é»„è›‡è§’', 0);
+                   NLG.UpChar(leader);
+                   teamBuff[cdk] = {}
+               end
+         end
+end
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
