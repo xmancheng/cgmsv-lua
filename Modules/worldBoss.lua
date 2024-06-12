@@ -50,9 +50,9 @@ local WorldBoss = {
       { weekday=7, weekdayItem=70240, lordName="復仇魷魚霸王", lordImage=108121 , waitingArea={map=777,X=36,Y=53}, onfieldArea={map=25013,X=35,Y=15},
         rewardsItem={73866,73870,73843,73845}, rewardsItem_count=1, prizeItem={73861,73863,73865,73955,73957,73958}, prizeItem_count=1},
 }
-tbl_duel_user = {};			--当前场次玩家的列表
-tbl_win_user = {};
-worldBossBattle = {}
+local tbl_duel_user = {};			--当前场次玩家的列表
+local tbl_win_user = {};
+local worldBossBattle = {}
 tbl_WorldBossNPCIndex = tbl_WorldBossNPCIndex or {}
 ------------------------------------------------
 --- 加载模块钩子
@@ -602,7 +602,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
               local slot = Char.GetEmptyItemSlot(defCharIndex);
               local itemIndex, wslot = Char.GetWeapon(defCharIndex);
               if itemIndex >= 0 then
-                  NLG.SystemMessage(defCharIndex,"[系統]Char.GetData(defCharIndex, CONST.CHAR_名字)武器被卸下了！");
+                  NLG.SystemMessage(defCharIndex,"[系統]"..Char.GetData(defCharIndex, CONST.CHAR_名字).."武器被卸下了！");
                   if slot < 0 then
                             damage = math.floor(damage * 1.5);
                   else
