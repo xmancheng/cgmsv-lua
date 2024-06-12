@@ -99,8 +99,8 @@ local BossRoom = {
           lose={warpLMap=25293, warpLX=35, warpLY=14, getItem = 69000, getItem_count = 1},
        },    -- 绝级(11~15)
 }
-tbl_duel_user = {};			--当前场次玩家的列表
-tbl_win_user = {};
+local tbl_duel_user = {};			--当前场次玩家的列表
+local tbl_win_user = {};
 ------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
