@@ -287,7 +287,7 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 			end
 		elseif Round>=1 and Char.GetData(enemy, CONST.CHAR_名字) ~= "水鏡惡魔史萊姆"  then
 			if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(enemy, CONST.对象_ENEMY_ID)<= 406189  then
-				local player = Battle.GetPlayIndex(battleIndex, 0);
+				local player = Battle.GetPlayIndex(battleIndex, i-10);
 				NLG.SystemMessage(player,"[系統]水鏡惡魔史萊姆，隨著回合慢慢失去血量");
 				if (Char.EndEvent(player,301)==1) then
 					HP= 1 - (Round*0.05);
@@ -298,6 +298,11 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 					HP= 1 - (Round*0.1);
 					if Round>=10 then
 						HP = 0.01;
+					end
+				end
+				if player>=0 then
+ 					for k, v in ipairs(playerInfo) do
+						Char.SetData(enemy, v.Info, Char.GetData(player, v.Info))
 					end
 				end
 				Char.SetData(enemy, CONST.CHAR_血, Char.GetData(enemy,CONST.CHAR_最大血)*HP);
@@ -375,10 +380,10 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       local Round = Battle.GetTurn(battleIndex);
       --print(Round)
-      if Round==0 and Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)<= 406189 and flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge  then
+      if Round<=10 and Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)>=406180 and Char.GetData(defCharIndex, CONST.对象_ENEMY_ID)<= 406189 and flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge  then
                local defHpE = Char.GetData(defCharIndex,CONST.CHAR_血);
                if damage>=defHpE-1 then
-                 Char.SetData(defCharIndex, CONST.CHAR_血, defHpE+damage*0.1);
+                 Char.SetData(defCharIndex, CONST.CHAR_血, defHpE+damage*1);
                  NLG.UpChar(defCharIndex);
                  damage = damage*0;
                else
@@ -410,16 +415,16 @@ local dropMenu={
         {"大蒜油",900497,1},
         {"大蒜油",900497,2},
         {"大蒜油",900497,2},
+        {"聚魔十件套組",900605,1},
+        {"噴霧十件套組",900606,1},
+        {"Lv1卷軸書冊",900611,1},
+        {"Lv2卷軸書冊",900612,1},
         {"地屬性結晶",69163,1},
         {"水屬性結晶",69164,1},
         {"火屬性結晶",69165,1},
         {"風屬性結晶",69166,1},
-        {"頭目積分券",69000,1},
-        {"魔力銀幣卡",68001,1},
-        {"魔力金幣卡",68000,1},
-        {"閃炫方塊(特殊)",71016,1},
-        {"閃炫方塊(稀有)",71017,1},
-        {"閃炫方塊(罕見)",71018,1},
+        {"神奇糖果",900504,1},
+        {"魔力銀幣卡",68001,10},
 }
 function DevilNpc_BattleWin(battleIndex, charIndex)
 	--计算平均等级及等第
