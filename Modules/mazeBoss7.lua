@@ -43,10 +43,10 @@ local BossRoom = {
           lordName="魷魚霸王",
        },    -- 超级(3)
 }
-tbl_duel_user = {};			--当前场次玩家的列表
-tbl_win_user = {};
+local tbl_duel_user = {};			--当前场次玩家的列表
+local tbl_win_user = {};
 
-tbl_HideSeekNpc=0
+local tbl_HideSeekNpc=0
 local HideSeekLocation = {
     {10,15,18,20}, {10,46,19,50}, {73,46,84,50}, {73,77,85,81}
 }
