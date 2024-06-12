@@ -45,8 +45,8 @@ local BossRoom = {
           lordName="夜地獄星",
        },    -- 超级(3)
 }
-tbl_duel_user = {};			--当前场次玩家的列表
-tbl_win_user = {};
+local tbl_duel_user = {};			--当前场次玩家的列表
+local tbl_win_user = {};
 ------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
