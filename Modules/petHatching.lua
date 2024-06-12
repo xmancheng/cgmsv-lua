@@ -1,11 +1,11 @@
 local PetHatching = ModuleBase:createModule('petHatching')
 
-petNpcIndex = {}
-for list = 0,50 do
+local petNpcIndex = {}
+--[[for list = 0,50 do
 	petNpcIndex[list] = {}
                     petNpcIndex[list][1] = -1
                     petNpcIndex[list][2] = -1
-end
+end]]
 
 local petMettleTable = {
           {9610,9619,9620,9629},       --對BOSS增,自BOSS減,對人形增,對邪魔增
@@ -150,6 +150,11 @@ function PetHatching:onLoad()
              Char.SetExtData(player, "经验库S", Pet_ID);
              Char.SetExtData(player, "经验库STime", os.time() );
              Char.SetExtData(player, "经验库SPet", JSON.encode(data) );
+             if petNpcIndex[cdk]==nill then
+                    petNpcIndex[cdk] = {}
+                    petNpcIndex[cdk][1]=-1
+                    petNpcIndex[cdk][2]=-1
+             end
              petNpcIndex[cdk][1] = Char.CreateDummy()
              Char.TradePet(player, slot, petNpcIndex[cdk][1]);
              self:regCallback('LoopEvent', Func.bind(self.pnloop,self))
@@ -193,6 +198,7 @@ function PetHatching:onLoad()
                 local petData = JSON.decode(data);
                 --取得經驗值
                 if petNpcIndex[cdk]==nill then
+                    petNpcIndex[cdk] = {}
                     petNpcIndex[cdk][1]=-1
                     petNpcIndex[cdk][2]=-1
                 end
@@ -282,6 +288,11 @@ function PetHatching:onLoad()
              Char.SetExtData(player, "经验库J", Pet_ID);
              Char.SetExtData(player, "经验库JTime", os.time() );
              Char.SetExtData(player, "经验库JPet", JSON.encode(data) );
+             if petNpcIndex[cdk]==nill then
+                    petNpcIndex[cdk] = {}
+                    petNpcIndex[cdk][1]=-1
+                    petNpcIndex[cdk][2]=-1
+             end
              petNpcIndex[cdk][2] = Char.CreateDummy()
              Char.TradePet(player, slot, petNpcIndex[cdk][2]);
              self:regCallback('LoopEvent', Func.bind(self.pnloop,self))
@@ -325,6 +336,7 @@ function PetHatching:onLoad()
                 local petData = JSON.decode(data);
                 --取得經驗值
                 if petNpcIndex[cdk]==nill then
+                    petNpcIndex[cdk] = {}
                     petNpcIndex[cdk][1]=-1
                     petNpcIndex[cdk][2]=-1
                 end
