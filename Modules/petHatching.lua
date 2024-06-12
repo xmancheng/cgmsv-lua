@@ -150,8 +150,8 @@ function PetHatching:onLoad()
              Char.SetExtData(player, "经验库S", Pet_ID);
              Char.SetExtData(player, "经验库STime", os.time() );
              Char.SetExtData(player, "经验库SPet", JSON.encode(data) );
-             petNpcIndex[player][1] = Char.CreateDummy()
-             Char.TradePet(player, slot, petNpcIndex[player][1]);
+             petNpcIndex[cdk][1] = Char.CreateDummy()
+             Char.TradePet(player, slot, petNpcIndex[cdk][1]);
              self:regCallback('LoopEvent', Func.bind(self.pnloop,self))
              self:regCallback('pnloop', function(NpcIndex)
                      local dir = math.random(0, 7);
@@ -163,14 +163,14 @@ function PetHatching:onLoad()
                          NLG.UpChar(NpcIndex);
                      end
              end)
-             Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][1], math.random(1000,5000));
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_等级, pet_level);
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_名字, pet_name);
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_形象, pet_image);
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_原形, pet_image);
-             Char.SetData(petNpcIndex[player][1], CONST.CHAR_原始图档, pet_image);
-             NLG.UpChar(petNpcIndex[player][1]);
-             Char.Warp(petNpcIndex[player][1], 0, 25010, math.random(6,14), math.random(2,17));
+             Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[cdk][1], math.random(10000,50000));
+             Char.SetData(petNpcIndex[cdk][1], CONST.CHAR_等级, pet_level);
+             Char.SetData(petNpcIndex[cdk][1], CONST.CHAR_名字, pet_name);
+             Char.SetData(petNpcIndex[cdk][1], CONST.CHAR_形象, pet_image);
+             Char.SetData(petNpcIndex[cdk][1], CONST.CHAR_原形, pet_image);
+             Char.SetData(petNpcIndex[cdk][1], CONST.CHAR_原始图档, pet_image);
+             NLG.UpChar(petNpcIndex[cdk][1]);
+             Char.Warp(petNpcIndex[cdk][1], 0, 25010, math.random(6,14), math.random(2,17));
              NLG.SystemMessage(player, '寵物 '..pet_name..' 已送進去訓練');
              NLG.UpChar(player);
         end
@@ -192,28 +192,32 @@ function PetHatching:onLoad()
                 local data = Char.GetExtData(player, "经验库SPet");
                 local petData = JSON.decode(data);
                 --取得經驗值
-                if petNpcIndex[player][1]==-1 then
-                    petNpcIndex[player][1] = Char.CreateDummy()
-                    petIndex = Char.GetPet(petNpcIndex[player][1],0);
+                if petNpcIndex[cdk]==nill then
+                    petNpcIndex[cdk][1]=-1
+                    petNpcIndex[cdk][2]=-1
+                end
+                if petNpcIndex[cdk][1]==-1 then
+                    petNpcIndex[cdk][1] = Char.CreateDummy()
+                    petIndex = Char.GetPet(petNpcIndex[cdk][1],0);
                     if petIndex<0 then
-                        Char.AddPet(petNpcIndex[player][1], Pet_ID);
-                        petIndex = Char.GetPet(petNpcIndex[player][1],0);
+                        Char.AddPet(petNpcIndex[cdk][1], Pet_ID);
+                        petIndex = Char.GetPet(petNpcIndex[cdk][1],0);
                         self:insertPetData(petIndex,petData);
-                        Pet.UpPet(petNpcIndex[player][1],petIndex);
+                        Pet.UpPet(petNpcIndex[cdk][1],petIndex);
                     end
-                elseif petNpcIndex[player][1]>=0 then
-                    petIndex = Char.GetPet(petNpcIndex[player][1],0);
+                elseif petNpcIndex[cdk][1]>=0 then
+                    petIndex = Char.GetPet(petNpcIndex[cdk][1],0);
                 end
                 local level = Char.GetData(petIndex, CONST.CHAR_等级);
                 local exp = Char.GetData(petIndex, CONST.CHAR_经验);
                 local plusExp = totalMinutes * level * 12;
                 Char.SetData(petIndex, CONST.CHAR_经验, exp+plusExp);
-                Pet.UpPet(petNpcIndex[player][1], petIndex);
+                Pet.UpPet(petNpcIndex[cdk][1], petIndex);
                 --取回寵物
-                Char.TradePet(petNpcIndex[player][1], 0, player);
+                Char.TradePet(petNpcIndex[cdk][1], 0, player);
                 Char.AddGold(player, -totalGold);
-                Char.DelDummy(petNpcIndex[player][1])
-                petNpcIndex[player][1] = -1
+                Char.DelDummy(petNpcIndex[cdk][1])
+                petNpcIndex[cdk][1] = -1
                 Char.SetExtData(player, "经验库S", 0);
                 Char.SetExtData(player, "经验库STime", 0);
                 Char.SetExtData(player, "经验库SPet", 0);
@@ -278,8 +282,8 @@ function PetHatching:onLoad()
              Char.SetExtData(player, "经验库J", Pet_ID);
              Char.SetExtData(player, "经验库JTime", os.time() );
              Char.SetExtData(player, "经验库JPet", JSON.encode(data) );
-             petNpcIndex[player][2] = Char.CreateDummy()
-             Char.TradePet(player, slot, petNpcIndex[player][2]);
+             petNpcIndex[cdk][2] = Char.CreateDummy()
+             Char.TradePet(player, slot, petNpcIndex[cdk][2]);
              self:regCallback('LoopEvent', Func.bind(self.pnloop,self))
              self:regCallback('pnloop', function(NpcIndex)
                      local dir = math.random(0, 7);
@@ -291,14 +295,14 @@ function PetHatching:onLoad()
                          NLG.UpChar(NpcIndex);
                      end
              end)
-             Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[player][2], math.random(1000,5000));
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_等级, pet_level);
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_名字, pet_name);
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_形象, pet_image);
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_原形, pet_image);
-             Char.SetData(petNpcIndex[player][2], CONST.CHAR_原始图档, pet_image);
-             NLG.UpChar(petNpcIndex[player][2]);
-             Char.Warp(petNpcIndex[player][2], 0, 25010, math.random(6,14), math.random(2,17));
+             Char.SetLoopEvent(nil, 'pnloop', petNpcIndex[cdk][2], math.random(10000,50000));
+             Char.SetData(petNpcIndex[cdk][2], CONST.CHAR_等级, pet_level);
+             Char.SetData(petNpcIndex[cdk][2], CONST.CHAR_名字, pet_name);
+             Char.SetData(petNpcIndex[cdk][2], CONST.CHAR_形象, pet_image);
+             Char.SetData(petNpcIndex[cdk][2], CONST.CHAR_原形, pet_image);
+             Char.SetData(petNpcIndex[cdk][2], CONST.CHAR_原始图档, pet_image);
+             NLG.UpChar(petNpcIndex[cdk][2]);
+             Char.Warp(petNpcIndex[cdk][2], 0, 25010, math.random(6,14), math.random(2,17));
              NLG.SystemMessage(player, '寵物 '..pet_name..' 已送進去訓練');
              NLG.UpChar(player);
         end
@@ -320,23 +324,27 @@ function PetHatching:onLoad()
                 local data = Char.GetExtData(player, "经验库JPet");
                 local petData = JSON.decode(data);
                 --取得經驗值
-                if petNpcIndex[player][2]==-1 then
-                    petNpcIndex[player][2] = Char.CreateDummy()
-                    petIndex = Char.GetPet(petNpcIndex[player][2],0);
+                if petNpcIndex[cdk]==nill then
+                    petNpcIndex[cdk][1]=-1
+                    petNpcIndex[cdk][2]=-1
+                end
+                if petNpcIndex[cdk][2]==-1 then
+                    petNpcIndex[cdk][2] = Char.CreateDummy()
+                    petIndex = Char.GetPet(petNpcIndex[cdk][2],0);
                     if petIndex<0 then
-                        Char.AddPet(petNpcIndex[player][2], Pet_ID);
-                        petIndex = Char.GetPet(petNpcIndex[player][2],0);
+                        Char.AddPet(petNpcIndex[cdk][2], Pet_ID);
+                        petIndex = Char.GetPet(petNpcIndex[cdk][2],0);
                         self:insertPetData(petIndex,petData);
-                        Pet.UpPet(petNpcIndex[player][2],petIndex);
+                        Pet.UpPet(petNpcIndex[cdk][2],petIndex);
                     end
-                elseif petNpcIndex[player][2]>=0 then
-                    petIndex = Char.GetPet(petNpcIndex[player][2],0);
+                elseif petNpcIndex[cdk][2]>=0 then
+                    petIndex = Char.GetPet(petNpcIndex[cdk][2],0);
                 end
                 local level = Char.GetData(petIndex, CONST.CHAR_等级);
                 local exp = Char.GetData(petIndex, CONST.CHAR_经验);
                 local plusExp = totalMinutes * level * 10;
                 Char.SetData(petIndex, CONST.CHAR_经验, exp+plusExp);
-                Pet.UpPet(petNpcIndex[player][2], petIndex);
+                Pet.UpPet(petNpcIndex[cdk][2], petIndex);
                 --取回寵物
                 if Char.ItemSlot(player)<20 then
                     if (totalMinutes>=60 and totalMinutes<180) then
@@ -350,10 +358,10 @@ function PetHatching:onLoad()
                     NLG.SystemMessage(player, '物品欄沒有空位');
                     return
                 end
-                Char.TradePet(petNpcIndex[player][2], 0, player);
+                Char.TradePet(petNpcIndex[cdk][2], 0, player);
                 Char.AddGold(player, -totalGold);
-                Char.DelDummy(petNpcIndex[player][2])
-                petNpcIndex[player][2] = -1
+                Char.DelDummy(petNpcIndex[cdk][2])
+                petNpcIndex[cdk][2] = -1
                 Char.SetExtData(player, "经验库J", 0);
                 Char.SetExtData(player, "经验库JTime", 0);
                 Char.SetExtData(player, "经验库JPet", 0);
