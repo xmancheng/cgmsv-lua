@@ -273,6 +273,13 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
            local damage = math.floor(damage_TA*0.5);
+           --宠物特技
+           if (com3 == 2729)  then    --千鈞石箭-SE
+               if NLG.Rand(1,10)>=10  then
+                   Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
+                   NLG.UpChar(defCharIndex);
+               end
+           end
                local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
                local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
                if LvRate <= 50  then
