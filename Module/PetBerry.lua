@@ -257,6 +257,9 @@ function PlantNpc__WindowTalked( _NpcIndex, _PlayerIndex, _Seqno, _Select, _Data
 				if(math.random(1,10) >= 8) then           --随机进入树果守护兽战斗
 					local tPlantBattleIndex = Battle.PVE( _PlayerIndex, _NpcIndex, nil, Pos[1][1][7], Pos[1][1][9], nil)
 					Battle.SetWinEvent("./lua/Module/PetBerry.lua", "PlantNpc_BattleWin", tPlantBattleIndex);
+					NL.DelNpc(_NpcIndex)
+					local dp = table_n(_NpcIndex,0,'v',tbl_PlantberryNpcIndex)
+					tbl_PlantberryNpcIndex[dp] = nil
 				else
 					NL.DelNpc(_NpcIndex)
 					local dp = table_n(_NpcIndex,0,'v',tbl_PlantberryNpcIndex)
@@ -280,9 +283,9 @@ function PlantNpc_BattleWin(_BattleIndex, _NpcIndex)
 		if tPlayerIndex>=0 and Char.GetData(tPlayerIndex,%对象_类型%)==1 then
 			if(tImage ~= 114206) then
 				Char.GiveItem(tPlayerIndex, plantBoss_drop[drop_type], drop_val);
-				NL.DelNpc(_NpcIndex)
-				local dp = table_n(_NpcIndex,0,'v',tbl_PlantberryNpcIndex)
-				tbl_PlantberryNpcIndex[dp] = nil
+				--NL.DelNpc(_NpcIndex)
+				--local dp = table_n(_NpcIndex,0,'v',tbl_PlantberryNpcIndex)
+				--tbl_PlantberryNpcIndex[dp] = nil
 			end
 		end
 		Battle.UnsetWinEvent( _BattleIndex);
