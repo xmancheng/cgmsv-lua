@@ -1,10 +1,6 @@
 ---模块类
 local Module = ModuleBase:createModule('nothingBoss')
 
-local startImage = 108304;      --外面定點形象
-local transImage = 108331;      --戰鬥變身形象
-local executeEnemy = 406092;      --執行動作的Enemy編號
-
 local EnemySet = {}
 local BaseLevelSet = {}
 local Pos = {}
@@ -14,14 +10,39 @@ local Setting = 0;
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
-EnemySet[1] = {0, 406092, 406092, 0, 0, 406092, 0, 0, 406092, 406092}--0代表没有怪
-BaseLevelSet[1] = {0, 300, 300, 0, 0, 300, 0, 0, 300, 300}
+EnemySet[1] = {900030, 900031, 900031, 900031, 900031, 900031, 900031, 900031, 900031, 900031}--0代表没有怪
+BaseLevelSet[1] = {250, 250, 250, 250, 250, 250, 250, 250, 250, 250}
 Pos[1] = {"十二席",EnemySet[1],BaseLevelSet[1]}
+EnemySet[2] = {900033, 900034, 900034, 900034, 900034, 900034, 900034, 900034, 900034, 900034}--0代表没有怪
+BaseLevelSet[2] = {250, 250, 250, 250, 250, 250, 250, 250, 250, 250}
+Pos[2] = {"十一席",EnemySet[2],BaseLevelSet[2]}
+EnemySet[3] = {900036, 900037, 900037, 900037, 900037, 900037, 900037, 900037, 900037, 900037}--0代表没有怪
+BaseLevelSet[3] = {250, 250, 250, 250, 250, 250, 250, 250, 250, 250}
+Pos[3] = {"十席",EnemySet[3],BaseLevelSet[3]}
+EnemySet[4] = {900039, 900040, 900040, 900040, 900040, 900040, 900040, 900040, 900040, 900040}--0代表没有怪
+BaseLevelSet[4] = {250, 250, 250, 250, 250, 250, 250, 250, 250, 250}
+Pos[4] = {"九席",EnemySet[4],BaseLevelSet[4]}
+EnemySet[5] = {900042, 900043, 900043, 900043, 900043, 900043, 900043, 900043, 900043, 900043}--0代表没有怪
+BaseLevelSet[5] = {250, 250, 250, 250, 250, 250, 250, 250, 250, 250}
+Pos[5] = {"八席",EnemySet[5],BaseLevelSet[5]}
+EnemySet[6] = {900045, 900046, 900046, 900046, 900046, 900046, 900046, 900046, 900046, 900046}--0代表没有怪
+BaseLevelSet[6] = {250, 250, 250, 250, 250, 250, 250, 250, 250, 250}
+Pos[6] = {"七席",EnemySet[6],BaseLevelSet[6]}
 ------------------------------------------------------
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local NothingBoss = {
-      { weekday=1, weekdayItem=70241, lordName="十二席", lordImage=101137 , waitingArea={map=1000,X=229,Y=112}, onfieldArea={map=25013,X=35,Y=15},
+      { lordNum=1, keyItem=70241, lordName="漆黑聖典第12席", startImage=105040, transImage = 107912, waitingArea={map=1000,X=229,Y=110}, warpArea={map=25013,X=35,Y=15},
+        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
+      { lordNum=2, keyItem=70242, lordName="漆黑聖典第11席", startImage=105272, transImage = 110599, waitingArea={map=1000,X=229,Y=111}, warpArea={map=25013,X=35,Y=15},
+        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
+      { lordNum=3, keyItem=70243, lordName="漆黑聖典第10席", startImage=105112, transImage = 101922, waitingArea={map=1000,X=229,Y=112}, warpArea={map=25013,X=35,Y=15},
+        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
+      { lordNum=4, keyItem=70244, lordName="漆黑聖典第9席", startImage=105303, transImage = 107103, waitingArea={map=1000,X=229,Y=113}, warpArea={map=25013,X=35,Y=15},
+        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
+      { lordNum=5, keyItem=70245, lordName="漆黑聖典第8席", startImage=105091, transImage = 107904, waitingArea={map=1000,X=229,Y=114}, warpArea={map=25013,X=35,Y=15},
+        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
+      { lordNum=6, keyItem=70246, lordName="漆黑聖典第7席", startImage=105523, transImage = 104840, waitingArea={map=1000,X=229,Y=115}, warpArea={map=25013,X=35,Y=15},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -40,14 +61,17 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self))
   --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
-    NothingBossNPC = self:NPC_createNormal('沒事強敵', startImage, { map = 1000, x = 229, y = 112, direction = 5, mapType = 0 })
-    self:NPC_regWindowTalkedEvent(NothingBossNPC, function(npc, player, _seqno, _select, _data)
+  for k,v in pairs(NothingBoss) do
+   if tbl_NothingBossNPCIndex[k] == nil then
+    local NothingBossNPC = self:NPC_createNormal(v.lordName, v.startImage, { map = v.waitingArea.map, x = v.waitingArea.X, y = v.waitingArea.Y, direction = 5, mapType = 0 })
+    tbl_NothingBossNPCIndex[k] = NothingBossNPC
+    self:NPC_regWindowTalkedEvent(tbl_NothingBossNPCIndex[k], function(npc, player, _seqno, _select, _data)
 	local cdk = Char.GetData(player,CONST.对象_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)
     end)
-    self:NPC_regTalkedEvent(NothingBossNPC, function(npc, player)
+    self:NPC_regTalkedEvent(tbl_NothingBossNPCIndex[k], function(npc, player)
       if(NLG.CheckInFront(player, npc, 1)==false) then
           return ;
       end
@@ -70,11 +94,15 @@ function Module:onLoad()
 		NLG.SystemMessage(player,"[系統]討伐建議隊長等級要100以上");
 		return;
 	end
+
+	local Target_X = Char.GetData(npc, CONST.CHAR_X)  --地图x
+	local Target_Y = Char.GetData(npc, CONST.CHAR_Y)  --地图y
 	for k,v in pairs(NothingBoss) do
-		if ( 1==v.weekday ) then
+		if ( k==v.lordNum and Char.HaveItem(player, v.keyItem)>0 and Target_X==v.waitingArea.X and Target_Y==v.waitingArea.Y) then
 			table.insert(tbl_duel_user,player);
 			boss_round_start(player, boss_round_callback);
 
+			Char.DelItem(player, v.keyItem, 1);
 			if (Char.EndEvent(player, 308) == 1) then
 				local rand = NLG.Rand(1,#v.prizeItem);
 				Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
@@ -96,12 +124,15 @@ function Module:onLoad()
       end
       return
     end)
+   end
+  end
 
 end
 ------------------------------------------------
 -------功能设置
 function boss_round_start(player, callback)
 
+	local npc = tbl_duel_user[2];
 	tbl_win_user = {};
 	tbl_duel_user = {};
 	table.insert(tbl_duel_user,player);
@@ -111,8 +142,8 @@ function boss_round_start(player, callback)
 	battleindex = {}
 
 	for k,v in pairs(NothingBoss) do
-		if ( 1==v.weekday ) then
-			local battleindex = Battle.PVE( player, player, nil, Pos[1][2], Pos[1][3], nil)
+		if ( k==v.lordNum and Char.HaveItem(player, v.keyItem)>0 ) then
+			local battleindex = Battle.PVE( player, player, nil, Pos[k][2], Pos[k][3], nil)
 			Battle.SetWinEvent("./lua/Modules/nothingBoss.lua", "boss_round_callback", battleindex);
 			nothingBossBattle={}
 			table.insert(nothingBossBattle, battleindex);
@@ -152,7 +183,7 @@ function boss_round_callback(battleindex, player)
 	local player = tbl_win_user[1];
 	if (Char.EndEvent(player, 308) == 1) then
 		for k,v in pairs(NothingBoss) do
-			if ( 1==v.weekday ) then
+			if ( k==v.lordNum and Char.HaveItem(player, v.keyItem)>0 ) then
 				local rand = NLG.Rand(1,#v.rewardsItem);
 				Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
 				NLG.SystemMessage(-1,"恭喜玩家: "..Char.GetData(player,CONST.对象_名字).." 討伐成功"..v.lordName.."。");
@@ -166,7 +197,7 @@ function boss_round_callback(battleindex, player)
 			if Char.IsDummy(TeamPlayer)==false then
 				if (Char.EndEvent(TeamPlayer, 308) == 1) then
 					for k,v in pairs(NothingBoss) do
-						if ( 1==v.weekday ) then
+						if ( k==v.lordNum and Char.HaveItem(player, v.keyItem)>0 ) then
 							local rand = NLG.Rand(1,#v.rewardsItem);
 							Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
 						end
@@ -193,7 +224,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		local HP = playerCount * 50000;
 		table.forEach(nothingBossBattle, function(e)
 			if enemy>=0 and e==battleIndex  then
-				if Char.GetData(enemy, CONST.对象_ENEMY_ID)==900008 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==executeEnemy then
+				if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
 					Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 					Char.SetData(enemy, CONST.CHAR_血, HP);
 					--NLG.SystemMessage(-1,"[系統]世界強敵血量超激增！");
@@ -210,12 +241,12 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		table.forEach(nothingBossBattle, function(e)
 		if Round==0 and enemy>=0 and e==battleIndex  then
-			if Char.GetData(enemy, CONST.对象_ENEMY_ID)==900008 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==executeEnemy  then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
 				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 				Char.SetData(enemy, CONST.CHAR_血, HP);
 			end
 		elseif Round>0 and enemy>=0 and e==battleIndex  then
-			if Char.GetData(enemy, CONST.对象_ENEMY_ID)==900008 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==executeEnemy  then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
 				local Hp_10 = Char.GetData(enemy, CONST.CHAR_最大血); 
 				local Hp_5 = Char.GetData(enemy, CONST.CHAR_血);
 				local Hp05 = Hp_5/Hp_10;
@@ -223,7 +254,11 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 				Char.SetData(enemy, CONST.CHAR_血, Hp_5);
 				if Hp05<=0.5 then
-					Char.SetData(enemy, CONST.CHAR_形象, transImage);
+					for k,v in pairs(NothingBoss) do
+						if ( k==v.weekday ) then
+							Char.SetData(enemy, CONST.CHAR_形象, transImage);
+						end
+					end
 					Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
 					Char.SetData(enemy, CONST.CHAR_防御力, 666);
 					Char.SetData(enemy, CONST.CHAR_敏捷, 10000);
@@ -256,7 +291,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		table.forEach(nothingBossBattle, function(e)
 		if Round>=0 and enemy>=0 and e==battleIndex  then
-			if Char.GetData(enemy, CONST.对象_ENEMY_ID)==900008 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==executeEnemy  then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
 				local HP = Char.GetData(enemy,CONST.CHAR_血);
 				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 				Char.SetData(enemy, CONST.CHAR_血, HP);
@@ -272,7 +307,7 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       for i = 10, 19 do
          local enemy = Battle.GetPlayer(battleIndex, i);
          if enemy>= 0 then
-            if Char.GetData(enemy, CONST.对象_ENEMY_ID)==900008 or Char.GetData(enemy, CONST.对象_ENEMY_ID)==executeEnemy then
+            if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
                 table.forEach(nothingBossBattle, function(e)
                 if Round==5 and e==battleIndex  then
                           --SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8607);
@@ -306,7 +341,7 @@ function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
          if Char.IsPlayer(fIndex) and Char.IsEnemy(aIndex) then
                local battleIndex = Char.GetBattleIndex(aIndex);
                local Round = Battle.GetTurn(battleIndex);
-               if Char.GetData(aIndex, CONST.对象_ENEMY_ID)==executeEnemy then
+               if (Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900036) then
                    if (Round==5 or Round==10 or Round>=15)  then
                        rate = 0;
                        return rate
@@ -318,7 +353,8 @@ end
 
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       local Round = Battle.GetTurn(battleIndex);
-      if Char.IsEnemy(charIndex) and Char.GetData(charIndex, CONST.CHAR_ENEMY_ID) == executeEnemy and Char.IsPlayer(defCharIndex) then
+      if Char.IsEnemy(charIndex) and Char.IsPlayer(defCharIndex) then
+        if (Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900031 or Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900034 or Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900037) then
           if (math.fmod(Round, 3)==0 and math.random(1, 100)>=85) then
               local slot = Char.GetEmptyItemSlot(defCharIndex);
               local itemIndex, wslot = Char.GetWeapon(defCharIndex);
@@ -332,7 +368,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                   end
               end
           end
-          return damage;
+        end
+        return damage;
       end
   return damage;
 end
