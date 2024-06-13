@@ -4,17 +4,17 @@ local itemid_18311 = 18311;  --水的水晶碎片
 local itemid_18312 = 18312;  --火的水晶碎片
 local itemid_18313 = 18313;  --风的水晶碎片
 ------------------------------------------------------------------------------
-local a1 = {%道具_攻击%,1,%道具_精神%,3};
-local r1 = {%道具_HP%,75,%道具_MP%,50};
-local r2 = {%道具_乱抗%,28,%道具_防御%,50};
-local r3 = {%道具_睡抗%,28,%道具_敏捷%,30};
-local r4 = {%道具_石抗%,28,%道具_回复%,20};
-local r5 = {%道具_HP%,150,%道具_MP%,100};
+local a1 = {%道具_攻击%,30,%道具_精神%,20};
+local r1 = {%道具_HP%,750,%道具_MP%,500};
+local r2 = {%道具_乱抗%,28,%道具_防御%,500};
+local r3 = {%道具_睡抗%,28,%道具_敏捷%,300};
+local r4 = {%道具_石抗%,28,%道具_回复%,200};
+local r5 = {%道具_HP%,1500,%道具_MP%,1000};
 local r6 = {%道具_醉抗%,28,%道具_闪躲%,8};
 local r7 = {%道具_毒抗%,28,%道具_必杀%,8};
 local r8 = {%道具_忘抗%,28,%道具_反击%,8};
 local r9 = {%道具_魔抗%,25,%道具_命中%,8};
-local r10 = {%道具_HP%,300,%道具_MP%,200};
+local r10 = {%道具_HP%,3000,%道具_MP%,2000};
 local Abilitynotes = {a1};                        --每一星固定增加的数值
 local Bonus = {r1,r2,r3,r4,r5,r6,r7,r8,r9,r10};   --每十星额外增加的数值
 ------------------------------------------------------------------------------
@@ -39,10 +39,10 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 	local FromItemID = Item.GetData(FromItemIndex,0);
 	local TargetItemID = Item.GetData(TargetItemIndex,0);
 	local star = Item.GetData(TargetItemIndex,%道具_幸运%);
-	local StarGold = star*100;
+	local StarGold = star*10;
 	local Category1 = Item.GetData(TargetItemIndex,%道具_属性一%);
 	local Category2 = Item.GetData(TargetItemIndex,%道具_属性二%);
-	local Rate = math.random(1,star);
+	local Rate = math.random(1,100);
 	if(FromItemID == itemid_18310 or FromItemID == itemid_18311 or FromItemID == itemid_18312 or FromItemID == itemid_18313)then
 		if(Item.GetData(TargetItemIndex,%道具_类型%) ~= 22)then
 			NLG.SystemMessage(_PlayerIndex,"[系統] 請對水晶進行星力強化！");
@@ -63,7 +63,7 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 	end
 	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18310 and Item.GetData(TargetItemIndex,%道具_类型%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==1 or Category2==1) then
-			if (Rate==1) then
+			if (Rate>=star) then
 				local OriName = Item.GetData(TargetItemIndex,%道具_鉴前名%);
 				local starstate = star + 1;
 				Newname = starstate.."星◎" .. OriName;
@@ -99,7 +99,7 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 	end
 	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18311 and Item.GetData(TargetItemIndex,%道具_类型%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==2 or Category2==2) then
-			if (Rate==1) then
+			if (Rate>=star) then
 				local OriName = Item.GetData(TargetItemIndex,%道具_鉴前名%);
 				local starstate = star + 1;
 				Newname = starstate.."星◎" .. OriName;
@@ -135,7 +135,7 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 	end
 	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18312 and Item.GetData(TargetItemIndex,%道具_类型%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==3 or Category2==3) then
-			if (Rate==1) then
+			if (Rate>=star) then
 				local OriName = Item.GetData(TargetItemIndex,%道具_鉴前名%);
 				local starstate = star + 1;
 				Newname = starstate.."星◎" .. OriName;
@@ -171,7 +171,7 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 	end
 	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18313 and Item.GetData(TargetItemIndex,%道具_类型%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==4 or Category2==4) then
-			if (Rate==1) then
+			if (Rate>=star) then
 				local OriName = Item.GetData(TargetItemIndex,%道具_鉴前名%);
 				local starstate = star + 1;
 				Newname = starstate.."星◎" .. OriName;
