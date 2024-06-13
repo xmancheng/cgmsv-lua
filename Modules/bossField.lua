@@ -182,6 +182,12 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                          local d3= Char.GetData(defCharIndex, CONST.CHAR_魔抗);
                          local d4= Char.GetData(defCharIndex, CONST.CHAR_攻击力);
                          if (State>0) then
+                            if (com3 == 2729)  then    --千鈞石箭-SE
+                                if NLG.Rand(1,10)>=8  then
+                                    Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
+                                    NLG.UpChar(defCharIndex);
+                                end
+                            end
                             if d2>=500 and d2<=2000 then
                                  local damage_Max = (d1*0.8)-(d3-50)*10+(d4*State/100);
                                  if damage_Max<=9 then damage_Max = 9; end
