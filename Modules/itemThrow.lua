@@ -5,11 +5,19 @@ for hhh = 0,5 do
 	Throw_control[hhh] = {}
 	Throw_control[hhh] = false;     --初始化投掷开关
 end]]
-local MaxLv = 200
+local MaxLv = 250
 local GetitEnable_list = {};
 GetitEnable_list[400014] = {1,400014};  --enemy.txt编号，设置1可捕捉、设置0或无设置不可捕捉
 GetitEnable_list[400015] = {1,400015};
 GetitEnable_list[400125] = {1,401275};
+GetitEnable_list[400126] = {1,401276};
+
+GetitEnable_list[900030] = {1,900032};  --第十二席
+GetitEnable_list[900033] = {1,900035};  --第十一席
+GetitEnable_list[900036] = {1,900038};  --第十席
+GetitEnable_list[900039] = {1,900041};  --第九席
+GetitEnable_list[900042] = {1,900044};  --第八席
+GetitEnable_list[900045] = {1,900047};  --第七席
 
 -----------------------------------------------------------------
 function ItemThrow:setItemData(itemIndex, value)
