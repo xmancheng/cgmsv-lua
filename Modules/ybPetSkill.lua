@@ -222,10 +222,12 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            return damage;
          elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then  ---宠物为攻击方事件，被动技能只能二选一
            --大师角色加成
-           local claws = Char.GetTempData(leader, '白虎爪') or 0;
-           local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
-           local horns = Char.GetTempData(leader, '黄蛇角') or 0;
-           local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+           if (Battle.GetType(battleIndex)==CONST.战斗_普通) then
+               local claws = Char.GetTempData(leader, '白虎爪') or 0;
+               local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
+               local horns = Char.GetTempData(leader, '黄蛇角') or 0;
+               local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+           end
            --宠物加成
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
@@ -265,10 +267,12 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            return damage;
          elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
            --大师角色加成
-           local claws = Char.GetTempData(leader, '白虎爪') or 0;
-           local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
-           local horns = Char.GetTempData(leader, '黄蛇角') or 0;
-           local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+           if (Battle.GetType(battleIndex)==CONST.战斗_普通) then
+               local claws = Char.GetTempData(leader, '白虎爪') or 0;
+               local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
+               local horns = Char.GetTempData(leader, '黄蛇角') or 0;
+               local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+           end
            --宠物加成
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
