@@ -324,11 +324,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
          end
 
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               if (Battle.GetType(battleIndex)==CONST.战斗_普通) then
-                   local claws = Char.GetTempData(leader, '白虎爪') or 0;
-                   local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
-                   local horns = Char.GetTempData(leader, '黄蛇角') or 0;
-                   local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+               if (Char.GetData(charIndex,CONST.对象_战斗Side)==0 and Battle.GetType(battleIndex)==1) then
+                   claws = Char.GetTempData(leader, '白虎爪') or 0;
+                   teeth = Char.GetTempData(leader, '黑豹牙') or 0;
+                   horns = Char.GetTempData(leader, '黄蛇角') or 0;
+                   damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
                end
                local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                local damage = math.floor(damage_TA*0.8);
@@ -510,11 +510,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 ]]
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               if (Battle.GetType(battleIndex)==CONST.战斗_普通) then
-                   local claws = Char.GetTempData(leader, '白虎爪') or 0;
-                   local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
-                   local horns = Char.GetTempData(leader, '黄蛇角') or 0;
-                   local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+               if (Char.GetData(charIndex,CONST.对象_战斗Side)==0 and Battle.GetType(battleIndex)==1) then
+                   claws = Char.GetTempData(leader, '白虎爪') or 0;
+                   teeth = Char.GetTempData(leader, '黑豹牙') or 0;
+                   horns = Char.GetTempData(leader, '黄蛇角') or 0;
+                   damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
                end
                --local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                --local damage = math.floor(damage_TA*0.5);
