@@ -241,12 +241,12 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		table.forEach(nothingBossBattle, function(e)
 		if Round==0 and enemy>=0 and e==battleIndex  then
-			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900045) then
 				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 				Char.SetData(enemy, CONST.CHAR_血, HP);
 			end
 		elseif Round>0 and enemy>=0 and e==battleIndex  then
-			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900045) then
 				local Hp_10 = Char.GetData(enemy, CONST.CHAR_最大血); 
 				local Hp_5 = Char.GetData(enemy, CONST.CHAR_血);
 				local Hp05 = Hp_5/Hp_10;
@@ -291,7 +291,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		table.forEach(nothingBossBattle, function(e)
 		if Round>=0 and enemy>=0 and e==battleIndex  then
-			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900045) then
 				local HP = Char.GetData(enemy,CONST.CHAR_血);
 				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 				Char.SetData(enemy, CONST.CHAR_血, HP);
@@ -307,7 +307,7 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       for i = 10, 19 do
          local enemy = Battle.GetPlayer(battleIndex, i);
          if enemy>= 0 then
-            if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036) then
+            if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900045) then
                 table.forEach(nothingBossBattle, function(e)
                 if Round==5 and e==battleIndex  then
                           --SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8607);
@@ -341,7 +341,7 @@ function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
          if Char.IsPlayer(fIndex) and Char.IsEnemy(aIndex) then
                local battleIndex = Char.GetBattleIndex(aIndex);
                local Round = Battle.GetTurn(battleIndex);
-               if (Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900036) then
+               if (Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900045) then
                    if (Round==5 or Round==10 or Round>=15)  then
                        rate = 0;
                        return rate
@@ -354,7 +354,7 @@ end
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       local Round = Battle.GetTurn(battleIndex);
       if Char.IsEnemy(charIndex) and Char.IsPlayer(defCharIndex) then
-        if (Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900031 or Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900034 or Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900037) then
+        if (Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900031 or Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900034 or Char.GetData(charIndex, CONST.CHAR_ENEMY_ID)==900037 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900040 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900043 or Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==900046) then
           if (math.fmod(Round, 3)==0 and math.random(1, 100)>=85) then
               local slot = Char.GetEmptyItemSlot(defCharIndex);
               local itemIndex, wslot = Char.GetWeapon(defCharIndex);
