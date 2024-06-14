@@ -100,7 +100,7 @@ function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, 
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【狡猾戲法】！！",4,3);
                         end
-                        if NLG.Rand(1,10)>=8  then
+                        if NLG.Rand(1,100)<=8  then
                                local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModSleep};
                                local rate = NLG.Rand(1,3);
                                Char.SetData(defCharIndex, debuff[rate], 3);
@@ -112,7 +112,7 @@ function AttackSkill:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, 
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                              NLG.Say(leader,charIndex,"【奸智戲法】！！",4,3);
                         end
-                        if NLG.Rand(1,10)>=8  then
+                        if NLG.Rand(1,100)<=8  then
                                local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModAmnesia};
                                local rate = NLG.Rand(1,3);
                                Char.SetData(defCharIndex, debuff[rate], 3);
@@ -324,13 +324,18 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
          end
 
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               local claws = Char.GetTempData(leader, '白虎爪') or 0;
-               local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
-               local horns = Char.GetTempData(leader, '黄蛇角') or 0;
-               local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+               if (Battle.GetType(battleIndex)==CONST.战斗_普通) then
+                   local claws = Char.GetTempData(leader, '白虎爪') or 0;
+                   local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
+                   local horns = Char.GetTempData(leader, '黄蛇角') or 0;
+                   local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+               end
                local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                local damage = math.floor(damage_TA*0.8);
                --print(damage,damage_TA,damage)
+               if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                   NLG.Say(leader,leader,"【近戰領域】白虎爪"..claws.."層.黑豹牙"..teeth.."層.黃蛇角"..horns.."層",4,3);
+               end
                if (com3 == 200539)  then    --200539無量空處/200500~200509追月(消除巫術)
                      if Char.GetData(charIndex,CONST.对象_对战开关) == 1  then
                          NLG.Say(charIndex,charIndex,"【無量空處】！！",4,3);
@@ -505,13 +510,18 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
 ]]
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
-               local claws = Char.GetTempData(leader, '白虎爪') or 0;
-               local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
-               local horns = Char.GetTempData(leader, '黄蛇角') or 0;
-               local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+               if (Battle.GetType(battleIndex)==CONST.战斗_普通) then
+                   local claws = Char.GetTempData(leader, '白虎爪') or 0;
+                   local teeth = Char.GetTempData(leader, '黑豹牙') or 0;
+                   local horns = Char.GetTempData(leader, '黄蛇角') or 0;
+                   local damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
+               end
                --local damage_TA = damage + self:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                --local damage = math.floor(damage_TA*0.5);
                --print(damage_TA,damage)
+               if Char.GetData(leader,CONST.对象_对战开关) == 1  then
+                   NLG.Say(leader,leader,"【近戰領域】白虎爪"..claws.."層.黑豹牙"..teeth.."層.黃蛇角"..horns.."層",4,3);
+               end
                if (com3 >= 26700 and com3 <= 26720)  then    --26700~26709精神衝擊波(補正)
                      --NLG.Say(charIndex,charIndex,"【精神衝擊波】補正傷害公式！！",4,3);
                      local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
@@ -557,7 +567,7 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                         if Char.GetData(leader,CONST.对象_对战开关) == 1  then
                             NLG.Say(leader,charIndex,"【時間魔法】！！",4,3);
                         end
-                        if NLG.Rand(1,10)>=8  then
+                        if NLG.Rand(1,100)<=8  then
                                local debuff={CONST.CHAR_BattleModConfusion,CONST.CHAR_BattleModDrunk,CONST.CHAR_BattleModPoison,CONST.CHAR_BattleModStone};
                                local rate = NLG.Rand(1,4);
                                Char.SetData(defCharIndex, debuff[rate], 3);
