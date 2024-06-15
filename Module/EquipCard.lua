@@ -156,7 +156,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 			end
 		end
 		if (Special ~= 0 and Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69163) > 0) then
-			local colorA = Char.GetData(item_indexA,%对象_名色%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
 			local Atype = Item.GetData(item_indexB,%道具_属性一%);
 			if (Atype == 1 and itemID_B == itemid_69163) then
@@ -168,7 +167,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 				Item.SetData(item_indexA,%道具_醉抗%,resist_b);
 				Item.SetData(item_indexA,%道具_毒抗%,resist_c);
 				Item.SetData(item_indexA,%道具_睡抗%,resist_d);
-				Item.SetData(item_indexA,%对象_名色%,5);
 				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_是%,1,"\\n\\n\\n已將"..Item.GetData(item_indexB,%道具_名字%).."屬性附加於裝備！");
 				Char.DelItem(_PlayerIndex,itemid_69163,1);
 				Item.UpItem(_PlayerIndex,selectitem);
@@ -176,7 +174,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_是%,1,"\\n\\n\\n請確認物品欄第一欄是否為屬性結晶！");
 		end
 		if (Special ~= 0 and Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69164) > 0) then
-			local colorA = Item.GetData(item_indexA,%对象_名色%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
 			local Atype = Item.GetData(item_indexB,%道具_属性一%);
 			if (Atype == 2 and itemID_B == itemid_69164) then
@@ -188,7 +185,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 				Item.SetData(item_indexA,%道具_乱抗%,resist_a);
 				Item.SetData(item_indexA,%道具_毒抗%,resist_c);
 				Item.SetData(item_indexA,%道具_睡抗%,resist_d);
-				Item.SetData(item_indexA,%对象_名色%,3);
 				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_是%,1,"\\n\\n\\n已將"..Item.GetData(item_indexB,%道具_名字%).."屬性附加於裝備！");
 				Char.DelItem(_PlayerIndex,itemid_69164,1);
 				Item.UpItem(_PlayerIndex,selectitem);
@@ -196,7 +192,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_是%,1,"\\n\\n\\n請確認物品欄第一欄是否為屬性結晶！");
 		end
 		if (Special ~= 0 and Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69165) > 0) then
-			local colorA = Item.GetData(item_indexA,%对象_名色%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
 			local Atype = Item.GetData(item_indexB,%道具_属性一%);
 			if (Atype == 3 and itemID_B == itemid_69165) then
@@ -208,7 +203,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 				Item.SetData(item_indexA,%道具_醉抗%,resist_b);
 				Item.SetData(item_indexA,%道具_乱抗%,resist_a);
 				Item.SetData(item_indexA,%道具_睡抗%,resist_d);
-				Item.SetData(item_indexA,%对象_名色%,6);
 				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_是%,1,"\\n\\n\\n已將"..Item.GetData(item_indexB,%道具_名字%).."屬性附加於裝備！");
 				Char.DelItem(_PlayerIndex,itemid_69165,1);
 				Item.UpItem(_PlayerIndex,selectitem);
@@ -216,7 +210,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 			NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_是%,1,"\\n\\n\\n請確認物品欄第一欄是否為屬性結晶！");
 		end
 		if (Special ~= 0 and Category == 0 and Char.ItemNum(_PlayerIndex,itemid_69166) > 0) then
-			local colorA = Item.GetData(item_indexA,%对象_名色%);
 			local item_indexB = Char.GetItemIndex(_PlayerIndex,8);
 			local Atype = Item.GetData(item_indexB,%道具_属性一%);
 			if (Atype == 4 and itemID_B == itemid_69166) then
@@ -228,7 +221,6 @@ function DivinerFunction(_NpcIndex,_PlayerIndex,_SqeNo,_select,_data)
 				Item.SetData(item_indexA,%道具_毒抗%,resist_c);
 				Item.SetData(item_indexA,%道具_醉抗%,resist_b);
 				Item.SetData(item_indexA,%道具_乱抗%,resist_a);
-				Item.SetData(item_indexA,%对象_名色%,4);
 				NLG.ShowWindowTalked(_PlayerIndex,_NpcIndex,%窗口_信息框%,%按钮_是%,1,"\\n\\n\\n已將"..Item.GetData(item_indexB,%道具_名字%).."屬性附加於裝備！");
 				Char.DelItem(_PlayerIndex,itemid_69166,1);
 				Item.UpItem(_PlayerIndex,selectitem);
