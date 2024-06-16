@@ -216,7 +216,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	local playerCount = #NLG.GetPlayer();
 	table.forEach(nothingBossBattle, function(e)
 		if  e==battleIndex  then
-			NLG.SystemMessage(-1,"[系統]世界強敵血量超激增.總共有"..playerCount.."名玩家x5萬的血量！");
+			NLG.SystemMessage(-1,"[系統]漆黑聖典血量超激增.總共有"..playerCount.."名玩家x5萬的血量！");
 		end
 	end)
 	for i = 10, 19 do
@@ -364,6 +364,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                             damage = math.floor(damage * 1.5);
                   else
                             Char.MoveItem(defCharIndex, wslot, slot, -1);
+                            Char.SetData(defCharIndex, CONST.CHAR_BattleCom1, CONST.BATTLE_COM.BATTLE_COM_ATTACK);
+                            Char.SetData(defCharIndex, CONST.CHAR_BattleCom2, 10);
+                            Char.SetData(defCharIndex, CONST.CHAR_BattleCom3, -1);
                             NLG.UpChar(defCharIndex);
                   end
               end
