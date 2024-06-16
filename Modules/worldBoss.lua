@@ -10,26 +10,26 @@ local Setting = 0;
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
-EnemySet[1] = {0, 400073, 400073, 0, 700031, 406190, 0, 0, 400072, 400072}--0代表没有怪
-BaseLevelSet[1] = {0, 300, 300, 0, 199, 300, 0, 0, 300, 300}
+EnemySet[1] = {0, 400073, 400073, 0, 0, 406190, 0, 0, 400072, 400072}--0代表没有怪
+BaseLevelSet[1] = {0, 300, 300, 0, 0, 300, 0, 0, 300, 300}
 Pos[1] = {"回來復仇的巨櫻樹王",EnemySet[1],BaseLevelSet[1]}
-EnemySet[2] = {0, 400075, 400075, 0, 700031, 406191, 0, 0, 400074, 400074}
-BaseLevelSet[2] = {0, 300, 300, 0, 199, 300, 0, 0, 300, 300}
+EnemySet[2] = {0, 400075, 400075, 0, 0, 406191, 0, 0, 400074, 400074}
+BaseLevelSet[2] = {0, 300, 300, 0, 0, 300, 0, 0, 300, 300}
 Pos[2] = {"回來復仇的液態史伊",EnemySet[2],BaseLevelSet[2]}
-EnemySet[3] = {0, 0, 0, 0, 700031, 0, 406192, 406192, 0, 0}
-BaseLevelSet[3] = {0, 0, 0, 0, 199, 0, 300, 300, 0, 0}
+EnemySet[3] = {0, 0, 0, 0, 0, 0, 406192, 406192, 0, 0}
+BaseLevelSet[3] = {0, 0, 0, 0, 0, 0, 300, 300, 0, 0}
 Pos[3] = {"回來復仇的夜地獄星",EnemySet[3],BaseLevelSet[3]}
-EnemySet[4] = {406193, 0, 0, 0, 700031, 0, 406193, 406193, 0, 0}
-BaseLevelSet[4] = {300, 0, 0, 0, 199, 0, 300, 300, 0, 0}
+EnemySet[4] = {406193, 0, 0, 0, 0, 0, 406193, 406193, 0, 0}
+BaseLevelSet[4] = {300, 0, 0, 0, 0, 0, 300, 300, 0, 0}
 Pos[4] = {"回來復仇的冥府之主",EnemySet[4],BaseLevelSet[4]}
-EnemySet[5] = {406220, 0, 0, 0, 700031, 0, 0, 0, 0, 0}
-BaseLevelSet[5] = {300, 0, 0, 0, 199, 0, 0, 0, 0, 0}
+EnemySet[5] = {406220, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[5] = {300, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[5] = {"回來復仇的水母霸王",EnemySet[5],BaseLevelSet[5]}
-EnemySet[6] = {0, 0, 0, 0, 700031, 0, 406226, 406206, 0, 0}
-BaseLevelSet[6] = {0, 0, 0, 0, 199, 0, 300, 300, 0, 0}
+EnemySet[6] = {0, 0, 0, 0, 0, 0, 406226, 406206, 0, 0}
+BaseLevelSet[6] = {0, 0, 0, 0, 0, 0, 300, 300, 0, 0}
 Pos[6] = {"回來復仇的暴走霸王",EnemySet[6],BaseLevelSet[6]}
-EnemySet[7] = {0, 0, 0, 0, 700031, 406233, 0, 0, 0, 0}
-BaseLevelSet[7] = {0, 0, 0, 0, 199, 300, 0, 0, 0, 0}
+EnemySet[7] = {0, 0, 0, 0, 0, 406233, 0, 0, 0, 0}
+BaseLevelSet[7] = {0, 0, 0, 0, 0, 300, 0, 0, 0, 0}
 Pos[7] = {"回來復仇的魷魚霸王",EnemySet[7],BaseLevelSet[7]}
 ------------------------------------------------------
 --背景设置
@@ -607,6 +607,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                             damage = math.floor(damage * 1.5);
                   else
                             Char.MoveItem(defCharIndex, wslot, slot, -1);
+                            Char.SetData(defCharIndex, CONST.CHAR_BattleCom1, CONST.BATTLE_COM.BATTLE_COM_ATTACK);
+                            Char.SetData(defCharIndex, CONST.CHAR_BattleCom2, 10);
+                            Char.SetData(defCharIndex, CONST.CHAR_BattleCom3, -1);
                             NLG.UpChar(defCharIndex);
                   end
               end
