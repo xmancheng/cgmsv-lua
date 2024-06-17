@@ -233,6 +233,19 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
            local damage = math.floor(damage_TA*0.5);
            --print(damage_temp,damage_TA,damage)
+           --宠物特技
+           if (com3 == 9509)  then    --疾風迅雷
+               local State = Char.GetTempData(defCharIndex, '穿透') or 0;
+               if (State>=0 and State<=12) then
+                   Char.SetTempData(defCharIndex, '穿透', State+1);
+                   damage = damage * (State+1/12);
+                   return damage;
+               elseif (State>=12)  then
+                   Char.SetTempData(defCharIndex, '穿透', 0);
+                   damage = damage * 1;
+                   return damage;
+               end
+           end
            for i=0,9 do
                local skillId = Pet.GetSkill(charIndex, i)
                if (skillId == 1619) then  --宠物被动【大胆无畏】
