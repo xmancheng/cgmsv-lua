@@ -256,7 +256,8 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 				if Hp05<=0.5 then
 					for k,v in pairs(NothingBoss) do
 						if ( k==v.lordNum ) then
-							Char.SetData(enemy, CONST.CHAR_形象, transImage);
+							--Char.SetData(enemy, CONST.CHAR_形象, transImage);
+							Char.SetData(enemy, CONST.CHAR_原形, transImage);
 						end
 					end
 					Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
