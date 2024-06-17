@@ -240,7 +240,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                    Char.SetTempData(defCharIndex, '穿透', State+1);
                    damage = damage * (State+1/12);
                    return damage;
-               elseif (State>=12)  then
+               elseif (State>=13)  then
                    Char.SetTempData(defCharIndex, '穿透', 0);
                    damage = damage * 1;
                    return damage;
