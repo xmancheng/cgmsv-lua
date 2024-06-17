@@ -32,17 +32,17 @@ Pos[6] = {"七席",EnemySet[6],BaseLevelSet[6]}
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local NothingBoss = {
-      { lordNum=1, keyItem=70241, lordName="漆黑聖典第12席", startImage=105040, transImage = 107912, waitingArea={map=1000,X=229,Y=110}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=1, keyItem=70241, lordName="漆黑聖典第12席", startImage=105040, transImage = 107912, waitingArea={map=1000,X=233,Y=112}, warpArea={map=25013,X=35,Y=15},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=2, keyItem=70242, lordName="漆黑聖典第11席", startImage=105272, transImage = 110599, waitingArea={map=1000,X=229,Y=111}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=2, keyItem=70242, lordName="漆黑聖典第11席", startImage=105272, transImage = 110599, waitingArea={map=1000,X=231,Y=112}, warpArea={map=25013,X=35,Y=15},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
       { lordNum=3, keyItem=70243, lordName="漆黑聖典第10席", startImage=105112, transImage = 101922, waitingArea={map=1000,X=229,Y=112}, warpArea={map=25013,X=35,Y=15},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=4, keyItem=70244, lordName="漆黑聖典第9席", startImage=105303, transImage = 107103, waitingArea={map=1000,X=229,Y=113}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=4, keyItem=70244, lordName="漆黑聖典第9席", startImage=105303, transImage = 107103, waitingArea={map=1000,X=227,Y=112}, warpArea={map=25013,X=35,Y=15},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=5, keyItem=70245, lordName="漆黑聖典第8席", startImage=105091, transImage = 107904, waitingArea={map=1000,X=229,Y=114}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=5, keyItem=70245, lordName="漆黑聖典第8席", startImage=105091, transImage = 107904, waitingArea={map=1000,X=225,Y=112}, warpArea={map=25013,X=35,Y=15},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=6, keyItem=70246, lordName="漆黑聖典第7席", startImage=105523, transImage = 104840, waitingArea={map=1000,X=229,Y=115}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=6, keyItem=70246, lordName="漆黑聖典第7席", startImage=105523, transImage = 104840, waitingArea={map=1000,X=223,Y=112}, warpArea={map=25013,X=35,Y=15},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -102,7 +102,11 @@ function Module:onLoad()
 			table.insert(tbl_duel_user,player);
 			boss_round_start(player, boss_round_callback);
 
-			Char.DelItem(player, v.keyItem, 1);
+			--Char.DelItem(player, v.keyItem, 1);
+                                                            local slot = Char.FindItemId(player, v.keyItem);
+                                                            local item_indexA = Char.GetItemIndex(player,slot);
+                                                            Item.SetData(item_indexA,CONST.道具_幸运,77);
+                                                            Item.UpItem(player,slot);
 			if (Char.EndEvent(player, 308) == 1) then
 				local rand = NLG.Rand(1,#v.prizeItem);
 				Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
@@ -184,9 +188,15 @@ function boss_round_callback(battleindex, player)
 	if (Char.EndEvent(player, 308) == 1) then
 		for k,v in pairs(NothingBoss) do
 			if ( k==v.lordNum and Char.HaveItem(player, v.keyItem)>0 ) then
+                                                                        local slot = Char.FindItemId(player, v.keyItem);
+                                                                        local item_indexA = Char.GetItemIndex(player,slot);
+                                                                        local Rank = Item.GetData(item_indexA, CONST.道具_幸运);
+                                                                        if (Rank==77) then
+                                                                                Char.DelItem(player, v.keyItem, 1);
 				local rand = NLG.Rand(1,#v.rewardsItem);
 				Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
 				NLG.SystemMessage(-1,"恭喜玩家: "..Char.GetData(player,CONST.对象_名字).." 討伐成功"..v.lordName.."。");
+                                                                        end
 			end
 		end
 	end
@@ -255,9 +265,12 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 				Char.SetData(enemy, CONST.CHAR_血, Hp_5);
 				if Hp05<=0.5 then
 					for k,v in pairs(NothingBoss) do
-						if ( k==v.lordNum ) then
-							--Char.SetData(enemy, CONST.CHAR_形象, transImage);
-							Char.SetData(enemy, CONST.CHAR_原形, transImage);
+						if ( k==v.lordNum and Char.GetData(enemy, CONST.CHAR_形象)==v.startImage ) then
+							Char.SetData(enemy, CONST.CHAR_形象, v.transImage);
+							--Char.SetData(enemy, CONST.CHAR_可视, v.transImage);
+							--Char.SetData(enemy, CONST.CHAR_原形, v.transImage);
+							--Char.SetData(enemy, CONST.CHAR_原始图档, v.transImage);
+							NLG.UpChar(enemy);
 						end
 					end
 					Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
