@@ -275,12 +275,12 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 					end
 					Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
 					Char.SetData(enemy, CONST.CHAR_防御力, 666);
-					Char.SetData(enemy, CONST.CHAR_敏捷, 10000);
+					Char.SetData(enemy, CONST.CHAR_敏捷, 666);
 					Char.SetData(enemy, CONST.CHAR_精神, 10000);
 					Char.SetData(enemy, CONST.CHAR_回复, 66);
-					Char.SetData(enemy, CONST.CHAR_必杀, 100);
-					Char.SetData(enemy, CONST.CHAR_闪躲, 100);
-					Char.SetData(enemy, CONST.CHAR_命中, 100);
+					Char.SetData(enemy, CONST.CHAR_必杀, 70);
+					Char.SetData(enemy, CONST.CHAR_闪躲, 70);
+					Char.SetData(enemy, CONST.CHAR_命中, 70);
 					Char.SetData(enemy, CONST.CHAR_反击, 70);
 					--Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,108511);
 				end
