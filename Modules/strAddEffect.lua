@@ -65,8 +65,8 @@ function StrAddEffect:battleOverEventCallback(battleIndex)
               local player = Battle.GetPlayer(battleIndex,DementorWhile);
               if (player>0) then
                  local ViceWeaponIndex = Char.GetViceWeapon(player);                --左右手
-                 local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运) or nil;
-                 local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字) or nil;
+                 if (ViceWeaponIndex>0) then ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运); end
+                 if (ViceWeaponIndex>0) then ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字); end
                  local GTime = NLG.GetGameTime();
                  local StrAdd_V = 0;
                  if ViceWeapon_Name~=nil then
@@ -106,11 +106,11 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
-               local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字) or nil;
+               if (WeaponIndex>0) then Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字); end
                local ShieldIndex = Char.GetShield(charIndex);                         --详情底部Fn
-               local Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字) or nil;
+               if (ShieldIndex>0) then Shield_Name = Item.GetData(ShieldIndex, CONST.道具_名字); end
                local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
-               local ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运) or nil;
+               if (ViceWeaponIndex>0) then ViceWeapon_Effect = Item.GetData(ViceWeaponIndex, CONST.道具_幸运); end
                local GTime = NLG.GetGameTime();
                local StrAdd = 0;
                if Weapon_Name~=nil then
@@ -188,11 +188,11 @@ function StrAddEffect:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDama
                end
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                local Armour0 = Char.GetItemIndex(defCharIndex, 0);                  --头
-               local Armour0_Name = Item.GetData(Armour0, CONST.道具_名字) or nil;
+               if (Armour0>0) then Armour0_Name = Item.GetData(Armour0, CONST.道具_名字); end
                local Armour1 = Char.GetItemIndex(defCharIndex, 1);                  --身
-               local Armour1_Name = Item.GetData(Armour1, CONST.道具_名字) or nil;
+               if (Armour1>0) then Armour1_Name = Item.GetData(Armour1, CONST.道具_名字); end
                local Armour4 = Char.GetItemIndex(defCharIndex, 4);                  --腿
-               local Armour4_Name = Item.GetData(Armour4, CONST.道具_名字) or nil;
+               if (Armour4>0) then Armour4_Name = Item.GetData(Armour4, CONST.道具_名字); end
                local StrAdd_0 = 0;
                local StrAdd_1 = 0;
                local StrAdd_4 = 0;
@@ -262,7 +262,7 @@ function StrAddEffect:OnTechOptionEventCallBack(charIndex, option, techID, val)
          end
          if Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 then
                local ViceWeaponIndex = Char.GetViceWeapon(charIndex);                --左右手
-               local ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字) or nil;
+               if (ViceWeaponIndex>0) then ViceWeapon_Name = Item.GetData(ViceWeaponIndex, CONST.道具_名字); end
                local ViceStrAdd = 0;
                if ViceWeapon_Name~=nil then
                  local ViceStrPlus = string.find(ViceWeapon_Name, "+");
