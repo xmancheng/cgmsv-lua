@@ -64,7 +64,7 @@ function Module:onLoad()
       local count = 7 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
-          local flagEvent = Char.EndEvent(player,worldHorcrux[i][1]);
+          local flagEvent = Char.EndEvent(player,worldHorcrux[i][3]);
           if (flagEvent == 1) then
               winMsg = winMsg .. worldHorcrux[i][1] .. "　　●已啟動]\\n"
           else
@@ -73,7 +73,7 @@ function Module:onLoad()
         end
       else
         for i = 1 + count, 7 + count do
-          local flagEvent = Char.EndEvent(player,worldHorcrux[i][1]);
+          local flagEvent = Char.EndEvent(player,worldHorcrux[i][3]);
           if (flagEvent == 1) then
               winMsg = winMsg .. worldHorcrux[i][1] .. "　　●已啟動]\\n"
           else
@@ -188,7 +188,7 @@ function Module:onTechOptionEvent(charIndex, option, techID, val)
 	local Round = Battle.GetTurn(battleIndex);
 	local CD_round = Char.GetTempData(charIndex, '七罪冷却回合') or 0;
 	local CD_tech = Char.GetTempData(charIndex, '七罪冷却技能') or -1;
-	if ( (Round - CD_round)<0 or (Round - CD_round)>=2 ) then
+	if ( (Round - CD_round)<=0 or (Round - CD_round)>=2 ) then
 		Char.SetTempData(charIndex, '七罪冷却回合', 0);
 		Char.SetTempData(charIndex, '七罪冷却技能', -1);
 		NLG.UpChar(charIndex);
