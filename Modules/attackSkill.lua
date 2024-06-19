@@ -550,11 +550,11 @@ function AttackSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamag
                    else
                         LvRate = LvRate/50;
                    end
-                   if Spirit <= 1200  then
-                        SpRate = 1;
-                   else
-                        SpRate = Spirit/1200;
-                   end
+                   local Amnd_R = Char.GetData(charIndex, CONST.CHAR_精神);
+                   local Amnd = math.max(Conver_800(Amnd_R * 1),1);
+                   local Dmnd_R = math.max(Char.GetData(defCharIndex, CONST.CHAR_精神), 100);
+                   local Dmnd = Conver_800(Dmnd_R * 1);
+                   local SpRate = math.floor( (Amnd / (0.67 + Dmnd / Amnd)) ) * 0.01;
                    local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
                    if (wandId== 79213)  then
                         damage = damage * SpRate + Spirit * 0.75 * LvRate + (Mattack+JobLv_tbl[JobLv])*0.75;
@@ -651,6 +651,19 @@ Char.GetShield = function(charIndex)
   return -1,-1;
 end
 
+function Conver_800(Num)
+	if Num >= 240 then
+		if Num >= 800 then
+			local a = math.floor((Num - 800 ) * 0.08 + 168 + 240)
+			return a
+		else
+			local a = math.floor((Num - 240 ) * 0.3 + 240)
+			return a
+		end
+	else
+		return Num
+	end
+end
 --- 卸载模块钩子
 function AttackSkill:onUnload()
   self:logInfo('unload')
