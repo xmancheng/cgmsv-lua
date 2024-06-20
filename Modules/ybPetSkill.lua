@@ -236,7 +236,7 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
            --宠物特技
            if (com3 == 9509)  then    --疾風迅雷
                local State = Char.GetTempData(defCharIndex, '穿透') or 0;
-               print(State)
+               --print(State)
                if (State>=0 and State<=12) then
                    Char.SetTempData(defCharIndex, '穿透', State+1);
                    damage = damage * ((State+1)/12);
