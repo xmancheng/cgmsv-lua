@@ -1,6 +1,11 @@
 ---模块类
 local Module = ModuleBase:createModule('bossField')
 
+local RaceRatelist = {}
+
+local PhyVoid = {406199}  --物理无效enemyid
+local MagicVoid = {406198} --魔法无效enemyid
+local ElmTech = {} or nil
 local damage_Max = 99999;
 
 --- 加载模块钩子
@@ -98,6 +103,15 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          end
 
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsEnemy(defCharIndex)  then
+               --特殊怪物(物理無效)
+               if CheckInTable(PhyVoid,Char.GetData(defCharIndex,CONST.对象_ENEMY_ID))==true and (flg == 0 or flg == 8 or flg == 1 or flg == 9) then
+                              damage = 1;
+               end
+               --特殊怪物(魔法无效)
+               if CheckInTable(MagicVoid,Char.GetData(defCharIndex,CONST.对象_ENEMY_ID))==true and flg == 5 then
+                              damage = 1;
+               end
+               --領域守住
                local GTime = NLG.GetGameTime();
                if (GTime>=0)  then
                      local State = Char.GetTempData(defCharIndex, '守住') or 0;
@@ -173,6 +187,46 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                end
                return damage;
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.IsEnemy(charIndex)  then
+               local StatsRate_Mind = 1;  --异常状态对精神影响比例(不影响必杀公式里的精神)
+               local StatsRate_critical = 1; --异常状态对必杀几率的影响比例
+               local StatsRate_dmg = 1; --异常状态对伤害(非必杀)的影响比例
+               local StatsRate_Cdmg = 1; --异常状对伤害(必杀)的影响比例
+               local Amnd_R = Char.GetData(charIndex, CONST.CHAR_精神);
+               local Amnd = math.max(Conver_240(Amnd_R * StatsRate_Mind),1);
+               local TechRate = (Battle.GetTechOption(charIndex,"AR:") + Battle.GetTechOption(charIndex,"D1:"))/60 + 0.5;
+               print("TechRate:"..TechRate)
+
+               local Dmnd_R = math.max(Char.GetData(defCharIndex, CONST.CHAR_精神),100);
+               local Dmnd = Conver_240(Dmnd_R * StatsRate_Mind);
+
+               local dp = {}
+               dp[1] = Char.GetData(defCharIndex, CONST.CHAR_地属性);
+               dp[2] = Char.GetData(defCharIndex, CONST.CHAR_水属性);
+               dp[3] = Char.GetData(defCharIndex, CONST.CHAR_火属性);
+               dp[4] = Char.GetData(defCharIndex, CONST.CHAR_风属性);
+               local AttRate_1 = 1;
+               if ElmTech[com3] ~= nil then
+                              AttRate_1 = Battle.CalcPropScore(ElmTech[com3], dp);
+               end
+               local AttRate_2 = Battle.CalcAttributeDmgRate(charIndex, defCharIndex);
+               local AttRate = (AttRate_1 - 1) + (AttRate_2 - 1) * 0.5 + 1;
+               local RaceRate = Battle.CalcTribeDmgRate(charIndex, defCharIndex) + 1;
+               local RndRate = NLG.Rand(90,110) / 100;
+
+               local dmg = math.floor( ((Amnd / (0.67 + Dmnd / Amnd))* TechRate )* AttRate * RaceRate * RndRate * StatsRate_dmg);
+               --print("Amnd_R:"..Amnd_R.." Dmnd_R:"..Dmnd_R.." Matk:"..Matk.." AttRate:"..AttRate.." RaceRate"..RaceRate.." RndRate"..RndRate);
+               print("Amnd_R:"..Amnd_R.." Dmnd_R:"..Dmnd_R.." AttRate:"..AttRate.." RaceRate"..RaceRate.." RndRate"..RndRate);
+
+               --暴击部分
+               local criticalDmg = 0;
+               local criticalRate = NLG.Rand(1,200);
+               local char_cr = math.floor((Char.GetData(charIndex, CONST.对象_必杀) - Char.GetData(defCharIndex, CONST.对象_必杀)) * StatsRate_critical);
+               print("char_cr:"..char_cr)
+               if criticalRate <= char_cr then
+                              criticalDmg = math.floor(Dmnd_R * 1 * Char.GetData(charIndex, CONST.CHAR_等级) / Char.GetData(defCharIndex, CONST.CHAR_等级) * StatsRate_Cdmg);
+               end		
+               damage = dmg + criticalDmg;
+               --領域加強
                local GTime = NLG.GetGameTime();
                if (GTime==2)  then
                      local State = Char.GetTempData(charIndex, '狂暴') or 0;
@@ -226,6 +280,25 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          else
          end
   return damage;
+end
+
+
+function CheckInTable(_idTab, _idVar) ---循环函数
+	for k,v in pairs(_idTab) do
+		if v==_idVar then
+			return true
+		end
+	end
+	return false
+end
+
+function Conver_240(Num)
+	if Num >= 240 then
+		local a = math.floor((Num - 240 ) * 0.3 + 240)
+		return a
+	else
+		return Num
+	end
 end
 
 --- 卸载模块钩子
