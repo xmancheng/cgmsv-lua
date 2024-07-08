@@ -99,7 +99,8 @@ loadModule('bossField')|魔物增強
 ### 寵物強化相關
 模組加載代碼 | 說明 
 --- | --- 
-loadModule('petHeadIcon')|帕魯幫助
+loadModule('petHeadIcon')|0檔寵物特效
+loadModule('petPalHelp')|帕魯幫助
 loadModule('petEvolution')|寵物覺醒(寵裝強化)
 loadModule('techMachine')|寵物招式機
 ### 裝備強化相關
