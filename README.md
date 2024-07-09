@@ -69,6 +69,7 @@ loadModule('autoRanking')|自助天梯(未完善)(X)
 ### 職業成就相關
 模組加載代碼 | 說明 
 --- | --- 
+loadModule('achieveGoal')|技能成就系統
 loadModule('achieveMagician')|大魔導師之路
 loadModule('achieveAres')|狂勇戰神成就
 loadModule('achieveElfRanger')|精靈遊俠成就
@@ -113,6 +114,7 @@ loadModule('sprayPaint')|噴漆鍍膜
 loadModule('incDurable')|魂魄保養
 loadModule('Strengthen')|魔力賦予
 loadModule('StrengthShop')|魔法卷軸倉庫
+loadModule('ghostHunter')|獵鬼強化(t)
 ### 特殊副本
 模組加載代碼 | 說明 
 --- | --- 
@@ -137,4 +139,5 @@ loadModule('ichibanKuji')|一番賞抽獎
 loadModule('monOven')|炙燒烤爐
 loadModule('mysteryShop')|神秘商店
 loadModule('trashCan')|垃圾處理
+loadModule('skillSheet')|人物技能秘笈
 
