@@ -1,16 +1,16 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('randPetAbility')
 
 local PetID = {600029,600030,600032,600033,600046,600047,600048,600049,600054,600060}
 local IdentifyType={}
-IdentifyType[1]={40,35,30,20,20}	--Š»¯ĞÍI
-IdentifyType[2]={30,40,20,35,20}	--·Å³öĞÍI
-IdentifyType[3]={30,20,40,20,35}	--×ƒ»¯ĞÍI
-IdentifyType[4]={20,35,20,40,30}	--²Ù×÷ĞÍI
-IdentifyType[5]={20,20,30,35,40}	--¾ß¬F»¯ĞÍI
-IdentifyType[6]={33,35,30,33,35}	--ÌØÙ|ĞÍI
+IdentifyType[1]={40,35,30,20,20}	--å¼·åŒ–å‹I
+IdentifyType[2]={30,40,20,35,20}	--æ”¾å‡ºå‹I
+IdentifyType[3]={30,20,40,20,35}	--è®ŠåŒ–å‹I
+IdentifyType[4]={20,35,20,40,30}	--æ“ä½œå‹I
+IdentifyType[5]={20,20,30,35,40}	--å…·ç¾åŒ–å‹I
+IdentifyType[6]={33,35,30,33,35}	--ç‰¹è³ªå‹I
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
@@ -22,29 +22,30 @@ function Module:OnbattleStartEventCallback(battleIndex)
               local enemy = Battle.GetPlayIndex(battleIndex, i);
               local player = Battle.GetPlayIndex(battleIndex, 0);
                --print(enemy, player)
-              if ( enemy>=0 and Char.GetData(enemy,CONST.CHAR_µÈ¼¶)==1 and Char.IsEnemy(enemy) ) then
-                  local enemyId = Char.GetData(enemy,CONST.¶ÔÏó_ENEMY_ID);
+              if ( enemy>=0 and Char.GetData(enemy,CONST.CHAR_ç­‰çº§)==1 and Char.IsEnemy(enemy) ) then
+                  local enemyId = Char.GetData(enemy,CONST.å¯¹è±¡_ENEMY_ID);
                   local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
                   --local EnemyDataIndex = Data.EnemyGetDataIndex(enemyId);
-                  --local EnemyId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base±àºÅ);
+                  --local EnemyId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Baseç¼–å·);
                   local randType = NLG.Rand(1,#IdentifyType);
                   --print(EnemyBaseId,EnemyId,randType)
-                  if (CheckInTable(PetID,EnemyBaseId)==true) then
+                  if (CheckInTable(PetID,EnemyBaseId)==true and Char.ItemNum(player,900504)>0)) then
+                      Char.DelItem(player,900504,1);
                       local type_Tbl = IdentifyType[randType]
-                      local BYTL1 = Pet.SetArtRank(enemy,CONST.³èµµ_Ìå³É, type_Tbl[1] - math.random(0,4));
-                      local BYTL2 = Pet.SetArtRank(enemy,CONST.³èµµ_Á¦³É, type_Tbl[2] - math.random(0,4));
-                      local BYTL3 = Pet.SetArtRank(enemy,CONST.³èµµ_Ç¿³É, type_Tbl[3] - math.random(0,4));
-                      local BYTL4 = Pet.SetArtRank(enemy,CONST.³èµµ_Ãô³É, type_Tbl[4] - math.random(0,4));
-                      local BYTL5 = Pet.SetArtRank(enemy,CONST.³èµµ_Ä§³É, type_Tbl[5] - math.random(0,4));
-                      Char.SetData(enemy,CONST.CHAR_ÃûÉ«,6);
+                      local BYTL1 = Pet.SetArtRank(enemy,CONST.å® æ¡£_ä½“æˆ, type_Tbl[1] - math.random(0,4));
+                      local BYTL2 = Pet.SetArtRank(enemy,CONST.å® æ¡£_åŠ›æˆ, type_Tbl[2] - math.random(0,4));
+                      local BYTL3 = Pet.SetArtRank(enemy,CONST.å® æ¡£_å¼ºæˆ, type_Tbl[3] - math.random(0,4));
+                      local BYTL4 = Pet.SetArtRank(enemy,CONST.å® æ¡£_æ•æˆ, type_Tbl[4] - math.random(0,4));
+                      local BYTL5 = Pet.SetArtRank(enemy,CONST.å® æ¡£_é­”æˆ, type_Tbl[5] - math.random(0,4));
+                      Char.SetData(enemy,CONST.CHAR_åè‰²,6);
                       NLG.UpChar(enemy);
-                      local TL3 = Pet.GetArtRank(enemy,CONST.³èµµ_Ìå³É);
-                      local GJ3 = Pet.GetArtRank(enemy,CONST.³èµµ_Á¦³É);
-                      local FY3 = Pet.GetArtRank(enemy,CONST.³èµµ_Ç¿³É);
-                      local MJ3 = Pet.GetArtRank(enemy,CONST.³èµµ_Ãô³É);
-                      local MF3 = Pet.GetArtRank(enemy,CONST.³èµµ_Ä§³É);
-                      if Char.GetData(player,CONST.¶ÔÏó_¼Ò×å¿ª¹Ø) == 1  then
-                          NLG.Say(player,-1,"¹ÖÎïëS™C×ƒ“QîĞÍ£ºów¡¾".. TL3.."¡¿Á¦¡¾".. GJ3.."¡¿Š¡¾".. FY3.."¡¿ËÙ¡¾".. MJ3.."¡¿Ä§¡¾".. MF3.."¡¿",4,3);
+                      local TL3 = Pet.GetArtRank(enemy,CONST.å® æ¡£_ä½“æˆ);
+                      local GJ3 = Pet.GetArtRank(enemy,CONST.å® æ¡£_åŠ›æˆ);
+                      local FY3 = Pet.GetArtRank(enemy,CONST.å® æ¡£_å¼ºæˆ);
+                      local MJ3 = Pet.GetArtRank(enemy,CONST.å® æ¡£_æ•æˆ);
+                      local MF3 = Pet.GetArtRank(enemy,CONST.å® æ¡£_é­”æˆ);
+                      if Char.GetData(player,CONST.å¯¹è±¡_å®¶æ—å¼€å…³) == 1  then
+                          NLG.Say(player,-1,"æ€ªç‰©éš¨æ©Ÿè®Šæ›é¡å‹ï¼šé«”ã€".. TL3.."ã€‘åŠ›ã€".. GJ3.."ã€‘å¼·ã€".. FY3.."ã€‘é€Ÿã€".. MJ3.."ã€‘é­”ã€".. MF3.."ã€‘",4,3);
                       end
                   end
               end
@@ -52,7 +53,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
     end
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -61,7 +62,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
