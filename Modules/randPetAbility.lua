@@ -29,7 +29,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
                   --local EnemyId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base编号);
                   local randType = NLG.Rand(1,#IdentifyType);
                   --print(EnemyBaseId,EnemyId,randType)
-                  if (CheckInTable(PetID,EnemyBaseId)==true and Char.ItemNum(player,900504)>0)) then
+                  if (CheckInTable(PetID,EnemyBaseId)==true and Char.ItemNum(player,900504)>0) then
                       Char.DelItem(player,900504,1);
                       local type_Tbl = IdentifyType[randType]
                       local BYTL1 = Pet.SetArtRank(enemy,CONST.宠档_体成, type_Tbl[1] - math.random(0,4));
