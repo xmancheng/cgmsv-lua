@@ -106,7 +106,7 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
                 end
                 local ybjn = Battle.IsWaitingCommand(charIndex);
                 local Poke = Char.GetTempData(charIndex, 'PokeBall') or 0;
-                if ybjn and Poke == 1  then
+                if ybjn and Poke >= 1  then
                        Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, Throw_pos, 200209);
                        Char.SetTempData(charIndex, 'PokeBall', 0);
                        --Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403);
