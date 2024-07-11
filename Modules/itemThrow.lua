@@ -18,8 +18,14 @@ GetitEnable_list[400014] = { open=1, pool={400014}};  --enemy.txt编号，设置
 GetitEnable_list[400015] = { open=1, pool={400015}};
 GetitEnable_list[400125] = { open=1, pool={401275}};
 GetitEnable_list[400126] = { open=1, pool={401276}};
+GetitEnable_list[900030] = { open=1, pool={900032}};  --第十二席
+GetitEnable_list[900033] = { open=1, pool={900035}};  --第十一席
+GetitEnable_list[900036] = { open=1, pool={900038}};  --第十席
+GetitEnable_list[900039] = { open=1, pool={900041}};  --第九席
+GetitEnable_list[900042] = { open=1, pool={900044}};  --第八席
+GetitEnable_list[900045] = { open=1, pool={900047}};  --第七席
 
-GetitEnable_list[1003] = { open=1, pool={500017,500018,500019}};  --第十二席
+GetitEnable_list[1003] = { open=1, pool={500017,500018,500019}};  --test
 
 -----------------------------------------------------------------
 function ItemThrow:setItemData(itemIndex, value)
