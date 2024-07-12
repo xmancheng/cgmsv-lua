@@ -48,17 +48,26 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
          --计算增益数量
          for i = 0, 9 do
                local playerPet = Battle.GetPlayIndex(battleIndex, i);
-               if playerPet >= 0 and Char.GetData(leader,CONST.对象_战斗Side)==0 and Battle.GetType(battleIndex)==1) then
+               if (playerPet >= 0 and Char.GetData(leader,CONST.对象_战斗Side)==0 and Battle.GetType(battleIndex)==1) then
                    if (Char.GetData(playerPet, CONST.CHAR_类型) == CONST.对象类型_宠)  then
                        for slot=0,9 do
                            local linkTechId = Pet.GetSkill(playerPet, slot);
                            table.forEach(linkTechList, function(e)
                                if (linkTechId == e) then
+                                   --确认有无数据
+                                   local boxCheck = 0;
+                                   for i=1,#Linked_Tbl do
+                                       if (Linked_Tbl[i][1]==e) then
+                                           boxCheck=i;
+                                       end
+                                   end
                                    --增益放入表格
-                                   local Linked_data = { e, 1};
-                                   table.insert(Linked_Tbl, Linked_data);
-                                   --local Linked = Char.GetTempData(leader, 'linking_..e') or 0;
-                                   --Char.SetTempData(leader, 'linking_..e', Linked+1);
+                                   if (boxCheck>0) then
+                                       Linked_Tbl[boxCheck][2] = Linked_Tbl[boxCheck][2]+1;
+                                   elseif (boxCheck==0) then
+                                       local Linked_data = { e, 1};
+                                       table.insert(Linked_Tbl, Linked_data);
+                                   end
                                end
                            end)
                        end
