@@ -1,31 +1,32 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('powerLinked')
 
+local linkTechList = {9620,9621,9622,9623,9624,9625,9626,9627,9628,9629,9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}
 local petMettleTable = {
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÈËĞÍ, skillId=9620 , buff = 0.20},              --¶ÔÈËĞÎÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Áú, skillId=9621 , buff = 0.20},              --¶ÔÁú×åÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_²»ËÀ, skillId=9622 , buff = 0.20},              --¶Ô²»ËÀÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_·ÉĞĞ, skillId=9623 , buff = 0.20},              --¶Ô·ÉĞĞÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_À¥³æ, skillId=9624 , buff = 0.20},              --¶ÔÀ¥³æÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ö²Îï, skillId=9625 , buff = 0.20},              --¶ÔÖ²ÎïÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ò°ÊŞ, skillId=9626 , buff = 0.20},              --¶ÔÒ°ÊŞÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÌØÊâ, skillId=9627 , buff = 0.20},              --¶ÔÌØÊâÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_½ğÊô, skillId=9628 , buff = 0.20},              --¶Ô½ğÊôÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ğ°Ä§, skillId=9629 , buff = 0.05},              --¶ÔĞ°Ä§Ïµ¶ÔÏóÔö¼ÓÉËº¦
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_äººå‹, skillId=9620 , buff = 0.20},              --å¯¹äººå½¢ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é¾™, skillId=9621 , buff = 0.20},              --å¯¹é¾™æ—ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ä¸æ­», skillId=9622 , buff = 0.20},              --å¯¹ä¸æ­»ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é£è¡Œ, skillId=9623 , buff = 0.20},              --å¯¹é£è¡Œç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ˜†è™«, skillId=9624 , buff = 0.20},              --å¯¹æ˜†è™«ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ¤ç‰©, skillId=9625 , buff = 0.20},              --å¯¹æ¤ç‰©ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡å…½, skillId=9626 , buff = 0.20},              --å¯¹é‡å…½ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ç‰¹æ®Š, skillId=9627 , buff = 0.20},              --å¯¹ç‰¹æ®Šç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡‘å±, skillId=9628 , buff = 0.20},              --å¯¹é‡‘å±ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‚ªé­”, skillId=9629 , buff = 0.05},              --å¯¹é‚ªé­”ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
 
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÈËĞÍ, skillId=9630 , buff = 0.20},              --¼õÇáÀ´×ÔÈËĞÎÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Áú, skillId=9631 , buff = 0.20},              --¼õÇáÀ´×ÔÁú×åÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_²»ËÀ, skillId=9632 , buff = 0.20},              --¼õÇáÀ´×Ô²»ËÀÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_·ÉĞĞ, skillId=9633 , buff = 0.20},              --¼õÇáÀ´×Ô·ÉĞĞÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_À¥³æ, skillId=9634 , buff = 0.20},              --¼õÇáÀ´×ÔÀ¥³æÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ö²Îï, skillId=9635 , buff = 0.20},              --¼õÇáÀ´×ÔÖ²ÎïÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ò°ÊŞ, skillId=9636 , buff = 0.20},              --¼õÇáÀ´×ÔÒ°ÊŞÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÌØÊâ, skillId=9637 , buff = 0.20},              --¼õÇáÀ´×ÔÌØÊâÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_½ğÊô, skillId=9638 , buff = 0.20},              --¼õÇáÀ´×Ô½ğÊôÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ğ°Ä§, skillId=9639 , buff = 0.05},              --¼õÇáÀ´×ÔĞ°Ä§Ïµ¶ÔÏóÉËº¦
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_äººå‹, skillId=9630 , buff = 0.20},              --å‡è½»æ¥è‡ªäººå½¢ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é¾™, skillId=9631 , buff = 0.20},              --å‡è½»æ¥è‡ªé¾™æ—ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ä¸æ­», skillId=9632 , buff = 0.20},              --å‡è½»æ¥è‡ªä¸æ­»ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é£è¡Œ, skillId=9633 , buff = 0.20},              --å‡è½»æ¥è‡ªé£è¡Œç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ˜†è™«, skillId=9634 , buff = 0.20},              --å‡è½»æ¥è‡ªæ˜†è™«ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ¤ç‰©, skillId=9635 , buff = 0.20},              --å‡è½»æ¥è‡ªæ¤ç‰©ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡å…½, skillId=9636 , buff = 0.20},              --å‡è½»æ¥è‡ªé‡å…½ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ç‰¹æ®Š, skillId=9637 , buff = 0.20},              --å‡è½»æ¥è‡ªç‰¹æ®Šç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡‘å±, skillId=9638 , buff = 0.20},              --å‡è½»æ¥è‡ªé‡‘å±ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‚ªé­”, skillId=9639 , buff = 0.05},              --å‡è½»æ¥è‡ªé‚ªé­”ç³»å¯¹è±¡ä¼¤å®³
 }
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
@@ -38,30 +39,30 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         --ÖØÖÃ×´Ì¬
-         for k, v in ipairs(petMettleTable) do
-             local Linked = Char.GetTempData(leader, 'linking_..v.skillId') or 0;
+         --é‡ç½®çŠ¶æ€
+         table.forEach(linkTechList, function(e)
+             local Linked = Char.GetTempData(leader, 'linking_..e') or 0;
              if Linked>0 then
-                 Char.SetTempData(leader, 'linking_..v.skillId', 0);
+                 Char.SetTempData(leader, 'linking_..e', 0);
              end
-         end
-         --¼ÆËãÔöÒæÊıÁ¿
+         end)
+         --è®¡ç®—å¢ç›Šæ•°é‡
          for i = 0, 9 do
                local playerPet = Battle.GetPlayIndex(battleIndex, i);
                if playerPet >= 0 then
-                   if (Char.GetData(playerPet, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then
+                   if (Char.GetData(playerPet, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then
                        for slot=0,9 do
                            local linkTechId = Pet.GetSkill(playerPet, slot);
-                           for k, v in ipairs(petMettleTable) do
-                               if (linkTechId == v.skillId) then
-                                   print(linkTechId,v.skillId)
-                                   local Linked = Char.GetTempData(leader, 'linking_..v.skillId') or 0;
-                                   Char.SetTempData(leader, 'linking_..v.skillId', Linked+1);
+                           table.forEach(linkTechList, function(e)
+                               if (linkTechId == e) then
+                                   local Linked = Char.GetTempData(leader, 'linking_..linkTechId') or 0;
+                                   Char.SetTempData(leader, 'linking_..linkTechId', Linked+1);
+                                   print(Linked)
                                end
-                           end
+                           end)
                        end
                    end
                end
@@ -71,7 +72,7 @@ end
 --[[
 function Module:tempDamage(charIndex, defCharIndex, damage, battleIndex)
         for k, v in ipairs(petMettleTable) do
-           if (v.MettleType==5 and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then           --¹¥·½ÖÖ×å
+           if (v.MettleType==5 and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then           --æ”»æ–¹ç§æ—
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == v.info) then
@@ -79,7 +80,7 @@ function Module:tempDamage(charIndex, defCharIndex, damage, battleIndex)
                        return damage;
                    end
                end
-           elseif (v.MettleType==6 and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then     --ÊÜ·½ÖÖ×å
+           elseif (v.MettleType==6 and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then     --å—æ–¹ç§æ—
                for i=0,9 do
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) == v.info) then
@@ -94,22 +95,22 @@ end
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
          if Char.IsPlayer(charIndex) then
-               --»ù±¾ÙYÓ
-               local LvRate = Char.GetData(charIndex,CONST.CHAR_µÈ¼¶);
-               local Attack = Char.GetData(charIndex,CONST.CHAR_¹¥»÷Á¦);
-               local Defense = Char.GetData(charIndex,CONST.CHAR_·ÀÓùÁ¦);
-               local Avoid = Char.GetData(charIndex,CONST.¶ÔÏó_ÉÁ¶ã);
-               local Critical = Char.GetData(charIndex,CONST.¶ÔÏó_±ØÉ±);
-               local Counter = Char.GetData(charIndex,CONST.¶ÔÏó_·´»÷);
-               local Agile = Char.GetData(charIndex,CONST.CHAR_Ãô½İ);
-               local Spirit = Char.GetData(charIndex,CONST.CHAR_¾«Éñ);
-               local Blood = Char.GetData(charIndex,CONST.CHAR_Ñª);
-               local Mana = Char.GetData(charIndex,CONST.CHAR_Ä§);
-               local Mattack = Char.GetData(charIndex,CONST.CHAR_Ä§¹¥);
+               --åŸºæœ¬è³‡è¨Š
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_ç­‰çº§);
+               local Attack = Char.GetData(charIndex,CONST.CHAR_æ”»å‡»åŠ›);
+               local Defense = Char.GetData(charIndex,CONST.CHAR_é˜²å¾¡åŠ›);
+               local Avoid = Char.GetData(charIndex,CONST.å¯¹è±¡_é—ªèº²);
+               local Critical = Char.GetData(charIndex,CONST.å¯¹è±¡_å¿…æ€);
+               local Counter = Char.GetData(charIndex,CONST.å¯¹è±¡_åå‡»);
+               local Agile = Char.GetData(charIndex,CONST.CHAR_æ•æ·);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_ç²¾ç¥);
+               local Blood = Char.GetData(charIndex,CONST.CHAR_è¡€);
+               local Mana = Char.GetData(charIndex,CONST.CHAR_é­”);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_é­”æ”»);
                if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Weapon_Name~=nil then
 
                  local techList = {9519,25815,25816,25817,25818,25819,415,416,417,418,429}
@@ -127,9 +128,9 @@ end
                         end
                         end)
 
-                        local State = Char.GetTempData(defCharIndex, 'Èõüc') or 0;
+                        local State = Char.GetTempData(defCharIndex, 'å¼±é»') or 0;
                         if (State>=0) then
-                            Char.SetTempData(defCharIndex, 'Èõüc', State+1);
+                            Char.SetTempData(defCharIndex, 'å¼±é»', State+1);
                             damage = damage * (1+State/100);
                         end
 
@@ -151,51 +152,51 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         if (com3==6339)  then    --¾ıÖ÷îIÓò(¹Ì¶¨Á¿³¬Ña¸½¼Ó»ÖÍÄ§·¨ÑaÁ¿¹Ì¶¨ÔöÒæ)
-               if Char.GetData(charIndex,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                   NLG.Say(charIndex,charIndex,"¡¾¾ıÖ÷îIÓò¡¿£¡£¡",4,3);
+         if (com3==6339)  then    --å›ä¸»é ˜åŸŸ(å›ºå®šé‡è¶…è£œé™„åŠ æ¢å¾©é­”æ³•è£œé‡å›ºå®šå¢ç›Š)
+               if Char.GetData(charIndex,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                   NLG.Say(charIndex,charIndex,"ã€å›ä¸»é ˜åŸŸã€‘ï¼ï¼",4,3);
                end
-               local restore = Char.GetData(charIndex,CONST.CHAR_»Ø¸´);
-               local defRestore = Char.GetData(defCharIndex,CONST.CHAR_»Ø¸´);
+               local restore = Char.GetData(charIndex,CONST.CHAR_å›å¤);
+               local defRestore = Char.GetData(defCharIndex,CONST.CHAR_å›å¤);
                print(restore,defRestore)
                if (defRestore < restore) then
-                 Char.SetTempData(defCharIndex, '»Ö¸´ÔöÒæ', restore);
+                 Char.SetTempData(defCharIndex, 'æ¢å¤å¢ç›Š', restore);
                  heal = heal+restore;
-                 --NLG.Say(-1,-1,"¡¾¾ıÖ÷îIÓò¡¿ŸoÒ•±»ÖÎ°KÕß»ØÍµÄÑaÑªĞg£¡£¡",4,3);
+                 --NLG.Say(-1,-1,"ã€å›ä¸»é ˜åŸŸã€‘ç„¡è¦–è¢«æ²»ç™’è€…å›å¾©çš„è£œè¡€è¡“ï¼ï¼",4,3);
                else
                  heal = heal;
                end
                return heal;
          end
-         if (flg==CONST.HealDamageFlags.Heal)  then    --ÑaÑªÖÎ¯ŸÄ§·¨
-               local deBuff = Char.GetTempData(defCharIndex, '»Ø¸´¼õÒæ') or 0;
+         if (flg==CONST.HealDamageFlags.Heal)  then    --è£œè¡€æ²»ç™‚é­”æ³•
+               local deBuff = Char.GetTempData(defCharIndex, 'å›å¤å‡ç›Š') or 0;
                if (deBuff > 0)  then
                        if (deBuff==2)  then
                            heal = heal * 0.5;
-                           Char.SetTempData(defCharIndex, '»Ø¸´¼õÒæ', 1);
+                           Char.SetTempData(defCharIndex, 'å›å¤å‡ç›Š', 1);
                        elseif (deBuff==1)  then
                            heal = heal * 0.5;
-                           Char.SetTempData(defCharIndex, '»Ø¸´¼õÒæ', 0);
+                           Char.SetTempData(defCharIndex, 'å›å¤å‡ç›Š', 0);
                        end
                else
                        heal = heal;
                end
                return heal;
-         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --»ÖÍÄ§·¨
-               local deBuff = Char.GetTempData(defCharIndex, '»Ø¸´¼õÒæ') or 0;
-               local Buff = Char.GetTempData(defCharIndex, '»Ö¸´ÔöÒæ') or 0;
+         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --æ¢å¾©é­”æ³•
+               local deBuff = Char.GetTempData(defCharIndex, 'å›å¤å‡ç›Š') or 0;
+               local Buff = Char.GetTempData(defCharIndex, 'æ¢å¤å¢ç›Š') or 0;
                if (Buff > 0)  then
                    if (deBuff>0)  then
                       local HpHeal = Buff * 0.5;
                       heal = heal * 0.5+HpHeal;
-                      Char.SetTempData(defCharIndex, '»Ö¸´ÔöÒæ', HpHeal);
+                      Char.SetTempData(defCharIndex, 'æ¢å¤å¢ç›Š', HpHeal);
                    else
                       local HpHeal = Buff * 0.5;
                       heal = heal+HpHeal;
-                      Char.SetTempData(defCharIndex, '»Ö¸´ÔöÒæ', HpHeal);
+                      Char.SetTempData(defCharIndex, 'æ¢å¤å¢ç›Š', HpHeal);
                    end
                elseif (Buff <= 0)  then
                    if (deBuff>0)  then
@@ -207,13 +208,13 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
                    heal = heal;
                end
                return heal;
-         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --Ã÷çRÖ¹Ë®
-               Char.SetTempData(defCharIndex, '‚û¿Ú', 0);
-               Char.SetTempData(defCharIndex, 'ÃÍ¶¾', 0);
-               local deBuff = Char.GetTempData(defCharIndex, '»Ø¸´¼õÒæ') or 0;
+         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --æ˜é¡æ­¢æ°´
+               Char.SetTempData(defCharIndex, 'å‚·å£', 0);
+               Char.SetTempData(defCharIndex, 'çŒ›æ¯’', 0);
+               local deBuff = Char.GetTempData(defCharIndex, 'å›å¤å‡ç›Š') or 0;
                if (deBuff > 0)  then
                        heal = heal * 0.1;
-                       Char.SetTempData(defCharIndex, '»Ø¸´¼õÒæ', 0);
+                       Char.SetTempData(defCharIndex, 'å›å¤å‡ç›Š', 0);
                else
                        heal = heal;
                end
@@ -228,45 +229,47 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         --ÔöÒæ·ÅÈë±í¸ñ
+         --å¢ç›Šæ”¾å…¥è¡¨æ ¼
          local Linked_Tbl = {}
-         if (Char.GetData(leader,CONST.¶ÔÏó_Õ½¶·Side)==0 and Battle.GetType(battleIndex)==1) then
+         if (Char.GetData(leader,CONST.å¯¹è±¡_æˆ˜æ–—Side)==0 and Battle.GetType(battleIndex)==1) then
               for k, v in ipairs(petMettleTable) do
                   local Linked = Char.GetTempData(leader, 'linking_..v.skillId') or 0;
                   if Linked>0 then
-                      local Linked_data= {v.skillId,Linked}
+                      local Linked_data= { v.skillId, Linked};
                       table.insert(Linked_Tbl, Linked_data);
-                      print("linking_"..v.skillId..":"..Linked)
+                      print(Linked_data[1],Linked_data[2])
                   end
               end
          end
-         table.forEach(Linked_Tbl, function(e)
+         local damage_A=0;
+         local damage_D=0;
+         for i=1,#Linked_Tbl do
               for k, v in ipairs(petMettleTable) do
-                  if (v.skillId==e[1] and Char.GetData(defCharIndex, v.type) == v.info) then
-                     damage_A = (1+ (e[2] * v.buff))*100 or 0;
-                     damage = damage*(1+ (e[2] * v.buff));
-                  elseif (v.skillId==e[1] and Char.GetData(charIndex, v.type) == v.info) then
-                     damage_D = (1- (e[2] * v.buff))*100 or 0;
-                     damage = damage*(1- (e[2] * v.buff));
+                  if (v.skillId==Linked_Tbl[i][1] and Char.GetData(defCharIndex, v.type) == v.info) then
+                     damage_A = (1+ (Linked_Tbl[i][2] * v.buff))*100;
+                     damage = damage*(1+ (Linked_Tbl[i][2] * v.buff));
+                  elseif (v.skillId==Linked_Tbl[i][1] and Char.GetData(charIndex, v.type) == v.info) then
+                     damage_D = (1- (Linked_Tbl[i][2] * v.buff))*100;
+                     damage = damage*(1- (Linked_Tbl[i][2] * v.buff));
                   else
                      damage = damage;
                   end
               end
-         end)
-         print("Ôö¼Ó‚ûº¦"..damage_A.."%","œpÉÙ‚ûº¦"..damage_D.."%")
+         end
+         print("å¢åŠ å‚·å®³"..damage_A.."%","æ¸›å°‘å‚·å®³"..damage_D.."%")
 
-         if (flg==CONST.DamageFlags.Poison)  then    --ÖĞ¶¾‚ûº¦
-               local deBuff = Char.GetTempData(defCharIndex, 'ÃÍ¶¾') or 0;
+         if (flg==CONST.DamageFlags.Poison)  then    --ä¸­æ¯’å‚·å®³
+               local deBuff = Char.GetTempData(defCharIndex, 'çŒ›æ¯’') or 0;
                if (deBuff > 0)  then
                        if (deBuff==2)  then
                            damage = damage * 2;
-                           Char.SetTempData(defCharIndex, 'ÃÍ¶¾', 1);
+                           Char.SetTempData(defCharIndex, 'çŒ›æ¯’', 1);
                        elseif (deBuff==1)  then
                            damage = damage * 2;
-                           Char.SetTempData(defCharIndex, 'ÃÍ¶¾', 0);
+                           Char.SetTempData(defCharIndex, 'çŒ›æ¯’', 0);
                        end
                else
                        damage = damage;
@@ -274,20 +277,20 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                return damage;
          end
 
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
-               if (defCom1==2502)  then    --0x9C6²»ËÀ²»‰Ä/defCom1==43Â}¶Ü(ŸoÏŞµÖ“õËÀÍö)
-                     if Char.GetData(defCharIndex,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                         NLG.Say(defCharIndex,defCharIndex,"¡¾²»ËÀ²»‰Ä¡¿£¡£¡",4,3);
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+               if (defCom1==2502)  then    --0x9C6ä¸æ­»ä¸å£/defCom1==43è–ç›¾(ç„¡é™æŠµæ“‹æ­»äº¡)
+                     if Char.GetData(defCharIndex,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                         NLG.Say(defCharIndex,defCharIndex,"ã€ä¸æ­»ä¸å£ã€‘ï¼ï¼",4,3);
                      end
-                     local defHpE = Char.GetData(defCharIndex,CONST.CHAR_Ñª);
+                     local defHpE = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
                      if damage>=defHpE-1 then
-                       Char.SetData(defCharIndex, CONST.CHAR_Ñª, defHpE+damage*0.1);
-                       Char.SetData(defCharIndex, CONST.CHAR_ÊÜÉË, 0);
+                       Char.SetData(defCharIndex, CONST.CHAR_è¡€, defHpE+damage*0.1);
+                       Char.SetData(defCharIndex, CONST.CHAR_å—ä¼¤, 0);
                        Char.SetData(defCharIndex, CONST.CHAR_BattleLpRecovery, 2);
                        Char.UpCharStatus(defCharIndex);
                        NLG.UpChar(defCharIndex);
                        damage = damage*0;
-                       --NLG.Say(-1,-1,"¡¾²»ËÀ²»‰Ä¡¿µÖäNÁËÖÂÃüµÄ‚ûº¦£¡£¡",4,3);
+                       --NLG.Say(-1,-1,"ã€ä¸æ­»ä¸å£ã€‘æŠµéŠ·äº†è‡´å‘½çš„å‚·å®³ï¼ï¼",4,3);
                      else
                        damage = damage;
                      end
@@ -296,106 +299,106 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                return damage;
          end
 
-         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
-               if (com3 == 10539)  then    --10539ÇçÌì´óÕ÷
-                     if Char.GetData(charIndex,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                         NLG.Say(charIndex,charIndex,"¡¾ÇçÌì´óÕ÷¡¿£¡£¡",4,3);
+         if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg ~= CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
+               if (com3 == 10539)  then    --10539æ™´å¤©å¤§å¾
+                     if Char.GetData(charIndex,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                         NLG.Say(charIndex,charIndex,"ã€æ™´å¤©å¤§å¾ã€‘ï¼ï¼",4,3);
                      end
-                     local State = Char.GetTempData(defCharIndex, '‚û¿Ú') or 0;
+                     local State = Char.GetTempData(defCharIndex, 'å‚·å£') or 0;
                      if (State>0) then
                              if (State==2)  then
-                                 Char.SetTempData(defCharIndex, '‚û¿Ú', 1);
+                                 Char.SetTempData(defCharIndex, 'å‚·å£', 1);
                                  damage = damage*1.2;
-                                 --NLG.Say(-1,-1,"¡¾ÇçÌì´óÕ÷¡¿¹¥“ô‚û¿Ú²¿Î»±©“ôÔö¼Ó‚ûº¦20%£¬Ê£ÏÂ1Ì‚û¿Ú£¡£¡",4,3);
+                                 --NLG.Say(-1,-1,"ã€æ™´å¤©å¤§å¾ã€‘æ”»æ“Šå‚·å£éƒ¨ä½æš´æ“Šå¢åŠ å‚·å®³20%ï¼Œå‰©ä¸‹1è™•å‚·å£ï¼ï¼",4,3);
                              elseif (State==1)  then
-                                 Char.SetTempData(defCharIndex, '‚û¿Ú', 0);
+                                 Char.SetTempData(defCharIndex, 'å‚·å£', 0);
                                  damage = damage*1.2;
-                                 --NLG.Say(-1,-1,"¡¾ÇçÌì´óÕ÷¡¿¹¥“ô‚û¿Ú²¿Î»±©“ôÔö¼Ó‚ûº¦20%£¬Œ¦ÏóŒ¢Ÿo‚û¿Ú£¡£¡",4,3);
+                                 --NLG.Say(-1,-1,"ã€æ™´å¤©å¤§å¾ã€‘æ”»æ“Šå‚·å£éƒ¨ä½æš´æ“Šå¢åŠ å‚·å®³20%ï¼Œå°è±¡å°‡ç„¡å‚·å£ï¼ï¼",4,3);
                              end
                      else
-                             Char.SetTempData(defCharIndex, '‚û¿Ú', 2);
+                             Char.SetTempData(defCharIndex, 'å‚·å£', 2);
                              damage = damage*0.7;
-                             --NLG.Say(-1,-1,"¡¾ÇçÌì´óÕ÷¡¿¹¥“ô·Ç‚û¿Ú²¿Î»½µµÍ‚ûº¦30%£¬µ«Ôì³É2Ì‚û¿Ú£¡£¡",4,3);
+                             --NLG.Say(-1,-1,"ã€æ™´å¤©å¤§å¾ã€‘æ”»æ“Šéå‚·å£éƒ¨ä½é™ä½å‚·å®³30%ï¼Œä½†é€ æˆ2è™•å‚·å£ï¼ï¼",4,3);
                      end
                      return damage;
-               elseif (com3==26039)  then    --ÈÕ¹â˜Œ¼â
-                     if Char.GetData(charIndex,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                         NLG.Say(charIndex,charIndex,"¡¾ÈÕ¹â˜Œ¼â¡¿£¡£¡",4,3);
+               elseif (com3==26039)  then    --æ—¥å…‰æ§å°–
+                     if Char.GetData(charIndex,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                         NLG.Say(charIndex,charIndex,"ã€æ—¥å…‰æ§å°–ã€‘ï¼ï¼",4,3);
                      end
-                     local deBuff = Char.GetTempData(defCharIndex, '»Ø¸´¼õÒæ') or 0;
+                     local deBuff = Char.GetTempData(defCharIndex, 'å›å¤å‡ç›Š') or 0;
                      if (deBuff==0) then
-                       Char.SetTempData(defCharIndex, '»Ø¸´¼õÒæ', 2);
+                       Char.SetTempData(defCharIndex, 'å›å¤å‡ç›Š', 2);
                        damage = damage;
-                       --NLG.Say(-1,-1,"¡¾ÈÕ¹â˜Œ¼â¡¿½oÓèŒ¦ÏóÖÎ¯Ÿ¡¢»ÖÍ¡¢Ã÷çRÑaÁ¿œpÒæ2ŒÓ£¡£¡",4,3);
+                       --NLG.Say(-1,-1,"ã€æ—¥å…‰æ§å°–ã€‘çµ¦äºˆå°è±¡æ²»ç™‚ã€æ¢å¾©ã€æ˜é¡è£œé‡æ¸›ç›Š2å±¤ï¼ï¼",4,3);
                      end
                      return damage;
-               elseif (com3==11139)  then    --Ì“”µ¿Õég
-                     if Char.GetData(charIndex,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-                         NLG.Say(charIndex,charIndex,"¡¾Ì“”µ¿Õég¡¿£¡£¡",4,3);
+               elseif (com3==11139)  then    --è™›æ•¸ç©ºé–“
+                     if Char.GetData(charIndex,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+                         NLG.Say(charIndex,charIndex,"ã€è™›æ•¸ç©ºé–“ã€‘ï¼ï¼",4,3);
                      end
-                     local defMp = Char.GetData(defCharIndex, CONST.CHAR_Ä§);
-                     local deBuff = Char.GetTempData(defCharIndex, 'ÃÍ¶¾') or 0;
-                     Char.SetData(defCharIndex, CONST.CHAR_Ä§, defMp*0.8);
+                     local defMp = Char.GetData(defCharIndex, CONST.CHAR_é­”);
+                     local deBuff = Char.GetTempData(defCharIndex, 'çŒ›æ¯’') or 0;
+                     Char.SetData(defCharIndex, CONST.CHAR_é­”, defMp*0.8);
                      NLG.UpChar(defCharIndex);
                      if (deBuff==0) then
-                       Char.SetTempData(defCharIndex, 'ÃÍ¶¾', 2);
+                       Char.SetTempData(defCharIndex, 'çŒ›æ¯’', 2);
                        damage = damage;
-                       --NLG.Say(-1,-1,"¡¾Ì“”µ¿Õég¡¿Œ¦Ïó®”Ç°FPÏ÷œp20%£¬K½oÓèÖĞ¶¾•rÃÍ¶¾‚ûº¦2»Ø´Î£¡£¡",4,3);
+                       --NLG.Say(-1,-1,"ã€è™›æ•¸ç©ºé–“ã€‘å°è±¡ç•¶å‰FPå‰Šæ¸›20%ï¼Œä¸¦çµ¦äºˆä¸­æ¯’æ™‚çŒ›æ¯’å‚·å®³2å›æ¬¡ï¼ï¼",4,3);
                      end
                      return damage;
                end
 
---ºÏ“ô î‘BÔö‚û
-               if flg == CONST.DamageFlags.Combo and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
+--åˆæ“Šç‹€æ…‹å¢å‚·
+               if flg == CONST.DamageFlags.Combo and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModConfusion)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶Ô»ìÂÒÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹æ··ä¹±ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModDrunk)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶Ô¾Æ×íÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹é…’é†‰ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModPoison)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶ÔÖĞ¶¾Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹ä¸­æ¯’ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModSleep)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶Ô»èË¯Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹æ˜ç¡ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModStone)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶ÔÊ¯»¯Ä¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹çŸ³åŒ–ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                  if  Char.GetData(defCharIndex, CONST.CHAR_BattleModAmnesia)>=1  then
                         damage = damage * 1.01;
                         print(damage)
-                        --NLG.Say(leader,charIndex,"¡¾¶ÔÒÅÍüÄ¿±êÉËº¦Ìá¸ß1%¡¿£¡£¡",4,3);
+                        --NLG.Say(leader,charIndex,"ã€å¯¹é—å¿˜ç›®æ ‡ä¼¤å®³æé«˜1%ã€‘ï¼ï¼",4,3);
                         return damage;
                  end
                end
 
-         elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then
+         elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then
                if Char.IsPlayer(charIndex) then
-                 local WeaponIndex = Char.GetWeapon(charIndex);                --×óÓÒÊÖ
-                 local Weapon_Name = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
+                 local WeaponIndex = Char.GetWeapon(charIndex);                --å·¦å³æ‰‹
+                 local Weapon_Name = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
                  if Weapon_Name~=nil then
-                   local LvRate = Char.GetData(charIndex,CONST.CHAR_µÈ¼¶);
-                   local Spirit = Char.GetData(charIndex,CONST.CHAR_¾«Éñ);
-                   local Mattack = Char.GetData(charIndex,CONST.CHAR_Ä§¹¥);
-                   local Amnd_R = Char.GetData(charIndex, CONST.CHAR_¾«Éñ);
+                   local LvRate = Char.GetData(charIndex,CONST.CHAR_ç­‰çº§);
+                   local Spirit = Char.GetData(charIndex,CONST.CHAR_ç²¾ç¥);
+                   local Mattack = Char.GetData(charIndex,CONST.CHAR_é­”æ”»);
+                   local Amnd_R = Char.GetData(charIndex, CONST.CHAR_ç²¾ç¥);
                    local Amnd = math.max(Conver_800(Amnd_R * 1),1);
-                   local Dmnd_R = math.max(Char.GetData(defCharIndex, CONST.CHAR_¾«Éñ), 100);
+                   local Dmnd_R = math.max(Char.GetData(defCharIndex, CONST.CHAR_ç²¾ç¥), 100);
                    local Dmnd = Conver_800(Dmnd_R * 1);
                    local SpRate = math.floor( (Amnd / (0.67 + Dmnd / Amnd)) ) * 0.01;
                    damage = damage * SpRate + Spirit * 0.75 * 1.2 + (Mattack+400)*0.75;
@@ -422,7 +425,7 @@ function Conver_800(Num)
 		return Num
 	end
 end
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
