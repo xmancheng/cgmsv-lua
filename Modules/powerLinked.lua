@@ -1,28 +1,29 @@
 ---模块类
 local Module = ModuleBase:createModule('powerLinked')
 
+local Linked_Tbl = {}
 local linkTechList = {9620,9621,9622,9623,9624,9625,9626,9627,9628,9629,9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}
 local petMettleTable = {
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_人型, skillId=9620 , buff = 0.20},              --对人形系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_龙, skillId=9621 , buff = 0.20},              --对龙族系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_不死, skillId=9622 , buff = 0.20},              --对不死系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_飞行, skillId=9623 , buff = 0.20},              --对飞行系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_昆虫, skillId=9624 , buff = 0.20},              --对昆虫系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_植物, skillId=9625 , buff = 0.20},              --对植物系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_野兽, skillId=9626 , buff = 0.20},              --对野兽系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_特殊, skillId=9627 , buff = 0.20},              --对特殊系对象增加伤害
-             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_金属, skillId=9628 , buff = 0.20},              --对金属系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_人型, skillId=9620 , buff = 0.10},              --对人形系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_龙, skillId=9621 , buff = 0.10},              --对龙族系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_不死, skillId=9622 , buff = 0.10},              --对不死系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_飞行, skillId=9623 , buff = 0.10},              --对飞行系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_昆虫, skillId=9624 , buff = 0.10},              --对昆虫系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_植物, skillId=9625 , buff = 0.10},              --对植物系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_野兽, skillId=9626 , buff = 0.10},              --对野兽系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_特殊, skillId=9627 , buff = 0.10},              --对特殊系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_金属, skillId=9628 , buff = 0.10},              --对金属系对象增加伤害
              { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_邪魔, skillId=9629 , buff = 0.05},              --对邪魔系对象增加伤害
 
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_人型, skillId=9630 , buff = 0.20},              --减轻来自人形系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_龙, skillId=9631 , buff = 0.20},              --减轻来自龙族系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_不死, skillId=9632 , buff = 0.20},              --减轻来自不死系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_飞行, skillId=9633 , buff = 0.20},              --减轻来自飞行系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_昆虫, skillId=9634 , buff = 0.20},              --减轻来自昆虫系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_植物, skillId=9635 , buff = 0.20},              --减轻来自植物系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_野兽, skillId=9636 , buff = 0.20},              --减轻来自野兽系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_特殊, skillId=9637 , buff = 0.20},              --减轻来自特殊系对象伤害
-             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_金属, skillId=9638 , buff = 0.20},              --减轻来自金属系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_人型, skillId=9630 , buff = 0.10},              --减轻来自人形系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_龙, skillId=9631 , buff = 0.10},              --减轻来自龙族系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_不死, skillId=9632 , buff = 0.10},              --减轻来自不死系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_飞行, skillId=9633 , buff = 0.10},              --减轻来自飞行系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_昆虫, skillId=9634 , buff = 0.10},              --减轻来自昆虫系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_植物, skillId=9635 , buff = 0.10},              --减轻来自植物系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_野兽, skillId=9636 , buff = 0.10},              --减轻来自野兽系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_特殊, skillId=9637 , buff = 0.10},              --减轻来自特殊系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_金属, skillId=9638 , buff = 0.10},              --减轻来自金属系对象伤害
              { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_邪魔, skillId=9639 , buff = 0.05},              --减轻来自邪魔系对象伤害
 }
 
@@ -43,24 +44,21 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
                leader = leader2
          end
          --重置状态
-         table.forEach(linkTechList, function(e)
-             local Linked = Char.GetTempData(leader, 'linking_..e') or 0;
-             if Linked>0 then
-                 Char.SetTempData(leader, 'linking_..e', 0);
-             end
-         end)
+         Linked_Tbl = {}
          --计算增益数量
          for i = 0, 9 do
                local playerPet = Battle.GetPlayIndex(battleIndex, i);
-               if playerPet >= 0 then
+               if playerPet >= 0 and Char.GetData(leader,CONST.对象_战斗Side)==0 and Battle.GetType(battleIndex)==1) then
                    if (Char.GetData(playerPet, CONST.CHAR_类型) == CONST.对象类型_宠)  then
                        for slot=0,9 do
                            local linkTechId = Pet.GetSkill(playerPet, slot);
                            table.forEach(linkTechList, function(e)
                                if (linkTechId == e) then
-                                   local Linked = Char.GetTempData(leader, 'linking_..linkTechId') or 0;
-                                   Char.SetTempData(leader, 'linking_..linkTechId', Linked+1);
-                                   print(Linked)
+                                   --增益放入表格
+                                   local Linked_data = { e, 1};
+                                   table.insert(Linked_Tbl, Linked_data);
+                                   --local Linked = Char.GetTempData(leader, 'linking_..e') or 0;
+                                   --Char.SetTempData(leader, 'linking_..e', Linked+1);
                                end
                            end)
                        end
@@ -69,29 +67,7 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
          end
 end
 
---[[
-function Module:tempDamage(charIndex, defCharIndex, damage, battleIndex)
-        for k, v in ipairs(petMettleTable) do
-           if (v.MettleType==5 and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠)  then           --攻方种族
-               for i=0,9 do
-                   local skillId = Pet.GetSkill(charIndex, i)
-                   if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == v.info) then
-                       damage = damage * v.val;
-                       return damage;
-                   end
-               end
-           elseif (v.MettleType==6 and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_宠)  then     --受方种族
-               for i=0,9 do
-                   local skillId = Pet.GetSkill(defCharIndex, i)
-                   if (skillId == v.skillId and Char.GetData(charIndex, v.type) == v.info) then
-                       damage = damage * v.val;
-                       return damage;
-                   end
-               end
-        end
-end
-]]
---[[function Module:WeaponDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg)
+function Module:LinkedEffect(charIndex, defCharIndex, damage, battleIndex, com3, flg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
@@ -146,7 +122,7 @@ end
          end
     return damage;
 end
-]]
+
 function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -232,26 +208,15 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
                leader = leader2
          end
-         --增益放入表格
-         local Linked_Tbl = {}
-         if (Char.GetData(leader,CONST.对象_战斗Side)==0 and Battle.GetType(battleIndex)==1) then
-              for k, v in ipairs(petMettleTable) do
-                  local Linked = Char.GetTempData(leader, 'linking_..v.skillId') or 0;
-                  if Linked>0 then
-                      local Linked_data= { v.skillId, Linked};
-                      table.insert(Linked_Tbl, Linked_data);
-                      print(Linked_data[1],Linked_data[2])
-                  end
-              end
-         end
          local damage_A=0;
          local damage_D=0;
+         local Linked_Tbl = Linked_Tbl;
          for i=1,#Linked_Tbl do
               for k, v in ipairs(petMettleTable) do
-                  if (v.skillId==Linked_Tbl[i][1] and Char.GetData(defCharIndex, v.type) == v.info) then
+                  if (v.MettleType==5 and v.skillId==Linked_Tbl[i][1] and Char.GetData(defCharIndex, v.type) == v.info) then
                      damage_A = (1+ (Linked_Tbl[i][2] * v.buff))*100;
                      damage = damage*(1+ (Linked_Tbl[i][2] * v.buff));
-                  elseif (v.skillId==Linked_Tbl[i][1] and Char.GetData(charIndex, v.type) == v.info) then
+                  elseif (v.MettleType==6 and v.skillId==Linked_Tbl[i][1] and Char.GetData(charIndex, v.type) == v.info) then
                      damage_D = (1- (Linked_Tbl[i][2] * v.buff))*100;
                      damage = damage*(1- (Linked_Tbl[i][2] * v.buff));
                   else
@@ -390,22 +355,17 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人  then
                if Char.IsPlayer(charIndex) then
-                 local WeaponIndex = Char.GetWeapon(charIndex);                --左右手
-                 local Weapon_Name = Item.GetData(WeaponIndex, CONST.道具_名字);
-                 if Weapon_Name~=nil then
-                   local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
-                   local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
-                   local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
-                   local Amnd_R = Char.GetData(charIndex, CONST.CHAR_精神);
-                   local Amnd = math.max(Conver_800(Amnd_R * 1),1);
-                   local Dmnd_R = math.max(Char.GetData(defCharIndex, CONST.CHAR_精神), 100);
-                   local Dmnd = Conver_800(Dmnd_R * 1);
-                   local SpRate = math.floor( (Amnd / (0.67 + Dmnd / Amnd)) ) * 0.01;
-                   damage = damage * SpRate + Spirit * 0.75 * 1.2 + (Mattack+400)*0.75;
-                   return damage;
-                 end
+                 local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+                 local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+                 local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
+                 local Amnd_R = Char.GetData(charIndex, CONST.CHAR_精神);
+                 local Amnd = math.max(Conver_800(Amnd_R * 1),1);
+                 local Dmnd_R = math.max(Char.GetData(defCharIndex, CONST.CHAR_精神), 100);
+                 local Dmnd = Conver_800(Dmnd_R * 1);
+                 local SpRate = math.floor( (Amnd / (0.67 + Dmnd / Amnd)) ) * 0.01;
+                 damage = damage * SpRate + Spirit * 0.75 * 1.2 + (Mattack+400)*0.75;
+                 return damage;
                end
-               return damage;
 
          else
          end
