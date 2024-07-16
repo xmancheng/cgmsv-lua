@@ -32,17 +32,17 @@ Pos[6] = {"傳說寶可夢",EnemySet[6],BaseLevelSet[6]}
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local LegendBoss = {
-      { lordNum=1, timesec=7200, lordName="傳說寶可夢", startImage=105040, transImage = 107912, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=233,Y=112},
+      { lordNum=1, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105040, transImage = 107912, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=233,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=2, timesec=7200, lordName="傳說寶可夢", startImage=105272, transImage = 110599, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=231,Y=112},
+      { lordNum=2, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105272, transImage = 110599, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=231,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=3, timesec=7200, lordName="傳說寶可夢", startImage=105112, transImage = 101922, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=229,Y=112},
+      { lordNum=3, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105112, transImage = 101922, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=229,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=4, timesec=7200, lordName="傳說寶可夢", startImage=105303, transImage = 107103, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=227,Y=112},
+      { lordNum=4, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105303, transImage = 107103, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=227,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=5, timesec=7200, lordName="傳說寶可夢", startImage=105091, transImage = 107904, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=225,Y=112},
+      { lordNum=5, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105091, transImage = 107904, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=225,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=6, timesec=7200, lordName="傳說寶可夢", startImage=105523, transImage = 104840, waitingArea={map=777,X=38,Y=51}, warpArea={map=1000,X=223,Y=112},
+      { lordNum=6, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105523, transImage = 104840, waitingArea={map=777,X=38,Y=51}, warpArea={map=1000,X=223,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -64,7 +64,7 @@ function Module:onLoad()
   self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self))
   --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
- self:regCallback('LoopEvent', Func.bind(self.LegendBoss_LoopEvent,self))
+  self:regCallback('LoopEvent', Func.bind(self.LegendBoss_LoopEvent,self))
   for k,v in pairs(LegendBoss) do
    if tbl_LegendBossNPCIndex[k] == nil then
     local LegendBossNPC = self:NPC_createNormal(v.lordName, v.startImage, { map = v.waitingArea.map, x = v.waitingArea.X, y = v.waitingArea.Y, direction = 5, mapType = 0 })
@@ -274,7 +274,9 @@ function boss_round_callback(battleindex, player)
 			--local item_indexA = Char.GetItemIndex(player,slot);
 			local rand = NLG.Rand(1,#v.rewardsItem);
 			Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+			Char.SetData(player,CONST.CHAR_伤害数, Char.GetData(player,CONST.CHAR_伤害数)+v.soul);
 			NLG.SystemMessage(-1,"恭喜玩家: "..Char.GetData(player,CONST.对象_名字).." 討伐成功"..v.lordName.."。");
+			NLG.UpChar(player);
 		end
 	end
 	--队友奖励
@@ -288,6 +290,8 @@ function boss_round_callback(battleindex, player)
 					if ( k==v.lordNum and bossImage==v.startImage ) then
 						local rand = NLG.Rand(1,#v.rewardsItem);
 						Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
+						Char.SetData(TeamPlayer,CONST.CHAR_伤害数, Char.GetData(TeamPlayer,CONST.CHAR_伤害数)+v.soul);
+						NLG.UpChar(TeamPlayer);
 					end
 				end
 			end
