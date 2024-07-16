@@ -1,4 +1,4 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('legendBoss')
 
 local EnemySet = {}
@@ -6,51 +6,53 @@ local BaseLevelSet = {}
 local Pos = {}
 local FTime = os.time()
 local Setting = 0;
---¶ÓÁĞ½âÊÍ
---     Îå(4)	Èı(2)	Ò»(0)	¶ş(1)	ËÄ(3)
---     Ê®(9)	°Ë(7)	Áù(5)	Æß(6)	¾Å(8)
-------------¶ÔÕ½NPCÉèÖÃ------------
-EnemySet[1] = {900030, 0, 0, 900031, 900031, 900031, 900031, 900031, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”(4)	ä¸‰(2)	ä¸€(0)	äºŒ(1)	å››(3)
+--     å(9)	å…«(7)	å…­(5)	ä¸ƒ(6)	ä¹(8)
+------------å¯¹æˆ˜NPCè®¾ç½®------------
+EnemySet[1] = {900030, 0, 0, 900031, 900031, 900031, 900031, 900031, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[1] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
-Pos[1] = {"Ê®¶şÏ¯",EnemySet[1],BaseLevelSet[1]}
-EnemySet[2] = {900033, 0, 0, 900034, 900034, 900034, 900034, 900034, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[1] = {"å‚³èªªå¯¶å¯å¤¢",EnemySet[1],BaseLevelSet[1]}
+EnemySet[2] = {900033, 0, 0, 900034, 900034, 900034, 900034, 900034, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[2] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
-Pos[2] = {"Ê®Ò»Ï¯",EnemySet[2],BaseLevelSet[2]}
-EnemySet[3] = {900036, 0, 0, 900037, 900037, 900037, 900037, 900037, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[2] = {"å‚³èªªå¯¶å¯å¤¢",EnemySet[2],BaseLevelSet[2]}
+EnemySet[3] = {900036, 0, 0, 900037, 900037, 900037, 900037, 900037, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[3] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
-Pos[3] = {"Ê®Ï¯",EnemySet[3],BaseLevelSet[3]}
-EnemySet[4] = {900039, 0, 0, 900040, 900040, 900040, 900040, 900040, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[3] = {"å‚³èªªå¯¶å¯å¤¢",EnemySet[3],BaseLevelSet[3]}
+EnemySet[4] = {900039, 0, 0, 900040, 900040, 900040, 900040, 900040, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[4] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
-Pos[4] = {"¾ÅÏ¯",EnemySet[4],BaseLevelSet[4]}
-EnemySet[5] = {900042, 0, 0, 900043, 900043, 900043, 900043, 900043, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[4] = {"å‚³èªªå¯¶å¯å¤¢",EnemySet[4],BaseLevelSet[4]}
+EnemySet[5] = {900042, 0, 0, 900043, 900043, 900043, 900043, 900043, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[5] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
-Pos[5] = {"°ËÏ¯",EnemySet[5],BaseLevelSet[5]}
-EnemySet[6] = {900045, 0, 0, 900046, 900046, 900046, 900046, 900046, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[5] = {"å‚³èªªå¯¶å¯å¤¢",EnemySet[5],BaseLevelSet[5]}
+EnemySet[6] = {900045, 0, 0, 900046, 900046, 900046, 900046, 900046, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[6] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
-Pos[6] = {"ÆßÏ¯",EnemySet[6],BaseLevelSet[6]}
+Pos[6] = {"å‚³èªªå¯¶å¯å¤¢",EnemySet[6],BaseLevelSet[6]}
 ------------------------------------------------------
---±³¾°ÉèÖÃ
-local Pts= 70206;                                    --ÕæÅ®ÉñÆ»¹û
+--èƒŒæ™¯è®¾ç½®
+local Pts= 70206;                                    --çœŸå¥³ç¥è‹¹æœ
 local LegendBoss = {
-      { lordNum=1, keyItem=70241, lordName="ÆáºÚÂ}µäµÚ12Ï¯", startImage=105040, transImage = 107912, waitingArea={map=1000,X=233,Y=112}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=1, timesec=7200, lordName="å‚³èªªå¯¶å¯å¤¢", startImage=105040, transImage = 107912, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=233,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=2, keyItem=70242, lordName="ÆáºÚÂ}µäµÚ11Ï¯", startImage=105272, transImage = 110599, waitingArea={map=1000,X=231,Y=112}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=2, timesec=7200, lordName="å‚³èªªå¯¶å¯å¤¢", startImage=105272, transImage = 110599, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=231,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=3, keyItem=70243, lordName="ÆáºÚÂ}µäµÚ10Ï¯", startImage=105112, transImage = 101922, waitingArea={map=1000,X=229,Y=112}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=3, timesec=7200, lordName="å‚³èªªå¯¶å¯å¤¢", startImage=105112, transImage = 101922, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=229,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=4, keyItem=70244, lordName="ÆáºÚÂ}µäµÚ9Ï¯", startImage=105303, transImage = 107103, waitingArea={map=1000,X=227,Y=112}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=4, timesec=7200, lordName="å‚³èªªå¯¶å¯å¤¢", startImage=105303, transImage = 107103, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=227,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=5, keyItem=70245, lordName="ÆáºÚÂ}µäµÚ8Ï¯", startImage=105091, transImage = 107904, waitingArea={map=1000,X=225,Y=112}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=5, timesec=7200, lordName="å‚³èªªå¯¶å¯å¤¢", startImage=105091, transImage = 107904, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=225,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=6, keyItem=70246, lordName="ÆáºÚÂ}µäµÚ7Ï¯", startImage=105523, transImage = 104840, waitingArea={map=1000,X=223,Y=112}, warpArea={map=25013,X=35,Y=15},
+      { lordNum=6, timesec=7200, lordName="å‚³èªªå¯¶å¯å¤¢", startImage=105523, transImage = 104840, waitingArea={map=777,X=38,Y=51}, warpArea={map=1000,X=223,Y=112},
         rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
 }
-local tbl_duel_user = {};			--µ±Ç°³¡´ÎÍæ¼ÒµÄÁĞ±í
+local tbl_duel_user = {};			--å½“å‰åœºæ¬¡ç©å®¶çš„åˆ—è¡¨
 local tbl_win_user = {};
+local LegendInfo = {}				--å†·å´æ—¶é—´è¡¨
+local LegendSetting = {}
 local legendBossBattle = {}
 tbl_LegendBossNPCIndex = tbl_LegendBossNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
@@ -62,13 +64,13 @@ function Module:onLoad()
   self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self))
   --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
-  self:regCallback('LoopEvent', Func.bind(self.LegendBoss_LoopEvent,self))
+ self:regCallback('LoopEvent', Func.bind(self.LegendBoss_LoopEvent,self))
   for k,v in pairs(LegendBoss) do
    if tbl_LegendBossNPCIndex[k] == nil then
     local LegendBossNPC = self:NPC_createNormal(v.lordName, v.startImage, { map = v.waitingArea.map, x = v.waitingArea.X, y = v.waitingArea.Y, direction = 5, mapType = 0 })
     tbl_LegendBossNPCIndex[k] = LegendBossNPC
     self:NPC_regWindowTalkedEvent(tbl_LegendBossNPCIndex[k], function(npc, player, _seqno, _select, _data)
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)
@@ -78,28 +80,28 @@ function Module:onLoad()
           return ;
       end
       if (NLG.CanTalk(npc, player) == true) then
-               --ÃæÏòÍæ¼Ò
+               --é¢å‘ç©å®¶
                local i;
-               i = Char.GetData(player, CONST.¶ÔÏó_·½Ïò);
+               i = Char.GetData(player, CONST.å¯¹è±¡_æ–¹å‘);
                if i >= 4 then 
                               i = i - 4;
                else
                               i = i + 4;		
                end
-               Char.SetData(npc, CONST.¶ÔÏó_·½Ïò,i);
+               Char.SetData(npc, CONST.å¯¹è±¡_æ–¹å‘,i);
                NLG.UpChar(npc);
-               --‚÷ÕfBOSS
-	local playerName = Char.GetData(player,CONST.CHAR_Ãû×Ö);
-	local partyname = playerName .. "£­ê ";
-	local playerLv = Char.GetData(player,CONST.CHAR_µÈ¼¶);
+               --å‚³èªªBOSS
+	local playerName = Char.GetData(player,CONST.CHAR_åå­—);
+	local partyname = playerName .. "ï¼éšŠ";
+	local playerLv = Char.GetData(player,CONST.CHAR_ç­‰çº§);
 	if playerLv<=100 then
-		NLG.SystemMessage(player,"[Ïµ½y]Ó‘·¥½¨×hê éLµÈ¼‰Òª100ÒÔÉÏ");
+		NLG.SystemMessage(player,"[ç³»çµ±]è¨ä¼å»ºè­°éšŠé•·ç­‰ç´šè¦100ä»¥ä¸Š");
 		return;
 	end
 
-	--local Target_X = Char.GetData(npc, CONST.CHAR_X)  --µØÍ¼x
-	--local Target_Y = Char.GetData(npc, CONST.CHAR_Y)  --µØÍ¼y
-	local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
+	--local Target_X = Char.GetData(npc, CONST.CHAR_X)  --åœ°å›¾x
+	--local Target_Y = Char.GetData(npc, CONST.CHAR_Y)  --åœ°å›¾y
+	local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
 	for k,v in pairs(LegendBoss) do
 		if ( k==v.lordNum and bossImage==v.startImage ) then
 			table.insert(tbl_duel_user,player);
@@ -109,19 +111,15 @@ function Module:onLoad()
 			--Char.DelItem(player, v.keyItem, 1);
                                                             --local slot = Char.FindItemId(player, v.keyItem);
                                                             --local item_indexA = Char.GetItemIndex(player,slot);
-			if (Char.EndEvent(player, 308) == 1) then
-				local rand = NLG.Rand(1,#v.prizeItem);
-				Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
-			end
+			local rand = NLG.Rand(1,#v.prizeItem);
+			Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
 			local PartyNum = Char.PartyNum(player);
 			if (PartyNum>1) then
 				for Slot=1,4 do
 					local TeamPlayer = Char.GetPartyMember(player,Slot);
 					if Char.IsDummy(TeamPlayer)==false then
-						if (Char.EndEvent(TeamPlayer, 308) == 1) then
-							local rand = NLG.Rand(1,#v.prizeItem);
-							Char.GiveItem(TeamPlayer, v.prizeItem[rand], v.prizeItem_count);
-						end
+						local rand = NLG.Rand(1,#v.prizeItem);
+						Char.GiveItem(TeamPlayer, v.prizeItem[rand], v.prizeItem_count);
 					end
 				end
 			end
@@ -135,41 +133,81 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---Ö¸ÁîÆô¶¯Ñ­»·
+-------åŠŸèƒ½è®¾ç½®
+--æŒ‡ä»¤å¯åŠ¨å¾ªç¯
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr legend on]") then
-		local cdk = Char.GetData(charIndex,CONST.¶ÔÏó_CDK);
+		local cdk = Char.GetData(charIndex,CONST.å¯¹è±¡_CDK);
 		if (cdk == "123456") then
-			for k,v in pairs(LegendBoss) do
+			--é‡ç½®
+			LegendInfo = {};
+			LegendSetting = {};
+			for k=1,6 do
+				print(tbl_LegendBossNPCIndex[k])
 				Char.SetLoopEvent('./lua/Modules/legendBoss.lua','LegendBoss_LoopEvent',tbl_LegendBossNPCIndex[k],1000);
+				LegendInfo[k] = os.time();
+				LegendSetting[k] = nil;
 			end
-			NLG.SystemMessage(charIndex, "[Ïµ½y]‚÷ÕfŒš¿É‰ôé_·Å¡£");
+			NLG.SystemMessage(charIndex, "[ç³»çµ±]å‚³èªªå¯¶å¯å¤¢é–‹æ”¾ã€‚");
 			NLG.UpChar(charIndex);
 			return 0;
 		end
 	end
 	return 1;
 end
---×ªÒÆ
-function LegendBoss_LoopEvent(LegendBossNPC)
+--è½¬ç§»
+function LegendBoss_LoopEvent(npc)
 	if (os.date("%X",os.time())=="00:00:01") then
-		NLG.SystemMessage(-1,"[Ïµ½y]‚÷ÕfŒš¿É‰ô³ö¬FÔÚ(218,88)£¡");
 		for k,v in pairs(LegendBoss) do
-			local bossImage = Char.GetData(LegendBossNPC,CONST.¶ÔÏó_ĞÎÏó);
-			if ( bossImage==v.startImage ) then
-				Char.SetData(LegendBossNPC,CONST.¶ÔÏó_X, v.warpArea.X);
-				Char.SetData(LegendBossNPC,CONST.¶ÔÏó_Y, v.warpArea.Y);
-				Char.SetData(LegendBossNPC,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
-				NLG.UpChar(LegendBossNPC);
+			local mapsname = NLG.GetMapName(0, v.warpArea.map);
+			local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+			if ( k==v.lordNum and bossImage==v.startImage ) then
+				LegendInfo[k] = os.time();
+				NLG.SystemMessage(-1,"[ç³»çµ±]å‚³èªªå¯¶å¯å¤¢å‡ºç¾åœ¨"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+				Char.SetData(npc,CONST.å¯¹è±¡_X, v.warpArea.X);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, v.warpArea.Y);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
+				NLG.UpChar(npc);
 			end
 		end
 	elseif (os.date("%X",os.time())=="23:59:59")  then
 		for k,v in pairs(LegendBoss) do
-			Char.SetData(tbl_LegendBossNPCIndex[k],CONST.¶ÔÏó_X, v.waitingArea.X);
-			Char.SetData(tbl_LegendBossNPCIndex[k],CONST.¶ÔÏó_Y, v.waitingArea.Y);
-			Char.SetData(tbl_LegendBossNPCIndex[k],CONST.¶ÔÏó_µØÍ¼, v.waitingArea.map);
-			NLG.UpChar(tbl_LegendBossNPCIndex[k]);
+			local bossImage = Char.GetData(tbl_LegendBossNPCIndex[k],CONST.å¯¹è±¡_å½¢è±¡);
+			if ( k==v.lordNum and bossImage==v.startImage ) then
+				Char.SetData(npc,CONST.å¯¹è±¡_X, v.waitingArea.X);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, v.waitingArea.Y);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.waitingArea.map);
+				NLG.UpChar(npc);
+			end
+		end
+	else
+		for k,v in pairs(LegendBoss) do
+			if (LegendSetting[k]==nil) then
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+				if ( k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+					LegendSetting[k] = 1;
+					NLG.SystemMessage(-1,"[ç³»çµ±]å‚³èªªå¯¶å¯å¤¢å‡ºç¾åœ¨"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					Char.SetData(npc,CONST.å¯¹è±¡_X, v.warpArea.X);
+					Char.SetData(npc,CONST.å¯¹è±¡_Y, v.warpArea.Y);
+					Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
+					NLG.UpChar(npc);
+				end
+			elseif (LegendSetting[k]==2) then
+				local CTime = LegendInfo[k] or os.time();
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+				if ( (os.time() - CTime) >= v.timesec and k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+					LegendSetting[k] = 1;
+					NLG.SystemMessage(-1,"[ç³»çµ±]å‚³èªªå¯¶å¯å¤¢å‡ºç¾åœ¨"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					Char.SetData(npc,CONST.å¯¹è±¡_X, v.warpArea.X);
+					Char.SetData(npc,CONST.å¯¹è±¡_Y, v.warpArea.Y);
+					Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
+					NLG.UpChar(npc);
+				end
+			end
 		end
 	end
 end
@@ -182,12 +220,12 @@ function boss_round_start(player, npc, callback)
 	table.insert(tbl_duel_user,player);
 	table.insert(tbl_duel_user,npc);
 
-	--¿ªÊ¼Õ½¶·
+	--å¼€å§‹æˆ˜æ–—
 	tbl_UpIndex = {}
 	battleindex = {}
 
 	for k,v in pairs(LegendBoss) do
-		local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
+		local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
 		if ( k==v.lordNum and bossImage==v.startImage ) then
 			local battleindex = Battle.PVE( player, player, nil, Pos[k][2], Pos[k][3], nil)
 			Battle.SetWinEvent("./lua/Modules/legendBoss.lua", "boss_round_callback", battleindex);
@@ -202,24 +240,24 @@ function boss_round_callback(battleindex, player)
 	local winside = Battle.GetWinSide(battleindex);
 	local sideM = 0;
 
-	--»ñÈ¡Ê¤Àû·½
+	--è·å–èƒœåˆ©æ–¹
 	if (winside == 0) then
 		sideM = 0;
 	end
 	if (winside == 1) then
 		sideM = 10;
 	end
-	--»ñÈ¡Ê¤Àû·½µÄÍæ¼ÒÖ¸Õë£¬¿ÉÄÜÕ¾ÔÚÇ°·½ºÍºó·½
+	--è·å–èƒœåˆ©æ–¹çš„ç©å®¶æŒ‡é’ˆï¼Œå¯èƒ½ç«™åœ¨å‰æ–¹å’Œåæ–¹
 	local w1 = Battle.GetPlayIndex(battleindex, 0 + sideM);
 	local w2 = Battle.GetPlayIndex(battleindex, 5 + sideM);
 	local ww = nil;
 
-	--°ÑÊ¤ÀûÍæ¼Ò¼ÓÈëÁĞ±í
+	--æŠŠèƒœåˆ©ç©å®¶åŠ å…¥åˆ—è¡¨
 	tbl_win_user = {}
-	if ( Char.GetData(w1, %¶ÔÏó_ÀàĞÍ%) >= %¶ÔÏóÀàĞÍ_ÈË% ) then
+	if ( Char.GetData(w1, %å¯¹è±¡_ç±»å‹%) >= %å¯¹è±¡ç±»å‹_äºº% ) then
 		local ww = w1;
 		table.insert(tbl_win_user, ww);
-	elseif ( Char.GetData(w2, %¶ÔÏó_ÀàĞÍ%) >= %¶ÔÏóÀàĞÍ_ÈË% ) then
+	elseif ( Char.GetData(w2, %å¯¹è±¡_ç±»å‹%) >= %å¯¹è±¡ç±»å‹_äºº% ) then
 		local ww = w2;
 		table.insert(tbl_win_user, ww);
 	else
@@ -228,41 +266,42 @@ function boss_round_callback(battleindex, player)
 
 	local player = tbl_win_user[1];
 	local npc = tbl_duel_user[2];
-	if (Char.EndEvent(player, 308) == 1) then
-		for k,v in pairs(LegendBoss) do
-			local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-			if ( k==v.lordNum and bossImage==v.startImage ) then
-                                                                        --local slot = Char.FindItemId(player, v.keyItem);
-                                                                        --local item_indexA = Char.GetItemIndex(player,slot);
-                                                                        local rand = NLG.Rand(1,#v.rewardsItem);
-                                                                        Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
-                                                                        NLG.SystemMessage(-1,"¹§Ï²Íæ¼Ò: "..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." Ó‘·¥³É¹¦"..v.lordName.."¡£");
-			end
+
+	for k,v in pairs(LegendBoss) do
+		local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+		if ( k==v.lordNum and bossImage==v.startImage ) then
+			--local slot = Char.FindItemId(player, v.keyItem);
+			--local item_indexA = Char.GetItemIndex(player,slot);
+			local rand = NLG.Rand(1,#v.rewardsItem);
+			Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+			NLG.SystemMessage(-1,"æ­å–œç©å®¶: "..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." è¨ä¼æˆåŠŸ"..v.lordName.."ã€‚");
 		end
 	end
+	--é˜Ÿå‹å¥–åŠ±
 	local PartyNum = Char.PartyNum(player);
 	if (PartyNum>1) then
 		for Slot=1,4 do
 			local TeamPlayer = Char.GetPartyMember(player,Slot);
 			if Char.IsDummy(TeamPlayer)==false then
-				if (Char.EndEvent(TeamPlayer, 308) == 1) then
-					for k,v in pairs(LegendBoss) do
-						local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-						if ( k==v.lordNum and bossImage==v.startImage ) then
-							local rand = NLG.Rand(1,#v.rewardsItem);
-							Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
-						end
+				for k,v in pairs(LegendBoss) do
+					local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+					if ( k==v.lordNum and bossImage==v.startImage ) then
+						local rand = NLG.Rand(1,#v.rewardsItem);
+						Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
 					end
 				end
 			end
 		end
 	end
+	--è¿›å…¥å†·å´æ—¶é—´
 	for k,v in pairs(LegendBoss) do
-		local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
+		local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
 		if ( bossImage==v.startImage ) then
-			Char.SetData(npc,CONST.¶ÔÏó_X, v.waitingArea.X);
-			Char.SetData(npc,CONST.¶ÔÏó_Y, v.waitingArea.Y);
-			Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.waitingArea.map);
+			LegendInfo[k] = os.time();
+			LegendSetting[k] = 2;
+			Char.SetData(npc,CONST.å¯¹è±¡_X, v.waitingArea.X);
+			Char.SetData(npc,CONST.å¯¹è±¡_Y, v.waitingArea.Y);
+			Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.waitingArea.map);
 			NLG.UpChar(npc);
 		end
 	end
@@ -270,13 +309,13 @@ function boss_round_callback(battleindex, player)
 	legendBossBattle ={};
 end
 
---³¬¼¶ÁìÖ÷ÉèÖÃ
+--éœ¸ä¸»è®¾ç½®
 function Module:OnbattleStartEventCallback(battleIndex)
 
 	local playerCount = #NLG.GetPlayer();
 	table.forEach(legendBossBattle, function(e)
 		if  e==battleIndex  then
-			NLG.SystemMessage(-1,"[Ïµ½y]‚÷ÕfŒš¿É‰ôÑªÁ¿³¬¼¤Ôö.¿‚¹²ÓĞ"..playerCount.."ÃûÍæ¼Òx5ÈfµÄÑªÁ¿£¡");
+			NLG.SystemMessage(-1,"[ç³»çµ±]å‚³èªªå¯¶å¯å¤¢è¡€é‡è¶…æ¿€å¢.ç¸½å…±æœ‰"..playerCount.."åç©å®¶x5è¬çš„è¡€é‡ï¼");
 		end
 	end)
 	for i = 10, 19 do
@@ -285,9 +324,9 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		table.forEach(legendBossBattle, function(e)
 			if enemy>=0 and e==battleIndex  then
 				if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900045) then
-					Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);
-					Char.SetData(enemy, CONST.CHAR_Ñª, HP);
-					--NLG.SystemMessage(-1,"[Ïµ½y]‚÷ÕfŒš¿É‰ôÑªÁ¿³¬¼¤Ôö£¡");
+					Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);
+					Char.SetData(enemy, CONST.CHAR_è¡€, HP);
+					--NLG.SystemMessage(-1,"[ç³»çµ±]å‚³èªªå¯¶å¯å¤¢è¡€é‡è¶…æ¿€å¢ï¼");
 				end
 			end
 		end)
@@ -302,41 +341,41 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 		table.forEach(legendBossBattle, function(e)
 		if Round==0 and enemy>=0 and e==battleIndex  then
 			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900045) then
-				Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);     --ÑªÁ¿ÉÏÏŞ100Íò
-				Char.SetData(enemy, CONST.CHAR_Ñª, HP);
+				Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);     --è¡€é‡ä¸Šé™100ä¸‡
+				Char.SetData(enemy, CONST.CHAR_è¡€, HP);
 			end
 		elseif Round>0 and enemy>=0 and e==battleIndex  then
 			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900045) then
-				local Hp_10 = Char.GetData(enemy, CONST.CHAR_×î´óÑª); 
-				local Hp_5 = Char.GetData(enemy, CONST.CHAR_Ñª);
+				local Hp_10 = Char.GetData(enemy, CONST.CHAR_æœ€å¤§è¡€); 
+				local Hp_5 = Char.GetData(enemy, CONST.CHAR_è¡€);
 				local Hp05 = Hp_5/Hp_10;
 
-				Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);     --ÑªÁ¿ÉÏÏŞ100Íò
-				Char.SetData(enemy, CONST.CHAR_Ñª, Hp_5);
+				Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);     --è¡€é‡ä¸Šé™100ä¸‡
+				Char.SetData(enemy, CONST.CHAR_è¡€, Hp_5);
 				if Hp05<=0.5 then
 					for k,v in pairs(LegendBoss) do
-						if ( k==v.lordNum and Char.GetData(enemy, CONST.CHAR_ĞÎÏó)==v.startImage ) then
-							Char.SetData(enemy, CONST.CHAR_ĞÎÏó, v.transImage);
-							--Char.SetData(enemy, CONST.CHAR_¿ÉÊÓ, v.transImage);
-							--Char.SetData(enemy, CONST.CHAR_Ô­ĞÎ, v.transImage);
-							--Char.SetData(enemy, CONST.CHAR_Ô­Ê¼Í¼µµ, v.transImage);
+						if ( k==v.lordNum and Char.GetData(enemy, CONST.CHAR_å½¢è±¡)==v.startImage ) then
+							Char.SetData(enemy, CONST.CHAR_å½¢è±¡, v.transImage);
+							--Char.SetData(enemy, CONST.CHAR_å¯è§†, v.transImage);
+							--Char.SetData(enemy, CONST.CHAR_åŸå½¢, v.transImage);
+							--Char.SetData(enemy, CONST.CHAR_åŸå§‹å›¾æ¡£, v.transImage);
 							NLG.UpChar(enemy);
 						end
 					end
-					Char.SetData(enemy, CONST.CHAR_¹¥»÷Á¦, 10000);
-					Char.SetData(enemy, CONST.CHAR_·ÀÓùÁ¦, 666);
-					Char.SetData(enemy, CONST.CHAR_Ãô½İ, 666);
-					Char.SetData(enemy, CONST.CHAR_¾«Éñ, 10000);
-					Char.SetData(enemy, CONST.CHAR_»Ø¸´, 66);
-					Char.SetData(enemy, CONST.CHAR_±ØÉ±, 70);
-					Char.SetData(enemy, CONST.CHAR_ÉÁ¶ã, 70);
-					Char.SetData(enemy, CONST.CHAR_ÃüÖĞ, 70);
-					Char.SetData(enemy, CONST.CHAR_·´»÷, 70);
-					--Char.SetData(enemy, CONST.¶ÔÏó_ENEMY_HeadGraNo,108511);
+					Char.SetData(enemy, CONST.CHAR_æ”»å‡»åŠ›, 10000);
+					Char.SetData(enemy, CONST.CHAR_é˜²å¾¡åŠ›, 666);
+					Char.SetData(enemy, CONST.CHAR_æ•æ·, 666);
+					Char.SetData(enemy, CONST.CHAR_ç²¾ç¥, 10000);
+					Char.SetData(enemy, CONST.CHAR_å›å¤, 66);
+					Char.SetData(enemy, CONST.CHAR_å¿…æ€, 70);
+					Char.SetData(enemy, CONST.CHAR_é—ªèº², 70);
+					Char.SetData(enemy, CONST.CHAR_å‘½ä¸­, 70);
+					Char.SetData(enemy, CONST.CHAR_åå‡», 70);
+					--Char.SetData(enemy, CONST.å¯¹è±¡_ENEMY_HeadGraNo,108511);
 				end
 			end
 		end
-		--NLG.SystemMessage(-1,"[Ïµ½y]ÊÀ½çŠ”³ÑªÁ¿³¬¼¤Ôö£¡");
+		--NLG.SystemMessage(-1,"[ç³»çµ±]ä¸–ç•Œå¼·æ•µè¡€é‡è¶…æ¿€å¢ï¼");
 		end)
 	end
 end
@@ -346,7 +385,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 	local leaderpet0 = Battle.GetPlayer(battleIndex, 5);
 	local player = leader0
 	local leaderpet = leaderpet0
-	if Char.GetData(player, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(player, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		player = leader0
 	else
 		player = leaderpet
@@ -356,16 +395,16 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		table.forEach(legendBossBattle, function(e)
 		if Round>=0 and enemy>=0 and e==battleIndex  then
 			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900030 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900033 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900036 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900039 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900042 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==900045) then
-				local HP = Char.GetData(enemy,CONST.CHAR_Ñª);
-				Char.SetData(enemy, CONST.CHAR_×î´óÑª, 1000000);
-				Char.SetData(enemy, CONST.CHAR_Ñª, HP);
+				local HP = Char.GetData(enemy,CONST.CHAR_è¡€);
+				Char.SetData(enemy, CONST.CHAR_æœ€å¤§è¡€, 1000000);
+				Char.SetData(enemy, CONST.CHAR_è¡€, HP);
 				NLG.UpChar(enemy);
 			end
 		end
 		end)
 	end
 end
---±©×ßÄ£Ê½¼¼ÄÜÊ©·Å
+--æš´èµ°æ¨¡å¼æŠ€èƒ½æ–½æ”¾
 function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
       local Round = Battle.GetTurn(battleIndex);
       for i = 10, 19 do
@@ -423,7 +462,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
               local slot = Char.GetEmptyItemSlot(defCharIndex);
               local itemIndex, wslot = Char.GetWeapon(defCharIndex);
               if itemIndex >= 0 then
-                  NLG.SystemMessage(defCharIndex,"[Ïµ½y]"..Char.GetData(defCharIndex, CONST.CHAR_Ãû×Ö).."ÎäÆ÷±»Ğ¶ÏÂÁË£¡");
+                  NLG.SystemMessage(defCharIndex,"[ç³»çµ±]"..Char.GetData(defCharIndex, CONST.CHAR_åå­—).."æ­¦å™¨è¢«å¸ä¸‹äº†ï¼");
                   if slot < 0 then
                             damage = math.floor(damage * 1.5);
                   else
@@ -441,7 +480,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
   return damage;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
