@@ -10,45 +10,46 @@ local Setting = 0;
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
-EnemySet[1] = {900030, 0, 0, 900031, 900031, 900031, 900031, 900031, 0, 0}--0代表没有怪
-BaseLevelSet[1] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
+EnemySet[1] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+BaseLevelSet[1] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[1] = {"傳說寶可夢",EnemySet[1],BaseLevelSet[1]}
-EnemySet[2] = {900033, 0, 0, 900034, 900034, 900034, 900034, 900034, 0, 0}--0代表没有怪
-BaseLevelSet[2] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
+EnemySet[2] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+BaseLevelSet[2] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[2] = {"傳說寶可夢",EnemySet[2],BaseLevelSet[2]}
-EnemySet[3] = {900036, 0, 0, 900037, 900037, 900037, 900037, 900037, 0, 0}--0代表没有怪
-BaseLevelSet[3] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
+EnemySet[3] = {3, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+BaseLevelSet[3] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[3] = {"傳說寶可夢",EnemySet[3],BaseLevelSet[3]}
-EnemySet[4] = {900039, 0, 0, 900040, 900040, 900040, 900040, 900040, 0, 0}--0代表没有怪
-BaseLevelSet[4] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
+EnemySet[4] = {4, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+BaseLevelSet[4] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[4] = {"傳說寶可夢",EnemySet[4],BaseLevelSet[4]}
-EnemySet[5] = {900042, 0, 0, 900043, 900043, 900043, 900043, 900043, 0, 0}--0代表没有怪
-BaseLevelSet[5] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
+EnemySet[5] = {5, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+BaseLevelSet[5] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[5] = {"傳說寶可夢",EnemySet[5],BaseLevelSet[5]}
-EnemySet[6] = {900045, 0, 0, 900046, 900046, 900046, 900046, 900046, 0, 0}--0代表没有怪
-BaseLevelSet[6] = {250, 0, 0, 250, 250, 250, 250, 250, 0, 0}
+EnemySet[6] = {6, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+BaseLevelSet[6] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[6] = {"傳說寶可夢",EnemySet[6],BaseLevelSet[6]}
 ------------------------------------------------------
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local LegendBoss = {
-      { lordNum=1, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105040, transImage = 107912, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=233,Y=112},
-        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=2, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105272, transImage = 110599, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=231,Y=112},
-        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=3, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105112, transImage = 101922, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=229,Y=112},
-        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=4, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105303, transImage = 107103, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=227,Y=112},
-        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=5, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105091, transImage = 107904, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=225,Y=112},
-        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
-      { lordNum=6, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=105523, transImage = 104840, waitingArea={map=777,X=38,Y=51}, warpArea={map=1000,X=223,Y=112},
-        rewardsItem={71041,71037,71038}, rewardsItem_count=1, prizeItem={70202,70203,70204,70205,70206,72000}, prizeItem_count=1},
+      { lordNum=1, timesec=180, soul=1000, lordName="傳說寶可夢", startImage=101000, transImage = 101000, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=233,Y=112},
+        rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
+      { lordNum=2, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101001, transImage = 101001, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=231,Y=112},
+        rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
+      { lordNum=3, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101002, transImage = 101002, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=229,Y=112},
+        rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
+      { lordNum=4, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101003, transImage = 101003, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=227,Y=112},
+        rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
+      { lordNum=5, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101004, transImage = 101004, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=225,Y=112},
+        rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
+      { lordNum=6, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101005, transImage = 101005, waitingArea={map=777,X=38,Y=51}, warpArea={map=1000,X=223,Y=112},
+        rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
 local tbl_win_user = {};
 local LegendInfo = {}				--冷却时间表
 local LegendSetting = {}
+local LegendCD = {}
 local legendBossBattle = {}
 tbl_LegendBossNPCIndex = tbl_LegendBossNPCIndex or {}
 ------------------------------------------------
@@ -111,18 +112,19 @@ function Module:onLoad()
 			--Char.DelItem(player, v.keyItem, 1);
                                                             --local slot = Char.FindItemId(player, v.keyItem);
                                                             --local item_indexA = Char.GetItemIndex(player,slot);
-			local rand = NLG.Rand(1,#v.prizeItem);
-			Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
-			local PartyNum = Char.PartyNum(player);
-			if (PartyNum>1) then
-				for Slot=1,4 do
-					local TeamPlayer = Char.GetPartyMember(player,Slot);
-					if Char.IsDummy(TeamPlayer)==false then
-						local rand = NLG.Rand(1,#v.prizeItem);
-						Char.GiveItem(TeamPlayer, v.prizeItem[rand], v.prizeItem_count);
-					end
-				end
-			end
+			--参加奖励
+			--local rand = NLG.Rand(1,#v.prizeItem);
+			--Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
+			--local PartyNum = Char.PartyNum(player);
+			--if (PartyNum>1) then
+			--	for Slot=1,4 do
+			--		local TeamPlayer = Char.GetPartyMember(player,Slot);
+			--		if Char.IsDummy(TeamPlayer)==false then
+			--			local rand = NLG.Rand(1,#v.prizeItem);
+			--			Char.GiveItem(TeamPlayer, v.prizeItem[rand], v.prizeItem_count);
+			--		end
+			--	end
+			--end
 		end
 	end
       end
@@ -130,6 +132,46 @@ function Module:onLoad()
     end)
    end
   end
+
+  LegendMonitorNPC = self:NPC_createNormal('傳說監控', 14682, { map = 777, x = 40, y = 31,  direction = 6, mapType = 0 })
+  self:NPC_regWindowTalkedEvent(LegendMonitorNPC, function(npc, player, _seqno, _select, _data)
+  end)
+  self:NPC_regTalkedEvent(LegendMonitorNPC, function(npc, player)
+	local gmIndex = NLG.FindUser(123456);
+	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+	local LegendCD = {};
+	if (type(sqldata)=="string" and sqldata~='') then
+		LegendCD = JSON.decode(sqldata);
+	else
+		LegendCD = {};
+	end
+
+	winMsg = "\\n            ★★★★★★傳說寶可夢資訊★★★★★★"
+		.. "\\n\\n  寶可夢名          所在位置             冷卻倒數\\n"
+		.. "\\n═════════════════════════════"
+		for k,v in pairs(LegendBoss) do
+			local bossImage = tonumber(LegendCD[k]);
+			if (k==v.lordNum and bossImage==v.startImage) then
+				local Name = v.lordName;
+				local mapsname = "隱藏空間";
+				local mapsX = "xxx";
+				local mapsY = "yyy";
+				local CTime = LegendInfo[k] or os.time();
+				local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
+				winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+			elseif (k==v.lordNum and bossImage==0) then
+				local Name = v.lordName;
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local mapsX = v.warpArea.X;
+				local mapsY = v.warpArea.Y;
+				local CDTime = "存活中";
+				winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+			end
+		end
+		winMsg = winMsg .. "\\n═════════════════════════════";
+	NLG.ShowWindowTalked(player,npc, CONST.窗口_巨信息框, CONST.按钮_关闭, 1, winMsg);
+        return
+  end)
 
 end
 ------------------------------------------------
@@ -143,36 +185,92 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			LegendInfo = {};
 			LegendSetting = {};
 			for k=1,6 do
-				print(tbl_LegendBossNPCIndex[k])
+				--print(tbl_LegendBossNPCIndex[k])
 				Char.SetLoopEvent('./lua/Modules/legendBoss.lua','LegendBoss_LoopEvent',tbl_LegendBossNPCIndex[k],1000);
 				LegendInfo[k] = os.time();
 				LegendSetting[k] = nil;
+				LegendCD[k] = 0;
 			end
 			NLG.SystemMessage(charIndex, "[系統]傳說寶可夢開放。");
 			NLG.UpChar(charIndex);
+
+			local gmIndex = NLG.FindUser(123456);
+			Char.SetExtData(charIndex, '传说冷却_set', JSON.encode(LegendCD));
+			local newdata = JSON.encode(LegendCD);
+			SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+			NLG.UpChar(gmIndex);
 			return 0;
 		end
+	elseif (msg=="/legend" or msg=="/leg") then
+		local gmIndex = NLG.FindUser(123456);
+		local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+		local LegendCD = {};
+		if (type(sqldata)=="string" and sqldata~='') then
+			LegendCD = JSON.decode(sqldata);
+		else
+			LegendCD = {};
+		end
+
+		winMsg = "\\n            ★★★★★★傳說寶可夢資訊★★★★★★"
+			.. "\\n\\n  寶可夢名          所在位置             冷卻倒數\\n"
+			.. "\\n═════════════════════════════"
+			for k,v in pairs(LegendBoss) do
+				local bossImage = tonumber(LegendCD[k]);
+				if (k==v.lordNum and bossImage==v.startImage) then
+					local Name = v.lordName;
+					local mapsname = "隱藏空間";
+					local mapsX = "xxx";
+					local mapsY = "yyy";
+					local CTime = LegendInfo[k] or os.time();
+					local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
+					winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+				elseif (k==v.lordNum and bossImage==0) then
+					local Name = v.lordName;
+					local mapsname = NLG.GetMapName(0, v.warpArea.map);
+					local mapsX = v.warpArea.X;
+					local mapsY = v.warpArea.Y;
+					local CDTime = "存活中";
+					winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+				end
+			end
+			winMsg = winMsg .. "\\n═════════════════════════════";
+		NLG.ShowWindowTalked(charIndex, LegendMonitorNPC, CONST.窗口_巨信息框, CONST.按钮_关闭, 1, winMsg);
 	end
 	return 1;
 end
 --转移
 function LegendBoss_LoopEvent(npc)
+	local gmIndex = NLG.FindUser(123456);
+	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+	local LegendCD = {};
+	if (type(sqldata)=="string" and sqldata~='') then
+		LegendCD = JSON.decode(sqldata);
+	else
+		LegendCD = {};
+	end
+
 	if (os.date("%X",os.time())=="00:00:01") then
 		for k,v in pairs(LegendBoss) do
 			local mapsname = NLG.GetMapName(0, v.warpArea.map);
 			local bossImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.lordNum and bossImage==v.startImage ) then
 				LegendInfo[k] = os.time();
-				NLG.SystemMessage(-1,"[系統]傳說寶可夢出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+				LegendSetting[k] = 0;
+				NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
 				Char.SetData(npc,CONST.对象_X, v.warpArea.X);
 				Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
 				Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
 				NLG.UpChar(npc);
+
+				LegendCD[k] = 0;
+				local newdata = JSON.encode(LegendCD);
+				SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+				NLG.UpChar(gmIndex);
 			end
 		end
 	elseif (os.date("%X",os.time())=="23:59:59")  then
 		for k,v in pairs(LegendBoss) do
-			local bossImage = Char.GetData(tbl_LegendBossNPCIndex[k],CONST.对象_形象);
+			local bossImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.lordNum and bossImage==v.startImage ) then
 				Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
 				Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
@@ -187,8 +285,8 @@ function LegendBoss_LoopEvent(npc)
 				local bossImage = Char.GetData(npc,CONST.对象_形象);
 				if ( k==v.lordNum and bossImage==v.startImage) then
 					LegendInfo[k] = os.time();
-					LegendSetting[k] = 1;
-					NLG.SystemMessage(-1,"[系統]傳說寶可夢出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					LegendSetting[k] = 0;
+					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
 					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
 					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
@@ -201,11 +299,16 @@ function LegendBoss_LoopEvent(npc)
 				if ( (os.time() - CTime) >= v.timesec and k==v.lordNum and bossImage==v.startImage) then
 					LegendInfo[k] = os.time();
 					LegendSetting[k] = 1;
-					NLG.SystemMessage(-1,"[系統]傳說寶可夢出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
 					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
 					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
 					NLG.UpChar(npc);
+
+					LegendCD[k] = 0;
+					local newdata = JSON.encode(LegendCD);
+					SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+					NLG.UpChar(gmIndex);
 				end
 			end
 		end
@@ -231,6 +334,7 @@ function boss_round_start(player, npc, callback)
 			Battle.SetWinEvent("./lua/Modules/legendBoss.lua", "boss_round_callback", battleindex);
 			legendBossBattle={}
 			table.insert(legendBossBattle, battleindex);
+			Char.SetTempData(player, '传说', npc);
 		end
 	end
 end
@@ -265,7 +369,11 @@ function boss_round_callback(battleindex, player)
 	end
 
 	local player = tbl_win_user[1];
-	local npc = tbl_duel_user[2];
+	--local npc = tbl_duel_user[2];
+
+	--判定是哪个传说宝可梦
+	local npc = Char.GetTempData(player, '传说') or 0;
+	--print(npc)
 
 	for k,v in pairs(LegendBoss) do
 		local bossImage = Char.GetData(npc,CONST.对象_形象);
@@ -275,7 +383,7 @@ function boss_round_callback(battleindex, player)
 			local rand = NLG.Rand(1,#v.rewardsItem);
 			Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
 			Char.SetData(player,CONST.CHAR_伤害数, Char.GetData(player,CONST.CHAR_伤害数)+v.soul);
-			NLG.SystemMessage(-1,"恭喜玩家: "..Char.GetData(player,CONST.对象_名字).." 討伐成功"..v.lordName.."。");
+			NLG.SystemMessage(-1,"[公告] "..v.lordName.."被 "..Char.GetData(player,CONST.对象_名字).." 討伐了。");
 			NLG.UpChar(player);
 		end
 	end
@@ -298,6 +406,14 @@ function boss_round_callback(battleindex, player)
 		end
 	end
 	--进入冷却时间
+	local gmIndex = NLG.FindUser(123456);
+	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+	local LegendCD = {};
+	if (type(sqldata)=="string" and sqldata~='') then
+		LegendCD = JSON.decode(sqldata);
+	else
+		LegendCD = {};
+	end
 	for k,v in pairs(LegendBoss) do
 		local bossImage = Char.GetData(npc,CONST.对象_形象);
 		if ( bossImage==v.startImage ) then
@@ -307,10 +423,16 @@ function boss_round_callback(battleindex, player)
 			Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
 			Char.SetData(npc,CONST.对象_地图, v.waitingArea.map);
 			NLG.UpChar(npc);
+
+			LegendCD[k] = bossImage;
+			local newdata = JSON.encode(LegendCD);
+			SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+			NLG.UpChar(gmIndex);
 		end
 	end
 	Battle.UnsetWinEvent(battleindex);
 	legendBossBattle ={};
+	Char.SetTempData(player, '传说',0);
 end
 
 --霸主设置
@@ -379,7 +501,7 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 				end
 			end
 		end
-		--NLG.SystemMessage(-1,"[系統]世界強敵血量超激增！");
+		--NLG.SystemMessage(-1,"[系統]傳說寶可夢血量超激增！");
 		end)
 	end
 end
