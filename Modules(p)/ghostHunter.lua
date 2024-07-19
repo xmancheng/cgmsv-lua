@@ -4,33 +4,33 @@ local StrBaseRate = {}
 local StrResistRate = {}
 local StrFixRate = {}
 local StrRequireExp = {}
---  Ê¥Áú½£
-StrBaseRate[51003] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[51003] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6¿¹ĞÔ
-StrFixRate[51003] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ĞŞÕı
-StrRequireExp[51003] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--ÁÔ¹íÉı¼¶¾­Ñé
---  Ê¥µä·¨ÕÈ
-StrBaseRate[51007] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[51007] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6¿¹ĞÔ
-StrFixRate[51007] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ĞŞÕı
-StrRequireExp[51007] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--ÁÔ¹íÉı¼¶¾­Ñé
---  ¼²·çÖ®¹­
-StrBaseRate[51011] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[51011] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6¿¹ĞÔ
-StrFixRate[51011] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ĞŞÕı
-StrRequireExp[51011] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--ÁÔ¹íÉı¼¶¾­Ñé
---  ¹íÉ±ÊÖÀï½£
-StrBaseRate[51015] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[51015] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6¿¹ĞÔ
-StrFixRate[51015] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ĞŞÕı
-StrRequireExp[51015] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--ÁÔ¹íÉı¼¶¾­Ñé
---  ÊŞÍõÖ®×¦
-StrBaseRate[51019] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--ÆÕÍ¨ÊôĞÔ°Ù·Ö±È
-StrResistRate[51019] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6¿¹ĞÔ
-StrFixRate[51019] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ĞŞÕı
-StrRequireExp[51019] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--ÁÔ¹íÉı¼¶¾­Ñé
+--  åœ£é¾™å‰‘
+StrBaseRate[51003] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[51003] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6æŠ—æ€§
+StrFixRate[51003] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ä¿®æ­£
+StrRequireExp[51003] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--çŒé¬¼å‡çº§ç»éªŒ
+--  åœ£å…¸æ³•æ–
+StrBaseRate[51007] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[51007] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6æŠ—æ€§
+StrFixRate[51007] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ä¿®æ­£
+StrRequireExp[51007] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--çŒé¬¼å‡çº§ç»éªŒ
+--  ç–¾é£ä¹‹å¼“
+StrBaseRate[51011] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[51011] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6æŠ—æ€§
+StrFixRate[51011] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ä¿®æ­£
+StrRequireExp[51011] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--çŒé¬¼å‡çº§ç»éªŒ
+--  é¬¼æ€æ‰‹é‡Œå‰‘
+StrBaseRate[51015] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[51015] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6æŠ—æ€§
+StrFixRate[51015] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ä¿®æ­£
+StrRequireExp[51015] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--çŒé¬¼å‡çº§ç»éªŒ
+--  å…½ç‹ä¹‹çˆª
+StrBaseRate[51019] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--æ™®é€šå±æ€§ç™¾åˆ†æ¯”
+StrResistRate[51019] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6æŠ—æ€§
+StrFixRate[51019] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4ä¿®æ­£
+StrRequireExp[51019] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--çŒé¬¼å‡çº§ç»éªŒ
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.battleStartEventCallback, self))
@@ -42,7 +42,7 @@ function Module:battleStartEventCallback(battleIndex)
 	for i=10,19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		if enemy >0 then
-			local enemylv = Char.GetData(enemy, CONST.CHAR_µÈ¼¶);
+			local enemylv = Char.GetData(enemy, CONST.CHAR_ç­‰çº§);
 			table.insert(Dm, i, enemylv);
 		else
 			table.insert(Dm, i, -1);
@@ -50,13 +50,13 @@ function Module:battleStartEventCallback(battleIndex)
 	end
 end
 function Module:battleOverEventCallback(battleIndex)
-	if Battle.IsBossBattle(battleIndex) == 1 then     --BOSSÎŞĞ§
+	if Battle.IsBossBattle(battleIndex) == 1 then     --BOSSæ— æ•ˆ
 		return;
 	end
-	if Battle.GetType(battleIndex) == 2 then            --PVPÎŞĞ§
+	if Battle.GetType(battleIndex) == 2 then            --PVPæ— æ•ˆ
 		return;
 	end
-	--¹í¹ÖÆ½¾ùµÈ¼¶
+	--é¬¼æ€ªå¹³å‡ç­‰çº§
 	local m = 0;
 	local k = 0;
 	for i=10,19 do
@@ -67,26 +67,26 @@ function Module:battleOverEventCallback(battleIndex)
 	end
 	local lv = math.floor(m/k);
 	local plus = lv*(lv+13)*k;
-	--Íæ¼Ò·½
+	--ç©å®¶æ–¹
 	for playerSlot=0,9 do
 		local player = Battle.GetPlayer(battleIndex, playerSlot);
-		local WeaponIndex = Char.GetWeapon(player);                --×óÓÒÊÖÎäÆ÷
-		local ShieldIndex = Char.GetShield(player);                         --ĞŞÂŞ¶Ü
-		if WeaponIndex>0 and Char.EndEvent(player,17) == 1 then                --³ÉÎªÁÔ¹íÈË¿ªÆô¹¦ÄÜ
-			local wandId = Item.GetData(WeaponIndex, CONST.µÀ¾ß_ID);
+		local WeaponIndex = Char.GetWeapon(player);                --å·¦å³æ‰‹æ­¦å™¨
+		local ShieldIndex = Char.GetShield(player);                         --ä¿®ç½—ç›¾
+		if WeaponIndex>0 and Char.EndEvent(player,306) == 1 then                --æˆä¸ºçŒé¬¼äººå¼€å¯åŠŸèƒ½
+			local wandId = Item.GetData(WeaponIndex, CONST.é“å…·_ID);
 			local targetSlot = Char.GetItemSlot(player, WeaponIndex);
 			if (wandId==51003 or wandId==51007 or wandId==51011 or wandId==51015)  then
-				local tItemName = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
+				local tItemName = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
 				local hStrLv = EquipPlusStat(WeaponIndex, "H") or 0;
 				local gStrExp = EquipPlusStat(WeaponIndex, "G") or 0;
 				local hMaxLv = 10;
-				local RequireExpNumTab = StrRequireExpNum[wandId]
+				local RequireExpNumTab = StrRequireExp[wandId]
 				local RequireExpNum = RequireExpNumTab[hStrLv+1]
-				--´ò¹í¾­ÑéÖµ
-				if EquipPlusStat(WeaponIndex)==nil then Item.SetData(WeaponIndex, CONST.µÀ¾ß_¼øÇ°Ãû, tItemName); end
+				--æ‰“é¬¼ç»éªŒå€¼
+				if EquipPlusStat(WeaponIndex)==nil then Item.SetData(WeaponIndex, CONST.é“å…·_é‰´å‰å, tItemName); end
 				EquipPlusStat(WeaponIndex, "G", gStrExp+plus);
-				NLG.SystemMessage(player, "[Ïµ½y] «C¹í½›òÀÛ·e" .. gStrExp+plus .. "/"..RequireExpNum.."");
-				--ÎäÆ÷¾«Á¶Ç¿»¯
+				NLG.SystemMessage(player, "[ç³»çµ±] çµé¬¼ç¶“é©—ç´¯ç©" .. gStrExp+plus .. "/"..RequireExpNum.."");
+				--æ­¦å™¨ç²¾ç‚¼å¼ºåŒ–
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(WeaponIndex, "H", hStrLv+1);
 					EquipPlusStat(WeaponIndex, "G", 0);
@@ -95,23 +95,23 @@ function Module:battleOverEventCallback(battleIndex)
 				end
 				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
-				NLG.SystemMessage(player, "[Ïµ½y] ¹§Ï²«C¹íŠ»¯³É¹¦µ½+" .. hStrLv+1 .. "£¡");
+				NLG.SystemMessage(player, "[ç³»çµ±] æ­å–œçµé¬¼å¼·åŒ–æˆåŠŸåˆ°+" .. hStrLv+1 .. "ï¼");
 			end
-		elseif ShieldIndex>0 and Char.EndEvent(player,17) == 1 then
-			local wandId = Item.GetData(ShieldIndex, CONST.µÀ¾ß_ID);
+		elseif ShieldIndex>0 and Char.EndEvent(player,306) == 1 then
+			local wandId = Item.GetData(ShieldIndex, CONST.é“å…·_ID);
 			local targetSlot = Char.GetItemSlot(player, ShieldIndex);
 			if (wandId==51019)  then
-				local tItemName = Item.GetData(ShieldIndex, CONST.µÀ¾ß_Ãû×Ö);
+				local tItemName = Item.GetData(ShieldIndex, CONST.é“å…·_åå­—);
 				local hStrLv = EquipPlusStat(ShieldIndex, "H") or 0;
 				local gStrExp = EquipPlusStat(ShieldIndex, "G") or 0;
 				local hMaxLv = 10;
-				local RequireExpNumTab = StrRequireExpNum[wandId]
+				local RequireExpNumTab = StrRequireExp[wandId]
 				local RequireExpNum = RequireExpNumTab[hStrLv+1]
-				--´ò¹í¾­ÑéÖµ
-				if EquipPlusStat(ShieldIndex)==nil then Item.SetData(ShieldIndex, CONST.µÀ¾ß_¼øÇ°Ãû, tItemName); end
+				--æ‰“é¬¼ç»éªŒå€¼
+				if EquipPlusStat(ShieldIndex)==nil then Item.SetData(ShieldIndex, CONST.é“å…·_é‰´å‰å, tItemName); end
 				EquipPlusStat(ShieldIndex, "G", gStrExp+plus);
-				NLG.SystemMessage(player, "[Ïµ½y] «C¹í½›òÀÛ·e" .. gStrExp+plus .. "/"..RequireExpNum.."");
-				--ÎäÆ÷¾«Á¶Ç¿»¯
+				NLG.SystemMessage(player, "[ç³»çµ±] çµé¬¼ç¶“é©—ç´¯ç©" .. gStrExp+plus .. "/"..RequireExpNum.."");
+				--æ­¦å™¨ç²¾ç‚¼å¼ºåŒ–
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(ShieldIndex, "H", hStrLv+1);
 					EquipPlusStat(ShieldIndex, "G", 0);
@@ -120,18 +120,18 @@ function Module:battleOverEventCallback(battleIndex)
 				end
 				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
-				NLG.SystemMessage(player, "[Ïµ½y] ¹§Ï²«C¹íŠ»¯³É¹¦µ½+" .. hStrLv+1 .. "£¡");
+				NLG.SystemMessage(player, "[ç³»çµ±] æ­å–œçµé¬¼å¼·åŒ–æˆåŠŸåˆ°+" .. hStrLv+1 .. "ï¼");
 			end
 		end
 	end
 end
 
 function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
-	--  E-¸³Óè£¬P- ÅçÆá£¬H- ÁÔ£¬G- ¹í
+	--  E-èµ‹äºˆï¼ŒP- å–·æ¼†ï¼ŒH- çŒï¼ŒG- é¬¼
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
-		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı));
+		local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°));
 		if string.find(tItemStat, ",")==nil then
 			return nil;
 		end
@@ -152,7 +152,7 @@ function EquipPlusStat( _ItemIndex, _StatTab, _StatValue )
 		for k,v in pairs(_StatTab) do
 			tStat = tStat .. k .. "," .. v .. "|";
 		end
-		Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tStat);
+		Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tStat);
 	elseif type(_StatTab)=="string" and type(_StatValue)=="nil" then
 		--GetSub
 		local tStatTab = EquipPlusStat(_ItemIndex) or {};
@@ -172,31 +172,31 @@ end
 
 function setItemName( _ItemIndex , _Name)
 	local StatTab = EquipPlusStat( _ItemIndex );
-	local ItemName = Item.GetData(_ItemIndex, CONST.µÀ¾ß_¼øÇ°Ãû);
-	--¡Ñ¡è??§¶§æ€¡ò¡ñ¡ó¡ô¡õ¡ö¡ï¡î©I
+	local ItemName = Item.GetData(_ItemIndex, CONST.é“å…·_é‰´å‰å);
+	--âŠ™Â¤??Ğ¤Ñ„â‚¬â—â—â—‡â—†â–¡â– â˜…â˜†ãŠ£
 	for k,v in pairs(StatTab) do
 		if k=="H" then
 			ItemName = ItemName .. "+" .. v
 		end
 	end
-	Item.SetData(_ItemIndex, CONST.µÀ¾ß_Ãû×Ö, ItemName);
+	Item.SetData(_ItemIndex, CONST.é“å…·_åå­—, ItemName);
 end
 
 function setItemStrData( _ItemIndex, _StrLv)
 	local tItemID = Item.GetData(_ItemIndex, 0)
 	local bRateTab = StrBaseRate[tItemID]
 	local bRate = 1 + bRateTab[_StrLv+1]/100
-	Item.SetData(_ItemIndex, %µÀ¾ß_¹¥»÷%, Item.GetData(_ItemIndex, %µÀ¾ß_¹¥»÷%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_·ÀÓù%, Item.GetData(_ItemIndex, %µÀ¾ß_·ÀÓù%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ãô½İ%, Item.GetData(_ItemIndex, %µÀ¾ß_Ãô½İ%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_¾«Éñ%, Item.GetData(_ItemIndex, %µÀ¾ß_¾«Éñ%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_»Ø¸´%, Item.GetData(_ItemIndex, %µÀ¾ß_»Ø¸´%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_HP%, Item.GetData(_ItemIndex, %µÀ¾ß_HP%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_MP%, Item.GetData(_ItemIndex, %µÀ¾ß_MP%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ä§¹¥%, Item.GetData(_ItemIndex, %µÀ¾ß_Ä§¹¥%)*bRate)
-	Item.SetData(_ItemIndex, %µÀ¾ß_Ä§¿¹%, Item.GetData(_ItemIndex, %µÀ¾ß_Ä§¿¹%)*bRate)
-	--·Ç0Õß¹Ì¶¨¼ÓÖµ
-	local strData={%µÀ¾ß_¶¾¿¹%,%µÀ¾ß_Ë¯¿¹%,%µÀ¾ß_Ê¯¿¹%,%µÀ¾ß_×í¿¹%,%µÀ¾ß_ÂÒ¿¹%,%µÀ¾ß_Íü¿¹%,%µÀ¾ß_±ØÉ±%,%µÀ¾ß_·´»÷%,%µÀ¾ß_ÃüÖĞ%,%µÀ¾ß_ÉÁ¶ã%}
+	Item.SetData(_ItemIndex, %é“å…·_æ”»å‡»%, Item.GetData(_ItemIndex, %é“å…·_æ”»å‡»%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_é˜²å¾¡%, Item.GetData(_ItemIndex, %é“å…·_é˜²å¾¡%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_æ•æ·%, Item.GetData(_ItemIndex, %é“å…·_æ•æ·%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_ç²¾ç¥%, Item.GetData(_ItemIndex, %é“å…·_ç²¾ç¥%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_å›å¤%, Item.GetData(_ItemIndex, %é“å…·_å›å¤%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_HP%, Item.GetData(_ItemIndex, %é“å…·_HP%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_MP%, Item.GetData(_ItemIndex, %é“å…·_MP%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_é­”æ”»%, Item.GetData(_ItemIndex, %é“å…·_é­”æ”»%)*bRate)
+	Item.SetData(_ItemIndex, %é“å…·_é­”æŠ—%, Item.GetData(_ItemIndex, %é“å…·_é­”æŠ—%)*bRate)
+	--é0è€…å›ºå®šåŠ å€¼
+	local strData={%é“å…·_æ¯’æŠ—%,%é“å…·_ç¡æŠ—%,%é“å…·_çŸ³æŠ—%,%é“å…·_é†‰æŠ—%,%é“å…·_ä¹±æŠ—%,%é“å…·_å¿˜æŠ—%,%é“å…·_å¿…æ€%,%é“å…·_åå‡»%,%é“å…·_å‘½ä¸­%,%é“å…·_é—ªèº²%}
 	--Resist
 	local rRateTab = StrResistRate[tItemID] or StrResistRate[-1]
 	local rRate = rRateTab[_StrLv+1]
@@ -216,18 +216,18 @@ function setItemStrData( _ItemIndex, _StrLv)
 end
 
 Char.GetShield = function(charIndex)
-  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_×óÊÖ);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.ITEM_TYPE_¶Ü then
-    return ItemIndex,CONST.EQUIP_×óÊÖ;
+  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å·¦æ‰‹);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.ITEM_TYPE_ç›¾ then
+    return ItemIndex,CONST.EQUIP_å·¦æ‰‹;
   end
-  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_ÓÒÊÖ)
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.ITEM_TYPE_¶Ü then
-    return ItemIndex,CONST.EQUIP_ÓÒÊÖ;
+  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å³æ‰‹)
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.ITEM_TYPE_ç›¾ then
+    return ItemIndex,CONST.EQUIP_å³æ‰‹;
   end
   return -1,-1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
