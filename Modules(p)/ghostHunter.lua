@@ -5,30 +5,30 @@ local StrResistRate = {}
 local StrFixRate = {}
 local StrRequireExp = {}
 --  圣龙剑
-StrBaseRate[51003] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--普通属性百分比
-StrResistRate[51003] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6抗性
-StrFixRate[51003] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4修正
-StrRequireExp[51003] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--猎鬼升级经验
+StrBaseRate[51003] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}			--普通属性百分比
+StrResistRate[51003] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--6抗性
+StrFixRate[51003] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--4修正
+StrRequireExp[51003] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000, 100000, 100000, 200000, 200000, 200000, 400000, 400000, 500000, 500000, 500000, 9999999}	--猎鬼升级经验
 --  圣典法杖
-StrBaseRate[51007] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--普通属性百分比
-StrResistRate[51007] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6抗性
-StrFixRate[51007] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4修正
-StrRequireExp[51007] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--猎鬼升级经验
+StrBaseRate[51007] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 , 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}			--普通属性百分比
+StrResistRate[51007] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--6抗性
+StrFixRate[51007] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--4修正
+StrRequireExp[51007] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000, 100000, 100000, 200000, 200000, 200000, 400000, 400000, 500000, 500000, 500000, 9999999}	--猎鬼升级经验
 --  疾风之弓
-StrBaseRate[51011] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--普通属性百分比
-StrResistRate[51011] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6抗性
-StrFixRate[51011] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4修正
-StrRequireExp[51011] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--猎鬼升级经验
+StrBaseRate[51011] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}			--普通属性百分比
+StrResistRate[51011] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--6抗性
+StrFixRate[51011] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--4修正
+StrRequireExp[51011] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000, 100000, 100000, 200000, 200000, 200000, 400000, 400000, 500000, 500000, 500000, 9999999}	--猎鬼升级经验
 --  鬼杀手里剑
-StrBaseRate[51015] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--普通属性百分比
-StrResistRate[51015] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6抗性
-StrFixRate[51015] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4修正
-StrRequireExp[51015] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--猎鬼升级经验
+StrBaseRate[51015] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}			--普通属性百分比
+StrResistRate[51015] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--6抗性
+StrFixRate[51015] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--4修正
+StrRequireExp[51015] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000, 100000, 100000, 200000, 200000, 200000, 400000, 400000, 500000, 500000, 500000, 9999999}	--猎鬼升级经验
 --  兽王之爪
-StrBaseRate[51019] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5}			--普通属性百分比
-StrResistRate[51019] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--6抗性
-StrFixRate[51019] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3}			--4修正
-StrRequireExp[51019] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000}	--猎鬼升级经验
+StrBaseRate[51019] = 	{2, 2, 2, 2, 3, 3, 3, 4, 4 ,5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}			--普通属性百分比
+StrResistRate[51019] = 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--6抗性
+StrFixRate[51019] = 		{1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}			--4修正
+StrRequireExp[51019] = {1000, 1000, 2000, 2000, 2000, 4000, 4000, 5000, 5000, 5000, 100000, 100000, 200000, 200000, 200000, 400000, 400000, 500000, 500000, 500000, 9999999}	--猎鬼升级经验
 
 --- 加载模块钩子
 function Module:onLoad()
@@ -79,13 +79,15 @@ function Module:battleOverEventCallback(battleIndex)
 				local tItemName = Item.GetData(WeaponIndex, CONST.道具_名字);
 				local hStrLv = EquipPlusStat(WeaponIndex, "H") or 0;
 				local gStrExp = EquipPlusStat(WeaponIndex, "G") or 0;
-				local hMaxLv = 10;
+				local hMaxLv = 20;
 				local RequireExpNumTab = StrRequireExp[wandId]
 				local RequireExpNum = RequireExpNumTab[hStrLv+1]
 				--打鬼经验值
 				if EquipPlusStat(WeaponIndex)==nil then Item.SetData(WeaponIndex, CONST.道具_鉴前名, tItemName); end
-				EquipPlusStat(WeaponIndex, "G", gStrExp+plus);
-				NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
+				if (hStrLv<hMaxLv) then
+					EquipPlusStat(WeaponIndex, "G", gStrExp+plus);
+					NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
+				end
 				--武器精炼强化
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(WeaponIndex, "H", hStrLv+1);
@@ -104,13 +106,15 @@ function Module:battleOverEventCallback(battleIndex)
 				local tItemName = Item.GetData(ShieldIndex, CONST.道具_名字);
 				local hStrLv = EquipPlusStat(ShieldIndex, "H") or 0;
 				local gStrExp = EquipPlusStat(ShieldIndex, "G") or 0;
-				local hMaxLv = 10;
+				local hMaxLv = 20;
 				local RequireExpNumTab = StrRequireExp[wandId]
 				local RequireExpNum = RequireExpNumTab[hStrLv+1]
 				--打鬼经验值
 				if EquipPlusStat(ShieldIndex)==nil then Item.SetData(ShieldIndex, CONST.道具_鉴前名, tItemName); end
-				EquipPlusStat(ShieldIndex, "G", gStrExp+plus);
-				NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
+				if (hStrLv<hMaxLv) then
+					EquipPlusStat(ShieldIndex, "G", gStrExp+plus);
+					NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
+				end
 				--武器精炼强化
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(ShieldIndex, "H", hStrLv+1);
