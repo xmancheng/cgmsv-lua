@@ -1,73 +1,73 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local YbPetSkill = ModuleBase:createModule('ybPetSkill')
 
 local petMettleTable = {
-             { MettleType=1, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_ÊÇ·ñBOSS, skillId=9610 , val = 1.15},              --¶ÔBOSS¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_µØÊôÐÔ, info=CONST.ÊôÐÔ_µØ, skillId=9611 , val = 1.05},              --¶ÔµØÊôÐÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_Ë®ÊôÐÔ, info=CONST.ÊôÐÔ_Ë®, skillId=9612 , val = 1.05},              --¶ÔË®ÊôÐÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_»ðÊôÐÔ, info=CONST.ÊôÐÔ_»ð, skillId=9613 , val = 1.05},              --¶Ô»ðÊôÐÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_·çÊôÐÔ, info=CONST.ÊôÐÔ_·ç, skillId=9614 , val = 1.05},              --¶Ô·çÊôÐÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=4, type=CONST.CHAR_µØÊôÐÔ, info=CONST.ÊôÐÔ_µØ, skillId=9615 , val = 0.95},              --¼õÇáÀ´×ÔµØÊôÐÔ¶ÔÏóÉËº¦
-             { MettleType=4, type=CONST.CHAR_Ë®ÊôÐÔ, info=CONST.ÊôÐÔ_Ë®, skillId=9616 , val = 0.95},              --¼õÇáÀ´×ÔË®ÊôÐÔ¶ÔÏóÉËº¦
-             { MettleType=4, type=CONST.CHAR_»ðÊôÐÔ, info=CONST.ÊôÐÔ_»ð, skillId=9617 , val = 0.95},              --¼õÇáÀ´×Ô»ðÊôÐÔ¶ÔÏóÉËº¦
-             { MettleType=4, type=CONST.CHAR_·çÊôÐÔ, info=CONST.ÊôÐÔ_·ç, skillId=9618 , val = 0.95},              --¼õÇáÀ´×Ô·çÊôÐÔ¶ÔÏóÉËº¦
-             { MettleType=2, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_ÊÇ·ñBOSS, skillId=9619 , val = 0.85},              --¼õÇáÀ´×ÔBOSS¶ÔÏóÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÈËÐÍ, skillId=9620 , val = 1.25},              --¶ÔÈËÐÎÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Áú, skillId=9621 , val = 1.25},              --¶ÔÁú×åÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_²»ËÀ, skillId=9622 , val = 1.25},              --¶Ô²»ËÀÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_·ÉÐÐ, skillId=9623 , val = 1.25},              --¶Ô·ÉÐÐÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_À¥³æ, skillId=9624 , val = 1.25},              --¶ÔÀ¥³æÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ö²Îï, skillId=9625 , val = 1.25},              --¶ÔÖ²ÎïÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ò°ÊÞ, skillId=9626 , val = 1.25},              --¶ÔÒ°ÊÞÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÌØÊâ, skillId=9627 , val = 1.25},              --¶ÔÌØÊâÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_½ðÊô, skillId=9628 , val = 1.25},              --¶Ô½ðÊôÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ð°Ä§, skillId=9629 , val = 1.05},              --¶ÔÐ°Ä§Ïµ¶ÔÏóÔö¼ÓÉËº¦
+             { MettleType=1, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_æ˜¯å¦BOSS, skillId=9610 , val = 1.15},              --å¯¹BOSSå¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_åœ°å±žæ€§, info=CONST.å±žæ€§_åœ°, skillId=9611 , val = 1.05},              --å¯¹åœ°å±žæ€§å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_æ°´å±žæ€§, info=CONST.å±žæ€§_æ°´, skillId=9612 , val = 1.05},              --å¯¹æ°´å±žæ€§å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_ç«å±žæ€§, info=CONST.å±žæ€§_ç«, skillId=9613 , val = 1.05},              --å¯¹ç«å±žæ€§å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_é£Žå±žæ€§, info=CONST.å±žæ€§_é£Ž, skillId=9614 , val = 1.05},              --å¯¹é£Žå±žæ€§å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_åœ°å±žæ€§, info=CONST.å±žæ€§_åœ°, skillId=9615 , val = 0.95},              --å‡è½»æ¥è‡ªåœ°å±žæ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_æ°´å±žæ€§, info=CONST.å±žæ€§_æ°´, skillId=9616 , val = 0.95},              --å‡è½»æ¥è‡ªæ°´å±žæ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_ç«å±žæ€§, info=CONST.å±žæ€§_ç«, skillId=9617 , val = 0.95},              --å‡è½»æ¥è‡ªç«å±žæ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_é£Žå±žæ€§, info=CONST.å±žæ€§_é£Ž, skillId=9618 , val = 0.95},              --å‡è½»æ¥è‡ªé£Žå±žæ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=2, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_æ˜¯å¦BOSS, skillId=9619 , val = 0.85},              --å‡è½»æ¥è‡ªBOSSå¯¹è±¡ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_äººåž‹, skillId=9620 , val = 1.25},              --å¯¹äººå½¢ç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é¾™, skillId=9621 , val = 1.25},              --å¯¹é¾™æ—ç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ä¸æ­», skillId=9622 , val = 1.25},              --å¯¹ä¸æ­»ç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é£žè¡Œ, skillId=9623 , val = 1.25},              --å¯¹é£žè¡Œç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ˜†è™«, skillId=9624 , val = 1.25},              --å¯¹æ˜†è™«ç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ¤ç‰©, skillId=9625 , val = 1.25},              --å¯¹æ¤ç‰©ç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡Žå…½, skillId=9626 , val = 1.25},              --å¯¹é‡Žå…½ç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ç‰¹æ®Š, skillId=9627 , val = 1.25},              --å¯¹ç‰¹æ®Šç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡‘å±ž, skillId=9628 , val = 1.25},              --å¯¹é‡‘å±žç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‚ªé­”, skillId=9629 , val = 1.05},              --å¯¹é‚ªé­”ç³»å¯¹è±¡å¢žåŠ ä¼¤å®³
 }
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function YbPetSkill:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self))
 end
 
---»ñÈ¡³èÎï×°±¸-Ë®¾§
+--èŽ·å–å® ç‰©è£…å¤‡-æ°´æ™¶
 Pet.GetCrystal = function(petIndex)
-  local ItemIndex = Char.GetItemIndex(petIndex, CONST.³èµÀÀ¸_Ë®¾§);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàÐÍ)==CONST.µÀ¾ßÀàÐÍ_³èÎïË®¾§ then
-    return ItemIndex,CONST.³èµÀÀ¸_Ë®¾§;
+  local ItemIndex = Char.GetItemIndex(petIndex, CONST.å® é“æ _æ°´æ™¶);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»åž‹)==CONST.é“å…·ç±»åž‹_å® ç‰©æ°´æ™¶ then
+    return ItemIndex,CONST.å® é“æ _æ°´æ™¶;
   end
   return -1,-1;
 end
 
 function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg)
         if Char.IsPet(charIndex) then
-            local PetCrystalIndex = Pet.GetCrystal(charIndex);                --×óÓÒÊÖ
-            local PetCrystal_Name = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_Ãû×Ö);
-            local Attack = Char.GetData(charIndex,CONST.CHAR_¹¥»÷Á¦);
-            local Defense = Char.GetData(charIndex,CONST.CHAR_·ÀÓùÁ¦);
-            local Agile = Char.GetData(charIndex,CONST.CHAR_Ãô½Ý);
-            local Spirit = Char.GetData(charIndex,CONST.CHAR_¾«Éñ);
-            local Recover = Char.GetData(charIndex,CONST.CHAR_»Ø¸´);
+            local PetCrystalIndex = Pet.GetCrystal(charIndex);                --å·¦å³æ‰‹
+            local PetCrystal_Name = Item.GetData(PetCrystalIndex, CONST.é“å…·_åå­—);
+            local Attack = Char.GetData(charIndex,CONST.CHAR_æ”»å‡»åŠ›);
+            local Defense = Char.GetData(charIndex,CONST.CHAR_é˜²å¾¡åŠ›);
+            local Agile = Char.GetData(charIndex,CONST.CHAR_æ•æ·);
+            local Spirit = Char.GetData(charIndex,CONST.CHAR_ç²¾ç¥ž);
+            local Recover = Char.GetData(charIndex,CONST.CHAR_å›žå¤);
             if PetCrystal_Name~=nil then
-                 local wandId = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_ID);
-                 local bindId = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_ÌØÊâÀàÐÍ);
-                 local typeId = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_×Ó²ÎÒ»);
-                 local typeLv = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_×Ó²Î¶þ);
+                 local wandId = Item.GetData(PetCrystalIndex, CONST.é“å…·_ID);
+                 local bindId = Item.GetData(PetCrystalIndex, CONST.é“å…·_ç‰¹æ®Šç±»åž‹);
+                 local typeId = Item.GetData(PetCrystalIndex, CONST.é“å…·_å­å‚ä¸€);
+                 local typeLv = Item.GetData(PetCrystalIndex, CONST.é“å…·_å­å‚äºŒ);
                  local Slot = Char.HavePet(Pet.GetOwner(charIndex), bindId);
                  local EnemyId = Char.GetPet(Pet.GetOwner(charIndex), Slot);
                  local typeList = { {0.02,0.05,0.05,0.05,0.08}, {0.08,0.05,0.05,0.05,0.02}, {0.05,0.08,0.05,0.03,0.03}, {0.03,0.05,0.08,0.03,0.05}, {0.05,0.03,0.03,0.08,0.05}, {0.05,0.05,0.05,0.05,0.05}}
                  if (wandId==69031 or wandId==69040)  then
                         table.forEach(typeList, function(e)
                             for k, v in ipairs(typeList) do
-                                if (EnemyId==charIndex and Char.GetData(charIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_Õ½¶· and typeId>0 and typeId==k) then
+                                if (EnemyId==charIndex and Char.GetData(charIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_æˆ˜æ–— and typeId>0 and typeId==k) then
                                     if flg==CONST.DamageFlags.Normal or flg==CONST.DamageFlags.Critical then
                                         if (typeId==1 or typeId==2 or typeId==4 or typeId==6 or typeId==3) then
                                             if typeLv<10 then typeLvRate=1.1;
                                             elseif typeLv>=10 and typeLv<20  then typeLvRate=1.2;
                                             elseif typeLv>=20 then typeLvRate=1.3; end
                                             damage = damage + typeLvRate * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
-                                            --NLG.Say(-1,-1,"¡¾ÓXÐÑÖ®ÄîÄÜÁ¦¡¿£¡£¡",4,3);
+                                            --NLG.Say(-1,-1,"ã€è¦ºé†’ä¹‹å¿µèƒ½åŠ›ã€‘ï¼ï¼",4,3);
                                             return damage;
                                         end
                                     elseif flg==CONST.DamageFlags.Magic then
@@ -76,7 +76,7 @@ function YbPetSkill:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex
                                             elseif typeLv>=10 and typeLv<20  then typeLvRate=3.1;
                                             elseif typeLv>=20 then typeLvRate=3.2; end
                                             damage = damage + typeLvRate * (Attack * v[1] + Defense * v[2] + Agile * v[3] + Spirit * v[4] + Recover * v[5]);
-                                            --NLG.Say(-1,-1,"¡¾ÓXÐÑÖ®ÄîÄÜÁ¦¡¿£¡£¡",4,3);
+                                            --NLG.Say(-1,-1,"ã€è¦ºé†’ä¹‹å¿µèƒ½åŠ›ã€‘ï¼ï¼",4,3);
                                             return damage;
                                         end
                                     end
@@ -91,48 +91,48 @@ end
 
 function YbPetSkill:tempDamage(charIndex, defCharIndex, damage, battleIndex)
         for k, v in ipairs(petMettleTable) do
-           if (v.MettleType==1 and Char.GetData(charIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è)  then           --¹¥·½BOSS³èÎïÐÔ¸ñ
+           if (v.MettleType==1 and Char.GetData(charIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å® )  then           --æ”»æ–¹BOSSå® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == 1) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïÐÔ¸ñ±»¶¯Ð§¹û·¢¶¯",4,3);
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæžœå‘åŠ¨",4,3);
                        return damage;
                    end
                end
-           elseif (v.MettleType==2 and Char.GetData(defCharIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è)  then     --ÊÜ·½BOSS³èÎïÐÔ¸ñ
+           elseif (v.MettleType==2 and Char.GetData(defCharIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å® )  then     --å—æ–¹BOSSå® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) == 1) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïÐÔ¸ñ±»¶¯Ð§¹û·¢¶¯",4,3);
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæžœå‘åŠ¨",4,3);
                        return damage;
                    end
                end
-           elseif (v.MettleType==3 and Char.GetData(charIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è)  then            --¹¥·½ËÄÊôÐÔÏà¹Ø³èÎïÐÔ¸ñ
+           elseif (v.MettleType==3 and Char.GetData(charIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å® )  then            --æ”»æ–¹å››å±žæ€§ç›¸å…³å® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) >= 10) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïÐÔ¸ñ±»¶¯Ð§¹û·¢¶¯",4,3);
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæžœå‘åŠ¨",4,3);
                        return damage;
                    end
                end
-           elseif (v.MettleType==4 and Char.GetData(defCharIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è)  then     --ÊÜ·½ËÄÊôÐÔÏà¹Ø³èÎïÐÔ¸ñ
+           elseif (v.MettleType==4 and Char.GetData(defCharIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å® )  then     --å—æ–¹å››å±žæ€§ç›¸å…³å® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) >= 10) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïÐÔ¸ñ±»¶¯Ð§¹û·¢¶¯",4,3);
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæžœå‘åŠ¨",4,3);
                        return damage;
                    end
                end
-           elseif (v.MettleType==5 and Char.GetData(charIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è)  then           --¹¥·½ÖÖ×å³èÎïÐÔ¸ñ
+           elseif (v.MettleType==5 and Char.GetData(charIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å® )  then           --æ”»æ–¹ç§æ—å® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == v.info) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïÐÔ¸ñ±»¶¯Ð§¹û·¢¶¯",4,3);
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæžœå‘åŠ¨",4,3);
                        return damage;
                    end
                end
@@ -147,15 +147,15 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_äºº then
                leader = leader2
          end
-         if  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è  then  ---³èÎïÎªÎïÀíÊÜ¹¥·½ÊÂ¼þ£¬±»¶¯¼¼ÄÜÖ»ÄÜ¶þÑ¡Ò»
+         if  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å®   then  ---å® ç‰©ä¸ºç‰©ç†å—æ”»æ–¹äº‹ä»¶ï¼Œè¢«åŠ¨æŠ€èƒ½åªèƒ½äºŒé€‰ä¸€
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
            for i=0,9 do
                local skillId = Pet.GetSkill(defCharIndex, i)
-               if (skillId == 1319) then  --³èÎï±»¶¯¡¾ë[ÈÌ×ÔÖØ¡¿
+               if (skillId == 1319) then  --å® ç‰©è¢«åŠ¨ã€éš±å¿è‡ªé‡ã€‘
                  local battleturn= Battle.GetTurn(battleIndex);
                  local yrzz= 0.75 + (battleturn*0.05);
                  if battleturn>=10 then
@@ -163,13 +163,13 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  local damage = damage * yrzz;
                  print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(leader,defCharIndex,"¡¾ë[ÈÌ×ÔÖØ¡¿£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(leader,defCharIndex,"ã€éš±å¿è‡ªé‡ã€‘ï¼ï¼",4,3);
                  end
-                 --NLG.Say(-1,-1,"½øÈëÕ½¶·Ê±½µµÍÊÜµ½µÄÎïÀíÉËº¦25%£¬´ËÐ§¹ûÔÚÕ½¶·ÖÐÃ¿»ØºÏ¼õÉÙ5%£¬×î¶à¼õÉÙÖÁ50%",4,3);
+                 --NLG.Say(-1,-1,"è¿›å…¥æˆ˜æ–—æ—¶é™ä½Žå—åˆ°çš„ç‰©ç†ä¼¤å®³25%ï¼Œæ­¤æ•ˆæžœåœ¨æˆ˜æ–—ä¸­æ¯å›žåˆå‡å°‘5%ï¼Œæœ€å¤šå‡å°‘è‡³50%",4,3);
                  return damage;
                end
-               if (skillId == 1519) then  --³èÎï±»¶¯¡¾Íþ·çÁÝÁÝ¡¿
+               if (skillId == 1519) then  --å® ç‰©è¢«åŠ¨ã€å¨é£Žå‡›å‡›ã€‘
                  local battleturn= Battle.GetTurn(battleIndex);
                  local wfll= 1 - (battleturn*0.03);
                  if battleturn>=10 then
@@ -177,20 +177,20 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  local damage = damage * wfll;
                  print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(leader,defCharIndex,"¡¾ÍþïL„C„C¡¿£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(leader,defCharIndex,"ã€å¨é¢¨å‡œå‡œã€‘ï¼ï¼",4,3);
                  end
-                 --NLG.Say(-1,-1,"½øÈëÕ½¶·Ê±½µµÍÊÜµ½µÄÎïÀíÉËº¦0%£¬´ËÐ§¹ûÔÚÕ½¶·ÖÐÃ¿»ØºÏÌá¸ß3%£¬×î¸ß30%",4,3);
+                 --NLG.Say(-1,-1,"è¿›å…¥æˆ˜æ–—æ—¶é™ä½Žå—åˆ°çš„ç‰©ç†ä¼¤å®³0%ï¼Œæ­¤æ•ˆæžœåœ¨æˆ˜æ–—ä¸­æ¯å›žåˆæé«˜3%ï¼Œæœ€é«˜30%",4,3);
                  return damage;
                end
            end
            return damage;
-         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(defCharIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è  then  ---³èÎïÎªÄ§·¨ÊÜ¹¥·½ÊÂ¼þ£¬±»¶¯¼¼ÄÜÖ»ÄÜ¶þÑ¡Ò»
+         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(defCharIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å®   then  ---å® ç‰©ä¸ºé­”æ³•å—æ”»æ–¹äº‹ä»¶ï¼Œè¢«åŠ¨æŠ€èƒ½åªèƒ½äºŒé€‰ä¸€
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
            for i=0,9 do
                local skillId = Pet.GetSkill(defCharIndex, i)
-               if (skillId == 1419) then  --³èÎï±»¶¯¡¾ÈfÄî½Ô¿Õ¡¿
+               if (skillId == 1419) then  --å® ç‰©è¢«åŠ¨ã€è¬å¿µçš†ç©ºã€‘
                  local battleturn= Battle.GetTurn(battleIndex);
                  local wnjk= 0.75 + (battleturn*0.05);
                  if battleturn>=10 then
@@ -198,13 +198,13 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  local damage = damage * wnjk;
                  print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(leader,defCharIndex,"¡¾ÈfÄî½Ô¿Õ¡¿£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(leader,defCharIndex,"ã€è¬å¿µçš†ç©ºã€‘ï¼ï¼",4,3);
                  end
-                 --NLG.Say(-1,-1,"½øÈëÕ½¶·Ê±½µµÍÊÜµ½µÄÄ§·¨ÉËº¦25%£¬´ËÐ§¹ûÔÚÕ½¶·ÖÐÃ¿»ØºÏ¼õÉÙ5%£¬×î¶à¼õÉÙÖÁ50%",4,3);
+                 --NLG.Say(-1,-1,"è¿›å…¥æˆ˜æ–—æ—¶é™ä½Žå—åˆ°çš„é­”æ³•ä¼¤å®³25%ï¼Œæ­¤æ•ˆæžœåœ¨æˆ˜æ–—ä¸­æ¯å›žåˆå‡å°‘5%ï¼Œæœ€å¤šå‡å°‘è‡³50%",4,3);
                  return damage;
                end
-               if (skillId == 1519) then  --³èÎï±»¶¯¡¾Íþ·çÁÝÁÝ¡¿
+               if (skillId == 1519) then  --å® ç‰©è¢«åŠ¨ã€å¨é£Žå‡›å‡›ã€‘
                  local battleturn= Battle.GetTurn(battleIndex);
                  local wfll= 1 - (battleturn*0.03);
                  if battleturn>=10 then
@@ -212,44 +212,44 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  local damage = damage * wfll;
                  print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(leader,defCharIndex,"¡¾ÍþïL„C„C¡¿£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(leader,defCharIndex,"ã€å¨é¢¨å‡œå‡œã€‘ï¼ï¼",4,3);
                  end
-                 --NLG.Say(-1,-1,"½øÈëÕ½¶·Ê±½µµÍÊÜµ½µÄÄ§·¨ÉËº¦0%£¬´ËÐ§¹ûÔÚÕ½¶·ÖÐÃ¿»ØºÏÌá¸ß3%£¬×î¸ß30%",4,3);
+                 --NLG.Say(-1,-1,"è¿›å…¥æˆ˜æ–—æ—¶é™ä½Žå—åˆ°çš„é­”æ³•ä¼¤å®³0%ï¼Œæ­¤æ•ˆæžœåœ¨æˆ˜æ–—ä¸­æ¯å›žåˆæé«˜3%ï¼Œæœ€é«˜30%",4,3);
                  return damage;
                end
            end
            return damage;
-         elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è  then  ---³èÎïÎª¹¥»÷·½ÊÂ¼þ£¬±»¶¯¼¼ÄÜÖ»ÄÜ¶þÑ¡Ò»
-           --´óÊ¦½ÇÉ«¼Ó³É
-           if (Char.GetData(charIndex,CONST.¶ÔÏó_Õ½¶·Side)==0 and Battle.GetType(battleIndex)==1) then
-               claws = Char.GetTempData(leader, '°×»¢×¦') or 0;
-               teeth = Char.GetTempData(leader, 'ºÚ±ªÑÀ') or 0;
-               horns = Char.GetTempData(leader, '»ÆÉß½Ç') or 0;
+         elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å®   then  ---å® ç‰©ä¸ºæ”»å‡»æ–¹äº‹ä»¶ï¼Œè¢«åŠ¨æŠ€èƒ½åªèƒ½äºŒé€‰ä¸€
+           --å¤§å¸ˆè§’è‰²åŠ æˆ
+           if (Char.GetData(charIndex,CONST.å¯¹è±¡_æˆ˜æ–—Side)==0 and Battle.GetType(battleIndex)==1) then
+               claws = Char.GetTempData(leader, 'ç™½è™Žçˆª') or 0;
+               teeth = Char.GetTempData(leader, 'é»‘è±¹ç‰™') or 0;
+               horns = Char.GetTempData(leader, 'é»„è›‡è§’') or 0;
                damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
            end
-           --³èÎï¼Ó³É
+           --å® ç‰©åŠ æˆ
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
            local damage = math.floor(damage_TA*0.5);
            --print(damage_temp,damage_TA,damage)
-           --³èÎïÌØ¼¼
-           if (com3 == 9509)  then    --¼²ïLÑ¸À×
-               local State = Char.GetTempData(defCharIndex, '´©Í¸') or 0;
+           --å® ç‰©ç‰¹æŠ€
+           if (com3 == 9509)  then    --ç–¾é¢¨è¿…é›·
+               local State = Char.GetTempData(defCharIndex, 'ç©¿é€') or 0;
                print(State)
                if (State>=0 and State<=12) then
-                   Char.SetTempData(defCharIndex, '´©Í¸', State+1);
+                   Char.SetTempData(defCharIndex, 'ç©¿é€', State+1);
                    damage = damage * ((State+1)/12);
                    return damage;
                elseif (State>=13)  then
-                   Char.SetTempData(defCharIndex, '´©Í¸', 0);
+                   Char.SetTempData(defCharIndex, 'ç©¿é€', 0);
                    damage = damage * 1;
                    return damage;
                end
            end
            for i=0,9 do
                local skillId = Pet.GetSkill(charIndex, i)
-               if (skillId == 1619) then  --³èÎï±»¶¯¡¾´óµ¨ÎÞÎ·¡¿
+               if (skillId == 1619) then  --å® ç‰©è¢«åŠ¨ã€å¤§èƒ†æ— ç•ã€‘
                  local battleturn= Battle.GetTurn(battleIndex);
                  local ddww= 1.3 - (battleturn*0.06);
                  if battleturn>=5 then
@@ -257,13 +257,13 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  local damage = damage * ddww;
                  print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(leader,charIndex,"¡¾´óÄ‘ŸoÎ·¡¿£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(leader,charIndex,"ã€å¤§è†½ç„¡ç•ã€‘ï¼ï¼",4,3);
                  end
-                 --NLG.Say(-1,-1,"½øÈëÕ½¶·Ê±Ìá¸ßÔì³ÉµÄËùÓÐÉËº¦30%£¬´ËÐ§¹ûÔÚÕ½¶·ÖÐÃ¿»ØºÏ½µµÍ6%",4,3);
+                 --NLG.Say(-1,-1,"è¿›å…¥æˆ˜æ–—æ—¶æé«˜é€ æˆçš„æ‰€æœ‰ä¼¤å®³30%ï¼Œæ­¤æ•ˆæžœåœ¨æˆ˜æ–—ä¸­æ¯å›žåˆé™ä½Ž6%",4,3);
                  return damage;
                end
-               if (skillId == 1719) then  --³èÎï±»¶¯¡¾°ÙÕ½Ä¥Á·¡¿
+               if (skillId == 1719) then  --å® ç‰©è¢«åŠ¨ã€ç™¾æˆ˜ç£¨ç»ƒã€‘
                  local battleturn= Battle.GetTurn(battleIndex);
                  local bzml= 1 + (battleturn*0.06);
                  if battleturn>=5 then
@@ -271,31 +271,35 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                  end
                  local damage = damage * bzml;
                  print(damage)
-                 if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                        NLG.Say(leader,charIndex,"¡¾°Ù‘ðÄ¥¾š¡¿£¡£¡",4,3);
+                 if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                        NLG.Say(leader,charIndex,"ã€ç™¾æˆ°ç£¨ç·´ã€‘ï¼ï¼",4,3);
                  end
-                 --NLG.Say(-1,-1,"½øÈëÕ½¶·Ê±Ìá¸ßÔì³ÉµÄËùÓÐÉËº¦0%£¬´ËÐ§¹ûÔÚÕ½¶·ÖÐÃ¿»ØºÏÉÏÉý6%£¬×î¸ß30%",4,3);
+                 --NLG.Say(-1,-1,"è¿›å…¥æˆ˜æ–—æ—¶æé«˜é€ æˆçš„æ‰€æœ‰ä¼¤å®³0%ï¼Œæ­¤æ•ˆæžœåœ¨æˆ˜æ–—ä¸­æ¯å›žåˆä¸Šå‡6%ï¼Œæœ€é«˜30%",4,3);
                  return damage;
                end
            end
            return damage;
-         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_³è  then
-           --´óÊ¦½ÇÉ«¼Ó³É
-           if (Char.GetData(charIndex,CONST.¶ÔÏó_Õ½¶·Side)==0 and Battle.GetType(battleIndex)==1) then
-               claws = Char.GetTempData(leader, '°×»¢×¦') or 0;
-               teeth = Char.GetTempData(leader, 'ºÚ±ªÑÀ') or 0;
-               horns = Char.GetTempData(leader, '»ÆÉß½Ç') or 0;
+         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_å®   then
+           --å¤§å¸ˆè§’è‰²åŠ æˆ
+           if (Char.GetData(charIndex,CONST.å¯¹è±¡_æˆ˜æ–—Side)==0 and Battle.GetType(battleIndex)==1) then
+               claws = Char.GetTempData(leader, 'ç™½è™Žçˆª') or 0;
+               teeth = Char.GetTempData(leader, 'é»‘è±¹ç‰™') or 0;
+               horns = Char.GetTempData(leader, 'é»„è›‡è§’') or 0;
                damage = damage*math.floor( (1+(claws+teeth+horns)/10) );
            end
-           --³èÎï¼Ó³É
+           --å® ç‰©åŠ æˆ
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage_TA = damage_temp + self:AwakenEvoDamage(charIndex, defCharIndex, damage, battleIndex, flg);
-           local damage = math.floor(damage_TA*0.5);
-           --³èÎïÌØ¼¼
-           if (com3 == 2729) then    --Ç§âxÊ¯¼ý-SE
-               
-               local LvRate = Char.GetData(charIndex,CONST.CHAR_µÈ¼¶);
-               local Spirit = Char.GetData(charIndex,CONST.CHAR_¾«Éñ);
+           local damage = damage_TA;
+           --å® ç‰©ç‰¹æŠ€
+           if (com3 == 2729) then    --åƒéˆžçŸ³ç®­-SE
+               if NLG.Rand(1,10)>=8  then
+                   Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
+                   NLG.UpChar(defCharIndex);
+               end
+           end
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_ç­‰çº§);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_ç²¾ç¥ž);
                if LvRate <= 50  then
                         LvRate = 1;
                else
@@ -308,15 +312,11 @@ function YbPetSkill:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage
                end
                local damage = damage * SpRate + Spirit * 0.5 * LvRate ;
                print(damage)
-               if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                      NLG.Say(leader,charIndex,"¡¾Ä§·¨Œ§Á¦¡¿£¡£¡",4,3);
-               end
-		if NLG.Rand(1,10)>=8  then
-                   Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
-                   NLG.UpChar(defCharIndex);
-               end
+               --if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                      --NLG.Say(leader,charIndex,"ã€é­”æ³•å°ŽåŠ›ã€‘ï¼ï¼",4,3);
+               --end
            return damage;
-		end
+
          end
   return damage;
 end
@@ -329,55 +329,55 @@ function YbPetSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_äºº then
             leader = leader2
          end
-         if Char.GetData(charIndex, CONST.CHAR_ÀàÐÍ) == CONST.¶ÔÏóÀàÐÍ_ÈË then
-            local NEN = Char.GetData(charIndex,CONST.CHAR_ÖÖ×å);
+         if Char.GetData(charIndex, CONST.CHAR_ç±»åž‹) == CONST.å¯¹è±¡ç±»åž‹_äºº then
+            local NEN = Char.GetData(charIndex,CONST.CHAR_ç§æ—);
             local JL1 = NLG.Rand(1,4);
             --print(NEN)
             --print(JL1)
             if JL1 >= 1 then
                   local item5 = Char.GetItemIndex(charIndex, 5);
-                  local item5_Id = Item.GetData(item5, CONST.µÀ¾ß_ID);
+                  local item5_Id = Item.GetData(item5, CONST.é“å…·_ID);
                   local item6 = Char.GetItemIndex(charIndex, 6);
-                  local item6_Id = Item.GetData(item6, CONST.µÀ¾ß_ID);
+                  local item6_Id = Item.GetData(item6, CONST.é“å…·_ID);
                   if techID >= 400 and techID <= 409 and item6_Id == 900333  then
                         if option == 'DD:' then
-                              if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                                  NLG.Say(leader,charIndex,"¡¾¾Ûšâ¡¿£¡£¡",4,3);
+                              if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                                  NLG.Say(leader,charIndex,"ã€èšæ°£ã€‘ï¼ï¼",4,3);
                               end
-                              --NLG.Say(-1,-1,"Ó¶±ø¼¼ÄÜÇ¿»¯Ð§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾Æø¹¦µ¯ÍþÁ¦Ôö¼Ó30%¡¿",4,3);
+                              --NLG.Say(-1,-1,"ä½£å…µæŠ€èƒ½å¼ºåŒ–æ•ˆæžœåŠ æˆå·²å‘åŠ¨ï¼ã€æ°”åŠŸå¼¹å¨åŠ›å¢žåŠ 30%ã€‘",4,3);
                               return val+30;
                         end
                         return val
                   end
                   if techID >= 9500 and techID <= 9509 and item6_Id == 900333  then
                         if option == 'AM:' then
-                              if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                                  NLG.Say(leader,charIndex,"¡¾óEÓê¡¿£¡£¡",4,3);
+                              if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                                  NLG.Say(leader,charIndex,"ã€é©Ÿé›¨ã€‘ï¼ï¼",4,3);
                               end
-                              --NLG.Say(-1,-1,"Ó¶±ø¼¼ÄÜÇ¿»¯Ð§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾ÂÒÉäÊýÁ¿Ôö¼Ó3¡¿",4,3);
+                              --NLG.Say(-1,-1,"ä½£å…µæŠ€èƒ½å¼ºåŒ–æ•ˆæžœåŠ æˆå·²å‘åŠ¨ï¼ã€ä¹±å°„æ•°é‡å¢žåŠ 3ã€‘",4,3);
                               return val+3;
                         end
                         return val
                   end
                   if techID >= 6600 and techID <= 6609 and item5_Id == 900330 then
                         if option == 'RR:' then
-                              if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                                  NLG.Say(leader,charIndex,"¡¾Â}»ê¡¿£¡£¡",4,3);
+                              if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                                  NLG.Say(leader,charIndex,"ã€è–é­‚ã€‘ï¼ï¼",4,3);
                               end
-                              --NLG.Say(-1,-1,"Ó¶±ø¼¼ÄÜÇ¿»¯Ð§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾³¬»ÖÌØÊâÔö¼Ó100%¡¿",4,3);
+                              --NLG.Say(-1,-1,"ä½£å…µæŠ€èƒ½å¼ºåŒ–æ•ˆæžœåŠ æˆå·²å‘åŠ¨ï¼ã€è¶…æ¢ç‰¹æ®Šå¢žåŠ 100%ã€‘",4,3);
                               return val+100;
                         end
                         return val
                   end
                   if techID >= 1260 and techID <= 1269 and item5_Id == 900330  then
                         if option == 'D2:' then
-                              if Char.GetData(leader,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                                  NLG.Say(leader,charIndex,"¡¾ì`¹â¡¿£¡£¡",4,3);
+                              if Char.GetData(leader,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                                  NLG.Say(leader,charIndex,"ã€éˆå…‰ã€‘ï¼ï¼",4,3);
                               end
-                              --NLG.Say(-1,-1,"Ó¶±ø¼¼ÄÜÇ¿»¯Ð§¹û¼Ó³ÉÒÑ·¢¶¯£¡¡¾Ã÷¾»ÌØÊâÔö¼Ó100%¡¿",4,3);
+                              --NLG.Say(-1,-1,"ä½£å…µæŠ€èƒ½å¼ºåŒ–æ•ˆæžœåŠ æˆå·²å‘åŠ¨ï¼ã€æ˜Žå‡€ç‰¹æ®Šå¢žåŠ 100%ã€‘",4,3);
                               return val+100;
                         end
                         return val
@@ -387,7 +387,7 @@ function YbPetSkill:OnTechOptionEventCallBack(charIndex, option, techID, val)
       end
 end
 
---- Ð¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function YbPetSkill:onUnload()
   self:logInfo('unload')
 end
