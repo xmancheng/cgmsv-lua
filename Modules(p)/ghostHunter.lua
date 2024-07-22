@@ -94,10 +94,12 @@ function Module:battleOverEventCallback(battleIndex)
 					EquipPlusStat(WeaponIndex, "G", 0);
 					setItemName(WeaponIndex);
 					setItemStrData(WeaponIndex, hStrLv);
+					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
+				else
+					return;
 				end
 				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
-				NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
 			end
 		elseif ShieldIndex>0 and Char.EndEvent(player,306) == 1 then
 			local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
@@ -121,10 +123,12 @@ function Module:battleOverEventCallback(battleIndex)
 					EquipPlusStat(ShieldIndex, "G", 0);
 					setItemName(ShieldIndex);
 					setItemStrData(ShieldIndex, hStrLv);
+					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
+				else
+					return;
 				end
 				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
-				NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
 			end
 		end
 	end
