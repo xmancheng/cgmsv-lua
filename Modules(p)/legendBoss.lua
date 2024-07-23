@@ -10,39 +10,39 @@ local Setting = 0;
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
-EnemySet[1] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
-BaseLevelSet[1] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[1] = {"傳說寶可夢",EnemySet[1],BaseLevelSet[1]}
-EnemySet[2] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
-BaseLevelSet[2] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[2] = {"傳說寶可夢",EnemySet[2],BaseLevelSet[2]}
-EnemySet[3] = {3, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
-BaseLevelSet[3] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[3] = {"傳說寶可夢",EnemySet[3],BaseLevelSet[3]}
-EnemySet[4] = {4, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+EnemySet[1] = {606029, 606028, 606028, 606028, 606028, 606028, 606028, 606028, 606028, 606028}--0代表没有怪
+BaseLevelSet[1] = {199, 180, 180, 180, 180, 180, 180, 180, 180, 180}
+Pos[1] = {"急凍鳥",EnemySet[1],BaseLevelSet[1]}
+EnemySet[2] = {606032, 606031, 606031, 606031, 606031, 606031, 606031, 606031, 606031, 606031}--0代表没有怪
+BaseLevelSet[2] = {199, 180, 180, 180, 180, 180, 180, 180, 180, 180}
+Pos[2] = {"閃電鳥",EnemySet[2],BaseLevelSet[2]}
+EnemySet[3] = {606035, 606034, 606034, 606034, 606034, 606034, 606034, 606034, 606034, 606034}--0代表没有怪
+BaseLevelSet[3] = {199, 180, 180, 180, 180, 180, 180, 180, 180, 180}
+Pos[3] = {"炎帝",EnemySet[3],BaseLevelSet[3]}
+EnemySet[4] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
 BaseLevelSet[4] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[4] = {"傳說寶可夢",EnemySet[4],BaseLevelSet[4]}
-EnemySet[5] = {5, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+EnemySet[5] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
 BaseLevelSet[5] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[5] = {"傳說寶可夢",EnemySet[5],BaseLevelSet[5]}
-EnemySet[6] = {6, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
+EnemySet[6] = {3, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0代表没有怪
 BaseLevelSet[6] = {10, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 Pos[6] = {"傳說寶可夢",EnemySet[6],BaseLevelSet[6]}
 ------------------------------------------------------
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local LegendBoss = {
-      { lordNum=1, timesec=180, soul=1000, lordName="傳說寶可夢", startImage=101000, transImage = 101000, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=233,Y=112},
+      { lordNum=1, timesec=7200, soul=1000, lordName="急凍鳥", startImage=119736, transImage = 119736, waitingArea={map=777,X=38,Y=41}, warpArea={map=7400,X=41,Y=85},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=2, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101001, transImage = 101001, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=231,Y=112},
+      { lordNum=2, timesec=7200, soul=1000, lordName="閃電鳥", startImage=119737, transImage = 119737, waitingArea={map=777,X=38,Y=43}, warpArea={map=7400,X=15,Y=68},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=3, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101002, transImage = 101002, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=229,Y=112},
+      { lordNum=3, timesec=7200, soul=1000, lordName="炎帝", startImage=119735, transImage = 119735, waitingArea={map=777,X=38,Y=45}, warpArea={map=7400,X=22,Y=85},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=4, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101003, transImage = 101003, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=227,Y=112},
+      { lordNum=4, timesec=30, soul=1, lordName="傳說寶可夢", startImage=101000, transImage = 101000, waitingArea={map=777,X=38,Y=47}, warpArea={map=777,X=38,Y=47},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=5, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101004, transImage = 101004, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=225,Y=112},
+      { lordNum=5, timesec=30, soul=1, lordName="傳說寶可夢", startImage=101001, transImage = 101001, waitingArea={map=777,X=38,Y=49}, warpArea={map=777,X=38,Y=49},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=6, timesec=7200, soul=1000, lordName="傳說寶可夢", startImage=101005, transImage = 101005, waitingArea={map=777,X=38,Y=51}, warpArea={map=1000,X=223,Y=112},
+      { lordNum=6, timesec=30, soul=1, lordName="傳說寶可夢", startImage=101002, transImage = 101002, waitingArea={map=777,X=38,Y=51}, warpArea={map=777,X=38,Y=51},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -602,8 +602,141 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           end
         end
         return damage;
+
+      elseif Char.IsEnemy(defCharIndex) and Char.IsPlayer(charIndex) then
+        local enemyId = Char.GetData(defCharIndex, CONST.对象_ENEMY_ID);
+        print(enemyId)
+        if (enemyId==606037 or enemyId==606029 or enemyId==606032 or enemyId==606035) then
+            if flg == CONST.DamageFlags.Combo and CheckIP(charIndex)==400  then
+                Char.GiveItem(charIndex, 900504, 1);
+                NLG.SortItem(charIndex);
+
+            end
+        end
+        return damage;
       end
   return damage;
+end
+
+function CheckIP(player)
+	local teamplayers = Char.PartyNum(player);	--获取队伍人数
+	local p1 = NLG.GetIp(Char.GetPartyMember(player,0));	--获取玩家1的ip
+	local p2 = NLG.GetIp(Char.GetPartyMember(player,1));	--获取玩家2的ip
+	local p3 = NLG.GetIp(Char.GetPartyMember(player,2));	--获取玩家3的ip
+	local p4 = NLG.GetIp(Char.GetPartyMember(player,3));	--获取玩家4的ip
+	local p5 = NLG.GetIp(Char.GetPartyMember(player,4));	--获取玩家5的ip
+	print("队伍人员ip显示如下："..p1,p2,p3,p4,p5.."")	--cgmsv.exe窗口将调试信息
+	if p1 == -2 then--无队伍
+		return 400
+	elseif p2 == -2 then
+		p2 = 2;	--p2不存在时，赋予一个不同的数
+	elseif p3 == -2 then
+		p3 = 3;	--p3不存在时，赋予一个不同的数
+	elseif p4 == -2 then
+		p4 = 4;	--p4不存在时，赋予一个不同的数
+	elseif p5 == -2 then
+		p5 = 5;	--p5不存在时，赋予一个不同的数
+	end
+	if (teamplayers==5) then
+		if p1 == p2 and p1 == p3 and p1 == p4 and p1 == p5 then
+			return 405			--5开
+		elseif p1 == p2 and p1 == p3 and p1 == p4 and p1 ~= p5 then
+			return 404			--4开
+		elseif p1 == p2 and p1 == p3 and p1 ~= p4 and p1 == p5 then
+			return 404			--4开
+		elseif p1 == p2 and p1 ~= p3 and p1 == p4 and p1 == p5 then
+			return 404			--4开
+		elseif p1 ~= p2 and p1 == p3 and p1 == p4 and p1 == p5 then
+			return 404			--4开
+		elseif p1 == p2 and p1 == p3 and p1 ~= p4 and p1 ~= p5 then
+			if  (p4 ~= p5) then
+				return 400		--3开+2不同
+			end
+			return 403			--3开+2开
+		elseif p1 == p2 and p1 ~= p3 and p1 == p4 and p1 ~= p5 then
+			if  (p3 ~= p5) then
+				return 400		--3开+2不同
+			end
+			return 403			--3开+2开
+		elseif p1 ~= p2 and p1 == p3 and p1 == p4 and p1 ~= p5 then
+			if  (p2 ~= p5) then
+				return 400		--3开+2不同
+			end
+			return 403			--3开+2开
+		elseif p1 == p2 and p1 ~= p3 and p1 ~= p4 and p1 ~= p5 then
+			if  (p4 ~= p5 or p3 ~= p5) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 == p3 and p1 ~= p4 and p1 ~= p5 then
+			if  (p4 ~= p5 or p2 ~= p5) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 == p4 and p1 ~= p5 then
+			if  (p2 ~= p5 or p3 ~= p5) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 ~= p4 and p1 == p5 then
+			if  (p2 ~= p4 or p3 ~= p4) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 ~= p4 and p1 ~= p5 then
+			if p2 == p3 and p2 == p4 and p2 == p5 then
+				return 404		--1开+4开
+			end
+			return 400
+		else
+			return 400
+		end
+	elseif (teamplayers==4) then
+		if p1 == p2 and p1 == p3 and p1 == p4 then
+			return 404			--4开
+		elseif p1 == p2 and p1 == p3 and p1 ~= p4 then
+			return 403			--3开+1开
+		elseif p1 == p2 and p1 ~= p3 and p1 == p4 then
+			return 403			--3开+1开
+		elseif p1 ~= p2 and p1 == p3 and p1 == p4 then
+			return 403			--3开+1开
+		elseif p1 == p2 and p1 ~= p3 and p1 ~= p4 then
+			if (p3 ~= p4) then
+				return 400		--2开+2不同
+			end
+			return 403			--2开+2开
+		elseif p1 ~= p2 and p1 == p3 and p1 ~= p4 then
+			if (p2 ~= p4) then
+				return 400		--2开+2不同
+			end
+			return 403			--2开+2开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 == p4 then
+			if (p2 ~= p3) then
+				return 400		--2开+2不同
+			end
+			return 403			--2开+2开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 ~= p4 then
+			if p2 == p3 and p2 == p4 then
+				return 403		--1开+3开
+			end
+			return 400
+		else
+			return 400
+		end
+	elseif (teamplayers==3) then
+		if p1 == p2 and p1 == p3 then
+			return 403			--3开
+		elseif p1 ~= p2 and p1 ~= p3 then
+			if (p2 ~= p3) then
+				return 400		--1开+1开+1开
+			end
+			return 402			--1开+2开
+		else
+			return 400
+		end
+	else
+		return 400
+	end
 end
 
 --- 卸载模块钩子
