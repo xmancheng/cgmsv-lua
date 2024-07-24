@@ -66,7 +66,7 @@ function Module:battleOverEventCallback(battleIndex)
 		end
 	end
 	local lv = math.floor(m/k);
-	local plus = lv*(lv+13)*k;
+	local plus = lv*k;
 	--玩家方
 	for playerSlot=0,9 do
 		local player = Battle.GetPlayer(battleIndex, playerSlot);
