@@ -42,7 +42,7 @@ local LegendBoss = {
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
       { lordNum=5, timesec=7200, soul=1000, lordName="鳳王", startImage=119743, transImage = 119743, waitingArea={map=777,X=38,Y=49}, warpArea={map=7400,X=11,Y=26},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=6, timesec=7200, soul=1000, lordName="裝甲超夢", startImage=119739, transImage = 119740, waitingArea={map=20247,X=11,Y=151}, warpArea={map=20248,X=72Y=86},
+      { lordNum=6, timesec=7200, soul=1000, lordName="裝甲超夢", startImage=119739, transImage = 119740, waitingArea={map=20247,X=11,Y=151}, warpArea={map=20248,X=72,Y=86},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
