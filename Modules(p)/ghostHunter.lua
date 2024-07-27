@@ -101,7 +101,8 @@ function Module:battleOverEventCallback(battleIndex)
 				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
 			end
-		elseif ShieldIndex>0 and Char.EndEvent(player,306) == 1 then
+		end
+		if ShieldIndex>0 and Char.EndEvent(player,306) == 1 then
 			local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
 			local targetSlot = Char.GetItemSlot(player, ShieldIndex);
 			if (wandId==51019)  then
