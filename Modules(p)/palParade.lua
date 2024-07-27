@@ -1,26 +1,25 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('palParade')
 
 local PalEnemy = {
-      { palType=1, palNum=2, palName="ÅÁô”", palImage=129024, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
+      { palType=1, palNum=2, palName="å¸•é­¯", palImage=129024, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
          prizeItem={900504}, prizeItem_count=1},
-      { palType=2, palNum=2, palName="ÅÁô”", palImage=129025, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
+      { palType=2, palNum=2, palName="å¸•é­¯", palImage=129025, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
          prizeItem={900504}, prizeItem_count=2},
-      { palType=3, palNum=2, palName="ÅÁô”", palImage=129026, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
+      { palType=3, palNum=2, palName="å¸•é­¯", palImage=129026, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
          prizeItem={900504}, prizeItem_count=3},
-      { palType=4, palNum=2, palName="ÅÁô”", palImage=129027, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
+      { palType=4, palNum=2, palName="å¸•é­¯", palImage=129027, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
          prizeItem={900504}, prizeItem_count=4},
 }
 
-local ParadeInfo = {}				--ÀäÈ´Ê±¼ä±í
+local ParadeInfo = {}				--å†·å´æ—¶é—´è¡¨
 local ParadeSetting = {}
 local ParadeCD = {}
 tbl_PalEnemyNPCIndex = tbl_PalEnemyNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-
   self:regCallback('LoopEvent', Func.bind(self.PalEnemy_LoopEvent,self))
   for k,v in pairs(PalEnemy) do
     if (tbl_PalEnemyNPCIndex[k] == nil) then
@@ -32,29 +31,37 @@ function Module:onLoad()
            local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
            local PalEnemyNPC = self:NPC_createNormal(v.palName, v.palImage, { map = v.popArea.map, x = palX, y = palY, direction = 5, mapType = 0 })
            tbl_PalEnemyNPCIndex[k][i] = PalEnemyNPC
+           Char.SetLoopEvent('./lua/Modules/palParade.lua','PalEnemy_LoopEvent',tbl_PalEnemyNPCIndex[k][i],1000);
            self:regCallback('CharActionEvent', function(player, actionID)
-             local Target_FloorId = Char.GetData(player,CONST.CHAR_µØÍ¼);
-             if (actionID == CONST.¶¯×÷_Í¶ÖÀ and Target_FloorId==7400) then
-                  local playerLv = Char.GetData(player,CONST.CHAR_µÈ¼¶);
+             local Target_FloorId = Char.GetData(player,CONST.CHAR_åœ°å›¾);
+             if (actionID == CONST.åŠ¨ä½œ_æŠ•æ· and Target_FloorId==7400) then
+                  local playerLv = Char.GetData(player,CONST.CHAR_ç­‰çº§);
                   if (playerLv<=100) then
-                      NLG.SystemMessage(player,"[Ïµ½y]µÈ¼‰íšÒª100ÒÔÉÏ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç­‰ç´šé ˆè¦100ä»¥ä¸Šã€‚");
                       return;
                   end
-                  local npcImage = Char.GetData(tbl_PalEnemyNPCIndex[k][i],CONST.¶ÔÏó_ĞÎÏó);
+                  local npcImage = Char.GetData(tbl_PalEnemyNPCIndex[k][i],CONST.å¯¹è±¡_å½¢è±¡);
                   local npc = tbl_PalEnemyNPCIndex[k][i];
                   if ( NLG.CheckInFront(player, npc, 1)==false) then
                         return;
                   else
                      if ( k==v.palType and npcImage==v.palImage) then
-                        local rand = NLG.Rand(1,#v.prizeItem);
-                        Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
+                        if ( Char.ItemSlot(player)>19)then
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„å·²æ»¿ã€‚");
+                            return;
+                        else
+                            local rand = NLG.Rand(1,#v.prizeItem);
+                            Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
+                            pal_clear(player, npc);
+                            NLG.UpChar(player);
+                        end
                      end
                   end
              else
              end
            end)
            self:NPC_regWindowTalkedEvent(tbl_PalEnemyNPCIndex[k][i], function(npc, player, _seqno, _select, _data)
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)
@@ -64,7 +71,7 @@ function Module:onLoad()
                  return ;
              end
              if (NLG.CanTalk(npc, player) == true) then
-                 NLG.SystemMessage(player,"[Ïµ½y]ÕˆÊ¹ÓÃÍ¶”S„Ó×÷×¥²¶ÅÁô”¡£");
+                 NLG.SystemMessage(player,"[ç³»çµ±]è«‹ä½¿ç”¨æŠ•æ“²å‹•ä½œæŠ“æ•å¸•é­¯ã€‚");
                  return ;
              end
              return
@@ -75,116 +82,43 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---×ªÒÆ
-function LegendBoss_LoopEvent(npc)
-	local gmIndex = NLG.FindUser(123456);
-	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='çêÂ³ÀäÈ´_set'")["0_0"])
-	local ParadeCD = {};
-	if (type(sqldata)=="string" and sqldata~='') then
-		ParadeCD = JSON.decode(sqldata);
-	else
-		ParadeCD = {};
-	end
-
+-------åŠŸèƒ½è®¾ç½®
+--è½¬ç§»
+function PalEnemy_LoopEvent(npc)
 	if (os.date("%X",os.time())=="00:00:01") then
 		for k,v in pairs(PalEnemy) do
-			local mapsname = NLG.GetMapName(0, v.warpArea.map);
-			local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
+			local npcImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
 			if ( k==v.palType and npcImage==v.palImage ) then
-				ParadeInfo[k] = os.time();
-				ParadeSetting[k] = 0;
-
-				Char.SetData(npc,CONST.¶ÔÏó_X, v.warpArea.X);
-				Char.SetData(npc,CONST.¶ÔÏó_Y, v.warpArea.Y);
-				Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
+				local palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
+				local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
+				Char.SetData(npc,CONST.å¯¹è±¡_X, palX);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, palY);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.popArea.map);
 				NLG.UpChar(npc);
-
-				ParadeCD[k] = 0;
-				local newdata = JSON.encode(LegendCD);
-				SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='çêÂ³ÀäÈ´_set'")
-				NLG.UpChar(gmIndex);
 			end
 		end
 	elseif (os.date("%X",os.time())=="23:59:59")  then
 		for k,v in pairs(PalEnemy) do
-			local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
+			local npcImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
 			if ( k==v.palType and npcImage==v.palImage ) then
-				Char.SetData(npc,CONST.¶ÔÏó_X, v.waitingArea.X);
-				Char.SetData(npc,CONST.¶ÔÏó_Y, v.waitingArea.Y);
-				Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.waitingArea.map);
+				Char.SetData(npc,CONST.å¯¹è±¡_X, 40);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, 40);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, 777);
 				NLG.UpChar(npc);
 			end
 		end
-	else
-		for k,v in pairs(PalEnemy) do
-			if (ParadeSetting[k]==nil) then
-				local mapsname = NLG.GetMapName(0, v.warpArea.map);
-				local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-				if ( k==v.palType and npcImage==v.palImage) then
-					ParadeInfo[k] = os.time();
-					ParadeSetting[k] = 0;
-
-					Char.SetData(npc,CONST.¶ÔÏó_X, v.warpArea.X);
-					Char.SetData(npc,CONST.¶ÔÏó_Y, v.warpArea.Y);
-					Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
-					NLG.UpChar(npc);
-				end
-			elseif (ParadeSetting[k]==2) then
-				local CTime = ParadeInfoInfo[k] or os.time();
-				local mapsname = NLG.GetMapName(0, v.warpArea.map);
-				local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-				if ( (os.time() - CTime) >= 7200 and k==v.palType and npcImage==v.palImage) then
-					ParadeInfo[k] = os.time();
-					ParadeSetting[k] = 1;
-
-					Char.SetData(npc,CONST.¶ÔÏó_X, v.warpArea.X);
-					Char.SetData(npc,CONST.¶ÔÏó_Y, v.warpArea.Y);
-					Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
-					NLG.UpChar(npc);
-
-					ParadeCD[k] = 0;
-					local newdata = JSON.encode(ParadeCD);
-					SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='çêÂ³ÀäÈ´_set'")
-					NLG.UpChar(gmIndex);
-				end
-			end
-		end
 	end
 end
 
-
-function boss_round_callback(battleindex, player)
-
-	--½øÈëÀäÈ´Ê±¼ä
-	local gmIndex = NLG.FindUser(123456);
-	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='çêÂ³ÀäÈ´_set'")["0_0"])
-	local ParadeCD = {};
-	if (type(sqldata)=="string" and sqldata~='') then
-		ParadeCD = JSON.decode(sqldata);
-	else
-		ParadeCD = {};
-	end
-	for k,v in pairs(PalEnemy) do
-		local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-		if ( npcImage==v.palImage ) then
-			ParadeInfo[k] = os.time();
-			ParadeSetting[k] = 2;
-			Char.SetData(npc,CONST.¶ÔÏó_X, v.waitingArea.X);
-			Char.SetData(npc,CONST.¶ÔÏó_Y, v.waitingArea.Y);
-			Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.waitingArea.map);
-			NLG.UpChar(npc);
-
-			ParadeCD[k] = npcImage;
-			local newdata = JSON.encode(ParadeCD);
-			SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='çêÂ³ÀäÈ´_set'")
-			NLG.UpChar(gmIndex);
-		end
-	end
-	Char.SetTempData(player, 'çêÂ³',0);
+function pal_clear(player, npc)
+	--è½¬ç§»è‡³éšè—ç©ºé—´
+	Char.SetData(npc,CONST.å¯¹è±¡_X, 40);
+	Char.SetData(npc,CONST.å¯¹è±¡_Y, 40);
+	Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, 777);
+	NLG.UpChar(npc);
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
