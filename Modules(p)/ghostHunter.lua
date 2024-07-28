@@ -1,5 +1,6 @@
 local Module = ModuleBase:createModule('ghostHunter')
 
+local ExpRate = 3;
 local StrBaseRate = {}
 local StrResistRate = {}
 local StrFixRate = {}
@@ -66,7 +67,7 @@ function Module:battleOverEventCallback(battleIndex)
 		end
 	end
 	local lv = math.floor(m/k);
-	local plus = lv*k;
+	local plus = lv * k * ExpRate;
 	--玩家方
 	for playerSlot=0,9 do
 		local player = Battle.GetPlayer(battleIndex, playerSlot);
@@ -86,17 +87,19 @@ function Module:battleOverEventCallback(battleIndex)
 				if EquipPlusStat(WeaponIndex)==nil then Item.SetData(WeaponIndex, CONST.道具_鉴前名, tItemName); end
 				if (hStrLv<hMaxLv) then
 					EquipPlusStat(WeaponIndex, "G", gStrExp+plus);
+					Item.UpItem(player, targetSlot);
 					NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
 				end
 				--武器精炼强化
+				local gStrExp = EquipPlusStat(WeaponIndex, "G") or 0;
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(WeaponIndex, "H", hStrLv+1);
-					EquipPlusStat(WeaponIndex, "G", 0);
+					EquipPlusStat(WeaponIndex, "G", gStrExp-RequireExpNum);
 					setItemName(WeaponIndex);
 					setItemStrData(WeaponIndex, hStrLv);
+					Item.UpItem(player, targetSlot);
 					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
 				end
-				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
 			end
 		end
@@ -114,17 +117,19 @@ function Module:battleOverEventCallback(battleIndex)
 				if EquipPlusStat(ShieldIndex)==nil then Item.SetData(ShieldIndex, CONST.道具_鉴前名, tItemName); end
 				if (hStrLv<hMaxLv) then
 					EquipPlusStat(ShieldIndex, "G", gStrExp+plus);
+					Item.UpItem(player, targetSlot);
 					NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
 				end
 				--武器精炼强化
+				local gStrExp = EquipPlusStat(ShieldIndex, "G") or 0;
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(ShieldIndex, "H", hStrLv+1);
-					EquipPlusStat(ShieldIndex, "G", 0);
+					EquipPlusStat(ShieldIndex, "G", gStrExp-RequireExpNum);
 					setItemName(ShieldIndex);
 					setItemStrData(ShieldIndex, hStrLv);
+					Item.UpItem(player, targetSlot);
 					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
 				end
-				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
 			end
 		end
