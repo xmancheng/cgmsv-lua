@@ -95,8 +95,6 @@ function Module:battleOverEventCallback(battleIndex)
 					setItemName(WeaponIndex);
 					setItemStrData(WeaponIndex, hStrLv);
 					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
-				else
-					return;
 				end
 				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
@@ -125,8 +123,6 @@ function Module:battleOverEventCallback(battleIndex)
 					setItemName(ShieldIndex);
 					setItemStrData(ShieldIndex, hStrLv);
 					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
-				else
-					return;
 				end
 				Item.UpItem(player, targetSlot);
 				NLG.UpChar(player);
