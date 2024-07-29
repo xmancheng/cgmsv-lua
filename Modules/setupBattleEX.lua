@@ -30,7 +30,7 @@ function Module:OnCalcCriticalRateEvent(aIndex, fIndex, rate)
                    local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
                    if (wandId== 79256)  then
                        rate = 100;
-                       local Count = tonumber(TeamBuff_Tbl(cdk,1));
+                       local Count = tonumber(TeamBuff_Tbl(cdk,2));
                        if Count>=1 and Count<5  then
                            --Char.SetData(aIndex, CONST.对象_PET_HeadGraNo, 108510);
                            --NLG.SetHeadIcon(aIndex, 108510);
