@@ -2,16 +2,27 @@
 local Module = ModuleBase:createModule('palParade')
 
 local PalEnemy = {
-      { palType=1, palNum=2, palName="帕魯", palImage=129024, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
-         prizeItem={900504}, prizeItem_count=1},
-      { palType=2, palNum=2, palName="帕魯", palImage=129025, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
-         prizeItem={900504}, prizeItem_count=2},
-      { palType=3, palNum=2, palName="帕魯", palImage=129026, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
-         prizeItem={900504}, prizeItem_count=3},
-      { palType=4, palNum=2, palName="帕魯", palImage=129027, popArea={map=7400,LX=25,RX=35,LY=50,RY=60},
-         prizeItem={900504}, prizeItem_count=4},
+      { palType=1, palNum=16, palName="野生的帕魯", palImage=129024, popArea={map=7337,LX=62,RX=79,LY=77,RY=85},
+         prizeItem={51020,15615}, prizeItem_count=3},
+      { palType=2, palNum=8, palName="野生的帕魯", palImage=129025, popArea={map=7337,LX=26,RX=38,LY=60,RY=64},
+         prizeItem={900632,900633}, prizeItem_count=1},
+      { palType=3, palNum=4, palName="野生的帕魯", palImage=129026, popArea={map=7337,LX=49,RX=61,LY=36,RY=42},
+         prizeItem={13649,13669,13629}, prizeItem_count=1},
+      { palType=4, palNum=2, palName="野生的帕魯", palImage=129027, popArea={map=7337,LX=35,RX=53,LY=21,RY=30},
+         prizeItem={66668}, prizeItem_count=5},
 }
-
+------------------------------------------------
+local EnemySet = {}
+local BaseLevelSet = {}
+EnemySet[1] = {600101, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[1] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[2] = {600102, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[2] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[3] = {600103, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[3] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[4] = {600104, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[4] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+------------------------------------------------
 local ParadeInfo = {}				--冷却时间表
 local ParadeSetting = {}
 local ParadeCD = {}
@@ -31,10 +42,10 @@ function Module:onLoad()
            local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
            local PalEnemyNPC = self:NPC_createNormal(v.palName, v.palImage, { map = v.popArea.map, x = palX, y = palY, direction = 5, mapType = 0 })
            tbl_PalEnemyNPCIndex[k][i] = PalEnemyNPC
-           Char.SetLoopEvent('./lua/Modules/palParade.lua','PalEnemy_LoopEvent',tbl_PalEnemyNPCIndex[k][i],1000);
+           Char.SetLoopEvent('./lua/Modules/palParade.lua','PalEnemy_LoopEvent',tbl_PalEnemyNPCIndex[k][i], math.random(5000,10000));
            self:regCallback('CharActionEvent', function(player, actionID)
              local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
-             if (actionID == CONST.动作_投掷 and Target_FloorId==7400) then
+             if (actionID == CONST.动作_投掷 and Target_FloorId==7337) then
                   local playerLv = Char.GetData(player,CONST.CHAR_等级);
                   if (playerLv<=100) then
                       NLG.SystemMessage(player,"[系統]等級須要100以上。");
@@ -50,10 +61,19 @@ function Module:onLoad()
                             NLG.SystemMessage(player,"[系統]物品欄已滿。");
                             return;
                         else
-                            local rand = NLG.Rand(1,#v.prizeItem);
-                            Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
-                            pal_clear(player, npc);
-                            NLG.UpChar(player);
+                            if( NLG.Rand(1,10) >= 8 )then
+                                Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
+                            else
+                                local rand = NLG.Rand(1,#v.prizeItem);
+                                Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
+                                pal_clear(player, npc);
+                                local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--地图类型
+                                local Target_FloorId = Char.GetData(player,CONST.CHAR_地图)--地图编号
+                                local Target_X = Char.GetData(player,CONST.CHAR_X)--地图x
+                                local Target_Y = Char.GetData(player,CONST.CHAR_Y)--地图y
+                                Char.Warp(player,Target_MapId,Target_FloorId,Target_X,Target_Y);
+                                NLG.UpChar(player);
+                            end
                         end
                      end
                   end
@@ -85,7 +105,7 @@ end
 -------功能设置
 --转移
 function PalEnemy_LoopEvent(npc)
-	if (os.date("%X",os.time())=="00:00:01") then
+	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:00:01") or (os.date("%X",os.time())=="13:00:01") or (os.date("%X",os.time())=="17:00:01") or (os.date("%X",os.time())=="18:00:01") or (os.date("%X",os.time())=="20:00:01") or (os.date("%X",os.time())=="21:00:01") or (os.date("%X",os.time())=="22:00:01") then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
@@ -97,7 +117,7 @@ function PalEnemy_LoopEvent(npc)
 				NLG.UpChar(npc);
 			end
 		end
-	elseif (os.date("%X",os.time())=="23:59:59")  then
+	elseif (os.date("%X",os.time())=="23:59:59") or (os.date("%X",os.time())=="11:59:59") or (os.date("%X",os.time())=="12:59:59") or (os.date("%X",os.time())=="16:59:59") or (os.date("%X",os.time())=="17:59:59") or (os.date("%X",os.time())=="19:59:59") or (os.date("%X",os.time())=="20:59:59") or (os.date("%X",os.time())=="21:59:59") then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
@@ -106,6 +126,15 @@ function PalEnemy_LoopEvent(npc)
 				Char.SetData(npc,CONST.对象_地图, 777);
 				NLG.UpChar(npc);
 			end
+		end
+	else
+		local dir = math.random(0, 7);
+		local walk = 1;
+		local X,Y = Char.GetLocation(npc,dir);
+		if (NLG.Walkable(0, 7337, X, Y)==1) then
+			NLG.SetAction(npc,walk);
+			NLG.WalkMove(npc,dir);
+			NLG.UpChar(npc);
 		end
 	end
 end
@@ -116,6 +145,33 @@ function pal_clear(player, npc)
 	Char.SetData(npc,CONST.对象_Y, 40);
 	Char.SetData(npc,CONST.对象_地图, 777);
 	NLG.UpChar(npc);
+end
+
+Char.GetLocation = function(npc,dir)
+	local X = Char.GetData(npc,CONST.CHAR_X)--地图x
+	local Y = Char.GetData(npc,CONST.CHAR_Y)--地图y
+	if dir==0 then
+		Y=Y-1;
+	elseif dir==1 then
+		X=X+1;
+		Y=Y-1;
+	elseif dir==2 then
+		X=X+1;
+	elseif dir==3 then
+		X=X+1;
+		Y=Y+1;
+	elseif dir==4 then
+		Y=Y+1;
+	elseif dir==5 then
+		X=X-1;
+		Y=Y+1;
+	elseif dir==6 then
+		X=X-1;
+	elseif dir==7 then
+		X=X-1;
+		Y=Y-1;
+	end
+	return X,Y;
 end
 
 --- 卸载模块钩子
