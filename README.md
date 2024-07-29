@@ -82,7 +82,7 @@ loadModule('setupBattleEX')|狂勇戰神增強補正
 loadModule('ybPetSkill')|寵物性格、覺醒、被動、傷害調整、傭兵技能強化
 loadModule('specialSkill')|人物種族特異能力、人物種族技能強化(X)
 loadModule('attackSkill')|七大罪技能、手下留情、大師武器、法術附加狀態、合擊增傷
-loadModule('powerLinked')|新版本人物增減傷
+loadModule('powerLinked')|新版本人物增減傷(P)
 loadModule('setupMagicAttr')|魔法屬性技能(X)
 loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
 ### 傭兵相關
@@ -98,18 +98,18 @@ loadModule('itemThrow')|投擲擊殺式抓寵
 loadModule('encountEX')|滿怪香水
 loadModule('setupGetProfit')|限制獲取
 loadModule('bossField')|魔物增強
-loadModule('legendBoss')|傳說霸主
-loadModule('palParade')|野外遭遇
-loadModule('setupItemBox')|迷宮寶箱
+loadModule('legendBoss')|傳說霸主(P)
+loadModule('palParade')|野外遭遇(P)
+loadModule('setupItemBox')|迷宮寶箱(P)
 ### 寵物強化相關
 模組加載代碼 | 說明 
 --- | --- 
 loadModule('petHeadIcon')|0檔寵物特效
 loadModule('petPalHelp')|帕魯幫助
 loadModule('petEvolution')|寵物覺醒(寵裝強化)
-loadModule('randPetAbility')|野怪BP覺醒
+loadModule('randPetAbility')|野怪BP覺醒(P)
 loadModule('techMachine')|寵物招式機
-loadModule('petRush')|練寵懸賞
+loadModule('petRush')|練寵懸賞(P)
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -120,7 +120,7 @@ loadModule('sprayPaint')|噴漆鍍膜
 loadModule('incDurable')|魂魄保養
 loadModule('Strengthen')|魔力賦予
 loadModule('StrengthShop')|魔法卷軸倉庫
-loadModule('ghostHunter')|獵鬼強化(p)
+loadModule('ghostHunter')|獵鬼強化(P)
 ### 特殊副本
 模組加載代碼 | 說明 
 --- | --- 
@@ -132,7 +132,7 @@ loadModule('mazeBoss')|裏空間王戰(X)
 loadModule('mazeBoss1')|裏空間1王戰(~7)
 loadModule('mazeHorcrux')|裏空間魂器
 loadModule('worldBoss')|世界強敵
-loadModule('taskWarp')|每日副本
+loadModule('taskWarp')|每日副本(P)
 ### 其他功能
 模組加載代碼 | 說明 
 --- | --- 
@@ -146,5 +146,5 @@ loadModule('ichibanKuji')|一番賞抽獎
 loadModule('monOven')|炙燒烤爐
 loadModule('mysteryShop')|神秘商店
 loadModule('trashCan')|垃圾處理
-loadModule('skillSheet')|人物技能秘笈
+loadModule('skillSheet')|人物技能秘笈(P)
 
