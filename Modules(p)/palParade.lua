@@ -23,9 +23,8 @@ BaseLevelSet[3] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[4] = {600104, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
 BaseLevelSet[4] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 ------------------------------------------------
-local ParadeInfo = {}				--冷却时间表
-local ParadeSetting = {}
-local ParadeCD = {}
+local FTime = os.time()
+local ParadeCD = {}				--时间表
 tbl_PalEnemyNPCIndex = tbl_PalEnemyNPCIndex or {}
 ------------------------------------------------
 --- 加载模块钩子
@@ -100,13 +99,15 @@ function Module:onLoad()
        end
     end
   end
+  ParadeCD[1] = FTime;
 
 end
 ------------------------------------------------
 -------功能设置
 --转移
 function PalEnemy_LoopEvent(npc)
-	if (os.date("%X",os.time())=="00:00:01") or (os.date("%X",os.time())=="12:00:01") or (os.date("%X",os.time())=="13:00:01") or (os.date("%X",os.time())=="17:00:01") or (os.date("%X",os.time())=="18:00:01") or (os.date("%X",os.time())=="20:00:01") or (os.date("%X",os.time())=="21:00:01") or (os.date("%X",os.time())=="22:00:01") then
+	local CTime = (os.date("%H",ParadeCD[1])) or (os.date("%H",os.time()));
+	if (os.date("%H",os.time()) - CTime>=1) or (os.date("%H",os.time()) - CTime<0) then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
@@ -116,6 +117,7 @@ function PalEnemy_LoopEvent(npc)
 				Char.SetData(npc,CONST.对象_Y, palY);
 				Char.SetData(npc,CONST.对象_地图, v.popArea.map);
 				NLG.UpChar(npc);
+				ParadeCD[1] = os.time();
 			end
 		end
 	elseif (os.date("%X",os.time())=="23:59:59") or (os.date("%X",os.time())=="11:59:59") or (os.date("%X",os.time())=="12:59:59") or (os.date("%X",os.time())=="16:59:59") or (os.date("%X",os.time())=="17:59:59") or (os.date("%X",os.time())=="19:59:59") or (os.date("%X",os.time())=="20:59:59") or (os.date("%X",os.time())=="21:59:59") then
