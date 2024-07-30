@@ -2,26 +2,26 @@
 local Module = ModuleBase:createModule('palParade')
 
 local PalEnemy = {
-      { palType=1, palNum=16, palName="野生的帕魯", palImage=129024, popArea={map=7337,LX=62,RX=79,LY=77,RY=85},
-         prizeItem={51020,15615}, prizeItem_count=3},
-      { palType=2, palNum=8, palName="野生的帕魯", palImage=129025, popArea={map=7337,LX=26,RX=38,LY=60,RY=64},
-         prizeItem={900632,900633}, prizeItem_count=1},
-      { palType=3, palNum=4, palName="野生的帕魯", palImage=129026, popArea={map=7337,LX=49,RX=61,LY=36,RY=42},
-         prizeItem={13649,13669,13629}, prizeItem_count=1},
-      { palType=4, palNum=2, palName="野生的帕魯", palImage=129027, popArea={map=7337,LX=35,RX=53,LY=21,RY=30},
-         prizeItem={66668}, prizeItem_count=5},
+      { palType=1, palNum=20, palName="野生的帕魯", palImage=129024, popArea={map=7337,LX=32,LY=82, RX=79,RY=85},	--palNum生成数量、palImage外显形象(不重复)、出没范围(方形坐标)
+         encount=30, prizeItem_id={51020,15615}, prizeItem_count={5,3} },						--encount遇敌机率、prizeItem奖励组合(可重复多组，提高该组合机率)
+      { palType=2, palNum=12, palName="野生的帕魯", palImage=129025, popArea={map=7337,LX=26,LY=60, RX=59,RY=59},
+         encount=30, prizeItem_id={900632,900633}, prizeItem_count={1,1} },
+      { palType=3, palNum=4, palName="野生的帕魯", palImage=129026, popArea={map=7337,LX=49,LY=36, RX=61,RY=42},
+         encount=30, prizeItem_id={13649,13669,13629}, prizeItem_count={1,1,1} },
+      { palType=4, palNum=4, palName="野生的帕魯", palImage=129027, popArea={map=7337,LX=35,LY=21, RX=53,RY=30},
+         encount=30, prizeItem_id={66668}, prizeItem_count={5} },
 }
 ------------------------------------------------
 local EnemySet = {}
 local BaseLevelSet = {}
 EnemySet[1] = {600101, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[1] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[1] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[2] = {600102, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[2] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[2] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[3] = {600103, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[3] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[3] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[4] = {600104, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[4] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[4] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 ------------------------------------------------
 local ParadeInfo = {}				--冷却时间表
 local ParadeSetting = {}
@@ -61,11 +61,12 @@ function Module:onLoad()
                             NLG.SystemMessage(player,"[系統]物品欄已滿。");
                             return;
                         else
-                            if( NLG.Rand(1,10) >= 8 )then
+                            if( NLG.Rand(1,100) <= v.encount )then
                                 Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
+                                pal_clear(player, npc);
                             else
-                                local rand = NLG.Rand(1,#v.prizeItem);
-                                Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
+                                local rand = NLG.Rand(1,#v.prizeItem_id);
+                                Char.GiveItem(player, v.prizeItem_id[rand], v.prizeItem_count[rand]);
                                 pal_clear(player, npc);
                                 local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--地图类型
                                 local Target_FloorId = Char.GetData(player,CONST.CHAR_地图)--地图编号
