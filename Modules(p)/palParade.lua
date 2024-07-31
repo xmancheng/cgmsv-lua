@@ -117,20 +117,21 @@ function PalEnemy_LoopEvent(npc)
 				Char.SetData(npc,CONST.对象_Y, palY);
 				Char.SetData(npc,CONST.对象_地图, v.popArea.map);
 				NLG.UpChar(npc);
-				ParadeCD[1] = os.time();
 			end
 		end
+		ParadeCD[1] = os.time();
 	elseif (os.date("%X",os.time())=="23:59:59") or (os.date("%X",os.time())=="11:59:59") or (os.date("%X",os.time())=="12:59:59") or (os.date("%X",os.time())=="16:59:59") or (os.date("%X",os.time())=="17:59:59") or (os.date("%X",os.time())=="19:59:59") or (os.date("%X",os.time())=="20:59:59") or (os.date("%X",os.time())=="21:59:59") then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
-				Char.SetData(npc,CONST.对象_X, 40);
-				Char.SetData(npc,CONST.对象_Y, 40);
+				Char.SetData(npc,CONST.对象_X, 43);
+				Char.SetData(npc,CONST.对象_Y, 38);
 				Char.SetData(npc,CONST.对象_地图, 777);
 				NLG.UpChar(npc);
 			end
 		end
-	else
+	end
+	if (Char.GetData(npc,CONST.对象_地图)==7337) then
 		local dir = math.random(0, 7);
 		local walk = 1;
 		local X,Y = Char.GetLocation(npc,dir);
@@ -144,8 +145,8 @@ end
 
 function pal_clear(player, npc)
 	--转移至隐藏空间
-	Char.SetData(npc,CONST.对象_X, 40);
-	Char.SetData(npc,CONST.对象_Y, 40);
+	Char.SetData(npc,CONST.对象_X, 43);
+	Char.SetData(npc,CONST.对象_Y, 38);
 	Char.SetData(npc,CONST.对象_地图, 777);
 	NLG.UpChar(npc);
 end
