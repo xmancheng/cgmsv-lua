@@ -1,11 +1,11 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petMega')
 
-local MegaKind_check= {600073};				--enemy±àºÅ
+local MegaKind_check= {600073};				--enemyç¼–å·
 local MegaKind_list = {};
-MegaKind_list[600073] = {119740, 200500, 200509, 'DD:', 30};		--ĞÎÏó¡¢techID¡¢techID¡¢option¡¢val
+MegaKind_list[600073] = {119740, 200500, 200509, 'DD:', 30};		--å½¢è±¡ã€techIDã€techIDã€optionã€val
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -14,58 +14,61 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self:regCallback('ItemString', Func.bind(self.onMegaUse, self), 'LUA_useMega');  --è€Ê¯ÊÖ­hºÍMegaÊ¯
+  self:regCallback('ItemString', Func.bind(self.onMegaUse, self), 'LUA_useMega');  --é‘°çŸ³æ‰‹ç’°å’ŒMegaçŸ³
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self));
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self));
+  self:regCallback('CalcCriticalRateEvent', Func.bind(self.OnCalcCriticalRateEvent, self));
+  self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self));
+  self:regCallback('BattleCounterRateEvent', Func.bind(self.OnBattleCounterRateEvent, self));
 end
 
---»ñÈ¡³èÎï×°±¸-í—È¦
+--è·å–å® ç‰©è£…å¤‡-é …åœˆ
 Pet.GetCollar = function(petIndex)
-  local ItemIndex = Char.GetItemIndex(petIndex, CONST.³èµÀÀ¸_¾±È¦);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.µÀ¾ßÀàĞÍ_³èÎï¾±È¦ then
-    return ItemIndex,CONST.³èµÀÀ¸_¾±È¦;
+  local ItemIndex = Char.GetItemIndex(petIndex, CONST.å® é“æ _é¢ˆåœˆ);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.é“å…·ç±»å‹_å® ç‰©é¢ˆåœˆ then
+    return ItemIndex,CONST.å® é“æ _é¢ˆåœˆ;
   end
   return -1,-1;
 end
 
---MegaÊ¯Ê¹ÓÃ
+--MegaçŸ³ä½¿ç”¨
 function Module:onMegaUse(charIndex, targetCharIndex, itemSlot)
   local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
   local battleIndex = Char.GetBattleIndex(charIndex);
-  local ItemID = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
-  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
-  if (Item.GetData(itemIndex, CONST.µÀ¾ß_ÀàĞÍ)==26) then
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç±»å‹)==26) then
       if (ItemID==69172 and battleIndex==-1 and Battle.IsWaitingCommand(charIndex)<=0) then
-               NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
       elseif (ItemID==69172) then
             if (Target_FloorId~=20233) then
-                NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]Ö»ÄÜÔÚÏŞ¶¨µØˆDÊ¹ÓÃµÄµÀ¾ß");
+                NLG.SystemMessage(charIndex,"[é“å…·æç¤º]åªèƒ½åœ¨é™å®šåœ°åœ–ä½¿ç”¨çš„é“å…·");
             else
                 for Slot=0,4 do
                     local petIndex = Char.GetPet(charIndex, Slot);
-                    if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_Õ½¶·) then
+                    if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_æˆ˜æ–—) then
                         local Mega = Char.GetTempData(charIndex, 'MegaOn') or 0;
                         local PetId = Char.GetData(petIndex,CONST.PET_PetID);
                         if (Mega==0 and CheckInTable(MegaKind_check,PetId)==true) then
-                            --local petImage = Char.GetData(petIndex, CONST.CHAR_Ô­ĞÎ);
+                            --local petImage = Char.GetData(petIndex, CONST.CHAR_åŸå½¢);
                             local PetCollarIndex = Pet.GetCollar(petIndex);
-                            local StoneID = Item.GetData(PetCollarIndex, CONST.µÀ¾ß_ID);
+                            local StoneID = Item.GetData(PetCollarIndex, CONST.é“å…·_ID);
                             if (StoneID == 69080)  then
-                                Char.SetData(petIndex, CONST.CHAR_ĞÎÏó, MegaKind_list[PetId][1]);
-                                --Char.SetData(petIndex, CONST.CHAR_¿ÉÊÓ, 119741);
+                                Char.SetData(petIndex, CONST.CHAR_å½¢è±¡, MegaKind_list[PetId][1]);
+                                --Char.SetData(petIndex, CONST.CHAR_å¯è§†, 119741);
                                 NLG.UpChar(petIndex);
                                 Char.SetTempData(charIndex, 'MegaOn', 1);
-                                NLG.SystemMessage(charIndex,"[Ïµ½y]Œ™Îï¼´Œ¢³¬¼‰ßM»¯£¡");
+                                NLG.SystemMessage(charIndex,"[ç³»çµ±]å¯µç‰©å³å°‡è¶…ç´šé€²åŒ–ï¼");
                             end
                         elseif (Mega==1) then
-                            NLG.SystemMessage(charIndex,"[Ïµ½y]Œ™ÎïÒÑ½›Mega£¡");
+                            NLG.SystemMessage(charIndex,"[ç³»çµ±]å¯µç‰©å·²ç¶“Megaï¼");
                         else
-                            NLG.SystemMessage(charIndex,"[Ïµ½y]²»¿É ¿½OßM»¯µÄŒ™Îï£¡");
+                            NLG.SystemMessage(charIndex,"[ç³»çµ±]ä¸å¯ç‰½çµ†é€²åŒ–çš„å¯µç‰©ï¼");
                         end
                     end
                 end
@@ -75,7 +78,7 @@ function Module:onMegaUse(charIndex, targetCharIndex, itemSlot)
   end
 end
 
---½áÊø¡¢×¢Ïú³õÊ¼»¯
+--ç»“æŸã€æ³¨é”€åˆå§‹åŒ–
 function Module:battleOverEventCallback(battleIndex)
   for i = 0, 9 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
@@ -85,8 +88,8 @@ function Module:battleOverEventCallback(battleIndex)
                  for Slot=0,4 do
                      local petIndex = Char.GetPet(charIndex, Slot);
                      if (petIndex>0) then
-                         local petImage = Char.GetData(petIndex, CONST.CHAR_Ô­ĞÎ);
-                         Char.SetData(petIndex, CONST.CHAR_ĞÎÏó, petImage);
+                         local petImage = Char.GetData(petIndex, CONST.CHAR_åŸå½¢);
+                         Char.SetData(petIndex, CONST.CHAR_å½¢è±¡, petImage);
                          Pet.UpPet(charIndex, petIndex);
                          NLG.UpChar(charIndex);
                      end
@@ -102,8 +105,8 @@ function Module:onLogoutEvent(charIndex)
 		for Slot=0,4 do
 			local petIndex = Char.GetPet(charIndex, Slot);
 			if (petIndex>0) then
-				local petImage = Char.GetData(petIndex, CONST.CHAR_Ô­ĞÎ);
-				Char.SetData(petIndex, CONST.CHAR_ĞÎÏó, petImage);
+				local petImage = Char.GetData(petIndex, CONST.CHAR_åŸå½¢);
+				Char.SetData(petIndex, CONST.CHAR_å½¢è±¡, petImage);
 				Pet.UpPet(charIndex, petIndex);
 				NLG.UpChar(charIndex);
 			end
@@ -117,8 +120,8 @@ function Module:onLoginEvent(charIndex)
 		for Slot=0,4 do
 			local petIndex = Char.GetPet(charIndex, Slot);
 			if (petIndex>0) then
-				local petImage = Char.GetData(petIndex, CONST.CHAR_Ô­ĞÎ);
-				Char.SetData(petIndex, CONST.CHAR_ĞÎÏó, petImage);
+				local petImage = Char.GetData(petIndex, CONST.CHAR_åŸå½¢);
+				Char.SetData(petIndex, CONST.CHAR_å½¢è±¡, petImage);
 				Pet.UpPet(charIndex, petIndex);
 				NLG.UpChar(charIndex);
 			end
@@ -127,27 +130,27 @@ function Module:onLoginEvent(charIndex)
 	end
 end
 
---³¬¼¶½ø»¯¼ÓÇ¿¼¼ÄÜĞ§¹û
+--è¶…çº§è¿›åŒ–åŠ å¼ºæŠ€èƒ½æ•ˆæœ
 function Module:OnTechOptionEventCallBack(charIndex, option, techID, val)
       --self:logDebug('OnTechOptionEventCallBack', charIndex, option, techID, val)
       local battleIndex = Char.GetBattleIndex(charIndex)
       local leader1 = Battle.GetPlayer(battleIndex,0)
       local leader2 = Battle.GetPlayer(battleIndex,5)
       local leader = leader1
-      if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+      if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
             leader = leader2
       end
       if Char.IsPet(charIndex) then
           local PetCollarIndex = Pet.GetCollar(charIndex);
-          local StoneID = Item.GetData(PetCollarIndex, CONST.µÀ¾ß_ID);
+          local StoneID = Item.GetData(PetCollarIndex, CONST.é“å…·_ID);
           local PetId = Char.GetData(charIndex,CONST.PET_PetID);
           local playerOwner= Pet.GetOwner(charIndex);
           local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
           if Mega==1 and StoneID == 69080 then
                   if techID >= MegaKind_list[PetId][2] and techID <= MegaKind_list[PetId][3]  then
                         if option == MegaKind_list[PetId][4] then
-                              if Char.GetData(playerOwner,%¶ÔÏó_¶ÓÁÄ¿ª¹Ø%) == 1  then
-                                  NLG.Say(playerOwner,charIndex,"¡¾¾«ÉñŠÈĞ¡¿£¡£¡",4,3);
+                              if Char.GetData(playerOwner,%å¯¹è±¡_é˜ŸèŠå¼€å…³%) == 1  then
+                                  NLG.Say(playerOwner,charIndex,"ã€ç²¾ç¥å¼·åˆƒã€‘ï¼ï¼",4,3);
                               end
                               return val + MegaKind_list[PetId][5];
                         end
@@ -158,7 +161,61 @@ function Module:OnTechOptionEventCallBack(charIndex, option, techID, val)
       end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+function Module:OnCalcCriticalRateEvent(aIndex, fIndex, rate)
+      --self:logDebug('OnCalcCriticalRateCallBack', aIndex, fIndex, rate)
+      local battleIndex = Char.GetBattleIndex(aIndex);
+      if Char.IsPet(aIndex) and Char.IsEnemy(fIndex) then
+          local PetCollarIndex = Pet.GetCollar(charIndex);
+          local StoneID = Item.GetData(PetCollarIndex, CONST.é“å…·_ID);
+          local PetId = Char.GetData(charIndex,CONST.PET_PetID);
+          local playerOwner= Pet.GetOwner(charIndex);
+          local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
+          if Mega==1 and StoneID == 69080 then
+                  rate = 100;
+                  return rate
+          end
+      else
+      end
+      return rate
+end
+
+function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
+      --self:logDebug('OnBattleDodgeRateCallBack', battleIndex, aIndex, fIndex, rate)
+      local battleIndex = Char.GetBattleIndex(aIndex);
+      if Char.IsPet(aIndex) and Char.IsEnemy(fIndex) then
+          local PetCollarIndex = Pet.GetCollar(charIndex);
+          local StoneID = Item.GetData(PetCollarIndex, CONST.é“å…·_ID);
+          local PetId = Char.GetData(charIndex,CONST.PET_PetID);
+          local playerOwner= Pet.GetOwner(charIndex);
+          local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
+          if Mega==1 and StoneID == 69080 then
+                  rate = 0;
+                  return rate
+          end
+      else
+      end
+      return rate
+end
+
+function Module:OnBattleCounterRateEvent(battleIndex, aIndex, fIndex, rate)
+         --self:logDebug('OnBattleCounterRateCallBack', battleIndex, aIndex, fIndex, rate)
+      local battleIndex = Char.GetBattleIndex(aIndex);
+      if Char.IsPet(aIndex) and Char.IsEnemy(fIndex) then
+          local PetCollarIndex = Pet.GetCollar(charIndex);
+          local StoneID = Item.GetData(PetCollarIndex, CONST.é“å…·_ID);
+          local PetId = Char.GetData(charIndex,CONST.PET_PetID);
+          local playerOwner= Pet.GetOwner(charIndex);
+          local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
+          if Mega==1 and StoneID == 69080 then
+                  rate = 100;
+                  return rate
+          end
+      else
+      end
+      return rate
+end
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
