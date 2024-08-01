@@ -24,7 +24,7 @@ function Module:onLoad()
   self:regCallback('TechOptionEvent', Func.bind(self.OnTechOptionEventCallBack, self));
   self:regCallback('CalcCriticalRateEvent', Func.bind(self.OnCalcCriticalRateEvent, self));
   self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self));
-  self:regCallback('BattleCounterRateEvent', Func.bind(self.OnBattleCounterRateEvent, self));
+  --self:regCallback('BattleCounterRateEvent', Func.bind(self.OnBattleCounterRateEvent, self));
 end
 
 --获取宠物装备-項圈
@@ -182,11 +182,11 @@ end
 function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
       --self:logDebug('OnBattleDodgeRateCallBack', battleIndex, aIndex, fIndex, rate)
       local battleIndex = Char.GetBattleIndex(aIndex);
-      if Char.IsPet(aIndex) and Char.IsEnemy(fIndex) then
-          local PetCollarIndex = Pet.GetCollar(aIndex);
+      if Char.IsPet(fIndex) and Char.IsEnemy(aIndex) then
+          local PetCollarIndex = Pet.GetCollar(fIndex);
           local StoneID = Item.GetData(PetCollarIndex, CONST.道具_ID);
-          local PetId = Char.GetData(aIndex,CONST.PET_PetID);
-          local playerOwner= Pet.GetOwner(aIndex);
+          local PetId = Char.GetData(fIndex,CONST.PET_PetID);
+          local playerOwner= Pet.GetOwner(fIndex);
           local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
           if Mega==1 and StoneID == 69080 then
                   rate = 0;
