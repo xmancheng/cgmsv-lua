@@ -46,9 +46,9 @@ function Module:onMegaUse(charIndex, targetCharIndex, itemSlot)
       if (ItemID==69172 and battleIndex==-1 and Battle.IsWaitingCommand(charIndex)<=0) then
                NLG.SystemMessage(charIndex,"[道具提示]戰鬥中才能使用的道具");
       elseif (ItemID==69172) then
-            if (Target_FloorId~=20233) then
-                NLG.SystemMessage(charIndex,"[道具提示]只能在限定地圖使用的道具");
-            else
+            --if (Target_FloorId~=20233) then
+            --    NLG.SystemMessage(charIndex,"[道具提示]只能在限定地圖使用的道具");
+            --else
                 for Slot=0,4 do
                     local petIndex = Char.GetPet(charIndex, Slot);
                     if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗) then
@@ -72,7 +72,7 @@ function Module:onMegaUse(charIndex, targetCharIndex, itemSlot)
                         end
                     end
                 end
-            end
+            --end
       else
       end
   end
@@ -165,10 +165,10 @@ function Module:OnCalcCriticalRateEvent(aIndex, fIndex, rate)
       --self:logDebug('OnCalcCriticalRateCallBack', aIndex, fIndex, rate)
       local battleIndex = Char.GetBattleIndex(aIndex);
       if Char.IsPet(aIndex) and Char.IsEnemy(fIndex) then
-          local PetCollarIndex = Pet.GetCollar(charIndex);
+          local PetCollarIndex = Pet.GetCollar(aIndex);
           local StoneID = Item.GetData(PetCollarIndex, CONST.道具_ID);
-          local PetId = Char.GetData(charIndex,CONST.PET_PetID);
-          local playerOwner= Pet.GetOwner(charIndex);
+          local PetId = Char.GetData(aIndex,CONST.PET_PetID);
+          local playerOwner= Pet.GetOwner(aIndex);
           local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
           if Mega==1 and StoneID == 69080 then
                   rate = 100;
@@ -183,10 +183,10 @@ function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
       --self:logDebug('OnBattleDodgeRateCallBack', battleIndex, aIndex, fIndex, rate)
       local battleIndex = Char.GetBattleIndex(aIndex);
       if Char.IsPet(aIndex) and Char.IsEnemy(fIndex) then
-          local PetCollarIndex = Pet.GetCollar(charIndex);
+          local PetCollarIndex = Pet.GetCollar(aIndex);
           local StoneID = Item.GetData(PetCollarIndex, CONST.道具_ID);
-          local PetId = Char.GetData(charIndex,CONST.PET_PetID);
-          local playerOwner= Pet.GetOwner(charIndex);
+          local PetId = Char.GetData(aIndex,CONST.PET_PetID);
+          local playerOwner= Pet.GetOwner(aIndex);
           local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
           if Mega==1 and StoneID == 69080 then
                   rate = 0;
@@ -201,10 +201,10 @@ function Module:OnBattleCounterRateEvent(battleIndex, aIndex, fIndex, rate)
          --self:logDebug('OnBattleCounterRateCallBack', battleIndex, aIndex, fIndex, rate)
       local battleIndex = Char.GetBattleIndex(aIndex);
       if Char.IsPet(aIndex) and Char.IsEnemy(fIndex) then
-          local PetCollarIndex = Pet.GetCollar(charIndex);
+          local PetCollarIndex = Pet.GetCollar(aIndex);
           local StoneID = Item.GetData(PetCollarIndex, CONST.道具_ID);
-          local PetId = Char.GetData(charIndex,CONST.PET_PetID);
-          local playerOwner= Pet.GetOwner(charIndex);
+          local PetId = Char.GetData(aIndex,CONST.PET_PetID);
+          local playerOwner= Pet.GetOwner(aIndex);
           local Mega = Char.GetTempData(playerOwner, 'MegaOn') or 0;
           if Mega==1 and StoneID == 69080 then
                   rate = 100;
