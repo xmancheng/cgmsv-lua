@@ -8,13 +8,13 @@ local eventLuckyNum = 6;
 local eventTechID = {}
 eventTechID[1] = {9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}	--A等獎
 eventTechID[2] = {9640,9641,9642,9643,9644,9645,9646,9647,9648,9649}	--B等獎
-eventTechID[3] = {9610,9611,9612,9613,9614,9615,9616,9617,9618,9619,9620,9621,9622,9623,9624,9625,9626,9627,9628,9629}	--C等獎
-eventTechID[4] = {38,138,338,538,638,738,1138,1238,1939,2039,2139,2239,404,200504}	--D等獎
+eventTechID[3] = {9610,9619,9620,9621,9622,9623,9624,9625,9626,9627,9628,9629}	--C等獎
+eventTechID[4] = {9611,9612,9613,9614,9615,9616,9617,9618,404,200504}	--D等獎
 ------------------------------------------------------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
-  self.bountyNPC = self:NPC_createNormal('寶可夢懸賞單', 11797, { x = 245, y = 79, mapType = 0, map = 1000, direction = 0 });
+  self.bountyNPC = self:NPC_createNormal('寶可夢懸賞單', 11797, { x = 245, y = 84, mapType = 0, map = 1000, direction = 0 });
   self:NPC_regTalkedEvent(self.bountyNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
           local EnemyDataIndex = Data.EnemyGetDataIndex(eventGoal);		--enemyId
@@ -24,13 +24,13 @@ function Module:onLoad()
           local msg = "　　　　　　　【寶可夢練等兌獎活動】\\n"
                               .. "　本期時間：2024/07/15 - 2024/08/31\\n"
                               .. "　本期目標：".. eventGoalName .."\\n"
-                              .. "　限制等級："..goalLevel_min.."-"..goalLevel_max.."\\n\\n"
+                              .. "　限制等級："..goalLevel_min.."-"..goalLevel_max.."\\n"
                               .. "　　※玩法：生命、魔力、攻擊、防禦、敏捷\\n"
                               .. "　　五圍數值中尾數符合幾個： "..eventLuckyNum.." 呢？\\n"
                               .. "　　4 個：A獎.10款隨機之【羈絆增傷招式機】\\n"
                               .. "　　3 個：B獎.10款隨機之【羈絆減傷招式機】\\n"
-                              .. "　　2 個：C獎.20款隨機之【性格技能招式機】\\n"
-                              .. "　　1 個：D獎.14款隨機之【強力技能招式機】\\n";
+                              .. "　　2 個：C獎.12款隨機之【性格技能招式機】\\n"
+                              .. "　　1 個：D獎.【氣功彈、追月、性格招式機】\\n";
           NLG.ShowWindowTalked(player, self.bountyNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     end
     return
