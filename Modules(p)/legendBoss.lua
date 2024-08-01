@@ -32,17 +32,17 @@ Pos[6] = {"裝甲超夢",EnemySet[6],BaseLevelSet[6]}
 --背景设置
 local Pts= 70206;                                    --真女神苹果
 local LegendBoss = {
-      { lordNum=1, timesec=7200, soul=1000, lordName="急凍鳥", startImage=119736, transImage = 119736, waitingArea={map=777,X=38,Y=41}, warpArea={map=20244,X=96,Y=129},
+      { lordNum=1, timesec=3600, soul=1000, lordName="急凍鳥", startImage=119736, transImage = 119736, waitingArea={map=777,X=38,Y=41}, warpArea={map=20244,X=96,Y=129},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=2, timesec=7200, soul=1000, lordName="閃電鳥", startImage=119737, transImage = 119737, waitingArea={map=777,X=38,Y=43}, warpArea={map=20242,X=12,Y=14},
+      { lordNum=2, timesec=3600, soul=1000, lordName="閃電鳥", startImage=119737, transImage = 119737, waitingArea={map=777,X=38,Y=43}, warpArea={map=20242,X=12,Y=14},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=3, timesec=7200, soul=1000, lordName="炎帝", startImage=119735, transImage = 119735, waitingArea={map=777,X=38,Y=45}, warpArea={map=20249,X=50,Y=41},
+      { lordNum=3, timesec=3600, soul=1000, lordName="炎帝", startImage=119735, transImage = 119735, waitingArea={map=777,X=38,Y=45}, warpArea={map=20249,X=50,Y=41},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=4, timesec=7200, soul=1000, lordName="洛奇亞", startImage=119742, transImage = 119742, waitingArea={map=777,X=38,Y=47}, warpArea={map=7400,X=9,Y=9},
+      { lordNum=4, timesec=3600, soul=1000, lordName="洛奇亞", startImage=119742, transImage = 119742, waitingArea={map=777,X=38,Y=47}, warpArea={map=7400,X=9,Y=9},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=5, timesec=7200, soul=1000, lordName="鳳王", startImage=119743, transImage = 119743, waitingArea={map=777,X=38,Y=49}, warpArea={map=7400,X=11,Y=26},
+      { lordNum=5, timesec=3600, soul=1000, lordName="鳳王", startImage=119743, transImage = 119743, waitingArea={map=777,X=38,Y=49}, warpArea={map=7400,X=11,Y=26},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
-      { lordNum=6, timesec=7200, soul=1000, lordName="裝甲超夢", startImage=119739, transImage = 119740, waitingArea={map=20247,X=11,Y=151}, warpArea={map=20248,X=72,Y=86},
+      { lordNum=6, timesec=3600, soul=1000, lordName="裝甲超夢", startImage=119739, transImage = 119740, waitingArea={map=20247,X=11,Y=151}, warpArea={map=20248,X=72,Y=86},
         rewardsItem={47558}, rewardsItem_count=1, prizeItem={70206}, prizeItem_count=3},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -311,6 +311,19 @@ function LegendBoss_LoopEvent(npc)
 					local newdata = JSON.encode(LegendCD);
 					SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
 					NLG.UpChar(gmIndex);
+				elseif ( (os.time() - CTime) < 0 and k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+					LegendSetting[k] = 1;
+					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
+					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					NLG.UpChar(npc);
+
+					LegendCD[k] = 0;
+					local newdata = JSON.encode(LegendCD);
+					SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+					NLG.UpChar(gmIndex);
 				end
 			end
 		end
@@ -452,7 +465,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		table.forEach(legendBossBattle, function(e)
 			if enemy>=0 and e==battleIndex  then
 				if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
-					Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
+					--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 					Char.SetData(enemy, CONST.CHAR_血, HP);
 					NLG.SystemMessage(-1,"[系統]傳說寶可夢血量超激增！");
 				end
@@ -469,7 +482,7 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 		table.forEach(legendBossBattle, function(e)
 		if Round==0 and enemy>=0 and e==battleIndex  then
 			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
-				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
+				--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 				Char.SetData(enemy, CONST.CHAR_血, HP);
 			end
 		elseif Round>0 and enemy>=0 and e==battleIndex  then
@@ -478,7 +491,7 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 				local Hp_8 = Char.GetData(enemy, CONST.CHAR_血);
 				local Hp08 = Hp_8/Hp_10;
 
-				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
+				--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 				Char.SetData(enemy, CONST.CHAR_血, Hp_8);
 				if Hp08<=0.8 then
 					for k,v in pairs(LegendBoss) do
@@ -524,7 +537,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		if Round>=0 and enemy>=0 and e==battleIndex  then
 			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
 				local HP = Char.GetData(enemy,CONST.CHAR_血);
-				Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
+				--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
 				Char.SetData(enemy, CONST.CHAR_血, HP);
 				NLG.UpChar(enemy);
 			end
@@ -608,9 +621,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 
       elseif Char.IsEnemy(defCharIndex) and Char.IsPlayer(charIndex) then
         local enemyId = Char.GetData(defCharIndex, CONST.对象_ENEMY_ID);
-        print(enemyId)
+        --print(enemyId)
         if (enemyId==606070 or enemyId==606071 or enemyId==606072 or enemyId==606073) then
-            if flg == CONST.DamageFlags.Combo and CheckIP(charIndex)==400  then
+            if flg == CONST.DamageFlags.Combo  then
                 Char.GiveItem(charIndex, 66668, 1);
                 NLG.SortItem(charIndex);
 
