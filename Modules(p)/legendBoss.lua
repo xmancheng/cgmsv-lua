@@ -431,7 +431,7 @@ function boss_round_callback(battleindex, player)
 	end
 	for k,v in pairs(LegendBoss) do
 		local bossImage = Char.GetData(npc,CONST.对象_形象);
-		if ( bossImage==v.startImage ) then
+		if ( k==v.lordNum and bossImage==v.startImage ) then
 			LegendInfo[k] = os.time();
 			LegendSetting[k] = 2;
 			Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
