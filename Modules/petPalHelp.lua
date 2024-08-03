@@ -1,21 +1,21 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petPalHelp')
 
 local palList = {
-{ petID=401275, type=1, heal=20, pickitem=-1, pickitemNum=0},  --ÖÎÁÆ
-{ petID=401276, type=2, heal=0, pickitem=70162, pickitemNum=3},  --²É¼¯
-{ petID=401277, type=3, heal=10, pickitem=70163, pickitemNum=3},  --ÖÎÁÆ+²É¼¯
+{ petID=401275, type=1, heal=20, pickitem=-1, pickitemNum=0},  --æ²»ç–—
+{ petID=401276, type=2, heal=0, pickitem=70162, pickitemNum=3},  --é‡‡é›†
+{ petID=401277, type=3, heal=10, pickitem=70163, pickitemNum=3},  --æ²»ç–—+é‡‡é›†
 
 }
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('GatherItemEvent', function(charIndex, skillId, skillLv, itemNo)
     for Slot=0,4 do
         local petIndex = Char.GetPet(charIndex, Slot);
-        if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_Õ½¶·) then
-            local PETID = Char.GetData(petIndex,CONST.³èÎï_PETID);
+        if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_æˆ˜æ–—) then
+            local PETID = Char.GetData(petIndex,CONST.å® ç‰©_PETID);
             table.forEach(palList, function(e)
               if (itemNo>0 and PETID == e.petID)  then
                   if (e.type==2 or e.type==3) then
@@ -24,19 +24,19 @@ function Module:onLoad()
                           if (burst==1) then
                               Char.GiveItem(charIndex, itemNo, e.pickitemNum);
                               NLG.SortItem(charIndex);
-                              NLG.SystemMessage(charIndex, "[Ïµ½y]ÄãµÄŒ™ÎïÍÃ¦’ñ¼¯¶àÔö¼Ó"..e.pickitemNum.."‚€");
+                              NLG.SystemMessage(charIndex, "[ç³»çµ±]ä½ çš„å¯µç‰©å¹«å¿™æ¡é›†å¤šå¢åŠ "..e.pickitemNum.."å€‹");
                           end
                       end
                   end
                   if (e.type==1 or e.type==3) then
-                      local injury = Char.GetData(charIndex, CONST.CHAR_ÊÜÉË);
+                      local injury = Char.GetData(charIndex, CONST.CHAR_å—ä¼¤);
                       if ( injury < 1) then
                           return;
                       else
                           if (injury>0 and e.heal>0) then
-                              Char.SetData(charIndex, CONST.CHAR_ÊÜÉË, injury+e.heal);
+                              Char.SetData(charIndex, CONST.CHAR_å—ä¼¤, injury-e.heal);
                               NLG.UpChar(charIndex);
-                              NLG.SystemMessage(charIndex, "[Ïµ½y]ÄãµÄŒ™Îï½oÓèÄãÖÎ¯Ÿ‚û„İ"..e.heal.."üc");
+                              NLG.SystemMessage(charIndex, "[ç³»çµ±]ä½ çš„å¯µç‰©çµ¦äºˆä½ æ²»ç™‚å‚·å‹¢"..e.heal.."é»");
                           end
                       end
                   end
@@ -50,7 +50,7 @@ function Module:onLoad()
 end
 
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
