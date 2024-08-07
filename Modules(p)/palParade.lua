@@ -2,13 +2,13 @@
 local Module = ModuleBase:createModule('palParade')
 
 local PalEnemy = {
-      { palType=1, palNum=20, palName="野生的帕魯", palImage=129024, popArea={map=7337,LX=32,LY=82, RX=79,RY=85},	--palNum生成数量、palImage外显形象(不重复)、出没范围(方形坐标)
+      { palType=1, palNum=8, enMode=1, palName="野生的帕魯", palImage=129024, popArea={map=7337,LX=32,LY=82, RX=79,RY=85},	--palNum生成数量、palImage外显形象(不重复)、出没范围(方形坐标)
          encount=30, prizeItem_id={51020,15615}, prizeItem_count={5,3} },						--encount遇敌机率、prizeItem奖励组合(可重复多组，提高该组合机率)
-      { palType=2, palNum=12, palName="野生的帕魯", palImage=129025, popArea={map=7337,LX=26,LY=60, RX=59,RY=59},
+      { palType=2, palNum=6, enMode=1, palName="野生的帕魯", palImage=129025, popArea={map=7337,LX=26,LY=60, RX=59,RY=59},
          encount=30, prizeItem_id={900632,900633}, prizeItem_count={1,1} },
-      { palType=3, palNum=4, palName="野生的帕魯", palImage=129026, popArea={map=7337,LX=49,LY=36, RX=61,RY=42},
+      { palType=3, palNum=4, enMode=1, palName="野生的帕魯", palImage=129026, popArea={map=7337,LX=49,LY=36, RX=61,RY=42},
          encount=30, prizeItem_id={13649,13669,13629}, prizeItem_count={1,1,1} },
-      { palType=4, palNum=4, palName="野生的帕魯", palImage=129027, popArea={map=7337,LX=35,LY=21, RX=53,RY=30},
+      { palType=4, palNum=2, enMode=1, palName="野生的帕魯", palImage=129027, popArea={map=7337,LX=35,LY=21, RX=53,RY=30},
          encount=30, prizeItem_id={66668}, prizeItem_count={5} },
 }
 ------------------------------------------------
@@ -23,8 +23,7 @@ BaseLevelSet[3] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[4] = {600104, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
 BaseLevelSet[4] = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 ------------------------------------------------
-local FTime = os.time()
-local ParadeCD = {}				--时间表
+local FTime = os.time();			--时间表
 tbl_PalEnemyNPCIndex = tbl_PalEnemyNPCIndex or {}
 ------------------------------------------------
 --- 加载模块钩子
@@ -44,7 +43,7 @@ function Module:onLoad()
            Char.SetLoopEvent('./lua/Modules/palParade.lua','PalEnemy_LoopEvent',tbl_PalEnemyNPCIndex[k][i], math.random(5000,10000));
            self:regCallback('CharActionEvent', function(player, actionID)
              local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
-             if (actionID == CONST.动作_投掷 and Target_FloorId==7337) then
+             if (actionID == CONST.动作_投掷 and Target_FloorId==7337 and v.enMode==1) then
                   local playerLv = Char.GetData(player,CONST.CHAR_等级);
                   if (playerLv<=100) then
                       NLG.SystemMessage(player,"[系統]等級須要100以上。");
@@ -77,6 +76,8 @@ function Module:onLoad()
                         end
                      end
                   end
+             elseif (v.enMode==0) then
+                      return;
              else
              end
            end)
@@ -90,24 +91,58 @@ function Module:onLoad()
              if(NLG.CheckInFront(player, npc, 1)==false) then
                  return ;
              end
-             if (NLG.CanTalk(npc, player) == true) then
+             if (v.enMode==1 and NLG.CanTalk(npc, player) == true) then
                  NLG.SystemMessage(player,"[系統]請使用投擲動作抓捕帕魯。");
                  return ;
+             elseif (v.enMode==0 and NLG.CanTalk(npc, player) == true) then
+                  local playerLv = Char.GetData(player,CONST.CHAR_等级);
+                  if (playerLv<=100) then
+                      NLG.SystemMessage(player,"[系統]等級須要100以上。");
+                      return;
+                  end
+                  local npcImage = Char.GetData(tbl_PalEnemyNPCIndex[k][i],CONST.对象_形象);
+                  local npc = tbl_PalEnemyNPCIndex[k][i];
+                  if ( NLG.CheckInFront(player, npc, 1)==false) then
+                        return;
+                  else
+                     if ( k==v.palType and npcImage==v.palImage) then
+                        if ( Char.ItemSlot(player)>19)then
+                            NLG.SystemMessage(player,"[系統]物品欄已滿。");
+                            return;
+                        else
+                            if( NLG.Rand(1,100) <= v.encount )then
+                                Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
+                                pal_clear(player, npc);
+                            else
+                                local rand = NLG.Rand(1,#v.prizeItem_id);
+                                Char.GiveItem(player, v.prizeItem_id[rand], v.prizeItem_count[rand]);
+                                pal_clear(player, npc);
+                                local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--地图类型
+                                local Target_FloorId = Char.GetData(player,CONST.CHAR_地图)--地图编号
+                                local Target_X = Char.GetData(player,CONST.CHAR_X)--地图x
+                                local Target_Y = Char.GetData(player,CONST.CHAR_Y)--地图y
+                                Char.Warp(player,Target_MapId,Target_FloorId,Target_X,Target_Y);
+                                NLG.UpChar(player);
+                            end
+                        end
+                     end
+                  end
+
              end
              return
            end)
        end
     end
   end
-  ParadeCD[1] = FTime;
+
 
 end
 ------------------------------------------------
 -------功能设置
 --转移
 function PalEnemy_LoopEvent(npc)
-	local CTime = (os.date("%H",ParadeCD[1])) or (os.date("%H",os.time()));
-	if (os.date("%H",os.time()) - CTime>=1) or (os.date("%H",os.time()) - CTime<0) then
+	local CTime = tonumber(os.date("%H",FTime));
+	if ( tonumber(os.date("%H",os.time())) - CTime>=1 or tonumber(os.date("%H",os.time())) - CTime<0) then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
@@ -119,7 +154,7 @@ function PalEnemy_LoopEvent(npc)
 				NLG.UpChar(npc);
 			end
 		end
-		ParadeCD[1] = os.time();
+		FTime = os.time();
 	elseif (os.date("%X",os.time())=="23:59:59") or (os.date("%X",os.time())=="11:59:59") or (os.date("%X",os.time())=="12:59:59") or (os.date("%X",os.time())=="16:59:59") or (os.date("%X",os.time())=="17:59:59") or (os.date("%X",os.time())=="19:59:59") or (os.date("%X",os.time())=="20:59:59") or (os.date("%X",os.time())=="21:59:59") then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
