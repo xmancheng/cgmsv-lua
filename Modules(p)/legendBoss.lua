@@ -311,7 +311,7 @@ function LegendBoss_LoopEvent(npc)
 					local newdata = JSON.encode(LegendCD);
 					SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
 					NLG.UpChar(gmIndex);
-				elseif ( (os.time() - CTime) < 0 and k==v.lordNum and bossImage==v.startImage) then
+				elseif ( v.timesec - (os.time() - CTime) < 0 and k==v.lordNum and bossImage==v.startImage) then
 					LegendInfo[k] = os.time();
 					LegendSetting[k] = 1;
 					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
