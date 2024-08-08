@@ -142,7 +142,8 @@ end
 --转移
 function PalEnemy_LoopEvent(npc)
 	local CTime = tonumber(os.date("%H",FTime));
-	if ( tonumber(os.date("%H",os.time())) - CTime>=1 or tonumber(os.date("%H",os.time())) - CTime<0) then
+--[[
+	if ( tonumber(os.date("%H",os.time())) - CTime>=1 or tonumber(os.date("%H",os.time())) - CTime<0 ) then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
@@ -154,7 +155,6 @@ function PalEnemy_LoopEvent(npc)
 				NLG.UpChar(npc);
 			end
 		end
-		FTime = os.time();
 	elseif (os.date("%X",os.time())=="23:59:59") or (os.date("%X",os.time())=="11:59:59") or (os.date("%X",os.time())=="12:59:59") or (os.date("%X",os.time())=="16:59:59") or (os.date("%X",os.time())=="17:59:59") or (os.date("%X",os.time())=="19:59:59") or (os.date("%X",os.time())=="20:59:59") or (os.date("%X",os.time())=="21:59:59") then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
@@ -166,6 +166,7 @@ function PalEnemy_LoopEvent(npc)
 			end
 		end
 	end
+]]
 	if (Char.GetData(npc,CONST.对象_地图)==7337) then
 		local dir = math.random(0, 7);
 		local walk = 1;
@@ -174,6 +175,18 @@ function PalEnemy_LoopEvent(npc)
 			NLG.SetAction(npc,walk);
 			NLG.WalkMove(npc,dir);
 			NLG.UpChar(npc);
+		end
+	elseif (Char.GetData(npc,CONST.对象_地图)~=7337 and math.fmod(tonumber(os.date("%M",os.time())) - CTime,7)==0) then
+		for k,v in pairs(PalEnemy) do
+			local npcImage = Char.GetData(npc,CONST.对象_形象);
+			if ( k==v.palType and npcImage==v.palImage ) then
+				local palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
+				local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
+				Char.SetData(npc,CONST.对象_X, palX);
+				Char.SetData(npc,CONST.对象_Y, palY);
+				Char.SetData(npc,CONST.对象_地图, v.popArea.map);
+				NLG.UpChar(npc);
+			end
 		end
 	end
 end
