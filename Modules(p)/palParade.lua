@@ -40,7 +40,7 @@ function Module:onLoad()
            local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
            local PalEnemyNPC = self:NPC_createNormal(v.palName, v.palImage, { map = v.popArea.map, x = palX, y = palY, direction = 5, mapType = 0 })
            tbl_PalEnemyNPCIndex[k][i] = PalEnemyNPC
-           Char.SetLoopEvent('./lua/Modules/palParade.lua','PalEnemy_LoopEvent',tbl_PalEnemyNPCIndex[k][i], math.random(5000,10000));
+           Char.SetLoopEvent('./lua/Modules/palParade.lua','PalEnemy_LoopEvent',tbl_PalEnemyNPCIndex[k][i], 1000);
            self:regCallback('CharActionEvent', function(player, actionID)
              local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
              if (actionID == CONST.动作_投掷 and Target_FloorId==7337 and v.enMode==1) then
@@ -142,8 +142,7 @@ end
 --转移
 function PalEnemy_LoopEvent(npc)
 	local CTime = tonumber(os.date("%H",FTime));
---[[
-	if ( tonumber(os.date("%H",os.time())) - CTime>=1 or tonumber(os.date("%H",os.time())) - CTime<0 ) then
+	if ( os.date("%M",os.time())=="10") or (os.date("%M",os.time())=="20") or (os.date("%M",os.time())=="30") or (os.date("%M",os.time())=="40") or (os.date("%M",os.time())=="50") or (os.date("%M",os.time())=="00") then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
@@ -166,8 +165,8 @@ function PalEnemy_LoopEvent(npc)
 			end
 		end
 	end
-]]
-	if (Char.GetData(npc,CONST.对象_地图)==7337) then
+	local excess = math.random(1,10);
+	if (Char.GetData(npc,CONST.对象_地图)==7337 and excess>=7) then
 		local dir = math.random(0, 7);
 		local walk = 1;
 		local X,Y = Char.GetLocation(npc,dir);
@@ -175,18 +174,6 @@ function PalEnemy_LoopEvent(npc)
 			NLG.SetAction(npc,walk);
 			NLG.WalkMove(npc,dir);
 			NLG.UpChar(npc);
-		end
-	elseif (Char.GetData(npc,CONST.对象_地图)~=7337 and math.fmod(tonumber(os.date("%M",os.time())) - CTime,7)==0) then
-		for k,v in pairs(PalEnemy) do
-			local npcImage = Char.GetData(npc,CONST.对象_形象);
-			if ( k==v.palType and npcImage==v.palImage ) then
-				local palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
-				local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
-				Char.SetData(npc,CONST.对象_X, palX);
-				Char.SetData(npc,CONST.对象_Y, palY);
-				Char.SetData(npc,CONST.对象_地图, v.popArea.map);
-				NLG.UpChar(npc);
-			end
 		end
 	end
 end
