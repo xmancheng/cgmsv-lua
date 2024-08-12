@@ -1,22 +1,22 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petEvolution')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self.awakeningNPC = self:NPC_createNormal('Õ¼²·»Ã«FŸ', 104905, { x = 24, y = 34, mapType = 0, map = 7101, direction = 6 });
+  self.awakeningNPC = self:NPC_createNormal('å åœå¹»ç¸å¸«', 104905, { x = 24, y = 34, mapType = 0, map = 7101, direction = 6 });
   self:NPC_regTalkedEvent(self.awakeningNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "4|\\nÄãµÄŒ™ÎïÓĞË®¾§ÁË†á£¿‚÷Â„ŒÙĞÔ½Y¾§ÄÜ×Œ ­‚ƒÓXĞÑ¡£Èç¹ûÄã§í¸÷100‚€ŒÙĞÔ½Y¾§£¬ÎÒ¾ÍÍÄãèa¶¨³öŒ™ÎïµÄĞÍ‘B£¡ááÀmß€¿ÉÒÔÀ^ÀmÉı¼‰ÓXĞÑµÈ¼‰¡£\\n\\n";
+          local msg = "4|\\nä½ çš„å¯µç‰©æœ‰æ°´æ™¶äº†å—ï¼Ÿå‚³èå±¬æ€§çµæ™¶èƒ½è®“ç‰ å€‘è¦ºé†’ã€‚å¦‚æœä½ å¸¶ä¾†å„100å€‹å±¬æ€§çµæ™¶ï¼Œæˆ‘å°±å¹«ä½ é‘‘å®šå‡ºå¯µç‰©çš„å‹æ…‹ï¼å¾ŒçºŒé‚„å¯ä»¥ç¹¼çºŒå‡ç´šè¦ºé†’ç­‰ç´šã€‚\\n\\n";
           for i=0,4 do
                 local pet = Char.GetPet(player,i);
                 if(pet<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, self.awakeningNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.awakeningNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return
   end)
@@ -29,7 +29,7 @@ function Module:onLoad()
     if select > 0 then
 
     else
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       elseif (seqno == 1 and data >= 1) then
           local petSlot = data-1;
@@ -37,86 +37,96 @@ function Module:onLoad()
           if (petIndex>=0) then
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
               local PetCrystalIndex,targetSlot = Pet.GetCrystal(petIndex);
-              local PetCrystal_Name = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_Ãû×Ö);
-              local bindId = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_ÌØÊâÀàĞÍ) or 0;
-              local typeId = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_×Ó²ÎÒ») or 0;
-              local typeLv = Item.GetData(PetCrystalIndex, CONST.µÀ¾ß_×Ó²Î¶ş) or 0;
+              local PetCrystal_Name = Item.GetData(PetCrystalIndex, CONST.é“å…·_åå­—);
+              local bindId = Item.GetData(PetCrystalIndex, CONST.é“å…·_ç‰¹æ®Šç±»å‹) or 0;
+              local typeId = Item.GetData(PetCrystalIndex, CONST.é“å…·_å­å‚ä¸€) or 0;
+              local typeLv = Item.GetData(PetCrystalIndex, CONST.é“å…·_å­å‚äºŒ) or 0;
               if (PetCrystalIndex<0) then
-                 NLG.SystemMessage(player, "[Ïµ½y]Œ™ÎïÉĞÎ´Ñb‚äÈÎºÎË®¾§£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©å°šæœªè£å‚™ä»»ä½•æ°´æ™¶ï¼");
                  return;
               end
               if (bindId==0 and typeId==0 and typeLv==0) then
                  if (Char.ItemNum(player, 510222)>=100 and Char.ItemNum(player, 510233)>=100 and Char.ItemNum(player, 510244)>=100 and Char.ItemNum(player, 510255)>=100) then
-                     --É¾³ıĞèÒªµÄ²ÄÁÏ
+                     --åˆ é™¤éœ€è¦çš„ææ–™
                      Char.DelItem(player, 510222, 100);
                      Char.DelItem(player, 510233, 100);
                      Char.DelItem(player, 510244, 100);
                      Char.DelItem(player, 510255, 100);
-                     --¼ø¶¨³èÎïĞÍÌ¬
-                     local TL = Pet.GetArtRank(petIndex, CONST.PET_Ìå³É);
-                     local GJ = Pet.GetArtRank(petIndex, CONST.PET_Á¦³É);
-                     local FY = Pet.GetArtRank(petIndex, CONST.PET_Ç¿³É);
-                     local MJ = Pet.GetArtRank(petIndex, CONST.PET_Ãô³É);
-                     local MF = Pet.GetArtRank(petIndex, CONST.PET_Ä§³É);
-                     if TL>GJ and TL>=40 then
+                     --é‰´å®šå® ç‰©å‹æ€
+                     local TL = Pet.GetArtRank(petIndex, CONST.PET_ä½“æˆ);
+                     local GJ = Pet.GetArtRank(petIndex, CONST.PET_åŠ›æˆ);
+                     local FY = Pet.GetArtRank(petIndex, CONST.PET_å¼ºæˆ);
+                     local MJ = Pet.GetArtRank(petIndex, CONST.PET_æ•æˆ);
+                     local MF = Pet.GetArtRank(petIndex, CONST.PET_é­”æˆ);
+                     if TL>GJ and TL>FY and TL>MJ and TL>MF and TL>40 then
                          PetType=1;
-                         Identify="Š»¯ĞÍ";
-                     elseif GJ>MJ and GJ>=40 then
+                         Identify="å¼·åŒ–å‹";
+                     elseif GJ>MJ and GJ>TL and GJ>FY and GJ>MF and GJ>40 then
                          PetType=2;
-                         Identify="·Å³öĞÍ";
-                     elseif FY>TL and FY>=40 then
+                         Identify="æ”¾å‡ºå‹";
+                     elseif FY>TL and FY>GJ and FY>MJ and FY>MF and FY>=40 then
                          PetType=3;
-                         Identify="×ƒ»¯ĞÍ";
-                     elseif MJ>GJ and MJ>=40 then
+                         Identify="è®ŠåŒ–å‹";
+                     elseif MJ>TL and MJ>GJ and MJ>FY and MJ>MF and MJ>=40 then
                          PetType=4;
-                         Identify="²Ù×÷ĞÍ";
-                     elseif MF>GJ and MF>=40 then
+                         Identify="æ“ä½œå‹";
+                     elseif MF>TL and MF>GJ and MF>FY and MF>MJ and MF>=40 then
                          PetType=5;
-                         Identify="¾ß¬F»¯ĞÍ";
+                         Identify="å…·ç¾åŒ–å‹";
                      else
                          PetType=6;
-                         Identify="ÌØÙ|ĞÍ";
+                         Identify="ç‰¹è³ªå‹";
                      end
-                     --Ë®¾§Æô¶¯Ğ§¹û¼ÇÂ¼
+                     --æ°´æ™¶å¯åŠ¨æ•ˆæœè®°å½•
                      local Aname = "[" ..Identify.. "]"..PetCrystal_Name;
                      local Newname = "[" ..Identify.. "]"..PetCrystal_Name.."+1";
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_Ãû×Ö, Newname);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_¼øÇ°Ãû, Aname);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_ÌØÊâÀàĞÍ, PetId);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_×Ó²ÎÒ», PetType);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_×Ó²Î¶ş, 1);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_ÉúÃü, Item.GetData(PetCrystalIndex,CONST.µÀ¾ß_ÉúÃü)+250);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_Ä§Á¦, Item.GetData(PetCrystalIndex,CONST.µÀ¾ß_Ä§Á¦)+250);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_åå­—, Newname);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_é‰´å‰å, Aname);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹, PetId);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_å­å‚ä¸€, PetType);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_å­å‚äºŒ, 1);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_ç”Ÿå‘½, Item.GetData(PetCrystalIndex,CONST.é“å…·_ç”Ÿå‘½)+500);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_é­”åŠ›, Item.GetData(PetCrystalIndex,CONST.é“å…·_é­”åŠ›)+500);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_æ”»å‡», Item.GetData(PetCrystalIndex,CONST.é“å…·_æ”»å‡»)+50);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_é˜²å¾¡, Item.GetData(PetCrystalIndex,CONST.é“å…·_é˜²å¾¡)+100);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_æ•æ·, Item.GetData(PetCrystalIndex,CONST.é“å…·_æ•æ·)+50);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_ç²¾ç¥, Item.GetData(PetCrystalIndex,CONST.é“å…·_ç²¾ç¥)+50);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_å›å¤, Item.GetData(PetCrystalIndex,CONST.é“å…·_å›å¤)+30);
                      Item.UpItem(petIndex, targetSlot);
                      Pet.UpPet(player, petIndex);
-                     NLG.SystemMessage(player, "[Ïµ½y]Œ™Îïèa¶¨Íê³É£¬ ­ÊÇ"..Identify.."£¡");
+                     NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©é‘‘å®šå®Œæˆï¼Œç‰ æ˜¯"..Identify.."ï¼");
                      NLG.UpChar(player);
                  else
-                     NLG.SystemMessage(player, "[Ïµ½y]ŒÙĞÔ½Y¾§”µÁ¿²»×ãŸo·¨èa¶¨£¡");
+                     NLG.SystemMessage(player, "[ç³»çµ±]å±¬æ€§çµæ™¶æ•¸é‡ä¸è¶³ç„¡æ³•é‘‘å®šï¼");
                      return;
                  end
               elseif (bindId~=0 and typeId~=0 and typeLv>=1 and typeLv<10) then
                  local itemMaterial = (typeLv+1)*100;
                  if (Char.ItemNum(player, 510222)>=itemMaterial and Char.ItemNum(player, 510233)>=itemMaterial and Char.ItemNum(player, 510244)>=itemMaterial and Char.ItemNum(player, 510255)>=itemMaterial) then
-                     --É¾³ıĞèÒªµÄ²ÄÁÏ
+                     --åˆ é™¤éœ€è¦çš„ææ–™
                      Char.DelItem(player, 510222, itemMaterial);
                      Char.DelItem(player, 510233, itemMaterial);
                      Char.DelItem(player, 510244, itemMaterial);
                      Char.DelItem(player, 510255, itemMaterial);
-                     --Éı¼¶¸üĞÂ
-                     local Aname = Item.GetData(PetCrystalIndex,CONST.µÀ¾ß_¼øÇ°Ãû);
+                     --å‡çº§æ›´æ–°
+                     local Aname = Item.GetData(PetCrystalIndex,CONST.é“å…·_é‰´å‰å);
                      local typeLv_New = typeLv+1;
                      local Newname = Aname.."+"..typeLv_New;
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_Ãû×Ö, Newname);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_×Ó²Î¶ş, typeLv_New);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_ÉúÃü, Item.GetData(PetCrystalIndex,CONST.µÀ¾ß_ÉúÃü)+250);
-                     Item.SetData(PetCrystalIndex,CONST.µÀ¾ß_Ä§Á¦, Item.GetData(PetCrystalIndex,CONST.µÀ¾ß_Ä§Á¦)+250);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_åå­—, Newname);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_å­å‚äºŒ, typeLv_New);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_ç”Ÿå‘½, Item.GetData(PetCrystalIndex,CONST.é“å…·_ç”Ÿå‘½)+500);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_é­”åŠ›, Item.GetData(PetCrystalIndex,CONST.é“å…·_é­”åŠ›)+500);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_æ”»å‡», Item.GetData(PetCrystalIndex,CONST.é“å…·_æ”»å‡»)+50);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_é˜²å¾¡, Item.GetData(PetCrystalIndex,CONST.é“å…·_é˜²å¾¡)+100);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_æ•æ·, Item.GetData(PetCrystalIndex,CONST.é“å…·_æ•æ·)+50);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_ç²¾ç¥, Item.GetData(PetCrystalIndex,CONST.é“å…·_ç²¾ç¥)+50);
+                     Item.SetData(PetCrystalIndex,CONST.é“å…·_å›å¤, Item.GetData(PetCrystalIndex,CONST.é“å…·_å›å¤)+30);
                      Item.UpItem(petIndex, targetSlot);
                      Pet.UpPet(player, petIndex);
-                     NLG.SystemMessage(player, "[Ïµ½y]Œ™ÎïÓXĞÑÉı¼‰³É¹¦+"..typeLv_New.."£¡");
+                     NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©è¦ºé†’å‡ç´šæˆåŠŸ+"..typeLv_New.."ï¼");
                      NLG.UpChar(player);
                  else
-                     NLG.SystemMessage(player, "[Ïµ½y]Œ™ÎïÓXĞÑÉı¼‰ËùĞèµÄŒÙĞÔ½Y¾§: "..itemMaterial.."‚€£¡");
+                     NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©è¦ºé†’å‡ç´šæ‰€éœ€çš„å±¬æ€§çµæ™¶: "..itemMaterial.."å€‹ï¼");
                  end
               end
           end
@@ -129,16 +139,16 @@ function Module:onLoad()
 
 end
 
---»ñÈ¡³èÎï×°±¸-Ë®¾§
+--è·å–å® ç‰©è£…å¤‡-æ°´æ™¶
 Pet.GetCrystal = function(petIndex)
-  local ItemIndex = Char.GetItemIndex(petIndex, CONST.³èµÀÀ¸_Ë®¾§);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.µÀ¾ßÀàĞÍ_³èÎïË®¾§ then
-    return ItemIndex,CONST.³èµÀÀ¸_Ë®¾§;
+  local ItemIndex = Char.GetItemIndex(petIndex, CONST.å® é“æ _æ°´æ™¶);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.é“å…·ç±»å‹_å® ç‰©æ°´æ™¶ then
+    return ItemIndex,CONST.å® é“æ _æ°´æ™¶;
   end
   return -1,-1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
