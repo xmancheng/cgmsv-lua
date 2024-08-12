@@ -1,40 +1,64 @@
---Ä£¿éÀà
+--æ¨¡å—ç±»
 local Module = ModuleBase:createModule('taskWarp')
 
-local count_Max = 3;		--¸±±¾´ÎÊı
---¸±±¾·ÖÀà
+local count_Max = 2;		--å‰¯æœ¬æ¬¡æ•°
+--å‰¯æœ¬åˆ†ç±»
 local warp_map_name = {};
 local warp_map_point = {};
 local warp_map_lvlimit = {};
 local warp_map_payfor = {};
---Ê£Óà´ÎÊı¼ÆËã
+--å‰©ä½™æ¬¡æ•°è®¡ç®—
 local warp_map_daily_user = {};
 local warp_map_daily_user_count = {};
-warp_map_daily_user_count[1] = {};	--¸ö´ÎÊı¼ÆËã
-warp_map_daily_user_count[2] = {};	--¸ö´ÎÊı¼ÆËã
+warp_map_daily_user_count[1] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
+warp_map_daily_user_count[2] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
+warp_map_daily_user_count[3] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
+warp_map_daily_user_count[4] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
+warp_map_daily_user_count[5] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
+warp_map_daily_user_count[6] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
 
-warp_map_name[1] = "ËÄÈ~²İ»¨ˆ@";
+warp_map_name[1] = "åäºŒæ˜Ÿåº§å‰¯æœ¬";
 warp_map_point[1] = {100,475,196};
 warp_map_lvlimit[1] = 60;
-warp_map_payfor[1] = 2000;
+warp_map_payfor[1] = 20000;
 
-warp_map_name[2] = "˜ä¾«µÄ‰ô¾³";
-warp_map_point[2] = {100,374,195};
-warp_map_lvlimit[2] = 80;
-warp_map_payfor[2] = 4000;
+warp_map_name[2] = "æ©Ÿç”²é­”ç¸";
+warp_map_point[2] = {7339,22,26};
+warp_map_lvlimit[2] = 150;
+warp_map_payfor[2] = 20000;
+
+warp_map_name[3] = "æ©Ÿç”²éˆè£";
+warp_map_point[3] = {7340,22,26};
+warp_map_lvlimit[3] = 150;
+warp_map_payfor[3] = 20000;
+
+warp_map_name[4] = "æš—é»‘å‹¢åŠ›";
+warp_map_point[4] = {7341,16,20};
+warp_map_lvlimit[4] = 150;
+warp_map_payfor[4] = 20000;
+
+warp_map_name[5] = "æµ·ä¹‹çªŸ";
+warp_map_point[5] = {20262,41,4};
+warp_map_lvlimit[5] = 150;
+warp_map_payfor[5] = 20000;
+
+warp_map_name[6] = "é™¸ä¹‹çªŸ";
+warp_map_point[6] = {20263,10,4};
+warp_map_lvlimit[6] = 150;
+warp_map_payfor[6] = 20000;
 
 ------------------------------------------------------------------------------------------------------------------------
---¹¦ÄÜº¯Êı
-function Time_Check(_obj)	--ÅĞ¶¨ÊÇ·ñÒ»ÌìÊ±¼äÒÑ¹ı
+--åŠŸèƒ½å‡½æ•°
+function Time_Check(_obj)	--åˆ¤å®šæ˜¯å¦ä¸€å¤©æ—¶é—´å·²è¿‡
 	if (os.date("%d",_obj) ~= os.date("%d",os.time())) then 
 		return true;
 	end
 	return false;
 end
 
-function Time_Out(player)	--Ã¿ÈÕ24µãÎªÅĞ¶¨³¬Ê±
+function Time_Out(player)	--æ¯æ—¥24ç‚¹ä¸ºåˆ¤å®šè¶…æ—¶
 	local _obj = warp_map_daily_user[Playerkey(player)];
-	--Èç¹ûÊ×´ÎµÇÂ¼
+	--å¦‚æœé¦–æ¬¡ç™»å½•
 	if (_obj == nil) then 
 		warp_map_daily_user[Playerkey(player)] = os.time();
 		return true;
@@ -45,7 +69,7 @@ end
 
 function Playerkey(player)
 	if (player ~= nil) then
-		local fanhui1 = Char.GetData(player,CONST.CHAR_Ãû×Ö);
+		local fanhui1 = Char.GetData(player,CONST.CHAR_åå­—);
 		local fanhui2 = Char.GetData(player,CONST.CHAR_CDK);
 		if (fanhui1 == nil or fanhui2 == nil) then
 			if(fanhui2 == nil) then
@@ -59,73 +83,73 @@ function Playerkey(player)
 end
 
 function mykgold(player,gold)
-	local tjb = Char.GetData(player,CONST.¶ÔÏó_½ğ±Ò);
+	local tjb = Char.GetData(player,CONST.å¯¹è±¡_é‡‘å¸);
 	tjb = tjb - gold; 
 	if (tjb >= 0) then
-		Char.SetData(player,CONST.¶ÔÏó_½ğ±Ò,tjb);
+		Char.SetData(player,CONST.å¯¹è±¡_é‡‘å¸,tjb);
 		NLG.UpChar(player);
-		NLG.SystemMessage(player,"½»³öÁË"..gold.." GÄ§Å¡£");
+		NLG.SystemMessage(player,"äº¤å‡ºäº†"..gold.." Gé­”å¹£ã€‚");
 		return true;
 	end
 	return false;
 end
 
 ------------------------------------------------------------------------------------------------------------------------
---¼ÓÔØÄ£¿é
+--åŠ è½½æ¨¡å—
 function Module:onLoad()
 	self:logInfo('load')
-	local warpNPC = self:NPC_createNormal('¸±±¾¹ÜÀíÔ±',14520,{x=247, y=90, mapType=0, map=1000, direction=6})
+	local warpNPC = self:NPC_createNormal('å‰¯æœ¬ç®¡ç†å‘˜',14520,{x=247, y=90, mapType=0, map=1000, direction=6})
 	self:NPC_regWindowTalkedEvent(warpNPC,Func.bind(self.click,self))
 	self:NPC_regTalkedEvent(warpNPC,Func.bind(self.facetonpc,self))
 end
 
-local function calcWarp()--¼ÆËã·­Ò³
+local function calcWarp()--è®¡ç®—ç¿»é¡µ
 	local page = math.modf(#warp_map_name/8) + 1
 	local remainder = math.fmod(#warp_map_name,8)
 	return page,remainder
 end
 
-function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
+function Module:click(npc,player,_seqno,_select,_data)--çª—å£ä¸­ç‚¹å‡»è§¦å‘
 	local column = tonumber(_data)
 	local page = tonumber(_seqno)
 	local warpPage = page;
-	if (page==1000) then	--»Øµ½Ö÷²Ëµ¥
+	if (page==1000) then	--å›åˆ°ä¸»èœå•
 		self:facetonpc(npc, player);
 		return;
 	end
 
-	local winMsg = "1|\\nß@ÑeÊÇ¸±±¾¹ÜÀíÏµ½y£¬Äã...ÒªÈ¥ÄÄÑe...×xÈ¡ÖĞ...\\n";
-	local winButton = CONST.BUTTON_¹Ø±Õ;
+	local winMsg = "1|\\né€™è£¡æ˜¯å‰¯æœ¬ç®¡ç†ç³»çµ±ï¼Œä½ ...è¦å»å“ªè£¡...è®€å–ä¸­...\\n";
+	local winButton = CONST.BUTTON_å…³é—­;
 	local totalPage, remainder = calcWarp()
-	--ÉÏÒ³16 ÏÂÒ³32 È¡Ïû2
+	--ä¸Šé¡µ16 ä¸‹é¡µ32 å–æ¶ˆ2
 	if _select > 0 then
-		--¶àÒ³°´Å¥
+		--å¤šé¡µæŒ‰é’®
 		if _select == 32 then
 			warpPage = warpPage + 1
 			if (warpPage == totalPage) or (warpPage == (totalPage - 1) and remainder == 0) then
-				winButton = 18	--ÉÏÈ¡Ïû
+				winButton = 18	--ä¸Šå–æ¶ˆ
 			else
-				winButton = 50	--ÉÏÏÂÈ¡Ïû
+				winButton = 50	--ä¸Šä¸‹å–æ¶ˆ
 			end
 		elseif _select == 16 then
 			warpPage = warpPage - 1
 			if warpPage == 1 then
-				winButton = 34	--ÏÂÈ¡Ïû
+				winButton = 34	--ä¸‹å–æ¶ˆ
 			else
-				winButton = 50	--ÉÏÏÂÈ¡Ïû
+				winButton = 50	--ä¸Šä¸‹å–æ¶ˆ
 			end
 		elseif _select == 2 then
 			warpPage = 1
 			return
 		end
-		--¸±±¾´ÎÊı¼ÆËã
+		--å‰¯æœ¬æ¬¡æ•°è®¡ç®—
 		if (Time_Out(player)) then
 			warp_map_daily_user[Playerkey(player)] = os.time();
-			for i=1,#warp_map_daily_user_count do			--Ã¿ÈÕ¸±±¾¸ö±ğ´ÎÊı
+			for i=1,#warp_map_daily_user_count do			--æ¯æ—¥å‰¯æœ¬ä¸ªåˆ«æ¬¡æ•°
 				warp_map_daily_user_count[i][Playerkey(player)] = nil;
 			end
 		end
-		--¶àÒ³ÄÚÈİ
+		--å¤šé¡µå†…å®¹
 		local count = 8 * (warpPage - 1)
 		if warpPage == totalPage then
 			for i = 1 + count, remainder + count do
@@ -135,7 +159,7 @@ function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
 				else
 					tcount = count_Max - tcount;
 				end
-				winMsg = winMsg .. " "..warp_map_name[i].."   <½ğî~"..warp_map_payfor[i].."G>  Ê£ğN<"..tcount..">´Î\\n"
+				winMsg = winMsg .. " "..warp_map_name[i].."   <é‡‘é¡"..warp_map_payfor[i].."G>  å‰©é¤˜<"..tcount..">æ¬¡\\n"
 			end
 		else
 			for i = 1 + count, 8 + count do
@@ -145,24 +169,24 @@ function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
 				else
 					tcount = count_Max - tcount;
 				end
-				winMsg = winMsg .. " "..warp_map_name[i].."   <½ğî~"..warp_map_payfor[i].."G>  Ê£ğN<"..tcount..">´Î\\n"
+				winMsg = winMsg .. " "..warp_map_name[i].."   <é‡‘é¡"..warp_map_payfor[i].."G>  å‰©é¤˜<"..tcount..">æ¬¡\\n"
 			end
 		end
-		NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+		NLG.ShowWindowTalked(player,npc,CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
 	else
-		if (_seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+		if (_seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
 			return;
 		elseif (_seqno == 1 and column >= 1) then
 			--local selectitem = tonumber(_data);
 			local count = 8 * (warpPage - 1) + column;
 
 			local getlvlit = warp_map_lvlimit[count];
-			if (getlvlit > Char.GetData(player,CONST.CHAR_µÈ¼¶)) then	--µÈ¼¶ÅĞ¶¨
-				NLG.SystemMessage(player, "ÄúµÄµÈ¼‰²»‰ò£¬"..getlvlit.."¼‰ÔÙí°É£¡");
+			if (getlvlit > Char.GetData(player,CONST.CHAR_ç­‰çº§)) then	--ç­‰çº§åˆ¤å®š
+				NLG.SystemMessage(player, "æ‚¨çš„ç­‰ç´šä¸å¤ ï¼Œ"..getlvlit.."ç´šå†ä¾†å§ï¼");
 				return;
 			end
-			if (Char.PartyNum(player)>1) then			--×é¶ÓÅĞ¶¨
-				NLG.SystemMessage(player, "[Ïµ½y]¸±±¾íšÒª†ÎÈËßMĞĞ‚÷ËÍ£¡£¡");
+			if (Char.PartyNum(player)>1) then			--ç»„é˜Ÿåˆ¤å®š
+				NLG.SystemMessage(player, "[ç³»çµ±]å‰¯æœ¬é ˆè¦å–®äººé€²è¡Œå‚³é€ï¼ï¼");
 				return;
 			end
 
@@ -172,8 +196,8 @@ function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
 				warp_map_daily_user_count[count][Playerkey(player)] = 0;
 			end
 			if (getcountless >= count_Max) then
-				local msg = "\\n\\n\\n@cÄúµÄ´Î”µÒÑ½›ÓÃÍêÁË¡£"
-				NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_¹Ø±Õ, 1000, msg);
+				local msg = "\\n\\n\\n@cæ‚¨çš„æ¬¡æ•¸å·²ç¶“ç”¨å®Œäº†ã€‚"
+				NLG.ShowWindowTalked(player,npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_å…³é—­, 1000, msg);
 				return;
 			end
 
@@ -182,7 +206,7 @@ function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
 				Char.DischargeParty(player);
 				Char.Warp(player,0, warp_map_point[count][1], warp_map_point[count][2], warp_map_point[count][3]);
 			else
-				NLG.SystemMessage(player, "\\n\\n\\nÄúµÄÄ§Å²»‰ò¡£");
+				NLG.SystemMessage(player, "\\n\\n\\næ‚¨çš„é­”å¹£ä¸å¤ ã€‚");
 				return;
 			end
 		end
@@ -193,27 +217,38 @@ function Module:facetonpc(npc,player)
 	if NLG.CanTalk(npc,player) == true then
 		if (Time_Out(player)) then
 			warp_map_daily_user[Playerkey(player)] = os.time();
-			for i=1,#warp_map_daily_user_count do			--Ã¿ÈÕ¸±±¾¸ö±ğ´ÎÊı
+			for i=1,#warp_map_daily_user_count do			--æ¯æ—¥å‰¯æœ¬ä¸ªåˆ«æ¬¡æ•°
 				warp_map_daily_user_count[i][Playerkey(player)] = nil;
 			end
 		end
 
-		local winMsg = "1|\\nß@ÑeÊÇ¸±±¾¹ÜÀíÏµ½y£¬Äã...ÒªÈ¥ÄÄÑe...×xÈ¡ÖĞ...\\n";
-		for i=1, 2 do
+		local winMsg = "1|\\né€™è£¡æ˜¯å‰¯æœ¬ç®¡ç†ç³»çµ±ï¼Œä½ ...è¦å»å“ªè£¡...è®€å–ä¸­...\\n";
+		for i=1, 6 do
 			local tcount = warp_map_daily_user_count[i][Playerkey(player)];
 			if (tcount == nil) then
 				tcount = count_Max;
 			else
 				tcount = count_Max - tcount;
 			end
-			winMsg = winMsg .. " "..warp_map_name[i].."   <½ğî~"..warp_map_payfor[i].."G>  Ê£ğN<"..tcount..">´Î\\n";
+			--å¯¹é½æ ¼å¼
+			local name_len = #warp_map_name[i];
+			if (name_len < 12) then
+				name_spacelen = 12 - name_len;
+				name_spaceMsg = " ";
+				for k = 1, math.modf(name_spacelen) do
+					name_spaceMsg = name_spaceMsg .." ";
+				end
+			else
+				name_spaceMsg = " ";
+			end
+			winMsg = winMsg .. " "..warp_map_name[i].. name_spaceMsg .."<é‡‘é¡"..warp_map_payfor[i].."G> å‰©é¤˜<"..tcount..">æ¬¡\\n";
 		end
-		NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_Ñ¡Ôñ¿ò,CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+		NLG.ShowWindowTalked(player,npc,CONST.çª—å£_é€‰æ‹©æ¡†,CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
 	end
 	return
 end
 
---Ğ¶ÔØÄ£¿é
+--å¸è½½æ¨¡å—
 function Module:onUnload()
 	self:logInfo('unload')
 end
