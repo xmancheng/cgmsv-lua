@@ -1,23 +1,23 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('imageMachine')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback("ItemString", Func.bind(self.ImageMac, self), 'LUA_useImMac');
-  self.mirageNPC = self:NPC_createNormal('ĞÎÏóŞD“Q™C', 14682, { x = 40, y = 35, mapType = 0, map = 777, direction = 6 });
+  self.mirageNPC = self:NPC_createNormal('å½¢è±¡è½‰æ›æ©Ÿ', 14682, { x = 40, y = 35, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.mirageNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "4|\\n´ËĞÎÏóŞD“Q™C¿ÉÒÔ™CÂÊĞÔµØ³É¹¦³é³öÖ¸¶¨Œ™ÎïµÄĞÎÏóKÇÒ³é³öááÔÙ¶ÈÊ¹ÓÃµÀ¾ß£¬×Œ›]ÓĞ´ËĞÎÏóµÄŒ™ÎïŞD“Q³Ééß@ĞÎÏó£¡\\n\\n";
+          local msg = "4|\\næ­¤å½¢è±¡è½‰æ›æ©Ÿå¯ä»¥æ©Ÿç‡æ€§åœ°æˆåŠŸæŠ½å‡ºæŒ‡å®šå¯µç‰©çš„å½¢è±¡ä¸¦ä¸”æŠ½å‡ºå¾Œå†åº¦ä½¿ç”¨é“å…·ï¼Œè®“æ²’æœ‰æ­¤å½¢è±¡çš„å¯µç‰©è½‰æ›æˆç‚ºé€™å½¢è±¡ï¼\\n\\n";
           for petSlot=0,4 do
                 local petIndex = Char.GetPet(player,petSlot);
                 if(petIndex<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, self.mirageNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.mirageNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return
   end)
@@ -28,41 +28,41 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     local MacIndex = Char.GetItemIndex(player,MacSlot);
-    local MactechId = Item.GetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ») or 0;
-    local ImageName = Item.GetData(MacIndex, CONST.µÀ¾ß_Ãû×Ö);
+    local MactechId = Item.GetData(MacIndex, CONST.é“å…·_å­å‚ä¸€) or 0;
+    local ImageName = Item.GetData(MacIndex, CONST.é“å…·_åå­—);
     if select > 0 then
 
     else
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ) then
+      elseif (seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
       if (seqno == 1 and data >= 1) then
           if (MactechId~=0) then
-              NLG.SystemMessage(player, "[Ïµ½y]ŞD“Q™CÒÑÓĞĞÎÏóŸo·¨ÌáÈ¡£¡");
+              NLG.SystemMessage(player, "[ç³»çµ±]è½‰æ›æ©Ÿå·²æœ‰å½¢è±¡ç„¡æ³•æå–ï¼");
               return;
           end
           local petSlot = data-1;
           local petIndex = Char.GetPet(player,petSlot);
           if (petIndex>=0) then
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
-              local PetName = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
-              local PetImage = Char.GetData(petIndex, CONST.¶ÔÏó_ĞÎÏó);
-              local SuccRate = 10;					--ĞÎÏóÌáÈ¡»úÂÊ(%)
+              local PetName = Char.GetData(petIndex,CONST.CHAR_åå­—);
+              local PetImage = Char.GetData(petIndex, CONST.å¯¹è±¡_å½¢è±¡);
+              local SuccRate = 10;					--å½¢è±¡æå–æœºç‡(%)
               if (type(SuccRate)=="number" and SuccRate>0) then
                   local tMin = 50 - math.floor(SuccRate/2) + 1;
                   local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
                   local tLuck = math.random(1, 100);
                   if (tLuck>=tMin and tLuck<=tMax)  then
-                      Item.SetData(MacIndex, CONST.µÀ¾ß_Ãû×Ö, "[".. PetName .."]ĞÎÏóŞD“Q™C");
-                      Item.SetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ», PetImage);
+                      Item.SetData(MacIndex, CONST.é“å…·_åå­—, "[".. PetName .."]å½¢è±¡è½‰æ›æ©Ÿ");
+                      Item.SetData(MacIndex, CONST.é“å…·_å­å‚ä¸€, PetImage);
                       Item.UpItem(player, MacSlot);
                       NLG.UpChar(player);
-                      NLG.SystemMessage(player, "[Ïµ½y]«@µÃ[".. PetName .."]ĞÎÏóŞD“Q™C¡£");
+                      NLG.SystemMessage(player, "[ç³»çµ±]ç²å¾—[".. PetName .."]å½¢è±¡è½‰æ›æ©Ÿã€‚");
                   else
                       Char.DelItemBySlot(player, MacSlot);
-                      NLG.SystemMessage(player, "[Ïµ½y]ÌáÈ¡[".. PetName .."]ĞÎÏóÊ§”¡¡£");
+                      NLG.SystemMessage(player, "[ç³»çµ±]æå–[".. PetName .."]å½¢è±¡å¤±æ•—ã€‚");
                   end
               end
           else
@@ -73,24 +73,25 @@ function Module:onLoad()
           local petSlot = data-1;
           local petIndex = Char.GetPet(player,petSlot);
           if (MactechId==0) then
-              NLG.SystemMessage(player, "[Ïµ½y]ŞD“Q™CÉĞÎ´ÓĞĞÎÏóŸo·¨ßMĞĞŞD“Q£¡");
+              NLG.SystemMessage(player, "[ç³»çµ±]è½‰æ›æ©Ÿå°šæœªæœ‰å½¢è±¡ç„¡æ³•é€²è¡Œè½‰æ›ï¼");
               return;
           end
           if (petIndex>=0) then
               --local PetId = Char.GetData(petIndex,CONST.PET_PetID);
-              local PetName = Char.GetData(petIndex,CONST.CHAR_Ãû×Ö);
-              local PetImage = Char.GetData(petIndex, CONST.¶ÔÏó_ĞÎÏó);
+              local PetName = Char.GetData(petIndex,CONST.CHAR_åå­—);
+              local PetImage = Char.GetData(petIndex, CONST.å¯¹è±¡_å½¢è±¡);
               local last = string.find(ImageName, "]", 1);
               local ImageName = string.sub(ImageName, 2, last-1);
               if (MactechId==PetImage) then
-                  NLG.SystemMessage(player, "[Ïµ½y]Œ™ÎïÒÑ½›ÊÇß@‚€ĞÎÏó£¡");
+                  NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©å·²ç¶“æ˜¯é€™å€‹å½¢è±¡ï¼");
                   return;
               end
+              Char.SetData(petIndex, CONST.å¯¹è±¡_å½¢è±¡,MactechId);
               Pet.UpPet(player, petIndex);
               --Char.DelItem(player,70001,1);
               Char.DelItemBySlot(player, MacSlot);
               NLG.UpChar(player);
-              NLG.SystemMessage(player, "[Ïµ½y]"..PetName.."ŞD“Q³Éé[".. ImageName .."]ĞÎÏó¡£");
+              NLG.SystemMessage(player, "[ç³»çµ±]"..PetName.."è½‰æ›æˆç‚º[".. ImageName .."]å½¢è±¡ã€‚");
           else
               return;
           end
@@ -108,34 +109,34 @@ function Module:ImageMac(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     MacSlot = itemSlot;
     local MacIndex = Char.GetItemIndex(charIndex,MacSlot);
-    local MactechId = Item.GetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ») or 0;
+    local MactechId = Item.GetData(MacIndex, CONST.é“å…·_å­å‚ä¸€) or 0;
     if MactechId==0 then
-          local msg = "4|\\n´ËĞÎÏóŞD“Q™C¿ÉÒÔ™CÂÊĞÔµØ³É¹¦³é³öÖ¸¶¨Œ™ÎïµÄĞÎÏóKÇÒ³é³öááÔÙ¶ÈÊ¹ÓÃµÀ¾ß£¬×Œ›]ÓĞ´ËĞÎÏóµÄŒ™ÎïŞD“Q³Ééß@ĞÎÏó£¡\\n\\n";
+          local msg = "4|\\næ­¤å½¢è±¡è½‰æ›æ©Ÿå¯ä»¥æ©Ÿç‡æ€§åœ°æˆåŠŸæŠ½å‡ºæŒ‡å®šå¯µç‰©çš„å½¢è±¡ä¸¦ä¸”æŠ½å‡ºå¾Œå†åº¦ä½¿ç”¨é“å…·ï¼Œè®“æ²’æœ‰æ­¤å½¢è±¡çš„å¯µç‰©è½‰æ›æˆç‚ºé€™å½¢è±¡ï¼\\n\\n";
           for petSlot=0,4 do
                 local petIndex = Char.GetPet(charIndex,petSlot);
                 if(petIndex<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(charIndex, self.mirageNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(charIndex, self.mirageNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     elseif MactechId>0 then
-          local msg = "4|\\n´ËĞÎÏóŞD“Q™C¿ÉÒÔ™CÂÊĞÔµØ³É¹¦³é³öÖ¸¶¨Œ™ÎïµÄĞÎÏóKÇÒ³é³öááÔÙ¶ÈÊ¹ÓÃµÀ¾ß£¬×Œ›]ÓĞ´ËĞÎÏóµÄŒ™ÎïŞD“Q³Ééß@ĞÎÏó£¡\\n\\n";
+          local msg = "4|\\næ­¤å½¢è±¡è½‰æ›æ©Ÿå¯ä»¥æ©Ÿç‡æ€§åœ°æˆåŠŸæŠ½å‡ºæŒ‡å®šå¯µç‰©çš„å½¢è±¡ä¸¦ä¸”æŠ½å‡ºå¾Œå†åº¦ä½¿ç”¨é“å…·ï¼Œè®“æ²’æœ‰æ­¤å½¢è±¡çš„å¯µç‰©è½‰æ›æˆç‚ºé€™å½¢è±¡ï¼\\n\\n";
           for petSlot=0,4 do
                 local petIndex = Char.GetPet(charIndex,petSlot);
                 if(petIndex<0)then
-                      msg = msg .. "¿Õ\\n";
+                      msg = msg .. "ç©º\\n";
                 else
-                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_Ãû×Ö).."\\n";
+                      msg = msg .. ""..Char.GetData(petIndex,CONST.CHAR_åå­—).."\\n";
                 end
           end
-          NLG.ShowWindowTalked(charIndex, self.mirageNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          NLG.ShowWindowTalked(charIndex, self.mirageNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
     end
     return 1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
