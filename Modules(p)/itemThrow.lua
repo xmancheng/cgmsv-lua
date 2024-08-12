@@ -3,24 +3,31 @@ local ItemThrow = ModuleBase:createModule('itemThrow')
 --[[Throw_control ={}
 for hhh = 0,5 do
 	Throw_control[hhh] = {}
-	Throw_control[hhh] = false;     --³õÊ¼»¯Í¶ÖÀ¿ª¹Ø
+	Throw_control[hhh] = false;     --åˆå§‹åŒ–æŠ•æ·å¼€å…³
 end]]
 local MaxLv = 250
 local BallKind_check= {75011,75018,75019};
 local BallKind_list = {};
-BallKind_list[75011] = 1;    --¾«ì`Çò
-BallKind_list[75018] = 2;    --³¬¼‰Çò
-BallKind_list[75019] = 3;    --¸ß¼‰Çò
+BallKind_list[75011] = 1;    --ç²¾éˆçƒ
+BallKind_list[75018] = 2;    --è¶…ç´šçƒ
+BallKind_list[75019] = 3;    --é«˜ç´šçƒ
 
-local GetitEnable_check= {400014,400015,400125,400126,600024};
+local GetitEnable_check= {400014,400015,400125,400126,600024,600074,600075,600076,600077,600078,600079,600080,600081};
 local GetitEnable_list = {};
-GetitEnable_list[400014] = {400014};  --enemy.txt±àºÅ£¬ÉèÖÃ1¿É²¶×½¡¢ÉèÖÃ0»òÎŞÉèÖÃ²»¿É²¶×½
+GetitEnable_list[400014] = {400014};  --enemy.txtç¼–å·ï¼Œè®¾ç½®1å¯æ•æ‰ã€è®¾ç½®0æˆ–æ— è®¾ç½®ä¸å¯æ•æ‰
 GetitEnable_list[400015] = {400015};
 GetitEnable_list[400125] = {401275};
 GetitEnable_list[400126] = {401276};
 
-GetitEnable_list[600024] = {600018,600018,600018,600018,600019,600019,600019,600020,600020,600021,600021,600022,600022,600023};  --Ó°×ÓŒ™
-
+GetitEnable_list[600024] = {600018,600018,600018,600018,600019,600019,600019,600020,600020,600021,600021,600022,600022,600023};  --å½±å­å¯µ
+GetitEnable_list[600074] = {600074};
+GetitEnable_list[600075] = {600075};
+GetitEnable_list[600076] = {600076};
+GetitEnable_list[600077] = {600077};
+GetitEnable_list[600078] = {600078};
+GetitEnable_list[600079] = {600079};
+GetitEnable_list[600080] = {600080};
+GetitEnable_list[600081] = {600081};
 -----------------------------------------------------------------
 function ItemThrow:setItemData(itemIndex, value)
   ---@type ItemExt
@@ -49,10 +56,10 @@ end
 function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
   local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
   local battleIndex = Char.GetBattleIndex(charIndex);
-  local ItemID = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
-  if (Item.GetData(itemIndex, CONST.µÀ¾ß_ÀàĞÍ)==51) then
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç±»å‹)==51) then
       if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)<=0) then
-               NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
       else
             if (CheckInTable(BallKind_check,ItemID)==true) then
                for i = 10, 19 do
@@ -66,7 +73,7 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
                Char.SetTempData(charIndex, 'PokeBall', 1);
                Char.SetTempData(charIndex, 'PokeBallKind', BallKind_list[ItemID]);
                Char.DelItem(charIndex,ItemID,1);
-               NLG.Say(charIndex,charIndex,"¡¾œÊ‚äÍ¶”S¡¿ÏÂ»ØºÏ²ÅG³ö£¡£¡",4,3);
+               NLG.Say(charIndex,charIndex,"ã€æº–å‚™æŠ•æ“²ã€‘ä¸‹å›åˆæ‰ä¸Ÿå‡ºï¼ï¼",4,3);
             end
       end
   end
@@ -94,7 +101,7 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
         if charIndex >= 0 then
                 local sidetable = {{10,40,41,30,20},{0,41,40,30,20}}
                 local charside = 1
-                local ybside = Char.GetData(charIndex,%¶ÔÏó_Õ½¶·Side%)
+                local ybside = Char.GetData(charIndex,%å¯¹è±¡_æˆ˜æ–—Side%)
                 if ybside == 1 then
                         charside = 2
                 end
@@ -113,17 +120,17 @@ end
 
 function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
-         local defHpE = Char.GetData(defCharIndex,CONST.CHAR_Ñª);
-         local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_×î´óÑª);
+         local defHpE = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
+         local defHpEM = Char.GetData(defCharIndex,CONST.CHAR_æœ€å¤§è¡€);
          local HpE05 = defHpE/defHpEM;
          local getit= NLG.Rand(1, math.ceil(HpE05*4) );
-         local LvE = math.ceil(Char.GetData(defCharIndex,CONST.CHAR_µÈ¼¶)*0.8);
+         local LvE = math.ceil(Char.GetData(defCharIndex,CONST.CHAR_ç­‰çº§)*0.8);
          local LvMR = NLG.Rand(1,MaxLv);
          local ballKind = Char.GetTempData(charIndex, 'PokeBallKind') or 0;
          local CatchRateUp = PokeCatchRate(ballKind);
-         if com3 == 200209 and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_¹Ö  then
+         if com3 == 200209 and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_æ€ª  then
                 if (getit == 1 and (LvMR+CatchRateUp) >= LvE)  then
-                        local enemyId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID);
+                        local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
                         --local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
                         if (CheckInTable(GetitEnable_check,enemyId)==true)  then
                                 --Char.AddPet(charIndex,GetitEnable_list[enemyId][2]);
@@ -133,14 +140,14 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
                                 return damage;
                         else
                                 damage = damage;
-                                NLG.Say(charIndex,-1,"¡¾ÉĞÎ´é_·Å²¶×½¡¿£¡£¡",4,3);
+                                NLG.Say(charIndex,-1,"ã€å°šæœªé–‹æ”¾æ•æ‰ã€‘ï¼ï¼",4,3);
                                 return damage;
                         end
                 else
-                        if Char.GetData(charIndex,%¶ÔÏó_×é¶Ó¿ª¹Ø%) == 1  then
+                        if Char.GetData(charIndex,%å¯¹è±¡_ç»„é˜Ÿå¼€å…³%) == 1  then
                                local HpRe = defHpE - damage;
                                if (HpRe>0) then
-                                   NLG.Say(charIndex,-1,"Ä¿˜ËÑªÁ¿Ê£ğN¡¾"..HpRe.."¡¿£¡£¡",4,3);
+                                   NLG.Say(charIndex,-1,"ç›®æ¨™è¡€é‡å‰©é¤˜ã€"..HpRe.."ã€‘ï¼ï¼",4,3);
                                end
                         end
 			damage = damage*0;
@@ -162,7 +169,7 @@ function PokeCatchRate(ballKind)
     return catchRateUp;
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
