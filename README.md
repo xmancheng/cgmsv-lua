@@ -147,4 +147,4 @@ loadModule('monOven')|炙燒烤爐
 loadModule('mysteryShop')|神秘商店
 loadModule('trashCan')|垃圾處理
 loadModule('skillSheet')|人物技能秘笈(P)
-
+loadModule('imageMachine')|寵物形象轉換機(P)
