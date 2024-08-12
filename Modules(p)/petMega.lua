@@ -3,7 +3,15 @@ local Module = ModuleBase:createModule('petMega')
 
 local MegaKind_check= {600073};				--enemy编号
 local MegaKind_list = {};
-MegaKind_list[600073] = {119740, 200500, 200509, 'DD:', 30};		--形象、techID、techID、option、val
+MegaKind_list[600073] = {119740, 200500, 200509, 'DD:', 30, 'AN:', 10 , 'AM:', 10};		--形象、techID、techID、option、val
+MegaKind_list[600074] = {119751, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[600075] = {119753, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[600076] = {119755, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[600077] = {119757, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[600078] = {119759, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[600079] = {119761, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[600080] = {119763, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[600081] = {119765, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
 
 function CheckInTable(_idTab, _idVar) ---循环函数
 	for k,v in pairs(_idTab) do
@@ -64,6 +72,16 @@ function Module:onMegaUse(charIndex, targetCharIndex, itemSlot)
                                 NLG.UpChar(petIndex);
                                 Char.SetTempData(charIndex, 'MegaOn', 1);
                                 NLG.SystemMessage(charIndex,"[系統]寵物即將超級進化！");
+                                --全體攻擊無效1回合
+                                for  i=0, 19 do
+                                    local player = Battle.GetPlayIndex(battleIndex, i)
+                                     if player>=0 then
+                                          if Char.IsPlayer(player) or Char.IsPet(player) then
+                                              Char.SetData(player, CONST.对象_DamageVanish, 2);
+                                              NLG.UpChar(player);
+                                          end
+                                     end
+                                end
                             end
                         elseif (Mega==1) then
                             NLG.SystemMessage(charIndex,"[系統]寵物已經Mega！");
@@ -100,8 +118,8 @@ function Module:battleOverEventCallback(battleIndex)
   end
 end
 function Module:onLogoutEvent(charIndex)
-	local Mega = Char.GetTempData(charIndex, 'MegaOn');
-	if Mega then
+	local Mega = Char.GetTempData(charIndex, 'MegaOn') or 0;
+	if Mega==1 then
 		for Slot=0,4 do
 			local petIndex = Char.GetPet(charIndex, Slot);
 			if (petIndex>0) then
@@ -115,8 +133,8 @@ function Module:onLogoutEvent(charIndex)
 	end
 end
 function Module:onLoginEvent(charIndex)
-	local Mega = Char.GetTempData(charIndex, 'MegaOn');
-	if Mega then
+	local Mega = Char.GetTempData(charIndex, 'MegaOn') or 0;
+	if Mega==1 then
 		for Slot=0,4 do
 			local petIndex = Char.GetPet(charIndex, Slot);
 			if (petIndex>0) then
@@ -153,6 +171,16 @@ function Module:OnTechOptionEventCallBack(charIndex, option, techID, val)
                                   NLG.Say(playerOwner,charIndex,"【精神強刃】！！",4,3);
                               end
                               return val + MegaKind_list[PetId][5];
+                        elseif option == MegaKind_list[PetId][6] then
+                              if Char.GetData(playerOwner,%对象_队聊开关%) == 1  then
+                                  --NLG.Say(playerOwner,charIndex,"【精神強刃】！！",4,3);
+                              end
+                              return val + MegaKind_list[PetId][7];
+                        elseif option == MegaKind_list[PetId][8] then
+                              if Char.GetData(playerOwner,%对象_队聊开关%) == 1  then
+                                  --NLG.Say(playerOwner,charIndex,"【精神強刃】！！",4,3);
+                              end
+                              return val + MegaKind_list[PetId][9];
                         end
                         return val
                   end
