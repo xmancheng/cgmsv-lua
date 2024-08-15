@@ -1,7 +1,11 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('demonSlayer')
 
-local endlessBoss = {"ŸoÏŞ³Ç¹í", 14641, 1000,215,90}
+local endlessBoss = {}
+endlessBoss[1] = {"ç„¡é™åŸé¬¼", 14641, 1000,215,90}
+endlessBoss[2] = {"ç„¡é™åŸé¬¼", 14641, 7342,18,25}
+endlessBoss[3] = {"ç„¡é™åŸé¬¼", 14641, 7343,17,25}
+
 local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 local CharSet = {606038,606039,606040,606041,606042,606043,}
 
@@ -13,37 +17,39 @@ function SetEnemySet(Level)
 		CharSet[r]=CharSet[i];
 		CharSet[i]=temp;
 	end
+	local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	local ix=1;
-	if Level<30 then    -- ³õ¼¶
+	if Level<30 then    -- åˆçº§
 		for k=1,3 do
 			EnemySet[k]=CharSet[ix];
 			ix=ix+1;
 		end
-	elseif Level>=30 and Level<70 then    -- ¸ß¼¶
+	elseif Level>=30 and Level<70 then    -- é«˜çº§
 		for k=1,5 do
 			EnemySet[k]=CharSet[ix];
 			ix=ix+1;
 		end
-	elseif Level>70 then    -- ¾ø¼¶
+	elseif Level>70 then    -- ç»çº§
 		for k=1,10 do
 			EnemySet[k]=CharSet[ix];
 			ix=ix+1;
 		end
 	end
+	return EnemySet;
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
-  endlessBossNPC = self:NPC_createNormal(endlessBoss[1], endlessBoss[2], { map = endlessBoss[3], x = endlessBoss[4], y = endlessBoss[5], direction = 0, mapType = 0 })
+  endlessBossNPC = self:NPC_createNormal(endlessBoss[1][1], endlessBoss[1][2], { map = endlessBoss[1][3], x = endlessBoss[1][4], y = endlessBoss[1][5], direction = 0, mapType = 0 })
   self:NPC_regWindowTalkedEvent(endlessBossNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_¹Ø±Õ then
+    if select == CONST.BUTTON_å…³é—­ then
         return;
     end
     if seqno == 1 and data ==1 then
@@ -52,14 +58,13 @@ function Module:onLoad()
         if (enemyLv>=250) then
             enemyLv =250;
         end
-        SetEnemySet(endlessBossLevel);
-        local EnemyIdAr = EnemySet;
+        local EnemyIdAr = SetEnemySet(endlessBossLevel);
         local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
         local battleIndex = Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
         Battle.SetWinEvent("./lua/Modules/demonSlayer.lua", "endlessBossNPC_BattleWin", battleIndex);
     elseif seqno == 1 and data ==2 then
         Field.Set(player, 'EndlessBossLevel', 0);
-        NLG.SystemMessage(player,"[Ïµ½y]ÒÑÖØÖÃŸo±MÖ®ËşÓ‘·¥µÈ¼‰¡£");
+        NLG.SystemMessage(player,"[ç³»çµ±]å·²é‡ç½®ç„¡ç›¡ä¹‹å¡”è¨ä¼ç­‰ç´šã€‚");
         return;
     end
   end)
@@ -67,12 +72,79 @@ function Module:onLoad()
     local endlessBossLevel = tonumber(Field.Get(player, 'EndlessBossLevel')) or 0;
     local nowLevel = endlessBossLevel+1;
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "4\\n@c¡ïŸoÏŞ³Ç¹íš¢ê ÈÎ„Õ¡ï"
-                                             .."\\nßM¶ÈµÈ¼‰: "..nowLevel.."\\n"
-                                             .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                                             .."[¡¡…¢¼Ó¹íÎèŞyŸo‘KÓ‘·¥¡¡]\\n"
-                                             .."[¡¡ÖØÖÃŸoÏŞ³Ç¹íš¢µÈ¼‰¡¡]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, msg);
+      local msg = "4\\n@câ˜…ç„¡é™åŸé¬¼æ®ºéšŠä»»å‹™â˜…"
+                                             .."\\né€²åº¦ç­‰ç´š: "..nowLevel.."\\n"
+                                             .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                                             .."[ã€€åƒåŠ é¬¼èˆè¾»ç„¡æ…˜è¨ä¼ã€€]\\n"
+                                             .."[ã€€é‡ç½®ç„¡é™åŸé¬¼æ®ºç­‰ç´šã€€]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1, msg);
+    end
+    return
+  end)
+
+  endlessBossNPC2 = self:NPC_createNormal(endlessBoss[2][1], endlessBoss[2][2], { map = endlessBoss[2][3], x = endlessBoss[2][4], y = endlessBoss[2][5], direction = 0, mapType = 0 })
+  self:NPC_regWindowTalkedEvent(endlessBossNPC2, function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select == CONST.BUTTON_å¦ then
+        return;
+    elseif seqno == 2 and select == CONST.BUTTON_æ˜¯ then
+        local endlessBossLevel = tonumber(Field.Get(player, 'EndlessBossLevel')) or 0;
+        local enemyLv = 30 + (endlessBossLevel * 2);
+        if (enemyLv>=250) then
+            enemyLv =250;
+        end
+        local EnemyIdAr = SetEnemySet(endlessBossLevel);
+        local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
+        local battleIndex = Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
+        Battle.SetWinEvent("./lua/Modules/demonSlayer.lua", "endlessBossNPC_BattleWin", battleIndex);
+    end
+  end)
+  self:NPC_regTalkedEvent(endlessBossNPC2, function(npc, player)
+    local endlessBossLevel = tonumber(Field.Get(player, 'EndlessBossLevel')) or 0;
+    local nowLevel = endlessBossLevel+1;
+    if (NLG.CanTalk(npc, player) == true) then
+      local msg = "\\n@câ˜…ç„¡é™åŸé¬¼æ®ºéšŠä»»å‹™â˜…"
+                                             .."\\né€²åº¦ç­‰ç´š: "..nowLevel.."\\n"
+                                             .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                                             .."[ã€€é–‹å§‹ç„¡é™åŸæ®ºé¬¼è¨ä¼ã€€]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 2, msg);
+    end
+    return
+  end)
+
+
+  endlessBossNPC3 = self:NPC_createNormal(endlessBoss[3][1], endlessBoss[3][2], { map = endlessBoss[3][3], x = endlessBoss[3][4], y = endlessBoss[3][5], direction = 0, mapType = 0 })
+  self:NPC_regWindowTalkedEvent(endlessBossNPC3, function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select == CONST.BUTTON_å¦ then
+        return;
+    elseif seqno == 2 and select == CONST.BUTTON_æ˜¯ then
+        local endlessBossLevel = tonumber(Field.Get(player, 'EndlessBossLevel')) or 0;
+        local enemyLv = 30 + (endlessBossLevel * 2);
+        if (enemyLv>=250) then
+            enemyLv =250;
+        end
+        local EnemyIdAr = SetEnemySet(endlessBossLevel);
+        local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
+        local battleIndex = Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
+        Battle.SetWinEvent("./lua/Modules/demonSlayer.lua", "endlessBossNPC_BattleWin", battleIndex);
+    end
+  end)
+  self:NPC_regTalkedEvent(endlessBossNPC3, function(npc, player)
+    local endlessBossLevel = tonumber(Field.Get(player, 'EndlessBossLevel')) or 0;
+    local nowLevel = endlessBossLevel+1;
+    if (NLG.CanTalk(npc, player) == true) then
+      local msg = "\\n@câ˜…ç„¡é™åŸé¬¼æ®ºéšŠä»»å‹™â˜…"
+                                             .."\\né€²åº¦ç­‰ç´š: "..nowLevel.."\\n"
+                                             .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                                             .."[ã€€é–‹å§‹ç„¡é™åŸæ®ºé¬¼è¨ä¼ã€€]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 2, msg);
     end
     return
   end)
@@ -83,7 +155,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	local endlessBossLevel = tonumber(Field.Get(leader, 'EndlessBossLevel')) or 0;
@@ -92,15 +164,15 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		local player = Battle.GetPlayIndex(battleIndex, i-10)
 		 --print(enemy, player)
                                         --local randImage = NLG.Rand(1, #imageNumber);
-		local enemyId = Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID);
+		local enemyId = Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID);
 		if enemy>=0 and Char.IsEnemy(enemy) and CheckInTable(CharSet,enemyId)==true  then
-			Char.SetTempData(enemy, 'ÊØ×¡', endlessBossLevel);
-			Char.SetTempData(enemy, '¿ñ±©', endlessBossLevel);
-			--Char.SetData(enemy, CONST.CHAR_ĞÎÏó, imageNumber[randImage]);
-			--Char.SetData(enemy, CONST.¶ÔÏó_ENEMY_HeadGraNo,108510);
+			Char.SetTempData(enemy, 'å®ˆä½', endlessBossLevel);
+			Char.SetTempData(enemy, 'ç‹‚æš´', endlessBossLevel);
+			--Char.SetData(enemy, CONST.CHAR_å½¢è±¡, imageNumber[randImage]);
+			--Char.SetData(enemy, CONST.å¯¹è±¡_ENEMY_HeadGraNo,108510);
 			NLG.UpChar(enemy);
-			if Char.GetData(player,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-				NLG.Say(player,-1,"¡¾ÊØ×¡îIÓò¡¿¡¾¿ñ±©îIÓò¡¿",4,3);
+			if Char.GetData(player,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+				NLG.Say(player,-1,"ã€å®ˆä½é ˜åŸŸã€‘ã€ç‹‚æš´é ˜åŸŸã€‘",4,3);
 			end
 		end
 	end
@@ -112,31 +184,31 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
       local leader1 = Battle.GetPlayer(battleIndex,0)
       local leader2 = Battle.GetPlayer(battleIndex,5)
       local leader = leader1
-      if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+      if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
           leader = leader2
       end
       local endlessBossLevel = tonumber(Field.Get(leader, 'EndlessBossLevel')) or 0;
       --print(Round)
       if Char.IsEnemy(defCharIndex) then
-          local enemyId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(CharSet,enemyId)==true then
-            local State = Char.GetTempData(defCharIndex, 'ÊØ×¡') or 0;
+            local State = Char.GetTempData(defCharIndex, 'å®ˆä½') or 0;
             local defDamage = 1 - (State*0.01);
             damage = damage * defDamage;
             return damage;
           end
       elseif Char.IsEnemy(charIndex) and flg ~= CONST.DamageFlags.Magic then
-          local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(CharSet,enemyId)==true then
-            local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+            local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
             local attDamage = 1 + (State * 0.02);
             damage = damage * attDamage;
             return damage;
           end
       elseif Char.IsEnemy(charIndex) and flg == CONST.DamageFlags.Magic then
-          local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(CharSet,enemyId)==true then
-            local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+            local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
             local attDamage = 1 + (State * 0.01);
             damage = damage * attDamage;
             return damage;
@@ -146,32 +218,32 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 end
 
 local dropMenu={
-        {"ËÄ»êÖ®ÓñĞ¡ËéÆ¬",51071,1},         --Ã¿10¼¶Ò»¸öµôÂäÇø¼ä£¬10¼¶ÒÔÏÂÎŞ½±Àø
-        {"ËÄ»êÖ®ÓñĞ¡ËéÆ¬",51071,1},
-        {"ËÄ»êÖ®ÓñĞ¡ËéÆ¬",51071,1},
-        {"ËÄ»êÖ®ÓñĞ¡ËéÆ¬",51071,2},
-        {"ËÄ»êÖ®ÓñĞ¡ËéÆ¬",51071,2},
-        {"ËÄ»êÖ®ÓñÖĞËéÆ¬",51072,1},
-        {"ËÄ»êÖ®ÓñÖĞËéÆ¬",51072,1},
-        {"ËÄ»êÖ®ÓñÖĞËéÆ¬",51072,2},
-        {"ËÄ»êÖ®ÓñÖĞËéÆ¬",51072,2},
-        {"ËÄ»êÖ®Óñ´óËéÆ¬",51073,1},
-        {"ËÄ»êÖ®Óñ´óËéÆ¬",51073,1},
-        {"ËÄ»êÖ®Óñ´óËéÆ¬",51073,1},
-        {"ËÄ»êÖ®Óñ´óËéÆ¬",51073,1},
-        {"ÉñÆæÌÇ¹û",900504,100},
-        {"Œš¿É½ğÅ",66668,5},
-        {"Œš¿É½ğÅ",66668,10},
-        {"—Öé",70053,5},
-        {"—Öé",70053,10},
-        {"Œ™ÎïÕĞÊ½ŒWÁ•™C",75017,1},
+        {"å››é­‚ä¹‹ç‰å°ç¢ç‰‡",51071,1},         --æ¯10çº§ä¸€ä¸ªæ‰è½åŒºé—´ï¼Œ10çº§ä»¥ä¸‹æ— å¥–åŠ±
+        {"å››é­‚ä¹‹ç‰å°ç¢ç‰‡",51071,1},
+        {"å››é­‚ä¹‹ç‰å°ç¢ç‰‡",51071,1},
+        {"å››é­‚ä¹‹ç‰å°ç¢ç‰‡",51071,2},
+        {"å››é­‚ä¹‹ç‰å°ç¢ç‰‡",51071,2},
+        {"å››é­‚ä¹‹ç‰ä¸­ç¢ç‰‡",51072,1},
+        {"å››é­‚ä¹‹ç‰ä¸­ç¢ç‰‡",51072,1},
+        {"å››é­‚ä¹‹ç‰ä¸­ç¢ç‰‡",51072,2},
+        {"å››é­‚ä¹‹ç‰ä¸­ç¢ç‰‡",51072,2},
+        {"å››é­‚ä¹‹ç‰å¤§ç¢ç‰‡",51073,1},
+        {"å››é­‚ä¹‹ç‰å¤§ç¢ç‰‡",51073,1},
+        {"å››é­‚ä¹‹ç‰å¤§ç¢ç‰‡",51073,1},
+        {"å››é­‚ä¹‹ç‰å¤§ç¢ç‰‡",51073,1},
+        {"ç¥å¥‡ç³–æœ",900504,100},
+        {"å¯¶å¯é‡‘å¹£",66668,5},
+        {"å¯¶å¯é‡‘å¹£",66668,10},
+        {"å½ˆç ",70053,5},
+        {"å½ˆç ",70053,10},
+        {"å¯µç‰©æ‹›å¼å­¸ç¿’æ©Ÿ",75017,1},
 }
 function endlessBossNPC_BattleWin(battleIndex, charIndex)
-	--¼ÆËãµÈµÚ
+	--è®¡ç®—ç­‰ç¬¬
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	local endlessBossLevel = tonumber(Field.Get(leader, 'EndlessBossLevel')) or 0;
@@ -179,11 +251,11 @@ function endlessBossNPC_BattleWin(battleIndex, charIndex)
 
 	local lv = math.floor(m);
 	local lvRank = math.floor(lv/10);
-	--ÒÀµÈµÚ·ÖÅä½±Àø
+	--ä¾ç­‰ç¬¬åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
 		local drop = math.random(0,2);
-		if player>=0 and Char.GetData(player, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if player>=0 and Char.GetData(player, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			--print(lv,lvRank,drop)
 			for k, v in ipairs(dropMenu) do
 				if k==lvRank and lvRank>=1  then
@@ -196,11 +268,20 @@ function endlessBossNPC_BattleWin(battleIndex, charIndex)
 		Field.Set(leader, 'EndlessBossLevel', 0);
 	else
 		Field.Set(leader, 'EndlessBossLevel', endlessBossLevel+1);
+		if (endlessBossLevel==0) then
+			Char.Warp(charIndex,0,7342,4,32);
+		elseif (endlessBossLevel==29) then
+			Char.Warp(charIndex,0,7343,35,3);
+		elseif (endlessBossLevel==49) then
+			Char.Warp(charIndex,0,7342,24,41);
+		elseif (endlessBossLevel==69) then
+			Char.Warp(charIndex,0,7343,35,3);
+		end
 	end
 	Battle.UnsetWinEvent(battleIndex);
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -209,7 +290,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
