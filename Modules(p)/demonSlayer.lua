@@ -219,6 +219,10 @@ function Module:OnbattleStartEventCallback(battleIndex)
 			if Char.GetData(player,CONST.对象_对战开关) == 1  then
 				NLG.Say(player,-1,"【守住領域】【狂暴領域】",4,3);
 			end
+		elseif enemy>=0 and Char.IsEnemy(enemy) and CheckInTable(BossSet,enemyId)==true  then
+			Char.SetTempData(enemy, '守住', endlessBossLevel);
+			Char.SetTempData(enemy, '狂暴', endlessBossLevel);
+			NLG.UpChar(enemy);
 		end
 	end
 end
@@ -242,6 +246,12 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
             damage = damage * defDamage;
             return damage;
           end
+          if CheckInTable(BossSet,enemyId)==true then
+            local State = Char.GetTempData(defCharIndex, '守住') or 0;
+            local defDamage = 1 - (State*0.01);
+            damage = damage * defDamage;
+            return damage;
+          end
       elseif Char.IsEnemy(charIndex) and flg ~= CONST.DamageFlags.Magic then
           local enemyId = Char.GetData(charIndex, CONST.对象_ENEMY_ID);
           if CheckInTable(MobsSet,enemyId)==true then
@@ -250,9 +260,21 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
             damage = damage * attDamage;
             return damage;
           end
+          if CheckInTable(BossSet,enemyId)==true then
+            local State = Char.GetTempData(charIndex, '狂暴') or 0;
+            local attDamage = 1 + (State * 0.02);
+            damage = damage * attDamage;
+            return damage;
+          end
       elseif Char.IsEnemy(charIndex) and flg == CONST.DamageFlags.Magic then
           local enemyId = Char.GetData(charIndex, CONST.对象_ENEMY_ID);
           if CheckInTable(MobsSet,enemyId)==true then
+            local State = Char.GetTempData(charIndex, '狂暴') or 0;
+            local attDamage = 1 + (State * 0.01);
+            damage = damage * attDamage;
+            return damage;
+          end
+          if CheckInTable(BossSet,enemyId)==true then
             local State = Char.GetTempData(charIndex, '狂暴') or 0;
             local attDamage = 1 + (State * 0.01);
             damage = damage * attDamage;
