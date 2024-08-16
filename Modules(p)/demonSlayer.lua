@@ -2,38 +2,44 @@
 local Module = ModuleBase:createModule('demonSlayer')
 
 local endlessBoss = {}
-endlessBoss[1] = {"無限城鬼", 14641, 1000,215,90}
+endlessBoss[1] = {"無限城鬼", 14641, 20300,290,454}
 endlessBoss[2] = {"無限城鬼", 14641, 7342,18,25}
 endlessBoss[3] = {"無限城鬼", 14641, 7343,17,25}
 
 local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-local CharSet = {606038,606039,606040,606041,606042,606043,}
+local MobsSet = {801,801,801,801,801,802,802,802,802,802,803,803,803,804,}	--杂兵
+local BossSet = {12019,12029,12030,12031,12032,12033,12079,12080}		--头目
 
 function SetEnemySet(Level)
 	local xr = NLG.Rand(1,3);
-	for i=1,#CharSet-1-xr do
+	for i=1,#MobsSet-1-xr do
 		r = NLG.Rand(1,i+1+xr);
-		temp=CharSet[r];
-		CharSet[r]=CharSet[i];
-		CharSet[i]=temp;
+		temp=MobsSet[r];
+		MobsSet[r]=MobsSet[i];
+		MobsSet[i]=temp;
 	end
 	local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	local ix=1;
 	if Level<30 then    -- 初级
-		for k=1,3 do
-			EnemySet[k]=CharSet[ix];
-			ix=ix+1;
-		end
+		EnemySet[1]=MobsSet[1];
+		EnemySet[7]=MobsSet[2];
+		EnemySet[8]=MobsSet[3];
 	elseif Level>=30 and Level<70 then    -- 高级
-		for k=1,5 do
-			EnemySet[k]=CharSet[ix];
-			ix=ix+1;
-		end
+		EnemySet[2]=MobsSet[1];
+		EnemySet[3]=MobsSet[2];
+		EnemySet[6]=MobsSet[3];
+		EnemySet[9]=MobsSet[4];
+		EnemySet[10]=MobsSet[5];
 	elseif Level>70 then    -- 绝级
 		for k=1,10 do
-			EnemySet[k]=CharSet[ix];
+			EnemySet[k]=MobsSet[ix];
 			ix=ix+1;
 		end
+	end
+	--每10级1号位放入BOSS
+	if (math.fmod(Level, 10)==9) then
+		local rand = NLG.Rand(1,#BossSet);
+		EnemySet[1]=BossSet[rand];
 	end
 	return EnemySet;
 end
@@ -52,8 +58,8 @@ function Module:onLoad()
     if select == CONST.BUTTON_关闭 then
         return;
     end
+    local endlessBossLevel = tonumber(Field.Get(player, 'EndlessBossLevel')) or 0;
     if seqno == 1 and data ==1 then
-        local endlessBossLevel = tonumber(Field.Get(player, 'EndlessBossLevel')) or 0;
         local enemyLv = 30 + (endlessBossLevel * 2);
         if (enemyLv>=250) then
             enemyLv =250;
@@ -63,8 +69,44 @@ function Module:onLoad()
         local battleIndex = Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
         Battle.SetWinEvent("./lua/Modules/demonSlayer.lua", "endlessBossNPC_BattleWin", battleIndex);
     elseif seqno == 1 and data ==2 then
+        if (endlessBossLevel>=29) then
+                return;
+        end
+        if mykgold(player, 100000) then
+                Field.Set(player, 'EndlessBossLevel', 29);
+                NLG.SystemMessage(player,"[系統]已跳關無限城至討伐等級30。");
+                return;
+        else
+                NLG.SystemMessage(player, "[系統]您的魔幣不夠。");
+                return;
+        end
+    elseif seqno == 1 and data ==3 then
+        if (endlessBossLevel>=49) then
+                return;
+        end
+        if mykgold(player, 200000) then
+                Field.Set(player, 'EndlessBossLevel', 49);
+                NLG.SystemMessage(player,"[系統]已跳關無限城至討伐等級50。");
+                return;
+        else
+                NLG.SystemMessage(player, "[系統]您的魔幣不夠。");
+                return;
+        end
+    elseif seqno == 1 and data ==4 then
+        if (endlessBossLevel>=69) then
+                return;
+        end
+        if mykgold(player, 500000) then
+                Field.Set(player, 'EndlessBossLevel', 69);
+                NLG.SystemMessage(player,"[系統]已跳關無限城至討伐等級70。");
+                return;
+        else
+                NLG.SystemMessage(player, "[系統]您的魔幣不夠。");
+                return;
+        end
+    elseif seqno == 1 and data ==5 then
         Field.Set(player, 'EndlessBossLevel', 0);
-        NLG.SystemMessage(player,"[系統]已重置無盡之塔討伐等級。");
+        NLG.SystemMessage(player,"[系統]已重置無限城討伐等級。");
         return;
     end
   end)
@@ -76,11 +118,15 @@ function Module:onLoad()
                                              .."\\n進度等級: "..nowLevel.."\\n"
                                              .."\\n　　════════════════════\\n"
                                              .."[　參加鬼舞辻無慘討伐　]\\n"
+                                             .."[　跳關至30級資格10萬　]\\n"
+                                             .."[　跳關至50級資格20萬　]\\n"
+                                             .."[　跳關至70級資格50萬　]\\n"
                                              .."[　重置無限城鬼殺等級　]\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 1, msg);
     end
     return
   end)
+
 
   endlessBossNPC2 = self:NPC_createNormal(endlessBoss[2][1], endlessBoss[2][2], { map = endlessBoss[2][3], x = endlessBoss[2][4], y = endlessBoss[2][5], direction = 0, mapType = 0 })
   self:NPC_regWindowTalkedEvent(endlessBossNPC2, function(npc, player, _seqno, _select, _data)
@@ -114,7 +160,6 @@ function Module:onLoad()
     end
     return
   end)
-
 
   endlessBossNPC3 = self:NPC_createNormal(endlessBoss[3][1], endlessBoss[3][2], { map = endlessBoss[3][3], x = endlessBoss[3][4], y = endlessBoss[3][5], direction = 0, mapType = 0 })
   self:NPC_regWindowTalkedEvent(endlessBossNPC3, function(npc, player, _seqno, _select, _data)
@@ -165,7 +210,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		 --print(enemy, player)
                                         --local randImage = NLG.Rand(1, #imageNumber);
 		local enemyId = Char.GetData(enemy, CONST.对象_ENEMY_ID);
-		if enemy>=0 and Char.IsEnemy(enemy) and CheckInTable(CharSet,enemyId)==true  then
+		if enemy>=0 and Char.IsEnemy(enemy) and CheckInTable(MobsSet,enemyId)==true  then
 			Char.SetTempData(enemy, '守住', endlessBossLevel);
 			Char.SetTempData(enemy, '狂暴', endlessBossLevel);
 			--Char.SetData(enemy, CONST.CHAR_形象, imageNumber[randImage]);
@@ -191,7 +236,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
       --print(Round)
       if Char.IsEnemy(defCharIndex) then
           local enemyId = Char.GetData(defCharIndex, CONST.对象_ENEMY_ID);
-          if CheckInTable(CharSet,enemyId)==true then
+          if CheckInTable(MobsSet,enemyId)==true then
             local State = Char.GetTempData(defCharIndex, '守住') or 0;
             local defDamage = 1 - (State*0.01);
             damage = damage * defDamage;
@@ -199,7 +244,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           end
       elseif Char.IsEnemy(charIndex) and flg ~= CONST.DamageFlags.Magic then
           local enemyId = Char.GetData(charIndex, CONST.对象_ENEMY_ID);
-          if CheckInTable(CharSet,enemyId)==true then
+          if CheckInTable(MobsSet,enemyId)==true then
             local State = Char.GetTempData(charIndex, '狂暴') or 0;
             local attDamage = 1 + (State * 0.02);
             damage = damage * attDamage;
@@ -207,7 +252,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           end
       elseif Char.IsEnemy(charIndex) and flg == CONST.DamageFlags.Magic then
           local enemyId = Char.GetData(charIndex, CONST.对象_ENEMY_ID);
-          if CheckInTable(CharSet,enemyId)==true then
+          if CheckInTable(MobsSet,enemyId)==true then
             local State = Char.GetTempData(charIndex, '狂暴') or 0;
             local attDamage = 1 + (State * 0.01);
             damage = damage * attDamage;
@@ -264,8 +309,9 @@ function endlessBossNPC_BattleWin(battleIndex, charIndex)
 			end
 		end
 	end
-	if (endlessBossLevel>=100) then
+	if (endlessBossLevel>=99) then
 		Field.Set(leader, 'EndlessBossLevel', 0);
+		Char.Warp(charIndex,0,20300,293,456);
 	else
 		Field.Set(leader, 'EndlessBossLevel', endlessBossLevel+1);
 		if (endlessBossLevel==0) then
@@ -288,6 +334,18 @@ function CheckInTable(_idTab, _idVar) ---循环函数
 		end
 	end
 	return false
+end
+
+function mykgold(player,gold)
+	local tjb = Char.GetData(player,CONST.对象_金币);
+	tjb = tjb - gold; 
+	if (tjb >= 0) then
+		Char.SetData(player,CONST.对象_金币,tjb);
+		NLG.UpChar(player);
+		NLG.SystemMessage(player,"交出了"..gold.." G魔幣。");
+		return true;
+	end
+	return false;
 end
 
 --- 卸载模块钩子
