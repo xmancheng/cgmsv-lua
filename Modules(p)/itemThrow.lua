@@ -109,9 +109,9 @@ function ItemThrow:handleBattleAutoCommand(battleIndex)
                 end
                 local ybjn = Battle.IsWaitingCommand(charIndex);
                 local Poke = Char.GetTempData(charIndex, 'PokeBall') or 0;
-                if ybjn and Poke >= 1  then
+                if ybjn and Poke == 1  then
                        Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_THROWITEM, Throw_pos, 200209);
-                       Char.SetTempData(charIndex, 'PokeBall', 0);
+                       Char.SetTempData(charIndex, 'PokeBall', 2);
                        --Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT, sidetable[charside][1], 403);
                        --Throw_control[charIndex] = false;
                 end
@@ -139,9 +139,11 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
                                 local randCatch= NLG.Rand(1, #GetitEnable_list[enemyId] );
                                 Char.GivePet(charIndex,GetitEnable_list[enemyId][randCatch],0);
                                 damage = 7777777;
+                                Char.SetTempData(charIndex, 'PokeBall', 0);
                                 return damage;
                         else
                                 damage = damage;
+                                Char.SetTempData(charIndex, 'PokeBall', 0);
                                 NLG.Say(charIndex,-1,"【尚未開放捕捉】！！",4,3);
                                 return damage;
                         end
@@ -152,8 +154,9 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
                                    NLG.Say(charIndex,-1,"目標血量剩餘【"..HpRe.."】！！",4,3);
                                end
                         end
-			damage = damage*0;
-			return damage;
+                        Char.SetTempData(charIndex, 'PokeBall', 0);
+                        damage = damage*0;
+                        return damage;
                 end
          end
   return damage;
@@ -164,7 +167,7 @@ function ItemThrow:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
       local battleIndex = Char.GetBattleIndex(aIndex);
       if Char.IsPlayer(aIndex) and Char.IsEnemy(fIndex) then	--必中
           local Poke = Char.GetTempData(aIndex, 'PokeBall') or 0;
-          if Poke >= 1  then
+          if Poke == 2  then
                   rate = 0;
                   return rate
           end
