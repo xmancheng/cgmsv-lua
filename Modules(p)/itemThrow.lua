@@ -51,6 +51,7 @@ function ItemThrow:onLoad()
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
+  self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self))
 end
 
 function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
@@ -65,8 +66,9 @@ function ItemThrow:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
                for i = 10, 19 do
                      local enemy = Battle.GetPlayer(battleIndex, i);
                      if enemy == targetCharIndex then
-                            print(i)
-                            Throw_pos = i+20;
+                            --print(i)
+                            --Throw_pos = i+20;
+                            Throw_pos = i;
                      end
                end
                --Throw_control[charIndex] = true;
@@ -155,6 +157,20 @@ function ItemThrow:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage,
                 end
          end
   return damage;
+end
+
+function ItemThrow:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
+      --self:logDebug('OnBattleDodgeRateCallBack', battleIndex, aIndex, fIndex, rate)
+      local battleIndex = Char.GetBattleIndex(aIndex);
+      if Char.IsPlayer(aIndex) and Char.IsEnemy(fIndex) then	--必中
+          local Poke = Char.GetTempData(aIndex, 'PokeBall') or 0;
+          if Poke >= 1  then
+                  rate = 0;
+                  return rate
+          end
+      else
+      end
+      return rate
 end
 
 function PokeCatchRate(ballKind)
