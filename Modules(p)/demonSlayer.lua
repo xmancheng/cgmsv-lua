@@ -7,8 +7,8 @@ endlessBoss[2] = {"無限城鬼", 14641, 7342,18,25}
 endlessBoss[3] = {"無限城鬼", 14641, 7343,17,25}
 
 local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-local MobsSet = {801,801,801,801,801,802,802,802,802,802,803,803,803,804,}	--杂兵
-local BossSet = {12019,12029,12030,12031,12032,12033,12079,12080}		--头目
+local MobsSet = {606102,606102,606102,606102,606102,606102,606100,606101,900003,900004,}	--杂兵
+local BossSet = {900000,900001,900002,900005,900006,}		--头目
 
 function SetEnemySet(Level)
 	local xr = NLG.Rand(1,3);
@@ -30,7 +30,7 @@ function SetEnemySet(Level)
 		EnemySet[6]=MobsSet[3];
 		EnemySet[9]=MobsSet[4];
 		EnemySet[10]=MobsSet[5];
-	elseif Level>70 then    -- 绝级
+	elseif Level>=70 then    -- 绝级
 		for k=1,10 do
 			EnemySet[k]=MobsSet[ix];
 			ix=ix+1;
@@ -83,8 +83,13 @@ function Module:onLoad()
     elseif seqno == 1 and data ==3 then
         if (endlessBossLevel>=49) then
                 return;
+        else
+                if (endlessBossLevel<29) then
+                    NLG.SystemMessage(player,"[系統]須先達到討伐等級30。");
+                    return;
+                end
         end
-        if mykgold(player, 200000) then
+        if mykgold(player, 100000) then
                 Field.Set(player, 'EndlessBossLevel', 49);
                 NLG.SystemMessage(player,"[系統]已跳關無限城至討伐等級50。");
                 return;
@@ -95,8 +100,13 @@ function Module:onLoad()
     elseif seqno == 1 and data ==4 then
         if (endlessBossLevel>=69) then
                 return;
+        else
+                if (endlessBossLevel<49) then
+                    NLG.SystemMessage(player,"[系統]須先達到討伐等級50。");
+                    return;
+                end
         end
-        if mykgold(player, 500000) then
+        if mykgold(player, 300000) then
                 Field.Set(player, 'EndlessBossLevel', 69);
                 NLG.SystemMessage(player,"[系統]已跳關無限城至討伐等級70。");
                 return;
@@ -119,8 +129,8 @@ function Module:onLoad()
                                              .."\\n　　════════════════════\\n"
                                              .."[　參加鬼舞辻無慘討伐　]\\n"
                                              .."[　跳關至30級資格10萬　]\\n"
-                                             .."[　跳關至50級資格20萬　]\\n"
-                                             .."[　跳關至70級資格50萬　]\\n"
+                                             .."[　跳關至50級資格10萬　]\\n"
+                                             .."[　跳關至70級資格30萬　]\\n"
                                              .."[　重置無限城鬼殺等級　]\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 1, msg);
     end
@@ -286,23 +296,14 @@ end
 
 local dropMenu={
         {"四魂之玉小碎片",51071,1},         --每10级一个掉落区间，10级以下无奖励
-        {"四魂之玉小碎片",51071,1},
-        {"四魂之玉小碎片",51071,1},
-        {"四魂之玉小碎片",51071,2},
         {"四魂之玉小碎片",51071,2},
         {"四魂之玉中碎片",51072,1},
-        {"四魂之玉中碎片",51072,1},
         {"四魂之玉中碎片",51072,2},
-        {"四魂之玉中碎片",51072,2},
-        {"四魂之玉大碎片",51073,1},
-        {"四魂之玉大碎片",51073,1},
-        {"四魂之玉大碎片",51073,1},
         {"四魂之玉大碎片",51073,1},
         {"神奇糖果",900504,100},
         {"寶可金幣",66668,5},
         {"寶可金幣",66668,10},
         {"彈珠",70053,5},
-        {"彈珠",70053,10},
         {"寵物招式學習機",75017,1},
 }
 function endlessBossNPC_BattleWin(battleIndex, charIndex)
