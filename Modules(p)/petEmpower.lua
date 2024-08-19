@@ -1,6 +1,16 @@
 ---模块类
 local Module = ModuleBase:createModule('petEmpower')
 
+local clearType = {
+    { type=CONST.CHAR_BattleDamageAbsrob, name="攻擊吸收" },
+    { type=CONST.CHAR_BattleDamageReflec, name="攻擊反彈" },
+    { type=CONST.CHAR_BattleDamageVanish, name="攻擊無效" },
+    { type=CONST.CHAR_BattleDamageMagicAbsrob, name="魔法吸收" },
+    { type=CONST.CHAR_BattleDamageMagicReflec, name="魔法反彈" },
+    { type=CONST.CHAR_BattleDamageMagicVanish, name="魔法無效" },
+    { type=CONST.CHAR_BattleLpRecovery, name="恢復魔法" },
+  }
+
 local EmpowerKind_check= {600018,600019,600020,600021,600022,600023,600028,600029,600030,600070,600071,600072};				--enemy编号
 local EmpowerKind_list = {};
 EmpowerKind_list[600018] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};		--itemID
@@ -21,7 +31,7 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleCalcDexEvent', Func.bind(self.OnBattleCalcDexEvent, self));
   --self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self));
-  --self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self));
+  self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self));
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self));
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self));
 end
@@ -37,11 +47,50 @@ function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
              --print(PetId,ItemID)
              if (CheckInTable(EmpowerKind_check,PetId)==true) then
                  if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
-                     print(1111)
+                   --先制之爪
+                   if (ItemID==69089) then
+                     local dex = 2000;
+                     return dex;
+                   end
+                   --后攻之尾
+                   if (ItemID==69090) then
+                     local dex = 600;
+                     return dex;
+                   end
+                 end
+             end
+             return dex;
+         end
+  return dex;
+end
+
+--持有赋能效果
+function Module:OnAfterBattleTurnCommand(battleIndex)
+     for i = 0, 19 do
+         local PetIndex = Battle.GetPlayer(battleIndex, i);
+         if PetIndex>=0 and Char.IsPet(PetIndex) then
+             local PetId = Char.GetData(PetIndex,CONST.PET_PetID);
+             --持有物
+             local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
+             local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
+             --print(PetId,ItemID)
+             if (CheckInTable(EmpowerKind_check,PetId)==true) then
+                 if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
+                   --突击背心
+                   if (ItemID==69083) then
+                     local defHp = Char.GetData(PetIndex,CONST.CHAR_血);
+                     local defHpM = Char.GetData(PetIndex,CONST.CHAR_最大血);
+                     local Hp00 =defHp/defHpM;
+                     print(defHp,defHpM,Hp00)
+                     if (Hp00<=0.5 and defHp<=defHpM) then
+                         Char.SetData(PetIndex, CONST.CHAR_血, defHp+(defHpM*0.1) );
+                         NLG.UpChar(PetIndex);
+                     end
+                   end
                  end
              end
          end
-      return dex;
+     end
 end
 
 --持有赋能效果
@@ -63,7 +112,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                      local Hp00 = math.floor(defHp/defHpM) * 100;
                      if (damage>=defHp-1) then
                            if (NLG.Rand(1,100)<=Hp00) then
-                               Char.SetData(defCharIndex, CONST.CHAR_血, defHp+damage*0.1);
+                               Char.SetData(defCharIndex, CONST.CHAR_血, defHp+math.floor(damage*0.1));
                                Char.SetData(defCharIndex, CONST.CHAR_受伤, 0);
                                NLG.UpChar(defCharIndex);
                                damage = damage*0;
@@ -116,7 +165,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                      local Hp00 = math.floor(defHp/defHpM) * 100;
                      if (damage>=defHp-1) then
                            if (NLG.Rand(1,100)<=Hp00) then
-                               Char.SetData(defCharIndex, CONST.CHAR_血, defHp+damage*0.1);
+                               Char.SetData(defCharIndex, CONST.CHAR_血, defHp+math.floor(damage*0.1));
                                Char.SetData(defCharIndex, CONST.CHAR_受伤, 0);
                                NLG.UpChar(defCharIndex);
                                damage = damage*0;
@@ -156,50 +205,154 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
            return damage;
          ---宠物为攻击方事件
          elseif Char.IsPet(charIndex) and flg ~= CONST.DamageFlags.Magic  then
-           --宠物特技
-           if (com3 == 9509)  then    --疾風迅雷
-               local State = Char.GetTempData(defCharIndex, '穿透') or 0;
-               print(State)
-               if (State>=0 and State<=12) then
-                   Char.SetTempData(defCharIndex, '穿透', State+1);
-                   damage = damage * ((State+1)/12);
-                   return damage;
-               elseif (State>=13)  then
-                   Char.SetTempData(defCharIndex, '穿透', 0);
-                   damage = damage * 1;
-                   return damage;
-               end
-           end
+             local PetId = Char.GetData(defCharIndex,CONST.PET_PetID);
+             --持有物
+             local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
+             local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
+             --print(PetId,ItemID)
+             if (CheckInTable(EmpowerKind_check,PetId)==true) then
+                 if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
+                   --弱点保险
+                   if (ItemID==69087) then
+                        local State = Char.GetTempData(defCharIndex, '弱点保险') or 0;
+                        if (State>=0) then
+                            damage = damage * (1+(5+State)/100);
+                            return damage;
+                        end
+                        return damage;
+                   end
+                   --力量头带
+                   if (ItemID==69084) then
+                        local State = Char.GetTempData(defCharIndex, '力量头带') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '力量头带', State+1);
+                            damage = damage * (1+(5+State)/100);
+                            return damage;
+                        end
+                        return damage;
+                   end
+                   --锐利之爪
+                   if (ItemID==69085) then
+                     for k, v in ipairs(clearType) do
+                        local sorcery = Char.GetData(defCharIndex, v.type);
+                        if sorcery>=1 then
+                               Char.SetData(defCharIndex, v.type, 0);
+                               damage = damage*0;
+                        else
+                               damage = damage;
+                        end
+                     end
+                     return damage;
+                   end
+                   --贝壳之铃
+                   if (ItemID==69088) then
+                     local heal = math.floor(damage*0.01);
+                     local defHp = Char.GetData(charIndex,CONST.CHAR_血);
+                     local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
+                     if (defHp+heal<=defHpM) then
+                         Char.SetData(charIndex, CONST.CHAR_血, defHp+heal);
+                         NLG.UpChar(charIndex);
+                     else
+                         Char.SetData(charIndex, CONST.CHAR_血, defHpM);
+                         NLG.UpChar(charIndex);
+                     end
+                     return damage;
+                   end
+
+                 end
+             end
            return damage;
          ---宠物为魔法方事件
          elseif Char.IsPet(charIndex) and flg == CONST.DamageFlags.Magic  then
+             local PetId = Char.GetData(defCharIndex,CONST.PET_PetID);
+             --持有物
+             local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
+             local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
+             --print(PetId,ItemID)
+             if (CheckInTable(EmpowerKind_check,PetId)==true) then
+                 if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
+                   --弱点保险
+                   if (ItemID==69087) then
+                        local State = Char.GetTempData(defCharIndex, '弱点保险') or 0;
+                        if (State>=0) then
+                            damage = damage * (1+(3+State)/100);
+                            return damage;
+                        end
+                        return damage;
+                   end
+                   --力量头带
+                   if (ItemID==69084) then
+                        local State = Char.GetTempData(defCharIndex, '力量头带') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, '力量头带', State+1);
+                            damage = damage * (1+(5+State)/100);
+                            return damage;
+                        end
+                        return damage;
+                   end
+                   --锐利之爪
+                   if (ItemID==69085) then
+                     for k, v in ipairs(clearType) do
+                        local sorcery = Char.GetData(defCharIndex, v.type);
+                        if sorcery>=1 then
+                               Char.SetData(defCharIndex, v.type, 0);
+                               damage = damage*0;
+                        else
+                               damage = damage;
+                        end
+                     end
+                     return damage;
+                   end
+                   --贝壳之铃
+                   if (ItemID==69088) then
+                     local heal = math.floor(damage*0.01);
+                     local defHp = Char.GetData(charIndex,CONST.CHAR_血);
+                     local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
+                     if (defHp+heal<=defHpM) then
+                         Char.SetData(charIndex, CONST.CHAR_血, defHp+heal);
+                         NLG.UpChar(charIndex);
+                     else
+                         Char.SetData(charIndex, CONST.CHAR_血, defHpM);
+                         NLG.UpChar(charIndex);
+                     end
+                     return damage;
+                   end
 
-           --宠物特技
-           if (com3 == 2729) then    --千鈞石箭-SE
-               if NLG.Rand(1,10)>=8  then
-                   Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
-                   NLG.UpChar(defCharIndex);
-               end
-           end
+                 end
+             end
            return damage;
-
          end
   return damage;
 end
 
+--持有赋能效果
 function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
-         if (com3==6339)  then    --君主領域(固定量超補附加恢復魔法補量固定增益)
-               local restore = Char.GetData(charIndex,CONST.CHAR_回复);
-               local defRestore = Char.GetData(defCharIndex,CONST.CHAR_回复);
-             --print(restore,defRestore)
-               if (defRestore < restore) then
-                 heal = heal+restore;
-               else
-                 heal = heal;
-               end
-               return heal;
+         if Char.IsPet(charIndex)  then
+             local PetId = Char.GetData(charIndex,CONST.PET_PetID);
+             --持有物
+             local PetAmuletIndex = Pet.GetAmulet(charIndex);
+             local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
+             --print(PetId,ItemID)
+             if (CheckInTable(EmpowerKind_check,PetId)==true) then
+                 if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
+                   --博识眼镜
+                   if (ItemID==69086) then
+                        local restore = Char.GetData(charIndex,CONST.CHAR_回复);
+                        local defRestore = Char.GetData(defCharIndex,CONST.CHAR_回复);
+                        if (defRestore < restore) then
+                            heal = heal+(restore*0.01);
+                            return damage;
+                        else
+                            heal = heal;
+                        end
+                        return damage;
+                   end
+
+                 end
+             end
+           return heal;
          end
-         return heal;
+  return heal;
 end
 
 --获取宠物装备-护符
