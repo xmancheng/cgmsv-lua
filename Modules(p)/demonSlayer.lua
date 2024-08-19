@@ -330,6 +330,13 @@ function endlessBossNPC_BattleWin(battleIndex, charIndex)
 					Char.GiveItem(player, dropMenu[k][2], dropMenu[k][3]*drop);
 				end
 			end
+			if (endlessBossLevel>=99) then
+				local dropPet = math.random(1,5);
+				local PetIDMenu = {900007,900008,900009}
+				if (dropPet<=3) then
+					Char.AddPet(player,PetIDMenu[dropPet]);
+				end
+			end
 		end
 	end
 	if (endlessBossLevel>=99) then
