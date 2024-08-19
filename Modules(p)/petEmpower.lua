@@ -71,7 +71,7 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
          if PetIndex>=0 and Char.IsPet(PetIndex) then
              local PetId = Char.GetData(PetIndex,CONST.PET_PetID);
              --持有物
-             local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
+             local PetAmuletIndex = Pet.GetAmulet(PetIndex);
              local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
              --print(PetId,ItemID)
              if (CheckInTable(EmpowerKind_check,PetId)==true) then
