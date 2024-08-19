@@ -1,7 +1,7 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petEmpower')
 
-local EmpowerKind_check= {600018,600019,600020,600021,600022,600023,600028,600029,600030,600070,600071,600072};				--enemy±àºÅ
+local EmpowerKind_check= {600018,600019,600020,600021,600022,600023,600028,600029,600030,600070,600071,600072};				--enemyç¼–å·
 local EmpowerKind_list = {};
 EmpowerKind_list[600018] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};		--itemID
 EmpowerKind_list[600019] = {69081};
@@ -16,7 +16,7 @@ EmpowerKind_list[600070] = {69081};
 EmpowerKind_list[600071] = {69081};
 EmpowerKind_list[600072] = {69081};
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleCalcDexEvent', Func.bind(self.OnBattleCalcDexEvent, self));
@@ -26,14 +26,14 @@ function Module:onLoad()
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self));
 end
 
---³ÖÓĞ¸³ÄÜĞ§¹û
+--æŒæœ‰èµ‹èƒ½æ•ˆæœ
 function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
       --self:logDebug('OnBattleCalcDexEvent', battleIndex, charIndex, action, flg, dex)
          if Char.IsPet(charIndex)  then
              local PetId = Char.GetData(charIndex,CONST.PET_PetID);
-             --³ÖÓĞÎï
+             --æŒæœ‰ç‰©
              local PetAmuletIndex = Pet.GetAmulet(charIndex);
-             local ItemID = Item.GetData(PetAmuletIndex, CONST.µÀ¾ß_ID);
+             local ItemID = Item.GetData(PetAmuletIndex, CONST.é“å…·_ID);
              print(PetId,ItemID)
              if (ItemID==EmpowerKind_list[PetId][1] and CheckInTable(EmpowerKind_check,PetId)==true) then
                  local test = EmpowerKind_list[PetId][2];
@@ -43,26 +43,27 @@ function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
       return dex;
 end
 
---³ÖÓĞ¸³ÄÜĞ§¹û
+--æŒæœ‰èµ‹èƒ½æ•ˆæœ
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
-         ---³èÎïÎªÎïÀíÊÜ¹¥·½ÊÂ¼ş
+         ---å® ç‰©ä¸ºç‰©ç†å—æ”»æ–¹äº‹ä»¶
          if Char.IsPet(defCharIndex) and flg ~= CONST.DamageFlags.Magic  then
              local PetId = Char.GetData(defCharIndex,CONST.PET_PetID);
-             --³ÖÓĞÎï
+             --æŒæœ‰ç‰©
              local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
-             local ItemID = Item.GetData(PetAmuletIndex, CONST.µÀ¾ß_ID);
+             local ItemID = Item.GetData(PetAmuletIndex, CONST.é“å…·_ID);
              --print(PetId,ItemID)
              if (CheckInTable(EmpowerKind_check,PetId)==true) then
                  if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
+                   --æ°”åŠ¿å¤´å¸¦
                    if (ItemID==69081) then
-                     local defHp = Char.GetData(defCharIndex,CONST.CHAR_Ñª);
-                     local defHpM = Char.GetData(defCharIndex,CONST.CHAR_×î´óÑª);
+                     local defHp = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
+                     local defHpM = Char.GetData(defCharIndex,CONST.CHAR_æœ€å¤§è¡€);
                      local Hp00 = math.floor(defHp/defHpM) * 100;
                      if (damage>=defHp-1) then
                            if (NLG.Rand(1,100)<=Hp00) then
-                               Char.SetData(defCharIndex, CONST.CHAR_Ñª, defHp+damage*0.1);
-                               Char.SetData(defCharIndex, CONST.CHAR_ÊÜÉË, 0);
+                               Char.SetData(defCharIndex, CONST.CHAR_è¡€, defHp+damage*0.1);
+                               Char.SetData(defCharIndex, CONST.CHAR_å—ä¼¤, 0);
                                NLG.UpChar(defCharIndex);
                                damage = damage*0;
                            else
@@ -73,36 +74,103 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                      end
                      return damage;
                    end
+                   --å‡¸å‡¸å¤´ç›”
+                   if (ItemID==69082) then
+                     local defDefense = Char.GetData(defCharIndex,CONST.CHAR_é˜²å¾¡åŠ›);
+                     local reHit = math.floor(defDefense*0.01);
+                     local enemyHp = Char.GetData(charIndex,CONST.CHAR_è¡€);
+                     if (enemyHp>=reHit-1) then
+                         Char.SetData(charIndex, CONST.CHAR_è¡€,  enemyHp-reHit);
+                         NLG.UpChar(charIndex);
+                     else
+                         Char.SetData(charIndex, CONST.CHAR_è¡€,  1);
+                         NLG.UpChar(charIndex);
+                     end
+                   end
+                   --å¼±ç‚¹ä¿é™©
+                   if (ItemID==69087) then
+                        local State = Char.GetTempData(defCharIndex, 'å¼±ç‚¹ä¿é™©') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, 'å¼±ç‚¹ä¿é™©', State+1);
+                        end
+                   end
+                 end
+             end
+           return damage;
+         ---å® ç‰©ä¸ºé­”æ³•å—æ”»æ–¹äº‹ä»¶
+         elseif Char.IsPet(defCharIndex) and flg == CONST.DamageFlags.Magic  then
+             local PetId = Char.GetData(defCharIndex,CONST.PET_PetID);
+             --æŒæœ‰ç‰©
+             local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
+             local ItemID = Item.GetData(PetAmuletIndex, CONST.é“å…·_ID);
+             --print(PetId,ItemID)
+             if (CheckInTable(EmpowerKind_check,PetId)==true) then
+                 if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
+                   --æ°”åŠ¿å¤´å¸¦
+                   if (ItemID==69081) then
+                     local defHp = Char.GetData(defCharIndex,CONST.CHAR_è¡€);
+                     local defHpM = Char.GetData(defCharIndex,CONST.CHAR_æœ€å¤§è¡€);
+                     local Hp00 = math.floor(defHp/defHpM) * 100;
+                     if (damage>=defHp-1) then
+                           if (NLG.Rand(1,100)<=Hp00) then
+                               Char.SetData(defCharIndex, CONST.CHAR_è¡€, defHp+damage*0.1);
+                               Char.SetData(defCharIndex, CONST.CHAR_å—ä¼¤, 0);
+                               NLG.UpChar(defCharIndex);
+                               damage = damage*0;
+                           else
+                               damage = damage;
+                           end
+                     else
+                           damage = damage;
+                     end
+                     return damage;
+                   end
+                   --å‡¸å‡¸å¤´ç›”
+                   if (ItemID==69082) then
+                     local defDefense = Char.GetData(defCharIndex,CONST.CHAR_é˜²å¾¡åŠ›);
+                     local reHit = math.floor(defDefense*0.01);
+                     local enemyHp = Char.GetData(charIndex,CONST.CHAR_è¡€);
+                     if (enemyHp>=reHit-1) then
+                         Char.SetData(charIndex, CONST.CHAR_è¡€,  enemyHp-reHit);
+                         NLG.UpChar(charIndex);
+                     else
+                         Char.SetData(charIndex, CONST.CHAR_è¡€,  1);
+                         NLG.UpChar(charIndex);
+                     end
+                   end
+                   --å¼±ç‚¹ä¿é™©
+                   if (ItemID==69087) then
+                        local State = Char.GetTempData(defCharIndex, 'å¼±ç‚¹ä¿é™©') or 0;
+                        if (State>=0) then
+                            Char.SetTempData(defCharIndex, 'å¼±ç‚¹ä¿é™©', State+1);
+                        end
+                   end
 
                  end
              end
            return damage;
-         ---³èÎïÎªÄ§·¨ÊÜ¹¥·½ÊÂ¼ş
-         elseif Char.IsPet(defCharIndex) and flg == CONST.DamageFlags.Magic  then
-
-           return damage;
-         ---³èÎïÎª¹¥»÷·½ÊÂ¼ş
+         ---å® ç‰©ä¸ºæ”»å‡»æ–¹äº‹ä»¶
          elseif Char.IsPet(charIndex) and flg ~= CONST.DamageFlags.Magic  then
-           --³èÎïÌØ¼¼
-           if (com3 == 9509)  then    --¼²ïLÑ¸À×
-               local State = Char.GetTempData(defCharIndex, '´©Í¸') or 0;
+           --å® ç‰©ç‰¹æŠ€
+           if (com3 == 9509)  then    --ç–¾é¢¨è¿…é›·
+               local State = Char.GetTempData(defCharIndex, 'ç©¿é€') or 0;
                print(State)
                if (State>=0 and State<=12) then
-                   Char.SetTempData(defCharIndex, '´©Í¸', State+1);
+                   Char.SetTempData(defCharIndex, 'ç©¿é€', State+1);
                    damage = damage * ((State+1)/12);
                    return damage;
                elseif (State>=13)  then
-                   Char.SetTempData(defCharIndex, '´©Í¸', 0);
+                   Char.SetTempData(defCharIndex, 'ç©¿é€', 0);
                    damage = damage * 1;
                    return damage;
                end
            end
            return damage;
-         ---³èÎïÎªÄ§·¨·½ÊÂ¼ş
+         ---å® ç‰©ä¸ºé­”æ³•æ–¹äº‹ä»¶
          elseif Char.IsPet(charIndex) and flg == CONST.DamageFlags.Magic  then
 
-           --³èÎïÌØ¼¼
-           if (com3 == 2729) then    --Ç§âxÊ¯¼ı-SE
+           --å® ç‰©ç‰¹æŠ€
+           if (com3 == 2729) then    --åƒéˆçŸ³ç®­-SE
                if NLG.Rand(1,10)>=8  then
                    Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 2);
                    NLG.UpChar(defCharIndex);
@@ -115,9 +183,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 end
 
 function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
-         if (com3==6339)  then    --¾ıÖ÷îIÓò(¹Ì¶¨Á¿³¬Ña¸½¼Ó»ÖÍÄ§·¨ÑaÁ¿¹Ì¶¨ÔöÒæ)
-               local restore = Char.GetData(charIndex,CONST.CHAR_»Ø¸´);
-               local defRestore = Char.GetData(defCharIndex,CONST.CHAR_»Ø¸´);
+         if (com3==6339)  then    --å›ä¸»é ˜åŸŸ(å›ºå®šé‡è¶…è£œé™„åŠ æ¢å¾©é­”æ³•è£œé‡å›ºå®šå¢ç›Š)
+               local restore = Char.GetData(charIndex,CONST.CHAR_å›å¤);
+               local defRestore = Char.GetData(defCharIndex,CONST.CHAR_å›å¤);
              --print(restore,defRestore)
                if (defRestore < restore) then
                  heal = heal+restore;
@@ -129,20 +197,20 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
          return heal;
 end
 
---»ñÈ¡³èÎï×°±¸-»¤·û
+--è·å–å® ç‰©è£…å¤‡-æŠ¤ç¬¦
 Pet.GetAmulet = function(petIndex)
-  local ItemIndex = Char.GetItemIndex(petIndex, CONST.³èµÀÀ¸_ÊÎÆ·1);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.µÀ¾ßÀàĞÍ_³èÎï»¤·û then
-    return ItemIndex,CONST.³èµÀÀ¸_ÊÎÆ·1;
+  local ItemIndex = Char.GetItemIndex(petIndex, CONST.å® é“æ _é¥°å“1);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.é“å…·ç±»å‹_å® ç‰©æŠ¤ç¬¦ then
+    return ItemIndex,CONST.å® é“æ _é¥°å“1;
   end
-  ItemIndex = Char.GetItemIndex(petIndex, CONST.³èµÀÀ¸_ÊÎÆ·2);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.µÀ¾ßÀàĞÍ_³èÎï»¤·û then
-    return ItemIndex,CONST.³èµÀÀ¸_ÊÎÆ·2;
+  ItemIndex = Char.GetItemIndex(petIndex, CONST.å® é“æ _é¥°å“2);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.é“å…·ç±»å‹_å® ç‰©æŠ¤ç¬¦ then
+    return ItemIndex,CONST.å® é“æ _é¥°å“2;
   end
   return -1,-1;
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -151,7 +219,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
