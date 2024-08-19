@@ -49,12 +49,12 @@ function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
                  if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
                    --先制之爪
                    if (ItemID==69088) then
-                     local dex = 2000;
+                     local dex = 3000;
                      return dex;
                    end
                    --后攻之尾
                    if (ItemID==69089) then
-                     local dex = 600;
+                     local dex = 300;
                      return dex;
                    end
                  end
@@ -216,7 +216,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                    if (ItemID==69087) then
                         local State = Char.GetTempData(defCharIndex, '弱点保险') or 0;
                         if (State>=0) then
-                            damage = damage * (1+(5+State)/100));
+                            damage = damage * (1+((5+State)/100));
                             return damage;
                         end
                         return damage;
@@ -226,7 +226,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                         local State = Char.GetTempData(defCharIndex, '力量头带') or 0;
                         if (State>=0) then
                             Char.SetTempData(defCharIndex, '力量头带', State+1);
-                            damage = damage * (1+(5+State)/100));
+                            damage = damage * (1+((5+State)/100));
                             return damage;
                         end
                         return damage;
@@ -275,7 +275,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                    if (ItemID==69087) then
                         local State = Char.GetTempData(defCharIndex, '弱点保险') or 0;
                         if (State>=0) then
-                            damage = damage * (1+(3+State)/100));
+                            damage = damage * (1+((3+State)/100));
                             return damage;
                         end
                         return damage;
@@ -285,7 +285,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                         local State = Char.GetTempData(defCharIndex, '力量头带') or 0;
                         if (State>=0) then
                             Char.SetTempData(defCharIndex, '力量头带', State+1);
-                            damage = damage * (1+(5+State)/100));
+                            damage = damage * (1+((5+State)/100));
                             return damage;
                         end
                         return damage;
