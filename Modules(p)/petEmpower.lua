@@ -34,10 +34,11 @@ function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
              --持有物
              local PetAmuletIndex = Pet.GetAmulet(charIndex);
              local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
-             print(PetId,ItemID)
-             if (ItemID==EmpowerKind_list[PetId][1] and CheckInTable(EmpowerKind_check,PetId)==true) then
-                 local test = EmpowerKind_list[PetId][2];
-                 print(test)
+             --print(PetId,ItemID)
+             if (CheckInTable(EmpowerKind_check,PetId)==true) then
+                 if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
+                     print(1111)
+                 end
              end
          end
       return dex;
@@ -86,6 +87,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                          Char.SetData(charIndex, CONST.CHAR_血,  1);
                          NLG.UpChar(charIndex);
                      end
+                     return damage;
                    end
                    --弱点保险
                    if (ItemID==69087) then
@@ -93,6 +95,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                         if (State>=0) then
                             Char.SetTempData(defCharIndex, '弱点保险', State+1);
                         end
+                        return damage;
                    end
                  end
              end
@@ -137,6 +140,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                          Char.SetData(charIndex, CONST.CHAR_血,  1);
                          NLG.UpChar(charIndex);
                      end
+                     return damage;
                    end
                    --弱点保险
                    if (ItemID==69087) then
@@ -144,6 +148,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                         if (State>=0) then
                             Char.SetTempData(defCharIndex, '弱点保险', State+1);
                         end
+                        return damage;
                    end
 
                  end
