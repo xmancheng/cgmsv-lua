@@ -48,12 +48,12 @@ function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
              if (CheckInTable(EmpowerKind_check,PetId)==true) then
                  if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
                    --先制之爪
-                   if (ItemID==69089) then
+                   if (ItemID==69088) then
                      local dex = 2000;
                      return dex;
                    end
                    --后攻之尾
-                   if (ItemID==69090) then
+                   if (ItemID==69089) then
                      local dex = 600;
                      return dex;
                    end
@@ -245,7 +245,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                      return damage;
                    end
                    --贝壳之铃
-                   if (ItemID==69088) then
+                   if (ItemID==69090) then
                      local heal = math.floor(damage*0.01);
                      local defHp = Char.GetData(charIndex,CONST.CHAR_血);
                      local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
@@ -304,7 +304,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                      return damage;
                    end
                    --贝壳之铃
-                   if (ItemID==69088) then
+                   if (ItemID==69090) then
                      local heal = math.floor(damage*0.01);
                      local defHp = Char.GetData(charIndex,CONST.CHAR_血);
                      local defHpM = Char.GetData(charIndex,CONST.CHAR_最大血);
