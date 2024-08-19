@@ -14,17 +14,17 @@ local clearType = {
 local EmpowerKind_check= {600018,600019,600020,600021,600022,600023,600028,600029,600030,600070,600071,600072};				--enemy编号
 local EmpowerKind_list = {};
 EmpowerKind_list[600018] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};		--itemID
-EmpowerKind_list[600019] = {69081};
-EmpowerKind_list[600020] = {69081};
-EmpowerKind_list[600021] = {69081};
-EmpowerKind_list[600022] = {69081};
-EmpowerKind_list[600023] = {69081};
-EmpowerKind_list[600028] = {69081};
-EmpowerKind_list[600029] = {69081};
-EmpowerKind_list[600030] = {69081};
-EmpowerKind_list[600070] = {69081};
-EmpowerKind_list[600071] = {69081};
-EmpowerKind_list[600072] = {69081};
+EmpowerKind_list[600019] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600020] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600021] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600022] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600023] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600028] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600029] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600030] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600070] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600071] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
+EmpowerKind_list[600072] = {69081, 69082, 69083, 69084, 69085, 69086, 69087, 69088, 69089, 69090};
 
 --- 加载模块钩子
 function Module:onLoad()
@@ -205,16 +205,16 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
            return damage;
          ---宠物为攻击方事件
          elseif Char.IsPet(charIndex) and flg ~= CONST.DamageFlags.Magic  then
-             local PetId = Char.GetData(defCharIndex,CONST.PET_PetID);
+             local PetId = Char.GetData(charIndex,CONST.PET_PetID);
              --持有物
-             local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
+             local PetAmuletIndex = Pet.GetAmulet(charIndex);
              local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
              --print(PetId,ItemID)
              if (CheckInTable(EmpowerKind_check,PetId)==true) then
                  if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
                    --弱点保险
                    if (ItemID==69087) then
-                        local State = Char.GetTempData(defCharIndex, '弱点保险') or 0;
+                        local State = Char.GetTempData(charIndex, '弱点保险') or 0;
                         if (State>=0) then
                             damage = damage * (1+((5+State)/100));
                             return damage;
@@ -264,16 +264,16 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
            return damage;
          ---宠物为魔法方事件
          elseif Char.IsPet(charIndex) and flg == CONST.DamageFlags.Magic  then
-             local PetId = Char.GetData(defCharIndex,CONST.PET_PetID);
+             local PetId = Char.GetData(charIndex,CONST.PET_PetID);
              --持有物
-             local PetAmuletIndex = Pet.GetAmulet(defCharIndex);
+             local PetAmuletIndex = Pet.GetAmulet(charIndex);
              local ItemID = Item.GetData(PetAmuletIndex, CONST.道具_ID);
              --print(PetId,ItemID)
              if (CheckInTable(EmpowerKind_check,PetId)==true) then
                  if (CheckInTable(EmpowerKind_list[PetId],ItemID)==true) then
                    --弱点保险
                    if (ItemID==69087) then
-                        local State = Char.GetTempData(defCharIndex, '弱点保险') or 0;
+                        local State = Char.GetTempData(charIndex, '弱点保险') or 0;
                         if (State>=0) then
                             damage = damage * (1+((3+State)/100));
                             return damage;
