@@ -319,6 +319,8 @@ function endlessBossNPC_BattleWin(battleIndex, charIndex)
 
 	local lv = math.floor(m);
 	local lvRank = math.floor(lv/10);
+
+	if (Char.GetData(charIndex, CONST.CHAR_地图)==20300 or Char.GetData(charIndex, CONST.CHAR_地图)==7342 or Char.GetData(charIndex, CONST.CHAR_地图)==7343) then
 	--依等第分配奖励
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
@@ -353,6 +355,7 @@ function endlessBossNPC_BattleWin(battleIndex, charIndex)
 		elseif (endlessBossLevel==69) then
 			Char.Warp(charIndex,0,7343,35,3);
 		end
+	end
 	end
 	Battle.UnsetWinEvent(battleIndex);
 end
