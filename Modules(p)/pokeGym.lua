@@ -1,27 +1,26 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeGym')
 
-local gymBoss = {}
-gymBoss[1] = {"°¢—÷", 14641, 1000,226,88}
-
 local EncountSet = {
-    { Type=1, encountId_1st=600082, encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },	--Bug(encountId)
+    { Type=1, GymBoss={"é˜¿æ¥“", 14641, 1000,226,88}, dropMenu={"å››é­‚ä¹‹ç‰å°ç¢ç‰‡",51071,1}, encountId_1st="3|0,1000,225,88||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },	--Bug(encountId)
 }
+
+tbl_GymBossNPCIndex = tbl_GymBossNPCIndex or {}
 
 local GymsEnemy = {600082,600083,600084,600085,600086,600087,}	--EnemyId
 local restraintMap = {
-    { 600019,600082,600083,600084,600085,600086,600087 },	--³æÊôĞÔ
-    { 600028,600069,600070 },	--²İÊôĞÔ
-    { 606033 },	--µçÊôĞÔ
-    { 600030,600072 },	--Ë®ÊôĞÔ
-    { 600074,600077 },	--Ò»°ãÊôĞÔ
-    { 600018, },	--ÓÄÁéÊôĞÔ
-    { 600073 },	--³¬ÄÜÁ¦ÊôĞÔ
-    { 606030 },	--±ùÊôĞÔ
-    { 600029,606036,600071 },	--»ğÊôĞÔ
-    { 600068,600075,600081 },	--·ÉĞĞÊôĞÔ
-    { 600078,600080 },	--¸ñ¶·ÊôĞÔ
-    { 600076,600079 },	--ÑÒÊ¯ÊôĞÔ
+    { 600019,600082,600083,600084,600085,600086,600087 },	--è™«å±æ€§
+    { 600028,600069,600070 },	--è‰å±æ€§
+    { 606033 },	--ç”µå±æ€§
+    { 600030,600072 },	--æ°´å±æ€§
+    { 600074,600077 },	--ä¸€èˆ¬å±æ€§
+    { 600018, },	--å¹½çµå±æ€§
+    { 600073 },	--è¶…èƒ½åŠ›å±æ€§
+    { 606030 },	--å†°å±æ€§
+    { 600029,606036,600071 },	--ç«å±æ€§
+    { 600068,600075,600081 },	--é£è¡Œå±æ€§
+    { 600078,600080 },	--æ ¼æ–—å±æ€§
+    { 600076,600079 },	--å²©çŸ³å±æ€§
   }
   local attr = {
     { 1, 2, 1, 1, 1, 0.5, 1, 1, 0.5, 0.5, 0.5, 1 },
@@ -37,70 +36,102 @@ local restraintMap = {
     { 0.5, 1, 1, 1, 2, 0, 0.5, 2, 1, 0.5, 1, 2 },
     { 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0.5, 1 },
   }
---local µØÃæÊôĞÔ = {}
---local Ñı¾«ÊôĞÔ = {}
---local ¸ÖÊôĞÔ = {}
---local ÁúÊôĞÔ = {}
---local ¶ñÊôĞÔ = {}
---local ¶¾ÊôĞÔ = {}
+--local åœ°é¢å±æ€§ = {}
+--local å¦–ç²¾å±æ€§ = {}
+--local é’¢å±æ€§ = {}
+--local é¾™å±æ€§ = {}
+--local æ¶å±æ€§ = {}
+--local æ¯’å±æ€§ = {}
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleNextEnemyInitEvent', Func.bind(self.OnBattleNextEnemyInitCallBack, self))
-
-  gymBossNPC = self:NPC_createNormal(gymBoss[1][1], gymBoss[1][2], { map = gymBoss[1][3], x = gymBoss[1][4], y = gymBoss[1][5], direction = 0, mapType = 0 })
-  self:NPC_regWindowTalkedEvent(gymBossNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+ for k,v in pairs(EncountSet) do
+ if tbl_GymBossNPCIndex[k] == nil then
+  local GymBossNPC = self:NPC_createNormal(v.GymBoss[1], v.GymBoss[2], { map =v.GymBoss[3], x = v.GymBoss[4], y = v.GymBoss[5], direction = 0, mapType = 0 })
+  tbl_GymBossNPCIndex[k] = GymBossNPC
+  self:NPC_regWindowTalkedEvent(tbl_GymBossNPCIndex[k], function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_¹Ø±Õ then
+    if select == CONST.BUTTON_å…³é—­ then
         return;
     end
+    local gymBoss = tonumber(Field.Get(player, 'GymBoss')) or 0;
     local gymBossLevel = tonumber(Field.Get(player, 'GymBossLevel')) or 0;
     if seqno == 1 and data ==1 then
         local PartyNum = Char.PartyNum(player);
         if (PartyNum>3) then
-            NLG.SystemMessage(player,"[Ïµ½y]ê Îé³É†T²»ÄÜ³¬ß^3ÈË¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]éšŠä¼æˆå“¡ä¸èƒ½è¶…é3äººã€‚");
             return;
         elseif (PartyNum==-1) then
-            NLG.SystemMessage(player,"[Ïµ½y]µÀğ^‘ğÖ»¿¿1ëbŒ™Îï•şÓĞücÀ§ëy¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]é“é¤¨æˆ°åªé 1éš»å¯µç‰©æœƒæœ‰é»å›°é›£ã€‚");
             return;
         elseif (PartyNum>=1 and PartyNum<=3) then
             for Slot=1,2 do
                 local TeamPlayer = Char.GetPartyMember(player,Slot);
                 if Char.IsDummy(TeamPlayer)==false then
-                    NLG.SystemMessage(player,"[Ïµ½y]ÆäğN2Î»³É†TÖ»ÄÜÊÇÕÙ†¾µÄâ·°é¡£");
+                    NLG.SystemMessage(player,"[ç³»çµ±]å…¶é¤˜2ä½æˆå“¡åªèƒ½æ˜¯å¬å–šçš„å¤¥ä¼´ã€‚");
                     return;
                 end
             end
         end
-        Field.Set(player, 'GymBossLevel', 1);
-        local Type = tonumber(Field.Get(player, 'GymBossLevel'));
-        local battleIndex = Battle.Encount(npc, player, "3|0,1000,225,88||0|||||0|600082|||||");
-        Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
-    elseif seqno == 1 and data ==2 then
+        Field.Set(player, 'GymBoss', k);
         Field.Set(player, 'GymBossLevel', 0);
-        NLG.SystemMessage(player,"[Ïµ½y]ÒÑÖØÖÃ°ËŒÙĞÔµÀğ^Ñ²Ş’¡£");
-        return;
+        local Type = tonumber(Field.Get(player, 'GymBoss'));
+        if (Type==v.Type) then
+            local encountId = v.encountId_1st;
+            print(encountId)
+            local battleIndex = Battle.Encount(npc, player, encountId);
+            Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
+        end
+    elseif seqno == 1 and data ==2 then
+        local PartyNum = Char.PartyNum(player);
+        if (PartyNum>3) then
+            NLG.SystemMessage(player,"[ç³»çµ±]éšŠä¼æˆå“¡ä¸èƒ½è¶…é3äººã€‚");
+            return;
+        elseif (PartyNum==-1) then
+            NLG.SystemMessage(player,"[ç³»çµ±]é“é¤¨æˆ°åªé 1éš»å¯µç‰©æœƒæœ‰é»å›°é›£ã€‚");
+            return;
+        elseif (PartyNum>=1 and PartyNum<=3) then
+            for Slot=1,2 do
+                local TeamPlayer = Char.GetPartyMember(player,Slot);
+                if Char.IsDummy(TeamPlayer)==false then
+                    NLG.SystemMessage(player,"[ç³»çµ±]å…¶é¤˜2ä½æˆå“¡åªèƒ½æ˜¯å¬å–šçš„å¤¥ä¼´ã€‚");
+                    return;
+                end
+            end
+        end
+        Field.Set(player, 'GymBoss', k);
+        Field.Set(player, 'GymBossLevel', 1);
+        local Type = tonumber(Field.Get(player, 'GymBoss'));
+        if (Type==v.Type) then
+            local encountId = v.encountId_1st;
+            local battleIndex = Battle.Encount(npc, player, encountId);
+            Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
+        end
     end
   end)
-  self:NPC_regTalkedEvent(gymBossNPC, function(npc, player)
+  self:NPC_regTalkedEvent(tbl_GymBossNPCIndex[k], function(npc, player)
+    local gymBoss = tonumber(Field.Get(player, 'GymBoss')) or 0;
     local gymBossLevel = tonumber(Field.Get(player, 'GymBossLevel')) or 0;
-    local nowLevel = gymBossLevel+1;
+    local nowGym = k;
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "4\\n@c¡ïÃ¿ßLÑ²Ş’°ËµÀğ^ÈÎ„Õ¡ï"
-                                             .."\\nÌô‘ğßM¶È:  µÚ"..nowLevel.."µÀğ^\\n"
-                                             .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                                             .."[¡¡…¢¼Ó°ËŒÙĞÔµÀğ^Ìô‘ğ¡¡]\\n"
-                                             .."[¡¡ÖØÖÃ°ËŒÙĞÔµÀğ^Ñ²Ş’¡¡]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, msg);
+      local msg = "4\\n@câ˜…æ¯é€±å·¡è¿´å…«é“é¤¨ä»»å‹™â˜…"
+                                             .."\\nç›®å‰é—œå¡:  ç¬¬"..nowGym.."é“é¤¨\\n"
+                                             .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                                             .."[ã€€æ–°æ‰‹å˜—è©¦é“é¤¨æŒ‘æˆ°ã€€]\\n"
+                                             .."[ã€€è³‡æ·±åŠ é€Ÿé“é¤¨æŒ‘æˆ°ã€€]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1, msg);
     end
     return
   end)
+ end
+ end
 
 end
 
@@ -108,19 +139,19 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
-	local gymBossLevel = tonumber(Field.Get(leader, 'GymBossLevel')) or 0;
+	local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
 	for i=10, 19 do
 		local enemy = Battle.GetPlayIndex(battleIndex, i)
 		local player = Battle.GetPlayIndex(battleIndex, i-10)
-		local enemyId = Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID);
+		local enemyId = Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID);
 		if enemy>=0 and Char.IsEnemy(enemy) and CheckInTable(GymsEnemy,enemyId)==true  then
-			Char.SetTempData(enemy, '¿ËÖÆ', gymBossLevel);
+			Char.SetTempData(enemy, 'å…‹åˆ¶', gymBoss);
 			NLG.UpChar(enemy);
-			if Char.GetData(player,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-				NLG.Say(player,-1,"¡¾ŒÙĞÔ„wÖÆ¡¿",4,3);
+			if Char.GetData(player,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+				NLG.Say(player,-1,"ã€å±¬æ€§å‰‹åˆ¶ã€‘",4,3);
 			end
 		end
 	end
@@ -130,22 +161,24 @@ function Module:OnBattleNextEnemyInitCallBack(battleIndex, flg)
       local leader1 = Battle.GetPlayer(battleIndex,0)
       local leader2 = Battle.GetPlayer(battleIndex,5)
       local leader = leader1
-      if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+      if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
           leader = leader2
       end
-      local gymBossLevel = tonumber(Field.Get(leader, 'GymBossLevel')) or 0;
+      local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
       local encountId = Data.GetEncountData(flg, CONST.ENCOUNT_INDEX)
       --print(encountId, flg)
-      if (encountId==600083) then
-          local Bug_EnId = {600084,600084,600086,600087}
-          local roundRand = NLG.Rand(1,4);
-          local encountIndex = Data.GetEncountIndex(Bug_EnId[roundRand])
-          Battle.SetNextBattle(battleIndex,encountIndex, Bug_EnId[roundRand])
-      elseif (encountId==600085) then
-          local Bug_EnId = {600086,600087,600087}
-          local roundRand = NLG.Rand(1,3);
-          local encountIndex = Data.GetEncountIndex(Bug_EnId[roundRand])
-          Battle.SetNextBattle(battleIndex,encountIndex, Bug_EnId[roundRand])
+      for k,v in pairs(EncountSet) do
+          if (gymBoss==v.Type and encountId==v.encountId_2nd) then
+              local Boss_EnId = v.EnId_1st;
+              local roundRand = NLG.Rand(1,4);
+              local encountIndex = Data.GetEncountIndex(Boss_EnId[roundRand])
+              Battle.SetNextBattle(battleIndex,encountIndex, Boss_EnId[roundRand])
+          elseif (gymBoss==v.Type and encountId==v.encountId_3rd) then
+              local Boss_EnId = v.EnId_2nd;
+              local roundRand = NLG.Rand(1,3);
+              local encountIndex = Data.GetEncountIndex(Boss_EnId[roundRand])
+              Battle.SetNextBattle(battleIndex,encountIndex, Boss_EnId[roundRand])
+          end
       end
   return flg;
 end
@@ -156,74 +189,79 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
       local leader1 = Battle.GetPlayer(battleIndex,0)
       local leader2 = Battle.GetPlayer(battleIndex,5)
       local leader = leader1
-      if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+      if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
           leader = leader2
       end
+      local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
       local gymBossLevel = tonumber(Field.Get(leader, 'GymBossLevel')) or 0;
+      if gymBossLevel==0 then
+          speedRate=1;
+      elseif gymBossLevel==1 then
+          speedRate=2;
+      end
       --print(Round)
       if Char.IsEnemy(defCharIndex) then
-          local enemyId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(GymsEnemy,enemyId)==true then
             if Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false  then
-               if (Char.GetData(charIndex, CONST.CHAR_µØÍ¼)==1000) then
+               if (Char.GetData(charIndex, CONST.CHAR_åœ°å›¾)==1000) then
                   damage = 1;
                else
                   damage = damage;
                end
                return damage;
             end
-            --local State = Char.GetTempData(defCharIndex, '¿ËÖÆ') or 0;
-            if gymBossLevel>=0 then
+            if gymBoss>=0 then
                 local a,b = checkRestraint_def(charIndex,defCharIndex);
                 if (a==0 or b==0) then
                     damage = 1;
                 else
-                    print('µÚ'..a..'ÁĞ','µÚ'..b..'™Ú','±¶ÂÊ:'..attr[a][b])
-                    damage = damage * attr[a][b];
+                    print('ç¬¬'..a..'åˆ—','ç¬¬'..b..'æ¬„','å€ç‡:'..attr[a][b])
+                    damage = damage * attr[a][b] * speedRate;
                 end
             end
             return damage;
           end
 
       elseif Char.IsEnemy(charIndex) and flg ~= CONST.DamageFlags.Magic then
-          local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(GymsEnemy,enemyId)==true then
             if Char.IsPlayer(defCharIndex) and Char.IsDummy(defCharIndex)==false  then
-               if (Char.GetData(defCharIndex, CONST.CHAR_µØÍ¼)==1000) then
+               if (Char.GetData(defCharIndex, CONST.CHAR_åœ°å›¾)==1000) then
                   damage = damage;
                end
                return damage;
             end
-            --local State = Char.GetTempData(defCharIndex, '¿ËÖÆ') or 0;
-            if gymBossLevel>=0 then
+            --local State = Char.GetTempData(defCharIndex, 'å…‹åˆ¶') or 0;
+            if gymBoss>=0 then
                 local a,b = checkRestraint_att(charIndex,defCharIndex);
                 if (a==0 or b==0) then
                     damage = 1;
                 else
-                    print('µÚ'..a..'ÁĞ','µÚ'..b..'™Ú','±¶ÂÊ:'..attr[a][b])
-                    damage = damage * attr[a][b];
+                    print('ç¬¬'..a..'åˆ—','ç¬¬'..b..'æ¬„','å€ç‡:'..attr[a][b])
+                    damage = damage * attr[a][b] * speedRate;
                 end
             end
             return damage;
           end
 
       elseif Char.IsEnemy(charIndex) and flg == CONST.DamageFlags.Magic then
-          local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(GymsEnemy,enemyId)==true then
             if Char.IsPlayer(defCharIndex) and Char.IsDummy(defCharIndex)==false  then
-               if (Char.GetData(defCharIndex, CONST.CHAR_µØÍ¼)==1000) then
+               if (Char.GetData(defCharIndex, CONST.CHAR_åœ°å›¾)==1000) then
                   damage = damage;
                end
                return damage;
             end
-            --local State = Char.GetTempData(defCharIndex, '¿ËÖÆ') or 0;
-            if gymBossLevel>=0 then
+            --local State = Char.GetTempData(defCharIndex, 'å…‹åˆ¶') or 0;
+            if gymBoss>=0 then
                 local a,b = checkRestraint_att(charIndex,defCharIndex);
                 if (a==0 or b==0) then
                     damage = 1;
                 else
-                    print('µÚ'..a..'ÁĞ','µÚ'..b..'™Ú','±¶ÂÊ:'..attr[a][b])
-                    damage = damage * attr[a][b] * 0.8;
+                    print('ç¬¬'..a..'åˆ—','ç¬¬'..b..'æ¬„','å€ç‡:'..attr[a][b])
+                    damage = damage * attr[a][b] * 0.8 * speedRate;
                 end
             end
             return damage;
@@ -233,73 +271,35 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
   return damage;
 end
 
-local dropMenu={
-        {"ËÄ»êÖ®ÓñĞ¡ËéÆ¬",51071,1},         --Ã¿10¼¶Ò»¸öµôÂäÇø¼ä£¬10¼¶ÒÔÏÂÎŞ½±Àø
-        {"ËÄ»êÖ®ÓñĞ¡ËéÆ¬",51071,2},
-        {"ËÄ»êÖ®ÓñÖĞËéÆ¬",51072,1},
-        {"ËÄ»êÖ®ÓñÖĞËéÆ¬",51072,2},
-        {"ËÄ»êÖ®Óñ´óËéÆ¬",51073,1},
-        {"ÉñÆæÌÇ¹û",900504,100},
-        {"Œš¿É½ğÅ",66668,5},
-        {"Œš¿É½ğÅ",66668,10},
-        {"—Öé",70053,5},
-        {"Œ™ÎïÕĞÊ½ŒWÁ•™C",75017,1},
-}
 function gymBossNPC_BattleWin(battleIndex, charIndex)
-	--¼ÆËãµÈµÚ
+	--è®¡ç®—ç­‰ç¬¬
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
-	local endlessBossLevel = tonumber(Field.Get(leader, 'EndlessBossLevel')) or 0;
-	local m = endlessBossLevel+1;
+	local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
+	local gymBossLevel = tonumber(Field.Get(leader, 'GymBossLevel')) or 0;
 
-	local lv = math.floor(m);
-	local lvRank = math.floor(lv/10);
-
-	if (Char.GetData(charIndex, CONST.CHAR_µØÍ¼)==20300 or Char.GetData(charIndex, CONST.CHAR_µØÍ¼)==7342 or Char.GetData(charIndex, CONST.CHAR_µØÍ¼)==7343) then
-	--ÒÀµÈµÚ·ÖÅä½±Àø
+	if (Char.GetData(charIndex, CONST.CHAR_åœ°å›¾)==20300) then
+	--åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
 		local drop = math.random(0,2);
-		if player>=0 and Char.GetData(player, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
-			--print(lv,lvRank,drop)
-			for k, v in ipairs(dropMenu) do
-				if k==lvRank and lvRank>=1  then
-					Char.GiveItem(player, dropMenu[k][2], dropMenu[k][3]*drop);
+		if player>=0 and Char.GetData(player, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+			for k, v in ipairs(EncountSet) do
+				if (gymBoss==v.Type) then
+					Char.GiveItem(player, v.dropMenu[2], v.dropMenu[3]*drop);
 				end
 			end
-			if (endlessBossLevel>=99) then
-				local dropPet = math.random(1,5);
-				local PetIDMenu = {900007,900008,900009}
-				if (dropPet<=3) then
-					Char.AddPet(player,PetIDMenu[dropPet]);
-				end
-			end
-		end
-	end
-	if (endlessBossLevel>=99) then
-		Field.Set(leader, 'EndlessBossLevel', 0);
-		Char.Warp(charIndex,0,20300,293,456);
-	else
-		Field.Set(leader, 'EndlessBossLevel', endlessBossLevel+1);
-		if (endlessBossLevel==0) then
-			Char.Warp(charIndex,0,7342,4,32);
-		elseif (endlessBossLevel==29) then
-			Char.Warp(charIndex,0,7343,35,3);
-		elseif (endlessBossLevel==49) then
-			Char.Warp(charIndex,0,7342,24,41);
-		elseif (endlessBossLevel==69) then
-			Char.Warp(charIndex,0,7343,35,3);
 		end
 	end
 	end
 	Battle.UnsetWinEvent(battleIndex);
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -308,15 +308,15 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---ÎÒ·½¹¥charIndex,¹Ö·½ÊØdefCharIndex
+--æˆ‘æ–¹æ”»charIndex,æ€ªæ–¹å®ˆdefCharIndex
 function checkRestraint_def(aIndex,bIndex)
           local a=0;
           local b=0;
           local enemyId_a = Char.GetData(aIndex,CONST.PET_PetID);
           if Char.IsDummy(aIndex)==true  then
-              enemyId_a = Char.GetData(aIndex, CONST.CHAR_½ğ±Ò);
+              enemyId_a = Char.GetData(aIndex, CONST.CHAR_é‡‘å¸);
           end
-          local enemyId_b = Char.GetData(bIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId_b = Char.GetData(bIndex, CONST.å¯¹è±¡_ENEMY_ID);
           for i, v in ipairs(restraintMap) do
               for k, enemyId in ipairs(v) do
                     if (v[k]==enemyId_a) then
@@ -335,14 +335,14 @@ function checkRestraint_def(aIndex,bIndex)
            return a,b;
 end
 
---¹Ö·½¹¥charIndex,ÎÒ·½ÊØdefCharIndex
+--æ€ªæ–¹æ”»charIndex,æˆ‘æ–¹å®ˆdefCharIndex
 function checkRestraint_att(aIndex,bIndex)
           local a=0;
           local b=0;
-          local enemyId_a = Char.GetData(aIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId_a = Char.GetData(aIndex, CONST.å¯¹è±¡_ENEMY_ID);
           local enemyId_b = Char.GetData(bIndex,CONST.PET_PetID);
           if Char.IsDummy(aIndex)==true  then
-              enemyId_b = Char.GetData(bIndex, CONST.CHAR_½ğ±Ò);
+              enemyId_b = Char.GetData(bIndex, CONST.CHAR_é‡‘å¸);
           end
           for i, v in ipairs(restraintMap) do
               for k, enemyId in ipairs(v) do
@@ -361,7 +361,8 @@ function checkRestraint_att(aIndex,bIndex)
            end
            return a,b;
 end
---- Ğ¶ÔØÄ£¿é¹³×Ó
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
