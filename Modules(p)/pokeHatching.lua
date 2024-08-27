@@ -1,34 +1,36 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeHatching')
 
-local petList = {
-petList[75003]={ {600018,600019}, }		  --»ÕÕÂ
-petList[75004]={ {600018,600019}, }
-petList[75005]={ {600018,600019}, }
-petList[75006]={ {600018,600019}, }
-petList[75007]={ {600018,600019}, }
-petList[75008]={ {600018,600019}, }
-petList[75009]={ {600018,600019}, }
-petList[75010]={ {600018,600019}, }
-}
+local walkHatching = 100;	--å­µåŒ–æ‰€éœ€èµ°è·¯æ­¥æ•°
+local petList = {};
+petList[75003]={ {600018,600019}, {600018,600019}, {600018,600019} };		  --å¾½ç« 
+petList[75004]={ {600018,600019}, {600018,600019}, {600018,600019} };
+petList[75005]={ {600018,600019}, {600018,600019}, {600018,600019} };
+petList[75006]={ {600018,600019}, {600018,600019}, {600018,600019} };
+petList[75007]={ {600018,600019}, {600018,600019}, {600018,600019} };
+petList[75008]={ {600018,600019}, {600018,600019}, {600018,600019} };
+petList[75009]={ {600018,600019}, {600018,600019}, {600018,600019} };
+petList[75010]={ {600018,600019}, {600018,600019}, {600018,600019} };
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self:regCallback('ItemOverLapEvent', Func.bind(self.OnItemOverLapEvent, self));
+  --self:regCallback('ItemOverLapEvent', Func.bind(self.OnItemOverLapEvent, self));
   --self.ItemOverLap = self:regCallback(Func.bind(self.OnItemOverLapEvent, self));
   --NL.RegItemOverLapEvent("./lua/Modules/pokeHatching.lua", self.ItemOverLap);
   self:regCallback('ItemString', Func.bind(self.hatchTools, self),"LUA_useHatch");
-  self.IncubatorNPC = self:NPC_createNormal('Œš¿É‰ô·õµ°Æ÷', 14682, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
+  self.IncubatorNPC = self:NPC_createNormal('å¯¶å¯å¤¢å­µè›‹å™¨', 14682, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.IncubatorNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local winMsg = "¡¾Œš¿É‰ôµ°·õµ°Á÷³Ì¡¿\\n"
-                         .."¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                         .."¡ıÍÏÒ·Ò»·NŒÙĞÔµÀğ^»ÕÕÂÖÁ´Ëµ°¡ı\\n\\n"
-                         .."¡¡¡¡¡¡¡¡³ÖÀmÌá¹©»ÕÕÂÌáÉıÏ¡ÓĞŒ™Îï™CÂÊ\\n"
-                         .."¡¡¡¡¡¡¡¡KÇÒÔÚ½‰¶¨ááÓ‹ËãĞĞ×ß100²½ÒÔÉÏ\\n"
-                         .."\\n\\nÊÇ·ñ´_¶¨ëp“ôŒ¢·õ»¯´Ëµ°£¿\\n";
-        NLG.ShowWindowTalked(player, self.IncubatorNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÊÇ·ñ, 1, winMsg);
+        local winMsg = "ã€å¯¶å¯å¤¢è›‹å­µè›‹æµç¨‹ã€‘\\n"
+                         .."â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                         .."â†“æ‹–æ›³ä¸€ç¨®å±¬æ€§é“é¤¨å¾½ç« è‡³æ­¤è›‹â†“\\n\\n"
+                         .."ã€€ã€€ã€€ã€€ç¶å®šå¾Œè¨ˆç®—è¡Œèµ°"..walkHatching.."æ­¥ä»¥ä¸Š\\n"
+                         .."ã€€ã€€ã€€ã€€æŒçºŒä¾›æ‡‰åŒä¸€ç¨®å¾½ç« æ›´æ–°æ­¥æ•¸\\n"
+                         .."ã€€ã€€ã€€ã€€é”åˆ°5ã€10æœƒæ”¹å‹•å¯µç‰©è›‹æ± \\n"
+                         .."\\næ˜¯å¦ç¢ºå®šé›™æ“Šå°‡å­µåŒ–æ­¤è›‹ï¼Ÿ\\n";
+        NLG.ShowWindowTalked(player, self.IncubatorNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 1, winMsg);
     end
     return
   end)
@@ -37,34 +39,41 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    --·õ»¯¹¤¾ß
-    local OvenIndex =Char.HaveItemID(player, ItemID);
-    local OvenSlot = Char.FindItemId(player, ItemID);
-    local OvenName = Item.GetData(OvenIndex, CONST.µÀ¾ß_Ãû×Ö);
-    local OvenDur = 100;
-    --×¢ÈëµÄ»ÕÕÂID
-    local fromItemID = Item.GetData(OvenIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-    local typeNum = Item.GetData(OvenIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+    --å­µåŒ–å·¥å…·
+    local OvenIndex =OvenIndex;
+    local OvenSlot = OvenSlot;
+    local OvenName = Item.GetData(OvenIndex, CONST.é“å…·_åå­—);
+    local first = string.find(OvenName, "è›‹", 1);
+    local last = string.find(OvenName, "æ­¥", 1);
+    local OvenDur = tonumber(string.sub(OvenName, first+2, last-1));
+    print(OvenDur)
+    --local OvenDur = 100;
+    --æ³¨å…¥çš„å¾½ç« ID
+    local fromItemID = Item.GetData(OvenIndex,CONST.é“å…·_å­å‚ä¸€);
+    local typeNum = Item.GetData(OvenIndex,CONST.é“å…·_å­å‚äºŒ);
     if select > 0 then
-      --È·ÈÏÖ´ĞĞ
-      if (seqno == 12 and select == CONST.BUTTON_·ñ) then
+      --ç¡®è®¤æ‰§è¡Œ
+      if (seqno == 1 and select == CONST.BUTTON_å¦) then
                  return;
-      elseif (seqno == 12 and select == CONST.BUTTON_ÊÇ)  then
-                 local SuccPlus= math.floor(typeNum/5);
-                 if (SuccPlus>60) then SuccPlus=60; end
-                 local SuccRate = petList[fromItemID][2]+SuccPlus;
-                 print(SuccRate)
-                 if (SuccRate>100) then SuccRate=100; end
-                 if (type(SuccRate)=="number" and SuccRate>0) then
-                      local tMin = 50 - math.floor(SuccRate/2) + 1;
-                      local tMax = 50 + math.floor(SuccRate/2) + math.fmod(SuccRate,2);
-                      local tLuck = math.random(1, 100);
-                      if (tLuck>=tMin and tLuck<=tMax)  then
-                           Char.AddPet(player, petList[fromItemID][3]);
-                      end
+      elseif (seqno == 1 and select == CONST.BUTTON_æ˜¯)  then
+          if (OvenDur>=walkHatching) then
+                 local SuccRate = typeNum;
+                 if (typeNum>=1 and typeNum<5) then
+                      local tLuck = math.random(1, #petList[fromItemID][1]);
+                      Char.AddPet(player, petList[fromItemID][1][tLuck]);
+                 elseif (typeNum>=5 and typeNum<10) then
+                      local tLuck = math.random(1, #petList[fromItemID][2]);
+                      Char.AddPet(player, petList[fromItemID][2][tLuck]);
+                 elseif (typeNum>=10) then
+                      local tLuck = math.random(1, #petList[fromItemID][3]);
+                      Char.AddPet(player, petList[fromItemID][3][tLuck]);
                  end
                  Char.DelItemBySlot(player, OvenSlot);
                  NLG.UpChar(player);
+          else
+                 NLG.SystemMessage(player, "[ç³»çµ±]å­µå‡ºè›‹æ‰€é ˆè¦çš„æ­¥æ•¸ä¸è¶³ã€‚");
+                 return;
+          end
       else
                  return;
       end
@@ -79,54 +88,55 @@ end
 function Module:hatchTools(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     OvenSlot =itemSlot;
-    local OvenIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local winMsg = "¡¾Œš¿É‰ôµ°·õµ°Á÷³Ì¡¿\\n"
-                         .."¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                         .."¡ıÍÏÒ·Ò»·NŒÙĞÔµÀğ^»ÕÕÂÖÁ´Ëµ°¡ı\\n\\n"
-                         .."¡¡¡¡¡¡¡¡³ÖÀmÌá¹©»ÕÕÂÌáÉıÏ¡ÓĞŒ™Îï™CÂÊ\\n"
-                         .."¡¡¡¡¡¡¡¡KÇÒÔÚ½‰¶¨ááÓ‹ËãĞĞ×ß100²½ÒÔÉÏ\\n"
-                         .."\\n\\nÊÇ·ñ´_¶¨ëp“ôŒ¢·õ»¯´Ëµ°£¿\\n";
-        NLG.ShowWindowTalked(charIndex, self.IncubatorNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÊÇ·ñ, 1, winMsg);
+    OvenIndex = Char.GetItemIndex(charIndex,itemSlot);
+    local winMsg = "ã€å¯¶å¯å¤¢è›‹å­µè›‹æµç¨‹ã€‘\\n"
+                         .."â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                         .."â†“æ‹–æ›³ä¸€ç¨®å±¬æ€§é“é¤¨å¾½ç« è‡³æ­¤è›‹â†“\\n\\n"
+                         .."ã€€ã€€ã€€ã€€ç¶å®šå¾Œè¨ˆç®—è¡Œèµ°"..walkHatching.."æ­¥ä»¥ä¸Š\\n"
+                         .."ã€€ã€€ã€€ã€€æŒçºŒä¾›æ‡‰åŒä¸€ç¨®å¾½ç« æ›´æ–°æ­¥æ•¸\\n"
+                         .."ã€€ã€€ã€€ã€€é”åˆ°5ã€10æœƒæ”¹å‹•å¯µç‰©è›‹æ± \\n"
+                         .."\\næ˜¯å¦ç¢ºå®šé›™æ“Šå°‡å­µåŒ–æ­¤è›‹ï¼Ÿ\\n";
+        NLG.ShowWindowTalked(charIndex, self.IncubatorNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 1, winMsg);
     return 1;
 end
 
 function Module:OnItemOverLapEvent(charIndex, fromIndex, targetIndex, Num)
     local fromItemID = Item.GetData(fromIndex,0);
     local targetItemID = Item.GetData(targetIndex,0);
-    local walkOn = Item.GetData(targetIndex,CONST.µÀ¾ß_ĞÒÔË);
-    print(fromItemID,targetItemID)
+    local walkOn = Item.GetData(targetIndex,CONST.é“å…·_å¹¸è¿);
+    --print(fromItemID,targetItemID)
     if (targetItemID==75001 and walkOn==0) then
         if (fromItemID==75003 or fromItemID==75004 or fromItemID==75005 or fromItemID==75006 or fromItemID==75007 or fromItemID==75008 or fromItemID==75009 or fromItemID==75010) then
-                 local walkCount = Char.GetData(charIndex,CONST.CHAR_×ß¶¯´ÎÊı);
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_ĞÒÔË, walkCount);
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_Ãû×Ö,"["..Item.GetData(fromIndex,CONST.µÀ¾ß_Ãû×Ö).."]µ°");
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_×Ó²ÎÒ», fromItemID);
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_×Ó²Î¶ş, 1);
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_¶ªµØÏûÊ§, 1);
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_³èÓÊ, 0);
+                 local walkCount = Char.GetData(charIndex,CONST.CHAR_èµ°åŠ¨æ¬¡æ•°);
+                 Item.SetData(targetIndex,CONST.é“å…·_å¹¸è¿, walkCount);
+                 Item.SetData(targetIndex,CONST.é“å…·_åå­—,"["..Item.GetData(fromIndex,CONST.é“å…·_åå­—).."]è›‹");
+                 Item.SetData(targetIndex,CONST.é“å…·_å­å‚ä¸€, fromItemID);
+                 Item.SetData(targetIndex,CONST.é“å…·_å­å‚äºŒ, 1);
+                 Item.SetData(targetIndex,CONST.é“å…·_ä¸¢åœ°æ¶ˆå¤±, 1);
+                 Item.SetData(targetIndex,CONST.é“å…·_å® é‚®, 0);
                  Char.DelItem(charIndex, fromItemID, 1);
                  Item.UpItem(charIndex, Char.FindItemId(charIndex, targetItemID));
                  NLG.UpChar(charIndex);
-                 NLG.SystemMessage(charIndex, "[Ïµ½y]×¢Òâ£¡µ°GµØ•şÏûÊ§¡¢Ÿo·¨½»Ò×£¡");
+                 NLG.SystemMessage(charIndex, "[ç³»çµ±]æ³¨æ„ï¼è›‹ä¸Ÿåœ°æœƒæ¶ˆå¤±ã€ç„¡æ³•äº¤æ˜“ï¼");
                  return 1;
         end
     elseif (targetItemID==75001 and walkOn>=1) then
         if (fromItemID==75003 or fromItemID==75004 or fromItemID==75005 or fromItemID==75006 or fromItemID==75007 or fromItemID==75008 or fromItemID==75009 or fromItemID==75010) then
-            local setItemID = Item.GetData(targetIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-            local setCount = Item.GetData(targetIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+            local setItemID = Item.GetData(targetIndex,CONST.é“å…·_å­å‚ä¸€);
+            local setCount = Item.GetData(targetIndex,CONST.é“å…·_å­å‚äºŒ);
             local typeNum = setCount+1;
             if (setItemID==fromItemID) then
-                 local walkCount = Char.GetData(charIndex,CONST.CHAR_×ß¶¯´ÎÊı);
+                 local walkCount = Char.GetData(charIndex,CONST.CHAR_èµ°åŠ¨æ¬¡æ•°);
                  local Count = walkCount-walkOn;
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_Ãû×Ö, "["..Item.GetData(fromIndex,CONST.µÀ¾ß_Ãû×Ö).."]µ°"..Count.."²½");
-                 Item.SetData(targetIndex,CONST.µÀ¾ß_×Ó²Î¶ş, setCount+1);
+                 Item.SetData(targetIndex,CONST.é“å…·_åå­—, "["..Item.GetData(fromIndex,CONST.é“å…·_åå­—).."]è›‹"..Count.."æ­¥");
+                 Item.SetData(targetIndex,CONST.é“å…·_å­å‚äºŒ, setCount+1);
                  Char.DelItem(charIndex, fromItemID, 1);
                  Item.UpItem(charIndex, Char.FindItemId(charIndex, targetItemID));
                  NLG.UpChar(charIndex);
-                 NLG.SystemMessage(charIndex, "[Ïµ½y]ÀÛ·e "..Item.GetData(fromIndex,CONST.µÀ¾ß_Ãû×Ö).." ”µÁ¿:"..typeNum..);
+                 NLG.SystemMessage(charIndex, "[ç³»çµ±]ç´¯ç© "..Item.GetData(fromIndex,CONST.é“å…·_åå­—).." æ•¸é‡:"..typeNum);
                  return 1;
             else
-                 NLG.SystemMessage(charIndex, "[Ïµ½y]µ°·NÒÑ½‰¶¨Ö»ÄÜÔÙ¼ÓÈëÏàÍ¬µÄ»ÕÕÂÌáÉı™CÂÊ£¡");
+                 NLG.SystemMessage(charIndex, "[ç³»çµ±]è›‹ç¨®å·²ç¶å®šåªèƒ½å†åŠ å…¥ç›¸åŒçš„å¾½ç« æå‡æ©Ÿç‡ï¼");
                  return 0;
             end
         end
@@ -134,7 +144,7 @@ function Module:OnItemOverLapEvent(charIndex, fromIndex, targetIndex, Num)
     return 0;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
