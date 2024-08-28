@@ -1,7 +1,7 @@
 ---模块类
 local Module = ModuleBase:createModule('pokeHatching')
 
-local walkHatching = 100;	--孵化所需走路步数
+local walkHatching = 1000;	--孵化所需走路步数
 local petList = {};
 petList[75003]={ {600018,600019}, {600018,600019}, {600018,600019} };		  --徽章
 petList[75004]={ {600018,600019}, {600018,600019}, {600018,600019} };
@@ -45,8 +45,12 @@ function Module:onLoad()
     local OvenName = Item.GetData(OvenIndex, CONST.道具_名字);
     local first = string.find(OvenName, "蛋", 1);
     local last = string.find(OvenName, "步", 1);
-    local OvenDur = tonumber(string.sub(OvenName, first+2, last-1));
-    print(OvenDur)
+    if (first==nil or last==nil) then
+        OvenDur = 0;
+    else
+        OvenDur = tonumber(string.sub(OvenName, first+2, last-1));
+    end
+    --print(OvenDur)
     --local OvenDur = 100;
     --注入的徽章ID
     local fromItemID = Item.GetData(OvenIndex,CONST.道具_子参一);
