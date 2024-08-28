@@ -2,7 +2,14 @@
 local Module = ModuleBase:createModule('pokeGym')
 
 local EncountSet = {
-    { Type=1, GymBoss={"阿楓", 14641, 1000,226,88}, dropMenu={"四魂之玉小碎片",51071,1}, encountId_1st="3|0,1000,225,88||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },	--Bug(encountId)
+    { Type=1, GymBoss={"阿楓", 14641, 7345,23,25}, dropMenu={"蟲之徽章",75003,1}, encountId_1st="3|0,20300,158,413||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Bug(encountId)
+    { Type=2, GymBoss={"寇沙", 14641, 7345,74,25}, dropMenu={"草之徽章",75004,1}, encountId_1st="3|0,20300,459,399||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Grass(encountId)
+    { Type=3, GymBoss={"奇樹", 14641, 7345,125,25}, dropMenu={"電之徽章",75005,1}, encountId_1st="3|0,20300,534,287||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Electric(encountId)
+    { Type=4, GymBoss={"海岱", 14641, 7345,23,94}, dropMenu={"水之徽章",75006,1}, encountId_1st="3|0,20300,221,241||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Water(encountId)
+    { Type=5, GymBoss={"青木", 14641, 7345,74,94}, dropMenu={"一般徽章",75007,1}, encountId_1st="3|0,20300,308,233||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Normal(encountId)
+    { Type=6, GymBoss={"萊姆", 14641, 7345,125,94}, dropMenu={"幽靈徽章",75008,1}, encountId_1st="3|0,20300,333,56||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Ghost(encountId)
+    { Type=7, GymBoss={"莉普", 14641, 7345,23,163}, dropMenu={"超能徽章",75009,1}, encountId_1st="3|0,20300,101,465||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Psychic(encountId)
+    { Type=8, GymBoss={"古魯夏", 14641, 7345,74,163}, dropMenu={"冰之徽章",75010,1}, encountId_1st="3|0,20300,386,88||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Ice(encountId)
 }
 
 tbl_GymBossNPCIndex = tbl_GymBossNPCIndex or {}
@@ -23,7 +30,7 @@ local restraintMap = {
     { 600076,600079 },	--岩石属性
   }
   local attr = {
-    { 1, 2, 1, 1, 1, 0.5, 1, 1, 0.5, 0.5, 0.5, 1 },
+    { 1, 2, 1, 1, 1, 0.5, 2, 1, 0.5, 0.5, 0.5, 1 },
     { 0.5, 0.5, 1, 2, 1, 1, 1, 1, 0.5, 0.5, 1, 2 },
     { 1, 0.5, 0.5, 2, 1, 1, 1, 1, 1, 2, 1, 1 },
     { 1, 0.5, 1, 0.5, 1, 1, 1, 1, 2, 1, 1, 2 },
@@ -87,7 +94,7 @@ function Module:onLoad()
             local encountId = v.encountId_1st;
             print(encountId)
             local battleIndex = Battle.Encount(npc, player, encountId);
-            Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
+            --Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
         end
     elseif seqno == 1 and data ==2 then
         local PartyNum = Char.PartyNum(player);
@@ -112,7 +119,7 @@ function Module:onLoad()
         if (Type==v.Type) then
             local encountId = v.encountId_1st;
             local battleIndex = Battle.Encount(npc, player, encountId);
-            Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
+            --Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
         end
     end
   end)
@@ -173,11 +180,13 @@ function Module:OnBattleNextEnemyInitCallBack(battleIndex, flg)
               local roundRand = NLG.Rand(1,4);
               local encountIndex = Data.GetEncountIndex(Boss_EnId[roundRand])
               Battle.SetNextBattle(battleIndex,encountIndex, Boss_EnId[roundRand])
+              Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
           elseif (gymBoss==v.Type and encountId==v.encountId_3rd) then
               local Boss_EnId = v.EnId_2nd;
               local roundRand = NLG.Rand(1,3);
               local encountIndex = Data.GetEncountIndex(Boss_EnId[roundRand])
               Battle.SetNextBattle(battleIndex,encountIndex, Boss_EnId[roundRand])
+              Battle.SetWinEvent("./lua/Modules/pokeGym.lua", "gymBossNPC_BattleWin", battleIndex);
           end
       end
   return flg;
@@ -204,7 +213,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           local enemyId = Char.GetData(defCharIndex, CONST.对象_ENEMY_ID);
           if CheckInTable(GymsEnemy,enemyId)==true then
             if Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false  then
-               if (Char.GetData(charIndex, CONST.CHAR_地图)==1000) then
+               if (Char.GetData(charIndex, CONST.CHAR_地图)==7345) then
                   damage = 1;
                else
                   damage = damage;
@@ -227,7 +236,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           local enemyId = Char.GetData(charIndex, CONST.对象_ENEMY_ID);
           if CheckInTable(GymsEnemy,enemyId)==true then
             if Char.IsPlayer(defCharIndex) and Char.IsDummy(defCharIndex)==false  then
-               if (Char.GetData(defCharIndex, CONST.CHAR_地图)==1000) then
+               if (Char.GetData(defCharIndex, CONST.CHAR_地图)==7345) then
                   damage = damage;
                end
                return damage;
@@ -249,7 +258,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           local enemyId = Char.GetData(charIndex, CONST.对象_ENEMY_ID);
           if CheckInTable(GymsEnemy,enemyId)==true then
             if Char.IsPlayer(defCharIndex) and Char.IsDummy(defCharIndex)==false  then
-               if (Char.GetData(defCharIndex, CONST.CHAR_地图)==1000) then
+               if (Char.GetData(defCharIndex, CONST.CHAR_地图)==7345) then
                   damage = damage;
                end
                return damage;
@@ -282,7 +291,7 @@ function gymBossNPC_BattleWin(battleIndex, charIndex)
 	local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
 	local gymBossLevel = tonumber(Field.Get(leader, 'GymBossLevel')) or 0;
 
-	if (Char.GetData(charIndex, CONST.CHAR_地图)==20300) then
+	if (Char.GetData(charIndex, CONST.CHAR_地图)==20300 or Char.GetData(charIndex, CONST.CHAR_地图)==7345) then
 	--分配奖励
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
