@@ -61,6 +61,10 @@ function Module:onLoad()
                  return;
       elseif (seqno == 1 and select == CONST.BUTTON_是)  then
           if (OvenDur>=walkHatching) then
+                 if (Char.PetNum(player)==5) then
+                     NLG.SystemMessage(player, "[系統]寵物欄空間不足。");
+                     return;
+                 end
                  local SuccRate = typeNum;
                  if (typeNum>=1 and typeNum<5) then
                       local tLuck = math.random(1, #petList[fromItemID][1]);
