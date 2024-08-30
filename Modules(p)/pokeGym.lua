@@ -2,14 +2,14 @@
 local Module = ModuleBase:createModule('pokeGym')
 
 local EncountSet = {
-    { Type=1, GymBoss={"阿楓", 14641, 7345,23,25}, dropMenu={"蟲之徽章",75003,1}, encountId_1st="3|0,20300,158,413||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Bug(encountId)
-    { Type=2, GymBoss={"寇沙", 14641, 7345,74,25}, dropMenu={"草之徽章",75004,1}, encountId_1st="3|0,20300,459,399||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Grass(encountId)
-    { Type=3, GymBoss={"奇樹", 14641, 7345,125,25}, dropMenu={"電之徽章",75005,1}, encountId_1st="3|0,20300,534,287||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Electric(encountId)
-    { Type=4, GymBoss={"海岱", 14641, 7345,23,94}, dropMenu={"水之徽章",75006,1}, encountId_1st="3|0,20300,221,241||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Water(encountId)
-    { Type=5, GymBoss={"青木", 14641, 7345,74,94}, dropMenu={"一般徽章",75007,1}, encountId_1st="3|0,20300,308,233||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Normal(encountId)
-    { Type=6, GymBoss={"萊姆", 14641, 7345,125,94}, dropMenu={"幽靈徽章",75008,1}, encountId_1st="3|0,20300,333,56||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Ghost(encountId)
-    { Type=7, GymBoss={"莉普", 14641, 7345,23,163}, dropMenu={"超能徽章",75009,1}, encountId_1st="3|0,20300,101,465||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Psychic(encountId)
-    { Type=8, GymBoss={"古魯夏", 14641, 7345,74,163}, dropMenu={"冰之徽章",75010,1}, encountId_1st="3|0,20300,386,88||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Ice(encountId)
+    { Type=1, GymBoss={"阿楓", 14677, 7345,23,25}, dropMenu={"蟲之徽章",75003,1}, encountId_1st="3|0,20300,158,413||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Bug(encountId)
+    { Type=2, GymBoss={"寇沙", 14584, 7345,74,25}, dropMenu={"草之徽章",75004,1}, encountId_1st="3|0,20300,459,399||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Grass(encountId)
+    { Type=3, GymBoss={"奇樹", 14593, 7345,125,25}, dropMenu={"電之徽章",75005,1}, encountId_1st="3|0,20300,534,287||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Electric(encountId)
+    { Type=4, GymBoss={"海岱", 14568, 7345,23,94}, dropMenu={"水之徽章",75006,1}, encountId_1st="3|0,20300,221,241||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Water(encountId)
+    { Type=5, GymBoss={"青木", 14676, 7345,74,94}, dropMenu={"一般徽章",75007,1}, encountId_1st="3|0,20300,308,233||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Normal(encountId)
+    { Type=6, GymBoss={"萊姆", 14636, 7345,125,94}, dropMenu={"幽靈徽章",75008,1}, encountId_1st="3|0,20300,333,56||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Ghost(encountId)
+    { Type=7, GymBoss={"莉普", 14695, 7345,23,163}, dropMenu={"超能徽章",75009,1}, encountId_1st="3|0,20300,101,465||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Psychic(encountId)
+    { Type=8, GymBoss={"古魯夏", 14680, 7345,74,163}, dropMenu={"冰之徽章",75010,1}, encountId_1st="3|0,20300,386,88||0|||||0|600082|||||", encountId_2nd=600083, EnId_1st= {600084,600084,600086,600087}, encountId_3rd=600085, EnId_2nd = {600086,600087,600087} },		--Ice(encountId)
 }
 
 tbl_GymBossNPCIndex = tbl_GymBossNPCIndex or {}
@@ -28,27 +28,33 @@ local restraintMap = {
     { 600068,600075,600081 },	--飞行属性
     { 600078,600080 },	--格斗属性
     { 600076,600079 },	--岩石属性
+    {  },	--地面属性
+    {  },	--妖精属性
+    {  },	--钢属性
+    {  },	--龙属性
+    {  },	--恶属性
+    {  },	--毒属性
   }
   local attr = {
-    { 1, 2, 1, 1, 1, 0.5, 2, 1, 0.5, 0.5, 0.5, 1 },
-    { 0.5, 0.5, 1, 2, 1, 1, 1, 1, 0.5, 0.5, 1, 2 },
-    { 1, 0.5, 0.5, 2, 1, 1, 1, 1, 1, 2, 1, 1 },
-    { 1, 0.5, 1, 0.5, 1, 1, 1, 1, 2, 1, 1, 2 },
-    { 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0.5 },
-    { 1, 1, 1, 1, 0, 2, 2, 1, 1, 1, 1, 1 },
-    { 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 2, 1 },
-    { 1, 1, 1, 0.5, 1, 1, 1, 0.5, 0.5, 2, 1, 1 },
-    { 2, 2, 1, 0.5, 1, 1, 1, 2, 0.5, 1, 1, 0.5 },
-    { 2, 2, 0.5, 1, 1, 1, 1, 1, 1, 1, 2, 0.5 },
-    { 0.5, 1, 1, 1, 2, 0, 0.5, 2, 1, 0.5, 1, 2 },
-    { 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0.5, 1 },
+    { 1, 2, 1, 1, 1, 0.5, 2, 1, 0.5, 0.5, 0.5, 1, 1,0.5, 0.5, 1, 2, 0.5 },
+    { 0.5, 0.5, 1, 2, 1, 1, 1, 1, 0.5, 0.5, 1, 2, 2, 1, 0.5, 0.5, 1, 0.5 },
+    { 1, 0.5, 0.5, 2, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 0.5, 1, 1 },
+    { 1, 0.5, 1, 0.5, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 0.5, 1, 1 },
+    { 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0.5, 1, 1, 0.5, 1, 1, 1 },
+    { 1, 1, 1, 1, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1 },
+    { 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 2, 1, 1, 1, 0.5, 1, 0, 2 },
+    { 1, 1, 1, 0.5, 1, 1, 1, 0.5, 0.5, 2, 1, 1, 2, 1, 0.5, 2, 1, 1 },
+    { 2, 2, 1, 0.5, 1, 1, 1, 2, 0.5, 1, 1, 0.5, 1, 1, 2, 0.5, 1, 1 },
+    { 2, 2, 0.5, 1, 1, 1, 1, 1, 1, 1, 2, 0.5, 1, 1, 0.5, 1, 1, 1 },
+    { 0.5, 1, 1, 1, 2, 0, 0.5, 2, 1, 0.5, 1, 2, 1, 0.5, 2, 1, 2, 0.5 },
+    { 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0.5, 1, 0.5, 1, 0.5, 1, 1, 1 },
+    { 0.5, 0.5, 2, 1, 1, 1, 1, 1, 2, 0, 1, 2, 1, 1, 2, 1, 1, 2 },
+    { 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 2, 1, 1, 1, 0.5, 2, 2, 0.5 },
+    { 1, 1, 0.5, 0.5, 1, 1, 1, 2, 0.5, 1, 1, 2, 1, 2, 0.5, 1, 1, 1 },
+    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0.5, 2, 1, 1 },
+    { 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 0.5, 1, 1, 0.5, 1, 1, 0.5, 1 },
+    { 1, 2, 1, 1, 1, 0.5, 1, 1, 1, 1, 1, 0.5, 0.5, 2, 0, 1, 1, 0.5 },
   }
---local 地面属性 = {}
---local 妖精属性 = {}
---local 钢属性 = {}
---local 龙属性 = {}
---local 恶属性 = {}
---local 毒属性 = {}
 
 --- 加载模块钩子
 function Module:onLoad()
@@ -58,7 +64,7 @@ function Module:onLoad()
   self:regCallback('BattleNextEnemyInitEvent', Func.bind(self.OnBattleNextEnemyInitCallBack, self))
  for k,v in pairs(EncountSet) do
  if tbl_GymBossNPCIndex[k] == nil then
-  local GymBossNPC = self:NPC_createNormal(v.GymBoss[1], v.GymBoss[2], { map =v.GymBoss[3], x = v.GymBoss[4], y = v.GymBoss[5], direction = 0, mapType = 0 })
+  local GymBossNPC = self:NPC_createNormal(v.GymBoss[1], v.GymBoss[2], { map =v.GymBoss[3], x = v.GymBoss[4], y = v.GymBoss[5], direction = 4, mapType = 0 })
   tbl_GymBossNPCIndex[k] = GymBossNPC
   self:NPC_regWindowTalkedEvent(tbl_GymBossNPCIndex[k], function(npc, player, _seqno, _select, _data)
     local cdk = Char.GetData(player,CONST.对象_CDK);
