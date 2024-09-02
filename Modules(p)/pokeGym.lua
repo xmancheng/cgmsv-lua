@@ -366,7 +366,7 @@ function checkRestraint_att(aIndex,bIndex)
           local b=0;
           local enemyId_a = Char.GetData(aIndex, CONST.对象_ENEMY_ID);
           local enemyId_b = Char.GetData(bIndex,CONST.PET_PetID);
-          if Char.IsDummy(aIndex)==true  then
+          if Char.IsDummy(bIndex)==true  then
               enemyId_b = Char.GetData(bIndex, CONST.CHAR_金币);
           end
           for i, v in ipairs(restraintMap) do
