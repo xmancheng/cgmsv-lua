@@ -261,7 +261,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
             if gymBoss>=0 then
                 local a,b = checkRestraint_att(charIndex,defCharIndex);
                 if (a==0 or b==0) then
-                    damage = 1;
+                    damage = damage;
                 else
                     print('第'..a..'列','第'..b..'欄','倍率:'..attr[a][b])
                     damage = damage * attr[a][b] * speedRate;
@@ -283,7 +283,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
             if gymBoss>=0 then
                 local a,b = checkRestraint_att(charIndex,defCharIndex);
                 if (a==0 or b==0) then
-                    damage = 1;
+                    damage = damage;
                 else
                     print('第'..a..'列','第'..b..'欄','倍率:'..attr[a][b])
                     damage = damage * attr[a][b] * 0.8 * speedRate;
