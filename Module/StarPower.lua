@@ -1,25 +1,25 @@
 ------------------------------------------------------------------------------
-local itemid_18310 = 18310;  --åœ°çš„æ°´æ™¶ç¢ç‰‡
-local itemid_18311 = 18311;  --æ°´çš„æ°´æ™¶ç¢ç‰‡
-local itemid_18312 = 18312;  --ç«çš„æ°´æ™¶ç¢ç‰‡
-local itemid_18313 = 18313;  --é£çš„æ°´æ™¶ç¢ç‰‡
+local itemid_18310 = 18310;  --µØµÄË®¾§ËéÆ¬
+local itemid_18311 = 18311;  --Ë®µÄË®¾§ËéÆ¬
+local itemid_18312 = 18312;  --»ğµÄË®¾§ËéÆ¬
+local itemid_18313 = 18313;  --·çµÄË®¾§ËéÆ¬
 ------------------------------------------------------------------------------
-local a1 = {%é“å…·_æ”»å‡»%,30,%é“å…·_ç²¾ç¥%,20};
-local r1 = {%é“å…·_HP%,750,%é“å…·_MP%,500};
-local r2 = {%é“å…·_ä¹±æŠ—%,28,%é“å…·_é˜²å¾¡%,500};
-local r3 = {%é“å…·_ç¡æŠ—%,28,%é“å…·_æ•æ·%,300};
-local r4 = {%é“å…·_çŸ³æŠ—%,28,%é“å…·_å›å¤%,200};
-local r5 = {%é“å…·_HP%,1500,%é“å…·_MP%,1000};
-local r6 = {%é“å…·_é†‰æŠ—%,28,%é“å…·_é—ªèº²%,8};
-local r7 = {%é“å…·_æ¯’æŠ—%,28,%é“å…·_å¿…æ€%,8};
-local r8 = {%é“å…·_å¿˜æŠ—%,28,%é“å…·_åå‡»%,8};
-local r9 = {%é“å…·_é­”æŠ—%,25,%é“å…·_å‘½ä¸­%,8};
-local r10 = {%é“å…·_HP%,3000,%é“å…·_MP%,2000};
-local Abilitynotes = {a1};                        --æ¯ä¸€æ˜Ÿå›ºå®šå¢åŠ çš„æ•°å€¼
-local Bonus = {r1,r2,r3,r4,r5,r6,r7,r8,r9,r10};   --æ¯åæ˜Ÿé¢å¤–å¢åŠ çš„æ•°å€¼
+local a1 = {%µÀ¾ß_¹¥»÷%,5,%µÀ¾ß_¾«Éñ%,5};
+local r1 = {%µÀ¾ß_HP%,200,%µÀ¾ß_MP%,200};
+local r2 = {%µÀ¾ß_ÂÒ¿¹%,28,%µÀ¾ß_·ÀÓù%,200};
+local r3 = {%µÀ¾ß_Ë¯¿¹%,28,%µÀ¾ß_Ãô½İ%,100};
+local r4 = {%µÀ¾ß_Ê¯¿¹%,28,%µÀ¾ß_»Ø¸´%,50};
+local r5 = {%µÀ¾ß_HP%,1000,%µÀ¾ß_MP%,1000};
+local r6 = {%µÀ¾ß_×í¿¹%,28,%µÀ¾ß_ÉÁ¶ã%,8};
+local r7 = {%µÀ¾ß_¶¾¿¹%,28,%µÀ¾ß_±ØÉ±%,8};
+local r8 = {%µÀ¾ß_Íü¿¹%,28,%µÀ¾ß_·´»÷%,8};
+local r9 = {%µÀ¾ß_Ä§¿¹%,25,%µÀ¾ß_ÃüÖĞ%,8};
+local r10 = {%µÀ¾ß_HP%,1500,%µÀ¾ß_MP%,1000};
+local Abilitynotes = {a1};                        --Ã¿Ò»ĞÇ¹Ì¶¨Ôö¼ÓµÄÊıÖµ
+local Bonus = {r1,r2,r3,r4,r5,r6,r7,r8,r9,r10};   --Ã¿Ê®ĞÇ¶îÍâÔö¼ÓµÄÊıÖµ
 ------------------------------------------------------------------------------
 local PowerEnable = {}
-PowerEnable[9305] = 0  --0 ç¦æ­¢æ˜ŸåŠ›å¼ºåŒ–ï¼Œæ‹¬å·ä¸ºé“å…·ID
+PowerEnable[9305] = 0  --0 ½ûÖ¹ĞÇÁ¦Ç¿»¯£¬À¨ºÅÎªµÀ¾ßID
 PowerEnable[9315] = 0
 PowerEnable[9325] = 0
 PowerEnable[9335] = 0
@@ -35,46 +35,46 @@ PowerEnable[69132] = 0
 NL.RegItemOverLapEvent(nil,"StarPower");
 
 function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
-	local Gold = Char.GetData(_PlayerIndex, %å¯¹è±¡_é‡‘å¸%);
+	local Gold = Char.GetData(_PlayerIndex, %¶ÔÏó_½ğ±Ò%);
 	local FromItemID = Item.GetData(FromItemIndex,0);
 	local TargetItemID = Item.GetData(TargetItemIndex,0);
-	local star = Item.GetData(TargetItemIndex,%é“å…·_å¹¸è¿%);
+	local star = Item.GetData(TargetItemIndex,%µÀ¾ß_ĞÒÔË%);
 	local StarGold = star*10;
-	local Category1 = Item.GetData(TargetItemIndex,%é“å…·_å±æ€§ä¸€%);
-	local Category2 = Item.GetData(TargetItemIndex,%é“å…·_å±æ€§äºŒ%);
+	local Category1 = Item.GetData(TargetItemIndex,%µÀ¾ß_ÊôĞÔÒ»%);
+	local Category2 = Item.GetData(TargetItemIndex,%µÀ¾ß_ÊôĞÔ¶ş%);
 	local Rate = math.random(1,100);
 	if(FromItemID == itemid_18310 or FromItemID == itemid_18311 or FromItemID == itemid_18312 or FromItemID == itemid_18313)then
-		if(Item.GetData(TargetItemIndex,%é“å…·_ç±»å‹%) ~= 22)then
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] è«‹å°æ°´æ™¶é€²è¡Œæ˜ŸåŠ›å¼·åŒ–ï¼");
+		if(Item.GetData(TargetItemIndex,%µÀ¾ß_ÀàĞÍ%) ~= 22)then
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] ÕˆŒ¦Ë®¾§ßMĞĞĞÇÁ¦Š»¯£¡");
 		end
 		if(Gold < StarGold)then
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] è«‹ç¢ºèªé‡‘éŒ¢è¶³å¤ "..StarGold.."ï¼");
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] Õˆ´_ÕJ½ğåX×ã‰ò"..StarGold.."£¡");
 		end
 		if(PowerEnable[TargetItemID] == 0)then
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] é¸æ“‡çš„æ°´æ™¶ç„¡æ³•æ˜ŸåŠ›å¼·åŒ–ï¼");
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] ßx“ñµÄË®¾§Ÿo·¨ĞÇÁ¦Š»¯£¡");
 		end
 		if (star==0 or star == nill) then
-			local TargetName = Item.GetData(TargetItemIndex,%é“å…·_åå­—%);
-			Item.SetData(TargetItemIndex,%é“å…·_é‰´å‰å%,TargetName);
+			local TargetName = Item.GetData(TargetItemIndex,%µÀ¾ß_Ãû×Ö%);
+			Item.SetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%,TargetName);
 		end
 		if (star==100) then
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."å·²é”æœ€é«˜æ˜ŸåŠ›ï¼");
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ÒÑß_×î¸ßĞÇÁ¦£¡");
 		end
 	end
-	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18310 and Item.GetData(TargetItemIndex,%é“å…·_ç±»å‹%) == 22 and Gold >= StarGold and star <= 99) then
+	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18310 and Item.GetData(TargetItemIndex,%µÀ¾ß_ÀàĞÍ%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==1 or Category2==1) then
 			if (Rate>=star) then
-				local OriName = Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%);
+				local OriName = Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%);
 				local starstate = star + 1;
-				Newname = starstate.."æ˜Ÿâ—" .. OriName;
-				Item.SetData(TargetItemIndex,%é“å…·_åå­—%,Newname);
+				Newname = starstate.."ĞÇ¡ò" .. OriName;
+				Item.SetData(TargetItemIndex,%µÀ¾ß_Ãû×Ö%,Newname);
 				local S1 = Item.GetData(TargetItemIndex,Abilitynotes[1][1]);
 				local S1_A = S1 + Abilitynotes[1][2];
 				local S2 = Item.GetData(TargetItemIndex,Abilitynotes[1][3]);
 				local S2_A = S2 + Abilitynotes[1][4];
 				Item.SetData(TargetItemIndex,Abilitynotes[1][1],S1_A);
 				Item.SetData(TargetItemIndex,Abilitynotes[1][3],S2_A);
-				Item.SetData(TargetItemIndex,%é“å…·_å¹¸è¿%,star+1);
+				Item.SetData(TargetItemIndex,%µÀ¾ß_ĞÒÔË%,star+1);
 				Item.UpItem(_PlayerIndex,Char.FindItemId(_PlayerIndex,TargetItemID));
 				if (star==9 or star==19 or star==29 or star==39 or star==49 or star==59 or star==69 or star==79 or star==89 or star==99) then
 					local B1 = Item.GetData(TargetItemIndex,Bonus[math.ceil(star/10)][1]);
@@ -87,30 +87,30 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 				end
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18310,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–æˆåŠŸï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯³É¹¦£¡");
 			else
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18310,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–å¤±æ•—ï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯Ê§”¡£¡");
 			end
 		else
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] è«‹å°ç›¸åŒå±¬æ€§çš„æ°´æ™¶é€²è¡Œæ˜ŸåŠ›å¼·åŒ–ï¼");
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] ÕˆŒ¦ÏàÍ¬ŒÙĞÔµÄË®¾§ßMĞĞĞÇÁ¦Š»¯£¡");
 		end
 	end
-	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18311 and Item.GetData(TargetItemIndex,%é“å…·_ç±»å‹%) == 22 and Gold >= StarGold and star <= 99) then
+	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18311 and Item.GetData(TargetItemIndex,%µÀ¾ß_ÀàĞÍ%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==2 or Category2==2) then
 			if (Rate>=star) then
-				local OriName = Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%);
+				local OriName = Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%);
 				local starstate = star + 1;
-				Newname = starstate.."æ˜Ÿâ—" .. OriName;
-				Item.SetData(TargetItemIndex,%é“å…·_åå­—%,Newname);
+				Newname = starstate.."ĞÇ¡ò" .. OriName;
+				Item.SetData(TargetItemIndex,%µÀ¾ß_Ãû×Ö%,Newname);
 				local S1 = Item.GetData(TargetItemIndex,Abilitynotes[1][1]);
 				local S1_A = S1 + Abilitynotes[1][2];
 				local S2 = Item.GetData(TargetItemIndex,Abilitynotes[1][3]);
 				local S2_A = S2 + Abilitynotes[1][4];
 				Item.SetData(TargetItemIndex,Abilitynotes[1][1],S1_A);
 				Item.SetData(TargetItemIndex,Abilitynotes[1][3],S2_A);
-				Item.SetData(TargetItemIndex,%é“å…·_å¹¸è¿%,star+1);
+				Item.SetData(TargetItemIndex,%µÀ¾ß_ĞÒÔË%,star+1);
 				Item.UpItem(_PlayerIndex,Char.FindItemId(_PlayerIndex,TargetItemID));
 				if (star==9 or star==19 or star==29 or star==39 or star==49 or star==59 or star==69 or star==79 or star==89 or star==99) then
 					local B1 = Item.GetData(TargetItemIndex,Bonus[math.ceil(star/10)][1]);
@@ -123,30 +123,30 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 				end
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18311,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–æˆåŠŸï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯³É¹¦£¡");
 			else
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18311,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–å¤±æ•—ï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯Ê§”¡£¡");
 			end
 		else
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] è«‹å°ç›¸åŒå±¬æ€§çš„æ°´æ™¶é€²è¡Œæ˜ŸåŠ›å¼·åŒ–ï¼");
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] ÕˆŒ¦ÏàÍ¬ŒÙĞÔµÄË®¾§ßMĞĞĞÇÁ¦Š»¯£¡");
 		end
 	end
-	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18312 and Item.GetData(TargetItemIndex,%é“å…·_ç±»å‹%) == 22 and Gold >= StarGold and star <= 99) then
+	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18312 and Item.GetData(TargetItemIndex,%µÀ¾ß_ÀàĞÍ%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==3 or Category2==3) then
 			if (Rate>=star) then
-				local OriName = Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%);
+				local OriName = Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%);
 				local starstate = star + 1;
-				Newname = starstate.."æ˜Ÿâ—" .. OriName;
-				Item.SetData(TargetItemIndex,%é“å…·_åå­—%,Newname);
+				Newname = starstate.."ĞÇ¡ò" .. OriName;
+				Item.SetData(TargetItemIndex,%µÀ¾ß_Ãû×Ö%,Newname);
 				local S1 = Item.GetData(TargetItemIndex,Abilitynotes[1][1]);
 				local S1_A = S1 + Abilitynotes[1][2];
 				local S2 = Item.GetData(TargetItemIndex,Abilitynotes[1][3]);
 				local S2_A = S2 + Abilitynotes[1][4];
 				Item.SetData(TargetItemIndex,Abilitynotes[1][1],S1_A);
 				Item.SetData(TargetItemIndex,Abilitynotes[1][3],S2_A);
-				Item.SetData(TargetItemIndex,%é“å…·_å¹¸è¿%,star+1);
+				Item.SetData(TargetItemIndex,%µÀ¾ß_ĞÒÔË%,star+1);
 				Item.UpItem(_PlayerIndex,Char.FindItemId(_PlayerIndex,TargetItemID));
 				if (star==9 or star==19 or star==29 or star==39 or star==49 or star==59 or star==69 or star==79 or star==89 or star==99) then
 					local B1 = Item.GetData(TargetItemIndex,Bonus[math.ceil(star/10)][1]);
@@ -159,30 +159,30 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 				end
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18312,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–æˆåŠŸï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯³É¹¦£¡");
 			else
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18312,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–å¤±æ•—ï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯Ê§”¡£¡");
 			end
 		else
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] è«‹å°ç›¸åŒå±¬æ€§çš„æ°´æ™¶é€²è¡Œæ˜ŸåŠ›å¼·åŒ–ï¼");
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] ÕˆŒ¦ÏàÍ¬ŒÙĞÔµÄË®¾§ßMĞĞĞÇÁ¦Š»¯£¡");
 		end
 	end
-	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18313 and Item.GetData(TargetItemIndex,%é“å…·_ç±»å‹%) == 22 and Gold >= StarGold and star <= 99) then
+	if (PowerEnable[TargetItemID] ~= 0 and FromItemID == itemid_18313 and Item.GetData(TargetItemIndex,%µÀ¾ß_ÀàĞÍ%) == 22 and Gold >= StarGold and star <= 99) then
 		if (Category1==4 or Category2==4) then
 			if (Rate>=star) then
-				local OriName = Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%);
+				local OriName = Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%);
 				local starstate = star + 1;
-				Newname = starstate.."æ˜Ÿâ—" .. OriName;
-				Item.SetData(TargetItemIndex,%é“å…·_åå­—%,Newname);
+				Newname = starstate.."ĞÇ¡ò" .. OriName;
+				Item.SetData(TargetItemIndex,%µÀ¾ß_Ãû×Ö%,Newname);
 				local S1 = Item.GetData(TargetItemIndex,Abilitynotes[1][1]);
 				local S1_A = S1 + Abilitynotes[1][2];
 				local S2 = Item.GetData(TargetItemIndex,Abilitynotes[1][3]);
 				local S2_A = S2 + Abilitynotes[1][4];
 				Item.SetData(TargetItemIndex,Abilitynotes[1][1],S1_A);
 				Item.SetData(TargetItemIndex,Abilitynotes[1][3],S2_A);
-				Item.SetData(TargetItemIndex,%é“å…·_å¹¸è¿%,star+1);
+				Item.SetData(TargetItemIndex,%µÀ¾ß_ĞÒÔË%,star+1);
 				Item.UpItem(_PlayerIndex,Char.FindItemId(_PlayerIndex,TargetItemID));
 				if (star==9 or star==19 or star==29 or star==39 or star==49 or star==59 or star==69 or star==79 or star==89 or star==99) then
 					local B1 = Item.GetData(TargetItemIndex,Bonus[math.ceil(star/10)][1]);
@@ -195,15 +195,53 @@ function StarPower(_PlayerIndex, FromItemIndex, TargetItemIndex, Num)
 				end
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18313,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–æˆåŠŸï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯³É¹¦£¡");
 			else
 				Char.AddGold(_PlayerIndex,-StarGold);
 				Char.DelItem(_PlayerIndex,itemid_18313,1);
-				NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] "..Item.GetData(TargetItemIndex,%é“å…·_é‰´å‰å%).."æ˜ŸåŠ›å¼·åŒ–å¤±æ•—ï¼");
+				NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] "..Item.GetData(TargetItemIndex,%µÀ¾ß_¼øÇ°Ãû%).."ĞÇÁ¦Š»¯Ê§”¡£¡");
 			end
 		else
-			NLG.SystemMessage(_PlayerIndex,"[ç³»çµ±] è«‹å°ç›¸åŒå±¬æ€§çš„æ°´æ™¶é€²è¡Œæ˜ŸåŠ›å¼·åŒ–ï¼");
+			NLG.SystemMessage(_PlayerIndex,"[Ïµ½y] ÕˆŒ¦ÏàÍ¬ŒÙĞÔµÄË®¾§ßMĞĞĞÇÁ¦Š»¯£¡");
 		end
 	end
+
+	local walkOn = Item.GetData(TargetItemIndex,CONST.µÀ¾ß_ĞÒÔË);
+	if (TargetItemID==75001 and walkOn==0) then
+		if (FromItemID==75003 or FromItemID==75004 or FromItemID==75005 or FromItemID==75006 or FromItemID==75007 or FromItemID==75008 or FromItemID==75009 or FromItemID==75010) then
+			local walkCount = Char.GetData(_PlayerIndex,CONST.CHAR_×ß¶¯´ÎÊı);
+			Item.SetData(TargetItemIndex,CONST.µÀ¾ß_ĞÒÔË, walkCount);
+			Item.SetData(TargetItemIndex,CONST.µÀ¾ß_Ãû×Ö,"["..Item.GetData(FromItemIndex,CONST.µÀ¾ß_Ãû×Ö).."]µ°");
+			Item.SetData(TargetItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ», FromItemID);
+			Item.SetData(TargetItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş, 1);
+			Item.SetData(TargetItemIndex,CONST.µÀ¾ß_¶ªµØÏûÊ§, 1);
+			Item.SetData(TargetItemIndex,CONST.µÀ¾ß_³èÓÊ, 0);
+			Char.DelItem(_PlayerIndex, FromItemID, 1);
+			Item.UpItem(_PlayerIndex, Char.FindItemId(_PlayerIndex, TargetItemID));
+			NLG.SystemMessage(_PlayerIndex, "[Ïµ½y]×¢Òâ£¡µ°GµØ•şÏûÊ§¡¢Ÿo·¨½»Ò×£¡");
+			NLG.UpChar(_PlayerIndex);
+			return 1;
+		end
+	elseif (TargetItemID==75001 and walkOn>=1) then
+		if (FromItemID==75003 or FromItemID==75004 or FromItemID==75005 or FromItemID==75006 or FromItemID==75007 or FromItemID==75008 or FromItemID==75009 or FromItemID==75010) then
+			local setItemID = Item.GetData(TargetItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
+			local setCount = Item.GetData(TargetItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+			local typeNum = setCount+1;
+			if (setItemID==FromItemID) then
+				local walkCount = Char.GetData(_PlayerIndex,CONST.CHAR_×ß¶¯´ÎÊı);
+				local Count = walkCount-walkOn;
+				Item.SetData(TargetItemIndex,CONST.µÀ¾ß_Ãû×Ö, "["..Item.GetData(FromItemIndex,CONST.µÀ¾ß_Ãû×Ö).."]µ°"..Count.."²½");
+				Item.SetData(TargetItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş, setCount+1);
+				NLG.SystemMessage(_PlayerIndex, "[Ïµ½y]ÀÛ·e "..Item.GetData(FromItemIndex,CONST.µÀ¾ß_Ãû×Ö).." ”µÁ¿:"..typeNum);
+				Char.DelItem(_PlayerIndex, FromItemID, 1);
+				Item.UpItem(_PlayerIndex, Char.FindItemId(_PlayerIndex, TargetItemID));
+				NLG.UpChar(_PlayerIndex);
+				return 1;
+			else
+				NLG.SystemMessage(_PlayerIndex, "[Ïµ½y]µ°·NÒÑ½‰¶¨Ö»ÄÜÔÙ¼ÓÈëÏàÍ¬µÄ»ÕÕÂÌáÉı™CÂÊ£¡");
+				return 0;
+			end
+		end
+    	end
 	return 0;
 end
