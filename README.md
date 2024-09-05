@@ -91,6 +91,7 @@ loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
 loadModule('hbSummonLuac')|一鍵召喚鏡像寵物夥伴
 loadModule('hbReinforceLuac')|動作技能卡、經驗儲存物品
 loadModule('autoBattle')|鏡像寵物夥伴自動戰鬥
+loadModule('pokeSummonLuac')|寶可夢夥伴、自動戰鬥(P)
 ### 野外相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -110,6 +111,8 @@ loadModule('petEvolution')|寵物覺醒(寵裝強化)
 loadModule('randPetAbility')|野怪BP覺醒(P)
 loadModule('techMachine')|寵物招式機
 loadModule('petRush')|練寵懸賞(P)
+loadModule('petMega')|寵物超級進化(P)
+loadModule('petEmpower')|寵物持有賦能(P)
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -133,6 +136,8 @@ loadModule('mazeBoss1')|裏空間1王戰(~7)
 loadModule('mazeHorcrux')|裏空間魂器
 loadModule('worldBoss')|世界強敵
 loadModule('taskWarp')|每日副本(P)
+loadModule('demonSlayer')|無限城鬼滅(P)
+loadModule('pokeGym')|寶可夢道館戰(P)
 ### 其他功能
 模組加載代碼 | 說明 
 --- | --- 
@@ -148,3 +153,5 @@ loadModule('mysteryShop')|神秘商店
 loadModule('trashCan')|垃圾處理
 loadModule('skillSheet')|人物技能秘笈(P)
 loadModule('imageMachine')|寵物形象轉換機(P)
+loadModule('featuresLuac')|寵物相關道具(P)
+loadModule('pokeHatching')|寶可夢蛋(P)
