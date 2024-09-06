@@ -318,7 +318,11 @@ function Module:handleBattleAutoCommand(battleIndex)
 					:: continue ::
 				end
 				if petIndex < 0 then
-					Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1);
+					if Char.GetData(charIndex,%对象_战死%) == 1 then
+						Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, -1);
+					else
+						Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1);
+					end
 				else
 					Battle.ActionSelect(petIndex,CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1], -1);
 				end
