@@ -1,68 +1,87 @@
 local Module = ModuleBase:createModule('swapPet')
 
+local SwapNPC = {
+    { Type=1, TeamStar={"å¤©æ˜ŸéšŠçš®æ‹¿", 231063, 20300,211,294}, NpcEnemy={"æµæ°“ç†Šè²“",700065}, PlayerPet={"ç«ç„°é›",600029} },
+    { Type=2, TeamStar={"å¤©æ˜ŸéšŠæ¢…æ´›å¯", 231069, 20300,417,347}, NpcEnemy={"æ³¢çˆ¾å‡±å°¼æ©",700053}, PlayerPet={"å’©åˆ©ç¾Š",700013}  },
+    { Type=3, TeamStar={"å¤©æ˜ŸéšŠç§‹æ˜", 14569, 20300,385,200}, NpcEnemy={"è“‹è«¾è³½å…‹ç‰¹",700050}, PlayerPet={"èƒ¡åœ°",700037}  },
+    { Type=4, TeamStar={"å¤©æ˜ŸéšŠå¥§çˆ¾è¿ªåŠ ", 14581, 20300,261,28}, NpcEnemy={"ç‘ªæ©Ÿé›…å¨œ",700067}, PlayerPet={"ç‹©çµé³³è¶",700002}  },
+    { Type=5, TeamStar={"å¤©æ˜ŸéšŠæ‡ç¶", 14095, 20300,499,128}, NpcEnemy={"å‡±è·¯è¿ªæ­",700064}, PlayerPet={"èšŠé¦™å›",700019}  },
+    { Type=6, TeamStar={"å¤©æ˜ŸéšŠç‰¡ä¸¹", 14093, 20300,294,398}, NpcEnemy={"é›·å‰å¥‡å¡æ–¯",700049}, PlayerPet={"ä¼Šå¸ƒ",700027}  },
+}
+tbl_TeamStarNPCIndex = tbl_TeamStarNPCIndex or {}
+
 function Module:onLoad()
   self:logInfo('load');
-  --½»»»µÄÑµÁ·¼Ò1
-  self.petSwap1NPC = self:NPC_createNormal('ÌìĞÇê Æ¤ÄÃ', 231063, { x = 211, y = 294, mapType = 0, map = 20300, direction = 0 });
-  self:NPC_regTalkedEvent(self.petSwap1NPC, function(npc, player)
+  --äº¤æ¢çš„è®­ç»ƒå®¶1
+ for k,v in pairs(SwapNPC) do
+ if tbl_TeamStarNPCIndex[k] == nil then
+  local petSwapNPC = self:NPC_createNormal(v.TeamStar[1], v.TeamStar[2], { x = v.TeamStar[4], y = v.TeamStar[5], mapType = 0, map = v.TeamStar[3], direction = 0 });
+  tbl_TeamStarNPCIndex[k] = petSwapNPC
+  self:NPC_regTalkedEvent(tbl_TeamStarNPCIndex[k], function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n\\n@cÎÒºÃÏëÒªooo£¬ÄãÈç¹ûÓĞxxx\\n\\n´_¶¨ÒªºÍÎÒ½»“Q†á£¿\\n\\n\\n\\n¡ù×¢Òâ£¡½¨×hƒHÓĞ1ëbÔ“Œ™ÎïÔÙßMĞĞ½»“Q";	
-        NLG.ShowWindowTalked(player, self.petSwap1NPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+        local msg = "\\n\\n@cæˆ‘å¥½æƒ³è¦ "..v.PlayerPet[1].."ï¼Œä½ å¦‚æœæœ‰é€™éš»å¯µç‰©çš„è©±ï¼ï¼ï¼\\n\\nç¢ºå®šè¦å’Œæˆ‘çš„ "..v.NpcEnemy[1].." äº¤æ›å—ï¼Ÿ\\n\\n\\n\\nâ€»æ³¨æ„ï¼å»ºè­°åƒ…æœ‰1éš»è©²å¯µç‰©å†é€²è¡Œäº¤æ›";	
+        NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
-  self:NPC_regWindowTalkedEvent(self.petSwap1NPC, function(npc, player, _seqno, _select, _data)
+  self:NPC_regWindowTalkedEvent(tbl_TeamStarNPCIndex[k], function(npc, player, _seqno, _select, _data)
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    --NPCµÄ³èÎï
-    local EnemyId = 700049;
-    local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(EnemyId);
-    local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(EnemyBaseId);
-    local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_Ãû×Ö);
-    --local EnemyId = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_±àºÅ);
-    --Íæ¼ÒÓĞNPCÒªµÄÄ¿±ê³èÎï
-    local PetSlot = Char.HavePet(player, 700019);
-    local PetIndex = Char.GetPet(player, PetSlot);
-    if select > 0 then
-      if seqno == 1 and Char.ItemSlot(player)==20 and select == CONST.°´Å¥_ÊÇ then
-                 NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚÎ»ÖÃÒÑM¡£");
+    Field.Set(player, 'TeamStar', k);
+    local Type = tonumber(Field.Get(player, 'TeamStar'));
+    if (Type==v.Type) then
+        --NPCçš„å® ç‰©
+        local EnemyId = v.NpcEnemy[2];
+        local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(EnemyId);
+        local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(EnemyBaseId);
+        local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_åå­—);
+        --local EnemyId = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_ç¼–å·);
+        --ç©å®¶æœ‰NPCè¦çš„ç›®æ ‡å® ç‰©
+        local PetSlot = Char.HavePet(player, v.PlayerPet[2]);
+        local PetIndex = Char.GetPet(player, PetSlot);
+        if select > 0 then
+          if seqno == 1 and Char.ItemSlot(player)==20 and select == CONST.æŒ‰é’®_æ˜¯ then
+                NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„ä½ç½®å·²æ»¿ã€‚");
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_·ñ then
+          elseif seqno == 1 and select == CONST.æŒ‰é’®_å¦ then
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_ÊÇ then
-          if (PetIndex>0) then
-              local PetId = Char.GetData(PetIndex,CONST.³èÎï_PETID);
-              local PetLevel = Char.GetData(PetIndex,CONST.¶ÔÏó_µÈ¼¶);
-              --µÀ¾ßÀ¸¿ÕÎ»ÖÃ
-              local EmptySlot = Char.GetItemEmptySlot(player);
-              Char.GiveItem(player, 68019, 1);
-              local ItemIndex = Char.GetItemIndex(player, EmptySlot);
-              --local BallItemID = Item.GetData(ItemIndex,0);
-              Item.SetData(ItemIndex,CONST.µÀ¾ß_Ãû×Ö, EnemyName.."¾«ì`Çò");
-              Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ», EnemyId);
-              Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş, PetLevel);
-              Char.DelPet(player, PetId, PetLevel, 1);
-              Item.UpItem(player, EmptySlot);
-              NLG.UpChar(player);
+          elseif seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
+              if (PetIndex>0) then
+                  local PetId = Char.GetData(PetIndex,CONST.å® ç‰©_PETID);
+                  local PetLevel = Char.GetData(PetIndex,CONST.å¯¹è±¡_ç­‰çº§);
+                  --é“å…·æ ç©ºä½ç½®
+                  local EmptySlot = Char.GetItemEmptySlot(player);
+                  Char.GiveItem(player, 68019, 1);
+                  local ItemIndex = Char.GetItemIndex(player, EmptySlot);
+                  --local BallItemID = Item.GetData(ItemIndex,0);
+                  Item.SetData(ItemIndex,CONST.é“å…·_åå­—, EnemyName.."ç²¾éˆçƒ");
+                  Item.SetData(ItemIndex,CONST.é“å…·_å­å‚ä¸€, EnemyId);
+                  Item.SetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ, PetLevel);
+                  Char.DelPet(player, PetId, PetLevel, 1);
+                  Item.UpItem(player, EmptySlot);
+                  NLG.UpChar(player);
+              else
+                 NLG.SystemMessage(player, v.TeamStar[1]..":ä½ æ²’æœ‰æˆ‘è¦çš„å¯µç‰©ï¼Œæˆ‘ä¸è¦è·Ÿä½ äº¤æ›ã€‚");
+                 return;
+              end
           else
-                 NLG.SystemMessage(player,"Æ¤ÄÃ:Äã›]ÓĞÎÒÒªµÄŒ™Îï£¬ÎÒ²»Òª¸úÄã½»“Q¡£");
                  return;
           end
-      else
-                 return;
-      end
+        end
     end
   end)
+ end
+ end
 
 
-  --Í¨ÓÃ³èÎïÕÙ»½µÀ¾ß
+  --é€šç”¨å® ç‰©å¬å”¤é“å…·
   self:regCallback('ItemString', Func.bind(self.swapSummon, self),"LUA_useSwapPet");
-  self.petSummonNPC = self:NPC_createNormal('Œ™ÎïÇòºô†¾', 14682, { x = 40, y = 33, mapType = 0, map = 777, direction = 6 });
+  self.petSummonNPC = self:NPC_createNormal('å¯µç‰©çƒå‘¼å–š', 14682, { x = 40, y = 33, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.petSummonNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾Œ™Îïºô†¾¡¿" ..	"\\n\\n\\n´_¶¨Òª·Å³öí¾«ì`ÇòƒÈµÄŒ™Îï£¿";	
-        NLG.ShowWindowTalked(player, self.petSummonNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+        local msg = "\\n@cã€å¯µç‰©å‘¼å–šã€‘" ..	"\\n\\n\\nç¢ºå®šè¦æ”¾å‡ºä¾†ç²¾éˆçƒå…§çš„å¯µç‰©ï¼Ÿ";	
+        NLG.ShowWindowTalked(player, self.petSummonNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
@@ -72,42 +91,42 @@ function Module:onLoad()
     local data = tonumber(_data)
     local BallIndex =BallIndex;
     local BallSlot = BallSlot;
-    local BallName = Item.GetData(BallIndex, CONST.µÀ¾ß_Ãû×Ö);
-    local last = string.find(BallName, "¾«", 1);
+    local BallName = Item.GetData(BallIndex, CONST.é“å…·_åå­—);
+    local last = string.find(BallName, "ç²¾", 1);
     local enemyName =string.sub(BallName, 1, last-1);
-    local enemyId = Item.GetData(BallIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-    local enemyLevel = Item.GetData(BallIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+    local enemyId = Item.GetData(BallIndex,CONST.é“å…·_å­å‚ä¸€);
+    local enemyLevel = Item.GetData(BallIndex,CONST.é“å…·_å­å‚äºŒ);
     if select > 0 then
-      if seqno == 1 and Char.PetNum(player)==5 and select == CONST.°´Å¥_ÊÇ then
-                 NLG.SystemMessage(player,"[Ïµ½y]Œ™Îï™ÚÎ»ÖÃÒÑM¡£");
+      if seqno == 1 and Char.PetNum(player)==5 and select == CONST.æŒ‰é’®_æ˜¯ then
+                 NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ¬„ä½ç½®å·²æ»¿ã€‚");
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_·ñ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_å¦ then
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_ÊÇ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
           if (enemyId ~=nil and enemyId>0) then
-              --³èÎïÀ¸¿ÕÎ»ÖÃ
+              --å® ç‰©æ ç©ºä½ç½®
               local EmptySlot = Char.GetPetEmptySlot(player);
               Char.AddPet(player,enemyId);
               local PetIndex = Char.GetPet(player, EmptySlot);
-              local arr_rank1_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ìå³É);
-              local arr_rank2_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Á¦³É);
-              local arr_rank3_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ç¿³É);
-              local arr_rank4_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ãô³É);
-              local arr_rank5_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ä§³É);
+              local arr_rank1_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_ä½“æˆ);
+              local arr_rank2_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_åŠ›æˆ);
+              local arr_rank3_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_å¼ºæˆ);
+              local arr_rank4_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_æ•æˆ);
+              local arr_rank5_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_é­”æˆ);
               if (enemyLevel~=1) then
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Éı¼¶µã,enemyLevel-1);
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_µÈ¼¶,enemyLevel);
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_ÌåÁ¦, (Char.GetData(PetIndex,CONST.¶ÔÏó_ÌåÁ¦) + (arr_rank1_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Á¦Á¿, (Char.GetData(PetIndex,CONST.¶ÔÏó_Á¦Á¿) + (arr_rank2_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Ç¿¶È, (Char.GetData(PetIndex,CONST.¶ÔÏó_Ç¿¶È) + (arr_rank3_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_ËÙ¶È, (Char.GetData(PetIndex,CONST.¶ÔÏó_ËÙ¶È) + (arr_rank4_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Ä§·¨, (Char.GetData(PetIndex,CONST.¶ÔÏó_Ä§·¨) + (arr_rank5_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹,enemyLevel-1);
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_ç­‰çº§,enemyLevel);
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_ä½“åŠ›, (Char.GetData(PetIndex,CONST.å¯¹è±¡_ä½“åŠ›) + (arr_rank1_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_åŠ›é‡, (Char.GetData(PetIndex,CONST.å¯¹è±¡_åŠ›é‡) + (arr_rank2_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_å¼ºåº¦, (Char.GetData(PetIndex,CONST.å¯¹è±¡_å¼ºåº¦) + (arr_rank3_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_é€Ÿåº¦, (Char.GetData(PetIndex,CONST.å¯¹è±¡_é€Ÿåº¦) + (arr_rank4_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_é­”æ³•, (Char.GetData(PetIndex,CONST.å¯¹è±¡_é­”æ³•) + (arr_rank5_new * (1/24) * (enemyLevel - 1)*100)) );
               end
               Pet.UpPet(player,PetIndex);
               Char.DelItemBySlot(player, BallSlot);
-              NLG.SystemMessage(player, "[ÏµÍ³]"..enemyName.."³É¹¦ºô†¾³öí¡£")
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..enemyName.."æˆåŠŸå‘¼å–šå‡ºä¾†ã€‚")
           else
-              NLG.SystemMessage(player,"[Ïµ½y]µÀ¾ßåeÕ`¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]é“å…·éŒ¯èª¤ã€‚");
               return;
           end
       else
@@ -124,8 +143,8 @@ function Module:swapSummon(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     BallSlot =itemSlot;
     BallIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local msg = "\\n@c¡¾Œ™Îïºô†¾¡¿" ..	"\\n\\n\\n´_¶¨Òª·Å³öí¾«ì`ÇòƒÈµÄŒ™Îï£¿";	
-    NLG.ShowWindowTalked(charIndex, self.petSummonNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+    local msg = "\\n@cã€å¯µç‰©å‘¼å–šã€‘" ..	"\\n\\n\\nç¢ºå®šè¦æ”¾å‡ºä¾†ç²¾éˆçƒå…§çš„å¯µç‰©ï¼Ÿ";	
+    NLG.ShowWindowTalked(charIndex, self.petSummonNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     return 1;
 end
 
