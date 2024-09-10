@@ -1,8 +1,16 @@
 ---模块类
 local Module = ModuleBase:createModule('petMega')
 
-local MegaKind_check= {600073};				--enemy编号
+local MegaKind_check= {600028,600029,600030,600067,600068,600070,600071,600072,600073,600074,600075,600076,600077,600078,600079,600080,600081,700004,700014,};				--enemy编号
 local MegaKind_list = {};
+MegaKind_list[600028] = {129516, 26200, 26200, 'AS:', 64, 'CR:', 10, 'TR:',80};
+MegaKind_list[600029] = {129517, 26200, 26200, 'AS:', 64, 'CR:', 10, 'TR:',80};
+MegaKind_list[600030] = {129518, 26200, 26200, 'AS:', 64, 'CR:', 10, 'TR:',80};
+MegaKind_list[600067] = {119770, 1204, 1204, 'AS:', 20, 'D1:', 10 , 'D2:', 50};
+MegaKind_list[600068] = {119771, 1204, 1204, 'AS:', 20, 'D1:', 10 , 'D2:', 50};
+MegaKind_list[600070] = {120222, 25700, 25700, 'AS:', 10, 'CR:', 58, 'DD:',50};
+MegaKind_list[600071] = {120031, 25700, 25700, 'AS:', 10, 'CR:', 58, 'DD:',50};
+MegaKind_list[600072] = {120021, 25700, 25700, 'AS:', 10, 'CR:', 58, 'DD:',50};
 MegaKind_list[600073] = {119740, 200500, 200509, 'DD:', 30, 'AN:', 10 , 'AM:', 10};		--形象、techID、techID、option、val
 MegaKind_list[600074] = {119751, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
 MegaKind_list[600075] = {119753, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
@@ -12,6 +20,9 @@ MegaKind_list[600078] = {119759, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
 MegaKind_list[600079] = {119761, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
 MegaKind_list[600080] = {119763, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
 MegaKind_list[600081] = {119765, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[700004] = {129519, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+MegaKind_list[700014] = {120009, 400, 409, 'DD:', 80, 'AN:', 10 , 'AM:', 10};
+
 
 function CheckInTable(_idTab, _idVar) ---循环函数
 	for k,v in pairs(_idTab) do
