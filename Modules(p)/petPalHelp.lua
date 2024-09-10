@@ -11,10 +11,34 @@ local palList = {
 { petID=600068, type=3, heal=10, pickitem=900504, pickitemNum=3},  --治疗+采集
 }
 
+local EnemySet = {}
+local BaseLevelSet = {}
+local EnemySet_WC = {700019,700019,700020,700020}
+local EnemySet_WG = {606025,606026,606027,700043,700044}
+local EnemySet_WR = {700054,700056,700060,700061}
+local EnemySet_WV = {700051,700052,700057,700058,700062,700063}
+local EnemyArea = {EnemySet_WC,EnemySet_WG,EnemySet_WR,EnemySet_WV}
+
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('GatherItemEvent', function(charIndex, skillId, skillLv, itemNo)
+    if (skillId==254) then
+        local burst = NLG.Rand(1, 100);
+        if (Char.ItemNum(charIndex, 900671)>=1 and burst==51) then
+            local enemyNum= NLG.Rand(1,3);
+            for enemyslot=1,enemyNum do
+                local EncountRate = {1,1,1,1,1,1,1,1,2,2,2,2,3,3,4}
+                local xr = EncountRate[NLG.Rand(1,15)];
+                local xxr= NLG.Rand(1,#EnemyArea[xr]);
+                local Enemy = EnemyArea[xr][xxr];
+                EnemySet[enemyslot]=Enemy;
+                BaseLevelSet[enemyslot]=100;
+            end
+            --Char.DelItem(charIndex, 900671, 1);
+            Battle.PVE( charIndex, charIndex, nil, EnemySet, BaseLevelSet, nil);
+        end
+    end
     for Slot=0,4 do
         local petIndex = Char.GetPet(charIndex, Slot);
         if (petIndex>0 and Char.GetData(petIndex,CONST.PET_DepartureBattleStatus)==CONST.PET_STATE_战斗) then
