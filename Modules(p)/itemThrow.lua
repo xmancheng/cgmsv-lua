@@ -12,9 +12,9 @@ BallKind_list[75011] = 1;    --精靈球
 BallKind_list[75018] = 2;    --超級球
 BallKind_list[75019] = 3;    --高級球
 
-local GetitEnable_check= {400014,400015,400125,400126,600024,600074,600075,600076,600077,600078,600079,600080,600081};
+local GetitEnable_check= {400014,400015,400125,400126,600024,600074,600075,600076,600077,600078,600079,600080,600081,700051,700052,700054,700056,700057,700058,700060,700061,700062,700063};
 local GetitEnable_list = {};
-GetitEnable_list[400014] = {400014};  --enemy.txt编号，设置1可捕捉、设置0或无设置不可捕捉
+GetitEnable_list[400014] = {400014};  --enemy.txt编号
 GetitEnable_list[400015] = {400015};
 GetitEnable_list[400125] = {401275};
 GetitEnable_list[400126] = {401276};
@@ -28,6 +28,18 @@ GetitEnable_list[600078] = {600078};
 GetitEnable_list[600079] = {600079};
 GetitEnable_list[600080] = {600080};
 GetitEnable_list[600081] = {600081};
+
+GetitEnable_list[700051] = {700051};
+GetitEnable_list[700052] = {700052};
+GetitEnable_list[700054] = {700054};
+GetitEnable_list[700056] = {700056};
+GetitEnable_list[700057] = {700057};
+GetitEnable_list[700058] = {700058};
+GetitEnable_list[700060] = {700060};
+GetitEnable_list[700061] = {700061};
+GetitEnable_list[700062] = {700062};
+GetitEnable_list[700063] = {700063};
+
 -----------------------------------------------------------------
 function ItemThrow:setItemData(itemIndex, value)
   ---@type ItemExt
