@@ -1,56 +1,38 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('setupItemBox')
 
 local itemBox = {
-    { boxItem_id=900504, boxItem_count=1},	--±¦Ïä¿É¿ª³öµÄµÀ¾ß±àºÅ¡¢µÀ¾ßÊýÁ¿
-    { boxItem_id=900504, boxItem_count=3},
-    { boxItem_id=900504, boxItem_count=5},
+    { boxItem_id=66667, boxItem_count=1},	--å®ç®±å¯å¼€å‡ºçš„é“å…·ç¼–å·ã€é“å…·æ•°é‡
+    { boxItem_id=66667, boxItem_count=3},
+    { boxItem_id=66667, boxItem_count=5},
 }
 
 local enemyBox = {
-    {606025, 50, 0,606026, 50, 0,606027, 50, 0},	-- id£¬µÈ¼¶£¬Ëæ»úµÈ¼¶£¬Àý×Ó£º{0, 100, 5, 1, 1, 0}Éú³É0ºÅ¹ÖÎï100-105¼¶£¬1ºÅ¹ÖÎï1¼¶
+    {606025, 50, 0,606026, 50, 0,606027, 50, 0},	-- idï¼Œç­‰çº§ï¼Œéšæœºç­‰çº§ï¼Œä¾‹å­ï¼š{0, 100, 5, 1, 1, 0}ç”Ÿæˆ0å·æ€ªç‰©100-105çº§ï¼Œ1å·æ€ªç‰©1çº§
 }
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemBoxGenerateEvent', function(mapId, floor, itemBoxType, adm)
       local n = NLG.Rand(1, 100);
-      -- 1% ºÚ±¦Ïä£¬1%°×±¦Ïä£¬ 98%ÆÕÍ¨±¦Ïä
+      -- 1% é»‘å®ç®±ï¼Œ1%ç™½å®ç®±ï¼Œ 98%æ™®é€šå®ç®±
       if n > 99 then
-        return { 18003, adm }	--°×±¦Ïä
+        return { 18003, adm }	--ç™½å®ç®±
       end
       if n > 98 then
-        return { 18004, adm }	--ºÚ±¦Ïä
+        return { 18004, adm }	--é»‘å®ç®±
       end
-      return { 18002, adm }; 	--ÆÕÍ¨±¦Ïä
+      return { 18002, adm }; 	--æ™®é€šå®ç®±
   end)
 
   self:regCallback('ItemBoxLootEvent', function(charIndex, mapId, floor, X, Y, boxType, adm)
-      if (boxType==18002) then	--ÆÕÍ¨±¦Ïä
+      if (boxType==18002) then	--æ™®é€šå®ç®±
           local rand = NLG.Rand(1,#itemBox);
           Char.GiveItem(charIndex, itemBox[rand].boxItem_id, itemBox[rand].boxItem_count);
-          local PartyNum = Char.PartyNum(charIndex);
-          if (PartyNum>1) then
-                    for Slot=1,4 do
-                              local TeamPlayer = Char.GetPartyMember(charIndex,Slot);
-                              if Char.IsDummy(TeamPlayer)==false then
-                                        local rand = NLG.Rand(1,#itemBox);
-                                       Char.GiveItem(TeamPlayer, itemBox[rand].boxItem_id, itemBox[rand].boxItem_count);
-                              end
-                    end
-          end
-          return 1;	-- ·µ»Ø1À¹½ØÄ¬ÈÏÎïÆ·, ·µ»Ø0²»À¹½Ø
-      elseif (boxType==18003 or boxType==18004) then	--ºÚ±¦Ïä£¬°×±¦Ïä
+          return 1;	-- è¿”å›ž1æ‹¦æˆªé»˜è®¤ç‰©å“, è¿”å›ž0ä¸æ‹¦æˆª
+      elseif (boxType==18003 or boxType==18004) then	--é»‘å®ç®±ï¼Œç™½å®ç®±
           Char.GiveItem(charIndex, 900504, 50);
           local PartyNum = Char.PartyNum(charIndex);
-          if (PartyNum>1) then
-                    for Slot=1,4 do
-                              local TeamPlayer = Char.GetPartyMember(charIndex,Slot);
-                              if Char.IsDummy(TeamPlayer)==false then
-                                       Char.GiveItem(TeamPlayer, 900504, 50);
-                              end
-                    end
-          end
           return 1;
       end
       return 1;
@@ -63,18 +45,18 @@ function Module:onLoad()
       elseif n <= 70 then
           Rate = 0;
       end
-      return Rate;	--ÓöµÐ¸ÅÂÊ
+      return Rate;	--é‡æ•Œæ¦‚çŽ‡
   end)
 
   self:regCallback('ItemBoxEncountEvent', function(charIndex, mapId, floor, X, Y, itemIndex)
       local rand = NLG.Rand(1,#enemyBox);
       enemy_tbl = enemyBox[rand];
-      return enemy_tbl;		--·µ»Ønil²»À¹½Ø
+      return enemy_tbl;		--è¿”å›žnilä¸æ‹¦æˆª
   end)
 
 end
 
---- Ð¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
