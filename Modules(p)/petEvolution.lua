@@ -181,7 +181,7 @@ function Module:onLoad()
               if (bindId==0 and typeId==0 and typeLv==0) then
                  NLG.SystemMessage(player, "[系統]這是尚未進行過鑑定的水晶！");
                  return;
-              elseif (bindId~=0 and typeId~=0 and typeLv>=1 and typeLv<10) then
+              elseif (bindId~=0 and typeId~=0 and typeLv>=1 and typeLv<=10) then
                  local fruit_a = Char.ItemNum(player, 69016) or 0;
                  local fruit_b = Char.ItemNum(player, 69017) or 0;
                  local fruit_c = Char.ItemNum(player, 69018) or 0;
