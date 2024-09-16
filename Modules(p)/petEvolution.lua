@@ -4,7 +4,7 @@ local Module = ModuleBase:createModule('petEvolution')
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
-  self.awakeningNPC = self:NPC_createNormal('占卜幻獸師', 104905, { x = 24, y = 34, mapType = 0, map = 7101, direction = 6 });
+  self.awakeningNPC = self:NPC_createNormal('7進化寵物', 104905, { x = 34, y = 20, mapType = 0, map = 7100, direction = 6 });
   self:NPC_regTalkedEvent(self.awakeningNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
           local msg = "4|\\n你的寵物有水晶了嗎？傳聞屬性結晶能讓牠們覺醒。如果你帶來各100個屬性結晶，我就幫你鑑定出寵物的型態！後續還可以繼續升級覺醒等級。\\n\\n";
@@ -127,6 +127,109 @@ function Module:onLoad()
                      NLG.UpChar(player);
                  else
                      NLG.SystemMessage(player, "[系統]寵物覺醒升級所需的屬性結晶: "..itemMaterial.."個！");
+                 end
+              end
+          end
+      else
+                 return;
+      end
+    end
+  end)
+
+
+  self.omenNPC = self:NPC_createNormal('轉換覺醒占卜', 14605, { x = 435, y = 410, mapType = 0, map = 20300, direction = 4 });
+  self:NPC_regTalkedEvent(self.omenNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+          local msg = "4|\\n寵物水晶已經有覺醒了嗎？如果你不喜歡目前的類型，帶著特殊的樹果。我可以占卜出寵物的新型態！但是結果不一定正確。\\n\\n";
+          for i=0,4 do
+                local pet = Char.GetPet(player,i);
+                if(pet<0)then
+                      msg = msg .. "空\\n";
+                else
+                      msg = msg .. ""..Char.GetData(pet,CONST.CHAR_名字).."\\n";
+                end
+          end
+          NLG.ShowWindowTalked(player, self.omenNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, msg);
+    end
+    return
+  end)
+
+  self:NPC_regWindowTalkedEvent(self.omenNPC, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    print(data)
+    if select > 0 then
+
+    else
+      if (seqno == 1 and select == CONST.按钮_关闭) then
+                 return;
+      elseif (seqno == 1 and data >= 1) then
+          local petSlot = data-1;
+          local petIndex = Char.GetPet(player,petSlot);
+          if (petIndex>=0) then
+              local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+              local PetCrystalIndex,targetSlot = Pet.GetCrystal(petIndex);
+              local PetCrystal_Name = Item.GetData(PetCrystalIndex, CONST.道具_名字);
+              local bindId = Item.GetData(PetCrystalIndex, CONST.道具_特殊类型) or 0;
+              local typeId = Item.GetData(PetCrystalIndex, CONST.道具_子参一) or 0;
+              local typeLv = Item.GetData(PetCrystalIndex, CONST.道具_子参二) or 0;
+              if (PetCrystalIndex<0) then
+                 NLG.SystemMessage(player, "[系統]寵物尚未裝備任何水晶！");
+                 return;
+              end
+              if (bindId==0 and typeId==0 and typeLv==0) then
+                 NLG.SystemMessage(player, "[系統]這是尚未進行過鑑定的水晶！");
+                 return;
+              elseif (bindId~=0 and typeId~=0 and typeLv>=1 and typeLv<10) then
+                 local fruit_a = Char.ItemNum(player, 69016) or 0;
+                 local fruit_b = Char.ItemNum(player, 69017) or 0;
+                 local fruit_c = Char.ItemNum(player, 69018) or 0;
+                 local fruit_d = Char.ItemNum(player, 69023) or 0;
+                 local fruit_e = Char.ItemNum(player, 69028) or 0;
+                 local itemMaterial = fruit_a+fruit_b+fruit_c+fruit_d+fruit_e;
+                 if (itemMaterial>=160) then
+                     --删除需要的材料
+                     Char.DelItem(player, 69016, fruit_a);
+                     Char.DelItem(player, 69017, fruit_b);
+                     Char.DelItem(player, 69018, fruit_c);
+                     Char.DelItem(player, 69023, fruit_d);
+                     Char.DelItem(player, 69028, fruit_e);
+                     --觉醒类型更新
+                     local PetType = NLG.Rand(1,6);
+                     if (PetType==1 or fruit_a >=60) then
+                         PetType=1
+                         Identify="強化型";
+                     elseif (PetType==2 or fruit_b >=60) then
+                         PetType=2
+                         Identify="放出型";
+                     elseif (PetType==3 or fruit_c >=60) then
+                         PetType=3
+                         Identify="變化型";
+                     elseif (PetType==4 or fruit_d >=60) then
+                         PetType=4
+                         Identify="操作型";
+                     elseif (PetType==5 or fruit_e >=60) then
+                         PetType=5
+                         Identify="具現化型";
+                     elseif PetType==6 then
+                         PetType=6
+                         Identify="特質型";
+                     else
+                         PetType=6
+                         Identify="特質型";
+                     end
+                     local Aname = "[" ..Identify.. "]".."寵物水晶";
+                     local Newname = Aname.."+"..typeLv;
+                     Item.SetData(PetCrystalIndex,CONST.道具_名字, Newname);
+                     Item.SetData(PetCrystalIndex,CONST.道具_鉴前名, Aname);
+                     Item.SetData(PetCrystalIndex,CONST.道具_子参一, PetType);
+                     Item.UpItem(petIndex, targetSlot);
+                     Pet.UpPet(player, petIndex);
+                     NLG.SystemMessage(player, "[系統]寵物水晶類型已轉換" ..Identify.. "！");
+                     NLG.UpChar(player);
+                 else
+                     NLG.SystemMessage(player, "[系統]覺醒占卜所需的樹果總量不足160！");
                  end
               end
           end
