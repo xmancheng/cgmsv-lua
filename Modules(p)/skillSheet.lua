@@ -1,24 +1,24 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('skillSheet')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback("ItemString", Func.bind(self.LearnSheet, self), 'LUA_useSheet');
-  self.getTipsNPC = self:NPC_createNormal('¼¼ÄÜÃØóÅ', 14682, { x = 36, y = 29, mapType = 0, map = 777, direction = 6 });
+  self.getTipsNPC = self:NPC_createNormal('æŠ€èƒ½ç§˜ç¬ˆ', 14682, { x = 36, y = 29, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.getTipsNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "1|\\n½ÇÉ«¼¼ÄÜÃØóÅ (ÈÔÓĞÂš˜IÏŞÖÆ)£¡\\n";
+          local msg = "1|\\nè§’è‰²æŠ€èƒ½ç§˜ç¬ˆ (ä»æœ‰è·æ¥­é™åˆ¶)ï¼\\n";
           for skillSlot=0,8 do
                 local skillId = Char.GetSkillID(player,skillSlot);
                 local skillIndex = Skill.GetSkillIndex(skillId);
                 if(skillIndex<0)then
-                      msg = msg .. "µÚ".. skillSlot+1 .."¸ñ:¡´Ÿo¼¼ÄÜ¡µ\\n";
+                      msg = msg .. "ç¬¬".. skillSlot+1 .."æ ¼:ã€ˆç„¡æŠ€èƒ½ã€‰\\n";
                 else
-                      msg = msg .. "µÚ".. skillSlot+1 .."¸ñ:¡´"..Skill.GetData(skillIndex, CONST.SKILL_NAME).."¡µ\\n";
+                      msg = msg .. "ç¬¬".. skillSlot+1 .."æ ¼:ã€ˆ"..Skill.GetData(skillIndex, CONST.SKILL_NAME).."ã€‰\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, self.getTipsNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÏÂÈ¡Ïû, 1, msg);
+          NLG.ShowWindowTalked(player, self.getTipsNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸‹å–æ¶ˆ, 1, msg);
     end
     return
   end)
@@ -29,61 +29,65 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     local SheetIndex = Char.GetItemIndex(player,SheetSlot);
-    local SheetskillId = Item.GetData(SheetIndex, CONST.µÀ¾ß_×Ó²ÎÒ») or 0;
+    local SheetskillId = Item.GetData(SheetIndex, CONST.é“å…·_å­å‚ä¸€) or 0;
     if select > 0 then
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ) then
+      elseif (seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 11 and select == CONST.°´Å¥_¹Ø±Õ) then
+      elseif (seqno == 11 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
-          local slotNum = Char.GetData(player, CONST.CHAR_¼¼ÄÜÀ¸);
-          local msg = "1|\\n½ÇÉ«¼¼ÄÜÃØóÅ (ÈÔÓĞÂš˜IÏŞÖÆ)£¡\\n";
+          local slotNum = Char.GetData(player, CONST.CHAR_æŠ€èƒ½æ );
+          local msg = "1|\\nè§’è‰²æŠ€èƒ½ç§˜ç¬ˆ (ä»æœ‰è·æ¥­é™åˆ¶)ï¼\\n";
           for skillSlot=9, slotNum-1 do
                 local skillId = Char.GetSkillID(player,skillSlot);
                 local skillIndex = Skill.GetSkillIndex(skillId);
                 if(skillIndex<0)then
-                      msg = msg .. "µÚ".. skillSlot+1 .."¸ñ:¡´Ÿo¼¼ÄÜ¡µ\\n";
+                      msg = msg .. "ç¬¬".. skillSlot+1 .."æ ¼:ã€ˆç„¡æŠ€èƒ½ã€‰\\n";
                 else
-                      msg = msg .. "µÚ".. skillSlot+1 .."¸ñ:¡´"..Skill.GetData(skillIndex, CONST.SKILL_NAME).."¡µ\\n";
+                      msg = msg .. "ç¬¬".. skillSlot+1 .."æ ¼:ã€ˆ"..Skill.GetData(skillIndex, CONST.SKILL_NAME).."ã€‰\\n";
                 end
           end
-          NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
 
     else
       if (seqno >= 1 and data >= 1) then
-          --Ô­±¾µÄ¼¼ÄÜ
+          --åŸæœ¬çš„æŠ€èƒ½
           local skillSlot = data-1;
           if (seqno == 2) then
-              skillSlot = 8 + data-1;
+              skillSlot = 9 + data-1;
           end
           local skillId = Char.GetSkillID(player,skillSlot) or -1;
           local skillIndex = Skill.GetSkillIndex(skillId);
           local SkillName = Skill.GetData(skillIndex, CONST.SKILL_NAME);
-          --ÃØ¼®µÄ¼¼ÄÜ
+          --ç§˜ç±çš„æŠ€èƒ½
           local SheetIndex = Skill.GetSkillIndex(SheetskillId);
           local SheetName = Skill.GetData(SheetIndex, CONST.SKILL_NAME);
-          --ÅĞ¶¨ÓĞÎŞÖØ¸´¼¼ÄÜ
+          --åˆ¤å®šæœ‰æ— é‡å¤æŠ€èƒ½
           for i=0,14 do
               playerskills = Char.GetSkillID(player,i);
               if (SheetskillId==playerskills) then
-                  NLG.SystemMessage(player, "[Ïµ½y]½ÇÉ«ÒÑŒWÁ•ß^´Ë¼¼ÄÜ£¡");
+                  NLG.SystemMessage(player, "[ç³»çµ±]è§’è‰²å·²å­¸ç¿’éæ­¤æŠ€èƒ½ï¼");
                   return;
               end
           end
-          --Ìæ»»»ò¸øÓèÃØ¼®µÄ¼¼ÄÜ
+          --æ›¿æ¢æˆ–ç»™äºˆç§˜ç±çš„æŠ€èƒ½
           if (skillId>0) then
               Char.DelSkill(player,skillId,1);
               Char.AddSkill(player,SheetskillId,0,1);
+              Char.SetSkillExp(player,skillSlot,322200,1);	--ç±»å‹2ç›´å‡10çº§æŠ€èƒ½ç»éªŒ
+              Char.SetSkillLevel(player,skillSlot,10,1);	--ç›´å‡10çº§æŠ€èƒ½
           elseif (skillId==0) then
                   return;
           else
               Char.AddSkill(player,SheetskillId,0,1);
+              Char.SetSkillExp(player,skillSlot,322200,1);	--ç±»å‹2ç›´å‡10çº§æŠ€èƒ½ç»éªŒ
+              Char.SetSkillLevel(player,skillSlot,10,1);	--ç›´å‡10çº§æŠ€èƒ½
           end
           Char.DelItemBySlot(player, SheetSlot);
           NLG.UpChar(player);
-          NLG.SystemMessage(player, "[Ïµ½y]½ÇÉ«Íê³ÉŒWÁ•[".. SheetName .."]¼¼ÄÜ¡£");
+          NLG.SystemMessage(player, "[ç³»çµ±]è§’è‰²å®Œæˆå­¸ç¿’[".. SheetName .."]æŠ€èƒ½ã€‚");
       else
                  return;
       end
@@ -97,24 +101,24 @@ function Module:LearnSheet(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     SheetSlot = itemSlot;
     local SheetIndex = Char.GetItemIndex(charIndex,SheetSlot);
-    local SheetskillId = Item.GetData(SheetIndex, CONST.µÀ¾ß_×Ó²ÎÒ») or 0;
+    local SheetskillId = Item.GetData(SheetIndex, CONST.é“å…·_å­å‚ä¸€) or 0;
     if SheetskillId>0 then
-          local msg = "1|\\n½ÇÉ«¼¼ÄÜÃØóÅ (ÈÔÓĞÂš˜IÏŞÖÆ)£¡\\n";
+          local msg = "1|\\nè§’è‰²æŠ€èƒ½ç§˜ç¬ˆ (ä»æœ‰è·æ¥­é™åˆ¶)ï¼\\n";
           for skillSlot=0,8 do
                 local skillId = Char.GetSkillID(charIndex,skillSlot);
                 local skillIndex = Skill.GetSkillIndex(skillId);
                 if(skillIndex<0)then
-                      msg = msg .. "µÚ".. skillSlot+1 .."¸ñ:¡´Ÿo¼¼ÄÜ¡µ\\n";
+                      msg = msg .. "ç¬¬".. skillSlot+1 .."æ ¼:ã€ˆç„¡æŠ€èƒ½ã€‰\\n";
                 else
-                      msg = msg .. "µÚ".. skillSlot+1 .."¸ñ:¡´"..Skill.GetData(skillIndex, CONST.SKILL_NAME).."¡µ\\n";
+                      msg = msg .. "ç¬¬".. skillSlot+1 .."æ ¼:ã€ˆ"..Skill.GetData(skillIndex, CONST.SKILL_NAME).."ã€‰\\n";
                 end
           end
-          NLG.ShowWindowTalked(charIndex, self.getTipsNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÏÂÈ¡Ïû, 1, msg);
+          NLG.ShowWindowTalked(charIndex, self.getTipsNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸‹å–æ¶ˆ, 1, msg);
     end
     return 1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
