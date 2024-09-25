@@ -11,7 +11,7 @@ local damage_Max = 99999;
 local Arcobaleno = { 315163, }	--EnemyId
 local boxAnimals = { 2039,2139,2239, }	--TechId
 
-local restraintMap_Tech_First = {
+local restraintMap_Tech = {
     {  },	--大空属性
     { 2139, },	--岚属性
     { 2039, },	--雨属性
@@ -20,6 +20,7 @@ local restraintMap_Tech_First = {
     {  },	--雷属性
     {  },	--雾属性
   }	--TechId
+
 local restraintMap_Enemy_First = {
     {  },	--大空属性
     { 315163, },	--岚属性
@@ -29,21 +30,11 @@ local restraintMap_Enemy_First = {
     {  },	--雷属性
     {  },	--雾属性
   }	--EnemyId
-
-local restraintMap_Tech_Second = {
-    {  },	--大空属性
-    { 2139, },	--岚属性
-    { 2039, },	--雨属性
-    { 2239, },	--云属性
-    {  },	--晴属性
-    {  },	--雷属性
-    {  },	--雾属性
-  }	--TechId
 local restraintMap_Enemy_Second = {
-    {  },	--大空属性
+    { 315163, },	--大空属性
     {  },	--岚属性
     {  },	--雨属性
-    { 315163, },	--云属性
+    {  },	--云属性
     {  },	--晴属性
     {  },	--雷属性
     {  },	--雾属性
@@ -196,21 +187,21 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                      elseif (Rainbow>=1 and CheckInTable(Arcobaleno,enemyId)==true) then		--彩虹之子怪物、BOSS
                          if (CheckInTable(boxAnimals,com3)==true) then		--使用属性技能
                              local a,b = checkRestraint_def_First(com3,defCharIndex);
-                             local c,d = checkRestraint_def_Second(com3,defCharIndex);
+                             local a,d = checkRestraint_def_Second(com3,defCharIndex);
                              if (a==0 or b==0) then
                                  attr_First = 1;
                              else
                                  attr_First = attr[a][b];		--技能对怪物之第一属性倍率
                              end
-                             if (c==0 or d==0) then
+                             if (a==0 or d==0) then
                                  attr_Second = 1;
                              else
-                                 attr_Second = attr[c][d];		--技能对怪物之第二属性倍率
+                                 attr_Second = attr[a][d];		--技能对怪物之第二属性倍率
                              end
-                             print('第'..a..'列','第'..b..'欄','倍率:'..attr_First,'第'..c..'列','第'..d..'欄','倍率:'..attr_Second)
+                             print('第'..a..'列','第'..b..'欄','倍率:'..attr_First,'第'..a..'列','第'..d..'欄','倍率:'..attr_Second)
                              damage = damage * attr_First * attr_Second;
                          else						--非属性技能完美抵挡
-                                 damage = 1;
+                                 damage = 10;
                          end
                      else
                          damage = damage;
@@ -386,7 +377,7 @@ function checkRestraint_def_First(com3,bIndex)
           local b=0;
           local techId_a = com3;
           local enemyId_b = Char.GetData(bIndex, CONST.对象_ENEMY_ID);
-          for i, v in ipairs(restraintMap_Tech_First) do
+          for i, v in ipairs(restraintMap_Tech) do
               for k, techId in ipairs(v) do
                     if (v[k]==techId_a) then
                         a = i;
@@ -403,14 +394,14 @@ function checkRestraint_def_First(com3,bIndex)
            return a,b;
 end
 function checkRestraint_def_Second(com3,bIndex)
-          local c=0;
+          local a=0;
           local d=0;
-          local techId_c = com3;
+          local techId_a = com3;
           local enemyId_d = Char.GetData(bIndex, CONST.对象_ENEMY_ID);
-          for i, v in ipairs(restraintMap_Tech_Second) do
+          for i, v in ipairs(restraintMap_Tech) do
               for k, techId in ipairs(v) do
-                    if (v[k]==techId_c) then
-                        c = i;
+                    if (v[k]==techId_a) then
+                        a = i;
                     end
               end
            end
@@ -421,7 +412,7 @@ function checkRestraint_def_Second(com3,bIndex)
                     end
               end
            end
-           return c,d;
+           return a,d;
 end
 
 --- 卸载模块钩子
