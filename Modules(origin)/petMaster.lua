@@ -1,49 +1,50 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petMaster')
 
 local StarSysOn = 0;
 local MaxStarLv = 4;
+local StarRequireGold = {1000, 15000, 20000, 40000, 50000};
 local StarEnable_check= {700066};
 local StarEnable_list = {};
-StarEnable_list[700066] = { {},{},{},{} };  --¡ï1(BPµã).¡ï2(Ôö¼õÉË).¡ï3(BPµã).¡ï4(¼¼ÄÜ»ò¼¼ÄÜÇ¿»¯)
+StarEnable_list[700066] = { {402},{CONST.å¯¹è±¡_åŠ›é‡,10000},{},{} };  --â˜…1(BPç‚¹).â˜…2(å¢žå‡ä¼¤).â˜…3(BPç‚¹).â˜…4(æŠ€èƒ½æˆ–æŠ€èƒ½å¼ºåŒ–)
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self.MStarNPC = self:NPC_createNormal('Œ™ÎïÐÇ¼‰³¬Á¿', 104675, { x = 235, y = 116, mapType = 0, map = 1000, direction = 6 });
+  self.MStarNPC = self:NPC_createNormal('å¯µç‰©æ˜Ÿç´šè¶…é‡', 104675, { x = 235, y = 116, mapType = 0, map = 1000, direction = 6 });
   self:NPC_regTalkedEvent(self.MStarNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡$1¡¾Œ™ÎïÐÇ¼‰³¬Á¿¡¿\\n"
-                              .. "¡¡¡¡¡¡¡¡¡¡µÚÒ»¸ñ·ÅÖÃÒªÌáÉýÐÇ¼‰µÄÖ÷ÒªŒ™Îï\\n"
-                              .. "¡¡¡¡¡¡¡¡$4×¢Òâ:  ÆäðNÎ»ÖÃŒ¢•º•ržé²ÄÁÏŒ™Îï…^\\n"
-          local petIndex = Char.GetPet(player,0);	--Ö÷³è¹Ì¶¨³èÎïÀ¸µÚÒ»¸ñ
+          local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1ã€å¯µç‰©æ˜Ÿç´šè¶…é‡ã€‘\\n"
+                              .. "ã€€ã€€ã€€ã€€ã€€ç¬¬ä¸€æ ¼æ”¾ç½®è¦æå‡æ˜Ÿç´šçš„ä¸»è¦å¯µç‰©\\n"
+                              .. "ã€€ã€€ã€€ã€€$4æ³¨æ„:  å…¶é¤˜ä½ç½®å°‡æš«æ™‚ç‚ºææ–™å¯µç‰©å€\\n"
+          local petIndex = Char.GetPet(player,0);	--ä¸»å® å›ºå®šå® ç‰©æ ç¬¬ä¸€æ ¼
           if (petIndex>=0) then
-              --Ö÷Òª³èÎï
+              --ä¸»è¦å® ç‰©
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
-              local PetName_1 = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
-              local PetImage_1 = Char.GetData(petIndex,CONST.¶ÔÏó_ÐÎÏó);
+              local PetName_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_åŽŸå);
+              local PetImage_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_å½¢è±¡);
               local imageText_1 = "@g,"..PetImage_1..",3,8,6,0@"
-              msg = msg .. "Ö÷ÒªŒ™: "..PetName_1
-              --²ÄÁÏ³èÎï
+              msg = msg .. "ä¸»è¦å¯µ: "..PetName_1
+              --ææ–™å® ç‰©
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
               if (materialPetIndex>0) then
                   StarSysOn = 1;
                   local mSlot = mSlot+1;
-                  local PetName_2 = Char.GetData(materialPetIndex,CONST.¶ÔÏó_Ô­Ãû);
-                  local PetImage_2 = Char.GetData(materialPetIndex,CONST.¶ÔÏó_ÐÎÏó);
+                  local PetName_2 = Char.GetData(materialPetIndex,CONST.å¯¹è±¡_åŽŸå);
+                  local PetImage_2 = Char.GetData(materialPetIndex,CONST.å¯¹è±¡_å½¢è±¡);
                   local imageText_2 = "@g,"..PetImage_2..",13,8,6,0@"
-                  msg = msg .. "¡¡¡¡²ÄÁÏŒ™(µÚ"..mSlot.."¸ñ): "..PetName_2.."\\n"
+                  msg = msg .. "ã€€ã€€ææ–™å¯µ(ç¬¬"..mSlot.."æ ¼): "..PetName_2.."\\n"
                                         .. imageText_1 .. imageText_2;
               else
                   StarSysOn = 0;
-                  msg = msg .. "¡¡¡¡²ÄÁÏŒ™(µÚX¸ñ): Ÿo·ûºÏ\\n"
+                  msg = msg .. "ã€€ã€€ææ–™å¯µ(ç¬¬Xæ ¼): ç„¡ç¬¦åˆ\\n"
                                         .. imageText_1;
               end
           else
               StarSysOn = 0;
-              msg = msg .. "Ö÷ÒªŒ™: ·Ç¿ÉÐÇ¼‰³¬Á¿µÄŒ™Îï" .. "\\n\\n\\n²ÄÁÏŒ™(µÚX¸ñ): Ÿo·ûºÏ\\n";
+              msg = msg .. "ä¸»è¦å¯µ: éžå¯æ˜Ÿç´šè¶…é‡çš„å¯µç‰©" .. "\\n\\n\\nææ–™å¯µ(ç¬¬Xæ ¼): ç„¡ç¬¦åˆ\\n";
           end
-          NLG.ShowWindowTalked(player, self.MStarNPC, CONST.´°¿Ú_ÐÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.MStarNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
@@ -52,38 +53,53 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    local tPlayerGold = Char.GetData(player, CONST.¶ÔÏó_½ð±Ò);
+    local tPlayerGold = Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸);
     --print(data)
     if select > 0 then
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 1 and select == CONST.°´Å¥_È·¶¨) then
-          if (tPlayerGold<10000) then
-              NLG.SystemMessage(player, "[Ïµ½y] ÐÇ¼‰Ïµ½y²Ù×÷Ã¿´Î 1ÈfG£¬ËùÐè½ðŽÅ²»×ã¡£");
-              return;
-          end
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š) then
           if (StarSysOn == 1) then
               local petIndex = Char.GetPet(player,0);
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
-              local PetName_1 = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
+              local PetName_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_åŽŸå);
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
-              local last = string.find(PetName_1, "¡ï", 1);
-              local StarLv = string.sub(PetName_1, last+1, -1);
-              local PetRawName = string.sub(PetName_1, 1, last-2);
-              if (StarLv==nil) then
-                  Char.SetData(petIndex,CONST.¶ÔÏó_Ô­Ãû, PetRawName .. "¡ï1");
+              local last = string.find(PetName_1, "â˜…", 1);
+              if (last==nil) then
+                  if (tPlayerGold<StarRequireGold[1]) then
+                      NLG.SystemMessage(player, "[ç³»çµ±] æ˜Ÿç´šç³»çµ±æ“ä½œè²»ç”¨ "..StarRequireGold[1].."Gï¼Œæ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
+                      return;
+                  end
+                  local PetRawName = PetName_1;
+                  Char.SetData(petIndex,CONST.å¯¹è±¡_åŽŸå, PetRawName .. "â˜…1");
+                  Pet.AddSkill(petIndex, StarEnable_list[PetId][1][1]) ;
                   Char.DelSlotPet(player, mSlot);
                   Pet.UpPet(player,petIndex);
                   NLG.UpChar(player);
-                  NLG.SystemMessage(player, "[Ïµ½y] ".. PetRawName .."³É¹¦ßM»¯žé¡ï1¡£");
-              elseif (StarLv>=1 and StarLv<MaxStarLv) then
-
-              else
-                  NLG.SystemMessage(player, "[Ïµ½y] ÐÇ¼‰ÒÑß_Ä¿Ç°é_·ÅÉÏÏÞ¡£");
-                  return;
+                  NLG.SystemMessage(player, "[ç³»çµ±] ".. PetRawName .."æˆåŠŸé€²åŒ–ç‚ºâ˜…1ã€‚");
+              elseif (last~=nil) then
+                  local StarLv = tonumber(string.sub(PetName_1, last+2, -1));
+                  local PetRawName = string.sub(PetName_1, 1, last-1);
+                  print(last,StarLv,PetRawName)
+                  if (StarLv>=1 and StarLv<MaxStarLv) then
+                      local StarLv=StarLv+1;
+                      if (tPlayerGold<StarRequireGold[StarLv]) then
+                          NLG.SystemMessage(player, "[ç³»çµ±] æ˜Ÿç´šç³»çµ±æ“ä½œè²»ç”¨ "..StarRequireGold[StarLv].."Gï¼Œæ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
+                          return;
+                      end
+                      Char.SetData(petIndex,CONST.å¯¹è±¡_åŽŸå, PetRawName .. "â˜…".. StarLv);
+                      Char.SetData(petIndex,StarEnable_list[PetId][StarLv][1], Char.GetData(petIndex,StarEnable_list[PetId][StarLv][1]) + StarEnable_list[PetId][StarLv][2] );
+                      Char.DelSlotPet(player, mSlot);
+                      Pet.UpPet(player,petIndex);
+                      NLG.UpChar(player);
+                      NLG.SystemMessage(player, "[ç³»çµ±] ".. PetRawName .."æˆåŠŸé€²åŒ–ç‚ºâ˜…".. StarLv .."ã€‚");
+                  else
+                      NLG.SystemMessage(player, "[ç³»çµ±] æ˜Ÿç´šå·²é”ç›®å‰é–‹æ”¾ä¸Šé™ã€‚");
+                      return;
+                  end
               end
           elseif (StarSysOn == 0) then
-              NLG.SystemMessage(player, "[Ïµ½y] —l¼þ²»·ûºÏ£¬ÐÇ¼‰Ïµ½yÍ£Ö¹²Ù×÷¡£");
+              NLG.SystemMessage(player, "[ç³»çµ±] æ¢ä»¶ä¸ç¬¦åˆï¼Œæ˜Ÿç´šç³»çµ±åœæ­¢æ“ä½œã€‚");
               return;
           end
       end
@@ -110,7 +126,7 @@ Char.GetMaterialPet = function(charIndex,enemyid)
   return -1,-1;
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êý
+function CheckInTable(_idTab, _idVar) ---å¾ªçŽ¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -119,7 +135,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êý
 	return false
 end
 
---- Ð¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
