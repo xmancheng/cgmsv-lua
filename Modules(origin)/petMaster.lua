@@ -19,9 +19,9 @@ function Module:onLoad()
                               .. "　　　　　第一格放置要提升星級的主要寵物\\n"
                               .. "　　　　$4注意:  其餘位置將暫時為材料寵物區\\n"
           local petIndex = Char.GetPet(player,0);	--主宠固定宠物栏第一格
-          if (petIndex>=0) then
+          local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+          if (petIndex>=0 and CheckInTable(StarEnable_check, PetId)==true) then
               --主要宠物
-              local PetId = Char.GetData(petIndex,CONST.PET_PetID);
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
               local PetImage_1 = Char.GetData(petIndex,CONST.对象_形象);
               local imageText_1 = "@g,"..PetImage_1..",3,8,6,0@"
@@ -66,8 +66,16 @@ function Module:onLoad()
               local Type = StarEnable_list[PetId][1];
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
+              local PetName_2 = Char.GetData(materialPetIndex,CONST.对象_原名);
               local last = string.find(PetName_1, "★", 1);
               if (last==nil) then
+                  --防低吃高机制
+                  local last_2 = string.find(PetName_2, "★", 1);
+                  if (last_2==nil) then StarLv_2 = 0; else StarLv_2=tonumber(string.sub(PetName_2, last_2+2, -1)); end
+                  if ( 1<StarLv_2 ) then
+                      NLG.SystemMessage(player, "[系統] 請確認材料寵物的星級。");
+                      return;
+                  end
                   if (tPlayerGold<StarRequireGold[1]) then
                       NLG.SystemMessage(player, "[系統] 星級系統操作費用 "..StarRequireGold[1].."G，所需金幣不足。");
                       return;
@@ -84,6 +92,13 @@ function Module:onLoad()
                   local StarLv = tonumber(string.sub(PetName_1, last+2, -1));
                   local PetRawName = string.sub(PetName_1, 1, last-1);
                   if (StarLv>=1 and StarLv<MaxStarLv) then
+                      --防低吃高机制
+                      local last_2 = string.find(PetName_2, "★", 1);
+                      if (last_2==nil) then StarLv_2 = 0; else StarLv_2=tonumber(string.sub(PetName_2, last_2+2, -1)); end
+                      if ( StarLv<StarLv_2 ) then
+                          NLG.SystemMessage(player, "[系統] 請確認材料寵物的星級。");
+                          return;
+                      end
                       local StarLv=StarLv+1;		--升级过星级Lv
                       if (tPlayerGold<StarRequireGold[StarLv]) then
                           NLG.SystemMessage(player, "[系統] 星級系統操作費用 "..StarRequireGold[StarLv].."G，所需金幣不足。");
