@@ -6,8 +6,9 @@ local MaxStarLv = 4;
 local StarRequireGold = {1000, 15000, 20000, 40000, 50000};
 local StarEnable_check= {700066};
 local StarEnable_list = {};
-StarEnable_list[700066] = { {402},{CONST.对象_力量,10000},{},{} };  --★1(BP点).★2(增减伤).★3(BP点).★4(技能或技能强化)
+StarEnable_list[700066] = { 1 };		--第1型:气功弹LV3、力量100点、最大血1000、升级气功弹LV7
 
+-------------------------------------------------------------------------------------------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
@@ -62,6 +63,7 @@ function Module:onLoad()
           if (StarSysOn == 1) then
               local petIndex = Char.GetPet(player,0);
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+              local Type = StarEnable_list[PetId][1];
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
               local last = string.find(PetName_1, "★", 1);
@@ -72,25 +74,26 @@ function Module:onLoad()
                   end
                   local PetRawName = PetName_1;
                   Char.SetData(petIndex,CONST.对象_原名, PetRawName .. "★1");
-                  Pet.AddSkill(petIndex, StarEnable_list[PetId][1][1]) ;
+                  RunStar(petIndex, Type, 1);
                   Char.DelSlotPet(player, mSlot);
                   Pet.UpPet(player,petIndex);
+                  Char.AddGold(player, -StarRequireGold[1]);
                   NLG.UpChar(player);
                   NLG.SystemMessage(player, "[系統] ".. PetRawName .."成功進化為★1。");
               elseif (last~=nil) then
                   local StarLv = tonumber(string.sub(PetName_1, last+2, -1));
                   local PetRawName = string.sub(PetName_1, 1, last-1);
-                  print(last,StarLv,PetRawName)
                   if (StarLv>=1 and StarLv<MaxStarLv) then
-                      local StarLv=StarLv+1;
+                      local StarLv=StarLv+1;		--升级过星级Lv
                       if (tPlayerGold<StarRequireGold[StarLv]) then
                           NLG.SystemMessage(player, "[系統] 星級系統操作費用 "..StarRequireGold[StarLv].."G，所需金幣不足。");
                           return;
                       end
                       Char.SetData(petIndex,CONST.对象_原名, PetRawName .. "★".. StarLv);
-                      Char.SetData(petIndex,StarEnable_list[PetId][StarLv][1], Char.GetData(petIndex,StarEnable_list[PetId][StarLv][1]) + StarEnable_list[PetId][StarLv][2] );
+                      RunStar(petIndex, Type, StarLv);
                       Char.DelSlotPet(player, mSlot);
                       Pet.UpPet(player,petIndex);
+                      Char.AddGold(player, -StarRequireGold[StarLv]);
                       NLG.UpChar(player);
                       NLG.SystemMessage(player, "[系統] ".. PetRawName .."成功進化為★".. StarLv .."。");
                   else
@@ -111,7 +114,28 @@ function Module:onLoad()
 
 end
 
+--各类型宠物升星执行
+function RunStar(petIndex,Type,StarLv)
+	if (Type==1) then
+		if (StarLv==1) then		--★1
+			Pet.AddSkill(petIndex, 402);
+		elseif (StarLv==2) then	--★2
+			Char.SetData(petIndex,CONST.对象_力量, Char.GetData(petIndex,CONST.对象_力量)+10000);
+		elseif (StarLv==3) then	--★3
+			Char.SetData(petIndex,CONST.对象_种族, 11);
+		elseif (StarLv==4) then	--★4
+			for i = 0,9 do
+				if (Pet.GetSkill(petIndex,i)==402) then
+					Pet.DelSkill(petIndex,i);
+					Pet.AddSkill(petIndex,406);
+				end
+			end
+		end
+	else
+	end
+end
 
+--方便接口
 Char.GetMaterialPet = function(charIndex,enemyid)
   for Slot=1,4 do
       local PetIndex = Char.GetPet(charIndex, Slot);
