@@ -3,6 +3,7 @@ local Module = ModuleBase:createModule('petMaster')
 
 local StarSysOn = 0;
 local MaxStarLv = 4;
+local StarRequireLevel = {10, 30, 50, 70, 100};
 local StarRequireGold = {1000, 15000, 20000, 40000, 50000};
 local StarEnable_check= {500000,500001,500002,500003,500004,500005,500006,500007,500008,500009,
                          500010,500011,500012,500013,500014,500015,500016,500017,500018,500019,
