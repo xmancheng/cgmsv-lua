@@ -141,8 +141,14 @@ function Module:onLoad()
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
               local Type = StarEnable_list[PetId][1];
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
+              local PetLevel_1 = Char.GetData(petIndex,CONST.对象_等级);
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
               local PetName_2 = Char.GetData(materialPetIndex,CONST.对象_原名);
+              local PetGetLevel_2 = Char.GetData(materialPetIndex,CONST.宠物_获取时等级);
+              if (PetGetLevel_2~=1) then
+                  NLG.SystemMessage(player, "[系統] 材料寵物非從1級訓練的寶寶。");
+                  return;
+              end
               local last = string.find(PetName_1, "★", 1);
               if (last==nil) then
                   --防低吃高机制
@@ -150,6 +156,10 @@ function Module:onLoad()
                   if (last_2==nil) then StarLv_2 = 0; else StarLv_2=tonumber(string.sub(PetName_2, last_2+2, -1)); end
                   if ( 1<StarLv_2 ) then
                       NLG.SystemMessage(player, "[系統] 請確認材料寵物的星級。");
+                      return;
+                  end
+                  if (PetLevel_1<StarRequireLevel[1]) then
+                      NLG.SystemMessage(player, "[系統] 主要寵物的等級未達".. StarRequireLevel[1] .."。");
                       return;
                   end
                   if (tPlayerGold<StarRequireGold[1]) then
@@ -176,6 +186,10 @@ function Module:onLoad()
                           return;
                       end
                       local StarLv=StarLv+1;		--升级过星级Lv
+                      if (PetLevel_1<StarRequireLevel[StarLv]) then
+                          NLG.SystemMessage(player, "[系統] 主要寵物的等級未達".. StarRequireLevel[StarLv] .."。");
+                          return;
+                      end
                       if (tPlayerGold<StarRequireGold[StarLv]) then
                           NLG.SystemMessage(player, "[系統] 星級系統操作費用 "..StarRequireGold[StarLv].."G，所需金幣不足。");
                           return;
