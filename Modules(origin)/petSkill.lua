@@ -1,30 +1,30 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petSkill')
 
 local petMettleTable = {
-             { MettleType=1, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_ÊÇ·ñBOSS, skillId=9610 , val = 1.15},              --¶ÔBOSS¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_µØÊôĞÔ, info=CONST.ÊôĞÔ_µØ, skillId=9611 , val = 1.05},              --¶ÔµØÊôĞÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_Ë®ÊôĞÔ, info=CONST.ÊôĞÔ_Ë®, skillId=9612 , val = 1.05},              --¶ÔË®ÊôĞÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_»ğÊôĞÔ, info=CONST.ÊôĞÔ_»ğ, skillId=9613 , val = 1.05},              --¶Ô»ğÊôĞÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=3, type=CONST.CHAR_·çÊôĞÔ, info=CONST.ÊôĞÔ_·ç, skillId=9614 , val = 1.05},              --¶Ô·çÊôĞÔ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=4, type=CONST.CHAR_µØÊôĞÔ, info=CONST.ÊôĞÔ_µØ, skillId=9615 , val = 0.95},              --¼õÇáÀ´×ÔµØÊôĞÔ¶ÔÏóÉËº¦
-             { MettleType=4, type=CONST.CHAR_Ë®ÊôĞÔ, info=CONST.ÊôĞÔ_Ë®, skillId=9616 , val = 0.95},              --¼õÇáÀ´×ÔË®ÊôĞÔ¶ÔÏóÉËº¦
-             { MettleType=4, type=CONST.CHAR_»ğÊôĞÔ, info=CONST.ÊôĞÔ_»ğ, skillId=9617 , val = 0.95},              --¼õÇáÀ´×Ô»ğÊôĞÔ¶ÔÏóÉËº¦
-             { MettleType=4, type=CONST.CHAR_·çÊôĞÔ, info=CONST.ÊôĞÔ_·ç, skillId=9618 , val = 0.95},              --¼õÇáÀ´×Ô·çÊôĞÔ¶ÔÏóÉËº¦
-             { MettleType=2, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_ÊÇ·ñBOSS, skillId=9619 , val = 0.85},              --¼õÇáÀ´×ÔBOSS¶ÔÏóÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÈËĞÍ, skillId=9620 , val = 1.25},              --¶ÔÈËĞÎÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Áú, skillId=9621 , val = 1.25},              --¶ÔÁú×åÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_²»ËÀ, skillId=9622 , val = 1.25},              --¶Ô²»ËÀÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_·ÉĞĞ, skillId=9623 , val = 1.25},              --¶Ô·ÉĞĞÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_À¥³æ, skillId=9624 , val = 1.25},              --¶ÔÀ¥³æÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ö²Îï, skillId=9625 , val = 1.25},              --¶ÔÖ²ÎïÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ò°ÊŞ, skillId=9626 , val = 1.25},              --¶ÔÒ°ÊŞÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÌØÊâ, skillId=9627 , val = 1.25},              --¶ÔÌØÊâÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_½ğÊô, skillId=9628 , val = 1.25},              --¶Ô½ğÊôÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ğ°Ä§, skillId=9629 , val = 1.05},              --¶ÔĞ°Ä§Ïµ¶ÔÏóÔö¼ÓÉËº¦
+             { MettleType=1, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_æ˜¯å¦BOSS, skillId=9610 , val = 1.15},              --å¯¹BOSSå¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_åœ°å±æ€§, info=CONST.å±æ€§_åœ°, skillId=9611 , val = 1.05},              --å¯¹åœ°å±æ€§å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_æ°´å±æ€§, info=CONST.å±æ€§_æ°´, skillId=9612 , val = 1.05},              --å¯¹æ°´å±æ€§å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_ç«å±æ€§, info=CONST.å±æ€§_ç«, skillId=9613 , val = 1.05},              --å¯¹ç«å±æ€§å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=3, type=CONST.CHAR_é£å±æ€§, info=CONST.å±æ€§_é£, skillId=9614 , val = 1.05},              --å¯¹é£å±æ€§å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_åœ°å±æ€§, info=CONST.å±æ€§_åœ°, skillId=9615 , val = 0.95},              --å‡è½»æ¥è‡ªåœ°å±æ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_æ°´å±æ€§, info=CONST.å±æ€§_æ°´, skillId=9616 , val = 0.95},              --å‡è½»æ¥è‡ªæ°´å±æ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_ç«å±æ€§, info=CONST.å±æ€§_ç«, skillId=9617 , val = 0.95},              --å‡è½»æ¥è‡ªç«å±æ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=4, type=CONST.CHAR_é£å±æ€§, info=CONST.å±æ€§_é£, skillId=9618 , val = 0.95},              --å‡è½»æ¥è‡ªé£å±æ€§å¯¹è±¡ä¼¤å®³
+             { MettleType=2, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_æ˜¯å¦BOSS, skillId=9619 , val = 0.85},              --å‡è½»æ¥è‡ªBOSSå¯¹è±¡ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_äººå‹, skillId=9620 , val = 1.25},              --å¯¹äººå½¢ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é¾™, skillId=9621 , val = 1.25},              --å¯¹é¾™æ—ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ä¸æ­», skillId=9622 , val = 1.25},              --å¯¹ä¸æ­»ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é£è¡Œ, skillId=9623 , val = 1.25},              --å¯¹é£è¡Œç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ˜†è™«, skillId=9624 , val = 1.25},              --å¯¹æ˜†è™«ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ¤ç‰©, skillId=9625 , val = 1.25},              --å¯¹æ¤ç‰©ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡å…½, skillId=9626 , val = 1.25},              --å¯¹é‡å…½ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ç‰¹æ®Š, skillId=9627 , val = 1.25},              --å¯¹ç‰¹æ®Šç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡‘å±, skillId=9628 , val = 1.25},              --å¯¹é‡‘å±ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‚ªé­”, skillId=9629 , val = 1.05},              --å¯¹é‚ªé­”ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
 }
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self));
@@ -32,53 +32,53 @@ end
 
 function Module:tempDamage(charIndex, defCharIndex, damage, battleIndex)
         for k, v in ipairs(petMettleTable) do
-           if (v.MettleType==1 and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then           --¹¥·½BOSS³èÎïĞÔ¸ñ
+           if (v.MettleType==1 and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then           --æ”»æ–¹BOSSå® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == 1) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïĞÔ¸ñ±»¶¯Ğ§¹û·¢¶¯",4,3);
-                       --print("ĞÔ¸ñ‚ûº¦:"..damage)
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæœå‘åŠ¨",4,3);
+                       --print("æ€§æ ¼å‚·å®³:"..damage)
                        return damage;
                    end
                end
-           elseif (v.MettleType==2 and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then     --ÊÜ·½BOSS³èÎïĞÔ¸ñ
+           elseif (v.MettleType==2 and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then     --å—æ–¹BOSSå® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) == 1) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïĞÔ¸ñ±»¶¯Ğ§¹û·¢¶¯",4,3);
-                       --print("ĞÔ¸ñ‚ûº¦:"..damage)
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæœå‘åŠ¨",4,3);
+                       --print("æ€§æ ¼å‚·å®³:"..damage)
                        return damage;
                    end
                end
-           elseif (v.MettleType==3 and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then            --¹¥·½ËÄÊôĞÔÏà¹Ø³èÎïĞÔ¸ñ
+           elseif (v.MettleType==3 and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then            --æ”»æ–¹å››å±æ€§ç›¸å…³å® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) >= 10) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïĞÔ¸ñ±»¶¯Ğ§¹û·¢¶¯",4,3);
-                       --print("ĞÔ¸ñ‚ûº¦:"..damage)
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæœå‘åŠ¨",4,3);
+                       --print("æ€§æ ¼å‚·å®³:"..damage)
                        return damage;
                    end
                end
-           elseif (v.MettleType==4 and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then     --ÊÜ·½ËÄÊôĞÔÏà¹Ø³èÎïĞÔ¸ñ
+           elseif (v.MettleType==4 and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then     --å—æ–¹å››å±æ€§ç›¸å…³å® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(defCharIndex, i)
                    if (skillId == v.skillId and Char.GetData(charIndex, v.type) >= 10) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïĞÔ¸ñ±»¶¯Ğ§¹û·¢¶¯",4,3);
-                       --print("ĞÔ¸ñ‚ûº¦:"..damage)
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæœå‘åŠ¨",4,3);
+                       --print("æ€§æ ¼å‚·å®³:"..damage)
                        return damage;
                    end
                end
-           elseif (v.MettleType==5 and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then           --¹¥·½ÖÖ×å³èÎïĞÔ¸ñ
+           elseif (v.MettleType==5 and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then           --æ”»æ–¹ç§æ—å® ç‰©æ€§æ ¼
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) == v.info) then
                        damage = damage * v.val;
-                       --NLG.Say(-1,-1,"³èÎïĞÔ¸ñ±»¶¯Ğ§¹û·¢¶¯",4,3);
-                       --print("ĞÔ¸ñ‚ûº¦:"..damage)
+                       --NLG.Say(-1,-1,"å® ç‰©æ€§æ ¼è¢«åŠ¨æ•ˆæœå‘åŠ¨",4,3);
+                       --print("æ€§æ ¼å‚·å®³:"..damage)
                        return damage;
                    end
                end
@@ -93,23 +93,49 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         if  flg ~= CONST.DamageFlags.Magic and Char.GetData(defCharIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è  then
+         if  flg == CONST.DamageFlags.Combo and Char.IsEnemy(defCharIndex) and Char.IsPlayer(charIndex) then
+            local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
+            if (enemyId==400021) then
+                    Char.GiveItem(charIndex, 40844, 1);
+                    NLG.SortItem(charIndex);
+
+            end
+            return damage;
+         end
+         if  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å®   then
+           --å® ç‰©åŠ æˆ
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
+           return damage;
+         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(defCharIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å®   then
+           --å® ç‰©åŠ æˆ
+           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage = damage_temp;
+           return damage;
+         elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å®   then
+           --å® ç‰©åŠ æˆ
+           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage = damage_temp;
+           return damage;
+         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å®   then
+           --å® ç‰©åŠ æˆ
+           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
+           local damage = damage_temp;
+           --local damage = damage * 1.05 ;
            if (com3 >= 26700 and com3 <= 26720)  then
                 local TechLv = math.fmod(com3,26700)+1;
-                local Amnd_R = Char.GetData(charIndex, CONST.CHAR_¹¥»÷Á¦);
+                local Amnd_R = Char.GetData(charIndex, CONST.CHAR_æ”»å‡»åŠ›);
                 local Amnd = math.max( Conver_240(Amnd_R), 1);
-                local Dmnd_R = Char.GetData(defCharIndex, CONST.CHAR_·ÀÓùÁ¦);
+                local Dmnd_R = Char.GetData(defCharIndex, CONST.CHAR_é˜²å¾¡åŠ›);
                 local Dmnd = math.max( Conver_240(Dmnd_R), 100)
                 local dp = {}
-                dp[1] = Char.GetData(defCharIndex, CONST.CHAR_µØÊôĞÔ)
-                dp[2] = Char.GetData(defCharIndex, CONST.CHAR_Ë®ÊôĞÔ)
-                dp[3] = Char.GetData(defCharIndex, CONST.CHAR_»ğÊôĞÔ)
-                dp[4] = Char.GetData(defCharIndex, CONST.CHAR_·çÊôĞÔ)
+                dp[1] = Char.GetData(defCharIndex, CONST.CHAR_åœ°å±æ€§)
+                dp[2] = Char.GetData(defCharIndex, CONST.CHAR_æ°´å±æ€§)
+                dp[3] = Char.GetData(defCharIndex, CONST.CHAR_ç«å±æ€§)
+                dp[4] = Char.GetData(defCharIndex, CONST.CHAR_é£å±æ€§)
                 local AttRate_2 = Battle.CalcAttributeDmgRate(charIndex, defCharIndex)
                 local AttRate = (AttRate_2 - 1) * 0.5 + 1
                 local RaceRate = Battle.CalcTribeDmgRate(charIndex, defCharIndex) + 1
@@ -117,12 +143,6 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                 local damage = math.floor( ((Amnd / (0.67 + Dmnd / Amnd))* TechLv * 0.5)* AttRate * RaceRate * RndRate)
                 return damage;
            end
-           return damage;
-         elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è  then
-           --³èÎï¼Ó³É
-           local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
-           local damage = damage_temp;
-           local damage = damage * 1.05 ;
            return damage;
          end
   return damage;
@@ -138,7 +158,7 @@ function Conver_240(Num)
 	end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
