@@ -109,22 +109,46 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
            --宠物加成
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
+               local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
+               if (D_Buff >= 1)  then
+                   damage = math.floor(damage * 0.8);
+                   Char.SetTempData(defCharIndex, '防御增益', D_Buff - 1);
+                   return damage;
+               end
            return damage;
          elseif  flg == CONST.DamageFlags.Magic and Char.GetData(defCharIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
            --宠物加成
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
+               local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
+               if (D_Buff >= 1)  then
+                   damage = math.floor(damage * 0.8);
+                   Char.SetTempData(defCharIndex, '防御增益', D_Buff - 1);
+                   return damage;
+               end
            return damage;
          elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
            --宠物加成
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
+               local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
+               if (A_Buff >= 1)  then
+                   damage = math.floor(damage * 1.35);
+                   Char.SetTempData(charIndex, '攻击增益', A_Buff - 1);
+                   return damage;
+               end
            return damage;
          elseif  flg == CONST.DamageFlags.Magic and Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠  then
            --宠物加成
            local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
            local damage = damage_temp;
-           --local damage = damage * 1.05 ;
+           local damage = damage * 2;
+               local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
+               if (A_Buff >= 1)  then
+                   damage = math.floor(damage * 1.35);
+                   Char.SetTempData(charIndex, '攻击增益', A_Buff - 1);
+                   return damage;
+               end
            if (com3 >= 26700 and com3 <= 26720)  then
                 local TechLv = math.fmod(com3,26700)+1;
                 local Amnd_R = Char.GetData(charIndex, CONST.CHAR_攻击力);
