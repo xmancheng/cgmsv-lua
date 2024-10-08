@@ -1,12 +1,15 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('playerSkill')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self))
+  self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self));
+  self:regCallback('LoginEvent', Func.bind(self.onLogbattleOverEvent, self));
+  self:regCallback('LogoutEvent', Func.bind(self.onLogbattleOverEvent, self));
 end
 
 
@@ -15,29 +18,29 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         if (flg==CONST.HealDamageFlags.Heal)  then    --ÑaÑªÖÎ¯ŸÄ§·¨
+         if (flg==CONST.HealDamageFlags.Heal)  then    --è£œè¡€æ²»ç™‚é­”æ³•
             if (com3==6300 or com3==6301 or com3==6302)  then
                if (Char.IsPlayer(defCharIndex)==true or Char.IsPet(defCharIndex)==true) then
-                   local D_Buff = Char.GetTempData(defCharIndex, '·ÀÓùÔöÒæ') or 0;
+                   local D_Buff = Char.GetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š') or 0;
                    if (D_Buff<=5)  then
                        heal = 666;
-                       Char.SetTempData(defCharIndex, '·ÀÓùÔöÒæ', 5);
+                       Char.SetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š', 5);
                    end
                end
             end
             return heal;
-         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --»ÖÍÄ§·¨
+         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --æ¢å¾©é­”æ³•
                return heal;
-         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --Ã÷çRÖ¹Ë®
+         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --æ˜é¡æ­¢æ°´
             if (com3==1200 or com3==1201 or com3==1202)  then
                if (Char.IsPlayer(defCharIndex)==true or Char.IsPet(defCharIndex)==true) then
-                   local A_Buff = Char.GetTempData(defCharIndex, '¹¥»÷ÔöÒæ') or 0;
+                   local A_Buff = Char.GetTempData(defCharIndex, 'æ”»å‡»å¢ç›Š') or 0;
                    if (A_Buff<=3)  then
                        heal = 350;
-                       Char.SetTempData(defCharIndex, '¹¥»÷ÔöÒæ', 3);
+                       Char.SetTempData(defCharIndex, 'æ”»å‡»å¢ç›Š', 3);
                    end
                end
             end
@@ -52,33 +55,33 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPlayer(defCharIndex)==true  then
-               local D_Buff = Char.GetTempData(defCharIndex, '·ÀÓùÔöÒæ') or 0;
+               local D_Buff = Char.GetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š') or 0;
                if (D_Buff >= 1)  then
                    local damage = math.floor(oriDamage * 0.8);
                    --print(oriDamage,damage);
-                   Char.SetTempData(defCharIndex, '·ÀÓùÔöÒæ', D_Buff - 1);
+                   Char.SetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š', D_Buff - 1);
                    return damage;
                end
                return damage;
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPlayer(charIndex)==true  then
-               local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
+               local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
                if (A_Buff >= 1)  then
                    local damage = math.floor(oriDamage * 1.35);
                    --print(oriDamage,damage);
-                   Char.SetTempData(charIndex, '¹¥»÷ÔöÒæ', A_Buff - 1);
+                   Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', A_Buff - 1);
                    return damage;
                end
                return damage;
          elseif flg == CONST.DamageFlags.Magic and Char.IsPlayer(charIndex)==true  then
-               local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
+               local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
                if (A_Buff >= 1)  then
                    local damage = math.floor(oriDamage * 1.35);
                    --print(oriDamage,damage);
-                   Char.SetTempData(charIndex, '¹¥»÷ÔöÒæ', A_Buff - 1);
+                   Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', A_Buff - 1);
                    return damage;
                end
                return damage;
@@ -91,19 +94,44 @@ function Module:OnbattleStarCommand(battleIndex)
     for i=0, 19 do
         local charIndex = Battle.GetPlayIndex(battleIndex, i)
         if (charIndex>=0 and Char.IsPlayer(charIndex)==true) then
-            local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
+            local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
             if (A_Buff >= 1) then
                     NLG.SetHeadIcon(charIndex, 119646);
-                    NLG.UpChar(charIndex);
             else
                     NLG.SetHeadIcon(charIndex, 1);
-                    NLG.UpChar(charIndex);
             end
         end
     end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--ç»“æŸã€æ³¨é”€åˆå§‹åŒ–
+function Module:battleOverEventCallback(battleIndex)
+  for i = 0, 19 do
+        local charIndex = Battle.GetPlayer(battleIndex, i);
+        if charIndex >= 0 then
+              local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
+              local D_Buff = Char.GetTempData(charIndex, 'é˜²å¾¡å¢ç›Š') or 0;
+              if (A_Buff >= 1) then
+                 Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', 0);
+              end
+              if (D_Buff >= 1) then
+                 Char.SetTempData(charIndex, 'é˜²å¾¡å¢ç›Š', 0);
+              end
+        end
+  end
+end
+function Module:onLogbattleOverEvent(charIndex)
+	local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
+	local D_Buff = Char.GetTempData(charIndex, 'é˜²å¾¡å¢ç›Š') or 0;
+	if (A_Buff >= 1) then
+		Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', 0);
+	end
+	if (D_Buff >= 1) then
+		Char.SetTempData(charIndex, 'é˜²å¾¡å¢ç›Š', 0);
+	end
+end
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
