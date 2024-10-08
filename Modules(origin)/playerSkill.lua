@@ -8,7 +8,7 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self))
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self));
-  self:regCallback('LoginEvent', Func.bind(self.onLogbattleOverEvent, self));
+  self:regCallback('LoginGateEvent', Func.bind(self.onLogbattleOverEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogbattleOverEvent, self));
 end
 
