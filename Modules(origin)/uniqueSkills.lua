@@ -1,28 +1,28 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('uniqueSkills')
 
-local Terra_itemId = 70196;	--µØ¾«Áé
-local Agni_itemId = 70198;	--»ğ¾«Áé
-local Aqua_itemId = 70197;	--Ë®¾«Áé
-local Ventus_itemId = 70199;	--·ç¾«Áé
+local Terra_itemId = 70196;	--åœ°ç²¾çµ
+local Agni_itemId = 70198;	--ç«ç²¾çµ
+local Aqua_itemId = 70197;	--æ°´ç²¾çµ
+local Ventus_itemId = 70199;	--é£ç²¾çµ
 local DropsList = {};
-DropsList[1]={47121,47122,47123};	--½£
-DropsList[2]={47124,47125,47126};	--¸«
-DropsList[3]={47127,47128,47129};	--Ç¹
-DropsList[4]={47139,47140,47141};	--ÕÈ
-DropsList[5]={47130,47131,47132};	--¹­
-DropsList[6]={47136,47137,47138};	--Ğ¡µ¶
-DropsList[7]={47133,47134,47135};	--»ØÁ¦ïÚ
-DropsList[8]={47163,47164,47165};	--¶Ü
-DropsList[9]={47142,47143,47144};	--¿ø
-DropsList[10]={47145,47146,47147};	--Ã±
-DropsList[11]={47148,47149,47150};	--îø
-DropsList[12]={47151,47152,47153};	--ÒÂ
-DropsList[13]={47154,47155,47156};	--ÅÛ
-DropsList[14]={47157,47158,47159};	--Ñ¥
-DropsList[15]={47160,47161,47162};	--Ğ¬
-DropsList[16]={47167,47169};	--ÁÏÀí
-DropsList[17]={47171,47173};	--Ò©Æ·
+DropsList[1]={47121,47122,47123};	--å‰‘
+DropsList[2]={47124,47125,47126};	--æ–§
+DropsList[3]={47127,47128,47129};	--æª
+DropsList[4]={47139,47140,47141};	--æ–
+DropsList[5]={47130,47131,47132};	--å¼“
+DropsList[6]={47136,47137,47138};	--å°åˆ€
+DropsList[7]={47133,47134,47135};	--å›åŠ›é•–
+DropsList[8]={47163,47164,47165};	--ç›¾
+DropsList[9]={47142,47143,47144};	--ç›”
+DropsList[10]={47145,47146,47147};	--å¸½
+DropsList[11]={47148,47149,47150};	--é“ 
+DropsList[12]={47151,47152,47153};	--è¡£
+DropsList[13]={47154,47155,47156};	--è¢
+DropsList[14]={47157,47158,47159};	--é´
+DropsList[15]={47160,47161,47162};	--é‹
+DropsList[16]={15201,15203,15209};	--æ–™ç†
+DropsList[17]={15606,15608,15610};	--è¯å“
 DropsList[18]={18005,18006,18007,18008,18009};
 
 local FusionEnable_check= {
@@ -66,7 +66,7 @@ FusionList[47163]=47164;
 FusionList[47164]=47165;
 
 --------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemOverLapEvent', Func.bind(self.OnItemOverLapEvent, self));
@@ -88,12 +88,12 @@ end
 function Module:onGetExpEvent(charIndex, exp)
     if (Char.IsPlayer(charIndex)==true) then
         if (Char.ItemNum(charIndex, Agni_itemId)==1)then
-            return exp * 2;		--½ÇÉ«»ñÈ¡µÄ¾­ÑéË«±¶
+            return exp * 1.5;		--è§’è‰²è·å–çš„ç»éªŒåŒå€
         end
     elseif (Char.IsPet(charIndex)==true) then
         local OwnerIndex = Pet.GetOwner(charIndex);
         if (Char.ItemNum(OwnerIndex, Terra_itemId)==1)then
-            return exp * 2;		--³èÎï»ñÈ¡µÄ¾­ÑéË«±¶
+            return exp * 2;		--å® ç‰©è·å–çš„ç»éªŒåŒå€
         end
     end
     return exp;
@@ -102,8 +102,8 @@ end
 function Module:OnItemOverLapEvent(charIndex, fromIndex, targetIndex, Num)
     local fromItemID = Item.GetData(fromIndex,0);
     local targetItemID = Item.GetData(targetIndex,0);
-    local targetLevel = Item.GetData(targetIndex,CONST.µÀ¾ß_µÈ¼¶);
-    local targetType = Item.GetData(targetIndex,CONST.µÀ¾ß_ÀàĞÍ);
+    local targetLevel = Item.GetData(targetIndex,CONST.é“å…·_ç­‰çº§);
+    local targetType = Item.GetData(targetIndex,CONST.é“å…·_ç±»å‹);
     --print(fromItemID,targetItemID)
     if (Char.ItemNum(charIndex, Terra_itemId)==1) then
         if (fromItemID==targetItemID and CheckInTable(FusionEnable_check, targetItemID)==true) then
@@ -123,47 +123,53 @@ function Module:battleOverEventCallback(battleIndex)
   for i = 0, 9 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
         if (charIndex >= 0 and Char.IsPlayer(charIndex)==true) then
-            if (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==1 and Char.ItemNum(charIndex, Ventus_itemId)==0) then
-                local totalLp = Char.GetData(charIndex, CONST.¶ÔÏó_Ñª)+5;
-                local totalFp = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§)+5;
-                local HP_MAX = Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÑª);
-                local MP_MAX = Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÄ§);
+            if (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==1 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+                local totalLp = Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€)+25;
+                local totalFp = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”)+25;
+                local HP_MAX = Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+                local MP_MAX = Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§é­”);
                 if (totalLp>HP_MAX) then totalLp=HP_MAX; end
                 if (totalFp>MP_MAX) then totalFp=MP_MAX; end
-                Char.SetData(charIndex,CONST.¶ÔÏó_Ñª, totalLp);
-                Char.SetData(charIndex,CONST.¶ÔÏó_Ä§, totalFp);
+                Char.SetData(charIndex,CONST.å¯¹è±¡_è¡€, totalLp);
+                Char.SetData(charIndex,CONST.å¯¹è±¡_é­”, totalFp);
                 NLG.UpChar(charIndex);
-                local injury = Char.GetData(charIndex, CONST.CHAR_ÊÜÉË);
-                local lost = Char.GetData(charIndex, CONST.CHAR_µô»ê);
+                local injury = Char.GetData(charIndex, CONST.CHAR_å—ä¼¤);
+                local lost = Char.GetData(charIndex, CONST.CHAR_æ‰é­‚);
                 if ( injury < 1 and lost < 1) then
                     return;
                 elseif ( injury > 0 and lost < 1) then
-                    Char.SetData(charIndex, CONST.CHAR_ÊÜÉË, 0);
+                    Char.SetData(charIndex, CONST.CHAR_å—ä¼¤, 0);
                     NLG.UpChar(charIndex);
                 elseif ( injury < 1 and lost > 0) then
-                    Char.SetData(charIndex, CONST.CHAR_µô»ê, 0);
+                    Char.SetData(charIndex, CONST.CHAR_æ‰é­‚, 0);
                     NLG.UpChar(charIndex);
                 elseif ( injury > 0 and lost > 0) then
-                    Char.SetData(charIndex, CONST.CHAR_ÊÜÉË, 0);
-                    Char.SetData(charIndex, CONST.CHAR_µô»ê, 0);
+                    Char.SetData(charIndex, CONST.CHAR_å—ä¼¤, 0);
+                    Char.SetData(charIndex, CONST.CHAR_æ‰é­‚, 0);
                     NLG.UpChar(charIndex);
                 end
-            elseif (Char.ItemNum(charIndex, Agni_itemId)==1 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0) then
-                --local Level = math.modf(Char.GetData(charIndex, CONST.¶ÔÏó_µÈ¼¶)/10)+1;
+            elseif (Char.ItemNum(charIndex, Agni_itemId)==1 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+                --local Level = math.modf(Char.GetData(charIndex, CONST.å¯¹è±¡_ç­‰çº§)/10)+1;
                 --if (Level>10) then Level = 10; end
                 local Rand = NLG.Rand(1, 15);
                 local burst = NLG.Rand(1, 50);
                 if (burst>=41) then
                     Char.GiveItem(charIndex, DropsList[Rand][1], 1);
                 end
-            elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==1) then
-                --local Level = math.modf(Char.GetData(charIndex, CONST.¶ÔÏó_µÈ¼¶)/10)+1;
+            elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==1 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+                --local Level = math.modf(Char.GetData(charIndex, CONST.å¯¹è±¡_ç­‰çº§)/10)+1;
                 --if (Level>10) then Level = 10; end
                 local Rand = NLG.Rand(16, 18);
                 local thing = NLG.Rand(1, #DropsList[Rand]);
                 local burst = NLG.Rand(10, 50);
                 if (burst>=41) then
                     Char.GiveItem(charIndex, DropsList[Rand][thing], 1);
+                end
+            elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==1) then
+                local amount = NLG.Rand(10, 100);
+                local burst = NLG.Rand(10, 50);
+                if (burst>=41) then
+                    Char.AddGold(charIndex, amount);
                 end
             else
                 local burst = NLG.Rand(1, 100);
@@ -176,7 +182,7 @@ function Module:battleOverEventCallback(battleIndex)
 end
 
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -195,7 +201,7 @@ Char.GetSpecifyItemSlot = function(charIndex,testIndex)
   return -1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
