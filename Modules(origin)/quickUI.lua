@@ -2,30 +2,43 @@ local QuickUI = ModuleBase:createModule('quickUI')
 
 local PartyMember={}
 
+local Terra_itemId = 70196;	--åœ°ç²¾çµ
+local Agni_itemId = 70198;	--ç«ç²¾çµ
+local Aqua_itemId = 70197;	--æ°´ç²¾çµ
+local Ventus_itemId = 70199;	--é£ç²¾çµ
+local WingSpeed_List = {110,120,130,140,160,180,200,220,250,300};
+local WingKind_List = {};
+WingKind_List[70196]={119012,119012,119012,119012,119012,119012,119012,119012,119012,119016};
+WingKind_List[70198]={119014,119014,119014,119014,119014,119014,119014,119014,119014,119016};
+WingKind_List[70197]={119013,119013,119013,119013,119013,119013,119013,119013,119013,119016};
+WingKind_List[70199]={119015,119015,119015,119015,119015,119015,119015,119015,119015,119016};
+
+----------------------------------------------------------------------------
 function QuickUI:shortcut(player, actionID)
-  if actionID == %¶¯×÷_¼ôµ¶% then
+  if actionID == %åŠ¨ä½œ_å‰ªåˆ€% then
     self:petinfo(player);
   end
 end
 
 function QuickUI:walkingspeed(npc, player)
-      local msg = "\\n@c¡¾ÒÆ„Ó¼ÓËÙ¡¿Íê³ÉÈÎ„ÕÖğ²½ÌáÉıÖÁ×î¸ß×ßÂ·ËÙ¶È£¡\\n\\n1.ÍõŒmÕÙ†¾Ê¿ÉwÆ[ËÀÕß½äÖ¸]¡¾150¡¿\\n\\n2.Å®Éñ¿¨ßB[Áùê×Ö®Ëş]¡¾200¡¿\\n\\n3.ÊÜ‚ûµÄÅ®ÈË[É­Á_ÈfÏó]¡¾250¡¿\\n\\n4.Ù¸ñÃ·ÌØÖ®»ê[Ê§ÒíÖ®ıˆ]¡¾300¡¿\\n";
-      NLG.ShowWindowTalked(player, self.speedNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+      --local msg = "\\n@cã€ç§»å‹•åŠ é€Ÿã€‘å®Œæˆä»»å‹™é€æ­¥æå‡è‡³æœ€é«˜èµ°è·¯é€Ÿåº¦ï¼\\n\\n1.ç‹å®®å¬å–šå£«è“‹èŒ²[æ­»è€…æˆ’æŒ‡]ã€150ã€‘\\n\\n2.å¥³ç¥å¡é€£[å…­æ›œä¹‹å¡”]ã€200ã€‘\\n\\n3.å—å‚·çš„å¥³äºº[æ£®ç¾…è¬è±¡]ã€250ã€‘\\n\\n4.è³½æ ¼æ¢…ç‰¹ä¹‹é­‚[å¤±ç¿¼ä¹‹é¾]ã€300ã€‘\\n";
+      local msg = "\\n@cã€ç§»å‹•åŠ é€Ÿã€‘æ”¶é›†å››é­‚ä¹‹ç‰å¼·åŒ–ä½ çš„ç²¾éˆä¹‹é­‚ï¼\\n\\nç²¾éˆä¹‹é­‚Lv1ã€110ã€‘ã€€ã€€ç²¾éˆä¹‹é­‚Lv6ã€180ã€‘\\nã€€ã€€ã€€ã€€Lv2ã€120ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv7ã€200ã€‘\\nã€€ã€€ã€€ã€€Lv3ã€130ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv8ã€220ã€‘\\nã€€ã€€ã€€ã€€Lv4ã€140ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv9ã€250ã€‘\\nã€€ã€€ã€€ã€€Lv5ã€160ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv10ã€300ã€‘\\n";
+      NLG.ShowWindowTalked(player, self.speedNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
 end
 
 function QuickUI:teamfever(npc, player)
-      local msg = "\\n\\n@c¡¾Ò»æIÈ«ê ´ò¿¨¡¿\\n\\n·Ç´ò¿¨ î‘B¡ú´ò¿¨ î‘B\\n\\n´ò¿¨ î‘B¡ú·Ç´ò¿¨ î‘B\\n\\n[´_¶¨]ÍÈ«ê ßMĞĞ´ò¿¨|È«ê µÄ´ò¿¨½YÊø\\n";
-      NLG.ShowWindowTalked(player, self.feverNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 2, msg);
+      local msg = "\\n\\n@cã€ä¸€éµå…¨éšŠæ‰“å¡ã€‘\\n\\néæ‰“å¡ç‹€æ…‹â†’æ‰“å¡ç‹€æ…‹\\n\\næ‰“å¡ç‹€æ…‹â†’éæ‰“å¡ç‹€æ…‹\\n\\n[ç¢ºå®š]å¹«å…¨éšŠé€²è¡Œæ‰“å¡|å…¨éšŠçš„æ‰“å¡çµæŸ\\n";
+      NLG.ShowWindowTalked(player, self.feverNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 2, msg);
 end
 
 function QuickUI:teamheal(npc, player)
-      local msg = "\\n\\n@c»ØÍÄ§·¨Öµ£¨+µÈÁ¿ÉúÃüÖµ£©\\n\\n»ØÍÉúÃüÖµ\\n\\n»ØÍŒ™ÎïµÄÉúÃüÖµºÍÄ§·¨Öµ\\n\\nÒ»æI»ØÍÈ«ê ÈËÎïºÍŒ™ÎïÄ§·¨¡¢ÉúÃü\\n";
-      NLG.ShowWindowTalked(player, self.healNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 3, msg);
+      local msg = "\\n\\n@cå›å¾©é­”æ³•å€¼ï¼ˆ+ç­‰é‡ç”Ÿå‘½å€¼ï¼‰\\n\\nå›å¾©ç”Ÿå‘½å€¼\\n\\nå›å¾©å¯µç‰©çš„ç”Ÿå‘½å€¼å’Œé­”æ³•å€¼\\n\\nä¸€éµå›å¾©å…¨éšŠäººç‰©å’Œå¯µç‰©é­”æ³•ã€ç”Ÿå‘½\\n";
+      NLG.ShowWindowTalked(player, self.healNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 3, msg);
 end
 
 function QuickUI:gather(player)
-      local playerMapType = Char.GetData(player, CONST.CHAR_µØÍ¼ÀàĞÍ);
-      local playerMap = Char.GetData(player, CONST.CHAR_µØÍ¼);
+      local playerMapType = Char.GetData(player, CONST.CHAR_åœ°å›¾ç±»å‹);
+      local playerMap = Char.GetData(player, CONST.CHAR_åœ°å›¾);
       local playerX = Char.GetData(player, CONST.CHAR_X);
       local playerY = Char.GetData(player, CONST.CHAR_Y);
       if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
@@ -36,14 +49,14 @@ function QuickUI:gather(player)
                 end
             end
       else
-            NLG.SystemMessage(player, 'ê éL²Å¿ÉÊ¹ÓÃ£¡');
+            NLG.SystemMessage(player, 'éšŠé•·æ‰å¯ä½¿ç”¨ï¼');
       end
 end
 
 function QuickUI:partyenter(player)
-      local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
-      local playerMapType = Char.GetData(player, CONST.CHAR_µØÍ¼ÀàĞÍ);
-      local playerMap = Char.GetData(player, CONST.CHAR_µØÍ¼);
+      local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+      local playerMapType = Char.GetData(player, CONST.CHAR_åœ°å›¾ç±»å‹);
+      local playerMap = Char.GetData(player, CONST.CHAR_åœ°å›¾);
       local playerX = Char.GetData(player, CONST.CHAR_X);
       local playerY = Char.GetData(player, CONST.CHAR_Y);
       if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
@@ -57,22 +70,22 @@ function QuickUI:partyenter(player)
                     end
              end
              table.insert(PartyMember[cdk],cdk);
-             NLG.SystemMessage(player, 'ê Îé³É†T¼oä›Íê®…£¡');
+             NLG.SystemMessage(player, 'éšŠä¼æˆå“¡ç´€éŒ„å®Œç•¢ï¼');
       else
-            NLG.SystemMessage(player, 'ê éL²Å¿ÉÊ¹ÓÃ£¡');
+            NLG.SystemMessage(player, 'éšŠé•·æ‰å¯ä½¿ç”¨ï¼');
       end
 end
 
 function QuickUI:partyform(player)
-      local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
-      local playerMapType = Char.GetData(player, CONST.CHAR_µØÍ¼ÀàĞÍ);
-      local playerMap = Char.GetData(player, CONST.CHAR_µØÍ¼);
+      local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
+      local playerMapType = Char.GetData(player, CONST.CHAR_åœ°å›¾ç±»å‹);
+      local playerMap = Char.GetData(player, CONST.CHAR_åœ°å›¾);
       local playerX = Char.GetData(player, CONST.CHAR_X);
       local playerY = Char.GetData(player, CONST.CHAR_Y);
       if PartyMember[cdk] ~= nill and cdk == PartyMember[cdk][6] then
             if Char.PartyNum(player) == -1 then
                   for i,v in ipairs(PartyMember[cdk]) do
-                        local memberMap = Char.GetData(v, CONST.CHAR_µØÍ¼);
+                        local memberMap = Char.GetData(v, CONST.CHAR_åœ°å›¾);
                         local memberX = Char.GetData(v, CONST.CHAR_X);
                         local memberY = Char.GetData(v, CONST.CHAR_Y);
                         if i<=5 and v>-1 and v~=player and memberMap == playerMap then
@@ -80,37 +93,37 @@ function QuickUI:partyform(player)
                                     Char.Warp(v, playerMapType, playerMap, playerX, playerY);
                                     Char.JoinParty(v, player);
                               else
-                                    NLG.SystemMessage(player, 'ÓĞê †T¾àëxß^ßhÈëê Ê§”¡£¡');
+                                    NLG.SystemMessage(player, 'æœ‰éšŠå“¡è·é›¢éé å…¥éšŠå¤±æ•—ï¼');
                               end
                         end
                   end
             end
       else
-            NLG.SystemMessage(player, 'ÕˆÏÈÓ›ä›»ò¸²Œ‘ê Îé³É†T£¡');
+            NLG.SystemMessage(player, 'è«‹å…ˆè¨˜éŒ„æˆ–è¦†å¯«éšŠä¼æˆå“¡ï¼');
       end
 end
 
 function QuickUI:petinfo(player)
       for petSlot = 0,4 do
             local petIndex = Char.GetPet(player, petSlot);
-            local petname = Char.GetData(petIndex, CONST.CHAR_Ãû×Ö);
-            local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_Ìå³É);
-            local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_Á¦³É);
-            local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_Ç¿³É);
-            local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_Ãô³É);
-            local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_Ä§³É);
+            local petname = Char.GetData(petIndex, CONST.CHAR_åå­—);
+            local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+            local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+            local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+            local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+            local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
             local a6, a1, a2, a3, a4, a5 = Char.GetPetRank(player,petSlot);
-            local TrueName = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
-            local last = string.find(TrueName, "®·N", 1) or nil;
+            local TrueName = Char.GetData(petIndex,CONST.å¯¹è±¡_åŸå);
+            local last = string.find(TrueName, "ç•°ç¨®", 1) or nil;
             local a61 = arr_rank1+arr_rank2+arr_rank3+arr_rank4+arr_rank5;
             if last~=nil then
                   NLG.SystemMessage(player, '---------------------------------------');
-                  NLG.SystemMessage(player, ''..TrueName..'£º¿‚¹²ÊÇ¡¶'..a61..'¡·³ÉéL™n´Î');
-                  NLG.SystemMessage(player, 'ów³ÉéL'..arr_rank1..' Á¦³ÉéL'..arr_rank2..' Š³ÉéL'..arr_rank3..' ËÙ³ÉéL'..arr_rank4..' Ä§³ÉéL'..arr_rank5);
+                  NLG.SystemMessage(player, ''..TrueName..'ï¼šç¸½å…±æ˜¯ã€Š'..a61..'ã€‹æˆé•·æª”æ¬¡');
+                  NLG.SystemMessage(player, 'é«”æˆé•·'..arr_rank1..' åŠ›æˆé•·'..arr_rank2..' å¼·æˆé•·'..arr_rank3..' é€Ÿæˆé•·'..arr_rank4..' é­”æˆé•·'..arr_rank5);
             elseif last==nil and a6 >= 0 then
                   NLG.SystemMessage(player, '---------------------------------------');
-                  NLG.SystemMessage(player, ''..petname..'£º¿‚¹²-'..a6..'™n´Î£¡');
-                  NLG.SystemMessage(player, 'ów'..arr_rank1..'(-'..a1..')Á¦'..arr_rank2..'(-'..a2..')Š'..arr_rank3..'(-'..a3..')ËÙ'..arr_rank4..'(-'..a4..')Ä§'..arr_rank5..'(-'..a5..')');
+                  NLG.SystemMessage(player, ''..petname..'ï¼šç¸½å…±-'..a6..'æª”æ¬¡ï¼');
+                  NLG.SystemMessage(player, 'é«”'..arr_rank1..'(-'..a1..')åŠ›'..arr_rank2..'(-'..a2..')å¼·'..arr_rank3..'(-'..a3..')é€Ÿ'..arr_rank4..'(-'..a4..')é­”'..arr_rank5..'(-'..a5..')');
             end
       end
       NLG.SystemMessage(player, '---------------------------------------');
@@ -118,39 +131,42 @@ end
 
 function QuickUI:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="/book") then
-		local msg = "2\\n@c¡¡ÌØÊâ±ã½İ¹¦ÄÜßx†Î\\n"
-			.."¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-			.."¡¡¡¶½Mê Ò»æI´ò¿¨¡·\\n"
-			.."¡¡¡¶½Mê Ò»æI»ÖÍ¡·\\n"
-			.."¡¡¡¶ê Îé³É†T¼oä›¡·\\n"
-			.."¡¡¡¶ê Îé³É†T¼¯½Y¡·\\n"
-			.."¡¡¡¶³É†T¼¯ÖĞÒ»üc¡·\\n"
-			.."¡¡¡¶×ßÂ·ÒÆ„Ó¼ÓËÙ¡·\\n"
-			.."¡¡¡¶Œ™ÎïÒ»æIËã™n¡·\\n";
-		NLG.ShowWindowTalked(charIndex, self.quickUInpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+		local msg = "2\\n@cã€€ç‰¹æ®Šä¾¿æ·åŠŸèƒ½é¸å–®\\n"
+			.."ã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+			.."ã€€ã€Šçµ„éšŠä¸€éµæ‰“å¡ã€‹\\n"
+			.."ã€€ã€Šçµ„éšŠä¸€éµæ¢å¾©ã€‹\\n"
+			.."ã€€ã€ŠéšŠä¼æˆå“¡ç´€éŒ„ã€‹\\n"
+			.."ã€€ã€ŠéšŠä¼æˆå“¡é›†çµã€‹\\n"
+			.."ã€€ã€Šæˆå“¡é›†ä¸­ä¸€é»ã€‹\\n"
+			.."ã€€ã€Šèµ°è·¯ç§»å‹•åŠ é€Ÿã€‹\\n"
+			.."ã€€ã€Šå¯µç‰©ä¸€éµç®—æª”ã€‹\\n";
+		NLG.ShowWindowTalked(charIndex, self.quickUInpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
 		return 0;
 	end
 	return 1;
 end
 
+-------------------------------------------------------------------------------------------------------------------------------------
 function QuickUI:onLoad()
   self:logInfo('load');
   self:regCallback('CharActionEvent', Func.bind(self.shortcut, self))
   self:regCallback('ItemString', Func.bind(self.imageCollection, self),"LUA_useMetamoCT");
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self));
-  self.quickUInpc = self:NPC_createNormal('¶¯×÷¿ì½İÍ¼Ê¾', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
+  self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
+
+  self.quickUInpc = self:NPC_createNormal('åŠ¨ä½œå¿«æ·å›¾ç¤º', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.quickUInpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "2\\n@c¡¡ÌØÊâ±ã½İ¹¦ÄÜßx†Î\\n"
-            .."¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-            .."¡¡¡¶½Mê Ò»æI´ò¿¨¡·\\n"
-            .."¡¡¡¶½Mê Ò»æI»ÖÍ¡·\\n"
-            .."¡¡¡¶ê Îé³É†T¼oä›¡·\\n"
-            .."¡¡¡¶ê Îé³É†T¼¯½Y¡·\\n"
-            .."¡¡¡¶³É†T¼¯ÖĞÒ»üc¡·\\n"
-            .."¡¡¡¶×ßÂ·ÒÆ„Ó¼ÓËÙ¡·\\n"
-            .."¡¡¡¶Œ™ÎïÒ»æIËã™n¡·\\n";
-      NLG.ShowWindowTalked(player, self.quickUInpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+      local msg = "2\\n@cã€€ç‰¹æ®Šä¾¿æ·åŠŸèƒ½é¸å–®\\n"
+            .."ã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+            .."ã€€ã€Šçµ„éšŠä¸€éµæ‰“å¡ã€‹\\n"
+            .."ã€€ã€Šçµ„éšŠä¸€éµæ¢å¾©ã€‹\\n"
+            .."ã€€ã€ŠéšŠä¼æˆå“¡ç´€éŒ„ã€‹\\n"
+            .."ã€€ã€ŠéšŠä¼æˆå“¡é›†çµã€‹\\n"
+            .."ã€€ã€Šæˆå“¡é›†ä¸­ä¸€é»ã€‹\\n"
+            .."ã€€ã€Šèµ°è·¯ç§»å‹•åŠ é€Ÿã€‹\\n"
+            .."ã€€ã€Šå¯µç‰©ä¸€éµç®—æª”ã€‹\\n";
+      NLG.ShowWindowTalked(player, self.quickUInpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return
   end)
@@ -161,7 +177,7 @@ function QuickUI:onLoad()
     --print(data)
     if select > 0 then
     else
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
       if (seqno == 1 and data >= 1) then
@@ -185,118 +201,127 @@ function QuickUI:onLoad()
     end
   end)
 
-  --ÒÆ„ÓËÙ¶È
-  self.speedNpc = self:NPC_createNormal('ËÙ¶È¿ì½İ', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
+  --ç§»å‹•é€Ÿåº¦
+  self.speedNpc = self:NPC_createNormal('é€Ÿåº¦å¿«æ·', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.speedNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n@c¡¾ÒÆ„Ó¼ÓËÙ¡¿Íê³ÉÈÎ„ÕÖğ²½ÌáÉıÖÁ×î¸ß×ßÂ·ËÙ¶È£¡\\n\\n1.ÍõŒmÕÙ†¾Ê¿ÉwÆ[ËÀÕß½äÖ¸]¡¾130¡¿\\n\\n2.Å®Éñ¿¨ßB[Áùê×Ö®Ëş]¡¾150¡¿\\n\\n3.ÊÜ‚ûµÄÅ®ÈË[É­Á_ÈfÏó]¡¾170¡¿\\n\\n4.Ù¸ñÃ·ÌØÖ®»ê[Ê§ÒíÖ®ıˆ]¡¾200¡¿\\n";
-      NLG.ShowWindowTalked(player, self.speedNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+      --local msg = "\\n@cã€ç§»å‹•åŠ é€Ÿã€‘å®Œæˆä»»å‹™é€æ­¥æå‡è‡³æœ€é«˜èµ°è·¯é€Ÿåº¦ï¼\\n\\n1.ç‹å®®å¬å–šå£«è“‹èŒ²[æ­»è€…æˆ’æŒ‡]ã€130ã€‘\\n\\n2.å¥³ç¥å¡é€£[å…­æ›œä¹‹å¡”]ã€150ã€‘\\n\\n3.å—å‚·çš„å¥³äºº[æ£®ç¾…è¬è±¡]ã€170ã€‘\\n\\n4.è³½æ ¼æ¢…ç‰¹ä¹‹é­‚[å¤±ç¿¼ä¹‹é¾]ã€200ã€‘\\n";
+      local msg = "\\n@cã€ç§»å‹•åŠ é€Ÿã€‘æ”¶é›†å››é­‚ä¹‹ç‰å¼·åŒ–ä½ çš„ç²¾éˆä¹‹é­‚ï¼\\n\\nç²¾éˆä¹‹é­‚Lv1ã€110ã€‘ã€€ã€€ç²¾éˆä¹‹é­‚Lv6ã€180ã€‘\\nã€€ã€€ã€€ã€€Lv2ã€120ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv7ã€200ã€‘\\nã€€ã€€ã€€ã€€Lv3ã€130ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv8ã€220ã€‘\\nã€€ã€€ã€€ã€€Lv4ã€140ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv9ã€250ã€‘\\nã€€ã€€ã€€ã€€Lv5ã€160ã€‘ã€€ã€€ã€€ã€€ã€€ã€€Lv10ã€300ã€‘\\n";
+      NLG.ShowWindowTalked(player, self.speedNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.speedNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 1 and select == CONST.°´Å¥_È·¶¨ then
-          if Char.EndEvent(player,0) == 1 then
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ,150);
+      if seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
+          if (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==1 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
+                local itemIndex = Char.HaveItem(player, Aqua_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, 114206);
-          end
-          if  Char.EndEvent(player,21) == 1 then
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ,200);
+                NLG.SetHeadIcon(player, WingKind_List[Aqua_itemId][level]);
+          elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
+                local itemIndex = Char.HaveItem(player, Agni_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, 114177);
-          end
-          if  Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 then
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ,250);
+                NLG.SetHeadIcon(player, WingKind_List[Agni_itemId][level]);
+          elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
+                local itemIndex = Char.HaveItem(player, Ventus_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, 120054);
-          end
-          if  Char.EndEvent(player,21) == 1 and Char.EndEvent(player,105) == 1 and Char.EndEvent(player,143) == 1 then
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ,300);
+                NLG.SetHeadIcon(player, WingKind_List[Ventus_itemId][level]);
+          elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
+                local itemIndex = Char.HaveItem(player, Terra_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, 108510)
+                NLG.SetHeadIcon(player, WingKind_List[Terra_itemId][level]);
+          else
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ,100);
+                NLG.UpChar(player)
           end
-      elseif seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ then
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ,100);
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­ then
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ,100);
                 NLG.UpChar(player)
       end
     end
   end)
-  --È«ê ´ò¿¨
-  self.feverNpc = self:NPC_createNormal('´ò¿¨¿ì½İ', 98972, { x = 38, y = 37, mapType = 0, map = 777, direction = 6 });
+  --å…¨éšŠæ‰“å¡
+  self.feverNpc = self:NPC_createNormal('æ‰“å¡å¿«æ·', 98972, { x = 38, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.feverNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n\\n@c¡¾Ò»æIÈ«ê ´ò¿¨¡¿\\n\\n·Ç´ò¿¨ î‘B¡ú´ò¿¨ î‘B\\n\\n´ò¿¨ î‘B¡ú·Ç´ò¿¨ î‘B\\n\\n[´_¶¨]ÍÈ«ê ßMĞĞ´ò¿¨¡¢È«ê µÄ´ò¿¨½YÊø\\n";
-      NLG.ShowWindowTalked(player, self.feverNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 2, msg);
+      local msg = "\\n\\n@cã€ä¸€éµå…¨éšŠæ‰“å¡ã€‘\\n\\néæ‰“å¡ç‹€æ…‹â†’æ‰“å¡ç‹€æ…‹\\n\\næ‰“å¡ç‹€æ…‹â†’éæ‰“å¡ç‹€æ…‹\\n\\n[ç¢ºå®š]å¹«å…¨éšŠé€²è¡Œæ‰“å¡ã€å…¨éšŠçš„æ‰“å¡çµæŸ\\n";
+      NLG.ShowWindowTalked(player, self.feverNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 2, msg);
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.feverNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 2 and select == CONST.°´Å¥_È·¶¨ then
+      if seqno == 2 and select == CONST.æŒ‰é’®_ç¡®å®š then
         for slot = 0,4 do
           local p = Char.GetPartyMember(player,slot)
           if(p>=0) then
-                local daka = Char.GetData(p, CONST.¶ÔÏó_´ò¿¨);
-                local name = Char.GetData(p,CONST.CHAR_Ãû×Ö);
+                local daka = Char.GetData(p, CONST.å¯¹è±¡_æ‰“å¡);
+                local name = Char.GetData(p,CONST.CHAR_åå­—);
                 if daka == 1 then
                       Char.FeverStop(p);
                       NLG.UpChar(p);
-                      NLG.SystemMessage(player, name.."êPé]´ò¿¨¡£");
+                      NLG.SystemMessage(player, name.."é—œé–‰æ‰“å¡ã€‚");
                 end
                 if daka == 0 then
                       if Char.IsDummy(p) then
-                          Char.SetData(p, CONST.CHAR_¿¨Ê±, 24 * 3600);
+                          Char.SetData(p, CONST.CHAR_å¡æ—¶, 24 * 3600);
                       end
                       Char.FeverStart(p);
                       NLG.UpChar(p);
-                      NLG.SystemMessage(player, name.."´ò¿¨³É¹¦¡£");
+                      NLG.SystemMessage(player, name.."æ‰“å¡æˆåŠŸã€‚");
                 end
           else
-                --NLG.SystemMessage(player, "½Mê  î‘B²ÅÄÜÓÃ´ËÈ«ê ´ò¿¨¡£");
+                --NLG.SystemMessage(player, "çµ„éšŠç‹€æ…‹æ‰èƒ½ç”¨æ­¤å…¨éšŠæ‰“å¡ã€‚");
                 return
           end
         end
       end
     end
   end)
-  --È«ê ÑaÑª
-  self.healNpc = self:NPC_createNormal('²¹Ñª¿ì½İ', 98972, { x = 39, y = 37, mapType = 0, map = 777, direction = 6 });
+  --å…¨éšŠè£œè¡€
+  self.healNpc = self:NPC_createNormal('è¡¥è¡€å¿«æ·', 98972, { x = 39, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.healNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n\\n@c»ØÍÄ§·¨Öµ£¨+µÈÁ¿ÉúÃüÖµ£©\\n\\n»ØÍÉúÃüÖµ\\n\\n»ØÍŒ™ÎïµÄÉúÃüÖµºÍÄ§·¨Öµ\\n\\nÒ»æI»ØÍÈ«ê ÈËÎïºÍŒ™ÎïÄ§·¨¡¢ÉúÃü\\n";
-      NLG.ShowWindowTalked(player, self.healNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 3, msg);
+      local msg = "\\n\\n@cå›å¾©é­”æ³•å€¼ï¼ˆ+ç­‰é‡ç”Ÿå‘½å€¼ï¼‰\\n\\nå›å¾©ç”Ÿå‘½å€¼\\n\\nå›å¾©å¯µç‰©çš„ç”Ÿå‘½å€¼å’Œé­”æ³•å€¼\\n\\nä¸€éµå›å¾©å…¨éšŠäººç‰©å’Œå¯µç‰©é­”æ³•ã€ç”Ÿå‘½\\n";
+      NLG.ShowWindowTalked(player, self.healNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 3, msg);
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.healNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 3 and select == CONST.°´Å¥_È·¶¨ then
-        gold = Char.GetData(player, CONST.CHAR_½ğ±Ò);
+      if seqno == 3 and select == CONST.æŒ‰é’®_ç¡®å®š then
+        gold = Char.GetData(player, CONST.CHAR_é‡‘å¸);
         totalGold = 0;
         FpGold = 0;
         LpGold = 0;
-        --Ó‹Ëã»ØÍ¿‚½ğî~
+        --è¨ˆç®—å›å¾©ç¸½é‡‘é¡
         for slot = 0,4 do
           local p = Char.GetPartyMember(player,slot)
           if(p>=0) then
-                local lp = Char.GetData(p, CONST.CHAR_Ñª)
-                local maxLp = Char.GetData(p, CONST.CHAR_×î´óÑª)
-                local fp = Char.GetData(p, CONST.CHAR_Ä§)
-                local maxFp = Char.GetData(p, CONST.CHAR_×î´óÄ§)
+                local lp = Char.GetData(p, CONST.CHAR_è¡€)
+                local maxLp = Char.GetData(p, CONST.CHAR_æœ€å¤§è¡€)
+                local fp = Char.GetData(p, CONST.CHAR_é­”)
+                local maxFp = Char.GetData(p, CONST.CHAR_æœ€å¤§é­”)
                 if fp <= maxFp then
                       FpGold = FpGold + maxFp - fp;
                 end
@@ -311,30 +336,30 @@ function QuickUI:onLoad()
         else
           totalGold = FpGold + LpGold - FpGold*0.5;
         end
-        local msg = "\\n\\n@cÈ«ê »ØÍĞèÒª»¨ÙM"..totalGold.."‚€½ğÅ\\n\\n¬FÓĞ½ğåXÊÇ"..gold.."‚€½ğÅ\\n\\n\\nÒª»ØÍ†á£¿\\n";
-        NLG.ShowWindowTalked(player, self.healNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 31, msg);
-      --ÈËÎïŒ™ÎïÑaÑªÄ§
-      elseif seqno == 31 and select == CONST.°´Å¥_ÊÇ then
+        local msg = "\\n\\n@cå…¨éšŠå›å¾©éœ€è¦èŠ±è²»"..totalGold.."å€‹é‡‘å¹£\\n\\nç¾æœ‰é‡‘éŒ¢æ˜¯"..gold.."å€‹é‡‘å¹£\\n\\n\\nè¦å›å¾©å—ï¼Ÿ\\n";
+        NLG.ShowWindowTalked(player, self.healNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 31, msg);
+      --äººç‰©å¯µç‰©è£œè¡€é­”
+      elseif seqno == 31 and select == CONST.æŒ‰é’®_æ˜¯ then
         if gold < totalGold then
-                NLG.SystemMessage(player, '½ğÅ²»×ãŸo·¨»ØÍ');
+                NLG.SystemMessage(player, 'é‡‘å¹£ä¸è¶³ç„¡æ³•å›å¾©');
                 return
         else
                 if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
                     for slot = 0,4 do
                        local p = Char.GetPartyMember(player,slot);
                        if(p>=0) then
-                           local maxLp = Char.GetData(p, CONST.CHAR_×î´óÑª);
-                           local maxFp = Char.GetData(p, CONST.CHAR_×î´óÄ§);
-                           Char.SetData(p, CONST.CHAR_Ñª, maxLp);
-                           Char.SetData(p, CONST.CHAR_Ä§, maxFp);
+                           local maxLp = Char.GetData(p, CONST.CHAR_æœ€å¤§è¡€);
+                           local maxFp = Char.GetData(p, CONST.CHAR_æœ€å¤§é­”);
+                           Char.SetData(p, CONST.CHAR_è¡€, maxLp);
+                           Char.SetData(p, CONST.CHAR_é­”, maxFp);
                            NLG.UpChar(p);
                            for petSlot  = 0,4 do
                               local petIndex = Char.GetPet(p,petSlot);
                               if petIndex >= 0 then
-                                  local maxLp = Char.GetData(petIndex, CONST.CHAR_×î´óÑª);
-                                  local maxFp = Char.GetData(petIndex, CONST.CHAR_×î´óÄ§);
-                                  Char.SetData(petIndex, CONST.CHAR_Ñª, maxLp);
-                                  Char.SetData(petIndex, CONST.CHAR_Ä§, maxFp);
+                                  local maxLp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§è¡€);
+                                  local maxFp = Char.GetData(petIndex, CONST.CHAR_æœ€å¤§é­”);
+                                  Char.SetData(petIndex, CONST.CHAR_è¡€, maxLp);
+                                  Char.SetData(petIndex, CONST.CHAR_é­”, maxFp);
                                   Pet.UpPet(p, petIndex);
                               end
                            end
@@ -343,7 +368,7 @@ function QuickUI:onLoad()
                     Char.AddGold(player, -totalGold);
                     NLG.UpChar(player);
                 else
-                    NLG.SystemMessage(player, 'ê éL²Å¿ÉÊ¹ÓÃ£¡');
+                    NLG.SystemMessage(player, 'éšŠé•·æ‰å¯ä½¿ç”¨ï¼');
                 end
         end
 
@@ -354,19 +379,51 @@ function QuickUI:onLoad()
 
 end
 
+function QuickUI:onLoginEvent(charIndex)
+          if (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==1 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+                local itemIndex = Char.HaveItem(charIndex, Aqua_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(charIndex, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
+                NLG.UpChar(charIndex)
+                NLG.SetHeadIcon(charIndex, WingKind_List[Aqua_itemId][level]);
+          elseif (Char.ItemNum(charIndex, Agni_itemId)==1 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+                local itemIndex = Char.HaveItem(charIndex, Agni_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(charIndex, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
+                NLG.UpChar(charIndex)
+                NLG.SetHeadIcon(charIndex, WingKind_List[Agni_itemId][level]);
+          elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==1 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+                local itemIndex = Char.HaveItem(charIndex, Ventus_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(charIndex, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
+                NLG.UpChar(charIndex)
+                NLG.SetHeadIcon(charIndex, WingKind_List[Ventus_itemId][level]);
+          elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==1) then
+                local itemIndex = Char.HaveItem(charIndex, Terra_itemId);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(charIndex, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
+                NLG.UpChar(charIndex)
+                NLG.SetHeadIcon(charIndex, WingKind_List[Terra_itemId][level]);
+          else
+                Char.SetData(charIndex, CONST.å¯¹è±¡_ç§»é€Ÿ,100);
+                NLG.UpChar(charIndex)
+          end
+end
+
+-----------------------------------------------------------------------------------------
 Char.GetPetRank = function(playerIndex,slot)
   local petIndex = Char.GetPet(playerIndex, slot);
   if petIndex >= 0 then
-    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_Ìå³É);
-    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_Á¦³É);
-    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_Ç¿³É);
-    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_Ãô³É);
-    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_Ä§³É);
-    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_Ìå³É);
-    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_Á¦³É);
-    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_Ç¿³É);
-    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_Ãô³É);
-    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_Ä§³É);
+    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
+    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_ä½“æˆ);
+    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_åŠ›æˆ);
+    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_å¼ºæˆ);
+    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_æ•æˆ);
+    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_é­”æˆ);
     local a1 = math.abs(arr_rank11 - arr_rank1);
     local a2 = math.abs(arr_rank21 - arr_rank2);
     local a3 = math.abs(arr_rank31 - arr_rank3);
@@ -384,19 +441,19 @@ Char.GetAccessory = function(charIndex)
   local itemType = {
     { type=15},{ type=16},{ type=17},{ type=18},{ type=19},{ type=20},{ type=21},
   }
-  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_Ê×ÊÎ1);
+  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_é¦–é¥°1);
   if ItemIndex >= 0 then
     for k, v in ipairs(itemType) do
-      if Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==v.type then
-        return ItemIndex, CONST.EQUIP_Ê×ÊÎ1;
+      if Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==v.type then
+        return ItemIndex, CONST.EQUIP_é¦–é¥°1;
       end
     end
   end
-  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_Ê×ÊÎ2)
+  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_é¦–é¥°2)
   if ItemIndex >= 0 then
     for k, v in ipairs(itemType) do
-      if Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==v.type then
-        return ItemIndex, CONST.EQUIP_Ê×ÊÎ2;
+      if Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==v.type then
+        return ItemIndex, CONST.EQUIP_é¦–é¥°2;
       end
     end
   end
