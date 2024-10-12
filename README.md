@@ -85,6 +85,8 @@ loadModule('attackSkill')|七大罪技能、手下留情、大師武器、法術
 loadModule('powerLinked')|新版本人物增減傷(P)
 loadModule('setupMagicAttr')|魔法屬性技能(X)
 loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
+loadModule('playerSkill')|人物增益技能(Origin)
+loadModule('petSkill')|寵物被動與增益(Origin)
 ### 傭兵相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -102,6 +104,7 @@ loadModule('bossField')|魔物增強
 loadModule('legendBoss')|傳說霸主(P)
 loadModule('palParade')|野外遭遇(P)
 loadModule('setupItemBox')|迷宮寶箱(P)
+loadModule('sealZone')|封印新系統(Origin)
 ### 寵物強化相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -113,6 +116,7 @@ loadModule('techMachine')|寵物招式機
 loadModule('petRush')|練寵懸賞(P)
 loadModule('petMega')|寵物超級進化(P)
 loadModule('petEmpower')|寵物持有賦能(P)
+loadModule('petMaster')|寵物星級超量(Origin)
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -156,3 +160,4 @@ loadModule('imageMachine')|寵物形象轉換機(P)
 loadModule('featuresLuac')|寵物相關道具(P)
 loadModule('pokeHatching')|寶可夢蛋(P)
 loadModule('swapPet')|寶可夢交換(P)
+loadModule('uniqueSkills')|角色獨特技能(Origin)
