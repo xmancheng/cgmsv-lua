@@ -1,4 +1,4 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('sealZone')
 
 local EnemySet = {}
@@ -9,21 +9,59 @@ local BaseLevelSet = {}
 --local EnemySet_WV = {700051,700052,700057,700058,700062,700063}
 --local EnemyArea = {EnemySet_WC,EnemySet_WG,EnemySet_WR,EnemySet_WV}
 
-local gradeLevel = 135;	--Ğ£Õı×Üµµ´Î±ê×¼
+local gradeLevel = 135;	--æ ¡æ­£æ€»æ¡£æ¬¡æ ‡å‡†
 local BabyEnemy = {
-      { popEnemy=1000, baitItem=14848, popArea={map=100,LX=0,LY=0, RX=839,RY=609} },		--ÃÔÄãòùòğ
-      { popEnemy=1003, baitItem=14942, popArea={map=100,LX=451,LY=150, RX=498,RY=250} },	--¸ç²¼ÁÖ
+      --{ popEnemy=1000, baitItem=14848, foodItem=18195, popArea={map=100,LX=0,LY=0, RX=839,RY=609} },		--è¿·ä½ è™è 
+      --{ popEnemy=1003, baitItem=14942, foodItem=18195, popArea={map=100,LX=451,LY=150, RX=498,RY=250} },		--å“¥å¸ƒæ—
+      { popEnemy=500000, baitItem=69005, foodItem=69017, popArea={map=20300,LX=296,LY=512, RX=307,RY=531} },	--å‡±è¥¿
+      { popEnemy=500001, baitItem=69006, foodItem=69018, popArea={map=20300,LX=296,LY=512, RX=307,RY=531} },	--åŒ–çŸ³ç¿¼é¾
+      { popEnemy=500002, baitItem=69005, foodItem=69023, popArea={map=20300,LX=304,LY=493, RX=330,RY=502} },	--æ³¢å£«å¯å¤šæ‹‰
+      { popEnemy=500003, baitItem=69006, foodItem=69016, popArea={map=20300,LX=304,LY=493, RX=330,RY=502} },	--é›™å°¾æ€ªæ‰‹
+      { popEnemy=500004, baitItem=69005, foodItem=69017, popArea={map=20300,LX=350,LY=485, RX=392,RY=519} },	--è¶…ç´šé›»é¾
+      { popEnemy=500005, baitItem=69006, foodItem=69018, popArea={map=20300,LX=350,LY=485, RX=392,RY=519} },	--é¢¨é€Ÿç‹—
+      { popEnemy=500006, baitItem=69005, foodItem=69023, popArea={map=20300,LX=288,LY=429, RX=329,RY=478} },	--å¤ªå¤ç›”ç”²
+      { popEnemy=500007, baitItem=69006, foodItem=69016, popArea={map=20300,LX=288,LY=429, RX=329,RY=478} },	--æœˆæ¡‚è‘‰
+      { popEnemy=500008, baitItem=69005, foodItem=69017, popArea={map=20300,LX=265,LY=485, RX=289,RY=508} },	--ç‹©çµé³³è¶
+      { popEnemy=500010, baitItem=69006, foodItem=69018, popArea={map=20300,LX=265,LY=485, RX=289,RY=508} },	--å¹¸ç¦è›‹
+      { popEnemy=500011, baitItem=69007, foodItem=69028, popArea={map=20300,LX=226,LY=365, RX=249,RY=418} },	--å‘†ç«é§
+      { popEnemy=500012, baitItem=69008, foodItem=69023, popArea={map=20300,LX=226,LY=365, RX=249,RY=418} },	--é›ªæ‹‰æ¯”
+      { popEnemy=500014, baitItem=69007, foodItem=69023, popArea={map=20300,LX=163,LY=379, RX=221,RY=428} },	--åˆºç”²è²
+      { popEnemy=500015, baitItem=69008, foodItem=69016, popArea={map=20300,LX=163,LY=379, RX=221,RY=428} },	--å¡æ‹‰å¡æ‹‰
+      { popEnemy=500016, baitItem=69005, foodItem=69017, popArea={map=20300,LX=333,LY=341, RX=348,RY=463} },	--é “ç”²
+      { popEnemy=500017, baitItem=69006, foodItem=69016, popArea={map=20300,LX=333,LY=341, RX=348,RY=463} },	--å¿«é¾
+      { popEnemy=500018, baitItem=69007, foodItem=69028, popArea={map=20300,LX=103,LY=439, RX=144,RY=504} },	--ä¸‰åœ°é¼ 
+      { popEnemy=500020, baitItem=69008, foodItem=69018, popArea={map=20300,LX=103,LY=439, RX=144,RY=504} },	--å¸ç‹æ‹¿æ³¢
+      { popEnemy=500021, baitItem=69005, foodItem=69023, popArea={map=20300,LX=390,LY=405, RX=413,RY=459} },	--æ²™æ¼ èœ»èœ“
+      { popEnemy=500022, baitItem=69006, foodItem=69018, popArea={map=20300,LX=390,LY=405, RX=413,RY=459} },	--çƒˆå’¬é™¸é¯Š
+      { popEnemy=500023, baitItem=69009, foodItem=69016, popArea={map=20300,LX=426,LY=395, RX=452,RY=421} },	--è“‹è«¾è³½å…‹ç‰¹
+      { popEnemy=500024, baitItem=69010, foodItem=69018, popArea={map=20300,LX=426,LY=395, RX=452,RY=421} },	--è€¿é¬¼
+      { popEnemy=500025, baitItem=69009, foodItem=69023, popArea={map=20300,LX=513,LY=358, RX=541,RY=399} },	--å†°é¬¼è­·
+      { popEnemy=500026, baitItem=69010, foodItem=69028, popArea={map=20300,LX=513,LY=358, RX=541,RY=399} },	--ç”²è³€å¿è›™
+      { popEnemy=500029, baitItem=69009, foodItem=69017, popArea={map=20300,LX=449,LY=326, RX=493,RY=344} },	--èƒ¡å¸•
+      { popEnemy=500031, baitItem=69010, foodItem=69028, popArea={map=20300,LX=449,LY=326, RX=493,RY=344} },	--åŸºæ‹‰ç¥ˆ
+      { popEnemy=500033, baitItem=69006, foodItem=69016, popArea={map=20300,LX=298,LY=252, RX=356,RY=299} },	--æ‹‰æ™®æ‹‰æ–¯
+      { popEnemy=500036, baitItem=69005, foodItem=69023, popArea={map=20300,LX=298,LY=252, RX=356,RY=299} },	--æ€ªåŠ›
+      { popEnemy=500037, baitItem=69009, foodItem=69016, popArea={map=20300,LX=70,LY=126, RX=80,RY=149} },		--ç‘ªæ©Ÿé›…å¨œ
+      { popEnemy=500040, baitItem=69010, foodItem=69028, popArea={map=20300,LX=70,LY=126, RX=80,RY=149} },		--è¶…ç´šå·¨é‡‘æ€ª
+      { popEnemy=500042, baitItem=69008, foodItem=69016, popArea={map=20300,LX=103,LY=41, RX=192,RY=74} },		--å°¼å¤šç‹
+      { popEnemy=500043, baitItem=69007, foodItem=69028, popArea={map=20300,LX=103,LY=41, RX=192,RY=74} },		--å°¼å¤šå
+      { popEnemy=500044, baitItem=69006, foodItem=69016, popArea={map=20300,LX=266,LY=99, RX=287,RY=122} },	--èšŠé¦™å›
+      { popEnemy=500046, baitItem=69007, foodItem=69028, popArea={map=20300,LX=266,LY=99, RX=287,RY=122} },	--å‘†å‘†ç‹
+      { popEnemy=500048, baitItem=69007, foodItem=69023, popArea={map=20300,LX=451,LY=148, RX=479,RY=172} },	--å¡ç’é°­é°­
+      { popEnemy=500049, baitItem=69006, foodItem=69018, popArea={map=20300,LX=451,LY=148, RX=479,RY=172} },	--å¡ç’é³´é³´
+      { popEnemy=500052, baitItem=69008, foodItem=69018, popArea={map=20300,LX=402,LY=19, RX=429,RY=29} },		--æ³¢çˆ¾å‡±å°¼æ©
+      { popEnemy=500053, baitItem=69009, foodItem=69023, popArea={map=20300,LX=402,LY=19, RX=429,RY=29} },		--é›™å½ˆç“¦æ–¯
 }
 
 local petMettleTable = {
-          {9610,9619,9620,9629},       --¶ÔBOSSÔö,×ÔBOSS¼õ,¶ÔÈËĞÎÔö,¶ÔĞ°Ä§Ôö
-          {9611,9615,9623,9624},       --¶ÔµØÔö,×ÔµØ¼õ,¶Ô·ÉĞĞÔö,¶ÔÀ¥³æÔö
-          {9612,9616,9627,9628},       --¶ÔË®Ôö,×ÔË®¼õ,¶ÔÌØÊâÔö,¶Ô½ğÊôÔö
-          {9613,9617,9621,9626},       --¶Ô»ğÔö,×Ô»ğ¼õ,¶ÔÁú×åÔö,¶ÔÒ°ÊŞÔö
-          {9614,9618,9622,9625},       --¶Ô·çÔö,×Ô·ç¼õ,¶Ô²»ËÀÔö,¶ÔÖ²ÎïÔö
+          {9610,9619,9620,9629},       --å¯¹BOSSå¢,è‡ªBOSSå‡,å¯¹äººå½¢å¢,å¯¹é‚ªé­”å¢
+          {9611,9615,9623,9624},       --å¯¹åœ°å¢,è‡ªåœ°å‡,å¯¹é£è¡Œå¢,å¯¹æ˜†è™«å¢
+          {9612,9616,9627,9628},       --å¯¹æ°´å¢,è‡ªæ°´å‡,å¯¹ç‰¹æ®Šå¢,å¯¹é‡‘å±å¢
+          {9613,9617,9621,9626},       --å¯¹ç«å¢,è‡ªç«å‡,å¯¹é¾™æ—å¢,å¯¹é‡å…½å¢
+          {9614,9618,9622,9625},       --å¯¹é£å¢,è‡ªé£å‡,å¯¹ä¸æ­»å¢,å¯¹æ¤ç‰©å¢
 }
 -----------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   --self:regCallback('ItemUseEvent', Func.bind(self.onItemUseEvent, self));
@@ -31,18 +69,19 @@ function Module:onLoad()
   self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self));
   self:regCallback('LoginEvent', Func.bind(self.battleOverEventCallback, self));
   self:regCallback('LogoutEvent', Func.bind(self.battleOverEventCallback, self));
-  --ÉèÖÃÏİÚå
+  self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self));
+  --è®¾ç½®é™·é˜±
   self:regCallback('GatherItemEvent', function(charIndex, skillId, skillLv, itemNo)
-    if (skillId==225) then
-        local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
+    if (skillId==229) then
+        local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
         local Target_X = Char.GetData(charIndex,CONST.CHAR_X);
         local Target_Y = Char.GetData(charIndex,CONST.CHAR_Y);
-        local burst = NLG.Rand(1,100);
+        local burst = NLG.Rand(1,40);
         for k, v in ipairs(BabyEnemy) do
             local baitSlot = Char.FindItemId(charIndex,v.baitItem);
             if baitSlot>0 then
                 local ItemIndex = Char.GetItemIndex(charIndex, baitSlot);
-                local baitNum = tonumber(Item.GetData(ItemIndex,CONST.µÀ¾ß_¶ÑµşÊı));
+                local baitNum = tonumber(Item.GetData(ItemIndex,CONST.é“å…·_å †å æ•°));
                 if (baitNum>=1 and Target_FloorId==v.popArea.map and Target_X>=v.popArea.LX and Target_Y>=v.popArea.LY and Target_X<=v.popArea.RX and Target_Y<=v.popArea.RY) then
                     EnemySet[1]=v.popEnemy;
                     BaseLevelSet[1]=2;
@@ -70,19 +109,19 @@ function Module:onLoad()
 end
 
 -----------------------------------------------------------------------------------------------
----ÒÔÏÂÎª¸÷function¹¦ÄÜ
---·âÓ¡¿¨µÀ¾ßÊ¹ÓÃÏŞÖÆ
+---ä»¥ä¸‹ä¸ºå„functionåŠŸèƒ½
+--å°å°å¡é“å…·ä½¿ç”¨é™åˆ¶
 function Module:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
   local itemIndex = Char.GetItemIndex(charIndex,itemSlot);
   local battleIndex = Char.GetBattleIndex(charIndex);
-  local ItemID = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
-  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼)
-  if (Item.GetData(itemIndex, CONST.µÀ¾ß_ÀàĞÍ)==40) then
+  local ItemID = Item.GetData(itemIndex, CONST.é“å…·_ID);
+  local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾)
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç±»å‹)==40) then
       if (battleIndex==-1 and Battle.IsWaitingCommand(charIndex)<=0) then
-               NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
                return -1;
       elseif (Target_FloorId==20233 and ItemID~=75014) then
-               NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]ÕˆÓÃá÷«CÇò²¶×½£¡");
+               NLG.SystemMessage(charIndex,"[é“å…·æç¤º]è«‹ç”¨ç‹©çµçƒæ•æ‰ï¼");
                return -1;
       else
                return 0;
@@ -90,36 +129,36 @@ function Module:onItemUseEvent(charIndex, targetCharIndex, itemSlot)
   end
 end
 
---·âÓ¡½á¹û
+--å°å°ç»“æœ
 function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
   --self:logDebug('OnSealEventCallBack', charIndex, enemyIndex, ret)
          local battleIndex = Char.GetBattleIndex(charIndex);
          local capture = Char.GetSkillLv(charIndex, Char.HaveSkill(charIndex,69) ) or 0;
-         local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_µØÍ¼);
+         local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_åœ°å›¾);
          local EmptySlot = Char.GetPetEmptySlot(charIndex);
          local SealSlot = Char.GetTempData(charIndex, 'SealOn') or -1;
          if (Char.PetNum(charIndex)==5) then
-             NLG.SystemMessage(charIndex,"[Ïµ½y]Œ™Îï™ÚÒÑMŸo·¨×¥È¡");
+             NLG.SystemMessage(charIndex,"[ç³»çµ±]å¯µç‰©æ¬„å·²æ»¿ç„¡æ³•æŠ“å–");
          end
          if (SealSlot>=0) then
-             NLG.SystemMessage(charIndex,"[Ïµ½y]Ò»ˆö‘ğôYÖ»ÄÜ·âÓ¡Ò»ëb¹ÖÎï");
+             NLG.SystemMessage(charIndex,"[ç³»çµ±]ä¸€å ´æˆ°é¬¥åªèƒ½å°å°ä¸€éš»æ€ªç‰©");
              ret=-1;
              return ret;
          end
-         local defHpE = Char.GetData(enemyIndex,CONST.CHAR_Ñª);
-         local defHpEM = Char.GetData(enemyIndex,CONST.CHAR_×î´óÑª);
+         local defHpE = Char.GetData(enemyIndex,CONST.CHAR_è¡€);
+         local defHpEM = Char.GetData(enemyIndex,CONST.CHAR_æœ€å¤§è¡€);
          local HpE05 = defHpE/defHpEM;
          local getit= NLG.Rand(1, math.ceil(HpE05*3) );
-         local LvE = math.ceil(Char.GetData(enemyIndex,CONST.CHAR_µÈ¼¶)*0.8);
+         local LvE = math.ceil(Char.GetData(enemyIndex,CONST.CHAR_ç­‰çº§)*0.8);
          local LvMR = NLG.Rand(1,250);
          local a61 = Char.GetEnemyAllRank(enemyIndex);
-         if (Char.IsEnemy(enemyIndex) and Battle.GetType(battleIndex)==CONST.Õ½¶·_ÆÕÍ¨ and Char.GetData(enemyIndex, CONST.CHAR_EnemyBossFlg)==0) then
+         if (Char.IsEnemy(enemyIndex) and Battle.GetType(battleIndex)==CONST.æˆ˜æ–—_æ™®é€š and Char.GetData(enemyIndex, CONST.CHAR_EnemyBossFlg)==0) then
              local RandCap = capture*25;
              local CAPTURE = NLG.Rand(0,255);
              if (a61<=140 and CAPTURE<=RandCap and getit==1 and LvMR>=LvE) then
                  ret=1;
              elseif (a61>140) then
-                 NLG.SystemMessage(charIndex,"[Ïµ½y]¹ÖÎïŸo·¨·âÓ¡");
+                 NLG.SystemMessage(charIndex,"[ç³»çµ±]æ€ªç‰©ç„¡æ³•å°å°");
                  ret=-1;
                  return ret;
              end
@@ -137,20 +176,20 @@ function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
                           res5 = NLG.Rand(BPdistribute[type][3], BPdistribute[type][4] );
                           max2 = res1+res2+res3+res4+res5;
                           if (max2 > resmax or max2 < resmin) then
-                              --print('²»·ûºÏ£¬ÖØÊÔ¡£')
+                              --print('ä¸ç¬¦åˆï¼Œé‡è¯•ã€‚')
                           end
                      until (max2 < resmax) and (max2 > resmin)
                  end
-                 local arr_rank1 = Pet.GetArtRank(enemyIndex,CONST.³èµµ_Ìå³É);
-                 local arr_rank2 = Pet.GetArtRank(enemyIndex,CONST.³èµµ_Á¦³É);
-                 local arr_rank3 = Pet.GetArtRank(enemyIndex,CONST.³èµµ_Ç¿³É);
-                 local arr_rank4 = Pet.GetArtRank(enemyIndex,CONST.³èµµ_Ãô³É);
-                 local arr_rank5 = Pet.GetArtRank(enemyIndex,CONST.³èµµ_Ä§³É);
-                 local BYTL1 = Pet.SetArtRank(enemyIndex,CONST.³èµµ_Ìå³É, arr_rank1 + res1);
-                 local BYTL2 = Pet.SetArtRank(enemyIndex,CONST.³èµµ_Á¦³É, arr_rank2 + res2);
-                 local BYTL3 = Pet.SetArtRank(enemyIndex,CONST.³èµµ_Ç¿³É, arr_rank3 + res3);
-                 local BYTL4 = Pet.SetArtRank(enemyIndex,CONST.³èµµ_Ãô³É, arr_rank4 + res4);
-                 local BYTL5 = Pet.SetArtRank(enemyIndex,CONST.³èµµ_Ä§³É, arr_rank5 + res5);
+                 local arr_rank1 = Pet.GetArtRank(enemyIndex,CONST.å® æ¡£_ä½“æˆ);
+                 local arr_rank2 = Pet.GetArtRank(enemyIndex,CONST.å® æ¡£_åŠ›æˆ);
+                 local arr_rank3 = Pet.GetArtRank(enemyIndex,CONST.å® æ¡£_å¼ºæˆ);
+                 local arr_rank4 = Pet.GetArtRank(enemyIndex,CONST.å® æ¡£_æ•æˆ);
+                 local arr_rank5 = Pet.GetArtRank(enemyIndex,CONST.å® æ¡£_é­”æˆ);
+                 local BYTL1 = Pet.SetArtRank(enemyIndex,CONST.å® æ¡£_ä½“æˆ, arr_rank1 + res1);
+                 local BYTL2 = Pet.SetArtRank(enemyIndex,CONST.å® æ¡£_åŠ›æˆ, arr_rank2 + res2);
+                 local BYTL3 = Pet.SetArtRank(enemyIndex,CONST.å® æ¡£_å¼ºæˆ, arr_rank3 + res3);
+                 local BYTL4 = Pet.SetArtRank(enemyIndex,CONST.å® æ¡£_æ•æˆ, arr_rank4 + res4);
+                 local BYTL5 = Pet.SetArtRank(enemyIndex,CONST.å® æ¡£_é­”æˆ, arr_rank5 + res5);
                  NLG.UpChar(enemyIndex);
                  Char.SetTempData(charIndex, 'SealOn', EmptySlot);
              end
@@ -158,7 +197,7 @@ function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
   return ret;
 end
 
---½áÊø¡¢×¢Ïú³õÊ¼»¯
+--ç»“æŸã€æ³¨é”€åˆå§‹åŒ–
 function Module:battleOverEventCallback(battleIndex)
   for i = 0, 9 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
@@ -169,12 +208,48 @@ function Module:battleOverEventCallback(battleIndex)
                  local typeRand = math.random(1,#petMettleTable);
                  local pos = math.random(1,#petMettleTable[typeRand]);
                  Pet.AddSkill(PetIndex, petMettleTable[typeRand][pos], 9);
-                 Char.SetData(PetIndex,CONST.¶ÔÏó_Ô­Ãû, Char.GetData(PetIndex,CONST.¶ÔÏó_Ô­Ãû).."®·N");
+                 Char.SetData(PetIndex,CONST.å¯¹è±¡_åŸå, Char.GetData(PetIndex,CONST.å¯¹è±¡_åŸå).."ç•°ç¨®");
                  Pet.UpPet(charIndex,PetIndex);
                  NLG.UpChar(charIndex);
                  Char.SetTempData(charIndex, 'SealOn', -1);
               end
         end
+  end
+end
+
+--è¯±é¥µæ—¶é¿å…è‡ªçˆ†
+function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
+      local leader1 = Battle.GetPlayer(battleIndex,0)
+      local leader2 = Battle.GetPlayer(battleIndex,5)
+      local leader = leader1
+      if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+            leader = leader2
+      end
+      local Round = Battle.GetTurn(battleIndex);
+      for i = 10, 19 do
+         local enemy = Battle.GetPlayer(battleIndex, i);
+         if enemy>= 0 then
+             for k, v in ipairs(BabyEnemy) do
+                if (Char.GetData(enemy, CONST.CHAR_ç­‰çº§)<=3 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==v.popEnemy) then
+                    if (Char.ItemNum(leader, v.foodItem)>=1) then
+                          Char.DelItem(leader, v.foodItem, 1);
+                          NLG.SystemMessage(leader,"[ç³»çµ±]"..Char.GetData(enemy,CONST.å¯¹è±¡_åŸå).."æ´¥æ´¥æœ‰å‘³åœ°å“å˜—é£Ÿç‰©ã€‚");
+                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+                    end
+                end
+             end
+         end
+      end
+end
+function SetCom(charIndex, action, com1, com2, com3)
+  if action == 0 then
+    Char.SetData(charIndex, CONST.CHAR_BattleCom1, com1)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom2, com2)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom3, com3)
+  else
+    Char.SetData(charIndex, CONST.CHAR_BattleCom1, com1)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom2, com2)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom3, com3)
   end
 end
 
@@ -192,18 +267,18 @@ end
 Char.GetEnemyAllRank = function(enemyIndex)
   local enemyIndex = enemyIndex;
   if enemyIndex >= 0 then
-    local a11 = Pet.FullArtRank(enemyIndex, CONST.PET_Ìå³É);
-    local a21 = Pet.FullArtRank(enemyIndex, CONST.PET_Á¦³É);
-    local a31 = Pet.FullArtRank(enemyIndex, CONST.PET_Ç¿³É);
-    local a41 = Pet.FullArtRank(enemyIndex, CONST.PET_Ãô³É);
-    local a51 = Pet.FullArtRank(enemyIndex, CONST.PET_Ä§³É);
+    local a11 = Pet.FullArtRank(enemyIndex, CONST.PET_ä½“æˆ);
+    local a21 = Pet.FullArtRank(enemyIndex, CONST.PET_åŠ›æˆ);
+    local a31 = Pet.FullArtRank(enemyIndex, CONST.PET_å¼ºæˆ);
+    local a41 = Pet.FullArtRank(enemyIndex, CONST.PET_æ•æˆ);
+    local a51 = Pet.FullArtRank(enemyIndex, CONST.PET_é­”æˆ);
     local a61 = a11 + a21+ a31+ a41+ a51;
     return a61, a11, a21, a31, a41, a51;
   end
   return -1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
