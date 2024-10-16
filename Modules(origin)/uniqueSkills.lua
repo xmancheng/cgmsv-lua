@@ -241,7 +241,9 @@ function Module:OnItemOverLapEvent(charIndex, fromIndex, targetIndex, Num)
             local targetSlot = Char.GetSpecifyItemSlot(charIndex,targetIndex);
             Char.DelItemBySlot(charIndex, fromSlot);
             Char.DelItemBySlot(charIndex, targetSlot);
-            Char.GiveItem(charIndex, FusionList[targetItemID], 1);
+            local itemIndex = Char.GiveItem(charIndex, FusionList[targetItemID], 1);
+            Item.SetData(itemIndex , CONST.道具_已鉴定 ,1);
+            Item.UpItem(charIndex,-1)
             NLG.UpChar(charIndex);
             return 1;
         end
@@ -284,7 +286,9 @@ function Module:battleOverEventCallback(battleIndex)
                 local Rand = NLG.Rand(1, 15);
                 local burst = NLG.Rand(1, 50);
                 if (burst>=41) then
-                    Char.GiveItem(charIndex, DropsList[Rand][itemset], 1);
+                    local itemIndex = Char.GiveItem(charIndex, DropsList[Rand][itemset], 1);
+                    Item.SetData(itemIndex , CONST.道具_已鉴定 ,1);
+                    Item.UpItem(charIndex,-1)
                 end
             elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==1 and Char.ItemNum(charIndex, Terra_itemId)==0) then
                 --local Level = math.modf(Char.GetData(charIndex, CONST.对象_等级)/10)+1;
@@ -293,7 +297,9 @@ function Module:battleOverEventCallback(battleIndex)
                 local thing = NLG.Rand(1, #DropsList[Rand]);
                 local burst = NLG.Rand(10, 50);
                 if (burst>=41) then
-                    Char.GiveItem(charIndex, DropsList[Rand][thing], 1);
+                    local itemIndex = Char.GiveItem(charIndex, DropsList[Rand][thing], 1);
+                    Item.SetData(itemIndex , CONST.道具_已鉴定 ,1);
+                    Item.UpItem(charIndex,-1)
                 end
             elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==1) then
                 local amount = NLG.Rand(10, 100);
