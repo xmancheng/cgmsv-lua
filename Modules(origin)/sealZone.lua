@@ -89,6 +89,7 @@ function Module:onLoad()
                         Char.DelItemBySlot(charIndex, baitSlot);
                         NLG.SystemMessage(charIndex,"[系統]遭遇吸引來的怪物...");
                         Battle.PVE( charIndex, charIndex, nil, EnemySet, BaseLevelSet, nil);
+                        goto continue
                     else
                         if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
                             NLG.SystemMessage(charIndex,"[系統]薰香設置中...");
@@ -97,6 +98,7 @@ function Module:onLoad()
                 end
             end
         end
+        ::continue::
 --[[
             local enemyNum= NLG.Rand(1,3);
             for enemyslot=1,enemyNum do
