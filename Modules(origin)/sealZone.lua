@@ -87,7 +87,12 @@ function Module:onLoad()
                     BaseLevelSet[1]=2;
                     if (baitNum>=burst) then
                         Char.DelItemBySlot(charIndex, baitSlot);
+                        NLG.SystemMessage(charIndex,"[系統]遭遇吸引來的怪物...");
                         Battle.PVE( charIndex, charIndex, nil, EnemySet, BaseLevelSet, nil);
+                    else
+                        if Char.GetData(charIndex,CONST.对象_队聊开关) == 1  then
+                            NLG.SystemMessage(charIndex,"[系統]薰香設置中...");
+                        end
                     end
                 end
             end
