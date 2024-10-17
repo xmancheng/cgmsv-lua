@@ -2,29 +2,29 @@
 local Module = ModuleBase:createModule('palParade')
 
 local PalEnemy = {
-      { palType=1, palNum=8, enMode=1, palName="野生的帕魯", palImage=129024, popArea={map=7337,LX=32,LY=82, RX=79,RY=85},	--palNum生成数量、palImage外显形象(不重复)、出没范围(方形坐标)
+      { palType=1, palNum=5, enMode=1, palName="野生的帕魯", palImage=129024, popArea={map=7337,LX=32,LY=82, RX=79,RY=85},	--palNum生成数量、palImage外显形象(不重复)、出没范围(方形坐标)
          encount=30, prizeItem_id={15615,75011}, prizeItem_count={3,1} },						--encount遇敌机率、prizeItem奖励组合(可重复多组，提高该组合机率)
-      { palType=2, palNum=6, enMode=1, palName="野生的帕魯", palImage=129025, popArea={map=7337,LX=26,LY=60, RX=59,RY=59},
+      { palType=2, palNum=4, enMode=1, palName="野生的帕魯", palImage=129025, popArea={map=7337,LX=26,LY=60, RX=59,RY=59},
          encount=30, prizeItem_id={900632,900633}, prizeItem_count={1,1} },
-      { palType=3, palNum=4, enMode=1, palName="野生的帕魯", palImage=129026, popArea={map=7337,LX=49,LY=36, RX=61,RY=42},
+      { palType=3, palNum=3, enMode=1, palName="野生的帕魯", palImage=129026, popArea={map=7337,LX=49,LY=36, RX=61,RY=42},
          encount=30, prizeItem_id={13649,13669,13629}, prizeItem_count={1,1,1} },
       { palType=4, palNum=2, enMode=1, palName="野生的帕魯", palImage=129027, popArea={map=7337,LX=35,LY=21, RX=53,RY=30},
          encount=30, prizeItem_id={75011}, prizeItem_count={3} },
-      { palType=5, palNum=5, enMode=0, palName="卡比獸", palImage=119750, popArea={map=20300,LX=276,LY=440, RX=331,RY=480},
+      { palType=5, palNum=3, enMode=0, palName="卡比獸", palImage=119750, popArea={map=20300,LX=276,LY=440, RX=331,RY=480},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
-      { palType=6, palNum=10, enMode=0, palName="化石飛龍", palImage=119752, popArea={map=20300,LX=415,LY=100, RX=510,RY=176},
+      { palType=6, palNum=4, enMode=0, palName="化石飛龍", palImage=119752, popArea={map=20300,LX=415,LY=100, RX=510,RY=176},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
-      { palType=7, palNum=10, enMode=0, palName="班基拉", palImage=119754, popArea={map=20300,LX=410,LY=235, RX=535,RY=255},
+      { palType=7, palNum=4, enMode=0, palName="班基拉", palImage=119754, popArea={map=20300,LX=410,LY=235, RX=535,RY=255},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
-      { palType=8, palNum=5, enMode=0, palName="請假王", palImage=119756, popArea={map=20300,LX=330,LY=444, RX=410,RY=490},
+      { palType=8, palNum=3, enMode=0, palName="請假王", palImage=119756, popArea={map=20300,LX=330,LY=444, RX=410,RY=490},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
-      { palType=9, palNum=15, enMode=0, palName="鐵掌力士", palImage=119758, popArea={map=20300,LX=60,LY=290, RX=246,RY=436},
+      { palType=9, palNum=3, enMode=0, palName="鐵掌力士", palImage=119758, popArea={map=20300,LX=60,LY=290, RX=246,RY=436},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
-      { palType=10, palNum=15, enMode=0, palName="波士可多拉", palImage=119760, popArea={map=20300,LX=75,LY=440, RX=205,RY=505},
+      { palType=10, palNum=5, enMode=0, palName="波士可多拉", palImage=119760, popArea={map=20300,LX=75,LY=440, RX=205,RY=505},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
-      { palType=11, palNum=10, enMode=0, palName="烈咬陸鯊", palImage=119762, popArea={map=20300,LX=60,LY=230, RX=200,RY=265},
+      { palType=11, palNum=4, enMode=0, palName="烈咬陸鯊", palImage=119762, popArea={map=20300,LX=60,LY=230, RX=200,RY=265},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
-      { palType=12, palNum=10, enMode=0, palName="暴飛龍", palImage=119764, popArea={map=20300,LX=400,LY=300, RX=540,RY=400},
+      { palType=12, palNum=4, enMode=0, palName="暴飛龍", palImage=119764, popArea={map=20300,LX=400,LY=300, RX=540,RY=400},
          encount=60, prizeItem_id={51071}, prizeItem_count={3} },
 }
 ------------------------------------------------
@@ -175,6 +175,7 @@ end
 function PalEnemy_LoopEvent(npc)
 	local CTime = tonumber(os.date("%H",FTime));
 	if ( os.date("%M",os.time())=="15") or (os.date("%M",os.time())=="30") or (os.date("%M",os.time())=="45") or (os.date("%M",os.time())=="00") then
+		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02")) then
 		for k,v in pairs(PalEnemy) do
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.palType and npcImage==v.palImage ) then
@@ -185,6 +186,7 @@ function PalEnemy_LoopEvent(npc)
 				Char.SetData(npc,CONST.对象_地图, v.popArea.map);
 				NLG.UpChar(npc);
 			end
+		end
 		end
 	elseif (os.date("%X",os.time())=="23:59:59") or (os.date("%X",os.time())=="11:59:59") or (os.date("%X",os.time())=="12:59:59") or (os.date("%X",os.time())=="16:59:59") or (os.date("%X",os.time())=="17:59:59") or (os.date("%X",os.time())=="19:59:59") or (os.date("%X",os.time())=="20:59:59") or (os.date("%X",os.time())=="21:59:59") then
 		for k,v in pairs(PalEnemy) do
