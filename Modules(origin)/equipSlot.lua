@@ -1,34 +1,34 @@
 local Module = ModuleBase:createModule('equipSlot')
 
-local ItemPosName = {"î^ ²¿", "Éí Ìå", "ÓÒ ÊÖ", "×ó ÊÖ", "×ã ²¿", "ï—Æ·1", "ï—Æ·2", "Ë® ¾§"}
+local ItemPosName = {"é ­ éƒ¨", "èº« ä½“", "å³ æ‰‹", "å·¦ æ‰‹", "è¶³ éƒ¨", "é£¾å“1", "é£¾å“2", "æ°´ æ™¶"}
 
 --local ExpRate = 3;
-local StrRequireExp = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,}	--¾­Ñé
+local StrRequireExp = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000,}	--ç»éªŒ
 
 function Module:equipSlotInfo(npc, player)
-          local winMsg = "1\\nÕˆßx“ñ²é¿´µÄÑb‚ä²å²Û: \\n"
+          local winMsg = "1\\nè«‹é¸æ“‡æŸ¥çœ‹çš„è£å‚™æ’æ§½: \\n"
           for targetSlot = 0,7 do
-                local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q") or 0;
+                local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
-                if (targetIndex<0) then
+                if (targetIndex==nil) then
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 0);
                 end
                 if targetItemIndex>=0 then
-                        local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q") or 0;
-                        local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V") or 0;
+                        local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
+                        local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
                         local tStrExp = tStrExp/100;
-                        local msg = "²å²ÛµÈ¼‰: ".. tStrLv .. "  Ä¿Ç°Êì¾š¶È: ".. tStrExp .."%";
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. msg .. "\n"
+                        local msg = "æ’æ§½ç­‰ç´š: ".. tStrLv .. "  ç›®å‰ç†Ÿç·´åº¦: ".. tStrExp .."%";
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. msg .. "\n"
                 else
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. "\n"
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. "\n"
                 end
           end
-          NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+          NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
 end
 
 -------------------------------------------------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   --self:regCallback('BattleStartEvent', Func.bind(self.battleStartEventCallback, self))
@@ -37,28 +37,28 @@ function Module:onLoad()
   self:regCallback('ItemDetachEvent', Func.bind(self.itemDetachCallback, self))
   self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
 
-  self.equipSloterNPC = self:NPC_createNormal('Ñb‚ä²å²Û¹ÜÀí', 14682, { x =36 , y = 31, mapType = 0, map = 777, direction = 6 });
+  self.equipSloterNPC = self:NPC_createNormal('è£å‚™æ’æ§½ç®¡ç†', 14682, { x =36 , y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.equipSloterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local winMsg = "1\\nÕˆßx“ñ²é¿´µÄÑb‚ä²å²Û: \\n"
+          local winMsg = "1\\nè«‹é¸æ“‡æŸ¥çœ‹çš„è£å‚™æ’æ§½: \\n"
           for targetSlot = 0,7 do
-                local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q") or 0;
+                local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
-                if (targetIndex<0) then
+                if (targetIndex==nil) then
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 0);
                 end
                 if targetItemIndex>=0 then
-                        local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q") or 0;
-                        local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V") or 0;
+                        local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
+                        local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
                         local tStrExp = tStrExp/100;
-                        local msg = "²å²ÛµÈ¼‰: ".. tStrLv .. "  Ä¿Ç°Êì¾š¶È: ".. tStrExp .."%";
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. msg .. "\n"
+                        local msg = "æ’æ§½ç­‰ç´š: ".. tStrLv .. "  ç›®å‰ç†Ÿç·´åº¦: ".. tStrExp .."%";
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. msg .. "\n"
                 else
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "£º" .. "\n"
+                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "ï¼š" .. "\n"
                 end
           end
-          NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+          NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
     end
     return
   end)
@@ -69,30 +69,30 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     if select > 0 then
-      if (seqno == 11 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 11 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
-      if (seqno == 11 and select == CONST.BUTTON_È·¶¨ and data >= 1) then
+      if (seqno == 11 and select == CONST.BUTTON_ç¡®å®š and data >= 1) then
           local keyNum = data*1;
-          local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V") or 0;
+          local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
           if (tStrExp/100>=100) then
-              NLG.SystemMessage(player, "[Ïµ½y]Êì¾š¶ÈÒÑß_100%ÄÜÁ¿£¡");
+              NLG.SystemMessage(player, "[ç³»çµ±]ç†Ÿç·´åº¦å·²é”100%èƒ½é‡ï¼");
               return;
           end
           if (targetItemIndex>0) then
               local killNum = Char.ItemNum(player, 70194);
+              local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
                   if (keyNum>killNum) then
-                      NLG.SystemMessage(player, "[Ïµ½y]·üÌØÄÜÁ¿²»×ã£¡");
+                      NLG.SystemMessage(player, "[ç³»çµ±]ä¼ç‰¹èƒ½é‡ä¸è¶³ï¼");
                       return;
                   else
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
                       Char.DelItem(player, 70194, keyNum);
-                      local Level = math.floor(tStrExp/1000);
-                      if (Level>StrRequireExp[Level] and Level<=StrRequireExp[Level+1]) then
-                          EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", StrRequireExp[Level]);
-                      else
+                      if (tStrExp==0) then
                           EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
+                      elseif (tStrExp>StrRequireExp[tStrLv+1] and tStrExp<=StrRequireExp[tStrLv+2]) then
+                          EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv+1);
                       end
                   end
               end
@@ -100,24 +100,24 @@ function Module:onLoad()
       end
 
     else
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       end
       if (seqno == 1 and data >= 1) then
-          targetSlot = data-1;  --×°±¸¸ñ²ÎÊı (Ñ¡ÏîÉÙ1)
+          targetSlot = data-1;  --è£…å¤‡æ ¼å‚æ•° (é€‰é¡¹å°‘1)
           targetItemIndex = Char.GetItemIndex(player, targetSlot);
           if (targetItemIndex<0) then
-              NLG.SystemMessage(player, "[Ïµ½y]Š»¯µÄ²å²ÛíšÒªÑb‚ä¡£");
+              NLG.SystemMessage(player, "[ç³»çµ±]å¼·åŒ–çš„æ’æ§½é ˆè¦è£å‚™ã€‚");
               return;
           else
               local killNum = Char.ItemNum(player, 70194);
-              local winMsg = "¡¾Ñb‚ä²å²ÛŠ»¯¡¿\\n"
-                                           .."¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                                           .."ÕıÔÚ´_ÕJ²å²ÛÙYÓ...\\n"
-                                           .."\\n¡¡¡¡¡¡¡¡²å¡¡²Û¡¡²¿¡¡Î»£º".. ItemPosName[targetSlot+1] .."\\n"
-                                           .."\\n¡¡¡¡¡¡¡¡®”Ç°¿É³äÈëµÄÁ¿£º".. killNum .."\\n"
-                                           .."\\nÕˆ´_ÕJİ”ÈëÖ®·üÌØÁ¿£º\\n";
-              NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_È·¶¨¹Ø±Õ, 11, winMsg);
+              local winMsg = "ã€è£å‚™æ’æ§½å¼·åŒ–ã€‘\\n"
+                                           .."â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                                           .."æ­£åœ¨ç¢ºèªæ’æ§½è³‡è¨Š...\\n"
+                                           .."\\nã€€ã€€ã€€ã€€æ’ã€€æ§½ã€€éƒ¨ã€€ä½ï¼š".. ItemPosName[targetSlot+1] .."\\n"
+                                           .."\\nã€€ã€€ã€€ã€€ç•¶å‰å¯å……å…¥çš„é‡ï¼š".. killNum .."\\n"
+                                           .."\\nè«‹ç¢ºèªè¼¸å…¥ä¹‹ä¼ç‰¹é‡ï¼š\\n";
+              NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ç¡®å®šå…³é—­, 11, winMsg);
           end
       else
                  return;
@@ -131,14 +131,14 @@ end
 function Module:itemAttachCallback(charIndex, fromItemIndex)
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
       print(targetSlot);
-      local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q") or 0;
-      if (targetIndex<0) then
+      local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
+      if (targetIndex==nil) then
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q", 0);
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V", 0);
       end
 
-      local tStrExp = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V") or 0;
-      setItemStrData(fromItemIndex, tStrExp);
+      local tStrLv = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
+      setItemStrData(fromItemIndex, tStrLv);
       Item.UpItem(charIndex, targetSlot);
       NLG.UpChar(charIndex);
   return 0;
@@ -146,8 +146,8 @@ end
 
 function Module:itemDetachCallback(charIndex, fromItemIndex)
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
-      local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q") or 0;
-      if (targetIndex<0) then
+      local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
+      if (targetIndex==nil) then
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q", 0);
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V", 0);
       end
@@ -166,7 +166,7 @@ function Module:battleStartEventCallback(battleIndex)
 	for i=10,19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		if enemy >0 then
-			local enemylv = Char.GetData(enemy, CONST.CHAR_µÈ¼¶);
+			local enemylv = Char.GetData(enemy, CONST.CHAR_ç­‰çº§);
 			table.insert(Dm, i, enemylv);
 		else
 			table.insert(Dm, i, -1);
@@ -174,13 +174,13 @@ function Module:battleStartEventCallback(battleIndex)
 	end
 end
 function Module:battleOverEventCallback(battleIndex)
-	if Battle.IsBossBattle(battleIndex) == 1 then     --BOSSÎŞĞ§
+	if Battle.IsBossBattle(battleIndex) == 1 then     --BOSSæ— æ•ˆ
 		return;
 	end
-	if Battle.GetType(battleIndex) == 2 then            --PVPÎŞĞ§
+	if Battle.GetType(battleIndex) == 2 then            --PVPæ— æ•ˆ
 		return;
 	end
-	--¹í¹ÖÆ½¾ùµÈ¼¶
+	--é¬¼æ€ªå¹³å‡ç­‰çº§
 	local m = 0;
 	local k = 0;
 	for i=10,19 do
@@ -191,29 +191,29 @@ function Module:battleOverEventCallback(battleIndex)
 	end
 	local lv = math.floor(m/k);
 	local plus = lv * k * ExpRate;
-	--Íæ¼Ò·½
+	--ç©å®¶æ–¹
 	for playerSlot=0,9 do
 		local player = Battle.GetPlayer(battleIndex, playerSlot);
-		local WeaponIndex = Char.GetWeapon(player);                --×óÓÒÊÖÎäÆ÷
-		local ShieldIndex = Char.GetShield(player);                         --ĞŞÂŞ¶Ü
-		if WeaponIndex>0 and Char.EndEvent(player,306) == 1 then                --³ÉÎªÁÔ¹íÈË¿ªÆô¹¦ÄÜ
-			local wandId = Item.GetData(WeaponIndex, CONST.µÀ¾ß_ID);
+		local WeaponIndex = Char.GetWeapon(player);                --å·¦å³æ‰‹æ­¦å™¨
+		local ShieldIndex = Char.GetShield(player);                         --ä¿®ç½—ç›¾
+		if WeaponIndex>0 and Char.EndEvent(player,306) == 1 then                --æˆä¸ºçŒé¬¼äººå¼€å¯åŠŸèƒ½
+			local wandId = Item.GetData(WeaponIndex, CONST.é“å…·_ID);
 			local targetSlot = Char.GetItemSlot(player, WeaponIndex);
 			if (wandId==51003 or wandId==51007 or wandId==51011 or wandId==51015)  then
-				local tItemName = Item.GetData(WeaponIndex, CONST.µÀ¾ß_Ãû×Ö);
+				local tItemName = Item.GetData(WeaponIndex, CONST.é“å…·_åå­—);
 				local hStrLv = EquipPlusStat(WeaponIndex, "H") or 0;
 				local gStrExp = EquipPlusStat(WeaponIndex, "G") or 0;
 				local hMaxLv = 20;
 				local RequireExpNumTab = StrRequireExp[wandId]
 				local RequireExpNum = RequireExpNumTab[hStrLv+1]
-				--´ò¹í¾­ÑéÖµ
-				if EquipPlusStat(WeaponIndex)==nil then Item.SetData(WeaponIndex, CONST.µÀ¾ß_¼øÇ°Ãû, tItemName); end
+				--æ‰“é¬¼ç»éªŒå€¼
+				if EquipPlusStat(WeaponIndex)==nil then Item.SetData(WeaponIndex, CONST.é“å…·_é‰´å‰å, tItemName); end
 				if (hStrLv<hMaxLv) then
 					EquipPlusStat(WeaponIndex, "G", gStrExp+plus);
 					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[Ïµ½y] «C¹í½›òÀÛ·e" .. gStrExp+plus .. "/"..RequireExpNum.."");
+					NLG.SystemMessage(player, "[ç³»çµ±] çµé¬¼ç¶“é©—ç´¯ç©" .. gStrExp+plus .. "/"..RequireExpNum.."");
 				end
-				--ÎäÆ÷¾«Á¶Ç¿»¯
+				--æ­¦å™¨ç²¾ç‚¼å¼ºåŒ–
 				local gStrExp = EquipPlusStat(WeaponIndex, "G") or 0;
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(WeaponIndex, "H", hStrLv+1);
@@ -221,29 +221,29 @@ function Module:battleOverEventCallback(battleIndex)
 					setItemName(WeaponIndex);
 					setItemStrData(WeaponIndex, hStrLv);
 					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[Ïµ½y] ¹§Ï²«C¹íŠ»¯³É¹¦µ½+" .. hStrLv+1 .. "£¡");
+					NLG.SystemMessage(player, "[ç³»çµ±] æ­å–œçµé¬¼å¼·åŒ–æˆåŠŸåˆ°+" .. hStrLv+1 .. "ï¼");
 				end
 				NLG.UpChar(player);
 			end
 		end
 		if ShieldIndex>0 and Char.EndEvent(player,306) == 1 then
-			local wandId = Item.GetData(ShieldIndex, CONST.µÀ¾ß_ID);
+			local wandId = Item.GetData(ShieldIndex, CONST.é“å…·_ID);
 			local targetSlot = Char.GetItemSlot(player, ShieldIndex);
 			if (wandId==51019)  then
-				local tItemName = Item.GetData(ShieldIndex, CONST.µÀ¾ß_Ãû×Ö);
+				local tItemName = Item.GetData(ShieldIndex, CONST.é“å…·_åå­—);
 				local hStrLv = EquipPlusStat(ShieldIndex, "H") or 0;
 				local gStrExp = EquipPlusStat(ShieldIndex, "G") or 0;
 				local hMaxLv = 20;
 				local RequireExpNumTab = StrRequireExp[wandId]
 				local RequireExpNum = RequireExpNumTab[hStrLv+1]
-				--´ò¹í¾­ÑéÖµ
-				if EquipPlusStat(ShieldIndex)==nil then Item.SetData(ShieldIndex, CONST.µÀ¾ß_¼øÇ°Ãû, tItemName); end
+				--æ‰“é¬¼ç»éªŒå€¼
+				if EquipPlusStat(ShieldIndex)==nil then Item.SetData(ShieldIndex, CONST.é“å…·_é‰´å‰å, tItemName); end
 				if (hStrLv<hMaxLv) then
 					EquipPlusStat(ShieldIndex, "G", gStrExp+plus);
 					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[Ïµ½y] «C¹í½›òÀÛ·e" .. gStrExp+plus .. "/"..RequireExpNum.."");
+					NLG.SystemMessage(player, "[ç³»çµ±] çµé¬¼ç¶“é©—ç´¯ç©" .. gStrExp+plus .. "/"..RequireExpNum.."");
 				end
-				--ÎäÆ÷¾«Á¶Ç¿»¯
+				--æ­¦å™¨ç²¾ç‚¼å¼ºåŒ–
 				local gStrExp = EquipPlusStat(ShieldIndex, "G") or 0;
 				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
 					EquipPlusStat(ShieldIndex, "H", hStrLv+1);
@@ -251,7 +251,7 @@ function Module:battleOverEventCallback(battleIndex)
 					setItemName(ShieldIndex);
 					setItemStrData(ShieldIndex, hStrLv);
 					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[Ïµ½y] ¹§Ï²«C¹íŠ»¯³É¹¦µ½+" .. hStrLv+1 .. "£¡");
+					NLG.SystemMessage(player, "[ç³»çµ±] æ­å–œçµé¬¼å¼·åŒ–æˆåŠŸåˆ°+" .. hStrLv+1 .. "ï¼");
 				end
 				NLG.UpChar(player);
 			end
@@ -260,7 +260,7 @@ function Module:battleOverEventCallback(battleIndex)
 end
 
 function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
-	--  E-¸³Óè£¬P- ÅçÆá£¬H- ÁÔ£¬G- ¹í£¬Q- ²å²Û£¬V- ·üÌØ
+	--  E-èµ‹äºˆï¼ŒP- å–·æ¼†ï¼ŒH- çŒï¼ŒG- é¬¼ï¼ŒQ- æ’æ§½ï¼ŒV- ä¼ç‰¹
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
@@ -305,10 +305,11 @@ function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
 end
 
 
-function setItemStrData( _ItemIndex, _StrExp)
+function setItemStrData( _ItemIndex, _StrLv)
 
-	local bRate = (1 + _tStrExp/10000) * 0.1;
-	local strData={%µÀ¾ß_¹¥»÷%,%µÀ¾ß_·ÀÓù%,%µÀ¾ß_Ãô½İ%,%µÀ¾ß_¾«Éñ%,%µÀ¾ß_»Ø¸´%,%µÀ¾ß_HP%,%µÀ¾ß_MP%}
+	local bRate = 1 + (_StrLv/10 * 2);
+	local hRate = 1 + (_StrLv/10 * 2 * 0.1);
+	local strData={%é“å…·_æ”»å‡»%,%é“å…·_é˜²å¾¡%,%é“å…·_æ•æ·%,%é“å…·_ç²¾ç¥%,%é“å…·_å›å¤%,%é“å…·_HP%,%é“å…·_MP%}
 
 	for k,v in pairs(strData) do
  		if Item.GetData(_ItemIndex, v)>0 then
@@ -316,31 +317,31 @@ function setItemStrData( _ItemIndex, _StrExp)
 				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*bRate));
 				Plus= math.floor(Item.GetData(_ItemIndex, v)*bRate) - Item.GetData(_ItemIndex, v);
 			elseif (k>=6 and k<=7) then
-				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*bRate*0.1));
+				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*hRate));
 				Plus= math.floor(Item.GetData(_ItemIndex, v)*bRate*0.1) - Item.GetData(_ItemIndex, v);
 			end
 			local tStat = "";
 			local tStat = tStat .. v .. "," .. Plus .. "|";
-			Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tStat);
+			Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tStat);
 		end
 	end
 end
 
 Char.GetShield = function(charIndex)
-  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_×óÊÖ);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.ITEM_TYPE_¶Ü then
-    return ItemIndex,CONST.EQUIP_×óÊÖ;
+  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å·¦æ‰‹);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.ITEM_TYPE_ç›¾ then
+    return ItemIndex,CONST.EQUIP_å·¦æ‰‹;
   end
-  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_ÓÒÊÖ)
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==CONST.ITEM_TYPE_¶Ü then
-    return ItemIndex,CONST.EQUIP_ÓÒÊÖ;
+  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å³æ‰‹)
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==CONST.ITEM_TYPE_ç›¾ then
+    return ItemIndex,CONST.EQUIP_å³æ‰‹;
   end
   return -1,-1;
 end
 
 
 Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
-  local type = Item.GetData(fromItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
+  local type = Item.GetData(fromItemIndex, CONST.é“å…·_ç±»å‹);
   if (type==8 or type==9) then
       return 0;
   elseif (type==10 or type==11 or type==12) then
@@ -348,11 +349,11 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
   elseif (type==13 or type==14) then
       return 4;
   elseif (type==0 or type==1 or type==2 or type==3 or type==4 or type==5 or type==6 or type==7) then
-      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_ÓÒÊÖ);
+      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å³æ‰‹);
       if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
           return 2;
       end
-      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_×óÊÖ)
+      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_å·¦æ‰‹)
       if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
           return 3;
       end
@@ -360,7 +361,7 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
   return -1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
