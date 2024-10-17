@@ -223,25 +223,25 @@ function QuickUI:onLoad()
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, WingKind_List[Aqua_itemId][level]);
+                --NLG.SetHeadIcon(player, WingKind_List[Aqua_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
                 local itemIndex = Char.HaveItem(player, Agni_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, WingKind_List[Agni_itemId][level]);
+                --NLG.SetHeadIcon(player, WingKind_List[Agni_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
                 local itemIndex = Char.HaveItem(player, Ventus_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, WingKind_List[Ventus_itemId][level]);
+                --NLG.SetHeadIcon(player, WingKind_List[Ventus_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
                 local itemIndex = Char.HaveItem(player, Terra_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
-                NLG.SetHeadIcon(player, WingKind_List[Terra_itemId][level]);
+                --NLG.SetHeadIcon(player, WingKind_List[Terra_itemId][level]);
           else
                 Char.SetData(player, CONST.对象_移速,100);
                 NLG.UpChar(player)
@@ -268,9 +268,10 @@ function QuickUI:onLoad()
     local data = tonumber(_data)
     if select > 0 then
       if seqno == 2 and select == CONST.按钮_确定 then
-        for slot = 0,4 do
-          local p = Char.GetPartyMember(player,slot)
-          if(p>=0) then
+       if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+          for slot = 0,4 do
+            local p = Char.GetPartyMember(player,slot)
+            if(p>=0) then
                 local daka = Char.GetData(p, CONST.对象_打卡);
                 local name = Char.GetData(p,CONST.CHAR_名字);
                 if daka == 1 then
@@ -286,11 +287,23 @@ function QuickUI:onLoad()
                       NLG.UpChar(p);
                       NLG.SystemMessage(player, name.."打卡成功。");
                 end
-          else
-                --NLG.SystemMessage(player, "組隊狀態才能用此全隊打卡。");
-                return
+            end
           end
-        end
+       else
+          local daka = Char.GetData(player, CONST.对象_打卡);
+          local name = Char.GetData(player,CONST.CHAR_名字);
+            if daka == 1 then
+                Char.FeverStop(player);
+                NLG.UpChar(player);
+                NLG.SystemMessage(player, name.."關閉打卡。");
+            end
+            if daka == 0 then
+                  Char.FeverStart(player);
+                  NLG.UpChar(player);
+                  NLG.SystemMessage(player, name.."打卡成功。");
+            end
+            --NLG.SystemMessage(player, "組隊狀態才能用此全隊打卡。");
+       end
       end
     end
   end)
@@ -315,9 +328,10 @@ function QuickUI:onLoad()
         FpGold = 0;
         LpGold = 0;
         --計算回復總金額
-        for slot = 0,4 do
-          local p = Char.GetPartyMember(player,slot)
-          if(p>=0) then
+        if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+          for slot = 0,4 do
+            local p = Char.GetPartyMember(player,slot)
+            if(p>=0) then
                 local lp = Char.GetData(p, CONST.CHAR_血)
                 local maxLp = Char.GetData(p, CONST.CHAR_最大血)
                 local fp = Char.GetData(p, CONST.CHAR_魔)
@@ -328,7 +342,19 @@ function QuickUI:onLoad()
                 if lp <= maxLp then
                       LpGold = LpGold + maxLp - lp;
                 end
+            end
           end
+        else
+                local lp = Char.GetData(player, CONST.CHAR_血)
+                local maxLp = Char.GetData(player, CONST.CHAR_最大血)
+                local fp = Char.GetData(player, CONST.CHAR_魔)
+                local maxFp = Char.GetData(player, CONST.CHAR_最大魔)
+                if fp <= maxFp then
+                      FpGold = FpGold + maxFp - fp;
+                end
+                if lp <= maxLp then
+                      LpGold = LpGold + maxLp - lp;
+                end
         end
         print(FpGold,LpGold)
         if FpGold*0.5 >= LpGold then
@@ -368,7 +394,24 @@ function QuickUI:onLoad()
                     Char.AddGold(player, -totalGold);
                     NLG.UpChar(player);
                 else
-                    NLG.SystemMessage(player, '隊長才可使用！');
+                           local maxLp = Char.GetData(player, CONST.CHAR_最大血);
+                           local maxFp = Char.GetData(player, CONST.CHAR_最大魔);
+                           Char.SetData(player, CONST.CHAR_血, maxLp);
+                           Char.SetData(player, CONST.CHAR_魔, maxFp);
+                           NLG.UpChar(player);
+                           for petSlot  = 0,4 do
+                              local petIndex = Char.GetPet(player,petSlot);
+                              if petIndex >= 0 then
+                                  local maxLp = Char.GetData(petIndex, CONST.CHAR_最大血);
+                                  local maxFp = Char.GetData(petIndex, CONST.CHAR_最大魔);
+                                  Char.SetData(petIndex, CONST.CHAR_血, maxLp);
+                                  Char.SetData(petIndex, CONST.CHAR_魔, maxFp);
+                                  Pet.UpPet(player, petIndex);
+                              end
+                           end
+                    Char.AddGold(player, -totalGold);
+                    NLG.UpChar(player);
+                    --NLG.SystemMessage(player, '隊長才可使用！');
                 end
         end
 
