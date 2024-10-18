@@ -8,7 +8,7 @@ local StrRequireExp = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 
 --远程按钮UI呼叫
 function Module:equipSlotInfo(npc, player)
           local winMsg = "1\\n請選擇查看的裝備插槽: \\n"
-          for targetSlot = 0,7 do
+          for targetSlot = 0,4 do
                 local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
                 if (targetIndex==nil) then
@@ -42,7 +42,7 @@ function Module:onLoad()
   self:NPC_regTalkedEvent(self.equipSloterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
           local winMsg = "1\\n請選擇查看的裝備插槽: \\n"
-          for targetSlot = 0,7 do
+          for targetSlot = 0,4 do
                 local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
                 if (targetIndex==nil) then
@@ -353,7 +353,7 @@ function setItemRevertData( _ItemIndex)
 			else
 			end
 		end
-		Item.SetData(_ItemIndex, CONST.道具_自用参数, nil);
+		Item.SetData(_ItemIndex, CONST.道具_自用参数, 0);
 	end
 end
 
@@ -385,10 +385,21 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
       if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
           return 2;
       end
-      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手)
+      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
       if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
           return 3;
       end
+  elseif (type==15 or type==16 or type==17 or type==18 or type==19 or type==20 or type==21) then
+      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
+      if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
+          return 5;
+      end
+      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
+      if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
+          return 6;
+      end
+  elseif (type==22) then
+      return 7;
   end
   return -1;
 end
