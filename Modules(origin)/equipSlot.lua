@@ -5,6 +5,7 @@ local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾
 --local ExpRate = 3;
 local StrRequireExp = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000,}	--经验
 
+--远程按钮UI呼叫
 function Module:equipSlotInfo(npc, player)
           local winMsg = "1\\n請選擇查看的裝備插槽: \\n"
           for targetSlot = 0,7 do
@@ -152,6 +153,9 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V", 0);
       end
 
+      setItemRevertData(fromItemIndex);
+      Item.UpItem(charIndex, targetSlot);
+      NLG.UpChar(charIndex);
   return 0;
 end
 
@@ -259,6 +263,8 @@ function Module:battleOverEventCallback(battleIndex)
 	end
 end
 
+------------------------------------------------------------------------------------------
+--功能函数
 function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
 	--  E-赋予，P- 喷漆，H- 猎，G- 鬼，Q- 插槽，V- 伏特
 	local tStatTab = {}
@@ -304,29 +310,51 @@ function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
 	end
 end
 
-
+--装备时增加素质
 function setItemStrData( _ItemIndex, _StrLv)
 
 	local bRate = 1 + (_StrLv/10 * 2);
 	local hRate = 1 + (_StrLv/10 * 2 * 0.1);
-	local strData={%道具_攻击%,%道具_防御%,%道具_敏捷%,%道具_精神%,%道具_回复%,%道具_HP%,%道具_MP%}
+	local strData = {18, 19, 20, 21, 22, 27, 28}	--%道具_攻击%,%道具_防御%,%道具_敏捷%,%道具_精神%,%道具_回复%,%道具_HP%,%道具_MP%
 
 	for k,v in pairs(strData) do
  		if Item.GetData(_ItemIndex, v)>0 then
 			if (k>=1 and k<=5) then
-				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*bRate));
 				Plus= math.floor(Item.GetData(_ItemIndex, v)*bRate) - Item.GetData(_ItemIndex, v);
+				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*bRate));
 			elseif (k>=6 and k<=7) then
+				Plus= math.floor(Item.GetData(_ItemIndex, v)*hRate) - Item.GetData(_ItemIndex, v);
 				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*hRate));
-				Plus= math.floor(Item.GetData(_ItemIndex, v)*bRate*0.1) - Item.GetData(_ItemIndex, v);
 			end
-			local tStat = "";
+			local tStat = Item.GetData(_ItemIndex, CONST.道具_自用参数) or "";
 			local tStat = tStat .. v .. "," .. Plus .. "|";
 			Item.SetData(_ItemIndex, CONST.道具_自用参数, tStat);
 		end
 	end
 end
+--卸下时还原素质
+function setItemRevertData( _ItemIndex)
+	local tStatTab = {}
+	local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.道具_自用参数));
+	if (string.find(tItemStat, ",")==nil or string.find(tItemStat, "|")==nil) then
+		return 0;
+	else
+		--local strData = {18, 19, 20, 21, 22, 27, 28}	--%道具_攻击%,%道具_防御%,%道具_敏捷%,%道具_精神%,%道具_回复%,%道具_HP%,%道具_MP%
+		local tStat = string.split(tItemStat, "|");
+		for k,v in pairs(tStat) do
+			if (type(v)=="string") then
+				local tSub = string.split(v, ",");
+				if (type(tSub)=="table") then
+					Item.SetData(_ItemIndex, tonumber(tSub[1]), Item.GetData(_ItemIndex, tonumber(tSub[1])) - tonumber(tSub[2]));
+				end
+			end
+		end
+		Item.SetData(_ItemIndex, CONST.道具_自用参数, nil);
+	end
+end
 
+------------------------------------------------------------------------------------------
+--自定义接口
 Char.GetShield = function(charIndex)
   local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
   if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.道具_类型)==CONST.ITEM_TYPE_盾 then
