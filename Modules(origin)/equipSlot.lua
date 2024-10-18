@@ -3,11 +3,11 @@ local Module = ModuleBase:createModule('equipSlot')
 local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾品1", "飾品2", "水 晶"}
 
 --local ExpRate = 3;
-local StrRequireExp = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000,}	--经验
+local StrRequireExp = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000,}	--经验
 
 --远程按钮UI呼叫
 function Module:equipSlotInfo(npc, player)
-          local winMsg = "1\\n請選擇查看的裝備插槽: \\n"
+          local winMsg = "1\\n　　　　　　　　【角色裝備插槽】\\n"
           for targetSlot = 0,4 do
                 local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
@@ -15,15 +15,12 @@ function Module:equipSlotInfo(npc, player)
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 0);
                 end
-                if targetItemIndex>=0 then
-                        local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
-                        local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
-                        local tStrExp = tStrExp/100;
-                        local msg = "插槽等級: ".. tStrLv .. "  目前熟練度: ".. tStrExp .."%";
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. msg .. "\n"
-                else
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. "\n"
-                end
+
+                local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
+                local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
+                local tStrExp = tStrExp/100;
+                local msg = "插槽等級: ".. tStrLv .. "  目前熟練度: ".. tStrExp .."%";
+                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. msg .. "\n"
           end
           NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, winMsg);
 end
@@ -32,8 +29,6 @@ end
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
-  --self:regCallback('BattleStartEvent', Func.bind(self.battleStartEventCallback, self))
-  --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
   self:regCallback('ItemAttachEvent', Func.bind(self.itemAttachCallback, self))
   self:regCallback('ItemDetachEvent', Func.bind(self.itemDetachCallback, self))
   self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
@@ -41,7 +36,7 @@ function Module:onLoad()
   self.equipSloterNPC = self:NPC_createNormal('裝備插槽管理', 14682, { x =36 , y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.equipSloterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local winMsg = "1\\n請選擇查看的裝備插槽: \\n"
+          local winMsg = "1\\n　　　　　　　　【角色裝備插槽】\\n"
           for targetSlot = 0,4 do
                 local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
@@ -49,15 +44,12 @@ function Module:onLoad()
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 0);
                 end
-                if targetItemIndex>=0 then
-                        local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
-                        local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
-                        local tStrExp = tStrExp/100;
-                        local msg = "插槽等級: ".. tStrLv .. "  目前熟練度: ".. tStrExp .."%";
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. msg .. "\n"
-                else
-                        winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. "\n"
-                end
+
+                local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
+                local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
+                local tStrExp = tStrExp/100;
+                local msg = "插槽等級: ".. tStrLv .. "  目前熟練度: ".. tStrExp .."%";
+                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. msg .. "\n"
           end
           NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, winMsg);
     end
@@ -80,7 +72,7 @@ function Module:onLoad()
               NLG.SystemMessage(player, "[系統]熟練度已達100%能量！");
               return;
           end
-          if (targetItemIndex>0) then
+          if (targetSlot>=0) then
               local killNum = Char.ItemNum(player, 70194);
               local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
@@ -92,8 +84,10 @@ function Module:onLoad()
                       Char.DelItem(player, 70194, keyNum);
                       if (tStrExp==0) then
                           EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
-                      elseif (tStrExp>StrRequireExp[tStrLv+1] and tStrExp<=StrRequireExp[tStrLv+2]) then
+                      elseif (tStrLv<10 and tStrExp>=StrRequireExp[tStrLv+1]) then
                           EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv+1);
+                      --elseif (tStrExp>StrRequireExp[tStrLv+1] and tStrExp<=StrRequireExp[tStrLv+2]) then
+                      --    EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv+1);
                       end
                   end
               end
@@ -105,12 +99,8 @@ function Module:onLoad()
                  return;
       end
       if (seqno == 1 and data >= 1) then
-          targetSlot = data-1;  --装备格参数 (选项少1)
-          targetItemIndex = Char.GetItemIndex(player, targetSlot);
-          if (targetItemIndex<0) then
-              NLG.SystemMessage(player, "[系統]強化的插槽須要裝備。");
-              return;
-          else
+              targetSlot = data-1;  --装备格参数 (选项少1)
+              targetItemIndex = Char.GetItemIndex(player, targetSlot);
               local killNum = Char.ItemNum(player, 70194);
               local winMsg = "【裝備插槽強化】\\n"
                                            .."═════════════════════\\n"
@@ -119,7 +109,6 @@ function Module:onLoad()
                                            .."\\n　　　　當前可充入的量：".. killNum .."\\n"
                                            .."\\n請確認輸入之伏特量：\\n";
               NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_输入框, CONST.BUTTON_确定关闭, 11, winMsg);
-          end
       else
                  return;
       end
@@ -162,105 +151,6 @@ end
 function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
   --self:logDebug('itemExpansionCallback', itemIndex, type, msg, charIndex, slot)
 
-end
-
-
-local Dm={}
-function Module:battleStartEventCallback(battleIndex)
-	for i=10,19 do
-		local enemy = Battle.GetPlayer(battleIndex, i);
-		if enemy >0 then
-			local enemylv = Char.GetData(enemy, CONST.CHAR_等级);
-			table.insert(Dm, i, enemylv);
-		else
-			table.insert(Dm, i, -1);
-		end
-	end
-end
-function Module:battleOverEventCallback(battleIndex)
-	if Battle.IsBossBattle(battleIndex) == 1 then     --BOSS无效
-		return;
-	end
-	if Battle.GetType(battleIndex) == 2 then            --PVP无效
-		return;
-	end
-	--鬼怪平均等级
-	local m = 0;
-	local k = 0;
-	for i=10,19 do
-		if Dm[i]>0 then
-			m = m+Dm[i];
-			k = k+1;
-		end
-	end
-	local lv = math.floor(m/k);
-	local plus = lv * k * ExpRate;
-	--玩家方
-	for playerSlot=0,9 do
-		local player = Battle.GetPlayer(battleIndex, playerSlot);
-		local WeaponIndex = Char.GetWeapon(player);                --左右手武器
-		local ShieldIndex = Char.GetShield(player);                         --修罗盾
-		if WeaponIndex>0 and Char.EndEvent(player,306) == 1 then                --成为猎鬼人开启功能
-			local wandId = Item.GetData(WeaponIndex, CONST.道具_ID);
-			local targetSlot = Char.GetItemSlot(player, WeaponIndex);
-			if (wandId==51003 or wandId==51007 or wandId==51011 or wandId==51015)  then
-				local tItemName = Item.GetData(WeaponIndex, CONST.道具_名字);
-				local hStrLv = EquipPlusStat(WeaponIndex, "H") or 0;
-				local gStrExp = EquipPlusStat(WeaponIndex, "G") or 0;
-				local hMaxLv = 20;
-				local RequireExpNumTab = StrRequireExp[wandId]
-				local RequireExpNum = RequireExpNumTab[hStrLv+1]
-				--打鬼经验值
-				if EquipPlusStat(WeaponIndex)==nil then Item.SetData(WeaponIndex, CONST.道具_鉴前名, tItemName); end
-				if (hStrLv<hMaxLv) then
-					EquipPlusStat(WeaponIndex, "G", gStrExp+plus);
-					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
-				end
-				--武器精炼强化
-				local gStrExp = EquipPlusStat(WeaponIndex, "G") or 0;
-				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
-					EquipPlusStat(WeaponIndex, "H", hStrLv+1);
-					EquipPlusStat(WeaponIndex, "G", gStrExp-RequireExpNum);
-					setItemName(WeaponIndex);
-					setItemStrData(WeaponIndex, hStrLv);
-					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
-				end
-				NLG.UpChar(player);
-			end
-		end
-		if ShieldIndex>0 and Char.EndEvent(player,306) == 1 then
-			local wandId = Item.GetData(ShieldIndex, CONST.道具_ID);
-			local targetSlot = Char.GetItemSlot(player, ShieldIndex);
-			if (wandId==51019)  then
-				local tItemName = Item.GetData(ShieldIndex, CONST.道具_名字);
-				local hStrLv = EquipPlusStat(ShieldIndex, "H") or 0;
-				local gStrExp = EquipPlusStat(ShieldIndex, "G") or 0;
-				local hMaxLv = 20;
-				local RequireExpNumTab = StrRequireExp[wandId]
-				local RequireExpNum = RequireExpNumTab[hStrLv+1]
-				--打鬼经验值
-				if EquipPlusStat(ShieldIndex)==nil then Item.SetData(ShieldIndex, CONST.道具_鉴前名, tItemName); end
-				if (hStrLv<hMaxLv) then
-					EquipPlusStat(ShieldIndex, "G", gStrExp+plus);
-					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[系統] 獵鬼經驗累積" .. gStrExp+plus .. "/"..RequireExpNum.."");
-				end
-				--武器精炼强化
-				local gStrExp = EquipPlusStat(ShieldIndex, "G") or 0;
-				if (hStrLv<hMaxLv and gStrExp>=RequireExpNum) then
-					EquipPlusStat(ShieldIndex, "H", hStrLv+1);
-					EquipPlusStat(ShieldIndex, "G", gStrExp-RequireExpNum);
-					setItemName(ShieldIndex);
-					setItemStrData(ShieldIndex, hStrLv);
-					Item.UpItem(player, targetSlot);
-					NLG.SystemMessage(player, "[系統] 恭喜獵鬼強化成功到+" .. hStrLv+1 .. "！");
-				end
-				NLG.UpChar(player);
-			end
-		end
-	end
 end
 
 ------------------------------------------------------------------------------------------
@@ -313,7 +203,7 @@ end
 --装备时增加素质
 function setItemStrData( _ItemIndex, _StrLv)
 
-	--SQL.Run("ALTER TABLE tbl_item MODIFY COLUMN Argument char(45)");
+	--SQL.Run("ALTER TABLE tbl_item MODIFY COLUMN Argument char(45) Default 0");
 
 	local bRate = 1 + (_StrLv/10 * 2);
 	local hRate = 1 + (_StrLv/10 * 2 * 0.1);
@@ -345,7 +235,6 @@ function setItemRevertData( _ItemIndex)
 		local tStat = string.split(tItemStat, "|");
 		for k,v in pairs(tStat) do
 			if (type(v)=="string" and k<#tStat) then
-				print(k,v)
 				local tSub = string.split(v, ",");
 				if (type(tSub)=="table") then
 					Item.SetData(_ItemIndex, tonumber(tSub[1]), Item.GetData(_ItemIndex, tonumber(tSub[1])) - tonumber(tSub[2]));
@@ -359,19 +248,6 @@ end
 
 ------------------------------------------------------------------------------------------
 --自定义接口
-Char.GetShield = function(charIndex)
-  local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.道具_类型)==CONST.ITEM_TYPE_盾 then
-    return ItemIndex,CONST.EQUIP_左手;
-  end
-  ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_右手)
-  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.道具_类型)==CONST.ITEM_TYPE_盾 then
-    return ItemIndex,CONST.EQUIP_右手;
-  end
-  return -1,-1;
-end
-
-
 Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
   local type = Item.GetData(fromItemIndex, CONST.道具_类型);
   if (type==8 or type==9) then
@@ -381,21 +257,21 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
   elseif (type==13 or type==14) then
       return 4;
   elseif (type==0 or type==1 or type==2 or type==3 or type==4 or type==5 or type==6 or type==7) then
-      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_右手);
-      if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
+      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
+      if (ItemIndex < 0) then
           return 2;
       end
-      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
-      if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
+      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_右手);
+      if (ItemIndex < 0) then
           return 3;
       end
-  elseif (type==15 or type==16 or type==17 or type==18 or type==19 or type==20 or type==21) then
-      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
-      if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
+  elseif (type==15 or type==16 or type==17 or type==18 or type==19 or type==20 or type==21 or type==55) then
+      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
+      if (ItemIndex < 0) then
           return 5;
       end
-      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
-      if (ItemIndex < 0 or  ItemIndex~=fromItemIndex) then
+      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
+      if (ItemIndex < 0) then
           return 6;
       end
   elseif (type==22) then
