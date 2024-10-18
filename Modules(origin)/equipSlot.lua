@@ -242,7 +242,7 @@ function setItemRevertData( _ItemIndex)
 			else
 			end
 		end
-		Item.SetData(_ItemIndex, CONST.道具_自用参数, 0);
+		Item.SetData(_ItemIndex, CONST.道具_自用参数, "");
 	end
 end
 
