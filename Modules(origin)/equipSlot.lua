@@ -82,9 +82,8 @@ function Module:onLoad()
                   else
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
                       Char.DelItem(player, 70194, keyNum);
-                      if (tStrExp==0) then
-                          EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
-                      elseif (tStrLv<10 and tStrExp>=StrRequireExp[tStrLv+1]) then
+                      local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
+                      if (tStrLv<10 and tStrExp>=StrRequireExp[tStrLv+1]) then
                           EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv+1);
                       --elseif (tStrExp>StrRequireExp[tStrLv+1] and tStrExp<=StrRequireExp[tStrLv+2]) then
                       --    EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv+1);
@@ -102,11 +101,11 @@ function Module:onLoad()
               targetSlot = data-1;  --装备格参数 (选项少1)
               targetItemIndex = Char.GetItemIndex(player, targetSlot);
               local killNum = Char.ItemNum(player, 70194);
-              local winMsg = "【裝備插槽強化】\\n"
+              local winMsg = "$1【裝備插槽強化】\\n"
                                            .."═════════════════════\\n"
                                            .."正在確認插槽資訊...\\n"
-                                           .."\\n　　　　插　槽　部　位：".. ItemPosName[targetSlot+1] .."\\n"
-                                           .."\\n　　　　當前可充入的量：".. killNum .."\\n"
+                                           .."\\n　　　　插　槽　部　位：$1".. ItemPosName[targetSlot+1] .."\\n"
+                                           .."\\n　　　　當前可充入的量：$4".. killNum .."\\n"
                                            .."\\n請確認輸入之伏特量：\\n";
               NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_输入框, CONST.BUTTON_确定关闭, 11, winMsg);
       else
