@@ -266,13 +266,13 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
           return 3;
       end
   elseif (type==15 or type==16 or type==17 or type==18 or type==19 or type==20 or type==21 or type==55) then
-      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
-      if (ItemIndex < 0) then
-          return 5;
-      end
-      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
+      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
       if (ItemIndex < 0) then
           return 6;
+      end
+      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
+      if (ItemIndex < 0) then
+          return 5;
       end
   elseif (type==22) then
       return 7;
