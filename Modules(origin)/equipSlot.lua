@@ -313,6 +313,8 @@ end
 --装备时增加素质
 function setItemStrData( _ItemIndex, _StrLv)
 
+	--SQL.Run("ALTER TABLE tbl_item MODIFY COLUMN Argument char(45)");
+
 	local bRate = 1 + (_StrLv/10 * 2);
 	local hRate = 1 + (_StrLv/10 * 2 * 0.1);
 	local strData = {18, 19, 20, 21, 22, 27, 28}	--%道具_攻击%,%道具_防御%,%道具_敏捷%,%道具_精神%,%道具_回复%,%道具_HP%,%道具_MP%
@@ -337,16 +339,18 @@ function setItemRevertData( _ItemIndex)
 	local tStatTab = {}
 	local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.道具_自用参数));
 	if (string.find(tItemStat, ",")==nil or string.find(tItemStat, "|")==nil) then
-		return 0;
+		return;
 	else
 		--local strData = {18, 19, 20, 21, 22, 27, 28}	--%道具_攻击%,%道具_防御%,%道具_敏捷%,%道具_精神%,%道具_回复%,%道具_HP%,%道具_MP%
 		local tStat = string.split(tItemStat, "|");
 		for k,v in pairs(tStat) do
-			if (type(v)=="string") then
+			if (type(v)=="string" and k<#tStat) then
+				print(k,v)
 				local tSub = string.split(v, ",");
 				if (type(tSub)=="table") then
 					Item.SetData(_ItemIndex, tonumber(tSub[1]), Item.GetData(_ItemIndex, tonumber(tSub[1])) - tonumber(tSub[2]));
 				end
+			else
 			end
 		end
 		Item.SetData(_ItemIndex, CONST.道具_自用参数, nil);
