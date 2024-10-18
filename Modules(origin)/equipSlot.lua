@@ -68,13 +68,13 @@ function Module:onLoad()
       if (seqno == 11 and select == CONST.BUTTON_确定 and data >= 1) then
           local keyNum = data*1;
           local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
-          if (tStrExp/100>=100) then
+          local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
+          if (tStrLv>=10) then
               NLG.SystemMessage(player, "[系統]熟練度已達100%能量！");
               return;
           end
           if (targetSlot>=0) then
               local killNum = Char.ItemNum(player, 70194);
-              local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
                   if (keyNum>killNum) then
                       NLG.SystemMessage(player, "[系統]伏特能量不足！");
@@ -83,10 +83,14 @@ function Module:onLoad()
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
                       Char.DelItem(player, 70194, keyNum);
                       local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
-                      if (tStrLv<10 and tStrExp>=StrRequireExp[tStrLv+1]) then
-                          EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv+1);
-                      --elseif (tStrExp>StrRequireExp[tStrLv+1] and tStrExp<=StrRequireExp[tStrLv+2]) then
-                      --    EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv+1);
+                      if (tStrLv<10) then
+                          for k,v in ipairs(StrRequireExp) do
+                              if (k<10 and tStrExp>=StrRequireExp[k+1] and tStrExp<StrRequireExp[k+2]) then
+                                  EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", k+1);
+                              elseif (k>=10) then
+                              end
+                          end
+                      else
                       end
                   end
               end
@@ -101,7 +105,7 @@ function Module:onLoad()
               targetSlot = data-1;  --装备格参数 (选项少1)
               targetItemIndex = Char.GetItemIndex(player, targetSlot);
               local killNum = Char.ItemNum(player, 70194);
-              local winMsg = "$1【裝備插槽強化】\\n"
+              local winMsg = "　　　　　　　　$1【裝備插槽強化】\\n"
                                            .."═════════════════════\\n"
                                            .."正在確認插槽資訊...\\n"
                                            .."\\n　　　　插　槽　部　位：$1".. ItemPosName[targetSlot+1] .."\\n"
