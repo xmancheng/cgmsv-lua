@@ -10,7 +10,8 @@ local StarEnable_check= {500000,500001,500002,500003,500004,500005,500006,500007
                          500020,500021,500022,500023,500024,500025,500026,500027,500028,500029,
                          500030,500031,500032,500033,500034,500035,500036,500037,500038,500039,
                          500040,500041,500042,500043,500044,500045,500046,500047,500048,500049,
-                         500050,500051,500052,500053,500054,500055,500056};
+                         500050,500051,500052,500053,500054,500055,500056,500057,500058,500059,
+                         500060,500061,500062};
 local StarEnable_list = {};
 StarEnable_list[700066] = { 1 };		--第1型:气功弹LV3、力量100点、精灵族、升级气功弹LV7
 StarEnable_list[700067] = { 2 };		--第2型:超法(4選1)LV3、魔法100点、精灵族、升级超法LV7
@@ -74,6 +75,12 @@ StarEnable_list[500053] = { 3 };		--雙彈瓦斯
 StarEnable_list[500054] = { 1 };		--利歐路
 StarEnable_list[500055] = { 1 };		--超級巨沼怪
 StarEnable_list[500056] = { 2 };		--超夢Y
+StarEnable_list[500057] = { 1 };		--天使衛兵
+StarEnable_list[500058] = { 5 };		--奧蘿拉.第5型:追月LV3、力量100点、神族、升级追月LV7
+StarEnable_list[500059] = { 2 };		--凡賽妮
+StarEnable_list[500060] = { 1 };		--卡麗娜
+StarEnable_list[500061] = { 3 };		--南川夏
+StarEnable_list[500062] = { 6 };		--艾爾瑪.第6型:乱射LV3、力量100点、神族、升级乱射LV7
 
 -------------------------------------------------------------------------------------------------------------------------------------
 --- 加载模块钩子
@@ -94,7 +101,7 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
           local msg = "　　　　　　　　$1【寵物星級超量】\\n"
                               .. "　　　　　第一格放置要提升星級的主要寵物\\n"
-                              .. "　　　　$4注意:  其餘位置將暫時為材料寵物區\\n"
+                              .. "　　　　$2注意:  其餘位置將暫時為材料寵物區\\n"
           local petIndex = Char.GetPet(player,0);	--主宠固定宠物栏第一格
           local PetId = Char.GetData(petIndex,CONST.PET_PetID);
           if (petIndex>=0 and CheckInTable(StarEnable_check, PetId)==true) then
@@ -102,7 +109,7 @@ function Module:onLoad()
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
               local PetImage_1 = Char.GetData(petIndex,CONST.对象_形象);
               local imageText_1 = "@g,"..PetImage_1..",3,8,6,0@"
-              msg = msg .. "主要寵: "..PetName_1
+              msg = msg .. "$4主要寵: "..PetName_1
               --材料宠物
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
               if (materialPetIndex>0) then
@@ -111,11 +118,11 @@ function Module:onLoad()
                   local PetName_2 = Char.GetData(materialPetIndex,CONST.对象_原名);
                   local PetImage_2 = Char.GetData(materialPetIndex,CONST.对象_形象);
                   local imageText_2 = "@g,"..PetImage_2..",13,8,6,0@"
-                  msg = msg .. "　　材料寵(第"..mSlot.."格): "..PetName_2.."\\n"
+                  msg = msg .. "　　$2材料寵(第"..mSlot.."格): "..PetName_2.."\\n"
                                         .. imageText_1 .. imageText_2;
               else
                   StarSysOn = 0;
-                  msg = msg .. "　　材料寵(第X格): 無符合\\n"
+                  msg = msg .. "　　$2材料寵(第X格): 無符合\\n"
                                         .. imageText_1;
               end
           else
@@ -336,6 +343,36 @@ function RunStar(petIndex,Type,StarLv)
 				elseif (Pet.GetSkill(petIndex,i)==6802) then
 					Pet.DelSkill(petIndex,i);
 					Pet.AddSkill(petIndex,6806);
+				end
+			end
+		end
+	elseif (Type==5) then
+		if (StarLv==1) then		--★1
+			Pet.AddSkill(petIndex, 200502);
+		elseif (StarLv==2) then	--★2
+			Char.SetData(petIndex,CONST.对象_力量, Char.GetData(petIndex,CONST.对象_力量)+10000);
+		elseif (StarLv==3) then	--★3
+			Char.SetData(petIndex,CONST.对象_种族, 10);
+		elseif (StarLv==4) then	--★4
+			for i = 0,9 do
+				if (Pet.GetSkill(petIndex,i)==200502) then
+					Pet.DelSkill(petIndex,i);
+					Pet.AddSkill(petIndex,200506);
+				end
+			end
+		end
+	elseif (Type==6) then
+		if (StarLv==1) then		--★1
+			Pet.AddSkill(petIndex, 9502);
+		elseif (StarLv==2) then	--★2
+			Char.SetData(petIndex,CONST.对象_力量, Char.GetData(petIndex,CONST.对象_力量)+10000);
+		elseif (StarLv==3) then	--★3
+			Char.SetData(petIndex,CONST.对象_种族, 10);
+		elseif (StarLv==4) then	--★4
+			for i = 0,9 do
+				if (Pet.GetSkill(petIndex,i)==9502) then
+					Pet.DelSkill(petIndex,i);
+					Pet.AddSkill(petIndex,9506);
 				end
 			end
 		end
