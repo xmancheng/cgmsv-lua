@@ -146,12 +146,13 @@ function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
          local SealSlot = Char.GetTempData(charIndex, 'SealOn') or -1;
          if (Char.PetNum(charIndex)==5) then
              NLG.SystemMessage(charIndex,"[系統]寵物欄已滿無法抓取");
-         end
-         if (SealSlot>=0) then
-             NLG.SystemMessage(charIndex,"[系統]一場戰鬥只能封印一隻怪物");
-             ret=-1;
              return ret;
          end
+         --if (SealSlot>=0) then
+             --NLG.SystemMessage(charIndex,"[系統]一場戰鬥只能封印一隻怪物");
+             --ret=-1;
+             --return ret;
+         --end
          local defHpE = Char.GetData(enemyIndex,CONST.CHAR_血);
          local defHpEM = Char.GetData(enemyIndex,CONST.CHAR_最大血);
          local HpE05 = defHpE/defHpEM;
@@ -198,7 +199,8 @@ function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
                  local BYTL4 = Pet.SetArtRank(enemyIndex,CONST.宠档_敏成, arr_rank4 + res4);
                  local BYTL5 = Pet.SetArtRank(enemyIndex,CONST.宠档_魔成, arr_rank5 + res5);
                  NLG.UpChar(enemyIndex);
-                 Char.SetTempData(charIndex, 'SealOn', EmptySlot);
+                 Char.SetTempData(charIndex, 'SealOn', 1);
+                 Char.SetTempData(charIndex, 'SealOn_'..tostring(EmptySlot)..'', EmptySlot);
              end
          end
   return ret;
@@ -209,17 +211,25 @@ function Module:battleOverEventCallback(battleIndex)
   for i = 0, 9 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
         if charIndex >= 0 then
-              local SealSlot = Char.GetTempData(charIndex, 'SealOn') or -1;
-              if SealSlot>=0 then
-                 local PetIndex = Char.GetPet(charIndex, SealSlot);
-                 local typeRand = math.random(1,#petMettleTable);
-                 local pos = math.random(1,#petMettleTable[typeRand]);
-                 Pet.AddSkill(PetIndex, petMettleTable[typeRand][pos], 9);
-                 Char.SetData(PetIndex,CONST.对象_原名, Char.GetData(PetIndex,CONST.对象_原名).."異種");
-                 Pet.UpPet(charIndex,PetIndex);
-                 NLG.UpChar(charIndex);
-                 Char.SetTempData(charIndex, 'SealOn', -1);
+            local SealSlot = Char.GetTempData(charIndex, 'SealOn') or -1;
+            if SealSlot>=0 then
+              for EmptySlot=0,4 do
+                  local PetSlot = Char.GetTempData(charIndex, 'SealOn_'..tostring(EmptySlot)..'') or -1;
+                  if (PetSlot>=0) then
+                      local PetIndex = Char.GetPet(charIndex, PetSlot);
+                      local typeRand = math.random(1,#petMettleTable);
+                      local pos = math.random(1,#petMettleTable[typeRand]);
+                      Pet.AddSkill(PetIndex, petMettleTable[typeRand][pos], 9);
+                      Char.SetData(PetIndex,CONST.对象_原名, Char.GetData(PetIndex,CONST.对象_原名).."異種");
+                      Pet.UpPet(charIndex,PetIndex);
+                      NLG.UpChar(charIndex);
+                  end
               end
+              Char.SetTempData(charIndex, 'SealOn', -1);
+              for i=0,4 do
+                  Char.SetTempData(charIndex, 'SealOn_'..tostring(i)..'', -1);
+              end
+            end
         end
   end
 end
