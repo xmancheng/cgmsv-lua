@@ -239,6 +239,10 @@ function Module:OnItemOverLapEvent(charIndex, fromIndex, targetIndex, Num)
         if (fromItemID==targetItemID and CheckInTable(FusionEnable_check, targetItemID)==true) then
             local fromSlot = Char.GetSpecifyItemSlot(charIndex,fromIndex);
             local targetSlot = Char.GetSpecifyItemSlot(charIndex,targetIndex);
+            if (fromSlot==-1 or targetSlot==-1) then
+                NLG.SystemMessage(charIndex,"[系統]合成須在物品欄第一分頁");
+                return 0;
+            end
             Char.DelItemBySlot(charIndex, fromSlot);
             Char.DelItemBySlot(charIndex, targetSlot);
             local itemIndex = Char.GiveItem(charIndex, FusionList[targetItemID], 1);
