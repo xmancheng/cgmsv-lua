@@ -31,7 +31,7 @@ function Module:convertPlansInfo(npc, player)
           local winButton = CONST.BUTTON_关闭;
           local msg = "1\\n　　　　　　　　【寵物異變改造】\\n"
           for i = 1,#convert_plan_name do
-             msg = msg .. "　　項目: "..i.."　".. convert_plan_name[i] .. "\\n"
+             msg = msg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
              if (i>=8) then
                  winButton = CONST.BUTTON_下取消;
              end
@@ -65,6 +65,8 @@ function Module:onLoad()
           end
       elseif _select == CONST.按钮_是 then
           if (page>=2001) then
+              local seqno = page - 2000;
+              convertMutation(seqno,player)
               return
           else
               return
@@ -93,11 +95,11 @@ function Module:onLoad()
       local count = 8 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
-            winMsg = winMsg .. "　　項目: "..i.."　".. convert_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
         end
       else
         for i = 1 + count, 8 + count do
-            winMsg = winMsg .. "　　項目: "..i.."　".. convert_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
         end
       end
       NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
@@ -114,7 +116,7 @@ function Module:onLoad()
       local winButton = CONST.BUTTON_关闭;
       local msg = "1\\n　　　　　　　　【寵物異變改造】\\n"
       for i = 1,#convert_plan_name do
-         msg = msg .. "　　項目: "..i.."　".. convert_plan_name[i] .. "\\n"
+         msg = msg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
          if (i>=8) then
              winButton = CONST.BUTTON_下取消;
          end
@@ -207,6 +209,38 @@ function convertOfferingInfo(seqno)
               local msg = msg .. "\\n\\n\\n\\n　$5道具: ".. Item_name .. "1個" .. "　　$5魔幣: " .. Gold .. " G\\n"
                                               .. "　$4成功機率: ".. probRate .. "%" .. "　　$9失敗殘念品: 第一順位之寵物"
       return msg;
+end
+
+--异变改造执行
+function convertMutation(seqno,player)
+              if (Char.ItemNum(player, convert_plan_item[seqno][1])==0) then
+                  NLG.SystemMessage(player,"[系統]缺少改造的設計圖。");
+                  return
+              end
+              if (Char.GetData(player, CONST.对象_金币)<convert_plan_gold[seqno]) then
+                  NLG.SystemMessage(player,"[系統]改造所需金幣不足。");
+                  return
+              end
+              for i = 1,#convert_plan_offering[seqno] do
+                  local petSlot = Char.HavePet(player, convert_plan_offering[seqno][i]);
+                  if (petSlot>=0) then
+                      local petIndex = Char.GetPet(player,petSlot);
+                      if (Char.GetData(petIndex,CONST.对象_等级)>=2) then
+                          NLG.SystemMessage(player,"[系統]改造所需寵物非Lv1。");
+                          return
+                      end
+                  else
+                      NLG.SystemMessage(player,"[系統]缺少改造所需寵物。");
+                      return
+                  end
+              end
+              Char.DelItem(player, convert_plan_item[seqno][1], 1);
+              Char.AddGold(player, -convert_plan_gold[seqno]);
+              local randCatch= NLG.Rand(1, #convert_plan_pet[seqno] );
+              for i = 1,#convert_plan_offering[seqno] do
+                  Char.DelPet(player, convert_plan_offering[seqno][i], 1, 1);
+              end
+              Char.GivePet(player,convert_plan_pet[seqno][randCatch],0);
 end
 
 --目标成功率计算
