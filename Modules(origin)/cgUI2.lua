@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
---ahsin£ºÄîĞ¡°×cgÍØÕ¹°´Å¥lua
---±¾lua±ØĞëÔËĞĞÔÚmÀĞµÄĞÂ¿ò¼ÜÏÂ
---Ê×·¢ÂÛÌ³ www.cnmlb.com »ñÈ¡×îĞÂ°æ±¾
+--ahsinï¼šå¿µå°ç™½cgæ‹“å±•æŒ‰é’®lua
+--æœ¬luaå¿…é¡»è¿è¡Œåœ¨mä½¬çš„æ–°æ¡†æ¶ä¸‹
+--é¦–å‘è®ºå› www.cnmlb.com è·å–æœ€æ–°ç‰ˆæœ¬
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 
@@ -10,37 +10,40 @@ local cgUI2Module = ModuleBase:createModule('cgUI2')
 
 function cgUI2Module:onLoad()
 	self:logInfo('load')
-	self:regCallback('ProtocolOnRecv',Func.bind(self.OnRecv,self),'CUSTOMXB')--·â°üÆ¥ÅäÀ¹½Ø
+	self:regCallback('ProtocolOnRecv',Func.bind(self.OnRecv,self),'CUSTOMXB')--å°åŒ…åŒ¹é…æ‹¦æˆª
 end
 
 function cgUI2Module:OnRecv(fd,head,data)
 	
 	local player = Protocol.GetCharByFd(fd)
-	--print('·â°üÄÚÈİ2£º'..data[1])
-	if data[1] == "1" then--Ò»æI´ò¿¨
+	--print('å°åŒ…å†…å®¹2ï¼š'..data[1])
+	if data[1] == "0" then--æ•´ç†èƒŒåŒ…
+		NLG.SortItem(player)
+		NLG.SystemMessage(player,"èƒŒåŒ…æ•´ç†ã€‚");
+	end
+	if data[1] == "1" then--ä¸€éµæ‰“å¡
 		getModule('quickUI'):teamfever(self.feverNpc,player)
 	end
-	if data[1] == "2" then--Ò»æI»ÖÍ
+	if data[1] == "2" then--ä¸€éµæ¢å¾©
 		getModule('quickUI'):teamheal(self.healNpc,player)
 	end
-	if data[1] == "3" then--³É†T¼oä›
+	if data[1] == "3" then--æˆå“¡ç´€éŒ„
 		getModule('quickUI'):partyenter(player)
 	end
-	if data[1] == "4" then--³É†T¼¯½Y
+	if data[1] == "4" then--æˆå“¡é›†çµ
 		getModule('quickUI'):partyform(player)
 	end
-	if data[1] == "5" then--³É†T¼¯ÖĞ
+	if data[1] == "5" then--æˆå“¡é›†ä¸­
 		getModule('quickUI'):gather(player)
 	end
-	if data[1] == "6" then--ÒÆ„Ó¼ÓËÙ
-		getModule('quickUI'):walkingspeed(self.speedNpc,player)
-	end
-	if data[1] == "7" then--Ò»æIËã™n
+	if data[1] == "6" then--ä¸€éµç®—æª”
 		getModule('quickUI'):petinfo(player)
 	end
-	if data[1] == "8" then--ÕûÀí±³°ü
-		NLG.SortItem(player)
-		NLG.SystemMessage(player,"±³°üÕûÀí¡£");
+	if data[1] == "7" then--ç•°è®Šæ”¹é€ 
+		getModule('convertPlans'):convertPlansInfo(self.converterNPC, player)
+	end
+	if data[1] == "8" then--è£å‚™æ’æ§½
+		getModule('equipSlot'):equipSlotInfo(self.equipSloterNPC,player)
 	end
 	if data[1] == "9" then--
 		getModule('bag'):onTalkEvent(player, '/bag 1', 0, 1, 1);
@@ -54,11 +57,14 @@ function cgUI2Module:OnRecv(fd,head,data)
 	if data[1] == "12" then--
 		getModule('bag'):onTalkEvent(player, '/bag 4', 0, 1, 1);
 	end
-	if data[1] == "13" then--
-		Char.Warp(player, 0, 1000, 242, 88)
-		NLG.SystemMessage(player,"¹§Ï²ÄúÒÑ»Ø³Ç¡£");
+	if data[1] == "15" then--ç§»å‹•åŠ é€Ÿ
+		getModule('quickUI'):walkingspeed(self.speedNpc,player)
 	end
-	return 0--±ØĞëÁô×Å£¬·ñÔòÀ¹½Ø
+	if data[1] == "16" then--å›åŸ
+		Char.Warp(player, 0, 1000, 242, 88)
+		NLG.SystemMessage(player,"æ­å–œæ‚¨å·²å›åŸã€‚");
+	end
+	return 0--å¿…é¡»ç•™ç€ï¼Œå¦åˆ™æ‹¦æˆª
 end
 
 function cgUI2Module:onUnload()
