@@ -8,17 +8,59 @@ local convert_plan_item = {};
 local convert_plan_gold = {};
 local convert_plan_pet = {};
 --
-convert_plan_name[1] = "火影忍者系列001";
-convert_plan_offering[1] = {5,831,101};
-convert_plan_item[1] = {79064};
-convert_plan_gold[1] =15000;
-convert_plan_pet[1] = {5,5,5,5,5,5,5,500057,500057,606093};
+convert_plan_name[1] = "《航海王》索隆";
+convert_plan_offering[1] = {321,401,31};
+convert_plan_item[1] = {70261};
+convert_plan_gold[1] =5000;
+convert_plan_pet[1] = {321,321,321,321,321,500061,500061,500061,500061,500061};
 
-convert_plan_name[2] = "航海王系列001";
-convert_plan_offering[2] = {503,801,104};
-convert_plan_item[2] = {79065};
-convert_plan_gold[2] =15000;
-convert_plan_pet[2] = {503,503,503,503,503,503,503,500063,500063,606092};
+convert_plan_name[2] = "《航海王》香吉士";
+convert_plan_offering[2] = {314,421,831};
+convert_plan_item[2] = {70261};
+convert_plan_gold[2] =5000;
+convert_plan_pet[2] = {314,314,314,314,314,500062,500062,500062,500062,500062};
+
+convert_plan_name[3] = "《航海王》四檔魯夫";
+convert_plan_offering[3] = {503,801,104};
+convert_plan_item[3] = {70264};
+convert_plan_gold[3] =15000;
+convert_plan_pet[3] = {503,503,503,503,503,503,503,500063,500063,500063};
+
+convert_plan_name[4] = "《火影忍者》宇智波鼬";
+convert_plan_offering[4] = {402,325,23};
+convert_plan_item[4] = {70262};
+convert_plan_gold[4] =10000;
+convert_plan_pet[4] = {402,402,402,402,402,500058,500058,500058,500058,500058};
+
+convert_plan_name[5] = "《火影忍者》綱手";
+convert_plan_offering[5] = {634,722,502};
+convert_plan_item[5] = {70265};
+convert_plan_gold[5] =10000;
+convert_plan_pet[5] = {634,634,634,634,634,634,500059,500059,500059,500059};
+
+convert_plan_name[6] = "《火影忍者》仙人鳴人";
+convert_plan_offering[6] = {5,833,101};
+convert_plan_item[6] = {70263};
+convert_plan_gold[6] =15000;
+convert_plan_pet[6] = {5,5,5,5,5,5,5,500057,500057,500057};
+
+convert_plan_name[7] = "《Final Fantasy VII》克勞德";
+convert_plan_offering[7] = {114,11,602};
+convert_plan_item[7] = {70259};
+convert_plan_gold[7] =25000;
+convert_plan_pet[7] = {114,114,114,114,114,500068,500068,500068,500068,500068};
+
+convert_plan_name[8] = "《銀魂》神樂";
+convert_plan_offering[8] = {3,255,522};
+convert_plan_item[8] = {70263};
+convert_plan_gold[8] =25000;
+convert_plan_pet[8] = {3,3,3,3,3,500070,500070,500070,500070,500070};
+
+convert_plan_name[9] = "《FAIRY TAIL》艾爾莎";
+convert_plan_offering[9] = {601,803,203};
+convert_plan_item[9] = {70265};
+convert_plan_gold[9] =25000;
+convert_plan_pet[9] = {601,601,601,601,601,500072,500072,500072,500072,500072};
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#convert_plan_name / 8) + 1
@@ -30,7 +72,7 @@ end
 function Module:convertPlansInfo(npc, player)
           local winButton = CONST.BUTTON_关闭;
           local msg = "1\\n　　　　　　　　【寵物異變改造】\\n"
-          for i = 1,#convert_plan_name do
+          for i = 1,8 do
              msg = msg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
              if (i>=8) then
                  winButton = CONST.BUTTON_下取消;
@@ -115,7 +157,7 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local winButton = CONST.BUTTON_关闭;
       local msg = "1\\n　　　　　　　　【寵物異變改造】\\n"
-      for i = 1,#convert_plan_name do
+      for i = 1,8 do
          msg = msg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
          if (i>=8) then
              winButton = CONST.BUTTON_下取消;
@@ -174,7 +216,7 @@ function convertGoalInfo(count)
                          .. "　　　　　　　" .. "$1強度 ".. Goal_DataPos_6+2 .."　" .. "$2抗毒 ".. Goal_DataPos_18 .."　" .. "$2抗醉 ".. Goal_DataPos_19 .."\\n"
                          .. "　　　　　　　" .. "$1速度 ".. Goal_DataPos_7+2 .."　" .. "$2抗睡 ".. Goal_DataPos_20 .."　" .. "$2抗混 ".. Goal_DataPos_21 .."\\n"
                          .. "　　　　　　　" .. "$1魔法 ".. Goal_DataPos_8+2 .."　" .. "$2抗石 ".. Goal_DataPos_22 .."　" .. "$2抗忘 ".. Goal_DataPos_23 .."\\n"
-                         .. "　　　　　　　" .. "$5地 ".. Goal_DataPos_14 .."　" .."$5水 ".. Goal_DataPos_15 .."　" .."$5火 ".. Goal_DataPos_16 .."　" .."$5風 ".. Goal_DataPos_17 .."\\n"
+                         .. "　　　　　　　" .. "$5地 ".. Goal_DataPos_14/10 .."　" .."$5水 ".. Goal_DataPos_15/10 .."　" .."$5火 ".. Goal_DataPos_16/10 .."　" .."$5風 ".. Goal_DataPos_17/10 .."\\n"
                          .. "　　　　　　　" .. "$9種族 ".. Goal_DataPos_3 .."　" .. "$9技能格 ".. Goal_DataPos_28 .."\\n"
       return msg;
 end
@@ -200,7 +242,7 @@ function convertOfferingInfo(seqno)
                   else
                       spaceMsg = "";
                   end
-                  msg = msg .. offering_name_i .. " Lv1　" .. spaceMsg .. imageText_i
+                  msg = msg .. offering_name_i .. " Lv1 " .. spaceMsg .. imageText_i
               end
               local Gold = convert_plan_gold[seqno];
               local ItemsetIndex = Data.ItemsetGetIndex(convert_plan_item[seqno][1]);
