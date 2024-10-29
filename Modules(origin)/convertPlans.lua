@@ -78,7 +78,7 @@ convert_plan_name[12] = "《格鬥天王 XIII》八神庵";
 convert_plan_offering[12] = {723,122,523};
 convert_plan_item[12] = {70258};
 convert_plan_gold[12] =25000;
-convert_plan_pet[12] = {723,723,723,723,723,723,723,500065,500065,500065};
+convert_plan_pet[12] = {723,723,723,723,723,723,723,500066,500066,500066};
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#convert_plan_name / 8) + 1
