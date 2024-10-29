@@ -124,16 +124,20 @@ function Module:onLoad()
               return
           end
       elseif _select == CONST.按钮_关闭 then
-          local winButton = CONST.BUTTON_关闭;
-          local msg = "1\\n　　　　　　　　【寵物異變改造】\\n"
-          for i = 1,8 do
-             msg = msg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
-             if (i>=8) then
-                 winButton = CONST.BUTTON_下取消;
-             end
+          if (page>=1001) then
+              local winButton = CONST.BUTTON_关闭;
+              local msg = "1\\n　　　　　　　　【寵物異變改造】\\n"
+              for i = 1,8 do
+                 msg = msg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
+                 if (i>=8) then
+                     winButton = CONST.BUTTON_下取消;
+                 end
+              end
+              NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, 1, msg);
+              return
+          else
+              return
           end
-          NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, 1, msg);
-          return
       elseif _select == CONST.按钮_是 then
           if (page>=2001) then
               local seqno = page - 2000;
