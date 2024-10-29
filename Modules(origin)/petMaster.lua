@@ -83,6 +83,41 @@ StarEnable_list[500061] = { 3 };		--南川夏
 StarEnable_list[500062] = { 6 };		--艾爾瑪.第6型:乱射LV3、力量100点、神族、升级乱射LV7
 
 -------------------------------------------------------------------------------------------------------------------------------------
+--远程按钮UI呼叫
+function Module:petMasterInfo(npc, player)
+          local msg = "　　　　　　　　$1【寵物星級超量】\\n"
+                              .. "　　　　　第一格放置要提升星級的主要寵物\\n"
+                              .. "　　　　$2注意:  其餘位置將暫時為材料寵物區\\n"
+          local petIndex = Char.GetPet(player,0);	--主宠固定宠物栏第一格
+          local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+          if (petIndex>=0 and CheckInTable(StarEnable_check, PetId)==true) then
+              --主要宠物
+              local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
+              local PetImage_1 = Char.GetData(petIndex,CONST.对象_形象);
+              local imageText_1 = "@g,"..PetImage_1..",3,8,6,0@"
+              msg = msg .. "$4主要寵: "..PetName_1
+              --材料宠物
+              local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
+              if (materialPetIndex>0) then
+                  StarSysOn = 1;
+                  local mSlot = mSlot+1;
+                  local PetName_2 = Char.GetData(materialPetIndex,CONST.对象_原名);
+                  local PetImage_2 = Char.GetData(materialPetIndex,CONST.对象_形象);
+                  local imageText_2 = "@g,"..PetImage_2..",13,8,6,0@"
+                  msg = msg .. "　　$2材料寵(第"..mSlot.."格): "..PetName_2.."\\n"
+                                        .. imageText_1 .. imageText_2;
+              else
+                  StarSysOn = 0;
+                  msg = msg .. "　　$2材料寵(第X格): 無符合\\n"
+                                        .. imageText_1;
+              end
+          else
+              StarSysOn = 0;
+              msg = msg .. "主要寵: 非可星級超量的寵物" .. "\\n\\n\\n材料寵(第X格): 無符合\\n";
+          end
+          NLG.ShowWindowTalked(player, self.MStarNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
+end
+
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
