@@ -21,29 +21,29 @@ function cgUI2Module:OnRecv(fd,head,data)
 		NLG.SortItem(player)
 		NLG.SystemMessage(player,"背包整理。");
 	end
-	if data[1] == "1" then--一鍵打卡
+	if data[1] == "1" then--每日簽到
+		getModule('SigninSheet'):signInInfo(self.signInNPC, player)
+	end
+	if data[1] == "2" then--一鍵打卡
 		getModule('quickUI'):teamfever(self.feverNpc,player)
 	end
-	if data[1] == "2" then--一鍵恢復
+	if data[1] == "3" then--一鍵恢復
 		getModule('quickUI'):teamheal(self.healNpc,player)
 	end
-	if data[1] == "3" then--成員紀錄
-		getModule('quickUI'):partyenter(player)
-	end
-	if data[1] == "4" then--成員集結
-		getModule('quickUI'):partyform(player)
-	end
-	if data[1] == "5" then--成員集中
+	if data[1] == "4" then--成員集中
 		getModule('quickUI'):gather(player)
 	end
-	if data[1] == "6" then--一鍵算檔
+	if data[1] == "5" then--一鍵算檔
 		getModule('quickUI'):petinfo(player)
 	end
-	if data[1] == "7" then--異變改造
+	if data[1] == "6" then--異變改造
 		getModule('convertPlans'):convertPlansInfo(self.converterNPC, player)
 	end
+	if data[1] == "7" then--星級超量
+		getModule('petMaster'):petMasterInfo(self.MStarNPC, player)
+	end
 	if data[1] == "8" then--裝備插槽
-		getModule('equipSlot'):equipSlotInfo(self.equipSloterNPC,player)
+		getModule('equipSlot'):equipSlotInfo(self.equipSloterNPC, player)
 	end
 	if data[1] == "9" then--
 		getModule('bag'):onTalkEvent(player, '/bag 1', 0, 1, 1);
@@ -56,6 +56,12 @@ function cgUI2Module:OnRecv(fd,head,data)
 	end
 	if data[1] == "12" then--
 		getModule('bag'):onTalkEvent(player, '/bag 4', 0, 1, 1);
+	end
+	if data[1] == "13" then--成員紀錄
+		getModule('quickUI'):partyenter(player)
+	end
+	if data[1] == "14" then--成員集結
+		getModule('quickUI'):partyform(player)
 	end
 	if data[1] == "15" then--移動加速
 		getModule('quickUI'):walkingspeed(self.speedNpc,player)
