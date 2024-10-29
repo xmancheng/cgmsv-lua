@@ -60,7 +60,25 @@ convert_plan_name[9] = "《FAIRY TAIL》艾爾莎";
 convert_plan_offering[9] = {601,803,203};
 convert_plan_item[9] = {70265};
 convert_plan_gold[9] =25000;
-convert_plan_pet[9] = {601,601,601,601,601,500072,500072,500072,500072,500072};
+convert_plan_pet[9] = {601,601,601,601,601,601,601,500072,500072,500072};
+
+convert_plan_name[10] = "《聖鬥士星矢》星矢";
+convert_plan_offering[10] = {814,1,21603};
+convert_plan_item[10] = {70257};
+convert_plan_gold[10] =25000;
+convert_plan_pet[10] = {814,814,814,814,814,814,814,500064,500064,500064};
+
+convert_plan_name[11] = "《聖鬥士星矢》雅典娜";
+convert_plan_offering[11] = {835,2,21604};
+convert_plan_item[11] = {70257};
+convert_plan_gold[11] =25000;
+convert_plan_pet[11] = {835,835,835,835,835,835,835,500065,500065,500065};
+
+convert_plan_name[12] = "《格鬥天王 XIII》八神庵";
+convert_plan_offering[12] = {723,122,523};
+convert_plan_item[12] = {70258};
+convert_plan_gold[12] =25000;
+convert_plan_pet[12] = {723,723,723,723,723,723,723,500065,500065,500065};
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#convert_plan_name / 8) + 1
@@ -98,13 +116,24 @@ function Module:onLoad()
           if (page>=1001) then
               local seqno = page - 1000;
               local msg = "　　　　　　　　【寵物異變改造】\\n"
-                                  .. "　　　$1需要以下所有材料才能進行異變改造\\n　$5"
+                                  .. "　　　$1需要以下所有材料才能進行異變改造\\n$5"
               local msg = msg .. convertOfferingInfo(seqno)
               NLG.ShowWindowTalked(player, self.converterNPC, CONST.窗口_信息框, CONST.按钮_是否, 2000+seqno, msg);
               return
           else
               return
           end
+      elseif _select == CONST.按钮_关闭 then
+          local winButton = CONST.BUTTON_关闭;
+          local msg = "1\\n　　　　　　　　【寵物異變改造】\\n"
+          for i = 1,8 do
+             msg = msg .. "　　◎項目 "..i.."　".. convert_plan_name[i] .. "\\n"
+             if (i>=8) then
+                 winButton = CONST.BUTTON_下取消;
+             end
+          end
+          NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, 1, msg);
+          return
       elseif _select == CONST.按钮_是 then
           if (page>=2001) then
               local seqno = page - 2000;
@@ -114,7 +143,15 @@ function Module:onLoad()
               return
           end
       elseif _select == CONST.按钮_否 then
-        return
+          if (page>=2001) then
+              local count = page - 2000;
+              local msg = "　　　　　　　　【寵物異變改造】\\n"
+              local msg = msg .. convertGoalInfo(count);
+              NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1000+count, msg);
+              return
+          else
+              return
+          end
       end
       if _select == CONST.BUTTON_下一页 then
         warpPage = warpPage + 1
@@ -199,7 +236,7 @@ function convertGoalInfo(count)
       local Goal_DataPos_27 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_反击);
       local Goal_DataPos_28 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_技能栏);
       local Goal_DataPos_29 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_形象);
-      local imageText = "@g,"..Goal_DataPos_29..",3,9,6,0@"
+      local imageText = "@g,"..Goal_DataPos_29..",2,8,6,0@"
       local Goal_DataPos_35 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_出生技能1);
       local Goal_DataPos_36 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_出生技能2);
       local Goal_DataPos_37 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_出生技能3);
@@ -231,24 +268,24 @@ function convertOfferingInfo(seqno)
                   local offering_name_i = Data.EnemyBaseGetData(EnemyBaseDataIndex_i, CONST.EnemyBase_名字);
                   local offering_image_i = Data.EnemyBaseGetData(EnemyBaseDataIndex_i, CONST.EnemyBase_形象);
                   local offering_image_ix = 3 + 7*(i-1);
-                  local imageText_i = "@g,"..offering_image_i..","..offering_image_ix..",5,4,0@"
+                  local imageText_i = "@g,"..offering_image_i..","..offering_image_ix..",6,4,0@"
                   local len = #offering_name_i;
-                  if len <= 10 then
-                      spacelen = 10 - len;
-                      spaceMsg = " ";
-                      for i = 1, math.modf(spacelen) do
+                  if len <= 12 then
+                      spacelen = 12 - len;
+                      spaceMsg = "";
+                      for i = 1, math.modf(spacelen/2) do
                           spaceMsg = spaceMsg .." ";
                       end
                   else
                       spaceMsg = "";
                   end
-                  msg = msg .. offering_name_i .. " Lv1 " .. spaceMsg .. imageText_i
+                  msg = msg .. spaceMsg .. offering_name_i .. "Lv1" .. spaceMsg .. imageText_i
               end
               local Gold = convert_plan_gold[seqno];
               local ItemsetIndex = Data.ItemsetGetIndex(convert_plan_item[seqno][1]);
               local Item_name= Data.ItemsetGetData( ItemsetIndex, CONST.ITEMSET_TRUENAME);
               local probRate = prob(seqno,convert_plan_pet[seqno][10]);
-              local msg = msg .. "\\n\\n\\n\\n　$5道具: ".. Item_name .. "1個" .. "　　$5魔幣: " .. Gold .. " G\\n"
+              local msg = msg .. "\\n\\n\\n\\n\\n　$5道具: ".. Item_name .. "1個" .. "　　$5魔幣: " .. Gold .. " G\\n"
                                               .. "　$4成功機率: ".. probRate .. "%" .. "　　$9失敗殘念品: 第一順位之寵物"
       return msg;
 end
