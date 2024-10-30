@@ -117,6 +117,7 @@ loadModule('petRush')|練寵懸賞(P)
 loadModule('petMega')|寵物超級進化(P)
 loadModule('petEmpower')|寵物持有賦能(P)
 loadModule('petMaster')|寵物星級超量(Origin)
+loadModule('convertPlans')|寵物異變改造(Origin)
 ### 裝備強化相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -128,6 +129,7 @@ loadModule('incDurable')|魂魄保養
 loadModule('Strengthen')|魔力賦予
 loadModule('StrengthShop')|魔法卷軸倉庫
 loadModule('ghostHunter')|獵鬼強化(P)
+loadModule('equipSlot')|裝備插槽(Origin)
 ### 特殊副本
 模組加載代碼 | 說明 
 --- | --- 
@@ -161,3 +163,5 @@ loadModule('featuresLuac')|寵物相關道具(P)
 loadModule('pokeHatching')|寶可夢蛋(P)
 loadModule('swapPet')|寶可夢交換(P)
 loadModule('uniqueSkills')|角色獨特技能(Origin)
+loadModule('SigninSheet')|每日簽到(Origin)
+
