@@ -1,7 +1,7 @@
 # cgmsv-lua
 cgmsv lua Module/Modules
 
-適用cgmsv_24.10e/cgmsv_21.2a/cgmsv_24.2b之Lua
+適用cgmsv_24.10e/cgmsv_24.2b/cgmsv_21.2a 之Lua
 (越新的Lua，引擎可能也須跟著升級更新)
 
 ◎舊框架 (原始cgmsv自帶) 的Module
