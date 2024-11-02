@@ -17,10 +17,15 @@ function Module:equipSlotInfo(npc, player)
                 end
 
                 local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
+                if #tostring(tStrLv) <= 1 then spaceLvMsg = " "; else spaceLvMsg = ""; end
+
                 local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
                 local tStrExp = tStrExp/100;
-                local msg = "插槽等級: ".. tStrLv .. "  目前熟練度: ".. tStrExp .."%";
-                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. msg .. "\n"
+                if #tostring(tStrExp) <= 5 then spaceExplen = 5 - #tostring(tStrExp); spaceExpMsg = "";
+                    for i = 1, math.modf(spaceExplen) do spaceExpMsg = spaceExpMsg .." "; end
+                else spaceExpMsg = ""; end
+
+                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "[Lv".. spaceLvMsg..tStrLv .."]：伏特".. spaceExpMsg..tStrExp .."%\n"
           end
           NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, winMsg);
 end
@@ -133,8 +138,14 @@ function Module:itemAttachCallback(charIndex, fromItemIndex)
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V", 0);
       end
 
+      local cardIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C");
+      if (cardIndex==nil) then
+          EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C", "0000000");
+      end
+
       local tStrLv = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
-      setItemStrData(fromItemIndex, tStrLv);
+      local tCard = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C");
+      setItemStrData(fromItemIndex, tStrLv, tCard);
       Item.UpItem(charIndex, targetSlot);
       NLG.UpChar(charIndex);
   return 0;
@@ -146,6 +157,11 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
       if (targetIndex==nil) then
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q", 0);
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V", 0);
+      end
+
+      local cardIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C");
+      if (cardIndex==nil) then
+          EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C", "0000000");
       end
 
       setItemRevertData(fromItemIndex);
@@ -162,7 +178,7 @@ end
 ------------------------------------------------------------------------------------------
 --功能函数
 function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
-	--  E-赋予，P- 喷漆，H- 猎，G- 鬼，Q- 插槽，V- 伏特
+	--  E-赋予，P- 喷漆，H- 猎，G- 鬼，Q- 插槽，V- 伏特，C- 卡片
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
@@ -207,23 +223,41 @@ function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
 end
 
 --装备时增加素质
-function setItemStrData( _ItemIndex, _StrLv)
+function setItemStrData( _ItemIndex, _StrLv, _Card)
 
 	--SQL.Run("ALTER TABLE tbl_item MODIFY COLUMN Argument char(45) Default 0");
+	local Rate_buffer = {}
+	Rate_buffer[1] = tonumber(string.sub(_Card, 1, 1));	--攻击倍率等级
+	Rate_buffer[2] = tonumber(string.sub(_Card, 2, 2));	--防御倍率等级
+	Rate_buffer[3] = tonumber(string.sub(_Card, 3, 3));	--敏捷倍率等级
+	Rate_buffer[4] = tonumber(string.sub(_Card, 4, 4));	--精神倍率等级
+	Rate_buffer[5] = tonumber(string.sub(_Card, 5, 5));	--回复倍率等级
+	Rate_buffer[6] = tonumber(string.sub(_Card, 6, 6));	--HP倍率等级
+	Rate_buffer[7] = tonumber(string.sub(_Card, 7, 7));	--MP倍率等级
+	local Rate_check_b = { 0, 1.0, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.0 }
+	local Rate_check_h = { 0, 0.10, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.20 }
 
-	local bRate = 1 + (_StrLv/10 * 2);
-	local hRate = 1 + (_StrLv/10 * 2 * 0.1);
+	--local bRate = 1 + (_StrLv/10 * 2);
+	--local hRate = 1 + (_StrLv/10 * 2 * 0.1);
 	local strData = {18, 19, 20, 21, 22, 27, 28}	--%道具_攻击%,%道具_防御%,%道具_敏捷%,%道具_精神%,%道具_回复%,%道具_HP%,%道具_MP%
 	local Plus_buffer = {}
 
 	for k,v in pairs(strData) do
  		if Item.GetData(_ItemIndex, v)>0 then
 			if (k>=1 and k<=5) then
-				Plus= math.floor(Item.GetData(_ItemIndex, v)*bRate) - Item.GetData(_ItemIndex, v);
-				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*bRate));
+				if (Rate_buffer[k]>=1) then
+					local CardLv = Rate_buffer[k];
+					local bRate = 1 + (_StrLv/10 * Rate_check_b[CardLv+1]);
+					Plus= math.floor(Item.GetData(_ItemIndex, v)*bRate) - Item.GetData(_ItemIndex, v);
+					Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*bRate));
+				end
 			elseif (k>=6 and k<=7) then
-				Plus= math.floor(Item.GetData(_ItemIndex, v)*hRate) - Item.GetData(_ItemIndex, v);
-				Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*hRate));
+				if (Rate_buffer[k]>=1) then
+					local CardLv = Rate_buffer[k];
+					local hRate = 1 + (_StrLv/10 * Rate_check_h[CardLv+1]);
+					Plus= math.floor(Item.GetData(_ItemIndex, v)*hRate) - Item.GetData(_ItemIndex, v);
+					Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*hRate));
+				end
 			end
 			Plus_buffer[k] = Plus;
 		else
