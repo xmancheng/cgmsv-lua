@@ -195,7 +195,7 @@ end
 --道具说明组合
 function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
   --self:logDebug('itemExpansionCallback', itemIndex, type, msg, charIndex, slot)
-  if (msg=="插槽等級" and type==1) then
+  if (msg=="插槽等級×" and type==1) then
       local PosSlot = Item.GetData(itemIndex, CONST.道具_子参一);
       local string_1 = Data.GetMessage(7300800);
       local string_PosName = Data.GetMessage(7300801+PosSlot);
@@ -213,16 +213,17 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
       local RatePct_check_b = { 0, 10, 12, 13, 14, 15, 16, 17, 18, 20 }
       local RatePct_check_h = { 0, 1.0, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.0 }
 
+      local string_p = Data.GetMessage(7300810);
       for k,v in pairs(Rate_buffer_Item) do
           if (k>=1 and k<=5) then
               if (Rate_buffer_Item[k]>=1) then
                   local string_k = Data.GetMessage(7300810+k);
-                  string = string .. string_k .. string_1 .. RatePct_check_b[v+1] .. "%\n"
+                  string = string .. string_p .. string_k .. string_1 .. RatePct_check_b[v+1] .. "%\n"
               end
           elseif (k>=6 and k<=7) then
               if (Rate_buffer_Item[k]>=1) then
                   local string_k = Data.GetMessage(7300810+k);
-                  string = string .. string_k .. string_1 .. RatePct_check_h[v+1] .. "%\n"
+                  string = string .. string_p .. string_k .. string_1 .. RatePct_check_h[v+1] .. "%\n"
               end
           end
       end
