@@ -5,15 +5,24 @@ local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾
 --local ExpRate = 3;
 local StrRequireExp = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000,}	--经验
 
+local slotCards={}	--攻|防|敏|精|回|血|魔
+slotCards[73801] = "2000010";
+
+---------------------------------------------------------------------
 --远程按钮UI呼叫
 function Module:equipSlotInfo(npc, player)
-          local winMsg = "1\\n　　　　　　　　【角色裝備插槽】\\n"
-          for targetSlot = 0,4 do
+          local winMsg = "2\\n　　　　　　　　【角色裝備插槽】\\n"
+                                     .."　　　　　　　　　　　　攻|防|敏|精|恢|血|魔\\n"
+          for targetSlot = 0,7 do
                 local targetIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local targetItemIndex = Char.GetItemIndex(player, targetSlot);
                 if (targetIndex==nil) then
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 0);
+                end
+                local cardIndex = EquipSlotStat(player, ItemPosName[targetSlot+1], "C");
+                if (cardIndex==nil) then
+                    EquipSlotStat(player, ItemPosName[targetSlot+1], "C", "0000000");
                 end
 
                 local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
@@ -25,7 +34,18 @@ function Module:equipSlotInfo(npc, player)
                     for i = 1, math.modf(spaceExplen) do spaceExpMsg = spaceExpMsg .." "; end
                 else spaceExpMsg = ""; end
 
-                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "[Lv".. spaceLvMsg..tStrLv .."]：伏特".. spaceExpMsg..tStrExp .."%\n"
+                local tCard = EquipSlotStat(player, ItemPosName[targetSlot+1], "C");
+                local Rate_buffer_Info = {}
+                Rate_buffer_Info[1] = tonumber(string.sub(tCard, 1, 1));	--攻击倍率等级
+                Rate_buffer_Info[2] = tonumber(string.sub(tCard, 2, 2));	--防御倍率等级
+                Rate_buffer_Info[3] = tonumber(string.sub(tCard, 3, 3));	--敏捷倍率等级
+                Rate_buffer_Info[4] = tonumber(string.sub(tCard, 4, 4));	--精神倍率等级
+                Rate_buffer_Info[5] = tonumber(string.sub(tCard, 5, 5));	--回复倍率等级
+                Rate_buffer_Info[6] = tonumber(string.sub(tCard, 6, 6));	--HP倍率等级
+                Rate_buffer_Info[7] = tonumber(string.sub(tCard, 7, 7));	--MP倍率等级
+
+                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "[Lv".. spaceLvMsg..tStrLv .."]:伏特".. spaceExpMsg..tStrExp .."%  "
+                                                   .. Rate_buffer_Info[1].."| " .. Rate_buffer_Info[2].."| " .. Rate_buffer_Info[3].."| " .. Rate_buffer_Info[4].."| " .. Rate_buffer_Info[5].."| " .. Rate_buffer_Info[6].."| " .. Rate_buffer_Info[7].."\n"
           end
           NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, winMsg);
 end
@@ -49,7 +69,6 @@ function Module:onLoad()
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 0);
                     EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 0);
                 end
-
                 local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
                 local tStrExp = tStrExp/100;
@@ -72,10 +91,14 @@ function Module:onLoad()
       end
       if (seqno == 11 and select == CONST.BUTTON_确定 and data >= 1) then
           local keyNum = data*1;
-          local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
-          local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
+          local tStrExp = tonumber(EquipSlotStat(player, ItemPosName[targetSlot+1], "V"));
+          local tStrLv = tonumber(EquipSlotStat(player, ItemPosName[targetSlot+1], "Q"));
           if (tStrLv>=10) then
               NLG.SystemMessage(player, "[系統]熟練度已達100%能量！");
+              return;
+          end
+          if (tStrExp+keyNum>10000) then
+              NLG.SystemMessage(player, "[系統]伏特能量過載！");
               return;
           end
           if (targetSlot>=0) then
@@ -87,7 +110,8 @@ function Module:onLoad()
                   else
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
                       Char.DelItem(player, 70194, keyNum);
-                      local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
+                      local tStrExp = tonumber(EquipSlotStat(player, ItemPosName[targetSlot+1], "V"));
+                      if tStrExp>=10000 then EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 10000); end
                       if (tStrLv<10) then
                           if (tStrExp>=StrRequireExp[1] and tStrExp<StrRequireExp[2]) then
                               EquipSlotStat(player, ItemPosName[targetSlot+1], "Q", 1);
@@ -137,14 +161,13 @@ function Module:itemAttachCallback(charIndex, fromItemIndex)
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q", 0);
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V", 0);
       end
-
       local cardIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C");
       if (cardIndex==nil) then
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C", "0000000");
       end
 
-      local tStrLv = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
-      local tCard = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C");
+      local tStrLv = tonumber(EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q"));
+      local tCard = tostring(EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C"));
       setItemStrData(fromItemIndex, tStrLv, tCard);
       Item.UpItem(charIndex, targetSlot);
       NLG.UpChar(charIndex);
@@ -158,7 +181,6 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q", 0);
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "V", 0);
       end
-
       local cardIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C");
       if (cardIndex==nil) then
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C", "0000000");
@@ -170,9 +192,42 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
   return 0;
 end
 
+--道具说明组合
 function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
   --self:logDebug('itemExpansionCallback', itemIndex, type, msg, charIndex, slot)
+  if (msg=="插槽等級" and type==1) then
+      local PosSlot = Item.GetData(itemIndex, CONST.道具_子参一);
+      local string_1 = Data.GetMessage(7300800);
+      local string_PosName = Data.GetMessage(7300801+PosSlot);
+      local string = "$5此石板之插槽位 " ..string_PosName.. "\n"
 
+      local Rate_buffer_Item = {}
+      local card_Rate = slotCards[Item.GetData(itemIndex, CONST.道具_ID)]
+      Rate_buffer_Item[1] = tonumber(string.sub(card_Rate, 1, 1));	--攻击倍率等级
+      Rate_buffer_Item[2] = tonumber(string.sub(card_Rate, 2, 2));	--防御倍率等级
+      Rate_buffer_Item[3] = tonumber(string.sub(card_Rate, 3, 3));	--敏捷倍率等级
+      Rate_buffer_Item[4] = tonumber(string.sub(card_Rate, 4, 4));	--精神倍率等级
+      Rate_buffer_Item[5] = tonumber(string.sub(card_Rate, 5, 5));	--回复倍率等级
+      Rate_buffer_Item[6] = tonumber(string.sub(card_Rate, 6, 6));	--HP倍率等级
+      Rate_buffer_Item[7] = tonumber(string.sub(card_Rate, 7, 7));	--MP倍率等级
+      local RatePct_check_b = { 0, 10, 12, 13, 14, 15, 16, 17, 18, 20 }
+      local RatePct_check_h = { 0, 1.0, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.0 }
+
+      for k,v in pairs(Rate_buffer_Item) do
+          if (k>=1 and k<=5) then
+              if (Rate_buffer_Item[k]>=1) then
+                  local string_k = Data.GetMessage(7300810+k);
+                  string = string .. string_k .. string_1 .. RatePct_check_b[v+1] .. "%\n"
+              end
+          elseif (k>=6 and k<=7) then
+              if (Rate_buffer_Item[k]>=1) then
+                  local string_k = Data.GetMessage(7300810+k);
+                  string = string .. string_k .. string_1 .. RatePct_check_h[v+1] .. "%\n"
+              end
+          end
+      end
+      return string
+  end
 end
 
 ------------------------------------------------------------------------------------------
@@ -194,7 +249,7 @@ function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
 		local tStat = string.split(tItemStat, "|")
 		for k,v in pairs(tStat) do
 			local tSub = string.split(v, ",");
-			tStatTab[tSub[1]]=tonumber(tSub[2]);
+			tStatTab[tSub[1]]=tSub[2];
 		end
 		return tStatTab;
 	elseif type(_StatTab)=="table" then
@@ -210,7 +265,7 @@ function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
 		local tStatTab = EquipSlotStat(_Index, _StatSlot) or {};
 		for k,v in pairs(tStatTab) do
 			if _StatTab==k then
-				return tonumber(v);
+				return v;
 			end
 		end
 		return nil;
@@ -250,6 +305,8 @@ function setItemStrData( _ItemIndex, _StrLv, _Card)
 					local bRate = 1 + (_StrLv/10 * Rate_check_b[CardLv+1]);
 					Plus= math.floor(Item.GetData(_ItemIndex, v)*bRate) - Item.GetData(_ItemIndex, v);
 					Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*bRate));
+				else
+					Plus = 0;
 				end
 			elseif (k>=6 and k<=7) then
 				if (Rate_buffer[k]>=1) then
@@ -257,6 +314,8 @@ function setItemStrData( _ItemIndex, _StrLv, _Card)
 					local hRate = 1 + (_StrLv/10 * Rate_check_h[CardLv+1]);
 					Plus= math.floor(Item.GetData(_ItemIndex, v)*hRate) - Item.GetData(_ItemIndex, v);
 					Item.SetData(_ItemIndex, v, math.floor(Item.GetData(_ItemIndex, v)*hRate));
+				else
+					Plus = 0;
 				end
 			end
 			Plus_buffer[k] = Plus;
