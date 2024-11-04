@@ -6,8 +6,11 @@ local ItemPosName = {"頭 部", "身 体", "右 手", "左 手", "足 部", "飾
 local StrRequireExp = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000,}	--经验
 
 local slotCards={}	--攻|防|敏|精|回|血|魔
-slotCards[73801] = "2000010";
-
+slotCards[73801] = "2100200";
+slotCards[73802] = "2120000";
+slotCards[73803] = "0122000";
+slotCards[73804] = "2210000";
+slotCards[73805] = "2222000";
 ---------------------------------------------------------------------
 --远程按钮UI呼叫
 function Module:equipSlotInfo(npc, player)
@@ -151,8 +154,75 @@ function Module:onLoad()
   end)
 
 
+  --石板道具
+  self:regCallback('ItemString', Func.bind(self.indicativeSlate, self),"LUA_useSlate");
+  self.setupSlateNPC = self:NPC_createNormal('指示石板', 14682, { x =35 , y = 31, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.setupSlateNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+        local msg = "\\n@c【指示石板】" ..	"\\n\\n\\n確定使用石板嵌入部位的裝備插槽？";	
+        NLG.ShowWindowTalked(player, self.setupSlateNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.setupSlateNPC, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    local SlateIndex =SlateIndex;
+    local SlateSlot = SlateSlot;
+    local SlateName = Item.GetData(SlateIndex, CONST.道具_名字);
+    local PosSlot = Item.GetData(SlateIndex,CONST.道具_子参一);
+    --避免nil检测
+    local targetIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "Q");
+    local targetItemIndex = Char.GetItemIndex(player, PosSlot);
+    if (targetIndex==nil) then
+        EquipSlotStat(player, ItemPosName[PosSlot+1], "Q", 0);
+        EquipSlotStat(player, ItemPosName[PosSlot+1], "V", 0);
+    end
+    local cardIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "C");
+    if (cardIndex==nil) then
+        EquipSlotStat(player, ItemPosName[PosSlot+1], "C", "0000000");
+    end
+    --石板操作
+    if select > 0 then
+      if seqno == 1 and Char.ItemSlot(player)>=19 and select == CONST.按钮_是 then
+                 NLG.SystemMessage(player,"[系統]物品欄已滿。");
+                 return;
+      elseif seqno == 1 and select == CONST.按钮_否 then
+                 return;
+      elseif seqno == 1 and select == CONST.按钮_是 then
+          local slate_Info = slotCards[Item.GetData(SlateIndex, CONST.道具_ID)]
+          if (slate_Info ~=nil and PosSlot>=0) then
+              local cardIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "C");
+              if (cardIndex == "0000000") then
+                  Char.DelItemBySlot(player, SlateSlot);
+                  EquipSlotStat(player, ItemPosName[PosSlot+1], "C", slate_Info);
+                  NLG.SystemMessage(player, "[系统]"..SlateName.." 成功嵌入安裝。")
+              else
+                  Char.DelItemBySlot(player, SlateSlot);
+                  EquipSlotStat(player, ItemPosName[PosSlot+1], "C", slate_Info);
+                  NLG.SystemMessage(player, "[系统]"..SlateName.." 成功嵌入安裝。")
+                  for k,v in pairs(slotCards) do
+                      if (cardIndex==v) then
+                          Char.GiveItem(player, k, 1);
+                      end
+                  end
+              end
+          else
+              NLG.SystemMessage(player,"[系統]未設定指示的石板。");
+              return;
+          end
+      else
+                 return;
+      end
+    end
+  end)
+
+
 end
 
+
+--装备接口
 function Module:itemAttachCallback(charIndex, fromItemIndex)
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
       print(targetSlot);
@@ -173,7 +243,7 @@ function Module:itemAttachCallback(charIndex, fromItemIndex)
       NLG.UpChar(charIndex);
   return 0;
 end
-
+--卸下接口
 function Module:itemDetachCallback(charIndex, fromItemIndex)
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
       local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
@@ -192,7 +262,7 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
   return 0;
 end
 
---道具说明组合
+--道具说明组合接口
 function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
   --self:logDebug('itemExpansionCallback', itemIndex, type, msg, charIndex, slot)
   if (msg=="插槽等級×" and type==1) then
@@ -231,6 +301,18 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
   end
 end
 
+--指示石板
+function Module:indicativeSlate(charIndex,targetIndex,itemSlot)
+    ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
+    SlateSlot =itemSlot;
+    SlateIndex = Char.GetItemIndex(charIndex,itemSlot);
+    local SlateName = Item.GetData(SlateIndex,CONST.道具_名字);
+    local PosSlot = Item.GetData(SlateIndex,CONST.道具_子参一);
+    local PosName = ItemPosName[PosSlot+1]
+    local msg = "\\n@c【指示石板】" ..	"\\n\\n\\n確定使用$4" ..SlateName.. "\\n嵌入[" ..PosName.. "]部位的插槽？\\n\\n　　$2如果部位已有石板將會替換下來。";	
+    NLG.ShowWindowTalked(charIndex, self.setupSlateNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+    return 1;
+end
 ------------------------------------------------------------------------------------------
 --功能函数
 function EquipSlotStat( _Index, _StatSlot, _StatTab, _StatValue )
