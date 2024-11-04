@@ -59,7 +59,7 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemAttachEvent', Func.bind(self.itemAttachCallback, self))
   self:regCallback('ItemDetachEvent', Func.bind(self.itemDetachCallback, self))
-  self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
+  --self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
 
   self.equipSloterNPC = self:NPC_createNormal('裝備插槽管理', 14682, { x =36 , y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.equipSloterNPC, function(npc, player)
@@ -105,14 +105,14 @@ function Module:onLoad()
               return;
           end
           if (targetSlot>=0) then
-              local killNum = Char.ItemNum(player, 70194);
+              local killNum = Char.ItemNum(player, 631092);
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
                   if (keyNum>killNum) then
                       NLG.SystemMessage(player, "[系統]伏特能量不足！");
                       return;
                   else
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
-                      Char.DelItem(player, 70194, keyNum);
+                      Char.DelItem(player, 631092, keyNum);
                       local tStrExp = tonumber(EquipSlotStat(player, ItemPosName[targetSlot+1], "V"));
                       if tStrExp>=10000 then EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 10000); end
                       if (tStrLv<10) then
@@ -139,7 +139,7 @@ function Module:onLoad()
       if (seqno == 1 and data >= 1) then
               targetSlot = data-1;  --装备格参数 (选项少1)
               targetItemIndex = Char.GetItemIndex(player, targetSlot);
-              local killNum = Char.ItemNum(player, 70194);
+              local killNum = Char.ItemNum(player, 631092);
               local winMsg = "　　　　　　　　$1【裝備插槽強化】\\n"
                                            .."═════════════════════\\n"
                                            .."正在確認插槽資訊...\\n"
@@ -269,7 +269,7 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
       local PosSlot = Item.GetData(itemIndex, CONST.道具_子参一);
       local string_1 = Data.GetMessage(7300800);
       local string_PosName = Data.GetMessage(7300801+PosSlot);
-      local string = "$5此石板之插槽位 " ..string_PosName.. "\n"
+      local string = "$2此石板之插槽位 " ..string_PosName.. "\n"
 
       local Rate_buffer_Item = {}
       local card_Rate = slotCards[Item.GetData(itemIndex, CONST.道具_ID)]
@@ -309,7 +309,38 @@ function Module:indicativeSlate(charIndex,targetIndex,itemSlot)
     local SlateName = Item.GetData(SlateIndex,CONST.道具_名字);
     local PosSlot = Item.GetData(SlateIndex,CONST.道具_子参一);
     local PosName = ItemPosName[PosSlot+1]
-    local msg = "\\n@c【指示石板】" ..	"\\n\\n\\n確定使用$4" ..SlateName.. "\\n嵌入[" ..PosName.. "]部位的插槽？\\n\\n　　$2如果部位已有石板將會替換下來。";	
+    local msg = "@c【指示石板】\\n"
+                        .. "$2如果部位已有石板將會替換下來\\n\\n"
+    local msg = msg .. "$5此石板嵌入[ " ..PosName.. "]部位\\n"
+
+    local Rate_buffer_Item = {}
+    local card_Rate = slotCards[Item.GetData(SlateIndex, CONST.道具_ID)]
+    Rate_buffer_Item[1] = tonumber(string.sub(card_Rate, 1, 1));	--攻击倍率等级
+    Rate_buffer_Item[2] = tonumber(string.sub(card_Rate, 2, 2));	--防御倍率等级
+    Rate_buffer_Item[3] = tonumber(string.sub(card_Rate, 3, 3));	--敏捷倍率等级
+    Rate_buffer_Item[4] = tonumber(string.sub(card_Rate, 4, 4));	--精神倍率等级
+    Rate_buffer_Item[5] = tonumber(string.sub(card_Rate, 5, 5));	--回复倍率等级
+    Rate_buffer_Item[6] = tonumber(string.sub(card_Rate, 6, 6));	--HP倍率等级
+    Rate_buffer_Item[7] = tonumber(string.sub(card_Rate, 7, 7));	--MP倍率等级
+    local RatePct_check_b = { 0, 10, 12, 13, 14, 15, 16, 17, 18, 20 }
+    local RatePct_check_h = { 0, 1.0, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.0 }
+
+    local string_1 = Data.GetMessage(7300800);
+    local string_p = Data.GetMessage(7300810);
+    for k,v in pairs(Rate_buffer_Item) do
+        if (k>=1 and k<=5) then
+            if (Rate_buffer_Item[k]>=1) then
+                local string_k = Data.GetMessage(7300800+k);
+                msg = msg .. string_p .. string_k .. string_1 .. RatePct_check_b[v+1] .. "%\\n"
+            end
+        elseif (k>=6 and k<=7) then
+            if (Rate_buffer_Item[k]>=1) then
+                local string_k = Data.GetMessage(7300800+k);
+                msg = msg .. string_p .. string_k .. string_1 .. RatePct_check_h[v+1] .. "%\\n"
+            end
+        end
+    end
+    local msg = msg .. "\\n確定使用$4" ..SlateName.. "$0嵌入角色的插槽部位？";	
     NLG.ShowWindowTalked(charIndex, self.setupSlateNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
     return 1;
 end
