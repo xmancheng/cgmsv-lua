@@ -12,73 +12,73 @@ convert_plan_name[1] = "《航海王》索隆";
 convert_plan_offering[1] = {321,401,31};
 convert_plan_item[1] = {70261};
 convert_plan_gold[1] =5000;
-convert_plan_pet[1] = {321,321,321,321,321,500061,500061,500061,500061,500061};
+convert_plan_pet[1] = {321,321,321,321,321,404000,404000,404000,404000,404000};
 
 convert_plan_name[2] = "《航海王》香吉士";
 convert_plan_offering[2] = {314,421,831};
 convert_plan_item[2] = {70261};
 convert_plan_gold[2] =5000;
-convert_plan_pet[2] = {314,314,314,314,314,500062,500062,500062,500062,500062};
+convert_plan_pet[2] = {314,314,314,314,314,404001,404001,404001,404001,404001};
 
-convert_plan_name[3] = "《航海王》四檔魯夫";
-convert_plan_offering[3] = {503,801,104};
-convert_plan_item[3] = {70264};
+convert_plan_name[3] = "《航海王》娜美";
+convert_plan_offering[3] = {3,255,522};
+convert_plan_item[3] = {70263};
 convert_plan_gold[3] =15000;
-convert_plan_pet[3] = {503,503,503,503,503,503,503,500063,500063,500063};
+convert_plan_pet[3] = {3,3,3,3,3,404002,404002,404002,404002,404002};
 
-convert_plan_name[4] = "《火影忍者》宇智波鼬";
-convert_plan_offering[4] = {402,325,23};
-convert_plan_item[4] = {70262};
-convert_plan_gold[4] =10000;
-convert_plan_pet[4] = {402,402,402,402,402,500058,500058,500058,500058,500058};
+convert_plan_name[4] = "《航海王》魯夫Gear4";
+convert_plan_offering[4] = {503,801,104};
+convert_plan_item[4] = {70264};
+convert_plan_gold[4] =25000;
+convert_plan_pet[4] = {503,503,503,503,503,503,503,404003,404003,404003};
 
-convert_plan_name[5] = "《火影忍者》綱手";
-convert_plan_offering[5] = {634,722,502};
-convert_plan_item[5] = {70265};
-convert_plan_gold[5] =10000;
-convert_plan_pet[5] = {634,634,634,634,634,634,500059,500059,500059,500059};
+convert_plan_name[5] = "《火影忍者》鳴人";
+convert_plan_offering[5] = {5,833,101};
+convert_plan_item[5] = {70263};
+convert_plan_gold[5] =5000;
+convert_plan_pet[5] = {5,5,5,5,5,404005,404005,404005,404005,404005};
 
-convert_plan_name[6] = "《火影忍者》仙人鳴人";
-convert_plan_offering[6] = {5,833,101};
-convert_plan_item[6] = {70263};
-convert_plan_gold[6] =15000;
-convert_plan_pet[6] = {5,5,5,5,5,5,5,500057,500057,500057};
+convert_plan_name[6] = "《火影忍者》佐助";
+convert_plan_offering[6] = {114,11,602};
+convert_plan_item[6] = {70259};
+convert_plan_gold[6] =5000;
+convert_plan_pet[6] = {114,114,114,114,114,404006,404006,404006,404006,404006};
 
-convert_plan_name[7] = "《Final Fantasy VII》克勞德";
-convert_plan_offering[7] = {114,11,602};
-convert_plan_item[7] = {70259};
-convert_plan_gold[7] =25000;
-convert_plan_pet[7] = {114,114,114,114,114,500068,500068,500068,500068,500068};
+convert_plan_name[7] = "《火影忍者》宇智波鼬";
+convert_plan_offering[7] = {402,325,23};
+convert_plan_item[7] = {70262};
+convert_plan_gold[7] =15000;
+convert_plan_pet[7] = {402,402,402,402,402,402,404010,404010,404010,404010};
 
-convert_plan_name[8] = "《銀魂》神樂";
-convert_plan_offering[8] = {3,255,522};
-convert_plan_item[8] = {70263};
-convert_plan_gold[8] =25000;
-convert_plan_pet[8] = {3,3,3,3,3,500070,500070,500070,500070,500070};
+convert_plan_name[8] = "《火影忍者》綱手";
+convert_plan_offering[8] = {634,722,502};
+convert_plan_item[8] = {70265};
+convert_plan_gold[8] =15000;
+convert_plan_pet[8] = {634,634,634,634,634,634,404009,404009,404009,404009};
 
-convert_plan_name[9] = "《FAIRY TAIL》艾爾莎";
-convert_plan_offering[9] = {601,803,203};
-convert_plan_item[9] = {70265};
+convert_plan_name[9] = "《七龍珠》超賽三";
+convert_plan_offering[9] = {814,1,21603};
+convert_plan_item[9] = {70257};
 convert_plan_gold[9] =25000;
-convert_plan_pet[9] = {601,601,601,601,601,601,601,500072,500072,500072};
+convert_plan_pet[9] = {814,814,814,814,814,814,814,404021,404021,404021};
 
-convert_plan_name[10] = "《聖鬥士星矢》星矢";
-convert_plan_offering[10] = {814,1,21603};
+convert_plan_name[10] = "《七龍珠》18號";
+convert_plan_offering[10] = {835,2,21604};
 convert_plan_item[10] = {70257};
 convert_plan_gold[10] =25000;
-convert_plan_pet[10] = {814,814,814,814,814,814,814,500064,500064,500064};
+convert_plan_pet[10] = {835,835,835,835,835,835,835,404022,404022,404022};
 
-convert_plan_name[11] = "《聖鬥士星矢》雅典娜";
-convert_plan_offering[11] = {835,2,21604};
-convert_plan_item[11] = {70257};
+convert_plan_name[11] = "《格鬥天王 XIII》八神庵";
+convert_plan_offering[11] = {723,122,523};
+convert_plan_item[11] = {70258};
 convert_plan_gold[11] =25000;
-convert_plan_pet[11] = {835,835,835,835,835,835,835,500065,500065,500065};
+convert_plan_pet[11] = {723,723,723,723,723,723,723,404018,404018,404018};
 
-convert_plan_name[12] = "《格鬥天王 XIII》八神庵";
-convert_plan_offering[12] = {723,122,523};
-convert_plan_item[12] = {70258};
+convert_plan_name[12] = "《格鬥天王 XIII》不知火舞";
+convert_plan_offering[12] = {601,803,203};
+convert_plan_item[12] = {70265};
 convert_plan_gold[12] =25000;
-convert_plan_pet[12] = {723,723,723,723,723,723,723,500066,500066,500066};
+convert_plan_pet[12] = {601,601,601,601,601,601,601,404019,404019,404019};
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#convert_plan_name / 8) + 1
@@ -223,7 +223,7 @@ function convertGoalInfo(count)
       local Goal_DataPos_5 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_力量);
       local Goal_DataPos_6 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_强度);
       local Goal_DataPos_7 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_速度);
-      local Goal_DataPos_8 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_魔法);
+      local Goal_DataPos_8 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, 8);
       local Goal_DataPos_12 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_命中);
       local Goal_DataPos_13 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_必杀);
       local Goal_DataPos_14 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_地属性);
