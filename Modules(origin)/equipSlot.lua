@@ -311,7 +311,7 @@ function Module:indicativeSlate(charIndex,targetIndex,itemSlot)
     local PosName = ItemPosName[PosSlot+1]
     local msg = "@c【指示石板】\\n"
                         .. "$2如果部位已有石板將會替換下來\\n\\n"
-    local msg = msg .. "$5此石板嵌入[ " ..PosName.. "]部位\\n"
+    local msg = msg .. "$5此石板嵌入[ " ..PosName.. " ]部位\\n"
 
     local Rate_buffer_Item = {}
     local card_Rate = slotCards[Item.GetData(SlateIndex, CONST.道具_ID)]
@@ -437,6 +437,7 @@ function setItemStrData( _ItemIndex, _StrLv, _Card)
 			Plus_buffer[k] = 0;
 		end
 	end
+	Item.SetData(_ItemIndex, CONST.道具_自用参数, "");
 	local tStat = Item.GetData(_ItemIndex, CONST.道具_自用参数) or "";
 	local tStat = tStat ..Plus_buffer[1].."|" ..Plus_buffer[2].."|" ..Plus_buffer[3].."|" ..Plus_buffer[4].."|" ..Plus_buffer[5].."|" ..Plus_buffer[6].."|" ..Plus_buffer[7];
 	Item.SetData(_ItemIndex, CONST.道具_自用参数, tStat);
