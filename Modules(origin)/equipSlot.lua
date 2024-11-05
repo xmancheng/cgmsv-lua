@@ -172,17 +172,7 @@ function Module:onLoad()
     local SlateSlot = SlateSlot;
     local SlateName = Item.GetData(SlateIndex, CONST.道具_名字);
     local PosSlot = Item.GetData(SlateIndex,CONST.道具_子参一);
-    --避免nil检测
-    local targetIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "Q");
-    local targetItemIndex = Char.GetItemIndex(player, PosSlot);
-    if (targetIndex==nil) then
-        EquipSlotStat(player, ItemPosName[PosSlot+1], "Q", 0);
-        EquipSlotStat(player, ItemPosName[PosSlot+1], "V", 0);
-    end
-    local cardIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "C");
-    if (cardIndex==nil) then
-        EquipSlotStat(player, ItemPosName[PosSlot+1], "C", "0000000");
-    end
+
     --石板操作
     if select > 0 then
       if seqno == 1 and Char.ItemSlot(player)>=19 and select == CONST.按钮_是 then
@@ -191,6 +181,18 @@ function Module:onLoad()
       elseif seqno == 1 and select == CONST.按钮_否 then
                  return;
       elseif seqno == 1 and select == CONST.按钮_是 then
+          --避免nil检测
+          local targetIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "Q");
+          local targetItemIndex = Char.GetItemIndex(player, PosSlot);
+          if (targetIndex==nil) then
+              EquipSlotStat(player, ItemPosName[PosSlot+1], "Q", 0);
+              EquipSlotStat(player, ItemPosName[PosSlot+1], "V", 0);
+          end
+          local cardIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "C");
+          if (cardIndex==nil) then
+              EquipSlotStat(player, ItemPosName[PosSlot+1], "C", "0000000");
+          end
+          --石板动作
           local slate_Info = slotCards[Item.GetData(SlateIndex, CONST.道具_ID)]
           if (slate_Info ~=nil and PosSlot>=0) then
               local cardIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "C");
@@ -214,6 +216,40 @@ function Module:onLoad()
           end
       else
                  return;
+      end
+    else
+      if seqno == 2 and Char.ItemSlot(player)>=19 and data >= 1 then
+                 NLG.SystemMessage(player,"[系統]物品欄已滿。");
+                 return;
+      elseif seqno == 2 and select == CONST.按钮_关闭 then
+                 return;
+      elseif seqno == 2 and data >= 1 then
+              local PosSlot=data-1;
+              --避免nil检测
+              local targetIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "Q");
+              local targetItemIndex = Char.GetItemIndex(player, PosSlot);
+              if (targetIndex==nil) then
+                  EquipSlotStat(player, ItemPosName[PosSlot+1], "Q", 0);
+                  EquipSlotStat(player, ItemPosName[PosSlot+1], "V", 0);
+              end
+              local cardIndex = EquipSlotStat(player, ItemPosName[PosSlot+1], "C");
+              if (cardIndex==nil) then
+                  EquipSlotStat(player, ItemPosName[PosSlot+1], "C", "0000000");
+              end
+              --石板动作
+              if (cardIndex ~= "0000000") then
+                  Char.DelItemBySlot(player, SlateSlot);
+                  EquipSlotStat(player, ItemPosName[PosSlot+1], "C", "0000000");
+                  NLG.SystemMessage(player, "[系统]"..SlateName.." 成功嵌入安裝。")
+                  for k,v in pairs(slotCards) do
+                      if (cardIndex==v) then
+                          Char.GiveItem(player, k, 1);
+                      end
+                  end
+              else
+                  NLG.SystemMessage(player,"[系統]已重置空白石板。");
+                  return;
+              end
       end
     end
   end)
@@ -308,40 +344,63 @@ function Module:indicativeSlate(charIndex,targetIndex,itemSlot)
     SlateIndex = Char.GetItemIndex(charIndex,itemSlot);
     local SlateName = Item.GetData(SlateIndex,CONST.道具_名字);
     local PosSlot = Item.GetData(SlateIndex,CONST.道具_子参一);
-    local PosName = ItemPosName[PosSlot+1]
-    local msg = "@c【指示石板】\\n"
-                        .. "$2如果部位已有石板將會替換下來\\n\\n"
-    local msg = msg .. "$5此石板嵌入[ " ..PosName.. " ]部位\\n"
+    if (PosSlot~=10) then
+        local PosName = ItemPosName[PosSlot+1]
+        local msg = "@c【指示石板】\\n"
+                            .. "$2如果部位已有石板將會替換下來\\n\\n"
+        local msg = msg .. "$5此石板嵌入[ " ..PosName.. " ]部位\\n"
 
-    local Rate_buffer_Item = {}
-    local card_Rate = slotCards[Item.GetData(SlateIndex, CONST.道具_ID)]
-    Rate_buffer_Item[1] = tonumber(string.sub(card_Rate, 1, 1));	--攻击倍率等级
-    Rate_buffer_Item[2] = tonumber(string.sub(card_Rate, 2, 2));	--防御倍率等级
-    Rate_buffer_Item[3] = tonumber(string.sub(card_Rate, 3, 3));	--敏捷倍率等级
-    Rate_buffer_Item[4] = tonumber(string.sub(card_Rate, 4, 4));	--精神倍率等级
-    Rate_buffer_Item[5] = tonumber(string.sub(card_Rate, 5, 5));	--回复倍率等级
-    Rate_buffer_Item[6] = tonumber(string.sub(card_Rate, 6, 6));	--HP倍率等级
-    Rate_buffer_Item[7] = tonumber(string.sub(card_Rate, 7, 7));	--MP倍率等级
-    local RatePct_check_b = { 0, 10, 12, 13, 14, 15, 16, 17, 18, 20 }
-    local RatePct_check_h = { 0, 1.0, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.0 }
+        local Rate_buffer_Item = {}
+        local card_Rate = slotCards[Item.GetData(SlateIndex, CONST.道具_ID)]
+        Rate_buffer_Item[1] = tonumber(string.sub(card_Rate, 1, 1));	--攻击倍率等级
+        Rate_buffer_Item[2] = tonumber(string.sub(card_Rate, 2, 2));	--防御倍率等级
+        Rate_buffer_Item[3] = tonumber(string.sub(card_Rate, 3, 3));	--敏捷倍率等级
+        Rate_buffer_Item[4] = tonumber(string.sub(card_Rate, 4, 4));	--精神倍率等级
+        Rate_buffer_Item[5] = tonumber(string.sub(card_Rate, 5, 5));	--回复倍率等级
+        Rate_buffer_Item[6] = tonumber(string.sub(card_Rate, 6, 6));	--HP倍率等级
+        Rate_buffer_Item[7] = tonumber(string.sub(card_Rate, 7, 7));	--MP倍率等级
+        local RatePct_check_b = { 0, 10, 12, 13, 14, 15, 16, 17, 18, 20 }
+        local RatePct_check_h = { 0, 1.0, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.0 }
 
-    local string_1 = Data.GetMessage(7300800);
-    local string_p = Data.GetMessage(7300810);
-    for k,v in pairs(Rate_buffer_Item) do
-        if (k>=1 and k<=5) then
-            if (Rate_buffer_Item[k]>=1) then
-                local string_k = Data.GetMessage(7300800+k);
-                msg = msg .. string_p .. string_k .. string_1 .. RatePct_check_b[v+1] .. "%\\n"
-            end
-        elseif (k>=6 and k<=7) then
-            if (Rate_buffer_Item[k]>=1) then
-                local string_k = Data.GetMessage(7300800+k);
-                msg = msg .. string_p .. string_k .. string_1 .. RatePct_check_h[v+1] .. "%\\n"
+        local string_1 = Data.GetMessage(7300800);
+        local string_p = Data.GetMessage(7300810);
+        for k,v in pairs(Rate_buffer_Item) do
+            if (k>=1 and k<=5) then
+                if (Rate_buffer_Item[k]>=1) then
+                    local string_k = Data.GetMessage(7300800+k);
+                    msg = msg .. string_p .. string_k .. string_1 .. RatePct_check_b[v+1] .. "%\\n"
+                end
+            elseif (k>=6 and k<=7) then
+                if (Rate_buffer_Item[k]>=1) then
+                    local string_k = Data.GetMessage(7300800+k);
+                    msg = msg .. string_p .. string_k .. string_1 .. RatePct_check_h[v+1] .. "%\\n"
+                end
             end
         end
+        local msg = msg .. "\\n確定使用$4" ..SlateName.. "$0嵌入角色的插槽部位？";	
+        NLG.ShowWindowTalked(charIndex, self.setupSlateNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+    elseif (PosSlot==10) then
+          local msg = "2\\n　　　　　　　　【空白指示石板】\\n"
+                               .."　　　　攻擊|防禦|敏捷|精神|恢復|生命|魔力\\n"
+          for targetSlot = 0,7 do
+                local tCard = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "C");
+                local Rate_buffer_Info = {}
+                Rate_buffer_Info[1] = tonumber(string.sub(tCard, 1, 1));	--攻击倍率等级
+                Rate_buffer_Info[2] = tonumber(string.sub(tCard, 2, 2));	--防御倍率等级
+                Rate_buffer_Info[3] = tonumber(string.sub(tCard, 3, 3));	--敏捷倍率等级
+                Rate_buffer_Info[4] = tonumber(string.sub(tCard, 4, 4));	--精神倍率等级
+                Rate_buffer_Info[5] = tonumber(string.sub(tCard, 5, 5));	--回复倍率等级
+                Rate_buffer_Info[6] = tonumber(string.sub(tCard, 6, 6));	--HP倍率等级
+                Rate_buffer_Info[7] = tonumber(string.sub(tCard, 7, 7));	--MP倍率等级
+
+                msg = msg .. ItemPosName[targetSlot+1] .. "："
+                                      .. "　" .. Rate_buffer_Info[1].." |  " .. Rate_buffer_Info[2].." |  "
+                                      .. Rate_buffer_Info[3].." |  " .. Rate_buffer_Info[4].." |  "
+                                      .. Rate_buffer_Info[5].." |  " .. Rate_buffer_Info[6].." |  "
+                                      .. Rate_buffer_Info[7].."\n"
+          end
+        NLG.ShowWindowTalked(charIndex, self.setupSlateNPC, CONST.窗口_选择框, CONST.按钮_关闭, 2, msg);
     end
-    local msg = msg .. "\\n確定使用$4" ..SlateName.. "$0嵌入角色的插槽部位？";	
-    NLG.ShowWindowTalked(charIndex, self.setupSlateNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
     return 1;
 end
 ------------------------------------------------------------------------------------------
@@ -437,9 +496,9 @@ function setItemStrData( _ItemIndex, _StrLv, _Card)
 			Plus_buffer[k] = 0;
 		end
 	end
-	Item.SetData(_ItemIndex, CONST.道具_自用参数, "");
-	local tStat = Item.GetData(_ItemIndex, CONST.道具_自用参数) or "";
-	local tStat = tStat ..Plus_buffer[1].."|" ..Plus_buffer[2].."|" ..Plus_buffer[3].."|" ..Plus_buffer[4].."|" ..Plus_buffer[5].."|" ..Plus_buffer[6].."|" ..Plus_buffer[7];
+
+	--local tStat = Item.GetData(_ItemIndex, CONST.道具_自用参数) or "";
+	local tStat = Plus_buffer[1].."|" ..Plus_buffer[2].."|" ..Plus_buffer[3].."|" ..Plus_buffer[4].."|" ..Plus_buffer[5].."|" ..Plus_buffer[6].."|" ..Plus_buffer[7];
 	Item.SetData(_ItemIndex, CONST.道具_自用参数, tStat);
 end
 
