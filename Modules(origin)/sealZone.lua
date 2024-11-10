@@ -243,19 +243,33 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
             leader = leader2
       end
       local Round = Battle.GetTurn(battleIndex);
-      for i = 10, 19 do
-         local enemy = Battle.GetPlayer(battleIndex, i);
-         if enemy>= 0 then
-             for k, v in ipairs(BabyEnemy) do
-                if (Char.GetData(enemy, CONST.CHAR_等级)<=3 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==v.popEnemy) then
-                    if (Char.ItemNum(leader, v.foodItem)>=1) then
-                          Char.DelItem(leader, v.foodItem, 1);
-                          NLG.SystemMessage(leader,"[系統]"..Char.GetData(enemy,CONST.对象_原名).."津津有味地品嘗食物。");
-                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
-                    end
-                end
-             end
-         end
+      if (side==1) then
+        for i = 10, 19 do
+           local enemy = Battle.GetPlayer(battleIndex, i);
+           if enemy>= 0 then
+               for k, v in ipairs(BabyEnemy) do
+                  local FoodOn = Char.GetTempData(enemy, 'FoodOn') or -1;
+                  local FoodRound = Char.GetTempData(enemy, 'FoodRound') or -1;
+                  if (Round > FoodRound) then
+                      Char.SetTempData(enemy, 'FoodOn',-1);
+                  end
+                  local FoodOn = Char.GetTempData(enemy, 'FoodOn') or -1;
+                  if (FoodOn<0 and Char.GetData(enemy, CONST.CHAR_等级)<=3 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==v.popEnemy) then
+                      if (Char.ItemNum(leader, v.foodItem)>=1) then
+                            Char.DelItem(leader, v.foodItem, 1);
+                            Char.SetTempData(enemy, 'FoodOn', 1);
+                            Char.SetTempData(enemy, 'FoodRound', Round);
+                            NLG.SystemMessage(leader,"[系統]"..Char.GetData(enemy,CONST.对象_原名).."津津有味地品嘗樹果。");
+                            SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+                      else
+                            --NLG.SystemMessage(leader,"[系統]樹果沒有了！"..Char.GetData(enemy,CONST.对象_原名).."很可能會自爆逃跑。");
+                      end
+                  elseif (FoodOn>0 and Char.GetData(enemy, CONST.CHAR_等级)<=3 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==v.popEnemy) then
+                            SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+                  end
+               end
+           end
+        end
       end
 end
 function SetCom(charIndex, action, com1, com2, com3)
