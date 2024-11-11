@@ -1,12 +1,13 @@
 --模块类
 local Module = ModuleBase:createModule('taskWarp')
 
-local count_Max = 2;		--副本次数
+--local count_Max = 2;		--副本次数
 --副本分类
 local warp_map_name = {};
 local warp_map_point = {};
 local warp_map_lvlimit = {};
 local warp_map_payfor = {};
+local warp_map_count_Max = {};
 --剩余次数计算
 local warp_map_daily_user = {};
 local warp_map_daily_user_count = {};
@@ -18,34 +19,40 @@ warp_map_daily_user_count[5] = {};	--个次数计算
 warp_map_daily_user_count[6] = {};	--个次数计算
 
 warp_map_name[1] = "十二星座副本";
-warp_map_point[1] = {100,475,196};
-warp_map_lvlimit[1] = 60;
+warp_map_point[1] = {7324,10,14};
+warp_map_lvlimit[1] = 100;
 warp_map_payfor[1] = 20000;
+warp_map_count_Max[1] = 2;
 
 warp_map_name[2] = "機甲魔獸";
 warp_map_point[2] = {7339,22,26};
 warp_map_lvlimit[2] = 150;
 warp_map_payfor[2] = 20000;
+warp_map_count_Max[2] = 2;
 
 warp_map_name[3] = "機甲靈裝";
 warp_map_point[3] = {7340,22,26};
 warp_map_lvlimit[3] = 150;
 warp_map_payfor[3] = 20000;
+warp_map_count_Max[3] = 2;
 
 warp_map_name[4] = "暗黑勢力";
 warp_map_point[4] = {7341,16,20};
 warp_map_lvlimit[4] = 150;
 warp_map_payfor[4] = 20000;
+warp_map_count_Max[4] = 2;
 
 warp_map_name[5] = "海之窟";
 warp_map_point[5] = {20262,41,4};
 warp_map_lvlimit[5] = 150;
 warp_map_payfor[5] = 20000;
+warp_map_count_Max[5] = 2;
 
 warp_map_name[6] = "陸之窟";
 warp_map_point[6] = {20263,10,4};
 warp_map_lvlimit[6] = 150;
 warp_map_payfor[6] = 20000;
+warp_map_count_Max[6] = 2;
 
 ------------------------------------------------------------------------------------------------------------------------
 --功能函数
@@ -98,7 +105,7 @@ end
 --加载模块
 function Module:onLoad()
 	self:logInfo('load')
-	local warpNPC = self:NPC_createNormal('副本管理员',14520,{x=247, y=90, mapType=0, map=1000, direction=6})
+	local warpNPC = self:NPC_createNormal('副本管理员',14063,{x=226, y=84, mapType=0, map=1000, direction=6})
 	self:NPC_regWindowTalkedEvent(warpNPC,Func.bind(self.click,self))
 	self:NPC_regTalkedEvent(warpNPC,Func.bind(self.facetonpc,self))
 end
@@ -155,9 +162,9 @@ function Module:click(npc,player,_seqno,_select,_data)--窗口中点击触发
 			for i = 1 + count, remainder + count do
 				local tcount = warp_map_daily_user_count[i][Playerkey(player)];
 				if (tcount == nil) then
-					tcount = count_Max;
+					tcount = warp_map_count_Max[i];
 				else
-					tcount = count_Max - tcount;
+					tcount = warp_map_count_Max[i] - tcount;
 				end
 				winMsg = winMsg .. " "..warp_map_name[i].."   <金額"..warp_map_payfor[i].."G>  剩餘<"..tcount..">次\\n"
 			end
@@ -165,9 +172,9 @@ function Module:click(npc,player,_seqno,_select,_data)--窗口中点击触发
 			for i = 1 + count, 8 + count do
 				local tcount = warp_map_daily_user_count[i][Playerkey(player)];
 				if (tcount == nil) then
-					tcount = count_Max;
+					tcount = warp_map_count_Max[i];
 				else
-					tcount = count_Max - tcount;
+					tcount = warp_map_count_Max[i] - tcount;
 				end
 				winMsg = winMsg .. " "..warp_map_name[i].."   <金額"..warp_map_payfor[i].."G>  剩餘<"..tcount..">次\\n"
 			end
@@ -195,7 +202,7 @@ function Module:click(npc,player,_seqno,_select,_data)--窗口中点击触发
 				getcountless = 0;
 				warp_map_daily_user_count[count][Playerkey(player)] = 0;
 			end
-			if (getcountless >= count_Max) then
+			if (getcountless >= warp_map_count_Max[count]) then
 				local msg = "\\n\\n\\n@c您的次數已經用完了。"
 				NLG.ShowWindowTalked(player,npc,CONST.窗口_信息框,CONST.按钮_关闭, 1000, msg);
 				return;
@@ -226,9 +233,9 @@ function Module:facetonpc(npc,player)
 		for i=1, 6 do
 			local tcount = warp_map_daily_user_count[i][Playerkey(player)];
 			if (tcount == nil) then
-				tcount = count_Max;
+				tcount = warp_map_count_Max[i];
 			else
-				tcount = count_Max - tcount;
+				tcount = warp_map_count_Max[i] - tcount;
 			end
 			--对齐格式
 			local name_len = #warp_map_name[i];
