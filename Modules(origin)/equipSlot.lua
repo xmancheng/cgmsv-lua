@@ -505,7 +505,7 @@ end
 --卸下时还原素质
 function setItemRevertData( _ItemIndex)
 	local Plus_buffer = {}
-	local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.道具_自用参数));
+	local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.道具_自用参数)) or "";
 	if (string.find(tItemStat, "|")==nil) then
 		return;
 	else
