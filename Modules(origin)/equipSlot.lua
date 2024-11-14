@@ -105,14 +105,14 @@ function Module:onLoad()
               return;
           end
           if (targetSlot>=0) then
-              local killNum = Char.ItemNum(player, 631092);
+              local killNum = Char.ItemNum(player, 70194);
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
                   if (keyNum>killNum) then
                       NLG.SystemMessage(player, "[系統]伏特能量不足！");
                       return;
                   else
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
-                      Char.DelItem(player, 631092, keyNum);
+                      Char.DelItem(player, 70194, keyNum);
                       local tStrExp = tonumber(EquipSlotStat(player, ItemPosName[targetSlot+1], "V"));
                       if tStrExp>=10000 then EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 10000); end
                       if (tStrLv<10) then
@@ -139,7 +139,7 @@ function Module:onLoad()
       if (seqno == 1 and data >= 1) then
               targetSlot = data-1;  --装备格参数 (选项少1)
               targetItemIndex = Char.GetItemIndex(player, targetSlot);
-              local killNum = Char.ItemNum(player, 631092);
+              local killNum = Char.ItemNum(player, 70194);
               local winMsg = "　　　　　　　　$1【裝備插槽強化】\\n"
                                            .."═════════════════════\\n"
                                            .."正在確認插槽資訊...\\n"
@@ -531,11 +531,17 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
       return 4;
   elseif (type==0 or type==1 or type==2 or type==3 or type==4 or type==5 or type==6 or type==7) then
       local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
+      local Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
       if (ItemIndex < 0) then
+          return 2;
+      elseif (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
           return 2;
       end
       ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_右手);
+      Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
       if (ItemIndex < 0) then
+          return 3;
+      elseif (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
           return 3;
       end
   elseif (type==15 or type==16 or type==17 or type==18 or type==19 or type==20 or type==21 or type==55) then
@@ -549,6 +555,8 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
       end
   elseif (type==22) then
       return 7;
+  elseif (type==65 or type==66 or type==67 or type==68 or type==69 or type==70) then
+      return 3;
   end
   return -1;
 end
