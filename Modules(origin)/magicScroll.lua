@@ -48,7 +48,7 @@ function Module:onLoad()
     local targetIndex = Char.GetItemIndex(player, targetSlot);
     if select > 0 then
       if seqno == 1 and select == CONST.按钮_确定 then
-          if (targetIndex ~= nil) then
+          if (targetIndex >= 0) then
               local targetName = Item.GetData(targetIndex, CONST.道具_名字);
               local targetType = Item.GetData(targetIndex,CONST.道具_类型);
               local targethint = Item.GetData(targetIndex,CONST.道具_Explanation1);		--剩余卷数道具说明
