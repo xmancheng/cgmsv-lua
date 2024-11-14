@@ -1,26 +1,14 @@
 local Module = ModuleBase:createModule('magicScroll')
 
-local ItemPosName = {"î^ ²¿", "Éí Ìå", "ÓÒ ÊÖ", "×ó ÊÖ", "×ã ²¿", "ï—Æ·1", "ï—Æ·2", "Ë® ¾§"}
+local ItemPosName = {"é ­ éƒ¨", "èº« ä½“", "å³ æ‰‹", "å·¦ æ‰‹", "è¶³ éƒ¨", "é£¾å“1", "é£¾å“2", "æ°´ æ™¶"}
 local typeEnable_check = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,65,66,67,68,69,70}
 
-local TelekinesisTable = {
-             { Info=7000211, Rate=10},
-             { Info=7000212, Rate=15},
-             { Info=7000213, Rate=20},
-             { Info=7000214, Rate=25},
-             { Info=7000215, Rate=30},
-             { Info=7000216, Rate=35},
-             { Info=7000217, Rate=40},
-             { Info=7000218, Rate=45},
-             { Info=7000219, Rate=50},
-}
-
 local scrollRateTable={}
-scrollRateTable[31] ={35,65,80,88,95,100}			--‚€„e™CÂÊ35,30,15,8,7,5
-scrollRateTable[32] ={4,10,41,71,85,92,97,99,100}		--‚€„e™CÂÊ4,6,31,30,14,7,5,2,1
-scrollRateTable[33] ={100}
+scrollRateTable[31] ={0,35,65,80,88,95,100,101}			--ä¸ªåˆ«æœºçŽ‡35,30,15,8,7,5
+scrollRateTable[32] ={0,4,10,41,71,85,92,97,99,100,101}		--ä¸ªåˆ«æœºçŽ‡4,6,31,30,14,7,5,2,1
+scrollRateTable[33] ={0,100,101}
 
-local scrollTable={}	--¹¥|·À|Ãô|¾«|»Ø|Ñª|Ä§|Ä§¹¥|Ä§¿¹|±Ø|·´|Ãü|éW
+local scrollTable={}	--æ”»|é˜²|æ•|ç²¾|å›ž|è¡€|é­”|é­”æ”»|é­”æŠ—|å¿…|å|å‘½|é—ª (æ•°å€¼èŒƒå›´)
 scrollTable[71032] = "15,20|0,0|0,0|0,0|0,0|15,20|15,20|0,0|0,0|1,2|0,0|1,2|0,0";
 scrollTable[71033] = "12,20|0,0|0,0|0,0|0,0|12,20|12,20|0,0|0,0|0,2|0,0|0,2|0,0";
 scrollTable[71034] = "14,14|0,0|0,0|0,0|0,0|14,14|14,14|0,0|0,0|1,1|0,0|1,1|0,0";
@@ -42,11 +30,11 @@ scrollTable[71046] = "9,9|9,9|9,9|9,9|0,0|9,9|9,9|0,0|9,9|0,0|0,0|0,0|0,0";
 function Module:onLoad()
   self:logInfo('load');
   self:regCallback('ItemString', Func.bind(self.telekinesis, self),"LUA_useScroll");
-  self.witcheryNPC = self:NPC_createNormal('Ä§Á¦¾íÝS´óŽŸ', 14682, { x = 36, y = 33, mapType = 0, map = 777, direction = 6 });
+  self.witcheryNPC = self:NPC_createNormal('é­”åŠ›å·è»¸å¤§å¸«', 14682, { x = 36, y = 33, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.witcheryNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾Ä§Á¦¾íÝS¡¿" ..	"\\n\\n´ËžéÄ§Á¦Œ£ÓÃµÄ¾íÝS\\n\\n·Öžé¾ÈÊÀ¡¢ÃüÔË¡¢ºÚ°µÈý·NîÐÍµÄ¾íÝS\\n\\nÐn¾í³É¹¦ÂÊ½Ôžé100%µ«½Y¹ûžéëS™CËØÙ|£¡\\n\\n";	
-        NLG.ShowWindowTalked(player, self.witcheryNPC, CONST.´°¿Ú_ÐÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+        local msg = "\\n@cã€é­”åŠ›å·è»¸ã€‘" ..	"\\n\\næ­¤ç‚ºé­”åŠ›å°ˆç”¨çš„å·è»¸\\n\\nåˆ†ç‚ºæ•‘ä¸–ã€å‘½è¿ã€é»‘æš—ä¸‰ç¨®é¡žåž‹çš„å·è»¸\\n\\nè¡å·æˆåŠŸçŽ‡çš†ç‚º100%ä½†çµæžœç‚ºéš¨æ©Ÿç´ è³ªï¼\\n\\n";	
+        NLG.ShowWindowTalked(player, self.witcheryNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
@@ -55,46 +43,50 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    local ScrollSpecial = Item.GetData(ScrollIndex,CONST.µÀ¾ß_ÌØÊâÀàÐÍ);	--¾íÝS·Nî
-    local targetSlot = Item.GetData(ScrollIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);	--Ðn¾í²¿Î»
+    local ScrollSpecial = Item.GetData(ScrollIndex,CONST.é“å…·_ç‰¹æ®Šç±»åž‹);	--å·è½´ç§ç±»
+    local targetSlot = Item.GetData(ScrollIndex,CONST.é“å…·_å­å‚ä¸€);	--å†²å·éƒ¨ä½
     local targetIndex = Char.GetItemIndex(player, targetSlot);
     if select > 0 then
-      if seqno == 1 and select == CONST.°´Å¥_È·¶¨ then
+      if seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
           if (targetIndex ~= nil) then
-              local targetName = Item.GetData(targetIndex, CONST.µÀ¾ß_Ãû×Ö);
-              local targetType = Item.GetData(targetIndex,CONST.µÀ¾ß_ÀàÐÍ);
-              local targethint = Item.GetData(targetIndex,CONST.µÀ¾ß_Explanation2);		--Ê£ðN¾í”µµÀ¾ßÕfÃ÷
-              --local Para1 = tonumber(Item.GetData(targetIndex,CONST.µÀ¾ß_×Ó²ÎÒ»));
-              --local Para2 = tonumber(Item.GetData(targetIndex,CONST.µÀ¾ß_×Ó²Î¶þ));
-              if (CheckInTable(typeEnable_check, targetType)==true and targethint ~= 7000214) then		--µÚÒ»¾í
-                            Item.SetData(targetIndex,CONST.µÀ¾ß_Explanation2, 7000214);
-                            Item.SetData(targetIndex,CONST.µÀ¾ß_ÉúÃü, 500);
-                            Item.SetData(targetIndex,CONST.µÀ¾ß_Ä§Á¦, 500);
-                            Item.UpItem(player,targetSlot);
-                            --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
-                            Char.DelItem(player, ItemID,1);
-                            NLG.SystemMessage(player, "[Ïµ½y] "..targetName.." µÚ1´ÎÐn¾í³É¹¦£¡");
-                            NLG.UpChar(player);
-              elseif (CheckInTable(typeEnable_check, targetType)==true and targethint>=7000214 and targethint<=7000219) then
-                      local SRate = math.random(1,100);
-                      for k, v in ipairs(TelekinesisTable) do
-                            if (targethint == v.Info and SRate >= v.Rate) then
-                                Item.SetData(targetIndex,CONST.µÀ¾ß_Explanation2, v.Info+1);
-                                Item.SetData(targetIndex,CONST.µÀ¾ß_ÉúÃü, Item.GetData(targetIndex,CONST.µÀ¾ß_ÉúÃü)+500);
-                                Item.SetData(targetIndex,CONST.µÀ¾ß_Ä§Á¦, Item.GetData(targetIndex,CONST.µÀ¾ß_Ä§Á¦)+500);
-                                Item.UpItem(player,targetSlot);
-                                --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
-                                Char.DelItem(player, ItemID,1);
-                                NLG.SystemMessage(player, "[Ïµ½y] "..targetName.." Ðn¾í³É¹¦£¡");
-                                NLG.UpChar(player);
-                            elseif (targethint == v.Info and SRate < v.Rate) then
-                                Item.SetData(targetIndex,CONST.µÀ¾ß_Explanation2, v.Info+1);
-                                Item.UpItem(player,targetSlot);
-                                --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
-                                Char.DelItem(player, ItemID,1);
-                                NLG.SystemMessage(player, "[Ïµ½y] "..targetName.." ¸½ÄîÊ§”¡ÁË£¡");
-                            end
+              local targetName = Item.GetData(targetIndex, CONST.é“å…·_åå­—);
+              local targetType = Item.GetData(targetIndex,CONST.é“å…·_ç±»åž‹);
+              local targethint = Item.GetData(targetIndex,CONST.é“å…·_Explanation1);		--å‰©ä½™å·æ•°é“å…·è¯´æ˜Ž
+              --local Para1 = tonumber(Item.GetData(targetIndex,CONST.é“å…·_å­å‚ä¸€));
+              --local Para2 = tonumber(Item.GetData(targetIndex,CONST.é“å…·_å­å‚äºŒ));
+              if (CheckInTable(typeEnable_check, targetType)==true and targethint == 7000220) then			--å·²7å·ç»ˆäº†
+                      NLG.SystemMessage(player, "[ç³»çµ±] "..targetName.." å‰©é¤˜å·æ•¸å·²è¡å®Œï¼");
+                      return;
+              elseif (CheckInTable(typeEnable_check, targetType)==true and targethint == 7000214) then		--ç¬¬2å·
+                      rateCalculate(ScrollSpecial,ItemID,targetIndex);
+                      Item.SetData(targetIndex,CONST.é“å…·_Explanation1, targethint+1);
+                      Item.UpItem(player,targetSlot);
+                      --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                      Char.DelItem(player, ItemID,1);
+                      NLG.SystemMessage(player, "[ç³»çµ±] "..targetName.." è¡å·æˆåŠŸï¼");
+                      NLG.UpChar(player);
+              elseif (CheckInTable(typeEnable_check, targetType)==true and targethint ~= 7000214) then		--ç¬¬1ã€3~7å·
+                  if (targethint>=7000215 and targethint<=7000219) then					--ç¬¬3~7å·
+                      rateCalculate(ScrollSpecial,ItemID,targetIndex);
+                      Item.SetData(targetIndex,CONST.é“å…·_Explanation1, targethint+1);
+                      Item.UpItem(player,targetSlot);
+                      --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                      Char.DelItem(player, ItemID,1);
+                      if (targethint == 7000219) then
+                          NLG.SystemMessage(player, "[ç³»çµ±] "..targetName.." æœ€å¾Œ1æ¬¡è¡å·æˆåŠŸï¼");
+                      else
+                          NLG.SystemMessage(player, "[ç³»çµ±] "..targetName.." è¡å·æˆåŠŸï¼");
                       end
+                      NLG.UpChar(player);
+                  else										--ç¬¬1å·
+                      rateCalculate(ScrollSpecial,ItemID,targetIndex);
+                      Item.SetData(targetIndex,CONST.é“å…·_Explanation1, 7000214);
+                      Item.UpItem(player,targetSlot);
+                      --Char.DelItemBySlot(player, Char.FindItemId(player,ItemID));
+                      Char.DelItem(player, ItemID,1);
+                      NLG.SystemMessage(player, "[ç³»çµ±] "..targetName.." ç¬¬1æ¬¡è¡å·æˆåŠŸï¼");
+                      NLG.UpChar(player);
+                  end
               end
           end
       else
@@ -112,16 +104,16 @@ function Module:telekinesis(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     ScrollSlot =itemSlot;
     ScrollIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local ScrollName = Item.GetData(ScrollIndex,CONST.µÀ¾ß_Ãû×Ö);
-    local ScrollSpecial = Item.GetData(ScrollIndex,CONST.µÀ¾ß_ÌØÊâÀàÐÍ);	--¾íÝS·Nî
-    local targetSlot = Item.GetData(ScrollIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);	--Ðn¾í²¿Î»
+    local ScrollName = Item.GetData(ScrollIndex,CONST.é“å…·_åå­—);
+    local ScrollSpecial = Item.GetData(ScrollIndex,CONST.é“å…·_ç‰¹æ®Šç±»åž‹);	--å·è½´ç§ç±»
+    local targetSlot = Item.GetData(ScrollIndex,CONST.é“å…·_å­å‚ä¸€);	--å†²å·éƒ¨ä½
     local targetName = ItemPosName[targetSlot+1]
     local msg = "\\n@c"..ScrollName.."\\n"
-                        .. "\\n´Ë¡¡¾í¡¡ÝS¡¡²¿¡¡Î»£º$2"..targetName.."\\n"
-                        .. "\\nÐn¡¡¾í¡¡³É¡¡¹¦¡¡ÂÊ£º$4" .. "100%\\n\\n";
+                        .. "\\næ­¤ã€€å·ã€€è»¸ã€€éƒ¨ã€€ä½ï¼š$2"..targetName.."\\n"
+                        .. "\\nè¡ã€€å·ã€€æˆã€€åŠŸã€€çŽ‡ï¼š$4" .. "100%\\n\\n";
 
     local ScrollInfo = string.split(scrollTable[ItemID], "|")
-    local InfoName =string.split("¹¥“ô|·À¶R|Ãô½Ý|¾«Éñ|»ØÍ|ÉúÃü|Ä§Á¦|Ä§¹¥|Ä§¿¹|±Øš¢|·´“ô|ÃüÖÐ|éW¶ã", "|")
+    local InfoName =string.split("æ”»æ“Š|é˜²ç¦¦|æ•æ·|ç²¾ç¥ž|å›žå¾©|ç”Ÿå‘½|é­”åŠ›|é­”æ”»|é­”æŠ—|å¿…æ®º|åæ“Š|å‘½ä¸­|é–ƒèº²", "|")
     local formCount = 0
     for i=1,13 do
         local ScrollStat = ScrollInfo[i]
@@ -135,12 +127,29 @@ function Module:telekinesis(charIndex,targetIndex,itemSlot)
             end
         end
     end
-    NLG.ShowWindowTalked(charIndex, self.witcheryNPC, CONST.´°¿Ú_ÐÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+    NLG.ShowWindowTalked(charIndex, self.witcheryNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     return 1;
 end
 
+function rateCalculate(ScrollSpecial,ItemID,targetIndex)
+    local ScrollInfo = string.split(scrollTable[ItemID], "|")
+    local strData = {18, 19, 20, 21, 22, 27, 28,74,55,23,24,25,26}
+    for i=1,13 do
+        local ScrollStat = ScrollInfo[i]
+        local ScrollSub = string.split(ScrollStat, ",");
+        local SRate = math.random(1,100);
+        for k=1,#scrollRateTable[ScrollSpecial]-1 do
+           if (SRate>scrollRateTable[ScrollSpecial][k] and SRate<=scrollRateTable[ScrollSpecial][k+1]) then
+               if (tonumber(ScrollSub[2])>0) then
+                   Item.SetData(targetIndex,strData[i], Item.GetData(targetIndex,strData[i])+tonumber(ScrollSub[1])+k-1);
+               end
+           end
+        end
+    end
+    return 0;
+end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êý
+function CheckInTable(_idTab, _idVar) ---å¾ªçŽ¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
