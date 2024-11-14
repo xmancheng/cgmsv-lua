@@ -505,7 +505,7 @@ end
 --卸下时还原素质
 function setItemRevertData( _ItemIndex)
 	local Plus_buffer = {}
-	local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.道具_自用参数)) or "";
+	local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.道具_自用参数));
 	if (string.find(tItemStat, "|")==nil) then
 		return;
 	else
@@ -531,25 +531,29 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
       return 4;
   elseif (type==0 or type==1 or type==2 or type==3 or type==4 or type==5 or type==6 or type==7) then
       local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_左手);
-      local Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
       if (ItemIndex < 0) then
           return 2;
-      elseif (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
-          return 2;
+      elseif (ItemIndex >= 0) then
+          local Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
+          if (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
+              return 2;
+          end
       end
-      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_右手);
-      Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
+      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_右手);
       if (ItemIndex < 0) then
           return 3;
-      elseif (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
-          return 3;
+      elseif (ItemIndex >= 0) then
+          local Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
+          if (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
+              return 3;
+          end
       end
   elseif (type==15 or type==16 or type==17 or type==18 or type==19 or type==20 or type==21 or type==55) then
       local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
       if (ItemIndex < 0) then
           return 6;
       end
-      ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
+      local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
       if (ItemIndex < 0) then
           return 5;
       end
