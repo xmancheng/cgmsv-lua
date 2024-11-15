@@ -105,14 +105,14 @@ function Module:onLoad()
               return;
           end
           if (targetSlot>=0) then
-              local killNum = Char.ItemNum(player, 70194);
+              local killNum = Char.ItemNum(player, 631092);
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
                   if (keyNum>killNum) then
                       NLG.SystemMessage(player, "[系統]伏特能量不足！");
                       return;
                   else
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
-                      Char.DelItem(player, 70194, keyNum);
+                      Char.DelItem(player, 631092, keyNum);
                       local tStrExp = tonumber(EquipSlotStat(player, ItemPosName[targetSlot+1], "V"));
                       if tStrExp>=10000 then EquipSlotStat(player, ItemPosName[targetSlot+1], "V", 10000); end
                       if (tStrLv<10) then
@@ -139,7 +139,7 @@ function Module:onLoad()
       if (seqno == 1 and data >= 1) then
               targetSlot = data-1;  --装备格参数 (选项少1)
               targetItemIndex = Char.GetItemIndex(player, targetSlot);
-              local killNum = Char.ItemNum(player, 70194);
+              local killNum = Char.ItemNum(player, 631092);
               local winMsg = "　　　　　　　　$1【裝備插槽強化】\\n"
                                            .."═════════════════════\\n"
                                            .."正在確認插槽資訊...\\n"
