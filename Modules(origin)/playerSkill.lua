@@ -4,27 +4,27 @@ local Module = ModuleBase:createModule('playerSkill')
 local Linked_Tbl = {}
 local linkTechList = {9620,9621,9622,9623,9624,9625,9626,9627,9628,9629,9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}
 local petMettleTable = {
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_人型, skillId=9630 , buff = 0.10},              --对人形系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_龙, skillId=9631 , buff = 0.10},              --对龙族系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_不死, skillId=9632 , buff = 0.10},              --对不死系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_飞行, skillId=9633 , buff = 0.10},              --对飞行系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_昆虫, skillId=9634 , buff = 0.10},              --对昆虫系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_植物, skillId=9635 , buff = 0.10},              --对植物系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_野兽, skillId=9636 , buff = 0.10},              --对野兽系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_特殊, skillId=9637 , buff = 0.10},              --对特殊系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_金属, skillId=9638 , buff = 0.10},              --对金属系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_邪魔, skillId=9639 , buff = 0.05},              --对邪魔系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_人型, skillId=9630 , buff = 0.10},              --对人形系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_龙, skillId=9631 , buff = 0.10},              --对龙族系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_不死, skillId=9632 , buff = 0.10},              --对不死系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_飞行, skillId=9633 , buff = 0.10},              --对飞行系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_昆虫, skillId=9634 , buff = 0.10},              --对昆虫系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_植物, skillId=9635 , buff = 0.10},              --对植物系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_野兽, skillId=9636 , buff = 0.10},              --对野兽系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_特殊, skillId=9637 , buff = 0.10},              --对特殊系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_金属, skillId=9638 , buff = 0.10},              --对金属系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_邪魔, skillId=9639 , buff = 0.05},              --对邪魔系对象增加伤害
 
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_人型, skillId=9640 , buff = 0.10},              --减轻来自人形系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_龙, skillId=9641 , buff = 0.10},              --减轻来自龙族系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_不死, skillId=9642 , buff = 0.10},              --减轻来自不死系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_飞行, skillId=9643 , buff = 0.10},              --减轻来自飞行系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_昆虫, skillId=9644 , buff = 0.10},              --减轻来自昆虫系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_植物, skillId=9645 , buff = 0.10},              --减轻来自植物系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_野兽, skillId=9646 , buff = 0.10},              --减轻来自野兽系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_特殊, skillId=9647 , buff = 0.10},              --减轻来自特殊系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_金属, skillId=9648 , buff = 0.10},              --减轻来自金属系对象伤害
-             { MettleType=6, type=CONST.对象_种族, info=CONST.种族_邪魔, skillId=9649 , buff = 0.05},              --减轻来自邪魔系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_人型, skillId=9640 , buff = 0.10},              --减轻来自人形系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_龙, skillId=9641 , buff = 0.10},              --减轻来自龙族系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_不死, skillId=9642 , buff = 0.10},              --减轻来自不死系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_飞行, skillId=9643 , buff = 0.10},              --减轻来自飞行系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_昆虫, skillId=9644 , buff = 0.10},              --减轻来自昆虫系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_植物, skillId=9645 , buff = 0.10},              --减轻来自植物系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_野兽, skillId=9646 , buff = 0.10},              --减轻来自野兽系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_特殊, skillId=9647 , buff = 0.10},              --减轻来自特殊系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_金属, skillId=9648 , buff = 0.10},              --减轻来自金属系对象伤害
+             { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_邪魔, skillId=9649 , buff = 0.05},              --减轻来自邪魔系对象伤害
 }
 
 --- 加载模块钩子
@@ -40,7 +40,7 @@ function Module:onLoad()
 end
 
 function Module:onTribeRateEvent(charIndex, defCharIndex, rate)
-         print(charIndex, defCharIndex, rate)
+         --print(charIndex, defCharIndex, rate)
     return rate;
 end
 
@@ -54,13 +54,13 @@ function Module:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3
          --特殊计算公式技能
          if Char.IsPlayer(charIndex)==true then
                --基本資訊
-               local Agile = Char.GetData(charIndex,CONST.对象_敏捷);
-               local Blood = Char.GetData(charIndex,CONST.对象_血);
+               local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
+               local Blood = Char.GetData(charIndex,CONST.CHAR_血);
                local dp = {}
-               dp[1] = Char.GetData(defCharIndex, CONST.对象_地属性)
-               dp[2] = Char.GetData(defCharIndex, CONST.对象_水属性)
-               dp[3] = Char.GetData(defCharIndex, CONST.对象_火属性)
-               dp[4] = Char.GetData(defCharIndex, CONST.对象_风属性)
+               dp[1] = Char.GetData(defCharIndex, CONST.CHAR_地属性)
+               dp[2] = Char.GetData(defCharIndex, CONST.CHAR_水属性)
+               dp[3] = Char.GetData(defCharIndex, CONST.CHAR_火属性)
+               dp[4] = Char.GetData(defCharIndex, CONST.CHAR_风属性)
                local AttRate_2 = Battle.CalcAttributeDmgRate(charIndex, defCharIndex)
                local AttRate = (AttRate_2 - 1) * 0.5 + 1
                local RaceRate = Battle.CalcTribeDmgRate(charIndex, defCharIndex) + 1
@@ -101,17 +101,17 @@ function Module:LinkedEffect(charIndex, defCharIndex, damage, battleIndex, com3,
          end
          if Char.IsPlayer(charIndex) then
                --基本資訊
-               local LvRate = Char.GetData(charIndex,CONST.对象_等级);
-               local Attack = Char.GetData(charIndex,CONST.对象_攻击力);
-               local Defense = Char.GetData(charIndex,CONST.对象_防御力);
-               local Avoid = Char.GetData(charIndex,CONST.对象_闪躲);
-               local Critical = Char.GetData(charIndex,CONST.对象_必杀);
-               local Counter = Char.GetData(charIndex,CONST.对象_反击);
-               local Agile = Char.GetData(charIndex,CONST.对象_敏捷);
-               local Spirit = Char.GetData(charIndex,CONST.对象_精神);
-               local Blood = Char.GetData(charIndex,CONST.对象_血);
-               local Mana = Char.GetData(charIndex,CONST.对象_魔);
-               local Mattack = Char.GetData(charIndex,CONST.对象_魔攻);
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_等级);
+               local Attack = Char.GetData(charIndex,CONST.CHAR_攻击力);
+               local Defense = Char.GetData(charIndex,CONST.CHAR_防御力);
+               local Avoid = Char.GetData(charIndex,CONST.CHAR_闪躲);
+               local Critical = Char.GetData(charIndex,CONST.CHAR_必杀);
+               local Counter = Char.GetData(charIndex,CONST.CHAR_反击);
+               local Agile = Char.GetData(charIndex,CONST.CHAR_敏捷);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_精神);
+               local Blood = Char.GetData(charIndex,CONST.CHAR_血);
+               local Mana = Char.GetData(charIndex,CONST.CHAR_魔);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_魔攻);
                if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Weapon_Name~=nil then
 
                  local techList = {9519,25815,25816,25817,25818,25819,415,416,417,418,429}
@@ -204,7 +204,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                     Char.GiveItem(charIndex, 40844, 1);
                     NLG.SortItem(charIndex);
             end
-         end
+		 end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPlayer(defCharIndex)==true  then
            if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical or flg == CONST.DamageFlags.Magic  then
                local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
