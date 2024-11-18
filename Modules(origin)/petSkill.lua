@@ -2,25 +2,25 @@
 local Module = ModuleBase:createModule('petSkill')
 
 local petMettleTable = {
-             { MettleType=1, type=CONST.对象_EnemyBossFlg, info=CONST.Enemy_是否BOSS, skillId=9610 , val = 1.15},              --对BOSS对象增加伤害
-             { MettleType=3, type=CONST.对象_地属性, info=CONST.属性_地, skillId=9611 , val = 1.05},              --对地属性对象增加伤害
-             { MettleType=3, type=CONST.对象_水属性, info=CONST.属性_水, skillId=9612 , val = 1.05},              --对水属性对象增加伤害
-             { MettleType=3, type=CONST.对象_火属性, info=CONST.属性_火, skillId=9613 , val = 1.05},              --对火属性对象增加伤害
-             { MettleType=3, type=CONST.对象_风属性, info=CONST.属性_风, skillId=9614 , val = 1.05},              --对风属性对象增加伤害
-             { MettleType=4, type=CONST.对象_地属性, info=CONST.属性_地, skillId=9615 , val = 0.95},              --减轻来自地属性对象伤害
-             { MettleType=4, type=CONST.对象_水属性, info=CONST.属性_水, skillId=9616 , val = 0.95},              --减轻来自水属性对象伤害
-             { MettleType=4, type=CONST.对象_火属性, info=CONST.属性_火, skillId=9617 , val = 0.95},              --减轻来自火属性对象伤害
-             { MettleType=4, type=CONST.对象_风属性, info=CONST.属性_风, skillId=9618 , val = 0.95},              --减轻来自风属性对象伤害
-             { MettleType=2, type=CONST.对象_EnemyBossFlg, info=CONST.Enemy_是否BOSS, skillId=9619 , val = 0.85},              --减轻来自BOSS对象伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_人型, skillId=9620 , val = 1.25},              --对人形系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_龙, skillId=9621 , val = 1.25},              --对龙族系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_不死, skillId=9622 , val = 1.25},              --对不死系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_飞行, skillId=9623 , val = 1.25},              --对飞行系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_昆虫, skillId=9624 , val = 1.25},              --对昆虫系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_植物, skillId=9625 , val = 1.25},              --对植物系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_野兽, skillId=9626 , val = 1.25},              --对野兽系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_特殊, skillId=9627 , val = 1.25},              --对特殊系对象增加伤害
-             { MettleType=5, type=CONST.对象_种族, info=CONST.种族_金属, skillId=9628 , val = 1.25},              --对金属系对象增加伤害
+             { MettleType=1, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_是否BOSS, skillId=9610 , val = 1.15},              --对BOSS对象增加伤害
+             { MettleType=3, type=CONST.CHAR_地属性, info=CONST.属性_地, skillId=9611 , val = 1.05},              --对地属性对象增加伤害
+             { MettleType=3, type=CONST.CHAR_水属性, info=CONST.属性_水, skillId=9612 , val = 1.05},              --对水属性对象增加伤害
+             { MettleType=3, type=CONST.CHAR_火属性, info=CONST.属性_火, skillId=9613 , val = 1.05},              --对火属性对象增加伤害
+             { MettleType=3, type=CONST.CHAR_风属性, info=CONST.属性_风, skillId=9614 , val = 1.05},              --对风属性对象增加伤害
+             { MettleType=4, type=CONST.CHAR_地属性, info=CONST.属性_地, skillId=9615 , val = 0.95},              --减轻来自地属性对象伤害
+             { MettleType=4, type=CONST.CHAR_水属性, info=CONST.属性_水, skillId=9616 , val = 0.95},              --减轻来自水属性对象伤害
+             { MettleType=4, type=CONST.CHAR_火属性, info=CONST.属性_火, skillId=9617 , val = 0.95},              --减轻来自火属性对象伤害
+             { MettleType=4, type=CONST.CHAR_风属性, info=CONST.属性_风, skillId=9618 , val = 0.95},              --减轻来自风属性对象伤害
+             { MettleType=2, type=CONST.CHAR_EnemyBossFlg, info=CONST.Enemy_是否BOSS, skillId=9619 , val = 0.85},              --减轻来自BOSS对象伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_人型, skillId=9620 , val = 1.25},              --对人形系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_龙, skillId=9621 , val = 1.25},              --对龙族系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_不死, skillId=9622 , val = 1.25},              --对不死系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_飞行, skillId=9623 , val = 1.25},              --对飞行系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_昆虫, skillId=9624 , val = 1.25},              --对昆虫系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_植物, skillId=9625 , val = 1.25},              --对植物系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_野兽, skillId=9626 , val = 1.25},              --对野兽系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_特殊, skillId=9627 , val = 1.25},              --对特殊系对象增加伤害
+             { MettleType=5, type=CONST.CHAR_种族, info=CONST.种族_金属, skillId=9628 , val = 1.25},              --对金属系对象增加伤害
              { MettleType=5, type=CONST.对象_种族, info=CONST.种族_邪魔, skillId=9629 , val = 1.05},              --对邪魔系对象增加伤害
 }
 
@@ -135,7 +135,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
              return damage;
            elseif  flg == CONST.DamageFlags.Magic  then
              --宠物加成
-             local Spirit = Char.GetData(charIndex,CONST.对象_精神);
+             local Spirit = Char.GetData(charIndex, CONST.CHAR_精神);
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
              local damage = math.ceil(  damage * ( math.max( Conver_240(Spirit), 240) / 123 )  );
@@ -147,15 +147,15 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                end
              if (com3 >= 26700 and com3 <= 26720)  then
                 local TechLv = math.fmod(com3,26700)+1;
-                local Amnd_R = Char.GetData(charIndex, CONST.对象_攻击力);
+                local Amnd_R = Char.GetData(charIndex, CONST.CHAR_攻击力);
                 local Amnd = math.max( Conver_240(Amnd_R), 1);
-                local Dmnd_R = Char.GetData(defCharIndex, CONST.对象_防御力);
+                local Dmnd_R = Char.GetData(defCharIndex, CONST.CHAR_防御力);
                 local Dmnd = math.max( Conver_240(Dmnd_R), 100)
                 local dp = {}
-                dp[1] = Char.GetData(defCharIndex, CONST.对象_地属性)
-                dp[2] = Char.GetData(defCharIndex, CONST.对象_水属性)
-                dp[3] = Char.GetData(defCharIndex, CONST.对象_火属性)
-                dp[4] = Char.GetData(defCharIndex, CONST.对象_风属性)
+                dp[1] = Char.GetData(defCharIndex, CONST.CHAR_地属性)
+                dp[2] = Char.GetData(defCharIndex, CONST.CHAR_水属性)
+                dp[3] = Char.GetData(defCharIndex, CONST.CHAR_火属性)
+                dp[4] = Char.GetData(defCharIndex, CONST.CHAR_风属性)
                 local AttRate_2 = Battle.CalcAttributeDmgRate(charIndex, defCharIndex)
                 local AttRate = (AttRate_2 - 1) * 0.5 + 1
                 local RaceRate = Battle.CalcTribeDmgRate(charIndex, defCharIndex) + 1
