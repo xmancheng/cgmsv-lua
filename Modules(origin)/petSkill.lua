@@ -183,7 +183,7 @@ function Conver_240(Num)
 end
 
 function Conver_303(Rate)
-    local Rate = Rate*100;
+	local Rate = Rate*100;
 	if Rate >= 120 then
 		return 1
 	elseif Rate >= 114 and Rate < 120 then
