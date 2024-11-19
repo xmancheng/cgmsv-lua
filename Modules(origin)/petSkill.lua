@@ -135,10 +135,12 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
              return damage;
            elseif  flg == CONST.DamageFlags.Magic  then
              --宠物加成
-             local Spirit = Char.GetData(charIndex, CONST.CHAR_精神);
+             local ASpirit = Char.GetData(charIndex, CONST.CHAR_精神);
+             local DSpirit = Char.GetData(defCharIndex, CONST.CHAR_精神);
+             local RegulateRate = Conver_303(ASpirit/DSpirit);
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
-             local damage = math.ceil(  damage * ( math.max( Conver_240(Spirit), 240) / 123 )  );
+             local damage = math.ceil(  damage * RegulateRate * ( math.max( Conver_240(ASpirit), 303) / 240 )  );
                local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
                if (A_Buff >= 1)  then
                    damage = math.floor(damage * 1.35);
@@ -176,6 +178,37 @@ function Conver_240(Num)
 		local a = math.floor((Num - 240 ) * 0.3 + 240)
 		return a
 	else
+		return Num
+	end
+end
+
+function Conver_303(Rate)
+    local Rate = Rate*100;
+	if Rate >= 120 then
+		return 1
+	elseif Rate >= 114 and Rate < 120 then
+		local Num = 10/9;
+		return Num
+	elseif Rate >= 105 and Rate < 114 then
+		local Num = 10/8.2;
+		return Num
+	elseif Rate >= 102 and Rate < 105 then
+		local Num = 10/6.3;
+		return Num
+	elseif Rate >= 98 and Rate < 102 then
+		local Num = 10/5;
+		return Num
+	elseif Rate >= 90 and Rate < 98 then
+		local Num = 10/5.5;
+		return Num
+	elseif Rate >= 80 and Rate < 90 then
+		local Num = 10/3.6;
+		return Num
+	elseif Rate >= 70 and Rate < 80 then
+		local Num = 10/2.7;
+		return Num
+	elseif Rate < 70 then
+		local Num = 10/0.9;
 		return Num
 	end
 end
