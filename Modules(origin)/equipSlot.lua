@@ -11,6 +11,19 @@ slotCards[73802] = "2120000";
 slotCards[73803] = "0122000";
 slotCards[73804] = "2210000";
 slotCards[73805] = "2222000";
+slotCards[73806] = "3003033";
+slotCards[73807] = "3030033";
+slotCards[73808] = "0330033";
+slotCards[73809] = "3003033";
+slotCards[73810] = "0333300";
+slotCards[73891] = "1111110";
+slotCards[73892] = "1111101";
+slotCards[73893] = "1111011";
+slotCards[73894] = "1001111";
+slotCards[73895] = "0110111";
+slotCards[73896] = "0111111";
+slotCards[73897] = "1011111";
+slotCards[73898] = "1101111";
 ---------------------------------------------------------------------
 --远程按钮UI呼叫
 function Module:equipSlotInfo(npc, player)
@@ -261,7 +274,7 @@ end
 --装备接口
 function Module:itemAttachCallback(charIndex, fromItemIndex)
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
-      print(targetSlot);
+      print("Attach:"..targetSlot);
       local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
       if (targetIndex==nil) then
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q", 0);
@@ -277,11 +290,13 @@ function Module:itemAttachCallback(charIndex, fromItemIndex)
       setItemStrData(fromItemIndex, tStrLv, tCard);
       Item.UpItem(charIndex, targetSlot);
       NLG.UpChar(charIndex);
+      Char.SaveToDb(charIndex);
   return 0;
 end
 --卸下接口
 function Module:itemDetachCallback(charIndex, fromItemIndex)
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
+      print("Detach:"..targetSlot);
       local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
       if (targetIndex==nil) then
           EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q", 0);
@@ -295,6 +310,7 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
       setItemRevertData(fromItemIndex);
       Item.UpItem(charIndex, targetSlot);
       NLG.UpChar(charIndex);
+      Char.SaveToDb(charIndex);
   return 0;
 end
 
@@ -536,6 +552,8 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
       elseif (ItemIndex >= 0) then
           local Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
           if (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
+              return 3;
+          else
               return 2;
           end
       end
@@ -545,6 +563,8 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
       elseif (ItemIndex >= 0) then
           local Vicetype = Item.GetData(ItemIndex, CONST.道具_类型);
           if (Vicetype==65 or Vicetype==66 or Vicetype==67 or Vicetype==68 or Vicetype==69 or Vicetype==70) then
+              return 2;
+          else
               return 3;
           end
       end
