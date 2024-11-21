@@ -175,7 +175,7 @@ function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
                      local resmax = gradeLevel-a61;
                      local resmin = gradeLevel-a61-5;
                      local type = NLG.Rand(1,2);
-                     local BPdistribute = { {5,resmax,0,5}, {0,0,5,resmax} };
+                     local BPdistribute = { {5,resmax,0,0}, {0,0,5,resmax} };
                      repeat
                           res1 = NLG.Rand(0, math.ceil(resmin/2) );
                           res2 = NLG.Rand(BPdistribute[type][1], BPdistribute[type][2] );
