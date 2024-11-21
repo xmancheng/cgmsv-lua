@@ -220,7 +220,9 @@ function Module:battleOverEventCallback(battleIndex)
                       local typeRand = math.random(1,#petMettleTable);
                       local pos = math.random(1,#petMettleTable[typeRand]);
                       Pet.AddSkill(PetIndex, petMettleTable[typeRand][pos], 9);
-                      Char.SetData(PetIndex,CONST.对象_原名, Char.GetData(PetIndex,CONST.对象_原名).."異種");
+                      if Char.GetData(PetIndex,CONST.对象_等级)<=3 then
+                        Char.SetData(PetIndex,CONST.对象_原名, Char.GetData(PetIndex,CONST.对象_原名).."異種");
+                      end
                       Pet.UpPet(charIndex,PetIndex);
                       NLG.UpChar(charIndex);
                   end
