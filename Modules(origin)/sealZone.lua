@@ -186,7 +186,7 @@ function Module:OnSealEventCallBack(charIndex, enemyIndex, ret)
                           if (max2 > resmax or max2 < resmin) then
                               --print('不符合，重试。')
                           end
-                     until (max2 < resmax) and (max2 > resmin)
+                     until (max2 <= resmax) and (max2 > resmin)
                  end
                  local arr_rank1 = Pet.GetArtRank(enemyIndex,CONST.宠档_体成);
                  local arr_rank2 = Pet.GetArtRank(enemyIndex,CONST.宠档_力成);
