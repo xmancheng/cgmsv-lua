@@ -1,4 +1,4 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petRush')
 
 --local eventGoal = 600018;
@@ -13,32 +13,32 @@ local eventGoal_check= {500000,500001,500002,500003,500004,500005,500006,500007,
 };
 
 --local eventTechID = {}
---eventTechID[1] = {9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}	--AµÈª„
---eventTechID[2] = {9640,9641,9642,9643,9644,9645,9646,9647,9648,9649}	--BµÈª„
---eventTechID[3] = {9610,9619,9620,9621,9622,9623,9624,9625,9626,9627,9628,9629}	--CµÈª„
---eventTechID[4] = {9611,9612,9613,9614,9615,9616,9617,9618,404,200504}	--DµÈª„
+--eventTechID[1] = {9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}	--Aç­‰ç
+--eventTechID[2] = {9640,9641,9642,9643,9644,9645,9646,9647,9648,9649}	--Bç­‰ç
+--eventTechID[3] = {9610,9619,9620,9621,9622,9623,9624,9625,9626,9627,9628,9629}	--Cç­‰ç
+--eventTechID[4] = {9611,9612,9613,9614,9615,9616,9617,9618,404,200504}	--Dç­‰ç
 ------------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self.bountyNPC = self:NPC_createNormal('Œš¿É‰ô‘ÒÙp†Î', 11797, { x = 245, y = 83, mapType = 0, map = 1000, direction = 0 });
+  self.bountyNPC = self:NPC_createNormal('å¯¶å¯å¤¢æ‡¸è³å–®', 11797, { x = 245, y = 83, mapType = 0, map = 1000, direction = 0 });
   self:NPC_regTalkedEvent(self.bountyNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local EnemyDataIndex = Data.EnemyGetDataIndex(eventGoal);		--enemyId
-          local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base±àºÅ);
-          local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(enemyBaseId);	--enemyBaseId
-          local eventGoalName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_Ãû×Ö);
-          local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œš¿É‰ô¾šµÈƒ¶ª„»î„Ó¡¿\\n"
-                              .. "¡¡±¾ÆÚ•rég£º2024/11/30 - 2025/12/31\\n"
-                              .. "¡¡±¾ÆÚÄ¿˜Ë£ºÅÁµ×†´óê‘Œš¿É‰ô\\n"
-                              .. "¡¡ÏŞÖÆµÈ¼‰£º"..goalLevel_min.."-"..goalLevel_max.."\\n"
-                              .. "¡¡¡¡¡ùÍæ·¨£ºÉúÃü¡¢Ä§Á¦¡¢¹¥“ô¡¢·À¶R¡¢Ãô½İ\\n"
-                              .. "¡¡¡¡Îå‡ú”µÖµÖĞÎ²”µ·ûºÏ×‚€£º "..eventLuckyNum.." ÄØ£¿\\n"
-                              .. "¡¡¡¡4 ‚€£ºAª„.á÷«CÕ{²é·e·Ö¡¾250¡¿\\n"
-                              .. "¡¡¡¡3 ‚€£ºBª„.á÷«CÕ{²é·e·Ö¡¾150¡¿\\n"
-                              .. "¡¡¡¡2 ‚€£ºCª„.á÷«CÕ{²é·e·Ö¡¾50¡¿\\n"
-                              .. "¡¡¡¡1 ‚€£ºDª„.Ä§Îï‰º¿sÏä¡¾1¡¿\\n";
-          NLG.ShowWindowTalked(player, self.bountyNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+          --local EnemyDataIndex = Data.EnemyGetDataIndex(eventGoal);		--enemyId
+          --local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Baseç¼–å·);
+          --local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(enemyBaseId);	--enemyBaseId
+          --local eventGoalName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_åå­—);
+          local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯¶å¯å¤¢ç·´ç­‰å…Œçæ´»å‹•ã€‘\\n"
+                              .. "ã€€æœ¬æœŸæ™‚é–“ï¼š2024/11/30 - 2025/12/31\\n"
+                              .. "ã€€æœ¬æœŸç›®æ¨™ï¼šå¸•åº•äºå¤§é™¸å¯¶å¯å¤¢\\n"
+                              .. "ã€€é™åˆ¶ç­‰ç´šï¼š"..goalLevel_min.."-"..goalLevel_max.."\\n"
+                              .. "ã€€ã€€â€»ç©æ³•ï¼šç”Ÿå‘½ã€é­”åŠ›ã€æ”»æ“Šã€é˜²ç¦¦ã€æ•æ·\\n"
+                              .. "ã€€ã€€äº”åœæ•¸å€¼ä¸­å°¾æ•¸ç¬¦åˆå¹¾å€‹ï¼š "..eventLuckyNum.." å‘¢ï¼Ÿ\\n"
+                              .. "ã€€ã€€4 å€‹ï¼šAç.ç‹©çµèª¿æŸ¥ç©åˆ†ã€250ã€‘\\n"
+                              .. "ã€€ã€€3 å€‹ï¼šBç.ç‹©çµèª¿æŸ¥ç©åˆ†ã€150ã€‘\\n"
+                              .. "ã€€ã€€2 å€‹ï¼šCç.ç‹©çµèª¿æŸ¥ç©åˆ†ã€50ã€‘\\n"
+                              .. "ã€€ã€€1 å€‹ï¼šDç.é­”ç‰©å£“ç¸®ç®±ã€1ã€‘\\n";
+          NLG.ShowWindowTalked(player, self.bountyNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
@@ -49,29 +49,29 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     if select > 0 then
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 1 and select == CONST.°´Å¥_È·¶¨)  then
-                 local msg = "3|\\n¡¾ÄãµÄŒ™ÎïÔ”¼šÙYÓ¡¿\\n"
-                                  .. "¡ıßx“ñÒª½»³öÄÄëbŒ™Îï£¬ƒ¶“Q‘ÒÙp¼‰„eª„„î¡ı\\n\\n";
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š)  then
+                 local msg = "3|\\nã€ä½ çš„å¯µç‰©è©³ç´°è³‡è¨Šã€‘\\n"
+                                  .. "â†“é¸æ“‡è¦äº¤å‡ºå“ªéš»å¯µç‰©ï¼Œå…Œæ›æ‡¸è³ç´šåˆ¥çå‹µâ†“\\n\\n";
                  for i=0,4 do
                        local pet = Char.GetPet(player,i);
                        if(pet<0)then
-                             msg = msg .. "¿Õ\\n";
+                             msg = msg .. "ç©º\\n";
                        else
                              local count = Calcuquant(pet);
-                             msg = msg .. ""..Char.GetData(pet,CONST.CHAR_Ãû×Ö).."¡¡¡¡·ûºÏµÄÎ²”µÓĞ ".. count .." ‚€\\n";
+                             msg = msg .. ""..Char.GetData(pet,CONST.CHAR_åå­—).."ã€€ã€€ç¬¦åˆçš„å°¾æ•¸æœ‰ ".. count .." å€‹\\n";
                        end
                  end
-                 NLG.ShowWindowTalked(player, self.bountyNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 11, msg);
-      elseif (seqno == 12 and select == CONST.°´Å¥_·ñ)  then
+                 NLG.ShowWindowTalked(player, self.bountyNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 11, msg);
+      elseif (seqno == 12 and select == CONST.æŒ‰é’®_å¦)  then
                  return;
-      elseif (seqno == 12 and select == CONST.°´Å¥_ÊÇ) then
+      elseif (seqno == 12 and select == CONST.æŒ‰é’®_æ˜¯) then
           petSlot = petSlot;
           local petIndex = Char.GetPet(player,petSlot);
           local count = Calcuquant(petIndex);
           if (count==0) then
-                 NLG.SystemMessage(player, "[Ïµ½y]ÔÙÓ–¾š¿´¿´£¬Õf²»¶¨•ş²»Ò»˜Ó£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]å†è¨“ç·´çœ‹çœ‹ï¼Œèªªä¸å®šæœƒä¸ä¸€æ¨£ï¼");
                  return;
           end
           if (petIndex>=0) then
@@ -85,11 +85,11 @@ function Module:onLoad()
                  --local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
                  Char.GiveItem(player, 68999, 250);
                  --local MacIndex = Char.GetItemIndex(player,newSlot);
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_Ãû×Ö, "[".. techName .."]ÕĞÊ½ŒWÁ•™C");
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ», techId);
+                 --Item.SetData(MacIndex, CONST.é“å…·_åå­—, "[".. techName .."]æ‹›å¼å­¸ç¿’æ©Ÿ");
+                 --Item.SetData(MacIndex, CONST.é“å…·_å­å‚ä¸€, techId);
                  --Item.UpItem(player, newSlot);
                  --NLG.UpChar(player);
-                 NLG.Say(player, -1, "[Ïµ½y]¹§Ï²Íæ¼Ò "..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." ½»¸¶‘ÒÙpAµÈª„¡£", CONST.ÑÕÉ«_»ÆÉ«, CONST.×ÖÌå_ÖĞ);
+                 NLG.Say(player, -1, "[ç³»çµ±]æ­å–œç©å®¶ "..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." äº¤ä»˜æ‡¸è³Aç­‰çã€‚", CONST.é¢œè‰²_é»„è‰², CONST.å­—ä½“_ä¸­);
               elseif (count==3) then
                  --local rand = NLG.Rand(1,#eventTechID[2]);
                  --local techId = eventTechID[2][rand];
@@ -97,11 +97,11 @@ function Module:onLoad()
                  --local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
                  Char.GiveItem(player, 68999, 150);
                  --local MacIndex = Char.GetItemIndex(player,newSlot);
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_Ãû×Ö, "[".. techName .."]ÕĞÊ½ŒWÁ•™C");
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ», techId);
+                 --Item.SetData(MacIndex, CONST.é“å…·_åå­—, "[".. techName .."]æ‹›å¼å­¸ç¿’æ©Ÿ");
+                 --Item.SetData(MacIndex, CONST.é“å…·_å­å‚ä¸€, techId);
                  --Item.UpItem(player, newSlot);
                  --NLG.UpChar(player);
-                 NLG.Say(player, -1, "[Ïµ½y]¹§Ï²Íæ¼Ò "..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." ½»¸¶‘ÒÙpBµÈª„¡£", CONST.ÑÕÉ«_»ÆÉ«, CONST.×ÖÌå_ÖĞ);
+                 NLG.Say(player, -1, "[ç³»çµ±]æ­å–œç©å®¶ "..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." äº¤ä»˜æ‡¸è³Bç­‰çã€‚", CONST.é¢œè‰²_é»„è‰², CONST.å­—ä½“_ä¸­);
               elseif (count==2) then
                  --local rand = NLG.Rand(1,#eventTechID[3]);
                  --local techId = eventTechID[3][rand];
@@ -109,11 +109,11 @@ function Module:onLoad()
                  --local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
                  Char.GiveItem(player, 68999, 50);
                  --local MacIndex = Char.GetItemIndex(player,newSlot);
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_Ãû×Ö, "[".. techName .."]ÕĞÊ½ŒWÁ•™C");
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ», techId);
+                 --Item.SetData(MacIndex, CONST.é“å…·_åå­—, "[".. techName .."]æ‹›å¼å­¸ç¿’æ©Ÿ");
+                 --Item.SetData(MacIndex, CONST.é“å…·_å­å‚ä¸€, techId);
                  --Item.UpItem(player, newSlot);
                  --NLG.UpChar(player);
-                 NLG.Say(player, -1, "[Ïµ½y]¹§Ï²Íæ¼Ò "..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." ½»¸¶‘ÒÙpCµÈª„¡£", CONST.ÑÕÉ«_»ÆÉ«, CONST.×ÖÌå_ÖĞ);
+                 NLG.Say(player, -1, "[ç³»çµ±]æ­å–œç©å®¶ "..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." äº¤ä»˜æ‡¸è³Cç­‰çã€‚", CONST.é¢œè‰²_é»„è‰², CONST.å­—ä½“_ä¸­);
               elseif (count==1) then
                  --local rand = NLG.Rand(1,#eventTechID[4]);
                  --local techId = eventTechID[4][rand];
@@ -121,17 +121,17 @@ function Module:onLoad()
                  --local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
                  Char.GiveItem(player, 70200, 1);
                  --local MacIndex = Char.GetItemIndex(player,newSlot);
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_Ãû×Ö, "[".. techName .."]ÕĞÊ½ŒWÁ•™C");
-                 --Item.SetData(MacIndex, CONST.µÀ¾ß_×Ó²ÎÒ», techId);
+                 --Item.SetData(MacIndex, CONST.é“å…·_åå­—, "[".. techName .."]æ‹›å¼å­¸ç¿’æ©Ÿ");
+                 --Item.SetData(MacIndex, CONST.é“å…·_å­å‚ä¸€, techId);
                  --Item.UpItem(player, newSlot);
                  --NLG.UpChar(player);
-                 NLG.Say(player, -1, "[Ïµ½y]¹§Ï²Íæ¼Ò "..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." ½»¸¶‘ÒÙpDµÈª„¡£", CONST.ÑÕÉ«_»ÆÉ«, CONST.×ÖÌå_ÖĞ);
+                 NLG.Say(player, -1, "[ç³»çµ±]æ­å–œç©å®¶ "..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." äº¤ä»˜æ‡¸è³Dç­‰çã€‚", CONST.é¢œè‰²_é»„è‰², CONST.å­—ä½“_ä¸­);
               end
           end
       end
 
     else
-      if (seqno == 11 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 11 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
       elseif (seqno == 11 and data >= 1) then
           petSlot = data-1;
@@ -139,34 +139,34 @@ function Module:onLoad()
           if (petIndex>=0) then
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
               local count = Calcuquant(petIndex);
-              local goalLevel = Char.GetData(petIndex, CONST.CHAR_µÈ¼¶);
+              local goalLevel = Char.GetData(petIndex, CONST.CHAR_ç­‰çº§);
               --if (PetId~=eventGoal) then
               if (CheckInTable(GetitEnable_check,PetId)==false) then
-                 NLG.SystemMessage(player, "[Ïµ½y]ßx“ñµÄŒ™Îï²»ÊÇ‘ÒÙpÄ¿˜Ë£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]é¸æ“‡çš„å¯µç‰©ä¸æ˜¯æ‡¸è³ç›®æ¨™ï¼");
                  return;
               end
-              if (Char.GetData(petIndex,CONST.¶ÔÏó_Éı¼¶µã)~=0) then
-                 NLG.SystemMessage(player, "[Ïµ½y]ßx“ñµÄŒ™ÎïÉı¼‰üc”µÎ´ücÍê®…£¡");
+              if (Char.GetData(petIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)~=0) then
+                 NLG.SystemMessage(player, "[ç³»çµ±]é¸æ“‡çš„å¯µç‰©å‡ç´šé»æ•¸æœªé»å®Œç•¢ï¼");
                  return;
               end
               if (goalLevel<goalLevel_min) then
-                 NLG.SystemMessage(player, "[Ïµ½y]Œ™ÎïµÈ¼‰Î´ß_"..goalLevel_min.."£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©ç­‰ç´šæœªé”"..goalLevel_min.."ï¼");
                  return;
               elseif (goalLevel>goalLevel_max) then
-                 NLG.SystemMessage(player, "[Ïµ½y]Œ™ÎïµÈ¼‰³¬ß^"..goalLevel_max.."£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]å¯µç‰©ç­‰ç´šè¶…é"..goalLevel_max.."ï¼");
                  return;
               end
               if (Char.ItemSlot(player)>18) then
-                 NLG.SystemMessage(player, "[Ïµ½y]ÕˆÁôÏÂƒÉ¸ñÎïÆ·™Ú¿ÕÎ»£¡");
+                 NLG.SystemMessage(player, "[ç³»çµ±]è«‹ç•™ä¸‹å…©æ ¼ç‰©å“æ¬„ç©ºä½ï¼");
                  return;
               end
-              local msg = "\\n@c¡¾Œš¿É‰ô¾šµÈƒ¶ª„»î„Ó¡¿\\n"
-                                  .. "¡¡\\n"
-                                  .. "¡¡\\n"
-                                  .. "ÊÇ·ñ´_¶¨Òª½»³öß@ëbŒ™Îï£¿\\n"
-                                  .. "¡¡\\n"
-                                  .. "Îå‡ú”µÖµÖĞÎ²”µ·ûºÏ: ".. count .." ‚€\\n";
-              NLG.ShowWindowTalked(player, self.bountyNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 12, msg);
+              local msg = "\\n@cã€å¯¶å¯å¤¢ç·´ç­‰å…Œçæ´»å‹•ã€‘\\n"
+                                  .. "ã€€\\n"
+                                  .. "ã€€\\n"
+                                  .. "æ˜¯å¦ç¢ºå®šè¦äº¤å‡ºé€™éš»å¯µç‰©ï¼Ÿ\\n"
+                                  .. "ã€€\\n"
+                                  .. "äº”åœæ•¸å€¼ä¸­å°¾æ•¸ç¬¦åˆ: ".. count .." å€‹\\n";
+              NLG.ShowWindowTalked(player, self.bountyNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 12, msg);
           else
               return;
           end
@@ -181,11 +181,11 @@ end
 
 function Calcuquant(pet)
          local count = 0;
-         local maxLp = math.fmod(Char.GetData(pet, CONST.CHAR_×î´óÑª)/1, 10);
-         local maxFp = math.fmod(Char.GetData(pet, CONST.CHAR_×î´óÄ§)/1, 10);
-         local Attack = math.fmod(Char.GetData(pet,CONST.CHAR_¹¥»÷Á¦)/1, 10);
-         local Defense = math.fmod(Char.GetData(pet,CONST.CHAR_·ÀÓùÁ¦)/1, 10);
-         local Agile = math.fmod(Char.GetData(pet,CONST.CHAR_Ãô½İ)/1, 10);
+         local maxLp = math.fmod(Char.GetData(pet, CONST.CHAR_æœ€å¤§è¡€)/1, 10);
+         local maxFp = math.fmod(Char.GetData(pet, CONST.CHAR_æœ€å¤§é­”)/1, 10);
+         local Attack = math.fmod(Char.GetData(pet,CONST.CHAR_æ”»å‡»åŠ›)/1, 10);
+         local Defense = math.fmod(Char.GetData(pet,CONST.CHAR_é˜²å¾¡åŠ›)/1, 10);
+         local Agile = math.fmod(Char.GetData(pet,CONST.CHAR_æ•æ·)/1, 10);
          if (maxLp==eventLuckyNum) then
              count = count+1;
          end
@@ -208,7 +208,7 @@ function Char.GetEmptyItemSlot(charIndex)
   if not Char.IsValidCharIndex(charIndex) then
     return -1;
   end
-  if Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) ~= CONST.¶ÔÏóÀàĞÍ_ÈË then
+  if Char.GetData(charIndex, CONST.CHAR_ç±»å‹) ~= CONST.å¯¹è±¡ç±»å‹_äºº then
     return -1;
   end
   for i = 8, 27 do
@@ -219,7 +219,7 @@ function Char.GetEmptyItemSlot(charIndex)
   return -2;
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -228,7 +228,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
