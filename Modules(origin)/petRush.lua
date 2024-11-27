@@ -141,7 +141,7 @@ function Module:onLoad()
               local count = Calcuquant(petIndex);
               local goalLevel = Char.GetData(petIndex, CONST.CHAR_等级);
               --if (PetId~=eventGoal) then
-              if (CheckInTable(GetitEnable_check,PetId)==false) then
+              if (CheckInTable(eventGoal_check,PetId)==false) then
                  NLG.SystemMessage(player, "[系統]選擇的寵物不是懸賞目標！");
                  return;
               end
