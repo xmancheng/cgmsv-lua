@@ -24,6 +24,15 @@ local petMettleTable = {
              { MettleType=5, type=CONST.对象_种族, info=CONST.种族_邪魔, skillId=9629 , val = 1.05},              --对邪魔系对象增加伤害
 }
 
+local petStateTable = {
+             { StateType=1, type=CONST.CHAR_BattleModPoison, skillId=1840 , val = 2.0},              --对增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModPoison, skillId=1841 , val = 2.5},              --对增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModStone, skillId=1842 , val = 2.0},              --对增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModStone, skillId=1843 , val = 2.5},              --对增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModConfusion, skillId=1844 , val = 2.0},              --对增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModConfusion, skillId=1845 , val = 2.5},              --对增加伤害
+}
+
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
@@ -88,6 +97,60 @@ function Module:tempDamage(charIndex, defCharIndex, damage, battleIndex)
     return damage;
 end
 
+function Module:specialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg)
+         --特殊计算公式技能
+         if Char.IsPet(charIndex) == true then
+               if (com3 == 3031 or com3 == 2931 or com3 == 2831) then
+                   --基本資訊
+                   local Amnd_R = Char.GetData(charIndex, CONST.CHAR_攻击力);
+                   local Amnd = math.max( Conver_240(Amnd_R), 1);
+                   local Dmnd_R = Char.GetData(defCharIndex, CONST.CHAR_防御力);
+                   local Dmnd = math.max( Conver_240(Dmnd_R), 100)
+                   local dp = {}
+                   dp[1] = Char.GetData(defCharIndex, CONST.CHAR_地属性)
+                   dp[2] = Char.GetData(defCharIndex, CONST.CHAR_水属性)
+                   dp[3] = Char.GetData(defCharIndex, CONST.CHAR_火属性)
+                   dp[4] = Char.GetData(defCharIndex, CONST.CHAR_风属性)
+                   local AttRate_2 = Battle.CalcAttributeDmgRate(charIndex, defCharIndex)
+                   local AttRate = (AttRate_2 - 1) * 0.5 + 1
+                   local RaceRate = Battle.CalcTribeDmgRate(charIndex, defCharIndex) + 1
+                   local RndRate = NLG.Rand(90,110) / 100
+                   --print(com3,AttRate,RaceRate,RndRate)
+                   local damage = math.floor( ((Amnd / (0.67 + Dmnd / Amnd))* 2)* AttRate * RaceRate * RndRate)
+                   local Spirit = Char.GetData(charIndex, CONST.CHAR_精神);
+                   local damage = math.ceil(  damage * ( math.max( Conver_240(Spirit), 303) / 120 )  );
+                   if com3 == 2931 and NLG.Rand(1,3)==3 then
+                       Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 3);
+                       NLG.UpChar(defCharIndex);
+                   elseif com3 == 2831 and NLG.Rand(1,3)==3 then
+                       Char.SetData(defCharIndex, CONST.CHAR_BattleModStone, 1);
+                       NLG.UpChar(defCharIndex);
+                   elseif com3 == 3031 and NLG.Rand(1,3)==3 then
+                       Char.SetData(defCharIndex, CONST.CHAR_BattleModConfusion, 2);
+                       NLG.UpChar(defCharIndex);
+                   end
+                   return damage;
+               end
+               return damage;
+         end
+    return damage;
+end
+
+function Module:StateDamage(charIndex, defCharIndex, damage, battleIndex)
+        for k, v in ipairs(petStateTable) do
+           if (v.StateType==1)  then
+               for i=0,9 do
+                   local skillId = Pet.GetSkill(charIndex, i)
+                   if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) > 1) then
+                       damage = damage * v.val;
+                       return damage;
+                   end
+               end
+           end
+         end
+    return damage;
+end
+
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
@@ -96,6 +159,10 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          if Char.GetData(leader2, CONST.对象_类型) == CONST.对象类型_人 then
                leader = leader2
          end
+
+         --宝可特技
+         local damage = self:specialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
+
          if  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPet(defCharIndex) == true  then
            if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical  then
              --宠物加成
@@ -123,6 +190,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
            return damage;
          elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPet(charIndex) == true  then
            if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical  then
+             --状态弱点加成
+             local damage = self:StateDamage(charIndex, defCharIndex, damage, battleIndex)
              --宠物加成
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
@@ -140,7 +209,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
              local RegulateRate = Conver_303(ASpirit/DSpirit);
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
-             local damage = math.ceil(  damage * RegulateRate * ( math.max( Conver_240(ASpirit), 303) / 240 )  );
+             local damage = math.ceil(  damage * RegulateRate * ( math.max( Conver_240(ASpirit), 303) / 120 )  );
                local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
                if (A_Buff >= 1)  then
                    damage = math.floor(damage * 1.35);
@@ -183,7 +252,7 @@ function Conver_240(Num)
 end
 
 function Conver_303(Rate)
-	local Rate = Rate*100;
+    local Rate = Rate*100;
 	if Rate >= 120 then
 		return 1
 	elseif Rate >= 114 and Rate < 120 then
