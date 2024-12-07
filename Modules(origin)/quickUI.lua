@@ -22,7 +22,31 @@ end
 
 function QuickUI:walkingspeed(npc, player)
       --local msg = "\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【150】\\n\\n2.女神卡連[六曜之塔]【200】\\n\\n3.受傷的女人[森羅萬象]【250】\\n\\n4.賽格梅特之魂[失翼之龍]【300】\\n";
-      local msg = "\\n@c【移動加速】收集四魂之玉強化你的精靈之魂！\\n\\n精靈之魂Lv1【110】　　精靈之魂Lv6【180】\\n　　　　Lv2【120】　　　　　　Lv7【200】\\n　　　　Lv3【130】　　　　　　Lv8【220】\\n　　　　Lv4【140】　　　　　　Lv9【250】\\n　　　　Lv5【160】　　　　　　Lv10【300】\\n";
+      --local msg = "\\n@c【移動加速】收集四魂之玉強化你的精靈之魂！\\n\\n精靈之魂Lv1【110】　　精靈之魂Lv6【180】\\n　　　　Lv2【120】　　　　　　Lv7【200】\\n　　　　Lv3【130】　　　　　　Lv8【220】\\n　　　　Lv4【140】　　　　　　Lv9【250】\\n　　　　Lv5【160】　　　　　　Lv10【300】\\n";
+      local msg = "\\n　【移動加速】收集四魂之玉強化你的精靈之魂！\\n\\n　Lv1【110】　　Lv6【180】　　↓坐騎形象↓\\n　Lv2【120】　　Lv7【200】\\n　Lv3【130】　　Lv8【220】\\n　Lv4【140】　　Lv9【250】\\n　Lv5【160】　　Lv10【300】\\n";
+      if (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==1 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
+          local itemIndex = Char.HaveItem(player, Aqua_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
+          local itemIndex = Char.HaveItem(player, Agni_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
+          local itemIndex = Char.HaveItem(player, Ventus_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
+          local itemIndex = Char.HaveItem(player, Terra_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      else
+          msg = msg;
+      end
       NLG.ShowWindowTalked(player, self.speedNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
 end
 
@@ -206,7 +230,31 @@ function QuickUI:onLoad()
   self:NPC_regTalkedEvent(self.speedNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
       --local msg = "\\n@c【移動加速】完成任務逐步提升至最高走路速度！\\n\\n1.王宮召喚士蓋茲[死者戒指]【130】\\n\\n2.女神卡連[六曜之塔]【150】\\n\\n3.受傷的女人[森羅萬象]【170】\\n\\n4.賽格梅特之魂[失翼之龍]【200】\\n";
-      local msg = "\\n@c【移動加速】收集四魂之玉強化你的精靈之魂！\\n\\n精靈之魂Lv1【110】　　精靈之魂Lv6【180】\\n　　　　Lv2【120】　　　　　　Lv7【200】\\n　　　　Lv3【130】　　　　　　Lv8【220】\\n　　　　Lv4【140】　　　　　　Lv9【250】\\n　　　　Lv5【160】　　　　　　Lv10【300】\\n";
+      --local msg = "\\n@c【移動加速】收集四魂之玉強化你的精靈之魂！\\n\\n精靈之魂Lv1【110】　　精靈之魂Lv6【180】\\n　　　　Lv2【120】　　　　　　Lv7【200】\\n　　　　Lv3【130】　　　　　　Lv8【220】\\n　　　　Lv4【140】　　　　　　Lv9【250】\\n　　　　Lv5【160】　　　　　　Lv10【300】\\n";
+      local msg = "\\n　【移動加速】收集四魂之玉強化你的精靈之魂！\\n\\n　Lv1【110】　　Lv6【180】　　↓坐騎形象↓\\n　Lv2【120】　　Lv7【200】\\n　Lv3【130】　　Lv8【220】\\n　Lv4【140】　　Lv9【250】\\n　Lv5【160】　　Lv10【300】\\n";
+      if (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==1 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
+          local itemIndex = Char.HaveItem(player, Aqua_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
+          local itemIndex = Char.HaveItem(player, Agni_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
+          local itemIndex = Char.HaveItem(player, Ventus_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
+          local itemIndex = Char.HaveItem(player, Terra_itemId);
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          local imageText = "@g,"..sitting_image..",15,7,6,0@"
+          msg = imageText .. msg;
+      else
+          msg = msg;
+      end
       NLG.ShowWindowTalked(player, self.speedNpc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     end
     return
@@ -219,25 +267,25 @@ function QuickUI:onLoad()
     if select > 0 then
       if seqno == 1 and select == CONST.按钮_确定 then
           if (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==1 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
-                local itemIndex = Char.HaveItem(player, Aqua_itemId);
+                itemIndex = Char.HaveItem(player, Aqua_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Aqua_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
-                local itemIndex = Char.HaveItem(player, Agni_itemId);
+                itemIndex = Char.HaveItem(player, Agni_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Agni_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
-                local itemIndex = Char.HaveItem(player, Ventus_itemId);
+                itemIndex = Char.HaveItem(player, Ventus_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Ventus_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
-                local itemIndex = Char.HaveItem(player, Terra_itemId);
+                itemIndex = Char.HaveItem(player, Terra_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
                 NLG.UpChar(player)
@@ -249,6 +297,28 @@ function QuickUI:onLoad()
       elseif seqno == 1 and select == CONST.按钮_关闭 then
                 Char.SetData(player, CONST.对象_移速,100);
                 NLG.UpChar(player)
+      end
+      --坐骑
+      if (itemIndex>0) then
+          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
+          if (sitting_image>0) then
+              local MapId = Char.GetData(player,CONST.对象_地图类型);
+              local FloorId = Char.GetData(player,CONST.对象_地图);
+              local X = Char.GetData(player,CONST.对象_X);
+              local Y = Char.GetData(player,CONST.对象_Y);
+              local objNum,objTbl = Obj.GetObject(MapId, FloorId, X, Y);
+              --print(objNum,objTbl)
+              for k, v in ipairs(objTbl) do
+                    local playerIndex = Obj.GetCharIndex(v)
+                    local sittingIndex = tonumber(playerIndex)+1;
+                    --print(playerIndex,sittingIndex,objTbl[1])
+                    if (Obj.GetType(v)==1) then	---1：非法 | 0：未使用 | 1：角色 | 2：道具 | 3：金币 | 4：传送点 | 5：船 | 6：载具
+                        --Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..x..'|'..y..'|70|0|101001|650|-1')	--骑宠1 70
+                        Protocol.Send(playerIndex,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
+                    end
+              end
+          end
+      else
       end
     end
   end)
@@ -479,7 +549,6 @@ Char.GetPetRank = function(playerIndex,slot)
 end
 
 
-
 Char.GetAccessory = function(charIndex)
   local itemType = {
     { type=15},{ type=16},{ type=17},{ type=18},{ type=19},{ type=20},{ type=21},
@@ -501,6 +570,34 @@ Char.GetAccessory = function(charIndex)
     end
   end
   return -1, -1;
+end
+
+function from10to62(num)
+	local dict = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--进制数
+	local result = ''
+	--local bin = ''
+
+	while num > 0 do
+		result = tostring(dict[(num % 62)+1]) .. result--取余数并拼接到进制数的前面
+		num = math.floor(num / 62)--整除62
+	end
+
+	return result
+
+	--[[
+	print('明文：'..result)
+	--string反转开始
+	local str_num = tostring(result)
+	local reversed_str = ''
+	for i = 1, #str_num do
+		reversed_str = string.sub(str_num, i, i) .. reversed_str
+	end
+	local reversed_num = tostring(reversed_str)
+	--print('反转：'..reversed_num)
+	--print('长度：'..#reversed_num)
+	return reversed_num
+	]]
 end
 
 function QuickUI:onUnload()
