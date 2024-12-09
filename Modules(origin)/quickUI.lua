@@ -270,24 +270,28 @@ function QuickUI:onLoad()
                 itemIndex = Char.HaveItem(player, Aqua_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
+                Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Aqua_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
                 itemIndex = Char.HaveItem(player, Agni_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
+                Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Agni_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
                 itemIndex = Char.HaveItem(player, Ventus_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
+                Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Ventus_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
                 itemIndex = Char.HaveItem(player, Terra_itemId);
                 local level = Item.GetData(itemIndex,CONST.道具_等级);
                 Char.SetData(player, CONST.对象_移速, WingSpeed_List[level]);
+                Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Terra_itemId][level]);
           else
@@ -296,18 +300,21 @@ function QuickUI:onLoad()
           end
       elseif seqno == 1 and select == CONST.按钮_关闭 then
                 Char.SetData(player, CONST.对象_移速,100);
+                Char.SetTempData(player, 'MountOn',0);
                 NLG.UpChar(player)
       end
       --坐骑
       if (itemIndex>0) then
-          local sitting_image= Item.GetData(itemIndex,CONST.道具_幸运);
-          if (sitting_image>0) then
+          local sitting_image = Item.GetData(itemIndex,CONST.道具_幸运);
+          local MountOn = Char.GetTempData(player, 'MountOn') or -1;
+          if (sitting_image>0 and MountOn>=1) then
               local MapId = Char.GetData(player,CONST.对象_地图类型);
               local FloorId = Char.GetData(player,CONST.对象_地图);
               local X = Char.GetData(player,CONST.对象_X);
               local Y = Char.GetData(player,CONST.对象_Y);
               local objNum,objTbl = Obj.GetObject(MapId, FloorId, X, Y);
               --print(objNum,objTbl)
+              players = NLG.GetPlayer();
               for k, v in ipairs(objTbl) do
                     local playerIndex = Obj.GetCharIndex(v)
                     local sittingIndex = tonumber(playerIndex)+1;
@@ -315,6 +322,13 @@ function QuickUI:onLoad()
                     if (Obj.GetType(v)==1) then	---1：非法 | 0：未使用 | 1：角色 | 2：道具 | 3：金币 | 4：传送点 | 5：船 | 6：载具
                         --Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..x..'|'..y..'|70|0|101001|650|-1')	--骑宠1 70
                         Protocol.Send(playerIndex,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
+                        for k, v in ipairs(players) do
+                            local names = Char.GetData(v,CONST.对象_原名) or -1;
+                            local maps = Char.GetData(v,CONST.对象_地图) or -1;
+                            if names~=-1 and maps==FloorId then 
+                                 Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
+                            end
+                        end
                     end
               end
           end
@@ -493,36 +507,64 @@ function QuickUI:onLoad()
 end
 
 function QuickUI:onLoginEvent(charIndex)
-          if (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==1 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
-                local itemIndex = Char.HaveItem(charIndex, Aqua_itemId);
-                local level = Item.GetData(itemIndex,CONST.道具_等级);
-                Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
-                NLG.UpChar(charIndex)
-                NLG.SetHeadIcon(charIndex, WingKind_List[Aqua_itemId][level]);
-          elseif (Char.ItemNum(charIndex, Agni_itemId)==1 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
-                local itemIndex = Char.HaveItem(charIndex, Agni_itemId);
-                local level = Item.GetData(itemIndex,CONST.道具_等级);
-                Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
-                NLG.UpChar(charIndex)
-                NLG.SetHeadIcon(charIndex, WingKind_List[Agni_itemId][level]);
-          elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==1 and Char.ItemNum(charIndex, Terra_itemId)==0) then
-                local itemIndex = Char.HaveItem(charIndex, Ventus_itemId);
-                local level = Item.GetData(itemIndex,CONST.道具_等级);
-                Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
-                NLG.UpChar(charIndex)
-                NLG.SetHeadIcon(charIndex, WingKind_List[Ventus_itemId][level]);
-          elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==1) then
-                local itemIndex = Char.HaveItem(charIndex, Terra_itemId);
-                local level = Item.GetData(itemIndex,CONST.道具_等级);
-                Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
-                NLG.UpChar(charIndex)
-                NLG.SetHeadIcon(charIndex, WingKind_List[Terra_itemId][level]);
-          else
-                Char.SetData(charIndex, CONST.对象_移速,100);
-                NLG.UpChar(charIndex)
+      if (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==1 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+            itemIndex = Char.HaveItem(charIndex, Aqua_itemId);
+            local level = Item.GetData(itemIndex,CONST.道具_等级);
+            Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
+            NLG.UpChar(charIndex)
+            NLG.SetHeadIcon(charIndex, WingKind_List[Aqua_itemId][level]);
+      elseif (Char.ItemNum(charIndex, Agni_itemId)==1 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+            itemIndex = Char.HaveItem(charIndex, Agni_itemId);
+            local level = Item.GetData(itemIndex,CONST.道具_等级);
+            Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
+            NLG.UpChar(charIndex)
+            NLG.SetHeadIcon(charIndex, WingKind_List[Agni_itemId][level]);
+      elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==1 and Char.ItemNum(charIndex, Terra_itemId)==0) then
+            itemIndex = Char.HaveItem(charIndex, Ventus_itemId);
+            local level = Item.GetData(itemIndex,CONST.道具_等级);
+            Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
+            NLG.UpChar(charIndex)
+            NLG.SetHeadIcon(charIndex, WingKind_List[Ventus_itemId][level]);
+      elseif (Char.ItemNum(charIndex, Agni_itemId)==0 and Char.ItemNum(charIndex, Aqua_itemId)==0 and Char.ItemNum(charIndex, Ventus_itemId)==0 and Char.ItemNum(charIndex, Terra_itemId)==1) then
+            itemIndex = Char.HaveItem(charIndex, Terra_itemId);
+            local level = Item.GetData(itemIndex,CONST.道具_等级);
+            Char.SetData(charIndex, CONST.对象_移速, WingSpeed_List[level]);
+            NLG.UpChar(charIndex)
+            NLG.SetHeadIcon(charIndex, WingKind_List[Terra_itemId][level]);
+      else
+            Char.SetData(charIndex, CONST.对象_移速,100);
+            NLG.UpChar(charIndex)
+      end
+      if (itemIndex>0) then
+          local sitting_image = Item.GetData(itemIndex,CONST.道具_幸运);
+          local MountOn = Char.GetTempData(charIndex, 'MountOn') or -1;
+          if (sitting_image>0 and MountOn>=1) then
+              local MapId = Char.GetData(charIndex,CONST.对象_地图类型);
+              local FloorId = Char.GetData(charIndex,CONST.对象_地图);
+              local X = Char.GetData(charIndex,CONST.对象_X);
+              local Y = Char.GetData(charIndex,CONST.对象_Y);
+              local objNum,objTbl = Obj.GetObject(MapId, FloorId, X, Y);
+              --print(objNum,objTbl)
+              players = NLG.GetPlayer();
+              for k, v in ipairs(objTbl) do
+                    local playerIndex = Obj.GetCharIndex(v)
+                    local sittingIndex = tonumber(playerIndex)+1;
+                    --print(playerIndex,sittingIndex,objTbl[1])
+                    if (Obj.GetType(v)==1) then	---1：非法 | 0：未使用 | 1：角色 | 2：道具 | 3：金币 | 4：传送点 | 5：船 | 6：载具
+                        --Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..x..'|'..y..'|70|0|101001|650|-1')	--骑宠1 70
+                        Protocol.Send(playerIndex,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
+                        for k, v in ipairs(players) do
+                            local names = Char.GetData(v,CONST.对象_原名) or -1;
+                            local maps = Char.GetData(v,CONST.对象_地图) or -1;
+                            if names~=-1 and maps==FloorId then 
+                                 Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
+                            end
+                        end
+                    end
+              end
           end
+      end
 end
-
 -----------------------------------------------------------------------------------------
 Char.GetPetRank = function(playerIndex,slot)
   local petIndex = Char.GetPet(playerIndex, slot);
