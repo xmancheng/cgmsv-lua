@@ -1,7 +1,13 @@
 local Module = ModuleBase:createModule('cardMount')
 
+local Terra_itemId = 70196;	--åœ°ç²¾çµ
+local Agni_itemId = 70198;	--ç«ç²¾çµ
+local Aqua_itemId = 70197;	--æ°´ç²¾çµ
+local Ventus_itemId = 70199;	--é£ç²¾çµ
+local WingSpeed_List = {110,120,130,140,160,180,200,220,250,300};
+
 local MountEnable_check= {71050,71051,71052,71053,71054,71055,71056,71057,};
-local sittingImages={}	--×øòTĞÎÏó
+local sittingImages={}	--åé¨å½¢è±¡
 sittingImages[71050] = 149032;
 sittingImages[71051] = 149027;
 sittingImages[71052] = 104865;
@@ -11,135 +17,135 @@ sittingImages[71055] = 108021;
 sittingImages[71056] = 104901;
 sittingImages[71057] = 108087;
 
-local sittingCards={}	--¹¥|·À|Ãô|¾«|»Ø|Ñª|Ä§
-sittingCards[71050] = "0|0|0|150|0|0|0";		--¡¾ÉwšW¿¨¡¿×øòT¿¨.¾«Éñ+150
-sittingCards[71051] = "150|0|0|0|0|0|0";		--¡¾¹ÌÀ­¶à¡¿×øòT¿¨.¹¥“ô+150
-sittingCards[71052] = "0|0|0|0|0|0|0";			--¡¾´ôÃÈØiÍõ¡¿×øòT¿¨.
-sittingCards[71053] = "100|0|0|0|0|0|0";		--¡¾°×Ã¼ØiÍõ¡¿×øòT¿¨.¹¥“ô+100
-sittingCards[71054] = "0|100|0|0|0|0|0";		--¡¾¼ƒ°×ØiÍõ¡¿×øòT¿¨.·À¶R+100
-sittingCards[71055] = "0|0|100|0|0|0|0";		--¡¾¼ƒ½ğØiÍõ¡¿×øòT¿¨.Ãô½İ+100
-sittingCards[71056] = "0|0|0|100|0|0|0";		--¡¾·ÛĞÄÍõåú¡¿×øòT¿¨.¾«Éñ+100
-sittingCards[71057] = "0|0|0|0|100|0|0";		--¡¾¾GücÍõåú¡¿×øòT¿¨.»ØÍ+100
+local sittingCards={}	--æ”»|é˜²|æ•|ç²¾|å›|è¡€|é­”
+sittingCards[71050] = "0|0|0|150|0|0|0";		--ã€è“‹æ­å¡ã€‘åé¨å¡.ç²¾ç¥+150
+sittingCards[71051] = "150|0|0|0|0|0|0";		--ã€å›ºæ‹‰å¤šã€‘åé¨å¡.æ”»æ“Š+150
+sittingCards[71052] = "0|0|0|0|0|0|0";			--ã€å‘†èŒè±¬ç‹ã€‘åé¨å¡.
+sittingCards[71053] = "100|0|0|0|0|0|0";		--ã€ç™½çœ‰è±¬ç‹ã€‘åé¨å¡.æ”»æ“Š+100
+sittingCards[71054] = "0|100|0|0|0|0|0";		--ã€ç´”ç™½è±¬ç‹ã€‘åé¨å¡.é˜²ç¦¦+100
+sittingCards[71055] = "0|0|100|0|0|0|0";		--ã€ç´”é‡‘è±¬ç‹ã€‘åé¨å¡.æ•æ·+100
+sittingCards[71056] = "0|0|0|100|0|0|0";		--ã€ç²‰å¿ƒç‹å¦ƒã€‘åé¨å¡.ç²¾ç¥+100
+sittingCards[71057] = "0|0|0|0|100|0|0";		--ã€ç¶ é»ç‹å¦ƒã€‘åé¨å¡.å›å¾©+100
 ---------------------------------------------------------------------
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 --[[function Module:walkingspeed(npc, player)
-      local msg = "\\n¡¡¡¾ÒÆ„Ó¼ÓËÙ¡¿ÊÕ¼¯ËÄ»êÖ®ÓñŠ»¯ÄãµÄ¾«ì`Ö®»ê£¡\\n\\n¡¡Lv1¡¾110¡¿¡¡¡¡Lv6¡¾180¡¿¡¡¡¡¡ı×øòTĞÎÏó¡ı\\n¡¡Lv2¡¾120¡¿¡¡¡¡Lv7¡¾200¡¿\\n¡¡Lv3¡¾130¡¿¡¡¡¡Lv8¡¾220¡¿\\n¡¡Lv4¡¾140¡¿¡¡¡¡Lv9¡¾250¡¿\\n¡¡Lv5¡¾160¡¿¡¡¡¡Lv10¡¾300¡¿\\n";
+      local msg = "\\nã€€ã€ç§»å‹•åŠ é€Ÿã€‘æ”¶é›†å››é­‚ä¹‹ç‰å¼·åŒ–ä½ çš„ç²¾éˆä¹‹é­‚ï¼\\n\\nã€€Lv1ã€110ã€‘ã€€ã€€Lv6ã€180ã€‘ã€€ã€€â†“åé¨å½¢è±¡â†“\\nã€€Lv2ã€120ã€‘ã€€ã€€Lv7ã€200ã€‘\\nã€€Lv3ã€130ã€‘ã€€ã€€Lv8ã€220ã€‘\\nã€€Lv4ã€140ã€‘ã€€ã€€Lv9ã€250ã€‘\\nã€€Lv5ã€160ã€‘ã€€ã€€Lv10ã€300ã€‘\\n";
       if (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==1 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
           local itemIndex = Char.HaveItem(player, Aqua_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
           local itemIndex = Char.HaveItem(player, Agni_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
           local itemIndex = Char.HaveItem(player, Ventus_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
           local itemIndex = Char.HaveItem(player, Terra_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       else
           msg = msg;
       end
-      NLG.ShowWindowTalked(player, self.speedNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+      NLG.ShowWindowTalked(player, self.speedNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
 end
 ]]
 -------------------------------------------------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
 --[[
-  --ÒÆ„ÓËÙ¶È
-  self.speedNpc = self:NPC_createNormal('ËÙ¶È¿ì½İ', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
+  --ç§»å‹•é€Ÿåº¦
+  self.speedNpc = self:NPC_createNormal('é€Ÿåº¦å¿«æ·', 98972, { x = 37, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.speedNpc, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n¡¡¡¾ÒÆ„Ó¼ÓËÙ¡¿ÊÕ¼¯ËÄ»êÖ®ÓñŠ»¯ÄãµÄ¾«ì`Ö®»ê£¡\\n\\n¡¡Lv1¡¾110¡¿¡¡¡¡Lv6¡¾180¡¿¡¡¡¡¡ı×øòTĞÎÏó¡ı\\n¡¡Lv2¡¾120¡¿¡¡¡¡Lv7¡¾200¡¿\\n¡¡Lv3¡¾130¡¿¡¡¡¡Lv8¡¾220¡¿\\n¡¡Lv4¡¾140¡¿¡¡¡¡Lv9¡¾250¡¿\\n¡¡Lv5¡¾160¡¿¡¡¡¡Lv10¡¾300¡¿\\n";
+      local msg = "\\nã€€ã€ç§»å‹•åŠ é€Ÿã€‘æ”¶é›†å››é­‚ä¹‹ç‰å¼·åŒ–ä½ çš„ç²¾éˆä¹‹é­‚ï¼\\n\\nã€€Lv1ã€110ã€‘ã€€ã€€Lv6ã€180ã€‘ã€€ã€€â†“åé¨å½¢è±¡â†“\\nã€€Lv2ã€120ã€‘ã€€ã€€Lv7ã€200ã€‘\\nã€€Lv3ã€130ã€‘ã€€ã€€Lv8ã€220ã€‘\\nã€€Lv4ã€140ã€‘ã€€ã€€Lv9ã€250ã€‘\\nã€€Lv5ã€160ã€‘ã€€ã€€Lv10ã€300ã€‘\\n";
       if (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==1 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
           local itemIndex = Char.HaveItem(player, Aqua_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
           local itemIndex = Char.HaveItem(player, Agni_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
           local itemIndex = Char.HaveItem(player, Ventus_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
           local itemIndex = Char.HaveItem(player, Terra_itemId);
-          local sitting_image= Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image= Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local imageText = "@g,"..sitting_image..",15,7,6,0@"
           msg = imageText .. msg;
       else
           msg = msg;
       end
-      NLG.ShowWindowTalked(player, self.speedNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+      NLG.ShowWindowTalked(player, self.speedNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(self.speedNpc, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 1 and select == CONST.°´Å¥_È·¶¨ then
+      if seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
           if (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==1 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
                 itemIndex = Char.HaveItem(player, Aqua_itemId);
-                local level = Item.GetData(itemIndex,CONST.µÀ¾ß_µÈ¼¶);
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ, WingSpeed_List[level]);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Aqua_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==1 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==0) then
                 itemIndex = Char.HaveItem(player, Agni_itemId);
-                local level = Item.GetData(itemIndex,CONST.µÀ¾ß_µÈ¼¶);
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ, WingSpeed_List[level]);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Agni_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==1 and Char.ItemNum(player, Terra_itemId)==0) then
                 itemIndex = Char.HaveItem(player, Ventus_itemId);
-                local level = Item.GetData(itemIndex,CONST.µÀ¾ß_µÈ¼¶);
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ, WingSpeed_List[level]);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Ventus_itemId][level]);
           elseif (Char.ItemNum(player, Agni_itemId)==0 and Char.ItemNum(player, Aqua_itemId)==0 and Char.ItemNum(player, Ventus_itemId)==0 and Char.ItemNum(player, Terra_itemId)==1) then
                 itemIndex = Char.HaveItem(player, Terra_itemId);
-                local level = Item.GetData(itemIndex,CONST.µÀ¾ß_µÈ¼¶);
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ, WingSpeed_List[level]);
+                local level = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ, WingSpeed_List[level]);
                 Char.SetTempData(player, 'MountOn',1);
                 NLG.UpChar(player)
                 --NLG.SetHeadIcon(player, WingKind_List[Terra_itemId][level]);
           else
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ,100);
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ,100);
                 NLG.UpChar(player)
           end
-      elseif seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ then
-                Char.SetData(player, CONST.¶ÔÏó_ÒÆËÙ,100);
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­ then
+                Char.SetData(player, CONST.å¯¹è±¡_ç§»é€Ÿ,100);
                 Char.SetTempData(player, 'MountOn',0);
                 NLG.UpChar(player)
       end
-      --×øÆï
+      --åéª‘
       if (itemIndex~=nil) then
-          local sitting_image = Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);
+          local sitting_image = Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);
           local MountOn = Char.GetTempData(player, 'MountOn') or -1;
           if (sitting_image>0 and MountOn>=1) then
-              local MapId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼ÀàĞÍ);
-              local FloorId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-              local X = Char.GetData(player,CONST.¶ÔÏó_X);
-              local Y = Char.GetData(player,CONST.¶ÔÏó_Y);
+              local MapId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾ç±»å‹);
+              local FloorId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+              local X = Char.GetData(player,CONST.å¯¹è±¡_X);
+              local Y = Char.GetData(player,CONST.å¯¹è±¡_Y);
               local objNum,objTbl = Obj.GetObject(MapId, FloorId, X, Y);
               --print(objNum,objTbl)
               players = NLG.GetPlayer();
@@ -147,12 +153,12 @@ function Module:onLoad()
                     local playerIndex = Obj.GetCharIndex(v)
                     local sittingIndex = tonumber(playerIndex)+1;
                     --print(playerIndex,sittingIndex,objTbl[1])
-                    if (Obj.GetType(v)==1) then	---1£º·Ç·¨ | 0£ºÎ´Ê¹ÓÃ | 1£º½ÇÉ« | 2£ºµÀ¾ß | 3£º½ğ±Ò | 4£º´«ËÍµã | 5£º´¬ | 6£ºÔØ¾ß
-                        --Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..x..'|'..y..'|70|0|101001|650|-1')	--Æï³è1 70
+                    if (Obj.GetType(v)==1) then	---1ï¼šéæ³• | 0ï¼šæœªä½¿ç”¨ | 1ï¼šè§’è‰² | 2ï¼šé“å…· | 3ï¼šé‡‘å¸ | 4ï¼šä¼ é€ç‚¹ | 5ï¼šèˆ¹ | 6ï¼šè½½å…·
+                        --Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..x..'|'..y..'|70|0|101001|650|-1')	--éª‘å® 1 70
                         Protocol.Send(playerIndex,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
                         for k, v in ipairs(players) do
-                            local names = Char.GetData(v,CONST.¶ÔÏó_Ô­Ãû) or -1;
-                            local maps = Char.GetData(v,CONST.¶ÔÏó_µØÍ¼) or -1;
+                            local names = Char.GetData(v,CONST.å¯¹è±¡_åŸå) or -1;
+                            local maps = Char.GetData(v,CONST.å¯¹è±¡_åœ°å›¾) or -1;
                             if names~=-1 and maps==FloorId then 
                                  Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
                             end
@@ -166,30 +172,30 @@ function Module:onLoad()
   end)
 ]]
 
-  --×øòT¿¨µÀ¾ßNPC
+  --åé¨å¡é“å…·NPC
   self:regCallback('ItemString', Func.bind(self.sittingCard, self),"LUA_useMount");
-  self.setupMountNPC = self:NPC_createNormal('×øòTÁîÅÆ', 14682, { x =34 , y = 31, mapType = 0, map = 777, direction = 6 });
+  self.setupMountNPC = self:NPC_createNormal('åé¨ä»¤ç‰Œ', 14682, { x =34 , y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.setupMountNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local ElvesIndex = Char.GetItemIndex(player,8);		--ÎïÆ·™ÚµÚÒ»¸ñ
+      local ElvesIndex = Char.GetItemIndex(player,8);		--ç‰©å“æ¬„ç¬¬ä¸€æ ¼
       if (ElvesIndex>0) then
-        ElvesId = Item.GetData(ElvesIndex,CONST.µÀ¾ß_ID);	--¾«ì`Ö®»êid
+        ElvesId = Item.GetData(ElvesIndex,CONST.é“å…·_ID);	--ç²¾éˆä¹‹é­‚id
       else
         return;
       end
       if (ElvesId==70196 or ElvesId==70197 or ElvesId==70198 or ElvesId==70199) then
-        sittingId = Item.GetData(ElvesIndex,CONST.µÀ¾ß_ĞÒÔË);	--¾«ì`Ö®»ê(×øòTĞÎÏó)
+        sittingId = Item.GetData(ElvesIndex,CONST.é“å…·_å¹¸è¿);	--ç²¾éˆä¹‹é­‚(åé¨å½¢è±¡)
       else
         return;
       end
       if (sittingId==0) then
-        local msg = "@c¡¾×øòT‘{×C¡¿\\n"
-                 .. "\\n\\n\\n ´_¶¨Ê¹ÓÃ´Ë×øòTĞÎÏó¿¨†á£¿\\n\\n"
-        NLG.ShowWindowTalked(player, self.setupMountNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+        local msg = "@cã€åé¨æ†‘è­‰ã€‘\\n"
+                 .. "\\n\\n\\n ç¢ºå®šä½¿ç”¨æ­¤åé¨å½¢è±¡å¡å—ï¼Ÿ\\n\\n"
+        NLG.ShowWindowTalked(player, self.setupMountNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
       elseif (sittingId>0) then
-        local msg = "@c¡¾×øòT‘{×C¡¿\\n"
-                 .. "\\n\\n\\n ´_¶¨¸²Éw¬FÓĞµÄ×øòTĞÎÏó†á£¿\\n\\n"
-        NLG.ShowWindowTalked(player, self.setupMountNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2, msg);
+        local msg = "@cã€åé¨æ†‘è­‰ã€‘\\n"
+                 .. "\\n\\n\\n ç¢ºå®šè¦†è“‹ç¾æœ‰çš„åé¨å½¢è±¡å—ï¼Ÿ\\n\\n"
+        NLG.ShowWindowTalked(player, self.setupMountNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2, msg);
       else
       end
     end
@@ -201,44 +207,44 @@ function Module:onLoad()
     local data = tonumber(_data)
     local MountIndex = MountIndex;
     local MountSlot = MountSlot;
-    local MountId = Item.GetData(MountIndex,CONST.µÀ¾ß_ID);	--×øòT¿¨
-    local MountName = Item.GetData(MountIndex,CONST.µÀ¾ß_Ãû×Ö);	--×øòT¿¨Ãû
-    local ElvesIndex = Char.GetItemIndex(player,8);		--ÎïÆ·™ÚµÚÒ»¸ñ
+    local MountId = Item.GetData(MountIndex,CONST.é“å…·_ID);	--åé¨å¡
+    local MountName = Item.GetData(MountIndex,CONST.é“å…·_åå­—);	--åé¨å¡å
+    local ElvesIndex = Char.GetItemIndex(player,8);		--ç‰©å“æ¬„ç¬¬ä¸€æ ¼
 
-    --×øòT¿¨²Ù×÷
+    --åé¨å¡æ“ä½œ
     if select > 0 then
-      if seqno == 1 and select == CONST.°´Å¥_·ñ then
+      if seqno == 1 and select == CONST.æŒ‰é’®_å¦ then
                  return;
-      elseif seqno == 2 and select == CONST.°´Å¥_·ñ then
+      elseif seqno == 2 and select == CONST.æŒ‰é’®_å¦ then
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_ÊÇ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
         if (ElvesIndex>0) then
-          local ElvesId = Item.GetData(ElvesIndex,CONST.µÀ¾ß_ID);	--¾«ì`Ö®»êid
+          local ElvesId = Item.GetData(ElvesIndex,CONST.é“å…·_ID);	--ç²¾éˆä¹‹é­‚id
           if (ElvesId==70196 or ElvesId==70197 or ElvesId==70198 or ElvesId==70199) then
               if ( CheckInTable(MountEnable_check, MountId)==true ) then
                   Char.DelItem(player, MountId, 1);
                   setItemStrData(ElvesIndex, sittingCards[MountId])
-                  Item.SetData(ElvesIndex,CONST.µÀ¾ß_ĞÒÔË,sittingImages[MountId]);
+                  Item.SetData(ElvesIndex,CONST.é“å…·_å¹¸è¿,sittingImages[MountId]);
                   Item.UpItem(player,8);
                   NLG.UpChar(player);
-                  NLG.PlaySe(player, 212, Char.GetData(player,CONST.¶ÔÏó_X), Char.GetData(player,CONST.¶ÔÏó_Y));
-                  NLG.SystemMessage(player, "[ÏµÍ³]"..MountName.." ³É¹¦µÇê‘¡£")
+                  NLG.PlaySe(player, 212, Char.GetData(player,CONST.å¯¹è±¡_X), Char.GetData(player,CONST.å¯¹è±¡_Y));
+                  NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..MountName.." æˆåŠŸç™»é™¸ã€‚")
               else
               end
           else
-              NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚµÚÒ»¸ñÎ´ÓĞ¾«ì`Ö®»ê¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„ç¬¬ä¸€æ ¼æœªæœ‰ç²¾éˆä¹‹é­‚ã€‚");
               return;
           end
         else
             return;
         end
-      elseif seqno == 2 and select == CONST.°´Å¥_ÊÇ then
+      elseif seqno == 2 and select == CONST.æŒ‰é’®_æ˜¯ then
         if (ElvesIndex>0) then
-          local ElvesId = Item.GetData(ElvesIndex,CONST.µÀ¾ß_ID);		--¾«ì`Ö®»êid
-          local sittingId = tonumber(Item.GetData(ElvesIndex,CONST.µÀ¾ß_ĞÒÔË));		--¾«ì`Ö®»ê(×øòTĞÎÏó)
+          local ElvesId = Item.GetData(ElvesIndex,CONST.é“å…·_ID);		--ç²¾éˆä¹‹é­‚id
+          local sittingId = tonumber(Item.GetData(ElvesIndex,CONST.é“å…·_å¹¸è¿));		--ç²¾éˆä¹‹é­‚(åé¨å½¢è±¡)
           --print(sittingId,sittingImages[MountId])
           if (sittingId==sittingImages[MountId]) then
-              NLG.SystemMessage(player,"[Ïµ½y]´Ë×øÆïĞÎÏóÒÑµÇä›Ê¹ÓÃ¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]æ­¤åéª‘å½¢è±¡å·²ç™»éŒ„ä½¿ç”¨ã€‚");
               return;
           end
           if (ElvesId==70196 or ElvesId==70197 or ElvesId==70198 or ElvesId==70199) then
@@ -246,21 +252,21 @@ function Module:onLoad()
                   Char.DelItem(player, MountId, 1);
                   for k,v in pairs(sittingCards) do
                     if (sittingImages[k]==sittingId) then
-                      setItemRevertData(ElvesIndex, sittingCards[k])	--ÏÈÒÆ³ı
+                      setItemRevertData(ElvesIndex, sittingCards[k])	--å…ˆç§»é™¤
                     end
                   end
                   Item.UpItem(player,8);
                   NLG.UpChar(player);
-                  setItemStrData(ElvesIndex, sittingCards[MountId])			--ÔÙÖØ¼Ó
-                  Item.SetData(ElvesIndex,CONST.µÀ¾ß_ĞÒÔË,sittingImages[MountId]);
+                  setItemStrData(ElvesIndex, sittingCards[MountId])			--å†é‡åŠ 
+                  Item.SetData(ElvesIndex,CONST.é“å…·_å¹¸è¿,sittingImages[MountId]);
                   Item.UpItem(player,8);
                   NLG.UpChar(player);
-                  NLG.PlaySe(player, 212, Char.GetData(player,CONST.¶ÔÏó_X), Char.GetData(player,CONST.¶ÔÏó_Y));
-                  NLG.SystemMessage(player, "[ÏµÍ³]"..MountName.." ³É¹¦µÇê‘¡£")
+                  NLG.PlaySe(player, 212, Char.GetData(player,CONST.å¯¹è±¡_X), Char.GetData(player,CONST.å¯¹è±¡_Y));
+                  NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..MountName.." æˆåŠŸç™»é™¸ã€‚")
               else
               end
           else
-              NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚµÚÒ»¸ñÎ´ÓĞ¾«ì`Ö®»ê¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„ç¬¬ä¸€æ ¼æœªæœ‰ç²¾éˆä¹‹é­‚ã€‚");
               return;
           end
         else
@@ -277,46 +283,46 @@ function Module:onLoad()
 
 end
 
---×øòT¿¨
+--åé¨å¡
 function Module:sittingCard(charIndex,targetIndex,itemSlot)
     --ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     MountSlot = itemSlot;
     MountIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local MountId = Item.GetData(MountIndex,CONST.µÀ¾ß_ID);	--×øòT¿¨
-    local ElvesIndex = Char.GetItemIndex(charIndex,8);		--ÎïÆ·™ÚµÚÒ»¸ñ
+    local MountId = Item.GetData(MountIndex,CONST.é“å…·_ID);	--åé¨å¡
+    local ElvesIndex = Char.GetItemIndex(charIndex,8);		--ç‰©å“æ¬„ç¬¬ä¸€æ ¼
     if (ElvesIndex>0) then
-      ElvesId = Item.GetData(ElvesIndex,CONST.µÀ¾ß_ID);	--¾«ì`Ö®»êid
+      ElvesId = Item.GetData(ElvesIndex,CONST.é“å…·_ID);	--ç²¾éˆä¹‹é­‚id
     else
-      NLG.SystemMessage(charIndex,"[Ïµ½y]ÎïÆ·™ÚµÚÒ»¸ñÎ´ÓĞ¾«ì`Ö®»ê¡£");
+      NLG.SystemMessage(charIndex,"[ç³»çµ±]ç‰©å“æ¬„ç¬¬ä¸€æ ¼æœªæœ‰ç²¾éˆä¹‹é­‚ã€‚");
       return 1;
     end
     if (ElvesId==70196 or ElvesId==70197 or ElvesId==70198 or ElvesId==70199) then
-      sittingId = Item.GetData(ElvesIndex,CONST.µÀ¾ß_ĞÒÔË);	--¾«ì`Ö®»ê(×øòTĞÎÏó)
+      sittingId = Item.GetData(ElvesIndex,CONST.é“å…·_å¹¸è¿);	--ç²¾éˆä¹‹é­‚(åé¨å½¢è±¡)
     else
-      NLG.SystemMessage(charIndex,"[Ïµ½y]ÎïÆ·™ÚµÚÒ»¸ñÎ´ÓĞ¾«ì`Ö®»ê¡£");
+      NLG.SystemMessage(charIndex,"[ç³»çµ±]ç‰©å“æ¬„ç¬¬ä¸€æ ¼æœªæœ‰ç²¾éˆä¹‹é­‚ã€‚");
       return 1;
     end
     if (sittingId==0) then
-        local msg = "@c¡¾×øòT‘{×C¡¿\\n"
-                 .. "\\n\\n\\n ´_¶¨Ê¹ÓÃ´Ë×øòTĞÎÏó¿¨†á£¿\\n\\n"
-        NLG.ShowWindowTalked(charIndex, self.setupMountNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+        local msg = "@cã€åé¨æ†‘è­‰ã€‘\\n"
+                 .. "\\n\\n\\n ç¢ºå®šä½¿ç”¨æ­¤åé¨å½¢è±¡å¡å—ï¼Ÿ\\n\\n"
+        NLG.ShowWindowTalked(charIndex, self.setupMountNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     elseif (sittingId>0) then
-        local msg = "@c¡¾×øòT‘{×C¡¿\\n"
-                 .. "\\n\\n\\n ´_¶¨¸²Éw¬FÓĞµÄ×øòTĞÎÏó†á£¿\\n\\n"
-        NLG.ShowWindowTalked(charIndex, self.setupMountNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2, msg);
+        local msg = "@cã€åé¨æ†‘è­‰ã€‘\\n"
+                 .. "\\n\\n\\n ç¢ºå®šè¦†è“‹ç¾æœ‰çš„åé¨å½¢è±¡å—ï¼Ÿ\\n\\n"
+        NLG.ShowWindowTalked(charIndex, self.setupMountNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2, msg);
     else
     end
     return 1;
 end
 ------------------------------------------------------------------------------------------
---Ôö¼ÓËØÖÊ
+--å¢åŠ ç´ è´¨
 function setItemStrData( _ItemIndex, _Card)
 	local Plus_buffer = {}
 	local tItemStat = tostring( _Card);
 	if (string.find(tItemStat, "|")==nil) then
 		return;
 	else
-		local strData = {18, 19, 20, 21, 22, 27, 28}	--%µÀ¾ß_¹¥»÷%,%µÀ¾ß_·ÀÓù%,%µÀ¾ß_Ãô½İ%,%µÀ¾ß_¾«Éñ%,%µÀ¾ß_»Ø¸´%,%µÀ¾ß_HP%,%µÀ¾ß_MP%
+		local strData = {18, 19, 20, 21, 22, 27, 28}	--%é“å…·_æ”»å‡»%,%é“å…·_é˜²å¾¡%,%é“å…·_æ•æ·%,%é“å…·_ç²¾ç¥%,%é“å…·_å›å¤%,%é“å…·_HP%,%é“å…·_MP%
 		local Plus_buffer = string.split(tItemStat, "|");
 
 		for k,v in pairs(strData) do
@@ -325,14 +331,14 @@ function setItemStrData( _ItemIndex, _Card)
 	end
 end
 
---»¹Ô­ËØÖÊ
+--è¿˜åŸç´ è´¨
 function setItemRevertData( _ItemIndex, _Card)
 	local Plus_buffer = {}
 	local tItemStat = tostring( _Card);
 	if (string.find(tItemStat, "|")==nil) then
 		return;
 	else
-		local strData = {18, 19, 20, 21, 22, 27, 28}	--%µÀ¾ß_¹¥»÷%,%µÀ¾ß_·ÀÓù%,%µÀ¾ß_Ãô½İ%,%µÀ¾ß_¾«Éñ%,%µÀ¾ß_»Ø¸´%,%µÀ¾ß_HP%,%µÀ¾ß_MP%
+		local strData = {18, 19, 20, 21, 22, 27, 28}	--%é“å…·_æ”»å‡»%,%é“å…·_é˜²å¾¡%,%é“å…·_æ•æ·%,%é“å…·_ç²¾ç¥%,%é“å…·_å›å¤%,%é“å…·_HP%,%é“å…·_MP%
 		local Plus_buffer = string.split(tItemStat, "|");
 
 		for k,v in pairs(strData) do
@@ -341,7 +347,7 @@ function setItemRevertData( _ItemIndex, _Card)
 	end
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -350,7 +356,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
