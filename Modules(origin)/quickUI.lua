@@ -177,6 +177,7 @@ function QuickUI:onLoad()
   self:regCallback('ItemString', Func.bind(self.imageCollection, self),"LUA_useMetamoCT");
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self));
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
+  self:regCallback('LoginGateEvent', Func.bind(self.onLoginEvent, self));
 
   self.quickUInpc = self:NPC_createNormal('动作快捷图示', 98972, { x = 36, y = 37, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.quickUInpc, function(npc, player)
@@ -535,7 +536,7 @@ function QuickUI:onLoginEvent(charIndex)
             Char.SetData(charIndex, CONST.对象_移速,100);
             NLG.UpChar(charIndex)
       end
-      if (itemIndex>0) then
+      if (itemIndex~=nil) then
           local sitting_image = Item.GetData(itemIndex,CONST.道具_幸运);
           local MountOn = Char.GetTempData(charIndex, 'MountOn') or -1;
           if (sitting_image>0 and MountOn>=1) then
