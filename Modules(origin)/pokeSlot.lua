@@ -1,26 +1,26 @@
 ---模块类
 local Module = ModuleBase:createModule(pokeSlot)
 
-local slot_roll_1 = {149000,149000,149003,149003,149012,149015,149038,149039,149054};	--第一轨形象
-local slot_roll_2 = {149000,149000,149003,149003,149012,149015,149038,149039,149054};	--第二轨形象
-local slot_roll_3 = {149000,149000,149003,149003,149012,149015,149038,149039,149054};	--第三轨形象
+local slot_roll_1 = {149019,149019,149019,149012,149012,149015,149038,149039,149054,149041};	--第一轨形象
+local slot_roll_2 = {149019,149019,149019,149012,149012,149015,149038,149039,149054,149041};	--第二轨形象
+local slot_roll_3 = {149019,149019,149019,149012,149012,149015,149038,149039,149054,149041};	--第三轨形象
 local slot_Lotto_list_triple = {};		--同花奖励
-slot_Lotto_list_triple[149000] = {66668,5};
-slot_Lotto_list_triple[149003] = {66668,5};
-slot_Lotto_list_triple[149012] = {66668,6};
-slot_Lotto_list_triple[149015] = {66668,7};
-slot_Lotto_list_triple[149038] = {66668,8};
-slot_Lotto_list_triple[149039] = {66668,9};
-slot_Lotto_list_triple[149054] = {66668,10};
+slot_Lotto_list_triple[149019] = {47823,7};
+slot_Lotto_list_triple[149012] = {47823,8};
+slot_Lotto_list_triple[149015] = {47823,8};
+slot_Lotto_list_triple[149038] = {47823,9};
+slot_Lotto_list_triple[149039] = {47823,9};
+slot_Lotto_list_triple[149054] = {47823,9};
+slot_Lotto_list_triple[149041] = {47823,10};
 
 local slot_Lotto_list_dual = {};		--成对奖励
-slot_Lotto_list_dual[149000] = {66668,2};
-slot_Lotto_list_dual[149003] = {66668,2};
-slot_Lotto_list_dual[149012] = {66668,3};
-slot_Lotto_list_dual[149015] = {66668,3};
-slot_Lotto_list_dual[149038] = {66668,3};
-slot_Lotto_list_dual[149039] = {66668,3};
-slot_Lotto_list_dual[149054] = {66668,4};
+slot_Lotto_list_dual[149019] = {47823,1};
+slot_Lotto_list_dual[149012] = {47823,2};
+slot_Lotto_list_dual[149015] = {47823,2};
+slot_Lotto_list_dual[149038] = {47823,3};
+slot_Lotto_list_dual[149039] = {47823,3};
+slot_Lotto_list_dual[149054] = {47823,3};
+slot_Lotto_list_dual[149041] = {47823,5};
 
 -------------------------------------------------
 --- 加载模块钩子
@@ -38,27 +38,39 @@ function Module:onLoad()
     if _select > 0 then
       if _select == CONST.按钮_确定 then
           if (page==1001) then
-              Char.AddGold(player, -1000000);
+              Char.AddGold(player, -500000);
               local seqno = page - 1000;
               local msg = "@c　　【寶可拉霸機】\\n"
-                       .. "　　　$1-------　第十次拉霸的結果如下　-------\\n$5"
-              local msg = msg .. slotEventInfo(player,seqno,10)
+                       .. "　　　$1-------　第五次拉霸的結果如下　-------\\n$5"
+              local msg = msg .. slotEventInfo(player,seqno,5)
               local msg = msg .. "\\n\\n\\n\\n\\n\\n　　$4◇獎勵已經發放◇"
               NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.窗口_信息框, CONST.按钮_关闭, 2000+seqno, msg);
               return
+          elseif (page==1003) then
+              local seqno = page - 1000;
+              local msg = "@c　　【寶可拉霸機】\\n"
+              local msg = msg .. slotEventInfo(player,seqno,1);
+              local msg = msg .. "\\n\\n\\n\\n\\n\\n\\n　　▽拉霸過程非最終結果▽"
+              NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.窗口_信息框, CONST.按钮_下一页, 1000+seqno+1, msg);
           else
               return
           end
       elseif _select == CONST.按钮_关闭 then
       end
       if _select == CONST.BUTTON_下一页 then
-        if (page==1003) then
+        if (page==1004) then
           local seqno = page - 1000;
           local msg = "@c　　【寶可拉霸機】\\n"
           local msg = msg .. slotEventInfo(player,seqno,1);
           local msg = msg .. "\\n\\n\\n\\n\\n\\n\\n　　▽拉霸過程非最終結果▽"
           NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.窗口_信息框, CONST.按钮_下一页, 1000+seqno+1, msg);
-        elseif (page==1004) then
+        elseif (page==1005) then
+          local seqno = page - 1000;
+          local msg = "@c　　【寶可拉霸機】\\n"
+          local msg = msg .. slotEventInfo(player,seqno,1);
+          local msg = msg .. "\\n\\n\\n\\n\\n\\n\\n　　▽拉霸過程非最終結果▽"
+          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.窗口_信息框, CONST.按钮_下一页, 1000+seqno+1, msg);
+        elseif (page==1006) then
           Char.AddGold(player, -100000);
           local seqno = page - 1000;
           local msg = "@c　　【寶可拉霸機】\\n"
@@ -75,12 +87,13 @@ function Module:onLoad()
       --local count = 8 * (warpPage - 1) + column
       --print(count)
       if (column==1) then
-          if (Char.GetData(player, CONST.对象_金币)<1000000) then
-            NLG.SystemMessage(player,"[系統]拉霸所需金幣不足100萬。");
+          if (Char.GetData(player, CONST.对象_金币)<500000) then
+            NLG.SystemMessage(player,"[系統]拉霸所需金幣不足50萬。");
             return
           end
           local msg = "@c　　【寶可拉霸機】\\n"
           local msg = msg .. slotMachineInfo(column);
+          local msg = msg .. "\\n\\n\\n\\n\\n\\n\\n　　△拉霸準備開始.點擊確定△"
           NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1000+column, msg);
       elseif (column==3) then
           if (Char.GetData(player, CONST.对象_金币)<100000) then
@@ -89,7 +102,8 @@ function Module:onLoad()
           end
           local msg = "@c　　【寶可拉霸機】\\n"
           local msg = msg .. slotMachineInfo(column);
-          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.窗口_信息框, CONST.按钮_下一页, 1000+column, msg);
+          local msg = msg .. "\\n\\n\\n\\n\\n\\n\\n　　△拉霸準備開始.點擊確定△"
+          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1000+column, msg);
       end
     end
   end)
@@ -98,9 +112,9 @@ function Module:onLoad()
       local winButton = CONST.BUTTON_关闭;
       local msg = "4\\n@c　　【寶可拉霸機】\\n"
                .. "　　支付魔幣進行拉霸遊戲：\\n"
-               .. "　　成對2-4代金幣、同花5-10代金幣\\n\\n"
-               .. "　　◎快速遊玩拉霸機10次100萬魔幣\\n\\n"
-               .. "　　◎單次遊玩拉霸機01次010萬魔幣\\n"
+               .. "　　成對1-5、同花7-10獵殺任務幣\\n\\n"
+               .. "　　◎快速遊玩拉霸機5次  50萬魔幣\\n\\n"
+               .. "　　◎單次遊玩拉霸機1次  10萬魔幣\\n"
 
       NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, 1, msg);
     end
@@ -109,7 +123,7 @@ function Module:onLoad()
 end
 
 ---------------------------------------------------------------------------------------------------------------
---信息
+--初始页面
 function slotMachineInfo(column)
       local msg = "";
       local slot_roll_image_1 = slot_roll_1[1];
@@ -121,7 +135,7 @@ function slotMachineInfo(column)
       msg = msg .. "  " .. imageText_1 .. "  " .. imageText_2 .. "  " .. imageText_3
       return msg;
 end
-
+--拉霸执行和页面
 function slotEventInfo(player,seqno,count)
       local goalSet = NLG.Rand(1,#slot_roll_1);		--定锚点
       for k=1,count do
@@ -152,7 +166,7 @@ function slotEventInfo(player,seqno,count)
 
         local ImageId,eventCheck = slotMachineCheck(slot_roll_1[goalSet],slot_roll_2[goalSet],slot_roll_3[goalSet])
 
-        if (seqno==1 or seqno==4) then
+        if (seqno==1 or seqno==6) then
           if (ImageId>0 and eventCheck==3) then			--同花
             Char.GiveItem(player, slot_Lotto_list_triple[ImageId][1], slot_Lotto_list_triple[ImageId][2]);
           elseif (ImageId>0 and eventCheck==2) then		--成对
@@ -162,7 +176,7 @@ function slotEventInfo(player,seqno,count)
         NLG.SortItem(player);
       end
 
-      --最後結果顯示
+      --结果显示
       local msg = "";
       local slot_roll_image_1 = slot_roll_1[goalSet];
       local slot_roll_image_2 = slot_roll_2[goalSet];
@@ -173,7 +187,7 @@ function slotEventInfo(player,seqno,count)
       msg = msg .. "  " .. imageText_1 .. "  " .. imageText_2 .. "  " .. imageText_3
       return msg;
 end
-
+--复数判断
 function slotMachineCheck(roll_a,roll_b,roll_c)
      local ImageId = 0;
      local eventCheck = 0;
