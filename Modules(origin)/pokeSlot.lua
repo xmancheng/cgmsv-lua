@@ -1,54 +1,71 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(pokeSlot)
 
-local slot_roll_1 = {149000,149003,149012,149015,149038,149039,149054};
-local slot_roll_2 = {149000,149003,149012,149015,149038,149039,149054};
-local slot_roll_3 = {149000,149003,149012,149015,149038,149039,149054};
-local slot_Lotto_list_triple = {66668,10};
-local slot_Lotto_list_dual = {66668,4};
+local slot_roll_1 = {149000,149000,149003,149003,149012,149015,149038,149039,149054};	--ç¬¬ä¸€è½¨å½¢è±¡
+local slot_roll_2 = {149000,149000,149003,149003,149012,149015,149038,149039,149054};	--ç¬¬äºŒè½¨å½¢è±¡
+local slot_roll_3 = {149000,149000,149003,149003,149012,149015,149038,149039,149054};	--ç¬¬ä¸‰è½¨å½¢è±¡
+local slot_Lotto_list_triple = {};		--åŒèŠ±å¥–åŠ±
+slot_Lotto_list_triple[149000] = {66668,5};
+slot_Lotto_list_triple[149003] = {66668,5};
+slot_Lotto_list_triple[149012] = {66668,6};
+slot_Lotto_list_triple[149015] = {66668,7};
+slot_Lotto_list_triple[149038] = {66668,8};
+slot_Lotto_list_triple[149039] = {66668,9};
+slot_Lotto_list_triple[149054] = {66668,10};
+
+local slot_Lotto_list_dual = {};		--æˆå¯¹å¥–åŠ±
+slot_Lotto_list_dual[149000] = {66668,2};
+slot_Lotto_list_dual[149003] = {66668,2};
+slot_Lotto_list_dual[149012] = {66668,3};
+slot_Lotto_list_dual[149015] = {66668,3};
+slot_Lotto_list_dual[149038] = {66668,3};
+slot_Lotto_list_dual[149039] = {66668,3};
+slot_Lotto_list_dual[149054] = {66668,4};
 
 -------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  self.slotMachineNPC = self:NPC_createNormal('Œš¿ÉÀ­°Ô™C', 12950, { x = 225, y = 93, mapType = 0, map = 1000, direction = 0 });
+  self.slotMachineNPC = self:NPC_createNormal('å¯¶å¯æ‹‰éœ¸æ©Ÿ', 12950, { x = 225, y = 93, mapType = 0, map = 1000, direction = 0 });
   self:NPC_regWindowTalkedEvent(self.slotMachineNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winButton = CONST.BUTTON_å…³é—­;
 
     --print(_seqno,_select,_data)
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.°´Å¥_È·¶¨ then
+      if _select == CONST.æŒ‰é’®_ç¡®å®š then
           if (page==1001) then
+              Char.AddGold(player, -1000000);
               local seqno = page - 1000;
-              local msg = "@c¡¡¡¡¡¾Œš¿ÉÀ­°Ô™C¡¿\\n"
-                       .. "¡¡¡¡¡¡$1-------¡¡µÚÊ®´ÎÀ­°ÔµÄ½Y¹ûÈçÏÂ¡¡-------\\n$5"
-              local msg = msg .. slotEventInfo(seqno)
-
-
-              NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 2000+seqno, msg);
+              local msg = "@cã€€ã€€ã€å¯¶å¯æ‹‰éœ¸æ©Ÿã€‘\\n"
+                       .. "ã€€ã€€ã€€$1-------ã€€ç¬¬åæ¬¡æ‹‰éœ¸çš„çµæœå¦‚ä¸‹ã€€-------\\n$5"
+              local msg = msg .. slotEventInfo(player,seqno,10)
+              local msg = msg .. "\\n\\n\\n\\n\\n\\nã€€ã€€$4â—‡çå‹µå·²ç¶“ç™¼æ”¾â—‡"
+              NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 2000+seqno, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_¹Ø±Õ then
+      elseif _select == CONST.æŒ‰é’®_å…³é—­ then
       end
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         if (page==1003) then
           local seqno = page - 1000;
-          local msg = "@c¡¡¡¡¡¾Œš¿ÉÀ­°Ô™C¡¿\\n"
-          local msg = msg .. slotEventInfo(seqno);
-          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÏÂÒ»Ò³, 1000+seqno+1, msg);
+          local msg = "@cã€€ã€€ã€å¯¶å¯æ‹‰éœ¸æ©Ÿã€‘\\n"
+          local msg = msg .. slotEventInfo(player,seqno,1);
+          local msg = msg .. "\\n\\n\\n\\n\\n\\n\\nã€€ã€€â–½æ‹‰éœ¸éç¨‹éæœ€çµ‚çµæœâ–½"
+          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ä¸‹ä¸€é¡µ, 1000+seqno+1, msg);
         elseif (page==1004) then
+          Char.AddGold(player, -100000);
           local seqno = page - 1000;
-          local msg = "@c¡¡¡¡¡¾Œš¿ÉÀ­°Ô™C¡¿\\n"
-                   .. "¡¡¡¡¡¡$1-------¡¡±¾´ÎÀ­°ÔµÄ½Y¹ûÈçÏÂ¡¡-------\\n$5"
-          local msg = msg .. slotEventInfo(seqno);
-
-          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 2000+seqno, msg);
+          local msg = "@cã€€ã€€ã€å¯¶å¯æ‹‰éœ¸æ©Ÿã€‘\\n"
+                   .. "ã€€ã€€ã€€$1-------ã€€æœ¬æ¬¡æ‹‰éœ¸çš„çµæœå¦‚ä¸‹ã€€-------\\n$5"
+          local msg = msg .. slotEventInfo(player,seqno,1);
+          local msg = msg .. "\\n\\n\\n\\n\\n\\nã€€ã€€$4â—‡çå‹µå·²ç¶“ç™¼æ”¾â—‡"
+          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 2000+seqno, msg);
         end
       elseif _select == 2 then
         return
@@ -58,32 +75,41 @@ function Module:onLoad()
       --local count = 8 * (warpPage - 1) + column
       --print(count)
       if (column==1) then
-          local msg = "@c¡¡¡¡¡¾Œš¿ÉÀ­°Ô™C¡¿\\n"
+          if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<1000000) then
+            NLG.SystemMessage(player,"[ç³»çµ±]æ‹‰éœ¸æ‰€éœ€é‡‘å¹£ä¸è¶³100è¬ã€‚");
+            return
+          end
+          local msg = "@cã€€ã€€ã€å¯¶å¯æ‹‰éœ¸æ©Ÿã€‘\\n"
           local msg = msg .. slotMachineInfo(column);
-          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+column, msg);
+          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+column, msg);
       elseif (column==3) then
-          local msg = "@c¡¡¡¡¡¾Œš¿ÉÀ­°Ô™C¡¿\\n"
+          if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<100000) then
+            NLG.SystemMessage(player,"[ç³»çµ±]æ‹‰éœ¸æ‰€éœ€é‡‘å¹£ä¸è¶³10è¬ã€‚");
+            return
+          end
+          local msg = "@cã€€ã€€ã€å¯¶å¯æ‹‰éœ¸æ©Ÿã€‘\\n"
           local msg = msg .. slotMachineInfo(column);
-          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÏÂÒ»Ò³, 1000+column, msg);
+          NLG.ShowWindowTalked(player, self.slotMachineNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ä¸‹ä¸€é¡µ, 1000+column, msg);
       end
     end
   end)
   self:NPC_regTalkedEvent(self.slotMachineNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "4\\n@c¡¡¡¡¡¾Œš¿ÉÀ­°Ô™C¡¿\\n"
-               .. "¡¡¡¡Ö§¸¶Ä§ÅßMĞĞÀ­°Ôß[‘ò£ºÅäŒ¦4½ğÅ¡¢Í¬»¨10½ğÅ\\n\\n\\n"
-               .. "¡¡¡¡¡ò¿ìËÙß[ÍæÀ­°Ô™C10´Î100ÈfÄ§Å\\n\\n"
-               .. "¡¡¡¡¡ò†Î´Îß[ÍæÀ­°Ô™C01´Î010ÈfÄ§Å\\n"
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "4\\n@cã€€ã€€ã€å¯¶å¯æ‹‰éœ¸æ©Ÿã€‘\\n"
+               .. "ã€€ã€€æ”¯ä»˜é­”å¹£é€²è¡Œæ‹‰éœ¸éŠæˆ²ï¼š\\n"
+               .. "ã€€ã€€æˆå°2-4ä»£é‡‘å¹£ã€åŒèŠ±5-10ä»£é‡‘å¹£\\n\\n"
+               .. "ã€€ã€€â—å¿«é€ŸéŠç©æ‹‰éœ¸æ©Ÿ10æ¬¡100è¬é­”å¹£\\n\\n"
+               .. "ã€€ã€€â—å–®æ¬¡éŠç©æ‹‰éœ¸æ©Ÿ01æ¬¡010è¬é­”å¹£\\n"
 
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
     end
     return
   end)
 end
 
 ---------------------------------------------------------------------------------------------------------------
---ĞÅÏ¢
+--ä¿¡æ¯
 function slotMachineInfo(column)
       local msg = "";
       local slot_roll_image_1 = slot_roll_1[1];
@@ -96,9 +122,10 @@ function slotMachineInfo(column)
       return msg;
 end
 
-function slotEventInfo(seqno)
-    for k=1,seqno do
-        --µÚÒ»Ü‰
+function slotEventInfo(player,seqno,count)
+      local goalSet = NLG.Rand(1,#slot_roll_1);		--å®šé”šç‚¹
+      for k=1,count do
+        --ç¬¬ä¸€è½¨
         local xa = NLG.Rand(1,3);
         for i=1,#slot_roll_1-1-xa do
             a = NLG.Rand(1,i+1+xa);
@@ -106,9 +133,7 @@ function slotEventInfo(seqno)
             slot_roll_1[a]=slot_roll_1[i];
             slot_roll_1[i]=temp;
         end
-        local slot_roll_Lotto_1 = {}
-        slot_roll_Lotto_1[1]=slot_roll_1[1];
-        --µÚ¶şÜ‰
+        --ç¬¬äºŒè½¨
         local xb = NLG.Rand(1,3);
         for i=1,#slot_roll_2-1-xb do
             b = NLG.Rand(1,i+1+xb);
@@ -116,9 +141,7 @@ function slotEventInfo(seqno)
             slot_roll_2[b]=slot_roll_2[i];
             slot_roll_2[i]=temp;
         end
-        local slot_roll_Lotto_2 = {}
-        slot_roll_Lotto_2[1]=slot_roll_2[1];
-        --µÚÈıÜ‰
+        --ç¬¬ä¸‰è½¨
         local xc = NLG.Rand(1,3);
         for i=1,#slot_roll_3-1-xc do
             c = NLG.Rand(1,i+1+xc);
@@ -126,15 +149,24 @@ function slotEventInfo(seqno)
             slot_roll_3[c]=slot_roll_3[i];
             slot_roll_3[i]=temp;
         end
-        local slot_roll_Lotto_3 = {}
-        slot_roll_Lotto_3[1]=slot_roll_3[1];
-    end
 
-      --×îáá½Y¹ûï@Ê¾
+        local ImageId,eventCheck = slotMachineCheck(slot_roll_1[goalSet],slot_roll_2[goalSet],slot_roll_3[goalSet])
+
+        if (seqno==1 or seqno==4) then
+          if (ImageId>0 and eventCheck==3) then			--åŒèŠ±
+            Char.GiveItem(player, slot_Lotto_list_triple[ImageId][1], slot_Lotto_list_triple[ImageId][2]);
+          elseif (ImageId>0 and eventCheck==2) then		--æˆå¯¹
+            Char.GiveItem(player, slot_Lotto_list_dual[ImageId][1], slot_Lotto_list_dual[ImageId][2]);
+          end
+        end
+        NLG.SortItem(player);
+      end
+
+      --æœ€å¾Œçµæœé¡¯ç¤º
       local msg = "";
-      local slot_roll_image_1 = slot_roll_1[1];
-      local slot_roll_image_2 = slot_roll_2[1];
-      local slot_roll_image_3 = slot_roll_3[1];
+      local slot_roll_image_1 = slot_roll_1[goalSet];
+      local slot_roll_image_2 = slot_roll_2[goalSet];
+      local slot_roll_image_3 = slot_roll_3[goalSet];
       local imageText_1 = "@g,"..slot_roll_image_1..",3,6,4,0@"
       local imageText_2 = "@g,"..slot_roll_image_2..",10,6,4,0@"
       local imageText_3 = "@g,"..slot_roll_image_3..",17,6,4,0@"
@@ -142,7 +174,33 @@ function slotEventInfo(seqno)
       return msg;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+function slotMachineCheck(roll_a,roll_b,roll_c)
+     local ImageId = 0;
+     local eventCheck = 0;
+     if roll_a==roll_b and roll_a==roll_c and roll_b==roll_c then
+       local ImageId = roll_a;
+       local eventCheck = 3;
+       return ImageId,eventCheck;
+     elseif roll_a~=roll_b and roll_a~=roll_c and roll_b~=roll_c then
+       local ImageId = 0;
+       local eventCheck = 0;
+       return ImageId,eventCheck;
+     else
+       local eventCheck = 2;
+       if roll_a==roll_b and roll_a~=roll_c then
+         ImageId = roll_a;
+       elseif roll_a==roll_c and roll_a~=roll_b then
+         ImageId = roll_a;
+       elseif roll_b==roll_c and roll_b~=roll_a then
+         ImageId = roll_b;
+       end
+       return ImageId,eventCheck;
+     end
+
+     return ImageId,eventCheck;
+end
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
