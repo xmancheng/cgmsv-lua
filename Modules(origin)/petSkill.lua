@@ -159,13 +159,8 @@ function Module:StateDamage(charIndex, defCharIndex, damage, battleIndex)
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) > 1) then
-                       if (NLG.Rand(1,10) <= v.prob) then
-                           damage = damage * v.val;
-                           return damage;
-                       else
-                           damage = damage;
-                           return damage;
-                       end
+                       damage = damage * v.val;
+                       return damage;
                    end
                end
            end
@@ -324,8 +319,13 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(charIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                   c_val_Rate = c_val_Rate * v.c_val;
-                   def_val_Rate = def_val_Rate * v.def_val;
+                  if (NLG.Rand(1,10) <= v.prob) then
+                     c_val_Rate = c_val_Rate * v.c_val;
+                     def_val_Rate = def_val_Rate * v.def_val;
+                  else
+                     c_val_Rate = c_val_Rate;
+                     def_val_Rate = def_val_Rate;
+                  end
                end
             end
           end
@@ -335,8 +335,13 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(defCharIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                   c_val_Rate = c_val_Rate * v.c_val;
-                   def_val_Rate = def_val_Rate * v.def_val;
+                  if (NLG.Rand(1,10) <= v.prob) then
+                     c_val_Rate = c_val_Rate * v.c_val;
+                     def_val_Rate = def_val_Rate * v.def_val;
+                  else
+                     c_val_Rate = c_val_Rate;
+                     def_val_Rate = def_val_Rate;
+                  end
                end
             end
           end
@@ -348,8 +353,13 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(charIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                   temp_c_1 = temp_c_1 * v.c_val;
-                   temp_def_1 = temp_def_1 * v.def_val;
+                  if (NLG.Rand(1,10) <= v.prob) then
+                     temp_c_1 = temp_c_1 * v.c_val;
+                     temp_def_1 = temp_def_1 * v.def_val;
+                  else
+                     temp_c_1 = temp_c_1;
+                     temp_def_1 = temp_def_1;
+                  end
                end
             end
           end
@@ -359,8 +369,13 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(defCharIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                   temp_c_2 = temp_c_2 * v.c_val;
-                   temp_def_2 = temp_def_2 * v.def_val;
+                  if (NLG.Rand(1,10) <= v.prob) then
+                     temp_c_2 = temp_c_2 * v.c_val;
+                     temp_def_2 = temp_def_2 * v.def_val;
+                  else
+                     temp_c_2 = temp_c_2;
+                     temp_def_2 = temp_def_2;
+                  end
                end
             end
           end
