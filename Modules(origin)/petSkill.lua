@@ -25,12 +25,29 @@ local petMettleTable = {
 }
 
 local petStateTable = {
-             { StateType=1, type=CONST.CHAR_BattleModPoison, skillId=1840 , val = 2.0},              --对增加伤害
-             { StateType=1, type=CONST.CHAR_BattleModPoison, skillId=1841 , val = 2.5},              --对增加伤害
-             { StateType=1, type=CONST.CHAR_BattleModStone, skillId=1842 , val = 2.0},              --对增加伤害
-             { StateType=1, type=CONST.CHAR_BattleModStone, skillId=1843 , val = 2.5},              --对增加伤害
-             { StateType=1, type=CONST.CHAR_BattleModConfusion, skillId=1844 , val = 2.0},              --对增加伤害
-             { StateType=1, type=CONST.CHAR_BattleModConfusion, skillId=1845 , val = 2.5},              --对增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModPoison, skillId=1840 , val = 2.0},              --对中毒状态对象增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModPoison, skillId=1841 , val = 2.5},              --对中毒状态对象增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModStone, skillId=1842 , val = 2.0},              --对石化状态对象增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModStone, skillId=1843 , val = 2.5},              --对石化状态对象增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModConfusion, skillId=1844 , val = 2.0},              --对混乱状态对象增加伤害
+             { StateType=1, type=CONST.CHAR_BattleModConfusion, skillId=1845 , val = 2.5},              --对混乱状态对象增加伤害
+}
+
+local techRateTable = {
+             { TechType=1, skillId=1440 , prob=8, c_val = 1.3, def_val = 1.0},              --劍舞冥想.80%被动发动增加伤害
+             { TechType=2, skillId=1441 , prob=8, c_val = 1.0, def_val = 0.7},              --鐵壁屏障.80%被动发动减轻伤害
+             { TechType=3, skillId=1442 , prob=9, c_val = 1.5, def_val = 1.2},              --索隆.二剛力斬90%被动发动
+             { TechType=4, skillId=1443 , prob=9, c_val = 0.8, def_val = 0.5},              --香吉士.漆黑隱伏90%被动发动
+             { TechType=5, skillId=1444 , prob=10, c_val = 1.2, def_val = 0.8},              --魯夫.橡膠體質100%被动发动
+             { TechType=6, skillId=1445 , prob=10, c_val = 1.3, def_val = 0.9},              --神樂.夜兔天人100%被动发动
+             { TechType=7, skillId=1446 , prob=9, c_val = 1.4, def_val = 1.1},              --鳴人.仙人模式90%被动发动
+             { TechType=8, skillId=1447 , prob=9, c_val = 0.9, def_val = 0.6},              --佐助.須佐能乎90%被动发动
+             { TechType=9, skillId=1448 , prob=7, c_val = 1.6, def_val = 1.3},              --鼬.寫輪眼70%被动发动
+             { TechType=10, skillId=1449 , prob=7, c_val = 0.7, def_val = 0.4},              --綱手.掌仙術70%被动发动
+             { TechType=11, skillId=1450 , prob=5, c_val = 1.8, def_val = 1.5},              --超賽三.賽亞人50%被动发动
+             { TechType=12, skillId=1451 , prob=5, c_val = 0.5, def_val = 0.2},              --18號.人造人50%被动发动
+             { TechType=13, skillId=1452 , prob=10, c_val = 1.1, def_val = 0.7},              --八神庵.屑風100%被动发动
+             { TechType=14, skillId=1453 , prob=10, c_val = 1.1, def_val = 0.7},              --不知火舞.花嵐100%被动发动
 }
 
 --- 加载模块钩子
@@ -118,7 +135,7 @@ function Module:specialDamage(charIndex, defCharIndex, damage, battleIndex, com3
                    --print(com3,AttRate,RaceRate,RndRate)
                    local damage = math.floor( ((Amnd / (0.67 + Dmnd / Amnd))* 2)* AttRate * RaceRate * RndRate)
                    local Spirit = Char.GetData(charIndex, CONST.CHAR_精神);
-                   local damage = math.ceil(  damage * ( math.max( Conver_240(Spirit), 303) / 120 )  );
+                   local damage = math.ceil(  damage * ( math.max( Conver_240(Spirit), 100) / 60 )  );
                    if com3 == 2931 and NLG.Rand(1,3)==3 then
                        Char.SetData(defCharIndex, CONST.CHAR_BattleModPoison, 3);
                        NLG.UpChar(defCharIndex);
@@ -142,8 +159,13 @@ function Module:StateDamage(charIndex, defCharIndex, damage, battleIndex)
                for i=0,9 do
                    local skillId = Pet.GetSkill(charIndex, i)
                    if (skillId == v.skillId and Char.GetData(defCharIndex, v.type) > 1) then
-                       damage = damage * v.val;
-                       return damage;
+                       if (NLG.Rand(1,10) <= v.prob) then
+                           damage = damage * v.val;
+                           return damage;
+                       else
+                           damage = damage;
+                           return damage;
+                       end
                    end
                end
            end
@@ -168,6 +190,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
              --宠物加成
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
+             --技能增减係数
+             local c_techRate,def_techRate = self:TechRate(charIndex, defCharIndex, damage, battleIndex);
+             local damage = damage * def_techRate;
                local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
                if (D_Buff >= 1)  then
                    damage = math.floor(damage * 0.8);
@@ -179,6 +204,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
              --宠物加成
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
+             --技能增减係数
+             local c_techRate,def_techRate = self:TechRate(charIndex, defCharIndex, damage, battleIndex);
+             local damage = damage * def_techRate;
                local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
                if (D_Buff >= 1)  then
                    damage = math.floor(damage * 0.8);
@@ -191,10 +219,13 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          elseif  flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPet(charIndex) == true  then
            if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical  then
              --状态弱点加成
-             local damage = self:StateDamage(charIndex, defCharIndex, damage, battleIndex)
+             local damage = self:StateDamage(charIndex, defCharIndex, damage, battleIndex);
              --宠物加成
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
+             --技能增减係数
+             local c_techRate,def_techRate = self:TechRate(charIndex, defCharIndex, damage, battleIndex);
+             local damage = damage * c_techRate;
                local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
                if (A_Buff >= 1)  then
                    damage = math.floor(damage * 1.35);
@@ -210,6 +241,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
              local damage_temp = self:tempDamage(charIndex, defCharIndex, damage, battleIndex);
              local damage = damage_temp;
              local damage = math.ceil(  damage * RegulateRate * ( math.max( Conver_240(ASpirit), 303) / 120 )  );
+             --技能增减係数
+             local c_techRate,def_techRate = self:TechRate(charIndex, defCharIndex, damage, battleIndex);
+             local damage = damage * c_techRate;
                local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
                if (A_Buff >= 1)  then
                    damage = math.floor(damage * 1.35);
@@ -280,6 +314,61 @@ function Conver_303(Rate)
 		local Num = 10/0.9;
 		return Num
 	end
+end
+
+function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
+        local c_val_Rate = 1;
+        local def_val_Rate = 1;
+        if Char.IsPet(charIndex) == true and Char.IsPet(defCharIndex) == false then
+          for i=0,9 do
+            local skillId = Pet.GetSkill(charIndex, i)
+            for k, v in ipairs(techRateTable) do
+               if (skillId == v.skillId) then
+                   c_val_Rate = c_val_Rate * v.c_val;
+                   def_val_Rate = def_val_Rate * v.def_val;
+               end
+            end
+          end
+          return c_val_Rate, def_val_Rate;
+        elseif Char.IsPet(defCharIndex) == true and Char.IsPet(charIndex) == false then
+          for i=0,9 do
+            local skillId = Pet.GetSkill(defCharIndex, i)
+            for k, v in ipairs(techRateTable) do
+               if (skillId == v.skillId) then
+                   c_val_Rate = c_val_Rate * v.c_val;
+                   def_val_Rate = def_val_Rate * v.def_val;
+               end
+            end
+          end
+          return c_val_Rate, def_val_Rate;
+        elseif Char.IsPet(charIndex) == true and Char.IsPet(defCharIndex) == true then
+          local temp_c_1 = 1;
+          local temp_def_1 = 1;
+          for i=0,9 do
+            local skillId = Pet.GetSkill(charIndex, i)
+            for k, v in ipairs(techRateTable) do
+               if (skillId == v.skillId) then
+                   temp_c_1 = temp_c_1 * v.c_val;
+                   temp_def_1 = temp_def_1 * v.def_val;
+               end
+            end
+          end
+          local temp_c_2 = 1;
+          local temp_def_2 = 1;
+          for i=0,9 do
+            local skillId = Pet.GetSkill(defCharIndex, i)
+            for k, v in ipairs(techRateTable) do
+               if (skillId == v.skillId) then
+                   temp_c_2 = temp_c_2 * v.c_val;
+                   temp_def_2 = temp_def_2 * v.def_val;
+               end
+            end
+          end
+          c_val_Rate = temp_c_1 * temp_def_2;
+          def_val_Rate = temp_def_1 * temp_c_2;
+          return c_val_Rate, def_val_Rate;
+        end
+    return 1,1;
 end
 
 --- 卸载模块钩子
