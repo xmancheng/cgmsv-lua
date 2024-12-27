@@ -34,20 +34,20 @@ local petStateTable = {
 }
 
 local techRateTable = {
-             { TechType=1, skillId=1440 , prob=8, c_val = 1.3, def_val = 1.0},              --劍舞冥想.80%被动发动增加伤害
-             { TechType=2, skillId=1441 , prob=8, c_val = 1.0, def_val = 0.7},              --鐵壁屏障.80%被动发动减轻伤害
-             { TechType=3, skillId=1442 , prob=9, c_val = 1.5, def_val = 1.2},              --索隆.二剛力斬90%被动发动
-             { TechType=4, skillId=1443 , prob=9, c_val = 0.8, def_val = 0.5},              --香吉士.漆黑隱伏90%被动发动
-             { TechType=5, skillId=1444 , prob=10, c_val = 1.2, def_val = 0.8},              --魯夫.橡膠體質100%被动发动
-             { TechType=6, skillId=1445 , prob=10, c_val = 1.3, def_val = 0.9},              --神樂.夜兔天人100%被动发动
-             { TechType=7, skillId=1446 , prob=9, c_val = 1.4, def_val = 1.1},              --鳴人.仙人模式90%被动发动
-             { TechType=8, skillId=1447 , prob=9, c_val = 0.9, def_val = 0.6},              --佐助.須佐能乎90%被动发动
-             { TechType=9, skillId=1448 , prob=7, c_val = 1.6, def_val = 1.3},              --鼬.寫輪眼70%被动发动
-             { TechType=10, skillId=1449 , prob=7, c_val = 0.7, def_val = 0.4},              --綱手.掌仙術70%被动发动
-             { TechType=11, skillId=1450 , prob=5, c_val = 1.8, def_val = 1.5},              --超賽三.賽亞人50%被动发动
-             { TechType=12, skillId=1451 , prob=5, c_val = 0.5, def_val = 0.2},              --18號.人造人50%被动发动
-             { TechType=13, skillId=1452 , prob=10, c_val = 1.1, def_val = 0.7},              --八神庵.屑風100%被动发动
-             { TechType=14, skillId=1453 , prob=10, c_val = 1.1, def_val = 0.7},              --不知火舞.花嵐100%被动发动
+             { TechType=1, skillId=1440, c_prob=8, c_val = 1.3, def_prob=8, def_val = 1.0},              --劍舞冥想.80%被动发动增加伤害
+             { TechType=2, skillId=1441, c_prob=8, c_val = 1.0, def_prob=8, def_val = 0.7},              --鐵壁屏障.80%被动发动减轻伤害
+             { TechType=3, skillId=1442, c_prob=9, c_val = 1.5, def_prob=9, def_val = 1.2},              --索隆.二剛力斬90%被动发动
+             { TechType=4, skillId=1443, c_prob=9, c_val = 0.8, def_prob=9, def_val = 0.5},              --香吉士.漆黑隱伏90%被动发动
+             { TechType=5, skillId=1444, c_prob=10, c_val = 1.2, def_prob=10, def_val = 0.8},              --魯夫.橡膠體質100%被动发动
+             { TechType=6, skillId=1445, c_prob=10, c_val = 1.3, def_prob=10, def_val = 0.9},              --神樂.夜兔天人100%被动发动
+             { TechType=7, skillId=1446, c_prob=9, c_val = 1.4, def_prob=9, def_val = 1.1},              --鳴人.仙人模式90%被动发动
+             { TechType=8, skillId=1447, c_prob=9, c_val = 0.9, def_prob=9, def_val = 0.6},              --佐助.須佐能乎90%被动发动
+             { TechType=9, skillId=1448, c_prob=7, c_val = 1.6, def_prob=7, def_val = 1.3},              --鼬.寫輪眼70%被动发动
+             { TechType=10, skillId=1449, c_prob=7, c_val = 0.7, def_prob=7, def_val = 0.4},              --綱手.掌仙術70%被动发动
+             { TechType=11, skillId=1450, c_prob=5, c_val = 1.8, def_prob=5, def_val = 1.5},              --超賽三.賽亞人50%被动发动
+             { TechType=12, skillId=1451, c_prob=5, c_val = 0.5, def_prob=5, def_val = 0.2},              --18號.人造人50%被动发动
+             { TechType=13, skillId=1452, c_prob=10, c_val = 1.1, def_prob=10, def_val = 0.7},              --八神庵.屑風100%被动发动
+             { TechType=14, skillId=1453, c_prob=10, c_val = 1.1, def_prob=10, def_val = 0.7},              --不知火舞.花嵐100%被动发动
 }
 
 --- 加载模块钩子
@@ -319,7 +319,7 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(charIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                  if (NLG.Rand(1,10) <= v.prob) then
+                  if (NLG.Rand(1,10) <= v.c_prob) then
                      c_val_Rate = c_val_Rate * v.c_val;
                      def_val_Rate = def_val_Rate * v.def_val;
                   else
@@ -335,7 +335,7 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(defCharIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                  if (NLG.Rand(1,10) <= v.prob) then
+                  if (NLG.Rand(1,10) <= v.def_prob) then
                      c_val_Rate = c_val_Rate * v.c_val;
                      def_val_Rate = def_val_Rate * v.def_val;
                   else
@@ -353,7 +353,7 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(charIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                  if (NLG.Rand(1,10) <= v.prob) then
+                  if (NLG.Rand(1,10) <= v.c_prob) then
                      temp_c_1 = temp_c_1 * v.c_val;
                      temp_def_1 = temp_def_1 * v.def_val;
                   else
@@ -369,7 +369,7 @@ function Module:TechRate(charIndex, defCharIndex, damage, battleIndex)
             local skillId = Pet.GetSkill(defCharIndex, i)
             for k, v in ipairs(techRateTable) do
                if (skillId == v.skillId) then
-                  if (NLG.Rand(1,10) <= v.prob) then
+                  if (NLG.Rand(1,10) <= v.def_prob) then
                      temp_c_2 = temp_c_2 * v.c_val;
                      temp_def_2 = temp_def_2 * v.def_val;
                   else
