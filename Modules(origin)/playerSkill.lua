@@ -1,6 +1,7 @@
 ---模块类
 local Module = ModuleBase:createModule('playerSkill')
 
+--连结技能基础设置
 local Linked_Tbl = {}
 local linkTechList = {9620,9621,9622,9623,9624,9625,9626,9627,9628,9629,9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}
 local petMettleTable = {
@@ -27,6 +28,15 @@ local petMettleTable = {
              { MettleType=6, type=CONST.CHAR_种族, info=CONST.种族_邪魔, skillId=9649 , buff = 0.05},              --减轻来自邪魔系对象伤害
 }
 
+--形象增减伤设置
+local imageRateTable = {
+             { ImageType=1, imageId=106452, ac_val=1.05, mc_val=1.00, adef_val=1.00, mdef_val=1.00},           --增加物理伤害5%
+             { ImageType=2, imageId=106627, ac_val=1.00, mc_val=1.05, adef_val=1.00, mdef_val=1.00},           --增加魔法伤害5%
+             { ImageType=3, imageId=106552, ac_val=1.00, mc_val=1.00, adef_val=0.95, mdef_val=1.00},           --减轻物理伤害5%
+             { ImageType=4, imageId=106727, ac_val=1.00, mc_val=1.00, adef_val=1.00, mdef_val=0.95},           --减轻魔法伤害5%
+}
+
+---------------------------------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
@@ -43,7 +53,7 @@ function Module:onTribeRateEvent(charIndex, defCharIndex, rate)
          --print(charIndex, defCharIndex, rate)
     return rate;
 end
-
+--特殊技能效果
 function Module:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -91,7 +101,7 @@ function Module:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3
          end
     return damage;
 end
-
+--连结效果(范例)
 function Module:LinkedEffect(charIndex, defCharIndex, damage, battleIndex, com3, flg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -133,7 +143,7 @@ function Module:LinkedEffect(charIndex, defCharIndex, damage, battleIndex, com3,
          end
     return damage;
 end
-
+--治愈事件
 function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -142,7 +152,7 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
          if Char.GetData(leader2, CONST.对象_类型) == CONST.对象类型_人 then
                leader = leader2
          end
-         if (flg==CONST.HealDamageFlags.Heal)  then    --補血治療魔法
+         if (flg==CONST.HealDamageFlags.Heal)  then    --补血治疗魔法
             if (com3==6300 or com3==6301 or com3==6302)  then
                if (Char.IsPlayer(defCharIndex)==true or Char.IsPet(defCharIndex)==true) then
                    local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
@@ -153,9 +163,9 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
                end
             end
             return heal;
-         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --恢復魔法
+         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --恢复魔法
                return heal;
-         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --明鏡止水
+         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --明镜止水
             if (com3==1200 or com3==1201 or com3==1202)  then
                if (Char.IsPlayer(defCharIndex)==true or Char.IsPet(defCharIndex)==true) then
                    local A_Buff = Char.GetTempData(defCharIndex, '攻击增益') or 0;
@@ -169,7 +179,7 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
          end
          return heal;
 end
-
+--伤害事件
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
@@ -198,6 +208,10 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          end
        --print("增加傷害"..damage_A.."%","減少傷害"..damage_D.."%")
 
+        --形象增减係数
+        local ac_val, mc_val, adef_val, mdef_val = self:ImageRate(charIndex, defCharIndex, damage, battleIndex);
+       --print(ac_val, mc_val, adef_val, mdef_val)
+
          if  flg == CONST.DamageFlags.Combo and Char.IsEnemy(defCharIndex) == true and Char.IsPlayer(charIndex) == true then
             local enemyId = Char.GetData(defCharIndex, CONST.对象_ENEMY_ID);
             if (enemyId==400021) then
@@ -206,10 +220,21 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
             end
 		 end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPlayer(defCharIndex)==true  then
-           if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical or flg == CONST.DamageFlags.Magic  then
+           if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical  then
+               local damage = damage * adef_val;		--形象增减伤
                local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
                if (D_Buff >= 1)  then
-                   local damage = math.floor(oriDamage * 0.8);
+                   local damage = math.floor(damage * 0.8);
+                   --print(oriDamage,damage);
+                   Char.SetTempData(defCharIndex, '防御增益', D_Buff - 1);
+                   return damage;
+               end
+               return damage;
+           elseif flg == CONST.DamageFlags.Magic  then
+               local damage = damage * mdef_val;		--形象增减伤
+               local D_Buff = Char.GetTempData(defCharIndex, '防御增益') or 0;
+               if (D_Buff >= 1)  then
+                   local damage = math.floor(damage * 0.8);
                    --print(oriDamage,damage);
                    Char.SetTempData(defCharIndex, '防御增益', D_Buff - 1);
                    return damage;
@@ -219,20 +244,22 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
            return damage;
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPlayer(charIndex)==true  then
            if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical  then
+               local damage = damage * ac_val;		--形象增减伤
                local damage = self:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
                if (A_Buff >= 1)  then
-                   local damage = math.floor(oriDamage * 1.35);
+                   local damage = math.floor(damage * 1.35);
                    --print(oriDamage,damage);
                    Char.SetTempData(charIndex, '攻击增益', A_Buff - 1);
                    return damage;
                end
                return damage;
            elseif flg == CONST.DamageFlags.Magic  then
+               local damage = damage * mc_val;		--形象增减伤
                local damage = self:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
                local A_Buff = Char.GetTempData(charIndex, '攻击增益') or 0;
                if (A_Buff >= 1)  then
-                   local damage = math.floor(oriDamage * 1.35);
+                   local damage = math.floor(damage * 1.35);
                    --print(oriDamage,damage);
                    Char.SetTempData(charIndex, '攻击增益', A_Buff - 1);
                    return damage;
@@ -244,6 +271,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
   return damage;
 end
 
+---------------------------------------------------------------------------
+------功能函数
+--连结数计算
 function Module:OnbattleStarCommand(battleIndex)
     for i=0, 19 do
         local charIndex = Battle.GetPlayIndex(battleIndex, i)
@@ -321,6 +351,100 @@ function Module:onLogbattleOverEvent(charIndex)
 	if (D_Buff >= 1) then
 		Char.SetTempData(charIndex, '防御增益', 0);
 	end
+end
+
+
+--增减伤系数计算
+function Module:ImageRate(charIndex, defCharIndex, damage, battleIndex)
+        local ac_val_Rate = 1;
+        local mc_val_Rate = 1;
+        local adef_val_Rate = 1;
+        local mdef_val_Rate = 1;
+        if Char.IsPlayer(charIndex) == true and Char.IsPlayer(defCharIndex) == false then
+            local imageId = Char.GetData(charIndex, CONST.对象_形象)
+            for k, v in ipairs(imageRateTable) do
+               if (imageId == v.imageId) then
+                  if (NLG.Rand(1,10) <= 10) then
+                     ac_val_Rate = ac_val_Rate * v.ac_val;
+                     mc_val_Rate = mc_val_Rate * v.mc_val;
+                     adef_val_Rate = adef_val_Rate * v.adef_val;
+                     mdef_val_Rate = mdef_val_Rate * v.mdef_val;
+                  else
+                     ac_val_Rate = ac_val_Rate;
+                     mc_val_Rate = mc_val_Rate;
+                     adef_val_Rate = adef_val_Rate;
+                     mdef_val_Rate = mdef_val_Rate;
+                  end
+               end
+            end
+          return ac_val_Rate, mc_val_Rate, adef_val_Rate, mdef_val_Rate;
+        elseif Char.IsPlayer(defCharIndex) == true and Char.IsPlayer(charIndex) == false then
+            local imageId = Char.GetData(defCharIndex, CONST.对象_形象)
+            for k, v in ipairs(imageRateTable) do
+               if (imageId == v.imageId) then
+                  if (NLG.Rand(1,10) <= 10) then
+                     ac_val_Rate = ac_val_Rate * v.ac_val;
+                     mc_val_Rate = mc_val_Rate * v.mc_val;
+                     adef_val_Rate = adef_val_Rate * v.adef_val;
+                     mdef_val_Rate = mdef_val_Rate * v.mdef_val;
+                  else
+                     ac_val_Rate = ac_val_Rate;
+                     mc_val_Rate = mc_val_Rate;
+                     adef_val_Rate = adef_val_Rate;
+                     mdef_val_Rate = mdef_val_Rate;
+                  end
+               end
+            end
+          return ac_val_Rate, mc_val_Rate, adef_val_Rate, mdef_val_Rate;
+        elseif Char.IsPlayer(charIndex) == true and Char.IsPlayer(defCharIndex) == true then
+          local temp_ac_1 = 1;
+          local temp_mc_1 = 1;
+          local temp_adef_1 = 1;
+          local temp_mdef_1 = 1;
+          local imageId = Char.GetData(charIndex, CONST.对象_形象)
+          for k, v in ipairs(imageRateTable) do
+               if (imageId == v.imageId) then
+                  if (NLG.Rand(1,10) <= 10) then
+                     temp_ac_1 = temp_ac_1 * v.ac_val;
+                     temp_mc_1 = temp_mc_1 * v.mc_val;
+                     temp_adef_1 = temp_adef_1 * v.adef_val;
+                     temp_mdef_1 = temp_mdef_1 * v.mdef_val;
+                  else
+                     temp_ac_1 = temp_ac_1;
+                     temp_mc_1 = temp_mc_1;
+                     temp_adef_1 = temp_adef_1;
+                     temp_mdef_1 = temp_mdef_1;
+                  end
+               end
+          end
+          local temp_ac_2 = 1;
+          local temp_mc_2 = 1;
+          local temp_adef_2 = 1;
+          local temp_mdef_2 = 1;
+          local imageId = Char.GetData(defCharIndex, CONST.对象_形象)
+          for k, v in ipairs(imageRateTable) do
+               if (imageId == v.imageId) then
+                  if (NLG.Rand(1,10) <= 10) then
+                     temp_ac_2 = temp_ac_2 * v.ac_val;
+                     temp_mc_2 = temp_mc_2 * v.mc_val;
+                     temp_adef_2 = temp_adef_2 * v.adef_val;
+                     temp_mdef_2 = temp_mdef_2 * v.mdef_val;
+                  else
+                     temp_ac_2 = temp_ac_2;
+                     temp_mc_2 = temp_mc_2;
+                     temp_adef_2 = temp_adef_2;
+                     temp_mdef_2 = temp_mdef_2;
+                  end
+               end
+          end
+
+          ac_val_Rate = temp_ac_1 * temp_adef_2;
+          mc_val_Rate = temp_mc_1 * temp_mdef_2;
+          adef_val_Rate = temp_adef_1 * temp_ac_2;
+          mdef_val_Rate = temp_mdef_1 * temp_mc_2;
+          return ac_val_Rate, mc_val_Rate, adef_val_Rate, mdef_val_Rate;
+        end
+    return 1,1,1,1;
 end
 
 --- 卸载模块钩子
