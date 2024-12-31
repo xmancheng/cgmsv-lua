@@ -124,12 +124,14 @@ function setItemEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 			Char.SetTempData(_CharIndex, 'MountOn',0);
 			NLG.UpChar(_CharIndex);
 			NLG.SystemMessage(_CharIndex,"座騎狀態不遇敵關閉！");
-		else
-			Char.SetData(_CharIndex,CONST.对象_不遇敌开关,1);
-			Char.SetLoopEvent(nil,'mountloop',_CharIndex, MountKindDuration_List[_ItemId][2]);	--修改驱魔持续时间，单位毫秒
-			Char.SetTempData(_CharIndex, 'MountOn',2);
-			NLG.UpChar(_CharIndex);
-			NLG.SystemMessage(_CharIndex,"座騎狀態不遇敵開啟！");
+		elseif (Char.GetData(_CharIndex,CONST.对象_不遇敌开关)==0) then
+			if (Char.PartyNum(_CharIndex)==-1 or Char.GetPartyMember(_CharIndex,0)==_CharIndex) then
+				Char.SetData(_CharIndex,CONST.对象_不遇敌开关,1);
+				Char.SetLoopEvent(nil,'mountloop',_CharIndex, MountKindDuration_List[_ItemId][2]);	--修改驱魔持续时间，单位毫秒
+				Char.SetTempData(_CharIndex, 'MountOn',2);
+				NLG.UpChar(_CharIndex);
+				NLG.SystemMessage(_CharIndex,"座騎狀態不遇敵開啟！");
+			end
 		end
 		--騎上座騎
 		local sitting_image = MountKindDuration_List[_ItemId][1]
