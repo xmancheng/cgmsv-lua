@@ -571,16 +571,32 @@ Char.GetTargetItemSlot = function(charIndex,fromItemIndex)
   elseif (type==15 or type==16 or type==17 or type==18 or type==19 or type==20 or type==21 or type==55) then
       local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰1);
       if (ItemIndex < 0) then
-          return 6;
+          return 5;
+      elseif (ItemIndex >= 0) then
+          local Sittingtype = Item.GetData(ItemIndex, CONST.道具_类型);
+          if (Sittingtype==62) then
+              return 6;
+          else
+              return 5;
+          end
       end
       local ItemIndex = Char.GetItemIndex(charIndex, CONST.EQUIP_首饰2);
       if (ItemIndex < 0) then
-          return 5;
+          return 6;
+      elseif (ItemIndex >= 0) then
+          local Sittingtype = Item.GetData(ItemIndex, CONST.道具_类型);
+          if (Sittingtype==62) then
+              return 5;
+          else
+              return 6;
+          end
       end
   elseif (type==22) then
       return 7;
   elseif (type==65 or type==66 or type==67 or type==68 or type==69 or type==70) then
       return 3;
+  elseif (type==62) then
+      return 6;
   end
   return -1;
 end
