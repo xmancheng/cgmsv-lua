@@ -100,7 +100,7 @@ function setItemEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 		--change_imageId = tonumber(Image_buffer[1]) or 0;			--加成形象
 		--orichange_imageId = tonumber(Image_buffer[2]) or 0;			--玩家原形象
 		--print(change_imageId,orichange_imageId)
-		local change_imageId = WeaponKindImage_List[_ItemId];
+		local change_imageId = WeaponKindImage_List[_ItemId] or 0;
 		if (change_imageId>0) then
 			local playerImageId = Char.GetData(_CharIndex, CONST.对象_原始图档);
 			--local tStat = change_imageId.."|" ..playerImageId;
@@ -112,8 +112,11 @@ function setItemEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 			NLG.UpChar(_CharIndex);
 		end
 	elseif (_Type==55) then			--头饰
-		Char.SetData(_CharIndex, CONST.对象_移速, WingKindSpeed_List[_ItemId]);
-		NLG.UpChar(_CharIndex)
+		local change_speed = WingKindSpeed_List[_ItemId] or 0;
+		if (change_speed>=100) then
+			Char.SetData(_CharIndex, CONST.对象_移速, change_speed);
+			NLG.UpChar(_CharIndex)
+		end
 	elseif (_Type==62) then			--座骑
 		--不遇敌功能
 		if (Char.GetData(_CharIndex,CONST.对象_香步数)>0) then
@@ -170,7 +173,7 @@ function setItemReEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 		--orichange_imageId = tonumber(Image_buffer[2]) or 0;			--玩家原形象
 		--print(change_imageId,orichange_imageId)
 
-		local change_imageId = WeaponKindImage_List[_ItemId];
+		local change_imageId = WeaponKindImage_List[_ItemId] or 0;
 		if (change_imageId>0) then
 			local playerImageId = Char.GetData(_CharIndex, CONST.对象_原始图档);
 			--local tStat = change_imageId.."|" ..playerImageId;
@@ -184,6 +187,16 @@ function setItemReEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 	elseif (_Type==55) then			--头饰
 		Char.SetData(_CharIndex, CONST.对象_移速, 100);
 		NLG.UpChar(_CharIndex)
+		local ItemIndex = Char.GetItemIndex(_CharIndex, CONST.EQUIP_首饰1);
+		if (ItemIndex > 0) then
+			local itemId_new = Item.GetData(ItemIndex, CONST.道具_ID);
+			local type_new = Item.GetData(ItemIndex, CONST.道具_类型);
+			local change_speed_new = WingKindSpeed_List[itemId_new] or 0;
+			if (type_new==55 and change_speed_new>=100 ) then
+				Char.SetData(_CharIndex, CONST.对象_移速, change_speed_new);
+				NLG.UpChar(_CharIndex)
+			end
+		end
 	elseif (_Type==62) then			--座骑
 		--不遇敌功能
 		if (Char.GetData(_CharIndex,CONST.对象_不遇敌开关)==1) then
