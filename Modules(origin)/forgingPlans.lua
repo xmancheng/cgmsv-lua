@@ -1,66 +1,86 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(forgingPlans)
 
---·ÖÀà×ÔĞĞÌí¼Ó
+--è¯æ¡æŠ€èƒ½
+local player_skillboom_list = {266,267,268,269,270,271};
+local skillboom_info = {}
+skillboom_info[266] = "ä½¿ç”¨æ®ç«æ™‚10%ç™¼å‹•3é€£æ“Š";
+skillboom_info[267] = "ä½¿ç”¨é–ƒå…‰æ‰“æ“Šæ™‚10%ç™¼å‹•3é€£æ“Š";
+skillboom_info[268] = "ä½¿ç”¨å¤©åœ°å´©è£‚10%ç™¼å‹•3é€£æ“Š";
+skillboom_info[269] = "ä½¿ç”¨é›·éœ†æ–¬10%ç™¼å‹•3é€£æ“Š";
+skillboom_info[270] = "ä½¿ç”¨æ˜Ÿè¾°æ–¬10%ç™¼å‹•3é€£æ“Š";
+skillboom_info[271] = "ä½¿ç”¨æ¥­ç«æ–¬10%ç™¼å‹•3é€£æ“Š";
+
+--åˆ†ç±»è‡ªè¡Œæ·»åŠ 
 local forging_plan_name = {};
 local forging_plan_offering = {};
 local forging_plan_item = {};
 local forging_plan_gold = {};
 local forging_plan_thing = {};
+local forging_plan_grade = {};
 --
-forging_plan_name[1] = "¡¶·À¾ß¡·Â}ıˆî^¿ø";
+forging_plan_name[1] = "ã€Šé˜²å…·ã€‹è–é¾é ­ç›”";
 forging_plan_offering[1] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[1] = {70261};
 forging_plan_gold[1] =250000;
 forging_plan_thing[1] = {51000,51000,51000,51000,51000,51000,51000,51000,51000,51000};
+forging_plan_grade[1] =3;
 
-forging_plan_name[2] = "¡¶·À¾ß¡·Â}ıˆæz¼×";
+forging_plan_name[2] = "ã€Šé˜²å…·ã€‹è–é¾é§ç”²";
 forging_plan_offering[2] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[2] = {70261};
 forging_plan_gold[2] =250000;
 forging_plan_thing[2] = {51001,51001,51001,51001,51001,51001,51001,51001,51001,51001};
+forging_plan_grade[2] =2;
 
-forging_plan_name[3] = "¡¶·À¾ß¡·Â}ıˆéLÑ¥";
+forging_plan_name[3] = "ã€Šé˜²å…·ã€‹è–é¾é•·é´";
 forging_plan_offering[3] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[3] = {70263};
 forging_plan_gold[3] =250000;
 forging_plan_thing[3] = {51002,51002,51002,51002,51002,51002,51002,51002,51002,51002};
+forging_plan_grade[3] =1;
 
-forging_plan_name[4] = "¡¶ÎäÆ÷¡·Â}ıˆ„¦";
+forging_plan_name[4] = "ã€Šæ­¦å™¨ã€‹è–é¾åŠ";
 forging_plan_offering[4] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[4] = {70264};
 forging_plan_gold[4] =250000;
 forging_plan_thing[4] = {51003,51003,51003,51003,51003,51003,51003,51003,51003,51003};
+forging_plan_grade[4] =1;
 
-forging_plan_name[5] = "¡¶·À¾ß¡·Â}µä·¨Ã±";
+forging_plan_name[5] = "ã€Šé˜²å…·ã€‹è–å…¸æ³•å¸½";
 forging_plan_offering[5] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[5] = {70263};
 forging_plan_gold[5] =250000;
 forging_plan_thing[5] = {51004,51004,51004,51004,51004,51004,51004,51004,51004,51004};
+forging_plan_grade[5] =1;
 
-forging_plan_name[6] = "¡¶·À¾ß¡·Â}µä·¨ÅÛ";
+forging_plan_name[6] = "ã€Šé˜²å…·ã€‹è–å…¸æ³•è¢";
 forging_plan_offering[6] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[6] = {70259};
 forging_plan_gold[6] =250000;
 forging_plan_thing[6] = {51005,51005,51005,51005,51005,51005,51005,51005,51005,51005};
+forging_plan_grade[6] =1;
 
-forging_plan_name[7] = "¡¶·À¾ß¡·Â}µä·¨Ğ¬";
+forging_plan_name[7] = "ã€Šé˜²å…·ã€‹è–å…¸æ³•é‹";
 forging_plan_offering[7] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[7] = {70262};
 forging_plan_gold[7] =250000;
 forging_plan_thing[7] = {51006,51006,51006,51006,51006,51006,51006,51006,51006,51006};
+forging_plan_grade[7] =1;
 
-forging_plan_name[8] = "¡¶ÎäÆ÷¡·Â}µä·¨ÕÈ";
+forging_plan_name[8] = "ã€Šæ­¦å™¨ã€‹è–å…¸æ³•æ–";
 forging_plan_offering[8] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[8] = {70265};
 forging_plan_gold[8] =250000;
 forging_plan_thing[8] = {51007,51007,51007,51007,51007,51007,51007,51007,51007,51007};
+forging_plan_grade[8] =1;
 
-forging_plan_name[9] = " ¡¶·À¾ß¡·¼²ïLÖ®Ã±";
+forging_plan_name[9] = " ã€Šé˜²å…·ã€‹ç–¾é¢¨ä¹‹å¸½";
 forging_plan_offering[9] = {{235,1},{51021,1},{18450,10}};
 forging_plan_item[9] = {70257};
 forging_plan_gold[9] =250000;
 forging_plan_thing[9] = {51008,51008,51008,51008,51008,51008,51008,51008,51008,51008};
+forging_plan_grade[9] =1;
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#forging_plan_name / 8) + 1
@@ -68,59 +88,60 @@ local function calcWarp()
   return page, remainder
 end
 
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:forgingPlansInfo(npc, player)
-          local winButton = CONST.BUTTON_¹Ø±Õ;
-          local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+          local winButton = CONST.BUTTON_å…³é—­;
+          local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
           for i = 1,8 do
-             msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+             msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
              if (i>=8) then
-                 winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                 winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
              end
           end
-          NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+          NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  self.forgingerNPC = self:NPC_createNormal('Îä·ÀÌáŸ’å‘Ôì', 231137, { x = 235, y = 83, mapType = 0, map = 1000, direction = 0 });
+  self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
+  self.forgingerNPC = self:NPC_createNormal('æ­¦é˜²æç…‰é›é€ ', 231137, { x = 235, y = 83, mapType = 0, map = 1000, direction = 0 });
   self:NPC_regWindowTalkedEvent(self.forgingerNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
+    local winButton = CONST.BUTTON_å…³é—­;
     local totalPage, remainder = calcWarp()
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.°´Å¥_È·¶¨ then
+      if _select == CONST.æŒ‰é’®_ç¡®å®š then
           if (page>=1001) then
               local seqno = page - 1000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
-                                  .. "¡¡¡¡¡¡$1ĞèÒªÒÔÏÂËùÓĞ²ÄÁÏ²ÅÄÜßMĞĞÌáŸ’å‘Ôì\\n$5"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
+                                  .. "ã€€ã€€ã€€$1éœ€è¦ä»¥ä¸‹æ‰€æœ‰ææ–™æ‰èƒ½é€²è¡Œæç…‰é›é€ \\n$5"
               local msg = msg .. forgingOfferingInfo(seqno)
-              NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000+seqno, msg);
+              NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000+seqno, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_¹Ø±Õ then
+      elseif _select == CONST.æŒ‰é’®_å…³é—­ then
           if (page>=1001) then
-              local winButton = CONST.BUTTON_¹Ø±Õ;
-              local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+              local winButton = CONST.BUTTON_å…³é—­;
+              local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
               for i = 1,8 do
-                 msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+                 msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
                  if (i>=8) then
-                     winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                     winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
                  end
               end
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_ÊÇ then
+      elseif _select == CONST.æŒ‰é’®_æ˜¯ then
           if (page>=2001) then
               local seqno = page - 2000;
               forgingMutation(seqno,player)
@@ -128,30 +149,30 @@ function Module:onLoad()
           else
               return
           end
-      elseif _select == CONST.°´Å¥_·ñ then
+      elseif _select == CONST.æŒ‰é’®_å¦ then
           if (page>=2001) then
               local count = page - 2000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
               local msg = msg .. forgingGoalInfo(count);
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
               return
           else
               return
           end
       end
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -160,40 +181,40 @@ function Module:onLoad()
       local count = 8 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
         end
       else
         for i = 1 + count, 8 + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local count = 8 * (warpPage - 1) + column
       --print(count)
-      local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+      local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
       local msg = msg .. forgingGoalInfo(count);
-      NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+      NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
     end
   end)
   self:NPC_regTalkedEvent(self.forgingerNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
       for i = 1,8 do
-         msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+         msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
          if (i>=8) then
-             winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+             winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
          end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
     end
     return
   end)
 end
 
 ---------------------------------------------------------------------------------------------------------------
---Ä¿±êĞÅÏ¢
+--ç›®æ ‡ä¿¡æ¯
 function forgingGoalInfo(count)
       local ItemsetIndex_Goal = Data.ItemsetGetIndex(forging_plan_thing[count][10]);
       local Goal_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
@@ -227,18 +248,18 @@ function forgingGoalInfo(count)
       local Goal_DataPos_24 = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_CONFUSION);
       local Goal_DataPos_25 = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_AMNESIA);
 
-      local msg = imageText .. "¡¡¡¡$4".. Goal_name .. "\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1¹¥“ô ".. Goal_DataPos_6 .."¡¡" .. "$8±Øš¢ ".. Goal_DataPos_11 .."¡¡" .. "$8·´“ô ".. Goal_DataPos_12 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1·À¶R ".. Goal_DataPos_7 .."¡¡" .. "$8ÃüÖĞ ".. Goal_DataPos_13 .."¡¡" .. "$8éW¶ã ".. Goal_DataPos_14 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Ãô½İ ".. Goal_DataPos_8 .."¡¡" .. "$2¿¹¶¾ ".. Goal_DataPos_20 .."¡¡" .. "$2¿¹×í ".. Goal_DataPos_23 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1¾«Éñ ".. Goal_DataPos_9 .."¡¡" .. "$2¿¹Ë¯ ".. Goal_DataPos_21 .."¡¡" .. "$2¿¹»ì ".. Goal_DataPos_24 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1»ÖÍ ".. Goal_DataPos_10 .."¡¡" .. "$2¿¹Ê¯ ".. Goal_DataPos_22 .."¡¡" .. "$2¿¹Íü ".. Goal_DataPos_25 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. " \\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$9îĞÍ ".. Goal_DataPos_3 .."¡¡" .. "$9µÈ¼‰ ".. Goal_DataPos_5 .."¡¡" .. "$9ÄÍ¾Ã ".. Goal_DataPos_4 .."\\n"
+      local msg = imageText .. "ã€€ã€€$4".. Goal_name .. "\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ”»æ“Š ".. Goal_DataPos_6 .."ã€€" .. "$8å¿…æ®º ".. Goal_DataPos_11 .."ã€€" .. "$8åæ“Š ".. Goal_DataPos_12 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é˜²ç¦¦ ".. Goal_DataPos_7 .."ã€€" .. "$8å‘½ä¸­ ".. Goal_DataPos_13 .."ã€€" .. "$8é–ƒèº² ".. Goal_DataPos_14 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ•æ· ".. Goal_DataPos_8 .."ã€€" .. "$2æŠ—æ¯’ ".. Goal_DataPos_20 .."ã€€" .. "$2æŠ—é†‰ ".. Goal_DataPos_23 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1ç²¾ç¥ ".. Goal_DataPos_9 .."ã€€" .. "$2æŠ—ç¡ ".. Goal_DataPos_21 .."ã€€" .. "$2æŠ—æ·· ".. Goal_DataPos_24 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ¢å¾© ".. Goal_DataPos_10 .."ã€€" .. "$2æŠ—çŸ³ ".. Goal_DataPos_22 .."ã€€" .. "$2æŠ—å¿˜ ".. Goal_DataPos_25 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. " \\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$9é¡å‹ ".. Goal_DataPos_3 .."ã€€" .. "$9ç­‰ç´š ".. Goal_DataPos_5 .."ã€€" .. "$9è€ä¹… ".. Goal_DataPos_4 .."\\n"
       return msg;
 end
 
---¼ÀÆ·ĞÅÏ¢
+--ç¥­å“ä¿¡æ¯
 function forgingOfferingInfo(seqno)
               local msg = "";
               for i = 1,#forging_plan_offering[seqno] do
@@ -258,25 +279,25 @@ function forgingOfferingInfo(seqno)
                   else
                       spaceMsg = "";
                   end
-                  msg = msg .. spaceMsg .. offering_name_i ..ItemNum_i.."‚€" .. spaceMsg .. imageText_i
+                  msg = msg .. spaceMsg .. offering_name_i ..ItemNum_i.."å€‹" .. spaceMsg .. imageText_i
               end
               local Gold = forging_plan_gold[seqno];
               local ItemsetIndex = Data.ItemsetGetIndex(forging_plan_item[seqno][1]);
               local Item_name= Data.ItemsetGetData( ItemsetIndex, CONST.ITEMSET_TRUENAME);
               local probRate = prob(seqno,forging_plan_thing[seqno][10]);
-              local msg = msg .. "\\n\\n\\n\\n¡¡$5ÔOÓ‹ˆD: ".. Item_name .. "1‚€" .. "¡¡¡¡$5Ä§Å: " .. Gold .. " G\\n"
-                                              .. "¡¡$4³É¹¦™CÂÊ: ".. probRate .. "%" .. "¡¡¡¡"
+              local msg = msg .. "\\n\\n\\n\\nã€€$5è¨­è¨ˆåœ–: ".. Item_name .. "1å€‹" .. "ã€€ã€€$5é­”å¹£: " .. Gold .. " G\\n"
+                                              .. "ã€€$4æˆåŠŸæ©Ÿç‡: ".. probRate .. "%" .. "ã€€ã€€"
       return msg;
 end
 
---ÌáÁ¶¶ÍÔìÖ´ĞĞ
+--æç‚¼é”»é€ æ‰§è¡Œ
 function forgingMutation(seqno,player)
               if (Char.ItemNum(player, forging_plan_item[seqno][1])==0) then
-                  NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙå‘ÔìµÄÔOÓ‹ˆD¡£");
+                  NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é›é€ çš„è¨­è¨ˆåœ–ã€‚");
                   return
               end
-              if (Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò)<forging_plan_gold[seqno]) then
-                  NLG.SystemMessage(player,"[Ïµ½y]¸ÄÔìËùĞè½ğÅ²»×ã¡£");
+              if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<forging_plan_gold[seqno]) then
+                  NLG.SystemMessage(player,"[ç³»çµ±]æ”¹é€ æ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
                   return
               end
               for i = 1,#forging_plan_offering[seqno] do
@@ -284,11 +305,11 @@ function forgingMutation(seqno,player)
                   if (itemIndex>=0) then
                       local itemNum = Char.ItemNum(player,forging_plan_offering[seqno][i][1]);
                       if (itemNum < forging_plan_offering[seqno][i][2]) then
-                          NLG.SystemMessage(player,"[Ïµ½y]å‘ÔìËùĞè²ÄÁÏ”µÁ¿²»×ã¡£");
+                          NLG.SystemMessage(player,"[ç³»çµ±]é›é€ æ‰€éœ€ææ–™æ•¸é‡ä¸è¶³ã€‚");
                           return
                       end
                   else
-                      NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙå‘ÔìËùĞè²ÄÁÏ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é›é€ æ‰€éœ€ææ–™ã€‚");
                       return
                   end
               end
@@ -298,10 +319,27 @@ function forgingMutation(seqno,player)
               for i = 1,#forging_plan_offering[seqno] do
                   Char.DelItem(player, forging_plan_offering[seqno][i][1], forging_plan_offering[seqno][i][2]);
               end
+              local newSlot = Char.GetEmptyItemSlot(player);				--è‡ªåˆ›æ¥å£
               Char.GiveItem(player,forging_plan_thing[seqno][randCatch],1);
+              --è¯æ¡èµ‹äºˆ
+              local WeaponIndex = Char.GetItemIndex(player,newSlot);
+              Item.SetData(WeaponIndex, CONST.é“å…·_ç‰¹æ®Šç±»å‹, 40);
+              local skillId="";
+              local grade = forging_plan_grade[seqno];
+              for i=1,grade do
+                local rand = NLG.Rand(1,#player_skillboom_list);
+                if i<grade then
+                  skillId = skillId .. player_skillboom_list[rand]..",";
+                else
+                  skillId = skillId .. player_skillboom_list[rand];
+                end
+              end
+              Item.SetData(WeaponIndex, CONST.é“å…·_USEFUNC, skillId);
+              Item.UpItem(player, newSlot);
+              NLG.UpChar(player);
 end
 
---Ä¿±ê³É¹¦ÂÊ¼ÆËã
+--ç›®æ ‡æˆåŠŸç‡è®¡ç®—
 function prob(count,id)
   for i=1,10 do
       if (forging_plan_thing[count][i]==id) then
@@ -312,86 +350,124 @@ function prob(count,id)
   return -1;
 end
 
---ÖÖ×å×Ö·û´®×ª»»
+--ç©ºé“å…·æ ¼(åˆ¶ä½œå‡ºçš„æ–°æ­¦å™¨ä½ç½®)
+function Char.GetEmptyItemSlot(charIndex)
+  if not Char.IsValidCharIndex(charIndex) then
+    return -1;
+  end
+  if Char.GetData(charIndex, CONST.CHAR_ç±»å‹) ~= CONST.å¯¹è±¡ç±»å‹_äºº then
+    return -1;
+  end
+  for i = 8, 27 do
+    if Char.GetItemIndex(charIndex, i) == -2 then
+      return i;
+    end
+  end
+  return -2;
+end
+
+--ç±»å‹å­—ç¬¦ä¸²è½¬æ¢
 function Type(Type)
   if Type==0 then
-    return "„¦"
+    return "åŠ"
   elseif Type == 1 then
-    return "¸«"
+    return "æ–§"
   elseif Type == 2 then
-    return "˜Œ"
+    return "æ§"
   elseif Type == 3 then
-    return "ÕÈ"
+    return "æ–"
   elseif Type == 4 then
-    return "¹­"
+    return "å¼“"
   elseif Type == 5 then
-    return "Ğ¡µ¶"
+    return "å°åˆ€"
   elseif Type == 6 then
-    return "Ş’Á¦çS"
+    return "è¿´åŠ›é¢"
   elseif Type == 7 then
-    return "¶Ü"
+    return "ç›¾"
   elseif Type == 8 then
-    return "î^¿ø"
+    return "é ­ç›”"
   elseif Type == 9 then
-    return "Ã±×Ó"
+    return "å¸½å­"
   elseif Type == 10 then
-    return "æz¼×"
+    return "é§ç”²"
   elseif Type == 11 then
-    return "ÒÂ·ş"
+    return "è¡£æœ"
   elseif Type == 12 then
-    return "éLÅÛ"
+    return "é•·è¢"
   elseif Type == 13 then
-    return "Ñ¥×Ó"
+    return "é´å­"
   elseif Type == 14 then
-    return "Ğ¬×Ó"
+    return "é‹å­"
   elseif Type == 15 then
-    return "ÊÖ­h"
+    return "æ‰‹ç’°"
   elseif Type == 16 then
-    return "˜·Æ÷"
+    return "æ¨‚å™¨"
   elseif Type == 17 then
-    return "í—å€"
+    return "é …éŠ"
   elseif Type == 18 then
-    return "½äÖ¸"
+    return "æˆ’æŒ‡"
   elseif Type == 19 then
-    return "î^§"
+    return "é ­å¸¶"
   elseif Type == 20 then
-    return "¶ú­h"
+    return "è€³ç’°"
   elseif Type == 21 then
-    return "×oÉí·û"
+    return "è­·èº«ç¬¦"
   elseif Type == 22 then
-    return "Ë®¾§"
+    return "æ°´æ™¶"
   elseif Type == 55 then
-    return "î^ï—"
+    return "é ­é£¾"
   elseif Type == 56 then
-    return "Œ™ÎïË®¾§"
+    return "å¯µç‰©æ°´æ™¶"
   elseif Type == 57 then
-    return "Œ™Îïï—Æ·"
+    return "å¯µç‰©é£¾å“"
   elseif Type == 58 then
-    return "Œ™ÎïÑb¼×"
+    return "å¯µç‰©è£ç”²"
   elseif Type == 59 then
-    return "Œ™Îï·şï—"
+    return "å¯µç‰©æœé£¾"
   elseif Type == 60 then
-    return "Œ™ÎïîiÈ¦"
+    return "å¯µç‰©é ¸åœˆ"
   elseif Type == 61 then
-    return "Œ™Îï×o·û"
+    return "å¯µç‰©è­·ç¬¦"
   elseif Type == 65 then
-    return "ÁîÆì"
+    return "ä»¤æ——"
   elseif Type == 66 then
-    return "Ä§„¦"
+    return "é­”åŠ"
   elseif Type == 67 then
-    return "ÏİÚå"
+    return "é™·é˜±"
   elseif Type == 68 then
-    return "•ø¼®"
+    return "æ›¸ç±"
   elseif Type == 69 then
-    return "ïLÄ§"
+    return "é¢¨é­”"
   elseif Type == 70 then
-    return "È­Ì×"
+    return "æ‹³å¥—"
   else
-    return "²»Ã÷"
+    return "ä¸æ˜"
   end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--é“å…·è¯´æ˜ç»„åˆæ¥å£
+function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
+  if (Item.GetData(itemIndex, CONST.é“å…·_ç‰¹æ®Šç±»å‹)==40 and type==1) then
+    --local boom_Skill = tostring(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC));
+    local info="";
+    local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+    for i=1,#boom_Skill_x do
+      local skillId = tonumber(boom_Skill_x[i]);
+      if (skillId>0) then
+        if (i<#boom_Skill_x) then
+          info = info .. skillboom_info[skillId] .."\n";
+        else
+          info = info .. skillboom_info[skillId];
+        end
+      else
+      end
+    end
+      
+    local info = info .."\n".. msg;
+    return info
+  end
+end
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
