@@ -323,7 +323,7 @@ function forgingMutation(seqno,player)
               Char.GiveItem(player,forging_plan_thing[seqno][randCatch],1);
               --词条赋予
               local WeaponIndex = Char.GetItemIndex(player,newSlot);
-              Item.SetData(WeaponIndex, CONST.道具_特殊类型, 40);
+              Item.SetData(WeaponIndex, CONST.道具_子参二, 40);
               local skillId="";
               local grade = forging_plan_grade[seqno];
               for i=1,grade do
@@ -447,7 +447,7 @@ end
 
 --道具说明组合接口
 function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
-  if (Item.GetData(itemIndex, CONST.道具_特殊类型)==40 and type==1) then
+  if (Item.GetData(itemIndex, CONST.道具_子参二)==40 and type==2) then
     --local boom_Skill = tostring(Item.GetData(itemIndex, CONST.道具_USEFUNC));
     local info="";
     local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
