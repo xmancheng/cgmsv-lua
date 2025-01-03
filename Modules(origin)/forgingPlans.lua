@@ -2,8 +2,9 @@
 local Module = ModuleBase:createModule(forgingPlans)
 
 --词条技能
-local player_skillboom_list = {266,267,268,269,270,271};
+local player_skillboom_list = {3,266,267,268,269,270,271};		--多重施法的skill列表
 local skillboom_info = {}
+skillboom_info[3] = "使用乾坤一擲時10%發動3連擊";
 skillboom_info[266] = "使用殞火時10%發動3連擊";
 skillboom_info[267] = "使用閃光打擊時10%發動3連擊";
 skillboom_info[268] = "使用天地崩裂10%發動3連擊";
@@ -81,7 +82,7 @@ forging_plan_item[9] = {70257};
 forging_plan_gold[9] =250000;
 forging_plan_thing[9] = {51008,51008,51008,51008,51008,51008,51008,51008,51008,51008};
 forging_plan_grade[9] =1;
--------------------------------------------------
+-----------------------------------------------------
 local function calcWarp()
   local page = math.modf(#forging_plan_name / 8) + 1
   local remainder = math.fmod(#forging_plan_name, 8)
@@ -104,6 +105,9 @@ end
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load');
+  self:regCallback('BattleActionTargetEvent',Func.bind(self.battleActionTargetCallback,self))
+  self:regCallback('DamageCalculateEvent',Func.bind(self.damageCalculateCallback,self))
+
   self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
   self.forgingerNPC = self:NPC_createNormal('武防提煉鍛造', 231137, { x = 235, y = 83, mapType = 0, map = 1000, direction = 0 });
   self:NPC_regWindowTalkedEvent(self.forgingerNPC, function(npc, player, _seqno, _select, _data)
@@ -213,6 +217,119 @@ function Module:onLoad()
   end)
 end
 
+--道具说明组合接口
+function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
+  if (Item.GetData(itemIndex, CONST.道具_子参二)==40 and type==2) then
+    --local boom_Skill = tostring(Item.GetData(itemIndex, CONST.道具_USEFUNC));
+    local info="";
+    local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
+    for i=1,#boom_Skill_x do
+      local skillId = tonumber(boom_Skill_x[i]);
+      if (skillId>0) then
+        if (i<#boom_Skill_x) then
+          info = info .. skillboom_info[skillId] .."\n";
+        else
+          info = info .. skillboom_info[skillId];
+        end
+      else
+      end
+    end
+      
+    local info = info .."\n".. msg;
+    return info
+  end
+end
+-----------------------------------------------------
+--多重施法设置
+local boom_dmg_rate = {0.75,0.50,0.25,0.01} --不同重技能对应伤害削弱，类似于乱射
+local boom_list = {}
+local boom_cnt_num = {}
+local boom_cnt_num_aoe = {}
+local boom_tag = {}
+--动作目标事件
+function Module:battleActionTargetCallback(CharIndex, battleIndex, com1, com2, com3, tgl)
+	if Char.IsPlayer(CharIndex) then
+		boom_list[CharIndex] = 0;
+		boom_cnt_num[CharIndex] = 0;
+		boom_cnt_num_aoe[CharIndex] = {};
+		if #tgl > 1 then
+			boom_tag[CharIndex] = 1
+		else 
+			boom_tag[CharIndex] = 0
+		end
+		local skillId = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_SKILLID);
+		if (CheckInTable(player_skillboom_list, skillId)==true) then
+			local skill_rate = calcRate(CharIndex,skillId)*10;		--词条皆为10%
+			local com_name = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_NAME);
+			local boom_rate = math.random(1,100);
+			local copy_num = 3;
+			if (skill_rate >= boom_rate) then
+				local msg_tag = CharIndex;
+				local msg_name =  Char.GetData(CharIndex,CONST.对象_名字);
+				NLG.SystemMessage(msg_tag, msg_name.."："..skill_rate.."%發動多重之"..copy_num.."倍 "..com_name);
+				boom_list[CharIndex] = 1
+				local return_tgl = copy_list(tgl,copy_num)	
+				return 	return_tgl	
+			end
+		else
+			return tgl
+		end
+    else 
+        return tgl
+    end
+end
+function copy_list(list, times)
+    local new_list = {}
+    for i = 1, times do
+        for _, value in ipairs(list) do
+            table.insert(new_list, value);
+        end
+    end
+    return new_list
+end
+function calcRate(charIndex,skillId)
+    local skill_rate=0;
+    for slot=0,6 do
+      local itemIndex = Char.GetItemIndex(charIndex,slot);
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then
+        local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
+        for i=1,#boom_Skill_x do
+          local skillId_x = tonumber(boom_Skill_x[i]);
+          if (skillId_x>0 and skillId_x==skillId ) then
+            skill_rate = skill_rate + 1;
+          else
+            skill_rate = skill_rate;
+          end
+        end
+      end
+    end
+    return skill_rate
+end
+
+--伤害事件
+function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Damage, BattleIndex, Com1, Com2, Com3, DefCom1, DefCom2, DefCom3, Flg, ExFlg)
+	if (boom_list[CharIndex] == 1) then
+		local cnt = 0
+		if (boom_tag[CharIndex] == 1) then
+			cnt = boom_cnt_num_aoe[CharIndex][DefCharIndex] or 0;
+		elseif (boom_tag[CharIndex] == 0) then
+			cnt = boom_cnt_num[CharIndex] or 0;
+		else
+			return Damage
+		end
+		local max_cnt = #boom_dmg_rate;
+
+		local return_dmg = math.floor(boom_dmg_rate[cnt+1]*Damage);
+		if (boom_tag[CharIndex] == 1) then
+			boom_cnt_num_aoe[CharIndex][DefCharIndex] = cnt + 1;
+		elseif (boom_tag[CharIndex] == 0) then
+			boom_cnt_num[CharIndex]  = cnt + 1;
+		end		
+		return return_dmg
+	else
+		return Damage
+	end
+end
 ---------------------------------------------------------------------------------------------------------------
 --目标信息
 function forgingGoalInfo(count)
@@ -326,17 +443,20 @@ function forgingMutation(seqno,player)
               Item.SetData(WeaponIndex, CONST.道具_子参二, 40);
               local skillId="";
               local grade = forging_plan_grade[seqno];
-              for i=1,grade do
-                local rand = NLG.Rand(1,#player_skillboom_list);
-                if i<grade then
-                  skillId = skillId .. player_skillboom_list[rand]..",";
-                else
-                  skillId = skillId .. player_skillboom_list[rand];
+              if (grade>0) then
+                for i=1,grade do
+                  local rand = NLG.Rand(1,#player_skillboom_list);
+                  if i<grade then
+                    skillId = skillId .. player_skillboom_list[rand]..",";
+                  else
+                    skillId = skillId .. player_skillboom_list[rand];
+                  end
                 end
+                Item.SetData(WeaponIndex, CONST.道具_USEFUNC, skillId);
+                Item.UpItem(player, newSlot);
+                NLG.UpChar(player);
+              else
               end
-              Item.SetData(WeaponIndex, CONST.道具_USEFUNC, skillId);
-              Item.UpItem(player, newSlot);
-              NLG.UpChar(player);
 end
 
 --目标成功率计算
@@ -445,28 +565,15 @@ function Type(Type)
   end
 end
 
---道具说明组合接口
-function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
-  if (Item.GetData(itemIndex, CONST.道具_子参二)==40 and type==2) then
-    --local boom_Skill = tostring(Item.GetData(itemIndex, CONST.道具_USEFUNC));
-    local info="";
-    local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
-    for i=1,#boom_Skill_x do
-      local skillId = tonumber(boom_Skill_x[i]);
-      if (skillId>0) then
-        if (i<#boom_Skill_x) then
-          info = info .. skillboom_info[skillId] .."\n";
-        else
-          info = info .. skillboom_info[skillId];
-        end
-      else
-      end
-    end
-      
-    local info = info .."\n".. msg;
-    return info
-  end
+function CheckInTable(_idTab, _idVar) ---循环函数
+	for k,v in pairs(_idTab) do
+		if v==_idVar then
+			return true
+		end
+	end
+	return false
 end
+
 --- 卸载模块钩子
 function Module:onUnload()
   self:logInfo('unload')
