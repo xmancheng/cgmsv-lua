@@ -1,34 +1,37 @@
---Ä£¿éÀà
+--æ¨¡å—ç±»
 local Module = ModuleBase:createModule('SigninSheet')
 
-local count_Max = 1;		--´ÎÊı
---½±Àø·ÖÀà
+local count_Max = 1;		--æ¬¡æ•°
+--å¥–åŠ±åˆ†ç±»
 local rewards_list = {};
-rewards_list[1] = {"·üÌØÄÜÁ¿",631092,50};
-rewards_list[2] = {"·üÌØÄÜÁ¿",631092,50};
-rewards_list[3] = {"·üÌØÄÜÁ¿",631092,50};
-rewards_list[4] = {"·üÌØÄÜÁ¿",631092,50};
-rewards_list[5] = {"·üÌØÄÜÁ¿",631092,50};
-rewards_list[6] = {"ÉñÆæÅ¤µ°",47824,10};
-rewards_list[7] = {"ÉñÆæÅ¤µ°",47824,10};
---Ê£Óà´ÎÊı¼ÆËã
+rewards_list[1] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[2] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[3] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[4] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[5] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[6] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[7] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[14] = {"å››é­‚ä¹‹ç‰",70194,100};
+rewards_list[30] = {"å››é­‚ä¹‹ç‰",70194,100};
+
+--å‰©ä½™æ¬¡æ•°è®¡ç®—
 local signin_daily_rewards_user = {};
 local signin_daily_rewards_user_count = {};
-signin_daily_rewards_user_count[1] = {};	--¸ö´ÎÊı¼ÆËã
---signin_daily_rewards_user_count[2] = {};	--¸ö´ÎÊı¼ÆËã
+signin_daily_rewards_user_count[1] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
+--signin_daily_rewards_user_count[2] = {};	--ä¸ªæ¬¡æ•°è®¡ç®—
 
 ------------------------------------------------------------------------------------------------------------------------
---¹¦ÄÜº¯Êı
-function Time_Check(_obj)	--ÅĞ¶¨ÊÇ·ñÒ»ÌìÊ±¼äÒÑ¹ı
+--åŠŸèƒ½å‡½æ•°
+function Time_Check(_obj)	--åˆ¤å®šæ˜¯å¦ä¸€å¤©æ—¶é—´å·²è¿‡
 	if (os.date("%d",_obj) ~= os.date("%d",os.time())) then 
 		return true;
 	end
 	return false;
 end
 
-function Time_Out(player)	--Ã¿ÈÕ24µãÎªÅĞ¶¨³¬Ê±
+function Time_Out(player)	--æ¯æ—¥24ç‚¹ä¸ºåˆ¤å®šè¶…æ—¶
 	local _obj = signin_daily_rewards_user[Playerkey(player)];
-	--Èç¹ûÊ×´ÎµÇÂ¼
+	--å¦‚æœé¦–æ¬¡ç™»å½•
 	if (_obj == nil) then 
 		signin_daily_rewards_user[Playerkey(player)] = os.time();
 		return true;
@@ -39,7 +42,7 @@ end
 
 function Playerkey(player)
 	if (player ~= nil) then
-		local fanhui1 = Char.GetData(player,CONST.CHAR_Ãû×Ö);
+		local fanhui1 = Char.GetData(player,CONST.CHAR_åå­—);
 		local fanhui2 = Char.GetData(player,CONST.CHAR_CDK);
 		if (fanhui1 == nil or fanhui2 == nil) then
 			if(fanhui2 == nil) then
@@ -53,19 +56,19 @@ function Playerkey(player)
 end
 
 ------------------------------------------------------------------------------------------------------------------------
---¼ÓÔØÄ£¿é
+--åŠ è½½æ¨¡å—
 function Module:onLoad()
 	self:logInfo('load')
-	self.signInNPC = self:NPC_createNormal('ºµ½¹ÜÀí†T',106602,{x=34, y=33, mapType=0, map=777, direction=6})
+	self.signInNPC = self:NPC_createNormal('ç°½åˆ°ç®¡ç†å“¡',106602,{x=34, y=33, mapType=0, map=777, direction=6})
 	self:NPC_regWindowTalkedEvent(self.signInNPC,Func.bind(self.click,self))
 	self:NPC_regTalkedEvent(self.signInNPC,Func.bind(self.facetonpc,self))
 end
 
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:signInInfo(npc, player)
 	if (Time_Out(player)) then
 		signin_daily_rewards_user[Playerkey(player)] = os.time();
-		for i=1,#signin_daily_rewards_user_count do			--Ã¿ÈÕ¸±±¾¸ö±ğ´ÎÊı
+		for i=1,#signin_daily_rewards_user_count do			--æ¯æ—¥å‰¯æœ¬ä¸ªåˆ«æ¬¡æ•°
 			signin_daily_rewards_user_count[i][Playerkey(player)] = nil;
 		end
 	end
@@ -82,36 +85,39 @@ function Module:signInInfo(npc, player)
 		local Item_image= Data.ItemsetGetData( ItemsetIndex, CONST.ITEMSET_BASEIMAGENUMBER);
 		local imageText = "@g,"..Item_image..",5,5,4,0@"
 
-		local Player_image = Char.GetData(player, CONST.¶ÔÏó_ĞÎÏó);
+		local Player_image = Char.GetData(player, CONST.å¯¹è±¡_å½¢è±¡);
 		local imageText_p = "@g,"..Player_image..",17,7,6,6@"
 
-		local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Ã¿ÈÕºµ½Ïµ½y¡¿\\n"
-			.. "¡¡¡¡¡¡$1ÒÀÕÕºµ½®”ÏÂµÄĞÇÆÚÈÕ×Ó½oÓèª„„î\\n"
-		msg = msg .. imageText .. "\\n\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡$5" .. Item_name .. "\\n\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. rewards_list[daily][3] .. " ‚€" .. imageText_p
-		NLG.ShowWindowTalked(player, self.signInNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+		local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ¯æ—¥ç°½åˆ°ç³»çµ±ã€‘\\n"
+			.. "ã€€ã€€ã€€$1ä¾ç…§ç°½åˆ°ç•¶ä¸‹çš„æ˜ŸæœŸæ—¥å­çµ¦äºˆçå‹µ\\n"
+		msg = msg .. imageText .. "\\n\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€$5" .. Item_name .. "\\n\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. rewards_list[daily][3] .. " å€‹" .. imageText_p
+
+		local SignInCheck = Char.GetExtData(player, 'ç´¯ç§¯ç­¾åˆ°') or 0;
+		msg = msg .. "\\n\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€$4ç´¯ç©ç°½åˆ°:"..SignInCheck.."å¤©"
+		NLG.ShowWindowTalked(player, self.signInNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
 	elseif (rewardscount >= count_Max) then
-		NLG.SystemMessage(player, "[Ïµ½y]ÄúÒÑîIÈ¡Ã¿ÈÕºµ½ª„„î¡£");
+		NLG.SystemMessage(player, "[ç³»çµ±]æ‚¨å·²é ˜å–æ¯æ—¥ç°½åˆ°çå‹µã€‚");
 		return;
 	end
 end
 
-function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
+function Module:click(npc,player,_seqno,_select,_data)--çª—å£ä¸­ç‚¹å‡»è§¦å‘
 	local column = tonumber(_data)
 	local page = tonumber(_seqno)
 	local warpPage = page;
-	--ÉÏÒ³16 ÏÂÒ³32 È¡Ïû2
+	--ä¸Šé¡µ16 ä¸‹é¡µ32 å–æ¶ˆ2
 	if _select > 0 then
-		if (_seqno == 1 and _select == CONST.°´Å¥_·ñ) then
+		if (_seqno == 1 and _select == CONST.æŒ‰é’®_å¦) then
 			return;
-		elseif (_seqno == 1 and _select == CONST.°´Å¥_ÊÇ) then
+		elseif (_seqno == 1 and _select == CONST.æŒ‰é’®_æ˜¯) then
 			--local selectitem = tonumber(_data);
 
-			if (Char.GetData(player,CONST.CHAR_µÈ¼¶)<20) then	--µÈ¼¶ÅĞ¶¨
-				NLG.SystemMessage(player, "[Ïµ½y]Äú²»‰ò20µÈ¼‰Ÿo·¨îIÈ¡¡£");
+			if (Char.GetData(player,CONST.CHAR_ç­‰çº§)<20) then	--ç­‰çº§åˆ¤å®š
+				NLG.SystemMessage(player, "[ç³»çµ±]æ‚¨ä¸å¤ 20ç­‰ç´šç„¡æ³•é ˜å–ã€‚");
 				return;
 			end
 			if (Char.ItemSlot(player)>18) then
-				NLG.SystemMessage(player, "[Ïµ½y]ÕˆÁô³ö±³°üîIÈ¡ºµ½ª„„î£¡");
+				NLG.SystemMessage(player, "[ç³»çµ±]è«‹ç•™å‡ºèƒŒåŒ…é ˜å–ç°½åˆ°çå‹µï¼");
 				return;
 			end
 
@@ -122,7 +128,7 @@ function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
 			end
 
 			if (rewardscount >= count_Max) then
-				NLG.SystemMessage(player, "[Ïµ½y]ÄúÒÑîIÈ¡Ã¿ÈÕºµ½ª„„î¡£");
+				NLG.SystemMessage(player, "[ç³»çµ±]æ‚¨å·²é ˜å–æ¯æ—¥ç°½åˆ°çå‹µã€‚");
 				return;
 			else
 				signin_daily_rewards_user_count[1][Playerkey(player)] = rewardscount + 1;
@@ -133,6 +139,21 @@ function Module:click(npc,player,_seqno,_select,_data)--´°¿ÚÖĞµã»÷´¥·¢
 				if(os.date("%w",os.time()) =="4")then Char.GiveItem(player,rewards_list[4][2],rewards_list[4][3]) end
 				if(os.date("%w",os.time()) =="5")then Char.GiveItem(player,rewards_list[5][2],rewards_list[5][3]) end
 				if(os.date("%w",os.time()) =="6")then Char.GiveItem(player,rewards_list[6][2],rewards_list[6][3]) end
+				local SignInCheck = Char.GetExtData(player,'ç´¯ç§¯ç­¾åˆ°') or 0;
+				if (SignInCheck<30) then
+					Char.SetExtData(player,'ç´¯ç§¯ç­¾åˆ°',SignInCheck+1);
+					NLG.UpChar(player);
+				else
+					Char.SetExtData(player,'ç´¯ç§¯ç­¾åˆ°',0);
+					NLG.UpChar(player);
+				end
+				if (SignInCheck==13) then
+					Char.GiveItem(player,rewards_list[14][2],rewards_list[14][3]);
+				elseif (SignInCheck==29) then
+					Char.GiveItem(player,rewards_list[30][2],rewards_list[30][3]);
+					Char.SetExtData(player,'ç´¯ç§¯ç­¾åˆ°',0);
+					NLG.UpChar(player);
+				end
 			end
 		end
 	else
@@ -144,7 +165,7 @@ function Module:facetonpc(npc,player)
 	if NLG.CanTalk(npc,player) == true then
 		if (Time_Out(player)) then
 			signin_daily_rewards_user[Playerkey(player)] = os.time();
-			for i=1,#signin_daily_rewards_user_count do			--Ã¿ÈÕ¸±±¾¸ö±ğ´ÎÊı
+			for i=1,#signin_daily_rewards_user_count do			--æ¯æ—¥å‰¯æœ¬ä¸ªåˆ«æ¬¡æ•°
 				signin_daily_rewards_user_count[i][Playerkey(player)] = nil;
 			end
 		end
@@ -161,22 +182,25 @@ function Module:facetonpc(npc,player)
 			local Item_image= Data.ItemsetGetData( ItemsetIndex, CONST.ITEMSET_BASEIMAGENUMBER);
 			local imageText = "@g,"..Item_image..",5,5,4,0@"
 
-			local Player_image = Char.GetData(player, CONST.¶ÔÏó_ĞÎÏó);
+			local Player_image = Char.GetData(player, CONST.å¯¹è±¡_å½¢è±¡);
 			local imageText_p = "@g,"..Player_image..",17,7,6,6@"
 
-			local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Ã¿ÈÕºµ½Ïµ½y¡¿\\n"
-				.. "¡¡¡¡¡¡$1ÒÀÕÕºµ½®”ÏÂµÄĞÇÆÚÈÕ×Ó½oÓèª„„î\\n"
-			msg = msg .. imageText .. "\\n\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡$5" .. Item_name .. "\\n\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. rewards_list[daily][3] .. " ‚€" .. imageText_p
-			NLG.ShowWindowTalked(player, self.signInNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+			local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ¯æ—¥ç°½åˆ°ç³»çµ±ã€‘\\n"
+				.. "ã€€ã€€ã€€$1ä¾ç…§ç°½åˆ°ç•¶ä¸‹çš„æ˜ŸæœŸæ—¥å­çµ¦äºˆçå‹µ\\n"
+			msg = msg .. imageText .. "\\n\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€$5" .. Item_name .. "\\n\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. rewards_list[daily][3] .. " å€‹" .. imageText_p
+
+			local SignInCheck = Char.GetExtData(player, 'ç´¯ç§¯ç­¾åˆ°') or 0;
+			msg = msg .. "\\n\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€$4ç´¯ç©ç°½åˆ°:"..SignInCheck.."å¤©"
+			NLG.ShowWindowTalked(player, self.signInNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
 		elseif (rewardscount >= count_Max) then
-			NLG.SystemMessage(player, "[Ïµ½y]ÄúÒÑîIÈ¡Ã¿ÈÕºµ½ª„„î¡£");
+			NLG.SystemMessage(player, "[ç³»çµ±]æ‚¨å·²é ˜å–æ¯æ—¥ç°½åˆ°çå‹µã€‚");
 			return;
 		end
 	end
 	return
 end
 
---Ğ¶ÔØÄ£¿é
+--å¸è½½æ¨¡å—
 function Module:onUnload()
 	self:logInfo('unload')
 end
