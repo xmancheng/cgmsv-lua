@@ -2,23 +2,24 @@
 local Module = ModuleBase:createModule(forgingPlans)
 
 --词条技能
-local player_skillboom_list = {3,266,267,268,269,270,271};		--多重施法的skill列表
-local skillboom_info = {}
-skillboom_info[3] = "使用乾坤一擲時10%發動3連擊";
-skillboom_info[266] = "使用殞火時10%發動3連擊";
-skillboom_info[267] = "使用閃光打擊時10%發動3連擊";
-skillboom_info[268] = "使用天地崩裂10%發動3連擊";
-skillboom_info[269] = "使用雷霆斬10%發動3連擊";
-skillboom_info[270] = "使用星辰斬10%發動3連擊";
-skillboom_info[271] = "使用業火斬10%發動3連擊";
+local player_skillAffixes_list = {301,3,266,267,268,269,270,271};		--skill詞綴編號列表
+local skillAffixes_info = {}
+skillAffixes_info[301] = "迴旋擊的傷害增加5%";
+skillAffixes_info[3] = "乾坤一擲10%使出迴旋擊";
+skillAffixes_info[266] = "殞火10%使出迴旋擊";
+skillAffixes_info[267] = "閃光打擊10%使出迴旋擊";
+skillAffixes_info[268] = "天地崩裂10%使出迴旋擊";
+skillAffixes_info[269] = "雷霆斬10%使出迴旋擊";
+skillAffixes_info[270] = "星辰斬10%使出迴旋擊";
+skillAffixes_info[271] = "業火斬10%使出迴旋擊";
 
 --分类自行添加
-local forging_plan_name = {};
-local forging_plan_offering = {};
-local forging_plan_item = {};
-local forging_plan_gold = {};
-local forging_plan_thing = {};
-local forging_plan_grade = {};
+local forging_plan_name = {};		--表单显示道具名称
+local forging_plan_offering = {};	--最多三组的材料设置{道具编号,数量}
+local forging_plan_item = {};		--制作设计图(数量1)
+local forging_plan_gold = {};		--需求金币
+local forging_plan_thing = {};		--10组成品制作结果(连动成功率)
+local forging_plan_grade = {};		--品质(随机词条数目0~3)
 --
 forging_plan_name[1] = "《防具》聖龍頭盔";
 forging_plan_offering[1] = {{235,1},{51021,1},{18450,10}};
@@ -105,8 +106,8 @@ end
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load');
-  self:regCallback('BattleActionTargetEvent',Func.bind(self.battleActionTargetCallback,self))
-  self:regCallback('DamageCalculateEvent',Func.bind(self.damageCalculateCallback,self))
+  --self:regCallback('BattleActionTargetEvent',Func.bind(self.battleActionTargetCallback,self))
+  --self:regCallback('DamageCalculateEvent',Func.bind(self.damageCalculateCallback,self))
 
   self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
   self.forgingerNPC = self:NPC_createNormal('武防提煉鍛造', 231137, { x = 235, y = 83, mapType = 0, map = 1000, direction = 0 });
@@ -227,9 +228,9 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
       local skillId = tonumber(boom_Skill_x[i]);
       if (skillId>0) then
         if (i<#boom_Skill_x) then
-          info = info .. skillboom_info[skillId] .."\n";
+          info = info .. skillAffixes_info[skillId] .."\n";
         else
-          info = info .. skillboom_info[skillId];
+          info = info .. skillAffixes_info[skillId];
         end
       else
       end
@@ -240,15 +241,24 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
   end
 end
 -----------------------------------------------------
---多重施法设置
-local boom_dmg_rate = {0.75,0.50,0.25,0.01} --不同重技能对应伤害削弱，类似于乱射
+--[[多重施法设置
+local boom_skill_list = {3,266,267,268,269,270,271};	--多重施法的skill列表
+local boom_dmg_rate = {0.75,0.50,0.25,0.01}	--不同重技能对应伤害削弱，类似于乱射
 local boom_list = {}
 local boom_cnt_num = {}
 local boom_cnt_num_aoe = {}
 local boom_tag = {}
 --动作目标事件
 function Module:battleActionTargetCallback(CharIndex, battleIndex, com1, com2, com3, tgl)
+	--self:logDebug('battleActionTargetCallback', CharIndex, battleIndex, com1, com2, com3, tgl)
 	if Char.IsPlayer(CharIndex) then
+		if (com3==300) then		--挑拨迷惑
+			if (NLG.Rand(1,4) >= 1) then
+				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
+				Char.SetTempData(defCharIndex, '迷惑', 5);
+				NLG.SystemMessage(-1, "[系統]發動挑撥敵人陷入迷惑");
+			end
+		end
 		boom_list[CharIndex] = 0;
 		boom_cnt_num[CharIndex] = 0;
 		boom_cnt_num_aoe[CharIndex] = {};
@@ -258,7 +268,7 @@ function Module:battleActionTargetCallback(CharIndex, battleIndex, com1, com2, c
 			boom_tag[CharIndex] = 0
 		end
 		local skillId = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_SKILLID);
-		if (CheckInTable(player_skillboom_list, skillId)==true) then
+		if (CheckInTable(boom_skill_list, skillId)==true) then
 			local skill_rate = calcRate(CharIndex,skillId)*10;		--词条皆为10%
 			local com_name = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_NAME);
 			local boom_rate = math.random(1,100);
@@ -274,14 +284,14 @@ function Module:battleActionTargetCallback(CharIndex, battleIndex, com1, com2, c
 		else
 			return tgl
 		end
-    else 
-        return tgl
     end
+	return tgl
 end
 function copy_list(list, times)
     local new_list = {}
     for i = 1, times do
         for _, value in ipairs(list) do
+			--local value = math.random(value-1,value+1)
             table.insert(new_list, value);
         end
     end
@@ -319,7 +329,8 @@ function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Dama
 		end
 		local max_cnt = #boom_dmg_rate;
 
-		local return_dmg = math.floor(boom_dmg_rate[cnt+1]*Damage);
+		local skill_Coeff = calcDamageCoeff(CharIndex)*0.05;
+		local return_dmg = math.floor((boom_dmg_rate[cnt+1]+skill_Coeff)*Damage);
 		if (boom_tag[CharIndex] == 1) then
 			boom_cnt_num_aoe[CharIndex][DefCharIndex] = cnt + 1;
 		elseif (boom_tag[CharIndex] == 0) then
@@ -330,6 +341,25 @@ function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Dama
 		return Damage
 	end
 end
+function calcDamageCoeff(charIndex)
+    local skill_Coeff=0;
+    for slot=0,6 do
+      local itemIndex = Char.GetItemIndex(charIndex,slot);
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then
+        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
+        for i=1,#crit_Skill_x do
+          local skillId_x = tonumber(crit_Skill_x[i]);
+          if (skillId_x>0 and skillId_x==301) then
+            skill_Coeff = skill_Coeff + 1;
+          else
+            skill_Coeff = skill_Coeff;
+          end
+        end
+      end
+    end
+    return skill_Coeff
+end
+]]
 ---------------------------------------------------------------------------------------------------------------
 --目标信息
 function forgingGoalInfo(count)
@@ -445,11 +475,11 @@ function forgingMutation(seqno,player)
               local grade = forging_plan_grade[seqno];
               if (grade>0) then
                 for i=1,grade do
-                  local rand = NLG.Rand(1,#player_skillboom_list);
+                  local rand = NLG.Rand(1,#player_skillAffixes_list);
                   if i<grade then
-                    skillId = skillId .. player_skillboom_list[rand]..",";
+                    skillId = skillId .. player_skillAffixes_list[rand]..",";
                   else
-                    skillId = skillId .. player_skillboom_list[rand];
+                    skillId = skillId .. player_skillAffixes_list[rand];
                   end
                 end
                 Item.SetData(WeaponIndex, CONST.道具_USEFUNC, skillId);
