@@ -2,16 +2,11 @@
 local Module = ModuleBase:createModule(forgingPlans)
 
 --词条技能
-local player_skillAffixes_list = {301,3,266,267,268,269,270,271};		--skill詞綴編號列表
+local player_skillAffixes_list = {300,301,302};		--skill詞綴編號列表
 local skillAffixes_info = {}
+skillAffixes_info[300] = "物理技能10%使出迴旋擊";
 skillAffixes_info[301] = "迴旋擊的傷害增加5%";
-skillAffixes_info[3] = "乾坤一擲10%使出迴旋擊";
-skillAffixes_info[266] = "殞火10%使出迴旋擊";
-skillAffixes_info[267] = "閃光打擊10%使出迴旋擊";
-skillAffixes_info[268] = "天地崩裂10%使出迴旋擊";
-skillAffixes_info[269] = "雷霆斬10%使出迴旋擊";
-skillAffixes_info[270] = "星辰斬10%使出迴旋擊";
-skillAffixes_info[271] = "業火斬10%使出迴旋擊";
+skillAffixes_info[302] = "物理技能2%造成麻痺";
 
 --分类自行添加
 local forging_plan_name = {};		--表单显示道具名称
