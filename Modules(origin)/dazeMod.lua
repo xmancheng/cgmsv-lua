@@ -19,64 +19,73 @@ end
 
 -------------------------------------------------------
 --动作目标事件
-function Module:battleActionTargetCallback(CharIndex, battleIndex, com1, com2, com3, tgl)
-	--self:logDebug('battleActionTargetCallback', CharIndex, battleIndex, com1, com2, com3, tgl)
+function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, com3, tgl)
+	--self:logDebug('battleActionTargetCallback', charIndex, battleIndex, com1, com2, com3, tgl)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
 	if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
 		leader = leader2
 	end
-	if Char.IsPlayer(CharIndex) then
-		local skill302_rate = calcParalysisRate(CharIndex,skillId)*2;		--麻痹词条为2%
+	if Char.IsPlayer(charIndex) then
+		local skill302_rate = calcParalysisRate(charIndex,skillId)*2;		--麻痹词条为2%
 		if (skill302_rate >= NLG.Rand(1,100)) then		--麻痹
-			local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
-			Char.SetTempData(defCharIndex, '麻痹', 3);
-			--NLG.SystemMessage(leader, "[系統]發動使敵人陷入麻痺");
+			local para_debuff = Char.GetTempData(charIndex, '麻痹') or 0;
+			if (para_debuff<=0) then
+				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
+				Char.SetTempData(defCharIndex, '麻痹', 3);
+				--NLG.SystemMessage(leader, "[系統]發動使敵人陷入麻痺");
+			end
 		end
-		boom_list[CharIndex] = 0;
-		boom_cnt_num[CharIndex] = 0;
-		boom_cnt_num_aoe[CharIndex] = {};
+		boom_list[charIndex] = 0;
+		boom_cnt_num[charIndex] = 0;
+		boom_cnt_num_aoe[charIndex] = {};
 		if #tgl > 1 then
-			boom_tag[CharIndex] = 1
+			boom_tag[charIndex] = 1
 		else 
-			boom_tag[CharIndex] = 0
+			boom_tag[charIndex] = 0
 		end
 		local skillId = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_SKILLID);
 		--if (CheckInTable(boom_skill_list, skillId)==true) then
 		if (skillId >= 0) then
-			local skill300_rate = calcWhirlwindRate(CharIndex,skillId)*10;		--回旋击词条为10%
+			local skill300_rate = calcWhirlwindRate(charIndex,skillId)*10;		--回旋击词条为10%
 			local com_name = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_NAME);
 			local copy_num = 3;
 			if (skill300_rate >= NLG.Rand(1,100)) then
-				local msg_name =  Char.GetData(CharIndex,CONST.对象_名字);
-				--NLG.SystemMessage(CharIndex, msg_name.."："..skill300_rate.."%發動"..copy_num.."倍 "..com_name);
-				boom_list[CharIndex] = 1
+				local msg_name =  Char.GetData(charIndex,CONST.对象_名字);
+				--NLG.SystemMessage(charIndex, msg_name.."："..skill300_rate.."%發動"..copy_num.."倍 "..com_name);
+				boom_list[charIndex] = 1
 				local return_tgl = copy_list(tgl,copy_num)	
 				return 	return_tgl	
 			end
 		else
 			return tgl
 		end
-	elseif Char.IsPet(CharIndex) then
+	elseif Char.IsPet(charIndex) then
 		if (com3==300) then		--挑拨迷惑
 			if (NLG.Rand(1,4) >= 3) then
-				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
-				Char.SetTempData(defCharIndex, '迷惑', 5);
-				--NLG.SystemMessage(leader, "[系統]發動挑撥敵人陷入迷惑");
+				local daze_debuff = Char.GetTempData(charIndex, '迷惑') or 0;
+				if (daze_debuff<=0) then
+					local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
+					Char.SetTempData(defCharIndex, '迷惑', 5);
+					--NLG.SystemMessage(leader, "[系統]發動挑撥敵人陷入迷惑");
+				end
 			end
 		end
 		return tgl
-	elseif Char.IsEnemy(CharIndex) then
-		local daze_debuff = Char.GetTempData(CharIndex, '迷惑') or 0;
-		local para_debuff = Char.GetTempData(CharIndex, '麻痹') or 0;
+	elseif Char.IsEnemy(charIndex) then
+		local PosSlot = Battle.GetPos(battleIndex,charIndex);
+		local PosName = position(PosSlot);
+		local EnemyName = Char.GetData(charIndex,CONST.对象_名字);
+		local daze_debuff = Char.GetTempData(charIndex, '迷惑') or 0;
+		local para_debuff = Char.GetTempData(charIndex, '麻痹') or 0;
 		if (daze_debuff>0) then
-			NLG.SystemMessage(-1, "[系統]敵人陷入迷惑");
+			NLG.SystemMessage(-1, "[系統]"..PosName.."的"..EnemyName.."陷入迷惑");
 			Char.SetTempData(leader, '迷惑', daze_debuff-1);
 			local tgl = calcPlayerHighHP_list(tgl,battleIndex);
 			return tgl
 		elseif (para_debuff>0 and daze_debuff<=0) then
-			NLG.SystemMessage(-1, "[系統]敵人陷入麻痺");
+			NLG.SystemMessage(-1, "[系統]"..PosName.."的"..EnemyName.."陷入麻痺");
 			Char.SetTempData(leader, '麻痹', para_debuff-1);
 			tgl[1]=30;
 			local tgl = tgl;
@@ -167,25 +176,50 @@ end
 -------------------------------------------------------
 --伤害事件
 function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Damage, BattleIndex, Com1, Com2, Com3, DefCom1, DefCom2, DefCom3, Flg, ExFlg)
-	if (boom_list[CharIndex] == 1) then
-		local cnt = 0
-		if (boom_tag[CharIndex] == 1) then
-			cnt = boom_cnt_num_aoe[CharIndex][DefCharIndex] or 0;
-		elseif (boom_tag[CharIndex] == 0) then
-			cnt = boom_cnt_num[CharIndex] or 0;
-		else
+	local leader1 = Battle.GetPlayer(BattleIndex,0)
+	local leader2 = Battle.GetPlayer(BattleIndex,5)
+	local leader = leader1
+	if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
+		leader = leader2
+	end
+	if Char.IsPlayer(CharIndex) then
+		if (Flg == CONST.DamageFlags.Magic) then
+			local super_skill_list = {19,20,21,22,23,24,25,26,27,28,29,30,31,1011};
+			local skillId = Tech.GetData(Tech.GetTechIndex(Com3), CONST.TECH_SKILLID);
+			if (CheckInTable(super_skill_list, skillId)==true) then
+				local skill303_rate = calcChantCoeff(CharIndex)*5;		--咏唱词条为5%
+				if (skill303_rate >= NLG.Rand(1,100)) then
+					NLG.SystemMessage(leader, "[系統]發動重強度150%詠唱");
+					local Damage = math.floor(Damage*1.50);
+					return Damage
+				end
+				return Damage
+			end
+			return Damage
+		elseif (Flg == CONST.DamageFlags.Normal or Flg == CONST.DamageFlags.Critical) then
+			if (boom_list[CharIndex] == 1) then
+				local cnt = 0
+				if (boom_tag[CharIndex] == 1) then
+					cnt = boom_cnt_num_aoe[CharIndex][DefCharIndex] or 0;
+				elseif (boom_tag[CharIndex] == 0) then
+					cnt = boom_cnt_num[CharIndex] or 0;
+				else
+					return Damage
+				end
+				local max_cnt = #boom_dmg_rate;
+
+				local skill_Coeff = calcDamageCoeff(CharIndex)*0.05;
+				local Damage = math.floor((boom_dmg_rate[cnt+1]+skill_Coeff)*Damage);
+				if (boom_tag[CharIndex] == 1) then
+					boom_cnt_num_aoe[CharIndex][DefCharIndex] = cnt + 1;
+				elseif (boom_tag[CharIndex] == 0) then
+					boom_cnt_num[CharIndex]  = cnt + 1;
+				end
+				return Damage
+			end
 			return Damage
 		end
-		local max_cnt = #boom_dmg_rate;
-
-		local skill_Coeff = calcDamageCoeff(CharIndex)*0.05;
-		local return_dmg = math.floor((boom_dmg_rate[cnt+1]+skill_Coeff)*Damage);
-		if (boom_tag[CharIndex] == 1) then
-			boom_cnt_num_aoe[CharIndex][DefCharIndex] = cnt + 1;
-		elseif (boom_tag[CharIndex] == 0) then
-			boom_cnt_num[CharIndex]  = cnt + 1;
-		end		
-		return return_dmg
+		return Damage
 	elseif Char.IsEnemy(CharIndex) then
 		local daze_debuff = Char.GetTempData(CharIndex, '迷惑') or 0;
 		local daze_dmg_rate = {0.75,0.70,0.65,0.60,0.55}
@@ -216,6 +250,50 @@ function calcDamageCoeff(charIndex)
       end
     end
     return skill_Coeff
+end
+--计算咏唱增伤系数
+function calcChantCoeff(charIndex)
+    local skill_Coeff=0;
+    for slot=0,6 do
+      local itemIndex = Char.GetItemIndex(charIndex,slot);
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then
+        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
+        for i=1,#crit_Skill_x do
+          local skillId_x = tonumber(crit_Skill_x[i]);
+          if (skillId_x>0 and skillId_x==303) then
+            skill_Coeff = skill_Coeff + 1;
+          else
+            skill_Coeff = skill_Coeff;
+          end
+        end
+      end
+    end
+    return skill_Coeff
+end
+
+
+function position(PosSlot)
+  if PosSlot == 10 then
+    return "後排中間"
+  elseif PosSlot == 11 then
+    return "後排中右"
+  elseif PosSlot == 12 then
+    return "後排中左"
+  elseif PosSlot == 13 then
+    return "後排最右"
+  elseif PosSlot == 14 then
+    return "後排最左"
+  elseif PosSlot == 15 then
+    return "前排中間"
+  elseif PosSlot == 16 then
+    return "前排中右"
+  elseif PosSlot == 17 then
+    return "前排中左"
+  elseif PosSlot == 18 then
+    return "前排最右"
+  elseif PosSlot == 19 then
+    return "前排最左"
+  end
 end
 
 function CheckInTable(_idTab, _idVar) ---循环函数
