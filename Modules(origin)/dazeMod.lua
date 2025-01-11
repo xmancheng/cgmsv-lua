@@ -14,6 +14,8 @@ function Module:onLoad()
   self:logInfo('load');
   self:regCallback('BattleActionTargetEvent',Func.bind(self.battleActionTargetCallback,self))
   self:regCallback('DamageCalculateEvent',Func.bind(self.damageCalculateCallback,self))
+  self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStarCommand, self))
+  self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self))
 
 end
 
@@ -30,7 +32,7 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 	if Char.IsPlayer(charIndex) then
 		local skill302_rate = calcParalysisRate(charIndex,skillId)*2;		--麻痹词条为2%
 		if (skill302_rate >= NLG.Rand(1,100)) then		--麻痹
-			local para_debuff = Char.GetTempData(charIndex, '麻痹') or 0;
+			local para_debuff = Char.GetTempData(defCharIndex, '麻痹') or 0;
 			if (para_debuff<=0) then
 				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
 				Char.SetTempData(defCharIndex, '麻痹', 3);
@@ -64,7 +66,7 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 	elseif Char.IsPet(charIndex) then
 		if (com3==300) then		--挑拨迷惑
 			if (NLG.Rand(1,4) >= 3) then
-				local daze_debuff = Char.GetTempData(charIndex, '迷惑') or 0;
+				local daze_debuff = Char.GetTempData(defCharIndex, '迷惑') or 0;
 				if (daze_debuff<=0) then
 					local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
 					Char.SetTempData(defCharIndex, '迷惑', 5);
@@ -271,6 +273,64 @@ function calcChantCoeff(charIndex)
     return skill_Coeff
 end
 
+-------------------------------------------------------
+--回合前事件
+function Module:OnbattleStarCommand(battleIndex)
+    for i=0, 19 do
+        local petIndex = Battle.GetPlayIndex(battleIndex, i)
+        if (petIndex>=0 and Char.IsPet(petIndex)) then
+            --[[for war=0,23 do
+                local warIndex =  Battle.GetBattleCharacterStatus(petIndex, war);
+                print(warIndex)
+            end]]
+            local a,b,c = calcBondBuff(petIndex);
+            if (a>0) then
+                if (Battle.GetBattleCharacterStatus(petIndex, CONST.战属_攻增)==0) then
+                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_攻增,200);
+                    Battle.SetBattleCharacterStatus(Battle.GetPlayIndex(battleIndex, 10), CONST.战属_属转,50);
+                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_慢舞回合,2);
+                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_慢舞值,100);
+                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_恢增,1000);
+                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_恢复回合,2);
+                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_参数,30);
+                    NLG.UpChar(petIndex);
+                end
+            elseif (b>0) then
+
+            elseif (c>0) then
+
+            end
+        end
+    end
+end
+
+--计算攻防敏增益
+function calcBondBuff(petIndex)
+    local skill_Buff_a=0;
+    local skill_Buff_b=0;
+    local skill_Buff_c=0;
+    for slot=0,4 do
+      local itemIndex = Char.GetItemIndex(petIndex,slot);
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==41) then
+        local bond_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
+        for i=1,#bond_Skill_x do
+          local skillId_x = tonumber(bond_Skill_x[i]);
+          if (skillId_x>0 and skillId_x==501) then
+            skill_Buff_a = skill_Buff_a + 1;
+          elseif (skillId_x>0 and skillId_x==502) then
+            skill_Buff_b = skill_Buff_b + 1;
+          elseif (skillId_x>0 and skillId_x==503) then
+            skill_Buff_c = skill_Buff_c + 1;
+          else
+            skill_Buff_a = skill_Buff_a;
+            skill_Buff_b = skill_Buff_b;
+            skill_Buff_c = skill_Buff_c;
+          end
+        end
+      end
+    end
+    return skill_Buff_a,skill_Buff_b,skill_Buff_c
+end
 
 function position(PosSlot)
   if PosSlot == 10 then
