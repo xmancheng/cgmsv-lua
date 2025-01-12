@@ -90,6 +90,7 @@ loadModule('setupMagicAttr')|魔法屬性技能(X)
 loadModule('disguiseSpell')|變形咒語增傷、攻魔無效果
 loadModule('playerSkill')|人物增益技能(Origin)
 loadModule('petSkill')|寵物被動與增益(Origin)
+loadModule('dazeMod')|詞條效果(Origin)
 ### 傭兵相關
 模組加載代碼 | 說明 
 --- | --- 
@@ -133,6 +134,9 @@ loadModule('Strengthen')|魔力賦予
 loadModule('StrengthShop')|魔法卷軸倉庫
 loadModule('ghostHunter')|獵鬼強化(P)
 loadModule('equipSlot')|裝備插槽(Origin)
+loadModule('magicScroll')|魔力卷軸(Origin)
+loadModule('forgingPlans')|提煉鍛造(詞條)(Origin)
+loadModule('sewingPlans')|寵裝縫製(詞條)(Origin)
 ### 特殊副本
 模組加載代碼 | 說明 
 --- | --- 
@@ -167,4 +171,7 @@ loadModule('pokeHatching')|寶可夢蛋(P)
 loadModule('swapPet')|寶可夢交換(P)
 loadModule('uniqueSkills')|角色獨特技能(Origin)
 loadModule('SigninSheet')|每日簽到(Origin)
-
+loadModule('petCage')|魔物壓縮箱(Origin)
+loadModule('cardMount')|坐騎(Origin)
+loadModule('pokeSlot')|拉霸機(Origin)
+loadModule('equipEffects')|裝備特效(形象、翅膀、坐騎)
