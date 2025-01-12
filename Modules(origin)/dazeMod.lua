@@ -14,7 +14,7 @@ function Module:onLoad()
   self:logInfo('load');
   self:regCallback('BattleActionTargetEvent',Func.bind(self.battleActionTargetCallback,self))
   self:regCallback('DamageCalculateEvent',Func.bind(self.damageCalculateCallback,self))
-  self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStarCommand, self))
+  --self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStarCommand, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self))
 
 end
@@ -32,9 +32,9 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 	if Char.IsPlayer(charIndex) then
 		local skill302_rate = calcParalysisRate(charIndex,skillId)*2;		--麻痹词条为2%
 		if (skill302_rate >= NLG.Rand(1,100)) then		--麻痹
+			local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
 			local para_debuff = Char.GetTempData(defCharIndex, '麻痹') or 0;
 			if (para_debuff<=0) then
-				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
 				Char.SetTempData(defCharIndex, '麻痹', 3);
 				--NLG.SystemMessage(leader, "[系統]發動使敵人陷入麻痺");
 			end
@@ -66,9 +66,9 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 	elseif Char.IsPet(charIndex) then
 		if (com3==300) then		--挑拨迷惑
 			if (NLG.Rand(1,4) >= 3) then
+				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
 				local daze_debuff = Char.GetTempData(defCharIndex, '迷惑') or 0;
 				if (daze_debuff<=0) then
-					local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
 					Char.SetTempData(defCharIndex, '迷惑', 5);
 					--NLG.SystemMessage(leader, "[系統]發動挑撥敵人陷入迷惑");
 				end
@@ -114,7 +114,7 @@ function calcWhirlwindRate(charIndex)
     local skill_rate=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then		--人装词条类别40
         local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
         for i=1,#boom_Skill_x do
           local skillId_x = tonumber(boom_Skill_x[i]);
@@ -133,7 +133,7 @@ function calcParalysisRate(charIndex)
     local skill_rate=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then		--人装词条类别40
         local paralysis_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
         for i=1,#paralysis_Skill_x do
           local skillId_x = tonumber(paralysis_Skill_x[i]);
@@ -222,14 +222,6 @@ function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Dama
 			return Damage
 		end
 		return Damage
-	elseif Char.IsEnemy(CharIndex) then
-		local daze_debuff = Char.GetTempData(CharIndex, '迷惑') or 0;
-		local daze_dmg_rate = {0.75,0.70,0.65,0.60,0.55}
-		if (daze_debuff>0) then
-			local Damage = Damage*daze_dmg_rate[daze_debuff];
-			return Damage
-		end
-		return Damage
 	else
 		return Damage
 	end
@@ -239,7 +231,7 @@ function calcDamageCoeff(charIndex)
     local skill_Coeff=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then		--人装词条类别40
         local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
         for i=1,#crit_Skill_x do
           local skillId_x = tonumber(crit_Skill_x[i]);
@@ -258,7 +250,7 @@ function calcChantCoeff(charIndex)
     local skill_Coeff=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==40) then		--人装词条类别40
         local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
         for i=1,#crit_Skill_x do
           local skillId_x = tonumber(crit_Skill_x[i]);
@@ -277,28 +269,53 @@ end
 --回合前事件
 function Module:OnbattleStarCommand(battleIndex)
     for i=0, 19 do
-        local petIndex = Battle.GetPlayIndex(battleIndex, i)
-        if (petIndex>=0 and Char.IsPet(petIndex)) then
-            --[[for war=0,23 do
-                local warIndex =  Battle.GetBattleCharacterStatus(petIndex, war);
-                print(warIndex)
-            end]]
-            local a,b,c = calcBondBuff(petIndex);
-            if (a>0) then
-                if (Battle.GetBattleCharacterStatus(petIndex, CONST.战属_攻增)==0) then
-                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_攻增,200);
-                    Battle.SetBattleCharacterStatus(Battle.GetPlayIndex(battleIndex, 10), CONST.战属_属转,50);
-                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_慢舞回合,2);
-                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_慢舞值,100);
-                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_恢增,1000);
-                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_恢复回合,2);
-                    --Battle.SetBattleCharacterStatus(petIndex, CONST.战属_参数,30);
-                    NLG.UpChar(petIndex);
+        local charIndex = Battle.GetPlayIndex(battleIndex, i)
+        if (charIndex>=0 and Char.IsPet(charIndex)) then
+            local defHp = Char.GetData(charIndex,CONST.对象_血);
+            local defHpM = Char.GetData(charIndex,CONST.对象_最大血);
+            local hpCondition = defHp/defHpM;
+            local a,b,c = calcBondBuff(charIndex);
+            if (a>0 and hpCondition<=0.20) then
+                if (Battle.GetBattleCharacterStatus(charIndex, CONST.战属_攻增)==0) then
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_攻增, a*10);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_防增, 0);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_敏增, 0);
+                    NLG.UpChar(charIndex);
                 end
-            elseif (b>0) then
-
-            elseif (c>0) then
-
+            elseif (b>0 and hpCondition>=0.35 and hpCondition<=0.65) then
+                if (Battle.GetBattleCharacterStatus(charIndex, CONST.战属_防增)==0) then
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_防增, b*10);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_攻增, 0);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_敏增, 0);
+                    NLG.UpChar(charIndex);
+                end
+            elseif (c>0 and hpCondition>=0.85) then
+                if (Battle.GetBattleCharacterStatus(charIndex, CONST.战属_敏增)==0) then
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_敏增, c*10);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_攻增, 0);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.战属_防增, 0);
+                    NLG.UpChar(charIndex);
+                end
+            else
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_攻增, 0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_防增, 0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_敏增, 0);
+                NLG.UpChar(charIndex);
+            end
+            --Battle.SetBattleCharacterStatus(Battle.GetPlayIndex(battleIndex, 10), CONST.战属_属转,50);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞回合,2);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞值,100);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.战属_恢增,1000);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.战属_恢复回合,2);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.战属_参数,30);
+        elseif (charIndex>=0 and Char.IsEnemy(charIndex)) then
+            local daze_debuff = Char.GetTempData(charIndex, '迷惑') or 0;
+            if (daze_debuff>0) then
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_攻增,-10);
+                NLG.UpChar(charIndex);
+            else
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_攻增,0);
+                NLG.UpChar(charIndex);
             end
         end
     end
@@ -311,7 +328,7 @@ function calcBondBuff(petIndex)
     local skill_Buff_c=0;
     for slot=0,4 do
       local itemIndex = Char.GetItemIndex(petIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==41) then
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==41) then		--宠装词条类别41
         local bond_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
         for i=1,#bond_Skill_x do
           local skillId_x = tonumber(bond_Skill_x[i]);
