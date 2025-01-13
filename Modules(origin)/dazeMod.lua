@@ -10,7 +10,7 @@ local boom_cnt_num_aoe = {}
 local boom_tag = {}
 
 local BondImage_List = {};
-BondImage_List[1] = {{106627,106628,106629},100,10,CONST.战属_攻增,-10};		--形象组合、几率、敌我(10,0)、战属、增减数值%
+BondImage_List[1] = {{106627},50,10,CONST.战属_攻增,-10};		--形象组合、几率、敌我(10,0)、战属、增减数值%
 
 --- 加载模块钩子
 function Module:onLoad()
@@ -342,6 +342,14 @@ function Module:OnbattleStarCommand(battleIndex)
               if (charIndex>=0 and Char.IsEnemy(charIndex)) then
                 if (v[2] >= NLG.Rand(1,100)) then
                   Battle.SetBattleCharacterStatus(charIndex, v[4], tonumber(v[5]));
+                  NLG.UpChar(charIndex);
+                else
+                  local prop = {CONST.战属_攻增,CONST.战属_防增,CONST.战属_敏增};
+                  for k,v in pairs(prop) do
+                    if (Battle.GetBattleCharacterStatus(charIndex,v)~=0) then
+                      Battle.SetBattleCharacterStatus(charIndex,v,0);
+                    end
+                  end
                   NLG.UpChar(charIndex);
                 end
               end
