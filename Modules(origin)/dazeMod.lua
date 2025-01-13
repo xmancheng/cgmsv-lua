@@ -9,6 +9,9 @@ local boom_cnt_num = {}
 local boom_cnt_num_aoe = {}
 local boom_tag = {}
 
+local BondImage_List = {};
+BondImage_List[1] = {{106627,106628,106629},100,10,CONST.战属_攻增,-10};		--形象组合、几率、敌我(10,0)、战属、增减数值%
+
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load');
@@ -16,6 +19,7 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent',Func.bind(self.damageCalculateCallback,self))
   --self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStarCommand, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self))
+  self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
 
 end
 
@@ -26,7 +30,7 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
+	if Char.GetData(leader2, CONST.对象_类型) == CONST.对象类型_人 then
 		leader = leader2
 	end
 	if Char.IsPlayer(charIndex) then
@@ -181,7 +185,7 @@ function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Dama
 	local leader1 = Battle.GetPlayer(BattleIndex,0)
 	local leader2 = Battle.GetPlayer(BattleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_类型) == CONST.对象类型_人 then
+	if Char.GetData(leader2, CONST.对象_类型) == CONST.对象类型_人 then
 		leader = leader2
 	end
 	if Char.IsPlayer(CharIndex) then
@@ -268,7 +272,8 @@ end
 -------------------------------------------------------
 --回合前事件
 function Module:OnbattleStarCommand(battleIndex)
-    for i=0, 19 do
+    --宠装词条BUFF
+    for i=0,19 do
         local charIndex = Battle.GetPlayIndex(battleIndex, i)
         if (charIndex>=0 and Char.IsPet(charIndex)) then
             local defHp = Char.GetData(charIndex,CONST.对象_血);
@@ -319,6 +324,30 @@ function Module:OnbattleStarCommand(battleIndex)
             end
         end
     end
+    --形象羁绊特技
+    local image_tpl = {};
+    for i=0,9 do
+        local charIndex = Battle.GetPlayIndex(battleIndex, i)
+        if (charIndex>=0) then
+            local image = Char.GetData(charIndex,CONST.对象_形象);
+            table.insert(image_tpl,image);
+        end
+    end
+    for k,v in pairs(BondImage_List) do
+        local BondType = calcBondType(v[1],image_tpl,k);
+        if (BondType>0 and k==BondType)then
+            local pos= tonumber(v[3]);
+            for i=0+pos,9+pos do
+              local charIndex = Battle.GetPlayIndex(battleIndex, i)
+              if (charIndex>=0 and Char.IsEnemy(charIndex)) then
+                if (v[2] >= NLG.Rand(1,100)) then
+                  Battle.SetBattleCharacterStatus(charIndex, v[4], tonumber(v[5]));
+                  NLG.UpChar(charIndex);
+                end
+              end
+            end
+        end
+    end
 end
 
 --计算攻防敏增益
@@ -348,6 +377,78 @@ function calcBondBuff(petIndex)
     end
     return skill_Buff_a,skill_Buff_b,skill_Buff_c
 end
+--计算组合类型
+function calcBondType(bondImage_list,image_tpl,type)
+    local tpl = {};
+    local BondType=0;
+    --local BondCount=0;
+    for k,v in pairs(image_tpl) do
+      for i=1,#bondImage_list do
+        if (bondImage_list[i]==v and CheckInTable(tpl,v)==false) then
+          --BondCount=BondCount+1;
+          table.insert(tpl,v);
+        end
+      end
+    end
+    --if (BondCount>=#bondImage_list) then
+    if (#tpl == #bondImage_list) then
+      local BondType = type;
+      return BondType
+    end
+    return BondType
+end
+-------------------------------------------------------
+--回合后事件
+function Module:OnAfterBattleTurnCommand(battleIndex)
+    local Round = Battle.GetTurn(battleIndex);
+    local leader1 = Battle.GetPlayer(battleIndex,0)
+    local leader2 = Battle.GetPlayer(battleIndex,5)
+    local leader = leader1
+    if Char.GetData(leader2, CONST.对象_类型) == CONST.对象类型_人 then
+        leader = leader2
+    end
+
+    for i=0,19 do
+        local charIndex = Battle.GetPlayIndex(battleIndex, i)
+        if (charIndex>=0 and Char.IsPet(charIndex)) then
+            --重置状态
+            if (Battle.GetBattleCharacterStatus(charIndex, CONST.战属_慢舞回合)>=2) then
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞回合,1);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞值,100);
+            elseif (Battle.GetBattleCharacterStatus(charIndex, CONST.战属_慢舞回合)==1) then
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞回合,0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞值,0);
+            end
+            --发动状态
+            local skill500_rate = calcDynamaxRate(charIndex)*5;		--极巨化词条为5%
+            if (skill500_rate>= NLG.Rand(1,100)) then
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞回合,2);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.战属_慢舞值,100);
+            end
+        end
+    end
+end
+
+--计算极巨化发动率
+function calcDynamaxRate(petIndex)
+    local skill_rate=0;
+    for slot=0,4 do
+      local itemIndex = Char.GetItemIndex(petIndex,slot);
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.道具_子参二)==41) then		--宠装词条类别41
+        local dynamax_Skill_x = string.split(Item.GetData(itemIndex, CONST.道具_USEFUNC),",");
+        for i=1,#dynamax_Skill_x do
+          local skillId_x = tonumber(dynamax_Skill_x[i]);
+          if (skillId_x>0 and skillId_x==500) then
+            skill_rate = skill_rate + 1;
+          else
+            skill_rate = skill_rate;
+          end
+        end
+      end
+    end
+    return skill_rate
+end
+
 
 function position(PosSlot)
   if PosSlot == 10 then
