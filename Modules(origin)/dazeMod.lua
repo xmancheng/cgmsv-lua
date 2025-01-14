@@ -40,7 +40,7 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 			local para_debuff = Char.GetTempData(defCharIndex, '麻痹') or 0;
 			if (para_debuff<=0) then
 				Char.SetTempData(defCharIndex, '麻痹', 3);
-				--NLG.SystemMessage(leader, "[系統]發動使敵人陷入麻痺");
+				--NLG.SystemMessage(defCharIndex, "[系統]發動使敵人陷入麻痺");
 			end
 		end
 		boom_list[charIndex] = 0;
@@ -74,7 +74,7 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 				local daze_debuff = Char.GetTempData(defCharIndex, '迷惑') or 0;
 				if (daze_debuff<=0) then
 					Char.SetTempData(defCharIndex, '迷惑', 5);
-					--NLG.SystemMessage(leader, "[系統]發動挑撥敵人陷入迷惑");
+					--NLG.SystemMessage(defCharIndex, "[系統]發動挑撥敵人陷入迷惑");
 				end
 			end
 		end
@@ -87,12 +87,12 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 		local para_debuff = Char.GetTempData(charIndex, '麻痹') or 0;
 		if (daze_debuff>0) then
 			NLG.SystemMessage(-1, "[系統]"..PosName.."的"..EnemyName.."陷入迷惑");
-			Char.SetTempData(leader, '迷惑', daze_debuff-1);
+			Char.SetTempData(charIndex, '迷惑', daze_debuff-1);
 			local tgl = calcPlayerHighHP_list(tgl,battleIndex);
 			return tgl
 		elseif (para_debuff>0 and daze_debuff<=0) then
 			NLG.SystemMessage(-1, "[系統]"..PosName.."的"..EnemyName.."陷入麻痺");
-			Char.SetTempData(leader, '麻痹', para_debuff-1);
+			Char.SetTempData(charIndex, '麻痹', para_debuff-1);
 			tgl[1]=30;
 			local tgl = tgl;
 			return tgl
