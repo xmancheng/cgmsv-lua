@@ -5,16 +5,16 @@ local JSON = require "lua/Modules/json"
 local sgModule = getModule("setterGetter")
 local skillInfo = dofile("lua/Modules/autoBattleParams.lua")
 local function getHp(charIndex)
-	return Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€)
+	return Char.GetData(charIndex, CONST.¶ÔÏó_Ñª)
 end
 local function getMaxHp(charIndex)
-	return Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€)
+	return Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÑª)
 end
 local function getMp(charIndex)
-	return Char.GetData(charIndex, CONST.å¯¹è±¡_é­”)
+	return Char.GetData(charIndex, CONST.¶ÔÏó_Ä§)
 end
 local function getMaxMp(charIndex)
-	return Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§é­”)
+	return Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÄ§)
 end
 
 function getEntryPositionBySlot(battleIndex, slot)
@@ -23,7 +23,7 @@ function getEntryPositionBySlot(battleIndex, slot)
 		local pos = Battle.GetPos(battleIndex, cIndex);
 		return pos;
 	else
-		print('è·å–charIndexå¤±è´¥: ', cIndex);
+		print('»ñÈ¡charIndexÊ§°Ü: ', cIndex);
 		return -5;
 	end
 end
@@ -36,7 +36,7 @@ local function oppositeSide(side)
 	end
 end
 
--- NOTE å¾ªç¯å·±æ–¹ è·å¾—å·±æ–¹çš„æ‰€æœ‰å•ä½Index
+-- NOTE Ñ­»·¼º·½ »ñµÃ¼º·½µÄËùÓĞµ¥Î»Index
 local function getAttackerSide(charIndex, side, battleIndex)
 	local slotTable = {}
 	for slot = side * 10 + 0, side * 10 + 9 do
@@ -52,7 +52,7 @@ end
 
 
 
--- NOTE å¾ªç¯å¯¹æ–¹ è·å¾—å¯¹æ–¹çš„æ‰€æœ‰å•ä½Index
+-- NOTE Ñ­»·¶Ô·½ »ñµÃ¶Ô·½µÄËùÓĞµ¥Î»Index
 local function getDeffenderSide(charIndex, attSide, battleIndex)
 	local side = oppositeSide(attSide)
 	local slotTable = {}
@@ -66,7 +66,7 @@ local function getDeffenderSide(charIndex, attSide, battleIndex)
 	end
 	return slotTable
 end
--- NOTE æ˜¯å¦ ä¸­äº†æŸä¸ªçŠ¶æ€
+-- NOTE ÊÇ·ñ ÖĞÁËÄ³¸ö×´Ì¬
 --   return :true false
 local function hasGotStatus(charIndex, side, battleIndex, statusKey)
 	return function(charIndex, side, battleIndex)
@@ -77,17 +77,17 @@ local function hasGotStatus(charIndex, side, battleIndex, statusKey)
 	end
 end
 
--- NOTE ä¸­äº†å¼‚å¸¸çš„äººæ•°
+-- NOTE ÖĞÁËÒì³£µÄÈËÊı
 --   return: num
 local function gotAnyStatusNum(charIndex, side, battleIndex)
 	local chars = getAttackerSide(charIndex, side, battleIndex)
 	local statusChars = _.select(chars, function(charIndex)
-		return Char.GetData(charIndex, CONST.å¯¹è±¡_ModPoison) > 1 or
-			Char.GetData(charIndex, CONST.å¯¹è±¡_ModSleep) > 1 or
-			Char.GetData(charIndex, CONST.å¯¹è±¡_ModStone) > 1 or
-			Char.GetData(charIndex, CONST.å¯¹è±¡_ModDrunk) > 1 or
-			Char.GetData(charIndex, CONST.å¯¹è±¡_ModConfusion) > 1 or
-			Char.GetData(charIndex, CONST.å¯¹è±¡_ModAmnesia) > 1
+		return Char.GetData(charIndex, CONST.¶ÔÏó_ModPoison) > 1 or
+			Char.GetData(charIndex, CONST.¶ÔÏó_ModSleep) > 1 or
+			Char.GetData(charIndex, CONST.¶ÔÏó_ModStone) > 1 or
+			Char.GetData(charIndex, CONST.¶ÔÏó_ModDrunk) > 1 or
+			Char.GetData(charIndex, CONST.¶ÔÏó_ModConfusion) > 1 or
+			Char.GetData(charIndex, CONST.¶ÔÏó_ModAmnesia) > 1
 	end)
 
 	return #statusChars;
@@ -95,68 +95,68 @@ end
 
 
 
--- NOTE åˆ¤æ–­ äººæ•°
+-- NOTE ÅĞ¶Ï ÈËÊı
 --   return :true false
 local function livesNumEq(charIndex, side, battleIndex, num)
 	return function(charIndex, side, battleIndex)
 		local chars = getAttackerSide(charIndex, side, battleIndex)
 		local liveChars = _.select(chars, function(charIndex)
-			return Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ­») == 0
+			return Char.GetData(charIndex, CONST.¶ÔÏó_Õ½ËÀ) == 0
 		end)
 		return #liveChars == num
 	end
 end
--- NOTE è·å¾—å·±æ–¹å­˜æ´»äººæ•°
+-- NOTE »ñµÃ¼º·½´æ»îÈËÊı
 --  return  num
 local function livesNum(charIndex, side, battleIndex)
 	local chars = getAttackerSide(charIndex, side, battleIndex)
 	local liveChars = _.select(chars, function(charIndex)
-		return Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ­») == 0
+		return Char.GetData(charIndex, CONST.¶ÔÏó_Õ½ËÀ) == 0
 	end)
 	return #liveChars
 end
 
--- NOTE è·å¾—å·±æ–¹æˆ˜æ­»äººç‰©æ•°é‡
+-- NOTE »ñµÃ¼º·½Õ½ËÀÈËÎïÊıÁ¿
 local function deadPlayerNum(charIndex, side, battleIndex)
 	local chars = getAttackerSide(charIndex, side, battleIndex)
 	local liveChars = _.select(chars, function(charIndex)
-		return Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ­») == 1 and Char.GetData(charIndex, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº
+		return Char.GetData(charIndex, CONST.¶ÔÏó_Õ½ËÀ) == 1 and Char.GetData(charIndex, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË
 	end)
 	return #liveChars
 end
 
--- NOTE è·å¾—å·±æ–¹æˆ˜æ­»äººæ•°
+-- NOTE »ñµÃ¼º·½Õ½ËÀÈËÊı
 local function deadNum(charIndex, side, battleIndex)
 	local chars = getAttackerSide(charIndex, side, battleIndex)
 	local liveChars = _.select(chars, function(charIndex)
-		return Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ­») == 1
+		return Char.GetData(charIndex, CONST.¶ÔÏó_Õ½ËÀ) == 1
 	end)
 	return #liveChars
 end
 
 
--- NOTE è·å¾—å¯¹æ–¹äººæ•°
+-- NOTE »ñµÃ¶Ô·½ÈËÊı
 --  return  num
 local function livesDefNum(charIndex, side, battleIndex)
 	local chars = getDeffenderSide(charIndex, side, battleIndex)
 	local liveChars = _.select(chars, function(charIndex)
-		return Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ­») == 0
+		return Char.GetData(charIndex, CONST.¶ÔÏó_Õ½ËÀ) == 0
 	end)
 	return #liveChars
 end
 
 
--- NOTE è·å¾— å¹³å‡ç­‰çº§
+-- NOTE »ñµÃ Æ½¾ùµÈ¼¶
 --  return num
 local function averageLevel(charIndexTable)
 	local totalLevel = _.reduce(charIndexTable, 0, function(count, charIndex)
-		local level = Char.GetData(charIndex, CONST.å¯¹è±¡_ç­‰çº§)
+		local level = Char.GetData(charIndex, CONST.¶ÔÏó_µÈ¼¶)
 		return count + level
 	end)
 	return totalLevel / #charIndexTable
 end
 
--- NOTE å·±æ–¹ hp < x çš„è¶…è¿‡  yäºº
+-- NOTE ¼º·½ hp < x µÄ³¬¹ı  yÈË
 local function partyLowerHPNum(charIndex, side, battleIndex, hpRatio, num)
 	local chars = getAttackerSide(charIndex, side, battleIndex)
 	local count = 0;
@@ -173,200 +173,200 @@ local function partyLowerHPNum(charIndex, side, battleIndex, hpRatio, num)
 end
 
 
--- SECTION æ¡ä»¶
+-- SECTION Ìõ¼ş
 module.conditions = {
-	-- NOTE è‡ªèº« æ— æ¡ä»¶é‡Šæ”¾
+	-- NOTE ×ÔÉí ÎŞÌõ¼şÊÍ·Å
 	['0'] = {
-		comment = "ç„¡ä¸Šè¿°æ¢ä»¶",
+		comment = "ŸoÉÏÊö—l¼ş",
 		fn = function(charIndex) return true end
 	},
-	-- NOTE è‡ªèº«hp =100%
+	-- NOTE ×ÔÉíhp =100%
 	['4'] = {
-		comment = "è‡ªèº«hp=100%",
+		comment = "×ÔÉíhp=100%",
 		fn = function(charIndex) return getHp(charIndex) == getMaxHp(charIndex) end
 	},
-	-- NOTE è‡ªèº«hp > 75%
+	-- NOTE ×ÔÉíhp > 75%
 	['5'] = {
-		comment = "è‡ªèº«hp>75%",
+		comment = "×ÔÉíhp>75%",
 		fn = function(charIndex) return getHp(charIndex) / getMaxHp(charIndex) > 0.75 end
 	},
-	-- NOTE è‡ªèº«hp > 50%
+	-- NOTE ×ÔÉíhp > 50%
 	['6'] = {
-		comment = "è‡ªèº«hp>50%",
+		comment = "×ÔÉíhp>50%",
 		fn = function(charIndex) return getHp(charIndex) / getMaxHp(charIndex) > 0.5 end
 	},
-	-- NOTE è‡ªèº«hp < 50%
+	-- NOTE ×ÔÉíhp < 50%
 	['7'] = {
-		comment = "è‡ªèº«hp<50%",
+		comment = "×ÔÉíhp<50%",
 		fn = function(charIndex) return getHp(charIndex) / getMaxHp(charIndex) < 0.5 end
 	},
-	-- NOTE è‡ªèº«hp < 25%
+	-- NOTE ×ÔÉíhp < 25%
 	['8'] = {
-		comment = "è‡ªèº«hp<30%",
+		comment = "×ÔÉíhp<30%",
 		fn = function(charIndex) return getHp(charIndex) / getMaxHp(charIndex) < 0.3 end
 	},
-	-- NOTE è‡ªèº« mp>=0.5
+	-- NOTE ×ÔÉí mp>=0.5
 	['9'] = {
-		comment = "è‡ªèº«mp>=50%",
+		comment = "×ÔÉímp>=50%",
 		fn = function(charIndex) return getMp(charIndex) / getMaxMp(charIndex) >= 0.5 end
 	},
-	-- NOTE è‡ªèº«mp<50%
+	-- NOTE ×ÔÉímp<50%
 	['10'] = {
-		comment = "è‡ªèº«mp<50%",
+		comment = "×ÔÉímp<50%",
 		fn = function(charIndex) return getMp(charIndex) / getMaxMp(charIndex) < 0.5 end
 	},
 
-	-- NOTE å·±æ–¹é˜µè¥ä¸­æœ‰ä¸­æ¯’å•ä½
+	-- NOTE ¼º·½ÕóÓªÖĞÓĞÖĞ¶¾µ¥Î»
 	["13"] = {
-		comment = "å·±æ–¹æœ‰ä¸­æ¯’å–®ä½",
-		fn = hasGotStatus(CONST.å¯¹è±¡_ModPoison)
+		comment = "¼º·½ÓĞÖĞ¶¾†ÎÎ»",
+		fn = hasGotStatus(CONST.¶ÔÏó_ModPoison)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­æœ‰æ··ä¹±å•ä½
+	-- NOTE ¼º·½ÕóÓªÖĞÓĞ»ìÂÒµ¥Î»
 	["14"] = {
-		comment = "å·±æ–¹æœ‰æ··äº‚å–®ä½",
-		fn = hasGotStatus(CONST.å¯¹è±¡_ModConfusion)
+		comment = "¼º·½ÓĞ»ìy†ÎÎ»",
+		fn = hasGotStatus(CONST.¶ÔÏó_ModConfusion)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­æœ‰çŸ³åŒ–å•ä½
+	-- NOTE ¼º·½ÕóÓªÖĞÓĞÊ¯»¯µ¥Î»
 	["15"] = {
-		comment = "å·±æ–¹æœ‰çŸ³åŒ–å–®ä½",
-		fn = hasGotStatus(CONST.å¯¹è±¡_ModStone)
+		comment = "¼º·½ÓĞÊ¯»¯†ÎÎ»",
+		fn = hasGotStatus(CONST.¶ÔÏó_ModStone)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­æœ‰ç¡çœ å•ä½
+	-- NOTE ¼º·½ÕóÓªÖĞÓĞË¯Ãßµ¥Î»
 	["16"] = {
-		comment = "å·±æ–¹æœ‰ç¡çœ å–®ä½",
-		fn = hasGotStatus(CONST.å¯¹è±¡_ModSleep)
+		comment = "¼º·½ÓĞË¯Ãß†ÎÎ»",
+		fn = hasGotStatus(CONST.¶ÔÏó_ModSleep)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­æœ‰é…’é†‰å•ä½
+	-- NOTE ¼º·½ÕóÓªÖĞÓĞ¾Æ×íµ¥Î»
 	["17"] = {
-		comment = "å·±æ–¹æœ‰é…’é†‰å–®ä½",
-		fn = hasGotStatus(CONST.å¯¹è±¡_ModDrunk)
+		comment = "¼º·½ÓĞ¾Æ×í†ÎÎ»",
+		fn = hasGotStatus(CONST.¶ÔÏó_ModDrunk)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­æœ‰é—å¿˜å•ä½
+	-- NOTE ¼º·½ÕóÓªÖĞÓĞÒÅÍüµ¥Î»
 	["18"] = {
-		comment = "å·±æ–¹æœ‰éºå¿˜å–®ä½",
-		fn = hasGotStatus(CONST.å¯¹è±¡_ModAmnesia)
+		comment = "¼º·½ÓĞßzÍü†ÎÎ»",
+		fn = hasGotStatus(CONST.¶ÔÏó_ModAmnesia)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡0
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿0
 	["19"] = {
-		comment = "å·±æ–¹å­˜æ´»ç‚º0",
+		comment = "¼º·½´æ»îé0",
 		fn = livesNumEq(charIndex, side, battleIndex, 0)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡1
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿1
 	["20"] = {
-		comment = "å·±æ–¹å­˜æ´»ç‚º1",
+		comment = "¼º·½´æ»îé1",
 		fn = livesNumEq(charIndex, side, battleIndex, 1)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡2
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿2
 	["21"] = {
-		comment = "å·±æ–¹å­˜æ´»ç‚º1",
+		comment = "¼º·½´æ»îé1",
 		fn = livesNumEq(charIndex, side, battleIndex, 2)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡ ==10
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿ ==10
 	["22"] = {
-		comment = "å·±æ–¹å­˜æ´»ç‚º10",
+		comment = "¼º·½´æ»îé10",
 		fn = livesNumEq(charIndex, side, battleIndex, 10)
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡>=8
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿>=8
 	["23"] = {
-		comment = "å·±æ–¹å­˜æ´»>=8",
+		comment = "¼º·½´æ»î>=8",
 		fn = function(charIndex, side, battleIndex) return livesNum(charIndex, side, battleIndex) >= 8 end
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡>=5
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿>=5
 	["24"] = {
-		comment = "å·±æ–¹å­˜æ´»>=5",
+		comment = "¼º·½´æ»î>=5",
 		fn = function(charIndex, side, battleIndex) return livesNum(charIndex, side, battleIndex) >= 5 end
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡<5
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿<5
 	["25"] = {
-		comment = "å·±æ–¹å­˜æ´»<5",
+		comment = "¼º·½´æ»î<5",
 		fn = function(charIndex, side, battleIndex) return livesNum(charIndex, side, battleIndex) < 5 end
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡<4
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿<4
 	["26"] = {
-		comment = "å·±æ–¹å­˜æ´»<4",
+		comment = "¼º·½´æ»î<4",
 		fn = function(charIndex, side, battleIndex) return livesNum(charIndex, side, battleIndex) < 4 end
 	},
-	-- NOTE å·±æ–¹é˜µè¥ä¸­å­˜æ´»æ•°é‡<=1
+	-- NOTE ¼º·½ÕóÓªÖĞ´æ»îÊıÁ¿<=1
 	["27"] = {
-		comment = "å·±æ–¹å­˜æ´»<=1",
+		comment = "¼º·½´æ»î<=1",
 		fn = function(charIndex, side, battleIndex) return livesNum(charIndex, side, battleIndex) <= 1 end
 	},
-	-- NOTE å·±æ–¹å¹³å‡ç­‰çº§ < æ•Œæ–¹
+	-- NOTE ¼º·½Æ½¾ùµÈ¼¶ < µĞ·½
 	["29"] = {
-		comment = "å·±æ–¹å¹³å‡ç­‰ç´š<æ•µæ–¹",
+		comment = "¼º·½Æ½¾ùµÈ¼‰<”³·½",
 		fn = function(charIndex, side, battleIndex)
 			return averageLevel(getAttackerSide(charIndex, side, battleIndex)) <
 				averageLevel(getDeffenderSide(charIndex, side, battleIndex))
 		end
 	},
-	-- NOTE å·±æ–¹å¹³å‡ç­‰çº§ >= æ•Œæ–¹
+	-- NOTE ¼º·½Æ½¾ùµÈ¼¶ >= µĞ·½
 	["30"] = {
-		comment = "å·±æ–¹å¹³å‡ç­‰ç´š>=æ•µæ–¹",
+		comment = "¼º·½Æ½¾ùµÈ¼‰>=”³·½",
 		fn = function(charIndex, side, battleIndex)
 			return averageLevel(getAttackerSide(charIndex, side, battleIndex)) >=
 				averageLevel(getDeffenderSide(charIndex, side, battleIndex))
 		end
 	},
-	-- NOTE å¯¹æ–¹æŸä¸€å•ä½hp ==100%
+	-- NOTE ¶Ô·½Ä³Ò»µ¥Î»hp ==100%
 	["31"] = {
-		comment = "å°æ–¹æŸå–®ä½hp=100%",
+		comment = "Œ¦·½Ä³†ÎÎ»hp=100%",
 		fn = function(charIndex, side, battleIndex)
 			local defChars = getDeffenderSide(charIndex, side, battleIndex)
 			return _.any(defChars, function(charIndex)
-				return Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€) == 1
+				return Char.GetData(charIndex, CONST.¶ÔÏó_Ñª) / Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÑª) == 1
 			end)
 		end
 	},
-	-- NOTE å¯¹æ–¹ æŸä¸€å•ä½hp >75%
+	-- NOTE ¶Ô·½ Ä³Ò»µ¥Î»hp >75%
 	["32"] = {
-		comment = "å°æ–¹æŸå–®ä½>75%",
+		comment = "Œ¦·½Ä³†ÎÎ»>75%",
 		fn = function(charIndex, side, battleIndex)
 			local defChars = getDeffenderSide(charIndex, side, battleIndex)
 			return _.any(defChars, function(charIndex)
-				return Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€) > 0.75
+				return Char.GetData(charIndex, CONST.¶ÔÏó_Ñª) / Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÑª) > 0.75
 			end)
 		end
 	},
-	-- NOTE å¯¹æ–¹ æŸä¸€å•ä½hp >50%
+	-- NOTE ¶Ô·½ Ä³Ò»µ¥Î»hp >50%
 	["33"] = {
-		comment = "å°æ–¹æŸå–®ä½hp>50%",
+		comment = "Œ¦·½Ä³†ÎÎ»hp>50%",
 		fn = function(charIndex, side, battleIndex)
 			local defChars = getDeffenderSide(charIndex, side, battleIndex)
 			return _.any(defChars, function(charIndex)
-				return Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€) > 0.5
+				return Char.GetData(charIndex, CONST.¶ÔÏó_Ñª) / Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÑª) > 0.5
 			end)
 		end
 	},
-	-- NOTE å¯¹æ–¹ æŸä¸€å•ä½hp <50%
+	-- NOTE ¶Ô·½ Ä³Ò»µ¥Î»hp <50%
 	["34"] = {
-		comment = "å°æ–¹æŸå–®ä½hp<50%",
+		comment = "Œ¦·½Ä³†ÎÎ»hp<50%",
 		fn = function(charIndex, side, battleIndex)
 			local defChars = getDeffenderSide(charIndex, side, battleIndex)
 
 			return _.any(defChars, function(charIndex)
-				return Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€) < 0.5
+				return Char.GetData(charIndex, CONST.¶ÔÏó_Ñª) / Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÑª) < 0.5
 			end)
 		end
 	},
-	-- NOTE å¯¹æ–¹ æŸä¸€å•ä½hp <25%
+	-- NOTE ¶Ô·½ Ä³Ò»µ¥Î»hp <25%
 	["35"] = {
-		comment = "å°æ–¹æŸå–®ä½hp<25%",
+		comment = "Œ¦·½Ä³†ÎÎ»hp<25%",
 		fn = function(charIndex, side, battleIndex)
 			local defChars = getDeffenderSide(charIndex, side, battleIndex)
 			return _.any(defChars, function(charIndex)
-				return Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€) < 0.25
+				return Char.GetData(charIndex, CONST.¶ÔÏó_Ñª) / Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÑª) < 0.25
 			end)
 		end
 	},
-	-- NOTE å¯¹æ–¹æŸä¸€å•ä½mp>50ä¸”<75%
+	-- NOTE ¶Ô·½Ä³Ò»µ¥Î»mp>50ÇÒ<75%
 	["36"] = {
-		comment = "å°æ–¹æŸä¸€å–®ä½mp>50ä¸”<75%",
+		comment = "Œ¦·½Ä³Ò»†ÎÎ»mp>50ÇÒ<75%",
 		fn = function(charIndex, side, battleIndex)
 			local defChars = getDeffenderSide(charIndex, side, battleIndex)
 			return _.any(defChars, function(charIndex)
-				local mp = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”)
-				local mpRatio = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§é­”)
-				local name = Char.GetData(charIndex, CONST.å¯¹è±¡_åå­—)
+				local mp = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§)
+				local mpRatio = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§) / Char.GetData(charIndex, CONST.¶ÔÏó_×î´óÄ§)
+				local name = Char.GetData(charIndex, CONST.¶ÔÏó_Ãû×Ö)
 				if mp >= 50 and mpRatio <= 0.75 then
 					-- print(name ..' >> ' .. mp .. ' : ' .. mpRatio)
 				end
@@ -374,219 +374,219 @@ module.conditions = {
 			end)
 		end
 	},
-	-- NOTE ç¬¬ä¸€å›åˆ
+	-- NOTE µÚÒ»»ØºÏ
 	['54'] = {
-		comment = "ç¬¬ä¸€å›åˆ",
+		comment = "µÚÒ»»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return Battle.GetTurn(battleIndex) == 0 end
 	},
-	-- NOTE å¥‡æ•°å›åˆ
+	-- NOTE ÆæÊı»ØºÏ
 	['55'] = {
-		comment = "å¥‡æ•¸å›åˆ",
+		comment = "Ææ”µ»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex) + 1, 2) == 1 end
 	},
-	-- NOTE å¶æ•°å›åˆ
+	-- NOTE Å¼Êı»ØºÏ
 	['56'] = {
-		comment = "å¶æ•¸å›åˆ",
+		comment = "Å¼”µ»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex) + 1, 2) == 0 end
 	},
-	-- NOTE é—´éš”2å›åˆ
+	-- NOTE ¼ä¸ô2»ØºÏ
 	['57'] = {
-		comment = "é–“éš”äº†2å›åˆ",
+		comment = "ég¸ôÁË2»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 2) == 0 end
 	},
-	-- NOTE é—´éš”3å›åˆ
+	-- NOTE ¼ä¸ô3»ØºÏ
 	['58'] = {
-		comment = "é–“éš”äº†3å›åˆ",
+		comment = "ég¸ôÁË3»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 3) == 0 end
 	},
-	-- NOTE é—´éš”4å›åˆ
+	-- NOTE ¼ä¸ô4»ØºÏ
 	['59'] = {
-		comment = "é–“éš”äº†4å›åˆ",
+		comment = "ég¸ôÁË4»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 4) == 0 end
 	},
-	-- NOTE é—´éš”5å›åˆ
+	-- NOTE ¼ä¸ô5»ØºÏ
 	['60'] = {
-		comment = "é–“éš”äº†5å›åˆ",
+		comment = "ég¸ôÁË5»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 5) == 0 end
 	},
-	-- NOTE é—´éš”6å›åˆ
+	-- NOTE ¼ä¸ô6»ØºÏ
 	['61'] = {
-		comment = "é–“éš”äº†6å›åˆ",
+		comment = "ég¸ôÁË6»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 6) == 0 end
 	},
-	-- NOTE é—´éš”7å›åˆ
+	-- NOTE ¼ä¸ô7»ØºÏ
 	['62'] = {
-		comment = "é–“éš”äº†7å›åˆ",
+		comment = "ég¸ôÁË7»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 7) == 0 end
 	},
-	-- NOTE é—´éš”8å›åˆ
+	-- NOTE ¼ä¸ô8»ØºÏ
 	['63'] = {
-		comment = "é–“éš”äº†8å›åˆ",
+		comment = "ég¸ôÁË8»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 8) == 0 end
 	},
-	-- NOTE é—´éš”9å›åˆ
+	-- NOTE ¼ä¸ô9»ØºÏ
 	['64'] = {
-		comment = "é–“éš”äº†9å›åˆ",
+		comment = "ég¸ôÁË9»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 9) == 0 end
 	},
-	-- NOTE é—´éš”10å›åˆ
+	-- NOTE ¼ä¸ô10»ØºÏ
 	['65'] = {
-		comment = "é–“éš”äº†10å›åˆ",
+		comment = "ég¸ôÁË10»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 10) == 0 end
 	},
-	-- NOTE é—´éš”11å›åˆ
+	-- NOTE ¼ä¸ô11»ØºÏ
 	['66'] = {
-		comment = "é–“éš”äº†11å›åˆ",
+		comment = "ég¸ôÁË11»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 11) == 0 end
 	},
-	-- NOTE é—´éš”12å›åˆ
+	-- NOTE ¼ä¸ô12»ØºÏ
 	['67'] = {
-		comment = "é–“éš”äº†12å›åˆ",
+		comment = "ég¸ôÁË12»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return math.fmod(Battle.GetTurn(battleIndex), 12) == 0 end
 	},
-	-- NOTE å¯¹æ–¹åªæœ‰ä¸€ä¸ªå­˜æ´»
+	-- NOTE ¶Ô·½Ö»ÓĞÒ»¸ö´æ»î
 	["82"] = {
-		comment = "å°æ–¹åªæœ‰ä¸€å€‹å­˜æ´»",
+		comment = "Œ¦·½Ö»ÓĞÒ»‚€´æ»î",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) == 1 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» >1
+	-- NOTE ¶Ô·½´æ»î >1
 	["83"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸>1",
+		comment = "Œ¦·½´æ»î”µ>1",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) >= 1 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» >2
+	-- NOTE ¶Ô·½´æ»î >2
 	["84"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸>2",
+		comment = "Œ¦·½´æ»î”µ>2",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) > 2 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» >3
+	-- NOTE ¶Ô·½´æ»î >3
 	["85"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸>3",
+		comment = "Œ¦·½´æ»î”µ>3",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) > 3 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» >5
+	-- NOTE ¶Ô·½´æ»î >5
 	["86"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸>5",
+		comment = "Œ¦·½´æ»î”µ>5",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) > 5 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» >6
+	-- NOTE ¶Ô·½´æ»î >6
 	["87"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸>6",
+		comment = "Œ¦·½´æ»î”µ>6",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) > 6 end
 	},
 
-	-- NOTE ç¬¬ä¸€å›åˆ
+	-- NOTE µÚÒ»»ØºÏ
 	["89"] = {
-		comment = "æ˜¯ç¬¬ä¸€å›åˆ",
+		comment = "ÊÇµÚÒ»»ØºÏ",
 		fn = function(charIndex, side, battleIndex) return Battle.GetTurn(battleIndex) == 0 end
 	},
 
 
-	-- --  å·±æ–¹ mp<0.25
+	-- --  ¼º·½ mp<0.25
 	-- ['90']= function(charIndex) return getMp(charIndex)/getMaxMp(charIndex)<0.25 end,
-	-- --  å·±æ–¹ mp<0.15
+	-- --  ¼º·½ mp<0.15
 	-- ['91']= function(charIndex) return getMp(charIndex)/getMaxMp(charIndex)<0.15 end,
-	-- --  å·±æ–¹ mp<0.05
+	-- --  ¼º·½ mp<0.05
 	-- ['92']= function(charIndex) return getMp(charIndex)/getMaxMp(charIndex)<0.05 end,
-	-- NOTE å·±æ–¹HP<50%è¶…è¿‡5äºº
+	-- NOTE ¼º·½HP<50%³¬¹ı5ÈË
 	["93"] = {
-		comment = "å·±æ–¹HP<50%è¶…é5äºº",
+		comment = "¼º·½HP<50%³¬ß^5ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.5, 5) end
 	},
-	-- NOTE å·±æ–¹HP<50%è¶…è¿‡4äºº
+	-- NOTE ¼º·½HP<50%³¬¹ı4ÈË
 	["94"] = {
-		comment = "å·±æ–¹HP<50%è¶…é4äºº",
+		comment = "¼º·½HP<50%³¬ß^4ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.5, 4) end
 	},
-	-- NOTE å·±æ–¹HP<75%è¶…è¿‡5äºº
+	-- NOTE ¼º·½HP<75%³¬¹ı5ÈË
 	["95"] = {
-		comment = "å·±æ–¹HP<75%è¶…é5äºº",
+		comment = "¼º·½HP<75%³¬ß^5ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.75, 5) end
 	},
-	-- NOTE å·±æ–¹HP<75%è¶…è¿‡4äºº
+	-- NOTE ¼º·½HP<75%³¬¹ı4ÈË
 	["96"] = {
-		comment = "å·±æ–¹HP<75%è¶…é4äºº",
+		comment = "¼º·½HP<75%³¬ß^4ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.75, 4) end
 	},
-	-- NOTE å·±æ–¹æœ‰äººç‰©æˆ˜æ­»
+	-- NOTE ¼º·½ÓĞÈËÎïÕ½ËÀ
 	["97"] = {
-		comment = "å·±æ–¹æœ‰äººç‰©æˆ°æ­»",
+		comment = "¼º·½ÓĞÈËÎï‘ğËÀ",
 		fn = function(charIndex, side, battleIndex) return deadPlayerNum(charIndex, side, battleIndex) >= 1 end
 	},
 	["98"] = {
-		comment = "å·±æ–¹æœ‰å–®ä½æˆ°æ­»",
+		comment = "¼º·½ÓĞ†ÎÎ»‘ğËÀ",
 		fn = function(charIndex, side, battleIndex) return deadNum(charIndex, side, battleIndex) >= 1 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» <=8
+	-- NOTE ¶Ô·½´æ»î <=8
 	["99"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸<=8",
+		comment = "Œ¦·½´æ»î”µ<=8",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) <= 8 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» <=5
+	-- NOTE ¶Ô·½´æ»î <=5
 	["100"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸<=5",
+		comment = "Œ¦·½´æ»î”µ<=5",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) <= 5 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» <=4
+	-- NOTE ¶Ô·½´æ»î <=4
 	["101"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸<=4",
+		comment = "Œ¦·½´æ»î”µ<=4",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) <= 4 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» <=3
+	-- NOTE ¶Ô·½´æ»î <=3
 	["102"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸<=3",
+		comment = "Œ¦·½´æ»î”µ<=3",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) <= 3 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» <=2
+	-- NOTE ¶Ô·½´æ»î <=2
 	["103"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸<=2",
+		comment = "Œ¦·½´æ»î”µ<=2",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) <= 2 end
 	},
-	-- NOTE å¯¹æ–¹å­˜æ´» <=1
+	-- NOTE ¶Ô·½´æ»î <=1
 	["104"] = {
-		comment = "å°æ–¹å­˜æ´»æ•¸<=1",
+		comment = "Œ¦·½´æ»î”µ<=1",
 		fn = function(charIndex, side, battleIndex) return livesDefNum(charIndex, side, battleIndex) <= 1 end
 	},
-	--NOTE å·±æ–¹HP<30%è¶…è¿‡0äºº
+	--NOTE ¼º·½HP<30%³¬¹ı0ÈË
 	["105"] = {
-		comment = "å·±æ–¹HP<30%>=1äºº",
+		comment = "¼º·½HP<30%>=1ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.3, 0) end
 	},
-	--NOTE å·±æ–¹HP<40%è¶…è¿‡0äºº
+	--NOTE ¼º·½HP<40%³¬¹ı0ÈË
 	["106"] = {
-		comment = "å·±æ–¹HP<40%>=1äºº",
+		comment = "¼º·½HP<40%>=1ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.4, 0) end
 	},
-	--NOTE å·±æ–¹HP<40%è¶…è¿‡3äºº
+	--NOTE ¼º·½HP<40%³¬¹ı3ÈË
 	["107"] = {
-		comment = "å·±æ–¹HP<40%>=2äºº",
+		comment = "¼º·½HP<40%>=2ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.4, 2) end
 	},
-	--NOTE å·±æ–¹HP<50%è¶…è¿‡1äºº
+	--NOTE ¼º·½HP<50%³¬¹ı1ÈË
 	["108"] = {
-		comment = "å·±æ–¹HP<50%>=1äºº",
+		comment = "¼º·½HP<50%>=1ÈË",
 		fn = function(charIndex, side, battleIndex) return partyLowerHPNum(charIndex, side, battleIndex, 0.5, 0) end
 	},
-	-- NOTE å·±æ–¹ä¸­å¼‚å¸¸äººæ•°>=1
+	-- NOTE ¼º·½ÖĞÒì³£ÈËÊı>=1
 	['201'] = {
-		comment = "å·±æ–¹ä¸­ç•°å¸¸äººæ•¸>=1",
+		comment = "¼º·½ÖĞ®³£ÈË”µ>=1",
 		fn = function(charIndex, side, battleIndex) return gotAnyStatusNum(charIndex, side, battleIndex) >= 1 end
 	},
-	-- NOTE å·±æ–¹ä¸­å¼‚å¸¸äººæ•°>=3
+	-- NOTE ¼º·½ÖĞÒì³£ÈËÊı>=3
 	['202'] = {
-		comment = "å·±æ–¹ä¸­ç•°å¸¸äººæ•¸>=3",
+		comment = "¼º·½ÖĞ®³£ÈË”µ>=3",
 		fn = function(charIndex, side, battleIndex) return gotAnyStatusNum(charIndex, side, battleIndex) >= 3 end
 	},
-	-- NOTE å·±æ–¹ä¸­å¼‚å¸¸äººæ•°>=5
+	-- NOTE ¼º·½ÖĞÒì³£ÈËÊı>=5
 	['203'] = {
-		comment = "å·±æ–¹ä¸­ç•°å¸¸äººæ•¸>=5",
+		comment = "¼º·½ÖĞ®³£ÈË”µ>=5",
 		fn = function(charIndex, side, battleIndex) return gotAnyStatusNum(charIndex, side, battleIndex) >= 5 end
 	},
 }
 -- !SECTION
 
 
--- NOTE target è·å–â€”â€” åˆ¤æ–­ range ä¸º 2ï¼Œ3 çš„æƒ…å†µ
+-- NOTE target »ñÈ¡¡ª¡ª ÅĞ¶Ï range Îª 2£¬3 µÄÇé¿ö
 local function getTargetWithRange23(side, range)
 	local allTable = {
 		[1] = 40, [2] = 41, ['all'] = 42
@@ -602,8 +602,8 @@ end
 
 
 
--- NOTE éšæœºç›®æ ‡
--- side 0 æ˜¯ä¸‹æ–¹ï¼Œ 1 æ˜¯ä¸Šæ–¹
+-- NOTE Ëæ»úÄ¿±ê
+-- side 0 ÊÇÏÂ·½£¬ 1 ÊÇÉÏ·½
 -- range: 0:single,1: range ,2: sideAll 3. whole
 local randomTarget = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
@@ -621,7 +621,7 @@ local randomTarget = _.wrap(getTargetWithRange23, function(func, side, battleInd
 	end
 
 	local randomSlot = slotTable[NLG.Rand(1, #slotTable)]
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, randomSlot)
 	if range == 0 then
 		return result
@@ -634,7 +634,7 @@ end)
 
 
 
--- NOTE è¡€æœ€å¤šçš„
+-- NOTE Ñª×î¶àµÄ
 local findMostHp = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -646,7 +646,7 @@ local findMostHp = _.wrap(getTargetWithRange23, function(func, side, battleIndex
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if (charIndex >= 0) then
-			local hp = Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€)
+			local hp = Char.GetData(charIndex, CONST.¶ÔÏó_Ñª)
 			if tagHp == nil then
 				tagHp = hp
 				returnSlot = slot
@@ -656,7 +656,7 @@ local findMostHp = _.wrap(getTargetWithRange23, function(func, side, battleIndex
 			end
 		end
 	end
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -666,7 +666,7 @@ local findMostHp = _.wrap(getTargetWithRange23, function(func, side, battleIndex
 	end
 	return result
 end)
--- NOTE è¡€æœ€å°‘çš„
+-- NOTE Ñª×îÉÙµÄ
 local findLeastHp = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -678,7 +678,7 @@ local findLeastHp = _.wrap(getTargetWithRange23, function(func, side, battleInde
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if (charIndex >= 0) then
-			local hp = Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€)
+			local hp = Char.GetData(charIndex, CONST.¶ÔÏó_Ñª)
 			if tagHp == nil then
 				tagHp = hp
 				returnSlot = slot
@@ -688,7 +688,7 @@ local findLeastHp = _.wrap(getTargetWithRange23, function(func, side, battleInde
 			end
 		end
 	end
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -698,7 +698,7 @@ local findLeastHp = _.wrap(getTargetWithRange23, function(func, side, battleInde
 	end
 	return result
 end)
--- NOTE è¡€é‡å æ¯”æœ€ä½çš„
+-- NOTE ÑªÁ¿Õ¼±È×îµÍµÄ
 local findLeastHpRatio = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -720,7 +720,7 @@ local findLeastHpRatio = _.wrap(getTargetWithRange23, function(func, side, battl
 			end
 		end
 	end
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -731,7 +731,7 @@ local findLeastHpRatio = _.wrap(getTargetWithRange23, function(func, side, battl
 	return result
 end)
 
--- NOTE é­”æœ€å¤šçš„
+-- NOTE Ä§×î¶àµÄ
 local findMostMp = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -743,7 +743,7 @@ local findMostMp = _.wrap(getTargetWithRange23, function(func, side, battleIndex
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if (charIndex >= 0) then
-			local mp = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”)
+			local mp = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§)
 			if tagMp == nil then
 				tagMp = mp
 				returnSlot = slot
@@ -753,7 +753,7 @@ local findMostMp = _.wrap(getTargetWithRange23, function(func, side, battleIndex
 			end
 		end
 	end
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -763,7 +763,7 @@ local findMostMp = _.wrap(getTargetWithRange23, function(func, side, battleIndex
 	end
 	return result
 end)
--- NOTE é­”æœ€å°‘çš„
+-- NOTE Ä§×îÉÙµÄ
 local findLeastMp = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -775,7 +775,7 @@ local findLeastMp = _.wrap(getTargetWithRange23, function(func, side, battleInde
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if (charIndex >= 0) then
-			local mp = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”)
+			local mp = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§)
 			if tagMp == nil then
 				tagMp = mp
 				returnSlot = slot
@@ -785,7 +785,7 @@ local findLeastMp = _.wrap(getTargetWithRange23, function(func, side, battleInde
 			end
 		end
 	end
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -795,7 +795,7 @@ local findLeastMp = _.wrap(getTargetWithRange23, function(func, side, battleInde
 	end
 	return result
 end)
--- NOTE é­”é‡å æ¯”æœ€ä½çš„
+-- NOTE Ä§Á¿Õ¼±È×îµÍµÄ
 local findLeastMpRatio = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -817,7 +817,7 @@ local findLeastMpRatio = _.wrap(getTargetWithRange23, function(func, side, battl
 			end
 		end
 	end
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -828,7 +828,7 @@ local findLeastMpRatio = _.wrap(getTargetWithRange23, function(func, side, battl
 	return result
 end)
 
--- NOTE éšæœºç©å®¶å•ä½ï¼ˆå«ä½£å…µï¼‰
+-- NOTE Ëæ»úÍæ¼Òµ¥Î»£¨º¬Ó¶±ø£©
 local findRandomPlayer = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -838,12 +838,12 @@ local findRandomPlayer = _.wrap(getTargetWithRange23, function(func, side, battl
 
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
-		if (charIndex >= 0 and Char.GetData(charIndex, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº) then
+		if (charIndex >= 0 and Char.GetData(charIndex, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË) then
 			table.insert(slotTable, slot)
 		end
 	end
 	local returnSlot = slotTable[NLG.Rand(1, #slotTable)]
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -854,7 +854,7 @@ local findRandomPlayer = _.wrap(getTargetWithRange23, function(func, side, battl
 	return result
 end)
 
--- NOTE éšæœºå® ç‰©å•ä½
+-- NOTE Ëæ»ú³èÎïµ¥Î»
 local findRandomPet = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -865,12 +865,12 @@ local findRandomPet = _.wrap(getTargetWithRange23, function(func, side, battleIn
 
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
-		if (charIndex >= 0 and Char.GetData(charIndex, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® ) then
+		if (charIndex >= 0 and Char.GetData(charIndex, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è) then
 			table.insert(slotTable, slot)
 		end
 	end
 	local returnSlot = slotTable[NLG.Rand(1, #slotTable)]
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -880,7 +880,7 @@ local findRandomPet = _.wrap(getTargetWithRange23, function(func, side, battleIn
 	end
 	return result
 end)
--- NOTE è·å–æ­»äº¡äººç‰©
+-- NOTE »ñÈ¡ËÀÍöÈËÎï
 local findDeadPlayer = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -891,11 +891,11 @@ local findDeadPlayer = _.wrap(getTargetWithRange23, function(func, side, battleI
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 
-		if charIndex >= 0 and Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ­») == 1 and Char.GetData(charIndex, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+		if charIndex >= 0 and Char.GetData(charIndex, CONST.¶ÔÏó_Õ½ËÀ) == 1 and Char.GetData(charIndex, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
 			returnSlot = slot
 		end
 	end
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -906,7 +906,7 @@ local findDeadPlayer = _.wrap(getTargetWithRange23, function(func, side, battleI
 	return result
 end)
 
--- NOTE è·å–æˆ˜æ­»å•ä½
+-- NOTE »ñÈ¡Õ½ËÀµ¥Î»
 local findDeadUnit = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -916,12 +916,12 @@ local findDeadUnit = _.wrap(getTargetWithRange23, function(func, side, battleInd
 	local slotTable = {}
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
-		if charIndex >= 0 and Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ­») == 1 then
+		if charIndex >= 0 and Char.GetData(charIndex, CONST.¶ÔÏó_Õ½ËÀ) == 1 then
 			table.insert(slotTable, slot)
 		end
 	end
 	local returnSlot = slotTable[NLG.Rand(1, #slotTable)]
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -932,7 +932,7 @@ local findDeadUnit = _.wrap(getTargetWithRange23, function(func, side, battleInd
 	return result
 end)
 
--- NOTE éšæœºå¼‚å¸¸å•ä½
+-- NOTE Ëæ»úÒì³£µ¥Î»
 local randStatusUnit = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -944,18 +944,18 @@ local randStatusUnit = _.wrap(getTargetWithRange23, function(func, side, battleI
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if charIndex >= 0 then
-			if (Char.GetData(charIndex, CONST.å¯¹è±¡_ModPoison) > 1 or
-					Char.GetData(charIndex, CONST.å¯¹è±¡_ModSleep) > 1 or
-					Char.GetData(charIndex, CONST.å¯¹è±¡_ModStone) > 1 or
-					Char.GetData(charIndex, CONST.å¯¹è±¡_ModDrunk) > 1 or
-					Char.GetData(charIndex, CONST.å¯¹è±¡_ModConfusion) > 1 or
-					Char.GetData(charIndex, CONST.å¯¹è±¡_ModAmnesia) > 1) then
+			if (Char.GetData(charIndex, CONST.¶ÔÏó_ModPoison) > 1 or
+					Char.GetData(charIndex, CONST.¶ÔÏó_ModSleep) > 1 or
+					Char.GetData(charIndex, CONST.¶ÔÏó_ModStone) > 1 or
+					Char.GetData(charIndex, CONST.¶ÔÏó_ModDrunk) > 1 or
+					Char.GetData(charIndex, CONST.¶ÔÏó_ModConfusion) > 1 or
+					Char.GetData(charIndex, CONST.¶ÔÏó_ModAmnesia) > 1) then
 				table.insert(slotTable, slot)
 			end
 		end
 	end
 	local returnSlot = slotTable[NLG.Rand(1, #slotTable)]
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -966,7 +966,7 @@ local randStatusUnit = _.wrap(getTargetWithRange23, function(func, side, battleI
 	return result
 end)
 
--- NOTE æ•Œæ–¹ç­‰çº§æœ€é«˜å•ä½
+-- NOTE µĞ·½µÈ¼¶×î¸ßµ¥Î»
 local findMostLevel = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -978,7 +978,7 @@ local findMostLevel = _.wrap(getTargetWithRange23, function(func, side, battleIn
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if (charIndex >= 0) then
-			local level = Char.GetData(charIndex, CONST.å¯¹è±¡_ç­‰çº§)
+			local level = Char.GetData(charIndex, CONST.¶ÔÏó_µÈ¼¶)
 			if tagLv == nil then
 				tagLv = level
 				returnSlot = slot
@@ -989,7 +989,7 @@ local findMostLevel = _.wrap(getTargetWithRange23, function(func, side, battleIn
 		end
 	end
 
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -1000,7 +1000,7 @@ local findMostLevel = _.wrap(getTargetWithRange23, function(func, side, battleIn
 	return result
 end)
 
--- NOTE æ•Œæ–¹é­”é‡>5%ä¸”ç­‰çº§æœ€é«˜å•ä½
+-- NOTE µĞ·½Ä§Á¿>5%ÇÒµÈ¼¶×î¸ßµ¥Î»
 local findMostLevelandMp5 = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	local isRange23 = func(side, range)
 	if isRange23 ~= nil then
@@ -1012,7 +1012,7 @@ local findMostLevelandMp5 = _.wrap(getTargetWithRange23, function(func, side, ba
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if (charIndex >= 0) then
-			local level = Char.GetData(charIndex, CONST.å¯¹è±¡_ç­‰çº§)
+			local level = Char.GetData(charIndex, CONST.¶ÔÏó_µÈ¼¶)
 			local mpRatio = getMp(charIndex) / getMaxMp(charIndex) * 100
 			if mpRatio > 5 then
 				if tagLv == nil then
@@ -1026,7 +1026,7 @@ local findMostLevelandMp5 = _.wrap(getTargetWithRange23, function(func, side, ba
 		end
 	end
 
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -1037,7 +1037,7 @@ local findMostLevelandMp5 = _.wrap(getTargetWithRange23, function(func, side, ba
 	return result
 end)
 
--- NOTE å¯¹æ–¹é­”é‡>50ä¸”å°äº75%çš„
+-- NOTE ¶Ô·½Ä§Á¿>50ÇÒĞ¡ÓÚ75%µÄ
 local findMp50To75per = _.wrap(getTargetWithRange23, function(func, side, battleIndex, range)
 	-- print('>>> findMp50To75per')
 	local isRange23 = func(side, range)
@@ -1050,7 +1050,7 @@ local findMp50To75per = _.wrap(getTargetWithRange23, function(func, side, battle
 	for slot = side * 10 + 0, side * 10 + 9 do
 		local charIndex = Battle.GetPlayer(battleIndex, slot)
 		if (charIndex >= 0) then
-			local level = Char.GetData(charIndex, CONST.å¯¹è±¡_ç­‰çº§)
+			local level = Char.GetData(charIndex, CONST.¶ÔÏó_µÈ¼¶)
 			local mp = getMp(charIndex)
 			local mpRatio = mp / getMaxMp(charIndex)
 			if mp >= 50 and mpRatio <= 75 then
@@ -1065,7 +1065,7 @@ local findMp50To75per = _.wrap(getTargetWithRange23, function(func, side, battle
 
 	-- print('returnSlot >>> ' .. returnSlot)
 
-	-- è·å¾—çœŸå®ä½ç½®
+	-- »ñµÃÕæÊµÎ»ÖÃ
 	local result = getEntryPositionBySlot(battleIndex, returnSlot)
 	if range == 0 then
 		return result
@@ -1076,123 +1076,123 @@ local findMp50To75per = _.wrap(getTargetWithRange23, function(func, side, battle
 	return result
 end)
 
--- SECTION ç›®æ ‡
+-- SECTION Ä¿±ê
 module.target = {
-	-- NOTE 0  å·±æ–¹è‡ªèº«
+	-- NOTE 0  ¼º·½×ÔÉí
 	["0"] = {
-		comment = "è‡ªèº«",
+		comment = "×ÔÉí",
 		fn = function(charIndex, side, battleIndex, slot, range) return slot end
 	},
-	-- NOTE 1 å·±æ–¹é˜µè¥ éšæœº
+	-- NOTE 1 ¼º·½ÕóÓª Ëæ»ú
 	["1"] = {
-		comment = "å·±æ–¹éš¨æ©Ÿå–®ä½",
+		comment = "¼º·½ëS™C†ÎÎ»",
 		fn = function(charIndex, side, battleIndex, slot, range) return randomTarget(side, battleIndex, range) end
 	},
-	-- NOTE 2 å¯¹æ–¹é˜µè¥ éšæœº
+	-- NOTE 2 ¶Ô·½ÕóÓª Ëæ»ú
 	["2"] = {
-		comment = "å°æ–¹éš¨æ©Ÿå–®ä½",
+		comment = "Œ¦·½ëS™C†ÎÎ»",
 		fn = function(charIndex, side, battleIndex, slot, range) return randomTarget(oppositeSide(side), battleIndex,
 				range) end
 	},
-	-- NOTE 3 å·±æ–¹è¡€æœ€å¤šçš„
+	-- NOTE 3 ¼º·½Ñª×î¶àµÄ
 	["3"] = {
-		comment = "å·±æ–¹è¡€æœ€å¤šçš„",
+		comment = "¼º·½Ñª×î¶àµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range) return findMostHp(side, battleIndex, range) end
 	},
-	-- NOTE å¯¹æ–¹è¡€æœ€å¤šçš„
+	-- NOTE ¶Ô·½Ñª×î¶àµÄ
 	["4"] = {
-		comment = "å°æ–¹è¡€æœ€å¤šçš„",
+		comment = "Œ¦·½Ñª×î¶àµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range) return findMostHp(oppositeSide(side), battleIndex, range) end
 	},
-	-- NOTE å·±æ–¹è¡€æœ€å°‘çš„
+	-- NOTE ¼º·½Ñª×îÉÙµÄ
 	["5"] = {
-		comment = "å·±æ–¹è¡€æœ€å°‘çš„",
+		comment = "¼º·½Ñª×îÉÙµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range) return findLeastHp(side, battleIndex, range) end
 	},
-	-- NOTE å¯¹æ–¹è¡€æœ€å°‘çš„
+	-- NOTE ¶Ô·½Ñª×îÉÙµÄ
 	["6"] = {
-		comment = "å°æ–¹è¡€æœ€å°‘çš„",
+		comment = "Œ¦·½Ñª×îÉÙµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range) return findLeastHp(oppositeSide(side), battleIndex,
 				range) end
 	},
-	-- NOTE å·±æ–¹è¡€é‡å æ¯”æœ€ä½
+	-- NOTE ¼º·½ÑªÁ¿Õ¼±È×îµÍ
 	["7"] = {
-		comment = "å·±æ–¹è¡€é‡å æ¯”æœ€ä½çš„",
+		comment = "¼º·½ÑªÁ¿Õ¼±È×îµÍµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range) return findLeastHpRatio(side, battleIndex, range) end
 	},
-	-- NOTE å¯¹æ–¹è¡€é‡å æ¯”æœ€ä½
+	-- NOTE ¶Ô·½ÑªÁ¿Õ¼±È×îµÍ
 	["8"] = {
-		comment = "å°æ–¹è¡€é‡å æ¯”æœ€ä½çš„",
+		comment = "Œ¦·½ÑªÁ¿Õ¼±È×îµÍµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range)
 			return findLeastHpRatio(oppositeSide(side), battleIndex,
 				range)
 		end
 	},
-	-- å¯¹æ–¹é­”æœ€ä½çš„
+	-- ¶Ô·½Ä§×îµÍµÄ
 	["9"] = {
-		comment = "å°æ–¹é­”é‡å æ¯”æœ€ä½çš„",
+		comment = "Œ¦·½Ä§Á¿Õ¼±È×îµÍµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range)
 			return findLeastMpRatio(oppositeSide(side), battleIndex,
 				range)
 		end
 	},
-	-- å¯¹æ–¹é­”é‡>5%ä¸”ç­‰çº§æœ€é«˜çš„
+	-- ¶Ô·½Ä§Á¿>5%ÇÒµÈ¼¶×î¸ßµÄ
 	["10"] = {
-		comment = "å°æ–¹é­”é‡>5%ä¸”ç­‰ç´šæœ€é«˜çš„",
+		comment = "Œ¦·½Ä§Á¿>5%ÇÒµÈ¼‰×î¸ßµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range)
 			return findMostLevelandMp5(oppositeSide(side), battleIndex,
 				range)
 		end
 	},
-	-- å¯¹æ–¹ç­‰çº§æœ€é«˜çš„
+	-- ¶Ô·½µÈ¼¶×î¸ßµÄ
 	["11"] = {
-		comment = "å°æ–¹ç­‰ç´šæœ€é«˜çš„",
+		comment = "Œ¦·½µÈ¼‰×î¸ßµÄ",
 		fn = function(charIndex, side, battleIndex, slot, range) return findMostLevel(oppositeSide(side), battleIndex,
 				range) end
 	},
-	-- å¯¹æ–¹ç­‰çº§æœ€ä½çš„
-	-- å¯¹æ–¹é­”é‡>50ä¸”å°äº75%çš„
+	-- ¶Ô·½µÈ¼¶×îµÍµÄ
+	-- ¶Ô·½Ä§Á¿>50ÇÒĞ¡ÓÚ75%µÄ
 	["13"] = {
-		comment = "å°æ–¹é­”é‡>50ä¸”å°æ–¼75%çš„",
+		comment = "Œ¦·½Ä§Á¿>50ÇÒĞ¡ì¶75%µÄ",
 		fn = function(charIndex, side, battleIndex, slot, range)
 			return findMp50To75per(oppositeSide(side), battleIndex,
 				range)
 		end
 	},
-	-- NOTE å·±æ–¹éšæœºç©å®¶å•ä½
+	-- NOTE ¼º·½Ëæ»úÍæ¼Òµ¥Î»
 	["44"] = {
-		comment = "å·±æ–¹éš¨æ©Ÿäººç‰©",
+		comment = "¼º·½ëS™CÈËÎï",
 		fn = function(charIndex, side, battleIndex, slot, range) return findRandomPlayer(side, battleIndex, range) end
 	},
-	-- NOTE å·±æ–¹éšæœºå® ç‰©å•ä½
+	-- NOTE ¼º·½Ëæ»ú³èÎïµ¥Î»
 	["45"] = {
-		comment = "å·±æ–¹éš¨æ©Ÿå¯µç‰©",
+		comment = "¼º·½ëS™CŒ™Îï",
 		fn = function(charIndex, side, battleIndex, slot, range) return findRandomPet(side, battleIndex, range) end
 	},
-	-- NOTE å·±æ–¹éšæœºæˆ˜æ­»äººç‰©
+	-- NOTE ¼º·½Ëæ»úÕ½ËÀÈËÎï
 	["46"] = {
-		comment = "å·±æ–¹æˆ°æ­»äººç‰©",
+		comment = "¼º·½‘ğËÀÈËÎï",
 		fn = function(charIndex, side, battleIndex, slot, range) return findDeadPlayer(side, battleIndex, range) end
 	},
-	-- NOTE å·±æ–¹éšæœºæˆ˜æ­»å•ä½
+	-- NOTE ¼º·½Ëæ»úÕ½ËÀµ¥Î»
 	["47"] = {
-		comment = "å·±æ–¹éš¨æ©Ÿæˆ°æ­»å–®ä½",
+		comment = "¼º·½ëS™C‘ğËÀ†ÎÎ»",
 		fn = function(charIndex, side, battleIndex, slot, range) return findDeadUnit(side, battleIndex, range) end
 	},
-	-- NOTE å·±æ–¹éšæœºå¼‚å¸¸å•ä½
+	-- NOTE ¼º·½Ëæ»úÒì³£µ¥Î»
 	["48"] = {
-		comment = "å·±æ–¹éš¨æ©Ÿç•°å¸¸å–®ä½",
+		comment = "¼º·½ëS™C®³£†ÎÎ»",
 		fn = function(charIndex, side, battleIndex, slot, range) return randStatusUnit(side, battleIndex, range) end
 	},
 }
 -- !SECTION
 
--- NOTE è®¡ç®—å‡ºè¡Œä¸ºæ•°æ®
--- params: charIndexï¼šè‡ªå·±çš„index, sideï¼šè‡ªå·±çš„sideï¼Œ battleIndex, slotï¼šè‡ªå·±çš„slotï¼Œ commandsï¼šaiæŒ‡ä»¤æ•°ç»„
+-- NOTE ¼ÆËã³öĞĞÎªÊı¾İ
+-- params: charIndex£º×Ô¼ºµÄindex, side£º×Ô¼ºµÄside£¬ battleIndex, slot£º×Ô¼ºµÄslot£¬ commands£ºaiÖ¸ÁîÊı×é
 -- return: {com1, targetSlot, techId}
 function module:calcActionData(charIndex, side, battleIndex, slot, commands)
-	-- print("å¼€å§‹",JSON.stringify(commands),charIndex)
-	-- print("å‚æ•°ï¼š",charIndex,side,battleIndex,slot,commands)
+	-- print("¿ªÊ¼",JSON.stringify(commands),charIndex)
+	-- print("²ÎÊı£º",charIndex,side,battleIndex,slot,commands)
 	for i = 1, #commands do
 		local command = commands[i]
 		local conditionId = command[1]
@@ -1200,9 +1200,9 @@ function module:calcActionData(charIndex, side, battleIndex, slot, commands)
 		local techId = tonumber(command[3])
 
 		-- print('>>>>', command, conditionId, targetId, techId);
-		-- æ˜¯å¦æ»¡è¶³ condition
+		-- ÊÇ·ñÂú×ã condition
 		local conditionFn = self.conditions[tostring(conditionId)]["fn"];
-		-- print("å¼€å§‹è®¡ç®—æ¡ä»¶::", i, self.conditions[tostring(conditionId)]["comment"], techId)
+		-- print("¿ªÊ¼¼ÆËãÌõ¼ş::", i, self.conditions[tostring(conditionId)]["comment"], techId)
 		if conditionFn(charIndex, side, battleIndex) then
 			-- print('>>>', self.conditions[tostring(conditionId)]["comment"], conditionFn(charIndex,side,battleIndex))
 			local fp = 0;
@@ -1212,16 +1212,16 @@ function module:calcActionData(charIndex, side, battleIndex, slot, commands)
 				local techIndex = Tech.GetTechIndex(techId)
 				fp = Tech.GetData(techIndex, CONST.TECH_FORCEPOINT)
 				-- local techName = Tech.GetData(techIndex, CONST.TECH_NAME)
-				-- print('>>>' .. techName .. 'è€—é­”:' .. fp);
+				-- print('>>>' .. techName .. 'ºÄÄ§:' .. fp);
 			end
 
-			local mp = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”)
+			local mp = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§)
 
 			if fp > mp then
 				return { CONST.BATTLE_COM.BATTLE_COM_ATTACK, self.target["6"]["fn"](charIndex, side, battleIndex, slot, 0), -1 }
 			end
 
-			-- éªŒè¯ range
+			-- ÑéÖ¤ range
 			local techInfo = _.detect(skillInfo.params, function(item)
 				local ids = item[2]
 				if type(ids) == 'number' and ids == techId then
@@ -1245,21 +1245,21 @@ function module:calcActionData(charIndex, side, battleIndex, slot, commands)
 				end
 
 				-- print('>>>', com1, target, targetId)
-				-- å½“æˆ˜æ —æ—¶, ä¸Šé¢çš„com1,target,targetIdé”™è¯¯çš„å‡ºç°äº† nil,16,13
-				-- å½“æˆ˜æ —æ—¶, è¿”å›äº†é”™è¯¯çš„table: {"2":16,"3":609}, æ­£ç¡®çš„åº”ä¸º{com1(è§autoBattleParams),ä½ç½®,techId}
+				-- µ±Õ½ÀõÊ±, ÉÏÃæµÄcom1,target,targetId´íÎóµÄ³öÏÖÁË nil,16,13
+				-- µ±Õ½ÀõÊ±, ·µ»ØÁË´íÎóµÄtable: {"2":16,"3":609}, ÕıÈ·µÄÓ¦Îª{com1(¼ûautoBattleParams),Î»ÖÃ,techId}
 				return { com1, target, techId }
 			end
 		end
-		-- print("æ¡ä»¶ä¸æ»¡è¶³, ä¸‹ä¸€ä¸ª")
+		-- print("Ìõ¼ş²»Âú×ã, ÏÂÒ»¸ö")
 	end
 	local target = randomTarget(oppositeSide(side), battleIndex, 0)
-	-- æ¡ä»¶ä¸æ»¡è¶³ é‡Šæ”¾é»˜è®¤æŠ€èƒ½ï¼Œç›®æ ‡éšæœº
+	-- Ìõ¼ş²»Âú×ã ÊÍ·ÅÄ¬ÈÏ¼¼ÄÜ£¬Ä¿±êËæ»ú
 	return { CONST.BATTLE_COM.BATTLE_COM_ATTACK, randomTarget(oppositeSide(side), battleIndex, 0), -1 }
 end
 
--- ANCHOR åŠ è½½æ•°æ® heresAI.txt
+-- ANCHOR ¼ÓÔØÊı¾İ heresAI.txt
 function module:loadData()
-	print('heroes >> åŠ è½½heroesAI.txt');
+	print('heroes >> ¼ÓÔØheroesAI.txt');
 	count = 0;
 	aiData = {}
 	file = io.open('lua/Modules/heroesAI.txt')
@@ -1303,21 +1303,21 @@ function module:loadData()
 	return aiData;
 end
 
--- SECTION ä½£å…µAInpc
--- NOTE çª—å£æµç¨‹æ§åˆ¶
+-- SECTION Ó¶±øAInpc
+-- NOTE ´°¿ÚÁ÷³Ì¿ØÖÆ
 function module:AINpcTalked(npc, charIndex, seqno, select, data)
 	-- print(npc, charIndex, seqno, select, data)
 	data = tonumber(data)
-	if select == CONST.BUTTON_å…³é—­ then
+	if select == CONST.BUTTON_¹Ø±Õ then
 		return;
 	end
-	-- NOTE  1 ä½£å…µåˆ—è¡¨
+	-- NOTE  1 Ó¶±øÁĞ±í
 	if seqno == 1 and data > 0 then
 		self:showChooseType(charIndex, data)
 	end
-	--  NOTE  2 é€‰æ‹©Ai
+	--  NOTE  2 Ñ¡ÔñAi
 	if seqno == 2 then
-		-- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+		-- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
 		if data < 0 then
 			local page;
 			if select == 32 then
@@ -1326,7 +1326,7 @@ function module:AINpcTalked(npc, charIndex, seqno, select, data)
 				page = sgModule:get(charIndex, "statusPage") - 1
 			end
 			if page == 0 then
-				-- è¿”å›ä¸Šä¸€çº§
+				-- ·µ»ØÉÏÒ»¼¶
 				self:showChooseType(charIndex, nil, sgModule:get(charIndex, "heroSelected4AI"))
 				return
 			end
@@ -1336,17 +1336,17 @@ function module:AINpcTalked(npc, charIndex, seqno, select, data)
 			self:showAIComment(charIndex, data)
 		end
 	end
-	-- NOTE 3 AIè¯´æ˜
+	-- NOTE 3 AIËµÃ÷
 	if seqno == 3 then
-		if select == CONST.BUTTON_ç¡®å®š then
+		if select == CONST.BUTTON_È·¶¨ then
 			self:showCampHeroSkillSlot(charIndex, data)
 		end
 	end
-	-- NOTE  4 æŠ€èƒ½é€‰æ‹©å®Œ
+	-- NOTE  4 ¼¼ÄÜÑ¡ÔñÍê
 	if seqno == 4 and data > 0 then
 		self:getAI(charIndex, data)
 	end
-	-- NOTE 5 é€‰æ‹©ç±»å‹
+	-- NOTE 5 Ñ¡ÔñÀàĞÍ
 	if seqno == 5 then
 		if data < 0 then
 		else
@@ -1355,13 +1355,13 @@ function module:AINpcTalked(npc, charIndex, seqno, select, data)
 	end
 end
 
--- NOTE ä½£å…µé€‰æ‹© é¦–é¡µ seqno:1
+-- NOTE Ó¶±øÑ¡Ôñ Ê×Ò³ seqno:1
 function module:showAINpcHome(npc, charIndex)
 	local windowStr = getModule("heroesFn"):buildCampHeroesList(charIndex)
-	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1, windowStr);
+	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1, windowStr);
 end
 
--- NOTE é€‰æ‹©å® ç‰©è¿˜æ˜¯ä½£å…µ seqno:5
+-- NOTE Ñ¡Ôñ³èÎï»¹ÊÇÓ¶±ø seqno:5
 function module:showChooseType(charIndex, data, heroData)
 	if data ~= nil and heroData == nil then
 		local campHeroes = getModule("heroesFn"):getCampHeroesData(charIndex)
@@ -1371,25 +1371,25 @@ function module:showChooseType(charIndex, data, heroData)
 		sgModule:set(charIndex, "heroSelected4AI", heroData)
 	end
 
-	local items = { "è¨­ç½®å¤¥ä¼´AI", "è¨­ç½®å¯µç‰©AI", }
+	local items = { "ÔOÖÃâ·°éAI", "ÔOÖÃŒ™ÎïAI", }
 
-	local title = "â˜…è«‹é¸æ“‡è¦è¨­ç½®AIå°è±¡ï¼š"
+	local title = "¡ïÕˆßx“ñÒªÔOÖÃAIŒ¦Ïó£º"
 	local windowStr = self:NPC_buildSelectionText(title, items);
-	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 5, windowStr);
+	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 5, windowStr);
 end
 
--- NOTE æ˜¾ç¤ºAIåˆ—è¡¨
+-- NOTE ÏÔÊ¾AIÁĞ±í
 function module:toShowAiList(charIndex, data)
 	sgModule:set(charIndex, "chartypeSelected4AI", data - 1)
 	local heroData = sgModule:get(charIndex, "heroSelected4AI")
-	local heroLevel = Char.GetData(heroData.index, CONST.å¯¹è±¡_ç­‰çº§)
+	local heroLevel = Char.GetData(heroData.index, CONST.¶ÔÏó_µÈ¼¶)
 
 	local itemsData = _.select(self.aiData, function(ai)
 		local levelRequired = ai.level
 
 		local isLevelQualified = true;
 		local isJobQualified = true;
-		local heroJobAncestry = Char.GetData(heroData.index, CONST.å¯¹è±¡_èŒç±»ID)
+		local heroJobAncestry = Char.GetData(heroData.index, CONST.¶ÔÏó_Ö°ÀàID)
 		
 		if levelRequired==nil then
 		elseif (math.floor(heroLevel / 10) + 1) < levelRequired then
@@ -1409,17 +1409,17 @@ function module:toShowAiList(charIndex, data)
 	self:showAIList(charIndex, 1)
 end
 
--- NOTE æ˜¾ç¤ºAIåˆ—è¡¨ seqno:2
+-- NOTE ÏÔÊ¾AIÁĞ±í seqno:2
 function module:showAIList(charIndex, page)
 	local itemsData = sgModule:get(charIndex, "aiDataList4AI")
 	local items = _.map(itemsData, function(ai) return ai.name end)
-	local title = "â˜…é¸æ“‡AIå¯ä»¥æŸ¥çœ‹èªªæ˜ï¼š"
+	local title = "¡ïßx“ñAI¿ÉÒÔ²é¿´ÕfÃ÷£º"
 	local buttonType, windowStr = self:dynamicListData(items, title, page)
 
-	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.çª—å£_é€‰æ‹©æ¡†, buttonType, 2, windowStr);
+	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, buttonType, 2, windowStr);
 end
 
--- NOTE åŠ¨æ€åˆ—è¡¨æ•°æ®ç”Ÿæˆ
+-- NOTE ¶¯Ì¬ÁĞ±íÊı¾İÉú³É
 function module:dynamicListData(list, title, page)
 	page = page or 1;
 
@@ -1434,18 +1434,18 @@ function module:dynamicListData(list, title, page)
 	local windowStr = self:NPC_buildSelectionText(title, items);
 	local buttonType;
 	if totalPage == 1 then
-		buttonType = CONST.BUTTON_ä¸Šå–æ¶ˆ
+		buttonType = CONST.BUTTON_ÉÏÈ¡Ïû
 	elseif page == 1 then
-		buttonType = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
+		buttonType = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
 	elseif page == totalPage then
-		buttonType = CONST.BUTTON_ä¸Šå–æ¶ˆ
+		buttonType = CONST.BUTTON_ÉÏÈ¡Ïû
 	else
-		buttonType = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
+		buttonType = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
 	end
 	return buttonType, windowStr
 end
 
--- NOTE AIè¯´æ˜ seno:3
+-- NOTE AIËµÃ÷ seno:3
 function module:showAIComment(charIndex, data)
 	local heroData = sgModule:get(charIndex, "heroSelected4AI")
 	local page = sgModule:get(charIndex, "statusPage")
@@ -1458,25 +1458,25 @@ function module:showAIComment(charIndex, data)
 	sgModule:set(charIndex, "aiSelected", aiId);
 	local commands = aiDataSelected.commands
 
-	-- åˆ¤æ–­ æ˜¯å¦æ»¡è¶³ç­‰çº§å’Œ èŒä¸šè¦æ±‚
+	-- ÅĞ¶Ï ÊÇ·ñÂú×ãµÈ¼¶ºÍ Ö°ÒµÒªÇó
 	local levelRequired = aiDataSelected.level
 
-	local heroLevel = Char.GetData(heroData.index, CONST.å¯¹è±¡_ç­‰çº§)
+	local heroLevel = Char.GetData(heroData.index, CONST.¶ÔÏó_µÈ¼¶)
 
-	local heroJobAncestry = Char.GetData(heroData.index, CONST.å¯¹è±¡_èŒç±»ID)
+	local heroJobAncestry = Char.GetData(heroData.index, CONST.¶ÔÏó_Ö°ÀàID)
 	local isLevelQualified = true;
 	local isJobQualified = true;
 	local warning = ""
 	if (math.floor(heroLevel / 10) + 1) < levelRequired then
 		isLevelQualified = false;
-		warning = warning .. "å¤¥ä¼´çš„ç­‰ç´šä¸å¤ ï¼›"
+		warning = warning .. "â·°éµÄµÈ¼‰²»‰ò£»"
 	end
 	if heroJobAncestry ~= aiDataSelected.jobAncestry and aiDataSelected.jobAncestry >= 0 then
 		isJobQualified = false
-		warning = warning .. "å¤¥ä¼´çš„è·æ¥­ä¸ç¬¦ï¼›"
+		warning = warning .. "â·°éµÄÂš˜I²»·û£»"
 	end
 
-	local title = "â˜…AIè¡Œå‹•èªªæ˜\\n\\n"
+	local title = "¡ïAIĞĞ„ÓÕfÃ÷\\n\\n"
 
 	local windowStr = title .. _(commands):chain():map(function(command)
 			local conditionId = command[1]
@@ -1486,26 +1486,26 @@ function module:showAIComment(charIndex, data)
 			if conditionId~=nil and targetId~=nil and techId~=nil  then
 				local techName = ""
 				if techId == -100 or techId == -200 then
-					techName = techId == -100 and "æ”»å‡»" or "é˜²å¾¡"
+					techName = techId == -100 and "¹¥»÷" or "·ÀÓù"
 				else
 					local techIndex = Tech.GetTechIndex(techId)
 					techName = Tech.GetData(techIndex, CONST.TECH_NAME)
 				end
 
-				str = "ã€Œ" .. self.conditions[tostring(conditionId)]["comment"]
-					.. "ã€å¯¹ ã€Œ" .. self.target[tostring(targetId)]["comment"] .. "ã€ä½¿ç”¨ ã€Œ" .. techName .. "ã€"
+				str = "¡¸" .. self.conditions[tostring(conditionId)]["comment"]
+					.. "¡¹¶Ô ¡¸" .. self.target[tostring(targetId)]["comment"] .. "¡¹Ê¹ÓÃ ¡¸" .. techName .. "¡¹"
 			else
-				--str = "ã€Œç©ºæ¡ä»¶ã€å¯¹ ã€Œç©ºå¯¹è±¡ã€ä½¿ç”¨ ã€Œç©ºæŠ€èƒ½ã€"
+				--str = "¡¸¿ÕÌõ¼ş¡¹¶Ô ¡¸¿Õ¶ÔÏó¡¹Ê¹ÓÃ ¡¸¿Õ¼¼ÄÜ¡¹"
 				str = ""
 			end
 			return str;
 		end):join("\\n\\n"):value()
-		.. "\\n\\nâ˜…åˆ¤æ–·å„ªå…ˆé †åºç‚ºå¾ä¸Šå¾€ä¸‹ï¼Œé»æ“Šç¢ºå®šå¯ä»¥é¸æ“‡æ­¤AIã€‚\n\n" .. warning
-	local buttonType = (isLevelQualified and isJobQualified) and CONST.BUTTON_ç¡®å®šå…³é—­ or CONST.BUTTON_å…³é—­
-	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.çª—å£_å·¨ä¿¡æ¯æ¡†, buttonType, 3, windowStr);
+		.. "\\n\\n¡ïÅĞ”àƒÏÈí˜ĞòéÄÉÏÍùÏÂ£¬üc“ô´_¶¨¿ÉÒÔßx“ñ´ËAI¡£\n\n" .. warning
+	local buttonType = (isLevelQualified and isJobQualified) and CONST.BUTTON_È·¶¨¹Ø±Õ or CONST.BUTTON_¹Ø±Õ
+	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò, buttonType, 3, windowStr);
 end
 
--- NOTE æ˜¾ç¤ºä½£å…µæŠ€èƒ½æ  seqno:3
+-- NOTE ÏÔÊ¾Ó¶±ø¼¼ÄÜÀ¸ seqno:3
 function module:showCampHeroSkillSlot(charIndex, data)
 	local heroData = sgModule:get(charIndex, "heroSelected4AI");
 	local chartype = sgModule:get(charIndex, "chartypeSelected4AI")
@@ -1523,10 +1523,10 @@ function module:showCampHeroSkillSlot(charIndex, data)
 	end
 
 	local windowStr = getModule("heroesFn"):buildCampHeroSkills(charIndex, skills)
-	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 4, windowStr);
+	NLG.ShowWindowTalked(charIndex, self.AINpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 4, windowStr);
 end
 
--- NOTE ç™»è®°AI
+-- NOTE µÇ¼ÇAI
 function module:getAI(charIndex, data)
 	local chartype = sgModule:get(charIndex, "chartypeSelected4AI")
 	local aiId = sgModule:get(charIndex, "aiSelected");
@@ -1541,26 +1541,26 @@ function module:getAI(charIndex, data)
 
 	skills[data] = aiId
 
-	local name = Char.GetData(heroData.index, CONST.å¯¹è±¡_åå­—)
-	NLG.SystemMessage(charIndex, name .. " è¨˜éŒ„äº†æ­¤AIï¼Œè«‹åœ¨å¤¥ä¼´å³éµé¸å–®å•Ÿç”¨ã€‚")
+	local name = Char.GetData(heroData.index, CONST.¶ÔÏó_Ãû×Ö)
+	NLG.SystemMessage(charIndex, name .. " Ó›ä›ÁË´ËAI£¬ÕˆÔÚâ·°éÓÒæIßx†Î†¢ÓÃ¡£")
 end
 
 -- !SECTION
 
 
---- åŠ è½½æ¨¡å—é’©å­
+--- ¼ÓÔØÄ£¿é¹³×Ó
 function module:onLoad()
 	self:logInfo('load')
 	self.aiData = self:loadData();
 	-- print(JSON.stringify(self.aiData))
-	-- ç§‹å…”çš„
-	self.AINpc = self:NPC_createNormal('å¤¥ä¼´æˆ°è¡“', 231050, { x = 29, y = 27, mapType = 0, map = 7351, direction = 4 });
-	-- self.AINpc = self:NPC_createNormal('è¡ŒåŠ¨æ¨¡å¼æ•™ç»ƒ', 106452, { x = 30, y = 22, mapType = 0, map = 35800, direction = 6 });
+	-- ÇïÍÃµÄ
+	self.AINpc = self:NPC_createNormal('â·°é‘ğĞg', 231050, { x = 75, y = 4, mapType = 0, map = 7351, direction = 4 });
+	-- self.AINpc = self:NPC_createNormal('ĞĞ¶¯Ä£Ê½½ÌÁ·', 106452, { x = 30, y = 22, mapType = 0, map = 35800, direction = 6 });
 	self:NPC_regTalkedEvent(self.AINpc, Func.bind(self.showAINpcHome, self));
 	self:NPC_regWindowTalkedEvent(self.AINpc, Func.bind(self.AINpcTalked, self));
 end
 
---- å¸è½½æ¨¡å—é’©å­
+--- Ğ¶ÔØÄ£¿é¹³×Ó
 function module:onUnload()
 	self:logInfo('unload')
 end

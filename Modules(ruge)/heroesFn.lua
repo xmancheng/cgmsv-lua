@@ -12,34 +12,34 @@ function getEntryPositionBySlot(battleIndex, slot)
     local pos = Battle.GetPos(battleIndex, cIndex);
     return pos;
   else
-    print('è·å–charIndexå¤±è´¥: ', cIndex);
+    print('»ñÈ¡charIndexÊ§°Ü: ', cIndex);
     return -5;
   end
 end
 
 
--- NOTE é›‡ä½£æ—¶ ä½£å…µåŒç©å®¶åŒç­‰çº§
+-- NOTE ¹ÍÓ¶Ê± Ó¶±øÍ¬Íæ¼ÒÍ¬µÈ¼¶
 local syncWithPlayer=true;
---NOTE ä¸­æ–‡æ˜ å°„å­—å…¸
+--NOTE ÖĞÎÄÓ³Éä×Öµä
 local nameMap={
   status={
-    ['1']='ã€å‡ºæˆ°ã€‘',
-    ['2']='ã€å¾…å‘½ã€‘'
+    ['1']='¡¾³ö‘ğ¡¿',
+    ['2']='¡¾´ıÃü¡¿'
   },
   equipLocation={
-    [tostring(CONST.ä½ç½®_å¤´)]="ã€Œé ­éƒ¨ã€",
-    [tostring(CONST.ä½ç½®_èº«)]="ã€Œèº«é«”ã€",
-    [tostring(CONST.ä½ç½®_å·¦æ‰‹)]="ã€Œå·¦æ‰‹ã€",
-    [tostring(CONST.ä½ç½®_å³æ‰‹)]="ã€Œå³æ‰‹ã€",
-    [tostring(CONST.ä½ç½®_è…¿)]="ã€Œè¶³éƒ¨ã€",
-    [tostring(CONST.ä½ç½®_é¦–é¥°1)]="ã€Œé£¾å“1ã€",
-    [tostring(CONST.ä½ç½®_é¦–é¥°2)]="ã€Œé£¾å“2ã€",
-    [tostring(CONST.ä½ç½®_æ°´æ™¶)]="ã€Œæ°´æ™¶ã€",
+    [tostring(CONST.Î»ÖÃ_Í·)]="¡¸î^²¿¡¹",
+    [tostring(CONST.Î»ÖÃ_Éí)]="¡¸Éíów¡¹",
+    [tostring(CONST.Î»ÖÃ_×óÊÖ)]="¡¸×óÊÖ¡¹",
+    [tostring(CONST.Î»ÖÃ_ÓÒÊÖ)]="¡¸ÓÒÊÖ¡¹",
+    [tostring(CONST.Î»ÖÃ_ÍÈ)]="¡¸×ã²¿¡¹",
+    [tostring(CONST.Î»ÖÃ_Ê×ÊÎ1)]="¡¸ï—Æ·1¡¹",
+    [tostring(CONST.Î»ÖÃ_Ê×ÊÎ2)]="¡¸ï—Æ·2¡¹",
+    [tostring(CONST.Î»ÖÃ_Ë®¾§)]="¡¸Ë®¾§¡¹",
   }
 }
--- NOTE å‡ºæˆ˜é€‰é¡¹
-local heroOpList=function(status) return {nameMap['status'][tostring(status)],"å‚™æˆ°ç‹€æ…‹","é£æ•£"} end
--- NOTE ç‰©å“çš„æ‰€æœ‰å±æ€§key
+-- NOTE ³öÕ½Ñ¡Ïî
+local heroOpList=function(status) return {nameMap['status'][tostring(status)],"‚ä‘ğ î‘B","Ç²É¢"} end
+-- NOTE ÎïÆ·µÄËùÓĞÊôĞÔkey
 local itemFields = { }
 for i = 0, 0x4b do
   table.insert(itemFields, i);
@@ -47,111 +47,111 @@ end
 for i = 0, 0xd do
   table.insert(itemFields, i + 2000);
 end
--- NOTE æ²»ç–—ä»·æ ¼ {min,max, ä»·æ ¼}
+-- NOTE ÖÎÁÆ¼Û¸ñ {min,max, ¼Û¸ñ}
 local healPrice={
   {1,20,200},{21,40,300},{41,60,400},{61,80,500},{81,100,600},{101,120,800},{121,140,1000},{141,160,1200},{161,180,1400},{181,200,1600},
 }
--- NOTE å® ç‰©çš„æ‰€æœ‰å±æ€§key
+-- NOTE ³èÎïµÄËùÓĞÊôĞÔkey
 local petFields={
-  CONST.å¯¹è±¡_ç±»å‹,
-  CONST.å¯¹è±¡_å½¢è±¡,
-  CONST.å¯¹è±¡_åŸå½¢,
-  CONST.å¯¹è±¡_MAP,
-  CONST.å¯¹è±¡_åœ°å›¾,
-  CONST.å¯¹è±¡_X,
-  CONST.å¯¹è±¡_Y,
-  CONST.å¯¹è±¡_æ–¹å‘,
-  CONST.å¯¹è±¡_ç­‰çº§,
-  CONST.å¯¹è±¡_è¡€,
-  CONST.å¯¹è±¡_é­”,
-  CONST.å¯¹è±¡_ä½“åŠ›,
-  CONST.å¯¹è±¡_åŠ›é‡,
-  CONST.å¯¹è±¡_å¼ºåº¦,
-  CONST.å¯¹è±¡_é€Ÿåº¦,
-  CONST.å¯¹è±¡_é­”æ³•,
-  CONST.å¯¹è±¡_è¿æ°”,
-  CONST.å¯¹è±¡_ç§æ—,
-  CONST.å¯¹è±¡_åœ°å±æ€§,
-  CONST.å¯¹è±¡_æ°´å±æ€§,
-  CONST.å¯¹è±¡_ç«å±æ€§,
-  CONST.å¯¹è±¡_é£å±æ€§,
-  CONST.å¯¹è±¡_æŠ—æ¯’,
-  CONST.å¯¹è±¡_æŠ—ç¡,
-  CONST.å¯¹è±¡_æŠ—çŸ³,
-  CONST.å¯¹è±¡_æŠ—é†‰,
-  CONST.å¯¹è±¡_æŠ—ä¹±,
-  CONST.å¯¹è±¡_æŠ—å¿˜,
-  CONST.å¯¹è±¡_å¿…æ€,
-  CONST.å¯¹è±¡_åå‡»,
-  CONST.å¯¹è±¡_å‘½ä¸­,
-  CONST.å¯¹è±¡_é—ªèº²,
-  CONST.å¯¹è±¡_é“å…·æ ,
-  CONST.å¯¹è±¡_æŠ€èƒ½æ ,
-  CONST.å¯¹è±¡_æ­»äº¡æ•°,
-  CONST.å¯¹è±¡_ä¼¤å®³æ•°,
-  CONST.å¯¹è±¡_æ€å® æ•°,
-  CONST.å¯¹è±¡_å åœæ—¶é—´,
-  CONST.å¯¹è±¡_å—ä¼¤,
-  CONST.å¯¹è±¡_ç§»é—´,
-  CONST.å¯¹è±¡_å¾ªæ—¶,
-  CONST.å¯¹è±¡_ç»éªŒ,
-  CONST.å¯¹è±¡_å‡çº§ç‚¹,
-  CONST.å¯¹è±¡_å›¾ç±»,
-  CONST.å¯¹è±¡_åè‰²,
-  CONST.å¯¹è±¡_æ‰é­‚,
-  CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£,
-  CONST.å¯¹è±¡_åå­—,
-  CONST.å¯¹è±¡_æœ€å¤§è¡€,
-  CONST.å¯¹è±¡_æœ€å¤§é­”,
-  CONST.å¯¹è±¡_æ”»å‡»åŠ›,
-  CONST.å¯¹è±¡_é˜²å¾¡åŠ›,
-  CONST.å¯¹è±¡_æ•æ·,
-  CONST.å¯¹è±¡_ç²¾ç¥,
-  CONST.å¯¹è±¡_å›å¤,
-  CONST.å¯¹è±¡_è·å¾—ç»éªŒ,
-  CONST.å¯¹è±¡_é­”æ”»,
-  CONST.å¯¹è±¡_é­”æŠ—,
-  CONST.å¯¹è±¡_EnemyBaseId,
+  CONST.¶ÔÏó_ÀàĞÍ,
+  CONST.¶ÔÏó_ĞÎÏó,
+  CONST.¶ÔÏó_Ô­ĞÎ,
+  CONST.¶ÔÏó_MAP,
+  CONST.¶ÔÏó_µØÍ¼,
+  CONST.¶ÔÏó_X,
+  CONST.¶ÔÏó_Y,
+  CONST.¶ÔÏó_·½Ïò,
+  CONST.¶ÔÏó_µÈ¼¶,
+  CONST.¶ÔÏó_Ñª,
+  CONST.¶ÔÏó_Ä§,
+  CONST.¶ÔÏó_ÌåÁ¦,
+  CONST.¶ÔÏó_Á¦Á¿,
+  CONST.¶ÔÏó_Ç¿¶È,
+  CONST.¶ÔÏó_ËÙ¶È,
+  CONST.¶ÔÏó_Ä§·¨,
+  CONST.¶ÔÏó_ÔËÆø,
+  CONST.¶ÔÏó_ÖÖ×å,
+  CONST.¶ÔÏó_µØÊôĞÔ,
+  CONST.¶ÔÏó_Ë®ÊôĞÔ,
+  CONST.¶ÔÏó_»ğÊôĞÔ,
+  CONST.¶ÔÏó_·çÊôĞÔ,
+  CONST.¶ÔÏó_¿¹¶¾,
+  CONST.¶ÔÏó_¿¹Ë¯,
+  CONST.¶ÔÏó_¿¹Ê¯,
+  CONST.¶ÔÏó_¿¹×í,
+  CONST.¶ÔÏó_¿¹ÂÒ,
+  CONST.¶ÔÏó_¿¹Íü,
+  CONST.¶ÔÏó_±ØÉ±,
+  CONST.¶ÔÏó_·´»÷,
+  CONST.¶ÔÏó_ÃüÖĞ,
+  CONST.¶ÔÏó_ÉÁ¶ã,
+  CONST.¶ÔÏó_µÀ¾ßÀ¸,
+  CONST.¶ÔÏó_¼¼ÄÜÀ¸,
+  CONST.¶ÔÏó_ËÀÍöÊı,
+  CONST.¶ÔÏó_ÉËº¦Êı,
+  CONST.¶ÔÏó_É±³èÊı,
+  CONST.¶ÔÏó_Õ¼²·Ê±¼ä,
+  CONST.¶ÔÏó_ÊÜÉË,
+  CONST.¶ÔÏó_ÒÆ¼ä,
+  CONST.¶ÔÏó_Ñ­Ê±,
+  CONST.¶ÔÏó_¾­Ñé,
+  CONST.¶ÔÏó_Éı¼¶µã,
+  CONST.¶ÔÏó_Í¼Àà,
+  CONST.¶ÔÏó_ÃûÉ«,
+  CONST.¶ÔÏó_µô»ê,
+  CONST.¶ÔÏó_Ô­Ê¼Í¼µµ,
+  CONST.¶ÔÏó_Ãû×Ö,
+  CONST.¶ÔÏó_×î´óÑª,
+  CONST.¶ÔÏó_×î´óÄ§,
+  CONST.¶ÔÏó_¹¥»÷Á¦,
+  CONST.¶ÔÏó_·ÀÓùÁ¦,
+  CONST.¶ÔÏó_Ãô½İ,
+  CONST.¶ÔÏó_¾«Éñ,
+  CONST.¶ÔÏó_»Ø¸´,
+  CONST.¶ÔÏó_»ñµÃ¾­Ñé,
+  CONST.¶ÔÏó_Ä§¹¥,
+  CONST.¶ÔÏó_Ä§¿¹,
+  CONST.¶ÔÏó_EnemyBaseId,
   CONST.PET_DepartureBattleStatus,
   CONST.PET_PetID,
-  CONST.PET_æŠ€èƒ½æ ,
-  CONST.å¯¹è±¡_é­…åŠ›,
-  CONST.å¯¹è±¡_è€åŠ›,
-  CONST.å¯¹è±¡_çµå·§,
-  CONST.å¯¹è±¡_æ™ºåŠ›,
-  CONST.å¯¹è±¡_é­…åŠ›,
-  CONST.å¯¹è±¡_å£°æœ›,
-  CONST.å¯¹è±¡_èŒä¸š,
-  CONST.å¯¹è±¡_èŒé˜¶,
-  CONST.å¯¹è±¡_èŒç±»ID,
-  CONST.å¯¹è±¡_åè‰²,
+  CONST.PET_¼¼ÄÜÀ¸,
+  CONST.¶ÔÏó_÷ÈÁ¦,
+  CONST.¶ÔÏó_ÄÍÁ¦,
+  CONST.¶ÔÏó_ÁéÇÉ,
+  CONST.¶ÔÏó_ÖÇÁ¦,
+  CONST.¶ÔÏó_÷ÈÁ¦,
+  CONST.¶ÔÏó_ÉùÍû,
+  CONST.¶ÔÏó_Ö°Òµ,
+  CONST.¶ÔÏó_Ö°½×,
+  CONST.¶ÔÏó_Ö°ÀàID,
+  CONST.¶ÔÏó_ÃûÉ«,
 }
 
--- NOTE å® ç‰©æˆé•¿å±æ€§key
+-- NOTE ³èÎï³É³¤ÊôĞÔkey
 local petRankFields={
-  CONST.PET_ä½“æˆ,
-  CONST.PET_åŠ›æˆ,
-  CONST.PET_å¼ºæˆ,
-  CONST.PET_æ•æˆ,
-  CONST.PET_é­”æˆ,
+  CONST.PET_Ìå³É,
+  CONST.PET_Á¦³É,
+  CONST.PET_Ç¿³É,
+  CONST.PET_Ãô³É,
+  CONST.PET_Ä§³É,
 }
 
--- NOTE åŠ ç‚¹å¸¸é‡
+-- NOTE ¼Óµã³£Á¿
 local pointAttrs = {
-  {CONST.å¯¹è±¡_ä½“åŠ›,"ä½“åŠ›"},
-  {CONST.å¯¹è±¡_åŠ›é‡,"åŠ›é‡"},
-  {CONST.å¯¹è±¡_å¼ºåº¦,"å¼ºåº¦"},
-  {CONST.å¯¹è±¡_é€Ÿåº¦,"é€Ÿåº¦"},
-  {CONST.å¯¹è±¡_é­”æ³•,"é­”æ³•"},
+  {CONST.¶ÔÏó_ÌåÁ¦,"ÌåÁ¦"},
+  {CONST.¶ÔÏó_Á¦Á¿,"Á¦Á¿"},
+  {CONST.¶ÔÏó_Ç¿¶È,"Ç¿¶È"},
+  {CONST.¶ÔÏó_ËÙ¶È,"ËÙ¶È"},
+  {CONST.¶ÔÏó_Ä§·¨,"Ä§·¨"},
 }
--- NOTE ä½£å…µè‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+-- NOTE Ó¶±ø×Ô¶¯¼ÓµãÄ£Ê½
 -- local autoPointingPattern={'12010','21010','00022','10012','22000','10102','20011','20002'}
 local autoPointingPattern={'12010','21010','00022','10012','22000','02020','20011','20002'}
 
--- NOTE å® ç‰©è‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+-- NOTE ³èÎï×Ô¶¯¼ÓµãÄ£Ê½
 local petAutoPointingPattern={'10000','01000','00100','00010','00001'}
 
--- NOTE åè‰²å¸¸é‡
+-- NOTE ÃûÉ«³£Á¿
 local nameColorRareMap={
   ["R"]=0,
   ["SR"]=1,
@@ -159,9 +159,9 @@ local nameColorRareMap={
   ["UR"]=6,
 }
 
---å­—ä½“é¢œè‰²ï¼š0=ç™½ï¼Œ1=æµ…è“ï¼Œ2=æ·¡ç´«ï¼Œ3=æ·±è“ï¼Œ4=é»„ï¼Œ5=æµ…ç»¿ï¼Œ6=çº¢ï¼Œ7=ç°ï¼Œ8=è“ç°ï¼Œ9=ç°ç»¿ï¼Œ10=ç©ºï¼Œ11=éª¨ç°ï¼Œ12=æ³¥è‰²ï¼Œ
+--×ÖÌåÑÕÉ«£º0=°×£¬1=Ç³À¶£¬2=µ­×Ï£¬3=ÉîÀ¶£¬4=»Æ£¬5=Ç³ÂÌ£¬6=ºì£¬7=»Ò£¬8=À¶»Ò£¬9=»ÒÂÌ£¬10=¿Õ£¬11=¹Ç»Ò£¬12=ÄàÉ«£¬
 
--- NOTE æ–°å¢-åˆå§‹åŒ–ä½£å…µ
+-- NOTE ĞÂÔö-³õÊ¼»¯Ó¶±ø
 function module:initHeroData(toGetHeroData,charIndex)
   local tplId = toGetHeroData[1] or 1
   local name = toGetHeroData[2]
@@ -184,36 +184,36 @@ function module:initHeroData(toGetHeroData,charIndex)
   local modValue = toGetHeroData[21] or {}
 
   if syncWithPlayer then
-    local charLevel = Char.GetData(charIndex,CONST.å¯¹è±¡_ç­‰çº§)
+    local charLevel = Char.GetData(charIndex,CONST.¶ÔÏó_µÈ¼¶)
     local point=4*(charLevel-1);
     if rare =="SR" then
-      -- åˆå§‹20 more 1
+      -- ³õÊ¼20 more 1
       point=20+((4 + 1)*(charLevel-1))
     elseif rare =="SSR" then
-      -- åˆå§‹40 more 2
+      -- ³õÊ¼40 more 2
       point=40+((4+2)*(charLevel-1))
     elseif rare =="UR" then
-      -- åˆå§‹80 more 4
+      -- ³õÊ¼80 more 4
       point=80+((4+4)*(charLevel-1))
     end
   end
 
   local charValue = {
-    [tostring(CONST.å¯¹è±¡_åå­—)]=name,
-    [tostring(CONST.å¯¹è±¡_å½¢è±¡)]=image,
-    [tostring(CONST.å¯¹è±¡_åŸå½¢)]=image,
-    [tostring(CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£)]=image,
-    [tostring(CONST.å¯¹è±¡_ä½“åŠ›)]=vital*100,
-    [tostring(CONST.å¯¹è±¡_åŠ›é‡)]=str*100,
-    [tostring(CONST.å¯¹è±¡_å¼ºåº¦)]=tgh*100,
-    [tostring(CONST.å¯¹è±¡_é€Ÿåº¦)]=quick*100,
-    [tostring(CONST.å¯¹è±¡_é­”æ³•)]=magic*100,
-    [tostring(CONST.å¯¹è±¡_ç­‰çº§)]=level,
-    [tostring(CONST.å¯¹è±¡_å‡çº§ç‚¹)]=leveluppoint,
-    [tostring(CONST.å¯¹è±¡_èŒä¸š)]=mainJob,
-    [tostring(CONST.å¯¹è±¡_èŒç±»ID)]=jobAncestry,
-    [tostring(CONST.å¯¹è±¡_èŒé˜¶)]=jobRank,
-    [tostring(CONST.å¯¹è±¡_åè‰²)]=nameColorRareMap[rare],
+    [tostring(CONST.¶ÔÏó_Ãû×Ö)]=name,
+    [tostring(CONST.¶ÔÏó_ĞÎÏó)]=image,
+    [tostring(CONST.¶ÔÏó_Ô­ĞÎ)]=image,
+    [tostring(CONST.¶ÔÏó_Ô­Ê¼Í¼µµ)]=image,
+    [tostring(CONST.¶ÔÏó_ÌåÁ¦)]=vital*100,
+    [tostring(CONST.¶ÔÏó_Á¦Á¿)]=str*100,
+    [tostring(CONST.¶ÔÏó_Ç¿¶È)]=tgh*100,
+    [tostring(CONST.¶ÔÏó_ËÙ¶È)]=quick*100,
+    [tostring(CONST.¶ÔÏó_Ä§·¨)]=magic*100,
+    [tostring(CONST.¶ÔÏó_µÈ¼¶)]=level,
+    [tostring(CONST.¶ÔÏó_Éı¼¶µã)]=leveluppoint,
+    [tostring(CONST.¶ÔÏó_Ö°Òµ)]=mainJob,
+    [tostring(CONST.¶ÔÏó_Ö°ÀàID)]=jobAncestry,
+    [tostring(CONST.¶ÔÏó_Ö°½×)]=jobRank,
+    [tostring(CONST.¶ÔÏó_ÃûÉ«)]=nameColorRareMap[rare],
   }
 
   _.extend(charValue,modValue)
@@ -224,7 +224,7 @@ function module:initHeroData(toGetHeroData,charIndex)
     name=name,
     trueName=name,
     attr=charValue,
-    -- 1. å‡ºæˆ˜, 2. å¾…å‘½
+    -- 1. ³öÕ½, 2. ´ıÃü
     status=2,
     index=nil,
     items={ },
@@ -236,26 +236,26 @@ function module:initHeroData(toGetHeroData,charIndex)
     heroBattleTech=aiDatas[1],
     petSkills=petAiDatas,
     petBattleTech=petAiDatas[1],
-    -- æ˜¯å¦è·å¾—äº†ç»‘å®šå® ç‰© ï¼ˆé¦–æ¬¡å®ä¾‹åŒ–ä½£å…µæ—¶è§¦å‘ï¼‰
+    -- ÊÇ·ñ»ñµÃÁË°ó¶¨³èÎï £¨Ê×´ÎÊµÀı»¯Ó¶±øÊ±´¥·¢£©
     petGranted=false,
-    -- æ˜¯å¦è·å¾—äº†åˆå§‹è£…å¤‡ï¼ˆé¦–æ¬¡å®ä¾‹åŒ–ä½£å…µæ—¶è§¦å‘ï¼‰
+    -- ÊÇ·ñ»ñµÃÁË³õÊ¼×°±¸£¨Ê×´ÎÊµÀı»¯Ó¶±øÊ±´¥·¢£©
     equipmentGranted=false,
-    -- ä½£å…µè‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+    -- Ó¶±ø×Ô¶¯¼ÓµãÄ£Ê½
     autoPointing=nil,
-    -- æ˜¯å¦å¼€å¯ä½£å…µè‡ªåŠ¨åŠ ç‚¹
+    -- ÊÇ·ñ¿ªÆôÓ¶±ø×Ô¶¯¼Óµã
     isAutoPointing=1,
-    -- æˆ˜å® è‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+    -- Õ½³è×Ô¶¯¼ÓµãÄ£Ê½
     petAutoPointing=nil,
-    -- æ˜¯å¦å¼€å¯æˆ˜å® è‡ªåŠ¨åŠ ç‚¹
+    -- ÊÇ·ñ¿ªÆôÕ½³è×Ô¶¯¼Óµã
     isPetAutoPointing=0,
 
   }
 end
 
--- NOTE æŸ¥è¯¢æ•°æ®åº“ heroes æ•°æ®
+-- NOTE ²éÑ¯Êı¾İ¿â heroes Êı¾İ
 function module:queryHeroesData(charIndex)
-  local cdKey = Char.GetData(charIndex, CONST.å¯¹è±¡_CDK)
-  local regNo = Char.GetData(charIndex, CONST.å¯¹è±¡_RegistNumber)
+  local cdKey = Char.GetData(charIndex, CONST.¶ÔÏó_CDK)
+  local regNo = Char.GetData(charIndex, CONST.¶ÔÏó_RegistNumber)
   local sql="select value from des_heroes where cdkey= "..SQL.sqlValue(cdKey).." and regNo = "..SQL.sqlValue(regNo).." and is_deleted <> 1"
   local res,x =  SQL.QueryEx(sql)
 
@@ -273,10 +273,10 @@ function module:queryHeroesData(charIndex)
   return heroesData
 end
 
--- NOTE ä¿å­˜heroesæ•°æ®
+-- NOTE ±£´æheroesÊı¾İ
 function module:saveHeroesData(charIndex, heroesData)
-  local cdKey = Char.GetData(charIndex, CONST.å¯¹è±¡_CDK)
-  local regNo = Char.GetData(charIndex, CONST.å¯¹è±¡_RegistNumber)
+  local cdKey = Char.GetData(charIndex, CONST.¶ÔÏó_CDK)
+  local regNo = Char.GetData(charIndex, CONST.¶ÔÏó_RegistNumber)
   
   if #heroesData == 0 then
     return;
@@ -293,59 +293,59 @@ function module:saveHeroesData(charIndex, heroesData)
   local sql="replace into  des_heroes ( id,cdkey,regNo,value) values "..sqlValuesStr
 
   local r = SQL.querySQL(sql)
-  print("ä¿å­˜æ•°æ®",r)
+  print("±£´æÊı¾İ",r)
 end
 
--- NOTE ä¿å­˜å•ä¸ªheroæ•°æ®
+-- NOTE ±£´æµ¥¸öheroÊı¾İ
 function module:saveHeroData(charIndex,heroData)
-  local cdKey = Char.GetData(charIndex, CONST.å¯¹è±¡_CDK)
-  local regNo = Char.GetData(charIndex, CONST.å¯¹è±¡_RegistNumber)
+  local cdKey = Char.GetData(charIndex, CONST.¶ÔÏó_CDK)
+  local regNo = Char.GetData(charIndex, CONST.¶ÔÏó_RegistNumber)
 
   local sql="replace into  des_heroes ( id,cdkey,regNo,value) values ("
   ..SQL.sqlValue(heroData.id)..","
   ..SQL.sqlValue(cdKey)..","
   ..SQL.sqlValue(regNo)..","
   ..SQL.sqlValue(JSON.stringify(heroData))..")"
-  -- print("ä¿å­˜å•ä¸ªheroæ•°æ®",sql)
+  -- print("±£´æµ¥¸öheroÊı¾İ",sql)
   local r = SQL.querySQL(sql)
-  print("ä¿å­˜æ•°æ®",r)
+  print("±£´æÊı¾İ",r)
 end
 
--- NOTE æ ¹æ® heroId æŸ¥è¯¢ heroData
+-- NOTE ¸ù¾İ heroId ²éÑ¯ heroData
 function module:getHeroDataByid(charIndex,id)
     local heroesData = sgModule:get(charIndex,"heroes")
     local heroData = _.detect(heroesData, function(i) return i.id==id end)
     return heroData
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šé…’é¦†é¦–é¡µ
+-- NOTE ÎÄ×Ö¹¹½¨£º¾Æ¹İÊ×Ò³
 function module:buildRecruitSelection()
-  local title = "â˜…å¤¥ä¼´ä¸­å¿ƒ\\n"
+  local title = "¡ïâ·°éÖĞĞÄ\\n"
   local items = {
-    "é‚€è«‹å¤¥ä¼´",
-    "éšŠä¼è¨­ç½®",
+    "ÑûÕˆâ·°é",
+    "ê ÎéÔOÖÃ",
   }
   local windowStr = self:NPC_buildSelectionText(title,items);
   return windowStr
 end
 
--- NOTE æ–‡å­—æ„å»º:ä½£å…µèƒ½åŠ›æ•°å€¼æè¿° 
+-- NOTE ÎÄ×Ö¹¹½¨:Ó¶±øÄÜÁ¦ÊıÖµÃèÊö 
 -- function module:buildAttrDescriptionForHero(heroData)
   
   -- local title= "     ".. self:getHeroName(heroData) .."\n";
-  -- local windowStr = "ç­‰çº§:"..heroData['attr'][tostring(CONST.å¯¹è±¡_ç­‰çº§)].."   å‡çº§ç‚¹:"..heroData['attr'][tostring(CONST.å¯¹è±¡_å‡çº§ç‚¹)]
-    -- .."\nä½“åŠ›:"..(heroData['attr'][tostring(CONST.å¯¹è±¡_ä½“åŠ›)]/100).."  åŠ›é‡:"..(heroData['attr'][tostring(CONST.å¯¹è±¡_åŠ›é‡)]/100)
-    -- .." å¼ºåº¦:"..(heroData['attr'][tostring(CONST.å¯¹è±¡_å¼ºåº¦)]/100).."  é€Ÿåº¦:"..(heroData['attr'][tostring(CONST.å¯¹è±¡_é€Ÿåº¦)]/100)
-    -- .." é­”æ³•:"..(heroData['attr'][tostring(CONST.å¯¹è±¡_é­”æ³•)]/100)
-    -- .."\næˆ˜æ–—çŠ¶æ€:"..nameMap["status"][tostring(heroData.status)]
+  -- local windowStr = "µÈ¼¶:"..heroData['attr'][tostring(CONST.¶ÔÏó_µÈ¼¶)].."   Éı¼¶µã:"..heroData['attr'][tostring(CONST.¶ÔÏó_Éı¼¶µã)]
+    -- .."\nÌåÁ¦:"..(heroData['attr'][tostring(CONST.¶ÔÏó_ÌåÁ¦)]/100).."  Á¦Á¿:"..(heroData['attr'][tostring(CONST.¶ÔÏó_Á¦Á¿)]/100)
+    -- .." Ç¿¶È:"..(heroData['attr'][tostring(CONST.¶ÔÏó_Ç¿¶È)]/100).."  ËÙ¶È:"..(heroData['attr'][tostring(CONST.¶ÔÏó_ËÙ¶È)]/100)
+    -- .." Ä§·¨:"..(heroData['attr'][tostring(CONST.¶ÔÏó_Ä§·¨)]/100)
+    -- .."\nÕ½¶·×´Ì¬:"..nameMap["status"][tostring(heroData.status)]
   -- return title..windowStr
 -- end
 
--- NOTE è·å–ä½£å…µåå­—, å½“ä½£å…µå·²å‡ºæˆ˜(æœ‰index)æ—¶, é€šè¿‡Char.GetDataè·å–åå­—, å¦åˆ™, è·å–ä½£å…µåŸå§‹åå­—
+-- NOTE »ñÈ¡Ó¶±øÃû×Ö, µ±Ó¶±øÒÑ³öÕ½(ÓĞindex)Ê±, Í¨¹ıChar.GetData»ñÈ¡Ãû×Ö, ·ñÔò, »ñÈ¡Ó¶±øÔ­Ê¼Ãû×Ö
 function module:getHeroName(heroData)
   local heroIndex = heroData.index;
   if heroIndex and heroIndex > 0 then
-    local heroName = Char.GetData(heroIndex, CONST.å¯¹è±¡_åå­—)
+    local heroName = Char.GetData(heroIndex, CONST.¶ÔÏó_Ãû×Ö)
     return heroName
   else
     return heroData['name']
@@ -355,19 +355,19 @@ end
 
 function module:buildAttrDescriptionForHero(heroData)
   local title= "" .. self:getHeroName(heroData) .."\n\n";
-  local windowStr = "æˆ°é¬¥ç‹€æ…‹:"..nameMap["status"][tostring(heroData.status)]
-    .. "\n\nç­‰ç´š:"..heroData['attr'][tostring(CONST.å¯¹è±¡_ç­‰çº§)]
-    .."\n\næœªåŠ é»æ•¸:"..heroData['attr'][tostring(CONST.å¯¹è±¡_å‡çº§ç‚¹)]
-	  -- .."\n\næ”»å‡»åŠ›:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æ”»å‡»åŠ›)]
-	  -- .."\né˜²å¾¡åŠ›:"..heroData['attr'][tostring(CONST.å¯¹è±¡_é˜²å¾¡åŠ›)]
-	  -- .."\næ•æ·:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æ•æ·)]
-	  -- .."\nç²¾ç¥:"..heroData['attr'][tostring(CONST.å¯¹è±¡_ç²¾ç¥)]
-	  -- .."\nå›å¤:"..heroData['attr'][tostring(CONST.å¯¹è±¡_å›å¤)]
-	  -- .."\n\nå¿…æ€:"..heroData['attr'][tostring(CONST.å¯¹è±¡_å¿…æ€)].."åå‡»:"..heroData['attr'][tostring(CONST.å¯¹è±¡_åå‡»)]
-	  -- .."\nå‘½ä¸­:"..heroData['attr'][tostring(CONST.å¯¹è±¡_å‘½ä¸­)].."é—ªèº²:"..heroData['attr'][tostring(CONST.å¯¹è±¡_é—ªèº²)]
-	  -- .."\n\næŠ—ä¸­æ¯’:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æŠ—æ¯’)].."æŠ—æ˜ç¡:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æŠ—ç¡)].."æŠ—çŸ³åŒ–:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æŠ—çŸ³)]
-	  -- .."\næŠ—é…’é†‰:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æŠ—é†‰)].."æŠ—æ··ä¹±:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æŠ—ä¹±)].."æŠ—é—å¿˜:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æŠ—å¿˜)]
-	  -- .."\n\nåœ°:"..heroData['attr'][tostring(CONST.å¯¹è±¡_åœ°å±æ€§)].."æ°´:"..heroData['attr'][tostring(CONST.å¯¹è±¡_æ°´å±æ€§)].."ç«:"..heroData['attr'][tostring(CONST.å¯¹è±¡_ç«å±æ€§)].."é£:"..heroData['attr'][tostring(CONST.å¯¹è±¡_é£å±æ€§)]
+  local windowStr = "‘ğôY î‘B:"..nameMap["status"][tostring(heroData.status)]
+    .. "\n\nµÈ¼‰:"..heroData['attr'][tostring(CONST.¶ÔÏó_µÈ¼¶)]
+    .."\n\nÎ´¼Óüc”µ:"..heroData['attr'][tostring(CONST.¶ÔÏó_Éı¼¶µã)]
+	  -- .."\n\n¹¥»÷Á¦:"..heroData['attr'][tostring(CONST.¶ÔÏó_¹¥»÷Á¦)]
+	  -- .."\n·ÀÓùÁ¦:"..heroData['attr'][tostring(CONST.¶ÔÏó_·ÀÓùÁ¦)]
+	  -- .."\nÃô½İ:"..heroData['attr'][tostring(CONST.¶ÔÏó_Ãô½İ)]
+	  -- .."\n¾«Éñ:"..heroData['attr'][tostring(CONST.¶ÔÏó_¾«Éñ)]
+	  -- .."\n»Ø¸´:"..heroData['attr'][tostring(CONST.¶ÔÏó_»Ø¸´)]
+	  -- .."\n\n±ØÉ±:"..heroData['attr'][tostring(CONST.¶ÔÏó_±ØÉ±)].."·´»÷:"..heroData['attr'][tostring(CONST.¶ÔÏó_·´»÷)]
+	  -- .."\nÃüÖĞ:"..heroData['attr'][tostring(CONST.¶ÔÏó_ÃüÖĞ)].."ÉÁ¶ã:"..heroData['attr'][tostring(CONST.¶ÔÏó_ÉÁ¶ã)]
+	  -- .."\n\n¿¹ÖĞ¶¾:"..heroData['attr'][tostring(CONST.¶ÔÏó_¿¹¶¾)].."¿¹»èË¯:"..heroData['attr'][tostring(CONST.¶ÔÏó_¿¹Ë¯)].."¿¹Ê¯»¯:"..heroData['attr'][tostring(CONST.¶ÔÏó_¿¹Ê¯)]
+	  -- .."\n¿¹¾Æ×í:"..heroData['attr'][tostring(CONST.¶ÔÏó_¿¹×í)].."¿¹»ìÂÒ:"..heroData['attr'][tostring(CONST.¶ÔÏó_¿¹ÂÒ)].."¿¹ÒÅÍü:"..heroData['attr'][tostring(CONST.¶ÔÏó_¿¹Íü)]
+	  -- .."\n\nµØ:"..heroData['attr'][tostring(CONST.¶ÔÏó_µØÊôĞÔ)].."Ë®:"..heroData['attr'][tostring(CONST.¶ÔÏó_Ë®ÊôĞÔ)].."»ğ:"..heroData['attr'][tostring(CONST.¶ÔÏó_»ğÊôĞÔ)].."·ç:"..heroData['attr'][tostring(CONST.¶ÔÏó_·çÊôĞÔ)]
 
   return title..windowStr
 end
@@ -375,218 +375,222 @@ end
 
 
 
--- NOTE æ–‡å­—æ„å»º:å‡ºæˆ˜ä½£å…µçŠ¶æ€æè¿° 
+-- NOTE ÎÄ×Ö¹¹½¨:³öÕ½Ó¶±ø×´Ì¬ÃèÊö 
 function module:buildDescriptionForCampHero(heroData,page)
   local heroIndex = heroData.index;
-  local name = Char.GetData(heroIndex,CONST.å¯¹è±¡_åå­—)
-  local level = Char.GetData(heroIndex,CONST.å¯¹è±¡_ç­‰çº§)
-  local leveluppoint = Char.GetData(heroIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
-  local vital = Char.GetData(heroIndex,CONST.å¯¹è±¡_ä½“åŠ›)/100
-  local str = Char.GetData(heroIndex,CONST.å¯¹è±¡_åŠ›é‡)/100
-  local tgh = Char.GetData(heroIndex,CONST.å¯¹è±¡_å¼ºåº¦)/100
-  local quick = Char.GetData(heroIndex,CONST.å¯¹è±¡_é€Ÿåº¦)/100
-  local magic = Char.GetData(heroIndex,CONST.å¯¹è±¡_é­”æ³•)/100
-  local Tribe = Char.GetData(heroIndex,CONST.å¯¹è±¡_ç§æ—)
-  local att = Char.GetData(heroIndex,CONST.å¯¹è±¡_æ”»å‡»åŠ›)
-  local def = Char.GetData(heroIndex,CONST.å¯¹è±¡_é˜²å¾¡åŠ›)
-  local agl = Char.GetData(heroIndex,CONST.å¯¹è±¡_æ•æ·)
-  local spr = Char.GetData(heroIndex,CONST.å¯¹è±¡_ç²¾ç¥)
-  local rec = Char.GetData(heroIndex,CONST.å¯¹è±¡_å›å¤)
-  local exp = Char.GetData(heroIndex,CONST.å¯¹è±¡_ç»éªŒ)
-  local hp = Char.GetData(heroIndex,CONST.å¯¹è±¡_è¡€)
-  local mp = Char.GetData(heroIndex,CONST.å¯¹è±¡_é­”)
-  local maxhp = Char.GetData(heroIndex,CONST.å¯¹è±¡_æœ€å¤§è¡€)
-  local maxmp = Char.GetData(heroIndex,CONST.å¯¹è±¡_æœ€å¤§é­”)
-  local Attrib_Earth = Char.GetData(heroIndex,CONST.å¯¹è±¡_åœ°å±æ€§)
-  local Attrib_Water = Char.GetData(heroIndex,CONST.å¯¹è±¡_æ°´å±æ€§)
-  local Attrib_Fire = Char.GetData(heroIndex,CONST.å¯¹è±¡_ç«å±æ€§)
-  local Attrib_Wind = Char.GetData(heroIndex,CONST.å¯¹è±¡_é£å±æ€§)
-  local critical = Char.GetData(heroIndex,CONST.å¯¹è±¡_å¿…æ€)
-  local counter = Char.GetData(heroIndex,CONST.å¯¹è±¡_åå‡»)
-  local hitrate = Char.GetData(heroIndex,CONST.å¯¹è±¡_å‘½ä¸­)
-  local avoid = Char.GetData(heroIndex,CONST.å¯¹è±¡_é—ªèº²)
-  local poison = Char.GetData(heroIndex,CONST.å¯¹è±¡_æŠ—æ¯’)
-  local sleep = Char.GetData(heroIndex,CONST.å¯¹è±¡_æŠ—ç¡)
-  local stone = Char.GetData(heroIndex,CONST.å¯¹è±¡_æŠ—çŸ³)
-  local drunk = Char.GetData(heroIndex,CONST.å¯¹è±¡_æŠ—é†‰)
-  local confused = Char.GetData(heroIndex,CONST.å¯¹è±¡_æŠ—ä¹±)
-  local insomnia = Char.GetData(heroIndex,CONST.å¯¹è±¡_æŠ—å¿˜)
-  local injured = Char.GetData(heroIndex,CONST.å¯¹è±¡_å—ä¼¤)
-  local soulLost = Char.GetData(heroIndex,CONST.å¯¹è±¡_æ‰é­‚)
-  local charm = Char.GetData(heroIndex,CONST.å¯¹è±¡_é­…åŠ›)
-  -- èƒŒåŒ…å†…å®¹
+  local name = Char.GetData(heroIndex,CONST.¶ÔÏó_Ãû×Ö)
+  local level = Char.GetData(heroIndex,CONST.¶ÔÏó_µÈ¼¶)
+  local leveluppoint = Char.GetData(heroIndex,CONST.¶ÔÏó_Éı¼¶µã)
+  local vital = Char.GetData(heroIndex,CONST.¶ÔÏó_ÌåÁ¦)/100
+  local str = Char.GetData(heroIndex,CONST.¶ÔÏó_Á¦Á¿)/100
+  local tgh = Char.GetData(heroIndex,CONST.¶ÔÏó_Ç¿¶È)/100
+  local quick = Char.GetData(heroIndex,CONST.¶ÔÏó_ËÙ¶È)/100
+  local magic = Char.GetData(heroIndex,CONST.¶ÔÏó_Ä§·¨)/100
+  local Tribe = Char.GetData(heroIndex,CONST.¶ÔÏó_ÖÖ×å)
+  local att = Char.GetData(heroIndex,CONST.¶ÔÏó_¹¥»÷Á¦)
+  local def = Char.GetData(heroIndex,CONST.¶ÔÏó_·ÀÓùÁ¦)
+  local agl = Char.GetData(heroIndex,CONST.¶ÔÏó_Ãô½İ)
+  local spr = Char.GetData(heroIndex,CONST.¶ÔÏó_¾«Éñ)
+  local rec = Char.GetData(heroIndex,CONST.¶ÔÏó_»Ø¸´)
+  local exp = Char.GetData(heroIndex,CONST.¶ÔÏó_¾­Ñé)
+  local hp = Char.GetData(heroIndex,CONST.¶ÔÏó_Ñª)
+  local mp = Char.GetData(heroIndex,CONST.¶ÔÏó_Ä§)
+  local maxhp = Char.GetData(heroIndex,CONST.¶ÔÏó_×î´óÑª)
+  local maxmp = Char.GetData(heroIndex,CONST.¶ÔÏó_×î´óÄ§)
+  local Attrib_Earth = Char.GetData(heroIndex,CONST.¶ÔÏó_µØÊôĞÔ)
+  local Attrib_Water = Char.GetData(heroIndex,CONST.¶ÔÏó_Ë®ÊôĞÔ)
+  local Attrib_Fire = Char.GetData(heroIndex,CONST.¶ÔÏó_»ğÊôĞÔ)
+  local Attrib_Wind = Char.GetData(heroIndex,CONST.¶ÔÏó_·çÊôĞÔ)
+  local critical = Char.GetData(heroIndex,CONST.¶ÔÏó_±ØÉ±)
+  local counter = Char.GetData(heroIndex,CONST.¶ÔÏó_·´»÷)
+  local hitrate = Char.GetData(heroIndex,CONST.¶ÔÏó_ÃüÖĞ)
+  local avoid = Char.GetData(heroIndex,CONST.¶ÔÏó_ÉÁ¶ã)
+  local poison = Char.GetData(heroIndex,CONST.¶ÔÏó_¿¹¶¾)
+  local sleep = Char.GetData(heroIndex,CONST.¶ÔÏó_¿¹Ë¯)
+  local stone = Char.GetData(heroIndex,CONST.¶ÔÏó_¿¹Ê¯)
+  local drunk = Char.GetData(heroIndex,CONST.¶ÔÏó_¿¹×í)
+  local confused = Char.GetData(heroIndex,CONST.¶ÔÏó_¿¹ÂÒ)
+  local insomnia = Char.GetData(heroIndex,CONST.¶ÔÏó_¿¹Íü)
+  local injured = Char.GetData(heroIndex,CONST.¶ÔÏó_ÊÜÉË)
+  local soulLost = Char.GetData(heroIndex,CONST.¶ÔÏó_µô»ê)
+  local charm = Char.GetData(heroIndex,CONST.¶ÔÏó_÷ÈÁ¦)
+  -- ±³°üÄÚÈİ
   local bagItems = self:buildCampHeroItem(nil,heroData)
   
   local bagItemsStr = _(bagItems):chain():join("   "):value();
   local title= "".. self:getHeroName(heroData) .."\n";
   local windowStr="";
 
-  local feverTime = Char.GetData(heroIndex, CONST.å¯¹è±¡_å¡æ—¶)
-  -- æ€»ä¿®æ­£è®¡ç®—
+  local feverTime = Char.GetData(heroIndex, CONST.¶ÔÏó_¿¨Ê±)
+  -- ×ÜĞŞÕı¼ÆËã
 
   for slot=0,7 do
     local itemIndex = Char.GetItemIndex(heroIndex,slot)
     if itemIndex>=0 then
-      critical = critical+ (Item.GetData(itemIndex,CONST.é“å…·_å¿…æ€) or 0)
+      critical = critical+ (Item.GetData(itemIndex,CONST.µÀ¾ß_±ØÉ±) or 0)
       
-      counter =counter+ (Item.GetData(itemIndex,CONST.é“å…·_åå‡») or 0)
-      hitrate =  hitrate +  (Item.GetData(itemIndex,CONST.é“å…·_å‘½ä¸­) or 0)
-      avoid = avoid +  (Item.GetData(itemIndex,CONST.é“å…·_é—ªèº²) or 0)
-      poison = poison +  (Item.GetData(itemIndex,CONST.é“å…·_æ¯’æŠ—) or 0)
-      sleep = sleep +  (Item.GetData(itemIndex,CONST.é“å…·_ç¡æŠ—) or 0)
-      stone = stone +  (Item.GetData(itemIndex,CONST.é“å…·_çŸ³æŠ—) or 0)
-      drunk = drunk +  (Item.GetData(itemIndex,CONST.é“å…·_é†‰æŠ—) or 0)
-      confused =confused +  (Item.GetData(itemIndex,CONST.é“å…·_ä¹±æŠ—) or 0)
-      insomnia =insomnia +  (Item.GetData(itemIndex,CONST.é“å…·_å¿˜æŠ—) or 0)
+      counter =counter+ (Item.GetData(itemIndex,CONST.µÀ¾ß_·´»÷) or 0)
+      hitrate =  hitrate +  (Item.GetData(itemIndex,CONST.µÀ¾ß_ÃüÖĞ) or 0)
+      avoid = avoid +  (Item.GetData(itemIndex,CONST.µÀ¾ß_ÉÁ¶ã) or 0)
+      poison = poison +  (Item.GetData(itemIndex,CONST.µÀ¾ß_¶¾¿¹) or 0)
+      sleep = sleep +  (Item.GetData(itemIndex,CONST.µÀ¾ß_Ë¯¿¹) or 0)
+      stone = stone +  (Item.GetData(itemIndex,CONST.µÀ¾ß_Ê¯¿¹) or 0)
+      drunk = drunk +  (Item.GetData(itemIndex,CONST.µÀ¾ß_×í¿¹) or 0)
+      confused =confused +  (Item.GetData(itemIndex,CONST.µÀ¾ß_ÂÒ¿¹) or 0)
+      insomnia =insomnia +  (Item.GetData(itemIndex,CONST.µÀ¾ß_Íü¿¹) or 0)
     end
   end
 
   if page == 1 then
-    windowStr = "\nç­‰ç´š:"..level.."    æœªåŠ é»æ•¸:"..leveluppoint.."    ç¨®æ—:"..self:Tribe(Tribe)
-    .."\n\nç”Ÿå‘½: "..hp.."/"..maxhp.." é­”åŠ›ï¼š"..mp.."/"..maxmp
-    .."\n\né«”åŠ›:"..vital.."  åŠ›é‡:"..str
-    .." å¼·åº¦:"..tgh.."  é€Ÿåº¦:"..quick
-    .." é­”æ³•:"..magic
-    .."\n\næ”»æ“Šï¼š"..att.." é˜²ç¦¦ï¼š"..def.." æ•æ·ï¼š"..agl.." ç²¾ç¥ï¼š"..spr.." å›å¾©ï¼š"..rec
-    .."\n\nåœ°ï¼š"..Attrib_Earth.."  æ°´:"..Attrib_Water.."  ç«ï¼š"..Attrib_Fire.."  é¢¨ï¼š"..Attrib_Wind
-    ..'\n\nå¥åº·:'..self:healthColor(injured)..''.."  æ‰é­‚ï¼š"..soulLost.."  é­…åŠ›:"..charm
-    .."\n\nå¿…æ®ºï¼š"..critical.." å‘½ä¸­ï¼š"..hitrate.." åæ“Šï¼š"..counter.." é–ƒèº²ï¼š"..avoid
-    .."\n\næŠ—æ¯’ï¼š"..poison.." æŠ—æ˜ç¡ï¼š"..sleep.." æŠ—çŸ³åŒ–ï¼š"..stone
-    .."\n\næŠ—é†‰ï¼š"..drunk.." æŠ—æ··äº‚ï¼š"..confused .." æŠ—éºå¿˜ï¼š"..insomnia
-    .."\n\nå¡æ™‚(æ‰“å¡å¾ŒåŒæ­¥)ï¼š"..feverTime.."  ç¶“é©—ï¼š"..exp
+    windowStr = "\nµÈ¼‰:"..level.."    Î´¼Óüc”µ:"..leveluppoint.."    ·N×å:"..self:Tribe(Tribe)
+    .."\n\nÉúÃü: "..hp.."/"..maxhp.." Ä§Á¦£º"..mp.."/"..maxmp
+    .."\n\nówÁ¦:"..vital.."  Á¦Á¿:"..str
+    .." Š¶È:"..tgh.."  ËÙ¶È:"..quick
+    .." Ä§·¨:"..magic
+    .."\n\n¹¥“ô£º"..att.." ·À¶R£º"..def.." Ãô½İ£º"..agl.." ¾«Éñ£º"..spr.." »ØÍ£º"..rec
+    .."\n\nµØ£º"..Attrib_Earth.."  Ë®:"..Attrib_Water.."  »ğ£º"..Attrib_Fire.."  ïL£º"..Attrib_Wind
+    ..'\n\n½¡¿µ:'..self:healthColor(injured)..''.."  µô»ê£º"..soulLost.."  ÷ÈÁ¦:"..charm
+    .."\n\n±Øš¢£º"..critical.." ÃüÖĞ£º"..hitrate.." ·´“ô£º"..counter.." éW¶ã£º"..avoid
+    .."\n\n¿¹¶¾£º"..poison.." ¿¹»èË¯£º"..sleep.." ¿¹Ê¯»¯£º"..stone
+    .."\n\n¿¹×í£º"..drunk.." ¿¹»ìy£º"..confused .." ¿¹ßzÍü£º"..insomnia
+    .."\n\n¿¨•r(´ò¿¨ááÍ¬²½)£º"..feverTime.."  ½›ò£º"..exp
   else
-    windowStr="\nç‰©å“:"
+    windowStr="\nÎïÆ·:"
     .."\n\n"..bagItemsStr
   end
 
   return title..windowStr
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šé˜Ÿä¼çŠ¶æ€æè¿°
+-- NOTE ÎÄ×Ö¹¹½¨£º¶ÓÎé×´Ì¬ÃèÊö
 function module:buildDescriptionForParty(charIndex)
   local campHeroes=self:getCampHeroesData(charIndex)
   return _(campHeroes):chain():map(function(heroData) 
     local len2=6
     local heroIndex = heroData.index;
-    local name = Char.GetData(heroIndex,CONST.å¯¹è±¡_åå­—)
-    local level = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_ç­‰çº§),len2,' ')
-    local leveluppoint = Char.GetData(heroIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
+    local name = Char.GetData(heroIndex,CONST.¶ÔÏó_Ãû×Ö)
+    local level = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_µÈ¼¶),len2,' ')
+    local leveluppoint = Char.GetData(heroIndex,CONST.¶ÔÏó_Éı¼¶µã)
     
-    local vital = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_ä½“åŠ›)/100,len2,' ')
-    local str = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_åŠ›é‡)/100,len2,' ')
-    local tgh = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_å¼ºåº¦)/100,len2,' ')
-    local quick = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_é€Ÿåº¦)/100,len2,' ')
-    local magic = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_é­”æ³•)/100,len2,' ')
-    local Tribe = Char.GetData(heroIndex,CONST.å¯¹è±¡_ç§æ—)
+    local vital = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_ÌåÁ¦)/100,len2,' ')
+    local str = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_Á¦Á¿)/100,len2,' ')
+    local tgh = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_Ç¿¶È)/100,len2,' ')
+    local quick = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_ËÙ¶È)/100,len2,' ')
+    local magic = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_Ä§·¨)/100,len2,' ')
+    local Tribe = Char.GetData(heroIndex,CONST.¶ÔÏó_ÖÖ×å)
 
-    local att = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_æ”»å‡»åŠ›),len2,' ')
-    local def = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_é˜²å¾¡åŠ›),len2,' ')
-    local agl = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_æ•æ·),len2,' ')
-    local spr = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_ç²¾ç¥),len2,' ')
-    local rec = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_å›å¤),len2,' ')
-    local exp = self:strFill(Char.GetData(heroIndex,CONST.å¯¹è±¡_ç»éªŒ),len2,' ')
-    local hp = Char.GetData(heroIndex,CONST.å¯¹è±¡_è¡€)
-    local mp = Char.GetData(heroIndex,CONST.å¯¹è±¡_é­”)
-    local maxhp = Char.GetData(heroIndex,CONST.å¯¹è±¡_æœ€å¤§è¡€)
-    local maxmp = Char.GetData(heroIndex,CONST.å¯¹è±¡_æœ€å¤§é­”)
+    local att = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_¹¥»÷Á¦),len2,' ')
+    local def = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_·ÀÓùÁ¦),len2,' ')
+    local agl = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_Ãô½İ),len2,' ')
+    local spr = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_¾«Éñ),len2,' ')
+    local rec = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_»Ø¸´),len2,' ')
+    local exp = self:strFill(Char.GetData(heroIndex,CONST.¶ÔÏó_¾­Ñé),len2,' ')
+    local hp = Char.GetData(heroIndex,CONST.¶ÔÏó_Ñª)
+    local mp = Char.GetData(heroIndex,CONST.¶ÔÏó_Ä§)
+    local maxhp = Char.GetData(heroIndex,CONST.¶ÔÏó_×î´óÑª)
+    local maxmp = Char.GetData(heroIndex,CONST.¶ÔÏó_×î´óÄ§)
 
-    local injured = Char.GetData(heroIndex,CONST.å¯¹è±¡_å—ä¼¤)
-    local soulLost = Char.GetData(heroIndex,CONST.å¯¹è±¡_æ‰é­‚)
-    local jobId = Char.GetData(heroIndex,CONST.å¯¹è±¡_èŒä¸š)
+    local injured = Char.GetData(heroIndex,CONST.¶ÔÏó_ÊÜÉË)
+    local soulLost = Char.GetData(heroIndex,CONST.¶ÔÏó_µô»ê)
+    local jobId = Char.GetData(heroIndex,CONST.¶ÔÏó_Ö°Òµ)
     --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
-    local jobName = heroTplData[3];
-    local windowStr = "".. self:strFill(self:getHeroName(heroData), 16, ' ')..jobName..  "ç­‰ç´š:"..level.."  æœªåŠ é»æ•¸:"..leveluppoint
-      .."\nç”Ÿå‘½:"..hp.."/"..maxhp.." é­”åŠ›:"..mp.."/"..maxmp
-      .."\nä½“åŠ›:"..vital.."åŠ›é‡:"..str
-      .."å¼ºåº¦:"..tgh.."é€Ÿåº¦:"..quick
-      .."é­”æ³•:"..magic
-      .."\næ”»å‡»:"..att.."é˜²å¾¡:"..def.."æ•æ·:"..agl.."ç²¾ç¥:"..spr.."å›å¤:"..rec
 
-      ..'\nå¥åº·:'..self:healthColor(injured)..''.."  æ‰é­‚:"..soulLost.."     ç¶“é©—:"..exp
+    local heroTplId = heroData.tplId
+    local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
+    local jobName = heroTplData[3];
+
+    local windowStr = "".. self:strFill(self:getHeroName(heroData), 16, ' ')..jobName..  "µÈ¼‰:"..level.."  Î´¼Óüc”µ:"..leveluppoint
+      .."\nÉúÃü:"..hp.."/"..maxhp.." Ä§Á¦:"..mp.."/"..maxmp
+      .."\nÌåÁ¦:"..vital.."Á¦Á¿:"..str
+      .."Ç¿¶È:"..tgh.."ËÙ¶È:"..quick
+      .."Ä§·¨:"..magic
+      .."\n¹¥»÷:"..att.."·ÀÓù:"..def.."Ãô½İ:"..agl.."¾«Éñ:"..spr.."»Ø¸´:"..rec
+
+      ..'\n½¡¿µ:'..self:healthColor(injured)..''.."  µô»ê:"..soulLost.."     ½›ò:"..exp
     return windowStr
   end):join("\n\n"):value()
 
 end
 
--- NOTE æ–‡å­—æ„å»º:å® ç‰©çŠ¶æ€æè¿° 
+-- NOTE ÎÄ×Ö¹¹½¨:³èÎï×´Ì¬ÃèÊö 
 function module:buildDescriptionForPet(heroData,petIndex,page)
-  local name = Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—)
-  local level = Char.GetData(petIndex,CONST.å¯¹è±¡_ç­‰çº§)
-  local leveluppoint = Char.GetData(petIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
-  local vital =math.floor(Char.GetData(petIndex,CONST.å¯¹è±¡_ä½“åŠ›)/100) 
-  local str = math.floor(Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)/100)
-  local tgh = math.floor(Char.GetData(petIndex,CONST.å¯¹è±¡_å¼ºåº¦)/100)
-  local quick = math.floor(Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)/100)
-  local magic = math.floor(Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)/100)
-  local Tribe = Char.GetData(petIndex,CONST.å¯¹è±¡_ç§æ—)
-  local att = Char.GetData(petIndex,CONST.å¯¹è±¡_æ”»å‡»åŠ›)
-  local def = Char.GetData(petIndex,CONST.å¯¹è±¡_é˜²å¾¡åŠ›)
-  local agl = Char.GetData(petIndex,CONST.å¯¹è±¡_æ•æ·)
-  local spr = Char.GetData(petIndex,CONST.å¯¹è±¡_ç²¾ç¥)
-  local rec = Char.GetData(petIndex,CONST.å¯¹è±¡_å›å¤)
-  local exp = Char.GetData(petIndex,CONST.å¯¹è±¡_ç»éªŒ) or 0;
-  local hp = Char.GetData(petIndex,CONST.å¯¹è±¡_è¡€)
-  local mp = Char.GetData(petIndex,CONST.å¯¹è±¡_é­”)
-  local maxhp = Char.GetData(petIndex,CONST.å¯¹è±¡_æœ€å¤§è¡€)
-  local maxmp = Char.GetData(petIndex,CONST.å¯¹è±¡_æœ€å¤§é­”)
-  local Attrib_Earth = Char.GetData(petIndex,CONST.å¯¹è±¡_åœ°å±æ€§)
-  local Attrib_Water = Char.GetData(petIndex,CONST.å¯¹è±¡_æ°´å±æ€§)
-  local Attrib_Fire = Char.GetData(petIndex,CONST.å¯¹è±¡_ç«å±æ€§)
-  local Attrib_Wind = Char.GetData(petIndex,CONST.å¯¹è±¡_é£å±æ€§)
-  local critical = Char.GetData(petIndex,CONST.å¯¹è±¡_å¿…æ€)
-  local counter = Char.GetData(petIndex,CONST.å¯¹è±¡_åå‡»)
-  local hitrate = Char.GetData(petIndex,CONST.å¯¹è±¡_å‘½ä¸­)
-  local avoid = Char.GetData(petIndex,CONST.å¯¹è±¡_é—ªèº²)
-  local poison = Char.GetData(petIndex,CONST.å¯¹è±¡_æŠ—æ¯’)
-  local sleep = Char.GetData(petIndex,CONST.å¯¹è±¡_æŠ—ç¡)
-  local stone = Char.GetData(petIndex,CONST.å¯¹è±¡_æŠ—çŸ³)
-  local drunk = Char.GetData(petIndex,CONST.å¯¹è±¡_æŠ—é†‰)
-  local confused = Char.GetData(petIndex,CONST.å¯¹è±¡_æŠ—ä¹±)
-  local insomnia = Char.GetData(petIndex,CONST.å¯¹è±¡_æŠ—å¿˜)
-  local injured = Char.GetData(petIndex,CONST.å¯¹è±¡_å—ä¼¤)
-  local soulLost = Char.GetData(petIndex,CONST.å¯¹è±¡_æ‰é­‚)
+  local name = Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö)
+  local level = Char.GetData(petIndex,CONST.¶ÔÏó_µÈ¼¶)
+  local leveluppoint = Char.GetData(petIndex,CONST.¶ÔÏó_Éı¼¶µã)
+  local vital =math.floor(Char.GetData(petIndex,CONST.¶ÔÏó_ÌåÁ¦)/100) 
+  local str = math.floor(Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)/100)
+  local tgh = math.floor(Char.GetData(petIndex,CONST.¶ÔÏó_Ç¿¶È)/100)
+  local quick = math.floor(Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)/100)
+  local magic = math.floor(Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)/100)
+  local Tribe = Char.GetData(petIndex,CONST.¶ÔÏó_ÖÖ×å)
+  local att = Char.GetData(petIndex,CONST.¶ÔÏó_¹¥»÷Á¦)
+  local def = Char.GetData(petIndex,CONST.¶ÔÏó_·ÀÓùÁ¦)
+  local agl = Char.GetData(petIndex,CONST.¶ÔÏó_Ãô½İ)
+  local spr = Char.GetData(petIndex,CONST.¶ÔÏó_¾«Éñ)
+  local rec = Char.GetData(petIndex,CONST.¶ÔÏó_»Ø¸´)
+  local exp = Char.GetData(petIndex,CONST.¶ÔÏó_¾­Ñé) or 0;
+  local hp = Char.GetData(petIndex,CONST.¶ÔÏó_Ñª)
+  local mp = Char.GetData(petIndex,CONST.¶ÔÏó_Ä§)
+  local maxhp = Char.GetData(petIndex,CONST.¶ÔÏó_×î´óÑª)
+  local maxmp = Char.GetData(petIndex,CONST.¶ÔÏó_×î´óÄ§)
+  local Attrib_Earth = Char.GetData(petIndex,CONST.¶ÔÏó_µØÊôĞÔ)
+  local Attrib_Water = Char.GetData(petIndex,CONST.¶ÔÏó_Ë®ÊôĞÔ)
+  local Attrib_Fire = Char.GetData(petIndex,CONST.¶ÔÏó_»ğÊôĞÔ)
+  local Attrib_Wind = Char.GetData(petIndex,CONST.¶ÔÏó_·çÊôĞÔ)
+  local critical = Char.GetData(petIndex,CONST.¶ÔÏó_±ØÉ±)
+  local counter = Char.GetData(petIndex,CONST.¶ÔÏó_·´»÷)
+  local hitrate = Char.GetData(petIndex,CONST.¶ÔÏó_ÃüÖĞ)
+  local avoid = Char.GetData(petIndex,CONST.¶ÔÏó_ÉÁ¶ã)
+  local poison = Char.GetData(petIndex,CONST.¶ÔÏó_¿¹¶¾)
+  local sleep = Char.GetData(petIndex,CONST.¶ÔÏó_¿¹Ë¯)
+  local stone = Char.GetData(petIndex,CONST.¶ÔÏó_¿¹Ê¯)
+  local drunk = Char.GetData(petIndex,CONST.¶ÔÏó_¿¹×í)
+  local confused = Char.GetData(petIndex,CONST.¶ÔÏó_¿¹ÂÒ)
+  local insomnia = Char.GetData(petIndex,CONST.¶ÔÏó_¿¹Íü)
+  local injured = Char.GetData(petIndex,CONST.¶ÔÏó_ÊÜÉË)
+  local soulLost = Char.GetData(petIndex,CONST.¶ÔÏó_µô»ê)
   local loyalty = Char.GetData(petIndex,495)
   local title= ""..name.."\n";
   local windowStr="";
   if page == 1 then
-    windowStr = "\nç­‰ç´š:"..level.."    å‡ç´šé»:"..leveluppoint.."    ç¨®æ—:"..self:Tribe(Tribe)
-    .."\n\nç”Ÿå‘½: "..hp.."/"..maxhp.." é­”åŠ›ï¼š"..mp.."/"..maxmp
-    .."\n\né«”åŠ›:"..vital.."  åŠ›é‡:"..str
-    .." å¼·åº¦:"..tgh.."  é€Ÿåº¦:"..quick
-    .." é­”æ³•:"..magic
-    .."\n\næ”»æ“Šï¼š"..att.." é˜²ç¦¦ï¼š"..def.." æ•æ·ï¼š"..agl.." ç²¾ç¥ï¼š"..spr.." å›å¾©ï¼š"..rec
-    .."\n\nåœ°ï¼š"..Attrib_Earth.."  æ°´:"..Attrib_Water.."  ç«ï¼š"..Attrib_Fire.."  é¢¨ï¼š"..Attrib_Wind
-    .."\n\nå¥åº·:"..self:healthColor(injured).."  ç¶“é©—ï¼š"..exp
+    windowStr = "\nµÈ¼‰:"..level.."    Éı¼‰üc:"..leveluppoint.."    ·N×å:"..self:Tribe(Tribe)
+    .."\n\nÉúÃü: "..hp.."/"..maxhp.." Ä§Á¦£º"..mp.."/"..maxmp
+    .."\n\nówÁ¦:"..vital.."  Á¦Á¿:"..str
+    .." Š¶È:"..tgh.."  ËÙ¶È:"..quick
+    .." Ä§·¨:"..magic
+    .."\n\n¹¥“ô£º"..att.." ·À¶R£º"..def.." Ãô½İ£º"..agl.." ¾«Éñ£º"..spr.." »ØÍ£º"..rec
+    .."\n\nµØ£º"..Attrib_Earth.."  Ë®:"..Attrib_Water.."  »ğ£º"..Attrib_Fire.."  ïL£º"..Attrib_Wind
+    .."\n\n½¡¿µ:"..self:healthColor(injured).."  ½›ò£º"..exp
   else
-    windowStr = "\nå¿…æ®ºï¼š"..critical.." åæ“Šï¼š"..counter.." å‘½ä¸­ï¼š"..hitrate.." é–ƒèº²ï¼š"..avoid
-    .."\n\næŠ—æ¯’ï¼š"..poison.." æŠ—ç¡ï¼š"..sleep.." æŠ—çŸ³ï¼š"..stone
-    .."\n\næŠ—é†‰ï¼š"..drunk.." æŠ—äº‚ï¼š"..confused .." æŠ—å¿˜ï¼š"..insomnia
-    .."\n\nå¿ è¯šï¼š"..loyalty
+    windowStr = "\n±Øš¢£º"..critical.." ·´“ô£º"..counter.." ÃüÖĞ£º"..hitrate.." éW¶ã£º"..avoid
+    .."\n\n¿¹¶¾£º"..poison.." ¿¹Ë¯£º"..sleep.." ¿¹Ê¯£º"..stone
+    .."\n\n¿¹×í£º"..drunk.." ¿¹y£º"..confused .." ¿¹Íü£º"..insomnia
+    .."\n\nÖÒ³Ï£º"..loyalty
   end
 
   return title..windowStr
 end
 
--- NOTE æ–‡å­—æ„å»º : ä½£å…µåˆ—è¡¨
+-- NOTE ÎÄ×Ö¹¹½¨ : Ó¶±øÁĞ±í
 function module:buildListForHero(heroData)
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
 
-  -- è·å– job 
-  local jobId = heroData.attr[tostring(CONST.å¯¹è±¡_èŒä¸š)]
+  -- »ñÈ¡ job 
+  local jobId = heroData.attr[tostring(CONST.¶ÔÏó_Ö°Òµ)]
   local jobs = getModule("gmsvData").jobs;
   -- print(jobId, '>>>', jobs[tostring(jobId)][1], #jobs )
   --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
   local jobName = heroTplData[3];
 
-  -- è·å–ç­‰çº§
-  local level = heroData.attr[tostring(CONST.å¯¹è±¡_ç­‰çº§)]
+  -- »ñÈ¡µÈ¼¶
+  local level = heroData.attr[tostring(CONST.¶ÔÏó_µÈ¼¶)]
 
-  -- local title="    ã€"..heroTplData[15].."ã€‘  ".. self:getHeroName(heroData) .."  èŒä¸š:"..jobName
+  -- local title="    ¡¾"..heroTplData[15].."¡¿  ".. self:getHeroName(heroData) .."  Ö°Òµ:"..jobName
   return ""..heroTplData[15].."  ".. self:getHeroName(heroData) .."  "..jobName.."Lv"..level.." "..nameMap["status"][tostring(heroData.status)]
 end
 
--- NOTE æ–‡å­—æ„å»º: ä½£å…µæ“ä½œ é¢æ¿
+-- NOTE ÎÄ×Ö¹¹½¨: Ó¶±ø²Ù×÷ Ãæ°å
 function module:buildOperatorForHero(heroData)
   local name ="     ".. self:getHeroName(heroData) .."\\n";
   local toBeActStatus = heroData.status == 1 and 2 or 1
@@ -594,7 +598,7 @@ function module:buildOperatorForHero(heroData)
   return self:NPC_buildSelectionText(name,items);
 end
 
--- NOTE  åˆ›å»ºå‡äºº-ä½£å…µ
+-- NOTE  ´´½¨¼ÙÈË-Ó¶±ø
 function module:generateHeroDummy(charIndex,heroData)
   
   local heroIndex = Char.CreateDummy()
@@ -607,7 +611,7 @@ function module:generateHeroDummy(charIndex,heroData)
   heroesOnline[heroIndex]=heroData;
   heroData.index = heroIndex
   heroData.owner = charIndex
-  -- æ–°å­—æ®µ å…¼å®¹ï¼Œèµ‹äºˆé»˜è®¤å€¼
+  -- ĞÂ×Ö¶Î ¼æÈİ£¬¸³ÓèÄ¬ÈÏÖµ
   heroData.isAutoPointing=heroData.isAutoPointing or 0 
   heroData.isPetAutoPointing=heroData.isPetAutoPointing or 0 
 
@@ -620,26 +624,26 @@ function module:generateHeroDummy(charIndex,heroData)
     end
   end
 
-  local mapType = Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾ç±»å‹);
+  local mapType = Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼ÀàĞÍ);
   local targetX = 0;
   local targetY = 0;
   local targetMapId = 0;
 
-  targetX = Char.GetData(charIndex,CONST.å¯¹è±¡_X);
-  targetY = Char.GetData(charIndex,CONST.å¯¹è±¡_Y);
-  targetMapId = Char.GetData(charIndex,CONST.å¯¹è±¡_åœ°å›¾);
+  targetX = Char.GetData(charIndex,CONST.¶ÔÏó_X);
+  targetY = Char.GetData(charIndex,CONST.¶ÔÏó_Y);
+  targetMapId = Char.GetData(charIndex,CONST.¶ÔÏó_µØÍ¼);
 
-  Char.SetData(heroIndex, CONST.å¯¹è±¡_X, targetX);
-  Char.SetData(heroIndex, CONST.å¯¹è±¡_Y, targetY);
-  Char.SetData(heroIndex, CONST.å¯¹è±¡_åœ°å›¾, targetMapId);
-  Char.SetData(heroIndex, CONST.å¯¹è±¡_åœ°å›¾ç±»å‹, mapType);
+  Char.SetData(heroIndex, CONST.¶ÔÏó_X, targetX);
+  Char.SetData(heroIndex, CONST.¶ÔÏó_Y, targetY);
+  Char.SetData(heroIndex, CONST.¶ÔÏó_µØÍ¼, targetMapId);
+  Char.SetData(heroIndex, CONST.¶ÔÏó_µØÍ¼ÀàĞÍ, mapType);
   
-  -- é¦–æ¬¡åˆ›å»ºï¼Œç»™åˆå§‹å€¼
-  local c = Char.SetData(heroIndex, CONST.å¯¹è±¡_è¡€, Char.GetData(heroIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€));
-  c = Char.SetData(heroIndex, CONST.å¯¹è±¡_é­”, Char.GetData(heroIndex, CONST.å¯¹è±¡_æœ€å¤§é­”));
-  c = heroData.attr[tostring(CONST.å¯¹è±¡_é­…åŠ›)] == nil and Char.SetData(heroIndex, CONST.å¯¹è±¡_é­…åŠ›, 100) or Char.SetData(heroIndex, CONST.å¯¹è±¡_é­…åŠ›, heroData.attr[tostring(CONST.å¯¹è±¡_é­…åŠ›)]);
+  -- Ê×´Î´´½¨£¬¸ø³õÊ¼Öµ
+  local c = Char.SetData(heroIndex, CONST.¶ÔÏó_Ñª, Char.GetData(heroIndex, CONST.¶ÔÏó_×î´óÑª));
+  c = Char.SetData(heroIndex, CONST.¶ÔÏó_Ä§, Char.GetData(heroIndex, CONST.¶ÔÏó_×î´óÄ§));
+  c = heroData.attr[tostring(CONST.¶ÔÏó_÷ÈÁ¦)] == nil and Char.SetData(heroIndex, CONST.¶ÔÏó_÷ÈÁ¦, 100) or Char.SetData(heroIndex, CONST.¶ÔÏó_÷ÈÁ¦, heroData.attr[tostring(CONST.¶ÔÏó_÷ÈÁ¦)]);
 
-  -- è°ƒæ•™
+  -- µ÷½Ì
   Char.AddSkill(heroIndex, 71); 
   Char.SetSkillLevel(heroIndex,0,10);
   NLG.UpChar(heroIndex);
@@ -647,12 +651,12 @@ function module:generateHeroDummy(charIndex,heroData)
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
   if heroTplData== nil then
-    NLG.SystemMessage(dummyIndex,"å­˜åœ¨æœªçŸ¥å¤¥ä¼´ã€‚")
+    NLG.SystemMessage(dummyIndex,"´æÔÚÎ´Öªâ·°é¡£")
   end
 
-  -- é“å…·èµ‹äºˆ
+  -- µÀ¾ß¸³Óè
   if not heroData.equipmentGranted then
-    -- åˆå§‹åŒ–è£…å¤‡ç»™äºˆ
+    -- ³õÊ¼»¯×°±¸¸øÓè
     if heroTplData[23]~=nil and type(heroTplData[23])=='table' then
       local itemTable = heroTplData[23]
       for i = 1,8 do
@@ -664,7 +668,7 @@ function module:generateHeroDummy(charIndex,heroData)
         local itemIndex = Char.GiveItem(heroIndex, itemId, 1, false);
 
         if itemIndex >= 0 then
-          Item.SetData( itemIndex , CONST.é“å…·_å·²é‰´å®š ,1)
+          Item.SetData( itemIndex , CONST.µÀ¾ß_ÒÑ¼ø¶¨ ,1)
           local addSlot = Char.GetItemSlot(heroIndex, itemIndex)
           
           if addSlot ~= slot then
@@ -683,7 +687,7 @@ function module:generateHeroDummy(charIndex,heroData)
     
       local slot = tonumber(i)
       
-      local itemId = ItemData[tostring(CONST.é“å…·_ID)]
+      local itemId = ItemData[tostring(CONST.µÀ¾ß_ID)]
       
       local itemIndex = Char.GiveItem(heroIndex, itemId, 1, false);
       
@@ -703,10 +707,10 @@ function module:generateHeroDummy(charIndex,heroData)
   end
 
   Item.UpItem(heroIndex,-1)
-  -- åˆ›å»º å® ç‰©
+  -- ´´½¨ ³èÎï
   
   if not heroData.petGranted then
-    -- è¿›è¡Œåˆå§‹åŒ–å® ç‰©èµ‹äºˆ
+    -- ½øĞĞ³õÊ¼»¯³èÎï¸³Óè
 
     if heroTplData[22]~=nil and type(heroTplData[22])=='table' then
       local enemyId = heroTplData[22][1]
@@ -719,7 +723,7 @@ function module:generateHeroDummy(charIndex,heroData)
         end
       end)
     end
-    Char.SetPetDepartureState(heroIndex, 0,CONST.PET_STATE_æˆ˜æ–—)
+    Char.SetPetDepartureState(heroIndex, 0,CONST.PET_STATE_Õ½¶·)
     heroData.petGranted=true
   else
     local petsData=heroData.pets or {}
@@ -728,7 +732,7 @@ function module:generateHeroDummy(charIndex,heroData)
       local petData = petsData[tostring(slot)]
       local petIndex;
       if petData ~= nil then
-            -- æ ¹æ®petid è·å– enemyId
+            -- ¸ù¾İpetid »ñÈ¡ enemyId
         local petId = petData.attr[tostring(CONST.PET_PetID)]
         --local enemyId = getModule("gmsvData").enemy[tostring(petId)]?    --local enemyId = getModule("gmsvData").enmeyBase2enemy[tostring(petId)]?
         local enemyId = petId;
@@ -737,7 +741,7 @@ function module:generateHeroDummy(charIndex,heroData)
           petIndex = Char.AddPet(heroIndex, enemyId);
           
           self:insertPetData(petIndex,petData)
-          -- å® ç‰©å‡ºæˆ˜çŠ¶æ€è®¾ç½®
+          -- ³èÎï³öÕ½×´Ì¬ÉèÖÃ
           if petData.attr[tostring(CONST.PET_DepartureBattleStatus)] ~=nil then
             
             Char.SetPetDepartureState(heroIndex, slot,petData.attr[tostring(CONST.PET_DepartureBattleStatus)])
@@ -750,7 +754,7 @@ function module:generateHeroDummy(charIndex,heroData)
       end
       Pet.UpPet(heroIndex,petIndex);
     end
-    -- åˆ é™¤ å ä½çš„å® ç‰©
+    -- É¾³ı Õ¼Î»µÄ³èÎï
     _.each(tempSlot,function(slot) 
       Char.DelSlotPet(heroIndex, slot)
     end)
@@ -760,7 +764,7 @@ function module:generateHeroDummy(charIndex,heroData)
   
 end
 
--- NOTE åˆ é™¤å‡äºº -ä½£å…µ
+-- NOTE É¾³ı¼ÙÈË -Ó¶±ø
 function module:delHeroDummy(charIndex,heroData)
   if not heroData.index then
     return;
@@ -772,78 +776,79 @@ function module:delHeroDummy(charIndex,heroData)
   heroData.index=nil;
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šä½£å…µç®¡ç†é¦–é¡µ
+-- NOTE ÎÄ×Ö¹¹½¨£ºÓ¶±ø¹ÜÀíÊ×Ò³
 function module:buildManagementForHero(charIndex)
-  local title="â˜…éšŠä¼ç®¡ç†"
+  local title="¡ïê Îé¹ÜÀí"
   local items={
-    "  å…¨éšŠæ‰“å¡",
-    "  é—œé–‰æ‰“å¡",
-    "  æ²»ç™‚éšŠä¼",
-    "  å¤¥ä¼´ç®¡ç†",
-    "  å¤¥ä¼´ä¸€è¦½",
-    "  å¤¥ä¼´æ­¸éšŠ",
-    "  å¤¥ä¼´éšŠä¼",
+    "  È«ê ´ò¿¨",
+    "  êPé]´ò¿¨",
+    "  ÖÎ¯Ÿê Îé",
+    "  â·°é¹ÜÀí",
+    "  â·°éÒ»Ó[",
+    "  â·°éšwê ",
+    "  â·°éê Îé",
   }
 
   return self:NPC_buildSelectionText(title,items);
 end
 
--- NOTE è·å–å‡ºæˆ˜ä½£å…µ æ•°æ®
+-- NOTE »ñÈ¡³öÕ½Ó¶±ø Êı¾İ
 function module:getCampHeroesData(charIndex)
   local heroesData = sgModule:get(charIndex,"heroes") or {}
   
   return _.select(heroesData,function(item) return item.status==1 end)
 end
 
---  NOTE æ–‡å­—æ„å»ºï¼š å‡ºæˆ˜ä½£å…µåˆ—è¡¨
+--  NOTE ÎÄ×Ö¹¹½¨£º ³öÕ½Ó¶±øÁĞ±í
 function module:buildCampHeroesList(charIndex)
   local campHeroes = self:getCampHeroesData(charIndex)
-  local title = "â˜…å‡ºæˆ°ä¸­çš„å¤¥ä¼´ï¼š"
+  local title = "¡ï³ö‘ğÖĞµÄâ·°é£º"
   local items=_.map(campHeroes,function(item)
     return self:getHeroName(item) 
   end)
   return self:NPC_buildSelectionText(title,items);
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼š å‡ºæˆ˜ä½£å…µæ“ä½œ
+-- NOTE ÎÄ×Ö¹¹½¨£º ³öÕ½Ó¶±ø²Ù×÷
 function module:buildCampHeroOperator(charIndex,heroData)
   local heroIndex = heroData.index;
   local name = self:getHeroName(heroData)
-  -- è·å– job 
-  local jobId = Char.GetData(heroIndex,CONST.å¯¹è±¡_èŒä¸š)
+  -- »ñÈ¡ job 
+  local jobId = Char.GetData(heroIndex,CONST.¶ÔÏó_Ö°Òµ)
   --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
-  local jobName = heroTplData[3];
-  -- è·å–è¯´æ˜
+
+  -- »ñÈ¡ËµÃ÷
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
 
-  local title="ã€"..name.."ã€‘    ã€Œ"..heroTplData[15].."ã€ç´š :"..jobName
+  local jobName = heroTplData[3];
+  local title="¡¾"..name.."¡¿    ¡¸"..heroTplData[15].."¡¹¼‰ :"..jobName
 
   local aiId1 = heroData.heroBattleTech or -1
   local aiData1 = _.detect(getModule("heroesAI").aiData,function(data) return data.id==aiId1 end)
-  local name1=aiData1~=nil and aiData1.name or "æœªè¨­å®š"
+  local name1=aiData1~=nil and aiData1.name or "Î´ÔO¶¨"
 
   local aiId2 = heroData.petBattleTech or -1
   local aiData2 = _.detect(getModule("heroesAI").aiData,function(data) return data.id==aiId2 end)
-  local name2=aiData2~=nil and aiData2.name or "æœªè¨­å®š"
+  local name2=aiData2~=nil and aiData2.name or "Î´ÔO¶¨"
 
   local items={
-    "å¤¥ä¼´ç‹€æ…‹",
-    "å¯µç‰©ç‹€æ…‹",
-    --"æ°´æ™¶é¸æ“‡",
-    --"äº¤æ›ç‰©å“",
-    --"åˆªé™¤ç‰©å“",
-    "åŠ é»è¨­ç½®",
-    "å¤¥ä¼´AIè¨­ç½®".."ã€"..name1.."ã€‘",
-    "å¯µç‰©AIè¨­ç½®".."ã€"..name2.."ã€‘",
-    --"å¤¥ä¼´æ”¹å",
-    --"æ›´æ›å½¢è±¡"
+    "â·°é î‘B",
+    "Œ™Îï î‘B",
+    --"Ë®¾§ßx“ñ",
+    --"½»“QÎïÆ·",
+    --"„h³ıÎïÆ·",
+    "¼ÓücÔOÖÃ",
+    "â·°éAIÔOÖÃ".."¡¾"..name1.."¡¿",
+    "Œ™ÎïAIÔOÖÃ".."¡¾"..name2.."¡¿",
+    --"â·°é¸ÄÃû",
+    --"¸ü“QĞÎÏó"
   }
 
   return self:NPC_buildSelectionText(title,items);
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šå‡ºæˆ˜ä½£å…µé“å…·æµè§ˆ 
+-- NOTE ÎÄ×Ö¹¹½¨£º³öÕ½Ó¶±øµÀ¾ßä¯ÀÀ 
 function module:buildCampHeroItem(charIndex,heroData)
   local heroIndex = heroData.index
   local items={}
@@ -856,17 +861,17 @@ function module:buildCampHeroItem(charIndex,heroData)
       pre=""
     end
     if itemIndex >= 0 then
-      table.insert(items,pre..Item.GetData(itemIndex, CONST.é“å…·_åå­—))
+      table.insert(items,pre..Item.GetData(itemIndex, CONST.µÀ¾ß_Ãû×Ö))
 
     else
-      table.insert(items,pre.."ç„¡ç‰©å“")
+      table.insert(items,pre.."ŸoÎïÆ·")
     end
   end
   
   return items
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šç©å®¶èƒŒåŒ…æµè§ˆ
+-- NOTE ÎÄ×Ö¹¹½¨£ºÍæ¼Ò±³°üä¯ÀÀ
 function module:buildPlayerItem(charIndex)
   
   local items={}
@@ -877,16 +882,16 @@ function module:buildPlayerItem(charIndex)
       pre=nameMap['equipLocation'][tostring(i)]..":"
     end
     if itemIndex >= 0 then
-      table.insert(items,pre..Item.GetData(itemIndex, CONST.é“å…·_åå­—))
+      table.insert(items,pre..Item.GetData(itemIndex, CONST.µÀ¾ß_Ãû×Ö))
 
     else
-      table.insert(items,pre.."ç„¡ç‰©å“")
+      table.insert(items,pre.."ŸoÎïÆ·")
     end
   end
   return items
 end
 
--- NOTE æŠ½å– ç‰©å“æ•°æ®
+-- NOTE ³éÈ¡ ÎïÆ·Êı¾İ
 function module:extractItemData(itemIndex)
   local item = {};
   for _, v in pairs(itemFields) do
@@ -894,7 +899,7 @@ function module:extractItemData(itemIndex)
   end
   return item;
 end
---  NOTE èµ‹äºˆ ç‰©å“å±æ€§
+--  NOTE ¸³Óè ÎïÆ·ÊôĞÔ
 function  module:insertItemData(itemIndex,itemData)
   for _, field in pairs(itemFields) do
     local r = 0;
@@ -904,7 +909,7 @@ function  module:insertItemData(itemIndex,itemData)
   end
 end
 
--- NOTE ç¼“å­˜ç‰©å“æ•°æ®
+-- NOTE »º´æÎïÆ·Êı¾İ
 function module:cacheHeroItemData(heroData)
   local heroIndex = heroData.index
   heroData.items={}
@@ -917,7 +922,7 @@ function module:cacheHeroItemData(heroData)
   end
 end
 
--- NOTE ç¼“å­˜å® ç‰©æ•°æ®
+-- NOTE »º´æ³èÎïÊı¾İ
 function module:cacheHeroPetsData(heroData)
   local heroIndex = heroData.index
   heroData.pets={}
@@ -931,11 +936,11 @@ function module:cacheHeroPetsData(heroData)
   end
 end
 
--- NOTE ç¼“å­˜ä½£å…µæ•°æ®
+-- NOTE »º´æÓ¶±øÊı¾İ
 function module:cacheHeroAttrData(heroData)
   local heroIndex= heroData.index;
   local item={}
-  -- ç”¨å® ç‰©çš„keyï¼Ÿ å‹‰å¼ºç”¨ä¸€ä¸‹
+  -- ÓÃ³èÎïµÄkey£¿ ÃãÇ¿ÓÃÒ»ÏÂ
   for _, v in pairs(petFields) do
     item[tostring(v)] = Char.GetData(heroIndex, v);
     
@@ -943,7 +948,7 @@ function module:cacheHeroAttrData(heroData)
   heroData.attr=item
 end
 
--- NOTE æŠ½å–å® ç‰©æ•°æ®
+-- NOTE ³éÈ¡³èÎïÊı¾İ
 function module:extractPetData(petIndex)
   local item = {
     attr={},
@@ -958,7 +963,7 @@ function module:extractPetData(petIndex)
     item.rank[tostring(v)] = Pet.GetArtRank(petIndex,v);
     
   end
-  -- å® ç‰©æŠ€èƒ½
+  -- ³èÎï¼¼ÄÜ
   local skillTable={}
   for i=0,9 do
     local tech_id = Pet.GetSkill(petIndex, i)
@@ -972,23 +977,23 @@ function module:extractPetData(petIndex)
   return item;
 end
 
--- NOTE èµ‹äºˆå® ç‰©æ•°æ®
+-- NOTE ¸³Óè³èÎïÊı¾İ
 function module:insertPetData(petIndex,petData)
-  -- å® ç‰©å±æ€§
+  -- ³èÎïÊôĞÔ
   for key, v in pairs(petFields) do
     if petData.attr[tostring(v)] ~=nil  then
       Char.SetData(petIndex, v,petData.attr[tostring(v)]);
     end
   end
-  -- å¿ è¯š
+  -- ÖÒ³Ï
   -- Char.SetData(petIndex, 495,100);
-  -- å® ç‰©æˆé•¿
+  -- ³èÎï³É³¤
   for key, v in pairs(petRankFields) do
     if petData.rank[tostring(v)] ~=nil then
       Pet.SetArtRank(petIndex, v,petData.rank[tostring(v)]);
     end
   end
-  -- å® ç‰©æŠ€èƒ½
+  -- ³èÎï¼¼ÄÜ
   
   for i=0,9 do
     local tech_id = petData.skills[i+1]
@@ -1003,7 +1008,7 @@ function module:insertPetData(petIndex,petData)
 
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šä½£å…µå® ç‰©æµè§ˆ
+-- NOTE ÎÄ×Ö¹¹½¨£ºÓ¶±ø³èÎïä¯ÀÀ
 function module:buildCampHeroPets(heroData)
   local heroIndex = heroData.index;
   local items={}
@@ -1012,63 +1017,63 @@ function module:buildCampHeroPets(heroData)
     if petIndex>=0 then
       local status =  Char.GetData(petIndex, CONST.PET_DepartureBattleStatus);
       local suffix=""
-      if status ==  CONST.PET_STATE_æˆ˜æ–— then
-        suffix=" ã€å‡ºæˆ°ã€‘"
+      if status ==  CONST.PET_STATE_Õ½¶· then
+        suffix=" ¡¾³ö‘ğ¡¿"
       end
-      table.insert(items,Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—)..suffix)
+      table.insert(items,Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö)..suffix)
     else
-      table.insert(items,"ç©º")
+      table.insert(items,"¿Õ")
     end
   end
-  local title="è«‹é¸æ“‡å¯µç‰©"
+  local title="Õˆßx“ñŒ™Îï"
   return self:NPC_buildSelectionText(title,items);
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šä½£å…µå® ç‰©å‘½ä»¤
+-- NOTE ÎÄ×Ö¹¹½¨£ºÓ¶±ø³èÎïÃüÁî
 function module:buildCampHeroPetOperator(charIndex,heroData)
   local heroIndex = heroData.index;
   local petSlot = sgModule:get(charIndex,"heroPetSlotSelected");
   local petIndex= Char.GetPet(heroIndex,petSlot)
   local items={}
-  table.insert(items,"å¯µç‰©äº¤æ›")
+  table.insert(items,"Œ™Îï½»“Q")
   if petIndex>=0 then
     
-    if (Char.GetData(petIndex, CONST.PET_DepartureBattleStatus) == CONST.PET_STATE_æˆ˜æ–—) then
-      table.insert(items,"å¯µç‰©å¾…å‘½")
+    if (Char.GetData(petIndex, CONST.PET_DepartureBattleStatus) == CONST.PET_STATE_Õ½¶·) then
+      table.insert(items,"Œ™Îï´ıÃü")
       
     else
-      table.insert(items,"å¯µç‰©å‡ºæˆ°")
+      table.insert(items,"Œ™Îï³ö‘ğ")
       
     end
-    table.insert(items,"å¯µç‰©ç‹€æ…‹")
-    -- table.insert(items,"è®¾ç½®æˆ˜æ–—æŠ€èƒ½")
+    table.insert(items,"Œ™Îï î‘B")
+    -- table.insert(items,"ÉèÖÃÕ½¶·¼¼ÄÜ")
   else
     table.insert(items,"")
     table.insert(items,"")
   end
   
   
-  local title="è«‹é¸æ“‡æŒ‡ä»¤ï¼š"
+  local title="Õˆßx“ñÖ¸Áî£º"
   return self:NPC_buildSelectionText(title,items);
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šç©å®¶å® ç‰©æµè§ˆ
+-- NOTE ÎÄ×Ö¹¹½¨£ºÍæ¼Ò³èÎïä¯ÀÀ
 function module:buildPlayerPets(charIndex)
   local items={}
   for i=0,4 do
     local petIndex = Char.GetPet(charIndex, i)
     if petIndex>=0 then
-      table.insert(items,Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—))
+      table.insert(items,Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö))
     else
-      table.insert(items,"ç©º")
+      table.insert(items,"¿Õ")
     end
   end
-  local title="è«‹é¸æ“‡äº¤çµ¦å¤¥ä¼´çš„å¯µç‰©"
+  local title="Õˆßx“ñ½»½oâ·°éµÄŒ™Îï"
   return self:NPC_buildSelectionText(title,items);
 end
 
--- NOTE  éšæœºç›®æ ‡ 
--- side 0 æ˜¯ä¸‹æ–¹ï¼Œ 1 æ˜¯ä¸Šæ–¹
+-- NOTE  Ëæ»úÄ¿±ê 
+-- side 0 ÊÇÏÂ·½£¬ 1 ÊÇÉÏ·½
 -- range: 0:single,1: range ,2: all
 function module:randomTarget(side,battle,range)
   
@@ -1102,7 +1107,7 @@ function module:randomTarget(side,battle,range)
   return slotTable[NLG.Rand(1,#slotTable)]
 end
 
--- NOTE æˆ˜æ–—æ—¶ å¯¹é¢çš„sideå€¼
+-- NOTE Õ½¶·Ê± ¶ÔÃæµÄsideÖµ
 function module:oppositeSide(side)
   if side==0 then
     return 1
@@ -1113,88 +1118,88 @@ end
 
 function module:healthColor(injured)
   if injured==0 then
-    return "æ­£å¸¸"
+    return "Õı³£"
   elseif injured>0 and injured<=25 then
-    return "ç™½å‚·"
+    return "°×‚û"
   elseif injured>25 and injured<=50 then
-    return "é»ƒå‚·"
+    return "üS‚û"
   elseif injured>50 and injured<=75 then
-    return "ç´«å‚·"
+    return "×Ï‚û"
   elseif injured>75 and injured<=100 then
-    return "ç´…å‚·"
+    return "¼t‚û"
   end
 end
 
 function module:Tribe(Tribe)
   if Tribe==0 then
-    return "äººå‹"
+    return "ÈËĞÍ"
   elseif Tribe == 1 then
-    return "é¾"
+    return "ıˆ"
   elseif Tribe == 2 then
-    return "ä¸æ­»"
+    return "²»ËÀ"
   elseif Tribe == 3 then
-    return "é£›è¡Œ"
+    return "ïwĞĞ"
   elseif Tribe == 4 then
-    return "æ˜†èŸ²"
+    return "À¥Ïx"
   elseif Tribe == 5 then
-    return "æ¤ç‰©"
+    return "Ö²Îï"
   elseif Tribe == 6 then
-    return "é‡ç¸"
+    return "Ò°«F"
   elseif Tribe == 7 then
-    return "ç‰¹æ®Š"
+    return "ÌØÊâ"
   elseif Tribe == 8 then
-    return "é‡‘å±¬"
+    return "½ğŒÙ"
   elseif Tribe == 9 then
-    return "é‚ªé­”"
+    return "Ğ°Ä§"
 
   end
 end
 
--- NOTE æ²»ç–—åŠæ‹›é­‚
+-- NOTE ÖÎÁÆ¼°ÕĞ»ê
 function module:heal(charIndex,treatTarget)
   
-  local money = Char.GetData(charIndex, CONST.å¯¹è±¡_é‡‘å¸);
-  local treatTargetName =  Char.GetData(treatTarget, CONST.å¯¹è±¡_åå­—);
-  local injured = Char.GetData(treatTarget, CONST.å¯¹è±¡_å—ä¼¤)
+  local money = Char.GetData(charIndex, CONST.¶ÔÏó_½ğ±Ò);
+  local treatTargetName =  Char.GetData(treatTarget, CONST.¶ÔÏó_Ãû×Ö);
+  local injured = Char.GetData(treatTarget, CONST.¶ÔÏó_ÊÜÉË)
 
-  -- è¡¥è¡€é­”
-  local lp = Char.GetData(treatTarget, CONST.å¯¹è±¡_è¡€)
-  local maxLp = Char.GetData(treatTarget, CONST.å¯¹è±¡_æœ€å¤§è¡€)
-  local fp = Char.GetData(treatTarget, CONST.å¯¹è±¡_é­”)
-  local maxFp = Char.GetData(treatTarget, CONST.å¯¹è±¡_æœ€å¤§é­”)
+  -- ²¹ÑªÄ§
+  local lp = Char.GetData(treatTarget, CONST.¶ÔÏó_Ñª)
+  local maxLp = Char.GetData(treatTarget, CONST.¶ÔÏó_×î´óÑª)
+  local fp = Char.GetData(treatTarget, CONST.¶ÔÏó_Ä§)
+  local maxFp = Char.GetData(treatTarget, CONST.¶ÔÏó_×î´óÄ§)
 
   local lpCost = maxLp - lp
   local fpCost = maxFp-fp
   local totalCost = lpCost+fpCost
   if totalCost>0 then
     if money>totalCost then
-      Char.SetData(charIndex, CONST.å¯¹è±¡_é‡‘å¸, money - totalCost);
-      Char.SetData(treatTarget, CONST.å¯¹è±¡_è¡€, maxLp)
-      Char.SetData(treatTarget, CONST.å¯¹è±¡_é­”, maxFp)
-      NLG.SystemMessage(charIndex, treatTargetName.."è£œå……äº†ç”Ÿå‘½èˆ‡é­”åŠ›ï¼Œæ‰£é™¤äº†"..totalCost.."é­”å¹£ã€‚");
+      Char.SetData(charIndex, CONST.¶ÔÏó_½ğ±Ò, money - totalCost);
+      Char.SetData(treatTarget, CONST.¶ÔÏó_Ñª, maxLp)
+      Char.SetData(treatTarget, CONST.¶ÔÏó_Ä§, maxFp)
+      NLG.SystemMessage(charIndex, treatTargetName.."Ña³äÁËÉúÃüÅcÄ§Á¦£¬¿Û³ıÁË"..totalCost.."Ä§Å¡£");
     else
-      NLG.SystemMessage(charIndex, "æŠ±æ­‰ï¼Œæ‚¨çš„é­”å¹£ä¸è¶³ï¼Œ"..treatTargetName.."éœ€è¦"..totalCost.."é­”å¹£æ‰èƒ½è£œå……ç”Ÿå‘½èˆ‡é­”åŠ›ã€‚");
+      NLG.SystemMessage(charIndex, "±§Ç¸£¬ÄúµÄÄ§Å²»×ã£¬"..treatTargetName.."ĞèÒª"..totalCost.."Ä§Å²ÅÄÜÑa³äÉúÃüÅcÄ§Á¦¡£");
     end
 
   end
 
-  -- æ²»ç–—
-  money = Char.GetData(charIndex, CONST.å¯¹è±¡_é‡‘å¸);
+  -- ÖÎÁÆ
+  money = Char.GetData(charIndex, CONST.¶ÔÏó_½ğ±Ò);
   if (injured < 1) then
-    NLG.SystemMessage(charIndex, treatTargetName.."ç„¡éœ€æ²»ç™‚ã€‚");
+    NLG.SystemMessage(charIndex, treatTargetName.."ŸoĞèÖÎ¯Ÿ¡£");
   else
     for k,v in pairs(healPrice) do
       if injured>= v[1] and injured<=v[2] then
         if money>= v[3] then
-          Char.SetData(treatTarget, CONST.å¯¹è±¡_å—ä¼¤, 0);
-          Char.SetData(charIndex, CONST.å¯¹è±¡_é‡‘å¸, money - v[3]);
+          Char.SetData(treatTarget, CONST.¶ÔÏó_ÊÜÉË, 0);
+          Char.SetData(charIndex, CONST.¶ÔÏó_½ğ±Ò, money - v[3]);
           NLG.UpdateParty(charIndex);
           NLG.UpdateParty(treatTarget);
           -- NLG.UpChar(charIndex);
           -- NLG.UpChar(treatTarget);
-          NLG.SystemMessage(charIndex, treatTargetName.."æ²»ç™‚å®Œç•¢ï¼Œæ‰£é™¤äº†"..v[3].."é­”å¹£ã€‚");
+          NLG.SystemMessage(charIndex, treatTargetName.."ÖÎ¯ŸÍê®…£¬¿Û³ıÁË"..v[3].."Ä§Å¡£");
         else
-          NLG.SystemMessage(charIndex, "æŠ±æ­‰ï¼Œæ‚¨çš„é­”å¹£ä¸è¶³ä»¥æ”¯ä»˜"..treatTargetName.."æ²»ç™‚éœ€è¦çš„"..v[3].."é­”å¹£ã€‚");
+          NLG.SystemMessage(charIndex, "±§Ç¸£¬ÄúµÄÄ§Å²»×ãÒÔÖ§¸¶"..treatTargetName.."ÖÎ¯ŸĞèÒªµÄ"..v[3].."Ä§Å¡£");
           return 
         end
       end
@@ -1202,53 +1207,53 @@ function module:heal(charIndex,treatTarget)
   end
  
 
-  money = Char.GetData(charIndex, CONST.å¯¹è±¡_é‡‘å¸);
-  -- æ‹›é­‚
-  local soulLost = Char.GetData(treatTarget,CONST.å¯¹è±¡_æ‰é­‚);
-  local treatTargetLv = Char.GetData(treatTarget,CONST.å¯¹è±¡_ç­‰çº§);
+  money = Char.GetData(charIndex, CONST.¶ÔÏó_½ğ±Ò);
+  -- ÕĞ»ê
+  local soulLost = Char.GetData(treatTarget,CONST.¶ÔÏó_µô»ê);
+  local treatTargetLv = Char.GetData(treatTarget,CONST.¶ÔÏó_µÈ¼¶);
   local cost = soulLost*200*treatTargetLv;
   if money >= cost and soulLost > 0 then
     -- print(money-cost)
-    Char.SetData(charIndex,CONST.å¯¹è±¡_é‡‘å¸,money-cost);
-    Char.SetData(treatTarget,CONST.å¯¹è±¡_æ‰é­‚,0);
+    Char.SetData(charIndex,CONST.¶ÔÏó_½ğ±Ò,money-cost);
+    Char.SetData(treatTarget,CONST.¶ÔÏó_µô»ê,0);
     -- NLG.UpChar(treatTarget);
-    NLG.SystemMessage(charIndex,"æ‹›é­‚å®Œæˆï¼Œæ‰£é™¤äº†"..cost.."é­”å¹£ã€‚");	
+    NLG.SystemMessage(charIndex,"ÕĞ»êÍê³É£¬¿Û³ıÁË"..cost.."Ä§Å¡£");	
   
   end
   if money < cost then
-    NLG.SystemMessage(charIndex,"ç¼ºå°‘æ‹›é­‚æ‰€éœ€çš„"..cost.."é­”å¹£ã€‚");	
+    NLG.SystemMessage(charIndex,"È±ÉÙÕĞ»êËùĞèµÄ"..cost.."Ä§Å¡£");	
   end
 
 end
 
--- NOTE å…¨é˜Ÿ æ‰“å¡
+-- NOTE È«¶Ó ´ò¿¨
 
 function module:partyFeverControl(charIndex,command)
   for slot = 0,4 do
     local p =Char.GetPartyMember(charIndex,slot)
     if(p>=0) then
       if Char.IsDummy(p) then
-          Char.SetData(p, CONST.å¯¹è±¡_å¡æ—¶, 24 * 3600);
+          Char.SetData(p, CONST.¶ÔÏó_¿¨Ê±, 24 * 3600);
       end
-      local name = Char.GetData(p,CONST.å¯¹è±¡_åå­—);
+      local name = Char.GetData(p,CONST.¶ÔÏó_Ãû×Ö);
       if(command ==1) then
         Char.FeverStart(p);
         NLG.UpChar(p);
-        NLG.SystemMessage(charIndex, name.."æ‰“å¡æˆåŠŸã€‚");	
+        NLG.SystemMessage(charIndex, name.."´ò¿¨³É¹¦¡£");	
       elseif(command ==0) then
         Char.FeverStop(p);
         NLG.UpChar(p);
-        NLG.SystemMessage(charIndex, name.."é—œé–‰äº†æ‰“å¡ã€‚");	
+        NLG.SystemMessage(charIndex, name.."êPé]ÁË´ò¿¨¡£");	
       end
       
     end
   end
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šåŠ ç‚¹
+-- NOTE ÎÄ×Ö¹¹½¨£º¼Óµã
 function module:buildSetPoint(charIndex,heroIndex,page)
   
-  local restPoint= Char.GetData(heroIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
+  local restPoint= Char.GetData(heroIndex,CONST.¶ÔÏó_Éı¼¶µã)
   local pointSetting =sgModule:get(charIndex,"pointSetting") or {}
   local pointsBeSetted = _(pointSetting):chain():values():reduce(0, 
   function(count, item) 
@@ -1256,34 +1261,34 @@ function module:buildSetPoint(charIndex,heroIndex,page)
   end):value()
   local warningMsg=""
   if restPoint<pointsBeSetted then
-    warningMsg="  â€»å‡ç´šé»æ•¸ä¸è¶³ï¼Œè«‹é‡æ–°åˆ†é…ã€‚"
+    warningMsg="  ¡ùÉı¼‰üc”µ²»×ã£¬ÕˆÖØĞÂ·ÖÅä¡£"
   end
-  local windowStr="å‰©é¤˜é»æ•¸:ã€"..(restPoint-pointsBeSetted).."ã€‘"..warningMsg
-  .."\nå·²åˆ†é…é»æ•¸ï¼š".._(pointAttrs):chain():map(function(attrArray) return "\nã€Œ"..attrArray[2].."ã€ï¼š"..(pointSetting[attrArray[1]] or "") end):join(""):value()
+  local windowStr="Ê£ğNüc”µ:¡¾"..(restPoint-pointsBeSetted).."¡¿"..warningMsg
+  .."\nÒÑ·ÖÅäüc”µ£º".._(pointAttrs):chain():map(function(attrArray) return "\n¡¸"..attrArray[2].."¡¹£º"..(pointSetting[attrArray[1]] or "") end):join(""):value()
   .."\n----------------------"
-  .."\nè¼¸å…¥åˆ†é…ã€"..pointAttrs[page][2].."ã€‘çš„é»æ•¸:"
+  .."\nİ”Èë·ÖÅä¡¾"..pointAttrs[page][2].."¡¿µÄüc”µ:"
   return windowStr
 
 end
 
--- TODO æ–‡å­—æ„å»º: æ”¹å
+-- TODO ÎÄ×Ö¹¹½¨: ¸ÄÃû
 function module:rename(charIndex, heroData, page)
   local heroIndex = heroData.index;
-  -- è·å– job 
-  local jobId = Char.GetData(heroIndex,CONST.å¯¹è±¡_èŒä¸š)
+  -- »ñÈ¡ job 
+  local jobId = Char.GetData(heroIndex,CONST.¶ÔÏó_Ö°Òµ)
   local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
-  -- è·å–è¯´æ˜
+  -- »ñÈ¡ËµÃ÷
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
   local oriName = getHeroName(heroData)
 
-  local windowStr="ã€€ã€" .. heroTplData[15] .. "ã€‘ã€€" .. oriName .."ã€€ã€€ã€€è·æ¥­ï¼š" .. jobName .. "\n\nã€€\nã€€è«‹è¼¸å…¥æ–°çš„åå­—ï¼š\n\n"
+  local windowStr="¡¡¡¾" .. heroTplData[15] .. "¡¿¡¡" .. oriName .."¡¡¡¡¡¡Âš˜I£º" .. jobName .. "\n\n¡¡\n¡¡Õˆİ”ÈëĞÂµÄÃû×Ö£º\n\n"
 
   return windowStr
 
 end
 
--- NOTE ç¼“å­˜ åŠ ç‚¹æ•°æ®
+-- NOTE »º´æ ¼ÓµãÊı¾İ
 function module:cachePointSetting(charIndex,page,data)
   
   local pointSetting =sgModule:get(charIndex,"pointSetting")
@@ -1294,30 +1299,30 @@ function module:cachePointSetting(charIndex,page,data)
   sgModule:set(charIndex,"pointSetting",pointSetting)
 end
 
--- NOTE ç»™ä½£å…µåŠ ç‚¹
+-- NOTE ¸øÓ¶±ø¼Óµã
 function module:setPoint(charIndex,heroIndex)
-  -- åˆ¤æ–­ ç‚¹æ•°æ˜¯å¦å¤Ÿ
-  local name = Char.GetData(heroIndex,CONST.å¯¹è±¡_åå­—)
-  local restPoint= Char.GetData(heroIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
+  -- ÅĞ¶Ï µãÊıÊÇ·ñ¹»
+  local name = Char.GetData(heroIndex,CONST.¶ÔÏó_Ãû×Ö)
+  local restPoint= Char.GetData(heroIndex,CONST.¶ÔÏó_Éı¼¶µã)
   local pointSetting =sgModule:get(charIndex,"pointSetting")
   local pointsBeSetted = _(pointSetting):chain():values():reduce(0, 
   function(count, item) 
     return count+item
   end):value()
   if restPoint<pointsBeSetted then
-    NLG.SystemMessage(charIndex, "é»æ•¸åˆ†é…éŒ¯èª¤ï¼Œè«‹æŒ‰ç…§æç¤ºå¡«å¯«ã€‚");
+    NLG.SystemMessage(charIndex, "üc”µ·ÖÅäåeÕ`£¬Õˆ°´ÕÕÌáÊ¾ÌîŒ‘¡£");
     return
   end
-  -- åˆ¤æ–­ åˆ†é…ç‚¹æ•°æ˜¯å¦è¶…è¿‡æ€»ç‚¹æ•°çš„ä¸€åŠ
-  local vital = Char.GetData(heroIndex,CONST.å¯¹è±¡_ä½“åŠ›)/100
-  local str = Char.GetData(heroIndex,CONST.å¯¹è±¡_åŠ›é‡)/100
-  local tgh = Char.GetData(heroIndex,CONST.å¯¹è±¡_å¼ºåº¦)/100
-  local quick = Char.GetData(heroIndex,CONST.å¯¹è±¡_é€Ÿåº¦)/100
-  local magic = Char.GetData(heroIndex,CONST.å¯¹è±¡_é­”æ³•)/100
+  -- ÅĞ¶Ï ·ÖÅäµãÊıÊÇ·ñ³¬¹ı×ÜµãÊıµÄÒ»°ë
+  local vital = Char.GetData(heroIndex,CONST.¶ÔÏó_ÌåÁ¦)/100
+  local str = Char.GetData(heroIndex,CONST.¶ÔÏó_Á¦Á¿)/100
+  local tgh = Char.GetData(heroIndex,CONST.¶ÔÏó_Ç¿¶È)/100
+  local quick = Char.GetData(heroIndex,CONST.¶ÔÏó_ËÙ¶È)/100
+  local magic = Char.GetData(heroIndex,CONST.¶ÔÏó_Ä§·¨)/100
 
   local addedPoint =vital+str+tgh+quick+magic
 
-  local totalPoint = addedPoint + Char.GetData(heroIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
+  local totalPoint = addedPoint + Char.GetData(heroIndex,CONST.¶ÔÏó_Éı¼¶µã)
   for key,arr in pairs(pointAttrs) do
     local data = (pointSetting[arr[1]] or 0 )
     if data== 0 then
@@ -1328,7 +1333,7 @@ function module:setPoint(charIndex,heroIndex)
     
     if data+originData>totalPoint/2 then
       
-      NLG.Say(charIndex,-1,"é»æ•¸åˆ†é…éŒ¯èª¤ï¼Œå–®é …é»æ•¸è¶…éæœ€å¤§å€¼ï¼Œä¸€èˆ¬ç‚ºäº†ç¸½é»æ•¸çš„ä¸€åŠã€‚",CONST.é¢œè‰²_çº¢è‰²,0)
+      NLG.Say(charIndex,-1,"üc”µ·ÖÅäåeÕ`£¬†Îí—üc”µ³¬ß^×î´óÖµ£¬Ò»°ãéÁË¿‚üc”µµÄÒ»°ë¡£",CONST.ÑÕÉ«_ºìÉ«,0)
       return 
     end
     ::continue::
@@ -1336,7 +1341,7 @@ function module:setPoint(charIndex,heroIndex)
 
 
 
-  Char.SetData(heroIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹, restPoint-pointsBeSetted);
+  Char.SetData(heroIndex,CONST.¶ÔÏó_Éı¼¶µã, restPoint-pointsBeSetted);
   _.each(pointAttrs,function(arr) 
     local data = (pointSetting[arr[1]] or 0 )*100
     if data== 0 then
@@ -1351,13 +1356,13 @@ function module:setPoint(charIndex,heroIndex)
   NLG.SystemMessage(charIndex, name..msg);
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šæŠ€èƒ½æµè§ˆ
+-- NOTE ÎÄ×Ö¹¹½¨£º¼¼ÄÜä¯ÀÀ
 function module:buildCampHeroSkills(charIndex,skills)
   
   local items={}
   for i =1,8 do
     if skills[i]==nil then
-      table.insert(items,"ç©º")
+      table.insert(items,"¿Õ")
     else
       local aiId= skills[i]
       local aiData = _.detect(getModule("heroesAI").aiData,function(data) return data.id==aiId end)
@@ -1367,34 +1372,34 @@ function module:buildCampHeroSkills(charIndex,skills)
     end
    
   end
-  local title="â˜…AIåˆ—è¡¨"
+  local title="¡ïAIÁĞ±í"
   return self:NPC_buildSelectionText(title,items);
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šä½£å…µåŠ ç‚¹ä¸»é¡µ
+-- NOTE ÎÄ×Ö¹¹½¨£ºÓ¶±ø¼ÓµãÖ÷Ò³
 function module:buildHeroOperationSecWindow(charIndex,heroData)
   local heroIndex = heroData.index;
-  -- è·å– job 
-  local jobId = Char.GetData(heroIndex,CONST.å¯¹è±¡_èŒä¸š)
+  -- »ñÈ¡ job 
+  local jobId = Char.GetData(heroIndex,CONST.¶ÔÏó_Ö°Òµ)
   --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
 
-  -- è·å–è¯´æ˜
+  -- »ñÈ¡ËµÃ÷
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
 
-  local labelAutoPointing=  heroData.isAutoPointing==0 and "æœªé–‹å•Ÿ" or "å·²é–‹å•Ÿ"
-  local labelPetAUtoPointing = heroData.isPetAutoPointing==0 and "æœªé–‹å•Ÿ" or "å·²é–‹å•Ÿ"
+  local labelAutoPointing=  heroData.isAutoPointing==0 and "Î´é_†¢" or "ÒÑé_†¢"
+  local labelPetAUtoPointing = heroData.isPetAutoPointing==0 and "Î´é_†¢" or "ÒÑé_†¢"
 
   local jobName = heroTplData[3];
-  local title="    ã€"..heroTplData[15].."ã€‘  ".. self:getHeroName(heroData) .."  å®šä½:"..jobName
+  local title="    ¡¾"..heroTplData[15].."¡¿  ".. self:getHeroName(heroData) .."  ¶¨Î»:"..jobName
 
-  local items = {"å¤¥ä¼´åŠ é»","å¯µç‰©åŠ é»","å¤¥ä¼´è‡ªå‹•åŠ é»æ–¹æ¡ˆ("..(heroData.autoPointing or 'æœªé¸æ“‡')..")","å¯µç‰©è‡ªå‹•åŠ é»æ–¹æ¡ˆ("..(heroData.petAutoPointing  or 'æœªé¸æ“‡')..")","å¤¥ä¼´è‡ªå‹•åŠ é»é–‹é—œã€"..labelAutoPointing.."ã€‘","å¯µç‰©è‡ªå‹•åŠ é»é–‹é—œã€"..labelPetAUtoPointing.."ã€‘"}
+  local items = {"â·°é¼Óüc","Œ™Îï¼Óüc","â·°é×Ô„Ó¼Óüc·½°¸("..(heroData.autoPointing or 'Î´ßx“ñ')..")","Œ™Îï×Ô„Ó¼Óüc·½°¸("..(heroData.petAutoPointing  or 'Î´ßx“ñ')..")","â·°é×Ô„Ó¼Óücé_êP¡¾"..labelAutoPointing.."¡¿","Œ™Îï×Ô„Ó¼Óücé_êP¡¾"..labelPetAUtoPointing.."¡¿"}
   return self:NPC_buildSelectionText(title,items);
 
 end
 
--- NOTE æ–‡å­—æ„å»ºï¼šè‡ªåŠ¨åŠ ç‚¹æ¨¡å¼é€‰æ‹©
--- params: 0 :ä½£å…µï¼Œ1ï¼šå® ç‰©
+-- NOTE ÎÄ×Ö¹¹½¨£º×Ô¶¯¼ÓµãÄ£Ê½Ñ¡Ôñ
+-- params: 0 :Ó¶±ø£¬1£º³èÎï
 function module:buildAutoPointSelect(type)
   local pattern;
   if type==0 then
@@ -1402,34 +1407,34 @@ function module:buildAutoPointSelect(type)
   elseif type == 1 then
     pattern = petAutoPointingPattern
   end
-  local title="â˜…é¸æ“‡åŠ é»æ–¹æ¡ˆ(é«”åŠ›/åŠ›é‡/å¼·åº¦/æ•æ·/é­”æ³•)"
+  local title="¡ïßx“ñ¼Óüc·½°¸(ówÁ¦/Á¦Á¿/Š¶È/Ãô½İ/Ä§·¨)"
   return self:NPC_buildSelectionText(title,pattern);
   
 end
 
--- NOTE è®¾ç½®è‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+-- NOTE ÉèÖÃ×Ô¶¯¼ÓµãÄ£Ê½
 function module:setAutoPionting(charIndex,heroData,patternIndex)
   heroData.autoPointing = autoPointingPattern[patternIndex]
 end
 
--- NOTE è®¾ç½®å® ç‰©è‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+-- NOTE ÉèÖÃ³èÎï×Ô¶¯¼ÓµãÄ£Ê½
 function module:setPetAutoPionting(charIndex,heroData,patternIndex)
   heroData.petAutoPointing = petAutoPointingPattern[patternIndex]
 end
 
--- NOTE  æ‰§è¡Œå¯¹è±¡è‡ªåŠ¨åŠ ç‚¹
+-- NOTE  Ö´ĞĞ¶ÔÏó×Ô¶¯¼Óµã
 function module:autoPoint(charIndex,setting)
-  local name=Char.GetData(charIndex,CONST.å¯¹è±¡_åå­—)
+  local name=Char.GetData(charIndex,CONST.¶ÔÏó_Ãû×Ö)
   -- logInfo(name,setting)
-  local levelUpPoint = Char.GetData(charIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
+  local levelUpPoint = Char.GetData(charIndex,CONST.¶ÔÏó_Éı¼¶µã)
   if setting== nil then
-    return false,"æœªæ‰¾åˆ°è‡ªåŠ¨åŠ ç‚¹æ–¹æ¡ˆã€‚"
+    return false,"Î´ÕÒµ½×Ô¶¯¼Óµã·½°¸¡£"
   end
   for i=1,5 do
     local c = string.sub(setting,i,i)
     local point = tonumber(c)
     if point==nil then
-      return false,"è‡ªåŠ¨åŠ ç‚¹æ–¹æ¡ˆé”™è¯¯ã€‚"
+      return false,"×Ô¶¯¼Óµã·½°¸´íÎó¡£"
     end
     if point ==0 then
       goto continue
@@ -1440,37 +1445,37 @@ function module:autoPoint(charIndex,setting)
     Char.SetData(charIndex,type,point*100+Char.GetData(charIndex,type))
     levelUpPoint=levelUpPoint-point
     -- if levelUpPoint ==0 then
-    --   Char.SetData(charIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹, levelUpPoint)
+    --   Char.SetData(charIndex,CONST.¶ÔÏó_Éı¼¶µã, levelUpPoint)
     --   return true,""
     -- end
     ::continue::
   end
-  Char.SetData(charIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹, levelUpPoint)
+  Char.SetData(charIndex,CONST.¶ÔÏó_Éı¼¶µã, levelUpPoint)
   return true,""
 end
 
--- NOTE æ›´æ¢æ°´æ™¶
+-- NOTE ¸ü»»Ë®¾§
 function module:changeCrystal(charIndex,heroData,crystalId)
   local heroIndex = heroData.index
-  local heroName = Char.GetData(heroIndex,CONST.å¯¹è±¡_åå­—)
-  -- åˆ é™¤æ°´æ™¶
-  Char.DelItemBySlot(heroIndex,CONST.ä½ç½®_æ°´æ™¶)
+  local heroName = Char.GetData(heroIndex,CONST.¶ÔÏó_Ãû×Ö)
+  -- É¾³ıË®¾§
+  Char.DelItemBySlot(heroIndex,CONST.Î»ÖÃ_Ë®¾§)
   local emptySlot = Char.GetEmptyItemSlot(heroIndex)
   local itemData=nil
   if emptySlot<0 then
-    -- å…ˆç¼“å­˜æœ€åä¸€ä¸ªç‰©å“ç„¶ååˆ äº†
+    -- ÏÈ»º´æ×îºóÒ»¸öÎïÆ·È»ºóÉ¾ÁË
     local itemIndex = Char.GetItemIndex(heroIndex,27)
     itemData= self:extractItemData(itemIndex)
     Char.DelItemBySlot(heroIndex,27)
   end
 
-  -- ç»™æ°´æ™¶ï¼Œç„¶åè£…ä¸Š
+  -- ¸øË®¾§£¬È»ºó×°ÉÏ
   local newCrystalIndex =Char.GiveItem(heroIndex, crystalId, 1);
   local addSlot = Char.GetItemSlot(heroIndex, newCrystalIndex)
-	Char.MoveItem(heroIndex, addSlot, CONST.ä½ç½®_æ°´æ™¶, -1);
-  -- è¿˜åŸç‰©å“
+	Char.MoveItem(heroIndex, addSlot, CONST.Î»ÖÃ_Ë®¾§, -1);
+  -- »¹Ô­ÎïÆ·
   if itemData ~=nil then
-    local itemId = itemData[tostring(CONST.é“å…·_ID)]
+    local itemId = itemData[tostring(CONST.µÀ¾ß_ID)]
     local originItemIndex = Char.GiveItem(heroIndex, itemId, 1, false);
       
     if originItemIndex >= 0 then
@@ -1480,16 +1485,16 @@ function module:changeCrystal(charIndex,heroData,crystalId)
     Item.UpItem(heroIndex,27)
   end
   
-  Item.UpItem(heroIndex,CONST.ä½ç½®_æ°´æ™¶)
-  NLG.SystemMessage(charIndex, heroName.."æ›¿æ¢äº†æ°´æ™¶ã€‚");
+  Item.UpItem(heroIndex,CONST.Î»ÖÃ_Ë®¾§)
+  NLG.SystemMessage(charIndex, heroName.."Ìæ»»ÁËË®¾§¡£");
 end
 
--- NOTE åˆ é™¤ hero
+-- NOTE É¾³ı hero
 function module:deleteHeroData(charIndex,heroData)
 
   if heroData.status == 1 then
     heroData.status=2
-    -- åˆ é™¤ä½£å…µ
+    -- É¾³ıÓ¶±ø
     local res,err =pcall( function() 
       self:delHeroDummy(charIndex,heroData)
     end)
@@ -1500,17 +1505,17 @@ function module:deleteHeroData(charIndex,heroData)
   local res,ttt =  SQL.QueryEx(sql,heroData.id)
   
   if res.status ~= 0 then
-    NLG.SystemMessage(charIndex, "æ•°æ®åº“é”™è¯¯ï¼Œè¯·é‡è¯•");
+    NLG.SystemMessage(charIndex, "Êı¾İ¿â´íÎó£¬ÇëÖØÊÔ");
     print("heroData.id",heroData.id)
     return
   end
   local heroesData = sgModule:get(charIndex,"heroes")
   local newHeroesData = _.reject(heroesData,function(hero) return hero.id== heroData.id end)
   sgModule:set(charIndex,"heroes",newHeroesData)
-  NLG.SystemMessage(charIndex, heroData.name.."å·²é£æ•£é€™ä½å¤¥ä¼´ï¼Œæœ‰ç·£å†è¦‹å§ã€‚");
+  NLG.SystemMessage(charIndex, heroData.name.."ÒÑÇ²É¢ß@Î»â·°é£¬ÓĞ¾‰ÔÙÒŠ°É¡£");
 end
 
--- NOTE function æ·±æ‹·è´
+-- NOTE function Éî¿½±´
 function module:deepcopy(tDest, tSrc)
   for key,value in pairs(tSrc) do
       if type(value)=='table' and value["spuer"]==nil then
@@ -1522,7 +1527,7 @@ function module:deepcopy(tDest, tSrc)
   end
 end
 
--- NOTE functions éšæœºæ’åˆ—è¡¨
+-- NOTE functions Ëæ»úÅÅÁĞ±í
 function module:shuffle(tbl) -- suffles numeric indices
   local len, random = #tbl, math.random ;
   for i = len, 2, -1 do
@@ -1532,7 +1537,7 @@ function module:shuffle(tbl) -- suffles numeric indices
   return tbl;
 end
 
--- NOTE å¡«å®Œæ•´ string.fill
+-- NOTE ÌîÍêÕû string.fill
 function module:strFill(str,len,filler)
   str=tostring(str)
   local strLen =string.len(str)
@@ -1540,13 +1545,13 @@ function module:strFill(str,len,filler)
   return str..string.rep(filler, len-strLen)
 end
 
---- åŠ è½½æ¨¡å—é’©å­
+--- ¼ÓÔØÄ£¿é¹³×Ó
 function module:onLoad()
   self:logInfo('load')
 
 end
 
---- å¸è½½æ¨¡å—é’©å­
+--- Ğ¶ÔØÄ£¿é¹³×Ó
 function module:onUnload()
   self:logInfo('unload')
 end
