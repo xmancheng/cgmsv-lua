@@ -1,0 +1,98 @@
+-- 升级多一点bp
+local function moreBP(n)
+  return function(charIndex) 
+    local originPoint = Char.GetData(charIndex,CONST.对象_升级点)
+    Char.SetData(charIndex,CONST.对象_升级点,originPoint+n)
+  end
+end
+-- id 7 的雇佣函数
+local function recruit(charIndex)
+  local charLevel = Char.GetData(charIndex,CONST.对象_等级)
+  if charLevel<10 then
+    NLG.Say(charIndex,-1,"等級到達10再來吧。",CONST.颜色_红色,0)
+    return false
+  end
+  return true
+end
+
+-- 其他属性定义 
+-- 参数： 必杀，反击，命中，闪躲，抗毒，抗睡，抗石，抗醉，抗乱，抗忘
+local function  modValue(critical,counter,hitrate,avoid,poison,sleep,stone,drunk,confused,insomnia)
+  return {
+    [tostring(CONST.对象_必杀)]=critical or 0,
+    [tostring(CONST.对象_反击)]=counter or 0,
+    [tostring(CONST.对象_命中)]=hitrate or 0,
+    [tostring(CONST.对象_闪躲)]=avoid or 0, 
+    [tostring(CONST.对象_抗毒)]=poison or 0,
+    [tostring(CONST.对象_抗睡)]=sleep or 0,
+    [tostring(CONST.对象_抗石)]=stone or 0,
+    [tostring(CONST.对象_抗醉)]=drunk or 0,
+    [tostring(CONST.对象_抗乱)]=confused or 0,
+    [tostring(CONST.对象_抗忘)]=insomnia or 0,
+  }
+end
+
+
+local heroes = {
+  -- {id，名字,职业名称，职业id，职类id, 职业阶层, 图档id，等级，体力，力量，强度，速度，魔法，未加点，稀有度,升级回调函数，雇佣回调函数,人物初始ai,宠物初始ai,分类,其他属性,初始宠物enemyId，
+                                                                                                -- 初始装备(头|身|左手|右手|腿|首饰1|首饰2|水晶)}
+  -- R 0, "R", nil, nil   
+  -- SR 20, "SR", moreBP(1), nil 
+  -- SSR 40, "SSR", moreBP(2), nil 
+  -- UR 80, "UR", moreBP(4), nil
+  -- R宠物 螳螂(120) 321|水龙(125) 722
+  -- SR宠物 地狱妖犬(125) 34| 烈风之刃604 | 改造僵尸(125) 2049 改造烈风哥布林(127) 2063 | 火焰舞者(130) 102270 | 
+  -- SSR宠物 改造地狱妖犬(135) 2065 | 果冻史莱姆(135) 10008 | 杀龙之刃(136) 10101 | 爱丝波波(135) 103008 | 铁狮(139) 303800 | 恶魔统领(135) 60028 | 樱花螳螂(133) 60041 | 
+  -- UR宠物 芙蕾雅番茄妖精(165) 832074 | 雪蕾洁(170) 103106 | 露比(195) 103108 | 阿鲁巴斯(195) 103109 | 超梦地甲(150) 60109 | 蕾姆(150) 900258 | 贞德(160) 900259 | 秋兔克隆体(170) 900260 | 
+
+  --{1, "卡魯","戰斧鬥士",24,20,3,106152,1,5,15,0,10,0,0,"R",nil,nil,{20},{240},1,nil,{120, 722},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  --{2, "雷恩","騎士",34,30,3,100033,1,5,15,0,10,0,0,"R",nil,nil,{40},{240},1,nil,{120, 722},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  --{3, "四月","弓箭手",44,40,3,105002,1,5,15,0,10,0,0,"R",nil,nil,{50},{240},1,nil,{120, 722},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  --{4, "龍一","格鬥士",144,140,3,100102,1,5,15,0,10,0,0,"R",nil,nil,{100},{240},1,nil,{120, 722},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  --{5, "琳琳","傳教士",64,60,3,100283,1,5,0,0,10,15,0,"R",nil,nil,{10},{240},1,nil,{120, 722},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  --{6, "潔絲","劍士",14,10,3,105421,1,5,15,0,10,0,0,"R",nil,nil,{30},{240},1,nil,{120, 722},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  --{7, "萊科","魔法師",74,70,3,100127,1,5,0,0,10,15,0,"R",nil,nil,{60},{240},1,nil,{120, 722},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {8, "妙蛙種子","坦克",34,30,3,120032,1,5,15,0,10,0,0,"SR",nil,nil,{40},{240},3,nil,{0, 0},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {9, "小火龍","近攻",24,20,3,120042,1,5,15,0,10,0,0,"SR",nil,nil,{20},{240},3,nil,{0, 0},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {10, "傑尼龜","輔助",64,60,3,120289,1,5,0,0,10,15,0,"SR",nil,nil,{10},{240},3,nil,{0, 0},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {11, "木木梟","遠攻",44,40,3,120395,1,5,15,0,10,0,0,"SR",nil,nil,{50},{240},3,nil,{0, 0},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {12, "火斑喵","遠攻",144,140,3,120197,1,5,15,0,10,0,0,"SR",nil,nil,{100},{240},3,nil,{0, 0},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {13, "球球海獅","法術",74,70,3,120250,1,5,0,0,10,15,0,"SR",nil,nil,{60},{240},3,nil,{0, 0},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {14, "牙牙","近攻",14,10,3,120397,1,5,15,0,10,0,0,"SR",nil,nil,{30},{240},3,nil,{0, 0},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  -- TODO: 巫,咒,宠,炸,忍,兵,舞
+  {101,"露娜","戰斧鬥士",24,20,3,106264,1,5,15,0,10,0,20,"SR",moreBP(1),nil,{20},{240},3,nil,{2063, 2049},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {102,"凱恩","騎士",34,30,3,106127,1,5,15,0,10,0,20,"SR",moreBP(1),nil,{40},{240},3,nil,{2063, 2049},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {103,"七海","弓箭手",44,40,3,105252,1,5,15,0,10,0,20,"SR",moreBP(1),nil,{50},{240},3,nil,{2063, 2049},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {104,"星夜","格鬥士",144,140,3,106033,1,5,15,0,10,0,20,"SR",moreBP(1),nil,{100},{240},3,nil,{2063, 2049},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {105,"蕾米","傳教士",64,60,3,105295,1,5,0,0,10,15,20,"SR",moreBP(1),nil,{10},{240},3,nil,{2063, 2049},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {106,"妮莎","劍士",14,10,3,106377,1,5,15,0,10,0,20,"SR",moreBP(1),nil,{30},{240},3,nil,{2063, 2049},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {107,"梅林","魔法師",74,70,3,106327,1,5,0,0,10,15,20,"SR",moreBP(1),nil,{60},{240},3,nil,{2063, 2049},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  -- TODO: 巫,咒,宠,炸,忍,兵,舞
+  {201,"莉娜","戰斧鬥士",25,20,4,106600,1,5,15,0,10,0,40,"SSR",moreBP(2),nil,{20},{240},5,modValue(10,10,10,10,10,10,10,10,10,10),{60041, 10101},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {202,"伊吹","騎士",35,30,4,106705,1,5,15,0,10,0,40,"SSR",moreBP(2),nil,{40},{240},5,modValue(10,10,10,10,10,10,10,10,10,10),{60041, 10101},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {203,"星織","弓箭手",45,40,4,106626,1,5,15,0,10,0,40,"SSR",moreBP(2),nil,{50},{240},5,modValue(10,10,10,10,10,10,10,10,10,10),{60041, 10101},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {204,"星白","格鬥士",145,140,4,118351,1,5,15,0,10,0,40,"SSR",moreBP(2),nil,{100},{240},5,modValue(10,10,10,10,10,10,10,10,10,10),{60041, 10101},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {205,"愛莉","傳教士",65,60,4,105788,1,5,0,0,10,15,40,"SSR",moreBP(2),nil,{10},{240},5,modValue(10,10,10,10,10,10,10,10,10,10),{60041, 10101},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {206,"夜鶯","劍士",15,10,4,160023,1,5,15,0,10,0,40,"SSR",moreBP(2),nil,{30},{240},5,modValue(10,10,10,10,10,10,10,10,10,10),{60041, 10101},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {207,"莎夏","魔法師",75,70,4,105335,1,5,0,0,10,15,40,"SSR",moreBP(2),nil,{60},{240},5,modValue(10,10,10,10,10,10,10,10,10,10),{60041, 10101},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  -- TODO: 巫,咒,宠,炸,忍,兵,舞
+  {901,"伊芙","戰斧鬥士",26,20,5,160044,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{20},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {902,"悠悠","騎士",36,30,5,105777,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{40},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {903,"鷺鷺","弓箭手",46,40,5,160003,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{50},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {904,"蘿娜","格鬥士",146,140,5,118032,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{100},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {905,"秋菟","傳教士",66,60,5,106792,1,5,0,0,10,15,80,"UR",moreBP(4),nil,{10},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {906,"吹雪","劍士",16,10,5,105685,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{30, 5100, 5110},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {907,"莉莉","魔法師",76,70,5,118347,1,5,0,0,10,15,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {908,"蕾兵","士兵",56,50,5,105998,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {910,"蕾巫","巫師",136,130,5,118347,1,5,0,0,10,15,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {911,"蕾咒","咒術師",86,80,5,118347,1,5,0,0,10,15,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {912,"蕾舞","舞者",166,160,5,118347,1,5,0,0,10,15,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {913,"蕾寵","寵物師",96,90,5,105998,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {914,"蕾忍","忍者",156,150,5,105998,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+  {915,"蕾爆","爆彈師",1006,1000,5,105998,1,5,15,0,10,0,80,"UR",moreBP(4),nil,{60},{240},9,modValue(30,30,30,30,30,30,30,30,30,30),{60109, 900258},{nil,nil,nil,nil,nil,nil,nil,nil}},
+}
+
+
+return heroes
+
+
