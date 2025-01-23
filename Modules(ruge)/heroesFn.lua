@@ -243,7 +243,7 @@ function module:initHeroData(toGetHeroData,charIndex)
     -- 佣兵自动加点模式
     autoPointing=nil,
     -- 是否开启佣兵自动加点
-    isAutoPointing=0,
+    isAutoPointing=1,
     -- 战宠自动加点模式
     petAutoPointing=nil,
     -- 是否开启战宠自动加点
@@ -355,9 +355,9 @@ end
 
 function module:buildAttrDescriptionForHero(heroData)
   local title= "" .. self:getHeroName(heroData) .."\n\n";
-  local windowStr = "战斗状态:"..nameMap["status"][tostring(heroData.status)]
-    .. "\n\n等级:"..heroData['attr'][tostring(CONST.对象_等级)]
-    .."\n\n未加点数:"..heroData['attr'][tostring(CONST.对象_升级点)]
+  local windowStr = "戰鬥狀態:"..nameMap["status"][tostring(heroData.status)]
+    .. "\n\n等級:"..heroData['attr'][tostring(CONST.对象_等级)]
+    .."\n\n未加點數:"..heroData['attr'][tostring(CONST.对象_升级点)]
 	  -- .."\n\n攻击力:"..heroData['attr'][tostring(CONST.对象_攻击力)]
 	  -- .."\n防御力:"..heroData['attr'][tostring(CONST.对象_防御力)]
 	  -- .."\n敏捷:"..heroData['attr'][tostring(CONST.对象_敏捷)]
@@ -442,18 +442,18 @@ function module:buildDescriptionForCampHero(heroData,page)
   end
 
   if page == 1 then
-    windowStr = "\n等级:"..level.."    未加点数:"..leveluppoint.."    种族:"..self:Tribe(Tribe)
+    windowStr = "\n等級:"..level.."    未加點數:"..leveluppoint.."    種族:"..self:Tribe(Tribe)
     .."\n\n生命: "..hp.."/"..maxhp.." 魔力："..mp.."/"..maxmp
-    .."\n\n体力:"..vital.."  力量:"..str
-    .." 强度:"..tgh.."  速度:"..quick
+    .."\n\n體力:"..vital.."  力量:"..str
+    .." 強度:"..tgh.."  速度:"..quick
     .." 魔法:"..magic
-    .."\n\n攻击："..att.." 防御："..def.." 敏捷："..agl.." 精神："..spr.." 回复："..rec
-    .."\n\n地："..Attrib_Earth.."  水:"..Attrib_Water.."  火："..Attrib_Fire.."  风："..Attrib_Wind
+    .."\n\n攻擊："..att.." 防禦："..def.." 敏捷："..agl.." 精神："..spr.." 回復："..rec
+    .."\n\n地："..Attrib_Earth.."  水:"..Attrib_Water.."  火："..Attrib_Fire.."  風："..Attrib_Wind
     ..'\n\n健康:'..self:healthColor(injured)..''.."  掉魂："..soulLost.."  魅力:"..charm
-    .."\n\n必杀："..critical.." 命中："..hitrate.." 反击："..counter.." 闪躲："..avoid
+    .."\n\n必殺："..critical.." 命中："..hitrate.." 反擊："..counter.." 閃躲："..avoid
     .."\n\n抗毒："..poison.." 抗昏睡："..sleep.." 抗石化："..stone
-    .."\n\n抗醉："..drunk.." 抗混乱："..confused .." 抗遗忘："..insomnia
-    .."\n\n卡时(打卡后同步)："..feverTime.."  经验："..exp
+    .."\n\n抗醉："..drunk.." 抗混亂："..confused .." 抗遺忘："..insomnia
+    .."\n\n卡時(打卡後同步)："..feverTime.."  經驗："..exp
   else
     windowStr="\n物品:"
     .."\n\n"..bagItemsStr
@@ -493,15 +493,16 @@ function module:buildDescriptionForParty(charIndex)
     local injured = Char.GetData(heroIndex,CONST.对象_受伤)
     local soulLost = Char.GetData(heroIndex,CONST.对象_掉魂)
     local jobId = Char.GetData(heroIndex,CONST.对象_职业)
-    local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
-    local windowStr = "".. self:strFill(self:getHeroName(heroData), 16, ' ')..jobName..  "等级:"..level.."  未加点数:"..leveluppoint
+    --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
+    local jobName = heroTplData[3];
+    local windowStr = "".. self:strFill(self:getHeroName(heroData), 16, ' ')..jobName..  "等級:"..level.."  未加點數:"..leveluppoint
       .."\n生命:"..hp.."/"..maxhp.." 魔力:"..mp.."/"..maxmp
       .."\n体力:"..vital.."力量:"..str
       .."强度:"..tgh.."速度:"..quick
       .."魔法:"..magic
       .."\n攻击:"..att.."防御:"..def.."敏捷:"..agl.."精神:"..spr.."回复:"..rec
 
-      ..'\n健康:'..self:healthColor(injured)..''.."  掉魂:"..soulLost.."     经验:"..exp
+      ..'\n健康:'..self:healthColor(injured)..''.."  掉魂:"..soulLost.."     經驗:"..exp
     return windowStr
   end):join("\n\n"):value()
 
@@ -523,7 +524,7 @@ function module:buildDescriptionForPet(heroData,petIndex,page)
   local agl = Char.GetData(petIndex,CONST.对象_敏捷)
   local spr = Char.GetData(petIndex,CONST.对象_精神)
   local rec = Char.GetData(petIndex,CONST.对象_回复)
-  local exp = Char.GetData(petIndex,CONST.对象_经验)
+  local exp = Char.GetData(petIndex,CONST.对象_经验) or 0;
   local hp = Char.GetData(petIndex,CONST.对象_血)
   local mp = Char.GetData(petIndex,CONST.对象_魔)
   local maxhp = Char.GetData(petIndex,CONST.对象_最大血)
@@ -548,22 +549,18 @@ function module:buildDescriptionForPet(heroData,petIndex,page)
   local title= ""..name.."\n";
   local windowStr="";
   if page == 1 then
-    windowStr = "\n等级:"..level.."    升级点:"..leveluppoint.."    种族:"..self:Tribe(Tribe)
+    windowStr = "\n等級:"..level.."    升級點:"..leveluppoint.."    種族:"..self:Tribe(Tribe)
     .."\n\n生命: "..hp.."/"..maxhp.." 魔力："..mp.."/"..maxmp
-    .."\n\n体力:"..vital.."  力量:"..str
-    .." 强度:"..tgh.."  速度:"..quick
+    .."\n\n體力:"..vital.."  力量:"..str
+    .." 強度:"..tgh.."  速度:"..quick
     .." 魔法:"..magic
-    .."\n\n攻击："..att.." 防御："..def.." 敏捷："..agl.." 精神："..spr.." 回复："..rec
-
-
-    .."\n\n地："..Attrib_Earth.."  水:"..Attrib_Water.."  火"..Attrib_Fire.."  风："..Attrib_Wind
-
-    .."\n\n健康:"..self:healthColor(injured).."  经验："..exp
-    
+    .."\n\n攻擊："..att.." 防禦："..def.." 敏捷："..agl.." 精神："..spr.." 回復："..rec
+    .."\n\n地："..Attrib_Earth.."  水:"..Attrib_Water.."  火："..Attrib_Fire.."  風："..Attrib_Wind
+    .."\n\n健康:"..self:healthColor(injured).."  經驗："..exp
   else
-    windowStr="\n必杀："..critical.." 反击："..counter.." 命中："..hitrate.." 闪躲："..avoid
+    windowStr = "\n必殺："..critical.." 反擊："..counter.." 命中："..hitrate.." 閃躲："..avoid
     .."\n\n抗毒："..poison.." 抗睡："..sleep.." 抗石："..stone
-    .."\n\n抗醉："..drunk.." 抗乱："..confused .." 抗忘："..insomnia
+    .."\n\n抗醉："..drunk.." 抗亂："..confused .." 抗忘："..insomnia
     .."\n\n忠诚："..loyalty
   end
 
@@ -814,20 +811,21 @@ function module:buildCampHeroOperator(charIndex,heroData)
   local name = self:getHeroName(heroData)
   -- 获取 job 
   local jobId = Char.GetData(heroIndex,CONST.对象_职业)
-  local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
+  --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
+  local jobName = heroTplData[3];
   -- 获取说明
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
 
-  local title="【"..name.."】    「"..heroTplData[15].."」级 :"..jobName
+  local title="【"..name.."】    「"..heroTplData[15].."」級 :"..jobName
 
   local aiId1 = heroData.heroBattleTech or -1
   local aiData1 = _.detect(getModule("heroesAI").aiData,function(data) return data.id==aiId1 end)
-  local name1=aiData1~=nil and aiData1.name or "未设定"
+  local name1=aiData1~=nil and aiData1.name or "未設定"
 
   local aiId2 = heroData.petBattleTech or -1
   local aiData2 = _.detect(getModule("heroesAI").aiData,function(data) return data.id==aiId2 end)
-  local name2=aiData2~=nil and aiData2.name or "未设定"
+  local name2=aiData2~=nil and aiData2.name or "未設定"
 
   local items={
     "夥伴狀態",
@@ -1117,35 +1115,35 @@ function module:healthColor(injured)
   if injured==0 then
     return "正常"
   elseif injured>0 and injured<=25 then
-    return "白伤"
+    return "白傷"
   elseif injured>25 and injured<=50 then
-    return "黄伤"
+    return "黃傷"
   elseif injured>50 and injured<=75 then
-    return "紫伤"
+    return "紫傷"
   elseif injured>75 and injured<=100 then
-    return "红伤"
+    return "紅傷"
   end
 end
 
 function module:Tribe(Tribe)
   if Tribe==0 then
-    return "人形"
+    return "人型"
   elseif Tribe == 1 then
-    return "龙"
+    return "龍"
   elseif Tribe == 2 then
     return "不死"
   elseif Tribe == 3 then
-    return "飞行"
+    return "飛行"
   elseif Tribe == 4 then
-    return "昆虫"
+    return "昆蟲"
   elseif Tribe == 5 then
     return "植物"
   elseif Tribe == 6 then
-    return "野兽"
+    return "野獸"
   elseif Tribe == 7 then
     return "特殊"
   elseif Tribe == 8 then
-    return "金属"
+    return "金屬"
   elseif Tribe == 9 then
     return "邪魔"
 
@@ -1378,17 +1376,19 @@ function module:buildHeroOperationSecWindow(charIndex,heroData)
   local heroIndex = heroData.index;
   -- 获取 job 
   local jobId = Char.GetData(heroIndex,CONST.对象_职业)
-  local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
+  --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
+
   -- 获取说明
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
 
-  local labelAutoPointing=  heroData.isAutoPointing==0 and "未开启" or "已开启"
-  local labelPetAUtoPointing = heroData.isPetAutoPointing==0 and "未开启" or "已开启"
+  local labelAutoPointing=  heroData.isAutoPointing==0 and "未開啟" or "已開啟"
+  local labelPetAUtoPointing = heroData.isPetAutoPointing==0 and "未開啟" or "已開啟"
 
-  local title="    【"..heroTplData[15].."】  ".. self:getHeroName(heroData) .."  职业:"..jobName
+  local jobName = heroTplData[3];
+  local title="    【"..heroTplData[15].."】  ".. self:getHeroName(heroData) .."  定位:"..jobName
 
-  local items = {"夥伴加點","寵物加點","夥伴自動加點方案("..(heroData.autoPointing or '未选择')..")","寵物自動加點方案("..(heroData.petAutoPointing  or '未选择')..")","夥伴自動加點開關【"..labelAutoPointing.."】","寵物自動加點開關【"..labelPetAUtoPointing.."】"}
+  local items = {"夥伴加點","寵物加點","夥伴自動加點方案("..(heroData.autoPointing or '未選擇')..")","寵物自動加點方案("..(heroData.petAutoPointing  or '未選擇')..")","夥伴自動加點開關【"..labelAutoPointing.."】","寵物自動加點開關【"..labelPetAUtoPointing.."】"}
   return self:NPC_buildSelectionText(title,items);
 
 end
