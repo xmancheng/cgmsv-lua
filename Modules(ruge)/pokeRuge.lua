@@ -1,13 +1,13 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeRuge')
 local sgModule = getModule("setterGetter")
 local JSON=require "lua/Modules/json"
 local _ = require "lua/Modules/underscore"
 
--- NOTE ²éÑ¯Êı¾İ¿â heroes Êı¾İ
+-- NOTE æŸ¥è¯¢æ•°æ®åº“ heroes æ•°æ®
 function Module:queryHeroesData(charIndex)
-  local cdKey = Char.GetData(charIndex, CONST.¶ÔÏó_CDK)
-  local regNo = Char.GetData(charIndex, CONST.¶ÔÏó_RegistNumber)
+  local cdKey = Char.GetData(charIndex, CONST.å¯¹è±¡_CDK)
+  local regNo = Char.GetData(charIndex, CONST.å¯¹è±¡_RegistNumber)
   local sql="select value from des_heroes where cdkey= "..SQL.sqlValue(cdKey).." and regNo = "..SQL.sqlValue(regNo).." and is_deleted <> 1"
   local res,x =  SQL.QueryEx(sql)
 
@@ -25,29 +25,31 @@ function Module:queryHeroesData(charIndex)
   return heroesData
 end
 
--- NOTE ¸ù¾İ heroId ²éÑ¯ heroData
+-- NOTE æ ¹æ® heroId æŸ¥è¯¢ heroData
 function Module:getHeroDataByid(charIndex,id)
     local heroesData = sgModule:get(charIndex,"heroes")
     local heroData = _.detect(heroesData, function(i) return i.id==id end)
     return heroData
 end
 
--- NOTE »ñÈ¡³öÕ½Ó¶±ø Êı¾İ
+-- NOTE è·å–å‡ºæˆ˜ä½£å…µ æ•°æ®
 function Module:getCampHeroesData(charIndex)
   local heroesData = sgModule:get(charIndex,"heroes") or {}
   return _.select(heroesData,function(item) return item.status==1 end)
 end
 
+-----------------------------------------------
+--NPCè®¾ç½®
 local rugeBoss = {}
-rugeBoss[1] = {"Rugeİ†Ş’†¢„Ó", 99453, 7351,9,29}
-rugeBoss[2] = {"RugeÇĞ´èŒ¦‘ğ", 14642, 7351,67,42}
-rugeBoss[3] = {"RugeëS™Cª„Æ·", 0, 7351,67,13}
-rugeBoss[4] = {"RugeëS™Cª„Æ·", 0, 7351,72,11}
-rugeBoss[5] = {"RugeëS™Cª„Æ·", 0, 7351,61,12}
+rugeBoss[1] = {"Rugeè¼ªè¿´å•Ÿå‹•", 99453, 7351,9,29}
+rugeBoss[2] = {"Rugeåˆ‡ç£‹å°æˆ°", 14642, 7351,67,42}
+rugeBoss[3] = {"Rugeéš¨æ©Ÿçå“", 0, 7351,67,13}
+rugeBoss[4] = {"Rugeéš¨æ©Ÿçå“", 0, 7351,72,11}
+rugeBoss[5] = {"Rugeéš¨æ©Ÿçå“", 0, 7351,61,12}
 
 local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
---local MobsSet = {102100,102104,102105,102106,102109,102110,102114,102121,102125,102152,}	--ÔÓ±ø
---local BossSet = {102154,102155,102156,102157,103257,103261,103262,103263,}		--Í·Ä¿
+--local MobsSet = {102100,102104,102105,102106,102109,102110,102114,102121,102125,102152,}	--æ‚å…µ
+--local BossSet = {102154,102155,102156,102157,103257,103261,103262,103263,}		--å¤´ç›®
 local MobsSet_L = {710001,710002,710003,710004,710005,710006,}
 local MobsSet_M = {710007,710008,710009,710009,710010,710010,710011,710011,710012,710012,}
 local MobsSet_H = {710013,710014,710015,710016,710017,710018,710019,710020,}
@@ -58,17 +60,17 @@ function SetEnemySet(Level)
 
 	local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	local ix=1;
-	if Level<30 then    -- ³õ¼¶
+	if Level<30 then    -- åˆçº§
 		EnemySet[1]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 		EnemySet[7]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 		EnemySet[8]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
-	elseif Level>=30 and Level<70 then    -- ¸ß¼¶
+	elseif Level>=30 and Level<70 then    -- é«˜çº§
 		EnemySet[2]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 		EnemySet[3]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 		EnemySet[6]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 		EnemySet[9]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 		EnemySet[10]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
-	elseif Level>=70 then    -- ¾ø¼¶
+	elseif Level>=70 then    -- ç»çº§
 		for k=1,10 do
 			EnemySet[k]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 			ix=ix+1;
@@ -76,7 +78,7 @@ function SetEnemySet(Level)
 		EnemySet[4]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
 		EnemySet[5]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
 	end
-	--Ã¿5¼¶1ºÅÎ»·ÅÈëBOSS
+	--æ¯5çº§1å·ä½æ”¾å…¥BOSS
 	if (math.fmod(Level, 10)==4 or math.fmod(Level, 10)==9) then
 		if (Level<90) then
 			local rand = NLG.Rand(1,#BossSet_L);
@@ -89,30 +91,50 @@ function SetEnemySet(Level)
 	return EnemySet;
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+-----------------------------------------------
+--æ‰è½è®¾ç½®
+local dropMenu = {}
+dropMenu[1] = {
+  {3635,4031,4430,4833,5231,5631,6031,},			--è£…å¤‡
+  {71100,71101,71102,71103,71104,71105,71106,71107,71108,71109,71110,},			--ä¼™ä¼´
+  {72100,72101,},			--ç¨€æœ‰é“å…·.æŠ€èƒ½ä¹¦
+}
+dropMenu[2] = {
+  {235,240,245,250,255,260,265,6481,200,205,210,215,220,},			--è£…å¤‡
+  {71111,71112,71113,71114,71115,71116,71117,71118,71119,71120,},			--ä¼™ä¼´
+  {72102,72103,},			--ç¨€æœ‰é“å…·.æŠ€èƒ½ä¹¦
+}
+dropMenu[3] = {
+  {3670,4084,4481,4883,602215,602415,602615,602616,600016,600216,600416,600615,600815,},			--è£…å¤‡
+  {71121,71122,71123,71124,71125,71126,71127,71128,71129,71130,71131,71132,},			--ä¼™ä¼´
+  {72104,72105,},			--ç¨€æœ‰é“å…·.æŠ€èƒ½ä¹¦
+}
+
+-------------------------------------------------------------------------------------------
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   RugeNPC = self:NPC_createNormal(rugeBoss[1][1], rugeBoss[1][2], { map = rugeBoss[1][3], x = rugeBoss[1][4], y = rugeBoss[1][5], direction = 0, mapType = 0 })
-  Char.SetData(RugeNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0);
+  Char.SetData(RugeNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_¹Ø±Õ then
+    if select == CONST.BUTTON_å…³é—­ then
         return;
     end
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-    if seqno == 1 and select==CONST.BUTTON_ÏÂÒ»Ò³ then
-      local msg = "4\\n@c¡ïİ†Ş’Ô‡Ÿ’†¢„Ó¡ï"
-                .."\\n¡óßx“ñâ·°éÃ¿´Î¶¼ÊÇÈ«ĞÂµÄé_Ê¼¡ó\\n"
-                .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                .."[¡¡²İÏµâ·°é(Ì¹)¡¡]\\n"
-                .."[¡¡»ğÏµâ·°é(¹¥)¡¡]\\n"
-                .."[¡¡Ë®Ïµâ·°é(Ña)¡¡]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 11, msg);
+    if seqno == 1 and select==CONST.BUTTON_ä¸‹ä¸€é¡µ then
+      local msg = "4\\n@câ˜…è¼ªè¿´è©¦ç…‰å•Ÿå‹•â˜…"
+                .."\\nâ—‡é¸æ“‡å¤¥ä¼´æ¯æ¬¡éƒ½æ˜¯å…¨æ–°çš„é–‹å§‹â—‡\\n"
+                .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                .."[ã€€è‰ç³»å¤¥ä¼´(å¦)ã€€]\\n"
+                .."[ã€€ç«ç³»å¤¥ä¼´(æ”»)ã€€]\\n"
+                .."[ã€€æ°´ç³»å¤¥ä¼´(è£œ)ã€€]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 11, msg);
     elseif seqno == 11 then
       local heroesData = self:queryHeroesData(player);
       for k, v in ipairs(heroesData) do
@@ -126,40 +148,40 @@ function Module:onLoad()
       end
       if data==1 then
         Field.Set(player, 'RugeBossLevel', 0);
-		Char.SetData(player, CONST.¶ÔÏó_µÈ¼¶, 30);
-		Char.SetData(player, CONST.¶ÔÏó_ÌåÁ¦, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Á¦Á¿, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Ç¿¶È, 0);
-		Char.SetData(player, CONST.¶ÔÏó_ËÙ¶È, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Ä§·¨, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Éı¼¶µã, 146);
-		Char.SetData(player, CONST.¶ÔÏó_¾­Ñé, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_ç­‰çº§, 30);
+		Char.SetData(player, CONST.å¯¹è±¡_ä½“åŠ›, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_åŠ›é‡, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_å¼ºåº¦, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_é€Ÿåº¦, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_é­”æ³•, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_å‡çº§ç‚¹, 146);
+		Char.SetData(player, CONST.å¯¹è±¡_ç»éªŒ, 0);
 		NLG.UpChar(player);
 		Char.Warp(player,0,7351,16,28);
 		Char.GiveItem(player, 71100, 1);
       elseif data==2 then
         Field.Set(player, 'RugeBossLevel', 0);
-		Char.SetData(player, CONST.¶ÔÏó_µÈ¼¶, 30);
-		Char.SetData(player, CONST.¶ÔÏó_ÌåÁ¦, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Á¦Á¿, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Ç¿¶È, 0);
-		Char.SetData(player, CONST.¶ÔÏó_ËÙ¶È, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Ä§·¨, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Éı¼¶µã, 146);
-		Char.SetData(player, CONST.¶ÔÏó_¾­Ñé, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_ç­‰çº§, 30);
+		Char.SetData(player, CONST.å¯¹è±¡_ä½“åŠ›, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_åŠ›é‡, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_å¼ºåº¦, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_é€Ÿåº¦, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_é­”æ³•, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_å‡çº§ç‚¹, 146);
+		Char.SetData(player, CONST.å¯¹è±¡_ç»éªŒ, 0);
 		NLG.UpChar(player);
 		Char.Warp(player,0,7351,16,28);
 		Char.GiveItem(player, 71101, 1);
       elseif data==3 then
         Field.Set(player, 'RugeBossLevel', 0);
-		Char.SetData(player, CONST.¶ÔÏó_µÈ¼¶, 30);
-		Char.SetData(player, CONST.¶ÔÏó_ÌåÁ¦, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Á¦Á¿, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Ç¿¶È, 0);
-		Char.SetData(player, CONST.¶ÔÏó_ËÙ¶È, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Ä§·¨, 0);
-		Char.SetData(player, CONST.¶ÔÏó_Éı¼¶µã, 146);
-		Char.SetData(player, CONST.¶ÔÏó_¾­Ñé, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_ç­‰çº§, 30);
+		Char.SetData(player, CONST.å¯¹è±¡_ä½“åŠ›, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_åŠ›é‡, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_å¼ºåº¦, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_é€Ÿåº¦, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_é­”æ³•, 0);
+		Char.SetData(player, CONST.å¯¹è±¡_å‡çº§ç‚¹, 146);
+		Char.SetData(player, CONST.å¯¹è±¡_ç»éªŒ, 0);
 		NLG.UpChar(player);
 		Char.Warp(player,0,7351,16,28);
 		Char.GiveItem(player, 71102, 1);
@@ -170,26 +192,26 @@ function Module:onLoad()
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\nÅ®ÉñÖZ¾]£º"
-                .."\\nÄã²»ĞÒ±»’ÔÈëÓÂÕßÕÙ†¾µÄÒâÍâíµ½ÁËß@Ñe£¬Ä¿Ç°Ÿo·¨»Øµ½Ô­±¾µÄÊÀ½ç\\n"
-                .."\\néÁËÏòÄã¡¸±íß_ÒâÍâµÄÇ¸Òâ¡¹£¬Œ¢½oÓèÄãÅ®Éñ¼Ó³ÖÅcÖ§Ô®\\n"
-                .."\\nÕˆÔÚß@Ğ¡Ğ¡µÄŒš¿É‰ôÆæ»ÃÊÀ½ç£¬ÔÙ´Îé_†¢ÈËÉú\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÏÂÈ¡Ïû, 1, msg);
+      local msg = "\\nå¥³ç¥è«¾ç¶¸ï¼š"
+                .."\\nä½ ä¸å¹¸è¢«æ²å…¥å‹‡è€…å¬å–šçš„æ„å¤–ä¾†åˆ°äº†é€™è£¡ï¼Œç›®å‰ç„¡æ³•å›åˆ°åŸæœ¬çš„ä¸–ç•Œ\\n"
+                .."\\nç‚ºäº†å‘ä½ ã€Œè¡¨é”æ„å¤–çš„æ­‰æ„ã€ï¼Œå°‡çµ¦äºˆä½ å¥³ç¥åŠ æŒèˆ‡æ”¯æ´\\n"
+                .."\\nè«‹åœ¨é€™å°å°çš„å¯¶å¯å¤¢å¥‡å¹»ä¸–ç•Œï¼Œå†æ¬¡é–‹å•Ÿäººç”Ÿ\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_ä¸‹å–æ¶ˆ, 1, msg);
     end
     return
   end)
 
 
   RugeNPC2 = self:NPC_createNormal(rugeBoss[2][1], rugeBoss[2][2], { map = rugeBoss[2][3], x = rugeBoss[2][4], y = rugeBoss[2][5], direction = 0, mapType = 0 })
-  Char.SetData(RugeNPC2,CONST.¶ÔÏó_ENEMY_PetFlg+2,0);
+  Char.SetData(RugeNPC2,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC2, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_·ñ then
+    if select == CONST.BUTTON_å¦ then
         return;
-    elseif seqno == 2 and select == CONST.BUTTON_ÊÇ then
+    elseif seqno == 2 and select == CONST.BUTTON_æ˜¯ then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local enemyLv = 20 + (rugeBossLevel * 1);
         if (enemyLv>=250) then
@@ -205,25 +227,25 @@ function Module:onLoad()
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n@c¡ïÄ§Á¦Œš¿É‰ôÈâø¡ï"
-                .."\\nßM¶ÈŒÓ”µ: "..nowLevel.."\\n"
-                .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                .."[¡¡é_Ê¼ÇĞ´èŒ¦‘ğ¡¡]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÊÇ·ñ, 2, msg);
+      local msg = "\\n@câ˜…é­”åŠ›å¯¶å¯å¤¢è‚‰é´¿â˜…"
+                .."\\né€²åº¦å±¤æ•¸: "..nowLevel.."\\n"
+                .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                .."[ã€€é–‹å§‹åˆ‡ç£‹å°æˆ°ã€€]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 2, msg);
     end
     return
   end)
 
   RugeprizeNPC1 = self:NPC_createNormal(rugeBoss[3][1], rugeBoss[3][2], { map = rugeBoss[3][3], x = rugeBoss[3][4], y = rugeBoss[3][5], direction = 0, mapType = 0 })
-  Char.SetData(RugeprizeNPC1,CONST.¶ÔÏó_ENEMY_PetFlg+2,0);
+  Char.SetData(RugeprizeNPC1,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeprizeNPC1, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_·ñ then
+    if select == CONST.BUTTON_å¦ then
         return;
-    elseif seqno == 2 and select == CONST.BUTTON_ÊÇ then
+    elseif seqno == 2 and select == CONST.BUTTON_æ˜¯ then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
 		Char.Warp(player,0,7351,25,29);
     end
@@ -232,45 +254,54 @@ function Module:onLoad()
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n@c¡ïÄ§Á¦Œš¿É‰ôÈâø¡ï"
-                                             .."\\nª„Æ·ÕfÃ÷: "..nowLevel.."\\n"
-                                             .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                                             .."[¡¡îIÈ¡ß@‚€ÌØ„eµÄª„„î¡¡]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_ÊÇ·ñ, 2, msg);
+      --local ItemsetIndex_Prize = Data.ItemsetGetIndex(dropMenu[1][1][2]);
+      local ItemsetIndex_Prize = Data.ItemsetGetIndex(47806);
+      local Prize_name = Data.ItemsetGetData(ItemsetIndex_Prize, CONST.ITEMSET_TRUENAME);
+      local Prize_DataPos_2 = Data.ItemsetGetData(ItemsetIndex_Prize, CONST.ITEMSET_BASEIMAGENUMBER);
+      local Prize_DataPos_3 = Data.ItemsetGetData(ItemsetIndex_Prize, CONST.ITEMSET_EXPLANATION1);
+      local Prize_DataPos_3 = Data.GetMessage(Prize_DataPos_3);
+      local imageText = "@g,"..Prize_DataPos_2..",3,5,0,0@"
+
+      local msg = imageText .. "\\n@câ˜…é­”åŠ›å¯¶å¯å¤¢è‚‰é´¿â˜…"
+                            .."\\nçå“èªªæ˜:ã€€ã€€$4"..Prize_name.."\\n"
+                            .."\\n\\nã€€ã€€"..Prize_DataPos_3.."\\n"
+                            .."\\n\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                            .."[ã€€é ˜å–é€™å€‹ç‰¹åˆ¥çš„çå‹µã€€]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_æ˜¯å¦, 2, msg);
     end
     return
   end)
 
-  --È«ê ÑaÑª
-  RugehealNPC = self:NPC_createNormal('ÙYÉî†ÌÒÁ', 231052, { x = 39, y = 34, mapType = 0, map = 7351, direction = 0 });
-  Char.SetData(RugehealNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0);
+  --å…¨éšŠè£œè¡€
+  RugehealNPC = self:NPC_createNormal('è³‡æ·±å–¬ä¼Š', 231052, { x = 39, y = 34, mapType = 0, map = 7351, direction = 0 });
+  Char.SetData(RugehealNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0);
   self:NPC_regTalkedEvent(RugehealNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n\\n@c»ØÍÄ§·¨Öµ£¨+µÈÁ¿ÉúÃüÖµ£©\\n\\n»ØÍÉúÃüÖµ\\n\\n»ØÍŒ™ÎïµÄÉúÃüÖµºÍÄ§·¨Öµ\\n\\nÒ»æI»ØÍÈ«ê ÈËÎïºÍŒ™ÎïÄ§·¨¡¢ÉúÃü\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 3, msg);
+      local msg = "\\n\\n@cå›å¾©é­”æ³•å€¼ï¼ˆ+ç­‰é‡ç”Ÿå‘½å€¼ï¼‰\\n\\nå›å¾©ç”Ÿå‘½å€¼\\n\\nå›å¾©å¯µç‰©çš„ç”Ÿå‘½å€¼å’Œé­”æ³•å€¼\\n\\nä¸€éµå›å¾©å…¨éšŠäººç‰©å’Œå¯µç‰©é­”æ³•ã€ç”Ÿå‘½\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 3, msg);
     end
     return
   end)
   self:NPC_regWindowTalkedEvent(RugehealNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if select > 0 then
-      if seqno == 3 and select == CONST.°´Å¥_È·¶¨ then
-        gold = Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò);
+      if seqno == 3 and select == CONST.æŒ‰é’®_ç¡®å®š then
+        gold = Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸);
         totalGold = 0;
         FpGold = 0;
         LpGold = 0;
-        --Ó‹Ëã»ØÍ¿‚½ğî~
+        --è¨ˆç®—å›å¾©ç¸½é‡‘é¡
         if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
           for slot = 0,4 do
             local p = Char.GetPartyMember(player,slot)
             if(p>=0) then
-                local lp = Char.GetData(p, CONST.¶ÔÏó_Ñª)
-                local maxLp = Char.GetData(p, CONST.¶ÔÏó_×î´óÑª)
-                local fp = Char.GetData(p, CONST.¶ÔÏó_Ä§)
-                local maxFp = Char.GetData(p, CONST.¶ÔÏó_×î´óÄ§)
+                local lp = Char.GetData(p, CONST.å¯¹è±¡_è¡€)
+                local maxLp = Char.GetData(p, CONST.å¯¹è±¡_æœ€å¤§è¡€)
+                local fp = Char.GetData(p, CONST.å¯¹è±¡_é­”)
+                local maxFp = Char.GetData(p, CONST.å¯¹è±¡_æœ€å¤§é­”)
                 if fp <= maxFp then
                       FpGold = FpGold + maxFp - fp;
                 end
@@ -280,10 +311,10 @@ function Module:onLoad()
             end
           end
         else
-                local lp = Char.GetData(player, CONST.¶ÔÏó_Ñª)
-                local maxLp = Char.GetData(player, CONST.¶ÔÏó_×î´óÑª)
-                local fp = Char.GetData(player, CONST.¶ÔÏó_Ä§)
-                local maxFp = Char.GetData(player, CONST.¶ÔÏó_×î´óÄ§)
+                local lp = Char.GetData(player, CONST.å¯¹è±¡_è¡€)
+                local maxLp = Char.GetData(player, CONST.å¯¹è±¡_æœ€å¤§è¡€)
+                local fp = Char.GetData(player, CONST.å¯¹è±¡_é­”)
+                local maxFp = Char.GetData(player, CONST.å¯¹è±¡_æœ€å¤§é­”)
                 if fp <= maxFp then
                       FpGold = FpGold + maxFp - fp;
                 end
@@ -297,30 +328,30 @@ function Module:onLoad()
         else
           totalGold = FpGold + LpGold - FpGold*0.5;
         end
-        local msg = "\\n\\n@cÈ«ê »ØÍĞèÒª»¨ÙM"..totalGold.."‚€½ğÅ\\n\\n¬FÓĞ½ğåXÊÇ"..gold.."‚€½ğÅ\\n\\n\\nÒª»ØÍ†á£¿\\n";
-        NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 31, msg);
-      --ÈËÎïŒ™ÎïÑaÑªÄ§
-      elseif seqno == 31 and select == CONST.°´Å¥_ÊÇ then
+        local msg = "\\n\\n@cå…¨éšŠå›å¾©éœ€è¦èŠ±è²»"..totalGold.."å€‹é‡‘å¹£\\n\\nç¾æœ‰é‡‘éŒ¢æ˜¯"..gold.."å€‹é‡‘å¹£\\n\\n\\nè¦å›å¾©å—ï¼Ÿ\\n";
+        NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 31, msg);
+      --äººç‰©å¯µç‰©è£œè¡€é­”
+      elseif seqno == 31 and select == CONST.æŒ‰é’®_æ˜¯ then
         if gold < totalGold then
-                NLG.SystemMessage(player, '½ğÅ²»×ãŸo·¨»ØÍ');
+                NLG.SystemMessage(player, 'é‡‘å¹£ä¸è¶³ç„¡æ³•å›å¾©');
                 return
         else
                 if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
                     for slot = 0,4 do
                        local p = Char.GetPartyMember(player,slot);
                        if(p>=0) then
-                           local maxLp = Char.GetData(p, CONST.¶ÔÏó_×î´óÑª);
-                           local maxFp = Char.GetData(p, CONST.¶ÔÏó_×î´óÄ§);
-                           Char.SetData(p, CONST.¶ÔÏó_Ñª, maxLp);
-                           Char.SetData(p, CONST.¶ÔÏó_Ä§, maxFp);
+                           local maxLp = Char.GetData(p, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+                           local maxFp = Char.GetData(p, CONST.å¯¹è±¡_æœ€å¤§é­”);
+                           Char.SetData(p, CONST.å¯¹è±¡_è¡€, maxLp);
+                           Char.SetData(p, CONST.å¯¹è±¡_é­”, maxFp);
                            NLG.UpChar(p);
                            for petSlot  = 0,4 do
                               local petIndex = Char.GetPet(p,petSlot);
                               if petIndex >= 0 then
-                                  local maxLp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÑª);
-                                  local maxFp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÄ§);
-                                  Char.SetData(petIndex, CONST.¶ÔÏó_Ñª, maxLp);
-                                  Char.SetData(petIndex, CONST.¶ÔÏó_Ä§, maxFp);
+                                  local maxLp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+                                  local maxFp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§é­”);
+                                  Char.SetData(petIndex, CONST.å¯¹è±¡_è¡€, maxLp);
+                                  Char.SetData(petIndex, CONST.å¯¹è±¡_é­”, maxFp);
                                   Pet.UpPet(p, petIndex);
                               end
                            end
@@ -329,24 +360,24 @@ function Module:onLoad()
                     Char.AddGold(player, -totalGold);
                     NLG.UpChar(player);
                 else
-                           local maxLp = Char.GetData(player, CONST.¶ÔÏó_×î´óÑª);
-                           local maxFp = Char.GetData(player, CONST.¶ÔÏó_×î´óÄ§);
-                           Char.SetData(player, CONST.¶ÔÏó_Ñª, maxLp);
-                           Char.SetData(player, CONST.¶ÔÏó_Ä§, maxFp);
+                           local maxLp = Char.GetData(player, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+                           local maxFp = Char.GetData(player, CONST.å¯¹è±¡_æœ€å¤§é­”);
+                           Char.SetData(player, CONST.å¯¹è±¡_è¡€, maxLp);
+                           Char.SetData(player, CONST.å¯¹è±¡_é­”, maxFp);
                            NLG.UpChar(player);
                            for petSlot  = 0,4 do
                               local petIndex = Char.GetPet(player,petSlot);
                               if petIndex >= 0 then
-                                  local maxLp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÑª);
-                                  local maxFp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÄ§);
-                                  Char.SetData(petIndex, CONST.¶ÔÏó_Ñª, maxLp);
-                                  Char.SetData(petIndex, CONST.¶ÔÏó_Ä§, maxFp);
+                                  local maxLp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+                                  local maxFp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§é­”);
+                                  Char.SetData(petIndex, CONST.å¯¹è±¡_è¡€, maxLp);
+                                  Char.SetData(petIndex, CONST.å¯¹è±¡_é­”, maxFp);
                                   Pet.UpPet(player, petIndex);
                               end
                            end
                     Char.AddGold(player, -totalGold);
                     NLG.UpChar(player);
-                    --NLG.SystemMessage(player, 'ê éL²Å¿ÉÊ¹ÓÃ£¡');
+                    --NLG.SystemMessage(player, 'éšŠé•·æ‰å¯ä½¿ç”¨ï¼');
                 end
         end
 
@@ -361,7 +392,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	local rugeBossLevel = tonumber(Field.Get(leader, 'RugeBossLevel')) or 0;
@@ -370,22 +401,22 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		local player = Battle.GetPlayIndex(battleIndex, i-10)
 		 --print(enemy, player)
                                         --local randImage = NLG.Rand(1, #imageNumber);
-		local enemyId = Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID);
+		local enemyId = Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID);
 		if enemy>=0 and Char.IsEnemy(enemy) then
 			if CheckInTable(MobsSet_L,enemyId)==true or CheckInTable(MobsSet_M,enemyId)==true or CheckInTable(MobsSet_H,enemyId)==true  then
-				Char.SetTempData(enemy, 'ÊØ×¡', rugeBossLevel);
-				Char.SetTempData(enemy, '¿ñ±©', rugeBossLevel);
-				--Char.SetData(enemy, CONST.CHAR_ĞÎÏó, imageNumber[randImage]);
-				--Char.SetData(enemy, CONST.¶ÔÏó_ENEMY_HeadGraNo,108510);
+				Char.SetTempData(enemy, 'å®ˆä½', rugeBossLevel);
+				Char.SetTempData(enemy, 'ç‹‚æš´', rugeBossLevel);
+				--Char.SetData(enemy, CONST.CHAR_å½¢è±¡, imageNumber[randImage]);
+				--Char.SetData(enemy, CONST.å¯¹è±¡_ENEMY_HeadGraNo,108510);
 				NLG.UpChar(enemy);
-				if Char.GetData(player,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-					NLG.Say(player,-1,"¡¾ÊØ×¡îIÓò¡¿¡¾¿ñ±©îIÓò¡¿",4,3);
+				if Char.GetData(player,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+					NLG.Say(player,-1,"ã€å®ˆä½é ˜åŸŸã€‘ã€ç‹‚æš´é ˜åŸŸã€‘",4,3);
 				end
 			end
 		elseif enemy>=0 and Char.IsEnemy(enemy)  then
 			if CheckInTable(BossSet_L,enemyId)==true or CheckInTable(BossSet_H,enemyId)==true  then
-				Char.SetTempData(enemy, 'ÊØ×¡', rugeBossLevel);
-				Char.SetTempData(enemy, '¿ñ±©', rugeBossLevel);
+				Char.SetTempData(enemy, 'å®ˆä½', rugeBossLevel);
+				Char.SetTempData(enemy, 'ç‹‚æš´', rugeBossLevel);
 				NLG.UpChar(enemy);
 			end
 		end
@@ -398,49 +429,49 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
       local leader1 = Battle.GetPlayer(battleIndex,0)
       local leader2 = Battle.GetPlayer(battleIndex,5)
       local leader = leader1
-      if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+      if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
           leader = leader2
       end
       local rugeBossLevel = tonumber(Field.Get(leader, 'RugeBossLevel')) or 0;
       --print(Round)
       if Char.IsEnemy(defCharIndex) then
-          local enemyId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(MobsSet_L,enemyId)==true or CheckInTable(MobsSet_M,enemyId)==true or CheckInTable(MobsSet_H,enemyId)==true then
-            local State = Char.GetTempData(defCharIndex, 'ÊØ×¡') or 0;
+            local State = Char.GetTempData(defCharIndex, 'å®ˆä½') or 0;
             local defDamage = 1 - (State*0.001);
             damage = damage * defDamage;
             return damage;
           end
           if CheckInTable(BossSet_L,enemyId)==true or CheckInTable(BossSet_H,enemyId)==true then
-            local State = Char.GetTempData(defCharIndex, 'ÊØ×¡') or 0;
+            local State = Char.GetTempData(defCharIndex, 'å®ˆä½') or 0;
             local defDamage = 1 - (State*0.001);
             damage = damage * defDamage;
             return damage;
           end
       elseif Char.IsEnemy(charIndex) and flg ~= CONST.DamageFlags.Magic then
-          local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(MobsSet_L,enemyId)==true or CheckInTable(MobsSet_M,enemyId)==true or CheckInTable(MobsSet_H,enemyId)==true then
-            local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+            local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
             local attDamage = 1 + (State * 0.02);
             damage = damage * attDamage;
             return damage;
           end
           if CheckInTable(BossSet_L,enemyId)==true or CheckInTable(BossSet_H,enemyId)==true then
-            local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+            local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
             local attDamage = 1 + (State * 0.02);
             damage = damage * attDamage;
             return damage;
           end
       elseif Char.IsEnemy(charIndex) and flg == CONST.DamageFlags.Magic then
-          local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
+          local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
           if CheckInTable(MobsSet_L,enemyId)==true or CheckInTable(MobsSet_M,enemyId)==true or CheckInTable(MobsSet_H,enemyId)==true then
-            local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+            local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
             local attDamage = 1 + (State * 0.01);
             damage = damage * attDamage;
             return damage;
           end
           if CheckInTable(BossSet_L,enemyId)==true or CheckInTable(BossSet_H,enemyId)==true then
-            local State = Char.GetTempData(charIndex, '¿ñ±©') or 0;
+            local State = Char.GetTempData(charIndex, 'ç‹‚æš´') or 0;
             local attDamage = 1 + (State * 0.01);
             damage = damage * attDamage;
             return damage;
@@ -449,24 +480,12 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
   return damage;
 end
 
-local dropMenu={
-        {"Ğ¡·üÌØÄÜÁ¿Ïä",631093,1},         --Ã¿10¼¶µôÂä£¬10¼¶ÒÔÏÂÎŞ½±Àø
-        {"Ğ¡·üÌØÄÜÁ¿Ïä",631093,2},
-        {"ï—Æ·Ê¯°å",73896,1},
-        {"ÖĞ·üÌØÄÜÁ¿Ïä",631094,2},
-        {"ï—Æ·Ê¯°å",73897,1},
-        {"´ó·üÌØÄÜÁ¿Ïä",631095,2},
-        {"Ë®¾§Ê¯°å",73898,1},
-        {"ÍõÕßÊØ»¤Éñ",34638,1},
-        {"ÌìÊ¹Ö®×£¸£",45953,1},
-        {"Ë®Áú»¤Éí·û",45993,1},
-}
 function RugeNPC_BattleWin(battleIndex, charIndex)
-	--¼ÆËãµÈµÚ
+	--è®¡ç®—ç­‰ç¬¬
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	local rugeBossLevel = tonumber(Field.Get(leader, 'RugeBossLevel')) or 0;
@@ -476,13 +495,13 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 	local lvRank = math.floor(lv/10);
 	local lvdrop = math.fmod(lv,10);
 
-	if (Char.GetData(charIndex, CONST.CHAR_µØÍ¼)==7351) then
+	if (Char.GetData(charIndex, CONST.CHAR_åœ°å›¾)==7351) then
 --[[
-	--ÒÀµÈµÚ·ÖÅä½±Àø
+	--ä¾ç­‰ç¬¬åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
 		local drop = math.random(0,2);
-		if player>=0 and Char.GetData(player, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if player>=0 and Char.GetData(player, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			--print(lv,lvRank,drop)
 			for k, v in ipairs(dropMenu) do
 				if k==lvRank and lvdrop==0  then
@@ -510,7 +529,7 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 	Battle.UnsetWinEvent(battleIndex);
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -520,18 +539,18 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 end
 
 function mykgold(player,gold)
-	local tjb = Char.GetData(player,CONST.¶ÔÏó_½ğ±Ò);
+	local tjb = Char.GetData(player,CONST.å¯¹è±¡_é‡‘å¸);
 	tjb = tjb - gold; 
 	if (tjb >= 0) then
-		Char.SetData(player,CONST.¶ÔÏó_½ğ±Ò,tjb);
+		Char.SetData(player,CONST.å¯¹è±¡_é‡‘å¸,tjb);
 		NLG.UpChar(player);
-		NLG.SystemMessage(player,"½»³öÁË"..gold.." GÄ§Å¡£");
+		NLG.SystemMessage(player,"äº¤å‡ºäº†"..gold.." Gé­”å¹£ã€‚");
 		return true;
 	end
 	return false;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
