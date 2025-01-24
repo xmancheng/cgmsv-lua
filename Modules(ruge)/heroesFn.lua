@@ -241,7 +241,8 @@ function module:initHeroData(toGetHeroData,charIndex)
     -- 是否获得了初始装备（首次实例化佣兵时触发）
     equipmentGranted=false,
     -- 佣兵自动加点模式
-    autoPointing=nil,
+    --autoPointing=nil,
+    autoPointing='11111',
     -- 是否开启佣兵自动加点
     isAutoPointing=1,
     -- 战宠自动加点模式
@@ -501,10 +502,10 @@ function module:buildDescriptionForParty(charIndex)
 
     local windowStr = "".. self:strFill(self:getHeroName(heroData), 16, ' ')..jobName..  "等級:"..level.."  未加點數:"..leveluppoint
       .."\n生命:"..hp.."/"..maxhp.." 魔力:"..mp.."/"..maxmp
-      .."\n体力:"..vital.."力量:"..str
-      .."强度:"..tgh.."速度:"..quick
+      .."\n體力:"..vital.."力量:"..str
+      .."強度:"..tgh.."速度:"..quick
       .."魔法:"..magic
-      .."\n攻击:"..att.."防御:"..def.."敏捷:"..agl.."精神:"..spr.."回复:"..rec
+      .."\n攻擊:"..att.."防禦:"..def.."敏捷:"..agl.."精神:"..spr.."回復:"..rec
 
       ..'\n健康:'..self:healthColor(injured)..''.."  掉魂:"..soulLost.."     經驗:"..exp
     return windowStr
@@ -834,13 +835,13 @@ function module:buildCampHeroOperator(charIndex,heroData)
 
   local items={
     "夥伴狀態",
-    "寵物狀態",
+    --"寵物狀態",
     --"水晶選擇",
-    --"交換物品",
+    "交換物品",
     --"刪除物品",
     "加點設置",
     "夥伴AI設置".."【"..name1.."】",
-    "寵物AI設置".."【"..name2.."】",
+    --"寵物AI設置".."【"..name2.."】",
     --"夥伴改名",
     --"更換形象"
   }
@@ -852,7 +853,8 @@ end
 function module:buildCampHeroItem(charIndex,heroData)
   local heroIndex = heroData.index
   local items={}
-  for i = 0, 27 do
+  --for i = 0, 27 do
+  for i = 0, 6 do
     local itemIndex = Char.GetItemIndex(heroIndex, i)
     local pre=""
     if i<=7 then

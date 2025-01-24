@@ -1,8 +1,8 @@
--- 1. é€‚é…cgmsv 24.2bç‰ˆæœ¬
--- 2. å¢åŠ äº†ä½£å…µæ›´ååŠŸèƒ½
--- 3. å¢åŠ äº†ä½£å…µæ›´æ¢å½¢è±¡åŠŸèƒ½
--- 4. ä¿®å¤äº†ä¸€äº›AIç­–ç•¥, æ–°å¢äº†ä¸€äº›AIæ¡ä»¶
--- 5. ä¿®å¤äº†åœ¨è¿·å®«ä¸­ä¸Šçº¿æ—¶çš„æŠ¥é”™
+-- 1. ÊÊÅäcgmsv 24.2b°æ±¾
+-- 2. Ôö¼ÓÁËÓ¶±ø¸üÃû¹¦ÄÜ
+-- 3. Ôö¼ÓÁËÓ¶±ø¸ü»»ĞÎÏó¹¦ÄÜ
+-- 4. ĞŞ¸´ÁËÒ»Ğ©AI²ßÂÔ, ĞÂÔöÁËÒ»Ğ©AIÌõ¼ş
+-- 5. ĞŞ¸´ÁËÔÚÃÔ¹¬ÖĞÉÏÏßÊ±µÄ±¨´í
 -- 6. 
 
 
@@ -17,17 +17,17 @@ local heroesAI = getModule("heroesAI")
 local strExt = require "lua/Modules/strExt";
 
 
--- ä½£å…µé­”è€— å€ç‡ï¼ˆè®¾ç½®ä¸º0.5 å³ä¸º åŸæ¥çš„ä¸€åŠï¼‰
+-- Ó¶±øÄ§ºÄ ±¶ÂÊ£¨ÉèÖÃÎª0.5 ¼´Îª Ô­À´µÄÒ»°ë£©
 local heroFpReduce=1.0
 
--- çš„æ‹›å‹Ÿåˆ—è¡¨
+-- µÄÕĞÄ¼ÁĞ±í
 local heroesR=_.select(heroesTpl,function(heroes) return heroes[20]==1 end)
 local heroesSR=_.select(heroesTpl,function(heroes) return heroes[20]==2 end)
 local heroesSSR=_.select(heroesTpl,function(heroes) return heroes[20]==4 end)
 local heroesUR=_.select(heroesTpl,function(heroes) return heroes[20]==9 end)
 
 
----è¿ç§»å®šä¹‰
+---Ç¨ÒÆ¶¨Òå
 module:addMigration(1, 'init des_heroes', function()
   SQL.querySQL([[
       CREATE TABLE if not exists `des_heroes` (
@@ -44,74 +44,74 @@ module:addMigration(1, 'init des_heroes', function()
 end);
 
 local heroesFn = getModule("heroesFn")
--- SECTION  çª—å£ ä¸»æµç¨‹æ§åˆ¶
+-- SECTION  ´°¿Ú Ö÷Á÷³Ì¿ØÖÆ
 function module:recruitTalked(npc, charIndex, seqno, select, data) 
-  -- æ³¨æ„: è¯·æ³¨æ„dataçš„ç±»å‹, åé¢è„šæœ¬éœ€è¦, å°†dataåšäº†tonumberå¤„ç†, å¦‚æœéœ€è¦å­—ç¬¦ä¸²å€¼, è¯·åœ¨tonumberä¹‹å‰
-  -- NOTE 60 ä½£å…µæ”¹åçª—å£ 
+  -- ×¢Òâ: Çë×¢ÒâdataµÄÀàĞÍ, ºóÃæ½Å±¾ĞèÒª, ½«data×öÁËtonumber´¦Àí, Èç¹ûĞèÒª×Ö·û´®Öµ, ÇëÔÚtonumberÖ®Ç°
+  -- NOTE 60 Ó¶±ø¸ÄÃû´°¿Ú 
   if seqno == 60 then
-    if select == CONST.BUTTON_ç¡®è®¤ then
+    if select == CONST.BUTTON_È·ÈÏ then
       if data ~= nil then
         data = tostring(data)
         if data == '' then
-          NLG.TalkToCli(charIndex, -1, 'åç¨±ä¸å¯ç‚ºç©º', 4, 1)
+          NLG.TalkToCli(charIndex, -1, 'Ãû·Q²»¿Éé¿Õ', 4, 1)
         else
           local heroData = sgModule:get(charIndex, "heroSelected");
           local heroIndex = heroData.index;
-          local oriName = Char.GetData(heroIndex, CONST.å¯¹è±¡_åå­—)
+          local oriName = Char.GetData(heroIndex, CONST.¶ÔÏó_Ãû×Ö)
           self:renameHero(charIndex, heroData, data)
-          NLG.TalkToCli(charIndex, -1, 'å¤¥ä¼´ã€' .. oriName .. 'ã€‘å·²æ›´åç‚º: ' .. data, 4, 1)
+          NLG.TalkToCli(charIndex, -1, 'â·°é¡¾' .. oriName .. '¡¿ÒÑ¸üÃûé: ' .. data, 4, 1)
         end
       end
     end
   end
 
   if seqno == 61 then
-    if CONST.BUTTON_ç¡®è®¤ then
+    if CONST.BUTTON_È·ÈÏ then
       data = tonumber(data)
       if data then
         local heroData = sgModule:get(charIndex,"heroSelected");
         local heroIndex = heroData.index;
-        local oriName = Char.GetData(heroIndex, CONST.å¯¹è±¡_åå­—);
-        local oriMetamo = Char.GetData(heroIndex, CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£);
+        local oriName = Char.GetData(heroIndex, CONST.¶ÔÏó_Ãû×Ö);
+        local oriMetamo = Char.GetData(heroIndex, CONST.¶ÔÏó_Ô­Ê¼Í¼µµ);
         self:remetamoHero(heroIndex, data)
-        NLG.TalkToCli(charIndex, -1, 'å¤¥ä¼´ã€' .. oriName .. 'ã€‘å½¢è±¡å·²ç”±ã€' .. oriMetamo .. 'ã€‘è®Šæ›´ç‚º: ã€' .. data .. 'ã€‘', 4, 1)
+        NLG.TalkToCli(charIndex, -1, 'â·°é¡¾' .. oriName .. '¡¿ĞÎÏóÒÑÓÉ¡¾' .. oriMetamo .. '¡¿×ƒ¸üé: ¡¾' .. data .. '¡¿', 4, 1)
       else
-        NLG.TalkToCli(charIndex, -1, 'è«‹è¼¸å…¥æ­£ç¢ºçš„å½¢è±¡ç·¨è™Ÿ(æ•¸å­—)', 4, 1)
+        NLG.TalkToCli(charIndex, -1, 'Õˆİ”ÈëÕı´_µÄĞÎÏó¾Ì–(”µ×Ö)', 4, 1)
       end
     end
   end
 
   data=tonumber(data)
-  if select == CONST.BUTTON_å…³é—­ then
+  if select == CONST.BUTTON_¹Ø±Õ then
     return ;
   end
 
-  -- NOTE  1 æ‹›å‹Ÿ
+  -- NOTE  1 ÕĞÄ¼
   if seqno== 1 and data>0 then
-    -- æ‹›å‹Ÿä½£å…µ
+    -- ÕĞÄ¼Ó¶±ø
     if data==1 then
       self:showRecruitWindow(charIndex);
     end
-    -- ä¸‹ä»¤
+    -- ÏÂÁî
     if data==2 then
       sgModule:set(charIndex,"heroListPage",1)
       self:showHeroListWindow(charIndex,1);
     end
   end
-  -- NOTE  2 é€‰æ‹©äº†æ·»åŠ çš„ä½£å…µ
+  -- NOTE  2 Ñ¡ÔñÁËÌí¼ÓµÄÓ¶±ø
   if seqno== 2 and data>0 then
     local heroesData = sgModule:get(charIndex,"heroes")
     if #heroesData>= 32 then
-      NLG.SystemMessage(charIndex,"ã€æç¤ºã€‘æœ€å¤šé›‡å‚­32åå¤¥ä¼´ã€‚")
+      NLG.SystemMessage(charIndex,"¡¾ÌáÊ¾¡¿×î¶à¹Í‚ò32Ãûâ·°é¡£")
       return
     end
-    -- æ•°æ®åˆå§‹åŒ–
+    -- Êı¾İ³õÊ¼»¯
     -- local randomHeroes = sgModule:get(charIndex,"randomHeroes")
     local toGetHeroData = heroesR[data]
     local toGetId = toGetHeroData[1]
     local isOwned = _.any(heroesData,function(heroData) return heroData.tplId == toGetId  end)
     if isOwned then
-      NLG.Say(charIndex,self.shortcutNpc,"ã€æç¤ºã€‘å¤¥ä¼´ã€"..toGetHeroData[2].."ã€‘å·²ç¶“é›‡å‚­äº†ã€‚",CONST.é¢œè‰²_çº¢è‰²,4)
+      NLG.Say(charIndex,self.shortcutNpc,"¡¾ÌáÊ¾¡¿â·°é¡¾"..toGetHeroData[2].."¡¿ÒÑ½›¹Í‚òÁË¡£",CONST.ÑÕÉ«_ºìÉ«,4)
       return
     end
     local isAbleHire = toGetHeroData[17]==nil and true or toGetHeroData[17](charIndex)
@@ -123,13 +123,13 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     table.insert(heroesData,heroData)
     sgModule:set(charIndex,"heroes",heroesData)
 
-    NLG.SystemMessage(charIndex,"æ–°çš„å¼·åŠ›å¤¥ä¼´åŠ å…¥äº†ï¼Œå¯ä»¥å¾éšŠä¼è¨­ç½®é¸æ“‡å‡ºæˆ°ã€‚")
+    NLG.SystemMessage(charIndex,"ĞÂµÄŠÁ¦â·°é¼ÓÈëÁË£¬¿ÉÒÔÄê ÎéÔOÖÃßx“ñ³ö‘ğ¡£")
   end
-  --  NOTE  3 ä¸‹ä»¤ï¼šæ˜¾ç¤ºä½£å…µåˆ—è¡¨
+  --  NOTE  3 ÏÂÁî£ºÏÔÊ¾Ó¶±øÁĞ±í
   if seqno == 3 then
     
     if data<0 then
-      -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+      -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
       local page;
       if select == 32 then
         page =  sgModule:get(charIndex,"heroListPage")+1
@@ -137,38 +137,38 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
       elseif select == 16 then
         page =  sgModule:get(charIndex,"heroListPage")-1
       end
-      -- è¿”å›ä¸Šä¸€çº§
+      -- ·µ»ØÉÏÒ»¼¶
       if page ==0 then
         self:recruit(self.shortcutNpc,charIndex)
       end
       sgModule:set(charIndex,"heroListPage",page)
       self:showHeroListWindow(charIndex,page)
     else
-      -- é€‰æ‹©çš„æ˜¯ä½£å…µ  è¿›å…¥æ“ä½œä½£å…µç•Œé¢
+      -- Ñ¡ÔñµÄÊÇÓ¶±ø  ½øÈë²Ù×÷Ó¶±ø½çÃæ
       self:showHeroOperationWindow(charIndex,data)
     end
     
     
   end
-  --  SECTION 4 ä¸‹ä»¤ï¼šé€‰æ‹© ä½£å…µçš„æ“ä½œ
+  --  SECTION 4 ÏÂÁî£ºÑ¡Ôñ Ó¶±øµÄ²Ù×÷
   if seqno==4  then
 
     if data<0 then
-      -- NOTE è¿›å…¥ ä½£å…µ åˆ—è¡¨é¡µ
+      -- NOTE ½øÈë Ó¶±ø ÁĞ±íÒ³
       if select == 16 then
         local page =  sgModule:get(charIndex,"heroListPage")
         self:showHeroListWindow(charIndex,page)
       end
     else
-      --NOTE å‡ºå¾/å¾…å‘½
+      --NOTE ³öÕ÷/´ıÃü
       if data == 1 then
         self:handleCampaign(charIndex)
       end
-      --NOTE æŸ¥çœ‹çŠ¶æ€
+      --NOTE ²é¿´×´Ì¬
       if data == 2 then
         self:showHeroDataWindow(charIndex)
       end
-      --NOTE è§£é›‡
+      --NOTE ½â¹Í
       if data == 3 then
         self:showFireConfirmWindow(charIndex)
       end
@@ -176,10 +176,10 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     
   end
   -- !SECTION
-  -- NOTE 5 æŸ¥çœ‹ä½£å…µçŠ¶æ€
+  -- NOTE 5 ²é¿´Ó¶±ø×´Ì¬
   if seqno ==5  then
 
-    -- NOTE è¿›å…¥ ä½£å…µ æ“ä½œé¡µ
+    -- NOTE ½øÈë Ó¶±ø ²Ù×÷Ò³
     if select == 16 then
       local heroData = sgModule:get(charIndex,"heroSelected")
       self:reShowHeroOperationWindow(charIndex,heroData)
@@ -187,7 +187,7 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
 
   end
 
-  --  SECTION  6 ç®¡ç†é¦–é¡µ é€‰æ‹©é¡¹
+  --  SECTION  6 ¹ÜÀíÊ×Ò³ Ñ¡ÔñÏî
   if seqno ==6 and data>0 then
 
     if data==1 then
@@ -223,12 +223,12 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
   end
 
   -- !SECTION
-  --  NOTE  7 ä½£å…µ é€‰æ‹©å
+  --  NOTE  7 Ó¶±ø Ñ¡Ôñºó
   if seqno==7 and data>0 then
     self:showCampHeroOperationWindow(charIndex,data)
   end
 
-  --  SECTION 8 ä½£å…µ æ“ä½œé€‰æ‹©
+  --  SECTION 8 Ó¶±ø ²Ù×÷Ñ¡Ôñ
   if seqno==8  then
     local curOperationPage = sgModule:get(charIndex,"operationPage")
     if curOperationPage == 1 then
@@ -252,14 +252,16 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
           sgModule:set(charIndex,"statusPage",1)
           self:showCrystalSelection(charIndex,1)
         end
-  
-        if data == 4 then
+]]
+        --if data == 4 then
+        if data == 2 then
           sgModule:set(charIndex,"statusPage",1)
   
           sgModule:set(charIndex,"statusItemWindow",0)
           self:showCampHeroItemWindow(charIndex,1)
         end
-  
+
+--[[
         if data == 5 then
           sgModule:set(charIndex,"statusPage",1)
   
@@ -268,16 +270,16 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
         end
 ]]
         --if data == 6 then
-        if data == 2 then
+        if data == 3 then
           self:showHeroOperationSecWindow(charIndex)
         end
---[[
-        if data == 7 then
 
+        --if data == 7 then
+        if data == 4 then
           sgModule:set(charIndex,"statusPage",1)
           self:showCampHeroSkills(charIndex,1)
         end
-  
+--[[
         if data == 8 then
           sgModule:set(charIndex,"statusPage",1)
           self:showPetSkills(charIndex,1)
@@ -304,9 +306,9 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
   end
 
   -- !SECTION
-  -- NOTE 9 ä½£å…µ çŠ¶æ€ çš„ä¿¡æ¯æ¡†
+  -- NOTE 9 Ó¶±ø ×´Ì¬ µÄĞÅÏ¢¿ò
   if seqno ==9 then
-    -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+    -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
     local page;
     if select == 32 then
       page =  sgModule:get(charIndex,"statusPage")+1
@@ -318,9 +320,9 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     self:showCampHeroDataWindow(charIndex,page)
 
   end
-  -- NOTE 10 ä½£å…µ é“å…· 
+  -- NOTE 10 Ó¶±ø µÀ¾ß 
   if seqno ==10  then
-    -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+    -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
     if data<0 then
       local page;
       if select == 32 then
@@ -330,7 +332,7 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
         page =  sgModule:get(charIndex,"statusPage")-1
       end
       if page ==0 then
-        -- è¿”å›ä¸Šä¸€çº§
+        -- ·µ»ØÉÏÒ»¼¶
         self:showCampHeroOperationWindow(charIndex,nil,sgModule:get(charIndex,"heroSelected"),1)
         return
       end
@@ -348,9 +350,9 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     end
 
   end
-  -- NOTE 11 ç©å®¶ èƒŒåŒ… æµè§ˆ
+  -- NOTE 11 Íæ¼Ò ±³°ü ä¯ÀÀ
   if seqno ==11  then
-    -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+    -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
     if data<0 then
       local page;
       if select == 32 then
@@ -367,27 +369,27 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     
 
   end
-  -- NOTE 13 ä½£å…µå® ç‰©åˆ—è¡¨
+  -- NOTE 13 Ó¶±ø³èÎïÁĞ±í
   if seqno== 13 then
     if data<0 then
     else
       self:showPetOperationWindow(charIndex,data)
     end
   end
-  -- SECTION 14 ä½£å…µå® ç‰©æ“ä½œé¢æ¿
+  -- SECTION 14 Ó¶±ø³èÎï²Ù×÷Ãæ°å
   if seqno== 14 then
     if data<0 then
     else
       if data == 1 then
-        --NOTE äº¤æ¢å® ç‰©
+        --NOTE ½»»»³èÎï
         self:showPlayerPetWindow(charIndex,data)
       end
       if data == 2 then
-        --NOTE å‡ºæˆ˜/ä¼‘æ¯
+        --NOTE ³öÕ½/ĞİÏ¢
         self:setPetDeparture(charIndex)
       end
       if data ==3 then
-        --NOTE å® ç‰©çŠ¶æ€
+        --NOTE ³èÎï×´Ì¬
         sgModule:set(charIndex,"statusPage",1)
         self:showPetDataWindow(charIndex,1)
       end
@@ -395,16 +397,16 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     end
   end
   -- !SECTION
-  -- NOTE 15 ç©å®¶å® ç‰©åˆ—è¡¨
+  -- NOTE 15 Íæ¼Ò³èÎïÁĞ±í
   if seqno== 15 then
     if data<0 then
     else
       self:switchPet(charIndex,data)
     end
   end
-  -- NOTE 16 ä½£å…µå® ç‰©çŠ¶æ€ ä¿¡æ¯æ¡†
+  -- NOTE 16 Ó¶±ø³èÎï×´Ì¬ ĞÅÏ¢¿ò
   if seqno== 16 then
-    -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+    -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
     local page;
     if select == 32 then
       page =  sgModule:get(charIndex,"statusPage")+1
@@ -415,10 +417,10 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     sgModule:set(charIndex,"statusPage",page)
     self:showPetDataWindow(charIndex,page)
   end
-  -- NOTE 17 ä½£å…µåŠ ç‚¹ è¾“å…¥æ¡†
+  -- NOTE 17 Ó¶±ø¼Óµã ÊäÈë¿ò
   if seqno== 17 then
     
-    -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+    -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
     local page=sgModule:get(charIndex,"statusPage");
     heroesFn:cachePointSetting(charIndex,page,data or 0)
     if select == 32 then
@@ -434,20 +436,20 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     end
     self:showCampHeroSetPoint(charIndex,page)
   end
-  -- NOTE 18 ä½£å…µæˆ˜æ–—AIé€‰æ‹©å
+  -- NOTE 18 Ó¶±øÕ½¶·AIÑ¡Ôñºó
   if seqno== 18 then
     if data<0 then
 
     else
-      -- è®¾ç½®ä½£å…µæˆ˜æ–—æŠ€èƒ½
+      -- ÉèÖÃÓ¶±øÕ½¶·¼¼ÄÜ
       self:setHeroBattleSkill(charIndex,data)
     end
 
   end
-  -- NOTE 19 å® ç‰©æˆ˜æ–—AIé€‰æ‹©å
+  -- NOTE 19 ³èÎïÕ½¶·AIÑ¡Ôñºó
   if seqno== 19 then
     if data<0 then
-      -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+      -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
       local page;
       if select == 32 then
         page =  sgModule:get(charIndex,"statusPage")+1
@@ -458,22 +460,22 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
       sgModule:set(charIndex,"statusPage",page)
       self:showPetSkills(charIndex,page)
     else
-      -- è®¾ç½®å® ç‰©æˆ˜æ–—æŠ€èƒ½
+      -- ÉèÖÃ³èÎïÕ½¶·¼¼ÄÜ
       self:setPetBattleSkill(charIndex,data)
     end
 
   end
-  -- NOTE 20 è§£é›‡ä½£å…µç¡®è®¤çª—å£ 
+  -- NOTE 20 ½â¹ÍÓ¶±øÈ·ÈÏ´°¿Ú 
   if seqno== 20 then
-    if select == CONST.BUTTON_ç¡®å®š then
+    if select == CONST.BUTTON_È·¶¨ then
       self:fireHero(charIndex)
     else
     end
 
   end
-  -- NOTE 22 æˆ˜å® åŠ ç‚¹ è¾“å…¥æ¡†
+  -- NOTE 22 Õ½³è¼Óµã ÊäÈë¿ò
   if seqno== 22 then
-    -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+    -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
     local page=sgModule:get(charIndex,"statusPage");
     heroesFn:cachePointSetting(charIndex,page,data or 0)
     if select == 32 then
@@ -489,40 +491,40 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     end
     self:showBattlePetSetPoint(charIndex,page)
   end
-  -- SECTION 23 ä½£å…µåŠ ç‚¹ä¸»é¡µ
+  -- SECTION 23 Ó¶±ø¼ÓµãÖ÷Ò³
   if seqno== 23 then
     if data<0 then
-      -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
-      if select == CONST.BUTTON_ä¸Šä¸€é¡µ then
+      -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
+      if select == CONST.BUTTON_ÉÏÒ»Ò³ then
         local heroData = sgModule:get(charIndex,"heroSelected")
         self:showCampHeroOperationWindow(charIndex,nil,heroData,1)
       end
     else
-      -- NOTE ä½£å…µæ‰‹åŠ¨åŠ ç‚¹
+      -- NOTE Ó¶±øÊÖ¶¯¼Óµã
       if data == 1 then
         sgModule:set(charIndex,"statusPage",1)
         sgModule:set(charIndex,"pointSetting",{})
         self:showCampHeroSetPoint(charIndex,1)
       end
-      -- NOTE å® ç‰©æ‰‹åŠ¨åŠ ç‚¹
+      -- NOTE ³èÎïÊÖ¶¯¼Óµã
       if data == 2 then
         sgModule:set(charIndex,"statusPage",1)
         sgModule:set(charIndex,"pointSetting",{})
         self:showBattlePetSetPoint(charIndex,1)
       end
-      -- NOTE ä½£å…µè‡ªåŠ¨åŠ ç‚¹è®¾ç½®
+      -- NOTE Ó¶±ø×Ô¶¯¼ÓµãÉèÖÃ
       if data == 3 then
         self:showAutoPointSelection(charIndex)
       end
-      -- NOTE å® ç‰©è‡ªåŠ¨åŠ ç‚¹è®¾ç½®
+      -- NOTE ³èÎï×Ô¶¯¼ÓµãÉèÖÃ
       if data == 4 then
         self:showPetAutoPointSelection(charIndex)
       end
-      -- NOTE å¼€å¯/å…³é—­ä½£å…µè‡ªåŠ¨åŠ ç‚¹
+      -- NOTE ¿ªÆô/¹Ø±ÕÓ¶±ø×Ô¶¯¼Óµã
       if data ==5 then
         self:swtichAutoPointing(charIndex,0)
       end
-      -- NOTE å¼€å¯/å…³é—­æˆ˜å® è‡ªåŠ¨åŠ ç‚¹
+      -- NOTE ¿ªÆô/¹Ø±ÕÕ½³è×Ô¶¯¼Óµã
       if data ==6 then
         self:swtichAutoPointing(charIndex,1)
       end
@@ -530,11 +532,11 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
    
   end
   -- !SECTION
-  -- NOTE 24 é€‰æ‹©äº†åŠ ç‚¹æ¨¡å¼
+  -- NOTE 24 Ñ¡ÔñÁË¼ÓµãÄ£Ê½
   if seqno== 24 then
     if data<0 then
-      -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
-      if select == CONST.BUTTON_ä¸Šä¸€é¡µ then
+      -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
+      if select == CONST.BUTTON_ÉÏÒ»Ò³ then
         self:showAutoPointSelection(charIndex)
       end
     else
@@ -543,11 +545,11 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
     end
     
   end
-  -- NOTE 25 é€‰æ‹©äº†æˆ˜å® åŠ ç‚¹æ¨¡å¼
+  -- NOTE 25 Ñ¡ÔñÁËÕ½³è¼ÓµãÄ£Ê½
   if seqno== 25 then
     if data<0 then
-      -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
-      if select == CONST.BUTTON_ä¸Šä¸€é¡µ then
+      -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
+      if select == CONST.BUTTON_ÉÏÒ»Ò³ then
         self:showAutoPointSelection(charIndex)
       end
     else
@@ -555,12 +557,12 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
       self:setPetAutoPionting(charIndex,data)
     end
   end
-  -- NOTE 26 é€‰æ‹©äº†æ°´æ™¶
+  -- NOTE 26 Ñ¡ÔñÁËË®¾§
   if seqno== 26 then
     if data<0 then
-      -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
-      if select == CONST.BUTTON_ä¸Šä¸€é¡µ then
-        -- è¿”å›ä¸Šä¸€çº§
+      -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
+      if select == CONST.BUTTON_ÉÏÒ»Ò³ then
+        -- ·µ»ØÉÏÒ»¼¶
         self:showCampHeroOperationWindow(charIndex,nil,sgModule:get(charIndex,"heroSelected"),1)
       end
     else
@@ -576,51 +578,51 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
   
 end
 
--- !SECTION  çª—å£ ä¸»æµç¨‹æ§åˆ¶
+-- !SECTION  ´°¿Ú Ö÷Á÷³Ì¿ØÖÆ
 
 
--- NOTE æ˜¾ç¤º æ‹›å‹Ÿä½£å…µ å¯¹è¯æ¡† seqno:2
+-- NOTE ÏÔÊ¾ ÕĞÄ¼Ó¶±ø ¶Ô»°¿ò seqno:2
 function module:showRecruitWindow(charIndex) 
-  local title="â˜…é¸æ“‡æƒ³é‚€è«‹çš„å¤¥ä¼´ï¼š"
+  local title="¡ïßx“ñÏëÑûÕˆµÄâ·°é£º"
   local items={}
 
   for k,v in pairs(heroesR) do
-    -- åå­—æœ€å¤§å…­å­—  èŒä¸š: èŒä¸šå››å­—  å¤©èµ‹: 4ä¸ªå­—ç¬¦
-    local tmpTable = {{v[2], 14},{" å®šä½:",6},{v[3],10},{" å“è³ª:",6},{v[15], 4}}
+    -- Ãû×Ö×î´óÁù×Ö  Ö°Òµ: Ö°ÒµËÄ×Ö  Ìì¸³: 4¸ö×Ö·û
+    local tmpTable = {{v[2], 14},{" ¶¨Î»:",6},{v[3],10},{" Æ·Ù|:",6},{v[15], 4}}
     local tmpStr = strExt.strParse(tmpTable);
     table.insert(items, tmpStr);
   end
 
   local windowStr = self:NPC_buildSelectionText(title,items);
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 2,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 2,windowStr);
 end
 
--- NOTE é…’é¦†é¦–é¡µ å¯¹è¯æ¡† seqno:1
+-- NOTE ¾Æ¹İÊ×Ò³ ¶Ô»°¿ò seqno:1
 function module:recruit(npc,charIndex)
   local windowStr = heroesFn:buildRecruitSelection()
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1,windowStr);
 end
 
--- NOTE  æ˜¾ç¤ºä½£å…µåˆ—è¡¨ seqno:3
+-- NOTE  ÏÔÊ¾Ó¶±øÁĞ±í seqno:3
 function module:showHeroListWindow(charIndex,page)
-  local title = "â˜…æˆ‘çš„å¤¥ä¼´åˆ—è¡¨ï¼š"
-  -- ä½£å…µ æ•°æ® è·å–
+  local title = "¡ïÎÒµÄâ·°éÁĞ±í£º"
+  -- Ó¶±ø Êı¾İ »ñÈ¡
   local heroesData = sgModule:get(charIndex, "heroes")
   for idx = 1 , #heroesData do 
   end
 
-  -- ç»„åˆ ä½£å…µåä½œä¸ºåˆ—è¡¨
+  -- ×éºÏ Ó¶±øÃû×÷ÎªÁĞ±í
   local items = _.map(heroesData, function(data)
       return heroesFn:buildListForHero(data)
     end
   )
 
-  -- è·å– çª—å£æ˜¾ç¤ºéœ€è¦çš„æ•°æ®
+  -- »ñÈ¡ ´°¿ÚÏÔÊ¾ĞèÒªµÄÊı¾İ
   local buttonType,windowStr=self:dynamicListData(items,title,page)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, buttonType, 3,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, buttonType, 3,windowStr);
 end
 
--- NOTE åŠ¨æ€åˆ—è¡¨æ•°æ®ç”Ÿæˆ
+-- NOTE ¶¯Ì¬ÁĞ±íÊı¾İÉú³É
 function module:dynamicListData(list,title,page)
  
   page = page or 1 ;
@@ -636,18 +638,18 @@ function module:dynamicListData(list,title,page)
   local windowStr = self:NPC_buildSelectionText(title,items);
   local buttonType;
   if  totalPage ==1 then
-    buttonType=CONST.BUTTON_ä¸Šå–æ¶ˆ
+    buttonType=CONST.BUTTON_ÉÏÈ¡Ïû
   elseif page ==1 then
-    buttonType=CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
+    buttonType=CONST.BUTTON_ÉÏÏÂÈ¡Ïû
   elseif page == totalPage then
-    buttonType=CONST.BUTTON_ä¸Šå–æ¶ˆ
+    buttonType=CONST.BUTTON_ÉÏÈ¡Ïû
   else 
-    buttonType = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
+    buttonType = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
   end
   return buttonType,windowStr
 end
 
--- NOTE é¦–æ¬¡ æ˜¾ç¤ºä½£å…µæ“ä½œ é¢æ¿ seqno: 4
+-- NOTE Ê×´Î ÏÔÊ¾Ó¶±ø²Ù×÷ Ãæ°å seqno: 4
 function module:showHeroOperationWindow(charIndex,data)
   
   local heroesData=sgModule:get(charIndex,"heroes")
@@ -656,35 +658,35 @@ function module:showHeroOperationWindow(charIndex,data)
   local index = (page-1)*8+data
   local heroData = heroesData[index]
   
-  -- ç¼“å­˜ é€‰ä¸­çš„hero id
+  -- »º´æ Ñ¡ÖĞµÄhero id
   sgModule:set(charIndex,"heroSelected",heroData)
   local windowStr = heroesFn:buildOperatorForHero(heroData)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 4,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 4,windowStr);
 end
 
--- NOTE äºŒæ¬¡ æ˜¾ç¤ºä½£å…µæ“ä½œ é¢æ¿ seqno: 4
+-- NOTE ¶ş´Î ÏÔÊ¾Ó¶±ø²Ù×÷ Ãæ°å seqno: 4
 function module:reShowHeroOperationWindow(charIndex,heroData)
   
   local heroData=  sgModule:get(charIndex,"heroSelected");
   -- local heroData = heroesFn:getHeroDataByid(charIndex,heroId)
 
   local windowStr = heroesFn:buildOperatorForHero(heroData)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 4,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 4,windowStr);
 end
 
--- NOTE æ˜¾ç¤º ä½£å…µæ•°å€¼ seqno:5
+-- NOTE ÏÔÊ¾ Ó¶±øÊıÖµ seqno:5
 function module:showHeroDataWindow(charIndex)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local windowStr = heroesFn:buildAttrDescriptionForHero(heroData)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_å·¨ä¿¡æ¯æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 5,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 5,windowStr);
 end
 
--- NOTE å¤„ç† å‡ºå¾/å¾…å‘½  é‡ç½®ä½£å…µæ“ä½œ é¢æ¿ 
+-- NOTE ´¦Àí ³öÕ÷/´ıÃü  ÖØÖÃÓ¶±ø²Ù×÷ Ãæ°å 
 function module:handleCampaign(charIndex)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   if heroData.status == 1 then
     heroData.status=2
-    -- åˆ é™¤ä½£å…µ
+    -- É¾³ıÓ¶±ø
     local res,err =pcall( function() 
       local heroIndex  = heroData.index
       Char.LeaveParty(heroIndex);
@@ -695,7 +697,7 @@ function module:handleCampaign(charIndex)
     end)
   else
     local heroesData = sgModule:get(charIndex,"heroes");
-    -- åˆ¤æ–­æ˜¯å¦æ»¡4äºº
+    -- ÅĞ¶ÏÊÇ·ñÂú4ÈË
     local count = _.reduce(heroesData, 0, 
       function(count, item) 
         if item.status == 1 then 
@@ -704,10 +706,10 @@ function module:handleCampaign(charIndex)
         return count
       end)
     if count >=4 then
-      NLG.Say(charIndex,self.shortcutNpc,"å‡ºæˆ°çš„å¤¥ä¼´ä¸èƒ½è¶…é4å€‹ã€‚",CONST.é¢œè‰²_çº¢è‰²,4)
+      NLG.Say(charIndex,self.shortcutNpc,"³ö‘ğµÄâ·°é²»ÄÜ³¬ß^4‚€¡£",CONST.ÑÕÉ«_ºìÉ«,4)
     else
       heroData.status=1
-      -- ç”Ÿæˆå‡äºº
+      -- Éú³É¼ÙÈË
       heroesFn:generateHeroDummy(charIndex, heroData)
     end
     
@@ -716,28 +718,28 @@ function module:handleCampaign(charIndex)
   self:showHeroListWindow(charIndex,page)
 end
 
--- NOTE ç™»é™†æ—¶ æŸ¥æ‰¾ä½£å…µ æ•°æ®
+-- NOTE µÇÂ½Ê± ²éÕÒÓ¶±ø Êı¾İ
 function module:onLoginEvent(charIndex)
   local heroesData = heroesFn:queryHeroesData(charIndex);
   heroesData= heroesData or {}  
   sgModule:set(charIndex,"heroes",heroesData)
   local campHeroesData=heroesFn:getCampHeroesData(charIndex)
-  -- ç™»å½•åˆå§‹  ç”Ÿæˆ å‡ºå¾ä½£å…µ
+  -- µÇÂ¼³õÊ¼  Éú³É ³öÕ÷Ó¶±ø
   _.each(campHeroesData,function(heroData) 
      heroesFn:generateHeroDummy(charIndex,heroData)
   end)
 end
 
--- NOTE  ç™»å‡ºæ—¶ ä¸”ä¿å­˜ä½£å…µ æ•°æ®
+-- NOTE  µÇ³öÊ± ÇÒ±£´æÓ¶±ø Êı¾İ
 function module:onLogoutEvent(charIndex)
   local heroesData=sgModule:get(charIndex,"heroes")
   local campHeroesData=heroesFn:getCampHeroesData(charIndex)
   _.each(campHeroesData,function(heroData)
     if not Char.IsValidCharIndex(heroData.index) then
-      print("æ— æ•ˆçš„ä½£å…µã€‚",heroData.index)
+      print("ÎŞĞ§µÄÓ¶±ø¡£",heroData.index)
       return
     end
-    --ä¿å­˜æ•°æ®  åˆ é™¤ å‡äºº  
+    --±£´æÊı¾İ  É¾³ı ¼ÙÈË  
     heroesFn:cacheHeroAttrData(heroData)
     heroesFn:cacheHeroItemData(heroData)
     heroesFn:cacheHeroPetsData(heroData)
@@ -745,16 +747,16 @@ function module:onLogoutEvent(charIndex)
   end)
   heroesFn:saveHeroesData(charIndex,heroesData)
 end
--- NOTE ä¿å­˜ä½£å…µæ•°æ®
+-- NOTE ±£´æÓ¶±øÊı¾İ
 function module:saveHeroesOnTime(charIndex)
   local heroesData=sgModule:get(charIndex,"heroes")
   local campHeroesData=heroesFn:getCampHeroesData(charIndex)
   _.each(campHeroesData,function(heroData) 
     if not Char.IsValidCharIndex(heroData.index) then
-      print("æ— æ•ˆçš„ä½£å…µã€‚",heroData.index)
+      print("ÎŞĞ§µÄÓ¶±ø¡£",heroData.index)
       return
     end
-    --ä¿å­˜æ•°æ®  åˆ é™¤ å‡äºº  
+    --±£´æÊı¾İ  É¾³ı ¼ÙÈË  
     heroesFn:cacheHeroAttrData(heroData)
     heroesFn:cacheHeroItemData(heroData)
     heroesFn:cacheHeroPetsData(heroData)
@@ -762,46 +764,46 @@ function module:saveHeroesOnTime(charIndex)
   heroesFn:saveHeroesData(charIndex,heroesData)
 end
 
--- NOTE å¿«æ·é”®ctrl+2 å‘¼å‡º ç®¡ç†èœå• 
+-- NOTE ¿ì½İ¼üctrl+2 ºô³ö ¹ÜÀí²Ëµ¥ 
 function module:shortcut(charIndex, actionID)
-  if actionID == %åŠ¨ä½œ_æ‹›æ‰‹% then
+  if actionID == %¶¯×÷_ÕĞÊÖ% then
     self:management(self.shortcutNpc,charIndex);
   end
 end
 
--- NOTE  ç®¡ç† é¦–é¡µ seqno:6
+-- NOTE  ¹ÜÀí Ê×Ò³ seqno:6
 function module:management(npc, charIndex)
   local windowStr= heroesFn:buildManagementForHero(charIndex)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 6, windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 6, windowStr);
 end
 
--- NOTE ä½£å…µå…¥é˜Ÿ and èšé›†
+-- NOTE Ó¶±øÈë¶Ó and ¾Û¼¯
 function module:gatherHeroes(charIndex)
   local heroesData = sgModule:get(charIndex,"heroes")
-  local Target_FloorId=Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)
-  local Target_MapId=Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾ç±»å‹)
-  local Target_X=Char.GetData(charIndex, CONST.å¯¹è±¡_X)
-  local Target_Y=Char.GetData(charIndex, CONST.å¯¹è±¡_Y)
+  local Target_FloorId=Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)
+  local Target_MapId=Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼ÀàĞÍ)
+  local Target_X=Char.GetData(charIndex, CONST.¶ÔÏó_X)
+  local Target_Y=Char.GetData(charIndex, CONST.¶ÔÏó_Y)
   local campHeroes = _.select(heroesData,function(item) return item.status==1 end)
   for _,heroData in pairs(campHeroes) do
     local heroIndex  = heroData.index
-    -- å…ˆä¼ è¿‡æ¥
-    -- åˆ¤æ–­æœ¬èº«é˜Ÿä¼æ˜¯å¦æ»¡äºº
+    -- ÏÈ´«¹ıÀ´
+    -- ÅĞ¶Ï±¾Éí¶ÓÎéÊÇ·ñÂúÈË
     local partyNum = Char.PartyNum(charIndex)
     if(partyNum>=5) then 
-      NLG.SystemMessage(charIndex, "éšŠä¼å·²æ»¿ã€‚");	
+      NLG.SystemMessage(charIndex, "ê ÎéÒÑM¡£");	
       
       return 
     end
     
     if(heroIndex>0) then
-      -- è¢«é‚€è¯·è€…åœ°é˜Ÿä¼äººæ•°
+      -- ±»ÑûÇëÕßµØ¶ÓÎéÈËÊı
       local invitedPartyNum = Char.PartyNum(heroIndex)
 
       if(invitedPartyNum>0) then
-        NLG.SystemMessage(charIndex, "ã€"..heroesFn:getHeroName(heroData).."ã€‘å·²æ˜¯å‡ºæˆ°ç‹€æ…‹ã€‚");
+        NLG.SystemMessage(charIndex, "¡¾"..heroesFn:getHeroName(heroData).."¡¿ÒÑÊÇ³ö‘ğ î‘B¡£");
       else
-        -- ç¬¬ä¸€ä¸ªå‚æ•° é˜Ÿå‘˜ï¼Œç¬¬äºŒä¸ªå‚æ•°é˜Ÿé•¿
+        -- µÚÒ»¸ö²ÎÊı ¶ÓÔ±£¬µÚ¶ş¸ö²ÎÊı¶Ó³¤
         Char.Warp(heroIndex, Target_MapId, Target_FloorId, Target_X, Target_Y)
         Char.JoinParty(heroIndex, charIndex, true); 
       end
@@ -810,13 +812,13 @@ function module:gatherHeroes(charIndex)
   end
 end
 
--- NOTE æ˜¾ç¤ºå‡ºå¾ä½£å…µåˆ—è¡¨ seqno:7
+-- NOTE ÏÔÊ¾³öÕ÷Ó¶±øÁĞ±í seqno:7
 function module:showCampHeroesList(charIndex)
   local windowStr = heroesFn:buildCampHeroesList(charIndex)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 7,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 7,windowStr);
 end
 
--- NOTE æ˜¾ç¤ºä½£å…µçš„æ“ä½œé¢æ¿ seqno:8
+-- NOTE ÏÔÊ¾Ó¶±øµÄ²Ù×÷Ãæ°å seqno:8
 function module:showCampHeroOperationWindow(charIndex, data, heroData, page)
   page = page or 1;
   sgModule:set(charIndex,"operationPage", page)
@@ -830,81 +832,81 @@ function module:showCampHeroOperationWindow(charIndex, data, heroData, page)
 
   local heroIndex = heroData.index;
   local name = heroesFn:getHeroName(heroData);
-  -- è·å– job 
-  local jobId = Char.GetData(heroIndex,CONST.å¯¹è±¡_èŒä¸š)
+  -- »ñÈ¡ job 
+  local jobId = Char.GetData(heroIndex,CONST.¶ÔÏó_Ö°Òµ)
   --local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
-  -- è·å–è¯´æ˜
+  -- »ñÈ¡ËµÃ÷
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
   local jobName = heroTplData[3];
-  local title="ã€"..name.."ã€‘    ã€Œ"..heroTplData[15].."ã€çº§ :"..jobName;
+  local title="¡¾"..name.."¡¿    ¡¸"..heroTplData[15].."¡¹¼¶ :"..jobName;
 
   local aiId1 = heroData.heroBattleTech or -1
   local aiData1 = _.detect(heroesAI.aiData,function(data) return data.id==aiId1 end)
-  local name1=aiData1~=nil and aiData1.name or "æœªè®¾å®š"
+  local name1=aiData1~=nil and aiData1.name or "Î´Éè¶¨"
 
   local aiId2 = heroData.petBattleTech or -1
   local aiData2 = _.detect(heroesAI.aiData,function(data) return data.id==aiId2 end)
-  local name2=aiData2~=nil and aiData2.name or "æœªè®¾å®š"
+  local name2=aiData2~=nil and aiData2.name or "Î´Éè¶¨"
 
   local list = {
-    "å¤¥ä¼´ç‹€æ…‹",
-    --"å¯µç‰©ç‹€æ…‹",
-    --"æ°´æ™¶é¸æ“‡",
-    --"äº¤æ›ç‰©å“",
-    --"åˆªé™¤ç‰©å“",
-    "åŠ é»è¨­ç½®",
-    --"å¤¥ä¼´AIè¨­ç½®".."ã€"..name1.."ã€‘",
-    --"å¯µç‰©AIè¨­ç½®".."ã€"..name2.."ã€‘",
-    --"å¤¥ä¼´æ”¹å",
-    --"æ›´æ›å½¢è±¡"
+    "â·°é î‘B",
+    --"Œ™Îï î‘B",
+    --"Ë®¾§ßx“ñ",
+    "½»“QÎïÆ·",
+    --"„h³ıÎïÆ·",
+    "¼ÓücÔOÖÃ",
+    "â·°éAIÔOÖÃ".."¡¾"..name1.."¡¿",
+    --"Œ™ÎïAIÔOÖÃ".."¡¾"..name2.."¡¿",
+    --"â·°é¸ÄÃû",
+    --"¸ü“QĞÎÏó"
   }
 
   local buttonType, windowStr = self:dynamicListData(list, title, page)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, buttonType, 8, windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, buttonType, 8, windowStr);
 
   -- local windowStr = heroesFn:buildCampHeroOperator(charIndex,heroData)
   -- local buttonType = self:dynamicListData(items,title,page)
-  -- NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 8, windowStr);
+  -- NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 8, windowStr);
 end
 
 
--- NOTE æ˜¾ç¤º  å‡ºå¾ä½£å…µçŠ¶æ€ seqno:9
+-- NOTE ÏÔÊ¾  ³öÕ÷Ó¶±ø×´Ì¬ seqno:9
 function module:showCampHeroDataWindow(charIndex,page)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local windowStr = heroesFn:buildDescriptionForCampHero(heroData,page)
   local buttonType
   if page==1 then
-    buttonType=CONST.BUTTON_ä¸‹å–æ¶ˆ
+    buttonType=CONST.BUTTON_ÏÂÈ¡Ïû
   else
-    buttonType=CONST.BUTTON_ä¸Šå–æ¶ˆ
+    buttonType=CONST.BUTTON_ÉÏÈ¡Ïû
   end
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_å·¨ä¿¡æ¯æ¡†, buttonType, 9,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò, buttonType, 9,windowStr);
 end
 
---  NOTE æ˜¾ç¤º å‡ºå¾ä½£å…µé“å…· seqno:10
+--  NOTE ÏÔÊ¾ ³öÕ÷Ó¶±øµÀ¾ß seqno:10
 function module:showCampHeroItemWindow(charIndex,page)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local items=heroesFn:buildCampHeroItem(charIndex,heroData)
-  local title="ã€" .. heroesFn:getHeroName(heroData) .. "ã€‘çš„ç‰©å“"
-  -- è·å– çª—å£æ˜¾ç¤ºéœ€è¦çš„æ•°æ®
+  local title="¡¾" .. heroesFn:getHeroName(heroData) .. "¡¿µÄÎïÆ·"
+  -- »ñÈ¡ ´°¿ÚÏÔÊ¾ĞèÒªµÄÊı¾İ
   local buttonType,windowStr=self:dynamicListData(items,title,page)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, buttonType, 10,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, buttonType, 10,windowStr);
 end
 
 
--- NOTE é€‰ä¸­ å‡ºå¾ä½£å…µé“å…· 
+-- NOTE Ñ¡ÖĞ ³öÕ÷Ó¶±øµÀ¾ß 
 function module:toSwitchItemWithPlayer(charIndex,data)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local statusPage = sgModule:get(charIndex,"statusPage");
   local heroItemSlotSelected = (statusPage-1)*8+data-1
-  -- è®°å½• é€‰æ‹©çš„ä½£å…µ slot
+  -- ¼ÇÂ¼ Ñ¡ÔñµÄÓ¶±ø slot
   sgModule:set(charIndex,"heroItemSlotSelected",heroItemSlotSelected);
   sgModule:set(charIndex,"playerPage",1)
   self:showPlayerItem(charIndex,1)
 end
 
--- NOTE åˆ é™¤ é€‰ä¸­çš„ä½£å…µé“å…·
+-- NOTE É¾³ı Ñ¡ÖĞµÄÓ¶±øµÀ¾ß
 function module:delCampHeroItem(charIndex,data)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local statusPage = sgModule:get(charIndex,"statusPage");
@@ -915,16 +917,16 @@ function module:delCampHeroItem(charIndex,data)
 end
 
 
--- NOTE æ˜¾ç¤º ç©å®¶èƒŒåŒ…é“å…·çª—å£ seqno:11
+-- NOTE ÏÔÊ¾ Íæ¼Ò±³°üµÀ¾ß´°¿Ú seqno:11
 function module:showPlayerItem(charIndex,page)
   local items=heroesFn:buildPlayerItem(charIndex)
-  local title="ã€" .. Char.GetData(charIndex,CONST.å¯¹è±¡_åå­—) .. "ã€‘çš„ç‰©å“"
-  -- è·å– çª—å£æ˜¾ç¤ºéœ€è¦çš„æ•°æ®
+  local title="¡¾" .. Char.GetData(charIndex,CONST.¶ÔÏó_Ãû×Ö) .. "¡¿µÄÎïÆ·"
+  -- »ñÈ¡ ´°¿ÚÏÔÊ¾ĞèÒªµÄÊı¾İ
   local buttonType,windowStr=self:dynamicListData(items,title,page)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, buttonType, 11,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, buttonType, 11,windowStr);
 end
 
--- NOTE ç©å®¶ç‰©å“ä¸ä½£å…µäº¤æ¢
+-- NOTE Íæ¼ÒÎïÆ·ÓëÓ¶±ø½»»»
 function module:switchItem(charIndex,data)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex=  heroData.index;
@@ -933,19 +935,19 @@ function module:switchItem(charIndex,data)
   local playerItemIndex =  Char.GetItemIndex(charIndex, playerSlot)
   
   local playerItemData= nil;
-  -- ç©å®¶é“å…·æ•°æ®æå–
+  -- Íæ¼ÒµÀ¾ßÊı¾İÌáÈ¡
   if playerItemIndex>=0 then
     playerItemData= heroesFn:extractItemData(playerItemIndex);
     Char.DelItemBySlot(charIndex, playerSlot);
 
     local r = Char.GetEmptyItemSlot(heroIndex);
     if r<0 then
-      NLG.SystemMessage(charIndex,"å¤¥ä¼´èƒŒåŒ…å·²æ»¿ï¼Œè«‹æ•´ç†ç‰©å“æ¬„ã€‚")
+      NLG.SystemMessage(charIndex,"â·°é±³°üÒÑM£¬ÕˆÕûÀíÎïÆ·™Ú¡£")
       return
     end
   end
   
-  -- ä½£å…µ é“å…· æ•°æ®æå–
+  -- Ó¶±ø µÀ¾ß Êı¾İÌáÈ¡
   local heroItemSlotSelected=sgModule:get(charIndex,"heroItemSlotSelected");
   local heroItemIndex =  Char.GetItemIndex(heroIndex, heroItemSlotSelected)
   local heroItemData= nil;
@@ -954,9 +956,9 @@ function module:switchItem(charIndex,data)
     Char.DelItemBySlot(heroIndex, heroItemSlotSelected);
   end
   
-  -- æŠŠä½£å…µé“å…· ç»™äºˆç©å®¶ 
+  -- °ÑÓ¶±øµÀ¾ß ¸øÓèÍæ¼Ò 
   if heroItemData~=nil then
-    local itemId = heroItemData[tostring(CONST.é“å…·_ID)]
+    local itemId = heroItemData[tostring(CONST.µÀ¾ß_ID)]
     local itemIndex = Char.GiveItem(charIndex, itemId, 1, false);
     if itemIndex >= 0 then
       heroesFn:insertItemData(itemIndex,heroItemData)
@@ -968,11 +970,11 @@ function module:switchItem(charIndex,data)
     end
     
   end
-  -- æŠŠç©å®¶é“å…·ç»™ä½£å…µ
+  -- °ÑÍæ¼ÒµÀ¾ß¸øÓ¶±ø
   if playerItemData~= nil then
     
   
-    local itemId = playerItemData[tostring(CONST.é“å…·_ID)]
+    local itemId = playerItemData[tostring(CONST.µÀ¾ß_ID)]
     local itemIndex = Char.GiveItem(heroData.index, itemId, 1, false);
     if itemIndex >= 0 then
       heroesFn:insertItemData(itemIndex,playerItemData)
@@ -985,36 +987,36 @@ function module:switchItem(charIndex,data)
     end
   end
   NLG.UpChar(heroIndex)
-  -- å®Œæˆå æ˜¾ç¤ºä½£å…µèƒŒåŒ…
+  -- Íê³Éºó ÏÔÊ¾Ó¶±ø±³°ü
   local page = sgModule:get(charIndex,"statusPage")
   self:showCampHeroItemWindow(charIndex,page)
 end
 
 
--- NOTE æ˜¾ç¤ºä½£å…µå® ç‰© seqno:13
+-- NOTE ÏÔÊ¾Ó¶±ø³èÎï seqno:13
 function module:showCampHeroPetWindow(charIndex)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local windowStr=heroesFn:buildCampHeroPets(heroData)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 13,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 13,windowStr);
 end
 
--- NOTE æ˜¾ç¤º å® ç‰©æ“ä½œé¢æ¿ seqno:14
+-- NOTE ÏÔÊ¾ ³èÎï²Ù×÷Ãæ°å seqno:14
 function module:showPetOperationWindow(charIndex,data)
   local heroPetSlotSelected = tonumber(data)-1
-  -- è®°å½• é€‰æ‹©çš„å® ç‰© slot
+  -- ¼ÇÂ¼ Ñ¡ÔñµÄ³èÎï slot
   sgModule:set(charIndex,"heroPetSlotSelected",heroPetSlotSelected);
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local windowStr=  heroesFn:buildCampHeroPetOperator(charIndex,heroData)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 14,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 14,windowStr);
 end
 
--- NOTE  æ˜¾ç¤ºç©å®¶å® ç‰© seqno:15
+-- NOTE  ÏÔÊ¾Íæ¼Ò³èÎï seqno:15
 function module:showPlayerPetWindow(charIndex)
   local windowStr=heroesFn:buildPlayerPets(charIndex)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 15,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 15,windowStr);
 end
 
--- NOTE äº¤æ¢å® ç‰© 
+-- NOTE ½»»»³èÎï 
 function module:switchPet(charIndex,data)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
@@ -1025,33 +1027,33 @@ function module:switchPet(charIndex,data)
 
   if heroPetIndex >=0 then
     if Char.GetEmptyPetSlot(charIndex) < 0 then
-      NLG.SystemMessage(charIndex,"ä½ çš„å¯µç‰©æ¬„æ»¿äº†ã€‚")
+      NLG.SystemMessage(charIndex,"ÄãµÄŒ™Îï™ÚMÁË¡£")
       return;
     end
-    -- æŠŠä½£å…µå® ç‰©ç»™ç©å®¶
+    -- °ÑÓ¶±ø³èÎï¸øÍæ¼Ò
     local r= Char.TradePet(heroIndex, heroPetSlot, charIndex)
     if r<0 then
-      NLG.SystemMessage(charIndex,"ã€‚")
+      NLG.SystemMessage(charIndex,"¡£")
       return;
     end
     Pet.UpPet(charIndex,heroPetIndex)
   end
-  -- æŠŠç©å®¶å® ç‰©ç»™ä½£å…µ
+  -- °ÑÍæ¼Ò³èÎï¸øÓ¶±ø
 
   if playerPetIndex>=0 then
     local r= Char.TradePet(charIndex, playerPetSlot, heroIndex)
     if r<0 then
-      NLG.SystemMessage(charIndex,"ç©å®¶çš„å¯µç‰©æ¬„æ»¿äº†ã€‚")
+      NLG.SystemMessage(charIndex,"Íæ¼ÒµÄŒ™Îï™ÚMÁË¡£")
       return;
     end
     Pet.UpPet(heroIndex,playerPetIndex)
   end
 
-  --  å®Œæˆåï¼Œè¿”å› ä½£å…µå® ç‰©åˆ—è¡¨é¡µ
+  --  Íê³Éºó£¬·µ»Ø Ó¶±ø³èÎïÁĞ±íÒ³
   self:showCampHeroPetWindow(charIndex)
 end
 
--- NOTE æ˜¾ç¤º  å® ç‰©çŠ¶æ€çª—å£ seqno:16
+-- NOTE ÏÔÊ¾  ³èÎï×´Ì¬´°¿Ú seqno:16
 function module:showPetDataWindow(charIndex,page)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
@@ -1063,66 +1065,66 @@ function module:showPetDataWindow(charIndex,page)
   local windowStr = heroesFn:buildDescriptionForPet(heroData,heroPetIndex,page)
   local buttonType
   if page==1 then
-    buttonType=CONST.BUTTON_ä¸‹å–æ¶ˆ
+    buttonType=CONST.BUTTON_ÏÂÈ¡Ïû
   else
-    buttonType=CONST.BUTTON_ä¸Šå–æ¶ˆ
+    buttonType=CONST.BUTTON_ÉÏÈ¡Ïû
   end
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_å·¨ä¿¡æ¯æ¡†, buttonType, 16,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò, buttonType, 16,windowStr);
 end
 
--- NOTE è®¾ç½®å® ç‰©å‡ºæˆ˜çŠ¶æ€
+-- NOTE ÉèÖÃ³èÎï³öÕ½×´Ì¬
 function module:setPetDeparture(charIndex)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
   local heroPetSlot =sgModule:get(charIndex,"heroPetSlotSelected");
   local heroPetIndex = Char.GetPet(heroIndex,heroPetSlot)
   local status =  Char.GetData(heroPetIndex, CONST.PET_DepartureBattleStatus);
-  if status == CONST.PET_STATE_æˆ˜æ–— then
-    Char.SetPetDepartureState(heroIndex,heroPetSlot,CONST.PET_STATE_å¾…å‘½)
+  if status == CONST.PET_STATE_Õ½¶· then
+    Char.SetPetDepartureState(heroIndex,heroPetSlot,CONST.PET_STATE_´ıÃü)
   else
-    Char.SetPetDepartureState(heroIndex,heroPetSlot,CONST.PET_STATE_æˆ˜æ–—)
+    Char.SetPetDepartureState(heroIndex,heroPetSlot,CONST.PET_STATE_Õ½¶·)
   end
 
 end
 
--- NOTE æ˜¾ç¤º è®¾ç½®ä½£å…µ åŠ ç‚¹ seqno:17
+-- NOTE ÏÔÊ¾ ÉèÖÃÓ¶±ø ¼Óµã seqno:17
 function module:showCampHeroSetPoint(charIndex,page)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
 
   local windowStr=heroesFn:buildSetPoint(charIndex,heroIndex,page)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ, 17,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_ÉÏÏÂÈ¡Ïû, 17,windowStr);
 end
 
--- NOTE è®¾ç½®åŠ ç‚¹
+-- NOTE ÉèÖÃ¼Óµã
 function module:setPoint(charIndex,heroIndex)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
   heroesFn:setPoint(charIndex,heroIndex)
 end
 
--- NOTE æ˜¾ç¤ºè®¾ç½® æˆ˜å® åŠ ç‚¹ seqno:22
+-- NOTE ÏÔÊ¾ÉèÖÃ Õ½³è¼Óµã seqno:22
 function module:showBattlePetSetPoint(charIndex,page)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
-  local petSlot = Char.GetData(heroIndex, CONST.å¯¹è±¡_æˆ˜å® );
+  local petSlot = Char.GetData(heroIndex, CONST.¶ÔÏó_Õ½³è);
   if petSlot<0 then
-    NLG.Say(charIndex,self.shortcutNpc,"è«‹å…ˆè¨­ç½®å‡ºæˆ°å¯µç‰©ã€‚",CONST.é¢œè‰²_çº¢è‰²,4)
+    NLG.Say(charIndex,self.shortcutNpc,"ÕˆÏÈÔOÖÃ³ö‘ğŒ™Îï¡£",CONST.ÑÕÉ«_ºìÉ«,4)
     return
   end
   petIndex = Char.GetPet(heroIndex, petSlot);
 
   local windowStr=heroesFn:buildSetPoint(charIndex,petIndex,page)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ, 22,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_ÉÏÏÂÈ¡Ïû, 22,windowStr);
 end
 
--- NOTE è®¾ç½®å® ç‰©åŠ ç‚¹
+-- NOTE ÉèÖÃ³èÎï¼Óµã
 function module:setPetPoint(charIndex)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
-  local petSlot = Char.GetData(heroIndex, CONST.å¯¹è±¡_æˆ˜å® );
+  local petSlot = Char.GetData(heroIndex, CONST.¶ÔÏó_Õ½³è);
   if petSlot<0 then
-    NLG.Say(charIndex,self.shortcutNpc,"è«‹å…ˆè¨­ç½®å‡ºæˆ°å¯µç‰©ã€‚",CONST.é¢œè‰²_çº¢è‰²,4)
+    NLG.Say(charIndex,self.shortcutNpc,"ÕˆÏÈÔOÖÃ³ö‘ğŒ™Îï¡£",CONST.ÑÕÉ«_ºìÉ«,4)
     return
   end
   petIndex = Char.GetPet(heroIndex, petSlot);
@@ -1130,24 +1132,24 @@ function module:setPetPoint(charIndex)
   heroesFn:setPoint(charIndex,petIndex)
 end
 
--- NOTE æˆ˜æ–—å¼€å§‹äº‹ä»¶
+-- NOTE Õ½¶·¿ªÊ¼ÊÂ¼ş
 function module:onBattleStart(battleIndex)
   for pos=0,19 do
 		local charIndex = Battle.GetPlayer(battleIndex,pos);
 		if charIndex<0 then
       return
     end
-    if (Char.GetData(charIndex,%å¯¹è±¡_åº%) == %å¯¹è±¡ç±»å‹_äºº%) and (not Char.IsDummy(charIndex)) then
-      -- è·å– å¯¹è±¡æ‰€åœ¨åœ°å›¾ 
-      local Target_FloorId=Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)
-      local Target_MapId=Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾ç±»å‹)
-      local Target_X=Char.GetData(charIndex, CONST.å¯¹è±¡_X)
-      local Target_Y=Char.GetData(charIndex, CONST.å¯¹è±¡_Y)
+    if (Char.GetData(charIndex,%¶ÔÏó_Ğò%) == %¶ÔÏóÀàĞÍ_ÈË%) and (not Char.IsDummy(charIndex)) then
+      -- »ñÈ¡ ¶ÔÏóËùÔÚµØÍ¼ 
+      local Target_FloorId=Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)
+      local Target_MapId=Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼ÀàĞÍ)
+      local Target_X=Char.GetData(charIndex, CONST.¶ÔÏó_X)
+      local Target_Y=Char.GetData(charIndex, CONST.¶ÔÏó_Y)
       local campHeroesData = heroesFn:getCampHeroesData(charIndex) or {}
       _.each(campHeroesData,function(heroData) 
         local heroIndex = heroData.index
-        local floor=Char.GetData(heroIndex, CONST.å¯¹è±¡_åœ°å›¾)
-        local mapId=Char.GetData(heroIndex, CONST.å¯¹è±¡_åœ°å›¾ç±»å‹)
+        local floor=Char.GetData(heroIndex, CONST.¶ÔÏó_µØÍ¼)
+        local mapId=Char.GetData(heroIndex, CONST.¶ÔÏó_µØÍ¼ÀàĞÍ)
         if floor ~= Target_FloorId or mapId ~= Target_MapId then
           Char.Warp(heroIndex, Target_MapId, Target_FloorId, Target_X, Target_Y)
         end
@@ -1158,7 +1160,7 @@ function module:onBattleStart(battleIndex)
 	end
 end
 
--- NOTE æˆ˜æ–—ï¼šå›åˆå¼€å§‹ æˆ˜æ–—æŒ‡ä»¤
+-- NOTE Õ½¶·£º»ØºÏ¿ªÊ¼ Õ½¶·Ö¸Áî
 function module:handleDummyCommand(battleIndex)
   local poss={}
   for i = 0, 19 do
@@ -1166,21 +1168,21 @@ function module:handleDummyCommand(battleIndex)
   end
   _.each(poss,function(pos) 
     local dummyIndex = Battle.GetPlayer(battleIndex, pos);
-    -- å¦‚æœä¸æ˜¯äººï¼Œé€€å‡º
+    -- Èç¹û²»ÊÇÈË£¬ÍË³ö
     if dummyIndex < 0 then
       return
     end
-    -- å¦‚æœä¸æ˜¯å‡äººï¼Œé€€å‡º
+    -- Èç¹û²»ÊÇ¼ÙÈË£¬ÍË³ö
     if not Char.IsDummy(dummyIndex) then
       return
     end
-    -- å¦‚æœä¸æ˜¯ä½£å…µ ï¼Œé€€å‡º
+    -- Èç¹û²»ÊÇÓ¶±ø £¬ÍË³ö
     local heroesOnline=sgModule:getGlobal("heroesOnline")
     if not heroesOnline[dummyIndex] then
       return
     end
     local heroData = heroesOnline[dummyIndex]
-    -- å¦‚æœ ownerä¸åœ¨æœ¬åœºæˆ˜æ–—ï¼Œé€€å‡ºæˆ˜æ–—
+    -- Èç¹û owner²»ÔÚ±¾³¡Õ½¶·£¬ÍË³öÕ½¶·
     local ownerIndex= heroData.owner
     local ownerSlot = Battle.GetSlot(battleIndex,ownerIndex)
 
@@ -1188,7 +1190,7 @@ function module:handleDummyCommand(battleIndex)
       Battle.ExitBattle(dummyIndex);
       return
     end
-    -- å¦‚æœä¸æ˜¯åœ¨ç­‰å¾…å‘½ä»¤ï¼Œé€€å‡º
+    -- Èç¹û²»ÊÇÔÚµÈ´ıÃüÁî£¬ÍË³ö
     local isWaiting =Battle.IsWaitingCommand(dummyIndex)
     if isWaiting ~=1 then
       return 
@@ -1198,7 +1200,7 @@ function module:handleDummyCommand(battleIndex)
       side=1
     end 
 
-    -- è·å– ai
+    -- »ñÈ¡ ai
     local heroesOnline = sgModule:getGlobal("heroesOnline")
 
     local aiId = heroData.heroBattleTech
@@ -1206,15 +1208,15 @@ function module:handleDummyCommand(battleIndex)
     local commands=aiData ==nil and {} or aiData.commands
     local actionData = heroesAI:calcActionData(dummyIndex,side,battleIndex,pos,commands)
     
-    -- ç¬¬ä¸€ä¸ªå‘½ä»¤
+    -- µÚÒ»¸öÃüÁî
     Battle.ActionSelect(dummyIndex, actionData[1],actionData[2] , actionData[3]);
 
-    -- è·å–å…¶å® ç‰©
+    -- »ñÈ¡Æä³èÎï
     local petSLot = math.fmod(pos + 5, 10)+side*10;
     local petIndex = Battle.GetPlayer(battleIndex, petSLot);
     
     if petIndex<0 then
-      -- ç¬¬äºŒè½®æ™®é€šï¼Œæ‰“å¯¹æ–¹è¡€æœ€å°‘çš„
+      -- µÚ¶şÂÖÆÕÍ¨£¬´ò¶Ô·½Ñª×îÉÙµÄ
       Battle.ActionSelect(dummyIndex,CONST.BATTLE_COM.BATTLE_COM_ATTACK,getModule("heroesAI").target["6"]["fn"](dummyIndex,side,battleIndex,pos,0) ,-1);
 
     else
@@ -1227,7 +1229,7 @@ function module:handleDummyCommand(battleIndex)
     end
   end)
 end
--- NOTE è·å– è¡Œä¸ºæ•°æ®
+-- NOTE »ñÈ¡ ĞĞÎªÊı¾İ
 -- function module:getActionInfo(techId)
 --   if techId == nil then
 --     return {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,300,1,0}
@@ -1249,13 +1251,13 @@ end
 --   end
 --   return {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,300,1,0}
 -- end
--- NOTE ä¼ é€äº‹ä»¶
+-- NOTE ´«ËÍÊÂ¼ş
 function module:handleWarpEvent(charIndex,Ori_MapId, Ori_FloorId, Ori_X, Ori_Y, Target_MapId, Target_FloorId, Target_X, Target_Y)
   return 0
 end
--- NOTE ä¼ é€åäº‹ä»¶
+-- NOTE ´«ËÍºóÊÂ¼ş
 function module:handleAfterWarpEvent(charIndex,Ori_MapId, Ori_FloorId, Ori_X, Ori_Y, Target_MapId, Target_FloorId, Target_X, Target_Y)
-  -- å¦‚æœæ˜¯å‡äºº é€€å‡º
+  -- Èç¹ûÊÇ¼ÙÈË ÍË³ö
   if Char.IsDummy(charIndex) then
     return 0;
   end
@@ -1263,11 +1265,11 @@ function module:handleAfterWarpEvent(charIndex,Ori_MapId, Ori_FloorId, Ori_X, Or
   
   _.each(campHeroesData,function(heroData) 
     local heroIndex = heroData.index;
-    local battleIndex= Char.GetData(heroIndex, CONST.å¯¹è±¡_BattleIndex)
+    local battleIndex= Char.GetData(heroIndex, CONST.¶ÔÏó_BattleIndex)
     
     
     if battleIndex>=0 then
-      if Char.GetData(heroIndex, CONST.å¯¹è±¡_æˆ˜æ–—ä¸­) > 0 and Battle.GetWinSide(battleIndex)==-1 then
+      if Char.GetData(heroIndex, CONST.¶ÔÏó_Õ½¶·ÖĞ) > 0 and Battle.GetWinSide(battleIndex)==-1 then
         Battle.ExitBattle(heroIndex);
       end
     end
@@ -1279,7 +1281,7 @@ function module:handleAfterWarpEvent(charIndex,Ori_MapId, Ori_FloorId, Ori_X, Or
 
     local invitedPartyNum = Char.PartyNum(heroIndex)
     if invitedPartyNum<=0  then
-      -- ç¬¬ä¸€ä¸ªå‚æ•° é˜Ÿå‘˜ï¼Œç¬¬äºŒä¸ªå‚æ•°é˜Ÿé•¿
+      -- µÚÒ»¸ö²ÎÊı ¶ÓÔ±£¬µÚ¶ş¸ö²ÎÊı¶Ó³¤
       Char.Warp(heroIndex, Target_MapId, Target_FloorId, Target_X, Target_Y)
       Char.JoinParty(heroIndex, charIndex, true); 
     end
@@ -1287,13 +1289,13 @@ function module:handleAfterWarpEvent(charIndex,Ori_MapId, Ori_FloorId, Ori_X, Or
   end)
   return 0;
 end
--- NOTE æ²»ç–—
+-- NOTE ÖÎÁÆ
 function module:heal(charIndex)
   local campHeroesData = heroesFn:getCampHeroesData(charIndex);
   
   _.each(campHeroesData,function(heroData) 
     heroesFn:heal(charIndex,heroData.index)
-    -- æ²»ç–— å® ç‰©
+    -- ÖÎÁÆ ³èÎï
     for heroPetSlot = 0,4 do
       local petIndex = Char.GetPet(heroData.index,heroPetSlot)
       if petIndex>=0 then
@@ -1303,7 +1305,7 @@ function module:heal(charIndex)
     NLG.UpChar(heroData.index);
   end)
   heroesFn:heal(charIndex,charIndex)
-  -- æ²»ç–— å® ç‰©
+  -- ÖÎÁÆ ³èÎï
   for heroPetSlot = 0,4 do
     local petIndex = Char.GetPet(charIndex,heroPetSlot)
     if petIndex>=0 then
@@ -1312,55 +1314,55 @@ function module:heal(charIndex)
   end
   NLG.UpChar(charIndex);
 end
--- NOTE ä½£å…µæŠ€èƒ½æµè§ˆ seq:18
+-- NOTE Ó¶±ø¼¼ÄÜä¯ÀÀ seq:18
 function module:showCampHeroSkills(charIndex,page)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local skills = heroData.skills;
   local windowStr=heroesFn:buildCampHeroSkills(charIndex,skills)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 18,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 18,windowStr);
 end
 
--- NOTE è®¾ç½®ä½£å…µAI
+-- NOTE ÉèÖÃÓ¶±øAI
 function module:setHeroBattleSkill(charIndex,data)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
   local aiId = heroData.skills[data]
   if aiId==nil or  aiId<0 then
-    NLG.SystemMessage(charIndex,"è«‹é¸æ“‡æœ‰æ•ˆçš„AIã€‚")
+    NLG.SystemMessage(charIndex,"Õˆßx“ñÓĞĞ§µÄAI¡£")
     return  
   end
   local aiData = _.detect(heroesAI.aiData,function(ai) return ai.id==aiId end)
   -- print('>>>',aiData);
   local name=aiData.name
   heroData.heroBattleTech = aiId;
-  NLG.SystemMessage(charIndex,"è¨˜éŒ„å®Œæˆï¼Œå¤¥ä¼´çš„æˆ°é¬¥AIæ˜¯ï¼š"..name)
+  NLG.SystemMessage(charIndex,"Ó›ä›Íê³É£¬â·°éµÄ‘ğôYAIÊÇ£º"..name)
 end
 
--- NOTE æ˜¾ç¤ºå® ç‰©æŠ€èƒ½åˆ—è¡¨ seqno:19
+-- NOTE ÏÔÊ¾³èÎï¼¼ÄÜÁĞ±í seqno:19
 function module:showPetSkills(charIndex,page)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local petSkills = heroData.petSkills;
   local windowStr=heroesFn:buildCampHeroSkills(charIndex,petSkills)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 19,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 19,windowStr);
 end
 
--- NOTE è®¾ç½® å® ç‰©AI
+-- NOTE ÉèÖÃ ³èÎïAI
 function module:setPetBattleSkill(charIndex,data)
 
   local heroData=  sgModule:get(charIndex,"heroSelected");
   local heroIndex = heroData.index
   local aiId = heroData.petSkills[data]
   if aiId==nil or  aiId<0 then
-    NLG.SystemMessage(charIndex,"è«‹é¸æ“‡æœ‰æ•ˆçš„æŠ€èƒ½ã€‚")
+    NLG.SystemMessage(charIndex,"Õˆßx“ñÓĞĞ§µÄ¼¼ÄÜ¡£")
     return  
   end
   local aiData = _.detect(heroesAI.aiData,function(ai) return ai.id==aiId end)
   local name = aiData.name
   heroData.petBattleTech = aiId;
-  NLG.SystemMessage(charIndex,"è¨˜éŒ„å®Œæˆï¼Œå¯µç‰©çš„æˆ°é¬¥AIæ˜¯ï¼š"..name)
+  NLG.SystemMessage(charIndex,"Ó›ä›Íê³É£¬Œ™ÎïµÄ‘ğôYAIÊÇ£º"..name)
 end
 
--- NOTE è§£é›‡ä½£å…µ
+-- NOTE ½â¹ÍÓ¶±ø
 function module:fireHero(charIndex)
   local heroData=  sgModule:get(charIndex,"heroSelected");
   heroesFn:deleteHeroData(charIndex,heroData)
@@ -1368,22 +1370,22 @@ function module:fireHero(charIndex)
   self:showHeroListWindow(charIndex,page)
 end
 
--- NOTE è§£é›‡ç¡®è®¤çª—å£ seqno:20
+-- NOTE ½â¹ÍÈ·ÈÏ´°¿Ú seqno:20
 function module:showFireConfirmWindow(charIndex)
   local heroData = sgModule:get(charIndex,"heroSelected");
-  local windowStr="\n\nâ˜…å³å°‡é£æ•£å¤¥ä¼´ï¼šã€"..heroesFn:getHeroName(heroData).."ã€‘"
-  .."\n\nâ€»é£æ•£å¾Œæ­¤å¤¥ä¼´æœƒå¤±å»æ‰€æœ‰å±¬æ€§ï¼›è£å‚™èˆ‡å¯µç‰©ã€‚"
-  .."\n\nâ˜…â˜…â˜…â˜…â˜…â˜…â˜…ç¢ºå®šé£æ•£æ­¤å¤¥ä¼´å—ï¼Ÿâ˜…â˜…â˜…â˜…â˜…â˜…â˜…"
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.BUTTON_ç¡®å®šå…³é—­, 20, windowStr);
+  local windowStr="\n\n¡ï¼´Œ¢Ç²É¢â·°é£º¡¾"..heroesFn:getHeroName(heroData).."¡¿"
+  .."\n\n¡ùÇ²É¢áá´Ëâ·°é•şÊ§È¥ËùÓĞŒÙĞÔ£»Ñb‚äÅcŒ™Îï¡£"
+  .."\n\n¡ï¡ï¡ï¡ï¡ï¡ï¡ï´_¶¨Ç²É¢´Ëâ·°é†á£¿¡ï¡ï¡ï¡ï¡ï¡ï¡ï"
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.BUTTON_È·¶¨¹Ø±Õ, 20, windowStr);
 
 end
 
--- DONE ä½£å…µæ”¹å
+-- DONE Ó¶±ø¸ÄÃû
 function module:renameHero(charIndex, heroData, newName)
   local heroIndex = heroData.index;
-  Char.SetData(heroIndex, CONST.å¯¹è±¡_åå­—, newName)
+  Char.SetData(heroIndex, CONST.¶ÔÏó_Ãû×Ö, newName)
   
-  -- DONE: éœ€è¦åŒæ­¥ä¿®æ”¹heroData.name heroData.trueName
+  -- DONE: ĞèÒªÍ¬²½ĞŞ¸ÄheroData.name heroData.trueName
   heroData.name = newName;
   heroData.trueName = newName;
   heroesFn:saveHeroData(charIndex, heroData)
@@ -1391,104 +1393,104 @@ function module:renameHero(charIndex, heroData, newName)
   NLG.UpChar(heroIndex)
 end
 
--- DONE: ä½£å…µæ”¹åçª—å£ seqno:60
+-- DONE: Ó¶±ø¸ÄÃû´°¿Ú seqno:60
 function module:showRename(charIndex)
   local heroData=  sgModule:get(charIndex, "heroSelected");
   local heroIndex = heroData.index;
-  -- è·å– job 
-  local jobId = Char.GetData(heroIndex,CONST.å¯¹è±¡_èŒä¸š)
+  -- »ñÈ¡ job 
+  local jobId = Char.GetData(heroIndex,CONST.¶ÔÏó_Ö°Òµ)
   local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
-  -- è·å–è¯´æ˜
+  -- »ñÈ¡ËµÃ÷
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
-  local oriName = Char.GetData(heroIndex, CONST.å¯¹è±¡_åå­—)
+  local oriName = Char.GetData(heroIndex, CONST.¶ÔÏó_Ãû×Ö)
 
-  local windowStr="ã€€ã€" .. heroTplData[15] .. "ã€‘ã€€" .. oriName .."ã€€ã€€ã€€è·æ¥­ï¼š" .. jobName .. "\n\nã€€\nã€€è«‹è¼¸å…¥æ–°çš„åå­—ï¼š\n\n"
+  local windowStr="¡¡¡¾" .. heroTplData[15] .. "¡¿¡¡" .. oriName .."¡¡¡¡¡¡Âš˜I£º" .. jobName .. "\n\n¡¡\n¡¡Õˆİ”ÈëĞÂµÄÃû×Ö£º\n\n"
 
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ç¡®å®šå…³é—­, 60, windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_È·¶¨¹Ø±Õ, 60, windowStr);
 end
 
 
 function module:remetamoHero(charIndex, newMetamo)
-  Char.SetData(charIndex, %å¯¹è±¡_å½¢è±¡%, newMetamo)
-  Char.SetData(charIndex, %å¯¹è±¡_åŸå½¢%, newMetamo)
+  Char.SetData(charIndex, %¶ÔÏó_ĞÎÏó%, newMetamo)
+  Char.SetData(charIndex, %¶ÔÏó_Ô­ĞÎ%, newMetamo)
   NLG.UpChar(charIndex)
 end
 
--- DONE ä½£å…µæ”¹å½¢è±¡çª—å£ seqno:61
+-- DONE Ó¶±ø¸ÄĞÎÏó´°¿Ú seqno:61
 function module:showRemetamo(charIndex)
   local heroData=  sgModule:get(charIndex, "heroSelected");
   local heroIndex = heroData.index;
-  -- è·å– job 
-  local jobId = Char.GetData(heroIndex,CONST.å¯¹è±¡_èŒä¸š)
+  -- »ñÈ¡ job 
+  local jobId = Char.GetData(heroIndex,CONST.¶ÔÏó_Ö°Òµ)
   local jobName = getModule("gmsvData").jobs[tostring(jobId)][1]
-  -- è·å–è¯´æ˜
+  -- »ñÈ¡ËµÃ÷
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
-  local oriName = Char.GetData(heroIndex, CONST.å¯¹è±¡_åå­—)
-  local oriMetamo = Char.GetData(heroIndex, %å¯¹è±¡_å½¢è±¡%)
+  local oriName = Char.GetData(heroIndex, CONST.¶ÔÏó_Ãû×Ö)
+  local oriMetamo = Char.GetData(heroIndex, %¶ÔÏó_ĞÎÏó%)
 
 
-  local windowStr="ã€€ã€" .. heroTplData[15] .. "ã€‘ã€€" .. oriName .."ã€€ã€€ã€€è·æ¥­ï¼š" .. jobName
-  .. "\n\n  è«‹æ…ç”¨æœ¬åŠŸèƒ½, å½¢è±¡ç·¨è™Ÿè«‹è‡ªè¡ŒæŸ¥è©¢"
-  .. "\n\nã€€ç•¶å‰å½¢è±¡ç·¨è™Ÿ:" .. oriMetamo 
-  .. "\n\nã€€è«‹è¼¸å…¥æ–°çš„å½¢è±¡ç·¨è™Ÿï¼š\n\n"
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_è¾“å…¥æ¡†, CONST.BUTTON_ç¡®å®šå…³é—­, 61, windowStr);
+  local windowStr="¡¡¡¾" .. heroTplData[15] .. "¡¿¡¡" .. oriName .."¡¡¡¡¡¡Âš˜I£º" .. jobName
+  .. "\n\n  ÕˆÉ÷ÓÃ±¾¹¦ÄÜ, ĞÎÏó¾Ì–Õˆ×ÔĞĞ²éÔƒ"
+  .. "\n\n¡¡®”Ç°ĞÎÏó¾Ì–:" .. oriMetamo 
+  .. "\n\n¡¡Õˆİ”ÈëĞÂµÄĞÎÏó¾Ì–£º\n\n"
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_ÊäÈë¿ò, CONST.BUTTON_È·¶¨¹Ø±Õ, 61, windowStr);
 end
 
--- TODO: ä½£å…µæ”¹å½¢è±¡ç¡®è®¤çª—å£ seqno:62
+-- TODO: Ó¶±ø¸ÄĞÎÏóÈ·ÈÏ´°¿Ú seqno:62
 function module:showRemetamoOK(charIndex, newMetamo)
-  local windowStr = "@g,"..newMetamo..",1,4,4,1@ã€€æ–°çš„å½¢è±¡ç‚º:"..newMetamo.."";
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST["çª—å£_ä¿¡æ¯æ¡†"], CONST.BUTTON_ç¡®å®šå–æ¶ˆ, 62, windowStr);
+  local windowStr = "@g,"..newMetamo..",1,4,4,1@¡¡ĞÂµÄĞÎÏóé:"..newMetamo.."";
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST["´°¿Ú_ĞÅÏ¢¿ò"], CONST.BUTTON_È·¶¨È¡Ïû, 62, windowStr);
 end
 
--- NOTE  ä½£å…µå‡çº§äº‹ä»¶
+-- NOTE  Ó¶±øÉı¼¶ÊÂ¼ş
 function module:onLevelUpEvent(charIndex)
-  local name = Char.GetData(charIndex,CONST.å¯¹è±¡_åå­—)
-  logInfo("herolevelup",name,Char.GetData(charIndex,CONST.å¯¹è±¡_åº))
+  local name = Char.GetData(charIndex,CONST.¶ÔÏó_Ãû×Ö)
+  --logInfo("herolevelup",name,Char.GetData(charIndex,CONST.¶ÔÏó_Ğò))
 
-  -- å¦‚æœä¸æ˜¯å‡äººï¼Œé€€å‡º
+  -- Èç¹û²»ÊÇ¼ÙÈË£¬ÍË³ö
   if not Char.IsDummy(charIndex) then
     return
   end
-  -- å¦‚æœä¸æ˜¯ä½£å…µ ï¼Œé€€å‡º
+  -- Èç¹û²»ÊÇÓ¶±ø £¬ÍË³ö
   local heroesOnline=sgModule:getGlobal("heroesOnline")
   local heroData = heroesOnline[charIndex]
   if not heroesOnline[charIndex] then
     return
   end
 
-  -- è·å– heroTpl æ•°æ® æ‰§è¡Œå‡çº§å›è°ƒå‡½æ•°
+  -- »ñÈ¡ heroTpl Êı¾İ Ö´ĞĞÉı¼¶»Øµ÷º¯Êı
   local heroTplId = heroData.tplId
   local heroTplData = _.detect(heroesTpl,function(tpl) return tpl[1]==heroTplId end)
   if heroTplData== nil then
-    NLG.SystemMessage(charIndex,"éŒ¯èª¤çš„å¤¥ä¼´ã€‚")
+    NLG.SystemMessage(charIndex,"åeÕ`µÄâ·°é¡£")
   end
   if heroTplData and  heroTplData[16] ~= nil then
-    -- è¿™é‡Œçš„charIndex
+    -- ÕâÀïµÄcharIndex
     heroTplData[16](charIndex)
   end
 
-  -- å…³é—­äº†è‡ªåŠ¨åŠ ç‚¹ï¼Œé€€å‡º
+  -- ¹Ø±ÕÁË×Ô¶¯¼Óµã£¬ÍË³ö
   if heroData.isAutoPointing == 0 then
     return
   end
-  local levelUpPoint = Char.GetData(charIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
+  local levelUpPoint = Char.GetData(charIndex,CONST.¶ÔÏó_Éı¼¶µã)
   local times,rest = math.modf(levelUpPoint/4)
   
   for i=1,times+1 do
     heroesFn:autoPoint(charIndex,heroData.autoPointing)
   end
 
-  NLG.SystemMessage(heroData.owner,name.."ç­‰ç´šæå‡ï¼Œè‡ªå‹•åŠ é»ï¼š"..(heroData.autoPointing))
+  --NLG.SystemMessage(heroData.owner,name.."µÈ¼‰ÌáÉı£¬×Ô„Ó¼Óüc£º"..(heroData.autoPointing))
 end
 
--- NOTE æˆ˜å® å‡çº§äº‹ä»¶
+-- NOTE Õ½³èÉı¼¶ÊÂ¼ş
 function module:onPetLevelUpEvent(charIndex,petIndex)
-  local name = Char.GetData(charIndex,CONST.å¯¹è±¡_åå­—)
-  logInfo("petlevelup",name,Char.GetData(charIndex,CONST.å¯¹è±¡_åº))
+  local name = Char.GetData(charIndex,CONST.¶ÔÏó_Ãû×Ö)
+  --logInfo("petlevelup",name,Char.GetData(charIndex,CONST.¶ÔÏó_Ğò))
 
-  -- å¦‚æœä¸æ˜¯ä½£å…µ ï¼Œé€€å‡º
+  -- Èç¹û²»ÊÇÓ¶±ø £¬ÍË³ö
   local heroesOnline=sgModule:getGlobal("heroesOnline")
   if not heroesOnline[charIndex] then
     return
@@ -1496,44 +1498,44 @@ function module:onPetLevelUpEvent(charIndex,petIndex)
   local heroData = heroesOnline[charIndex]
   local heroIndex = heroData.index;
 
-  -- å…³é—­äº†è‡ªåŠ¨åŠ ç‚¹ï¼Œé€€å‡º
+  -- ¹Ø±ÕÁË×Ô¶¯¼Óµã£¬ÍË³ö
   if heroData.isPetAutoPointing == 0 then
     return
   end
 
-  local petSlot = Char.GetData(heroIndex, CONST.å¯¹è±¡_æˆ˜å® );
+  local petSlot = Char.GetData(heroIndex, CONST.¶ÔÏó_Õ½³è);
   if petSlot<0 then
-    NLG.Say(charIndex,-1,"[æç¤º]æ‰¾ä¸åˆ°å¯µç‰©ã€‚",CONST.é¢œè‰²_çº¢è‰²,4)
+    NLG.Say(charIndex,-1,"[ÌáÊ¾]ÕÒ²»µ½Œ™Îï¡£",CONST.ÑÕÉ«_ºìÉ«,4)
     return
   end
 
   local petIndex = Char.GetPet(heroIndex, petSlot);
   -- Char.SetLoopEvent(nil, 'petlevelupLoop', petIndex, 0);
   local heroIndex=  Pet.GetOwner(petIndex)
-  local name = Char.GetData(heroIndex,CONST.å¯¹è±¡_åå­—)
+  local name = Char.GetData(heroIndex,CONST.¶ÔÏó_Ãû×Ö)
   local heroesOnline=sgModule:getGlobal("heroesOnline")
   local heroData = heroesOnline[heroIndex]
-  local petSlot = Char.GetData(heroIndex, CONST.å¯¹è±¡_æˆ˜å® );
+  local petSlot = Char.GetData(heroIndex, CONST.¶ÔÏó_Õ½³è);
   
-  local petName=Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—)
-  -- è¿›è¡Œè‡ªåŠ¨åŠ ç‚¹
-  local levelUpPoint = Char.GetData(petIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹)
+  local petName=Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö)
+  -- ½øĞĞ×Ô¶¯¼Óµã
+  local levelUpPoint = Char.GetData(petIndex,CONST.¶ÔÏó_Éı¼¶µã)
   local times,rest = math.modf(levelUpPoint/1)
   
   for i=1,times+1 do
     getModule('heroesFn'):autoPoint(petIndex,heroData.petAutoPointing)
   end
   
-  NLG.SystemMessage(heroData.owner,name.."çš„å¯µç‰©ã€"..petName.."ã€‘ç­‰ç´šæå‡ï¼Œè‡ªå‹•åŠ é»ï¼š"..(heroData.petAutoPointing))
+  --NLG.SystemMessage(heroData.owner,name.."µÄŒ™Îï¡¾"..petName.."¡¿µÈ¼‰ÌáÉı£¬×Ô„Ó¼Óüc£º"..(heroData.petAutoPointing))
 end
 
--- NOTE æˆ˜æ–—è€—è“äº‹ä»¶
+-- NOTE Õ½¶·ºÄÀ¶ÊÂ¼ş
 function module:onCalcFpConsumeEvent(charIndex,techId,fpConsume)
-  -- local name = Char.GetData(charIndex,CONST.å¯¹è±¡_åå­—)
-  -- logInfo("æˆ˜æ–—è€—è“",name,charIndex,techId,fpConsume)
+  -- local name = Char.GetData(charIndex,CONST.¶ÔÏó_Ãû×Ö)
+  -- logInfo("Õ½¶·ºÄÀ¶",name,charIndex,techId,fpConsume)
   local heroesOnline=sgModule:getGlobal("heroesOnline")
   local heroData = heroesOnline[charIndex]
-  -- å¦‚æœä¸æ˜¯ä½£å…µ ï¼Œé€€å‡º
+  -- Èç¹û²»ÊÇÓ¶±ø £¬ÍË³ö
   if not heroesOnline[charIndex] then
     return fpConsume
   end
@@ -1545,21 +1547,21 @@ function module:onCalcFpConsumeEvent(charIndex,techId,fpConsume)
   return math.ceil(fpConsume*heroFpReduce)
 end
 
--- NOTE å³é”®ç‚¹å‡»äº‹ä»¶
+-- NOTE ÓÒ¼üµã»÷ÊÂ¼ş
 function module:onRightClickEvent(charIndex, dummyIndex)
-    -- å¦‚æœä¸æ˜¯å‡äººï¼Œé€€å‡º
+    -- Èç¹û²»ÊÇ¼ÙÈË£¬ÍË³ö
     if not Char.IsDummy(dummyIndex) then
       return
     end
 
-    -- å¦‚æœä¸æ˜¯ä½£å…µ ï¼Œé€€å‡º
+    -- Èç¹û²»ÊÇÓ¶±ø £¬ÍË³ö
     local heroesOnline=sgModule:getGlobal("heroesOnline")
     local heroData = heroesOnline[dummyIndex]
     if not heroesOnline[dummyIndex] then
       return
     end
 
-    -- ä½£å…µçš„owner
+    -- Ó¶±øµÄowner
     if heroData.owner ~= charIndex then
       return
     end
@@ -1568,64 +1570,64 @@ function module:onRightClickEvent(charIndex, dummyIndex)
 
 end
 
--- NOTE æ˜¾ç¤ºé˜Ÿä¼ä¸€è§ˆ seqno:21
+-- NOTE ÏÔÊ¾¶ÓÎéÒ»ÀÀ seqno:21
 function module:showPartyStatus(charIndex)
   
   local windowStr = heroesFn:buildDescriptionForParty(charIndex)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_å·¨ä¿¡æ¯æ¡†, CONST.BUTTON_å…³é—­, 21,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò, CONST.BUTTON_¹Ø±Õ, 21,windowStr);
 end
 
--- NOTE ä½£å…µåŠ ç‚¹ä¸»é¡µ seqno:23
+-- NOTE Ó¶±ø¼ÓµãÖ÷Ò³ seqno:23
 function module:showHeroOperationSecWindow(charIndex)
   local heroData = sgModule:get(charIndex,"heroSelected")
   local windowStr = heroesFn:buildHeroOperationSecWindow(charIndex,heroData)
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 23,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 23,windowStr);
 end
 
--- NOTE æ˜¾ç¤ºåŠ ç‚¹æ¨¡å¼é€‰æ‹© seqno:24
+-- NOTE ÏÔÊ¾¼ÓµãÄ£Ê½Ñ¡Ôñ seqno:24
 function module:showAutoPointSelection(charIndex)
   local windowStr=heroesFn:buildAutoPointSelect(0);
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 24,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 24,windowStr);
 end
--- NOTE æ˜¾ç¤ºæˆ˜å® åŠ ç‚¹æ¨¡å¼é€‰æ‹© seqno:25
+-- NOTE ÏÔÊ¾Õ½³è¼ÓµãÄ£Ê½Ñ¡Ôñ seqno:25
 function module:showPetAutoPointSelection(charIndex)
   local windowStr=heroesFn:buildAutoPointSelect(1);
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 25,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 25,windowStr);
 end
 
--- NOTE è®¾ç½®ä½£å…µè‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+-- NOTE ÉèÖÃÓ¶±ø×Ô¶¯¼ÓµãÄ£Ê½
 function module:setAutoPionting(charIndex,data)
 
   local heroData = sgModule:get(charIndex,"heroSelected");
 
   heroesFn:setAutoPionting(charIndex,heroData,data)
-  local name = Char.GetData(heroData.index,CONST.å¯¹è±¡_åå­—)
-  NLG.SystemMessage(charIndex,name.."è®Šæ›´äº†è‡ªå‹•åŠ é»æ–¹æ¡ˆã€‚")
+  local name = Char.GetData(heroData.index,CONST.¶ÔÏó_Ãû×Ö)
+  NLG.SystemMessage(charIndex,name.."×ƒ¸üÁË×Ô„Ó¼Óüc·½°¸¡£")
   self:showHeroOperationSecWindow(charIndex)
 end
 
--- NOTE è®¾ç½®æˆ˜å® è‡ªåŠ¨åŠ ç‚¹æ¨¡å¼
+-- NOTE ÉèÖÃÕ½³è×Ô¶¯¼ÓµãÄ£Ê½
 function module:setPetAutoPionting(charIndex,data)
   local heroData = sgModule:get(charIndex,"heroSelected");
   heroesFn:setPetAutoPionting(charIndex,heroData,data)
-  local name = Char.GetData(heroData.index,CONST.å¯¹è±¡_åå­—)
-  NLG.SystemMessage(charIndex,name.."è®Šæ›´äº†å¯µç‰©çš„è‡ªå‹•åŠ é»æ–¹æ¡ˆã€‚")
+  local name = Char.GetData(heroData.index,CONST.¶ÔÏó_Ãû×Ö)
+  NLG.SystemMessage(charIndex,name.."×ƒ¸üÁËŒ™ÎïµÄ×Ô„Ó¼Óüc·½°¸¡£")
   self:showHeroOperationSecWindow(charIndex)
 end
 
--- NOTE å¼€å¯/å…³é—­ è‡ªåŠ¨åŠ ç‚¹
--- params type: 0ï¼šä½£å…µï¼Œ1ï¼šå® ç‰©
+-- NOTE ¿ªÆô/¹Ø±Õ ×Ô¶¯¼Óµã
+-- params type: 0£ºÓ¶±ø£¬1£º³èÎï
 function module:swtichAutoPointing(charIndex,type)
   local heroData = sgModule:get(charIndex,"heroSelected");
   if type==0 then
     if heroData.autoPointing==nil then
-      NLG.SystemMessage(charIndex,"è«‹å…ˆè¨­ç½®å¤¥ä¼´çš„è‡ªå‹•åŠ é»æ–¹æ¡ˆã€‚")
+      NLG.SystemMessage(charIndex,"ÕˆÏÈÔOÖÃâ·°éµÄ×Ô„Ó¼Óüc·½°¸¡£")
       return;
     end
     heroData.isAutoPointing=heroData.isAutoPointing==0 and 1 or 0
   elseif type ==1 then
     if heroData.petAutoPointing==nil then
-      NLG.SystemMessage(charIndex,"è«‹å…ˆè¨­ç½®å¯µç‰©çš„è‡ªå‹•åŠ é»æ–¹æ¡ˆã€‚")
+      NLG.SystemMessage(charIndex,"ÕˆÏÈÔOÖÃŒ™ÎïµÄ×Ô„Ó¼Óüc·½°¸¡£")
       return;
     end
     heroData.isPetAutoPointing=heroData.isPetAutoPointing==0 and 1 or 0
@@ -1633,15 +1635,15 @@ function module:swtichAutoPointing(charIndex,type)
   self:showHeroOperationSecWindow(charIndex)
 end
 
--- NOTE æ˜¾ç¤ºæ°´æ™¶çª—å£ seqno:26
+-- NOTE ÏÔÊ¾Ë®¾§´°¿Ú seqno:26
 function module:showCrystalSelection(charIndex)
-  local items={"åœ°å±¬æ€§æ°´æ™¶","æ°´å±¬æ€§æ°´æ™¶","ç«å±¬æ€§æ°´æ™¶","é¢¨å±¬æ€§æ°´æ™¶"}
-  local title="é¸æ“‡æ°´æ™¶ï¼š"
+  local items={"µØŒÙĞÔË®¾§","Ë®ŒÙĞÔË®¾§","»ğŒÙĞÔË®¾§","ïLŒÙĞÔË®¾§"}
+  local title="ßx“ñË®¾§£º"
   local windowStr = self:NPC_buildSelectionText(title,items);
-  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 26,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.shortcutNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 26,windowStr);
 end
 
--- æ›´æ¢æ°´æ™¶
+-- ¸ü»»Ë®¾§
 function module:changeCrystal(charIndex,data)
   
   local crystalItemIdMpa={33202200,33202210,33202220,33202230};
@@ -1664,42 +1666,42 @@ function module:changeCrystalForHeroes(charIndex,data)
   self:management(self.shortcutNpc,charIndex)
 end
 
--- NOTE ç»éªŒè·å–äº‹ä»¶
+-- NOTE ¾­Ñé»ñÈ¡ÊÂ¼ş
 function module:onGetExpEvent(charIndex,exp)
 
 end
 
--- NOTE çª—å£æµç¨‹æ§åˆ¶
+-- NOTE ´°¿ÚÁ÷³Ì¿ØÖÆ
 function module:skillNpcTalked(npc, charIndex, seqno, select, data)
   data=tonumber(data)
-  if select == CONST.BUTTON_å…³é—­ then
+  if select == CONST.BUTTON_¹Ø±Õ then
     return ;
   end
-  -- NOTE  1 ä½£å…µåˆ—è¡¨
+  -- NOTE  1 Ó¶±øÁĞ±í
   if seqno== 1 and data>0 then
     self:showSkills(charIndex,data)
   end
-  --  NOTE  2 é€‰æ‹©æŠ€èƒ½
+  --  NOTE  2 Ñ¡Ôñ¼¼ÄÜ
   if seqno==2  then
-    -- é€‰æ‹©çš„æ˜¯ä¸Šä¸€é¡µ ä¸‹ä¸€é¡µ
+    -- Ñ¡ÔñµÄÊÇÉÏÒ»Ò³ ÏÂÒ»Ò³
     if data<0 then
 
     else
       self:showCampHeroSkillSlot(charIndex,data)
     end
   end
-  -- NOTE  3 æŠ€èƒ½é€‰æ‹©å®Œ
+  -- NOTE  3 ¼¼ÄÜÑ¡ÔñÍê
   if seqno== 3 and data>0 then
     self:getSkill(charIndex,data)
   end
 end
 
--- NOTE ä½£å…µé€‰æ‹© é¦–é¡µ seqno:1
+-- NOTE Ó¶±øÑ¡Ôñ Ê×Ò³ seqno:1
 function module:showSkillNpcHome(npc,charIndex)
   local windowStr = heroesFn:buildCampHeroesList(charIndex)
-  NLG.ShowWindowTalked(charIndex, self.skillNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_å…³é—­, 1,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.skillNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_¹Ø±Õ, 1,windowStr);
 end
--- NOTE é€‰æ‹©æŠ€èƒ½ seqno:2
+-- NOTE Ñ¡Ôñ¼¼ÄÜ seqno:2
 function module:showSkills(charIndex,data,heroData)
   if data~= nil and heroData == nil then
     local campHeroes = heroesFn:getCampHeroesData(charIndex)
@@ -1707,7 +1709,7 @@ function module:showSkills(charIndex,data,heroData)
     sgModule:set(charIndex,"heroSelected4skill",heroData)
   end
   local heroIndex= heroData.index;
-  local skillLv = math.ceil(Char.GetData(heroIndex,CONST.å¯¹è±¡_ç­‰çº§)/10) 
+  local skillLv = math.ceil(Char.GetData(heroIndex,CONST.¶ÔÏó_µÈ¼¶)/10) 
   
   local items={}
   local techIdItems={}
@@ -1736,23 +1738,23 @@ function module:showSkills(charIndex,data,heroData)
     end
   end)
   sgModule:set(charIndex,"techIdsAbleToGet",techIdItems);
-  local title="è«‹é¸æ“‡æŠ€èƒ½"
+  local title="Õˆßx“ñ¼¼ÄÜ"
   local windowStr=  self:NPC_buildSelectionText(title,items);
   
-  NLG.ShowWindowTalked(charIndex, self.skillNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ,2,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.skillNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû,2,windowStr);
 end
 
--- NOTE æ˜¾ç¤ºä½£å…µæŠ€èƒ½æ  seqno:3
+-- NOTE ÏÔÊ¾Ó¶±ø¼¼ÄÜÀ¸ seqno:3
 function module:showCampHeroSkillSlot(charIndex,data)
   local techId = (sgModule:get(charIndex,"techIdsAbleToGet"))[data];
   sgModule:set(charIndex,"skillSelected",techId);
   local heroData=  sgModule:get(charIndex,"heroSelected4skill");
   local windowStr=heroesFn:buildCampHeroSkills(charIndex,heroData)
-  NLG.ShowWindowTalked(charIndex, self.skillNpc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.BUTTON_ä¸Šå–æ¶ˆ, 3,windowStr);
+  NLG.ShowWindowTalked(charIndex, self.skillNpc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.BUTTON_ÉÏÈ¡Ïû, 3,windowStr);
 
 end
 
--- NOTE æ‰§è¡Œç™»è®°æŠ€èƒ½
+-- NOTE Ö´ĞĞµÇ¼Ç¼¼ÄÜ
 function module:getSkill(charIndex,data)
   local techId = sgModule:get(charIndex,"skillSelected");
   local heroData=  sgModule:get(charIndex,"heroSelected4skill");
@@ -1760,21 +1762,21 @@ function module:getSkill(charIndex,data)
     heroData.skills={nil,nil,nil,nil,nil,nil,nil,nil} 
   end
   heroData.skills[data]=techId
-  local name = Char.GetData(heroData.index,CONST.å¯¹è±¡_åå­—)
-  NLG.SystemMessage(charIndex,name.."æŠ€èƒ½è¨˜éŒ„æˆåŠŸã€‚")
+  local name = Char.GetData(heroData.index,CONST.¶ÔÏó_Ãû×Ö)
+  NLG.SystemMessage(charIndex,name.."¼¼ÄÜÓ›ä›³É¹¦¡£")
 end
 
 -- !SECTION 
---- NOTE åŠ è½½æ¨¡å—é’©å­
+--- NOTE ¼ÓÔØÄ£¿é¹³×Ó
 function module:onLoad()
   self:logInfo('load')
-  -- å…ˆreload ä¾èµ–çš„module
+  -- ÏÈreload ÒÀÀµµÄmodule
   reloadModule("autoBattleParams")
   reloadModule("heroesFn")
   
   self:regCallback('CharActionEvent', Func.bind(self.shortcut, self))
   -- npc 
-  self.shortcutNpc = self:NPC_createNormal('å¤¥ä¼´é›†çµ', 231048, { x = 29, y = 29, mapType = 0, map = 7351, direction = 4 });
+  self.shortcutNpc = self:NPC_createNormal('â·°é¼¯½Y', 231048, { x = 29, y = 29, mapType = 0, map = 7351, direction = 4 });
   self:NPC_regTalkedEvent(self.shortcutNpc, Func.bind(self.recruit, self));
   self:NPC_regWindowTalkedEvent(self.shortcutNpc, Func.bind(self.recruitTalked, self));
 
@@ -1790,7 +1792,7 @@ function module:onLoad()
 
 end
 
---- NOTE å¸è½½æ¨¡å—é’©å­
+--- NOTE Ğ¶ÔØÄ£¿é¹³×Ó
 function module:onUnload()
   self:logInfo('unload')
 end
