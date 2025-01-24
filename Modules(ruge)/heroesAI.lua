@@ -1554,7 +1554,7 @@ function module:onLoad()
 	self.aiData = self:loadData();
 	-- print(JSON.stringify(self.aiData))
 	-- 秋兔的
-	self.AINpc = self:NPC_createNormal('夥伴戰術', 231050, { x = 75, y = 4, mapType = 0, map = 7351, direction = 4 });
+	self.AINpc = self:NPC_createNormal('夥伴戰術', 231050, { x = 29, y = 27, mapType = 0, map = 7351, direction = 4 });
 	-- self.AINpc = self:NPC_createNormal('行动模式教练', 106452, { x = 30, y = 22, mapType = 0, map = 35800, direction = 6 });
 	self:NPC_regTalkedEvent(self.AINpc, Func.bind(self.showAINpcHome, self));
 	self:NPC_regWindowTalkedEvent(self.AINpc, Func.bind(self.AINpcTalked, self));
