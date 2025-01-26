@@ -55,42 +55,6 @@ local MobsSet_M = {710007,710008,710009,710009,710010,710010,710011,710011,71001
 local MobsSet_H = {710013,710014,710015,710016,710017,710018,710019,710020,}
 local BossSet_L = {710013,710014,710015,710016,710017,710018,710019,710020,}
 local BossSet_H = {710021,710022,710023,710024,710025,}
-
-function SetEnemySet(Level)
-
-	local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-	local ix=1;
-	if Level<30 then    -- 初级
-		EnemySet[1]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
-		EnemySet[7]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
-		EnemySet[8]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
-	elseif Level>=30 and Level<70 then    -- 高级
-		EnemySet[2]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
-		EnemySet[3]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
-		EnemySet[6]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
-		EnemySet[9]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
-		EnemySet[10]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
-	elseif Level>=70 then    -- 绝级
-		for k=1,10 do
-			EnemySet[k]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
-			ix=ix+1;
-		end
-		EnemySet[4]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
-		EnemySet[5]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
-	end
-	--每5级1号位放入BOSS
-	if (math.fmod(Level, 10)==4 or math.fmod(Level, 10)==9) then
-		if (Level<90) then
-			local rand = NLG.Rand(1,#BossSet_L);
-			EnemySet[1]=BossSet_L[rand];
-		else
-			local rand = NLG.Rand(1,#BossSet_H);
-			EnemySet[1]=BossSet_H[rand];
-		end
-	end
-	return EnemySet;
-end
-
 -----------------------------------------------
 --奖励设置
 local prizeMenu = {}
@@ -214,15 +178,20 @@ function Module:onLoad()
     local data = tonumber(_data)
     if select == CONST.按钮_否 then
         return;
+    elseif seqno == 2 and select == CONST.按钮_确定 then
+		if (Char.ItemNum(player, 66668)<5) then
+          NLG.SystemMessage(player,"[系統]金幣數量不足，無法刷新獎勵。");
+          return;
+        end
+        Char.DelItem(player, 66668, 5);
+        NLG.SystemMessage(player,"[系統]交出5金幣刷新對戰。");
     elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-        local rugePrizeLevel = PrizeTmpTable(player, -1, -1);
-        Field.Set(player, 'RugePrizeLevel', rugeBossLevel);
-        local enemyLv = 20 + (rugeBossLevel * 1);
+        local enemyLv = 35 + (rugeBossLevel * 1);
         if (enemyLv>=250) then
             enemyLv =250;
         end
-        local EnemyIdAr = SetEnemySet(rugeBossLevel);
+        local EnemyIdAr = SetEnemySet(player, 0);
         local BaseLevelAr = {enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv, enemyLv}
         local battleIndex = Battle.PVE(player, player, nil, EnemyIdAr, BaseLevelAr,  nil)
         Battle.SetWinEvent("./lua/Modules/pokeRuge.lua", "RugeNPC_BattleWin", battleIndex);
@@ -232,11 +201,13 @@ function Module:onLoad()
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
     if (NLG.CanTalk(npc, player) == true) then
+      local EnemyIdAr = SetEnemySet(player, 0);
+
       local msg = "\\n@c★魔力寶可夢肉鴿★"
                 .."\\n進度層數: "..nowLevel.."\\n"
                 .."\\n　　————————————————————\\n"
-                .."[　開始切磋對戰　]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 2, msg);
+                .."$4[確定]5金幣刷新  [是]開始 [否]取消\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, 13, 2, msg);
     end
     return
   end)
@@ -263,8 +234,10 @@ function Module:onLoad()
     elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 0, 1);
-        Char.GiveItem(player, rugePrizeId, 1);
-		Char.Warp(player,0,7351,25,29);
+        local itemIndex = Char.GiveItem(player, rugePrizeId, 1);
+        Item.SetData(itemIndex, CONST.道具_已鉴定, 1);
+        Item.UpItem(player,-1);
+        Char.Warp(player,0,7351,25,29);
     end
   end)
   self:NPC_regTalkedEvent(RugeprizeNPC1, function(npc, player)
@@ -313,8 +286,10 @@ function Module:onLoad()
     elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 0, 2);
-        Char.GiveItem(player, rugePrizeId, 1);
-		Char.Warp(player,0,7351,25,29);
+        local itemIndex = Char.GiveItem(player, rugePrizeId, 1);
+        Item.SetData(itemIndex, CONST.道具_已鉴定, 1);
+        Item.UpItem(player,-1);
+        Char.Warp(player,0,7351,25,29);
     end
   end)
   self:NPC_regTalkedEvent(RugeprizeNPC2, function(npc, player)
@@ -363,8 +338,10 @@ function Module:onLoad()
     elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 0, 3);
-        Char.GiveItem(player, rugePrizeId, 1);
-		Char.Warp(player,0,7351,25,29);
+        local itemIndex = Char.GiveItem(player, rugePrizeId, 1);
+        Item.SetData(itemIndex, CONST.道具_已鉴定, 1);
+        Item.UpItem(player,-1);
+        Char.Warp(player,0,7351,25,29);
     end
   end)
   self:NPC_regTalkedEvent(RugeprizeNPC3, function(npc, player)
@@ -441,7 +418,7 @@ function Module:onLoad()
                       LpGold = LpGold + maxLp - lp;
                 end
         end
-        print(FpGold,LpGold)
+        --print(FpGold,LpGold)
         if FpGold*0.5 >= LpGold then
           totalGold = FpGold;
         else
@@ -646,13 +623,82 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 ]]
 	if (rugeBossLevel>=99) then
 		Field.Set(leader, 'RugeBossLevel', 0);
+		Field.Set(leader, 'RugeEnemyIdAr', "0");
 		Char.Warp(charIndex,0,1000,225,86);
 	else
 		Field.Set(leader, 'RugeBossLevel', rugeBossLevel+1);
+		Field.Set(leader, 'RugeEnemyIdAr', "0");
 		Char.Warp(charIndex,0,7351,67,22);
 	end
 	end
 	Battle.UnsetWinEvent(battleIndex);
+end
+
+--对战组合
+function SetEnemySet(player, type)
+	local rugeEnemySet={}
+	local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
+
+	local rugeEnemyIdAr = Field.Get(player, 'RugeEnemyIdAr');
+	if (#rugeEnemyIdAr>2) then
+		local rugeEnemyIdAr_raw = string.split(rugeEnemyIdAr,",")
+		for k,v in ipairs(rugeEnemyIdAr_raw) do
+			table.insert(rugeEnemySet,tonumber(v));
+		end
+		iniEnemyIdAr = 1
+	else
+		rugeEnemySet = {710001, 0, 0, 0, 0, 0, 710002, 710003, 0, 0};
+		iniEnemyIdAr = 0
+	end
+	--print(iniEnemyIdAr)
+
+	if (iniEnemyIdAr==0 and type==0) or (iniEnemyIdAr==1 and type==1)then
+		local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+		local ix=1;
+		if rugeBossLevel<30 then    -- 初级
+			EnemySet[1]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
+			EnemySet[7]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
+			EnemySet[8]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
+		elseif rugeBossLevel>=30 and rugeBossLevel<70 then    -- 高级
+			EnemySet[2]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+			EnemySet[3]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+			EnemySet[6]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+			EnemySet[9]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+			EnemySet[10]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+		elseif rugeBossLevel>=70 then    -- 绝级
+			for k=1,10 do
+				EnemySet[k]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
+				ix=ix+1;
+			end
+			EnemySet[4]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+			EnemySet[5]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+		end
+		--每5级1号位放入BOSS
+		if (math.fmod(rugeBossLevel, 10)==4 or math.fmod(rugeBossLevel, 10)==9) then
+			if (rugeBossLevel<90) then
+				local rand = NLG.Rand(1,#BossSet_L);
+				EnemySet[1]=BossSet_L[rand];
+			else
+				local rand = NLG.Rand(1,#BossSet_H);
+				EnemySet[1]=BossSet_H[rand];
+			end
+		end
+		local rugeEnemyTemp = ""
+		for k,v in ipairs(EnemySet) do
+			if (k==#EnemySet) then
+				rugeEnemyTemp = rugeEnemyTemp .. v;
+			else
+				rugeEnemyTemp = rugeEnemyTemp .. v .. ",";
+			end
+		end
+		--print(rugeEnemyTemp)
+		Field.Set(player, 'RugeEnemyIdAr', rugeEnemyTemp);
+		--NLG.UpChar(player);
+		return EnemySet
+	else
+		return rugeEnemySet
+	end
+	return rugeEnemySet
 end
 
 --奖励抽取与刷新
@@ -665,7 +711,7 @@ function PrizeTmpTable(player, type, line)
 
 	local rugePrizeString = Field.Get(player, 'RugePrizeLevel');
 	local rugePrizeLevel_raw = string.split(rugePrizeString,",")
-	local rugePrizeLevel_level = tonumber(rugePrizeLevel_raw[1]);
+	local rugePrizeLevel_level = tonumber(rugePrizeLevel_raw[1]) or 0;
 	local rugePrizeLevel_roll_1 = tonumber(rugePrizeLevel_raw[2]) or 0;
 	local rugePrizeLevel_roll_2 = tonumber(rugePrizeLevel_raw[3]) or 0;
 	local rugePrizeLevel_roll_3 = tonumber(rugePrizeLevel_raw[4]) or 0;
@@ -675,10 +721,7 @@ function PrizeTmpTable(player, type, line)
 	elseif line==3 then rugePrizeId = rugePrizeLevel_roll_3;
 	end
 
-	if type==-1 then
-		local rugePrizeString = rugeBossLevel+1 .. "," ..rugePrizeLevel_roll_1.. "," ..rugePrizeLevel_roll_2.. "," ..rugePrizeLevel_roll_3;
-		return rugePrizeString,-1		--刷新等级字串
-	elseif type==0 and rugeBossLevel>rugePrizeLevel_level then
+	if type==0 and rugeBossLevel>rugePrizeLevel_level then
 		--装备池洗牌
 		local prizeTbl = {}
 		for k,v in ipairs(prizeMenu[level][1]) do
@@ -704,7 +747,7 @@ function PrizeTmpTable(player, type, line)
 		end
 		rugePrizeLevel_roll_3 = prizeTbl[NLG.Rand(1,#prizeTbl)];
 
-		local rugePrizeString = rugeBossLevel+1 .. "," ..rugePrizeLevel_roll_1.. "," ..rugePrizeLevel_roll_2.. "," ..rugePrizeLevel_roll_3;
+		local rugePrizeString = rugeBossLevel .. "," ..rugePrizeLevel_roll_1.. "," ..rugePrizeLevel_roll_2.. "," ..rugePrizeLevel_roll_3;
 		if line==1 then rugePrizeId = rugePrizeLevel_roll_1;
 		elseif line==2 then rugePrizeId = rugePrizeLevel_roll_2;
 		elseif line==3 then rugePrizeId = rugePrizeLevel_roll_3;
@@ -743,7 +786,7 @@ function PrizeTmpTable(player, type, line)
 			rugePrizeLevel_roll_3 = prizeTbl[NLG.Rand(1,#prizeTbl)];
 			rugePrizeId = rugePrizeLevel_roll_3
 		end
-		local rugePrizeString = rugeBossLevel+1 .. "," ..rugePrizeLevel_roll_1.. "," ..rugePrizeLevel_roll_2.. "," ..rugePrizeLevel_roll_3;
+		local rugePrizeString = rugeBossLevel .. "," ..rugePrizeLevel_roll_1.. "," ..rugePrizeLevel_roll_2.. "," ..rugePrizeLevel_roll_3;
 		return rugePrizeString,rugePrizeId		--奖励道具编号
 	end
 	return rugePrizeString,rugePrizeId
