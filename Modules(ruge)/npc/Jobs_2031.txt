@@ -1,0 +1,13 @@
+block
+     
+   Window "\n\n    冒险者 @n 我將使用秘術讓你重生！\n\n  职业會获得巨大的变化。",YES,NO
+
+     ##影武追跡者(格鬥,忍者)
+      Window_YES
+      setplayer job = 2031
+      setplayer jobancestry = 2030
+      KillItem 70208,1
+      CheckTitle
+
+      Window_NO
+      EndWindow "\n\n\n\n@c好好考慮往後的道路吧！",OK

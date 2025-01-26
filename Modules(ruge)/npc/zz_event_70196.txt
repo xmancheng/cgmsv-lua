@@ -1,0 +1,25 @@
+block Floor == 7351
+        Window "\n《地精靈泰拉賜予的加護》\n\n泰拉微微一笑，聲音如大地般沉穩：\n「我的加護能讓你將兩件同級的裝備合成為更強的裝備，這樣即使你撿到的是普通的裝備，也能發揮出無與倫比的效果。」",NEXT
+        Window "\n@n陷入了沉思．．．．．．\n\n你正在思考卻忽然對著書本念話：\n「我知道力量很強大，但我能知道更多嗎？你的加護到底會如何幫助我？」",NEXT
+        Window "\n聲音低沉而富有力量的地精靈泰拉說到：\n「我是大地的化身，能賦予你合成同級裝備的能力。這將讓你不再局限於所撿到的簡單裝備，而是可以將它們合成為更強的武器或防具。」\n\n「并且我將給予你的寵物夥伴祝福，快速地提升他們的能力。」",OK
+                Window_OK
+
+block ItemSpace == 0
+                    EndWindow "@c\n\n\n\n 你的物品欄已满！"
+
+block Item 70196 >= 1 || Item 70197 >= 1 || Item 70198 >= 1 || Item 70199 >= 1
+        Window "@c\n\n\n 異世界的转生者@n阿！\n你已經獲得—精靈的加護！\n回到最初的起點开始新旅程吧！",OK
+                Window_OK
+
+block
+        Window "\n地精靈泰拉：你將從我們之中，選擇一位來賜予你獨特的加護。\n\n泰拉微微一笑，聲音如大地般沉穩：\n「我的加護能讓你將兩件同級的裝備合成為更強的裝備，這樣即使你撿到的是普通的裝備，也能發揮出無與倫比的效果。」",NEXT
+        Window "\n@n陷入了沉思。他知道每一個精靈的加護都獨具價值，但他只能選擇一位。\n．．．．．．\n\n他开口打破了寂靜：「你們的力量都很強大，但我能知道更多嗎？你的加護到底會如何幫助我？」",NEXT
+        Window "\n聲音低沉而富有力量的地精靈泰拉說到：\n「我是大地的化身，能賦予你合成同級裝備的能力。這將讓你不再局限於所撿到的簡單裝備，而是可以將它們合成為更強的武器或防具。」\n\n「并且我將給予你的寵物夥伴祝福，快速地提升他們的能力。」",NEXT
+        Window "@c\n\n @n靜靜地思考，最後他抬起頭看向精靈。\n內心想著：「我已經决定了」\n\n是否要選擇「地精靈泰拉」？",YES,NO
+                Window_YES Item 70195 == 0
+                    EndWindow "@c\n\n\n\n 你遺失重要的東西，沒有待在這裡的资格了！"
+                Window_YES Item 70195 >= 1
+                    KillItem 70195,1
+                    GiveItem 70196,1
+                Window_NO
+                    Endwindow "\n\n\n\n@c等你想好了再來。"
