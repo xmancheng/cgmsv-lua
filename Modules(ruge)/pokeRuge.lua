@@ -123,18 +123,18 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_关闭 then
+    if select == CONST.按钮_关闭 then
         return;
     end
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-    if seqno == 1 and select==CONST.BUTTON_下一页 then
+    if seqno == 1 and select==CONST.按钮_下一页 then
       local msg = "4\\n@c★輪迴試煉啟動★"
                 .."\\n◇選擇夥伴每次都是全新的開始◇\\n"
-                .."\\n　　════════════════════\\n"
+                .."\\n　　————————————————————\\n"
                 .."[　草系夥伴(坦)　]\\n"
                 .."[　火系夥伴(攻)　]\\n"
                 .."[　水系夥伴(補)　]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.BUTTON_关闭, 11, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 11, msg);
     elseif seqno == 11 then
       local heroesData = self:queryHeroesData(player);
       for k, v in ipairs(heroesData) do
@@ -199,7 +199,7 @@ function Module:onLoad()
                 .."\\n你不幸被捲入勇者召喚的意外來到了這裡，目前無法回到原本的世界\\n"
                 .."\\n為了向你「表達意外的歉意」，將給予你女神加持與支援\\n"
                 .."\\n請在這小小的寶可夢奇幻世界，再次開啟人生\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_下取消, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下取消, 1, msg);
     end
     return
   end)
@@ -212,9 +212,9 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_否 then
+    if select == CONST.按钮_否 then
         return;
-    elseif seqno == 2 and select == CONST.BUTTON_是 then
+    elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local rugePrizeLevel = PrizeTmpTable(player, -1, -1);
         Field.Set(player, 'RugePrizeLevel', rugeBossLevel);
@@ -234,9 +234,9 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local msg = "\\n@c★魔力寶可夢肉鴿★"
                 .."\\n進度層數: "..nowLevel.."\\n"
-                .."\\n　　════════════════════\\n"
+                .."\\n　　————————————————————\\n"
                 .."[　開始切磋對戰　]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 2, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 2, msg);
     end
     return
   end)
@@ -248,9 +248,19 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_否 then
+    if select == CONST.按钮_否 then
         return;
-    elseif seqno == 2 and select == CONST.BUTTON_是 then
+    elseif seqno == 2 and select == CONST.按钮_确定 then
+		if (Char.ItemNum(player, 66668)<2) then
+          NLG.SystemMessage(player,"[系統]金幣數量不足，無法刷新獎勵。");
+          return;
+        end
+        local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 1, 1);
+        Field.Set(player, 'RugePrizeLevel', rugePrizeString);
+        Char.DelItem(player, 66668, 2);
+        NLG.SystemMessage(player,"[系統]交出2金幣刷新獎勵。");
+    elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 0, 1);
         Char.GiveItem(player, rugePrizeId, 1);
@@ -272,11 +282,11 @@ function Module:onLoad()
       local imageText = "@g,"..Prize_DataPos_2..",3,5,0,0@"
 
       local msg = imageText .. "\\n@c★魔力寶可夢肉鴿★"
-                            .."\\n獎品說明:　　$4"..Prize_name.."\\n"
+                            .."\\n獎品說明:　　$2"..Prize_name.."\\n"
                             .."\\n\\n　　"..Prize_DataPos_3.."\\n"
-                            .."\\n\\n　　════════════════════\\n"
-                            .."[　領取這個特別的獎勵　]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 2, msg);
+                            .."\\n\\n　　————————————————————\\n"
+                            .."$4[確定]2金幣刷新  [是]選取 [否]取消\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, 13, 2, msg);
     end
     return
   end)
@@ -288,9 +298,19 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_否 then
+    if select == CONST.按钮_否 then
         return;
-    elseif seqno == 2 and select == CONST.BUTTON_是 then
+    elseif seqno == 2 and select == CONST.按钮_确定 then
+		if (Char.ItemNum(player, 66668)<2) then
+          NLG.SystemMessage(player,"[系統]金幣數量不足，無法刷新獎勵。");
+          return;
+        end
+        local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 1, 2);
+        Field.Set(player, 'RugePrizeLevel', rugePrizeString);
+        Char.DelItem(player, 66668, 2);
+        NLG.SystemMessage(player,"[系統]交出2金幣刷新獎勵。");
+    elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 0, 2);
         Char.GiveItem(player, rugePrizeId, 1);
@@ -312,11 +332,11 @@ function Module:onLoad()
       local imageText = "@g,"..Prize_DataPos_2..",3,5,0,0@"
 
       local msg = imageText .. "\\n@c★魔力寶可夢肉鴿★"
-                            .."\\n獎品說明:　　$4"..Prize_name.."\\n"
+                            .."\\n獎品說明:　　$2"..Prize_name.."\\n"
                             .."\\n\\n　　"..Prize_DataPos_3.."\\n"
-                            .."\\n\\n　　════════════════════\\n"
-                            .."[　領取這個特別的獎勵　]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 2, msg);
+                            .."\\n\\n　　————————————————————\\n"
+                            .."$4[確定]2金幣刷新  [是]選取 [否]取消\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, 13, 2, msg);
     end
     return
   end)
@@ -328,9 +348,19 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_否 then
+    if select == CONST.按钮_否 then
         return;
-    elseif seqno == 2 and select == CONST.BUTTON_是 then
+    elseif seqno == 2 and select == CONST.按钮_确定 then
+		if (Char.ItemNum(player, 66668)<2) then
+          NLG.SystemMessage(player,"[系統]金幣數量不足，無法刷新獎勵。");
+          return;
+        end
+        local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 1, 3);
+        Field.Set(player, 'RugePrizeLevel', rugePrizeString);
+        Char.DelItem(player, 66668, 2);
+        NLG.SystemMessage(player,"[系統]交出2金幣刷新獎勵。");
+    elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, 0, 3);
         Char.GiveItem(player, rugePrizeId, 1);
@@ -352,11 +382,11 @@ function Module:onLoad()
       local imageText = "@g,"..Prize_DataPos_2..",3,5,0,0@"
 
       local msg = imageText .. "\\n@c★魔力寶可夢肉鴿★"
-                            .."\\n獎品說明:　　$4"..Prize_name.."\\n"
+                            .."\\n獎品說明:　　$2"..Prize_name.."\\n"
                             .."\\n\\n　　"..Prize_DataPos_3.."\\n"
-                            .."\\n\\n　　════════════════════\\n"
-                            .."[　領取這個特別的獎勵　]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.BUTTON_是否, 2, msg);
+                            .."\\n\\n　　————————————————————\\n"
+                            .."$4[確定]2金幣刷新  [是]選取 [否]取消\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, 13, 2, msg);
     end
     return
   end)
@@ -683,27 +713,33 @@ function PrizeTmpTable(player, type, line)
 	elseif type==1 then
 		local prizeTbl = {}
 		if line==1 then
-			for k,v in ipairs(prizeMenu[level][1]) do
-				table.insert(prizeTbl,v);
-			end
+			repeat
+				for k,v in ipairs(prizeMenu[level][1]) do
+					table.insert(prizeTbl,v);
+				end
+			until rugePrizeLevel_roll_1 ~= prizeTbl[NLG.Rand(1,#prizeTbl)]
 			rugePrizeLevel_roll_1 = prizeTbl[NLG.Rand(1,#prizeTbl)];
 			rugePrizeId = rugePrizeLevel_roll_1
 		elseif line==2 then
-			for k,v in ipairs(prizeMenu[level][1]) do
-				table.insert(prizeTbl,v);
-			end
-			for k,v in ipairs(prizeMenu[level][2]) do
-				table.insert(prizeTbl,v);
-			end
-			for k,v in ipairs(prizeMenu[level][3]) do
-				table.insert(prizeTbl,v);
-			end
+			repeat
+				for k,v in ipairs(prizeMenu[level][1]) do
+					table.insert(prizeTbl,v);
+				end
+				for k,v in ipairs(prizeMenu[level][2]) do
+					table.insert(prizeTbl,v);
+				end
+				for k,v in ipairs(prizeMenu[level][3]) do
+					table.insert(prizeTbl,v);
+				end
+			until rugePrizeLevel_roll_2 ~= prizeTbl[NLG.Rand(1,#prizeTbl)]
 			rugePrizeLevel_roll_2 = prizeTbl[NLG.Rand(1,#prizeTbl)];
 			rugePrizeId = rugePrizeLevel_roll_2
 		elseif line==3 then
-			for k,v in ipairs(prizeMenu[level][2]) do
-				table.insert(prizeTbl,v);
-			end
+			repeat
+				for k,v in ipairs(prizeMenu[level][2]) do
+					table.insert(prizeTbl,v);
+				end
+			until rugePrizeLevel_roll_3 ~= prizeTbl[NLG.Rand(1,#prizeTbl)]
 			rugePrizeLevel_roll_3 = prizeTbl[NLG.Rand(1,#prizeTbl)];
 			rugePrizeId = rugePrizeLevel_roll_3
 		end
