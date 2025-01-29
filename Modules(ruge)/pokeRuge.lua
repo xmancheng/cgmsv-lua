@@ -92,14 +92,28 @@ function Module:onLoad()
     end
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     if seqno == 1 and select==CONST.按钮_下一页 then
+      local msg = "@c★輪迴試煉啟動★"
+                .."\\n◇選擇夥伴每次都是全新的開始◇"
+                .."\\n　　————————————————————\\n";
+      local partner = {710001,710002,710003};
+      for i = 1,3 do
+        local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(partner[i]);
+        local partner_image = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_形象);
+        local partner_space = 3 + 7*(i-1);
+        local imageText_i = "@g,"..partner_image..","..partner_space..",8,6,0@"
+        msg = msg .. imageText_i
+      end
+      local msg = msg .."　 $5【　坦克　】　 【　進攻　】　 【　輔助　】\\n"
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下取消, 11, msg);
+    elseif seqno == 11 and select==CONST.按钮_下一页 then
       local msg = "4\\n@c★輪迴試煉啟動★"
-                .."\\n◇選擇夥伴每次都是全新的開始◇\\n"
-                .."\\n　　————————————————————\\n"
-                .."[　草系夥伴(坦)　]\\n"
-                .."[　火系夥伴(攻)　]\\n"
-                .."[　水系夥伴(補)　]\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 11, msg);
-    elseif seqno == 11 then
+                .."\\n◇選擇夥伴每次都是全新的開始◇"
+                .."\\n　　————————————————————\\n\\n"
+                .."[　選擇  草系夥伴　]\\n"
+                .."[　選擇  火系夥伴　]\\n"
+                .."[　選擇  水系夥伴　]\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 12, msg);
+    elseif seqno == 12 then
       local heroesData = self:queryHeroesData(player);
       for k, v in ipairs(heroesData) do
         local heroData = self:getHeroDataByid(player,v.id);
@@ -183,6 +197,7 @@ function Module:onLoad()
           NLG.SystemMessage(player,"[系統]金幣數量不足，無法刷新獎勵。");
           return;
         end
+        local EnemyIdAr = SetEnemySet(player, 1);
         Char.DelItem(player, 66668, 5);
         NLG.SystemMessage(player,"[系統]交出5金幣刷新對戰。");
     elseif seqno == 2 and select == CONST.按钮_是 then
@@ -200,13 +215,28 @@ function Module:onLoad()
   self:NPC_regTalkedEvent(RugeNPC2, function(npc, player)
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
+    local enemyLv = 35 + (rugeBossLevel * 1);
+    if (enemyLv>=250) then
+        enemyLv =250;
+    end
     if (NLG.CanTalk(npc, player) == true) then
       local EnemyIdAr = SetEnemySet(player, 0);
-
-      local msg = "\\n@c★魔力寶可夢肉鴿★"
-                .."\\n進度層數: "..nowLevel.."\\n"
-                .."\\n　　————————————————————\\n"
-                .."$4[確定]5金幣刷新  [是]開始 [否]取消\\n";
+      local EnemyId = EnemyIdAr[1];
+      if rugeBossLevel>=30 and rugeBossLevel<70 then EnemyId = EnemyIdAr[6]; end
+      local EnemyDataIndex = Data.EnemyGetDataIndex(EnemyId);
+      local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base编号);
+      local enemyExp = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_战斗经验);
+      local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(enemyBaseId);
+      local Enemy_name = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_名字);
+      local EnemyBase_image =Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_形象);
+      local imageText = "@g,"..EnemyBase_image..",3,6,6,0@"
+      local msg = imageText .."\\n@c★魔力寶可夢肉鴿★"
+                            .."\\n進度層數:"..nowLevel.." 怪物等級:"..enemyLv..""
+                            .."\\n　　　$5"..Enemy_name.." 最多取得經驗:"..enemyExp.."\\n"
+                            .."\\n　　　　　$2怪物造成傷害增加: "..(rugeBossLevel*0.5).."%"
+                            .."\\n　　　　　$2怪物減輕受到傷害: "..(rugeBossLevel*0.1).."%\\n"
+                            .."\\n　　————————————————————\\n"
+                            .."$4[確定]5金幣刷新  [是]開始 [否]取消\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, 13, 2, msg);
     end
     return
@@ -548,13 +578,13 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           local enemyId = Char.GetData(charIndex, CONST.对象_ENEMY_ID);
           if CheckInTable(MobsSet_L,enemyId)==true or CheckInTable(MobsSet_M,enemyId)==true or CheckInTable(MobsSet_H,enemyId)==true then
             local State = Char.GetTempData(charIndex, '狂暴') or 0;
-            local attDamage = 1 + (State * 0.02);
+            local attDamage = 1 + (State * 0.005);
             damage = damage * attDamage;
             return damage;
           end
           if CheckInTable(BossSet_L,enemyId)==true or CheckInTable(BossSet_H,enemyId)==true then
             local State = Char.GetTempData(charIndex, '狂暴') or 0;
-            local attDamage = 1 + (State * 0.02);
+            local attDamage = 1 + (State * 0.005);
             damage = damage * attDamage;
             return damage;
           end
