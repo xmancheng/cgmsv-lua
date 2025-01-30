@@ -126,43 +126,49 @@ function Module:onLoad()
       end
       if data==1 then
         Field.Set(player, 'RugeBossLevel', 0);
-		Char.SetData(player, CONST.对象_等级, 30);
-		Char.SetData(player, CONST.对象_体力, 0);
-		Char.SetData(player, CONST.对象_力量, 0);
-		Char.SetData(player, CONST.对象_强度, 0);
-		Char.SetData(player, CONST.对象_速度, 0);
-		Char.SetData(player, CONST.对象_魔法, 0);
-		Char.SetData(player, CONST.对象_升级点, 146);
-		Char.SetData(player, CONST.对象_经验, 0);
-		NLG.UpChar(player);
-		Char.Warp(player,0,7351,16,28);
-		Char.GiveItem(player, 71100, 1);
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(player, -1, 0);
+        Field.Set(player, 'RugePrizeLevel', rugePrizeString);
+        Char.SetData(player, CONST.对象_等级, 30);
+        Char.SetData(player, CONST.对象_体力, 0);
+        Char.SetData(player, CONST.对象_力量, 0);
+        Char.SetData(player, CONST.对象_强度, 0);
+        Char.SetData(player, CONST.对象_速度, 0);
+        Char.SetData(player, CONST.对象_魔法, 0);
+        Char.SetData(player, CONST.对象_升级点, 146);
+        Char.SetData(player, CONST.对象_经验, 0);
+        NLG.UpChar(player);
+        Char.Warp(player,0,7351,16,28);
+        Char.GiveItem(player, 71100, 1);
       elseif data==2 then
         Field.Set(player, 'RugeBossLevel', 0);
-		Char.SetData(player, CONST.对象_等级, 30);
-		Char.SetData(player, CONST.对象_体力, 0);
-		Char.SetData(player, CONST.对象_力量, 0);
-		Char.SetData(player, CONST.对象_强度, 0);
-		Char.SetData(player, CONST.对象_速度, 0);
-		Char.SetData(player, CONST.对象_魔法, 0);
-		Char.SetData(player, CONST.对象_升级点, 146);
-		Char.SetData(player, CONST.对象_经验, 0);
-		NLG.UpChar(player);
-		Char.Warp(player,0,7351,16,28);
-		Char.GiveItem(player, 71101, 1);
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(player, -1, 0);
+        Field.Set(player, 'RugePrizeLevel', rugePrizeString);
+        Char.SetData(player, CONST.对象_等级, 30);
+        Char.SetData(player, CONST.对象_体力, 0);
+        Char.SetData(player, CONST.对象_力量, 0);
+        Char.SetData(player, CONST.对象_强度, 0);
+        Char.SetData(player, CONST.对象_速度, 0);
+        Char.SetData(player, CONST.对象_魔法, 0);
+        Char.SetData(player, CONST.对象_升级点, 146);
+        Char.SetData(player, CONST.对象_经验, 0);
+        NLG.UpChar(player);
+        Char.Warp(player,0,7351,16,28);
+        Char.GiveItem(player, 71101, 1);
       elseif data==3 then
         Field.Set(player, 'RugeBossLevel', 0);
-		Char.SetData(player, CONST.对象_等级, 30);
-		Char.SetData(player, CONST.对象_体力, 0);
-		Char.SetData(player, CONST.对象_力量, 0);
-		Char.SetData(player, CONST.对象_强度, 0);
-		Char.SetData(player, CONST.对象_速度, 0);
-		Char.SetData(player, CONST.对象_魔法, 0);
-		Char.SetData(player, CONST.对象_升级点, 146);
-		Char.SetData(player, CONST.对象_经验, 0);
-		NLG.UpChar(player);
-		Char.Warp(player,0,7351,16,28);
-		Char.GiveItem(player, 71102, 1);
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(player, -1, 0);
+        Field.Set(player, 'RugePrizeLevel', rugePrizeString);
+        Char.SetData(player, CONST.对象_等级, 30);
+        Char.SetData(player, CONST.对象_体力, 0);
+        Char.SetData(player, CONST.对象_力量, 0);
+        Char.SetData(player, CONST.对象_强度, 0);
+        Char.SetData(player, CONST.对象_速度, 0);
+        Char.SetData(player, CONST.对象_魔法, 0);
+        Char.SetData(player, CONST.对象_升级点, 146);
+        Char.SetData(player, CONST.对象_经验, 0);
+        NLG.UpChar(player);
+        Char.Warp(player,0,7351,16,28);
+        Char.GiveItem(player, 71102, 1);
       end
       local soulMenu = {70196,70197,70198,70199}
       Char.GiveItem(player,soulMenu[NLG.Rand(1,4)]);
@@ -222,7 +228,12 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local EnemyIdAr = SetEnemySet(player, 0);
       local EnemyId = EnemyIdAr[1];
-      if rugeBossLevel>=30 and rugeBossLevel<70 then EnemyId = EnemyIdAr[6]; end
+      if (rugeBossLevel>=30 and rugeBossLevel<70) then 
+        EnemyId = EnemyIdAr[6];
+        if (math.fmod(rugeBossLevel, 10)==4 or math.fmod(rugeBossLevel, 10)==9) then
+          EnemyId = EnemyIdAr[1];
+        end
+      end
       local EnemyDataIndex = Data.EnemyGetDataIndex(EnemyId);
       local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base编号);
       local enemyExp = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_战斗经验);
@@ -285,7 +296,7 @@ function Module:onLoad()
       local imageText = "@g,"..Prize_DataPos_2..",3,5,0,0@"
 
       local msg = imageText .. "\\n@c★魔力寶可夢肉鴿★"
-                            .."\\n獎品說明:　　$2"..Prize_name.."\\n"
+                            .."\\n獎品說明:　　$5"..Prize_name.."\\n"
                             .."\\n\\n　　"..Prize_DataPos_3.."\\n"
                             .."\\n\\n　　————————————————————\\n"
                             .."$4[確定]2金幣刷新  [是]選取 [否]取消\\n";
@@ -337,7 +348,7 @@ function Module:onLoad()
       local imageText = "@g,"..Prize_DataPos_2..",3,5,0,0@"
 
       local msg = imageText .. "\\n@c★魔力寶可夢肉鴿★"
-                            .."\\n獎品說明:　　$2"..Prize_name.."\\n"
+                            .."\\n獎品說明:　　$5"..Prize_name.."\\n"
                             .."\\n\\n　　"..Prize_DataPos_3.."\\n"
                             .."\\n\\n　　————————————————————\\n"
                             .."$4[確定]2金幣刷新  [是]選取 [否]取消\\n";
@@ -389,7 +400,7 @@ function Module:onLoad()
       local imageText = "@g,"..Prize_DataPos_2..",3,5,0,0@"
 
       local msg = imageText .. "\\n@c★魔力寶可夢肉鴿★"
-                            .."\\n獎品說明:　　$2"..Prize_name.."\\n"
+                            .."\\n獎品說明:　　$5"..Prize_name.."\\n"
                             .."\\n\\n　　"..Prize_DataPos_3.."\\n"
                             .."\\n\\n　　————————————————————\\n"
                             .."$4[確定]2金幣刷新  [是]選取 [否]取消\\n";
@@ -415,7 +426,9 @@ function Module:onLoad()
     local data = tonumber(_data)
     if select > 0 then
       if seqno == 3 and select == CONST.按钮_确定 then
-        gold = Char.GetData(player, CONST.对象_金币);
+        --gold = Char.GetData(player, CONST.对象_金币);
+        gold = Char.ItemNum(player, 66668);
+        memberGold = 0;
         totalGold = 0;
         FpGold = 0;
         LpGold = 0;
@@ -424,6 +437,7 @@ function Module:onLoad()
           for slot = 0,4 do
             local p = Char.GetPartyMember(player,slot)
             if(p>=0) then
+                memberGold = memberGold + 1
                 local lp = Char.GetData(p, CONST.对象_血)
                 local maxLp = Char.GetData(p, CONST.对象_最大血)
                 local fp = Char.GetData(p, CONST.对象_魔)
@@ -437,6 +451,7 @@ function Module:onLoad()
             end
           end
         else
+                memberGold = 0;
                 local lp = Char.GetData(player, CONST.对象_血)
                 local maxLp = Char.GetData(player, CONST.对象_最大血)
                 local fp = Char.GetData(player, CONST.对象_魔)
@@ -454,12 +469,14 @@ function Module:onLoad()
         else
           totalGold = FpGold + LpGold - FpGold*0.5;
         end
-        local msg = "\\n\\n@c全隊回復需要花費"..totalGold.."個金幣\\n\\n現有金錢是"..gold.."個金幣\\n\\n\\n要回復嗎？\\n";
+        --local msg = "\\n\\n@c全隊回復需要花費"..totalGold.."個金幣\\n\\n現有金錢是"..gold.."個金幣\\n\\n\\n要回復嗎？\\n";
+        local msg = "\\n\\n@c全隊回復需要花費"..memberGold.."個金幣\\n\\n現有數量是"..gold.."個寶可金幣\\n\\n\\n要回復嗎？\\n";
         NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 31, msg);
       --人物寵物補血魔
       elseif seqno == 31 and select == CONST.按钮_是 then
-        if gold < totalGold then
-                NLG.SystemMessage(player, '金幣不足無法回復');
+        --if gold < totalGold then
+        if gold < memberGold then
+                NLG.SystemMessage(player, '寶可金幣不足無法回復');
                 return
         else
                 if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
@@ -483,7 +500,8 @@ function Module:onLoad()
                            end
                        end
                     end
-                    Char.AddGold(player, -totalGold);
+                    --Char.AddGold(player, -totalGold);
+                    Char.DelItem(player, 66668, memberGold);
                     NLG.UpChar(player);
                 else
                            local maxLp = Char.GetData(player, CONST.对象_最大血);
@@ -501,7 +519,8 @@ function Module:onLoad()
                                   Pet.UpPet(player, petIndex);
                               end
                            end
-                    Char.AddGold(player, -totalGold);
+                    --Char.AddGold(player, -totalGold);
+                    Char.DelItem(player, 66668, memberGold);
                     NLG.UpChar(player);
                     --NLG.SystemMessage(player, '隊長才可使用！');
                 end
@@ -751,7 +770,10 @@ function PrizeTmpTable(player, type, line)
 	elseif line==3 then rugePrizeId = rugePrizeLevel_roll_3;
 	end
 
-	if type==0 and rugeBossLevel>rugePrizeLevel_level then
+	if type==-1 then
+		local rugePrizeString = "0," ..rugePrizeLevel_roll_1.. "," ..rugePrizeLevel_roll_2.. "," ..rugePrizeLevel_roll_3;
+		return rugePrizeString,-1		--奖励道具编号
+	elseif type==0 and rugeBossLevel>rugePrizeLevel_level then
 		--装备池洗牌
 		local prizeTbl = {}
 		for k,v in ipairs(prizeMenu[level][1]) do
