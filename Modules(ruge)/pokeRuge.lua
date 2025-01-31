@@ -61,17 +61,17 @@ local prizeMenu = {}
 prizeMenu[1] = {
   {3635,4031,4430,4833,5231,5631,6031,},			--装备
   {71100,71101,71102,71103,71104,71105,71106,71107,71108,71109,71110,},			--伙伴
-  {72100,72101,},			--稀有道具.技能书
+  {72100,72101,74000,74003,74006,74009,74012,74015,74018,74021,74024,74027,74030,74033,74036,74039,},			--稀有道具.技能书
 }
 prizeMenu[2] = {
   {235,240,245,250,255,260,265,6481,200,205,210,215,220,},			--装备
   {71111,71112,71113,71114,71115,71116,71117,71118,71119,71120,},			--伙伴
-  {72102,72103,},			--稀有道具.技能书
+  {72102,72103,74001,74004,74007,74010,74013,74016,74019,74022,74025,74028,74031,74034,74037,74040,},			--稀有道具.技能书
 }
 prizeMenu[3] = {
   {3670,4084,4481,4883,602215,602415,602615,602616,600016,600216,600416,600615,600815,},			--装备
   {71121,71122,71123,71124,71125,71126,71127,71128,71129,71130,71131,71132,},			--伙伴
-  {72104,72105,},			--稀有道具.技能书
+  {72104,72105,74002,74005,74008,74011,74014,74017,74020,74023,74026,74029,74032,74035,74038,74041,},			--稀有道具.技能书
 }
 
 -------------------------------------------------------------------------------------------
@@ -189,7 +189,7 @@ function Module:onLoad()
   end)
 
 
-  RugeNPC2 = self:NPC_createNormal(rugeBoss[2][1], rugeBoss[2][2], { map = rugeBoss[2][3], x = rugeBoss[2][4], y = rugeBoss[2][5], direction = 0, mapType = 0 })
+  RugeNPC2 = self:NPC_createNormal(rugeBoss[2][1], rugeBoss[2][2], { map = rugeBoss[2][3], x = rugeBoss[2][4], y = rugeBoss[2][5], direction = 4, mapType = 0 })
   Char.SetData(RugeNPC2,CONST.对象_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC2, function(npc, player, _seqno, _select, _data)
     local cdk = Char.GetData(player,CONST.对象_CDK);
@@ -248,6 +248,9 @@ function Module:onLoad()
                             .."\\n　　　　　$2怪物減輕受到傷害: "..(rugeBossLevel*0.1).."%\\n"
                             .."\\n　　————————————————————\\n"
                             .."$4[確定]5金幣刷新  [是]開始 [否]取消\\n";
+
+      Char.SetData(RugeNPC2,CONST.对象_形象,EnemyBase_image);
+      NLG.UpChar(RugeNPC2);
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, 13, 2, msg);
     end
     return
@@ -780,21 +783,15 @@ function PrizeTmpTable(player, type, line)
 			table.insert(prizeTbl,v);
 		end
 		rugePrizeLevel_roll_1 = prizeTbl[NLG.Rand(1,#prizeTbl)];
-		--综合池洗牌
-		local prizeTbl = {}
-		for k,v in ipairs(prizeMenu[level][1]) do
-			table.insert(prizeTbl,v);
-		end
-		for k,v in ipairs(prizeMenu[level][2]) do
-			table.insert(prizeTbl,v);
-		end
-		for k,v in ipairs(prizeMenu[level][3]) do
-			table.insert(prizeTbl,v);
-		end
-		rugePrizeLevel_roll_2 = prizeTbl[NLG.Rand(1,#prizeTbl)];
 		--伙伴池洗牌
 		local prizeTbl = {}
 		for k,v in ipairs(prizeMenu[level][2]) do
+			table.insert(prizeTbl,v);
+		end
+		rugePrizeLevel_roll_2 = prizeTbl[NLG.Rand(1,#prizeTbl)];
+		--技能池洗牌
+		local prizeTbl = {}
+		for k,v in ipairs(prizeMenu[level][3]) do
 			table.insert(prizeTbl,v);
 		end
 		rugePrizeLevel_roll_3 = prizeTbl[NLG.Rand(1,#prizeTbl)];
@@ -817,13 +814,7 @@ function PrizeTmpTable(player, type, line)
 			rugePrizeId = rugePrizeLevel_roll_1
 		elseif line==2 then
 			repeat
-				for k,v in ipairs(prizeMenu[level][1]) do
-					table.insert(prizeTbl,v);
-				end
 				for k,v in ipairs(prizeMenu[level][2]) do
-					table.insert(prizeTbl,v);
-				end
-				for k,v in ipairs(prizeMenu[level][3]) do
 					table.insert(prizeTbl,v);
 				end
 			until rugePrizeLevel_roll_2 ~= prizeTbl[NLG.Rand(1,#prizeTbl)]
@@ -831,7 +822,7 @@ function PrizeTmpTable(player, type, line)
 			rugePrizeId = rugePrizeLevel_roll_2
 		elseif line==3 then
 			repeat
-				for k,v in ipairs(prizeMenu[level][2]) do
+				for k,v in ipairs(prizeMenu[level][3]) do
 					table.insert(prizeTbl,v);
 				end
 			until rugePrizeLevel_roll_3 ~= prizeTbl[NLG.Rand(1,#prizeTbl)]
