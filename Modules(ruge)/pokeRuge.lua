@@ -200,7 +200,7 @@ function Module:onLoad()
         return;
     elseif seqno == 2 and select == CONST.按钮_确定 then
 		if (Char.ItemNum(player, 66668)<5) then
-          NLG.SystemMessage(player,"[系統]金幣數量不足，無法刷新獎勵。");
+          NLG.SystemMessage(player,"[系統]金幣數量不足，無法刷新對戰。");
           return;
         end
         local EnemyIdAr = SetEnemySet(player, 1);
@@ -413,16 +413,16 @@ function Module:onLoad()
   end)
 
   --全隊補血
-  RugehealNPC = self:NPC_createNormal('資深喬伊', 231052, { x = 39, y = 34, mapType = 0, map = 7351, direction = 0 });
-  Char.SetData(RugehealNPC,CONST.对象_ENEMY_PetFlg+2,0);
-  self:NPC_regTalkedEvent(RugehealNPC, function(npc, player)
+  RugehealNPC1 = self:NPC_createNormal('資深喬伊', 231052, { x = 39, y = 34, mapType = 0, map = 7351, direction = 0 });
+  Char.SetData(RugehealNPC1,CONST.对象_ENEMY_PetFlg+2,0);
+  self:NPC_regTalkedEvent(RugehealNPC1, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n\\n@c回復魔法值（+等量生命值）\\n\\n回復生命值\\n\\n回復寵物的生命值和魔法值\\n\\n一鍵回復全隊人物和寵物魔法、生命\\n";
+      local msg = "\\n\\n@c回復魔法值（+等量生命值）\\n\\n回復生命值\\n\\n回復寵物的生命值和魔法值\\n\\n$4免費$0回復全隊人物和寵物魔法、生命\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 3, msg);
     end
     return
   end)
-  self:NPC_regWindowTalkedEvent(RugehealNPC, function(npc, player, _seqno, _select, _data)
+  self:NPC_regWindowTalkedEvent(RugehealNPC1, function(npc, player, _seqno, _select, _data)
     local cdk = Char.GetData(player,CONST.对象_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
@@ -473,15 +473,12 @@ function Module:onLoad()
           totalGold = FpGold + LpGold - FpGold*0.5;
         end
         --local msg = "\\n\\n@c全隊回復需要花費"..totalGold.."個金幣\\n\\n現有金錢是"..gold.."個金幣\\n\\n\\n要回復嗎？\\n";
-        local msg = "\\n\\n@c全隊回復需要花費"..memberGold.."個金幣\\n\\n現有數量是"..gold.."個寶可金幣\\n\\n\\n要回復嗎？\\n";
+        local msg = "\\n\\n@c全隊回復需要花費0個金幣\\n\\n現有數量是"..gold.."個寶可金幣\\n\\n\\n要回復嗎？\\n";
         NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 31, msg);
       --人物寵物補血魔
       elseif seqno == 31 and select == CONST.按钮_是 then
         --if gold < totalGold then
-        if gold < memberGold then
-                NLG.SystemMessage(player, '寶可金幣不足無法回復');
-                return
-        else
+        if (player>=0) then
                 if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
                     for slot = 0,4 do
                        local p = Char.GetPartyMember(player,slot);
@@ -490,6 +487,7 @@ function Module:onLoad()
                            local maxFp = Char.GetData(p, CONST.对象_最大魔);
                            Char.SetData(p, CONST.对象_血, maxLp);
                            Char.SetData(p, CONST.对象_魔, maxFp);
+                           Char.SetData(p, CONST.对象_受伤, 0);
                            NLG.UpChar(p);
                            for petSlot  = 0,4 do
                               local petIndex = Char.GetPet(p,petSlot);
@@ -498,13 +496,13 @@ function Module:onLoad()
                                   local maxFp = Char.GetData(petIndex, CONST.对象_最大魔);
                                   Char.SetData(petIndex, CONST.对象_血, maxLp);
                                   Char.SetData(petIndex, CONST.对象_魔, maxFp);
+                                  Char.SetData(petIndex, CONST.对象_受伤, 0);
                                   Pet.UpPet(p, petIndex);
                               end
                            end
                        end
                     end
                     --Char.AddGold(player, -totalGold);
-                    Char.DelItem(player, 66668, memberGold);
                     NLG.UpChar(player);
                 else
                            local maxLp = Char.GetData(player, CONST.对象_最大血);
@@ -523,7 +521,142 @@ function Module:onLoad()
                               end
                            end
                     --Char.AddGold(player, -totalGold);
-                    Char.DelItem(player, 66668, memberGold);
+                    NLG.UpChar(player);
+                    --NLG.SystemMessage(player, '隊長才可使用！');
+                end
+        end
+
+      end
+    end
+  end)
+
+  RugehealNPC2 = self:NPC_createNormal('資深喬伊', 231052, { x = 84, y = 35, mapType = 0, map = 7351, direction = 0 });
+  Char.SetData(RugehealNPC2,CONST.对象_ENEMY_PetFlg+2,0);
+  self:NPC_regTalkedEvent(RugehealNPC2, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+      local msg = "\\n\\n@c回復魔法值（+等量生命值）\\n\\n回復生命值\\n\\n回復寵物的生命值和魔法值\\n\\n$4收費$0回復全隊人物和寵物魔法、生命\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 3, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(RugehealNPC2, function(npc, player, _seqno, _select, _data)
+    local cdk = Char.GetData(player,CONST.对象_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select > 0 then
+      if seqno == 3 and select == CONST.按钮_确定 then
+        --gold = Char.GetData(player, CONST.对象_金币);
+        gold = Char.ItemNum(player, 66668);
+        memberGold = 0;
+        totalGold = 0;
+        FpGold = 0;
+        LpGold = 0;
+        --計算回復總金額
+        if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+          for slot = 0,4 do
+            local p = Char.GetPartyMember(player,slot)
+            if(p>=0) then
+                memberGold = memberGold + 1
+                local lp = Char.GetData(p, CONST.对象_血)
+                local maxLp = Char.GetData(p, CONST.对象_最大血)
+                local fp = Char.GetData(p, CONST.对象_魔)
+                local maxFp = Char.GetData(p, CONST.对象_最大魔)
+                if fp <= maxFp then
+                      FpGold = FpGold + maxFp - fp;
+                end
+                if lp <= maxLp then
+                      LpGold = LpGold + maxLp - lp;
+                end
+            end
+          end
+        else
+                memberGold = 0;
+                local lp = Char.GetData(player, CONST.对象_血)
+                local maxLp = Char.GetData(player, CONST.对象_最大血)
+                local fp = Char.GetData(player, CONST.对象_魔)
+                local maxFp = Char.GetData(player, CONST.对象_最大魔)
+                if fp <= maxFp then
+                      FpGold = FpGold + maxFp - fp;
+                end
+                if lp <= maxLp then
+                      LpGold = LpGold + maxLp - lp;
+                end
+        end
+        --print(FpGold,LpGold)
+        if FpGold*0.5 >= LpGold then
+          totalGold = FpGold;
+        else
+          totalGold = FpGold + LpGold - FpGold*0.5;
+        end
+        --local msg = "\\n\\n@c全隊回復需要花費"..totalGold.."個金幣\\n\\n現有金錢是"..gold.."個金幣\\n\\n\\n要回復嗎？\\n";
+        if Char.GetData(player, CONST.对象_等级)<=40 then
+          msg = "\\n\\n@c全隊回復需要花費0個金幣\\n\\n現有數量是"..gold.."個寶可金幣\\n\\n\\n要回復嗎？\\n";
+        else
+          msg = "\\n\\n@c全隊回復需要花費"..memberGold.."個金幣\\n\\n現有數量是"..gold.."個寶可金幣\\n\\n\\n要回復嗎？\\n";
+        end
+        NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 31, msg);
+      --人物寵物補血魔
+      elseif seqno == 31 and select == CONST.按钮_是 then
+        --if gold < totalGold then
+        if (gold < memberGold) then
+                if (Char.GetData(player, CONST.对象_等级)<=40) then
+                  goto heal
+                else
+                  NLG.SystemMessage(player, '寶可金幣不足無法回復');
+                  return
+                end
+        end
+        ::heal::
+        if (player>=0) then
+                if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+                    for slot = 0,4 do
+                       local p = Char.GetPartyMember(player,slot);
+                       if(p>=0) then
+                           local maxLp = Char.GetData(p, CONST.对象_最大血);
+                           local maxFp = Char.GetData(p, CONST.对象_最大魔);
+                           Char.SetData(p, CONST.对象_血, maxLp);
+                           Char.SetData(p, CONST.对象_魔, maxFp);
+                           Char.SetData(p, CONST.对象_受伤, 0);
+                           NLG.UpChar(p);
+                           for petSlot  = 0,4 do
+                              local petIndex = Char.GetPet(p,petSlot);
+                              if petIndex >= 0 then
+                                  local maxLp = Char.GetData(petIndex, CONST.对象_最大血);
+                                  local maxFp = Char.GetData(petIndex, CONST.对象_最大魔);
+                                  Char.SetData(petIndex, CONST.对象_血, maxLp);
+                                  Char.SetData(petIndex, CONST.对象_魔, maxFp);
+                                  Char.SetData(petIndex, CONST.对象_受伤, 0);
+                                  Pet.UpPet(p, petIndex);
+                              end
+                           end
+                       end
+                    end
+                    --Char.AddGold(player, -totalGold);
+                    if (Char.GetData(player, CONST.对象_等级)>40) then
+                      Char.DelItem(player, 66668, memberGold);
+                    end
+                    NLG.UpChar(player);
+                else
+                           local maxLp = Char.GetData(player, CONST.对象_最大血);
+                           local maxFp = Char.GetData(player, CONST.对象_最大魔);
+                           Char.SetData(player, CONST.对象_血, maxLp);
+                           Char.SetData(player, CONST.对象_魔, maxFp);
+                           NLG.UpChar(player);
+                           for petSlot  = 0,4 do
+                              local petIndex = Char.GetPet(player,petSlot);
+                              if petIndex >= 0 then
+                                  local maxLp = Char.GetData(petIndex, CONST.对象_最大血);
+                                  local maxFp = Char.GetData(petIndex, CONST.对象_最大魔);
+                                  Char.SetData(petIndex, CONST.对象_血, maxLp);
+                                  Char.SetData(petIndex, CONST.对象_魔, maxFp);
+                                  Pet.UpPet(player, petIndex);
+                              end
+                           end
+                    --Char.AddGold(player, -totalGold);
+                    if (Char.GetData(player, CONST.对象_等级)>40) then
+                      Char.DelItem(player, 66668, memberGold);
+                    end
                     NLG.UpChar(player);
                     --NLG.SystemMessage(player, '隊長才可使用！');
                 end
@@ -707,7 +840,9 @@ function SetEnemySet(player, type)
 	if (iniEnemyIdAr==0 and type==0) or (iniEnemyIdAr==1 and type==1)then
 		local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 		local ix=1;
-		if rugeBossLevel<30 then    -- 初级
+		if rugeBossLevel<10 then    -- 入门
+			EnemySet[1]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
+		elseif rugeBossLevel>=10 and rugeBossLevel<30 then    -- 初级
 			EnemySet[1]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 			EnemySet[7]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 			EnemySet[8]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
@@ -727,10 +862,10 @@ function SetEnemySet(player, type)
 		end
 		--每5级1号位放入BOSS
 		if (math.fmod(rugeBossLevel, 10)==4 or math.fmod(rugeBossLevel, 10)==9) then
-			if (rugeBossLevel<90) then
+			if (rugeBossLevel>=20 and rugeBossLevel<80) then
 				local rand = NLG.Rand(1,#BossSet_L);
 				EnemySet[1]=BossSet_L[rand];
-			else
+			elseif (rugeBossLevel>=80) then
 				local rand = NLG.Rand(1,#BossSet_H);
 				EnemySet[1]=BossSet_H[rand];
 			end
