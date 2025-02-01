@@ -39,6 +39,11 @@ function Module:getCampHeroesData(charIndex)
 end
 
 -----------------------------------------------
+--系统设置
+local bagItemReserve=1;		--1保留.0全删除
+local bagPetReserve=1;		--1保留.0全删除
+local poolItemReserve=1;		--1保留.0全删除
+-----------------------------------------------
 --NPC设置
 local rugeBoss = {}
 rugeBoss[1] = {"Ruge輪迴啟動", 99453, 7351,9,29}
@@ -126,6 +131,7 @@ function Module:onLoad()
       end
       if data==1 then
         Field.Set(player, 'RugeBossLevel', 0);
+        Field.Set(player, 'RugeEnemyIdAr', "0");
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, -1, 0);
         Field.Set(player, 'RugePrizeLevel', rugePrizeString);
         Char.SetData(player, CONST.对象_等级, 30);
@@ -141,6 +147,7 @@ function Module:onLoad()
         Char.GiveItem(player, 71100, 1);
       elseif data==2 then
         Field.Set(player, 'RugeBossLevel', 0);
+        Field.Set(player, 'RugeEnemyIdAr', "0");
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, -1, 0);
         Field.Set(player, 'RugePrizeLevel', rugePrizeString);
         Char.SetData(player, CONST.对象_等级, 30);
@@ -156,6 +163,7 @@ function Module:onLoad()
         Char.GiveItem(player, 71101, 1);
       elseif data==3 then
         Field.Set(player, 'RugeBossLevel', 0);
+        Field.Set(player, 'RugeEnemyIdAr', "0");
         local rugePrizeString,rugePrizeId = PrizeTmpTable(player, -1, 0);
         Field.Set(player, 'RugePrizeLevel', rugePrizeString);
         Char.SetData(player, CONST.对象_等级, 30);
@@ -169,6 +177,21 @@ function Module:onLoad()
         NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
         Char.GiveItem(player, 71102, 1);
+      end
+      if (bagItemReserve==0) then
+        for slot=0,87 do
+          Char.DelItemBySlot(player,slot);
+        end
+      end
+      if (bagPetReserve==0) then
+        for slot=0,4 do
+          Char.DelSlotPet(player,slot);
+        end
+      end
+      if (poolItemReserve==0) then
+        for slot=0,179 do
+          Char.RemovePoolItem(player,slot);
+        end
       end
       local soulMenu = {70196,70197,70198,70199}
       Char.GiveItem(player,soulMenu[NLG.Rand(1,4)]);
