@@ -1,0 +1,11 @@
+block gold >=1000000
+EndWindow 1052659
+	 
+
+
+block
+	 
+KillItem 70016,1
+	 
+AddGold 1000	 
+endblock
