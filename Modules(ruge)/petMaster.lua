@@ -1,19 +1,25 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('petMaster')
 
 local StarSysOn = 0;
 local StarRequireLevel = {10, 30, 50, 70, 100};
 local StarRequireGold = {1000, 15000, 20000, 40000, 50000};
 
-local StarEnable_check= {700066,700067,700068,700069,};
+local StarEnable_check= {
+    700101,700102,700103,700104,700105,700106,700107,700108,700109,700110,
+    700111,700112,700113,700114,700115,700116,700117,700118,700119,700120,
+    700121,700122,700123,700124,700125,700126,700127,700128,700129,700130,
+    700131,700132,700133,
+    700201,700202,700203,700204,700205,700206,700207,700208,
+}
 local StarEnable_list = {};
---StarEnable_list[700066] = { 1 };		--µÚ1ĞÍ:Æø¹¦µ¯LV3¡¢Á¦Á¿100µã¡¢¾«Áé×å¡¢Éı¼¶Æø¹¦µ¯LV7
---StarEnable_list[700067] = { 2 };		--µÚ2ĞÍ:³¬·¨(4ßx1)LV3¡¢Ä§·¨100µã¡¢¾«Áé×å¡¢Éı¼¶³¬·¨LV7
---StarEnable_list[700068] = { 3 };		--µÚ3ĞÍ:³¬Öä(4ßx1)LV3¡¢ËÙ¶È70µãÄ§·¨30µã¡¢¾«Áé×å¡¢Éı¼¶³¬ÖäLV7
---StarEnable_list[700069] = { 4 };		--µÚ4ĞÍ:İoÖú(4ßx1)LV3¡¢ÌåÁ¦70µãÄ§·¨30µã¡¢¾«Áé×å¡¢Éı¼¶İoÖúLV7
-StarEnable_list[700101] = {3, 1};		--µÚ1ĞÍ:Ö»ÄÜßM»¯3ĞÇ(Ã¿ßM»¯Ò»ĞÇ×ÃÁ¿½o¹¥ÃôBP)
+--StarEnable_list[700066] = { 1 };		--ç¬¬1å‹:æ°”åŠŸå¼¹LV3ã€åŠ›é‡100ç‚¹ã€ç²¾çµæ—ã€å‡çº§æ°”åŠŸå¼¹LV7
+--StarEnable_list[700067] = { 2 };		--ç¬¬2å‹:è¶…æ³•(4é¸1)LV3ã€é­”æ³•100ç‚¹ã€ç²¾çµæ—ã€å‡çº§è¶…æ³•LV7
+--StarEnable_list[700068] = { 3 };		--ç¬¬3å‹:è¶…å’’(4é¸1)LV3ã€é€Ÿåº¦70ç‚¹é­”æ³•30ç‚¹ã€ç²¾çµæ—ã€å‡çº§è¶…å’’LV7
+--StarEnable_list[700069] = { 4 };		--ç¬¬4å‹:è¼”åŠ©(4é¸1)LV3ã€ä½“åŠ›70ç‚¹é­”æ³•30ç‚¹ã€ç²¾çµæ—ã€å‡çº§è¼”åŠ©LV7
+StarEnable_list[700101] = {3, 1};		--ç¬¬1å‹:åªèƒ½é€²åŒ–3æ˜Ÿ(æ¯é€²åŒ–ä¸€æ˜Ÿé…Œé‡çµ¦æ”»æ•BP)
 StarEnable_list[700102] = {3, 1};
-StarEnable_list[700103] = {3, 2};		--µÚ2ĞÍ:Ö»ÄÜßM»¯3ĞÇ(Ã¿ßM»¯Ò»ĞÇ×ÃÁ¿½oÃôÄ§BP)
+StarEnable_list[700103] = {3, 2};		--ç¬¬2å‹:åªèƒ½é€²åŒ–3æ˜Ÿ(æ¯é€²åŒ–ä¸€æ˜Ÿé…Œé‡çµ¦æ•é­”BP)
 StarEnable_list[700104] = {3, 1};
 StarEnable_list[700105] = {3, 1};
 StarEnable_list[700106] = {3, 2};
@@ -32,11 +38,11 @@ StarEnable_list[700118] = {3, 1};
 StarEnable_list[700119] = {3, 2};
 StarEnable_list[700120] = {3, 2};
 StarEnable_list[700121] = {3, 2};
-StarEnable_list[700122] = {5, 3};		--µÚ3ĞÍ:Ö»ÄÜßM»¯5ĞÇ(Ã¿ßM»¯Ò»ĞÇ×ÃÁ¿½o¹¥ÃôBP)
+StarEnable_list[700122] = {5, 3};		--ç¬¬3å‹:åªèƒ½é€²åŒ–5æ˜Ÿ(æ¯é€²åŒ–ä¸€æ˜Ÿé…Œé‡çµ¦æ”»æ•BP)
 StarEnable_list[700123] = {5, 3};
 StarEnable_list[700124] = {5, 3};
 StarEnable_list[700125] = {5, 3};
-StarEnable_list[700126] = {5, 4};		--µÚ4ĞÍ:Ö»ÄÜßM»¯5ĞÇ(Ã¿ßM»¯Ò»ĞÇ×ÃÁ¿½oÃôÄ§BP)
+StarEnable_list[700126] = {5, 4};		--ç¬¬4å‹:åªèƒ½é€²åŒ–5æ˜Ÿ(æ¯é€²åŒ–ä¸€æ˜Ÿé…Œé‡çµ¦æ•é­”BP)
 StarEnable_list[700127] = {5, 4};
 StarEnable_list[700128] = {5, 3};
 StarEnable_list[700129] = {5, 3};
@@ -56,132 +62,132 @@ StarEnable_list[700208] = {5, 3};
 
 ---------------------------------------------------------------------
 local StarTech_list = {};
-StarTech_list[700101] = { 1442 };		--ÃîÍÜ·N×Ó.Ã¯Ê¢
-StarTech_list[700102] = { 1443 };		--Ğ¡»ğıˆ.ÃÍ»ğ
-StarTech_list[700103] = { 1444 };		--‚ÜÄáı”.¼¤Á÷
-StarTech_list[700104] = { 1442 };		--Ä¾Ä¾—n.Ã¯Ê¢
-StarTech_list[700105] = { 1443 };		--»ğ°ßß÷.ÃÍ»ğ
-StarTech_list[700106] = { 1444 };		--ÇòÇòº£ª{.¼¤Á÷
-StarTech_list[700107] = { 1442 };		--¾Õ²İÈ~.Ã¯Ê¢
-StarTech_list[700108] = { 1443 };		--»ğÇòÊó.ÃÍ»ğ
-StarTech_list[700109] = { 1444 };		--Ğ¡ä÷{.¼¤Á÷
-StarTech_list[700110] = { 1442 };		--Ä¾ÊØŒm.Ã¯Ê¢
-StarTech_list[700111] = { 1443 };		--»ğïôëu.ÃÍ»ğ
-StarTech_list[700112] = { 1444 };		--Ë®ÜSô~.¼¤Á÷
-StarTech_list[700113] = { 1442 };		--²İÃçı”.Ã¯Ê¢
-StarTech_list[700114] = { 1443 };		--Ğ¡»ğÑæºï.ÃÍ»ğ
-StarTech_list[700115] = { 1444 };		--²¨¼ÓÂü.¼¤Á÷
-StarTech_list[700116] = { 1442 };		--ÌÙÌÙÉß.Ã¯Ê¢
-StarTech_list[700117] = { 1443 };		--Å¯Å¯Øi.ÃÍ»ğ
-StarTech_list[700118] = { 1444 };		--Ë®Ë®«H.¼¤Á÷
-StarTech_list[700119] = { 1442 };		--¹şÁ¦Àõ.Ã¯Ê¢
-StarTech_list[700120] = { 1443 };		--»ğºüÀê.ÃÍ»ğ
-StarTech_list[700121] = { 1444 };		--ßÉßÉÅİÍÜ.¼¤Á÷
-StarTech_list[700122] = { 1445 };		--Æ¤¿¨Çğ.ìoëŠ
-StarTech_list[700123] = { 1446 };		--Ó×»ùÀ­Ë¹.ÒãÁ¦
-StarTech_list[700124] = { 1441 };		--ÑÀÑÀ.½¡‰ÑĞØ¼¡
-StarTech_list[700125] = { 1453 };		--ÀûšWÂ·.²»ÇüÖ®ĞÄ
-StarTech_list[700126] = { 1452 };		--Ë÷Á_†.ÃÔÈËÖ®Ü|
-StarTech_list[700127] = { 1447 };		--ˆAê‘õ.É³ë[
-StarTech_list[700128] = { 1452 };		--’Ô’Ô¶ú.ÃÔÈËÖ®Ü|
-StarTech_list[700129] = { 1448 };		--ÅÁÆæÀûÆ.ĞîëŠ
-StarTech_list[700130] = { 1450 };		--ÒÁ²¼.ßm‘ªÁ¦
-StarTech_list[700131] = { 1449 };		--•rÀ­±È.ïh¸¡
-StarTech_list[700132] = { 1449 };		--¬”¼{ö­.ïh¸¡
-StarTech_list[700133] = { 1440 };		--¬”ÏÄ¶à.äJÀûÄ¿¹â
+StarTech_list[700101] = { 1442 };		--å¦™è›™ç¨®å­.èŒ‚ç››
+StarTech_list[700102] = { 1443 };		--å°ç«é¾.çŒ›ç«
+StarTech_list[700103] = { 1444 };		--å‚‘å°¼é¾œ.æ¿€æµ
+StarTech_list[700104] = { 1442 };		--æœ¨æœ¨æ¢Ÿ.èŒ‚ç››
+StarTech_list[700105] = { 1443 };		--ç«æ–‘å–µ.çŒ›ç«
+StarTech_list[700106] = { 1444 };		--çƒçƒæµ·ç….æ¿€æµ
+StarTech_list[700107] = { 1442 };		--èŠè‰è‘‰.èŒ‚ç››
+StarTech_list[700108] = { 1443 };		--ç«çƒé¼ .çŒ›ç«
+StarTech_list[700109] = { 1444 };		--å°é‹¸é±·.æ¿€æµ
+StarTech_list[700110] = { 1442 };		--æœ¨å®ˆå®®.èŒ‚ç››
+StarTech_list[700111] = { 1443 };		--ç«é›‰é›.çŒ›ç«
+StarTech_list[700112] = { 1444 };		--æ°´èºé­š.æ¿€æµ
+StarTech_list[700113] = { 1442 };		--è‰è‹—é¾œ.èŒ‚ç››
+StarTech_list[700114] = { 1443 };		--å°ç«ç„°çŒ´.çŒ›ç«
+StarTech_list[700115] = { 1444 };		--æ³¢åŠ æ›¼.æ¿€æµ
+StarTech_list[700116] = { 1442 };		--è—¤è—¤è›‡.èŒ‚ç››
+StarTech_list[700117] = { 1443 };		--æš–æš–è±¬.çŒ›ç«
+StarTech_list[700118] = { 1444 };		--æ°´æ°´çº.æ¿€æµ
+StarTech_list[700119] = { 1442 };		--å“ˆåŠ›æ —.èŒ‚ç››
+StarTech_list[700120] = { 1443 };		--ç«ç‹ç‹¸.çŒ›ç«
+StarTech_list[700121] = { 1444 };		--å‘±å‘±æ³¡è›™.æ¿€æµ
+StarTech_list[700122] = { 1445 };		--çš®å¡ä¸˜.éœé›»
+StarTech_list[700123] = { 1446 };		--å¹¼åŸºæ‹‰æ–¯.æ¯…åŠ›
+StarTech_list[700124] = { 1441 };		--ç‰™ç‰™.å¥å£¯èƒ¸è‚Œ
+StarTech_list[700125] = { 1453 };		--åˆ©æ­è·¯.ä¸å±ˆä¹‹å¿ƒ
+StarTech_list[700126] = { 1452 };		--ç´¢ç¾…äº.è¿·äººä¹‹è»€
+StarTech_list[700127] = { 1447 };		--åœ“é™¸é¯Š.æ²™éš±
+StarTech_list[700128] = { 1452 };		--æ²æ²è€³.è¿·äººä¹‹è»€
+StarTech_list[700129] = { 1448 };		--å¸•å¥‡åˆ©èŒ².è“„é›»
+StarTech_list[700130] = { 1450 };		--ä¼Šå¸ƒ.é©æ‡‰åŠ›
+StarTech_list[700131] = { 1449 };		--æ™‚æ‹‰æ¯”.é£„æµ®
+StarTech_list[700132] = { 1449 };		--ç‘ªç´éœ.é£„æµ®
+StarTech_list[700133] = { 1440 };		--ç‘ªå¤å¤š.éŠ³åˆ©ç›®å…‰
 
-StarTech_list[700201] = { 1446 };		--¿Éß_ø†.ÒãÁ¦
-StarTech_list[700202] = { 1450 };		--²»Á¼ÍÜ.ßm‘ªÁ¦
-StarTech_list[700203] = { 1441 };		--Ğ¡¼ıÈ¸.½¡‰ÑĞØ¼¡
-StarTech_list[700204] = { 1444 };		--¼×ÙRÈÌÍÜ.¼¤Á÷
-StarTech_list[700205] = { 1442 };		--¾ÑÉä˜ä—n.Ã¯Ê¢
-StarTech_list[700206] = { 1451 };		--Â¶ÄÎÑÅÀ­.‰ºÆÈ¸Ğ
-StarTech_list[700207] = { 1451 };		--Ë÷ –åÈÀ×šW.‰ºÆÈ¸Ğ
-StarTech_list[700208] = { 1451 };		--ÄÎ¿ËÂåÆ¬”.‰ºÆÈ¸Ğ
+StarTech_list[700201] = { 1446 };		--å¯é”é´¨.æ¯…åŠ›
+StarTech_list[700202] = { 1450 };		--ä¸è‰¯è›™.é©æ‡‰åŠ›
+StarTech_list[700203] = { 1441 };		--å°ç®­é›€.å¥å£¯èƒ¸è‚Œ
+StarTech_list[700204] = { 1444 };		--ç”²è³€å¿è›™.æ¿€æµ
+StarTech_list[700205] = { 1442 };		--ç‹™å°„æ¨¹æ¢Ÿ.èŒ‚ç››
+StarTech_list[700206] = { 1451 };		--éœ²å¥ˆé›…æ‹‰.å£“è¿«æ„Ÿ
+StarTech_list[700207] = { 1451 };		--ç´¢çˆ¾è¿¦é›·æ­.å£“è¿«æ„Ÿ
+StarTech_list[700208] = { 1451 };		--å¥ˆå…‹æ´›èŒ²ç‘ª.å£“è¿«æ„Ÿ
 
 -------------------------------------------------------------------------------------------------------------------------------------
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:petMasterInfo(npc, player)
-          local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïĞÇ¼‰³¬Á¿¡¿\\n"
-                              .. "¡¡¡¡¡¡¡¡¡¡$1µÚÒ»¸ñ·ÅÖÃÒªÌáÉıĞÇ¼‰µÄÖ÷ÒªŒ™Îï\\n"
-                              .. "¡¡¡¡¡¡¡¡$2×¢Òâ:  ÆäğNÎ»ÖÃŒ¢•º•ré²ÄÁÏŒ™Îï…^\\n"
-          local petIndex = Char.GetPet(player,0);	--Ö÷³è¹Ì¶¨³èÎïÀ¸µÚÒ»¸ñ
+          local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©æ˜Ÿç´šè¶…é‡ã€‘\\n"
+                              .. "ã€€ã€€ã€€ã€€ã€€$1ç¬¬ä¸€æ ¼æ”¾ç½®è¦æå‡æ˜Ÿç´šçš„ä¸»è¦å¯µç‰©\\n"
+                              .. "ã€€ã€€ã€€ã€€$2æ³¨æ„:  å…¶é¤˜ä½ç½®å°‡æš«æ™‚ç‚ºææ–™å¯µç‰©å€\\n"
+          local petIndex = Char.GetPet(player,0);	--ä¸»å® å›ºå®šå® ç‰©æ ç¬¬ä¸€æ ¼
           local PetId = Char.GetData(petIndex,CONST.PET_PetID);
           if (petIndex>=0 and CheckInTable(StarEnable_check, PetId)==true) then
-              --Ö÷Òª³èÎï
-              local PetName_1 = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
-              local PetImage_1 = Char.GetData(petIndex,CONST.¶ÔÏó_ĞÎÏó);
+              --ä¸»è¦å® ç‰©
+              local PetName_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_åŸå);
+              local PetImage_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_å½¢è±¡);
               local imageText_1 = "@g,"..PetImage_1..",3,8,6,0@"
-              msg = msg .. "$4Ö÷ÒªŒ™: "..PetName_1
-              --²ÄÁÏ³èÎï
+              msg = msg .. "$4ä¸»è¦å¯µ: "..PetName_1
+              --ææ–™å® ç‰©
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
               if (materialPetIndex>0) then
                   StarSysOn = 1;
                   local mSlot = mSlot+1;
-                  local PetName_2 = Char.GetData(materialPetIndex,CONST.¶ÔÏó_Ô­Ãû);
-                  local PetImage_2 = Char.GetData(materialPetIndex,CONST.¶ÔÏó_ĞÎÏó);
+                  local PetName_2 = Char.GetData(materialPetIndex,CONST.å¯¹è±¡_åŸå);
+                  local PetImage_2 = Char.GetData(materialPetIndex,CONST.å¯¹è±¡_å½¢è±¡);
                   local imageText_2 = "@g,"..PetImage_2..",13,8,6,0@"
-                  msg = msg .. "¡¡¡¡$2²ÄÁÏŒ™(µÚ"..mSlot.."¸ñ): "..PetName_2.."\\n"
+                  msg = msg .. "ã€€ã€€$2ææ–™å¯µ(ç¬¬"..mSlot.."æ ¼): "..PetName_2.."\\n"
                                         .. imageText_1 .. imageText_2;
               else
                   StarSysOn = 0;
-                  msg = msg .. "¡¡¡¡$2²ÄÁÏŒ™(µÚX¸ñ): Ÿo·ûºÏ\\n"
+                  msg = msg .. "ã€€ã€€$2ææ–™å¯µ(ç¬¬Xæ ¼): ç„¡ç¬¦åˆ\\n"
                                         .. imageText_1;
               end
           else
               StarSysOn = 0;
-              msg = msg .. "Ö÷ÒªŒ™: ·Ç¿ÉĞÇ¼‰³¬Á¿µÄŒ™Îï" .. "\\n\\n\\n²ÄÁÏŒ™(µÚX¸ñ): Ÿo·ûºÏ\\n";
+              msg = msg .. "ä¸»è¦å¯µ: éå¯æ˜Ÿç´šè¶…é‡çš„å¯µç‰©" .. "\\n\\n\\nææ–™å¯µ(ç¬¬Xæ ¼): ç„¡ç¬¦åˆ\\n";
           end
-          NLG.ShowWindowTalked(player, self.MStarNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.MStarNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('PetFieldEvent', function(player, petIndex, PetPos)
     local StarLv = Char.GetPetStar(player,PetPos);
     if (StarLv>=4) then
-        Char.SetData(petIndex, CONST.¶ÔÏó_PET_HeadGraNo,119646);
+        Char.SetData(petIndex, CONST.å¯¹è±¡_PET_HeadGraNo,119646);
         NLG.UpChar(petIndex);
     end
     return 0;
   end)
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStarCommand, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self))
-  self.MStarNPC = self:NPC_createNormal('Œ™ÎïĞÇ¼‰³¬Á¿', 104675, { x = 235, y = 116, mapType = 0, map = 1000, direction = 6 });
+  self.MStarNPC = self:NPC_createNormal('å¯µç‰©æ˜Ÿç´šè¶…é‡', 104675, { x = 235, y = 116, mapType = 0, map = 1000, direction = 6 });
   self:NPC_regTalkedEvent(self.MStarNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïĞÇ¼‰³¬Á¿¡¿\\n"
-                              .. "¡¡¡¡¡¡¡¡¡¡$1µÚÒ»¸ñ·ÅÖÃÒªÌáÉıĞÇ¼‰µÄÖ÷ÒªŒ™Îï\\n"
-                              .. "¡¡¡¡¡¡¡¡$2×¢Òâ:  ÆäğNÎ»ÖÃŒ¢•º•ré²ÄÁÏŒ™Îï…^\\n"
-          local petIndex = Char.GetPet(player,0);	--Ö÷³è¹Ì¶¨³èÎïÀ¸µÚÒ»¸ñ
+          local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©æ˜Ÿç´šè¶…é‡ã€‘\\n"
+                              .. "ã€€ã€€ã€€ã€€ã€€$1ç¬¬ä¸€æ ¼æ”¾ç½®è¦æå‡æ˜Ÿç´šçš„ä¸»è¦å¯µç‰©\\n"
+                              .. "ã€€ã€€ã€€ã€€$2æ³¨æ„:  å…¶é¤˜ä½ç½®å°‡æš«æ™‚ç‚ºææ–™å¯µç‰©å€\\n"
+          local petIndex = Char.GetPet(player,0);	--ä¸»å® å›ºå®šå® ç‰©æ ç¬¬ä¸€æ ¼
           local PetId = Char.GetData(petIndex,CONST.PET_PetID);
           if (petIndex>=0 and CheckInTable(StarEnable_check, PetId)==true) then
-              --Ö÷Òª³èÎï
-              local PetName_1 = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
-              local PetImage_1 = Char.GetData(petIndex,CONST.¶ÔÏó_ĞÎÏó);
+              --ä¸»è¦å® ç‰©
+              local PetName_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_åŸå);
+              local PetImage_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_å½¢è±¡);
               local imageText_1 = "@g,"..PetImage_1..",3,8,6,0@"
-              msg = msg .. "$4Ö÷ÒªŒ™: "..PetName_1
-              --²ÄÁÏ³èÎï
+              msg = msg .. "$4ä¸»è¦å¯µ: "..PetName_1
+              --ææ–™å® ç‰©
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
               if (materialPetIndex>0) then
                   StarSysOn = 1;
                   local mSlot = mSlot+1;
-                  local PetName_2 = Char.GetData(materialPetIndex,CONST.¶ÔÏó_Ô­Ãû);
-                  local PetImage_2 = Char.GetData(materialPetIndex,CONST.¶ÔÏó_ĞÎÏó);
+                  local PetName_2 = Char.GetData(materialPetIndex,CONST.å¯¹è±¡_åŸå);
+                  local PetImage_2 = Char.GetData(materialPetIndex,CONST.å¯¹è±¡_å½¢è±¡);
                   local imageText_2 = "@g,"..PetImage_2..",13,8,6,0@"
-                  msg = msg .. "¡¡¡¡$2²ÄÁÏŒ™(µÚ"..mSlot.."¸ñ): "..PetName_2.."\\n"
+                  msg = msg .. "ã€€ã€€$2ææ–™å¯µ(ç¬¬"..mSlot.."æ ¼): "..PetName_2.."\\n"
                                         .. imageText_1 .. imageText_2;
               else
                   StarSysOn = 0;
-                  msg = msg .. "¡¡¡¡$2²ÄÁÏŒ™(µÚX¸ñ): Ÿo·ûºÏ\\n"
+                  msg = msg .. "ã€€ã€€$2ææ–™å¯µ(ç¬¬Xæ ¼): ç„¡ç¬¦åˆ\\n"
                                         .. imageText_1;
               end
           else
               StarSysOn = 0;
-              msg = msg .. "Ö÷ÒªŒ™: ·Ç¿ÉĞÇ¼‰³¬Á¿µÄŒ™Îï" .. "\\n\\n\\n²ÄÁÏŒ™(µÚX¸ñ): Ÿo·ûºÏ\\n";
+              msg = msg .. "ä¸»è¦å¯µ: éå¯æ˜Ÿç´šè¶…é‡çš„å¯µç‰©" .. "\\n\\n\\nææ–™å¯µ(ç¬¬Xæ ¼): ç„¡ç¬¦åˆ\\n";
           end
-          NLG.ShowWindowTalked(player, self.MStarNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+          NLG.ShowWindowTalked(player, self.MStarNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
     end
     return
   end)
@@ -190,85 +196,85 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    local tPlayerGold = Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò);
+    local tPlayerGold = Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸);
     --print(data)
     if select > 0 then
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 1 and select == CONST.°´Å¥_È·¶¨) then
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š) then
           if (StarSysOn == 1) then
               local petIndex = Char.GetPet(player,0);
               local PetId = Char.GetData(petIndex,CONST.PET_PetID);
               local MaxStarLv = StarEnable_list[PetId][1];
               local Type = StarEnable_list[PetId][1];
-              local PetName_1 = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
-              local PetLevel_1 = Char.GetData(petIndex,CONST.¶ÔÏó_µÈ¼¶);
+              local PetName_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_åŸå);
+              local PetLevel_1 = Char.GetData(petIndex,CONST.å¯¹è±¡_ç­‰çº§);
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
-              local PetName_2 = Char.GetData(materialPetIndex,CONST.¶ÔÏó_Ô­Ãû);
-              local PetGetLevel_2 = Char.GetData(materialPetIndex,CONST.³èÎï_»ñÈ¡Ê±µÈ¼¶);
+              local PetName_2 = Char.GetData(materialPetIndex,CONST.å¯¹è±¡_åŸå);
+              local PetGetLevel_2 = Char.GetData(materialPetIndex,CONST.å® ç‰©_è·å–æ—¶ç­‰çº§);
               if (PetGetLevel_2~=1) then
-                  NLG.SystemMessage(player, "[Ïµ½y] ²ÄÁÏŒ™Îï·ÇÄ1¼‰Ó–¾šµÄŒšŒš¡£");
+                  NLG.SystemMessage(player, "[ç³»çµ±] ææ–™å¯µç‰©éå¾1ç´šè¨“ç·´çš„å¯¶å¯¶ã€‚");
                   return;
               end
-              local last = string.find(PetName_1, "¡ï", 1);
+              local last = string.find(PetName_1, "â˜…", 1);
               if (last==nil) then
-                  --·ÀµÍ³Ô¸ß»úÖÆ
-                  local last_2 = string.find(PetName_2, "¡ï", 1);
+                  --é˜²ä½åƒé«˜æœºåˆ¶
+                  local last_2 = string.find(PetName_2, "â˜…", 1);
                   if (last_2==nil) then StarLv_2 = 0; else StarLv_2=tonumber(string.sub(PetName_2, last_2+2, -1)); end
                   if ( 1<StarLv_2 ) then
-                      NLG.SystemMessage(player, "[Ïµ½y] Õˆ´_ÕJ²ÄÁÏŒ™ÎïµÄĞÇ¼‰¡£");
+                      NLG.SystemMessage(player, "[ç³»çµ±] è«‹ç¢ºèªææ–™å¯µç‰©çš„æ˜Ÿç´šã€‚");
                       return;
                   end
                   if (PetLevel_1<StarRequireLevel[1]) then
-                      NLG.SystemMessage(player, "[Ïµ½y] Ö÷ÒªŒ™ÎïµÄµÈ¼‰Î´ß_".. StarRequireLevel[1] .."¡£");
+                      NLG.SystemMessage(player, "[ç³»çµ±] ä¸»è¦å¯µç‰©çš„ç­‰ç´šæœªé”".. StarRequireLevel[1] .."ã€‚");
                       return;
                   end
                   if (tPlayerGold<StarRequireGold[1]) then
-                      NLG.SystemMessage(player, "[Ïµ½y] ĞÇ¼‰Ïµ½y²Ù×÷ÙMÓÃ "..StarRequireGold[1].."G£¬ËùĞè½ğÅ²»×ã¡£");
+                      NLG.SystemMessage(player, "[ç³»çµ±] æ˜Ÿç´šç³»çµ±æ“ä½œè²»ç”¨ "..StarRequireGold[1].."Gï¼Œæ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
                       return;
                   end
                   local PetRawName = PetName_1;
-                  Char.SetData(petIndex,CONST.¶ÔÏó_Ô­Ãû, PetRawName .. "¡ï1");
+                  Char.SetData(petIndex,CONST.å¯¹è±¡_åŸå, PetRawName .. "â˜…1");
                   RunStar(petIndex, Type, 1);
                   Char.DelSlotPet(player, mSlot);
                   Pet.UpPet(player,petIndex);
                   Char.AddGold(player, -StarRequireGold[1]);
                   NLG.UpChar(player);
-                  NLG.SystemMessage(player, "[Ïµ½y] ".. PetRawName .."³É¹¦ßM»¯é¡ï1¡£");
+                  NLG.SystemMessage(player, "[ç³»çµ±] ".. PetRawName .."æˆåŠŸé€²åŒ–ç‚ºâ˜…1ã€‚");
               elseif (last~=nil) then
                   local StarLv = tonumber(string.sub(PetName_1, last+2, -1));
                   local PetRawName = string.sub(PetName_1, 1, last-1);
                   if (StarLv>=1 and StarLv<MaxStarLv) then
-                      --·ÀµÍ³Ô¸ß»úÖÆ
-                      local last_2 = string.find(PetName_2, "¡ï", 1);
+                      --é˜²ä½åƒé«˜æœºåˆ¶
+                      local last_2 = string.find(PetName_2, "â˜…", 1);
                       if (last_2==nil) then StarLv_2 = 0; else StarLv_2=tonumber(string.sub(PetName_2, last_2+2, -1)); end
                       if ( StarLv<StarLv_2 ) then
-                          NLG.SystemMessage(player, "[Ïµ½y] Õˆ´_ÕJ²ÄÁÏŒ™ÎïµÄĞÇ¼‰¡£");
+                          NLG.SystemMessage(player, "[ç³»çµ±] è«‹ç¢ºèªææ–™å¯µç‰©çš„æ˜Ÿç´šã€‚");
                           return;
                       end
-                      local StarLv=StarLv+1;		--Éı¼¶¹ıĞÇ¼¶Lv
+                      local StarLv=StarLv+1;		--å‡çº§è¿‡æ˜Ÿçº§Lv
                       if (PetLevel_1<StarRequireLevel[StarLv]) then
-                          NLG.SystemMessage(player, "[Ïµ½y] Ö÷ÒªŒ™ÎïµÄµÈ¼‰Î´ß_".. StarRequireLevel[StarLv] .."¡£");
+                          NLG.SystemMessage(player, "[ç³»çµ±] ä¸»è¦å¯µç‰©çš„ç­‰ç´šæœªé”".. StarRequireLevel[StarLv] .."ã€‚");
                           return;
                       end
                       if (tPlayerGold<StarRequireGold[StarLv]) then
-                          NLG.SystemMessage(player, "[Ïµ½y] ĞÇ¼‰Ïµ½y²Ù×÷ÙMÓÃ "..StarRequireGold[StarLv].."G£¬ËùĞè½ğÅ²»×ã¡£");
+                          NLG.SystemMessage(player, "[ç³»çµ±] æ˜Ÿç´šç³»çµ±æ“ä½œè²»ç”¨ "..StarRequireGold[StarLv].."Gï¼Œæ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
                           return;
                       end
-                      Char.SetData(petIndex,CONST.¶ÔÏó_Ô­Ãû, PetRawName .. "¡ï".. StarLv);
+                      Char.SetData(petIndex,CONST.å¯¹è±¡_åŸå, PetRawName .. "â˜…".. StarLv);
                       RunStar(petIndex, Type, StarLv);
                       Char.DelSlotPet(player, mSlot);
                       Pet.UpPet(player,petIndex);
                       Char.AddGold(player, -StarRequireGold[StarLv]);
                       NLG.UpChar(player);
-                      NLG.SystemMessage(player, "[Ïµ½y] ".. PetRawName .."³É¹¦ßM»¯é¡ï".. StarLv .."¡£");
+                      NLG.SystemMessage(player, "[ç³»çµ±] ".. PetRawName .."æˆåŠŸé€²åŒ–ç‚ºâ˜…".. StarLv .."ã€‚");
                   else
-                      NLG.SystemMessage(player, "[Ïµ½y] ĞÇ¼‰ÒÑß_Ä¿Ç°é_·ÅÉÏÏŞ¡£");
+                      NLG.SystemMessage(player, "[ç³»çµ±] æ˜Ÿç´šå·²é”ç›®å‰é–‹æ”¾ä¸Šé™ã€‚");
                       return;
                   end
               end
           elseif (StarSysOn == 0) then
-              NLG.SystemMessage(player, "[Ïµ½y] —l¼ş²»·ûºÏ£¬ĞÇ¼‰Ïµ½yÍ£Ö¹²Ù×÷¡£");
+              NLG.SystemMessage(player, "[ç³»çµ±] æ¢ä»¶ä¸ç¬¦åˆï¼Œæ˜Ÿç´šç³»çµ±åœæ­¢æ“ä½œã€‚");
               return;
           end
       end
@@ -284,14 +290,14 @@ function Module:OnbattleStarCommand(battleIndex)
     for i=0, 19 do
         local petIndex = Battle.GetPlayIndex(battleIndex, i)
         if (petIndex>=0 and Char.IsPet(petIndex)) then
-            local PetName = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
-            local last = string.find(PetName, "¡ï", 1);
+            local PetName = Char.GetData(petIndex,CONST.å¯¹è±¡_åŸå);
+            local last = string.find(PetName, "â˜…", 1);
             if (last==nil) then
                     NLG.UpChar(petIndex);
             elseif (last~=nil) then
                 local StarLv = tonumber(string.sub(PetName, last+2, -1));
                 if (StarLv>=4) then
-                    Char.SetData(petIndex, CONST.¶ÔÏó_PET_HeadGraNo,119646);
+                    Char.SetData(petIndex, CONST.å¯¹è±¡_PET_HeadGraNo,119646);
                     NLG.UpChar(petIndex);
                 else
                     NLG.UpChar(petIndex);
@@ -302,50 +308,50 @@ function Module:OnbattleStarCommand(battleIndex)
 end
 
 
---¸÷ÀàĞÍ³èÎïÉıĞÇÖ´ĞĞ
+--å„ç±»å‹å® ç‰©å‡æ˜Ÿæ‰§è¡Œ
 function RunStar(petIndex,Type,StarLv)
 	local PetId = Char.GetData(petIndex,CONST.PET_PetID);
 	if (Type==1) then
-		if (StarLv==1) then		--¡ï1
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+500);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+500);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+1000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+1000);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+2000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+2000);
+		if (StarLv==1) then		--â˜…1
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+500);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+500);
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+1000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+1000);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+2000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+2000);
 			if StarTech_list[PetId][1]>0 then
 				Pet.AddSkill(petIndex,StarTech_list[PetId][1],8);
 			end
 		end
 	elseif (Type==2) then
-		if (StarLv==1) then		--¡ï1
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+500);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+500);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+1000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+1000);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+2000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+2000);
+		if (StarLv==1) then		--â˜…1
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+500);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+500);
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+1000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+1000);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+2000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+2000);
 			if StarTech_list[PetId][1]>0 then
 				Pet.AddSkill(petIndex,StarTech_list[PetId][1],8);
 			end
 		end
 	elseif (Type==3) then
-		if (StarLv==1) then		--¡ï1
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+500);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+500);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+800);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+800);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+1200);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+1200);
-		elseif (StarLv==4) then	--¡ï4
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+1500);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+1500);
+		if (StarLv==1) then		--â˜…1
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+500);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+500);
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+800);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+800);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+1200);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+1200);
+		elseif (StarLv==4) then	--â˜…4
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+1500);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+1500);
 			if StarTech_list[PetId][1]>0 then
 				Pet.AddSkill(petIndex,StarTech_list[PetId][1],8);
 			else
@@ -353,23 +359,23 @@ function RunStar(petIndex,Type,StarLv)
 				local techRand = NLG.Rand(1,2);
 				Pet.AddSkill(petIndex, techSet[techRand],8);
 			end
-		elseif (StarLv==5) then	--¡ï5
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+3000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+3000);
+		elseif (StarLv==5) then	--â˜…5
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+3000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+3000);
 		end
 	elseif (Type==4) then
-		if (StarLv==1) then		--¡ï1
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+500);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+500);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+800);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+800);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+1200);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+1200);
-		elseif (StarLv==4) then	--¡ï4
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+1500);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+1500);
+		if (StarLv==1) then		--â˜…1
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+500);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+500);
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+800);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+800);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+1200);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+1200);
+		elseif (StarLv==4) then	--â˜…4
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+1500);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+1500);
 			if StarTech_list[PetId][1]>0 then
 				Pet.AddSkill(petIndex,StarTech_list[PetId][1],8);
 			else
@@ -377,19 +383,19 @@ function RunStar(petIndex,Type,StarLv)
 				local techRand = NLG.Rand(1,2);
 				Pet.AddSkill(petIndex, techSet[techRand],8);
 			end
-		elseif (StarLv==5) then	--¡ï5
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+3000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+3000);
+		elseif (StarLv==5) then	--â˜…5
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+3000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+3000);
 		end
 --[[
 	if (Type==1) then
-		if (StarLv==1) then		--¡ï1
+		if (StarLv==1) then		--â˜…1
 			Pet.AddSkill(petIndex, 402);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_Á¦Á¿, Char.GetData(petIndex,CONST.¶ÔÏó_Á¦Á¿)+10000);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_ÖÖ×å, 11);
-		elseif (StarLv==4) then	--¡ï4
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡)+10000);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_ç§æ—, 11);
+		elseif (StarLv==4) then	--â˜…4
 			for i = 0,9 do
 				if (Pet.GetSkill(petIndex,i)==402) then
 					Pet.DelSkill(petIndex,i);
@@ -398,15 +404,15 @@ function RunStar(petIndex,Type,StarLv)
 			end
 		end
 	elseif (Type==2) then
-		if (StarLv==1) then		--¡ï1
+		if (StarLv==1) then		--â˜…1
 			local magicSet = {2702,2802,2902,3002}
 			local magicRand = NLG.Rand(1,4);
 			Pet.AddSkill(petIndex, magicSet[magicRand]);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+10000);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_ÖÖ×å, 11);
-		elseif (StarLv==4) then	--¡ï4
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+10000);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_ç§æ—, 11);
+		elseif (StarLv==4) then	--â˜…4
 			for i = 0,9 do
 				if (Pet.GetSkill(petIndex,i)==2702) then
 					Pet.DelSkill(petIndex,i);
@@ -424,16 +430,16 @@ function RunStar(petIndex,Type,StarLv)
 			end
 		end
 	elseif (Type==3) then
-		if (StarLv==1) then		--¡ï1
+		if (StarLv==1) then		--â˜…1
 			local magicSet = {4402,4502,4602,4802}
 			local magicRand = NLG.Rand(1,4);
 			Pet.AddSkill(petIndex, magicSet[magicRand]);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_ËÙ¶È, Char.GetData(petIndex,CONST.¶ÔÏó_ËÙ¶È)+7000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+3000);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_ÖÖ×å, 11);
-		elseif (StarLv==4) then	--¡ï4
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦)+7000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+3000);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_ç§æ—, 11);
+		elseif (StarLv==4) then	--â˜…4
 			for i = 0,9 do
 				if (Pet.GetSkill(petIndex,i)==4402) then
 					Pet.DelSkill(petIndex,i);
@@ -451,16 +457,16 @@ function RunStar(petIndex,Type,StarLv)
 			end
 		end
 	elseif (Type==4) then
-		if (StarLv==1) then		--¡ï1
+		if (StarLv==1) then		--â˜…1
 			local magicSet = {6302,6602,6702,6802}
 			local magicRand = NLG.Rand(1,4);
 			Pet.AddSkill(petIndex, magicSet[magicRand]);
-		elseif (StarLv==2) then	--¡ï2
-			Char.SetData(petIndex,CONST.¶ÔÏó_ÌåÁ¦, Char.GetData(petIndex,CONST.¶ÔÏó_ÌåÁ¦)+7000);
-			Char.SetData(petIndex,CONST.¶ÔÏó_Ä§·¨, Char.GetData(petIndex,CONST.¶ÔÏó_Ä§·¨)+3000);
-		elseif (StarLv==3) then	--¡ï3
-			Char.SetData(petIndex,CONST.¶ÔÏó_ÖÖ×å, 11);
-		elseif (StarLv==4) then	--¡ï4
+		elseif (StarLv==2) then	--â˜…2
+			Char.SetData(petIndex,CONST.å¯¹è±¡_ä½“åŠ›, Char.GetData(petIndex,CONST.å¯¹è±¡_ä½“åŠ›)+7000);
+			Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•)+3000);
+		elseif (StarLv==3) then	--â˜…3
+			Char.SetData(petIndex,CONST.å¯¹è±¡_ç§æ—, 11);
+		elseif (StarLv==4) then	--â˜…4
 			for i = 0,9 do
 				if (Pet.GetSkill(petIndex,i)==6302) then
 					Pet.DelSkill(petIndex,i);
@@ -482,7 +488,7 @@ function RunStar(petIndex,Type,StarLv)
 	end
 end
 
---·½±ã½Ó¿Ú
+--æ–¹ä¾¿æ¥å£
 Char.GetMaterialPet = function(charIndex,enemyid)
   for Slot=1,4 do
       local PetIndex = Char.GetPet(charIndex, Slot);
@@ -500,8 +506,8 @@ end
 Char.GetPetStar = function(playerIndex,slot)
   local petIndex = Char.GetPet(playerIndex, slot);
   if petIndex >= 0 then
-    local PetName = Char.GetData(petIndex,CONST.¶ÔÏó_Ô­Ãû);
-    local last = string.find(PetName, "¡ï", 1);
+    local PetName = Char.GetData(petIndex,CONST.å¯¹è±¡_åŸå);
+    local last = string.find(PetName, "â˜…", 1);
     if (last==nil) then
         local StarLv = 0;
         return StarLv;
@@ -513,7 +519,7 @@ Char.GetPetStar = function(playerIndex,slot)
   return -1;
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -522,7 +528,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
