@@ -44,20 +44,21 @@ local petStateTable = {
 }
 
 local techRateTable = {
-             { TechType=1, skillId=1440, c_prob=8, c_val = 1.3, def_prob=8, def_val = 1.0},               --劍舞冥想.80%被动发动增加伤害
-             { TechType=2, skillId=1441, c_prob=8, c_val = 1.0, def_prob=8, def_val = 0.7},               --鐵壁屏障.80%被动发动减轻伤害
-             { TechType=3, skillId=1442, c_prob=9, c_val = 1.5, def_prob=9, def_val = 1.2},               --索隆.二剛力斬90%被动发动
-             { TechType=4, skillId=1443, c_prob=9, c_val = 0.8, def_prob=9, def_val = 0.5},               --香吉士.漆黑隱伏90%被动发动
-             { TechType=5, skillId=1444, c_prob=10, c_val = 1.2, def_prob=10, def_val = 0.8},             --魯夫.橡膠體質100%被动发动
-             { TechType=6, skillId=1445, c_prob=10, c_val = 1.3, def_prob=10, def_val = 0.9},             --神樂.夜兔天人100%被动发动
-             { TechType=7, skillId=1446, c_prob=9, c_val = 1.4, def_prob=9, def_val = 1.1},               --鳴人.仙人模式90%被动发动
-             { TechType=8, skillId=1447, c_prob=9, c_val = 0.9, def_prob=9, def_val = 0.6},               --佐助.須佐能乎90%被动发动
-             { TechType=9, skillId=1448, c_prob=7, c_val = 1.6, def_prob=7, def_val = 1.3},               --鼬.寫輪眼70%被动发动
-             { TechType=10, skillId=1449, c_prob=7, c_val = 0.7, def_prob=7, def_val = 0.4},              --綱手.掌仙術70%被动发动
-             { TechType=11, skillId=1450, c_prob=5, c_val = 1.8, def_prob=5, def_val = 1.5},              --超賽三.賽亞人50%被动发动
-             { TechType=12, skillId=1451, c_prob=5, c_val = 0.5, def_prob=5, def_val = 0.2},              --18號.人造人50%被动发动
-             { TechType=13, skillId=1452, c_prob=10, c_val = 1.1, def_prob=10, def_val = 0.7},            --八神庵.屑風100%被动发动
-             { TechType=14, skillId=1453, c_prob=10, c_val = 1.1, def_prob=10, def_val = 0.7},            --不知火舞.花嵐100%被动发动
+             { TechType=1, skillId=1440, c_prob=8, c_val = 1.3, def_prob=8, def_val = 1.0},               --銳利目光.80%被动发动增加伤害
+             { TechType=2, skillId=1441, c_prob=8, c_val = 1.0, def_prob=8, def_val = 0.7},               --健壯胸肌.80%被动发动减轻伤害
+             { TechType=3, skillId=1442, c_prob=9, c_val = 1.1, def_prob=9, def_val = 0.8},               --茂盛90%被动发动
+             { TechType=4, skillId=1443, c_prob=9, c_val = 1.2, def_prob=9, def_val = 0.9},               --猛火90%被动发动
+             { TechType=5, skillId=1444, c_prob=10, c_val = 1.1, def_prob=10, def_val = 0.9},             --激流100%被动发动
+             { TechType=6, skillId=1445, c_prob=7, c_val = 1.3, def_prob=10, def_val = 0.9},             --靜電70%被动发动
+             { TechType=7, skillId=1446, c_prob=8, c_val = 1.3, def_prob=8, def_val = 1.1},               --毅力80%被动发动
+             { TechType=8, skillId=1447, c_prob=8, c_val = 0.9, def_prob=8, def_val = 0.7},               --沙隱80%被动发动
+             { TechType=9, skillId=1448, c_prob=10, c_val = 1.1, def_prob=7, def_val = 0.7},               --蓄電70%被动发动
+             { TechType=10, skillId=1449, c_prob=7, c_val = 0.7, def_prob=7, def_val = 0.4},              --飄浮70%被动发动
+             { TechType=11, skillId=1450, c_prob=9, c_val = 1.3, def_prob=10, def_val = 0.9},              --適應力90%被动发动
+             { TechType=12, skillId=1451, c_prob=10, c_val = 1.2, def_prob=10, def_val = 0.8},              --壓迫感100%被动发动
+             { TechType=13, skillId=1452, c_prob=6, c_val = 0.7, def_prob=10, def_val = 0.6},            --迷人之軀100%被动发动
+             { TechType=14, skillId=1453, c_prob=10, c_val = 1.4, def_prob=6, def_val = 1.3},            --不屈之心100%被动发动
+--[[
              { TechType=15, skillId=310000, c_prob=8, c_val = 1.2, def_prob=8, def_val = 0.9},              --嫉妒之权能80%发动增伤20%、80%被击减伤10%
              { TechType=16, skillId=310001, c_prob=9, c_val = 0.9, def_prob=9, def_val = 0.9},              --怠惰之权能90%发动减伤10%、90%被击减伤10%
              { TechType=17, skillId=310002, c_prob=10, c_val = 1.4, def_prob=8, def_val = 1.3},             --傲慢之权能100%发动增伤40%、80%被击增伤30%
@@ -68,6 +69,7 @@ local techRateTable = {
              { TechType=22, skillId=310007, c_prob=10, c_val = 0.8, def_prob=7, def_val = 0.5},             --虚饰之权能100%发动减伤20%、70%被击减伤50%
              { TechType=23, skillId=310008, c_prob=10, c_val = 0.8, def_prob=7, def_val = 0.5},             --忧郁之权能100%发动减伤20%、70%被击减伤50%
              { TechType=24, skillId=310009, c_prob=5, c_val = 2.0, def_prob=5, def_val = 0.3},              --嘲讽之魔女50%发动增伤100%、50%被击减伤70%
+]]
 }
 
 --- 加载模块钩子
