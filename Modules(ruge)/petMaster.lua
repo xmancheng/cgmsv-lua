@@ -204,9 +204,9 @@ function Module:onLoad()
       elseif (seqno == 1 and select == CONST.按钮_确定) then
           if (StarSysOn == 1) then
               local petIndex = Char.GetPet(player,0);
-              local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+              local PetId = Char.GetData(petIndex,CONST.宠物_PETID);
               local MaxStarLv = StarEnable_list[PetId][1];
-              local Type = StarEnable_list[PetId][1];
+              local Type = StarEnable_list[PetId][2];
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
               local PetLevel_1 = Char.GetData(petIndex,CONST.对象_等级);
               local materialPetIndex,mSlot = Char.GetMaterialPet(player,PetId);
@@ -310,7 +310,7 @@ end
 
 --各类型宠物升星执行
 function RunStar(petIndex,Type,StarLv)
-	local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+	local PetId = Char.GetData(petIndex,CONST.宠物_PETID);
 	if (Type==1) then
 		if (StarLv==1) then		--★1
 			Char.SetData(petIndex,CONST.对象_力量, Char.GetData(petIndex,CONST.对象_力量)+500);
@@ -493,7 +493,7 @@ Char.GetMaterialPet = function(charIndex,enemyid)
   for Slot=1,4 do
       local PetIndex = Char.GetPet(charIndex, Slot);
       if (PetIndex >= 0) then
-          local MPetId = Char.GetData(PetIndex,CONST.PET_PetID);
+          local MPetId = Char.GetData(PetIndex,CONST.宠物_PETID);
           --print(PetIndex,enemyid,MPetId);
           if (enemyid==MPetId) then
               return PetIndex,Slot;
