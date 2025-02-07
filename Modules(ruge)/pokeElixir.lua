@@ -29,13 +29,17 @@ function Module:onLoad()
       end
     else
       local type = Item.GetData(RubyIndex,CONST.道具_子参一);
-      local Level = Item.GetData(RubyIndex,CONST.道具_子参二);
+      local upgrade = Item.GetData(RubyIndex,CONST.道具_子参二);
       if seqno == 1 and select == CONST.按钮_关闭 then
               return;
       elseif seqno == 2 and select == CONST.按钮_关闭 then
               return;
       else
         if (type==1 and data>0) then
+          if (player~=Char.GetPartyMember(player,0)) then
+              NLG.SystemMessage(player, "[系统]賢者之石只有隊長才可使用。")
+              return;
+          end
           local playerIndex = Char.GetPartyMember(player,data-1);
           if playerIndex<0 then
               return;
@@ -47,16 +51,19 @@ function Module:onLoad()
           local Name = Char.GetData(playerIndex,CONST.对象_名字);
           local Level = Char.GetData(playerIndex,CONST.对象_等级);
           local Exp = Char.GetData(playerIndex,CONST.对象_经验);
-          if ( Level>=Char.GetData(player,CONST.对象_等级) ) then
+          if ( Level+upgrade>=Char.GetData(player,CONST.对象_等级) ) then
               NLG.SystemMessage(player, "[系统]夥伴等級不可超過隊長。")
               return;
           end
-          local Level_up = (Level+1)*(Level+1)*(Level+1)*(Level+1);
-          local Level_now = Level*Level*Level*Level;
-          Char.SetData(playerIndex,CONST.对象_经验,(Level_up-Level_now)+Exp);
-          NLG.UpChar(playerIndex);
+          for i =1,upgrade do
+            local Level_up = (Level+1)*(Level+1)*(Level+1)*(Level+1);
+            local Level_now = Level*Level*Level*Level;
+            Char.SetData(playerIndex,CONST.对象_经验,(Level_up-Level_now)+Exp);
+            NLG.UpChar(playerIndex);
+            NLG.SystemMessage(player, "[系统]"..Name.."等級提升。");
+            Level = Level+1;
+          end
           Char.DelItemBySlot(player, RubySlot);
-          NLG.SystemMessage(player, "[系统]"..Name.."等級提升。");
         elseif (type==2 and data>0) then
           local petIndex = Char.GetPet(player,data-1);
           if petIndex<0 then
@@ -65,16 +72,19 @@ function Module:onLoad()
           local Name = Char.GetData(petIndex,CONST.对象_名字);
           local Level = Char.GetData(petIndex,CONST.对象_等级);
           local Exp = Char.GetData(petIndex,CONST.对象_经验);
-          if ( Level>=Char.GetData(player,CONST.对象_等级) ) then
+          if ( Level+upgrade>=Char.GetData(player,CONST.对象_等级) ) then
               NLG.SystemMessage(player, "[系统]寵物等級不可超過主人。")
               return;
           end
-          local Level_up = (Level+1)*(Level+1)*(Level+1)*(Level+1);
-          local Level_now = Level*Level*Level*Level;
-          Char.SetData(petIndex,CONST.对象_经验,(Level_up-Level_now)+Exp);
-          Pet.UpPet(player, petIndex);
+          for i =1,upgrade do
+            local Level_up = (Level+1)*(Level+1)*(Level+1)*(Level+1);
+            local Level_now = Level*Level*Level*Level;
+            Char.SetData(petIndex,CONST.对象_经验,(Level_up-Level_now)+Exp);
+            Pet.UpPet(player, petIndex);
+            NLG.SystemMessage(player, "[系统]"..Name.."等級提升。");
+            Level = Level+1;
+          end
           Char.DelItemBySlot(player, RubySlot);
-          NLG.SystemMessage(player, "[系统]"..Name.."等級提升。");
         end
       end
     end
@@ -89,8 +99,9 @@ function Module:levelupRuby(charIndex,targetIndex,itemSlot)
     RubySlot =itemSlot;
     RubyIndex = Char.GetItemIndex(charIndex,itemSlot);
     local type = Item.GetData(RubyIndex,CONST.道具_子参一);
+    local upgrade = Item.GetData(RubyIndex,CONST.道具_子参二);
       if (type==1) then
-        local msg = "3|\\n【賢者之石】\\n選擇即將提升等級的夥伴！\\n\\n";
+        local msg = "3|\\n【賢者之石】\\n選擇即將提升等級 "..upgrade.."級 的夥伴！\\n\\n";
         for teamSlot=0,4 do
           local playerIndex = Char.GetPartyMember(charIndex,teamSlot);
           if(playerIndex<0)then
@@ -101,7 +112,7 @@ function Module:levelupRuby(charIndex,targetIndex,itemSlot)
         end
         NLG.ShowWindowTalked(charIndex, self.ElixirNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, msg);
       elseif (type==2) then
-        local msg = "3|\\n【賢者之石】\\n選擇即將提升等級的寵物！\\n\\n";
+        local msg = "3|\\n【神奇之果】\\n選擇即將提升等級 "..upgrade.."級 的寵物！\\n\\n";
         for petSlot=0,4 do
           local petIndex = Char.GetPet(charIndex,petSlot);
           if(petIndex<0)then
