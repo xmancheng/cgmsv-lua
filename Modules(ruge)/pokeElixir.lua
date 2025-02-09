@@ -1,17 +1,18 @@
 local Module = ModuleBase:createModule('pokeElixir')
 
+local partner_expRate = {1,1,1,1,1,2,2,2,2,2,5,5,5,5,5,10,10,10,10,10}		--æ¯10çº§è·å¾—ç»éªŒæ¯”ç‡Xåˆ†ä¹‹ä¸€
+local pet_expRate = {1,1,1,1,1,2,2,2,2,2,5,5,5,5,5,10,10,10,10,10}			--ä¾‹å¦‚:1~10çº§å¾—åˆ°å‡çº§æ‰€éœ€1/1ç»éªŒ:51~60çº§å¾—åˆ°å‡çº§æ‰€éœ€1/2ç»éªŒ
 
-
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  --ÏÍÕßÖ®Ê¯
+  --è´¤è€…ä¹‹çŸ³
   self:regCallback('ItemString', Func.bind(self.levelupRuby, self),"LUA_useRuby");
-  self.ElixirNPC = self:NPC_createNormal('ÙtÕßÖ®Ê¯', 14682, { x = 40, y = 31, mapType = 0, map = 777, direction = 6 });
+  self.ElixirNPC = self:NPC_createNormal('è³¢è€…ä¹‹çŸ³', 14682, { x = 40, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.ElixirNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾ÙtÕßÖ®Ê¯¡¿" ..	"\\n\\n\\nÌáÉıâ·°é»òŒ™ÎïµÈ¼‰µÄ¼tÉ«ÆæÛ”Ö®Ê¯£¡";	
-        NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 11, msg);
+        local msg = "\\n@cã€è³¢è€…ä¹‹çŸ³ã€‘" ..	"\\n\\n\\næå‡å¤¥ä¼´æˆ–å¯µç‰©ç­‰ç´šçš„ç´…è‰²å¥‡è¹Ÿä¹‹çŸ³ï¼";	
+        NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 11, msg);
     end
     return
   end)
@@ -22,22 +23,22 @@ function Module:onLoad()
     local RubyIndex = RubyIndex;
     local RubySlot = RubySlot;
     if select > 0 then
-      if seqno == 11 and select == CONST.°´Å¥_·ñ then
+      if seqno == 11 and select == CONST.æŒ‰é’®_å¦ then
               return;
-      elseif seqno == 11 and select == CONST.°´Å¥_ÊÇ then
+      elseif seqno == 11 and select == CONST.æŒ‰é’®_æ˜¯ then
               return;
       end
     else
-      local type = Item.GetData(RubyIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-      local upgrade = Item.GetData(RubyIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
-      if seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ then
+      local type = Item.GetData(RubyIndex,CONST.é“å…·_å­å‚ä¸€);
+      local upgrade = Item.GetData(RubyIndex,CONST.é“å…·_å­å‚äºŒ);
+      if seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­ then
               return;
-      elseif seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ then
+      elseif seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­ then
               return;
       else
         if (type==1 and data>0) then
           if (player~=Char.GetPartyMember(player,0)) then
-              NLG.SystemMessage(player, "[ÏµÍ³]ÙtÕßÖ®Ê¯Ö»ÓĞê éL²Å¿ÉÊ¹ÓÃ¡£")
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]è³¢è€…ä¹‹çŸ³åªæœ‰éšŠé•·æ‰å¯ä½¿ç”¨ã€‚")
               return;
           end
           local playerIndex = Char.GetPartyMember(player,data-1);
@@ -45,23 +46,32 @@ function Module:onLoad()
               return;
           end
           if not Char.IsDummy(playerIndex) then
-              NLG.SystemMessage(player, "[ÏµÍ³]ÙtÕßÖ®Ê¯Ö»ÄÜŒ¦â·°éÊ¹ÓÃ¡£")
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]è³¢è€…ä¹‹çŸ³åªèƒ½å°å¤¥ä¼´ä½¿ç”¨ã€‚")
               return;
           end
-          local Name = Char.GetData(playerIndex,CONST.¶ÔÏó_Ãû×Ö);
-          local Level = Char.GetData(playerIndex,CONST.¶ÔÏó_µÈ¼¶);
-          local Exp = Char.GetData(playerIndex,CONST.¶ÔÏó_¾­Ñé);
-          if ( Level+upgrade>=Char.GetData(player,CONST.¶ÔÏó_µÈ¼¶) ) then
-              NLG.SystemMessage(player, "[ÏµÍ³]â·°éµÈ¼‰²»¿É³¬ß^ê éL¡£")
+          local Name = Char.GetData(playerIndex,CONST.å¯¹è±¡_åå­—);
+          local Level = Char.GetData(playerIndex,CONST.å¯¹è±¡_ç­‰çº§);
+          if ( Level+upgrade>=Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§) ) then
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]å¤¥ä¼´ç­‰ç´šä¸å¯è¶…ééšŠé•·ã€‚")
               return;
           end
-          for i =1,upgrade do
+          for i=1,upgrade do
+            --ç»éªŒå€¼æ¯”ç‡
+            local Level = Char.GetData(playerIndex,CONST.å¯¹è±¡_ç­‰çº§);
+            local Exp = Char.GetData(playerIndex,CONST.å¯¹è±¡_ç»éªŒ);
+            local lvRank = math.ceil(Level/10);
+            local expRate = (1/partner_expRate[lvRank]);
+            --ç»éªŒå€¼è®¡ç®—å…¬å¼
             local Level_up = (Level+1)*(Level+1)*(Level+1)*(Level+1);
             local Level_now = Level*Level*Level*Level;
-            Char.SetData(playerIndex,CONST.¶ÔÏó_¾­Ñé,(Level_up-Level_now)+Exp);
+            local Exp_up = math.floor((Level_up-Level_now)*expRate);
+            Char.SetData(playerIndex,CONST.å¯¹è±¡_ç»éªŒ, Exp_up+Exp);
             NLG.UpChar(playerIndex);
-            NLG.SystemMessage(player, "[ÏµÍ³]"..Name.."µÈ¼‰ÌáÉı¡£");
-            Level = Level+1;
+            NLG.UpChar(player);
+            NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..Name.."ç²å¾—"..Exp_up.."ç¶“é©—å€¼ã€‚");
+            if (Char.GetData(playerIndex,CONST.å¯¹è±¡_ç­‰çº§)>Level) then
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..Name.."ç­‰ç´šæå‡ã€‚");
+            end
           end
           Char.DelItemBySlot(player, RubySlot);
         elseif (type==2 and data>0) then
@@ -69,20 +79,29 @@ function Module:onLoad()
           if petIndex<0 then
               return;
           end
-          local Name = Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö);
-          local Level = Char.GetData(petIndex,CONST.¶ÔÏó_µÈ¼¶);
-          local Exp = Char.GetData(petIndex,CONST.¶ÔÏó_¾­Ñé);
-          if ( Level+upgrade>=Char.GetData(player,CONST.¶ÔÏó_µÈ¼¶) ) then
-              NLG.SystemMessage(player, "[ÏµÍ³]Œ™ÎïµÈ¼‰²»¿É³¬ß^Ö÷ÈË¡£")
+          local Name = Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—);
+          local Level = Char.GetData(petIndex,CONST.å¯¹è±¡_ç­‰çº§);
+          if ( Level+upgrade>=Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§) ) then
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]å¯µç‰©ç­‰ç´šä¸å¯è¶…éä¸»äººã€‚")
               return;
           end
-          for i =1,upgrade do
+          for i=1,upgrade do
+            --ç»éªŒå€¼æ¯”ç‡
+            local Level = Char.GetData(petIndex,CONST.å¯¹è±¡_ç­‰çº§);
+            local Exp = Char.GetData(petIndex,CONST.å¯¹è±¡_ç»éªŒ);
+            local lvRank = math.ceil(Level/10);
+            local expRate = (1/pet_expRate[lvRank]);
+            --ç»éªŒå€¼è®¡ç®—å…¬å¼
             local Level_up = (Level+1)*(Level+1)*(Level+1)*(Level+1);
             local Level_now = Level*Level*Level*Level;
-            Char.SetData(petIndex,CONST.¶ÔÏó_¾­Ñé,(Level_up-Level_now)+Exp);
+            local Exp_up = math.floor((Level_up-Level_now)*expRate);
+            Char.SetData(petIndex,CONST.å¯¹è±¡_ç»éªŒ, Exp_up+Exp);
             Pet.UpPet(player, petIndex);
-            NLG.SystemMessage(player, "[ÏµÍ³]"..Name.."µÈ¼‰ÌáÉı¡£");
-            Level = Level+1;
+            NLG.UpChar(player);
+            NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..Name.."ç²å¾—"..Exp_up.."ç¶“é©—å€¼ã€‚");
+            if (Char.GetData(petIndex,CONST.å¯¹è±¡_ç­‰çº§)>Level) then
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..Name.."ç­‰ç´šæå‡ã€‚");
+            end
           end
           Char.DelItemBySlot(player, RubySlot);
         end
@@ -98,33 +117,35 @@ function Module:levelupRuby(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     RubySlot =itemSlot;
     RubyIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local type = Item.GetData(RubyIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-    local upgrade = Item.GetData(RubyIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+    local type = Item.GetData(RubyIndex,CONST.é“å…·_å­å‚ä¸€);
+    local upgrade = Item.GetData(RubyIndex,CONST.é“å…·_å­å‚äºŒ);
       if (type==1) then
-        local msg = "3|\\n¡¾ÙtÕßÖ®Ê¯¡¿\\nßx“ñ¼´Œ¢ÌáÉıµÈ¼‰ "..upgrade.."¼‰ µÄâ·°é£¡\\n\\n";
+        local msg = "4|\\nã€è³¢è€…ä¹‹çŸ³ã€‘\\né¸æ“‡å³å°‡ç²å¾— "..upgrade.."æ¬¡ç¶“é©—å€¼ æå‡ç­‰ç´šçš„å¤¥ä¼´ï¼\\n"
+                  .."â€»æ¯”ç‡:1-50[100%]ã€51-100[50%]ã€101-160[20%]\\n\\n";
         for teamSlot=0,4 do
           local playerIndex = Char.GetPartyMember(charIndex,teamSlot);
           if(playerIndex<0)then
-             msg = msg .. "¿Õ\\n";
+             msg = msg .. "ç©º\\n";
           else
-             msg = msg .. ""..Char.GetData(playerIndex,CONST.¶ÔÏó_Ãû×Ö).."\\n";
+             msg = msg .. ""..Char.GetData(playerIndex,CONST.å¯¹è±¡_åå­—).."\\n";
           end
         end
-        NLG.ShowWindowTalked(charIndex, self.ElixirNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+        NLG.ShowWindowTalked(charIndex, self.ElixirNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
       elseif (type==2) then
-        local msg = "3|\\n¡¾ÉñÆæÖ®¹û¡¿\\nßx“ñ¼´Œ¢ÌáÉıµÈ¼‰ "..upgrade.."¼‰ µÄŒ™Îï£¡\\n\\n";
+        local msg = "4|\\nã€ç¥å¥‡ä¹‹æœã€‘\\né¸æ“‡å³å°‡ç²å¾— "..upgrade.."æ¬¡ç¶“é©—å€¼ æå‡ç­‰ç´šçš„å¯µç‰©ï¼\\n"
+                  .."â€»æ¯”ç‡:1-50[100%]ã€51-100[50%]ã€101-160[20%]\\n\\n";
         for petSlot=0,4 do
           local petIndex = Char.GetPet(charIndex,petSlot);
           if(petIndex<0)then
-             msg = msg .. "¿Õ\\n";
+             msg = msg .. "ç©º\\n";
           else
-             msg = msg .. ""..Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö).."\\n";
+             msg = msg .. ""..Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—).."\\n";
           end
         end
-        NLG.ShowWindowTalked(charIndex, self.ElixirNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+        NLG.ShowWindowTalked(charIndex, self.ElixirNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
       else
-        local msg = "\\n@c¡¾ÙtÕßÖ®Ê¯¡¿" ..	"\\n\\n\\nÌáÉıâ·°é»òŒ™ÎïµÈ¼‰µÄ¼tÉ«ÆæÛ”Ö®Ê¯£¡";	
-        NLG.ShowWindowTalked(charIndex, self.ElixirNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 11, msg);
+        local msg = "\\n@cã€è³¢è€…ä¹‹çŸ³ã€‘" ..	"\\n\\n\\næå‡å¤¥ä¼´æˆ–å¯µç‰©ç­‰ç´šçš„ç´…è‰²å¥‡è¹Ÿä¹‹çŸ³ï¼";	
+        NLG.ShowWindowTalked(charIndex, self.ElixirNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 11, msg);
       end
     return 1;
 end
