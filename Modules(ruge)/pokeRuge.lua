@@ -545,7 +545,7 @@ function Module:onLoad()
                            Char.SetData(p, CONST.对象_血, maxLp);
                            Char.SetData(p, CONST.对象_魔, maxFp);
                            Char.SetData(p, CONST.对象_受伤, 0);
-                           Char.SetData(charIndex, CONST.对象_掉魂, 0);
+                           Char.SetData(p, CONST.对象_掉魂, 0);
                            NLG.UpChar(p);
                            for petSlot  = 0,4 do
                               local petIndex = Char.GetPet(p,petSlot);
@@ -555,7 +555,6 @@ function Module:onLoad()
                                   Char.SetData(petIndex, CONST.对象_血, maxLp);
                                   Char.SetData(petIndex, CONST.对象_魔, maxFp);
                                   Char.SetData(petIndex, CONST.对象_受伤, 0);
-                                  Char.SetData(charIndex, CONST.对象_掉魂, 0);
                                   Pet.UpPet(p, petIndex);
                               end
                            end
@@ -677,7 +676,7 @@ function Module:onLoad()
                            Char.SetData(p, CONST.对象_血, maxLp);
                            Char.SetData(p, CONST.对象_魔, maxFp);
                            Char.SetData(p, CONST.对象_受伤, 0);
-                           Char.SetData(charIndex, CONST.对象_掉魂, 0);
+                           Char.SetData(p, CONST.对象_掉魂, 0);
                            NLG.UpChar(p);
                            for petSlot  = 0,4 do
                               local petIndex = Char.GetPet(p,petSlot);
@@ -687,7 +686,6 @@ function Module:onLoad()
                                   Char.SetData(petIndex, CONST.对象_血, maxLp);
                                   Char.SetData(petIndex, CONST.对象_魔, maxFp);
                                   Char.SetData(petIndex, CONST.对象_受伤, 0);
-                                  Char.SetData(charIndex, CONST.对象_掉魂, 0);
                                   Pet.UpPet(p, petIndex);
                               end
                            end
