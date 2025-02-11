@@ -1,56 +1,56 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(convertPlans)
 
---·ÖÀà×ÔĞĞÌí¼Ó
+--åˆ†ç±»è‡ªè¡Œæ·»åŠ 
 local convert_plan_name = {};
 local convert_plan_offering = {};
 local convert_plan_item = {};
 local convert_plan_gold = {};
 local convert_plan_pet = {};
 --
-convert_plan_name[1] = "¡¶150D¡·¿Éß_ø†";
+convert_plan_name[1] = "ã€Š150Dã€‹å¯é”é´¨";
 convert_plan_offering[1] = {700103,700109,700118};
 convert_plan_item[1] = {70268};
 convert_plan_gold[1] =5000;
 convert_plan_pet[1] = {700201,700201,700201,700201,700201,700201,700201,700201,700201,700201};
 
-convert_plan_name[2] = "¡¶150D¡·²»Á¼ÍÜ";
+convert_plan_name[2] = "ã€Š150Dã€‹ä¸è‰¯è›™";
 convert_plan_offering[2] = {700101,700107,700113};
 convert_plan_item[2] = {70268};
 convert_plan_gold[2] =5000;
 convert_plan_pet[2] = {700202,700202,700202,700202,700202,700202,700202,700202,700202,700202};
 
-convert_plan_name[3] = "¡¶150D¡·Ğ¡¼ıÈ¸";
+convert_plan_name[3] = "ã€Š150Dã€‹å°ç®­é›€";
 convert_plan_offering[3] = {700102,700108,700117};
 convert_plan_item[3] = {70268};
 convert_plan_gold[3] =5000;
 convert_plan_pet[3] = {700203,700203,700203,700203,700203,700203,700203,700203,700203,700203};
 
-convert_plan_name[4] = "¡¶150D¡·¼×ÙRÈÌÍÜ";
+convert_plan_name[4] = "ã€Š150Dã€‹ç”²è³€å¿è›™";
 convert_plan_offering[4] = {700121,700119,700120};
 convert_plan_item[4] = {70268};
 convert_plan_gold[4] =10000;
 convert_plan_pet[4] = {700121,700121,700204,700204,700204,700204,700204,700204,700204,700204};
 
-convert_plan_name[5] = "¡¶150D¡·¾ÑÉä˜ä—n";
+convert_plan_name[5] = "ã€Š150Dã€‹ç‹™å°„æ¨¹æ¢Ÿ";
 convert_plan_offering[5] = {700104,700105,700106};
 convert_plan_item[5] = {70268};
 convert_plan_gold[5] =10000;
 convert_plan_pet[5] = {700104,700104,700205,700205,700205,700205,700205,700205,700205,700205};
 
-convert_plan_name[6] = "¡¶150D¡·Â¶ÄÎÑÅÀ­";
+convert_plan_name[6] = "ã€Š150Dã€‹éœ²å¥ˆé›…æ‹‰";
 convert_plan_offering[6] = {700204,700126,700133};
 convert_plan_item[6] = {70268};
 convert_plan_gold[6] =15000;
 convert_plan_pet[6] = {700204,700204,700204,700204,700206,700206,700206,700206,700206,700206};
 
-convert_plan_name[7] = "¡¶150D¡·Ë÷ –åÈÀ×šW";
+convert_plan_name[7] = "ã€Š150Dã€‹ç´¢çˆ¾è¿¦é›·æ­";
 convert_plan_offering[7] = {700205,700125,700131};
 convert_plan_item[7] = {70268};
 convert_plan_gold[7] =15000;
 convert_plan_pet[7] = {700205,700205,700205,700205,700207,700207,700207,700207,700207,700207};
 
-convert_plan_name[8] = "¡¶160D¡·ÄÎ¿ËÂåÆ¬”";
+convert_plan_name[8] = "ã€Š160Dã€‹å¥ˆå…‹æ´›èŒ²ç‘ª";
 convert_plan_offering[8] = {700122,700206,700207};
 convert_plan_item[8] = {70268};
 convert_plan_gold[8] =15000;
@@ -63,59 +63,59 @@ local function calcWarp()
   return page, remainder
 end
 
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:convertPlansInfo(npc, player)
-          local winButton = CONST.BUTTON_¹Ø±Õ;
-          local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™Îï®×ƒ¸ÄÔì¡¿\\n"
+          local winButton = CONST.BUTTON_å…³é—­;
+          local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©ç•°è®Šæ”¹é€ ã€‘\\n"
           for i = 1,8 do
-             msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. convert_plan_name[i] .. "\\n"
+             msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. convert_plan_name[i] .. "\\n"
              if (i>=8) then
-                 winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                 winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
              end
           end
-          NLG.ShowWindowTalked(player, self.converterNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+          NLG.ShowWindowTalked(player, self.converterNPC, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  self.converterNPC = self:NPC_createNormal('Œ™Îï®×ƒ¸ÄÔì', 14682, { x = 38, y = 31, mapType = 0, map = 777, direction = 6 });
+  self.converterNPC = self:NPC_createNormal('å¯µç‰©ç•°è®Šæ”¹é€ ', 14682, { x = 38, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regWindowTalkedEvent(self.converterNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™Îï®×ƒ¸ÄÔì¡¿\\n"
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©ç•°è®Šæ”¹é€ ã€‘\\n"
+    local winButton = CONST.BUTTON_å…³é—­;
     local totalPage, remainder = calcWarp()
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.°´Å¥_È·¶¨ then
+      if _select == CONST.æŒ‰é’®_ç¡®å®š then
           if (page>=1001) then
               local seqno = page - 1000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™Îï®×ƒ¸ÄÔì¡¿\\n"
-                                  .. "¡¡¡¡¡¡$1ĞèÒªÒÔÏÂËùÓĞ²ÄÁÏ²ÅÄÜßMĞĞ®×ƒ¸ÄÔì\\n$5"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©ç•°è®Šæ”¹é€ ã€‘\\n"
+                                  .. "ã€€ã€€ã€€$1éœ€è¦ä»¥ä¸‹æ‰€æœ‰ææ–™æ‰èƒ½é€²è¡Œç•°è®Šæ”¹é€ \\n$5"
               local msg = msg .. convertOfferingInfo(seqno)
-              NLG.ShowWindowTalked(player, self.converterNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000+seqno, msg);
+              NLG.ShowWindowTalked(player, self.converterNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000+seqno, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_¹Ø±Õ then
+      elseif _select == CONST.æŒ‰é’®_å…³é—­ then
           if (page>=1001) then
-              local winButton = CONST.BUTTON_¹Ø±Õ;
-              local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™Îï®×ƒ¸ÄÔì¡¿\\n"
+              local winButton = CONST.BUTTON_å…³é—­;
+              local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©ç•°è®Šæ”¹é€ ã€‘\\n"
               for i = 1,8 do
-                 msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. convert_plan_name[i] .. "\\n"
+                 msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. convert_plan_name[i] .. "\\n"
                  if (i>=8) then
-                     winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                     winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
                  end
               end
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_ÊÇ then
+      elseif _select == CONST.æŒ‰é’®_æ˜¯ then
           if (page>=2001) then
               local seqno = page - 2000;
               convertMutation(seqno,player)
@@ -123,30 +123,30 @@ function Module:onLoad()
           else
               return
           end
-      elseif _select == CONST.°´Å¥_·ñ then
+      elseif _select == CONST.æŒ‰é’®_å¦ then
           if (page>=2001) then
               local count = page - 2000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™Îï®×ƒ¸ÄÔì¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©ç•°è®Šæ”¹é€ ã€‘\\n"
               local msg = msg .. convertGoalInfo(count);
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
               return
           else
               return
           end
       end
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -155,99 +155,99 @@ function Module:onLoad()
       local count = 8 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. convert_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. convert_plan_name[i] .. "\\n"
         end
       else
         for i = 1 + count, 8 + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. convert_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. convert_plan_name[i] .. "\\n"
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local count = 8 * (warpPage - 1) + column
       --print(count)
-      local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™Îï®×ƒ¸ÄÔì¡¿\\n"
+      local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©ç•°è®Šæ”¹é€ ã€‘\\n"
       local msg = msg .. convertGoalInfo(count);
-      NLG.ShowWindowTalked(player, self.converterNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+      NLG.ShowWindowTalked(player, self.converterNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
     end
   end)
   self:NPC_regTalkedEvent(self.converterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™Îï®×ƒ¸ÄÔì¡¿\\n"
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©ç•°è®Šæ”¹é€ ã€‘\\n"
       for i = 1,8 do
-         msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. convert_plan_name[i] .. "\\n"
+         msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. convert_plan_name[i] .. "\\n"
          if (i>=8) then
-             winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+             winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
          end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
     end
     return
   end)
 end
 
 ---------------------------------------------------------------------------------------------------------------
---Ä¿±êĞÅÏ¢
+--ç›®æ ‡ä¿¡æ¯
 function convertGoalInfo(count)
       local EnemyDataIndex_Goal = Data.EnemyGetDataIndex(convert_plan_pet[count][10]);
-      local enemyBaseId_Goal = Data.EnemyGetData(EnemyDataIndex_Goal, CONST.Enemy_Base±àºÅ);
+      local enemyBaseId_Goal = Data.EnemyGetData(EnemyDataIndex_Goal, CONST.Enemy_Baseç¼–å·);
       local EnemyBaseDataIndex_Goal = Data.EnemyBaseGetDataIndex(enemyBaseId_Goal);
-      local Goal_name = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ãû×Ö);
-      local Goal_DataPos_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÖÖ×å);
+      local Goal_name = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åå­—);
+      local Goal_DataPos_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ç§æ—);
       local Goal_DataPos_3 = Tribe(Goal_DataPos_3);
-      local Goal_DataPos_4 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÌåÁ¦);
-      local Goal_DataPos_5 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Á¦Á¿);
-      local Goal_DataPos_6 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ç¿¶È);
-      local Goal_DataPos_7 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ËÙ¶È);
+      local Goal_DataPos_4 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ä½“åŠ›);
+      local Goal_DataPos_5 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åŠ›é‡);
+      local Goal_DataPos_6 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å¼ºåº¦);
+      local Goal_DataPos_7 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é€Ÿåº¦);
       local Goal_DataPos_8 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, 8);
-      local Goal_DataPos_12 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÃüÖĞ);
-      local Goal_DataPos_13 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_±ØÉ±);
-      local Goal_DataPos_14 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_µØÊôĞÔ);
-      local Goal_DataPos_15 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ë®ÊôĞÔ);
-      local Goal_DataPos_16 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_»ğÊôĞÔ);
-      local Goal_DataPos_17 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_·çÊôĞÔ);
-      local Goal_DataPos_18 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹¶¾);
-      local Goal_DataPos_19 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹×í);
-      local Goal_DataPos_20 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹Ë¯);
-      local Goal_DataPos_21 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹»ìÂÒ);
-      local Goal_DataPos_22 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹Ê¯»¯);
-      local Goal_DataPos_23 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹ÒÅÍü);
-      local Goal_DataPos_26 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÉÁ¶ã);
-      local Goal_DataPos_27 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_·´»÷);
-      local Goal_DataPos_28 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¼¼ÄÜÀ¸);
-      local Goal_DataPos_29 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ĞÎÏó);
+      local Goal_DataPos_12 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‘½ä¸­);
+      local Goal_DataPos_13 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å¿…æ€);
+      local Goal_DataPos_14 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åœ°å±æ€§);
+      local Goal_DataPos_15 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æ°´å±æ€§);
+      local Goal_DataPos_16 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ç«å±æ€§);
+      local Goal_DataPos_17 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é£å±æ€§);
+      local Goal_DataPos_18 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—æ¯’);
+      local Goal_DataPos_19 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—é†‰);
+      local Goal_DataPos_20 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—ç¡);
+      local Goal_DataPos_21 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—æ··ä¹±);
+      local Goal_DataPos_22 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—çŸ³åŒ–);
+      local Goal_DataPos_23 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—é—å¿˜);
+      local Goal_DataPos_26 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é—ªèº²);
+      local Goal_DataPos_27 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åå‡»);
+      local Goal_DataPos_28 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ€èƒ½æ );
+      local Goal_DataPos_29 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å½¢è±¡);
       local imageText = "@g,"..Goal_DataPos_29..",2,8,6,0@"
-      local Goal_DataPos_35 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ1);
-      local Goal_DataPos_36 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ2);
-      local Goal_DataPos_37 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ3);
-      local Goal_DataPos_38 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ4);
-      local Goal_DataPos_39 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ5);
-      local Goal_DataPos_40 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ6);
-      local Goal_DataPos_41 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ7);
-      local Goal_DataPos_42 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ8);
-      local Goal_DataPos_43 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ9);
-      local Goal_DataPos_44 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ10);
-      local msg = imageText .. "¡¡¡¡$4".. Goal_name .. "\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1ówÁ¦ ".. Goal_DataPos_4+2 .."¡¡" .. "$8±Øš¢ ".. Goal_DataPos_13 .."¡¡" .. "$8·´“ô ".. Goal_DataPos_27 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Á¦Á¿ ".. Goal_DataPos_5+2 .."¡¡" .. "$8ÃüÖĞ ".. Goal_DataPos_12 .."¡¡" .. "$8éW¶ã ".. Goal_DataPos_26 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Š¶È ".. Goal_DataPos_6+2 .."¡¡" .. "$2¿¹¶¾ ".. Goal_DataPos_18 .."¡¡" .. "$2¿¹×í ".. Goal_DataPos_19 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1ËÙ¶È ".. Goal_DataPos_7+2 .."¡¡" .. "$2¿¹Ë¯ ".. Goal_DataPos_20 .."¡¡" .. "$2¿¹»ì ".. Goal_DataPos_21 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Ä§·¨ ".. Goal_DataPos_8+2 .."¡¡" .. "$2¿¹Ê¯ ".. Goal_DataPos_22 .."¡¡" .. "$2¿¹Íü ".. Goal_DataPos_23 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$5µØ ".. Goal_DataPos_14/10 .."¡¡" .."$5Ë® ".. Goal_DataPos_15/10 .."¡¡" .."$5»ğ ".. Goal_DataPos_16/10 .."¡¡" .."$5ïL ".. Goal_DataPos_17/10 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$9·N×å ".. Goal_DataPos_3 .."¡¡" .. "$9¼¼ÄÜ¸ñ ".. Goal_DataPos_28 .."\\n"
+      local Goal_DataPos_35 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½1);
+      local Goal_DataPos_36 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½2);
+      local Goal_DataPos_37 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½3);
+      local Goal_DataPos_38 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½4);
+      local Goal_DataPos_39 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½5);
+      local Goal_DataPos_40 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½6);
+      local Goal_DataPos_41 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½7);
+      local Goal_DataPos_42 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½8);
+      local Goal_DataPos_43 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½9);
+      local Goal_DataPos_44 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½10);
+      local msg = imageText .. "ã€€ã€€$4".. Goal_name .. "\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é«”åŠ› ".. Goal_DataPos_4+2 .."ã€€" .. "$8å¿…æ®º ".. Goal_DataPos_13 .."ã€€" .. "$8åæ“Š ".. Goal_DataPos_27 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1åŠ›é‡ ".. Goal_DataPos_5+2 .."ã€€" .. "$8å‘½ä¸­ ".. Goal_DataPos_12 .."ã€€" .. "$8é–ƒèº² ".. Goal_DataPos_26 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1å¼·åº¦ ".. Goal_DataPos_6+2 .."ã€€" .. "$2æŠ—æ¯’ ".. Goal_DataPos_18 .."ã€€" .. "$2æŠ—é†‰ ".. Goal_DataPos_19 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é€Ÿåº¦ ".. Goal_DataPos_7+2 .."ã€€" .. "$2æŠ—ç¡ ".. Goal_DataPos_20 .."ã€€" .. "$2æŠ—æ·· ".. Goal_DataPos_21 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é­”æ³• ".. Goal_DataPos_8+2 .."ã€€" .. "$2æŠ—çŸ³ ".. Goal_DataPos_22 .."ã€€" .. "$2æŠ—å¿˜ ".. Goal_DataPos_23 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$5åœ° ".. Goal_DataPos_14/10 .."ã€€" .."$5æ°´ ".. Goal_DataPos_15/10 .."ã€€" .."$5ç« ".. Goal_DataPos_16/10 .."ã€€" .."$5é¢¨ ".. Goal_DataPos_17/10 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$9ç¨®æ— ".. Goal_DataPos_3 .."ã€€" .. "$9æŠ€èƒ½æ ¼ ".. Goal_DataPos_28 .."\\n"
       return msg;
 end
 
---¼ÀÆ·ĞÅÏ¢
+--ç¥­å“ä¿¡æ¯
 function convertOfferingInfo(seqno)
               local msg = "";
               for i = 1,#convert_plan_offering[seqno] do
                   local EnemyDataIndex_i = Data.EnemyGetDataIndex(convert_plan_offering[seqno][i]);
-                  local enemyBaseId_i = Data.EnemyGetData(EnemyDataIndex_i, CONST.Enemy_Base±àºÅ);
+                  local enemyBaseId_i = Data.EnemyGetData(EnemyDataIndex_i, CONST.Enemy_Baseç¼–å·);
                   local EnemyBaseDataIndex_i = Data.EnemyBaseGetDataIndex(enemyBaseId_i);
-                  local offering_name_i = Data.EnemyBaseGetData(EnemyBaseDataIndex_i, CONST.EnemyBase_Ãû×Ö);
-                  local offering_image_i = Data.EnemyBaseGetData(EnemyBaseDataIndex_i, CONST.EnemyBase_ĞÎÏó);
+                  local offering_name_i = Data.EnemyBaseGetData(EnemyBaseDataIndex_i, CONST.EnemyBase_åå­—);
+                  local offering_image_i = Data.EnemyBaseGetData(EnemyBaseDataIndex_i, CONST.EnemyBase_å½¢è±¡);
                   local offering_image_ix = 3 + 7*(i-1);
                   local imageText_i = "@g,"..offering_image_i..","..offering_image_ix..",6,4,0@"
                   local len = #offering_name_i;
@@ -260,37 +260,38 @@ function convertOfferingInfo(seqno)
                   else
                       spaceMsg = "";
                   end
-                  msg = msg .. spaceMsg .. offering_name_i .. "Lv1" .. spaceMsg .. imageText_i
+                  --msg = msg .. spaceMsg .. offering_name_i .. "Lv1" .. spaceMsg .. imageText_i
+                  msg = msg .. spaceMsg .. offering_name_i .. "  " .. spaceMsg .. imageText_i
               end
               local Gold = convert_plan_gold[seqno];
               local ItemsetIndex = Data.ItemsetGetIndex(convert_plan_item[seqno][1]);
               local Item_name= Data.ItemsetGetData( ItemsetIndex, CONST.ITEMSET_TRUENAME);
               local probRate = prob(seqno,convert_plan_pet[seqno][10]);
-              local msg = msg .. "\\n\\n\\n\\n\\n¡¡$5µÀ¾ß: ".. Item_name .. "1‚€" .. "¡¡¡¡$5Ä§Å: " .. Gold .. " G\\n"
-                                              .. "¡¡$4³É¹¦™CÂÊ: ".. probRate .. "%" .. "¡¡¡¡$9Ê§”¡šˆÄîÆ·: µÚÒ»í˜Î»Ö®Œ™Îï"
+              local msg = msg .. "\\n\\n\\n\\n\\nã€€$5é“å…·: ".. Item_name .. "1å€‹" .. "ã€€ã€€$5é­”å¹£: " .. Gold .. " G\\n"
+                                              .. "ã€€$4æˆåŠŸæ©Ÿç‡: ".. probRate .. "%" .. "ã€€ã€€$9å¤±æ•—æ®˜å¿µå“: ç¬¬ä¸€é †ä½ä¹‹å¯µç‰©"
       return msg;
 end
 
---Òì±ä¸ÄÔìÖ´ĞĞ
+--å¼‚å˜æ”¹é€ æ‰§è¡Œ
 function convertMutation(seqno,player)
               if (Char.ItemNum(player, convert_plan_item[seqno][1])==0) then
-                  NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ¸ÄÔìµÄÔOÓ‹ˆD¡£");
+                  NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘æ”¹é€ çš„è¨­è¨ˆåœ–ã€‚");
                   return
               end
-              if (Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò)<convert_plan_gold[seqno]) then
-                  NLG.SystemMessage(player,"[Ïµ½y]¸ÄÔìËùĞè½ğÅ²»×ã¡£");
+              if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<convert_plan_gold[seqno]) then
+                  NLG.SystemMessage(player,"[ç³»çµ±]æ”¹é€ æ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
                   return
               end
               for i = 1,#convert_plan_offering[seqno] do
                   local petSlot = Char.HavePet(player, convert_plan_offering[seqno][i]);
                   if (petSlot>=0) then
                       local petIndex = Char.GetPet(player,petSlot);
-                      if (Char.GetData(petIndex,CONST.¶ÔÏó_µÈ¼¶)>=2) then
-                          NLG.SystemMessage(player,"[Ïµ½y]¸ÄÔìËùĞèŒ™Îï·ÇLv1¡£");
-                          return
-                      end
+                      --if (Char.GetData(petIndex,CONST.å¯¹è±¡_ç­‰çº§)>=2) then
+                      --    NLG.SystemMessage(player,"[ç³»çµ±]æ”¹é€ æ‰€éœ€å¯µç‰©éLv1ã€‚");
+                      --    return
+                      --end
                   else
-                      NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ¸ÄÔìËùĞèŒ™Îï¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘æ”¹é€ æ‰€éœ€å¯µç‰©ã€‚");
                       return
                   end
               end
@@ -303,7 +304,7 @@ function convertMutation(seqno,player)
               Char.GivePet(player,convert_plan_pet[seqno][randCatch],0);
 end
 
---Ä¿±ê³É¹¦ÂÊ¼ÆËã
+--ç›®æ ‡æˆåŠŸç‡è®¡ç®—
 function prob(count,id)
   for i=1,10 do
       if (convert_plan_pet[count][i]==id) then
@@ -314,36 +315,36 @@ function prob(count,id)
   return -1;
 end
 
---ÖÖ×å×Ö·û´®×ª»»
+--ç§æ—å­—ç¬¦ä¸²è½¬æ¢
 function Tribe(Tribe)
   if Tribe==0 then
-    return "ÈËĞÍÏµ"
+    return "äººå‹ç³»"
   elseif Tribe == 1 then
-    return "ıˆ×åÏµ"
+    return "é¾æ—ç³»"
   elseif Tribe == 2 then
-    return "²»ËÀÏµ"
+    return "ä¸æ­»ç³»"
   elseif Tribe == 3 then
-    return "ïwĞĞÏµ"
+    return "é£›è¡Œç³»"
   elseif Tribe == 4 then
-    return "À¥ÏxÏµ"
+    return "æ˜†èŸ²ç³»"
   elseif Tribe == 5 then
-    return "Ö²ÎïÏµ"
+    return "æ¤ç‰©ç³»"
   elseif Tribe == 6 then
-    return "Ò°«FÏµ"
+    return "é‡ç¸ç³»"
   elseif Tribe == 7 then
-    return "ÌØÊâÏµ"
+    return "ç‰¹æ®Šç³»"
   elseif Tribe == 8 then
-    return "½ğŒÙÏµ"
+    return "é‡‘å±¬ç³»"
   elseif Tribe == 9 then
-    return "Ğ°Ä§Ïµ"
+    return "é‚ªé­”ç³»"
   elseif Tribe == 10 then
-    return "Éñ×åÏµ"
+    return "ç¥æ—ç³»"
   elseif Tribe == 11 then
-    return "¾«ì`Ïµ"
+    return "ç²¾éˆç³»"
   end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
