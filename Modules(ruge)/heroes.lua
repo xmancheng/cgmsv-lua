@@ -261,21 +261,21 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
           self:showCampHeroItemWindow(charIndex,1)
         end
 
---[[
-        if data == 5 then
+        --if data == 5 then
+        if data == 3 then
           sgModule:set(charIndex,"statusPage",1)
   
           sgModule:set(charIndex,"statusItemWindow",1)
           self:showCampHeroItemWindow(charIndex,1)
         end
-]]
+
         --if data == 6 then
-        if data == 3 then
+        if data == 4 then
           self:showHeroOperationSecWindow(charIndex)
         end
 
         --if data == 7 then
-        if data == 4 then
+        if data == 5 then
           sgModule:set(charIndex,"statusPage",1)
           self:showCampHeroSkills(charIndex,1)
         end
@@ -296,7 +296,7 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
           sgModule:set(charIndex,"statusPage",1)
           self:showRename(charIndex)
         end
-  
+
         if data == 2 then
           sgModule:set(charIndex,"statusPage",1)
           self:showRemetamo(charIndex)
@@ -854,7 +854,7 @@ function module:showCampHeroOperationWindow(charIndex, data, heroData, page)
     --"寵物狀態",
     --"水晶選擇",
     "交換物品",
-    --"刪除物品",
+    "刪除物品",
     "加點設置",
     "夥伴AI設置".."【"..name1.."】",
     --"寵物AI設置".."【"..name2.."】",

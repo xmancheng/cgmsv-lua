@@ -838,7 +838,7 @@ function module:buildCampHeroOperator(charIndex,heroData)
     --"寵物狀態",
     --"水晶選擇",
     "交換物品",
-    --"刪除物品",
+    "刪除物品",
     "加點設置",
     "夥伴AI設置".."【"..name1.."】",
     --"寵物AI設置".."【"..name2.."】",
@@ -853,8 +853,7 @@ end
 function module:buildCampHeroItem(charIndex,heroData)
   local heroIndex = heroData.index
   local items={}
-  --for i = 0, 27 do
-  for i = 0, 6 do
+  for i = 0, 27 do
     local itemIndex = Char.GetItemIndex(heroIndex, i)
     local pre=""
     if i<=7 then

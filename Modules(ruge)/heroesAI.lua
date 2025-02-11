@@ -1195,12 +1195,15 @@ function module:calcActionData(charIndex, side, battleIndex, slot, commands)
 	-- print("参数：",charIndex,side,battleIndex,slot,commands)
 	for i = 1, #commands do
 		local command = commands[i]
-		local conditionId = command[1]
-		local targetId = command[2]
+		local conditionId = command[1];
+		local targetId = command[2];
 		local techId = tonumber(command[3])
 
 		-- print('>>>>', command, conditionId, targetId, techId);
 		-- 是否满足 condition
+		if conditionId==nil or targetId==nil then
+			return { CONST.BATTLE_COM.BATTLE_COM_ATTACK, randomTarget(oppositeSide(side), battleIndex, 0), -1 }
+		end
 		local conditionFn = self.conditions[tostring(conditionId)]["fn"];
 		-- print("开始计算条件::", i, self.conditions[tostring(conditionId)]["comment"], techId)
 		if conditionFn(charIndex, side, battleIndex) then
