@@ -1,11 +1,11 @@
 local Module = ModuleBase:createModule('pokeVR')
 
 local petMettleTable = {
-          {9610,9619,9620,9629},       --¶ÔBOSSÔö,×ÔBOSS¼õ,¶ÔÈËĞÎÔö,¶ÔĞ°Ä§Ôö
-          {9611,9615,9623,9624},       --¶ÔµØÔö,×ÔµØ¼õ,¶Ô·ÉĞĞÔö,¶ÔÀ¥³æÔö
-          {9612,9616,9627,9628},       --¶ÔË®Ôö,×ÔË®¼õ,¶ÔÌØÊâÔö,¶Ô½ğÊôÔö
-          {9613,9617,9621,9626},       --¶Ô»ğÔö,×Ô»ğ¼õ,¶ÔÁú×åÔö,¶ÔÒ°ÊŞÔö
-          {9614,9618,9622,9625},       --¶Ô·çÔö,×Ô·ç¼õ,¶Ô²»ËÀÔö,¶ÔÖ²ÎïÔö
+          {9610,9619,9620,9629},       --å¯¹BOSSå¢,è‡ªBOSSå‡,å¯¹äººå½¢å¢,å¯¹é‚ªé­”å¢
+          {9611,9615,9623,9624},       --å¯¹åœ°å¢,è‡ªåœ°å‡,å¯¹é£è¡Œå¢,å¯¹æ˜†è™«å¢
+          {9612,9616,9627,9628},       --å¯¹æ°´å¢,è‡ªæ°´å‡,å¯¹ç‰¹æ®Šå¢,å¯¹é‡‘å±å¢
+          {9613,9617,9621,9626},       --å¯¹ç«å¢,è‡ªç«å‡,å¯¹é¾™æ—å¢,å¯¹é‡å…½å¢
+          {9614,9618,9622,9625},       --å¯¹é£å¢,è‡ªé£å‡,å¯¹ä¸æ­»å¢,å¯¹æ¤ç‰©å¢
 }
 
 local virtual_list ={
@@ -27,48 +27,48 @@ virtualMenu[71109] = {700109,30};
 virtualMenu[71110] = {700110,30};
 virtualMenu[71111] = {700111,30};
 virtualMenu[71112] = {700112,30};
-virtualMenu[71113] = {700113,30};
-virtualMenu[71114] = {700114,30};
-virtualMenu[71115] = {700115,30};
-virtualMenu[71116] = {700116,30};
-virtualMenu[71117] = {700117,30};
-virtualMenu[71118] = {700118,30};
-virtualMenu[71119] = {700119,30};
-virtualMenu[71120] = {700120,30};
-virtualMenu[71121] = {700121,30};
-virtualMenu[71122] = {700122,50};
-virtualMenu[71123] = {700123,50};
-virtualMenu[71124] = {700124,50};
-virtualMenu[71125] = {700125,50};
-virtualMenu[71126] = {700126,50};
-virtualMenu[71127] = {700127,50};
-virtualMenu[71128] = {700128,50};
-virtualMenu[71129] = {700129,50};
-virtualMenu[71130] = {700130,50};
-virtualMenu[71131] = {700131,50};
-virtualMenu[71132] = {700132,50};
-virtualMenu[71133] = {700133,50};
+virtualMenu[71113] = {700113,50};
+virtualMenu[71114] = {700114,50};
+virtualMenu[71115] = {700115,50};
+virtualMenu[71116] = {700116,50};
+virtualMenu[71117] = {700117,50};
+virtualMenu[71118] = {700118,50};
+virtualMenu[71119] = {700119,50};
+virtualMenu[71120] = {700120,50};
+virtualMenu[71121] = {700121,50};
+virtualMenu[71122] = {700122,80};
+virtualMenu[71123] = {700123,80};
+virtualMenu[71124] = {700124,80};
+virtualMenu[71125] = {700125,80};
+virtualMenu[71126] = {700126,80};
+virtualMenu[71127] = {700127,80};
+virtualMenu[71128] = {700128,80};
+virtualMenu[71129] = {700129,80};
+virtualMenu[71130] = {700130,80};
+virtualMenu[71131] = {700131,80};
+virtualMenu[71132] = {700132,80};
+virtualMenu[71133] = {700133,80};
 
 -------------------------------------------------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  --ÑµÁ·¼Ò
-  pokeVRNPC = self:NPC_createNormal('â·°éŒów»¯', 14602, { x = 80, y = 46, mapType = 0, map = 7351, direction = 6 });
+  --è®­ç»ƒå®¶
+  pokeVRNPC = self:NPC_createNormal('å¤¥ä¼´å¯¦é«”åŒ–', 14602, { x = 80, y = 46, mapType = 0, map = 7351, direction = 6 });
   self:NPC_regTalkedEvent(pokeVRNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
         local GoalIndex,GoalSlot = Char.GetVRGoalSlot(player);
         if (GoalIndex>0) then
-          local GoalName = Item.GetData(GoalIndex,CONST.µÀ¾ß_Ãû×Ö);
-          local msg = "\\n\\n@c ´_¶¨ÒªŒów»¯ $5"..GoalName.." $0®”×÷ÄãµÄŒ™Îï†á£¿\\n"
-                   .. "\\nÃ¿´Î²Ù×÷Œów»¯ÑbÖÃ£¬ĞèÒªÖ§¸¶Œš¿É½ğÅ5‚€¡£"
-                   .. "\\n\\n\\n\\n$4¡ù×¢Òâ£¡ƒÏÈÄÇ°ÃæÎ»ÖÃŒ¤ÕÒ¿ÉŒów»¯µÀ¾ß";	
-          NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1, msg);
+          local GoalName = Item.GetData(GoalIndex,CONST.é“å…·_åå­—);
+          local msg = "\\n\\n@c ç¢ºå®šè¦å¯¦é«”åŒ– $5"..GoalName.." $0ç•¶ä½œä½ çš„å¯µç‰©å—ï¼Ÿ\\n"
+                   .. "\\næ¯æ¬¡æ“ä½œå¯¦é«”åŒ–è£ç½®ï¼Œéœ€è¦æ”¯ä»˜å¯¶å¯é‡‘å¹£5å€‹ã€‚"
+                   .. "\\n\\n\\n\\n$4â€»æ³¨æ„ï¼å„ªå…ˆå¾å‰é¢ä½ç½®å°‹æ‰¾å¯å¯¦é«”åŒ–é“å…·";	
+          NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
         else
-          local msg = "\\n\\n@cÎïÆ·™ÚÖĞ›]ÓĞ¿ÉÒÔŒów»¯µÄµÀ¾ß\\n"
-                   .. "\\nÃ¿´Î²Ù×÷Œów»¯ÑbÖÃ£¬ĞèÒªÖ§¸¶Œš¿É½ğÅ5‚€¡£"
-                   .. "\\n\\n\\n\\n$4¡ù×¢Òâ£¡ƒÏÈÄÇ°ÃæÎ»ÖÃŒ¤ÕÒ¿ÉŒów»¯µÀ¾ß";	
-          NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+          local msg = "\\n\\n@cç‰©å“æ¬„ä¸­æ²’æœ‰å¯ä»¥å¯¦é«”åŒ–çš„é“å…·\\n"
+                   .. "\\næ¯æ¬¡æ“ä½œå¯¦é«”åŒ–è£ç½®ï¼Œéœ€è¦æ”¯ä»˜å¯¶å¯é‡‘å¹£5å€‹ã€‚"
+                   .. "\\n\\n\\n\\n$4â€»æ³¨æ„ï¼å„ªå…ˆå¾å‰é¢ä½ç½®å°‹æ‰¾å¯å¯¦é«”åŒ–é“å…·";	
+          NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
         end
     end
     return
@@ -79,36 +79,36 @@ function Module:onLoad()
     local data = tonumber(_data)
     local GoalIndex,GoalSlot = Char.GetVRGoalSlot(player);
     if (GoalIndex>0) then
-        local ItemId = Item.GetData(GoalIndex,CONST.µÀ¾ß_ID);
-        --NPCµÄ³èÎï
+        local ItemId = Item.GetData(GoalIndex,CONST.é“å…·_ID);
+        --NPCçš„å® ç‰©
         local EnemyId = virtualMenu[ItemId][1];
         local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(EnemyId);
         local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(EnemyBaseId);
-        local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_Ãû×Ö);
-        --local EnemyId = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_±àºÅ);
+        local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_åå­—);
+        --local EnemyId = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_ç¼–å·);
         if select > 0 then
-          if seqno == 1 and Char.ItemSlot(player)==20 and select == CONST.°´Å¥_È·¶¨ then
-                NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚÎ»ÖÃÒÑM¡£");
+          if seqno == 1 and Char.ItemSlot(player)==20 and select == CONST.æŒ‰é’®_ç¡®å®š then
+                NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„ä½ç½®å·²æ»¿ã€‚");
                  return;
-          elseif seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ then
+          elseif seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­ then
                  return;
-          elseif seqno == 1 and select == CONST.°´Å¥_È·¶¨ then
+          elseif seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
               if (Char.ItemNum(player, 66668)<5) then
-                 NLG.SystemMessage(player,"[Ïµ½y]½ğÅ”µÁ¿²»×ã£¬Ÿo·¨†¢„ÓÑbÖÃ¡£");
+                 NLG.SystemMessage(player,"[ç³»çµ±]é‡‘å¹£æ•¸é‡ä¸è¶³ï¼Œç„¡æ³•å•Ÿå‹•è£ç½®ã€‚");
                  return;
               end
               local PetLevel = virtualMenu[ItemId][2];
-              --µÀ¾ßÀ¸¿ÕÎ»ÖÃ
+              --é“å…·æ ç©ºä½ç½®
               local EmptySlot = Char.GetItemEmptySlot(player);
               Char.GiveItem(player, 71100, 1);
               local ItemIndex = Char.GetItemIndex(player, EmptySlot);
-              Item.SetData(ItemIndex,CONST.µÀ¾ß_Ãû×Ö, EnemyName.."¾«ì`Çò");
-              Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ», EnemyId);
-              Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş, PetLevel);
+              Item.SetData(ItemIndex,CONST.é“å…·_åå­—, EnemyName.."ç²¾éˆçƒ");
+              Item.SetData(ItemIndex,CONST.é“å…·_å­å‚ä¸€, EnemyId);
+              Item.SetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ, PetLevel);
               Item.UpItem(player, EmptySlot);
               Char.DelItemBySlot(player, GoalSlot);
               Char.DelItem(player, 66668, 5);
-              NLG.PlaySe(player, 279, Char.GetData(player,CONST.¶ÔÏó_X), Char.GetData(player,CONST.¶ÔÏó_Y));
+              NLG.PlaySe(player, 279, Char.GetData(player,CONST.å¯¹è±¡_X), Char.GetData(player,CONST.å¯¹è±¡_Y));
               NLG.UpChar(player);
           else
               return;
@@ -116,23 +116,23 @@ function Module:onLoad()
         end
     else
         if select > 0 then
-          if select == CONST.°´Å¥_¹Ø±Õ then
+          if select == CONST.æŒ‰é’®_å…³é—­ then
             return;
-          elseif seqno == 1 and select == CONST.°´Å¥_È·¶¨ then
-            NLG.SystemMessage(player,"[Ïµ½y]›]ÓĞ¿ÉÒÔŒów»¯µÄµÀ¾ß£¬ÕˆÖØĞÂ´_ÕJ¡£");
+          elseif seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
+            NLG.SystemMessage(player,"[ç³»çµ±]æ²’æœ‰å¯ä»¥å¯¦é«”åŒ–çš„é“å…·ï¼Œè«‹é‡æ–°ç¢ºèªã€‚");
           end
         end
     end
   end)
 
 
-  --Í¨ÓÃ³èÎïÕÙ»½µÀ¾ß
+  --é€šç”¨å® ç‰©å¬å”¤é“å…·
   self:regCallback('ItemString', Func.bind(self.swapSummon, self),"LUA_usePokeVR");
-  self.petSummonNPC = self:NPC_createNormal('Œ™ÎïÇòºô†¾', 14682, { x = 40, y = 32, mapType = 0, map = 777, direction = 6 });
+  self.petSummonNPC = self:NPC_createNormal('å¯µç‰©çƒå‘¼å–š', 14682, { x = 40, y = 32, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.petSummonNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾Œ™Îïºô†¾¡¿" ..	"\\n\\n\\n´_¶¨Òª·Å³öí¾«ì`ÇòƒÈµÄŒ™Îï£¿";	
-        NLG.ShowWindowTalked(player, self.petSummonNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+        local msg = "\\n@cã€å¯µç‰©å‘¼å–šã€‘" ..	"\\n\\n\\nç¢ºå®šè¦æ”¾å‡ºä¾†ç²¾éˆçƒå…§çš„å¯µç‰©ï¼Ÿ";	
+        NLG.ShowWindowTalked(player, self.petSummonNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
@@ -142,45 +142,45 @@ function Module:onLoad()
     local data = tonumber(_data)
     local BallIndex =BallIndex;
     local BallSlot = BallSlot;
-    local BallName = Item.GetData(BallIndex, CONST.µÀ¾ß_Ãû×Ö);
-    local last = string.find(BallName, "¾«", 1);
+    local BallName = Item.GetData(BallIndex, CONST.é“å…·_åå­—);
+    local last = string.find(BallName, "ç²¾", 1);
     local enemyName =string.sub(BallName, 1, last-1);
-    local enemyId = Item.GetData(BallIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-    local enemyLevel = Item.GetData(BallIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+    local enemyId = Item.GetData(BallIndex,CONST.é“å…·_å­å‚ä¸€);
+    local enemyLevel = Item.GetData(BallIndex,CONST.é“å…·_å­å‚äºŒ);
     if select > 0 then
-      if seqno == 1 and Char.PetNum(player)==5 and select == CONST.°´Å¥_ÊÇ then
-                 NLG.SystemMessage(player,"[Ïµ½y]Œ™Îï™ÚÎ»ÖÃÒÑM¡£");
+      if seqno == 1 and Char.PetNum(player)==5 and select == CONST.æŒ‰é’®_æ˜¯ then
+                 NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ¬„ä½ç½®å·²æ»¿ã€‚");
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_·ñ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_å¦ then
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_ÊÇ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
           if (enemyId ~=nil and enemyId>0) then
-              --³èÎïÀ¸¿ÕÎ»ÖÃ
+              --å® ç‰©æ ç©ºä½ç½®
               local EmptySlot = Char.GetPetEmptySlot(player);
               Char.AddPet(player,enemyId);
               local PetIndex = Char.GetPet(player, EmptySlot);
-              local arr_rank1_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ìå³É);
-              local arr_rank2_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Á¦³É);
-              local arr_rank3_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ç¿³É);
-              local arr_rank4_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ãô³É);
-              local arr_rank5_new = Pet.GetArtRank(PetIndex,CONST.³èµµ_Ä§³É);
+              local arr_rank1_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_ä½“æˆ);
+              local arr_rank2_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_åŠ›æˆ);
+              local arr_rank3_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_å¼ºæˆ);
+              local arr_rank4_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_æ•æˆ);
+              local arr_rank5_new = Pet.GetArtRank(PetIndex,CONST.å® æ¡£_é­”æˆ);
               if (enemyLevel~=1) then
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Éı¼¶µã,enemyLevel-1);
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_µÈ¼¶,enemyLevel);
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_ÌåÁ¦, (Char.GetData(PetIndex,CONST.¶ÔÏó_ÌåÁ¦) + (arr_rank1_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Á¦Á¿, (Char.GetData(PetIndex,CONST.¶ÔÏó_Á¦Á¿) + (arr_rank2_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Ç¿¶È, (Char.GetData(PetIndex,CONST.¶ÔÏó_Ç¿¶È) + (arr_rank3_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_ËÙ¶È, (Char.GetData(PetIndex,CONST.¶ÔÏó_ËÙ¶È) + (arr_rank4_new * (1/24) * (enemyLevel - 1)*100)) );
-                  Char.SetData(PetIndex,CONST.¶ÔÏó_Ä§·¨, (Char.GetData(PetIndex,CONST.¶ÔÏó_Ä§·¨) + (arr_rank5_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹,enemyLevel-1);
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_ç­‰çº§,enemyLevel);
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_ä½“åŠ›, (Char.GetData(PetIndex,CONST.å¯¹è±¡_ä½“åŠ›) + (arr_rank1_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_åŠ›é‡, (Char.GetData(PetIndex,CONST.å¯¹è±¡_åŠ›é‡) + (arr_rank2_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_å¼ºåº¦, (Char.GetData(PetIndex,CONST.å¯¹è±¡_å¼ºåº¦) + (arr_rank3_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_é€Ÿåº¦, (Char.GetData(PetIndex,CONST.å¯¹è±¡_é€Ÿåº¦) + (arr_rank4_new * (1/24) * (enemyLevel - 1)*100)) );
+                  Char.SetData(PetIndex,CONST.å¯¹è±¡_é­”æ³•, (Char.GetData(PetIndex,CONST.å¯¹è±¡_é­”æ³•) + (arr_rank5_new * (1/24) * (enemyLevel - 1)*100)) );
               end
               local typeRand = math.random(1,#petMettleTable);
               local pos = math.random(1,#petMettleTable[typeRand]);
               Pet.AddSkill(PetIndex, petMettleTable[typeRand][pos], 9);
               Pet.UpPet(player,PetIndex);
               Char.DelItemBySlot(player, BallSlot);
-              NLG.SystemMessage(player, "[ÏµÍ³]"..enemyName.."³É¹¦ºô†¾³öí¡£")
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..enemyName.."æˆåŠŸå‘¼å–šå‡ºä¾†ã€‚")
           else
-              NLG.SystemMessage(player,"[Ïµ½y]µÀ¾ßåeÕ`¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]é“å…·éŒ¯èª¤ã€‚");
               return;
           end
       else
@@ -197,8 +197,8 @@ function Module:swapSummon(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     BallSlot =itemSlot;
     BallIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local msg = "\\n@c¡¾Œ™Îïºô†¾¡¿" ..	"\\n\\n\\n´_¶¨Òª·Å³öí¾«ì`ÇòƒÈµÄŒ™Îï£¿";	
-    NLG.ShowWindowTalked(charIndex, self.petSummonNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+    local msg = "\\n@cã€å¯µç‰©å‘¼å–šã€‘" ..	"\\n\\n\\nç¢ºå®šè¦æ”¾å‡ºä¾†ç²¾éˆçƒå…§çš„å¯µç‰©ï¼Ÿ";	
+    NLG.ShowWindowTalked(charIndex, self.petSummonNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     return 1;
 end
 
@@ -208,7 +208,7 @@ Char.GetVRGoalSlot = function(charIndex)
       local ItemIndex = Char.GetItemIndex(charIndex, Slot);
       --print(ItemIndex);
       if (ItemIndex > 0) then
-        local ItemId = Item.GetData(ItemIndex,CONST.µÀ¾ß_ID);
+        local ItemId = Item.GetData(ItemIndex,CONST.é“å…·_ID);
         if (CheckInTable(virtual_list, ItemId)==true) then
           return ItemIndex,Slot;
         end
@@ -240,7 +240,7 @@ Char.GetItemEmptySlot = function(charIndex)
 end
 
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
