@@ -905,19 +905,34 @@ function SetEnemySet(player, type)
 			EnemySet[1]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 			EnemySet[7]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 			EnemySet[8]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
-		elseif rugeBossLevel>=30 and rugeBossLevel<70 then    -- 高级
+		elseif rugeBossLevel>=30 and rugeBossLevel<50 then    -- 中级
 			EnemySet[2]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 			EnemySet[3]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 			EnemySet[6]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 			EnemySet[9]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
 			EnemySet[10]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
-		elseif rugeBossLevel>=70 then    -- 绝级
-			for k=1,10 do
+		elseif rugeBossLevel>=50 and rugeBossLevel<70 then    -- 高级
+			for k=6,10 do
 				EnemySet[k]=MobsSet_L[NLG.Rand(1,#MobsSet_L)];
 				ix=ix+1;
 			end
-			EnemySet[4]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
-			EnemySet[5]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+			EnemySet[2]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+			EnemySet[3]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+		elseif rugeBossLevel>=70 and rugeBossLevel<90 then    -- 超级
+			for k=6,10 do
+				EnemySet[k]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+				ix=ix+1;
+			end
+			EnemySet[2]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+			EnemySet[3]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+		elseif rugeBossLevel>=90 then    -- 绝级
+			for k=7,10 do
+				EnemySet[k]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+				ix=ix+1;
+			end
+			EnemySet[2]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+			EnemySet[3]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+			EnemySet[6]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
 		end
 		--每5级1号位放入BOSS
 		if (math.fmod(rugeBossLevel, 10)==4 or math.fmod(rugeBossLevel, 10)==9) then
