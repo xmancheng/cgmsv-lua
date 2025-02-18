@@ -116,7 +116,7 @@ function Module:onLoad()
       local msg = msg .."　 $5【　坦克　】　 【　進攻　】　 【　輔助　】\\n"
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下取消, 11, msg);
     elseif seqno == 11 and select==CONST.按钮_下一页 then
-      local msg = "4\\n@c★輪迴試煉啟動★"
+      local msg = "3\\n@c★輪迴試煉啟動★"
                 .."\\n◇選擇夥伴每次都是全新的開始◇"
                 .."\\n　　————————————————————\\n\\n"
                 .."[　選擇  草系夥伴　]\\n"
@@ -236,7 +236,7 @@ function Module:onLoad()
         NLG.SystemMessage(player,"[系統]交出5金幣刷新對戰。");
     elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-        local enemyLv = 15 + (rugeBossLevel * 1);
+        local enemyLv = 5 + (rugeBossLevel * 1);
         if (enemyLv>=250) then
             enemyLv =250;
         end
@@ -249,7 +249,7 @@ function Module:onLoad()
   self:NPC_regTalkedEvent(RugeNPC2, function(npc, player)
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
-    local enemyLv = 15 + (rugeBossLevel * 1);
+    local enemyLv = 5 + (rugeBossLevel * 1);
     if (enemyLv>=250) then
         enemyLv =250;
     end
