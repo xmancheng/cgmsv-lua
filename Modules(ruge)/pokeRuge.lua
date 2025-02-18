@@ -116,7 +116,7 @@ function Module:onLoad()
       local msg = msg .."　 $5【　坦克　】　 【　進攻　】　 【　輔助　】\\n"
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下取消, 11, msg);
     elseif seqno == 11 and select==CONST.按钮_下一页 then
-      local msg = "3\\n@c★輪迴試煉啟動★"
+      local msg = "4\\n@c★輪迴試煉啟動★"
                 .."\\n◇選擇夥伴每次都是全新的開始◇"
                 .."\\n　　————————————————————\\n\\n"
                 .."[　選擇  草系夥伴　]\\n"
@@ -147,9 +147,11 @@ function Module:onLoad()
         Char.SetData(player, CONST.对象_魔法, 0);
         Char.SetData(player, CONST.对象_升级点, 146);
         Char.SetData(player, CONST.对象_经验, 0);
+        Char.SetData(player, CONST.对象_登陆点, 0);
+        Char.EndEvent(player, 0, 1);
         NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
-        Char.GiveItem(player, 71100, 1);
+        Char.GiveItem(player, 71101, 1);
       elseif data==2 then
         Field.Set(player, 'RugeBossLevel', 0);
         Field.Set(player, 'RugeEnemyIdAr', "0");
@@ -163,9 +165,11 @@ function Module:onLoad()
         Char.SetData(player, CONST.对象_魔法, 0);
         Char.SetData(player, CONST.对象_升级点, 146);
         Char.SetData(player, CONST.对象_经验, 0);
+        Char.SetData(player, CONST.对象_登陆点, 0);
+        Char.EndEvent(player, 0, 1);
         NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
-        Char.GiveItem(player, 71101, 1);
+        Char.GiveItem(player, 71102, 1);
       elseif data==3 then
         Field.Set(player, 'RugeBossLevel', 0);
         Field.Set(player, 'RugeEnemyIdAr', "0");
@@ -179,9 +183,11 @@ function Module:onLoad()
         Char.SetData(player, CONST.对象_魔法, 0);
         Char.SetData(player, CONST.对象_升级点, 146);
         Char.SetData(player, CONST.对象_经验, 0);
+        Char.SetData(player, CONST.对象_登陆点, 0);
+        Char.EndEvent(player, 0, 1);
         NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
-        Char.GiveItem(player, 71102, 1);
+        Char.GiveItem(player, 71103, 1);
       end
       if (bagItemReserve==0) then
         for slot=0,87 do
