@@ -27,6 +27,7 @@ function Module:onLoad()
   self:regCallback('ItemAttachEvent', Func.bind(self.itemAttachCallback, self))
   self:regCallback('ItemDetachEvent', Func.bind(self.itemDetachCallback, self))
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
+  self:regCallback('LoginGateEvent', Func.bind(self.onLoginEvent, self));
 
   self:regCallback('LoopEvent', Func.bind(self.qmloop, self))
   self:regCallback('mountloop', function(player)
@@ -68,6 +69,9 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
 end
 
 function Module:onLoginEvent(charIndex)
+      if Char.IsDummy(charIndex) then
+            return
+      end
       local slotItemIndex_2 = Char.GetItemIndex(charIndex, 2);		--左手(2)
       if (slotItemIndex_2>0) then
         local itemId_2 = Item.GetData(slotItemIndex_2, CONST.道具_ID);
