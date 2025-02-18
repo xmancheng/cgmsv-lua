@@ -56,11 +56,14 @@ rugeBoss[6] = {"Ruge回歸輪迴", 98527, 7351,17,33}
 local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 --local MobsSet = {102100,102104,102105,102106,102109,102110,102114,102121,102125,102152,}	--杂兵
 --local BossSet = {102154,102155,102156,102157,103257,103261,103262,103263,}		--头目
-local MobsSet_L = {710001,710002,710003,710004,710005,710006,}
-local MobsSet_M = {710007,710008,710009,710009,710010,710010,710011,710011,710012,710012,}
-local MobsSet_H = {710013,710014,710015,710016,710017,710018,710019,710020,}
-local BossSet_L = {710013,710014,710015,710016,710017,710018,710019,710020,}
-local BossSet_H = {710021,710022,710023,710024,710025,}
+local MobsSet_L = {710001,710002,710003,710004,710005,710006,710007,710008,}		--enemyId
+local MobsSet_M = {710009,710010,710011,710012,710013,710014,710015,710016,710017,}
+local MobsSet_H = {710018,710019,710020,710021,710022,710023,710024,710025,710026,710027,710028,710029,}
+local BossSet_L = {710030,710031,710032,710033,710034,710035,710036,710037,}
+local BossSet_H = {710038,710039,710040,710041,710042,}
+-----------------------------------------------
+local BonusSet_L = {720001,720002,720003,720004,720005,720006,720007,720008,720009,720010,720014,720015,720016,720017,720037,720038,720039,720040,}	--encountId
+local BonusSet_H = {720011,720012,720013,720018,720019,720020,720021,720022,720023,720024,720025,720026,720027,720028,720029,720030,720031,720032,720033,720034,720035,720036,}
 -----------------------------------------------
 --奖励设置
 local prizeMenu = {}
@@ -86,6 +89,7 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
+  self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   RugeNPC = self:NPC_createNormal(rugeBoss[1][1], rugeBoss[1][2], { map = rugeBoss[1][3], x = rugeBoss[1][4], y = rugeBoss[1][5], direction = 0, mapType = 0 })
   Char.SetData(RugeNPC,CONST.对象_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC, function(npc, player, _seqno, _select, _data)
@@ -232,7 +236,7 @@ function Module:onLoad()
         NLG.SystemMessage(player,"[系統]交出5金幣刷新對戰。");
     elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-        local enemyLv = 35 + (rugeBossLevel * 1);
+        local enemyLv = 15 + (rugeBossLevel * 1);
         if (enemyLv>=250) then
             enemyLv =250;
         end
@@ -245,7 +249,7 @@ function Module:onLoad()
   self:NPC_regTalkedEvent(RugeNPC2, function(npc, player)
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
-    local enemyLv = 35 + (rugeBossLevel * 1);
+    local enemyLv = 15 + (rugeBossLevel * 1);
     if (enemyLv>=250) then
         enemyLv =250;
     end
@@ -818,6 +822,34 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           end
        end
   return damage;
+end
+
+--回合后事件(奖励怪)
+function Module:OnAfterBattleTurnCommand(battleIndex)
+    local Round = Battle.GetTurn(battleIndex);
+    local leader1 = Battle.GetPlayer(battleIndex,0)
+    local leader2 = Battle.GetPlayer(battleIndex,5)
+    local leader = leader1
+    if Char.GetData(leader2, CONST.对象_类型) == CONST.对象类型_人 then
+        leader = leader2
+    end
+
+    if (leader>=0 and Char.IsPlayer(leader) and Char.GetData(leader, CONST.对象_地图)==7351) then
+      local rugeBossLevel = tonumber(Field.Get(leader, 'RugeBossLevel')) or 0;
+      if rugeBossLevel<60 then Bonus_Encount=BonusSet_L;
+      elseif rugeBossLevel>=60 then Bonus_Encount=BonusSet_H;
+      end
+
+      local encountIndex,flg = Battle.GetNextBattle(battleIndex);
+      --print(encountIndex,flg)
+      if (encountIndex==-1 and flg==0) then
+        if (NLG.Rand(1,100)<=20) then
+          local EncountRand = NLG.Rand(1,#Bonus_Encount);
+          local encountIndex = Data.GetEncountIndex(Bonus_Encount[EncountRand]);
+          Battle.SetNextBattle(battleIndex,encountIndex, Bonus_Encount[EncountRand]);
+        end
+      end
+    end
 end
 
 function RugeNPC_BattleWin(battleIndex, charIndex)
