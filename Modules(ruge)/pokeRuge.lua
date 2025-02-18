@@ -89,7 +89,7 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
-  self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
+  self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
   RugeNPC = self:NPC_createNormal(rugeBoss[1][1], rugeBoss[1][2], { map = rugeBoss[1][3], x = rugeBoss[1][4], y = rugeBoss[1][5], direction = 0, mapType = 0 })
   Char.SetData(RugeNPC,CONST.对象_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC, function(npc, player, _seqno, _select, _data)
@@ -830,8 +830,8 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
   return damage;
 end
 
---回合后事件(奖励怪)
-function Module:OnAfterBattleTurnCommand(battleIndex)
+--回合前事件(奖励怪)
+function Module:OnBeforeBattleTurnCommand(battleIndex)
     local Round = Battle.GetTurn(battleIndex);
     local leader1 = Battle.GetPlayer(battleIndex,0)
     local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -849,12 +849,16 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
       local encountIndex,flg = Battle.GetNextBattle(battleIndex);
       --print(encountIndex,flg)
       if (encountIndex==-1 and flg==0) then
+        --local conBattle = Battle.GetExtData(battleIndex, '奖励连战') or 0;
         if (NLG.Rand(1,100)<=20) then
           local EncountRand = NLG.Rand(1,#Bonus_Encount);
           local encountIndex = Data.GetEncountIndex(Bonus_Encount[EncountRand]);
           Battle.SetNextBattle(battleIndex,encountIndex, Bonus_Encount[EncountRand]);
+          --Battle.SetExtData(battleIndex, '奖励连战', 1);
         end
+      else
       end
+    else
     end
 end
 
