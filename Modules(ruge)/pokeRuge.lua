@@ -256,7 +256,7 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local EnemyIdAr = SetEnemySet(player, 0);
       local EnemyId = EnemyIdAr[1];
-      if (rugeBossLevel>=30 and rugeBossLevel<80) then 
+      if (rugeBossLevel>=30 and rugeBossLevel<=101) then 
         EnemyId = EnemyIdAr[2];
         if (math.fmod(rugeBossLevel, 10)==4 or math.fmod(rugeBossLevel, 10)==9) then
           EnemyId = EnemyIdAr[1];
