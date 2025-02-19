@@ -165,6 +165,7 @@ function Module:onLoad()
         NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
         Char.GiveItem(player, 71101, 1);
+        Char.GiveItem(player, 607728 1);
       elseif data==2 then
         Field.Set(player, 'RugeBossLevel', 0);
         Field.Set(player, 'RugeEnemyIdAr', "0");
@@ -183,6 +184,7 @@ function Module:onLoad()
         NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
         Char.GiveItem(player, 71102, 1);
+        Char.GiveItem(player, 607728 1);
       elseif data==3 then
         Field.Set(player, 'RugeBossLevel', 0);
         Field.Set(player, 'RugeEnemyIdAr', "0");
@@ -201,6 +203,7 @@ function Module:onLoad()
         NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
         Char.GiveItem(player, 71103, 1);
+        Char.GiveItem(player, 607728 1);
       end
       if (bagItemReserve==0) then
         for slot=0,87 do
@@ -952,6 +955,8 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 		Field.Set(leader, 'RugeEnemyIdAr', "0");
 		local rugePrizeString,rugePrizeId = PrizeTmpTable(leader, -1, 0);
 		Field.Set(leader, 'RugePrizeLevel', rugePrizeString);
+		local meowHat = {607720,607721,607722,607723}
+		Char.GiveItem(leader,meowHat[NLG.Rand(1,4)]);
 		Char.Warp(charIndex,0,7351,6,28);
 	else
 		Field.Set(leader, 'RugeBossLevel', rugeBossLevel+1);
