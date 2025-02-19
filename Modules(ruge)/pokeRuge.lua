@@ -939,6 +939,8 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 		end
 		Field.Set(leader, 'RugeBossLevel', 0);
 		Field.Set(leader, 'RugeEnemyIdAr', "0");
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(leader, -1, 0);
+        Field.Set(leader, 'RugePrizeLevel', rugePrizeString);
 		Char.Warp(charIndex,0,7351,6,28);
 	else
 		Field.Set(leader, 'RugeBossLevel', rugeBossLevel+1);
