@@ -1,7 +1,7 @@
----Ô­µØµÇÂ½
+---åŸåœ°ç™»é™†
 local LoginModule = ModuleBase:createModule('loginGate')
 local LoginPoints = {};
--- ³öÉúµã
+-- å‡ºç”Ÿç‚¹
 LoginPoints[-1] = {
   { 0, 7351, 4, 26 },
   { 0, 7351, 5, 26 },
@@ -10,7 +10,7 @@ LoginPoints[-1] = {
   { 0, 7351, 8, 26 },
   { 0, 7351, 9, 26 },
 }
--- ·¨À¼³ÇµÇÂ½µãÉèÖÃ LoginPoint = 0
+-- æ³•å…°åŸç™»é™†ç‚¹è®¾ç½® LoginPoint = 0
 LoginPoints[0] = {
   { 0, 7351, 25, 29 },
   { 0, 7351, 25, 29 },
@@ -19,17 +19,17 @@ LoginPoints[0] = {
   { 0, 7351, 25, 29 },
   { 0, 7351, 25, 29 },
 };
--- °¢¿­Â³·¨´åµÇÂ¼µãÉèÖÃ LoginPoint = 1
+-- é˜¿å‡¯é²æ³•æ‘ç™»å½•ç‚¹è®¾ç½® LoginPoint = 1
 LoginPoints[1] = {
   --{ 0, 33200, 99, 165 },
-  { 0, 7351, 25, 29 },
+  { 0, 7351, 16, 33 },
 };
--- ¸çÀ­¶ûµÇÂ½µãÉèÖÃ LoginPoint = 2
+-- å“¥æ‹‰å°”ç™»é™†ç‚¹è®¾ç½® LoginPoint = 2
 LoginPoints[2] = {
   --{ 0, 43100, 120, 107 },
   { 0, 7351, 25, 29 },
 };
--- ĞÂ³ÇµÇÂ½µãÉèÖÃ LoginPoint = 3
+-- æ–°åŸç™»é™†ç‚¹è®¾ç½® LoginPoint = 3
 LoginPoints[3] = {
   --{ 0, 59520, 140, 105 },
   { 0, 7351, 25, 29 },
@@ -58,22 +58,22 @@ function LoginModule:GetLoginPointEvent(charIndex, mapID, floorID, x, y)
       lastPoint = nil;
     end
   end
-  --self:logDebug('LoginPoint', Char.GetData(charIndex, CONST.CHAR_µÇÂ½µã), table.unpack(lastPoint or {}))
+  --self:logDebug('LoginPoint', Char.GetData(charIndex, CONST.CHAR_ç™»é™†ç‚¹), table.unpack(lastPoint or {}))
   if lastPoint == nil then
-    lastPoint = LoginPoints[Char.GetData(charIndex, CONST.CHAR_µÇÂ½µã)] or LoginPoints[0];
+    lastPoint = LoginPoints[Char.GetData(charIndex, CONST.CHAR_ç™»é™†ç‚¹)] or LoginPoints[0];
     lastPoint = lastPoint[math.random(1, #lastPoint)]
   end
   Field.Set(charIndex, 'LastLogoutPoint', 'null');
-  Char.SetData(charIndex, CONST.CHAR_µØÍ¼ÀàĞÍ, lastPoint[1]);
-  Char.SetData(charIndex, CONST.CHAR_µØÍ¼, lastPoint[2]);
+  Char.SetData(charIndex, CONST.CHAR_åœ°å›¾ç±»å‹, lastPoint[1]);
+  Char.SetData(charIndex, CONST.CHAR_åœ°å›¾, lastPoint[2]);
   Char.SetData(charIndex, CONST.CHAR_X, lastPoint[3]);
   Char.SetData(charIndex, CONST.CHAR_Y, lastPoint[4]);
 end
 
 function LoginModule:LogoutEvent(charIndex)
   local lastPoint = {
-    Char.GetData(charIndex, CONST.CHAR_µØÍ¼ÀàĞÍ),
-    Char.GetData(charIndex, CONST.CHAR_µØÍ¼),
+    Char.GetData(charIndex, CONST.CHAR_åœ°å›¾ç±»å‹),
+    Char.GetData(charIndex, CONST.CHAR_åœ°å›¾),
     Char.GetData(charIndex, CONST.CHAR_X),
     Char.GetData(charIndex, CONST.CHAR_Y),
   };
@@ -93,7 +93,7 @@ function LoginModule:LogoutEvent(charIndex)
   return 0;
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function LoginModule:onLoad()
   self:logInfo('load')
   self:regCallback('GetLoginPointEvent', Func.bind(self.GetLoginPointEvent, self));
@@ -101,7 +101,7 @@ function LoginModule:onLoad()
   self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self))
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function LoginModule:onUnload()
   self:logInfo('unload')
 end
