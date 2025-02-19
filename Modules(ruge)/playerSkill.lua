@@ -1,43 +1,45 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('playerSkill')
 
---Á¬½á¼¼ÄÜ»ù´¡ÉèÖÃ
+--è¿ç»“æŠ€èƒ½åŸºç¡€è®¾ç½®
 local Linked_Tbl = {}
 local linkTechList = {9620,9621,9622,9623,9624,9625,9626,9627,9628,9629,9630,9631,9632,9633,9634,9635,9636,9637,9638,9639}
 local petMettleTable = {
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÈËĞÍ, skillId=9630 , buff = 0.10},              --¶ÔÈËĞÎÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Áú, skillId=9631 , buff = 0.10},              --¶ÔÁú×åÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_²»ËÀ, skillId=9632 , buff = 0.10},              --¶Ô²»ËÀÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_·ÉĞĞ, skillId=9633 , buff = 0.10},              --¶Ô·ÉĞĞÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_À¥³æ, skillId=9634 , buff = 0.10},              --¶ÔÀ¥³æÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ö²Îï, skillId=9635 , buff = 0.10},              --¶ÔÖ²ÎïÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ò°ÊŞ, skillId=9636 , buff = 0.10},              --¶ÔÒ°ÊŞÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÌØÊâ, skillId=9637 , buff = 0.10},              --¶ÔÌØÊâÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_½ğÊô, skillId=9638 , buff = 0.10},              --¶Ô½ğÊôÏµ¶ÔÏóÔö¼ÓÉËº¦
-             { MettleType=5, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ğ°Ä§, skillId=9639 , buff = 0.05},              --¶ÔĞ°Ä§Ïµ¶ÔÏóÔö¼ÓÉËº¦
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_äººå‹, skillId=9630 , buff = 0.10},              --å¯¹äººå½¢ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é¾™, skillId=9631 , buff = 0.10},              --å¯¹é¾™æ—ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ä¸æ­», skillId=9632 , buff = 0.10},              --å¯¹ä¸æ­»ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é£è¡Œ, skillId=9633 , buff = 0.10},              --å¯¹é£è¡Œç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ˜†è™«, skillId=9634 , buff = 0.10},              --å¯¹æ˜†è™«ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ¤ç‰©, skillId=9635 , buff = 0.10},              --å¯¹æ¤ç‰©ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡å…½, skillId=9636 , buff = 0.10},              --å¯¹é‡å…½ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ç‰¹æ®Š, skillId=9637 , buff = 0.10},              --å¯¹ç‰¹æ®Šç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡‘å±, skillId=9638 , buff = 0.10},              --å¯¹é‡‘å±ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
+             { MettleType=5, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‚ªé­”, skillId=9639 , buff = 0.05},              --å¯¹é‚ªé­”ç³»å¯¹è±¡å¢åŠ ä¼¤å®³
 
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÈËĞÍ, skillId=9640 , buff = 0.10},              --¼õÇáÀ´×ÔÈËĞÎÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Áú, skillId=9641 , buff = 0.10},              --¼õÇáÀ´×ÔÁú×åÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_²»ËÀ, skillId=9642 , buff = 0.10},              --¼õÇáÀ´×Ô²»ËÀÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_·ÉĞĞ, skillId=9643 , buff = 0.10},              --¼õÇáÀ´×Ô·ÉĞĞÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_À¥³æ, skillId=9644 , buff = 0.10},              --¼õÇáÀ´×ÔÀ¥³æÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ö²Îï, skillId=9645 , buff = 0.10},              --¼õÇáÀ´×ÔÖ²ÎïÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ò°ÊŞ, skillId=9646 , buff = 0.10},              --¼õÇáÀ´×ÔÒ°ÊŞÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_ÌØÊâ, skillId=9647 , buff = 0.10},              --¼õÇáÀ´×ÔÌØÊâÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_½ğÊô, skillId=9648 , buff = 0.10},              --¼õÇáÀ´×Ô½ğÊôÏµ¶ÔÏóÉËº¦
-             { MettleType=6, type=CONST.CHAR_ÖÖ×å, info=CONST.ÖÖ×å_Ğ°Ä§, skillId=9649 , buff = 0.05},              --¼õÇáÀ´×ÔĞ°Ä§Ïµ¶ÔÏóÉËº¦
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_äººå‹, skillId=9640 , buff = 0.10},              --å‡è½»æ¥è‡ªäººå½¢ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é¾™, skillId=9641 , buff = 0.10},              --å‡è½»æ¥è‡ªé¾™æ—ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ä¸æ­», skillId=9642 , buff = 0.10},              --å‡è½»æ¥è‡ªä¸æ­»ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é£è¡Œ, skillId=9643 , buff = 0.10},              --å‡è½»æ¥è‡ªé£è¡Œç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ˜†è™«, skillId=9644 , buff = 0.10},              --å‡è½»æ¥è‡ªæ˜†è™«ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_æ¤ç‰©, skillId=9645 , buff = 0.10},              --å‡è½»æ¥è‡ªæ¤ç‰©ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡å…½, skillId=9646 , buff = 0.10},              --å‡è½»æ¥è‡ªé‡å…½ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_ç‰¹æ®Š, skillId=9647 , buff = 0.10},              --å‡è½»æ¥è‡ªç‰¹æ®Šç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‡‘å±, skillId=9648 , buff = 0.10},              --å‡è½»æ¥è‡ªé‡‘å±ç³»å¯¹è±¡ä¼¤å®³
+             { MettleType=6, type=CONST.CHAR_ç§æ—, info=CONST.ç§æ—_é‚ªé­”, skillId=9649 , buff = 0.05},              --å‡è½»æ¥è‡ªé‚ªé­”ç³»å¯¹è±¡ä¼¤å®³
 }
 
---ĞÎÏóÔö¼õÉËÉèÖÃ
+--å½¢è±¡å¢å‡ä¼¤è®¾ç½®
 local imageRateTable = {
-             { ImageType=1, imageId=106452, ac_val=1.05, mc_val=1.00, adef_val=1.00, mdef_val=1.00},           --Ôö¼ÓÎïÀíÉËº¦5%
-             { ImageType=2, imageId=106627, ac_val=1.00, mc_val=1.05, adef_val=1.00, mdef_val=1.00},           --Ôö¼ÓÄ§·¨ÉËº¦5%
-             { ImageType=3, imageId=106552, ac_val=1.00, mc_val=1.00, adef_val=0.95, mdef_val=1.00},           --¼õÇáÎïÀíÉËº¦5%
-             { ImageType=4, imageId=106727, ac_val=1.00, mc_val=1.00, adef_val=1.00, mdef_val=0.95},           --¼õÇáÄ§·¨ÉËº¦5%
+             { ImageType=1, imageId=106452, ac_val=1.05, mc_val=1.00, adef_val=1.00, mdef_val=1.00},           --å¢åŠ ç‰©ç†ä¼¤å®³5%
+             { ImageType=2, imageId=106552, ac_val=1.05, mc_val=1.00, adef_val=1.00, mdef_val=1.00},           --å¢åŠ ç‰©ç†ä¼¤å®³5%
+             { ImageType=3, imageId=106527, ac_val=1.00, mc_val=1.00, adef_val=0.95, mdef_val=1.00},           --å‡è½»ç‰©ç†ä¼¤å®³5%
+             { ImageType=4, imageId=106475, ac_val=1.05, mc_val=1.00, adef_val=1.00, mdef_val=1.00},           --å¢åŠ ç‰©ç†ä¼¤å®³5%
+             { ImageType=5, imageId=106727, ac_val=1.00, mc_val=1.00, adef_val=1.00, mdef_val=0.95},           --å‡è½»é­”æ³•ä¼¤å®³5%
+             { ImageType=6, imageId=106627, ac_val=1.00, mc_val=1.05, adef_val=1.00, mdef_val=1.00},           --å¢åŠ é­”æ³•ä¼¤å®³5%
 }
 
 ---------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self))
@@ -53,24 +55,24 @@ function Module:onTribeRateEvent(charIndex, defCharIndex, rate)
          --print(charIndex, defCharIndex, rate)
     return rate;
 end
---ÌØÊâ¼¼ÄÜĞ§¹û
+--ç‰¹æ®ŠæŠ€èƒ½æ•ˆæœ
 function Module:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         --ÌØÊâ¼ÆËã¹«Ê½¼¼ÄÜ
+         --ç‰¹æ®Šè®¡ç®—å…¬å¼æŠ€èƒ½
          if Char.IsPlayer(charIndex)==true then
-               --»ù±¾ÙYÓ
-               local Agile = Char.GetData(charIndex,CONST.CHAR_Ãô½İ);
-               local Blood = Char.GetData(charIndex,CONST.CHAR_Ñª);
+               --åŸºæœ¬è³‡è¨Š
+               local Agile = Char.GetData(charIndex,CONST.CHAR_æ•æ·);
+               local Blood = Char.GetData(charIndex,CONST.CHAR_è¡€);
                local dp = {}
-               dp[1] = Char.GetData(defCharIndex, CONST.CHAR_µØÊôĞÔ)
-               dp[2] = Char.GetData(defCharIndex, CONST.CHAR_Ë®ÊôĞÔ)
-               dp[3] = Char.GetData(defCharIndex, CONST.CHAR_»ğÊôĞÔ)
-               dp[4] = Char.GetData(defCharIndex, CONST.CHAR_·çÊôĞÔ)
+               dp[1] = Char.GetData(defCharIndex, CONST.CHAR_åœ°å±æ€§)
+               dp[2] = Char.GetData(defCharIndex, CONST.CHAR_æ°´å±æ€§)
+               dp[3] = Char.GetData(defCharIndex, CONST.CHAR_ç«å±æ€§)
+               dp[4] = Char.GetData(defCharIndex, CONST.CHAR_é£å±æ€§)
                local AttRate_2 = Battle.CalcAttributeDmgRate(charIndex, defCharIndex)
                local AttRate = (AttRate_2 - 1) * 0.5 + 1
                local RaceRate = Battle.CalcTribeDmgRate(charIndex, defCharIndex) + 1
@@ -101,27 +103,27 @@ function Module:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3
          end
     return damage;
 end
---Á¬½áĞ§¹û(·¶Àı)
+--è¿ç»“æ•ˆæœ(èŒƒä¾‹)
 function Module:LinkedEffect(charIndex, defCharIndex, damage, battleIndex, com3, flg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
          if Char.IsPlayer(charIndex) then
-               --»ù±¾ÙYÓ
-               local LvRate = Char.GetData(charIndex,CONST.CHAR_µÈ¼¶);
-               local Attack = Char.GetData(charIndex,CONST.CHAR_¹¥»÷Á¦);
-               local Defense = Char.GetData(charIndex,CONST.CHAR_·ÀÓùÁ¦);
-               local Avoid = Char.GetData(charIndex,CONST.CHAR_ÉÁ¶ã);
-               local Critical = Char.GetData(charIndex,CONST.CHAR_±ØÉ±);
-               local Counter = Char.GetData(charIndex,CONST.CHAR_·´»÷);
-               local Agile = Char.GetData(charIndex,CONST.CHAR_Ãô½İ);
-               local Spirit = Char.GetData(charIndex,CONST.CHAR_¾«Éñ);
-               local Blood = Char.GetData(charIndex,CONST.CHAR_Ñª);
-               local Mana = Char.GetData(charIndex,CONST.CHAR_Ä§);
-               local Mattack = Char.GetData(charIndex,CONST.CHAR_Ä§¹¥);
+               --åŸºæœ¬è³‡è¨Š
+               local LvRate = Char.GetData(charIndex,CONST.CHAR_ç­‰çº§);
+               local Attack = Char.GetData(charIndex,CONST.CHAR_æ”»å‡»åŠ›);
+               local Defense = Char.GetData(charIndex,CONST.CHAR_é˜²å¾¡åŠ›);
+               local Avoid = Char.GetData(charIndex,CONST.CHAR_é—ªèº²);
+               local Critical = Char.GetData(charIndex,CONST.CHAR_å¿…æ€);
+               local Counter = Char.GetData(charIndex,CONST.CHAR_åå‡»);
+               local Agile = Char.GetData(charIndex,CONST.CHAR_æ•æ·);
+               local Spirit = Char.GetData(charIndex,CONST.CHAR_ç²¾ç¥);
+               local Blood = Char.GetData(charIndex,CONST.CHAR_è¡€);
+               local Mana = Char.GetData(charIndex,CONST.CHAR_é­”);
+               local Mattack = Char.GetData(charIndex,CONST.CHAR_é­”æ”»);
                if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Weapon_Name~=nil then
 
                  local techList = {9519,25815,25816,25817,25818,25819,415,416,417,418,429}
@@ -143,38 +145,38 @@ function Module:LinkedEffect(charIndex, defCharIndex, damage, battleIndex, com3,
          end
     return damage;
 end
---ÖÎÓúÊÂ¼ş
+--æ²»æ„ˆäº‹ä»¶
 function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
          if Char.IsDummy(charIndex) then
            return
          end
-         if (flg==CONST.HealDamageFlags.Heal)  then    --²¹ÑªÖÎÁÆÄ§·¨
+         if (flg==CONST.HealDamageFlags.Heal)  then    --è¡¥è¡€æ²»ç–—é­”æ³•
             if (com3==6300 or com3==6301 or com3==6302)  then
                if (Char.IsPlayer(defCharIndex)==true or Char.IsPet(defCharIndex)==true) then
-                   local D_Buff = Char.GetTempData(defCharIndex, '·ÀÓùÔöÒæ') or 0;
+                   local D_Buff = Char.GetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š') or 0;
                    if (D_Buff<=5)  then
                        heal = 666;
-                       Char.SetTempData(defCharIndex, '·ÀÓùÔöÒæ', 5);
+                       Char.SetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š', 5);
                    end
                end
             end
             return heal;
-         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --»Ö¸´Ä§·¨
+         elseif (flg==CONST.HealDamageFlags.Recovery)  then    --æ¢å¤é­”æ³•
                return heal;
-         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --Ã÷¾µÖ¹Ë®
+         elseif (flg==CONST.HealDamageFlags.Consentration)  then    --æ˜é•œæ­¢æ°´
             if (com3==1200 or com3==1201 or com3==1202)  then
                if (Char.IsPlayer(defCharIndex)==true or Char.IsPet(defCharIndex)==true) then
-                   local A_Buff = Char.GetTempData(defCharIndex, '¹¥»÷ÔöÒæ') or 0;
+                   local A_Buff = Char.GetTempData(defCharIndex, 'æ”»å‡»å¢ç›Š') or 0;
                    if (A_Buff<=3)  then
                        heal = 350;
-                       Char.SetTempData(defCharIndex, '¹¥»÷ÔöÒæ', 3);
+                       Char.SetTempData(defCharIndex, 'æ”»å‡»å¢ç›Š', 3);
                    end
                end
             end
@@ -182,7 +184,7 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
          end
          return heal;
 end
---ÉËº¦ÊÂ¼ş
+--ä¼¤å®³äº‹ä»¶
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
          if Char.IsDummy(charIndex) then
@@ -192,7 +194,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
          --print(charIndex, com1, com2, com3, defCom1, defCom2, defCom3)
-         if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
 		 
@@ -212,14 +214,14 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                   end
               end
          end
-       --print("Ôö¼Ó‚ûº¦"..damage_A.."%","œpÉÙ‚ûº¦"..damage_D.."%")
+       --print("å¢åŠ å‚·å®³"..damage_A.."%","æ¸›å°‘å‚·å®³"..damage_D.."%")
 
-        --ĞÎÏóÔö¼õ‚SÊı
+        --å½¢è±¡å¢å‡ä¿‚æ•°
         local ac_val, mc_val, adef_val, mdef_val = self:ImageRate(charIndex, defCharIndex, damage, battleIndex);
        --print(ac_val, mc_val, adef_val, mdef_val)
 
          if  flg == CONST.DamageFlags.Combo and Char.IsEnemy(defCharIndex) == true and Char.IsPlayer(charIndex) == true then
-            local enemyId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID);
+            local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
             if (enemyId==400021) then
                     Char.GiveItem(charIndex, 40844, 1);
                     NLG.SortItem(charIndex);
@@ -227,22 +229,22 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
          end
          if flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPlayer(defCharIndex)==true  then
            if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical  then
-               local damage = damage * adef_val;		--ĞÎÏóÔö¼õÉË
-               local D_Buff = Char.GetTempData(defCharIndex, '·ÀÓùÔöÒæ') or 0;
+               local damage = damage * adef_val;		--å½¢è±¡å¢å‡ä¼¤
+               local D_Buff = Char.GetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š') or 0;
                if (D_Buff >= 1)  then
                    local damage = math.floor(damage * 0.8);
                    --print(oriDamage,damage);
-                   Char.SetTempData(defCharIndex, '·ÀÓùÔöÒæ', D_Buff - 1);
+                   Char.SetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š', D_Buff - 1);
                    return damage;
                end
                return damage;
            elseif flg == CONST.DamageFlags.Magic  then
-               local damage = damage * mdef_val;		--ĞÎÏóÔö¼õÉË
-               local D_Buff = Char.GetTempData(defCharIndex, '·ÀÓùÔöÒæ') or 0;
+               local damage = damage * mdef_val;		--å½¢è±¡å¢å‡ä¼¤
+               local D_Buff = Char.GetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š') or 0;
                if (D_Buff >= 1)  then
                    local damage = math.floor(damage * 0.8);
                    --print(oriDamage,damage);
-                   Char.SetTempData(defCharIndex, '·ÀÓùÔöÒæ', D_Buff - 1);
+                   Char.SetTempData(defCharIndex, 'é˜²å¾¡å¢ç›Š', D_Buff - 1);
                    return damage;
                end
                return damage;
@@ -250,24 +252,24 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
            return damage;
          elseif flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge and Char.IsPlayer(charIndex)==true  then
            if  flg == CONST.DamageFlags.Normal or flg == CONST.DamageFlags.Critical  then
-               local damage = damage * ac_val;		--ĞÎÏóÔö¼õÉË
+               local damage = damage * ac_val;		--å½¢è±¡å¢å‡ä¼¤
                local damage = self:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
-               local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
+               local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
                if (A_Buff >= 1)  then
                    local damage = math.floor(damage * 1.35);
                    --print(oriDamage,damage);
-                   Char.SetTempData(charIndex, '¹¥»÷ÔöÒæ', A_Buff - 1);
+                   Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', A_Buff - 1);
                    return damage;
                end
                return damage;
            elseif flg == CONST.DamageFlags.Magic  then
-               local damage = damage * mc_val;		--ĞÎÏóÔö¼õÉË
+               local damage = damage * mc_val;		--å½¢è±¡å¢å‡ä¼¤
                local damage = self:SpecialDamage(charIndex, defCharIndex, damage, battleIndex, com3, flg);
-               local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
+               local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
                if (A_Buff >= 1)  then
                    local damage = math.floor(damage * 1.35);
                    --print(oriDamage,damage);
-                   Char.SetTempData(charIndex, '¹¥»÷ÔöÒæ', A_Buff - 1);
+                   Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', A_Buff - 1);
                    return damage;
                end
                return damage;
@@ -278,13 +280,13 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 end
 
 ---------------------------------------------------------------------------
-------¹¦ÄÜº¯Êı
---Á¬½áÊı¼ÆËã
+------åŠŸèƒ½å‡½æ•°
+--è¿ç»“æ•°è®¡ç®—
 function Module:OnbattleStarCommand(battleIndex)
     for i=0, 19 do
         local charIndex = Battle.GetPlayIndex(battleIndex, i)
         if (charIndex>=0 and Char.IsPlayer(charIndex)==true) then
-            local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
+            local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
             if (A_Buff >= 1) then
                     NLG.SetHeadIcon(charIndex, 119646);
             else
@@ -296,28 +298,28 @@ function Module:OnbattleStarCommand(battleIndex)
          local leader1 = Battle.GetPlayer(battleIndex,0)
          local leader2 = Battle.GetPlayer(battleIndex,5)
          local leader = leader1
-         if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+         if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
                leader = leader2
          end
-         --ÖØÖÃ×´Ì¬
+         --é‡ç½®çŠ¶æ€
          Linked_Tbl = {}
-         --¼ÆËãÔöÒæÊıÁ¿
+         --è®¡ç®—å¢ç›Šæ•°é‡
          for i = 0, 9 do
                local playerPet = Battle.GetPlayIndex(battleIndex, i);
-               if (playerPet >= 0 and Char.GetData(leader,CONST.¶ÔÏó_Õ½¶·Side)==0 and Battle.GetType(battleIndex)==1) then
-                   if (Char.GetData(playerPet, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è)  then
+               if (playerPet >= 0 and Char.GetData(leader,CONST.å¯¹è±¡_æˆ˜æ–—Side)==0 and Battle.GetType(battleIndex)==1) then
+                   if (Char.GetData(playerPet, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å® )  then
                        for slot=0,9 do
                            local linkTechId = Pet.GetSkill(playerPet, slot);
                            table.forEach(linkTechList, function(e)
                                if (linkTechId == e) then
-                                   --È·ÈÏÓĞÎŞÊı¾İ
+                                   --ç¡®è®¤æœ‰æ— æ•°æ®
                                    local boxCheck = 0;
                                    for i=1,#Linked_Tbl do
                                        if (Linked_Tbl[i][1]==e) then
                                            boxCheck=i;
                                        end
                                    end
-                                   --ÔöÒæ·ÅÈë±í¸ñ
+                                   --å¢ç›Šæ”¾å…¥è¡¨æ ¼
                                    if (boxCheck>0) then
                                        Linked_Tbl[boxCheck][2] = Linked_Tbl[boxCheck][2]+1;
                                    elseif (boxCheck==0) then
@@ -332,42 +334,42 @@ function Module:OnbattleStarCommand(battleIndex)
          end
 end
 
---½áÊø¡¢×¢Ïú³õÊ¼»¯
+--ç»“æŸã€æ³¨é”€åˆå§‹åŒ–
 function Module:battleOverEventCallback(battleIndex)
   for i = 0, 19 do
         local charIndex = Battle.GetPlayer(battleIndex, i);
         if charIndex >= 0 then
-              local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
-              local D_Buff = Char.GetTempData(charIndex, '·ÀÓùÔöÒæ') or 0;
+              local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
+              local D_Buff = Char.GetTempData(charIndex, 'é˜²å¾¡å¢ç›Š') or 0;
               if (A_Buff >= 1) then
-                 Char.SetTempData(charIndex, '¹¥»÷ÔöÒæ', 0);
+                 Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', 0);
               end
               if (D_Buff >= 1) then
-                 Char.SetTempData(charIndex, '·ÀÓùÔöÒæ', 0);
+                 Char.SetTempData(charIndex, 'é˜²å¾¡å¢ç›Š', 0);
               end
         end
   end
 end
 function Module:onLogbattleOverEvent(charIndex)
-	local A_Buff = Char.GetTempData(charIndex, '¹¥»÷ÔöÒæ') or 0;
-	local D_Buff = Char.GetTempData(charIndex, '·ÀÓùÔöÒæ') or 0;
+	local A_Buff = Char.GetTempData(charIndex, 'æ”»å‡»å¢ç›Š') or 0;
+	local D_Buff = Char.GetTempData(charIndex, 'é˜²å¾¡å¢ç›Š') or 0;
 	if (A_Buff >= 1) then
-		Char.SetTempData(charIndex, '¹¥»÷ÔöÒæ', 0);
+		Char.SetTempData(charIndex, 'æ”»å‡»å¢ç›Š', 0);
 	end
 	if (D_Buff >= 1) then
-		Char.SetTempData(charIndex, '·ÀÓùÔöÒæ', 0);
+		Char.SetTempData(charIndex, 'é˜²å¾¡å¢ç›Š', 0);
 	end
 end
 
 
---Ôö¼õÉËÏµÊı¼ÆËã
+--å¢å‡ä¼¤ç³»æ•°è®¡ç®—
 function Module:ImageRate(charIndex, defCharIndex, damage, battleIndex)
         local ac_val_Rate = 1;
         local mc_val_Rate = 1;
         local adef_val_Rate = 1;
         local mdef_val_Rate = 1;
         if Char.IsPlayer(charIndex) == true and Char.IsPlayer(defCharIndex) == false then
-            local imageId = Char.GetData(charIndex, CONST.¶ÔÏó_ĞÎÏó)
+            local imageId = Char.GetData(charIndex, CONST.å¯¹è±¡_å½¢è±¡)
             for k, v in ipairs(imageRateTable) do
                if (imageId == v.imageId) then
                   if (NLG.Rand(1,10) <= 10) then
@@ -385,7 +387,7 @@ function Module:ImageRate(charIndex, defCharIndex, damage, battleIndex)
             end
           return ac_val_Rate, mc_val_Rate, adef_val_Rate, mdef_val_Rate;
         elseif Char.IsPlayer(defCharIndex) == true and Char.IsPlayer(charIndex) == false then
-            local imageId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ĞÎÏó)
+            local imageId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_å½¢è±¡)
             for k, v in ipairs(imageRateTable) do
                if (imageId == v.imageId) then
                   if (NLG.Rand(1,10) <= 10) then
@@ -407,7 +409,7 @@ function Module:ImageRate(charIndex, defCharIndex, damage, battleIndex)
           local temp_mc_1 = 1;
           local temp_adef_1 = 1;
           local temp_mdef_1 = 1;
-          local imageId = Char.GetData(charIndex, CONST.¶ÔÏó_ĞÎÏó)
+          local imageId = Char.GetData(charIndex, CONST.å¯¹è±¡_å½¢è±¡)
           for k, v in ipairs(imageRateTable) do
                if (imageId == v.imageId) then
                   if (NLG.Rand(1,10) <= 10) then
@@ -427,7 +429,7 @@ function Module:ImageRate(charIndex, defCharIndex, damage, battleIndex)
           local temp_mc_2 = 1;
           local temp_adef_2 = 1;
           local temp_mdef_2 = 1;
-          local imageId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ĞÎÏó)
+          local imageId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_å½¢è±¡)
           for k, v in ipairs(imageRateTable) do
                if (imageId == v.imageId) then
                   if (NLG.Rand(1,10) <= 10) then
@@ -453,7 +455,7 @@ function Module:ImageRate(charIndex, defCharIndex, damage, battleIndex)
     return 1,1,1,1;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
