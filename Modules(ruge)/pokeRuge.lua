@@ -314,7 +314,15 @@ function Module:onLoad()
         return;
     end
     if seqno == 1 and select==CONST.按钮_确定 then
-		if (Char.ItemNum(player, 66668)<50) then
+        local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
+        if (Char.GetData(player, CONST.对象_名色)==0 and rugeBossLevel==0) then
+          NLG.SystemMessage(player,"[系統]輪迴試煉請前方找女神。");
+          return;
+        elseif (Char.GetData(player, CONST.对象_名色)~=0 and rugeBossLevel==0) then
+          NLG.SystemMessage(player,"[系統]聯盟冠軍請重新入場。");
+          return;
+        end
+        if (Char.ItemNum(player, 66668)<50) then
           NLG.SystemMessage(player,"[系統]金幣數量不足，無法傳送。");
           return;
         end
@@ -934,6 +942,7 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 		for k,v in ipairs(achieveList) do
 			if (Char.GetData(leader, CONST.对象_名色)==v.nameColor) then
 				Char.SetData(leader, CONST.对象_名色, v.newColor);
+				Char.SetData(leader, CONST.对象_登陆点, 1);
 				Char.EndEvent(leader, v.endEvent, 1);
 				NLG.UpChar(leader);
 				Char.CheckTitle(leader);
@@ -941,8 +950,8 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 		end
 		Field.Set(leader, 'RugeBossLevel', 0);
 		Field.Set(leader, 'RugeEnemyIdAr', "0");
-        local rugePrizeString,rugePrizeId = PrizeTmpTable(leader, -1, 0);
-        Field.Set(leader, 'RugePrizeLevel', rugePrizeString);
+		local rugePrizeString,rugePrizeId = PrizeTmpTable(leader, -1, 0);
+		Field.Set(leader, 'RugePrizeLevel', rugePrizeString);
 		Char.Warp(charIndex,0,7351,6,28);
 	else
 		Field.Set(leader, 'RugeBossLevel', rugeBossLevel+1);
