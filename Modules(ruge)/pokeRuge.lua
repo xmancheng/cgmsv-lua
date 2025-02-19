@@ -59,8 +59,8 @@ local EnemySet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 local MobsSet_L = {710001,710002,710003,710004,710005,710006,710007,710008,}		--enemyId
 local MobsSet_M = {710009,710010,710011,710012,710013,710014,710015,710016,710017,}
 local MobsSet_H = {710018,710019,710020,710021,710022,710023,710024,710025,710026,710027,710028,710029,}
-local BossSet_L = {710030,710031,710032,710033,710034,710035,710036,710037,}
-local BossSet_H = {710038,710039,710040,710041,710042,}
+local BossSet_L = {710030,710031,710032,710033,710034,710035,}
+local BossSet_H = {710038,710039,710040,710045,710046,710047,}
 -----------------------------------------------
 local BonusSet_L = {720001,720002,720003,720004,720005,720006,720007,720008,720009,720010,720014,720015,720016,720017,720037,720038,720039,720040,}	--encountId
 local BonusSet_H = {720011,720012,720013,720018,720019,720020,720021,720022,720023,720024,720025,720026,720027,720028,720029,720030,720031,720032,720033,720034,720035,720036,}
@@ -82,6 +82,16 @@ prizeMenu[3] = {
   {71122,71123,71124,71125,71126,71127,71128,71129,71130,71131,71132,71133,},			--伙伴
   {72104,72105,74002,74005,74008,74011,74014,74017,74020,74023,74026,74029,74032,74035,74038,74041,},			--稀有道具.技能书
 }
+-----------------------------------------------
+--成就设置
+local achieveList = {
+  { nameColor=0, newColor=1, endEvent=301, finalEnemySet={710042, 710014, 710013, 0, 0, 710015, 0, 0, 0, 710043},},
+  { nameColor=1, newColor=5, endEvent=302, finalEnemySet={720010, 0, 0, 0, 0, 710031, 0, 0, 710032, 710030},},
+  { nameColor=5, newColor=2, endEvent=303, finalEnemySet={720013, 0, 0, 720011, 720012, 720016, 720015, 720014, 0, 0},},
+  { nameColor=2, newColor=6, endEvent=304, finalEnemySet={710041, 0, 0, 0, 710034, 720025, 710033, 710035, 720031, 720030},},
+  { nameColor=6, newColor=4, endEvent=305, finalEnemySet={720033, 0, 0, 710036, 710037, 0, 0, 0, 0, 0},},
+  { nameColor=4, newColor=10, endEvent=306, finalEnemySet={720036, 0, 0, 0, 0, 0, 720035, 720034, 0, 0},},
+}
 
 -------------------------------------------------------------------------------------------
 --- 加载模块钩子
@@ -90,6 +100,7 @@ function Module:onLoad()
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
+  self:regCallback('LoginGateEvent', Func.bind(self.onLoginEvent, self));
   RugeNPC = self:NPC_createNormal(rugeBoss[1][1], rugeBoss[1][2], { map = rugeBoss[1][3], x = rugeBoss[1][4], y = rugeBoss[1][5], direction = 0, mapType = 0 })
   Char.SetData(RugeNPC,CONST.对象_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC, function(npc, player, _seqno, _select, _data)
@@ -861,6 +872,16 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
     else
     end
 end
+--登回城事件
+function Module:onLoginEvent(charIndex)
+	if Char.IsDummy(charIndex) then
+		return
+	end
+	if (Char.GetData(charIndex, CONST.对象_名色)~=0 and Char.GetData(charIndex, CONST.对象_地图)==7351) then
+		Char.Warp(charIndex,0,7351,16,33);
+        NLG.SystemMessage(charIndex,"[系統]冠軍的難度提升，返場需付金幣。");
+	end
+end
 
 function RugeNPC_BattleWin(battleIndex, charIndex)
 	--计算等第
@@ -908,9 +929,17 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 	end
 ]]
 	if (rugeBossLevel>=99) then
+		for k,v in ipairs(achieveList) do
+			if (Char.GetData(leader, CONST.对象_名色)==v.nameColor) then
+				Char.SetData(leader, CONST.对象_名色, v.newColor);
+				Char.EndEvent(leader, v.endEvent, 1);
+				NLG.UpChar(leader);
+				Char.CheckTitle(leader);
+			end
+		end
 		Field.Set(leader, 'RugeBossLevel', 0);
 		Field.Set(leader, 'RugeEnemyIdAr', "0");
-		Char.Warp(charIndex,0,1000,225,86);
+		Char.Warp(charIndex,0,7351,6,28);
 	else
 		Field.Set(leader, 'RugeBossLevel', rugeBossLevel+1);
 		Field.Set(leader, 'RugeEnemyIdAr', "0");
@@ -984,6 +1013,12 @@ function SetEnemySet(player, type)
 			elseif (rugeBossLevel>=80) then
 				local rand = NLG.Rand(1,#BossSet_H);
 				EnemySet[1]=BossSet_H[rand];
+			elseif (rugeBossLevel==99) then
+				for k,v in ipairs(achieveList) do
+					if (Char.GetData(player, CONST.对象_名色)==v.nameColor) then
+						EnemySet=v.finalEnemySet;
+					end
+				end
 			end
 		end
 		local rugeEnemyTemp = ""
@@ -1007,9 +1042,9 @@ end
 --奖励抽取与刷新
 function PrizeTmpTable(player, type, line)
 	local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-	if rugeBossLevel<30 then level=1;
-	elseif rugeBossLevel>=30 and rugeBossLevel<70 then level=2;
-	elseif rugeBossLevel>=70 then level=3;
+	if rugeBossLevel<50 then level=1;
+	elseif rugeBossLevel>=50 and rugeBossLevel<80 then level=2;
+	elseif rugeBossLevel>=80 then level=3;
 	end
 
 	local rugePrizeString = Field.Get(player, 'RugePrizeLevel');
