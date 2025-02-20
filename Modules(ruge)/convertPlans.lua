@@ -268,7 +268,7 @@ function convertOfferingInfo(seqno)
               local Item_name= Data.ItemsetGetData( ItemsetIndex, CONST.ITEMSET_TRUENAME);
               local probRate = prob(seqno,convert_plan_pet[seqno][10]);
               local msg = msg .. "\\n\\n\\n\\n\\n　$5道具: ".. Item_name .. "1個" .. "　　$5魔幣: " .. Gold .. " G\\n"
-                                              .. "　$4成功機率: ".. probRate .. "%" .. "　　$9失敗殘念品: 第一順位之寵物"
+                                              .. "　$4成功機率: ".. probRate .. "%" .. "　　$9注意: 建議僅留下材料寵"
       return msg;
 end
 
@@ -299,7 +299,8 @@ function convertMutation(seqno,player)
               Char.AddGold(player, -convert_plan_gold[seqno]);
               local randCatch= NLG.Rand(1, #convert_plan_pet[seqno] );
               for i = 1,#convert_plan_offering[seqno] do
-                  Char.DelPet(player, convert_plan_offering[seqno][i], 1, 1);
+                  --Char.DelPet(player, convert_plan_offering[seqno][i], 1, 1);
+                  Char.DelPet(player, convert_plan_offering[seqno][i], 1, 2);
               end
               Char.GivePet(player,convert_plan_pet[seqno][randCatch],0);
 end
