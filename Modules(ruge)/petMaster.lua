@@ -3,7 +3,7 @@ local Module = ModuleBase:createModule('petMaster')
 
 local StarSysOn = 0;
 local StarRequireLevel = {10, 30, 50, 70, 100};
-local StarRequireGold = {1000, 15000, 20000, 40000, 50000};
+local StarRequireGold = {200, 500, 1000, 2000, 5000};
 
 local StarEnable_check= {
     700101,700102,700103,700104,700105,700106,700107,700108,700109,700110,
@@ -112,7 +112,7 @@ function Module:petMasterInfo(npc, player)
                               .. "　　　　　$1第一格放置要提升星級的主要寵物\\n"
                               .. "　　　　$2注意:  其餘位置將暫時為材料寵物區\\n"
           local petIndex = Char.GetPet(player,0);	--主宠固定宠物栏第一格
-          local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+          local PetId = Char.GetData(petIndex,CONST.宠物_PETID);
           if (petIndex>=0 and CheckInTable(StarEnable_check, PetId)==true) then
               --主要宠物
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
@@ -161,7 +161,7 @@ function Module:onLoad()
                               .. "　　　　　$1第一格放置要提升星級的主要寵物\\n"
                               .. "　　　　$2注意:  其餘位置將暫時為材料寵物區\\n"
           local petIndex = Char.GetPet(player,0);	--主宠固定宠物栏第一格
-          local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+          local PetId = Char.GetData(petIndex,CONST.宠物_PETID);
           if (petIndex>=0 and CheckInTable(StarEnable_check, PetId)==true) then
               --主要宠物
               local PetName_1 = Char.GetData(petIndex,CONST.对象_原名);
