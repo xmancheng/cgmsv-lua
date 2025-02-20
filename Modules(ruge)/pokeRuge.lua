@@ -87,13 +87,13 @@ prizeMenu[3] = {
 -----------------------------------------------
 --成就设置
 local achieveList = {
-  { nameColor=0, newColor=1, endEvent=301, finalEnemySet={710042, 710014, 710013, 0, 0, 710015, 0, 0, 0, 710043},},
-  { nameColor=1, newColor=5, endEvent=302, finalEnemySet={720010, 0, 0, 0, 0, 710031, 0, 0, 710032, 710030},},
-  { nameColor=5, newColor=2, endEvent=303, finalEnemySet={720013, 0, 0, 720011, 720012, 720016, 720015, 720014, 0, 0},},
-  { nameColor=2, newColor=6, endEvent=304, finalEnemySet={710041, 0, 0, 0, 710034, 720025, 710033, 710035, 720031, 720030},},
-  { nameColor=6, newColor=4, endEvent=305, finalEnemySet={720033, 0, 0, 710036, 710037, 0, 0, 0, 0, 0},},
-  { nameColor=4, newColor=10, endEvent=306, finalEnemySet={720036, 0, 0, 0, 0, 0, 720035, 720034, 0, 0},},
-  { nameColor=10, newColor=10, endEvent=306, finalEnemySet={710047, 0, 0, 0, 0, 0, 710046, 710045, 0, 0},},
+  { nameColor=0, newColor=1, endEvent=301, baselevel=5, finalEnemySet={710042, 710014, 710013, 0, 0, 710015, 0, 0, 0, 710043},},
+  { nameColor=1, newColor=5, endEvent=302, baselevel=10, finalEnemySet={720010, 0, 0, 0, 0, 710031, 0, 0, 710032, 710030},},
+  { nameColor=5, newColor=2, endEvent=303, baselevel=15, finalEnemySet={720013, 0, 0, 720011, 720012, 720016, 720015, 720014, 0, 0},},
+  { nameColor=2, newColor=6, endEvent=304, baselevel=20, finalEnemySet={710041, 0, 0, 0, 710034, 720025, 710033, 710035, 720031, 720030},},
+  { nameColor=6, newColor=4, endEvent=305, baselevel=30, finalEnemySet={720033, 0, 0, 710036, 710037, 0, 0, 0, 0, 0},},
+  { nameColor=4, newColor=10, endEvent=306, baselevel=40, finalEnemySet={720036, 0, 0, 0, 0, 0, 720035, 720034, 0, 0},},
+  { nameColor=10, newColor=10, endEvent=306, baselevel=50, finalEnemySet={710047, 0, 0, 0, 0, 0, 710046, 710045, 0, 0},},
 }
 
 -------------------------------------------------------------------------------------------
@@ -259,7 +259,12 @@ function Module:onLoad()
         NLG.SystemMessage(player,"[系統]交出5金幣刷新對戰。");
     elseif seqno == 2 and select == CONST.按钮_是 then
         local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-        local enemyLv = 5 + (rugeBossLevel * 1);
+        for k,v in ipairs(achieveList) do
+            if (Char.GetData(player, CONST.对象_名色)==v.nameColor) then
+                baselevel_now=v.baselevel;
+            end
+        end
+        local enemyLv = baselevel_now + (rugeBossLevel * 1);
         if (enemyLv>=250) then
             enemyLv =250;
         end
@@ -272,7 +277,12 @@ function Module:onLoad()
   self:NPC_regTalkedEvent(RugeNPC2, function(npc, player)
     local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
     local nowLevel = rugeBossLevel+1;
-    local enemyLv = 5 + (rugeBossLevel * 1);
+    for k,v in ipairs(achieveList) do
+        if (Char.GetData(player, CONST.对象_名色)==v.nameColor) then
+            baselevel_now=v.baselevel;
+        end
+    end
+    local enemyLv = baselevel_now + (rugeBossLevel * 1);
     if (enemyLv>=250) then
         enemyLv =250;
     end
@@ -788,11 +798,13 @@ function Module:OnbattleStartEventCallback(battleIndex)
 					NLG.Say(player,-1,"【守住領域】【狂暴領域】",4,3);
 				end
 			end
-		elseif enemy>=0 and Char.IsEnemy(enemy)  then
 			if CheckInTable(BossSet_L,enemyId)==true or CheckInTable(BossSet_H,enemyId)==true  then
 				Char.SetTempData(enemy, '守住', rugeBossLevel);
 				Char.SetTempData(enemy, '狂暴', rugeBossLevel);
 				NLG.UpChar(enemy);
+				if Char.GetData(player,CONST.对象_对战开关) == 1  then
+					NLG.Say(player,-1,"【守住領域】【狂暴領域】",4,3);
+				end
 			end
 		end
 	end
@@ -1026,10 +1038,13 @@ function SetEnemySet(player, type)
 		end
 		--每5级1号位放入BOSS
 		if (math.fmod(rugeBossLevel, 10)==4 or math.fmod(rugeBossLevel, 10)==9) then
-			if (rugeBossLevel>=20 and rugeBossLevel<80) then
+			if (rugeBossLevel>=10 and rugeBossLevel<20) then
+				local rand = NLG.Rand(1,#BossSet_L);
+				EnemySet[5]=BossSet_L[rand];
+			elseif (rugeBossLevel>=20 and rugeBossLevel<75) then
 				local rand = NLG.Rand(1,#BossSet_L);
 				EnemySet[1]=BossSet_L[rand];
-			elseif (rugeBossLevel>=80 and rugeBossLevel<=98) then
+			elseif (rugeBossLevel>=75 and rugeBossLevel<=98) then
 				local rand = NLG.Rand(1,#BossSet_H);
 				EnemySet[1]=BossSet_H[rand];
 			elseif (rugeBossLevel==99) then
@@ -1061,9 +1076,9 @@ end
 --奖励抽取与刷新
 function PrizeTmpTable(player, type, line)
 	local rugeBossLevel = tonumber(Field.Get(player, 'RugeBossLevel')) or 0;
-	if rugeBossLevel<50 then level=1;
-	elseif rugeBossLevel>=50 and rugeBossLevel<80 then level=2;
-	elseif rugeBossLevel>=80 then level=3;
+	if rugeBossLevel<35 then level=1;
+	elseif rugeBossLevel>=35 and rugeBossLevel<75 then level=2;
+	elseif rugeBossLevel>=75 then level=3;
 	end
 
 	local rugePrizeString = Field.Get(player, 'RugePrizeLevel');
