@@ -93,6 +93,7 @@ local achieveList = {
   { nameColor=2, newColor=6, endEvent=304, finalEnemySet={710041, 0, 0, 0, 710034, 720025, 710033, 710035, 720031, 720030},},
   { nameColor=6, newColor=4, endEvent=305, finalEnemySet={720033, 0, 0, 710036, 710037, 0, 0, 0, 0, 0},},
   { nameColor=4, newColor=10, endEvent=306, finalEnemySet={720036, 0, 0, 0, 0, 0, 720035, 720034, 0, 0},},
+  { nameColor=10, newColor=10, endEvent=306, finalEnemySet={710047, 0, 0, 0, 0, 0, 710046, 710045, 0, 0},},
 }
 
 -------------------------------------------------------------------------------------------
