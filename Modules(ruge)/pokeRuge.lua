@@ -138,6 +138,7 @@ function Module:onLoad()
                 .."[　選擇  水系夥伴　]\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 12, msg);
     elseif seqno == 12 then
+      --[[
       local heroesData = self:queryHeroesData(player);
       for k, v in ipairs(heroesData) do
         local heroData = self:getHeroDataByid(player,v.id);
@@ -148,6 +149,7 @@ function Module:onLoad()
         getModule('heroesFn'):delHeroDummy(player,heroData);
         getModule('heroesFn'):deleteHeroData(player,v);
       end
+      ]]
       if data==1 then
         Field.Set(player, 'RugeBossLevel', 0);
         Field.Set(player, 'RugeEnemyIdAr', "0");
@@ -336,13 +338,13 @@ function Module:onLoad()
           NLG.SystemMessage(player,"[系統]聯盟冠軍請重新入場。");
           return;
         end
-        if (Char.ItemNum(player, 66668)<50) then
+        if (Char.ItemNum(player, 66668)<10) then
           NLG.SystemMessage(player,"[系統]金幣數量不足，無法傳送。");
           return;
         end
         Char.Warp(player,0,7351,16,28);
-        Char.DelItem(player, 66668, 50);
-        NLG.SystemMessage(player,"[系統]交出50金幣重新無痛進場。");
+        Char.DelItem(player, 66668, 10);
+        NLG.SystemMessage(player,"[系統]交出10金幣重新無痛進場。");
     end
   end)
   self:NPC_regTalkedEvent(RugeNPC3, function(npc, player)
@@ -352,7 +354,7 @@ function Module:onLoad()
       local msg = "\\n時空神克洛諾斯："
                 .."\\n不知道你遭遇什麼意外事件，掉入召喚儀式的時空裂縫無法回歸\\n"
                 .."\\n我可以施展時空神的秘術「幫助你」，將你傳送回去寶可夢奇幻世界\\n"
-                .."\\n但是代價不斐需要50金幣，你願意支付嗎？\\n";
+                .."\\n但是代價不斐需要10金幣，你願意支付嗎？\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     end
     return
@@ -886,12 +888,17 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
       local encountIndex,flg = Battle.GetNextBattle(battleIndex);
       --print(encountIndex,flg)
       if (encountIndex==-1 and flg==0) then
-        --local conBattle = Battle.GetExtData(battleIndex, '奖励连战') or 0;
-        if (NLG.Rand(1,100)<=20) then
+        local conBattle = Battle.GetExtData(battleIndex, '奖励连战') or 0;
+        if (Round==1 and NLG.Rand(1,100)<=20) then
+          Battle.SetExtData(battleIndex, '奖励连战', 1);
           local EncountRand = NLG.Rand(1,#Bonus_Encount);
           local encountIndex = Data.GetEncountIndex(Bonus_Encount[EncountRand]);
           Battle.SetNextBattle(battleIndex,encountIndex, Bonus_Encount[EncountRand]);
           --Battle.SetExtData(battleIndex, '奖励连战', 1);
+        elseif (Round>=4 and conBattle==0 and NLG.Rand(1,100)>=95) then
+          Battle.SetExtData(battleIndex, '奖励连战', 1);
+          local encountIndex = Data.GetEncountIndex(720041);
+          Battle.SetNextBattle(battleIndex,encountIndex, 720041);
         end
       else
       end
@@ -931,6 +938,17 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 		if player>=0 and Char.IsPlayer(player)==true and not Char.IsDummy(player) then
 			Char.GiveItem(player, 66668, drop);
 		end
+	end
+
+	local conBattle = Battle.GetExtData(battleIndex, '奖励连战') or 0;
+	if (conBattle==1) then
+		for p=0,9 do
+			local player = Battle.GetPlayIndex(battleIndex, p);
+			if player>=0 and Char.IsPlayer(player)==true and not Char.IsDummy(player) then
+			Char.GiveItem(player, 66668, 100);
+			end	
+		end
+		Battle.SetExtData(battleIndex, '奖励连战', 0);
 	end
 --[[
 	--依等第分配奖励
