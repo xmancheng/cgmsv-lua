@@ -215,6 +215,9 @@ function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Dama
 			end
 			return Damage
 		elseif (Flg == CONST.DamageFlags.Normal or Flg == CONST.DamageFlags.Critical) then
+			if (Com3>=9500 and Com3<=9509) then
+				return Damage
+			end
 			if (boom_list[CharIndex] == 1) then
 				local cnt = 0
 				if (boom_tag[CharIndex] == 1) then
