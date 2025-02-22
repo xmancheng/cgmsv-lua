@@ -40,6 +40,7 @@ end
 
 -----------------------------------------------
 --系统设置
+local partnerReserve=1;		--1保留.0全删除
 local bagItemReserve=1;		--1保留.0全删除
 local bagPetReserve=1;		--1保留.0全删除
 local poolItemReserve=1;		--1保留.0全删除
@@ -104,6 +105,7 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
   self:regCallback('LoginGateEvent', Func.bind(self.onLoginEvent, self));
+  self:regCallback("LevelUpEvent", Func.bind(self.onLevelUpEvent, self));
   RugeNPC = self:NPC_createNormal(rugeBoss[1][1], rugeBoss[1][2], { map = rugeBoss[1][3], x = rugeBoss[1][4], y = rugeBoss[1][5], direction = 0, mapType = 0 })
   Char.SetData(RugeNPC,CONST.对象_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC, function(npc, player, _seqno, _select, _data)
@@ -138,18 +140,18 @@ function Module:onLoad()
                 .."[　選擇  水系夥伴　]\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 12, msg);
     elseif seqno == 12 then
-      --[[
-      local heroesData = self:queryHeroesData(player);
-      for k, v in ipairs(heroesData) do
-        local heroData = self:getHeroDataByid(player,v.id);
-        local heroIndex  = heroData.index
-        if heroIndex~=nil then
-          Char.LeaveParty(heroIndex);
+      if (partnerReserve==0) then
+        local heroesData = self:queryHeroesData(player);
+        for k, v in ipairs(heroesData) do
+          local heroData = self:getHeroDataByid(player,v.id);
+          local heroIndex  = heroData.index
+          if heroIndex~=nil then
+            Char.LeaveParty(heroIndex);
+          end
+          getModule('heroesFn'):delHeroDummy(player,heroData);
+          getModule('heroesFn'):deleteHeroData(player,v);
         end
-        getModule('heroesFn'):delHeroDummy(player,heroData);
-        getModule('heroesFn'):deleteHeroData(player,v);
       end
-      ]]
       if data==1 then
         Field.Set(player, 'RugeBossLevel', 0);
         Field.Set(player, 'RugeEnemyIdAr', "0");
@@ -896,7 +898,7 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
           Battle.SetNextBattle(battleIndex,encountIndex, Bonus_Encount[EncountRand]);
           --Battle.SetExtData(battleIndex, '奖励连战', 1);
         elseif (Round>=4 and conBattle==0 and NLG.Rand(1,100)>=95) then
-          Battle.SetExtData(battleIndex, '奖励连战', 1);
+          Battle.SetExtData(battleIndex, '奖励连战', 2);
           local encountIndex = Data.GetEncountIndex(720041);
           Battle.SetNextBattle(battleIndex,encountIndex, 720041);
         end
@@ -913,6 +915,42 @@ function Module:onLoginEvent(charIndex)
 	if (Char.GetData(charIndex, CONST.对象_名色)~=0 and Char.GetData(charIndex, CONST.对象_地图)==7351) then
 		Char.Warp(charIndex,0,7351,16,33);
         NLG.SystemMessage(charIndex,"[系統]冠軍的難度提升，返場需付金幣。");
+	end
+end
+--人物自动配点
+function Module:onLevelUpEvent(charIndex)
+	local name = Char.GetData(charIndex,CONST.对象_名字)
+	if (Char.IsPlayer(charIndex) and Char.GetData(charIndex, CONST.对象_地图)==7351) then
+		local levelUpPoint = Char.GetData(charIndex,CONST.对象_升级点);
+		local times,rest = math.modf(levelUpPoint/4);
+		local pointAttrs = {
+			{CONST.对象_体力,"体力"},
+			{CONST.对象_力量,"力量"},
+			{CONST.对象_强度,"强度"},
+			{CONST.对象_速度,"速度"},
+			{CONST.对象_魔法,"魔法"},
+		}
+
+		if (times>=4) then
+			times=4;
+		end
+		for i=1,times+1 do
+			for k,v in pairs(pointAttrs) do
+				if (Char.GetData(charIndex,CONST.对象_职类ID)==2010 or Char.GetData(charIndex,CONST.对象_职类ID)==2020 or Char.GetData(charIndex,CONST.对象_职类ID)==2030) then
+					pointSetting={1,2,0,1,0};
+				elseif (Char.GetData(charIndex,CONST.对象_职类ID)==2040) then
+					pointSetting={1,0,0,1,2};
+				end
+				local data = (pointSetting[k] or 0 )*100
+
+				local originData = Char.GetData(charIndex,pointAttrs[k][1]);
+				Char.SetData(charIndex,pointAttrs[k][1], data+originData);
+				NLG.UpChar(charIndex);
+			end
+			local restPoint = Char.GetData(charIndex,CONST.对象_升级点);
+			Char.SetData(charIndex,CONST.对象_升级点, restPoint-4);
+			NLG.UpChar(charIndex);
+		end
 	end
 end
 
@@ -941,7 +979,7 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 	end
 
 	local conBattle = Battle.GetExtData(battleIndex, '奖励连战') or 0;
-	if (conBattle==1) then
+	if (conBattle==2) then
 		for p=0,9 do
 			local player = Battle.GetPlayIndex(battleIndex, p);
 			if player>=0 and Char.IsPlayer(player)==true and not Char.IsDummy(player) then
