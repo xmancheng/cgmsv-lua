@@ -56,6 +56,53 @@ convert_plan_item[8] = {70268};
 convert_plan_gold[8] =15000;
 convert_plan_pet[8] = {700122,700122,700122,700208,700208,700208,700208,700208,700208,700208};
 
+convert_plan_name[9] = "《150D》蓋歐卡";
+convert_plan_offering[9] = {700132,700112,700118};
+convert_plan_item[9] = {70268};
+convert_plan_gold[9] =15000;
+convert_plan_pet[9] = {700132,700132,700132,700132,700213,700213,700213,700213,700213,700213};
+
+convert_plan_name[10] = "《150D》固拉多";
+convert_plan_offering[10] = {700127,700119,700117};
+convert_plan_item[10] = {70268};
+convert_plan_gold[10] =15000;
+convert_plan_pet[10] = {700127,700127,700127,700127,700214,700214,700214,700214,700214,700214};
+
+convert_plan_name[11] = "《150D》烈空坐";
+convert_plan_offering[11] = {700124,700111,700116};
+convert_plan_item[11] = {70268};
+convert_plan_gold[11] =15000;
+convert_plan_pet[11] = {700124,700124,700124,700124,700215,700215,700215,700215,700215,700215};
+
+convert_plan_name[12] = "《150D》凱羅斯";
+convert_plan_offering[12] = {700123,700110,700107};
+convert_plan_item[12] = {70268};
+convert_plan_gold[12] =15000;
+convert_plan_pet[12] = {700123,700123,700123,700123,700216,700216,700216,700216,700216,700216};
+
+convert_plan_name[13] = "《150D》赫拉克羅斯";
+convert_plan_offering[13] = {700123,700110,700107};
+convert_plan_item[13] = {70268};
+convert_plan_gold[13] =15000;
+convert_plan_pet[13] = {700123,700123,700123,700123,700217,700217,700217,700217,700217,700217};
+
+convert_plan_name[14] = "《150D》巨沼怪";
+convert_plan_offering[14] = {700125,700112,700113};
+convert_plan_item[14] = {70268};
+convert_plan_gold[14] =15000;
+convert_plan_pet[14] = {700125,700125,700125,700125,700218,700218,700218,700218,700218,700218};
+
+convert_plan_name[15] = "《150D》基格爾德";
+convert_plan_offering[15] = {700120,700119,700121};
+convert_plan_item[15] = {70268};
+convert_plan_gold[15] =25000;
+convert_plan_pet[15] = {700120,700120,700120,700120,700120,700120,700120,700219,700219,700219};
+
+convert_plan_name[16] = "《150D》超夢";
+convert_plan_offering[16] = {700102,700101,700103};
+convert_plan_item[16] = {70268};
+convert_plan_gold[16] =25000;
+convert_plan_pet[16] = {700102,700102,700102,700102,700102,700102,700102,700220,700220,700220};
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#convert_plan_name / 8) + 1
