@@ -1085,12 +1085,12 @@ function SetEnemySet(player, type)
 			EnemySet[3]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
 		elseif rugeBossLevel>=90 then    -- 绝级
 			for k=7,10 do
-				EnemySet[k]=MobsSet_M[NLG.Rand(1,#MobsSet_M)];
+				EnemySet[k]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
 				ix=ix+1;
 			end
-			EnemySet[2]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
-			EnemySet[3]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
-			EnemySet[6]=MobsSet_H[NLG.Rand(1,#MobsSet_H)];
+			EnemySet[2]=BossSet_L[NLG.Rand(1,#BossSet_L)];
+			EnemySet[3]=BossSet_L[NLG.Rand(1,#BossSet_L)];
+			EnemySet[6]=BossSet_L[NLG.Rand(1,#BossSet_L)];
 		end
 		--每5级1号位放入BOSS
 		if (math.fmod(rugeBossLevel, 10)==4 or math.fmod(rugeBossLevel, 10)==9) then
