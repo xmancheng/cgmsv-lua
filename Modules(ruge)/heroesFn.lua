@@ -835,13 +835,13 @@ function module:buildCampHeroOperator(charIndex,heroData)
 
   local items={
     "夥伴狀態",
-    --"寵物狀態",
+    "寵物狀態",
     --"水晶選擇",
     "交換物品",
     "刪除物品",
     "加點設置",
     "夥伴AI設置".."【"..name1.."】",
-    --"寵物AI設置".."【"..name2.."】",
+    "寵物AI設置".."【"..name2.."】",
     --"夥伴改名",
     --"更換形象"
   }

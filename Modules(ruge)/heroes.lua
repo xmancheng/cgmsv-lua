@@ -243,18 +243,18 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
           sgModule:set(charIndex,"statusPage",1)
           self:showCampHeroDataWindow(charIndex,1)
         end
---[[
+
         if data == 2 then
           self:showCampHeroPetWindow(charIndex)
         end
-
+--[[
         if data == 3 then
           sgModule:set(charIndex,"statusPage",1)
           self:showCrystalSelection(charIndex,1)
         end
 ]]
         --if data == 4 then
-        if data == 2 then
+        if data == 3 then
           sgModule:set(charIndex,"statusPage",1)
   
           sgModule:set(charIndex,"statusItemWindow",0)
@@ -262,7 +262,7 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
         end
 
         --if data == 5 then
-        if data == 3 then
+        if data == 4 then
           sgModule:set(charIndex,"statusPage",1)
   
           sgModule:set(charIndex,"statusItemWindow",1)
@@ -270,21 +270,22 @@ function module:recruitTalked(npc, charIndex, seqno, select, data)
         end
 
         --if data == 6 then
-        if data == 4 then
+        if data == 5 then
           self:showHeroOperationSecWindow(charIndex)
         end
 
         --if data == 7 then
-        if data == 5 then
+        if data == 6 then
           sgModule:set(charIndex,"statusPage",1)
           self:showCampHeroSkills(charIndex,1)
         end
---[[
-        if data == 8 then
+
+        --if data == 8 then
+        if data == 7 then
           sgModule:set(charIndex,"statusPage",1)
           self:showPetSkills(charIndex,1)
         end
-]]
+
       end
     elseif curOperationPage == 2 then
       if data<0 then
@@ -851,13 +852,13 @@ function module:showCampHeroOperationWindow(charIndex, data, heroData, page)
 
   local list = {
     "夥伴狀態",
-    --"寵物狀態",
+    "寵物狀態",
     --"水晶選擇",
     "交換物品",
     "刪除物品",
     "加點設置",
     "夥伴AI設置".."【"..name1.."】",
-    --"寵物AI設置".."【"..name2.."】",
+    "寵物AI設置".."【"..name2.."】",
     --"夥伴改名",
     --"更換形象"
   }
