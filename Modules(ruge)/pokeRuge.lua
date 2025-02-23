@@ -340,13 +340,19 @@ function Module:onLoad()
           NLG.SystemMessage(player,"[系統]聯盟冠軍請重新入場。");
           return;
         end
-        if (Char.ItemNum(player, 66668)<10) then
+        if (Char.ItemNum(player, 66668)<30) then
           NLG.SystemMessage(player,"[系統]金幣數量不足，無法傳送。");
           return;
         end
+        Field.Set(player, 'RugeBossLevel', 0);
+        Field.Set(player, 'RugeEnemyIdAr', "0");
+        local rugePrizeString,rugePrizeId = PrizeTmpTable(player, -1, 0);
+        Field.Set(player, 'RugePrizeLevel', rugePrizeString);
+        Char.SetData(player, CONST.对象_登陆点, 0);
+        NLG.UpChar(player);
         Char.Warp(player,0,7351,16,28);
-        Char.DelItem(player, 66668, 10);
-        NLG.SystemMessage(player,"[系統]交出10金幣重新無痛進場。");
+        Char.DelItem(player, 66668, 30);
+        NLG.SystemMessage(player,"[系統]交出30金幣重新輪迴進場。");
     end
   end)
   self:NPC_regTalkedEvent(RugeNPC3, function(npc, player)
@@ -356,7 +362,7 @@ function Module:onLoad()
       local msg = "\\n時空神克洛諾斯："
                 .."\\n不知道你遭遇什麼意外事件，掉入召喚儀式的時空裂縫無法回歸\\n"
                 .."\\n我可以施展時空神的秘術「幫助你」，將你傳送回去寶可夢奇幻世界\\n"
-                .."\\n但是代價不斐需要10金幣，你願意支付嗎？\\n";
+                .."\\n但是代價不斐需要30金幣，你願意支付嗎？\\n";
       NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     end
     return
