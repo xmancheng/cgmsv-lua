@@ -105,7 +105,8 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
   self:regCallback('LoginGateEvent', Func.bind(self.onLoginEvent, self));
-  self:regCallback("LevelUpEvent", Func.bind(self.onLevelUpEvent, self));
+  self:regCallback('LevelUpEvent', Func.bind(self.onLevelUpEvent, self));
+  self:regCallback('BattlePetLeaveCheckEvent', Func.bind(self.onBattlePetLeaveCheckEvent, self));
   RugeNPC = self:NPC_createNormal(rugeBoss[1][1], rugeBoss[1][2], { map = rugeBoss[1][3], x = rugeBoss[1][4], y = rugeBoss[1][5], direction = 0, mapType = 0 })
   Char.SetData(RugeNPC,CONST.对象_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(RugeNPC, function(npc, player, _seqno, _select, _data)
@@ -798,7 +799,8 @@ function Module:onLoad()
 
 
 end
-
+-------------------------------------------------------------------------------------------
+--战斗开始事件(怪物光环)
 function Module:OnbattleStartEventCallback(battleIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -835,7 +837,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		end
 	end
 end
-
+--战斗伤害事件(怪物光环)
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
       local Round = Battle.GetTurn(battleIndex);
@@ -953,6 +955,9 @@ function Module:onLevelUpEvent(charIndex)
 			{CONST.对象_魔法,"魔法"},
 		}
 
+		if (times>=4) then
+			times=4;
+		end
 		--print(levelUpPoint,times)
 		for i=0,times do
 			for k,v in pairs(pointAttrs) do
@@ -973,7 +978,18 @@ function Module:onLevelUpEvent(charIndex)
 		end
 	end
 end
-
+--战斗宠物行为检测事件
+function Module:onBattlePetLeaveCheckEvent(battleIndex, charIndex, type, com1, com2, com3)
+	--type number (0:正常, 1:收宠, 2:位置, 3: 发呆, 4: 防御, 5: 攻击， 6: ?, 7: 逃跑)
+	--self:logDebug('OnBattlePetLeaveCheckEventCallBack', battleIndex, charIndex, type, com1, com2, com3)
+	if (type==7) then
+		local type=4;
+		NLG.SystemMessage(charIndex,"[系統]寵物差點逃跑了，引誘其進入防禦狀態。");
+		return type
+	end
+	return type
+end
+--战斗结束胜利事件
 function RugeNPC_BattleWin(battleIndex, charIndex)
 	--计算等第
 	local leader1 = Battle.GetPlayer(battleIndex,0)
@@ -1058,6 +1074,8 @@ function RugeNPC_BattleWin(battleIndex, charIndex)
 	Battle.UnsetWinEvent(battleIndex);
 end
 
+-------------------------------------------------------------------------------------------
+----功能函数
 --对战组合
 function SetEnemySet(player, type)
 	local rugeEnemySet={}
