@@ -164,6 +164,10 @@ function Module:onLoad()
         Char.SetData(player, CONST.对象_速度, 0);
         Char.SetData(player, CONST.对象_魔法, 0);
         Char.SetData(player, CONST.对象_升级点, 146);
+        if (Char.GetData(player, CONST.对象_名色)==4 or Char.GetData(player, CONST.对象_名色)==10) then
+          Char.SetData(player, CONST.对象_等级, 40);
+          Char.SetData(player, CONST.对象_升级点, 186);
+        end
         Char.SetData(player, CONST.对象_经验, 0);
         Char.SetData(player, CONST.对象_登陆点, 0);
         Char.EndEvent(player, 0, 1);
@@ -183,6 +187,10 @@ function Module:onLoad()
         Char.SetData(player, CONST.对象_速度, 0);
         Char.SetData(player, CONST.对象_魔法, 0);
         Char.SetData(player, CONST.对象_升级点, 146);
+        if (Char.GetData(player, CONST.对象_名色)==4 or Char.GetData(player, CONST.对象_名色)==10) then
+          Char.SetData(player, CONST.对象_等级, 40);
+          Char.SetData(player, CONST.对象_升级点, 186);
+        end
         Char.SetData(player, CONST.对象_经验, 0);
         Char.SetData(player, CONST.对象_登陆点, 0);
         Char.EndEvent(player, 0, 1);
@@ -202,6 +210,10 @@ function Module:onLoad()
         Char.SetData(player, CONST.对象_速度, 0);
         Char.SetData(player, CONST.对象_魔法, 0);
         Char.SetData(player, CONST.对象_升级点, 146);
+        if (Char.GetData(player, CONST.对象_名色)==4 or Char.GetData(player, CONST.对象_名色)==10) then
+          Char.SetData(player, CONST.对象_等级, 40);
+          Char.SetData(player, CONST.对象_升级点, 186);
+        end
         Char.SetData(player, CONST.对象_经验, 0);
         Char.SetData(player, CONST.对象_登陆点, 0);
         Char.EndEvent(player, 0, 1);
@@ -266,8 +278,10 @@ function Module:onLoad()
         for k,v in ipairs(achieveList) do
             if (Char.GetData(player, CONST.对象_名色)==v.nameColor) then
                 baselevel_now=v.baselevel;
+                goto continue
             end
         end
+        ::continue::
         local enemyLv = baselevel_now + (rugeBossLevel * 1);
         if (enemyLv>=250) then
             enemyLv =250;
@@ -284,8 +298,10 @@ function Module:onLoad()
     for k,v in ipairs(achieveList) do
         if (Char.GetData(player, CONST.对象_名色)==v.nameColor) then
             baselevel_now=v.baselevel;
+            goto continue
         end
     end
+    ::continue::
     local enemyLv = baselevel_now + (rugeBossLevel * 1);
     if (enemyLv>=250) then
         enemyLv =250;
