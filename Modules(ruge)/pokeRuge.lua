@@ -953,10 +953,8 @@ function Module:onLevelUpEvent(charIndex)
 			{CONST.对象_魔法,"魔法"},
 		}
 
-		if (times>=4) then
-			times=4;
-		end
-		for i=1,times+1 do
+		--print(levelUpPoint,times)
+		for i=0,times do
 			for k,v in pairs(pointAttrs) do
 				if (Char.GetData(charIndex,CONST.对象_职类ID)==2010 or Char.GetData(charIndex,CONST.对象_职类ID)==2020 or Char.GetData(charIndex,CONST.对象_职类ID)==2030) then
 					pointSetting={1,2,0,1,0};
