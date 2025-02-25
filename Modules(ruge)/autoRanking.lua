@@ -1,31 +1,32 @@
 local Module = ModuleBase:createModule('autoRanking')
 
 local AutoMenus = {
-  { "ˆóÃûÓ–¾š¼ÒŒ¦‘ğ" },
-  { "Ó^¿´ˆóÃû¿‚ÈË”µ" },
-  { "ßMĞĞŒ¦‘ğˆöÓ^‘ğ" },
+  { "å ±åè¨“ç·´å®¶å°æˆ°" },
+  { "è§€çœ‹å ±åç¸½äººæ•¸" },
+  { "é€²è¡Œå°æˆ°å ´è§€æˆ°" },
 }
 
----»ù±¾ÉèÖÃÎğĞŞ¸Ä
+---åŸºæœ¬è®¾ç½®å‹¿ä¿®æ”¹
+local Enter = 0
 local Number = 0
 local tbl_playerautoranking = {}
 local PartyMember = {}
 
---±³¾°ÉèÖÃ
+--èƒŒæ™¯è®¾ç½®
 tbl_swjjc_goinfo = {};
-tbl_win_user = {};			--µ±Ç°³¡´ÎÊ¤ÀûÍæ¼ÒµÄÁĞ±í
+tbl_win_user = {};			--å½“å‰åœºæ¬¡èƒœåˆ©ç©å®¶çš„åˆ—è¡¨
 tbl_swjjc_begin = {};
 tbl_swjjc_time ={};
 tbl_swjjc_setting =
 {
 	start = 0;
 	round_count =1;
-	first_round_user_max = 20; 	--µÚÒ»³¡´ÎÈëÑ¡Ãû¶îÏŞÖÆ
+	first_round_user_max = 20; 	--ç¬¬ä¸€åœºæ¬¡å…¥é€‰åé¢é™åˆ¶
 	this_user_WinFunc = nil;
-	WinFunc = nil;				--µ±Ç°³¡´ÎËùÓĞÍæ¼ÒÕ½¶·½áÊøºóµÄ»Øµ÷º¯Êı
+	WinFunc = nil;				--å½“å‰åœºæ¬¡æ‰€æœ‰ç©å®¶æˆ˜æ–—ç»“æŸåçš„å›è°ƒå‡½æ•°
 };
 
---ÔËĞĞÉèÖÃ
+--è¿è¡Œè®¾ç½®
 round_count = "round_count";
 create_battle_count = "create_battle_count";
 create_battle_count_bak = "create_battle_count_bak";
@@ -40,69 +41,77 @@ tbl_swjjc_begin[Loopbegin] = false;
 tbl_swjjc_time[time] = {};
 
 -------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
-  self:regCallback('LoopEvent', Func.bind(self.TrainerBattle_LoopEvent,self))
-  local rankingNPC = self:NPC_createNormal('Œš¿É‰ôÓ–¾š¼ÒŒ¦‘ğ', 11394, { map = 7351, x = 26, y = 37, direction = 4, mapType = 0 })
-  Char.SetLoopEvent('./lua/Modules/autoRanking.lua','TrainerBattle_LoopEvent',rankingNPC, 1000);
+  self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self));
+  self:regCallback('LoopEvent', Func.bind(self.TrainerBattle_LoopEvent,self));
+  local rankingNPC = self:NPC_createNormal('å¯¶å¯å¤¢è¨“ç·´å®¶å°æˆ°', 11394, { map = 7351, x = 26, y = 37, direction = 4, mapType = 0 })
+  Char.SetLoopEvent('lua/Modules/autoRanking.lua','TrainerBattle_LoopEvent',rankingNPC, 1000);
   self:NPC_regWindowTalkedEvent(rankingNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
     if seqno == 1 then
-     if data == 1 then  ----±¨Ãû¶ÔÕ½
+     if data == 1 then  ----æŠ¥åå¯¹æˆ˜
+       if (Enter==0) then
+         NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]å ±åå…¥å ´æ™‚é–“ç‚ºæ¯æ—¥20:00-20:29ï¼");
+         return;
+       end
        if (tbl_swjjc_setting.start==1 or tbl_swjjc_setting.start==2) then
-         NLG.SystemMessage(player,"[Ïµ½y]ÌìÌİŒ¦‘ğÒÑ½›é_Ê¼ÕˆµÈ´ıÏÂÒ»ˆö£¡");
+         NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°å·²ç¶“é–‹å§‹ï¼Œè«‹ç­‰å¾…æ˜æ—¥å ±åï¼");
          return;
        end
        if (tbl_playerautoranking[cdk]~=nil) then
          Char.Warp(player,0,25290,15,34);
-         --NLG.SystemMessage(player,"[Ïµ½y]ÄãÒÑ½›ˆóÃûß^±¾İ†ÌìÌİŒ¦‘ğ£¡");
+         --NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]ä½ å·²ç¶“å ±åéæœ¬æ¬¡è¨“ç·´å®¶å°æˆ°ï¼");
          return;
        end
        if (tbl_playerautoranking[cdk]==nil) then
-         local msg = "\\n@cÓ–¾š¼ÒŒ¦‘ğÕfÃ÷\\n"
-                  .. "\\nÃ¿ÈÕÍíÉÏ°ËücßMĞĞˆóÃû\\n"
-                  .. "\\n°ëĞ¡•rááˆöƒÈ×Ô„ÓÅäŒ¦\\n"
-                  .. "\\n¹ÚÜŠ«@µÃèÊ¯ª„„îÏä\\n"
-                  .. "\\nÆäËû…¢¼ÓÕß«@µÃ½ğÅ\\n";
-         NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 11, msg);
+         local msg = "\\n@cè¨“ç·´å®¶å°æˆ°èªªæ˜\\n"
+                  .. "\\næ¯æ—¥æ™šä¸Šå…«é»é€²è¡Œå ±å\\n"
+                  .. "\\nåŠå°æ™‚å¾Œå ´å…§è‡ªå‹•é…å°\\n"
+                  .. "\\nå† è»ç²å¾—é‘½çŸ³çå‹µç®±\\n"
+                  .. "\\nå…¶ä»–åƒåŠ è€…ç²å¾—é‡‘å¹£\\n";
+         NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 11, msg);
        end
      end
 
-     if data == 2 then  ----¹Û¿´±¨ÃûÈËÊı&Ö´ĞĞ
+     if data == 2 then  ----è§‚çœ‹æŠ¥åäººæ•°&æ‰§è¡Œ
        if (tbl_swjjc_setting.start==0) then
-         NLG.SystemMessage(player,"[Ïµ½y]¬FÔÚÒÑ½›ÓĞ ".. Number .." ê ˆóÃû³É¹¦£¡");
+         NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]ç¾åœ¨å·²ç¶“æœ‰ ".. Number .." éšŠå ±åæˆåŠŸï¼");
          return;
        else
-         NLG.SystemMessage(player,"[Ïµ½y]ÌìÌİŒ¦‘ğÒÑé_Ê¼ÕˆÉÔáá£¡");
+         NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°å·²é–‹å§‹è«‹ç¨å¾Œï¼");
          return;
        end
      end
 
-     if data == 3 then  ----½øĞĞ³¡Íâ¹ÛÕ½
+     if data == 3 then  ----è¿›è¡Œåœºå¤–è§‚æˆ˜
        if (tbl_swjjc_setting.start==1 or tbl_swjjc_setting.start==2) then
-           local msg = "3\\n@cŒ¦‘ğˆöÙÊÂÓ^‘ğ\\n"
-                                .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n";
-           for i = 1, #tbl_duel_user do
+           local msg = "3\\n@cå°æˆ°å ´è³½äº‹è§€æˆ°\\n"
+                     .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n";
+           if (tbl_duel_user~=nil) then
+             for i = 1, #tbl_duel_user do
                local duelplayer = tbl_duel_user[i];
-               local duelplayerName = Char.GetData(duelplayer,CONST.¶ÔÏó_Ãû×Ö);
-                   msg = msg .. duelplayerName .. "¡¡VS¡¡".. "\\n"
+               local duelplayerName = Char.GetData(duelplayer,CONST.å¯¹è±¡_åå­—);
+               msg = msg .. duelplayerName .. "ã€€VSã€€".. "\\n"
+             end
            end
-           NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 31, msg);
+           NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 31, msg);
        else
+         NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°å°šæœªé–‹å§‹ã€‚");
          return;
        end
      end
 
     end
     ------------------------------------------------------------
-    if seqno == 11 then  ----±¨Ãû¶ÔÕ½Ö´ĞĞ
+    if seqno == 11 then  ----æŠ¥åå¯¹æˆ˜æ‰§è¡Œ
      if select == 4 then
-       local playerName = Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö);
-       local partyname = playerName .. "£­ê ";
+       local playerName = Char.GetData(player,CONST.å¯¹è±¡_åå­—);
+       local partyname = playerName .. "ï¼éšŠ";
        --print(partyname)
        tbl_playerautoranking[cdk] = {}
        table.insert(tbl_playerautoranking[cdk],cdk);
@@ -111,12 +120,16 @@ function Module:onLoad()
 
        PartyMember[cdk] = {}
        for partySlot = 0,4 do 
-                    local targetcharIndex = Char.GetPartyMember(player,partySlot);
-                    if targetcharIndex >= 0  then
-                          table.insert(PartyMember[cdk], partySlot+1, targetcharIndex);
-                    else
-                          table.insert(PartyMember[cdk], partySlot+1, -1);
-                    end
+           local targetcharIndex = Char.GetPartyMember(player,partySlot);
+           if targetcharIndex >= 0  then
+               table.insert(PartyMember[cdk], partySlot+1, targetcharIndex);
+           else
+               table.insert(PartyMember[cdk], partySlot+1, -1);
+           end
+           if (partySlot>=1 and not Char.IsDummy(targetcharIndex)) then
+             NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°åªèƒ½å’Œä¼™ä¼´ä¸€èµ·åƒåŠ ã€‚");
+             return;
+           end
        end
        table.insert(PartyMember[cdk],cdk);
 
@@ -127,7 +140,7 @@ function Module:onLoad()
      end
     end
 
-    if seqno == 31 then  ----½øĞĞ³¡Íâ¹ÛÕ½&Ö´ĞĞ
+    if seqno == 31 then  ----è¿›è¡Œåœºå¤–è§‚æˆ˜&æ‰§è¡Œ
      key = data
      local duelplayer= tbl_duel_user[key];
          if ( duelplayer ~= nil ) then
@@ -139,22 +152,22 @@ function Module:onLoad()
 
   end)
 
-  self:NPC_regTalkedEvent(rankingNPC, function(npc, player)  ----¶ÔÕ½¹¦ÄÜAutoMenus{}
+  self:NPC_regTalkedEvent(rankingNPC, function(npc, player)  ----å¯¹æˆ˜åŠŸèƒ½AutoMenus{}
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "3\\n@cšgÓ­Ã¿ÈÕ…¢¼ÓÓ–¾š¼ÒŒ¦‘ğ\\n\\n\\n";
+      local msg = "3\\n@cæ­¡è¿æ¯æ—¥åƒåŠ è¨“ç·´å®¶å°æˆ°\\n\\n\\n";
       for i = 1, 3 do
         msg = msg .. AutoMenus[i][1] .. "\\n"
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return
   end)
 
 end
 
-function Module:onSellerTalked(npc, player)  ----ÉèÁ¢ÌÔÌ­Áì½±´¦
+function Module:onSellerTalked(npc, player)  ----è®¾ç«‹æ·˜æ±°é¢†å¥–å¤„
   if (NLG.CanTalk(npc, player) == true) then
-     Char.GiveItem(player,69000,50);
+     Char.GiveItem(player,66668,50);
      Char.Warp(player,0,7351,25,29);
   end
 end
@@ -163,26 +176,57 @@ function Module:onSellerSelected(npc, player, seqNo, select, data)
      return
   end
 end
-
-function TrainerBattle_LoopEvent(npc)
-	local CTime = tonumber(os.date("%H",FTime));
-	if (os.date("%X",os.time())=="20:00:00") then
-		tbl_swjjc_setting.start = 0
-		NLG.SystemMessage(-1,"[´ó•ş¹«¸æ]Ó–¾š¼ÒŒ¦‘ğ¼´Œ¢é_Ê¼£¬Õˆ±MËÙˆóÃûÈëˆö¡£");
-	elseif (os.date("%X",os.time())=="20:20:00") then
-		NLG.SystemMessage(-1,"[´ó•ş¹«¸æ]Ó–¾š¼ÒŒ¦‘ğˆóÃûÊ£ÏÂ10·ÖçŠ£¬Õˆ±MËÙˆóÃûÈëˆö¡£");
-	elseif (os.date("%X",os.time())=="20:30:00") then
+------------------------------------------------
+-------åŠŸèƒ½è®¾ç½®
+--æŒ‡ä»¤å¯åŠ¨
+function Module:handleTalkEvent(charIndex,msg,color,range,size)
+	if (msg=="[nr trainerbattle on]") then
 		if (tbl_swjjc_setting.start == 0) then
+			Enter=1;
 			swjjcStart(npc);
-			local awardnpc = self:NPC_createNormal( 'ÌÔÌ­°²Î¿ª„', 17092, { map = 25291, x = 36, y = 13, direction = 6, mapType = 0 })
+			local awardnpc = self:NPC_createNormal( 'æ·˜æ±°å®‰æ…°ç', 17092, { map = 25291, x = 36, y = 13, direction = 6, mapType = 0 })
 			self:NPC_regTalkedEvent(awardnpc, Func.bind(self.onSellerTalked, self))
 			self:NPC_regWindowTalkedEvent(awardnpc, Func.bind(self.onSellerSelected, self));
 			Char.SetLoopEvent('./lua/Modules/autoRanking.lua','swjjcStartNpcLoopEvent', awardnpc,1000); 
 			tbl_swjjc_time[time][1] = os.time();
 			tbl_swjjc_setting.start = 1
+			NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°é–‹å§‹ï¼Œå ±åå·²æˆªæ­¢å¯å‰å¾€è§€æˆ°ã€‚");
+			return 0;
+		else
+			NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°å·²é–‹å§‹ï¼Œå¯å‰å¾€è§€æˆ°ã€‚");
+			return 0;
 		end
-		NLG.SystemMessage(-1,"[´ó•ş¹«¸æ]Ó–¾š¼ÒŒ¦‘ğé_Ê¼£¬ˆóÃû½ØÖ¹¿ÉÇ°ÍùÓ^‘ğ¡£");
+	elseif (msg=="[nr trainerbattle off]") then
+		Enter=0;
+		tbl_swjjc_setting.start = 0
+		NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°å·²åœ“æ»¿çµæŸã€‚");
+		return 0;
+	end
+	return 1;
+end
+--å¯¹æˆ˜å¼€å§‹å¾ªç¯
+function TrainerBattle_LoopEvent(npc)
+	local CTime = tonumber(os.date("%H",FTime));
+	if (os.date("%X",os.time())=="20:00:00") then
+		Enter=1;
+		tbl_swjjc_setting.start = 0
+		NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°å³å°‡é–‹å§‹ï¼Œè«‹ç›¡é€Ÿå ±åå…¥å ´ã€‚");
+	elseif (os.date("%X",os.time())=="20:20:00") then
+		NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°å ±åå‰©ä¸‹10åˆ†é˜ï¼Œè«‹ç›¡é€Ÿå ±åå…¥å ´ã€‚");
+	elseif (os.date("%X",os.time())=="20:30:00") then
+		if (tbl_swjjc_setting.start == 0) then
+			Enter=1;
+			swjjcStart(npc);
+			local awardnpc = self:NPC_createNormal( 'æ·˜æ±°å®‰æ…°ç', 17092, { map = 25291, x = 36, y = 13, direction = 6, mapType = 0 })
+			self:NPC_regTalkedEvent(awardnpc, Func.bind(self.onSellerTalked, self))
+			self:NPC_regWindowTalkedEvent(awardnpc, Func.bind(self.onSellerSelected, self));
+			Char.SetLoopEvent('./lua/Modules/autoRanking.lua','swjjcStartNpcLoopEvent', awardnpc,1000); 
+			tbl_swjjc_time[time][1] = os.time();
+			tbl_swjjc_setting.start = 1
+			NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°é–‹å§‹ï¼Œå ±åå·²æˆªæ­¢å¯å‰å¾€è§€æˆ°ã€‚");
+		end
 	elseif (os.date("%X",os.time())=="23:59:59") then
+		Enter=0;
 		tbl_swjjc_setting.start = 0
 	end
 end
@@ -194,7 +238,7 @@ function swjjcStartNpcLoopEvent(index)
 	if (tbl_swjjc_time[time][1] ~= nil) then
 		local timec = tbl_swjjc_time[time][2] - tbl_swjjc_time[time][1];
 		if (timec <= 20) then
-			NLG.SystemMessage(tbl_win_user,"Ó–¾š¼ÒŒ¦‘ğÏÂÒ»»Ø¼´Œ¢é_Ê¼£¬µ¹”µ "..tostring(20 - timec).."Ãë¡£");
+			NLG.SystemMessage(tbl_win_user,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°ä¸‹ä¸€å›å³å°‡é–‹å§‹ï¼Œå€’æ•¸ "..tostring(20 - timec).."ç§’ã€‚");
 			tbl_swjjc_begin[Loopbegin] = false;
 			return;
 		end
@@ -218,13 +262,17 @@ function swjjcStart(npc)
 	tbl_swjjc_setting.start = 1;
 
 	local MapUser = NLG.GetMapPlayer(0,25290);
+	local trainer = {};
 
 	for i,v in ipairs(MapUser)do
-	--	NLG.SystemMessage(-1,Char.GetData(v,CONST.¶ÔÏó_Ãû×Ö));
+		--NLG.SystemMessage(-1,Char.GetData(v,CONST.å¯¹è±¡_åå­—));
+		if not Char.IsDummy(v) then
+			table.insert(trainer,v);
+		end
 	end
 
 	setUser_WinFunc('user_WinFunc');
-	def_round_start(MapUser,'wincallbackfunc');
+	def_round_start(trainer,'wincallbackfunc');
 
 end
 
@@ -236,14 +284,21 @@ function wincallbackfunc(tbl_win_user)
 			end
 		end
 
-		--·É×ßËùÓĞÊ§°ÜµÄÍæ¼Ò£¬¿ÉÁ¯Ñ½-----------------------------
+		--é£èµ°æ‰€æœ‰å¤±è´¥çš„ç©å®¶ï¼Œå¯æ€œå‘€-----------------------------
 		local MapUser = NLG.GetMapPlayer(0,25290);
-		if (MapUser ==nil) then
+		local trainer = {};
+
+		for i,v in ipairs(MapUser)do
+			if not Char.IsDummy(v) then
+				table.insert(trainer,v);
+			end
+		end
+		if (trainer ==nil) then
 			return;
 		end
-		warpfailuser(MapUser,tbl_win_user,0,25291,35,14);
+		warpfailuser(trainer,tbl_win_user,0,25291,35,14);
 		-------------------------------------------------------
-		--¼ÌĞøÂÖ»Ø¿©
+		--ç»§ç»­è½®å›å’¯
 		--tbl_win_user = {};
 		--tbl_win_user = winuser;
 		tbl_swjjc_begin[begin] = true;
@@ -253,21 +308,30 @@ function wincallbackfunc(tbl_win_user)
 		--def_round_start(tbl_win_user,'wincallbackfunc');
 	end
 
-	-- Ö±µ½n´ÎÂÖ»Ø¹ıºó£¬×îÖÕÊ¤ÀûÒ»ÃûÍæ¼Ò
+	-- ç›´åˆ°næ¬¡è½®å›è¿‡åï¼Œæœ€ç»ˆèƒœåˆ©ä¸€åç©å®¶
 	if(tonumber(#tbl_win_user) <= 1)then
 
-		--·É×ßµÚ¶şÃûÍæ¼Ò£¬¿ÉÁ¯Ñ½-----------------------------
+		--é£èµ°ç¬¬äºŒåç©å®¶ï¼Œå¯æ€œå‘€-----------------------------
 		local MapUser = NLG.GetMapPlayer(0,25290);
-		if (MapUser ==nil) then
+		local trainer = {};
+
+		for i,v in ipairs(MapUser)do
+			if not Char.IsDummy(v) then
+				table.insert(trainer,v);
+			end
+		end
+		if (trainer ==nil) then
 			return;
 		end
-		warpfailuser(MapUser,tbl_win_user,0,25291,35,14);
+		warpfailuser(trainer,tbl_win_user,0,25291,35,14);
 		-----------------------------------------------------
 
 		for _,v in pairs(tbl_win_user) do
-			Char.GiveItem(v,69000,50);
-			NLG.SystemMessage(-1,"¹§Ï²Ó–¾š¼Ò:"..Char.GetData(v,CONST.¶ÔÏó_Ãû×Ö).."«@µÃ±¾´ÎÂ“ÃËŒ¦‘ğ¹ÚÜŠ¡£");
-			Char.Warp(v,0,1000,229,65);
+			if not Char.IsDummy(v) then
+				Char.GiveItem(v,66668,50);
+				NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]æ­å–œè¨“ç·´å®¶:"..Char.GetData(v,CONST.å¯¹è±¡_åå­—).."ç²å¾—æœ¬æ¬¡è¯ç›Ÿå°æˆ°å† è»ã€‚");
+				Char.Warp(v,0,7351,25,29);
+			end
 		end
 		tbl_playerautoranking = {};
 		tbl_swjjc_setting.start = 0;
@@ -279,27 +343,27 @@ end
 
 function def_round_start(usertable,callback)
 
-	--NLG.SystemMessage(-1,"Ó–¾š¼ÒŒ¦‘ğ µÚ:"..tbl_swjjc_goinfo[round_count].."ˆöé_Ê¼¡£");
-	-- Ä¿Ç°Õ½¶·³¡´Î×Ô¼Ó
+	NLG.SystemMessage(-1,"è¨“ç·´å®¶å°æˆ° ç¬¬:"..tbl_swjjc_goinfo[round_count].."å ´é–‹å§‹ã€‚");
+	-- ç›®å‰æˆ˜æ–—åœºæ¬¡è‡ªåŠ 
 	tbl_swjjc_goinfo[round_count] = tbl_swjjc_goinfo[round_count] + 1;
 	tbl_swjjc_setting.start = 1;
 
-	-- ´òÂÒÍæ¼ÒÕóÁĞ
+	-- æ‰“ä¹±ç©å®¶é˜µåˆ—
 	usertable = tablereset(usertable);
-	-- ÉèÖÃxÇ¿²úÉúºóµÄ»Øµ÷º¯Êı
+	-- è®¾ç½®xå¼ºäº§ç”Ÿåçš„å›è°ƒå‡½æ•°
 	tbl_swjjc_setting.WinFunc = callback;
-	-- ¿ªÊ¼ÎªÍæ¼ÒÅä¶ÔÕ½¶·
+	-- å¼€å§‹ä¸ºç©å®¶é…å¯¹æˆ˜æ–—
 	
-	--NLG.SystemMessage(-1,"=====Ó–¾š¼Ò=====");
+	--NLG.SystemMessage(-1,"=====è¨“ç·´å®¶=====");
 	--for i,v in ipairs(usertable)do
-	--	NLG.SystemMessage(-1,Char.GetData(v,CONST.¶ÔÏó_Ãû×Ö));	
+	--	NLG.SystemMessage(-1,Char.GetData(v,CONST.å¯¹è±¡_åå­—));	
 	--end
 	--NLG.SystemMessage(-1,"================");
 
 
 	local tbl_UpIndex = {};
 	local tbl_DownIndex = {};
-	-- ·Ö³öÉÏÏÂ×é
+	-- åˆ†å‡ºä¸Šä¸‹ç»„
 	for i = 1,tonumber(#usertable),2 do
 	--	NLG.SystemMessage(-1,"i:"..i);
 		table.insert(tbl_UpIndex,usertable[i]);
@@ -309,25 +373,25 @@ function def_round_start(usertable,callback)
 			table.insert(tbl_DownIndex,usertable[i + 1]);
 		end
 	--	NLG.SystemMessage(-1,"xxxxx=======");
-	--	NLG.SystemMessage(-1,Char.GetData(usertable[i],CONST.¶ÔÏó_Ãû×Ö));
-	--	NLG.SystemMessage(-1,Char.GetData(usertable[i+1],CONST.¶ÔÏó_Ãû×Ö));
+	--	NLG.SystemMessage(-1,Char.GetData(usertable[i],CONST.å¯¹è±¡_åå­—));
+	--	NLG.SystemMessage(-1,Char.GetData(usertable[i+1],CONST.å¯¹è±¡_åå­—));
 	end
-	-- Çå¿ÕÊ¤ÀûÍæ¼ÒÁĞ±í	
+	-- æ¸…ç©ºèƒœåˆ©ç©å®¶åˆ—è¡¨	
 	tbl_win_user = {};
 	tbl_duel_user = {};
 
-	--[[--·ÇÓ¶±ø¼ÙÈË¿ÉÄÜĞèÒª×Ô¶¯×é¶Ó
+	--[[--éä½£å…µå‡äººå¯èƒ½éœ€è¦è‡ªåŠ¨ç»„é˜Ÿ
 	for b,p in ipairs(usertable) then
-		local cdk = Char.GetData(p,CONST.¶ÔÏó_CDK);
+		local cdk = Char.GetData(p,CONST.å¯¹è±¡_CDK);
 		if PartyMember[cdk] ~= nill and cdk == PartyMember[cdk][6] then
-			local playerMapType = Char.GetData(p, CONST.¶ÔÏó_µØÍ¼ÀàĞÍ);
-			local playerMap = Char.GetData(p, CONST.¶ÔÏó_µØÍ¼);
-			local playerX = Char.GetData(p, CONST.¶ÔÏó_X);
-			local playerY = Char.GetData(p, CONST.¶ÔÏó_Y);
+			local playerMapType = Char.GetData(p, CONST.å¯¹è±¡_åœ°å›¾ç±»å‹);
+			local playerMap = Char.GetData(p, CONST.å¯¹è±¡_åœ°å›¾);
+			local playerX = Char.GetData(p, CONST.å¯¹è±¡_X);
+			local playerY = Char.GetData(p, CONST.å¯¹è±¡_Y);
 			for k,v in ipairs(PartyMember[cdk]) do
-				local memberMap = Char.GetData(v, CONST.¶ÔÏó_µØÍ¼);
-				local memberX = Char.GetData(v, CONST.¶ÔÏó_X);
-				local memberY = Char.GetData(v, CONST.¶ÔÏó_Y);
+				local memberMap = Char.GetData(v, CONST.å¯¹è±¡_åœ°å›¾);
+				local memberX = Char.GetData(v, CONST.å¯¹è±¡_X);
+				local memberY = Char.GetData(v, CONST.å¯¹è±¡_Y);
 				if v~=p then
 					Char.Warp(v, playerMapType, playerMap, playerX, playerY);
 					Char.JoinParty(v, p);
@@ -336,28 +400,28 @@ function def_round_start(usertable,callback)
 		end
 	end
 	]]
-	--¿ªÊ¼Õ½¶·
+	--å¼€å§‹æˆ˜æ–—
 	for j = 1,tonumber(#tbl_UpIndex) + 1,1 do
-		--Èç¹ûË«·½¶¼µôÏß£¬ÔòÊ²Ã´¶¼²»×ö£¬Ö±½ÓÌø¹ı
+		--å¦‚æœåŒæ–¹éƒ½æ‰çº¿ï¼Œåˆ™ä»€ä¹ˆéƒ½ä¸åšï¼Œç›´æ¥è·³è¿‡
 		if(tbl_UpIndex[j] == nil and tbl_DownIndex[j] == nil)then
 		--do nothing		
-		--Èç¹ûÉÏ·½Âäµ¥¶ÓÔ±²úÉú£¬ÔòÖ±½Ó¸øÓèÏÂ·½¶ÓÔ±½ú¼¶
+		--å¦‚æœä¸Šæ–¹è½å•é˜Ÿå‘˜äº§ç”Ÿï¼Œåˆ™ç›´æ¥ç»™äºˆä¸‹æ–¹é˜Ÿå‘˜æ™‹çº§
 		elseif(tbl_UpIndex[j] == nil)then
 			table.insert(tbl_win_user,tbl_DownIndex[j]);
-			NLG.SystemMessage(tbl_DownIndex[j],"ŸoÈËºÍÄãÅäŒ¦Œ¢Ö±½Ó•x¼‰£¬ÕˆµÈ´ı„eÈË‘ğôY½YÊø¡£");
-		--Èç¹ûÏÂ·½Âäµ¥¶ÓÔ±²úÉú£¬ÔòÖ±½Ó¸øÓèÉÏ·½¶ÓÔ±½ú¼¶
+			NLG.SystemMessage(tbl_DownIndex[j],"[å¤§æœƒå…¬å‘Š]ç„¡äººå’Œä½ é…å°å°‡ç›´æ¥æ™‰ç´šï¼Œè«‹ç­‰å¾…åˆ¥äººæˆ°é¬¥çµæŸã€‚");
+		--å¦‚æœä¸‹æ–¹è½å•é˜Ÿå‘˜äº§ç”Ÿï¼Œåˆ™ç›´æ¥ç»™äºˆä¸Šæ–¹é˜Ÿå‘˜æ™‹çº§
 		elseif(tbl_DownIndex[j] == nil)then
 			table.insert(tbl_win_user,tbl_UpIndex[j]);
-			NLG.SystemMessage(tbl_UpIndex[j],"ŸoÈËºÍÄãÅäŒ¦Œ¢Ö±½Ó•x¼‰£¬ÕˆµÈ´ı„eÈË‘ğôY½YÊø¡£");
-		--¿ªÕ½
+			NLG.SystemMessage(tbl_UpIndex[j],"[å¤§æœƒå…¬å‘Š]ç„¡äººå’Œä½ é…å°å°‡ç›´æ¥æ™‰ç´šï¼Œè«‹ç­‰å¾…åˆ¥äººæˆ°é¬¥çµæŸã€‚");
+		--å¼€æˆ˜
 		else
-			--NLG.SystemMessage(-1,"[´ó•ş¹«¸æ]"..Char.GetData(tbl_UpIndex[j],CONST.¶ÔÏó_Ãû×Ö).." VS "..Char.GetData(tbl_DownIndex[j],CONST.¶ÔÏó_Ãû×Ö));
+			--NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]"..Char.GetData(tbl_UpIndex[j],CONST.å¯¹è±¡_åå­—).." VS "..Char.GetData(tbl_DownIndex[j],CONST.å¯¹è±¡_åå­—));
 
 			battleIndex = {}
 			battleIndex[j] = Battle.PVP(tbl_UpIndex[j], tbl_DownIndex[j]);
 			table.insert(tbl_duel_user,tbl_DownIndex[j]);
 
-			-- µ±Ç°³¡´Î´´½¨Õ½¶·×Ü¼Æ´Î£¬ÓÃÓÚÅĞ¶ÏÊÇ·ñÒÑ¾­´ïµ½½áÊø±ê×¼
+			-- å½“å‰åœºæ¬¡åˆ›å»ºæˆ˜æ–—æ€»è®¡æ¬¡ï¼Œç”¨äºåˆ¤æ–­æ˜¯å¦å·²ç»è¾¾åˆ°ç»“æŸæ ‡å‡†
 			tbl_swjjc_goinfo[create_battle_count] = tbl_swjjc_goinfo[create_battle_count] + 1;
 			Battle.SetWinEvent('./lua/Modules/autoRanking.lua', 'def_round_wincallback', battleIndex[j]);
 		end
@@ -369,29 +433,29 @@ end
 function def_round_wincallback(battleIndex)
 
 	local winside = Battle.GetWinSide(battleIndex);
-	print(winside)
+	--print(winside)
 	local sideM = 0;
 	tbl_swjjc_goinfo[create_battle_count] = tbl_swjjc_goinfo[create_battle_count] - 1;
 
-	--»ñÈ¡Ê¤Àû·½
+	--è·å–èƒœåˆ©æ–¹
 	if (winside == 0) then
 		sideM = 0;
 	end
 	if (winside == 1) then
 		sideM = 10;
 	end
-	--»ñÈ¡Ê¤Àû·½µÄÍæ¼ÒÖ¸Õë£¬¿ÉÄÜÕ¾ÔÚÇ°·½ºÍºó·½
+	--è·å–èƒœåˆ©æ–¹çš„ç©å®¶æŒ‡é’ˆï¼Œå¯èƒ½ç«™åœ¨å‰æ–¹å’Œåæ–¹
 	local w1 = Battle.GetPlayIndex(battleIndex, 0 + sideM);
 	local w2 = Battle.GetPlayIndex(battleIndex, 5 + sideM);
 	local ww = nil;
 
-	print(w1)
-	print(w2)
-	--°ÑÊ¤ÀûÍæ¼Ò¼ÓÈëÁĞ±í
-	if ( Char.GetData(w1,CONST.¶ÔÏó_µÇÂ½´ÎÊı) >= 1 ) then
+	--print(w1)
+	--print(w2)
+	--æŠŠèƒœåˆ©ç©å®¶åŠ å…¥åˆ—è¡¨
+	if ( Char.GetData(w1,CONST.å¯¹è±¡_ç™»é™†æ¬¡æ•°) >= 1 ) then
 		local ww = w1;
 		table.insert(tbl_win_user, ww);
-	elseif ( Char.GetData(w2,CONST.¶ÔÏó_µÇÂ½´ÎÊı) >= 1 ) then
+	elseif ( Char.GetData(w2,CONST.å¯¹è±¡_ç™»é™†æ¬¡æ•°) >= 1 ) then
 		local ww = w2;
 		table.insert(tbl_win_user, ww);
 	else
@@ -399,18 +463,25 @@ function def_round_wincallback(battleIndex)
 	end
 
 	local MapUser = NLG.GetMapPlayer(0,25290);
-	local MapUserNum = tonumber(#MapUser);
+	local trainer = {};
+
+	for i,v in ipairs(MapUser)do
+		if not Char.IsDummy(v) then
+			table.insert(trainer,v);
+		end
+	end
+	local MapUserNum = tonumber(#trainer);
 	local shortlist = math.floor(MapUserNum/2);
 
-	--Èç¹ûÊÇÊ×Õ½
+	--å¦‚æœæ˜¯é¦–æˆ˜
 	if (tbl_swjjc_setting.round_count == 1)then
-		--ÅĞ¶ÏÈËÊıÊÇ·ñÒÑ´ï½øÈëµÚ¶şÂÖµÄÒªÇó
+		--åˆ¤æ–­äººæ•°æ˜¯å¦å·²è¾¾è¿›å…¥ç¬¬äºŒè½®çš„è¦æ±‚
 		if (tonumber(#tbl_win_user) >= shortlist)then
-			NLG.SystemMessage(-1,"Ó–¾š¼ÒŒ¦‘ğÏÂÒ»»ØºÏ¼´Œ¢é_Ê¼¡£");
+			NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]è¨“ç·´å®¶å°æˆ°ä¸‹ä¸€å›åˆå³å°‡é–‹å§‹ã€‚");
 			wincallbackfunc(tbl_win_user);
 		end
 	else
-		--ÅĞ¶ÏÈËÊıÊÇ·ñÒÑ´ï½øÈëÏÂÒ»ÂÖµÄÒªÇó
+		--åˆ¤æ–­äººæ•°æ˜¯å¦å·²è¾¾è¿›å…¥ä¸‹ä¸€è½®çš„è¦æ±‚
 		if (tbl_swjjc_goinfo['create_battle_count'] == 0)then
 			wincallbackfunc(tbl_win_user);
 		end
@@ -420,36 +491,36 @@ end
 
 
 function user_WinFunc(player,mc)
-	NLG.SystemMessage(player,"¹§Ï²«@µÃ„ÙÀû£¬ÕˆµÈ´ıÆäËûÓ–¾š¼ÒégŒ¦‘ğ½YÊø¡£");
+	NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]æ­å–œç²å¾—å‹åˆ©ï¼Œè«‹ç­‰å¾…å…¶ä»–è¨“ç·´å®¶é–“å°æˆ°çµæŸã€‚");
 end
 
 function setUser_WinFunc(winfuncname)
 	tbl_swjjc_setting.this_user_WinFunc = winfuncname;
 end
 
---	º¯Êı¹¦ÄÜ£º·É×ßÊ§°ÜµÄÍæ¼Ò
-function warpfailuser(MapUser,tbl_win_user,floor,mapid,x,y)
-	local failuser = delfailuser(MapUser,tbl_win_user);
+--	å‡½æ•°åŠŸèƒ½ï¼šé£èµ°å¤±è´¥çš„ç©å®¶
+function warpfailuser(trainer,tbl_win_user,floor,mapid,x,y)
+	local failuser = delfailuser(trainer,tbl_win_user);
 	for _,tuser in pairs(failuser) do
 		Battle.ExitBattle(tuser);
 		Char.Warp(tuser,0,25291,35,14);
-		NLG.SystemMessage(tuser,"¸ĞÖx…¢ÅcÓ–¾š¼ÒégµÄŒ¦‘ğ£¡");
+		NLG.SystemMessage(tuser,"[å¤§æœƒå…¬å‘Š]æ„Ÿè¬åƒèˆ‡è¨“ç·´å®¶é–“çš„å°æˆ°ï¼");
 	end
 end
 
---	º¯Êı¹¦ÄÜ£º»ñÈ¡Õ½¶·Ê§°ÜµÄÍæ¼Ò
-function delfailuser(MapUser,tbl_win_user)
+--	å‡½æ•°åŠŸèƒ½ï¼šè·å–æˆ˜æ–—å¤±è´¥çš„ç©å®¶
+function delfailuser(trainer,tbl_win_user)
 	for _,v in pairs(tbl_win_user)do
-		for i,w in pairs(MapUser)do
+		for i,w in pairs(trainer)do
 			if(v == w)then
-				MapUser[i] = nil;
+				trainer[i] = nil;
 			end
 		end
 	end
-	return MapUser;
+	return trainer;
 end
 
---	º¯Êı¹¦ÄÜ£º´òÂÒÍæ¼ÒÁĞ±í(Î´Íê³É)
+--	å‡½æ•°åŠŸèƒ½ï¼šæ‰“ä¹±ç©å®¶åˆ—è¡¨(æœªå®Œæˆ)
 function tablereset(trainer_tbl)
 	local xa = NLG.Rand(1,3);
 	if ((#trainer_tbl-1-xa) <= 1) then
@@ -471,7 +542,7 @@ function tablereset(trainer_tbl)
 	return trainer_tbl;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
