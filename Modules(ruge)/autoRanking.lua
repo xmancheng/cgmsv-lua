@@ -13,7 +13,7 @@ local EnterMap = {25290,25,24};
 local Enter = 0
 local ExitMap = {25291,24,25};
 local LobbyMap = {7351,25,29};
-local Number = 0
+local Number = 1
 local tbl_playerautoranking = {}
 local PartyMember = {}
 
@@ -22,7 +22,7 @@ tbl_swjjc_goinfo = {};
 tbl_win_user = {};			--当前场次胜利玩家的列表
 tbl_duel_user = {};			--当前场次玩家的列表
 tbl_swjjc_begin = {};
-tbl_swjjc_time ={};
+tbl_swjjc_time = {};
 tbl_swjjc_setting =
 {
 	start = 0;
@@ -52,6 +52,7 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.TrainerBattle_LoopEvent,self));
+  self:regCallback('LoopEvent', Func.bind(self.swjjcStartNpcLoopEvent,self));
   local rankingNPC = self:NPC_createNormal('寶可夢訓練家對戰', 11394, { map = 7351, x = 26, y = 37, direction = 4, mapType = 0 })
   Char.SetData(rankingNPC,CONST.对象_ENEMY_PetFlg+2,0);
   Char.SetLoopEvent('lua/Modules/autoRanking.lua','TrainerBattle_LoopEvent',rankingNPC, 1000);
@@ -189,7 +190,6 @@ end
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr trainerbattle on]") then
 		if (Setting == 0) then
-			Number = 0;
 			Enter = 1;
 			Setting = 1;
 			swjjcStart(npc);
@@ -207,9 +207,19 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	elseif (msg=="[nr trainerbattle off]") then
 		NL.DelNpc(awardnpc);
 		awardnpc = nil;
+		Number = 0;
 		Enter = 0;
 		Setting = 0;
 		NLG.SystemMessage(-1,"[大會公告]訓練家對戰已圓滿結束。");
+		return 0;
+	elseif (msg=="num1") then
+		Number = 1;
+		return 0;
+	elseif (msg=="num2") then
+		Number = 2;
+		return 0;
+	elseif (msg=="num3") then
+		Number = 3;
 		return 0;
 	end
 	return 1;
@@ -224,6 +234,7 @@ function TrainerBattle_LoopEvent(npc)
 				Char.Warp(v,0,EnterMap[1],EnterMap[2],EnterMap[3]);
 			end
 		end
+		Number = 0;
 		Enter = 1;
 		Setting = 0;
 		NLG.SystemMessage(-1,"[大會公告]訓練家對戰即將開始，請盡速報名入場。");
@@ -231,7 +242,6 @@ function TrainerBattle_LoopEvent(npc)
 		NLG.SystemMessage(-1,"[大會公告]訓練家對戰報名剩下10分鐘，請盡速報名入場。");
 	elseif (os.date("%X",os.time())=="20:30:00") then
 		if (Setting == 0) then
-			Number = 0;
 			Setting = 1;
 			swjjcStart(npc);
 			awardnpc = self:NPC_createNormal( '淘汰參加獎', 17092, { map = 25291, x = 25, y = 24, direction = 6, mapType = 0 })
@@ -246,63 +256,13 @@ function TrainerBattle_LoopEvent(npc)
 		awardnpc = nil;
 		Enter = 0;
 		Setting = 0;
+	elseif (os.date("%M",os.time())=="15") or (os.date("%M",os.time())=="30") or (os.date("%M",os.time())=="45") or (os.date("%M",os.time())=="00") then
+		FTime = os.time()
+		swjjcStartNpcLoopEvent(tbl_win_user);
 	end
 end
 
-
-function swjjcStartNpcLoopEvent(index)
-	local BTime= os.time()
-	local timec = BTime - FTime;
-
-	local MapUser = NLG.GetMapPlayer(0, EnterMap[1]);
-	local trainer = {};
-
-	if (MapUser == -3 and tonumber(#tbl_win_user) == 0 ) then
-		Setting = 0;
-	elseif (MapUser ~= -3 and math.floor(Number/2)<=tonumber(#tbl_win_user) ) then
-		for i,v in ipairs(MapUser)do
-			if not Char.IsDummy(v) then
-				table.insert(trainer,v);
-			end
-		end
-		Setting = 1;
-		checkWinner(tbl_duel_user,tbl_win_user);
-	elseif (MapUser ~= -3 and math.floor(Number/2)>tonumber(#tbl_win_user) ) then
-		Setting = 2;
-	end
-
-	print(Setting)
-	if (Setting == 1) then
-		if (timec <= 30) then
-			for _,v in pairs(tbl_win_user) do
-				if (not Char.IsDummy(v) and Char.GetData(v,CONST.对象_队聊开关) == 1) then
-					NLG.SystemMessageToMap(0, EnterMap[1],"[大會公告]訓練家對戰下一回即將開始，倒數"..tostring(31 - timec).."秒。");
-				end
-			end
-			return;
-		else
-			-- 直到n次轮回过后，最终胜利一名玩家
-			tbl_duel_user = {};
-			Setting = 2;
-			for _,v in pairs(tbl_win_user) do
-				if Char.GetBattleIndex(v) >= 0 then
-					--print("双重战斗")
-				elseif not Char.IsDummy(v) then
-					def_round_start(v, 'wincallbackfunc');
-				end
-			end
-			-- 清空胜利玩家列表
-			tbl_win_user = {};
-		end
-	elseif (Setting == 2) then
-		wincallbackfunc(tbl_win_user);
-		return;
-	elseif (Setting == 0) then
-		return;
-	end
-end
-
-
+--第一场启动
 function swjjcStart(npc)
 	Setting = 1;
 	tbl_win_user = {};
@@ -322,6 +282,84 @@ function swjjcStart(npc)
 
 end
 
+--启动到结束循环监测
+function swjjcStartNpcLoopEvent(tbl_win_user)
+	local BTime = os.time()
+	local timec = BTime - FTime;
+	print(timec,tbl_win_user)
+
+	local MapUser = NLG.GetMapPlayer(0, EnterMap[1]);
+	local trainer = {};
+
+	if (MapUser == -3 and tonumber(tbl_win_user) == 0) then	--战斗中地图判定没人?
+		Setting = 0;
+	elseif (MapUser ~= -3 and Number>=1) then
+		for i,v in ipairs(MapUser)do
+			if not Char.IsDummy(v) then
+				table.insert(trainer,v);
+			end
+		end
+		if (#trainer==1 and Number>=1) then
+			Setting = 3;
+			wincallbackfunc(tbl_win_user);
+		elseif (#trainer==2 and math.ceil(Number/2)>=#trainer) then
+			Number = #trainer;
+			Setting = 1;
+		elseif (#trainer==2 and  math.ceil(Number/2)<#trainer and tonumber(tbl_win_user)<=1) then
+			Number = #trainer;
+			Setting = 3;
+		elseif (#trainer>=3 and math.ceil(Number/2)>=#trainer) then
+			Number = #trainer;
+			Setting = 1;
+		elseif (#trainer>=3 and  math.ceil(Number/2)<#trainer and tonumber(tbl_win_user)<=2) then
+			Number = #trainer;
+			Setting = 3;
+		end
+	end
+
+	if (Setting == 1) then
+		if (timec <= 30) then
+			for _,v in pairs(tbl_win_user) do
+				if (not Char.IsDummy(v) and Char.GetData(v,CONST.对象_队聊开关) == 1) then
+					NLG.SystemMessageToMap(0, EnterMap[1],"[大會公告]訓練家對戰下一回即將開始，倒數"..tostring(31 - timec).."秒。");
+				end
+			end
+			return;
+		else
+			-- 直到n次轮回过后，最终胜利一名玩家
+			tbl_duel_user = {};
+			for _,v in pairs(tbl_win_user) do
+				if Char.GetBattleIndex(v) >= 0 then
+					--print("双重战斗")
+				elseif not Char.IsDummy(v) then
+					def_round_start(v, 'wincallbackfunc');
+				end
+			end
+			-- 清空胜利玩家列表
+			tbl_win_user = {};
+		end
+	elseif (Setting == 3) then		--战斗时间过长或上方胜利
+		if (timec > 120) then
+			for i,j in ipairs(tbl_duel_user)do
+				if (j[3]==0) then
+					table.insert(tbl_win_user,j[1]);
+				end
+			end
+			wincallbackfunc(tbl_win_user);
+			Setting = 2;
+		else
+			return;
+		end
+	elseif (Setting == 2) then
+		wincallbackfunc(tbl_win_user);
+		Setting = 0;
+		return;
+	elseif (Setting == 0) then
+		return;
+	end
+end
+
+--流程条件判定
 function wincallbackfunc(tbl_win_user)
 	if (tbl_win_user ~= nil and Setting == 1)then
 		for _,v in pairs(tbl_win_user) do
@@ -342,18 +380,6 @@ function wincallbackfunc(tbl_win_user)
 		else
 			warpfailuser(trainer,tbl_win_user,0,ExitMap[1],ExitMap[2],ExitMap[3]);
 		end
-		-- 直到n次轮回过后，最终胜利一名玩家
-		tbl_duel_user = {};
-		Setting = 2;
-		for _,v in pairs(tbl_win_user) do
-			if Char.GetBattleIndex(v) >= 0 then
-				--print("双重战斗")
-			else
-				def_round_start(v, 'wincallbackfunc');
-			end
-		end
-		-- 清空胜利玩家列表
-		tbl_win_user = {};
 	elseif (tbl_win_user ~= nil and Setting == 2)then
 		for _,v in pairs(tbl_win_user) do
 			if not Char.IsDummy(v) then
@@ -386,7 +412,7 @@ function wincallbackfunc(tbl_win_user)
 	end
 end
 
-
+--对战执行
 function def_round_start(usertable,callback)
 
 	NLG.SystemMessage(-1,"訓練家對戰 第"..tbl_swjjc_goinfo[round_count].."場開始。");
@@ -461,7 +487,7 @@ function def_round_start(usertable,callback)
 
 			battleIndex = {}
 			battleIndex[j] = Battle.PVP(tbl_UpIndex[j], tbl_DownIndex[j]);
-			table.insert(tbl_duel_user,{tbl_UpIndex[j],tbl_DownIndex[j]});
+			table.insert(tbl_duel_user,{tbl_UpIndex[j],tbl_DownIndex[j],0});
 
 			-- 当前场次创建战斗总计次，用于判断是否已经达到结束标准
 			tbl_swjjc_goinfo[create_battle_count] = tbl_swjjc_goinfo[create_battle_count] + 1;
@@ -471,7 +497,7 @@ function def_round_start(usertable,callback)
 	tbl_swjjc_goinfo[create_battle_count_bak] = tbl_swjjc_goinfo[create_battle_count];
 end
 
-
+--下方胜利事件
 function def_round_wincallback(battleIndex)
 
 	local winside = Battle.GetWinSide(battleIndex);
@@ -500,6 +526,7 @@ function def_round_wincallback(battleIndex)
 		for k,v in ipairs(tbl_win_user)do
 			if (j[2]==v) then
 				safe=i;
+				j[3]=1;
 			end
 		end
 		if (safe==0) then
@@ -524,7 +551,6 @@ function def_round_wincallback(battleIndex)
 
 	if (MapUserNum>1 and tonumber(#tbl_win_user)>= shortlist) then
 		NLG.SystemMessage(-1,"[大會公告]訓練家對戰下一回合即將開始。");
-		FTime = os.time()
 		Setting = 1;
 		wincallbackfunc(tbl_win_user);
 		Battle.UnsetWinEvent(battleIndex);
@@ -535,6 +561,7 @@ function def_round_wincallback(battleIndex)
 	end
 end
 
+--上方胜利手动判定
 function checkWinner(tbl_duel_user,tbl_win_user)
 	local safe=0;
 	for i,j in ipairs(tbl_duel_user)do
@@ -550,6 +577,7 @@ function checkWinner(tbl_duel_user,tbl_win_user)
 	if (tbl_win_user~= nil) then
 		wincallbackfunc(tbl_win_user);
 	end
+	return tbl_win_user;
 end
 
 --	函数功能：飞走失败的玩家
@@ -574,7 +602,7 @@ function delfailuser(trainer,tbl_win_user)
 	return trainer;
 end
 
---	函数功能：打乱玩家列表(未完成)
+--	函数功能：打乱玩家列表(未测试)
 function tablereset(trainer_tbl)
 	local xa = NLG.Rand(1,3);
 	if ((#trainer_tbl-1-xa) <= 1) then
