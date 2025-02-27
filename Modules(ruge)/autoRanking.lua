@@ -10,10 +10,12 @@ local AutoMenus = {
 local FTime = os.time()
 local Setting = 0;
 local EnterMap = {25290,25,24};
-local Enter = 0
-local Number = 0
 local ExitMap = {25291,24,25};
 local LobbyMap = {7351,25,29};
+local Enter = 0;
+local Number = 0;
+local Finish = 0;
+
 local tbl_playerautoranking = {}
 local PartyMember = {}
 
@@ -192,11 +194,12 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr trainerbattle on]") then
 		if (Setting == 0) then
 			Enter = 1;
+			Finish = 0;
 			--swjjcStart(npc);
-			awardnpc = self:NPC_createNormal( '淘汰參加獎', 17092, { map = 25291, x = 25, y = 24, direction = 6, mapType = 0 })
-			self:NPC_regTalkedEvent(awardnpc, Func.bind(self.onSellerTalked, self))
-			self:NPC_regWindowTalkedEvent(awardnpc, Func.bind(self.onSellerSelected, self));
-			Char.SetLoopEvent('./lua/Modules/autoRanking.lua','pkStartNpcLoopEvent', awardnpc,1000); 
+			self.awardnpc = self:NPC_createNormal( '淘汰參加獎', 17092, { map = 25291, x = 25, y = 24, direction = 6, mapType = 0 })
+			self:NPC_regTalkedEvent(self.awardnpc, Func.bind(self.onSellerTalked, self))
+			self:NPC_regWindowTalkedEvent(self.awardnpc, Func.bind(self.onSellerSelected, self));
+			Char.SetLoopEvent('./lua/Modules/autoRanking.lua','pkStartNpcLoopEvent', self.awardnpc,1000); 
 			tbl_swjjc_goinfo[round_count] = 1
 			NLG.SystemMessage(-1,"[大會公告]訓練家對戰開始，報名已截止可前往觀戰。");
 			return 0;
@@ -205,10 +208,10 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			return 0;
 		end
 	elseif (msg=="[nr trainerbattle off]") then
-		NL.DelNpc(awardnpc);
-		awardnpc = nil;
+		NL.DelNpc(self.awardnpc);
+		self.awardnpc = nil;
 		Enter = 0;
-		Number = 0
+		Number = 0;
 		NLG.SystemMessage(-1,"[大會公告]訓練家對戰已圓滿結束。");
 		return 0;
 	end
@@ -225,24 +228,25 @@ function TrainerBattle_LoopEvent(npc)
 			end
 		end
 		Enter = 1;
+		Finish = 0;
 		NLG.SystemMessage(-1,"[大會公告]訓練家對戰即將開始，請盡速報名入場。");
 	elseif (os.date("%X",os.time())=="20:20:00") then
 		NLG.SystemMessage(-1,"[大會公告]訓練家對戰報名剩下10分鐘，請盡速報名入場。");
 	elseif (os.date("%X",os.time())=="20:30:00") then
 		if (Setting == 0) then
 			--swjjcStart(npc);
-			awardnpc = self:NPC_createNormal( '淘汰參加獎', 17092, { map = 25291, x = 25, y = 24, direction = 6, mapType = 0 })
-			self:NPC_regTalkedEvent(awardnpc, Func.bind(self.onSellerTalked, self))
-			self:NPC_regWindowTalkedEvent(awardnpc, Func.bind(self.onSellerSelected, self));
-			Char.SetLoopEvent('./lua/Modules/autoRanking.lua','pkStartNpcLoopEvent', awardnpc,1000); 
+			self.awardnpc = self:NPC_createNormal( '淘汰參加獎', 17092, { map = 25291, x = 25, y = 24, direction = 6, mapType = 0 })
+			self:NPC_regTalkedEvent(self.awardnpc, Func.bind(self.onSellerTalked, self))
+			self:NPC_regWindowTalkedEvent(self.awardnpc, Func.bind(self.onSellerSelected, self));
+			Char.SetLoopEvent('./lua/Modules/autoRanking.lua','pkStartNpcLoopEvent', self.awardnpc,1000); 
 			tbl_swjjc_goinfo[round_count] = 1
 			NLG.SystemMessage(-1,"[大會公告]訓練家對戰開始，報名已截止可前往觀戰。");
 		end
 	elseif (os.date("%X",os.time())=="23:59:59") then
-		NL.DelNpc(awardnpc);
-		awardnpc = nil;
+		NL.DelNpc(self.awardnpc);
+		self.awardnpc = nil;
 		Enter = 0;
-		Number = 0
+		Number = 0;
 	end
 end
 
@@ -277,7 +281,8 @@ function pkStartNpcLoopEvent(index)
 		local timec = TTime - STime;
 		if (timec <= 600) then	--10分内
 			NextRound = 0;
-			if ( tbl_swjjc_goinfo[create_battle_count] >= math.floor(playerNum/2) ) then
+			local battle_count = tbl_swjjc_goinfo[create_battle_count];		--对战场数data传送不来
+			if ( battle_count >= math.floor(playerNum/2) ) then
 				NextRound = 1;
 				goto continue
 			end
@@ -307,7 +312,7 @@ function pkStartNpcLoopEvent(index)
 	elseif (Setting == 2) then
 		ZTime = os.time()
 		local timec = ZTime - TTime;
-		if (timec <= 20) then	--缓衝判定驱逐输家
+		if (timec <= 10) then	--缓衝判定驱逐输家
 			wincallbackfunc(tbl_win_user);
 			return;
 		else
@@ -362,15 +367,18 @@ function wincallbackfunc(tbl_win_user)
 			warpfailuser(tbl_trainer,tbl_win_user,0,ExitMap[1],ExitMap[2],ExitMap[3]);
 		end
 	elseif (tbl_win_user ~= nil and Setting == 3)then
-		for _,v in pairs(tbl_win_user) do
-			if not Char.IsDummy(v) then
-				Char.GiveItem(v,631097,1);
-				NLG.SystemMessage(-1,"[大會公告]恭喜訓練家:"..Char.GetData(v,CONST.对象_名字).."獲得本次聯盟對戰冠軍。");
-				Char.Warp(v,0,LobbyMap[1],LobbyMap[2],LobbyMap[3]);
-				Char.UnsetLoopEvent(awardnpc);
+		if (Finish == 0) then
+			for _,v in pairs(tbl_win_user) do
+				if not Char.IsDummy(v) then
+					Char.GiveItem(v,631097,1);
+					NLG.SystemMessage(-1,"[大會公告]恭喜訓練家:"..Char.GetData(v,CONST.对象_名字).."獲得本次聯盟對戰冠軍。");
+					Char.Warp(v,0,LobbyMap[1],LobbyMap[2],LobbyMap[3]);
+					Char.UnsetLoopEvent(self.awardnpc);
+				end
 			end
+			Finish = 1;
+			tbl_playerautoranking = {};
 		end
-		tbl_playerautoranking = {};
 	else
 	end
 end
@@ -471,7 +479,11 @@ function battle_wincallback(battleIndex)
 	end
 
 	--把胜利玩家加入列表
-	table.insert(tbl_win_user, leader1);
+    for k,v in pairs(tbl_win_user) do
+		if (CheckInTable(tbl_win_user,v)==false) then
+			table.insert(tbl_win_user, leader1);
+		end
+	end
 	local safe=0;
 	for i,j in ipairs(tbl_duel_user)do
 		for k,v in ipairs(tbl_win_user)do
@@ -488,6 +500,7 @@ function battle_wincallback(battleIndex)
 	-- 当前场次创建战斗总计次，用于判断是否已经达到结束标准
 	tbl_swjjc_goinfo[create_battle_count] = tbl_swjjc_goinfo[create_battle_count] + 1;
 	Battle.UnsetWinEvent(battleIndex);
+
 end
 
 --上方胜利手动判定
@@ -554,6 +567,14 @@ function tablereset(tbl_trainer)
 	return tbl_trainer;
 end
 
+function CheckInTable(_idTab, _idVar) ---循环函数
+	for k,v in pairs(_idTab) do
+		if v==_idVar then
+			return true
+		end
+	end
+	return false
+end
 --- 卸载模块钩子
 function Module:onUnload()
   self:logInfo('unload')
