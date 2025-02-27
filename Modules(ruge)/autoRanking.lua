@@ -261,7 +261,7 @@ function pkStartNpcLoopEvent(index)
 		if (MapUser~=-3) then	--战斗中地图判定没人?
 			for i,v in ipairs(MapUser)do
 				--NLG.SystemMessage(-1,Char.GetData(v,CONST.对象_名字));
-				if (not Char.IsDummy(v)) then
+				if not Char.IsDummy(v) then
 					table.insert(tbl_trainer,v);
 				end
 			end
@@ -275,8 +275,25 @@ function pkStartNpcLoopEvent(index)
 	elseif (Setting == 1) then
 		TTime = os.time()
 		local timec = TTime - STime;
-		if (timec > 600) then	--超时10分钟结束，两边皆算输家
-			::here::
+		if (timec <= 600) then	--10分内
+			NextRound = 0;
+			if ( tbl_swjjc_goinfo[create_battle_count] >= math.floor(playerNum/2) ) then
+				NextRound = 1;
+				goto continue
+			end
+			for _,v in pairs(tbl_win_user) do
+				if (not Char.IsDummy(v) and Char.GetData(v,CONST.对象_队聊开关) == 1) then
+					if (math.fmod(timec,60)==0) then	--1分钟公告
+						NLG.SystemMessage(v,"[大會公告]恭喜獲得勝利，請等待其他訓練家間對戰結束。");
+					end
+				end
+			end
+			if (timec==300) then
+				NLG.SystemMessageToMap(0, EnterMap[1],"[大會公告]距離判定時間剩下5分鐘，請盡速決定勝負。");
+			end
+		end
+		::continue::
+		if (timec > 600 or NextRound==1) then	--超时10分钟结束，两边皆算输家
 			for i,j in ipairs(tbl_duel_user)do
 				if (j[3]==0 and Char.GetBattleIndex(j[2])>=0) then
 					Battle.ExitBattle(j[1]);
@@ -286,15 +303,6 @@ function pkStartNpcLoopEvent(index)
 				end
 			end
 			Setting = 2;
-		else
-			if (tbl_swjjc_goinfo[create_battle_count]>=playerNum) then
-				goto here
-			end
-			for _,v in pairs(tbl_win_user) do
-				if (not Char.IsDummy(v) and Char.GetData(v,CONST.对象_队聊开关) == 1) then
-					NLG.SystemMessage(v,"[大會公告]恭喜獲得勝利，請等待其他訓練家間對戰結束。");
-				end
-			end
 		end
 	elseif (Setting == 2) then
 		ZTime = os.time()
@@ -326,7 +334,7 @@ function pkStartNpcLoopEvent(index)
 		elseif (tonumber(#tbl_trainer)>=2 and timec <= 30) then
 			for _,v in pairs(tbl_trainer) do
 				if (not Char.IsDummy(v) and Char.GetData(v,CONST.对象_队聊开关) == 1) then
-					NLG.SystemMessageToMap(0, EnterMap[1],"[大會公告]訓練家對戰下一回即將開始，倒數"..tostring(31 - timec).."秒。");
+					NLG.SystemMessage(v,"[大會公告]訓練家對戰下一回即將開始，倒數"..tostring(31 - timec).."秒。");
 				end
 			end
 		elseif (tonumber(#tbl_trainer)>=2 and timec > 30) then
@@ -340,7 +348,7 @@ end
 
 --流程条件判定
 function wincallbackfunc(tbl_win_user)
-	if (tbl_win_user ~= nil and Setting == 1)then
+	if (tbl_win_user ~= nil and Setting == 2)then
 		local MapUser = NLG.GetMapPlayer(0,EnterMap[1]);
 		tbl_trainer = {};
 		for i,v in ipairs(MapUser)do
