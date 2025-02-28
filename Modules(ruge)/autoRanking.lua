@@ -70,7 +70,7 @@ function Module:onLoad()
          NLG.SystemMessage(player,"[大會公告]報名入場時間為每日20:00-20:29！");
          return;
        end
-       if (Setting~=0) then
+       if (Setting==1 or Setting==2 or Setting==3 or Setting==-1) then
          NLG.SystemMessage(player,"[大會公告]訓練家對戰已經開始，請等待明日報名！");
          return;
        end
@@ -100,7 +100,7 @@ function Module:onLoad()
      end
 
      if data == 3 then  ----进行场外观战
-       if (Setting~=0) then
+       if (Setting==1 or Setting==2 or Setting==3 or Setting==-1) then
            local msg = "3\\n@c對戰場賽事觀戰\\n"
                      .."\\n　　════════════════════\\n";
            if (tbl_duel_user~=nil) then
@@ -326,6 +326,7 @@ function pkStartNpcLoopEvent(awardnpc)
 		::continue::
 		if (timec > 600 or NextRound==1) then	--超时10分钟结束，两边皆算输家
 			tbl_duel_user = getDuelUser();
+			tbl_win_user = getWinUser();
 			for i,j in ipairs(tbl_duel_user)do
 				if (j[3]==nil and Char.GetBattleIndex(j[2])>=0) then
 					Battle.ExitBattle(j[1]);
@@ -386,6 +387,7 @@ function pkStartNpcLoopEvent(awardnpc)
 			Setting = changeSetting(0);
 			Char.SetLoopEvent('./lua/Modules/autoRanking.lua','pkStartNpcLoopEvent', awardnpc,86400);
 			Char.UnsetLoopEvent(awardnpc);
+			NLG.SystemMessage(-1,"[大會公告]訓練家對戰已圓滿結束。");
 		end
 	end
 
