@@ -10,6 +10,14 @@ local SwapNPC = {
 }
 tbl_TeamStarNPCIndex = tbl_TeamStarNPCIndex or {}
 
+local petMettleTable = {
+          {9610,9619,9620,9629},       --对BOSS增,自BOSS减,对人形增,对邪魔增
+          {9611,9615,9623,9624},       --对地增,自地减,对飞行增,对昆虫增
+          {9612,9616,9627,9628},       --对水增,自水减,对特殊增,对金属增
+          {9613,9617,9621,9626},       --对火增,自火减,对龙族增,对野兽增
+          {9614,9618,9622,9625},       --对风增,自风减,对不死增,对植物增
+}
+
 function Module:onLoad()
   self:logInfo('load');
   --交换的训练家1
@@ -122,6 +130,9 @@ function Module:onLoad()
                   Char.SetData(PetIndex,CONST.对象_速度, (Char.GetData(PetIndex,CONST.对象_速度) + (arr_rank4_new * (1/24) * (enemyLevel - 1)*100)) );
                   Char.SetData(PetIndex,CONST.对象_魔法, (Char.GetData(PetIndex,CONST.对象_魔法) + (arr_rank5_new * (1/24) * (enemyLevel - 1)*100)) );
               end
+              local typeRand = math.random(1,#petMettleTable);
+              local pos = math.random(1,#petMettleTable[typeRand]);
+              Pet.AddSkill(PetIndex, petMettleTable[typeRand][pos], 9);
               Pet.UpPet(player,PetIndex);
               Char.DelItemBySlot(player, BallSlot);
               NLG.SystemMessage(player, "[系统]"..enemyName.."成功呼喚出來。")
