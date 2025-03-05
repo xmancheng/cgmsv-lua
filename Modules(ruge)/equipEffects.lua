@@ -1,7 +1,7 @@
 local Module = ModuleBase:createModule('equipEffects')
 
 local WeaponKindImage_List = {};
-WeaponKindImage_List[900204] = 106452;					--é“å…·ç¼–å·.å½¢è±¡ç¼–å·
+WeaponKindImage_List[900204] = 106452;					--µÀ¾ß±àºÅ.ĞÎÏó±àºÅ
 WeaponKindImage_List[900205] = 106552;
 WeaponKindImage_List[900206] = 106527;
 WeaponKindImage_List[900207] = 106475;
@@ -9,25 +9,26 @@ WeaponKindImage_List[900208] = 106727;
 WeaponKindImage_List[900209] = 106627;
 
 local WingKindSpeed_List = {};
-WingKindSpeed_List[607728] = 200;						--é“å…·ç¼–å·.30%ç§»é€Ÿ
+WingKindSpeed_List[607728] = 200;						--µÀ¾ß±àºÅ.30%ÒÆËÙ
 WingKindSpeed_List[607720] = 300;
 WingKindSpeed_List[607721] = 300;
 WingKindSpeed_List[607722] = 300;
 WingKindSpeed_List[607723] = 300;
 
 local MountKindDuration_List = {};
-MountKindDuration_List[71058] = {101001,120000};		--é“å…·ç¼–å·.120ç§’
+MountKindDuration_List[71058] = {120185,120000};		--µÀ¾ß±àºÅ.120Ãë
+MountKindDuration_List[71059] = {120164,120000};
 local MountItem = {
-    { type=62, name="åº§é¨", defaultImage=25044, place=6, flags=0, job=1, level=10 },
-    { type=62, name="åº§é¨", defaultImage=25044, place=6, flags=0, job=2011, level=10 },
-    { type=62, name="åº§é¨", defaultImage=25044, place=6, flags=0, job=2021, level=10 },
-    { type=62, name="åº§é¨", defaultImage=25044, place=6, flags=0, job=2041, level=10 },
-    { type=62, name="åº§é¨", defaultImage=25044, place=6, flags=0, job=2031, level=10 },
-    { type=62, name="åº§é¨", defaultImage=25044, place=6, flags=128, job=145, level=10 },
+    { type=62, name="×ùòT", defaultImage=25044, place=6, flags=0, job=1, level=10 },
+    { type=62, name="×ùòT", defaultImage=25044, place=6, flags=0, job=2011, level=10 },
+    { type=62, name="×ùòT", defaultImage=25044, place=6, flags=0, job=2021, level=10 },
+    { type=62, name="×ùòT", defaultImage=25044, place=6, flags=0, job=2041, level=10 },
+    { type=62, name="×ùòT", defaultImage=25044, place=6, flags=0, job=2031, level=10 },
+    { type=62, name="×ùòT", defaultImage=25044, place=6, flags=128, job=145, level=10 },
 }
 
 -------------------------------------------------------------------------------------------------------------------------------------
---- åŠ è½½æ¨¡å—é’©å­
+--- ¼ÓÔØÄ£¿é¹³×Ó
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemAttachEvent', Func.bind(self.itemAttachCallback, self))
@@ -38,15 +39,15 @@ function Module:onLoad()
   self:regCallback('LoopEvent', Func.bind(self.qmloop, self))
   self:regCallback('mountloop', function(player)
     local MountOn = Char.GetTempData(player, 'MountOn') or -1;
-    if (Char.GetData(player,CONST.å¯¹è±¡_ä¸é‡æ•Œå¼€å…³)==1 and MountOn>=1) then
+    if (Char.GetData(player,CONST.¶ÔÏó_²»ÓöµĞ¿ª¹Ø)==1 and MountOn>=1) then
       if MountOn==2 then
         Char.SetTempData(player, 'MountOn',1);
       elseif MountOn==1 then
-        Char.SetData(player,%å¯¹è±¡_ä¸é‡æ•Œå¼€å…³%,0);
+        Char.SetData(player,%¶ÔÏó_²»ÓöµĞ¿ª¹Ø%,0);
         Char.UnsetLoopEvent(player);
         Char.SetTempData(player, 'MountOn',0);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,'ä¸é‡æ•µé—œé–‰ï¼Œè«‹é‡æ–°ä¸Šä¸‹åº§é¨ï¼')
+        NLG.SystemMessage(player,'²»Óö”³êPé]£¬ÕˆÖØĞÂÉÏÏÂ×ùòT£¡')
       end
     end
   end)
@@ -58,18 +59,18 @@ function Module:onLoad()
 
 end
 
---è£…å¤‡æ¥å£
+--×°±¸½Ó¿Ú
 function Module:itemAttachCallback(charIndex, fromItemIndex)
-      local itemId = Item.GetData(fromItemIndex, CONST.é“å…·_ID);
-      local type = Item.GetData(fromItemIndex, CONST.é“å…·_ç±»å‹);
+      local itemId = Item.GetData(fromItemIndex, CONST.µÀ¾ß_ID);
+      local type = Item.GetData(fromItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
       setItemEffectData(charIndex, fromItemIndex, itemId, type);
   return 0;
 end
 
---å¸ä¸‹æ¥å£
+--Ğ¶ÏÂ½Ó¿Ú
 function Module:itemDetachCallback(charIndex, fromItemIndex)
-      local itemId = Item.GetData(fromItemIndex, CONST.é“å…·_ID);
-      local type = Item.GetData(fromItemIndex, CONST.é“å…·_ç±»å‹);
+      local itemId = Item.GetData(fromItemIndex, CONST.µÀ¾ß_ID);
+      local type = Item.GetData(fromItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
       setItemReEffectData(charIndex, fromItemIndex, itemId, type);
   return 0;
 end
@@ -78,80 +79,80 @@ function Module:onLoginEvent(charIndex)
       if Char.IsDummy(charIndex) then
             return
       end
-      local slotItemIndex_2 = Char.GetItemIndex(charIndex, 2);		--å·¦æ‰‹(2)
+      local slotItemIndex_2 = Char.GetItemIndex(charIndex, 2);		--×óÊÖ(2)
       if (slotItemIndex_2>0) then
-        local itemId_2 = Item.GetData(slotItemIndex_2, CONST.é“å…·_ID);
-        local type_2 = Item.GetData(slotItemIndex_2, CONST.é“å…·_ç±»å‹);
+        local itemId_2 = Item.GetData(slotItemIndex_2, CONST.µÀ¾ß_ID);
+        local type_2 = Item.GetData(slotItemIndex_2, CONST.µÀ¾ß_ÀàĞÍ);
         setItemEffectData(charIndex, slotItemIndex_2, itemId_2, type_2);
       end
 
-      local slotItemIndex_5 = Char.GetItemIndex(charIndex, 5);		--é¥°å“1(5)
+      local slotItemIndex_5 = Char.GetItemIndex(charIndex, 5);		--ÊÎÆ·1(5)
       if (slotItemIndex_5>0) then
-        local itemId_5 = Item.GetData(slotItemIndex_5, CONST.é“å…·_ID);
-        local type_5 = Item.GetData(slotItemIndex_5, CONST.é“å…·_ç±»å‹);
+        local itemId_5 = Item.GetData(slotItemIndex_5, CONST.µÀ¾ß_ID);
+        local type_5 = Item.GetData(slotItemIndex_5, CONST.µÀ¾ß_ÀàĞÍ);
         setItemEffectData(charIndex, slotItemIndex_5, itemId_5, type_5);
       end
 
-      local slotItemIndex_6 = Char.GetItemIndex(charIndex, 6);		--é¥°å“2(6)
+      local slotItemIndex_6 = Char.GetItemIndex(charIndex, 6);		--ÊÎÆ·2(6)
       if (slotItemIndex_6>0) then
-        local itemId_6 = Item.GetData(slotItemIndex_6, CONST.é“å…·_ID);
-        local type_6 = Item.GetData(slotItemIndex_6, CONST.é“å…·_ç±»å‹);
+        local itemId_6 = Item.GetData(slotItemIndex_6, CONST.µÀ¾ß_ID);
+        local type_6 = Item.GetData(slotItemIndex_6, CONST.µÀ¾ß_ÀàĞÍ);
         setItemEffectData(charIndex, slotItemIndex_6, itemId_6, type_6);
       end
 end
 
 ------------------------------------------------------------------------------------------
---åŠŸèƒ½å‡½æ•°
---è£…å¤‡æ—¶
+--¹¦ÄÜº¯Êı
+--×°±¸Ê±
 function setItemEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 	if (_Type==0 or _Type==1 or _Type==2 or _Type==3 or _Type==4 or _Type==5 or _Type==6) then
-		--local imageId = Item.GetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°);
+		--local imageId = Item.GetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı);
 		--local Image_buffer = string.split(imageId, "|")
-		--change_imageId = tonumber(Image_buffer[1]) or 0;			--åŠ æˆå½¢è±¡
-		--orichange_imageId = tonumber(Image_buffer[2]) or 0;			--ç©å®¶åŸå½¢è±¡
+		--change_imageId = tonumber(Image_buffer[1]) or 0;			--¼Ó³ÉĞÎÏó
+		--orichange_imageId = tonumber(Image_buffer[2]) or 0;			--Íæ¼ÒÔ­ĞÎÏó
 		--print(change_imageId,orichange_imageId)
 		local change_imageId = WeaponKindImage_List[_ItemId] or 0;
 		if (change_imageId>0) then
-			local playerImageId = Char.GetData(_CharIndex, CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£);
+			local playerImageId = Char.GetData(_CharIndex, CONST.¶ÔÏó_Ô­Ê¼Í¼µµ);
 			--local tStat = change_imageId.."|" ..playerImageId;
-			--Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tStat);
+			--Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tStat);
 			--Item.UpItem(_CharIndex, -1);
-			--Char.SetData(_CharIndex, CONST.å¯¹è±¡_å½¢è±¡, change_imageId);
-			--Char.SetData(_CharIndex, CONST.å¯¹è±¡_å¯è§†, change_imageId);
-			Char.SetData(_CharIndex, CONST.å¯¹è±¡_åŸå½¢, change_imageId);
+			--Char.SetData(_CharIndex, CONST.¶ÔÏó_ĞÎÏó, change_imageId);
+			--Char.SetData(_CharIndex, CONST.¶ÔÏó_¿ÉÊÓ, change_imageId);
+			Char.SetData(_CharIndex, CONST.¶ÔÏó_Ô­ĞÎ, change_imageId);
 			NLG.UpChar(_CharIndex);
 		end
-	elseif (_Type==55) then			--å¤´é¥°
+	elseif (_Type==55) then			--Í·ÊÎ
 		local change_speed = WingKindSpeed_List[_ItemId] or 0;
 		if (change_speed>=100) then
-			Char.SetData(_CharIndex, CONST.å¯¹è±¡_ç§»é€Ÿ, change_speed);
+			Char.SetData(_CharIndex, CONST.¶ÔÏó_ÒÆËÙ, change_speed);
 			NLG.UpChar(_CharIndex)
 		end
-	elseif (_Type==62) then			--åº§éª‘
-		--ä¸é‡æ•ŒåŠŸèƒ½
-		if (Char.GetData(_CharIndex,CONST.å¯¹è±¡_é¦™æ­¥æ•°)>0) then
-			NLG.SystemMessage(_CharIndex,"æ­£åœ¨ä½¿ç”¨æ­¥æ­¥é‡æ•µï¼Œç„¡æ³•å•Ÿç”¨ä¸é‡æ•µï¼");
-		elseif (Char.GetData(_CharIndex,CONST.å¯¹è±¡_ä¸é‡æ•Œå¼€å…³)==1) then
-			Char.SetData(_CharIndex,CONST.å¯¹è±¡_ä¸é‡æ•Œå¼€å…³,0);
+	elseif (_Type==62) then			--×ùÆï
+		--²»ÓöµĞ¹¦ÄÜ
+		if (Char.GetData(_CharIndex,CONST.¶ÔÏó_Ïã²½Êı)>0) then
+			NLG.SystemMessage(_CharIndex,"ÕıÔÚÊ¹ÓÃ²½²½Óö”³£¬Ÿo·¨†¢ÓÃ²»Óö”³£¡");
+		elseif (Char.GetData(_CharIndex,CONST.¶ÔÏó_²»ÓöµĞ¿ª¹Ø)==1) then
+			Char.SetData(_CharIndex,CONST.¶ÔÏó_²»ÓöµĞ¿ª¹Ø,0);
 			Char.UnsetLoopEvent(_CharIndex);
 			Char.SetTempData(_CharIndex, 'MountOn',0);
 			NLG.UpChar(_CharIndex);
-			NLG.SystemMessage(_CharIndex,"åº§é¨ç‹€æ…‹ä¸é‡æ•µé—œé–‰ï¼");
-		elseif (Char.GetData(_CharIndex,CONST.å¯¹è±¡_ä¸é‡æ•Œå¼€å…³)==0) then
+			NLG.SystemMessage(_CharIndex,"×ùòT î‘B²»Óö”³êPé]£¡");
+		elseif (Char.GetData(_CharIndex,CONST.¶ÔÏó_²»ÓöµĞ¿ª¹Ø)==0) then
 			if (Char.PartyNum(_CharIndex)==-1 or Char.GetPartyMember(_CharIndex,0)==_CharIndex) then
-				Char.SetData(_CharIndex,CONST.å¯¹è±¡_ä¸é‡æ•Œå¼€å…³,1);
-				Char.SetLoopEvent(nil,'mountloop',_CharIndex, MountKindDuration_List[_ItemId][2]);	--ä¿®æ”¹é©±é­”æŒç»­æ—¶é—´ï¼Œå•ä½æ¯«ç§’
+				Char.SetData(_CharIndex,CONST.¶ÔÏó_²»ÓöµĞ¿ª¹Ø,1);
+				Char.SetLoopEvent(nil,'mountloop',_CharIndex, MountKindDuration_List[_ItemId][2]);	--ĞŞ¸ÄÇıÄ§³ÖĞøÊ±¼ä£¬µ¥Î»ºÁÃë
 				Char.SetTempData(_CharIndex, 'MountOn',2);
 				NLG.UpChar(_CharIndex);
-				NLG.SystemMessage(_CharIndex,"åº§é¨ç‹€æ…‹ä¸é‡æ•µé–‹å•Ÿï¼");
+				NLG.SystemMessage(_CharIndex,"×ùòT î‘B²»Óö”³é_†¢£¡");
 			end
 		end
-		--é¨ä¸Šåº§é¨
+		--òTÉÏ×ùòT
 		local sitting_image = MountKindDuration_List[_ItemId][1]
-		local MapId = Char.GetData(_CharIndex,CONST.å¯¹è±¡_åœ°å›¾ç±»å‹);
-		local FloorId = Char.GetData(_CharIndex,CONST.å¯¹è±¡_åœ°å›¾);
-		local X = Char.GetData(_CharIndex,CONST.å¯¹è±¡_X);
-		local Y = Char.GetData(_CharIndex,CONST.å¯¹è±¡_Y);
+		local MapId = Char.GetData(_CharIndex,CONST.¶ÔÏó_µØÍ¼ÀàĞÍ);
+		local FloorId = Char.GetData(_CharIndex,CONST.¶ÔÏó_µØÍ¼);
+		local X = Char.GetData(_CharIndex,CONST.¶ÔÏó_X);
+		local Y = Char.GetData(_CharIndex,CONST.¶ÔÏó_Y);
 		local objNum,objTbl = Obj.GetObject(MapId, FloorId, X, Y);
 		--print(objNum,objTbl)
 		players = NLG.GetPlayer();
@@ -159,12 +160,12 @@ function setItemEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 			local playerIndex = Obj.GetCharIndex(v)
 			local sittingIndex = tonumber(playerIndex)+1;
 			--print(playerIndex,sittingIndex,objTbl[1])
-			if (Obj.GetType(v)==1) then	---1ï¼šéæ³• | 0ï¼šæœªä½¿ç”¨ | 1ï¼šè§’è‰² | 2ï¼šé“å…· | 3ï¼šé‡‘å¸ | 4ï¼šä¼ é€ç‚¹ | 5ï¼šèˆ¹ | 6ï¼šè½½å…·
-				--Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..x..'|'..y..'|70|0|101001|650|-1')	--éª‘å® 1 70
+			if (Obj.GetType(v)==1) then	---1£º·Ç·¨ | 0£ºÎ´Ê¹ÓÃ | 1£º½ÇÉ« | 2£ºµÀ¾ß | 3£º½ğ±Ò | 4£º´«ËÍµã | 5£º´¬ | 6£ºÔØ¾ß
+				--Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..x..'|'..y..'|70|0|101001|650|-1')	--Æï³è1 70
 				Protocol.Send(playerIndex,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
 				for k, v in ipairs(players) do
-					local names = Char.GetData(v,CONST.å¯¹è±¡_åŸå) or -1;
-					local maps = Char.GetData(v,CONST.å¯¹è±¡_åœ°å›¾) or -1;
+					local names = Char.GetData(v,CONST.¶ÔÏó_Ô­Ãû) or -1;
+					local maps = Char.GetData(v,CONST.¶ÔÏó_µØÍ¼) or -1;
 					if names~=-1 and maps==FloorId then 
 						Protocol.Send(v,'NI',from10to62(objTbl[1])..'|'..X..'|'..Y..'|70|'..sittingIndex..'|'..sitting_image..'|650|-1')
 					end
@@ -174,66 +175,66 @@ function setItemEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 	end
 end
 
---å¸ä¸‹æ—¶
+--Ğ¶ÏÂÊ±
 function setItemReEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
 	if (_Type==0 or _Type==1 or _Type==2 or _Type==3 or _Type==4 or _Type==5 or _Type==6) then
-		--local imageId = Item.GetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°);
+		--local imageId = Item.GetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı);
 		--local Image_buffer = string.split(imageId, "|")
-		--change_imageId = tonumber(Image_buffer[1]) or 0;			--åŠ æˆå½¢è±¡
-		--orichange_imageId = tonumber(Image_buffer[2]) or 0;			--ç©å®¶åŸå½¢è±¡
+		--change_imageId = tonumber(Image_buffer[1]) or 0;			--¼Ó³ÉĞÎÏó
+		--orichange_imageId = tonumber(Image_buffer[2]) or 0;			--Íæ¼ÒÔ­ĞÎÏó
 		--print(change_imageId,orichange_imageId)
 
 		local change_imageId = WeaponKindImage_List[_ItemId] or 0;
 		if (change_imageId>0) then
-			local playerImageId = Char.GetData(_CharIndex, CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£);
+			local playerImageId = Char.GetData(_CharIndex, CONST.¶ÔÏó_Ô­Ê¼Í¼µµ);
 			--local tStat = change_imageId.."|" ..playerImageId;
-			--Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tStat);
+			--Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tStat);
 			--Item.UpItem(_CharIndex, -1);
-			--Char.SetData(_CharIndex, CONST.å¯¹è±¡_å½¢è±¡, orichange_imageId);
-			--Char.SetData(_CharIndex, CONST.å¯¹è±¡_å¯è§†, orichange_imageId);
-			Char.SetData(_CharIndex, CONST.å¯¹è±¡_åŸå½¢, playerImageId);
+			--Char.SetData(_CharIndex, CONST.¶ÔÏó_ĞÎÏó, orichange_imageId);
+			--Char.SetData(_CharIndex, CONST.¶ÔÏó_¿ÉÊÓ, orichange_imageId);
+			Char.SetData(_CharIndex, CONST.¶ÔÏó_Ô­ĞÎ, playerImageId);
 			NLG.UpChar(_CharIndex);
 		end
-	elseif (_Type==55) then			--å¤´é¥°
-		Char.SetData(_CharIndex, CONST.å¯¹è±¡_ç§»é€Ÿ, 100);
+	elseif (_Type==55) then			--Í·ÊÎ
+		Char.SetData(_CharIndex, CONST.¶ÔÏó_ÒÆËÙ, 100);
 		NLG.UpChar(_CharIndex)
-		local ItemIndex = Char.GetItemIndex(_CharIndex, CONST.EQUIP_é¦–é¥°1);
+		local ItemIndex = Char.GetItemIndex(_CharIndex, CONST.EQUIP_Ê×ÊÎ1);
 		if (ItemIndex > 0) then
-			local itemId_new = Item.GetData(ItemIndex, CONST.é“å…·_ID);
-			local type_new = Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹);
+			local itemId_new = Item.GetData(ItemIndex, CONST.µÀ¾ß_ID);
+			local type_new = Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
 			local change_speed_new = WingKindSpeed_List[itemId_new] or 0;
 			if (type_new==55 and change_speed_new>=100 ) then
-				Char.SetData(_CharIndex, CONST.å¯¹è±¡_ç§»é€Ÿ, change_speed_new);
+				Char.SetData(_CharIndex, CONST.¶ÔÏó_ÒÆËÙ, change_speed_new);
 				NLG.UpChar(_CharIndex)
 			end
 		end
-	elseif (_Type==62) then			--åº§éª‘
-		--ä¸é‡æ•ŒåŠŸèƒ½
-		if (Char.GetData(_CharIndex,CONST.å¯¹è±¡_ä¸é‡æ•Œå¼€å…³)==1) then
-			Char.SetData(_CharIndex,CONST.å¯¹è±¡_ä¸é‡æ•Œå¼€å…³,0);
+	elseif (_Type==62) then			--×ùÆï
+		--²»ÓöµĞ¹¦ÄÜ
+		if (Char.GetData(_CharIndex,CONST.¶ÔÏó_²»ÓöµĞ¿ª¹Ø)==1) then
+			Char.SetData(_CharIndex,CONST.¶ÔÏó_²»ÓöµĞ¿ª¹Ø,0);
 			Char.UnsetLoopEvent(_CharIndex);
 			Char.SetTempData(_CharIndex, 'MountOn',0);
 			NLG.UpChar(_CharIndex);
-			NLG.SystemMessage(_CharIndex,"åº§é¨ç‹€æ…‹ä¸é‡æ•µé—œé–‰ï¼");
+			NLG.SystemMessage(_CharIndex,"×ùòT î‘B²»Óö”³êPé]£¡");
 		end
-		--ä¸‹æ¥åº§éª‘
+		--ÏÂÀ´×ùÆï
 		NLG.UpChar(_CharIndex)
 	end
 end
 
 function from10to62(num)
 	local dict = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--è¿›åˆ¶æ•°
+		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--½øÖÆÊı
 	local result = ''
 	--local bin = ''
 	while num > 0 do
-		result = tostring(dict[(num % 62)+1]) .. result--å–ä½™æ•°å¹¶æ‹¼æ¥åˆ°è¿›åˆ¶æ•°çš„å‰é¢
-		num = math.floor(num / 62)--æ•´é™¤62
+		result = tostring(dict[(num % 62)+1]) .. result--È¡ÓàÊı²¢Æ´½Óµ½½øÖÆÊıµÄÇ°Ãæ
+		num = math.floor(num / 62)--Õû³ı62
 	end
 	return result
 end
 
---- å¸è½½æ¨¡å—é’©å­
+--- Ğ¶ÔØÄ£¿é¹³×Ó
 function Module:onUnload()
   self:logInfo('unload')
 end
