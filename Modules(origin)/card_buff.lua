@@ -824,6 +824,9 @@ function card_buffModule:onStatusUpdate(charIndex)--刷新临时属性
 end
 
 function give_buff(player)--赋予玩家buff
+	if Char.IsDummy(player) then
+		return
+	end
 	if Char.IsPlayer(player) then
 		card_status(player)
 		local xue,mo,gong,fang,min,bi,fan,ming,shan,du,shui,shi,zui,luan,wang,jingshen,mogong,mokang,huifu,havebuff = statuslook(player)--buff总合查看

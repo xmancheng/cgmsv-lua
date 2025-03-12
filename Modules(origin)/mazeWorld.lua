@@ -39,8 +39,8 @@ end);
 
 
 local worldPoints = {
-  { "迷霧森林Lv110", 0, 60002, 115, 104, 5000 },
-  { "古代遺跡Lv120", 0, 60004, 11, 64, 5000 },
+  { "迷霧森林Lv110", 0, 7900, 4, 1, 5000 },
+  { "古代遺跡Lv120", 0, 7901, 2, 60, 5000 },
   { "黑夜貓村Lv130", 0, 60006, 107, 80, 5000 },
   { "荒漠峽谷Lv140", 0, 60008, 33, 24, 5000 },
   { "精靈之都Lv150", 0, 60010, 46, 42, 5000 },
@@ -50,7 +50,7 @@ local worldPoints = {
 }
 
 local mazeMap = {
-    { 60002, 60001 }, { 60004, 60001 }, { 60006, 60006 }, { 60008, 60001 }, { 60010, 60001 }, { 60012, 60001 }, { 60014, 60001 },
+    { 7900, 7900 }, { 7901, 7901 }, { 60006, 60006 }, { 60008, 60001 }, { 60010, 60001 }, { 60012, 60001 }, { 60014, 60001 },
 }
 local worldExp = {
     { Event="LordEnd1", L_level=101, R_level=110, Upload=120, UniItem=70258},
@@ -80,7 +80,8 @@ function Module:onLoad()
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.InTheWorld_LoopEvent,self))
-  local mazeNPC = self:NPC_createNormal('時空傳送石', 113405, { map = 1000, x = 242, y = 88, direction = 0, mapType = 0 })
+  local mazeNPC = self:NPC_createNormal('時空傳送', 121001, { map = 1000, x = 242, y = 88, direction = 0, mapType = 0 })
+  Char.SetData(mazeNPC,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
   self:NPC_regWindowTalkedEvent(mazeNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
@@ -210,6 +211,7 @@ function Module:onLoad()
               end
           else
               Char.Warp(player, short[2], short[3], short[4], short[5])
+              NLG.SystemMessage(player,"[系統]還在時限內傳送不需要費用。");
               Char.SetLoopEvent('./lua/Modules/mazeWorld.lua','InTheWorld_LoopEvent',player,60000);
           end
       end
@@ -270,7 +272,7 @@ function Module:onGetExpEvent(charIndex, exp)
 	]]
 	local Target_FloorId = Char.GetData(charIndex,CONST.CHAR_地图);
 	--print(Target_FloorId)
-	if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0 and Char.GetData(charIndex,CONST.对象_等级)>=101) then
+	if (Char.GetData(charIndex, CONST.对象_类型) == CONST.对象类型_人 and Char.GetData(charIndex, CONST.对象_名色)>0 and Char.GetData(charIndex,CONST.对象_等级)>=101) then
 		if (Target_FloorId==mazeMap[1][1] or Target_FloorId==mazeMap[1][2]) then
 			if (Char.GetData(charIndex,CONST.对象_等级)>=worldExp[1].R_level and Char.GetWorldCheck(1) == 0) then
 				NLG.SystemMessage(charIndex,"您已高於轉生後"..worldExp[1].R_level.."級，請與玩家合作通關BOSS，當前經驗已被鎖定。")
@@ -391,13 +393,13 @@ function Module:onGetExpEvent(charIndex, exp)
 				return exp;
 			end
 		else
-			if Char.GetData(charIndex,CONST.CHAR_队聊开关) == 1 then
+			if Char.GetData(charIndex,CONST.对象_队聊开关) == 1 then
 				NLG.SystemMessage(charIndex,"轉生後請前往裏空間或下一章世界，當前經驗已被鎖定。")
 			end
 			return 0
 		end
 	else
-		if (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_宠) then
+		if (Char.GetData(charIndex, CONST.对象_类型) == CONST.对象类型_宠) then
 			local PetIndex = charIndex;
 			local OwnercharIndex = Pet.GetOwner(PetIndex);
 			if (Char.ItemNum(OwnercharIndex,petexp_itemid) == 1) then
@@ -431,7 +433,7 @@ function Module:onGetExpEvent(charIndex, exp)
 				end
 				return exp;  --宠物获取的经验无加倍
 			end
-		elseif (Char.GetData(charIndex, CONST.CHAR_类型) == CONST.对象类型_人) then
+		elseif (Char.GetData(charIndex, CONST.对象_类型) == CONST.对象类型_人) then
  			if (Char.ItemNum(charIndex,playerexp_itemid) >= 0 or Char.ItemNum(charIndex,exp_itemid) >= 0) then
 				if(Char.ItemNum(charIndex,exp_itemid) > 0 and Char.ItemNum(charIndex,playerexp_itemid) > 0) then
 					return exp * 3;  --角色获取的经验3倍
@@ -450,28 +452,28 @@ function InTheWorld_LoopEvent(player)
   local FTime = Char.GetExtData(player, "MazeTimeF") or 0;
   local STime = Char.GetExtData(player, "MazeTimeS") or 0;
   local TTime = Char.GetExtData(player, "MazeTimeT") or 0;
-  local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
+  local Target_FloorId = Char.GetData(player,CONST.对象_地图);
   if FTime > 0 then
     if STime >0 then
-        if (os.time() - TTime) >= 12000 - (STime - FTime) and Target_FloorId>=60002 and Target_FloorId<=60015 then
+        if (os.time() - TTime) >= 12000 - (STime - FTime) and Target_FloorId>=7900 and Target_FloorId<=7907 then
             Char.Warp(player,0,1000,241,88);
             NLG.SystemMessage(player,"[系統]時限結束傳送離開裏空間。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.SetExtData(player, "MazeTimeT", 0);
             Char.UnsetLoopEvent(player);
-        elseif (os.time() - TTime) == 300 - (STime - FTime) and Target_FloorId>=60002 and Target_FloorId<=60015 then
+        elseif (os.time() - TTime) == 300 - (STime - FTime) and Target_FloorId>=7900 and Target_FloorId<=7907 then
             NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏空間。");
         end
     else
-        if (os.time() - FTime) >= 12000 and Target_FloorId>=60002 and Target_FloorId<=60015 then
+        if (os.time() - FTime) >= 12000 and Target_FloorId>=7900 and Target_FloorId<=7907 then
             Char.Warp(player,0,1000,241,88);
             NLG.SystemMessage(player,"[系統]時限結束傳送離開裏空間。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.SetExtData(player, "MazeTimeT", 0);
             Char.UnsetLoopEvent(player);
-        elseif (os.time() - FTime) == 300 and Target_FloorId>=60002 and Target_FloorId<=60015 then
+        elseif (os.time() - FTime) == 300 and Target_FloorId>=7900 and Target_FloorId<=7907 then
             NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏空間。");
         end
     end
@@ -508,8 +510,8 @@ function Module:onLoginEvent(player)
             Char.SetExtData(player, "MazeTimeT", os.time());
             Char.SetLoopEvent('./lua/Modules/mazeWorld.lua','InTheWorld_LoopEvent',player,60000);
   else
-            local Target_FloorId = Char.GetData(player,CONST.CHAR_地图);
-            if Target_FloorId>=60002 and Target_FloorId<=60015 then
+            local Target_FloorId = Char.GetData(player,CONST.对象_地图);
+            if Target_FloorId>=7900 and Target_FloorId<=7907 then
                 Char.Warp(player,0,1000,241,88);
                 Char.UnsetLoopEvent(player);
                 NLG.SystemMessage(player,"[系統]時空傳送回原本世界。");

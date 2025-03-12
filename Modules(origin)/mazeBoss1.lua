@@ -41,7 +41,8 @@ function Module:onLoad()
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleInjuryEvent', Func.bind(self.OnBattleInjuryCallBack, self))
-  local Lord1Npc = self:NPC_createNormal('傳送石碑', 11394, { map = 1000, x = 245, y = 88, direction = 6, mapType = 0 })
+  local Lord1Npc = self:NPC_createNormal('守護石碑', 11394, { map = 7900, x = 17, y = 0, direction = 6, mapType = 0 })
+  Char.SetData(Lord1Npc,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
   self:regCallback('LoopEvent', Func.bind(self.AutoLord_LoopEvent,self))
   self:NPC_regWindowTalkedEvent(Lord1Npc, function(npc, player, _seqno, _select, _data)
 	local cdk = Char.GetData(player,CONST.对象_CDK);
@@ -327,9 +328,9 @@ function Module:OnBattleInjuryCallBack(fIndex, aIndex, battleIndex, inject)
       --print(Round)
       local Target_FloorId = Char.GetData(fIndex, CONST.对象_地图)
       local defHpE = Char.GetData(fIndex,CONST.对象_血);
-      if defHpE >=100 and Target_FloorId==BossMap[1]  then
+      if defHpE >=100 and Target_FloorId==7900  then
                  inject = inject*0;
-      elseif  Target_FloorId==BossMap[1]  then
+      elseif  Target_FloorId==7900  then
                  inject = inject;
       end
   return inject;

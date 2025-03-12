@@ -23,9 +23,9 @@ local DrawTbl={
        { Num="005", type="A", serial_L=978, serial_H=984, name="歌姬召喚書", itemid=910249, count=1},        --A(5~7)
        { Num="006", type="A", serial_L=971, serial_H=977, name="梅茲召喚書", itemid=910250, count=1},
        { Num="007", type="A", serial_L=964, serial_H=970, name="露比召喚書", itemid=910271, count=1},
-       { Num="008", type="B", serial_L=944, serial_H=963, name="聖獸靈氣", itemid=631092, count=30},        --B(8~10)
-       { Num="009", type="B", serial_L=924, serial_H=943, name="聖獸靈氣", itemid=631092, count=20},
-       { Num="010", type="B", serial_L=904, serial_H=923, name="聖獸靈氣", itemid=631092, count=10},
+       { Num="008", type="B", serial_L=944, serial_H=963, name="大聖獸靈氣箱", itemid=631095, count=1},        --B(8~10)
+       { Num="009", type="B", serial_L=924, serial_H=943, name="中聖獸靈氣箱", itemid=631094, count=1},
+       { Num="010", type="B", serial_L=904, serial_H=923, name="小聖獸靈氣箱", itemid=631093, count=1},
        { Num="011", type="C", serial_L=849, serial_H=903, name="誘魔藥水", itemid=70085, count=2},           --C(11~14)
        { Num="012", type="C", serial_L=789, serial_H=848, name="驅魔藥水", itemid=70086, count=2},
        { Num="013", type="C", serial_L=729, serial_H=788, name="滿怪藥水", itemid=70087, count=2},
