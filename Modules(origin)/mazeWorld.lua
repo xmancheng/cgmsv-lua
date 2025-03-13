@@ -78,7 +78,7 @@ function Module:onLoad()
   self:regCallback('GetExpEvent', Func.bind(self.onGetExpEvent,self));
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
-  self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self));
+  --self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.InTheWorld_LoopEvent,self))
   local mazeNPC = self:NPC_createNormal('時空傳送', 121001, { map = 1000, x = 242, y = 88, direction = 0, mapType = 0 })
   Char.SetData(mazeNPC,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
