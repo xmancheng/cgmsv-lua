@@ -72,8 +72,7 @@ end
 function Module:onLoad()
   self:logInfo('load')
   --self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
-  --self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
-  self:regCallback('BeforeBattleTurnStartEvent', Func.bind(self.OnBeforeBattleTurnStartCommand, self))
+  self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
   --self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
   --self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
@@ -525,7 +524,7 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		end)
 	end
 end
-function Module:OnBeforeBattleTurnStartCommand(battleIndex)
+function Module:OnBeforeBattleTurnCommand(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
 	local playerCount = #NLG.GetPlayer() or 1;
 	local HP = playerCount * 50000;
@@ -538,7 +537,7 @@ function Module:OnBeforeBattleTurnStartCommand(battleIndex)
 				--Char.SetData(enemy, CONST.CHAR_Ñª, HP);
 			end
 		elseif Round>0 and enemy>=0 and e==battleIndex  then
-			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406165 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406167 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406169 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406171 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406173 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406175 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406177) then
 				local Hp_10 = Char.GetData(enemy, CONST.CHAR_×î´óÑª); 
 				local Hp_8 = Char.GetData(enemy, CONST.CHAR_Ñª);
 				local Hp08 = Hp_8/Hp_10;
