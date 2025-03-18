@@ -70,7 +70,7 @@ function Module:equipSlotInfo(npc, player)
                 Rate_buffer_Info[6] = tonumber(string.sub(tCard, 6, 6));	--HP倍率等级
                 Rate_buffer_Info[7] = tonumber(string.sub(tCard, 7, 7));	--MP倍率等级
 
-                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "[Lv".. spaceLvMsg..tStrLv .."]:靈氣".. spaceExpMsg..tStrExp .."%  "
+                winMsg = winMsg .. ItemPosName[targetSlot+1] .. "[Lv".. spaceLvMsg..tStrLv .."]:魂力".. spaceExpMsg..tStrExp .."%  "
                                                    .. Rate_buffer_Info[1].."| " .. Rate_buffer_Info[2].."| " .. Rate_buffer_Info[3].."| " .. Rate_buffer_Info[4].."| " .. Rate_buffer_Info[5].."| " .. Rate_buffer_Info[6].."| " .. Rate_buffer_Info[7].."\n"
           end
           NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, winMsg);
@@ -98,7 +98,7 @@ function Module:onLoad()
                 local tStrLv = EquipSlotStat(player, ItemPosName[targetSlot+1], "Q");
                 local tStrExp = EquipSlotStat(player, ItemPosName[targetSlot+1], "V");
                 local tStrExp = tStrExp/100;
-                local msg = "武裝等級: ".. tStrLv .. "  目前靈氣度: ".. tStrExp .."%";
+                local msg = "武裝等級: ".. tStrLv .. "  目前魂力: ".. tStrExp .."%";
                 winMsg = winMsg .. ItemPosName[targetSlot+1] .. "：" .. msg .. "\n"
           end
           NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_选择框, CONST.按钮_关闭, 1, winMsg);
@@ -124,14 +124,14 @@ function Module:onLoad()
               return;
           end
           if (tStrExp+keyNum>10000) then
-              NLG.SystemMessage(player, "[系統]聖獸靈氣過載！");
+              NLG.SystemMessage(player, "[系統]龍魂之力過載！");
               return;
           end
           if (targetSlot>=0) then
               local killNum = Char.ItemNum(player, 631092);
               if (keyNum ~=nil and math.ceil(keyNum)==keyNum) then
                   if (keyNum>killNum) then
-                      NLG.SystemMessage(player, "[系統]聖獸靈氣不足！");
+                      NLG.SystemMessage(player, "[系統]龍魂碎片不足！");
                       return;
                   else
                       EquipSlotStat(player, ItemPosName[targetSlot+1], "V", tStrExp+keyNum);
@@ -168,7 +168,7 @@ function Module:onLoad()
                                            .."正在確認武裝資訊...\\n"
                                            .."\\n　　　　武　裝　部　位：$2".. ItemPosName[targetSlot+1] .."\\n"
                                            .."\\n　　　　當前可充入的量：$4".. killNum .."\\n"
-                                           .."\\n請確認輸入之聖獸靈氣：\\n";
+                                           .."\\n請確認輸入之龍魂碎片：\\n";
               NLG.ShowWindowTalked(player, self.equipSloterNPC, CONST.窗口_输入框, CONST.BUTTON_确定关闭, 11, winMsg);
       else
                  return;

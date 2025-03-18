@@ -20,12 +20,12 @@ local DrawTbl={
        { Num="002", type="S", serial_L=993, serial_H=996, name="¿¨ –Ş±ÄÈ(¸ñ)", itemid=900209, count=1},
        { Num="003", type="S", serial_L=989, serial_H=992, name="ÒÁÀò·Æ½z(·¨)", itemid=900210, count=1},
        { Num="004", type="S", serial_L=985, serial_H=988, name="Éª –¾S†(¸«)", itemid=900211, count=1},
-       { Num="005", type="A", serial_L=978, serial_H=984, name="¸è¼§ÕÙ†¾•ø", itemid=910249, count=1},        --A(5~7)
-       { Num="006", type="A", serial_L=971, serial_H=977, name="Ã·ÆÕÙ†¾•ø", itemid=910250, count=1},
-       { Num="007", type="A", serial_L=964, serial_H=970, name="Â¶±ÈÕÙ†¾•ø", itemid=910271, count=1},
-       { Num="008", type="B", serial_L=944, serial_H=963, name="´óÂ}«Fì`šâÏä", itemid=631095, count=1},        --B(8~10)
-       { Num="009", type="B", serial_L=924, serial_H=943, name="ÖĞÂ}«Fì`šâÏä", itemid=631094, count=1},
-       { Num="010", type="B", serial_L=904, serial_H=923, name="Ğ¡Â}«Fì`šâÏä", itemid=631093, count=1},
+       { Num="005", type="A", serial_L=978, serial_H=984, name="ÉßÈËô”·òÕÙ†¾•ø", itemid=910272, count=1},        --A(5~7)
+       { Num="006", type="A", serial_L=971, serial_H=977, name="ÌìÅ®«FÕÙ†¾•ø", itemid=910273, count=1},
+       { Num="007", type="A", serial_L=964, serial_H=970, name="ÌìÊ¹Å®«FÕÙ†¾•ø", itemid=910274, count=1},
+       { Num="008", type="B", serial_L=944, serial_H=963, name="´óıˆ»êËéÆ¬Ïä", itemid=631095, count=1},        --B(8~10)
+       { Num="009", type="B", serial_L=924, serial_H=943, name="ÖĞıˆ»êËéÆ¬Ïä", itemid=631094, count=1},
+       { Num="010", type="B", serial_L=904, serial_H=923, name="Ğ¡ıˆ»êËéÆ¬Ïä", itemid=631093, count=1},
        { Num="011", type="C", serial_L=849, serial_H=903, name="ÕTÄ§ËË®", itemid=70085, count=2},           --C(11~14)
        { Num="012", type="C", serial_L=789, serial_H=848, name="òŒÄ§ËË®", itemid=70086, count=2},
        { Num="013", type="C", serial_L=729, serial_H=788, name="M¹ÖËË®", itemid=70087, count=2},

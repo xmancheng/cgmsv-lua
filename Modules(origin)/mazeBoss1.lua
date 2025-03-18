@@ -10,10 +10,10 @@ local Pos = {}
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
-local BossEnemyId = 320128;		--暴走模式设定对象
-EnemySet[1] = {0, 1213, 1213, 0, 0, 320128, 0, 0, 1213, 1213}    --0代表没有怪
-BaseLevelSet[1] = {0, 15, 15, 0, 0, 110, 0, 0, 15, 15}
-Pos[1] = {"極巨噴火龍",EnemySet[1],BaseLevelSet[1]}
+local BossEnemyId = 320134;		--暴走模式设定对象
+EnemySet[1] = {0, 320124, 320124, 0, 0, 320134, 0, 0, 320124, 320124}    --0代表没有怪
+BaseLevelSet[1] = {0, 105, 105, 0, 0, 110, 0, 0, 105, 105}
+Pos[1] = {"迷霧森林之主",EnemySet[1],BaseLevelSet[1]}
 ------------------------------------------------
 --背景设置
 --local Switch = 0;					--组队人数限制开关1开0关
@@ -26,7 +26,7 @@ local Pts= 70058;					-- 魔族核心
 local BossRoom = {
       { key=1, keyItem=70195, keyItem_count=1, bossRank=3, limit=5, posNum_L=3, posNum_R=4,
           win={warpWMap=1000, warpWX=242, warpWY=88, getItem = 70075, getItem_count = 50},
-          lordName="極巨噴火龍",
+          lordName="迷霧森林之主",
        },    -- 普通(2)
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -65,19 +65,19 @@ function Module:onLoad()
 				worldLayer = tonumber(retEnd["0_1"]);
 			end]]
 			--print(worldLayer)
-			if(Char.ItemNum(player,BossKey[1])>0) then
-				NLG.SystemMessage(player,"[系統]想進行討伐不能持有過期憑證。");
-				return;
-			elseif (Char.ItemNum(player,16440)<=0) then
-				NLG.SystemMessage(player,"[系統]此處刻著傲慢印記，似乎須要傲慢的罪書來共鳴。");
-				return;
-			else
-				local msg = "\\n魔物領主：\\n"
-					.."\\n意外的異世界拜訪者阿！為何打擾我們的生活？"
-					.."\\n為了追求價值不斐的寶藏、還是傳說中無限力量？"
-					.."\\n那我們也不得不發起試煉與對抗，驅逐異端。";
+			--if(Char.ItemNum(player,BossKey[1])>0) then
+				--NLG.SystemMessage(player,"[系統]想進行討伐不能持有過期憑證。");
+				--return;
+			--elseif (Char.ItemNum(player,16440)<=0) then
+				--NLG.SystemMessage(player,"[系統]此處刻著傲慢印記，似乎須要傲慢的罪書來共鳴。");
+				--return;
+			--else
+				local msg = "\\n迷霧森林之主：\\n\\n"
+					.."　意外的時空旅者！你是否具備勇氣與力量？\\n"
+					.."　就由我這古老的樹精長老來進行試煉吧\\n"
+					.."　通過挑戰後就能開始前往「時之殿」的旅途。\\n";
 				NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 11, msg);
-			end
+			--end
 		end
 
 	end
@@ -147,11 +147,12 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(Lord1Npc, function(npc, player)
 	if (NLG.CanTalk(npc, player) == true) then
-		local msg = "\\n\\n@c★魔物的領地位在最深處★\\n"
-				.."\\n　　————————————————————\\n"
-				.."　這裡是前往深處的傳送點　\\n" 
-				.."　　\\n" 
-				.."　達成條件取得討伐資格吧　\\n";
+		local msg = "\\n迷霧森林之主：\\n\\n"
+				.."　時之民是一群流浪於時間洪流中的守護者\\n"
+				.."　身負掌控時間碎片的秘術，卻也因漫長歲月的侵蝕\\n"
+				.."　逐漸變得虛幻他們的居所不再是穩固的城鎮，而是\\n"
+				.."　漂浮於裂隙邊緣的「時之殿」一座由破碎時光與魔力\\n"
+				.."　凝結而成的靜謐聖域。\\n";
 		NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下取消, 1, msg);
 	end
 	return
