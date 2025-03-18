@@ -149,10 +149,10 @@ function Module:onLoad()
 	if (NLG.CanTalk(npc, player) == true) then
 		local msg = "\\n迷霧森林之主：\\n\\n"
 				.."　時之民是一群流浪於時間洪流中的守護者\\n"
-				.."　身負掌控時間碎片的秘術，卻也因漫長歲月的侵蝕\\n"
-				.."　逐漸變得虛幻他們的居所不再是穩固的城鎮，而是\\n"
-				.."　漂浮於裂隙邊緣的「時之殿」一座由破碎時光與魔力\\n"
-				.."　凝結而成的靜謐聖域。\\n";
+				.."　身負掌控時間碎片的秘術，卻也因漫長歲月的\\n"
+				.."　侵蝕逐漸變得虛幻他們的居所不再是穩固的城\\n"
+				.."　鎮，而是漂浮於裂隙邊緣的「時之殿」一座由\\n"
+				.."　破碎時光與魔力凝結而成的靜謐聖域。\\n";
 		NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下取消, 1, msg);
 	end
 	return
