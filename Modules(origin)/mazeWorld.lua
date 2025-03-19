@@ -41,16 +41,16 @@ end);
 local worldPoints = {
   { "迷霧森林Lv110", 0, 7900, 4, 1, 5000 },
   { "古代遺跡Lv120", 0, 7901, 2, 60, 5000 },
-  { "時之殿堂Lv130", 0, 60006, 107, 80, 5000 },
-  { "荒漠之原Lv140", 0, 60008, 33, 24, 5000 },
-  { "龍魂之間Lv150", 0, 60010, 46, 42, 5000 },
-  { "時空回廊Lv160", 0, 60012, 15, 15, 5000 },
-  { "月影迴廊Lv170", 0, 60014, 44, 51, 5000 },
-  { "時之核心Lv180", 0, 60016, 26, 47, 5000 },
+  { "時之殿堂Lv130", 0, 7902, 50, 10, 5000 },
+  { "荒漠之原Lv140", 0, 7903, 30, 28, 5000 },
+  { "龍魂之間Lv150", 0, 7904, 92, 76, 5000 },
+  { "時空回廊Lv160", 0, 7905, 99, 144, 5000 },
+  { "月影迴廊Lv170", 0, 7907, 29, 104, 5000 },
+  { "時之核心Lv180", 0, 7908, 26, 47, 5000 },
 }
 
 local mazeMap = {
-    { 7900, 7900 }, { 7901, 7901 }, { 60006, 60006 }, { 60008, 60001 }, { 60010, 60001 }, { 60012, 60001 }, { 60014, 60001 },
+    { 7900, 7900 }, { 7901, 7901 }, { 7902, 7902 }, { 7903, 7903 }, { 7904, 7904 }, { 7905, 7905 }, { 7906, 7907 },
 }
 local worldExp = {
     { Event="LordEnd1", L_level=101, R_level=110, Upload=120, UniItem=70258},
@@ -80,7 +80,7 @@ function Module:onLoad()
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   --self:regCallback('DropEvent', Func.bind(self.LogoutEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.InTheWorld_LoopEvent,self))
-  local mazeNPC = self:NPC_createNormal('時空傳送', 121001, { map = 1000, x = 242, y = 88, direction = 0, mapType = 0 })
+  local mazeNPC = self:NPC_createNormal('時之裂隙', 121001, { map = 1000, x = 242, y = 88, direction = 0, mapType = 0 })
   Char.SetData(mazeNPC,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
   self:NPC_regWindowTalkedEvent(mazeNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
@@ -111,7 +111,7 @@ function Module:onLoad()
       local count = 7 * (warpPage - 1)
       if warpPage == totalPage then
         local cdk = Char.GetData(player,CONST.对象_CDK);
-        local winMsg = "2\\n@c前往轉生後的裏空間冒險\\n"
+        local winMsg = "2\\n@c前往轉生後的裂隙冒險\\n"
                                .."　　————————————————————\\n";
         for i = 1 + count, remainder + count do
             local flag=i-1;
@@ -131,7 +131,7 @@ function Module:onLoad()
         end
         NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, warpPage, winMsg);
       else
-        local winMsg = "2\\n@c前往轉生後的裏空間冒險\\n"
+        local winMsg = "2\\n@c前往轉生後的裂隙冒險\\n"
                            .."　　————————————————————\\n"
         local cdk = Char.GetData(player,CONST.对象_CDK);
         for i = 1 + count, 7 + count do
@@ -166,7 +166,7 @@ function Module:onLoad()
       ]]
       if (count==8) then
           if (Char.PartyNum(player)>=2) then
-            NLG.SystemMessage(player,"[系統]裏空間須要單人進行傳送！！");
+            NLG.SystemMessage(player,"[系統]裂隙須要單人進行傳送！！");
             return;
           end
           local flagEvent1 = Char.EndEvent(player,Horcrux[1][1]);
@@ -232,7 +232,7 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
       local winCase = CONST.窗口_选择框
       local winButton = CONST.BUTTON_关闭;
-      local winMsg = "2\\n@c前往轉生後的裏空間冒險\\n"
+      local winMsg = "2\\n@c前往轉生後的裂隙冒險\\n"
                            .."　　————————————————————\\n"
       for i = 1,7 do
             local flag=i;
@@ -394,7 +394,7 @@ function Module:onGetExpEvent(charIndex, exp)
 			end
 		else
 			if Char.GetData(charIndex,CONST.对象_队聊开关) == 1 then
-				NLG.SystemMessage(charIndex,"轉生後請前往裏空間或下一章世界，當前經驗已被鎖定。")
+				NLG.SystemMessage(charIndex,"轉生後請前往裂隙或下一章世界，當前經驗已被鎖定。")
 			end
 			return 0
 		end
@@ -457,24 +457,24 @@ function InTheWorld_LoopEvent(player)
     if STime >0 then
         if (os.time() - TTime) >= 12000 - (STime - FTime) and Target_FloorId>=7900 and Target_FloorId<=7907 then
             Char.Warp(player,0,1000,241,88);
-            NLG.SystemMessage(player,"[系統]時限結束傳送離開裏空間。");
+            NLG.SystemMessage(player,"[系統]時限結束傳送離開裂隙。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.SetExtData(player, "MazeTimeT", 0);
             Char.UnsetLoopEvent(player);
         elseif (os.time() - TTime) == 300 - (STime - FTime) and Target_FloorId>=7900 and Target_FloorId<=7907 then
-            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏空間。");
+            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裂隙。");
         end
     else
         if (os.time() - FTime) >= 12000 and Target_FloorId>=7900 and Target_FloorId<=7907 then
             Char.Warp(player,0,1000,241,88);
-            NLG.SystemMessage(player,"[系統]時限結束傳送離開裏空間。");
+            NLG.SystemMessage(player,"[系統]時限結束傳送離開裂隙。");
             Char.SetExtData(player, "MazeTimeF", 0);
             Char.SetExtData(player, "MazeTimeS", 0);
             Char.SetExtData(player, "MazeTimeT", 0);
             Char.UnsetLoopEvent(player);
         elseif (os.time() - FTime) == 300 and Target_FloorId>=7900 and Target_FloorId<=7907 then
-            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裏空間。");
+            NLG.SystemMessage(player,"[系統]剩下五分鐘將傳送離開裂隙。");
         end
     end
   else
