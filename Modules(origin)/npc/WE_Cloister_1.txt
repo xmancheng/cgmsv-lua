@@ -1,0 +1,60 @@
+block endevent160==1 && endevent159 == 0 && XPos >= 81 && XPos <= 83 && YPos >= 108 && YPos <= 110
+	EndWindow "\n\n\n\n@c選擇一：以龍魂之力净化克罗诺斯。",ok
+endblock
+block endevent160==0 && endevent159 == 1 && XPos >= 81 && XPos <= 83 && YPos >= 108 && YPos <= 110
+	window "\n\n\n\n@c已經選擇：决戰墮落的時之龍神。\n\n是否放弃重新選擇？",yes,no
+		window_yes
+			endevent159 = 0
+			endevent160 = 0
+			checktitle
+		window_no
+endblock
+block XPos >= 81 && XPos <= 83 && YPos >= 108 && YPos <= 110
+	window 860020,next
+	window 860021,next
+	window 860022,yes,no
+		window_yes Item 47334<1 && Item 47335<1 && endevent160 == 0 && endevent159 == 0
+			GiveItem 47335,1
+		window_yes endevent159 == 0 && endevent160 == 0
+			EndWindow "\n\n\n\n@c雙擊觉醒之光确认路線。",ok
+		window_yes endevent159 == 1 && endevent160 == 1
+			endevent159 = 0
+			endevent160 = 0
+			checktitle
+			EndWindow "\n\n\n\n@c重新選擇一條路線。",ok
+		window_no
+			endevent159 = 0
+			endevent160 = 0
+			checktitle
+endblock
+
+
+block endevent159==1 && endevent160 == 0 && XPos >= 103 && XPos <= 105 && YPos >= 110 && YPos <= 112
+	EndWindow "\n\n\n\n@c選擇二：决戰墮落的時之龍神。",ok
+endblock
+block endevent159==0 && endevent160 == 1 && XPos >= 103 && XPos <= 105 && YPos >= 110 && YPos <= 112
+	window "\n\n\n\n@c已經選擇：以龍魂之力净化克罗诺斯。\n\n是否放弃重新選擇？",yes,no
+		window_yes
+			endevent159 = 0
+			endevent160 = 0
+			checktitle
+		window_no
+endblock
+block XPos >= 103 && XPos <= 105 && YPos >= 110 && YPos <= 112
+	window 860023,next
+	window 860024,next
+	window 860025,yes,no
+		window_yes Item 47335<1 && Item 47334<1 && endevent159 == 0 && endevent160 == 0
+			GiveItem 47334,1
+		window_yes endevent159 == 0 && endevent160 == 0
+			EndWindow "\n\n\n\n@c雙擊砂之記憶确认路線。",ok
+		window_yes endevent159 == 1 && endevent160 == 1
+			endevent159 = 0
+			endevent160 = 0
+			checktitle
+			EndWindow "\n\n\n\n@c重新選擇一條路線。",ok
+		window_no
+			endevent159 = 0
+			endevent160 = 0
+			checktitle
+endblock

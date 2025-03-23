@@ -1,0 +1,15 @@
+
+
+#######################################
+block Item 69121 >= 1 && skilllevel216 >= 6
+
+	Window "\n\n＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝\n\n\n　学習靈紋墨水製作配方\n\n\n\n＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝",YES,NO
+	Window_YES
+	KillItem 69121
+	giverecipe 1051
+	Window_NO
+
+block Item 69121 >= 1
+
+	EndWindow "\n\n＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝\n\n\n　你製藥尚未熟练，学習不足製藥LV6\n\n\n\n＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝",OK
+

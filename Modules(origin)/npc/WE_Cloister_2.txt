@@ -1,0 +1,33 @@
+
+block  XPos >= 93 && XPos <= 95 && YPos >= 68 && YPos <= 70
+	window 860026,next
+	window 860027,yes,no
+		window_yes endevent160 == 1 && endevent159 == 0
+			Encount 2|0,7906,119,125||0|||||0|1228|
+		window_yes endevent159 == 1 && endevent160 == 0
+			EndWindow "\n\n\n\n@c决戰墮落的時之龍神似乎行不通。",ok
+		window_yes endevent159 == 1 && endevent160 == 1
+			EndWindow "\n\n\n\n@c重新選擇一條路線。",ok
+		window_yes endevent160 == 0 && endevent159 == 0
+			Warp 0,7906,103,160
+			EndWindow "\n\n\n\n@c選擇一條路線。",ok
+		window_no
+
+endblock
+
+
+block XPos >= 108 && XPos <= 110 && YPos >= 83 && YPos <= 85
+	window 860026,next
+	window 860027,yes,no
+		window_yes endevent159 == 1 && endevent160 == 0
+			Encount 2|0,7906,119,125||0|||||0|1227|
+		window_yes endevent160 == 1 && endevent159 == 0
+			EndWindow "\n\n\n\n@c以龍魂之力净化克罗诺斯似乎行不通。",ok
+		window_yes endevent159 == 1 && endevent160 == 1
+			EndWindow "\n\n\n\n@c重新選擇一條路線。",ok
+		window_yes endevent160 == 0 && endevent159 == 0
+			Warp 0,7906,103,160
+			EndWindow "\n\n\n\n@c選擇一條路線。",ok
+		window_no
+
+endblock

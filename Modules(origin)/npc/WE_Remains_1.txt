@@ -1,0 +1,39 @@
+block XPos >= 4 && XPos <= 6 && YPos >= 58 && YPos <= 60
+	window 860002,next
+	window 860003,next
+	EndWindow 860004,yes,no
+	window_yes
+
+	window_no
+
+endblock
+
+block XPos >= 64 && XPos <= 65 && YPos >= 54 && YPos <= 55
+	window 860010,OK
+	window_ok
+		GiveItem 607600,1
+endblock
+
+block XPos >= 56 && XPos <= 58 && YPos >= 43 && YPos <= 45
+	window 860011,OK
+	window_ok
+		GiveItem 73891,1
+endblock
+
+block XPos >= 17 && XPos <= 19 && YPos >= 38 && YPos <= 40
+	window 860011,OK
+	window_ok
+		GiveItem 73892,1
+endblock
+
+block XPos >= 56 && XPos <= 58 && YPos >= 62 && YPos <= 64
+	window 860011,OK
+	window_ok
+		GiveItem 73893,1
+endblock
+
+block XPos >= 21 && XPos <= 23 && YPos >= 54 && YPos <= 56
+	window 860011,OK
+	window_ok
+		GiveItem 73894,1
+endblock

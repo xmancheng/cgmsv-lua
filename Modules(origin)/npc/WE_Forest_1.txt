@@ -1,0 +1,26 @@
+block XPos >= 4 && XPos <= 6 && YPos >= 1 && YPos <= 3
+	window 860000,next
+	EndWindow 860001,yes,no
+	window_yes
+
+	window_no
+
+endblock
+
+block XPos >= 36 && XPos <= 38 && YPos >= 25 && YPos <= 27
+	window "@c\n\n\n\n前往迷藏森林深處？",yes,no
+	window_no
+		EndWindow "@c\n\n\n@n在迷藏森林迷失了方向。",OK
+	endblock
+	window_yes
+	LocalCount1 = Random 5,0
+ 		if localcount 1 == 5
+			Warp 0,7900,17,27
+		endif
+ 		if localcount 1 >= 1 && localcount 1 <= 2
+			Warp 0,7900,6,43
+		endif
+ 		if localcount 1 >= 3 && localcount 1 <= 4
+			Warp 0,7900,23,28
+		endif
+	endblock

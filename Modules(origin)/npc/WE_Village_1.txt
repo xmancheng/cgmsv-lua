@@ -1,0 +1,34 @@
+block XPos >= 43 && XPos <= 45 && YPos >= 29 && YPos <= 31
+	window 860017,next
+	window 860018,next
+	window 860019,yes,no
+		window_yes Item 46481>=1
+			EndWindow "\n\n\n\n@c這是時之巫女的信物，能使你在時之殿內通行無阻。",ok
+		window_yes Item 46481<1
+			GiveItem 46481,1
+		window_no
+
+endblock
+
+block XPos >= 38 && XPos <= 40 && YPos >= 63 && YPos <= 65
+	window 860015,yes,no
+	window_yes Item 69112<40 || Item 69113<40
+		EndWindow "\n\n\n\n@c時光星木或秘銀碎屑數量不足40個",ok
+	window_yes Item 69112>=40 && Item 69113>=40
+		KillItem 69112,40
+		KillItem 69113,40
+		GiveItem 69121,1
+	window_no
+
+endblock
+
+block XPos >= 60 && XPos <= 62 && YPos >= 63 && YPos <= 65
+	window 860016,yes,no
+	window_yes Item 46481<1
+		EndWindow "\n\n\n\n@c你沒有獲得時之巫女的批准，禁止取得揉製方法。",ok
+	window_yes
+		KillItem 46481,1
+		GiveItem 69122,1
+	window_no
+
+endblock

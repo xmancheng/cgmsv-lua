@@ -1,0 +1,5 @@
+
+block
+	KillItem 69120,1
+	giveLeak1Item (69117%30$30,69118%50$20,69119%20$15)
+endblock

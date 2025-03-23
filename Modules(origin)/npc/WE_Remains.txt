@@ -1,0 +1,20 @@
+block XPos == 53 && YPos == 59
+	SetLp -100
+	systemmessage 860008
+
+block XPos == 40 && YPos == 78
+	SetLp -100
+	systemmessage 860008
+
+block XPos == 13 && YPos == 59
+	systemmessage 860009
+	Warp 0,7901,10,60
+
+block XPos == 13 && YPos == 60
+	systemmessage 860009
+	Warp 0,7901,10,60
+
+block XPos == 13 && YPos == 61
+	systemmessage 860009
+	Warp 0,7901,10,60
+

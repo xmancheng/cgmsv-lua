@@ -1,0 +1,23 @@
+block XPos == 4 && YPos == 0
+	Warp 0,1000,241,88
+
+block XPos == 21 && YPos == 17
+	Warp 0,7900,17,7
+
+block XPos == 7 && YPos == 6
+	Warp 0,7900,16,41
+block XPos == 16 && YPos == 40
+	Warp 0,7900,7,5
+
+block XPos == 49 && YPos == 38
+	Warp 0,7900,23,8
+block XPos == 23 && YPos == 7
+	Warp 0,7900,49,39
+
+block XPos == 43 && YPos == 21
+	Warp 0,7900,43,11
+
+block XPos == 27 && YPos == 21
+	Warp 0,7900,28,6
+block XPos == 27 && YPos == 6
+	Warp 0,7900,27,22
