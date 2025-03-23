@@ -379,7 +379,9 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	else
 		player = leaderpet
 	end
-	local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
+	if (player>=0) then
+		cdk = Char.GetData(player,CONST.对象_CDK) or nil;
+	end
 
 	--[[local ret = SQL.Run("select Name,WorldLord1 from lua_hook_worldboss where CdKey='"..cdk.."'");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then

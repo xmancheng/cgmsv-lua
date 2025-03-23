@@ -1,5 +1,5 @@
 ---模块类
-local Module = ModuleBase:createModule('mazeBoss2')
+local Module = ModuleBase:createModule('mazeBoss7')
 
 local EnemySet = {}
 local BaseLevelSet = {}
@@ -10,10 +10,10 @@ local Pos = {}
 --     五(4)	三(2)	一(0)	二(1)	四(3)
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
-local BossEnemyId = 406183;		--暴走模式设定对象
-EnemySet[1] = {406183, 406182, 406182, 0, 0, 0, 0, 0, 406182, 406182}    --0代表没有怪
-BaseLevelSet[1] = {120, 115, 115, 0, 0, 0, 0, 0, 115, 115}
-Pos[1] = {"惡魔亡靈",EnemySet[1],BaseLevelSet[1]}
+local BossEnemyId = 406196;		--暴走模式设定对象
+EnemySet[1] = {406196, 0, 0, 0, 0, 0, 0, 0, 0, 0}    --0代表没有怪
+BaseLevelSet[1] = {160, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+Pos[1] = {"吸血鬼賽克特",EnemySet[1],BaseLevelSet[1]}
 ------------------------------------------------
 --背景设置
 --local Switch = 0;					--组队人数限制开关1开0关
@@ -26,7 +26,7 @@ local Pts= 70058;					-- 魔族核心
 local BossRoom = {
       { key=1, keyItem=70195, keyItem_count=1, bossRank=3, limit=5, posNum_L=3, posNum_R=4,
           win={warpWMap=1000, warpWX=242, warpWY=88, getItem = 70075, getItem_count = 50},
-          lordName="惡魔亡靈",
+          lordName="吸血鬼賽克特",
        },    -- 普通(2)
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -41,10 +41,10 @@ function Module:onLoad()
   self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleInjuryEvent', Func.bind(self.OnBattleInjuryCallBack, self))
-  local Lord2Npc = self:NPC_createNormal('黑魔導士', 104816, { map = 7901, x = 36, y = 41, direction = 4, mapType = 0 })
-  Char.SetData(Lord2Npc,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
+  local Lord4Npc = self:NPC_createNormal('吸血鬼賽克特', 130105, { map = 7906, x = 99, y = 44, direction = 4, mapType = 0 })
+  Char.SetData(Lord4Npc,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
   self:regCallback('LoopEvent', Func.bind(self.AutoLord_LoopEvent,self))
-  self:NPC_regWindowTalkedEvent(Lord2Npc, function(npc, player, _seqno, _select, _data)
+  self:NPC_regWindowTalkedEvent(Lord4Npc, function(npc, player, _seqno, _select, _data)
 	local cdk = Char.GetData(player,CONST.对象_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
@@ -60,22 +60,21 @@ function Module:onLoad()
 		if select == CONST.按钮_关闭 then
 			return;
 		elseif select == CONST.按钮_下一页 then  ----参加领主讨伐
-			--[[local retEnd = SQL.Run("select Name,LordEnd2 from lua_hook_worldboss order by LordEnd2 desc ");
+			--[[local retEnd = SQL.Run("select Name,LordEnd7 from lua_hook_worldboss order by LordEnd7 desc ");
 			if (type(retEnd)=="table" and retEnd["0_1"]~=nil) then
 				worldLayer = tonumber(retEnd["0_1"]);
 			end]]
 			--print(worldLayer)
-			if(Char.ItemNum(player,607600)<=0) then
-				NLG.SystemMessage(player,"[系統]還缺少了重要的物品來解放。");
+			if(Char.ItemNum(player,47080)==0 and Char.ItemNum(player,47079)==0) then
+				NLG.SystemMessage(player,"[系統]龍神目前的狀態未明。");
 				return;
-			--elseif (Char.ItemNum(player,16441)<=0) then
-				--NLG.SystemMessage(player,"[系統]此處刻著嫉妒印記，似乎須要嫉妒的罪書來共鳴。");
-				--return;
 			else
-				local msg = "\\n帝國亡靈：\\n"
-					.."\\n逆時者！感謝你解放困在遺跡的我等！"
-					.."\\n我等將成為你的僕從改變世界的歷史。"
-					.."\\n但是考驗也是少不了，準備好接招吧！？";
+				local msg = "\\n吸血鬼·賽克特：\\n\\n"
+					.."　你是支持淨化的龍魂方？\\n"
+					.."　還是打算就讓龍神墮落的一方？\\n"
+					.."　就算結果已經出來了——\\n"
+					.."　我是不會輕易讓步，有所企圖之人\\n"
+					.."　宿命使我們須來場最終對決。\\n";
 				NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 11, msg);
 			end
 		end
@@ -88,7 +87,7 @@ function Module:onLoad()
 			return;
 		elseif select == CONST.按钮_是 then
 			if ret and #WorldDate > 0 then
-				if WorldDate[2][1]==os.date("%w",os.time()) then
+				if WorldDate[7][1]==os.date("%w",os.time()) then
 					NLG.SystemMessage(player,"[系統]每日僅能進行1次討伐。");
 					Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
 					return;
@@ -122,9 +121,9 @@ function Module:onLoad()
 			--Item.UpItem(player,slot);
 			table.insert(tbl_duel_user,player);
 			--Char.Warp(player,0, BossMap[1], BossMap[2], BossMap[3]);
-			--Char.SetLoopEvent('./lua/Modules/mazeBoss2.lua','AutoLord_LoopEvent',player,1000);
+			--Char.SetLoopEvent('./lua/Modules/mazeBoss7.lua','AutoLord_LoopEvent',player,1000);
 			--WorldDate = {}
-			WorldDate[2] = {
+			WorldDate[7] = {
 			os.date("%w",os.time()),
 			}
 			Field.Set(player, 'WorldDate', JSON.encode(WorldDate));
@@ -137,7 +136,7 @@ function Module:onLoad()
 					end
 				end
 			end
-			Char.DelItem(player, 607600, 1);
+			--Char.DelItem(player, 46481, 1);
 			def_round_start(player, 'wincallbackfunc');
 		else
 			return 0;
@@ -146,16 +145,16 @@ function Module:onLoad()
 
 
   end)
-  self:NPC_regTalkedEvent(Lord2Npc, function(npc, player)
+  self:NPC_regTalkedEvent(Lord4Npc, function(npc, player)
 	if (NLG.CanTalk(npc, player) == true) then
-		local msg = "\\n黑魔島士：\\n\\n"
-				.."　亡靈正處於封印狀態！\\n"
-				.."　此處刻著一個印記，似乎可以塞進物品\\n"
-				.."　在清晨或黃昏時亡靈身後的封印似乎會減弱\\n"
-				.."　和遺跡中某處相同的連結產生共鳴\\n"
-				.."　屆時請在遺跡中尋找到那個物品拿過來。\\n";
+		local msg = "\\n吸血鬼·賽克特：\\n\\n"
+				.."　艾露西亞你是不會成功的！放棄吧！\\n"
+				.."　我已經獲得永生……能夠恣意操縱部分時間\\n"
+				.."　別說是時間暫停，奪取世界根本不在話下。\\n"
+				.."　龍魂與墮落的對決將要結束……\\n"
+				.."　靜靜……等待……\\n";
 
-		NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下取消, 1, msg);
+		NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_下一页, 1, msg);
 	end
 	return
   end)
@@ -261,7 +260,7 @@ function def_round_start(player, callback)
 	Char.HealAll(player);
 	NLG.SystemMessage(-1,"" ..BossRoom[1].lordName.. "挑戰者: " ..Char.GetData(player,CONST.对象_名字));
 	local battleindex = Battle.PVE( player, player, nil, Pos[1][2], Pos[1][3], nil)
-	Battle.SetWinEvent("./lua/Modules/mazeBoss2.lua", "def_round_wincallback", battleindex);
+	Battle.SetWinEvent("./lua/Modules/mazeBoss7.lua", "def_round_wincallback", battleindex);
 
 end
 
@@ -301,9 +300,10 @@ function def_round_wincallback(battleindex, player)
 	--wincallbackfunc(tbl_win_user);
 	Char.GiveItem(player, 70258, 1);
 	NLG.SystemMessage(-1,"恭喜玩家:"..Char.GetData(player,CONST.对象_名字).." 討伐成功"..BossRoom[1].lordName.."。");
+	NLG.SystemMessage(player,"[系統]開啟最終章-時之核心。");
 
 	local cdk = Char.GetData(player,CONST.对象_CDK);
-	SQL.Run("update lua_hook_worldboss set LordEnd2= '1' where CdKey='"..cdk.."'")
+	SQL.Run("update lua_hook_worldboss set LordEnd7= '1' where CdKey='"..cdk.."'")
 	NLG.UpChar(player);
 	local PartyNum = Char.PartyNum(player);
 	if (PartyNum>1) then
@@ -312,7 +312,7 @@ function def_round_wincallback(battleindex, player)
 			if Char.IsDummy(TeamPlayer)==false then
 				local cdk = Char.GetData(TeamPlayer,CONST.对象_CDK);
 				--SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE tbl_character.CdKey=lua_hook_worldboss.CdKey)");
-				SQL.Run("update lua_hook_worldboss set LordEnd2= '1' where CdKey='"..cdk.."'")
+				SQL.Run("update lua_hook_worldboss set LordEnd7= '1' where CdKey='"..cdk.."'")
 				NLG.UpChar(TeamPlayer);
 			end
 		end
@@ -331,9 +331,9 @@ function Module:OnBattleInjuryCallBack(fIndex, aIndex, battleIndex, inject)
       --print(Round)
       local Target_FloorId = Char.GetData(fIndex, CONST.对象_地图)
       local defHpE = Char.GetData(fIndex,CONST.对象_血);
-      if defHpE >=100 and Target_FloorId==7900  then
+      if defHpE >=100 and Target_FloorId==7906  then
                  inject = inject*0;
-      elseif  Target_FloorId==7900  then
+      elseif  Target_FloorId==7906  then
                  inject = inject;
       end
   return inject;
@@ -352,17 +352,17 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	end
 	local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 
-	--[[local ret = SQL.Run("select Name,WorldLord2 from lua_hook_worldboss where CdKey='"..cdk.."'");
+	--[[local ret = SQL.Run("select Name,WorldLord7 from lua_hook_worldboss where CdKey='"..cdk.."'");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
-		LordHP2=tonumber(ret["0_1"]);
+		LordHP7=tonumber(ret["0_1"]);
 	end]]
 
-	local LordHP2 = tonumber(SQL.Run("select WorldLord2 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+	local LordHP7 = tonumber(SQL.Run("select WorldLord7 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		local HP = LordHP2;
+		local HP = LordHP7;
 		if (HP<=1000) then
-			HP = LordHP2*100;
+			HP = LordHP7*100;
 		end
 		if enemy>=0 and Char.GetData(enemy, CONST.对象_ENEMY_ID)==BossEnemyId  then
 			Char.SetData(enemy, CONST.对象_最大血, 1000000);
@@ -385,15 +385,15 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 		cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 	end
 
-	--[[local ret = SQL.Run("select Name,WorldLord2 from lua_hook_worldboss where CdKey='"..cdk.."'");
+	--[[local ret = SQL.Run("select Name,WorldLord7 from lua_hook_worldboss where CdKey='"..cdk.."'");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
-		LordHP2=tonumber(ret["0_1"]);
+		LordHP7=tonumber(ret["0_1"]);
 	end]]
-	local LordHP2 = tonumber(SQL.Run("select WorldLord2 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
-	--print(LordHP2)
+	local LordHP7 = tonumber(SQL.Run("select WorldLord7 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+	--print(LordHP7)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		local HP = LordHP2;
+		local HP = LordHP7;
 		if (HP<=1000 and Round<1) then
 			HP = HP*200;
 		end
@@ -437,12 +437,12 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 			local HP = Char.GetData(enemy,CONST.对象_血);
 			Char.SetData(enemy, CONST.对象_最大血, 1000000);
 			Char.SetData(enemy, CONST.对象_血, HP);
-			NLG.SystemMessage(player,"[系統]魔物領主目前剩餘血量"..HP.."！");
+			NLG.SystemMessage(player,"[系統]賽克特目前剩餘血量"..HP.."！");
 			NLG.UpChar(enemy);
 			--Lord血量写入库
 			if (cdk~=nil) then
 				--SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
-				SQL.Run("update lua_hook_worldboss set WorldLord2= '"..HP.."' where CdKey='"..cdk.."'")
+				SQL.Run("update lua_hook_worldboss set WorldLord7= '"..HP.."' where CdKey='"..cdk.."'")
 				NLG.UpChar(player);
 			end
 		end
@@ -479,7 +479,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 		if (damage>=defHpE-1) then
 			Char.SetData(defCharIndex, CONST.对象_血, defHpE+damage*1);
 			NLG.UpChar(defCharIndex);
-			NLG.SystemMessage(charIndex,"[系統]魔物領主目前無法受到傷害！");
+			NLG.SystemMessage(charIndex,"[系統]賽克特目前無法受到傷害！");
 			damage = damage*0;
 		else
 			damage = damage*0;
