@@ -232,7 +232,11 @@ function Module:TrainingDiceDamage(charIndex, defCharIndex, damage, battleIndex,
           local heads,reverses,same = heads(CoinNo);
           local val = 1 + (heads-reverses)*0.05 + (same*0.05*CoinNo);
           if (same==1) then
-            NLG.PlaySe(OwnerIndex, 257, Char.GetData(OwnerIndex,CONST.对象_X), Char.GetData(OwnerIndex,CONST.对象_Y));
+            if (heads>=1) then
+              NLG.PlaySe(OwnerIndex, 257, Char.GetData(OwnerIndex,CONST.对象_X), Char.GetData(OwnerIndex,CONST.对象_Y));
+            elseif (heads==0) then
+              NLG.PlaySe(OwnerIndex, 258, Char.GetData(OwnerIndex,CONST.对象_X), Char.GetData(OwnerIndex,CONST.对象_Y));
+            end
           else
             if (Char.GetData(OwnerIndex,CONST.对象_队聊开关) == 1) then
               NLG.PlaySe(OwnerIndex, 251, Char.GetData(OwnerIndex,CONST.对象_X), Char.GetData(OwnerIndex,CONST.对象_Y));
