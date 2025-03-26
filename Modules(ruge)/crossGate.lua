@@ -231,7 +231,7 @@ function Module:onLoad()
   self.shadowExtractionNPC = self:NPC_createNormal('闇影抽取', 14682, { x = 41, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.shadowExtractionNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c【闇影抽取】" ..	"\\n\\n\\n確定要嘗試抽取闇影士兵並存取？";	
+        local msg = "\\n@c【闇影抽取】" ..	"\\n\\n\\n確定要嘗試抽取闇影士兵並存取？";
         NLG.ShowWindowTalked(player, self.shadowExtractionNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
     end
     return
@@ -268,23 +268,24 @@ function Module:onLoad()
           local EnemyDataIndex = Data.EnemyGetDataIndex(enemyId)
           local enemyLevel = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_最高等级);
           local extraRate = NLG.Rand(1, 100);
-          print(extraRate)
+          --print(extraRate)
           if (playerLv-enemyLevel)>=-10 then 
-              success=22;
+              success=20;
           elseif (playerLv-enemyLevel)<-10 and (playerLv-enemyLevel)>=-20 then 
-              success=17;
+              success=14;
           elseif (playerLv-enemyLevel)<-20 and (playerLv-enemyLevel)>=-30 then 
               success=6;
           elseif (playerLv-enemyLevel)<-30 then 
               success=1;	--99%失败
           end
-          if (extraRate>success) then
-              Char.DelItem(player, 75027, 1);
-              NLG.PlaySe(player, 258, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
-              NLG.SystemMessage(player,"[系統]提取失敗。");
-              return;
-          end
           if (enemyId ~=nil and enemyId>0) then
+              if (extraRate>success) then
+                  Char.DelItem(player, 75027, 1);
+                  NLG.Say(player,player,"起來 【Rise】！！",14,3);
+                  NLG.PlaySe(player, 258, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+                  NLG.SystemMessage(player,"[系統]提取失敗。");
+                  return;
+              end
               --道具栏空位置
               local EmptySlot = Char.GetItemEmptySlot(player);
               --if (NLG.Rand(0,1)==0) then	--抽取为宠物
@@ -296,6 +297,7 @@ function Module:onLoad()
                  Item.UpItem(player, EmptySlot);
                  NLG.UpChar(player);
                  Char.DelItem(player, 75027, 1);
+                 NLG.Say(player,player,"起來 【Rise】！！",14,3);
                  NLG.PlaySe(player, 257, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
                  NLG.SystemMessage(player, "[系统]"..EnemyName.."成功提取為闇影士兵。")
               --[[elseif (NLG.Rand(0,1)==1) then	--抽取为佣兵
@@ -307,6 +309,7 @@ function Module:onLoad()
                  Item.UpItem(player, EmptySlot);
                  NLG.UpChar(player);
                  Char.DelItem(player, 75027, 1);
+                 NLG.Say(player,player,"起來 【Rise】！！",14,3);
                  NLG.PlaySe(player, 257, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
                  NLG.SystemMessage(player, "[系统]"..EnemyName.."成功提取為闇影夥伴。")
               end]]
@@ -668,7 +671,7 @@ function Module:shadowExtraction(charIndex,targetIndex,itemSlot)
     ComItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     ComSlot =itemSlot;
     ComIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local msg = "\\n@c【闇影抽取】" ..	"\\n\\n\\n確定要嘗試抽取闇影士兵並存取？";	
+    local msg = "\\n@c【闇影抽取】" ..	"\\n\\n\\n確定要嘗試抽取闇影士兵並存取？";
     NLG.ShowWindowTalked(charIndex, self.shadowExtractionNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
     return 1;
 end
@@ -677,7 +680,7 @@ function Module:shadowSummon(charIndex,targetIndex,itemSlot)
     BallItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     BallSlot =itemSlot;
     BallIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local msg = "\\n@c【闇影召喚】" ..	"\\n\\n\\n確定要放出存取的闇影士兵？";	
+    local msg = "\\n@c【闇影召喚】" ..	"\\n\\n\\n確定要放出存取的闇影士兵？";
     NLG.ShowWindowTalked(charIndex, self.shadowSummonNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
     return 1;
 end
