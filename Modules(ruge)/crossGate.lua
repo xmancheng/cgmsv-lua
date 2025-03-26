@@ -255,9 +255,8 @@ function Module:onLoad()
       elseif seqno == 1 and select == CONST.按钮_是 then
           for k,v in pairs(CrossGate) do
 		    if ( k==v.lordNum and Target_FloorId==v.waitingArea.map ) then
-              if Target_X>=v.waitingArea.X+3 and Target_X<=v.waitingArea.X-15 and Target_Y>=v.waitingArea.Y-3 and Target_Y<=v.waitingArea.Y+15 then
-		    	enemyId = Pos[k][2][1][1];	--10号位必为抽取对象enemyId
-                print(enemyId)
+              if Target_X>=v.waitingArea.X-15 and Target_X<=v.waitingArea.X+3 and Target_Y>=v.waitingArea.Y-3 and Target_Y<=v.waitingArea.Y+15 then
+		    	enemyId = Pos[k][2][1];	--10号位必为抽取对象enemyId
                 goto continue
               end
 		    end
@@ -269,14 +268,15 @@ function Module:onLoad()
           local EnemyDataIndex = Data.EnemyGetDataIndex(enemyId)
           local enemyLevel = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_最高等级);
           local extraRate = NLG.Rand(1, 100);
+          print(extraRate)
           if (playerLv-enemyLevel)>=-10 then 
-              success=20;
+              success=22;
           elseif (playerLv-enemyLevel)<-10 and (playerLv-enemyLevel)>=-20 then 
-              success=10;
+              success=17;
           elseif (playerLv-enemyLevel)<-20 and (playerLv-enemyLevel)>=-30 then 
-              success=5;
+              success=6;
           elseif (playerLv-enemyLevel)<-30 then 
-              success=0;	--100%失败
+              success=1;	--99%失败
           end
           if (extraRate>success) then
               Char.DelItem(player, 75027, 1);
@@ -290,25 +290,25 @@ function Module:onLoad()
               --if (NLG.Rand(0,1)==0) then	--抽取为宠物
                  Char.GiveItem(player, 75028, 1);
                  local ItemIndex = Char.GetItemIndex(player, EmptySlot);
-                 Item.GetData(ItemIndex, CONST.道具_名字,EnemyName.."闇影士兵");
+                 Item.SetData(ItemIndex, CONST.道具_名字,EnemyName.."闇影士兵");
                  Item.SetData(ItemIndex,CONST.道具_子参一,enemyId);
                  Item.SetData(ItemIndex,CONST.道具_子参二,enemyLevel);
                  Item.UpItem(player, EmptySlot);
                  NLG.UpChar(player);
                  Char.DelItem(player, 75027, 1);
                  NLG.PlaySe(player, 257, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
-                 NLG.SystemMessage(player, "[系统]"..enemyName.."成功提取為闇影士兵。")
+                 NLG.SystemMessage(player, "[系统]"..EnemyName.."成功提取為闇影士兵。")
               --[[elseif (NLG.Rand(0,1)==1) then	--抽取为佣兵
                  Char.GiveItem(player, 75029, 1);
                  local ItemIndex = Char.GetItemIndex(player, EmptySlot);
-                 Item.GetData(ItemIndex, CONST.道具_名字,EnemyName.."闇影夥伴");
+                 Item.SetData(ItemIndex, CONST.道具_名字,EnemyName.."闇影夥伴");
                  Item.SetData(ItemIndex,CONST.道具_子参一,50);
                  Item.SetData(ItemIndex,CONST.道具_子参二,heroesNo);
                  Item.UpItem(player, EmptySlot);
                  NLG.UpChar(player);
                  Char.DelItem(player, 75027, 1);
                  NLG.PlaySe(player, 257, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
-                 NLG.SystemMessage(player, "[系统]"..enemyName.."成功提取為闇影夥伴。")
+                 NLG.SystemMessage(player, "[系统]"..EnemyName.."成功提取為闇影夥伴。")
               end]]
           elseif (enemyId ==nil) then
               NLG.SystemMessage(player,"[系統]這邊無法使用闇影抽取。");
