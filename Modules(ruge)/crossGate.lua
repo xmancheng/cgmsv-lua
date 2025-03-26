@@ -36,20 +36,20 @@ Pos[7] = {"未知魔物",EnemySet[7],BaseLevelSet[7]}
 --背景设置
 local Pts= 70075;		--70206真女神苹果.70075任务币
 local CrossGate = {
-      { lordNum=1, timesec=1800, limit=30, fallName="倒地的魔物F", gateLevel="E級傳送門1", lordName="未知魔物F", startImage=103011, lordImage = 120038,
-         waitingArea={map=777,X=36,Y=41}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=1000,X=242,Y=75}},
-      { lordNum=2, timesec=1800, limit=30, fallName="倒地的魔物E",gateLevel="E級傳送門2", lordName="未知魔物E", startImage=103011, lordImage = 120026,
-         waitingArea={map=777,X=36,Y=42}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=1000,X=241,Y=76}},
-      { lordNum=3, timesec=3600, limit=40, fallName="倒地的魔物D",gateLevel="C級傳送門1", lordName="未知魔物D", startImage=103011, lordImage = 120036,
-         waitingArea={map=777,X=36,Y=43}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=1000,X=240,Y=77}},
-      { lordNum=4, timesec=3600, limit=40, fallName="倒地的魔物C",gateLevel="C級傳送門2", lordName="未知魔物C", startImage=103011, lordImage = 120183,
-         waitingArea={map=777,X=36,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=1000,X=239,Y=78}},
-      { lordNum=5, timesec=7200, limit=60, fallName="倒地的魔物B",gateLevel="A級傳送門1", lordName="未知魔物B", startImage=103011, lordImage = 120332,
-         waitingArea={map=777,X=36,Y=45}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=1000,X=238,Y=79}},
-      { lordNum=6, timesec=7200, limit=60, fallName="倒地的魔物A",gateLevel="A級傳送門2", lordName="未知魔物A", startImage=103011, lordImage = 120290,
-         waitingArea={map=777,X=36,Y=46}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=1000,X=237,Y=80}},
+      { lordNum=1, timesec=1800, limit=30, fallName="倒地的魔物F", gateLevel="E級傳送門1", lordName="未知魔物F", startImage=103013, lordImage = 120038,
+         waitingArea={map=25008,X=25,Y=12}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=25,Y=12}},
+      { lordNum=2, timesec=1800, limit=30, fallName="倒地的魔物E",gateLevel="E級傳送門2", lordName="未知魔物E", startImage=103013, lordImage = 120026,
+         waitingArea={map=25008,X=55,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=55,Y=44}},
+      { lordNum=3, timesec=3600, limit=40, fallName="倒地的魔物D",gateLevel="C級傳送門1", lordName="未知魔物D", startImage=103010, lordImage = 120036,
+         waitingArea={map=25008,X=55,Y=12}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=55,Y=12}},
+      { lordNum=4, timesec=3600, limit=40, fallName="倒地的魔物C",gateLevel="C級傳送門2", lordName="未知魔物C", startImage=103010, lordImage = 120183,
+         waitingArea={map=25008,X=25,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=25,Y=44}},
+      { lordNum=5, timesec=7200, limit=60, fallName="倒地的魔物B",gateLevel="A級傳送門1", lordName="未知魔物B", startImage=103012, lordImage = 120332,
+         waitingArea={map=25008,X=85,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=85,Y=44}},
+      { lordNum=6, timesec=7200, limit=60, fallName="倒地的魔物A",gateLevel="A級傳送門2", lordName="未知魔物A", startImage=103012, lordImage = 120290,
+         waitingArea={map=25008,X=54,Y=76}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=54,Y=76}},
       { lordNum=7, timesec=28800, limit=70, fallName="倒地的魔物S",gateLevel="S級傳送門", lordName="未知魔物S", startImage=103011, lordImage = 120063,
-         waitingArea={map=777,X=36,Y=47}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=1000,X=236,Y=81}},
+         waitingArea={map=25008,X=85,Y=76}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=85,Y=76}},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
 local tbl_win_user = {};
@@ -202,28 +202,167 @@ function Module:onLoad()
           .. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
           .. "\\n═════════════════════════════"
       for k,v in pairs(CrossGate) do
-        --local bossImage = tonumber(GateCD[k]);
-        local gateName = tonumber(GateCD[k]);
-        if (k==v.lordNum and gateName==v.fallName) then
+        local bossImage = tonumber(GateCD[k]);
+        if (k==v.lordNum and bossImage==v.lordImage) then
           local Name = v.gateLevel;
           local mapsname = "消失中";
           local mapsX = "xxx";
           local mapsY = "yyy";
           local CTime = GateInfo[k] or os.time();
           local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
-          winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
-        elseif (k==v.lordNum and gateName==0) then
+          winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+        elseif (k==v.lordNum and bossImage==0) then
           local Name = v.gateLevel;
           local mapsname = NLG.GetMapName(0, v.warpArea.map);
           local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
           local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_Y));
           local CDTime = "出現中或被攻略(消失)";
-          winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+          winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
         end
       end
       winMsg = winMsg .. "\\n═════════════════════════════";
       NLG.ShowWindowTalked(player,npc, CONST.窗口_巨信息框, CONST.按钮_关闭, 1, winMsg);
       return
+  end)
+
+
+  --通用抽取道具
+  self:regCallback('ItemString', Func.bind(self.shadowExtraction, self),"LUA_useSdExtra");
+  self.shadowExtractionNPC = self:NPC_createNormal('闇影抽取', 14682, { x = 41, y = 31, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.shadowExtractionNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+        local msg = "\\n@c【闇影抽取】" ..	"\\n\\n\\n確定要嘗試抽取闇影士兵並存取？";	
+        NLG.ShowWindowTalked(player, self.shadowExtractionNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.shadowExtractionNPC, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    local ComIndex =ComIndex;
+    local ComSlot = ComSlot;
+    local Target_FloorId = Char.GetData(player,CONST.对象_地图)--地图编号
+    local Target_X = Char.GetData(player,CONST.对象_X)--地图x
+    local Target_Y = Char.GetData(player,CONST.对象_Y)--地图y
+    local playerLv = Char.GetData(player,CONST.对象_等级);
+    if select > 0 then
+      if seqno == 1 and Char.ItemSlot(player)==20 and select == CONST.按钮_是 then
+                 NLG.SystemMessage(player,"[系統]物品欄位置已滿。");
+                 return;
+      elseif seqno == 1 and select == CONST.按钮_否 then
+                 return;
+      elseif seqno == 1 and select == CONST.按钮_是 then
+          for k,v in pairs(CrossGate) do
+		    if ( k==v.lordNum and Target_FloorId==v.waitingArea.map ) then
+              if Target_X>=v.waitingArea.X+3 and Target_X<=v.waitingArea.X-15 and Target_Y>=v.waitingArea.Y-3 and Target_Y<=v.waitingArea.Y+15 then
+		    	enemyId = Pos[k][2][1][1];	--10号位必为抽取对象enemyId
+                print(enemyId)
+                goto continue
+              end
+		    end
+          end
+          ::continue::
+          local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
+          local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(EnemyBaseId);
+          local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_名字);
+          local EnemyDataIndex = Data.EnemyGetDataIndex(enemyId)
+          local enemyLevel = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_最高等级);
+          local extraRate = NLG.Rand(1, 100);
+          if (playerLv-enemyLevel)>=-10 then 
+              success=20;
+          elseif (playerLv-enemyLevel)<-10 and (playerLv-enemyLevel)>=-20 then 
+              success=10;
+          elseif (playerLv-enemyLevel)<-20 and (playerLv-enemyLevel)>=-30 then 
+              success=5;
+          elseif (playerLv-enemyLevel)<-30 then 
+              success=0;	--100%失败
+          end
+          if (extraRate>success) then
+              Char.DelItem(player, 75027, 1);
+              NLG.PlaySe(player, 258, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+              NLG.SystemMessage(player,"[系統]提取失敗。");
+              return;
+          end
+          if (enemyId ~=nil and enemyId>0) then
+              --道具栏空位置
+              local EmptySlot = Char.GetItemEmptySlot(player);
+              --if (NLG.Rand(0,1)==0) then	--抽取为宠物
+                 Char.GiveItem(player, 75028, 1);
+                 local ItemIndex = Char.GetItemIndex(player, EmptySlot);
+                 Item.GetData(ItemIndex, CONST.道具_名字,EnemyName.."闇影士兵");
+                 Item.SetData(ItemIndex,CONST.道具_子参一,enemyId);
+                 Item.SetData(ItemIndex,CONST.道具_子参二,enemyLevel);
+                 Item.UpItem(player, EmptySlot);
+                 NLG.UpChar(player);
+                 Char.DelItem(player, 75027, 1);
+                 NLG.PlaySe(player, 257, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+                 NLG.SystemMessage(player, "[系统]"..enemyName.."成功提取為闇影士兵。")
+              --[[elseif (NLG.Rand(0,1)==1) then	--抽取为佣兵
+                 Char.GiveItem(player, 75029, 1);
+                 local ItemIndex = Char.GetItemIndex(player, EmptySlot);
+                 Item.GetData(ItemIndex, CONST.道具_名字,EnemyName.."闇影夥伴");
+                 Item.SetData(ItemIndex,CONST.道具_子参一,50);
+                 Item.SetData(ItemIndex,CONST.道具_子参二,heroesNo);
+                 Item.UpItem(player, EmptySlot);
+                 NLG.UpChar(player);
+                 Char.DelItem(player, 75027, 1);
+                 NLG.PlaySe(player, 257, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+                 NLG.SystemMessage(player, "[系统]"..enemyName.."成功提取為闇影夥伴。")
+              end]]
+          elseif (enemyId ==nil) then
+              NLG.SystemMessage(player,"[系統]這邊無法使用闇影抽取。");
+              return;
+          else
+              NLG.SystemMessage(player,"[系統]道具錯誤。");
+              return;
+          end
+      else
+              return;
+      end
+    end
+  end)
+
+  --通用召唤道具
+  self:regCallback('ItemString', Func.bind(self.shadowSummon, self),"LUA_useSdSum");
+  self.shadowSummonNPC = self:NPC_createNormal('闇影召喚', 14682, { x = 40, y = 31, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.shadowSummonNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+        local msg = "\\n@c【闇影召喚】" ..	"\\n\\n\\n確定要放出存取的闇影士兵？";
+        NLG.ShowWindowTalked(player, self.shadowSummonNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.shadowSummonNPC, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    local BallIndex =BallIndex;
+    local BallSlot = BallSlot;
+    local BallName = Item.GetData(BallIndex, CONST.道具_名字);
+    local last = string.find(BallName, "闇", 1);
+    local enemyName =string.sub(BallName, 1, last-1);
+    local enemyId = Item.GetData(BallIndex,CONST.道具_子参一);
+    local enemyLevel = Item.GetData(BallIndex,CONST.道具_子参二);
+    if select > 0 then
+      if seqno == 1 and Char.PetNum(player)==5 and select == CONST.按钮_是 then
+                 NLG.SystemMessage(player,"[系統]寵物欄位置已滿。");
+                 return;
+      elseif seqno == 1 and select == CONST.按钮_否 then
+                 return;
+      elseif seqno == 1 and select == CONST.按钮_是 then
+          if (enemyId ~=nil and enemyId>0) then
+              Char.AddPet(player,enemyId);
+              Char.DelItemBySlot(player, BallSlot);
+              NLG.SystemMessage(player, "[系统]"..enemyName.."成功召喚出來。")
+          else
+              NLG.SystemMessage(player,"[系統]道具錯誤。");
+              return;
+          end
+      else
+              return;
+      end
+    end
   end)
 
 end
@@ -268,23 +407,22 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			.. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
 			.. "\\n═════════════════════════════"
 			for k,v in pairs(CrossGate) do
-				--local bossImage = tonumber(GateCD[k]);
-				local gateName = tonumber(GateCD[k]);
-				if (k==v.lordNum and gateName==v.fallName) then
+				local bossImage = tonumber(GateCD[k]);
+				if (k==v.lordNum and bossImage==v.lordImage) then
 					local Name = v.gateLevel;
 					local mapsname = "消失中";
 					local mapsX = "xxx";
 					local mapsY = "yyy";
 					local CTime = GateInfo[k] or os.time();
 					local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
-					winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
-				elseif (k==v.lordNum and gateName==0) then
+					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+				elseif (k==v.lordNum and bossImage==0) then
 					local Name = v.gateLevel;
 					local mapsname = NLG.GetMapName(0, v.warpArea.map);
 					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
 					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_Y));
 					local CDTime = "出現中或被攻略(消失)";
-					winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
 				end
 			end
 			winMsg = winMsg .. "\\n═════════════════════════════";
@@ -305,10 +443,13 @@ function CrossGate_LoopEvent(npc)
 
 	GateInfo = getGateInfo();
 	GateSetting = getGateSetting();
-	if (os.date("%X",os.time())=="00:00:00") then
+	if (os.date("%M",os.time())=="30") or (os.date("%M",os.time())=="00") then
+		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02") or (os.date("%S",os.time())=="03") or (os.date("%S",os.time())=="04") or (os.date("%S",os.time())=="05") then
 		for k,v in pairs(CrossGate) do
-           local warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
-           local warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
+            repeat
+              warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
+              warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
+            until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
 
 			local mapsname = NLG.GetMapName(0, v.warpArea.map);
 			--local bossImage = Char.GetData(npc,CONST.对象_形象);
@@ -330,10 +471,12 @@ function CrossGate_LoopEvent(npc)
 				--NLG.UpChar(gmIndex);
 			end
 		end
+		end
 		local newdata = JSON.encode(GateCD);
 		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
 		NLG.UpChar(gmIndex);
-	elseif (os.date("%X",os.time())=="23:59:00")  then
+	elseif (os.date("%M",os.time())=="15") or (os.date("%M",os.time())=="45") then
+		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02") or (os.date("%S",os.time())=="03") or (os.date("%S",os.time())=="04") or (os.date("%S",os.time())=="05") then
 		for k,v in pairs(CrossGate) do
 			--local bossImage = Char.GetData(npc,CONST.对象_形象);
 			local gateName = Char.GetData(npc,CONST.对象_名字);
@@ -346,10 +489,13 @@ function CrossGate_LoopEvent(npc)
 				NLG.UpChar(npc);
 			end
 		end
+		end
 	else
 		for k,v in pairs(CrossGate) do
-            local warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
-            local warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
+            repeat
+              warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
+              warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
+            until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
 
 			if (GateSetting[k]==nil) then
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
@@ -491,23 +637,25 @@ function boss_round_callback(battleindex, player)
 		GateCD = {};
 	end
 	for k,v in pairs(CrossGate) do
-		--local bossImage = Char.GetData(npc,CONST.对象_形象);
+		local bossImage = Char.GetData(npc,CONST.对象_形象);
 		local gateName = Char.GetData(npc,CONST.对象_名字);
 		if ( k==v.lordNum and gateName==v.lordName ) then
 			GateInfo[k] = os.time();
 			GateSetting[k] = 2;
-			Char.Warp(player,0, v.waitingArea.map, v.waitingArea.X-3, v.waitingArea.Y+3);
-			Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
-			Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
-			Char.SetData(npc,CONST.对象_地图, v.waitingArea.map);
+			--Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
+			--Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
+			--Char.SetData(npc,CONST.对象_地图, v.waitingArea.map);
+			Char.Warp(npc,0, v.waitingArea.map, v.waitingArea.X, v.waitingArea.Y);
 			Char.SetData(npc,CONST.对象_名字, v.fallName);
 			Char.SetData(npc,CONST.对象_形象, v.lordImage);
 			NLG.UpChar(npc);
 
-			GateCD[k] = gateName;
+			GateCD[k] = bossImage;
 			local newdata = JSON.encode(GateCD);
 			SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
 			NLG.UpChar(gmIndex);
+
+			Char.Warp(player,0, v.waitingArea.map, v.waitingArea.X-3, v.waitingArea.Y+3);
 		end
 	end
 	Battle.UnsetWinEvent(battleindex);
@@ -515,6 +663,35 @@ function boss_round_callback(battleindex, player)
 	Char.SetTempData(player, '传送门',0);
 end
 
+----------------------------------------------------------------
+function Module:shadowExtraction(charIndex,targetIndex,itemSlot)
+    ComItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
+    ComSlot =itemSlot;
+    ComIndex = Char.GetItemIndex(charIndex,itemSlot);
+    local msg = "\\n@c【闇影抽取】" ..	"\\n\\n\\n確定要嘗試抽取闇影士兵並存取？";	
+    NLG.ShowWindowTalked(charIndex, self.shadowExtractionNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+    return 1;
+end
+
+function Module:shadowSummon(charIndex,targetIndex,itemSlot)
+    BallItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
+    BallSlot =itemSlot;
+    BallIndex = Char.GetItemIndex(charIndex,itemSlot);
+    local msg = "\\n@c【闇影召喚】" ..	"\\n\\n\\n確定要放出存取的闇影士兵？";	
+    NLG.ShowWindowTalked(charIndex, self.shadowSummonNPC, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+    return 1;
+end
+
+Char.GetItemEmptySlot = function(charIndex)
+  for Slot=7,27 do
+      local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+      --print(ItemIndex);
+      if (ItemIndex < 0) then
+          return Slot;
+      end
+  end
+  return -1;
+end
 
 --- 卸载模块钩子
 function Module:onUnload()
