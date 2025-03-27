@@ -36,19 +36,19 @@ Pos[7] = {"可疑的人形魔物？",EnemySet[7],BaseLevelSet[7]}
 --背景设置
 local Pts= 70075;		--70206真女神苹果.70075任务币
 local LegendBoss = {
-      { lordNum=1, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100576, transImage = 130056, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=239,Y=76},
+      { lordNum=1, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100576, transImage = 130056, waitingArea={map=777,X=38,Y=41}, warpArea={map=1000,X=246,Y=88},
         rewardsItem={70058}, rewardsItem_count=1, prizeItem={70075}, prizeItem_count=500},
-      { lordNum=2, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100602, transImage = 130044, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=240,Y=76},
+      { lordNum=2, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100602, transImage = 130044, waitingArea={map=777,X=38,Y=43}, warpArea={map=1000,X=229,Y=112},
         rewardsItem={70058}, rewardsItem_count=1, prizeItem={70075}, prizeItem_count=500},
-      { lordNum=3, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100725, transImage = 130086, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=241,Y=76},
+      { lordNum=3, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100725, transImage = 130086, waitingArea={map=777,X=38,Y=45}, warpArea={map=1000,X=229,Y=64},
         rewardsItem={70058}, rewardsItem_count=1, prizeItem={70075}, prizeItem_count=500},
-      { lordNum=4, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100555, transImage = 130042, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=242,Y=76},
+      { lordNum=4, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100555, transImage = 130042, waitingArea={map=777,X=38,Y=47}, warpArea={map=1000,X=62,Y=88},
         rewardsItem={70058}, rewardsItem_count=1, prizeItem={70075}, prizeItem_count=500},
-      { lordNum=5, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100678, transImage = 130041, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=243,Y=76},
+      { lordNum=5, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100678, transImage = 130041, waitingArea={map=777,X=38,Y=49}, warpArea={map=1000,X=70,Y=125},
         rewardsItem={70058}, rewardsItem_count=1, prizeItem={70075}, prizeItem_count=500},
-      { lordNum=6, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100754, transImage = 130045, waitingArea={map=777,X=38,Y=50}, warpArea={map=1000,X=244,Y=76},
+      { lordNum=6, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100754, transImage = 130045, waitingArea={map=777,X=38,Y=50}, warpArea={map=1000,X=153,Y=183},
         rewardsItem={70058}, rewardsItem_count=1, prizeItem={70075}, prizeItem_count=500},
-      { lordNum=7, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100528, transImage = 130052, waitingArea={map=777,X=38,Y=50}, warpArea={map=100,X=245,Y=76},
+      { lordNum=7, timesec=6000, soul=0, lordName="可疑的人形魔物？", startImage=100528, transImage = 130052, waitingArea={map=777,X=38,Y=50}, warpArea={map=1000,X=163,Y=231},
         rewardsItem={70058}, rewardsItem_count=1, prizeItem={70075}, prizeItem_count=500},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -152,7 +152,7 @@ function Module:onLoad()
     --重置
     LegendInfo = {};
     LegendSetting = {};
-    for k=1,6 do
+    for k=1,#LegendBoss do
         --print(tbl_LegendBossNPCIndex[k])
         Char.SetLoopEvent('./lua/Modules/legendBoss.lua','LegendBoss_LoopEvent',tbl_LegendBossNPCIndex[k],60000);
         LegendInfo[k] = os.time();
@@ -222,7 +222,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			--重置
 			LegendInfo = {};
 			LegendSetting = {};
-			for k=1,6 do
+			for k=1,#LegendBoss do
 				--print(tbl_LegendBossNPCIndex[k])
 				Char.SetLoopEvent('./lua/Modules/legendBoss.lua','LegendBoss_LoopEvent',tbl_LegendBossNPCIndex[k],60000);
 				LegendInfo[k] = os.time();
@@ -274,6 +274,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			end
 			winMsg = winMsg .. "\\n═════════════════════════════";
 		NLG.ShowWindowTalked(charIndex, LegendMonitorNPC, CONST.窗口_巨信息框, CONST.按钮_关闭, 1, winMsg);
+		return 0;
 	end
 	return 1;
 end
@@ -309,6 +310,9 @@ function LegendBoss_LoopEvent(npc)
 				NLG.UpChar(gmIndex);
 			end
 		end
+		local newdata = JSON.encode(LegendCD);
+		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		NLG.UpChar(gmIndex);
 	elseif (os.date("%X",os.time())=="23:59:00")  then
 		for k,v in pairs(LegendBoss) do
 			local bossImage = Char.GetData(npc,CONST.对象_形象);
@@ -366,6 +370,9 @@ function LegendBoss_LoopEvent(npc)
 				end
 			end
 		end
+		local newdata = JSON.encode(LegendCD);
+		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		NLG.UpChar(gmIndex);
 
 		local excess = math.random(1,10);
 		if (Char.GetData(npc,CONST.对象_地图)==1000 and excess>=7) then
@@ -531,12 +538,13 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		table.forEach(legendBossBattle, function(e)
-		if Round==0 and enemy>=0 and e==battleIndex  then
+		--[[if Round==0 and enemy>=0 and e==battleIndex  then
 			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
 				--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
 				--Char.SetData(enemy, CONST.CHAR_血, HP);
 			end
-		elseif Round>0 and enemy>=0 and e==battleIndex  then
+		]]
+		if Round>=0 and enemy>=0 and e==battleIndex  then
 			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406165 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406167 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406169 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406171 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406173 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406175 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==406177) then
 				local Hp_10 = Char.GetData(enemy, CONST.CHAR_最大血); 
 				local Hp_8 = Char.GetData(enemy, CONST.CHAR_血);
