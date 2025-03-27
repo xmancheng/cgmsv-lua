@@ -502,13 +502,18 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		player = leaderpet
 	end
 	local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
-
+	if (Char.GetData(player,CONST.对象_地图)~=7905) then
+		return
+	end
 	--[[local ret = SQL.Run("select Name,WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP6=tonumber(ret["0_1"]);
 	end]]
-
-	local LordHP6 = tonumber(SQL.Run("select WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+	if (cdk~=nil) then
+		LordHP6 = tonumber(SQL.Run("select WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+	else
+		return
+	end
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local player = Battle.GetPlayIndex(battleIndex, i-10)
@@ -544,12 +549,18 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	if (player>=0) then
 		cdk = Char.GetData(player,CONST.对象_CDK) or nil;
 	end
-
+	if (Char.GetData(player,CONST.对象_地图)~=7905) then
+		return
+	end
 	--[[local ret = SQL.Run("select Name,WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'");
 	if(type(ret)=="table" and ret["0_1"]~=nil)then
 		LordHP6=tonumber(ret["0_1"]);
 	end]]
-	local LordHP6 = tonumber(SQL.Run("select WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+	if (cdk~=nil) then
+		LordHP6 = tonumber(SQL.Run("select WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'")["0_0"])
+	else
+		return
+	end
 	--print(LordHP6)
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
@@ -600,6 +611,9 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		player = leaderpet
 	end
 	local cdk = Char.GetData(player,CONST.对象_CDK) or nil;
+	if (Char.GetData(player,CONST.对象_地图)~=7905) then
+		return
+	end
 
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
