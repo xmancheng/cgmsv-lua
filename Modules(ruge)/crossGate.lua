@@ -202,6 +202,7 @@ function Module:onLoad()
           .. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
           .. "\\n═════════════════════════════"
       for k,v in pairs(CrossGate) do
+        local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_地图)
         local bossImage = tonumber(GateCD[k]);
         if (k==v.lordNum and bossImage==v.lordImage) then
           local Name = v.gateLevel;
@@ -211,12 +212,19 @@ function Module:onLoad()
           local CTime = GateInfo[k] or os.time();
           local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
           winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
-        elseif (k==v.lordNum and bossImage==0) then
+        elseif (k==v.lordNum and bossImage==0 and floor==v.warpArea.map) then
           local Name = v.gateLevel;
           local mapsname = NLG.GetMapName(0, v.warpArea.map);
           local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
           local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_Y));
-          local CDTime = "出現中或被攻略(消失)";
+          local CDTime = "出現中";
+          winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
+        elseif (k==v.lordNum and bossImage==0 and floor==v.bossArea.map) then
+          local Name = v.gateLevel;
+          local mapsname = NLG.GetMapName(0, v.bossArea.map);
+          local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
+          local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_Y));
+          local CDTime = "被攻略";
           winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
         end
       end
@@ -410,6 +418,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			.. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
 			.. "\\n═════════════════════════════"
 			for k,v in pairs(CrossGate) do
+				local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_地图)
 				local bossImage = tonumber(GateCD[k]);
 				if (k==v.lordNum and bossImage==v.lordImage) then
 					local Name = v.gateLevel;
@@ -419,17 +428,25 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 					local CTime = GateInfo[k] or os.time();
 					local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
 					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
-				elseif (k==v.lordNum and bossImage==0) then
+				elseif (k==v.lordNum and bossImage==0 and floor==v.warpArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = NLG.GetMapName(0, v.warpArea.map);
 					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
 					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_Y));
-					local CDTime = "出現中或被攻略(消失)";
+					local CDTime = "出現中";
+					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
+				elseif (k==v.lordNum and bossImage==0 and floor==v.bossArea.map) then
+					local Name = v.gateLevel;
+					local mapsname = NLG.GetMapName(0, v.bossArea.map);
+					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
+					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_Y));
+					local CDTime = "被攻略";
 					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
 				end
 			end
 			winMsg = winMsg .. "\\n═════════════════════════════";
 		NLG.ShowWindowTalked(charIndex, GateMonitorNPC, CONST.窗口_巨信息框, CONST.按钮_关闭, 1, winMsg);
+		return 0;
 	end
 	return 1;
 end
@@ -495,10 +512,10 @@ function CrossGate_LoopEvent(npc)
 		end
 	else
 		for k,v in pairs(CrossGate) do
-            repeat
-              warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
-              warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
-            until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
+			repeat
+				warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
+				warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
+			until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
 
 			if (GateSetting[k]==nil) then
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
