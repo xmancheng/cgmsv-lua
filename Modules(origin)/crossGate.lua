@@ -198,13 +198,14 @@ function Module:onLoad()
         GateCD = {};
     end
 
+    GateInfo = getGateInfo();
     winMsg = "\\n            ★★★★★★傳送門資訊★★★★★★"
           .. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
           .. "\\n═════════════════════════════"
       for k,v in pairs(CrossGate) do
         local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_地图)
         local bossImage = tonumber(GateCD[k]);
-        if (k==v.lordNum and bossImage==v.lordImage) then
+        if (k==v.lordNum and bossImage==v.lordImage and floor==v.waitingArea.map) then
           local Name = v.gateLevel;
           local mapsname = "消失中";
           local mapsX = "xxx";
@@ -414,13 +415,14 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			GateCD = {};
 		end
 
+		GateInfo = getGateInfo();
 		winMsg = "\\n            ★★★★★★傳送門資訊★★★★★★"
 			.. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
 			.. "\\n═════════════════════════════"
 			for k,v in pairs(CrossGate) do
 				local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_地图)
 				local bossImage = tonumber(GateCD[k]);
-				if (k==v.lordNum and bossImage==v.lordImage) then
+				if (k==v.lordNum and bossImage==v.lordImage and floor==v.waitingArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = "消失中";
 					local mapsX = "xxx";
@@ -478,9 +480,10 @@ function CrossGate_LoopEvent(npc)
 				GateInfo[k] = os.time();
 				GateSetting[k] = 0;
 				NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
-				Char.SetData(npc,CONST.对象_X, v.warpArea.X);
-				Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+				Char.SetData(npc,CONST.对象_X, warpX);
+				Char.SetData(npc,CONST.对象_Y, warpY);
 				Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+				Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
 				Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 				Char.SetData(npc,CONST.对象_形象, v.startImage);
 				NLG.UpChar(npc);
@@ -504,6 +507,7 @@ function CrossGate_LoopEvent(npc)
 				Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
 				Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
 				Char.SetData(npc,CONST.对象_地图, v.waitingArea.map);
+				Char.Warp(npc,0, v.waitingArea.map, v.waitingArea.X, v.waitingArea.Y);
 				Char.SetData(npc,CONST.对象_名字, v.fallName);
 				Char.SetData(npc,CONST.对象_形象, v.lordImage);
 				NLG.UpChar(npc);
@@ -528,9 +532,26 @@ function CrossGate_LoopEvent(npc)
 					Char.SetData(npc,CONST.对象_X, warpX);
 					Char.SetData(npc,CONST.对象_Y, warpY);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
 					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 					Char.SetData(npc,CONST.对象_形象, v.startImage);
 					NLG.UpChar(npc);
+				end
+			elseif (GateSetting[k]==1) then
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local gateName = Char.GetData(npc,CONST.对象_名字);
+				if ( k==v.lordNum and gateName==v.fallName ) then
+					GateSetting[k] = 0;
+					NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..warpX..","..warpY..")");
+					Char.SetData(npc,CONST.对象_X, warpX);
+					Char.SetData(npc,CONST.对象_Y, warpY);
+					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
+					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
+					Char.SetData(npc,CONST.对象_形象, v.startImage);
+					NLG.UpChar(npc);
+
+					GateCD[k] = 0;
 				end
 			elseif (GateSetting[k]==2) then
 				local CTime = GateInfo[k] or os.time();
@@ -544,6 +565,7 @@ function CrossGate_LoopEvent(npc)
 					Char.SetData(npc,CONST.对象_X, warpX);
 					Char.SetData(npc,CONST.对象_Y, warpY);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
 					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 					Char.SetData(npc,CONST.对象_形象, v.startImage);
 					NLG.UpChar(npc);
@@ -559,6 +581,7 @@ function CrossGate_LoopEvent(npc)
 					Char.SetData(npc,CONST.对象_X, warpX);
 					Char.SetData(npc,CONST.对象_Y, warpY);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
 					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 					Char.SetData(npc,CONST.对象_形象, v.startImage);
 					NLG.UpChar(npc);
