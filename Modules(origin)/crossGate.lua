@@ -496,7 +496,8 @@ function CrossGate_LoopEvent(npc)
 		end
 		end
 		local newdata = JSON.encode(GateCD);
-		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
 		NLG.UpChar(gmIndex);
 	elseif (os.date("%M",os.time())=="15") or (os.date("%M",os.time())=="45") then
 		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02") or (os.date("%S",os.time())=="03") or (os.date("%S",os.time())=="04") or (os.date("%S",os.time())=="05") then
@@ -594,7 +595,8 @@ function CrossGate_LoopEvent(npc)
 			end
 		end
 		local newdata = JSON.encode(GateCD);
-		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
 		NLG.UpChar(gmIndex);
 
 	end

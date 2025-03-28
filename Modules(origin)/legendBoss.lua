@@ -305,13 +305,14 @@ function LegendBoss_LoopEvent(npc)
 				NLG.UpChar(npc);
 
 				LegendCD[k] = 0;
-				local newdata = JSON.encode(LegendCD);
-				SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
-				NLG.UpChar(gmIndex);
+				--local newdata = JSON.encode(LegendCD);
+				--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+				--NLG.UpChar(gmIndex);
 			end
 		end
 		local newdata = JSON.encode(LegendCD);
-		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
 		NLG.UpChar(gmIndex);
 	elseif (os.date("%X",os.time())=="23:59:00")  then
 		for k,v in pairs(LegendBoss) do
@@ -351,9 +352,9 @@ function LegendBoss_LoopEvent(npc)
 					NLG.UpChar(npc);
 
 					LegendCD[k] = 0;
-					local newdata = JSON.encode(LegendCD);
-					SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
-					NLG.UpChar(gmIndex);
+					--local newdata = JSON.encode(LegendCD);
+					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+					--NLG.UpChar(gmIndex);
 				elseif ( v.timesec - (os.time() - CTime) < 0 and k==v.lordNum and bossImage==v.startImage) then
 					LegendInfo[k] = os.time();
 					LegendSetting[k] = 1;
@@ -364,14 +365,15 @@ function LegendBoss_LoopEvent(npc)
 					NLG.UpChar(npc);
 
 					LegendCD[k] = 0;
-					local newdata = JSON.encode(LegendCD);
-					SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
-					NLG.UpChar(gmIndex);
+					--local newdata = JSON.encode(LegendCD);
+					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+					--NLG.UpChar(gmIndex);
 				end
 			end
 		end
 		local newdata = JSON.encode(LegendCD);
-		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
 		NLG.UpChar(gmIndex);
 
 		local excess = math.random(1,10);
