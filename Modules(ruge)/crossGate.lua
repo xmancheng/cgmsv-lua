@@ -198,13 +198,14 @@ function Module:onLoad()
         GateCD = {};
     end
 
+    GateInfo = getGateInfo();
     winMsg = "\\n            ★★★★★★傳送門資訊★★★★★★"
           .. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
           .. "\\n═════════════════════════════"
       for k,v in pairs(CrossGate) do
         local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_地图)
         local bossImage = tonumber(GateCD[k]);
-        if (k==v.lordNum and bossImage==v.lordImage) then
+        if (k==v.lordNum and bossImage==v.lordImage and floor==v.waitingArea.map) then
           local Name = v.gateLevel;
           local mapsname = "消失中";
           local mapsX = "xxx";
@@ -414,13 +415,14 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			GateCD = {};
 		end
 
+		GateInfo = getGateInfo();
 		winMsg = "\\n            ★★★★★★傳送門資訊★★★★★★"
 			.. "\\n\\n  傳送門          所在位置             冷卻倒數\\n"
 			.. "\\n═════════════════════════════"
 			for k,v in pairs(CrossGate) do
 				local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_地图)
 				local bossImage = tonumber(GateCD[k]);
-				if (k==v.lordNum and bossImage==v.lordImage) then
+				if (k==v.lordNum and bossImage==v.lordImage and floor==v.waitingArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = "消失中";
 					local mapsX = "xxx";
@@ -478,8 +480,8 @@ function CrossGate_LoopEvent(npc)
 				GateInfo[k] = os.time();
 				GateSetting[k] = 0;
 				NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
-				Char.SetData(npc,CONST.对象_X, v.warpArea.X);
-				Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+				Char.SetData(npc,CONST.对象_X, warpX);
+				Char.SetData(npc,CONST.对象_Y, warpY);
 				Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
 				Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 				Char.SetData(npc,CONST.对象_形象, v.startImage);
@@ -493,7 +495,8 @@ function CrossGate_LoopEvent(npc)
 		end
 		end
 		local newdata = JSON.encode(GateCD);
-		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
 		NLG.UpChar(gmIndex);
 	elseif (os.date("%M",os.time())=="15") or (os.date("%M",os.time())=="45") then
 		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02") or (os.date("%S",os.time())=="03") or (os.date("%S",os.time())=="04") or (os.date("%S",os.time())=="05") then
@@ -571,7 +574,8 @@ function CrossGate_LoopEvent(npc)
 			end
 		end
 		local newdata = JSON.encode(GateCD);
-		SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
 		NLG.UpChar(gmIndex);
 
 	end
