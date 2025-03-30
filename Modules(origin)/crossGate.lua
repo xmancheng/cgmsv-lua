@@ -12,43 +12,43 @@ local PowerOn = 1;
 --     十(9)	八(7)	六(5)	七(6)	九(8)
 ------------对战NPC设置------------
 EnemySet[1] = {1801, 21, 22, 23, 24, 0, 21, 22, 23, 24}--0代表没有怪
-BaseLevelSet[1] = {35, 20, 20, 20, 20, 0, 20, 20, 20, 20}
+BaseLevelSet[1] = {55, 50, 50, 50, 50, 0, 50, 50, 50, 50}
 Pos[1] = {"未知魔物",EnemySet[1],BaseLevelSet[1]}
 EnemySet[2] = {1802, 601, 603, 601, 603, 0, 0, 0, 0, 0}--0代表没有怪
-BaseLevelSet[2] = {35, 20, 20, 20, 20, 0, 0, 0, 0, 0}
+BaseLevelSet[2] = {55, 50, 50, 50, 50, 0, 0, 0, 0, 0}
 Pos[2] = {"未知魔物",EnemySet[2],BaseLevelSet[2]}
 EnemySet[3] = {1803, 9072, 9072, 0, 0, 9090, 0, 0, 9090, 9090}--0代表没有怪
-BaseLevelSet[3] = {45, 30, 30, 0, 0, 30, 0, 0, 30, 30}
+BaseLevelSet[3] = {55, 50, 50, 0, 0, 50, 0, 0, 50, 50}
 Pos[3] = {"未知魔物",EnemySet[3],BaseLevelSet[3]}
 EnemySet[4] = {1804, 715, 715, 0, 0, 715, 0, 0, 715, 715}--0代表没有怪
-BaseLevelSet[4] = {45, 30, 30, 0, 0, 30, 0, 0, 30, 30}
+BaseLevelSet[4] = {55, 50, 50, 0, 0, 50, 0, 0, 50, 50}
 Pos[4] = {"未知魔物",EnemySet[4],BaseLevelSet[4]}
 EnemySet[5] = {1805, 9042, 9042, 0, 0, 9042, 0, 0, 9042, 9042}--0代表没有怪
-BaseLevelSet[5] = {65, 50, 50, 0, 0, 50, 0, 0, 50, 50}
+BaseLevelSet[5] = {95, 90, 90, 0, 0, 90, 0, 0, 90, 90}
 Pos[5] = {"未知魔物",EnemySet[5],BaseLevelSet[5]}
 EnemySet[6] = {1806, 0, 0, 0, 0, 12122, 12122, 12122, 12122, 12122}--0代表没有怪
-BaseLevelSet[6] = {65, 0, 0, 0, 0, 50, 50, 50, 50, 50}
+BaseLevelSet[6] = {95, 0, 0, 0, 0, 90, 90, 90, 90, 90}
 Pos[6] = {"未知魔物",EnemySet[6],BaseLevelSet[6]}
 EnemySet[7] = {1807, 41402, 41402, 0, 0, 41391, 41391, 41391, 0, 0}--0代表没有怪
-BaseLevelSet[7] = {80, 70, 70, 0, 0, 70, 70, 70, 0, 0}
+BaseLevelSet[7] = {120, 110, 110, 0, 0, 110, 110, 110, 0, 0}
 Pos[7] = {"未知魔物",EnemySet[7],BaseLevelSet[7]}
 ------------------------------------------------------
 --背景设置
 local Pts= 70075;		--70206真女神苹果.70075任务币
 local CrossGate = {
-      { lordNum=1, timesec=1800, limit=30, fallName="倒地的魔物F", gateLevel="E級傳送門1", lordName="未知魔物F", startImage=121001, lordImage = 104595,
+      { lordNum=1, timesec=1800, limit=50, fallName="倒地的魔物F", gateLevel="C級傳送門1", lordName="未知魔物F", startImage=121001, lordImage = 130102,
          waitingArea={map=25008,X=25,Y=12}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=25,Y=12}},
-      { lordNum=2, timesec=1800, limit=30, fallName="倒地的魔物E",gateLevel="E級傳送門2", lordName="未知魔物E", startImage=121001, lordImage = 104605,
+      { lordNum=2, timesec=1800, limit=50, fallName="倒地的魔物E",gateLevel="C級傳送門2", lordName="未知魔物E", startImage=121001, lordImage = 130118,
          waitingArea={map=25008,X=55,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=55,Y=44}},
-      { lordNum=3, timesec=3600, limit=40, fallName="倒地的魔物D",gateLevel="C級傳送門1", lordName="未知魔物D", startImage=121001, lordImage = 110585,
+      { lordNum=3, timesec=1800, limit=50, fallName="倒地的魔物D",gateLevel="C級傳送門3", lordName="未知魔物D", startImage=121001, lordImage = 130121,
          waitingArea={map=25008,X=55,Y=12}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=55,Y=12}},
-      { lordNum=4, timesec=3600, limit=40, fallName="倒地的魔物C",gateLevel="C級傳送門2", lordName="未知魔物C", startImage=121001, lordImage = 104326,
+      { lordNum=4, timesec=1800, limit=50, fallName="倒地的魔物C",gateLevel="C級傳送門4", lordName="未知魔物C", startImage=121001, lordImage = 130110,
          waitingArea={map=25008,X=25,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=25,Y=44}},
-      { lordNum=5, timesec=7200, limit=60, fallName="倒地的魔物B",gateLevel="A級傳送門1", lordName="未知魔物B", startImage=121001, lordImage = 104720,
+      { lordNum=5, timesec=3600, limit=90, fallName="倒地的魔物B",gateLevel="A級傳送門1", lordName="未知魔物B", startImage=121001, lordImage = 130090,
          waitingArea={map=25008,X=85,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=85,Y=44}},
-      { lordNum=6, timesec=7200, limit=60, fallName="倒地的魔物A",gateLevel="A級傳送門2", lordName="未知魔物A", startImage=121001, lordImage = 104819,
+      { lordNum=6, timesec=3600, limit=90, fallName="倒地的魔物A",gateLevel="A級傳送門2", lordName="未知魔物A", startImage=121001, lordImage = 130091,
          waitingArea={map=25008,X=54,Y=76}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=54,Y=76}},
-      { lordNum=7, timesec=28800, limit=70, fallName="倒地的魔物S",gateLevel="S級傳送門", lordName="未知魔物S", startImage=121001, lordImage = 104706,
+      { lordNum=7, timesec=7200, limit=120, fallName="倒地的魔物S",gateLevel="S級傳送門", lordName="未知魔物S", startImage=121001, lordImage = 104706,
          waitingArea={map=25008,X=85,Y=76}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=85,Y=76}},
 }
 local tbl_duel_user = {};			--当前场次玩家的列表
@@ -276,21 +276,18 @@ function Module:onLoad()
           local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_名字);
           local EnemyDataIndex = Data.EnemyGetDataIndex(enemyId)
           local enemyLevel = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_最高等级);
-          local extraRate = NLG.Rand(1, 100);
+
+          local CoinNo = math.modf(playerLv/10);
+          local heads,reverses,same = heads(CoinNo);
+          local extraRate = math.modf(enemyLevel/10);
           --print(extraRate)
-          if (playerLv-enemyLevel)>=-10 then 
-              success=20;
-          elseif (playerLv-enemyLevel)<-10 and (playerLv-enemyLevel)>=-20 then 
-              success=14;
-          elseif (playerLv-enemyLevel)<-20 and (playerLv-enemyLevel)>=-30 then 
-              success=6;
-          elseif (playerLv-enemyLevel)<-30 then 
-              success=1;	--99%失败
-          end
           if (enemyId ~=nil and enemyId>0) then
-              if (extraRate>success) then
+              if (heads < extraRate) then
                   Char.DelItem(player, 75027, 1);
                   NLG.Say(player,player,"起來 【Rise】！！",14,3);
+                  if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
+                    NLG.SystemMessage(player,"擲出正面"..heads.."個 成功抽取需要"..extraRate.."個正面。");
+                  end
                   NLG.PlaySe(player, 258, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
                   NLG.SystemMessage(player,"[系統]提取失敗。");
                   return;
@@ -468,10 +465,10 @@ function CrossGate_LoopEvent(npc)
 	if (os.date("%M",os.time())=="30") or (os.date("%M",os.time())=="00") then
 		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02") or (os.date("%S",os.time())=="03") or (os.date("%S",os.time())=="04") or (os.date("%S",os.time())=="05") then
 		for k,v in pairs(CrossGate) do
-            repeat
-              warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
-              warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
-            until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
+			repeat
+				warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
+				warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
+			until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1) and (Map.IsWalkable(0, 43100, warpX + 2, warpY - 2) == 1)
 
 			local mapsname = NLG.GetMapName(0, v.warpArea.map);
 			--local bossImage = Char.GetData(npc,CONST.对象_形象);
@@ -479,11 +476,11 @@ function CrossGate_LoopEvent(npc)
 			if ( k==v.lordNum and gateName==v.fallName ) then
 				GateInfo[k] = os.time();
 				GateSetting[k] = 0;
-				NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+				NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..warpX..","..warpY..")");
 				Char.SetData(npc,CONST.对象_X, warpX);
 				Char.SetData(npc,CONST.对象_Y, warpY);
 				Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
-				Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
+				--Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
 				Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 				Char.SetData(npc,CONST.对象_形象, v.startImage);
 				NLG.UpChar(npc);
@@ -502,13 +499,13 @@ function CrossGate_LoopEvent(npc)
 	elseif (os.date("%M",os.time())=="15") or (os.date("%M",os.time())=="45") then
 		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02") or (os.date("%S",os.time())=="03") or (os.date("%S",os.time())=="04") or (os.date("%S",os.time())=="05") then
 		for k,v in pairs(CrossGate) do
-			--local bossImage = Char.GetData(npc,CONST.对象_形象);
-			local gateName = Char.GetData(npc,CONST.对象_名字);
+			local bossImage = Char.GetData(npc,CONST.对象_形象);
+			--local gateName = Char.GetData(npc,CONST.对象_名字);
 			if ( k==v.lordNum and bossImage==v.lordImage ) then
 				Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
 				Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
 				Char.SetData(npc,CONST.对象_地图, v.waitingArea.map);
-				Char.Warp(npc,0, v.waitingArea.map, v.waitingArea.X, v.waitingArea.Y);
+				--Char.Warp(npc,0, v.waitingArea.map, v.waitingArea.X, v.waitingArea.Y);
 				Char.SetData(npc,CONST.对象_名字, v.fallName);
 				Char.SetData(npc,CONST.对象_形象, v.lordImage);
 				NLG.UpChar(npc);
@@ -520,7 +517,7 @@ function CrossGate_LoopEvent(npc)
 			repeat
 				warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
 				warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
-			until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
+			until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1) and (Map.IsWalkable(0, 43100, warpX + 2, warpY - 2) == 1)
 
 			if (GateSetting[k]==nil) then
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
@@ -533,56 +530,31 @@ function CrossGate_LoopEvent(npc)
 					Char.SetData(npc,CONST.对象_X, warpX);
 					Char.SetData(npc,CONST.对象_Y, warpY);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
-					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
+					--Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
 					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 					Char.SetData(npc,CONST.对象_形象, v.startImage);
 					NLG.UpChar(npc);
 				end
-			elseif (GateSetting[k]==1) then
-				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+			elseif (GateSetting[k]==0) then
 				local gateName = Char.GetData(npc,CONST.对象_名字);
-				if ( k==v.lordNum and gateName==v.fallName ) then
+				if ( k==v.lordNum ) then
+					if (gateName==v.fallName or gateName==v.lordName) then
+						GateInfo[k] = os.time();
+					end
+				end
+			elseif (GateSetting[k]==2) then
+				local STime = os.time();
+				local timec = STime - GateInfo[k];
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				--local bossImage = Char.GetData(npc,CONST.对象_形象);
+				local gateName = Char.GetData(npc,CONST.对象_名字);
+				if ( timec > v.timesec and k==v.lordNum and gateName==v.fallName ) then
 					GateSetting[k] = 0;
 					NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..warpX..","..warpY..")");
 					Char.SetData(npc,CONST.对象_X, warpX);
 					Char.SetData(npc,CONST.对象_Y, warpY);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
-					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
-					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
-					Char.SetData(npc,CONST.对象_形象, v.startImage);
-					NLG.UpChar(npc);
-
-					GateCD[k] = 0;
-				end
-			elseif (GateSetting[k]==2) then
-				local CTime = GateInfo[k] or os.time();
-				local mapsname = NLG.GetMapName(0, v.warpArea.map);
-				--local bossImage = Char.GetData(npc,CONST.对象_形象);
-				local gateName = Char.GetData(npc,CONST.对象_名字);
-				if ( (os.time() - CTime) >= v.timesec and k==v.lordNum and gateName==v.fallName) then
-					GateInfo[k] = os.time();
-					GateSetting[k] = 1;
-					NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..warpX..","..warpY..")");
-					Char.SetData(npc,CONST.对象_X, warpX);
-					Char.SetData(npc,CONST.对象_Y, warpY);
-					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
-					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
-					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
-					Char.SetData(npc,CONST.对象_形象, v.startImage);
-					NLG.UpChar(npc);
-
-					GateCD[k] = 0;
-					--local newdata = JSON.encode(GateCD);
-					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
-					--NLG.UpChar(gmIndex);
-				elseif ( v.timesec - (os.time() - CTime) < 0 and k==v.lordNum and gateName==v.fallName) then
-					GateInfo[k] = os.time();
-					GateSetting[k] = 1;
-					NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..warpX..","..warpY..")");
-					Char.SetData(npc,CONST.对象_X, warpX);
-					Char.SetData(npc,CONST.对象_Y, warpY);
-					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
-					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
+					--Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
 					Char.SetData(npc,CONST.对象_名字, v.gateLevel);
 					Char.SetData(npc,CONST.对象_形象, v.startImage);
 					NLG.UpChar(npc);
@@ -736,6 +708,26 @@ Char.GetItemEmptySlot = function(charIndex)
       end
   end
   return -1;
+end
+
+function heads(CoinNo)
+	local h,r,s = 0,0,0;
+	local result_tbl = {};
+	for i=1,CoinNo do
+		local result = NLG.Rand(0,1);
+		table.insert(result_tbl,result);
+	end
+	for k,v in pairs(result_tbl) do
+		if (v==1) then
+			h = h + 1;
+		elseif (v==0) then
+			r = r + 1;
+		end
+	end
+	if (h==#result_tbl or r==#result_tbl) then
+		s = 1;
+	end
+	return h,r,s
 end
 
 --- 卸载模块钩子
