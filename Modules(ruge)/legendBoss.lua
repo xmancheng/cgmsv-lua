@@ -300,9 +300,12 @@ function LegendBoss_LoopEvent(npc)
 					NLG.UpChar(npc);
 				end
 			elseif (LegendSetting[k]==1) then
-				LegendInfo[k] = os.time()
+				local bossImage = Char.GetData(npc,CONST.对象_形象);
+				if (k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+				end
 			elseif (LegendSetting[k]==2) then
-				local STime = os.time()
+				local STime = os.time();
 				local timec = STime - LegendInfo[k];
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
 				local bossImage = Char.GetData(npc,CONST.对象_形象);

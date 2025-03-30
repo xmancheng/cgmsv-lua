@@ -468,7 +468,7 @@ function CrossGate_LoopEvent(npc)
             repeat
               warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
               warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
-            until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
+            until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1) and (Map.IsWalkable(0, 43100, warpX + 2, warpY - 2) == 1)
 
 			local mapsname = NLG.GetMapName(0, v.warpArea.map);
 			--local bossImage = Char.GetData(npc,CONST.对象_形象);
@@ -515,7 +515,7 @@ function CrossGate_LoopEvent(npc)
 			repeat
 				warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
 				warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
-			until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1)
+			until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1) and (Map.IsWalkable(0, 43100, warpX + 2, warpY - 2) == 1)
 
 			if (GateSetting[k]==nil) then
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
@@ -533,9 +533,14 @@ function CrossGate_LoopEvent(npc)
 					NLG.UpChar(npc);
 				end
 			elseif (GateSetting[k]==0) then
-				GateInfo[k] = os.time()
+				local gateName = Char.GetData(npc,CONST.对象_名字);
+				if ( k==v.lordNum ) then
+					if (gateName==v.fallName or gateName==v.lordName) then
+						GateInfo[k] = os.time();
+					end
+				end
 			elseif (GateSetting[k]==2) then
-				local STime = os.time()
+				local STime = os.time();
 				local timec = STime - GateInfo[k];
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
 				local gateName = Char.GetData(npc,CONST.对象_名字);
