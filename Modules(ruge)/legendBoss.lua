@@ -258,7 +258,7 @@ function LegendBoss_LoopEvent(npc)
 			local bossImage = Char.GetData(npc,CONST.对象_形象);
 			if ( k==v.lordNum and bossImage==v.startImage ) then
 				LegendInfo[k] = os.time();
-				LegendSetting[k] = 0;
+				LegendSetting[k] = 1;
 				NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
 				Char.SetData(npc,CONST.对象_X, v.warpArea.X);
 				Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
@@ -292,31 +292,21 @@ function LegendBoss_LoopEvent(npc)
 				local bossImage = Char.GetData(npc,CONST.对象_形象);
 				if ( k==v.lordNum and bossImage==v.startImage) then
 					LegendInfo[k] = os.time();
-					LegendSetting[k] = 0;
-					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
-					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
-					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
-					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
-					NLG.UpChar(npc);
-				end
-			elseif (LegendSetting[k]==2) then
-				local CTime = LegendInfo[k] or os.time();
-				local mapsname = NLG.GetMapName(0, v.warpArea.map);
-				local bossImage = Char.GetData(npc,CONST.对象_形象);
-				if ( (os.time() - CTime) >= v.timesec and k==v.lordNum and bossImage==v.startImage) then
-					LegendInfo[k] = os.time();
 					LegendSetting[k] = 1;
 					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
 					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
 					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
 					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
 					NLG.UpChar(npc);
-
-					LegendCD[k] = 0;
-					--local newdata = JSON.encode(LegendCD);
-					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
-					--NLG.UpChar(gmIndex);
-				elseif ( v.timesec - (os.time() - CTime) < 0 and k==v.lordNum and bossImage==v.startImage) then
+				end
+			elseif (LegendSetting[k]==1) then
+				LegendInfo[k] = os.time()
+			elseif (LegendSetting[k]==2) then
+				local STime = os.time()
+				local timec = STime - LegendInfo[k];
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local bossImage = Char.GetData(npc,CONST.对象_形象);
+				if ( timec > v.timesec and k==v.lordNum and bossImage==v.startImage) then
 					LegendInfo[k] = os.time();
 					LegendSetting[k] = 1;
 					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
