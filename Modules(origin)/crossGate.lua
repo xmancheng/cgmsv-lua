@@ -123,9 +123,27 @@ function Module:onLoad()
           local floor = Char.GetData(npc,CONST.对象_地图);
           for k,v in pairs(CrossGate) do
             if ( k==v.lordNum and gateName==v.fallName and floor==v.waitingArea.map ) then
-              Char.Warp(player,0, 1000, 241, 88);
+              repeat
+                warpX = NLG.Rand(v.warpArea.LX, v.warpArea.RX);
+                warpY = NLG.Rand(v.warpArea.LY, v.warpArea.RY);
+              until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1) and (Map.IsWalkable(0, 43100, warpX + 2, warpY - 2) == 1)
+              GateInfo[k] = os.time();
+              GateSetting[k] = 0;
+              --NLG.SystemMessage(-1,"[系統]"..v.gateLevel.."出現在"..mapsname.."("..warpX..","..warpY..")");
+              Char.SetData(npc,CONST.对象_X, warpX);
+              Char.SetData(npc,CONST.对象_Y, warpY);
+              Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+              --Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
+              Char.SetData(npc,CONST.对象_名字, v.gateLevel);
+              Char.SetData(npc,CONST.对象_形象, v.startImage);
+              NLG.UpChar(npc);
             end
           end
+          Char.Warp(player,0, 1000, 241, 88);
+          local gmIndex = NLG.FindUser(123456);
+          local newdata = JSON.encode(GateCD);
+          SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
+          NLG.UpChar(gmIndex);
     end
     end)
     self:NPC_regTalkedEvent(tbl_CrossGateNPCIndex[k], function(npc, player)
@@ -279,7 +297,7 @@ function Module:onLoad()
 
           local CoinNo = math.modf(playerLv/10);
           local heads,reverses,same = heads(CoinNo);
-          local extraRate = math.modf(enemyLevel/10);
+          local extraRate = math.modf(enemyLevel/15);
           --print(extraRate)
           if (enemyId ~=nil and enemyId>0) then
               if (heads < extraRate) then
@@ -419,22 +437,23 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			for k,v in pairs(CrossGate) do
 				local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_地图)
 				local bossImage = tonumber(GateCD[k]);
-				if (k==v.lordNum and bossImage==v.lordImage and floor==v.waitingArea.map) then
+				if (k==v.lordNum and floor==v.waitingArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = "消失中";
 					local mapsX = "xxx";
 					local mapsY = "yyy";
-					local CTime = GateInfo[k] or os.time();
-					local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
+					--local CTime = GateInfo[k] or os.time();
+					--local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
+					local CDTime = "每 "..v.timesec.." 秒刷新";
 					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
-				elseif (k==v.lordNum and bossImage==0 and floor==v.warpArea.map) then
+				elseif (k==v.lordNum and floor==v.warpArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = NLG.GetMapName(0, v.warpArea.map);
 					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
 					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_Y));
 					local CDTime = "出現中";
 					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
-				elseif (k==v.lordNum and bossImage==0 and floor==v.bossArea.map) then
+				elseif (k==v.lordNum and floor==v.bossArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = NLG.GetMapName(0, v.bossArea.map);
 					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.对象_X));
