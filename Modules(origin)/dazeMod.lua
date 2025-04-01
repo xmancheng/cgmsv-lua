@@ -1,18 +1,24 @@
----æ¨¡å—ç±»
+---Ä£¿éÀà
 local Module = ModuleBase:createModule(dazeMod)
 
---å¤šé‡æ–½æ³•è®¾ç½®
---local boom_skill_list = {3,266,267,268,269,270,271};	--å¤šé‡æ–½æ³•çš„skillåˆ—è¡¨
-local boom_dmg_rate = {0.75,0.50,0.25,0.01}	--ä¸åŒé‡æŠ€èƒ½å¯¹åº”ä¼¤å®³å‰Šå¼±ï¼Œç±»ä¼¼äºä¹±å°„
+--¶àÖØÊ©·¨ÉèÖÃ
+--local boom_skill_list = {3,266,267,268,269,270,271};	--¶àÖØÊ©·¨µÄskillÁĞ±í
+local boom_dmg_rate = {0.75,0.50,0.25,0.01}	--²»Í¬ÖØ¼¼ÄÜ¶ÔÓ¦ÉËº¦Ï÷Èõ£¬ÀàËÆÓÚÂÒÉä
 local boom_list = {}
 local boom_cnt_num = {}
 local boom_cnt_num_aoe = {}
 local boom_tag = {}
 
 local BondImage_List = {};
-BondImage_List[1] = {{106627},50,10,CONST.æˆ˜å±_æ”»å¢,-10};		--å½¢è±¡ç»„åˆã€å‡ ç‡ã€æ•Œæˆ‘(10,0)ã€æˆ˜å±ã€å¢å‡æ•°å€¼%
+BondImage_List[1] = {{130148,130149,130150},50,10,CONST.Õ½Êô_ÃôÔö,-30};		--ĞÎÏó×éºÏ¡¢¼¸ÂÊ¡¢µĞÎÒ(10,0)¡¢Õ½Êô¡¢Ôö¼õÊıÖµ%
+BondImage_List[2] = {{130151,130152,130153},50,10,CONST.Õ½Êô_¹¥Ôö,-30};
+BondImage_List[3] = {{130154,130155,130156},50,10,CONST.Õ½Êô_·ÀÔö,-30};
 
---- åŠ è½½æ¨¡å—é’©å­
+BondImage_List[4] = {{130157,130158},40,10,CONST.Õ½Êô_ÃôÔö,-20};
+BondImage_List[5] = {{130159,130160},40,10,CONST.Õ½Êô_¹¥Ôö,-20};
+BondImage_List[6] = {{130161,130162},40,0,CONST.Õ½Êô_·ÀÔö,20};
+
+--- ¼ÓÔØÄ£¿é¹³×Ó
 function Module:onLoad()
   self:logInfo('load');
   self:regCallback('BattleActionTargetEvent',Func.bind(self.battleActionTargetCallback,self))
@@ -24,23 +30,26 @@ function Module:onLoad()
 end
 
 -------------------------------------------------------
---åŠ¨ä½œç›®æ ‡äº‹ä»¶
+--¶¯×÷Ä¿±êÊÂ¼ş
 function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, com3, tgl)
 	--self:logDebug('battleActionTargetCallback', charIndex, battleIndex, com1, com2, com3, tgl)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+	if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
 		leader = leader2
 	end
+	if Char.IsDummy(charIndex) then
+		return
+	end
 	if Char.IsPlayer(charIndex) then
-		local skill302_rate = calcParalysisRate(charIndex,skillId)*2;		--éº»ç—¹è¯æ¡ä¸º2%
-		if (skill302_rate >= NLG.Rand(1,100)) then		--éº»ç—¹
+		local skill302_rate = calcParalysisRate(charIndex,skillId)*2;		--Âé±Ô´ÊÌõÎª2%
+		if (skill302_rate >= NLG.Rand(1,100)) then		--Âé±Ô
 			local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
-			local para_debuff = Char.GetTempData(defCharIndex, 'éº»ç—¹') or 0;
+			local para_debuff = Char.GetTempData(defCharIndex, 'Âé±Ô') or 0;
 			if (para_debuff<=0) then
-				Char.SetTempData(defCharIndex, 'éº»ç—¹', 3);
-				--NLG.SystemMessage(defCharIndex, "[ç³»çµ±]ç™¼å‹•ä½¿æ•µäººé™·å…¥éº»ç—º");
+				Char.SetTempData(defCharIndex, 'Âé±Ô', 3);
+				--NLG.SystemMessage(defCharIndex, "[Ïµ½y]°l„ÓÊ¹”³ÈËÏİÈëÂé¯w");
 			end
 		end
 		boom_list[charIndex] = 0;
@@ -54,12 +63,12 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 		local skillId = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_SKILLID);
 		--if (CheckInTable(boom_skill_list, skillId)==true) then
 		if (skillId >= 0) then
-			local skill300_rate = calcWhirlwindRate(charIndex,skillId)*10;		--å›æ—‹å‡»è¯æ¡ä¸º10%
+			local skill300_rate = calcWhirlwindRate(charIndex,skillId)*10;		--»ØĞı»÷´ÊÌõÎª10%
 			local com_name = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_NAME);
 			local copy_num = 3;
 			if (skill300_rate >= NLG.Rand(1,100)) then
-				local msg_name =  Char.GetData(charIndex,CONST.å¯¹è±¡_åå­—);
-				--NLG.SystemMessage(charIndex, msg_name.."ï¼š"..skill300_rate.."%ç™¼å‹•"..copy_num.."å€ "..com_name);
+				local msg_name =  Char.GetData(charIndex,CONST.¶ÔÏó_Ãû×Ö);
+				--NLG.SystemMessage(charIndex, msg_name.."£º"..skill300_rate.."%°l„Ó"..copy_num.."±¶ "..com_name);
 				boom_list[charIndex] = 1
 				local return_tgl = copy_list(tgl,copy_num)	
 				return 	return_tgl	
@@ -68,13 +77,13 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 			return tgl
 		end
 	elseif Char.IsPet(charIndex) then
-		if (com3==300) then		--æŒ‘æ‹¨è¿·æƒ‘
+		if (com3==300) then		--Ìô²¦ÃÔ»ó
 			if (NLG.Rand(1,4) >= 3) then
 				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
-				local daze_debuff = Char.GetTempData(defCharIndex, 'è¿·æƒ‘') or 0;
+				local daze_debuff = Char.GetTempData(defCharIndex, 'ÃÔ»ó') or 0;
 				if (daze_debuff<=0) then
-					Char.SetTempData(defCharIndex, 'è¿·æƒ‘', 5);
-					--NLG.SystemMessage(defCharIndex, "[ç³»çµ±]ç™¼å‹•æŒ‘æ’¥æ•µäººé™·å…¥è¿·æƒ‘");
+					Char.SetTempData(defCharIndex, 'ÃÔ»ó', 5);
+					--NLG.SystemMessage(defCharIndex, "[Ïµ½y]°l„ÓÌô“Ü”³ÈËÏİÈëÃÔ»ó");
 				end
 			end
 		end
@@ -82,17 +91,17 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 	elseif Char.IsEnemy(charIndex) then
 		local PosSlot = Battle.GetPos(battleIndex,charIndex);
 		local PosName = position(PosSlot);
-		local EnemyName = Char.GetData(charIndex,CONST.å¯¹è±¡_åå­—);
-		local daze_debuff = Char.GetTempData(charIndex, 'è¿·æƒ‘') or 0;
-		local para_debuff = Char.GetTempData(charIndex, 'éº»ç—¹') or 0;
+		local EnemyName = Char.GetData(charIndex,CONST.¶ÔÏó_Ãû×Ö);
+		local daze_debuff = Char.GetTempData(charIndex, 'ÃÔ»ó') or 0;
+		local para_debuff = Char.GetTempData(charIndex, 'Âé±Ô') or 0;
 		if (daze_debuff>0) then
-			NLG.SystemMessage(-1, "[ç³»çµ±]"..PosName.."çš„"..EnemyName.."é™·å…¥è¿·æƒ‘");
-			Char.SetTempData(charIndex, 'è¿·æƒ‘', daze_debuff-1);
+			NLG.SystemMessage(-1, "[Ïµ½y]"..PosName.."µÄ"..EnemyName.."ÏİÈëÃÔ»ó");
+			Char.SetTempData(charIndex, 'ÃÔ»ó', daze_debuff-1);
 			local tgl = calcPlayerHighHP_list(tgl,battleIndex);
 			return tgl
 		elseif (para_debuff>0 and daze_debuff<=0) then
-			NLG.SystemMessage(-1, "[ç³»çµ±]"..PosName.."çš„"..EnemyName.."é™·å…¥éº»ç—º");
-			Char.SetTempData(charIndex, 'éº»ç—¹', para_debuff-1);
+			NLG.SystemMessage(-1, "[Ïµ½y]"..PosName.."µÄ"..EnemyName.."ÏİÈëÂé¯w");
+			Char.SetTempData(charIndex, 'Âé±Ô', para_debuff-1);
 			tgl[1]=30;
 			local tgl = tgl;
 			return tgl
@@ -102,7 +111,7 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
     end
 end
 
---å¢åŠ å›æ—‹å‡»ç›®æ ‡
+--Ôö¼Ó»ØĞı»÷Ä¿±ê
 function copy_list(list, times)
     local new_list = {}
     for i = 1, times do
@@ -113,13 +122,13 @@ function copy_list(list, times)
     end
     return new_list
 end
---è®¡ç®—å›æ—‹å‡»å‘åŠ¨ç‡
+--¼ÆËã»ØĞı»÷·¢¶¯ÂÊ
 function calcWhirlwindRate(charIndex)
     local skill_rate=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==40) then		--äººè£…è¯æ¡ç±»åˆ«40
-        local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==40) then		--ÈË×°´ÊÌõÀà±ğ40
+        local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
         for i=1,#boom_Skill_x do
           local skillId_x = tonumber(boom_Skill_x[i]);
           if (skillId_x>0 and skillId_x==300) then
@@ -132,13 +141,13 @@ function calcWhirlwindRate(charIndex)
     end
     return skill_rate
 end
---è®¡ç®—éº»ç—¹å‘åŠ¨ç‡
+--¼ÆËãÂé±Ô·¢¶¯ÂÊ
 function calcParalysisRate(charIndex)
     local skill_rate=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==40) then		--äººè£…è¯æ¡ç±»åˆ«40
-        local paralysis_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==40) then		--ÈË×°´ÊÌõÀà±ğ40
+        local paralysis_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
         for i=1,#paralysis_Skill_x do
           local skillId_x = tonumber(paralysis_Skill_x[i]);
           if (skillId_x>0 and skillId_x==302) then
@@ -151,7 +160,7 @@ function calcParalysisRate(charIndex)
     end
     return skill_rate
 end
---è®¡ç®—æˆ‘æ–¹æœ€é«˜è¡€
+--¼ÆËãÎÒ·½×î¸ßÑª
 function calcPlayerHighHP_list(tgl,battleIndex)
     local new_list = {}
 	local HP_More={};
@@ -160,7 +169,7 @@ function calcPlayerHighHP_list(tgl,battleIndex)
 	for i = 0,9 do
 		local player = Battle.GetPlayer(battleIndex, i);
 		if (player>=0) then
-			local HP = Char.GetData(player,CONST.å¯¹è±¡_è¡€);
+			local HP = Char.GetData(player,CONST.¶ÔÏó_Ñª);
 			if (HP>=HP_More[1]) then
 				HP_More[1]=HP;
 				HP_More[2]=i;
@@ -180,22 +189,25 @@ function calcPlayerHighHP_list(tgl,battleIndex)
 end
 
 -------------------------------------------------------
---ä¼¤å®³äº‹ä»¶
+--ÉËº¦ÊÂ¼ş
 function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Damage, BattleIndex, Com1, Com2, Com3, DefCom1, DefCom2, DefCom3, Flg, ExFlg)
 	local leader1 = Battle.GetPlayer(BattleIndex,0)
 	local leader2 = Battle.GetPlayer(BattleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+	if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
 		leader = leader2
+	end
+	if Char.IsDummy(CharIndex) then
+		return
 	end
 	if Char.IsPlayer(CharIndex) then
 		if (Flg == CONST.DamageFlags.Magic) then
 			local super_skill_list = {19,20,21,22,23,24,25,26,27,28,29,30,31,1011};
 			local skillId = Tech.GetData(Tech.GetTechIndex(Com3), CONST.TECH_SKILLID);
 			if (CheckInTable(super_skill_list, skillId)==true) then
-				local skill303_rate = calcChantCoeff(CharIndex)*5;		--å’å”±è¯æ¡ä¸º5%
+				local skill303_rate = calcChantCoeff(CharIndex)*5;		--Ó½³ª´ÊÌõÎª5%
 				if (skill303_rate >= NLG.Rand(1,100)) then
-					NLG.SystemMessage(leader, "[ç³»çµ±]ç™¼å‹•é‡å¼·åº¦150%è© å”±");
+					NLG.SystemMessage(leader, "[Ïµ½y]°l„ÓÖØŠ¶È150%Ô³ª");
 					local Damage = math.floor(Damage*1.50);
 					return Damage
 				end
@@ -203,6 +215,9 @@ function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Dama
 			end
 			return Damage
 		elseif (Flg == CONST.DamageFlags.Normal or Flg == CONST.DamageFlags.Critical) then
+			if (Com3>=9500 and Com3<=9509) then
+				return Damage
+			end
 			if (boom_list[CharIndex] == 1) then
 				local cnt = 0
 				if (boom_tag[CharIndex] == 1) then
@@ -230,13 +245,13 @@ function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Dama
 		return Damage
 	end
 end
---è®¡ç®—å›æ—‹å‡»å¢ä¼¤ç³»æ•°
+--¼ÆËã»ØĞı»÷ÔöÉËÏµÊı
 function calcDamageCoeff(charIndex)
     local skill_Coeff=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==40) then		--äººè£…è¯æ¡ç±»åˆ«40
-        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==40) then		--ÈË×°´ÊÌõÀà±ğ40
+        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
         for i=1,#crit_Skill_x do
           local skillId_x = tonumber(crit_Skill_x[i]);
           if (skillId_x>0 and skillId_x==301) then
@@ -249,13 +264,13 @@ function calcDamageCoeff(charIndex)
     end
     return skill_Coeff
 end
---è®¡ç®—å’å”±å¢ä¼¤ç³»æ•°
+--¼ÆËãÓ½³ªÔöÉËÏµÊı
 function calcChantCoeff(charIndex)
     local skill_Coeff=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==40) then		--äººè£…è¯æ¡ç±»åˆ«40
-        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==40) then		--ÈË×°´ÊÌõÀà±ğ40
+        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
         for i=1,#crit_Skill_x do
           local skillId_x = tonumber(crit_Skill_x[i]);
           if (skillId_x>0 and skillId_x==303) then
@@ -270,66 +285,66 @@ function calcChantCoeff(charIndex)
 end
 
 -------------------------------------------------------
---å›åˆå‰äº‹ä»¶
+--»ØºÏÇ°ÊÂ¼ş
 function Module:OnbattleStarCommand(battleIndex)
-    --å® è£…è¯æ¡BUFF
+    --³è×°´ÊÌõBUFF
     for i=0,19 do
         local charIndex = Battle.GetPlayIndex(battleIndex, i)
         if (charIndex>=0 and Char.IsPet(charIndex)) then
-            local defHp = Char.GetData(charIndex,CONST.å¯¹è±¡_è¡€);
-            local defHpM = Char.GetData(charIndex,CONST.å¯¹è±¡_æœ€å¤§è¡€);
+            local defHp = Char.GetData(charIndex,CONST.¶ÔÏó_Ñª);
+            local defHpM = Char.GetData(charIndex,CONST.¶ÔÏó_×î´óÑª);
             local hpCondition = defHp/defHpM;
             local a,b,c = calcBondBuff(charIndex);
             if (a>0 and hpCondition<=0.20) then
-                if (Battle.GetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ”»å¢)==0) then
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ”»å¢, a*10);
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_é˜²å¢, 0);
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ•å¢, 0);
+                if (Battle.GetBattleCharacterStatus(charIndex, CONST.Õ½Êô_¹¥Ôö)==0) then
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_¹¥Ôö, a*10);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_·ÀÔö, 0);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÃôÔö, 0);
                     NLG.UpChar(charIndex);
                 end
             elseif (b>0 and hpCondition>=0.35 and hpCondition<=0.65) then
-                if (Battle.GetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_é˜²å¢)==0) then
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_é˜²å¢, b*10);
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ”»å¢, 0);
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ•å¢, 0);
+                if (Battle.GetBattleCharacterStatus(charIndex, CONST.Õ½Êô_·ÀÔö)==0) then
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_·ÀÔö, b*10);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_¹¥Ôö, 0);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÃôÔö, 0);
                     NLG.UpChar(charIndex);
                 end
             elseif (c>0 and hpCondition>=0.85) then
-                if (Battle.GetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ•å¢)==0) then
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ•å¢, c*10);
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ”»å¢, 0);
-                    Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_é˜²å¢, 0);
+                if (Battle.GetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÃôÔö)==0) then
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÃôÔö, c*10);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_¹¥Ôö, 0);
+                    Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_·ÀÔö, 0);
                     NLG.UpChar(charIndex);
                 end
             else
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ”»å¢, 0);
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_é˜²å¢, 0);
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ•å¢, 0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_¹¥Ôö, 0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_·ÀÔö, 0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÃôÔö, 0);
                 NLG.UpChar(charIndex);
             end
-            --Battle.SetBattleCharacterStatus(Battle.GetPlayIndex(battleIndex, 10), CONST.æˆ˜å±_å±è½¬,50);
-            --Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå›åˆ,2);
-            --Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå€¼,100);
-            --Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ¢å¢,1000);
-            --Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ¢å¤å›åˆ,2);
-            --Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_å‚æ•°,30);
+            --Battle.SetBattleCharacterStatus(Battle.GetPlayIndex(battleIndex, 10), CONST.Õ½Êô_Êô×ª,50);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎè»ØºÏ,2);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎèÖµ,100);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_»ÖÔö,1000);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_»Ö¸´»ØºÏ,2);
+            --Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_²ÎÊı,30);
         elseif (charIndex>=0 and Char.IsEnemy(charIndex)) then
-            local daze_debuff = Char.GetTempData(charIndex, 'è¿·æƒ‘') or 0;
+            local daze_debuff = Char.GetTempData(charIndex, 'ÃÔ»ó') or 0;
             if (daze_debuff>0) then
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ”»å¢,-10);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_¹¥Ôö,-10);
                 NLG.UpChar(charIndex);
             else
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ”»å¢,0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_¹¥Ôö,0);
                 NLG.UpChar(charIndex);
             end
         end
     end
-    --å½¢è±¡ç¾ç»Šç‰¹æŠ€
+    --ĞÎÏóî¿°íÌØ¼¼
     local image_tpl = {};
     for i=0,9 do
         local charIndex = Battle.GetPlayIndex(battleIndex, i)
         if (charIndex>=0) then
-            local image = Char.GetData(charIndex,CONST.å¯¹è±¡_å½¢è±¡);
+            local image = Char.GetData(charIndex,CONST.¶ÔÏó_ĞÎÏó);
             table.insert(image_tpl,image);
         end
     end
@@ -344,7 +359,7 @@ function Module:OnbattleStarCommand(battleIndex)
                   Battle.SetBattleCharacterStatus(charIndex, v[4], tonumber(v[5]));
                   NLG.UpChar(charIndex);
                 else
-                  local prop = {CONST.æˆ˜å±_æ”»å¢,CONST.æˆ˜å±_é˜²å¢,CONST.æˆ˜å±_æ•å¢};
+                  local prop = {CONST.Õ½Êô_¹¥Ôö,CONST.Õ½Êô_·ÀÔö,CONST.Õ½Êô_ÃôÔö};
                   for k,v in pairs(prop) do
                     if (Battle.GetBattleCharacterStatus(charIndex,v)~=0) then
                       Battle.SetBattleCharacterStatus(charIndex,v,0);
@@ -358,15 +373,15 @@ function Module:OnbattleStarCommand(battleIndex)
     end
 end
 
---è®¡ç®—æ”»é˜²æ•å¢ç›Š
+--¼ÆËã¹¥·ÀÃôÔöÒæ
 function calcBondBuff(petIndex)
     local skill_Buff_a=0;
     local skill_Buff_b=0;
     local skill_Buff_c=0;
     for slot=0,4 do
       local itemIndex = Char.GetItemIndex(petIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==41) then		--å® è£…è¯æ¡ç±»åˆ«41
-        local bond_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==41) then		--³è×°´ÊÌõÀà±ğ41
+        local bond_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
         for i=1,#bond_Skill_x do
           local skillId_x = tonumber(bond_Skill_x[i]);
           if (skillId_x>0 and skillId_x==501) then
@@ -385,7 +400,7 @@ function calcBondBuff(petIndex)
     end
     return skill_Buff_a,skill_Buff_b,skill_Buff_c
 end
---è®¡ç®—ç»„åˆç±»å‹
+--¼ÆËã×éºÏÀàĞÍ
 function calcBondType(bondImage_list,image_tpl,type)
     local tpl = {};
     local BondType=0;
@@ -406,44 +421,44 @@ function calcBondType(bondImage_list,image_tpl,type)
     return BondType
 end
 -------------------------------------------------------
---å›åˆåäº‹ä»¶
+--»ØºÏºóÊÂ¼ş
 function Module:OnAfterBattleTurnCommand(battleIndex)
     local Round = Battle.GetTurn(battleIndex);
     local leader1 = Battle.GetPlayer(battleIndex,0)
     local leader2 = Battle.GetPlayer(battleIndex,5)
     local leader = leader1
-    if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
+    if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
         leader = leader2
     end
 
     for i=0,19 do
         local charIndex = Battle.GetPlayIndex(battleIndex, i)
         if (charIndex>=0 and Char.IsPet(charIndex)) then
-            --é‡ç½®çŠ¶æ€
-            if (Battle.GetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå›åˆ)>=2) then
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå›åˆ,1);
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå€¼,100);
-            elseif (Battle.GetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå›åˆ)==1) then
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå›åˆ,0);
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå€¼,0);
+            --ÖØÖÃ×´Ì¬
+            if (Battle.GetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎè»ØºÏ)>=2) then
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎè»ØºÏ,1);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎèÖµ,100);
+            elseif (Battle.GetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎè»ØºÏ)==1) then
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎè»ØºÏ,0);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎèÖµ,0);
             end
-            --å‘åŠ¨çŠ¶æ€
-            local skill500_rate = calcDynamaxRate(charIndex)*5;		--æå·¨åŒ–è¯æ¡ä¸º5%
+            --·¢¶¯×´Ì¬
+            local skill500_rate = calcDynamaxRate(charIndex)*5;		--¼«¾Ş»¯´ÊÌõÎª5%
             if (skill500_rate>= NLG.Rand(1,100)) then
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå›åˆ,2);
-                Battle.SetBattleCharacterStatus(charIndex, CONST.æˆ˜å±_æ…¢èˆå€¼,100);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎè»ØºÏ,2);
+                Battle.SetBattleCharacterStatus(charIndex, CONST.Õ½Êô_ÂıÎèÖµ,100);
             end
         end
     end
 end
 
---è®¡ç®—æå·¨åŒ–å‘åŠ¨ç‡
+--¼ÆËã¼«¾Ş»¯·¢¶¯ÂÊ
 function calcDynamaxRate(petIndex)
     local skill_rate=0;
     for slot=0,4 do
       local itemIndex = Char.GetItemIndex(petIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==41) then		--å® è£…è¯æ¡ç±»åˆ«41
-        local dynamax_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==41) then		--³è×°´ÊÌõÀà±ğ41
+        local dynamax_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
         for i=1,#dynamax_Skill_x do
           local skillId_x = tonumber(dynamax_Skill_x[i]);
           if (skillId_x>0 and skillId_x==500) then
@@ -460,29 +475,29 @@ end
 
 function position(PosSlot)
   if PosSlot == 10 then
-    return "å¾Œæ’ä¸­é–“"
+    return "ááÅÅÖĞég"
   elseif PosSlot == 11 then
-    return "å¾Œæ’ä¸­å³"
+    return "ááÅÅÖĞÓÒ"
   elseif PosSlot == 12 then
-    return "å¾Œæ’ä¸­å·¦"
+    return "ááÅÅÖĞ×ó"
   elseif PosSlot == 13 then
-    return "å¾Œæ’æœ€å³"
+    return "ááÅÅ×îÓÒ"
   elseif PosSlot == 14 then
-    return "å¾Œæ’æœ€å·¦"
+    return "ááÅÅ×î×ó"
   elseif PosSlot == 15 then
-    return "å‰æ’ä¸­é–“"
+    return "Ç°ÅÅÖĞég"
   elseif PosSlot == 16 then
-    return "å‰æ’ä¸­å³"
+    return "Ç°ÅÅÖĞÓÒ"
   elseif PosSlot == 17 then
-    return "å‰æ’ä¸­å·¦"
+    return "Ç°ÅÅÖĞ×ó"
   elseif PosSlot == 18 then
-    return "å‰æ’æœ€å³"
+    return "Ç°ÅÅ×îÓÒ"
   elseif PosSlot == 19 then
-    return "å‰æ’æœ€å·¦"
+    return "Ç°ÅÅ×î×ó"
   end
 end
 
-function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
+function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -490,7 +505,7 @@ function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	end
 	return false
 end
---- å¸è½½æ¨¡å—é’©å­
+--- Ğ¶ÔØÄ£¿é¹³×Ó
 function Module:onUnload()
   self:logInfo('unload')
 end
