@@ -352,7 +352,7 @@ function RunStar(petIndex,Type,StarLv)
 		elseif (StarLv==4) then	--★4
 			Char.SetData(petIndex,CONST.对象_力量, Char.GetData(petIndex,CONST.对象_力量)+1500);
 			Char.SetData(petIndex,CONST.对象_速度, Char.GetData(petIndex,CONST.对象_速度)+1500);
-			if StarTech_list[PetId][1]>0 then
+			if PetId~=nil and StarTech_list[PetId][1]>0 then
 				Pet.AddSkill(petIndex,StarTech_list[PetId][1],8);
 			else
 				local techSet = {1440,1441}
@@ -376,7 +376,7 @@ function RunStar(petIndex,Type,StarLv)
 		elseif (StarLv==4) then	--★4
 			Char.SetData(petIndex,CONST.对象_魔法, Char.GetData(petIndex,CONST.对象_魔法)+1500);
 			Char.SetData(petIndex,CONST.对象_速度, Char.GetData(petIndex,CONST.对象_速度)+1500);
-			if StarTech_list[PetId][1]>0 then
+			if PetId~=nil and StarTech_list[PetId][1]>0 then
 				Pet.AddSkill(petIndex,StarTech_list[PetId][1],8);
 			else
 				local techSet = {1440,1441}
