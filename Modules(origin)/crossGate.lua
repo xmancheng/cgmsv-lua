@@ -139,11 +139,18 @@ function Module:onLoad()
               NLG.UpChar(npc);
             end
           end
-          Char.Warp(player,0, 1000, 241, 88);
+          local drop = math.random(5,10);
+          Char.GiveItem(player, 69125, drop);
           local gmIndex = NLG.FindUser(123456);
           local newdata = JSON.encode(GateCD);
           SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传送门冷却_set'")
           NLG.UpChar(gmIndex);
+          if (NLG.Rand(1,5)>=3) then
+            Char.Warp(player,0, 1000, 241, 88);
+          else
+            NLG.SystemMessage(player,"進入了地下城的隱藏房間。");
+            Char.Warp(player,0, 25007, 17, 84);
+          end
     end
     end)
     self:NPC_regTalkedEvent(tbl_CrossGateNPCIndex[k], function(npc, player)
