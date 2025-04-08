@@ -1,193 +1,193 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('mazeBoss6')
 
--- {skillId,	com1,	com3(techId),	0 ¼º·½ |1 ¶Ô·½£¨Ä¿Ç°Ã»ÓÃ£© £¬Ä¿±êµã»÷µ¥Î»£º 0 sigle| 1 range | 2 sideall |3 whole }
+-- {skillId,	com1,	com3(techId),	0 å·±æ–¹ |1 å¯¹æ–¹ï¼ˆç›®å‰æ²¡ç”¨ï¼‰ ï¼Œç›®æ ‡ç‚¹å‡»å•ä½ï¼š 0 sigle| 1 range | 2 sideall |3 whole }
 skillParams={
-	-- Á¬»÷
+	-- è¿å‡»
 	{skillId=0,com1=CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,techId={0,99},side=1,unit=0},
-	-- ÖîÈĞ
+	-- è¯¸åˆƒ
 	{skillId=1,com1=CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,techId={100,199},side=1,unit=0},
-	-- Ç¬À¤
+	-- ä¹¾å¤
 	{skillId=3,com1=CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,techId={300,399},side=1,unit=0},
-	-- Æø¹¦µ°
+	-- æ°”åŠŸè›‹
 	{skillId=4,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={400,499},side=1,unit=0},
-	-- ±À»÷
+	-- å´©å‡»
 	{skillId=5,com1=CONST.BATTLE_COM.BATTLE_COM_P_GUARDBREAK,techId={500,599},side=1,unit=0},
-	-- Õ½ÀõÏ®ĞÄ
+	-- æˆ˜æ —è¢­å¿ƒ
 	{skillId=6,com1=CONST.BATTLE_COM.BATTLE_COM_P_FORCECUT,techId={600,699},side=1,unit=0},
-	-- »¤ÎÀ
+	-- æŠ¤å«
 	{skillId=7,com1=CONST.BATTLE_COM.BATTLE_COM_P_BODYGUARD,techId={700,799},side=0,unit=0},
-	-- Ê¥¶Ü
+	-- åœ£ç›¾
 	{skillId=8,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPECIALGARD,techId={800,899},side=0,unit=0},
-	-- ÑôÑ×
+	-- é˜³ç‚
 	{skillId=9,com1=CONST.BATTLE_COM.BATTLE_COM_P_DODGE,techId={900,999},side=1,unit=0},
-	-- ·ÀÓùÄ§·¨¹¥»÷
+	-- é˜²å¾¡é­”æ³•æ”»å‡»
 	{skillId=10,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGICGARD,techId={1000,1000},side=0,unit=0},
-	-- ·´»÷
+	-- åå‡»
 	{skillId=11,com1=CONST.BATTLE_COM.BATTLE_COM_P_CROSSCOUNTER,techId={1100,1199},side=0,unit=0},
-	-- Ã÷¾µÖ¹Ë®
+	-- æ˜é•œæ­¢æ°´
 	{skillId=12,com1=CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION,techId={1200,1299},side=0,unit=0},
-	-- ÔÉÊ¯Ä§·¨
+	-- é™¨çŸ³é­”æ³•
 	{skillId=19,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={1900,1999},side=1,unit=0},
-	-- ±ù¶³Ä§·¨
+	-- å†°å†»é­”æ³•
 	{skillId=20,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2000,2099},side=1,unit=0},
-	-- »ğÑæÄ§·¨
+	-- ç«ç„°é­”æ³•
 	{skillId=21,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2100,2199},side=1,unit=0},
-	-- ·çÈĞÄ§·¨
+	-- é£åˆƒé­”æ³•
 	{skillId=22,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2200,2299},side=1,unit=0},
-	-- Ç¿Á¦ÔÉÊ¯
+	-- å¼ºåŠ›é™¨çŸ³
 	{skillId=23,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2300,2399},side=1,unit=1},
-	-- Ç¿Á¦±ù¶³
+	-- å¼ºåŠ›å†°å†»
 	{skillId=24,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2400,2499},side=1,unit=1},
-	-- Ç¿Á¦»ğÑæ
+	-- å¼ºåŠ›ç«ç„°
 	{skillId=25,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2500,2599},side=1,unit=1},
-	-- Ç¿Á¦·çÈĞ
+	-- å¼ºåŠ›é£åˆƒ
 	{skillId=26,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2600,2699},side=1,unit=1},
-	-- ³¬Ç¿ÔÉÊ¯
+	-- è¶…å¼ºé™¨çŸ³
 	{skillId=27,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2700,2799},side=1,unit=2},
-	-- ³¬Ç¿±ù¶³
+	-- è¶…å¼ºå†°å†»
 	{skillId=28,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2800,2899},side=1,unit=2},
-	-- ³¬Ç¿»ğÑæ
+	-- è¶…å¼ºç«ç„°
 	{skillId=29,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={2900,2999},side=1,unit=2},
-	-- ³¬Ç¿·çÈĞ
+	-- è¶…å¼ºé£åˆƒ
 	{skillId=30,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={3000,3099},side=1,unit=2},
-	-- ÎüÑªÄ§·¨
+	-- å¸è¡€é­”æ³•
 	{skillId=31,com1=CONST.BATTLE_COM.BATTLE_COM_P_DORAIN,techId={3100,3199},side=1,unit=0},
-	-- ÖĞ¶¾Ä§·¨
+	-- ä¸­æ¯’é­”æ³•
 	{skillId=32,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3200,3299},side=1,unit=0},
-	-- »èË¯Ä§·¨
+	-- æ˜ç¡é­”æ³•
 	{skillId=33,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3300,3399},side=1,unit=0},
-	-- Ê¯»¯Ä§·¨
+	-- çŸ³åŒ–é­”æ³•
 	{skillId=34,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3400,3499},side=1,unit=0},
-	-- ¾Æ×íÄ§·¨
+	-- é…’é†‰é­”æ³•
 	{skillId=35,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3500,3599},side=1,unit=0},
-	-- »ìÂÒÄ§·¨
+	-- æ··ä¹±é­”æ³•
 	{skillId=36,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3600,3699},side=1,unit=0},
-	-- ÒÅÍüÄ§·¨
+	-- é—å¿˜é­”æ³•
 	{skillId=37,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3700,3799},side=1,unit=0},
-	-- Ç¿Á¦ÖĞ¶¾Ä§·¨
+	-- å¼ºåŠ›ä¸­æ¯’é­”æ³•
 	{skillId=38,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3800,3899},side=1,unit=1},
-	-- Ç¿Á¦»èË¯Ä§·¨
+	-- å¼ºåŠ›æ˜ç¡é­”æ³•
 	{skillId=39,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3900,3999},side=1,unit=1},
-	-- Ç¿Á¦Ê¯»¯Ä§·¨
+	-- å¼ºåŠ›çŸ³åŒ–é­”æ³•
 	{skillId=40,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4000,4099},side=1,unit=1},
-	-- Ç¿Á¦¾Æ×íÄ§·¨
+	-- å¼ºåŠ›é…’é†‰é­”æ³•
 	{skillId=41,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4100,4199},side=1,unit=1},
-	-- Ç¿Á¦»ìÂÒÄ§·¨
+	-- å¼ºåŠ›æ··ä¹±é­”æ³•
 	{skillId=42,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4200,4299},side=1,unit=1},
-	-- Ç¿Á¦ÒÅÍüÄ§·¨
+	-- å¼ºåŠ›é—å¿˜é­”æ³•
 	{skillId=43,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4300,4399},side=1,unit=1},
-	-- ³¬Ç¿ÖĞ¶¾Ä§·¨
+	-- è¶…å¼ºä¸­æ¯’é­”æ³•
 	{skillId=44,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4400,4499},side=1,unit=2},
-	-- ³¬Ç¿»èË¯Ä§·¨
+	-- è¶…å¼ºæ˜ç¡é­”æ³•
 	{skillId=45,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4500,4599},side=1,unit=2},
-	-- ³¬Ç¿Ê¯»¯Ä§·¨
+	-- è¶…å¼ºçŸ³åŒ–é­”æ³•
 	{skillId=46,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4600,4699},side=1,unit=2},
-	-- ³¬Ç¿¾Æ×íÄ§·¨
+	-- è¶…å¼ºé…’é†‰é­”æ³•
 	{skillId=47,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4700,4799},side=1,unit=2},
-	-- ³¬Ç¿»ìÂÒÄ§·¨
+	-- è¶…å¼ºæ··ä¹±é­”æ³•
 	{skillId=48,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4800,4899},side=1,unit=2},
-	-- ³¬Ç¿ÒÅÍüÄ§·¨
+	-- è¶…å¼ºé—å¿˜é­”æ³•
 	{skillId=49,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={4900,4999},side=1,unit=2},
-	-- ´óµØµÄÆíµ»
+	-- å¤§åœ°çš„ç¥ˆç¥·
 	{skillId=50,com1=CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE,techId={5000,5099},side=0,unit=0},
-	-- º£ÑóµÄÆíµ»
+	-- æµ·æ´‹çš„ç¥ˆç¥·
 	{skillId=51,com1=CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE,techId={5100,5199},side=0,unit=0},
-	-- »ğÑæµÄÆíµ»
+	-- ç«ç„°çš„ç¥ˆç¥·
 	{skillId=52,com1=CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE,techId={5200,5299},side=0,unit=0},
-	-- ÔÆÈºµÄÆíµ»
+	-- äº‘ç¾¤çš„ç¥ˆç¥·
 	{skillId=53,com1=CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE,techId={5300,5399},side=0,unit=0},
-	-- ÊôĞÔ·´×ª
+	-- å±æ€§åè½¬
 	{skillId=54,com1=CONST.BATTLE_COM.BATTLE_COM_P_REVERSE_TYPE,techId={5400,5499},side=0,unit=0},
-	-- ¹¥»÷·´µ¯
+	-- æ”»å‡»åå¼¹
 	{skillId=55,com1=CONST.BATTLE_COM.BATTLE_COM_P_REFLECTION_PHYSICS,techId={5500,5599},side=0,unit=0},
-	-- Ä§·¨·´µ¯
+	-- é­”æ³•åå¼¹
 	{skillId=56,com1=CONST.BATTLE_COM.BATTLE_COM_P_REFLECTION_MAGIC,techId={5600,5699},side=0,unit=0},
-	-- ¹¥»÷ÎüÊÕ
+	-- æ”»å‡»å¸æ”¶
 	{skillId=57,com1=CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS,techId={5700,5799},side=0,unit=0},
-	-- Ä§·¨ÎüÊÕ
+	-- é­”æ³•å¸æ”¶
 	{skillId=58,com1=CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_MAGIC,techId={5800,5899},side=0,unit=0},
-	-- ¹¥»÷ÎŞĞ§
+	-- æ”»å‡»æ— æ•ˆ
 	{skillId=59,com1=CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_PHYSICS,techId={5900,5999},side=0,unit=0},
-	-- Ä§·¨ÎŞĞ§
+	-- é­”æ³•æ— æ•ˆ
 	{skillId=60,com1=CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_MAGIC,techId={6000,6099},side=0,unit=0},
-	-- ²¹Ñª
+	-- è¡¥è¡€
 	{skillId=61,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6100,6199},side=0,unit=0},
-	-- Ç¿Á¦²¹Ñª
+	-- å¼ºåŠ›è¡¥è¡€
 	{skillId=62,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6200,6299},side=0,unit=1},
-	-- ³¬Ç¿²¹Ñª
+	-- è¶…å¼ºè¡¥è¡€
 	{skillId=63,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6300,6399},side=0,unit=2},
-	-- »Ö¸´
+	-- æ¢å¤
 	{skillId=64,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6400,6499},side=0,unit=0},
-	-- Ç¿Á¦»Ö¸´
+	-- å¼ºåŠ›æ¢å¤
 	{skillId=65,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6500,6599},side=0,unit=1},
-	-- ³¬Ç¿»Ö¸´
+	-- è¶…å¼ºæ¢å¤
 	{skillId=66,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6600,6699},side=0,unit=2},
-	-- ½à¾» µ¥ÌåÄ¿±ê
+	-- æ´å‡€ å•ä½“ç›®æ ‡
 	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6700,6702},side=0,unit=0},
-	-- ½à¾» Ç¿Á¦Ä¿±ê
+	-- æ´å‡€ å¼ºåŠ›ç›®æ ‡
 	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6703,6705},side=0,unit=1},
-	-- ½à¾» Ç¿³¬Ç¿Ä¿±ê
+	-- æ´å‡€ å¼ºè¶…å¼ºç›®æ ‡
 	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6706,6799},side=0,unit=2},
-	-- Æø¾ø»Ø¸´
+	-- æ°”ç»å›å¤
 	{skillId=68,com1=CONST.BATTLE_COM.BATTLE_COM_P_REVIVE,techId={6800,6899},side=0,unit=0},
-	-- µÁÇÔ
+	-- ç›—çªƒ
 	{skillId=72,com1=CONST.BATTLE_COM.BATTLE_COM_P_STEAL,techId={7200,7299},side=0,unit=0},
-	-- ³èÎïÆÕÍ¨¹¥»÷
+	-- å® ç‰©æ™®é€šæ”»å‡»
 	{skillId=73,com1=CONST.BATTLE_COM.BATTLE_COM_ATTACK,techId={7300,7300},side=1,unit=0},
-	-- ³èÎï·ÀÓù
+	-- å® ç‰©é˜²å¾¡
 	{skillId=74,com1=CONST.BATTLE_COM.BATTLE_COM_GUARD,techId={7400,7400},side=0,unit=0},
-	-- ³èÎï¶¾ĞÔ¹¥»÷
+	-- å® ç‰©æ¯’æ€§æ”»å‡»
 	{skillId=75,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7500,7599},side=1,unit=0},
-	-- ³èÎï»èË¯¹¥»÷
+	-- å® ç‰©æ˜ç¡æ”»å‡»
 	{skillId=76,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7600,7699},side=1,unit=0},
-	-- ³èÎïÊ¯»¯¹¥»÷
+	-- å® ç‰©çŸ³åŒ–æ”»å‡»
 	{skillId=77,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7700,7799},side=1,unit=0},
-	-- ³èÎï¾Æ×í¹¥»÷
+	-- å® ç‰©é…’é†‰æ”»å‡»
 	{skillId=78,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7800,7899},side=1,unit=0},
-	-- ³èÎï»ìÂÒ¹¥»÷
+	-- å® ç‰©æ··ä¹±æ”»å‡»
 	{skillId=79,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7900,7999},side=1,unit=0},
-	-- ³èÎïÒÅÍü¹¥»÷
+	-- å® ç‰©é—å¿˜æ”»å‡»
 	{skillId=80,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={8000,8099},side=1,unit=0},
-	-- ³èÎïÎüÑª¹¥»÷
+	-- å® ç‰©å¸è¡€æ”»å‡»
 	{skillId=81,com1=CONST.BATTLE_COM.BATTLE_COM_M_BLOODATTACK,techId={8100,8199},side=1,unit=0},
-	-- »ìÂÒ¹¥»÷
+	-- æ··ä¹±æ”»å‡»
 	{skillId=94,com1=CONST.BATTLE_COM.BATTLE_COM_P_PANIC,techId={9400,9499},side=1,unit=0},
-	-- ÂÒÉä
+	-- ä¹±å°„
 	{skillId=95,com1=CONST.BATTLE_COM.BATTLE_COM_P_RANDOMSHOT,techId={9500,9599},side=1,unit=0},
-	-- ³èÎï¶¨µãÒÆ¶¯
+	-- å® ç‰©å®šç‚¹ç§»åŠ¨
 	{skillId=160,com1=CONST.BATTLE_COM.BATTLE_COM_POSITION,techId={16000,16000},side=0,unit=0},
-	-- ³èÎïÊ²Ã´¶¼²»×ö
+	-- å® ç‰©ä»€ä¹ˆéƒ½ä¸åš
 	{skillId=170,com1=CONST.BATTLE_COM.BATTLE_COM_NONE,techId={15002,15002},side=0,unit=0},
-	-- ½ä½¾½äÔê
+	-- æˆ’éª„æˆ’èº
 	{skillId=1001,com1=CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,techId={25700,25799},side=1,unit=0},
-	-- Ò»»÷±ØÖĞ
+	-- ä¸€å‡»å¿…ä¸­
 	{skillId=1002,com1=CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,techId={25800,25899},side=1,unit=0},
-	-- ¶¾»÷
+	-- æ¯’å‡»
 	{skillId=1003,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={25900,25999},side=1,unit=0},
-	-- Ò»Ê¯¶şÄñ
+	-- ä¸€çŸ³äºŒé¸Ÿ
 	{skillId=1004,com1=CONST.BATTLE_COM.BATTLE_COM_BILLIARD,techId={26000,26099},side=1,unit=0},
-	-- ÆïÊ¿Ö®Óş
+	-- éª‘å£«ä¹‹èª‰
 	{skillId=1005,com1=CONST.BATTLE_COM.BATTLE_COM_KNIGHTGUARD,techId={26100,26199},side=0,unit=0},
-	-- Ñ¸ËÙ¹û¶Ï
+	-- è¿…é€Ÿæœæ–­
 	{skillId=1006,com1=CONST.BATTLE_COM.BATTLE_COM_FIRSTATTACK,techId={26200,26299},side=1,unit=0},
-	-- ÑòÍ·¹·Èâ
+	-- ç¾Šå¤´ç‹—è‚‰
 	{skillId=1007,com1=CONST.BATTLE_COM.BATTLE_COM_COPY,techId={26300,26399},side=1,unit=0},
-	-- Òò¹û±¨Ó¦
+	-- å› æœæŠ¥åº”
 	{skillId=1010,com1=CONST.BATTLE_COM.BATTLE_COM_RETRIBUTION,techId={26600,26699},side=1,unit=0},
-	-- ×·ÔÂ
+	-- è¿½æœˆ
 	{skillId=2005,com1=CONST.BATTLE_COM.BATTLE_COM_BLASTWAVE,techId={200500,200599},side=1,unit=0},
 }
 
 local playerInfo = {
-	{ Info=CONST.¶ÔÏó_ĞÎÏó },{ Info=CONST.¶ÔÏó_Ô­ĞÎ },{ Info=CONST.¶ÔÏó_µÈ¼¶ },{ Info=CONST.¶ÔÏó_Ñª },{ Info=CONST.¶ÔÏó_Ä§ },
-	{ Info=CONST.¶ÔÏó_ÌåÁ¦ },{ Info=CONST.¶ÔÏó_Á¦Á¿ },{ Info=CONST.¶ÔÏó_Ç¿¶È },{ Info=CONST.¶ÔÏó_ËÙ¶È },{ Info=CONST.¶ÔÏó_Ä§·¨ },
-	{ Info=CONST.¶ÔÏó_ÖÖ×å },{ Info=CONST.¶ÔÏó_µØÊôĞÔ },{ Info=CONST.¶ÔÏó_Ë®ÊôĞÔ },{ Info=CONST.¶ÔÏó_»ğÊôĞÔ },{ Info=CONST.¶ÔÏó_·çÊôĞÔ },
-	{ Info=CONST.¶ÔÏó_¿¹¶¾ },{ Info=CONST.¶ÔÏó_¿¹Ë¯ },{ Info=CONST.¶ÔÏó_¿¹Ê¯ },{ Info=CONST.¶ÔÏó_¿¹×í },{ Info=CONST.¶ÔÏó_¿¹ÂÒ },{ Info=CONST.¶ÔÏó_¿¹Íü },
-	{ Info=CONST.¶ÔÏó_±ØÉ± },{ Info=CONST.¶ÔÏó_·´»÷ },{ Info=CONST.¶ÔÏó_ÃüÖĞ },{ Info=CONST.¶ÔÏó_ÉÁ¶ã },
-	{ Info=CONST.¶ÔÏó_Ö°Òµ },{ Info=CONST.¶ÔÏó_Ö°½× },{ Info=CONST.¶ÔÏó_Ö°ÀàID },
-	{ Info=CONST.¶ÔÏó_Ô­Ê¼Í¼µµ },{ Info=CONST.¶ÔÏó_Ãû×Ö },{ Info=CONST.¶ÔÏó_×î´óÑª },{ Info=CONST.¶ÔÏó_×î´óÄ§ },
-	{ Info=CONST.¶ÔÏó_¹¥»÷Á¦ },{ Info=CONST.¶ÔÏó_·ÀÓùÁ¦ },{ Info=CONST.¶ÔÏó_Ãô½İ },{ Info=CONST.¶ÔÏó_¾«Éñ },{ Info=CONST.¶ÔÏó_»Ø¸´ },{ Info=CONST.¶ÔÏó_Ä§¹¥ },{ Info=CONST.¶ÔÏó_Ä§Ç¿ },
+	{ Info=CONST.å¯¹è±¡_å½¢è±¡ },{ Info=CONST.å¯¹è±¡_åŸå½¢ },{ Info=CONST.å¯¹è±¡_ç­‰çº§ },{ Info=CONST.å¯¹è±¡_é­” },
+	{ Info=CONST.å¯¹è±¡_ä½“åŠ› },{ Info=CONST.å¯¹è±¡_åŠ›é‡ },{ Info=CONST.å¯¹è±¡_å¼ºåº¦ },{ Info=CONST.å¯¹è±¡_é€Ÿåº¦ },{ Info=CONST.å¯¹è±¡_é­”æ³• },
+	{ Info=CONST.å¯¹è±¡_ç§æ— },{ Info=CONST.å¯¹è±¡_åœ°å±æ€§ },{ Info=CONST.å¯¹è±¡_æ°´å±æ€§ },{ Info=CONST.å¯¹è±¡_ç«å±æ€§ },{ Info=CONST.å¯¹è±¡_é£å±æ€§ },
+	{ Info=CONST.å¯¹è±¡_æŠ—æ¯’ },{ Info=CONST.å¯¹è±¡_æŠ—ç¡ },{ Info=CONST.å¯¹è±¡_æŠ—çŸ³ },{ Info=CONST.å¯¹è±¡_æŠ—é†‰ },{ Info=CONST.å¯¹è±¡_æŠ—ä¹± },{ Info=CONST.å¯¹è±¡_æŠ—å¿˜ },
+	{ Info=CONST.å¯¹è±¡_å¿…æ€ },{ Info=CONST.å¯¹è±¡_åå‡» },{ Info=CONST.å¯¹è±¡_å‘½ä¸­ },{ Info=CONST.å¯¹è±¡_é—ªèº² },
+	{ Info=CONST.å¯¹è±¡_èŒä¸š },{ Info=CONST.å¯¹è±¡_èŒé˜¶ },{ Info=CONST.å¯¹è±¡_èŒç±»ID },
+	{ Info=CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£ },{ Info=CONST.å¯¹è±¡_åå­— },{ Info=CONST.å¯¹è±¡_æœ€å¤§è¡€ },{ Info=CONST.å¯¹è±¡_æœ€å¤§é­” },
+	{ Info=CONST.å¯¹è±¡_æ”»å‡»åŠ› },{ Info=CONST.å¯¹è±¡_é˜²å¾¡åŠ› },{ Info=CONST.å¯¹è±¡_æ•æ· },{ Info=CONST.å¯¹è±¡_ç²¾ç¥ },{ Info=CONST.å¯¹è±¡_å›å¤ },{ Info=CONST.å¯¹è±¡_é­”æ”» },{ Info=CONST.å¯¹è±¡_é­”å¼º },
 }
 
 local EnemySet = {}
@@ -195,33 +195,33 @@ local BaseLevelSet = {}
 local Pos = {}
 --local FTime = os.time()
 --local Setting = 0;
---¶ÓÁĞ½âÊÍ
---     Îå(4)	Èı(2)	Ò»(0)	¶ş(1)	ËÄ(3)
---     Ê®(9)	°Ë(7)	Áù(5)	Æß(6)	¾Å(8)
-------------¶ÔÕ½NPCÉèÖÃ------------
-local BossEnemyId = 406195;		--±©×ßÄ£Ê½Éè¶¨¶ÔÏó
-EnemySet[1] = {406189, 406189, 406189, 406189, 406189, 406195, 406189, 406189, 406189, 406189}    --0´ú±íÃ»ÓĞ¹Ö
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”(4)	ä¸‰(2)	ä¸€(0)	äºŒ(1)	å››(3)
+--     å(9)	å…«(7)	å…­(5)	ä¸ƒ(6)	ä¹(8)
+------------å¯¹æˆ˜NPCè®¾ç½®------------
+local BossEnemyId = 406195;		--æš´èµ°æ¨¡å¼è®¾å®šå¯¹è±¡
+EnemySet[1] = {406189, 406189, 406189, 406189, 406189, 406195, 406189, 406189, 406189, 406189}    --0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[1] = {140, 140, 140, 140, 140, 150, 140, 140, 140, 140}
-Pos[1] = {"Á_ßBË¹",EnemySet[1],BaseLevelSet[1]}
+Pos[1] = {"ç¾…é€£æ–¯",EnemySet[1],BaseLevelSet[1]}
 ------------------------------------------------
---±³¾°ÉèÖÃ
---local Switch = 0;					--×é¶ÓÈËÊıÏŞÖÆ¿ª¹Ø1¿ª0¹Ø
---local Rank = 0;						--³õÊ¼»¯ÄÑ¶È·ÖÀà
---local BossMap= {60003,40,9}			-- Õ½¶·³¡¾°Floor,X,Y
---local OutMap= {1000,242,88}			-- Ê§°Ü´«ËÍFloor,X,Y
-local LeaveMap= {1000,242,88}		-- Àë¿ª´«ËÍFloor,X,Y
-local BossKey= {70195}				-- ÆÕÍ¨(¿ÉÓĞ¿ÉÎŞ)
-local Pts= 70058;					-- Ä§×åºËĞÄ
+--èƒŒæ™¯è®¾ç½®
+--local Switch = 0;					--ç»„é˜Ÿäººæ•°é™åˆ¶å¼€å…³1å¼€0å…³
+--local Rank = 0;						--åˆå§‹åŒ–éš¾åº¦åˆ†ç±»
+--local BossMap= {60003,40,9}			-- æˆ˜æ–—åœºæ™¯Floor,X,Y
+--local OutMap= {1000,242,88}			-- å¤±è´¥ä¼ é€Floor,X,Y
+local LeaveMap= {1000,242,88}		-- ç¦»å¼€ä¼ é€Floor,X,Y
+local BossKey= {70195}				-- æ™®é€š(å¯æœ‰å¯æ— )
+local Pts= 70058;					-- é­”æ—æ ¸å¿ƒ
 local BossRoom = {
       { key=1, keyItem=70195, keyItem_count=1, bossRank=3, limit=5, posNum_L=3, posNum_R=4,
           win={warpWMap=1000, warpWX=242, warpWY=88, getItem = 70075, getItem_count = 50},
-          lordName="Á_ßBË¹",
-       },    -- ÆÕÍ¨(2)
+          lordName="ç¾…é€£æ–¯",
+       },    -- æ™®é€š(2)
 }
-local tbl_duel_user = {};			--µ±Ç°³¡´ÎÍæ¼ÒµÄÁĞ±í
+local tbl_duel_user = {};			--å½“å‰åœºæ¬¡ç©å®¶çš„åˆ—è¡¨
 local tbl_win_user = {};
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
@@ -231,11 +231,11 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
   self:regCallback('BattleInjuryEvent', Func.bind(self.OnBattleInjuryCallBack, self))
   self:regCallback('BattleSurpriseEvent', Func.bind(self.OnBattleSurpriseCallBack, self))
-  local Lord6Npc = self:NPC_createNormal('Á_ßBË¹', 130021, { map = 7905, x = 59, y = 134, direction = 6, mapType = 0 })
-  Char.SetData(Lord6Npc,CONST.¶ÔÏó_ENEMY_PetFlg+2,0)--¿É´©Í¸Ìå
+  local Lord6Npc = self:NPC_createNormal('ç¾…é€£æ–¯', 130021, { map = 7905, x = 59, y = 134, direction = 6, mapType = 0 })
+  Char.SetData(Lord6Npc,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0)--å¯ç©¿é€ä½“
   self:regCallback('LoopEvent', Func.bind(self.AutoLord_LoopEvent,self))
   self:NPC_regWindowTalkedEvent(Lord6Npc, function(npc, player, _seqno, _select, _data)
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)
@@ -247,27 +247,27 @@ function Module:onLoad()
 			return
 		end
 	if seqno == 1 then
-		if select == CONST.°´Å¥_·ñ then
+		if select == CONST.æŒ‰é’®_å¦ then
 			return;
-		elseif select == CONST.°´Å¥_ÏÂÒ»Ò³ then
-				local msg = "\\nÁ_ßBË¹£º\\n\\n"
-					.."¡¡Ô­íÄãÊÇ•rÖ®Î×Å®¡¤°¬Â¶Î÷†ÅÉíµÄ£¡\\n"
-					.."¡¡•rég²Ã›QÕß¡¤Ù¿ËÌØÔø¸æÔVÎÒÒª´ò“ôÄã‚ƒ\\n"
-					.."¡¡¬FÔÚÎÒ¿‚ËãÖªµÀéÊ²üNËûÒªß@üN×ö\\n"
-					.."¡¡Äã‚ƒ£¬ÕæÊÇÒ»ÈºÌìÕæµÄºÍÆ½Ö÷ÁxÕß\\n"
-					.."¡¡·¨Ìm³ÇµÄ½Y¾Ö×¢¶¨²»”àİ†Ş’¡­¡­\\n";
-				NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 11, msg);
+		elseif select == CONST.æŒ‰é’®_ä¸‹ä¸€é¡µ then
+				local msg = "\\nç¾…é€£æ–¯ï¼š\\n\\n"
+					.."ã€€åŸä¾†ä½ æ˜¯æ™‚ä¹‹å·«å¥³Â·è‰¾éœ²è¥¿äºæ´¾ä¾†çš„ï¼\\n"
+					.."ã€€æ™‚é–“è£æ±ºè€…Â·è³½å…‹ç‰¹æ›¾å‘Šè¨´æˆ‘è¦æ‰“æ“Šä½ å€‘\\n"
+					.."ã€€ç¾åœ¨æˆ‘ç¸½ç®—çŸ¥é“ç‚ºä»€éº¼ä»–è¦é€™éº¼åš\\n"
+					.."ã€€ä½ å€‘ï¼ŒçœŸæ˜¯ä¸€ç¾¤å¤©çœŸçš„å’Œå¹³ä¸»ç¾©è€…\\n"
+					.."ã€€æ³•è˜­åŸçš„çµå±€æ³¨å®šä¸æ–·è¼ªè¿´â€¦â€¦\\n";
+				NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 11, msg);
 		end
 
 	end
 	------------------------------------------------------------
 	if seqno == 11 then
-		if select == CONST.°´Å¥_·ñ then
+		if select == CONST.æŒ‰é’®_å¦ then
 			return;
-		elseif select == CONST.°´Å¥_ÊÇ then
+		elseif select == CONST.æŒ‰é’®_æ˜¯ then
 			if ret and #WorldDate > 0 then
 				if WorldDate[6][1]==os.date("%w",os.time()) then
-					NLG.SystemMessage(player,"[Ïµ½y]Ã¿ÈÕƒHÄÜßMĞĞ1´ÎÓ‘·¥¡£");
+					NLG.SystemMessage(player,"[ç³»çµ±]æ¯æ—¥åƒ…èƒ½é€²è¡Œ1æ¬¡è¨ä¼ã€‚");
 					Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
 					return;
 				end
@@ -278,7 +278,7 @@ function Module:onLoad()
 					WorldDate[i]={"7",};
 				end
 			end
-			local playerName = Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö);
+			local playerName = Char.GetData(player,CONST.å¯¹è±¡_åå­—);
 			table.insert(tbl_duel_user,player);
 			WorldDate[6] = {
 			os.date("%w",os.time()),
@@ -300,19 +300,19 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(Lord6Npc, function(npc, player)
 	if (NLG.CanTalk(npc, player) == true) then
-		local msg = "\\nÁ_ßBË¹£º\\n\\n"
-				.."¡¡Ïë²»µ½ß@´ÎÌáÔç»Øšwß@‚€ÊÀ½ç£¡\\n"
-				.."¡¡•régµÄÉ³Â©±»Äæ•rÕß‚ƒ¼ÓËÙ£¬¸÷·N•rég¾€ÖØ¯B¡£\\n"
-				.."¡¡¶øÄã‚ƒß@Ğ©•r¿ÕÂÃÕßÒ²³ö¬FÁË·Öów¡£\\n"
-				.."¡¡ÎÒÒÑ½›Õf·şËû‚ƒ¼ÓÈëš§œçÊÀ½ç£¬ÄÇÄãÄØ£¿\\n";
+		local msg = "\\nç¾…é€£æ–¯ï¼š\\n\\n"
+				.."ã€€æƒ³ä¸åˆ°é€™æ¬¡ææ—©å›æ­¸é€™å€‹ä¸–ç•Œï¼\\n"
+				.."ã€€æ™‚é–“çš„æ²™æ¼è¢«é€†æ™‚è€…å€‘åŠ é€Ÿï¼Œå„ç¨®æ™‚é–“ç·šé‡ç–Šã€‚\\n"
+				.."ã€€è€Œä½ å€‘é€™äº›æ™‚ç©ºæ—…è€…ä¹Ÿå‡ºç¾äº†åˆ†é«”ã€‚\\n"
+				.."ã€€æˆ‘å·²ç¶“èªªæœä»–å€‘åŠ å…¥æ¯€æ»…ä¸–ç•Œï¼Œé‚£ä½ å‘¢ï¼Ÿ\\n";
 
-		NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÏÂÒ»Ò³, 1, msg);
+		NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ä¸‹ä¸€é¡µ, 1, msg);
 	end
 	return
   end)
 
 
-  --[[local Leave1Npc = self:NPC_createNormal('ÌÓëxÉ³Â©', 235179, { map = 60003, x = 41, y = 9, direction = 6, mapType = 0 })
+  --[[local Leave1Npc = self:NPC_createNormal('é€ƒé›¢æ²™æ¼', 235179, { map = 60003, x = 41, y = 9, direction = 6, mapType = 0 })
   self:NPC_regWindowTalkedEvent(Leave1Npc, function(npc, player, _seqno, _select, _data)
   end)
   self:NPC_regTalkedEvent(Leave1Npc, function(npc, player)
@@ -324,11 +324,11 @@ function Module:onLoad()
 				Char.DelItem(player, BossKey[1], 1);
 				Char.GiveItem(player, 70206, 1);
 				Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
-				NLG.SystemMessage(player,"¿ÉÏ§”¡ÏÂê‡£¬Ã÷ÌìÔÙíÌô‘ğÄ§ÎïîIÖ÷£¡");
+				NLG.SystemMessage(player,"å¯æƒœæ•—ä¸‹é™£ï¼Œæ˜å¤©å†ä¾†æŒ‘æˆ°é­”ç‰©é ˜ä¸»ï¼");
 			else
 				Char.GiveItem(player, 70206, 1);
 				Char.Warp(player,0,LeaveMap[1],LeaveMap[2],LeaveMap[3]);
-				NLG.SystemMessage(player,"¿ÉÏ§”¡ÏÂê‡£¬Ã÷ÌìÔÙíÌô‘ğÄ§ÎïîIÖ÷£¡");
+				NLG.SystemMessage(player,"å¯æƒœæ•—ä¸‹é™£ï¼Œæ˜å¤©å†ä¾†æŒ‘æˆ°é­”ç‰©é ˜ä¸»ï¼");
 			end
 		else
 			for k,v in pairs(BossRoom) do
@@ -348,23 +348,23 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---Õ½¶·Ç°È«»Ö¸´
+-------åŠŸèƒ½è®¾ç½®
+--æˆ˜æ–—å‰å…¨æ¢å¤
 function Char.HealAll(player)
-	Char.SetData(player,CONST.¶ÔÏó_Ñª, Char.GetData(player,CONST.¶ÔÏó_×î´óÑª));
-	Char.SetData(player,CONST.¶ÔÏó_Ä§, Char.GetData(player,CONST.¶ÔÏó_×î´óÄ§));
-	Char.SetData(player, CONST.¶ÔÏó_ÊÜÉË, 0);
-	Char.SetData(player, CONST.¶ÔÏó_µô»ê, 0);
+	Char.SetData(player,CONST.å¯¹è±¡_è¡€, Char.GetData(player,CONST.å¯¹è±¡_æœ€å¤§è¡€));
+	Char.SetData(player,CONST.å¯¹è±¡_é­”, Char.GetData(player,CONST.å¯¹è±¡_æœ€å¤§é­”));
+	Char.SetData(player, CONST.å¯¹è±¡_å—ä¼¤, 0);
+	Char.SetData(player, CONST.å¯¹è±¡_æ‰é­‚, 0);
 	NLG.UpdateParty(player);
 	NLG.UpChar(player);
 	for petSlot  = 0,4 do
 		local petIndex = Char.GetPet(player,petSlot);
 		if petIndex >= 0 then
-			local maxLp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÑª);
-			local maxFp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÄ§);
-			Char.SetData(petIndex, CONST.¶ÔÏó_Ñª, maxLp);
-			Char.SetData(petIndex, CONST.¶ÔÏó_Ä§, maxFp);
-			Char.SetData(petIndex, CONST.¶ÔÏó_ÊÜÉË, 0);
+			local maxLp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+			local maxFp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§é­”);
+			Char.SetData(petIndex, CONST.å¯¹è±¡_è¡€, maxLp);
+			Char.SetData(petIndex, CONST.å¯¹è±¡_é­”, maxFp);
+			Char.SetData(petIndex, CONST.å¯¹è±¡_å—ä¼¤, 0);
 			Pet.UpPet(player, petIndex);
 		end
 	end
@@ -373,20 +373,20 @@ function Char.HealAll(player)
 		for Slot=1,4 do
 		local TeamPlayer = Char.GetPartyMember(player,Slot);
 		if (TeamPlayer>0) then
-			Char.SetData(TeamPlayer,CONST.¶ÔÏó_Ñª, Char.GetData(TeamPlayer,CONST.¶ÔÏó_×î´óÑª));
-			Char.SetData(TeamPlayer,CONST.¶ÔÏó_Ä§, Char.GetData(TeamPlayer,CONST.¶ÔÏó_×î´óÄ§));
-			Char.SetData(TeamPlayer, CONST.¶ÔÏó_ÊÜÉË, 0);
-			Char.SetData(TeamPlayer, CONST.¶ÔÏó_µô»ê, 0);
+			Char.SetData(TeamPlayer,CONST.å¯¹è±¡_è¡€, Char.GetData(TeamPlayer,CONST.å¯¹è±¡_æœ€å¤§è¡€));
+			Char.SetData(TeamPlayer,CONST.å¯¹è±¡_é­”, Char.GetData(TeamPlayer,CONST.å¯¹è±¡_æœ€å¤§é­”));
+			Char.SetData(TeamPlayer, CONST.å¯¹è±¡_å—ä¼¤, 0);
+			Char.SetData(TeamPlayer, CONST.å¯¹è±¡_æ‰é­‚, 0);
 			NLG.UpdateParty(TeamPlayer);
 			NLG.UpChar(TeamPlayer);
 			for petSlot  = 0,4 do
 				local petIndex = Char.GetPet(TeamPlayer,petSlot);
 				if petIndex >= 0 then
-					local maxLp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÑª);
-					local maxFp = Char.GetData(petIndex, CONST.¶ÔÏó_×î´óÄ§);
-					Char.SetData(petIndex, CONST.¶ÔÏó_Ñª, maxLp);
-					Char.SetData(petIndex, CONST.¶ÔÏó_Ä§, maxFp);
-					Char.SetData(petIndex, CONST.¶ÔÏó_ÊÜÉË, 0);
+					local maxLp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+					local maxFp = Char.GetData(petIndex, CONST.å¯¹è±¡_æœ€å¤§é­”);
+					Char.SetData(petIndex, CONST.å¯¹è±¡_è¡€, maxLp);
+					Char.SetData(petIndex, CONST.å¯¹è±¡_é­”, maxFp);
+					Char.SetData(petIndex, CONST.å¯¹è±¡_å—ä¼¤, 0);
 					Pet.UpPet(TeamPlayer, petIndex);
 				end
 			end
@@ -404,13 +404,13 @@ function def_round_start(player, callback)
 	tbl_duel_user = {};
 	table.insert(tbl_duel_user,player);
 
-	--¿ªÊ¼Õ½¶·
+	--å¼€å§‹æˆ˜æ–—
 	tbl_UpIndex = {}
 	battleindex = {}
 
 
 	Char.HealAll(player);
-	NLG.SystemMessage(-1,"" ..BossRoom[1].lordName.. "Ìô‘ğÕß: " ..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö));
+	NLG.SystemMessage(-1,"" ..BossRoom[1].lordName.. "æŒ‘æˆ°è€…: " ..Char.GetData(player,CONST.å¯¹è±¡_åå­—));
 	local battleindex = Battle.PVE( player, player, nil, Pos[1][2], Pos[1][3], nil)
 	Battle.SetWinEvent("./lua/Modules/mazeBoss6.lua", "def_round_wincallback", battleindex);
 
@@ -421,24 +421,24 @@ function def_round_wincallback(battleindex, player)
 	local winside = Battle.GetWinSide(battleindex);
 	local sideM = 0;
 
-	--»ñÈ¡Ê¤Àû·½
+	--è·å–èƒœåˆ©æ–¹
 	if (winside == 0) then
 		sideM = 0;
 	end
 	if (winside == 1) then
 		sideM = 10;
 	end
-	--»ñÈ¡Ê¤Àû·½µÄÍæ¼ÒÖ¸Õë£¬¿ÉÄÜÕ¾ÔÚÇ°·½ºÍºó·½
+	--è·å–èƒœåˆ©æ–¹çš„ç©å®¶æŒ‡é’ˆï¼Œå¯èƒ½ç«™åœ¨å‰æ–¹å’Œåæ–¹
 	local w1 = Battle.GetPlayIndex(battleindex, 0 + sideM);
 	local w2 = Battle.GetPlayIndex(battleindex, 5 + sideM);
 	local ww = nil;
 
-	--°ÑÊ¤ÀûÍæ¼Ò¼ÓÈëÁĞ±í
+	--æŠŠèƒœåˆ©ç©å®¶åŠ å…¥åˆ—è¡¨
 	tbl_win_user = {}
-	if ( Char.GetData(w1, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË ) then
+	if ( Char.GetData(w1, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº ) then
 		local ww = w1;
 		table.insert(tbl_win_user, ww);
-	elseif ( Char.GetData(w2, CONST.¶ÔÏó_ÀàĞÍ) >= CONST.¶ÔÏóÀàĞÍ_ÈË ) then
+	elseif ( Char.GetData(w2, CONST.å¯¹è±¡_ç±»å‹) >= CONST.å¯¹è±¡ç±»å‹_äºº ) then
 		local ww = w2;
 		table.insert(tbl_win_user, ww);
 	else
@@ -451,9 +451,9 @@ function def_round_wincallback(battleindex, player)
 	--FTime = os.time()
 	--wincallbackfunc(tbl_win_user);
 	Char.GiveItem(player, 70258, 1);
-	NLG.SystemMessage(-1,"¹§Ï²Íæ¼Ò:"..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." Ó‘·¥³É¹¦"..BossRoom[1].lordName.."¡£");
+	NLG.SystemMessage(-1,"æ­å–œç©å®¶:"..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." è¨ä¼æˆåŠŸ"..BossRoom[1].lordName.."ã€‚");
 
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	SQL.Run("update lua_hook_worldboss set LordEnd6= '1' where CdKey='"..cdk.."'")
 	NLG.UpChar(player);
 	local PartyNum = Char.PartyNum(player);
@@ -461,7 +461,7 @@ function def_round_wincallback(battleindex, player)
 		for Slot=1,4 do
 			local TeamPlayer = Char.GetPartyMember(player,Slot);
 			if Char.IsDummy(TeamPlayer)==false then
-				local cdk = Char.GetData(TeamPlayer,CONST.¶ÔÏó_CDK);
+				local cdk = Char.GetData(TeamPlayer,CONST.å¯¹è±¡_CDK);
 				--SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE tbl_character.CdKey=lua_hook_worldboss.CdKey)");
 				SQL.Run("update lua_hook_worldboss set LordEnd6= '1' where CdKey='"..cdk.."'")
 				NLG.UpChar(TeamPlayer);
@@ -475,13 +475,13 @@ function def_round_wincallback(battleindex, player)
 end
 
 ------------------------------------------------
---ÊÜÉËÉèÖÃ
+--å—ä¼¤è®¾ç½®
 function Module:OnBattleInjuryCallBack(fIndex, aIndex, battleIndex, inject)
       --self:logDebug('OnBattleInjuryCallBack', fIndex, aIndex, battleIndex, inject)
       local Round = Battle.GetTurn(battleIndex);
       --print(Round)
-      local Target_FloorId = Char.GetData(fIndex, CONST.¶ÔÏó_µØÍ¼)
-      local defHpE = Char.GetData(fIndex,CONST.¶ÔÏó_Ñª);
+      local Target_FloorId = Char.GetData(fIndex, CONST.å¯¹è±¡_åœ°å›¾)
+      local defHpE = Char.GetData(fIndex,CONST.å¯¹è±¡_è¡€);
       if defHpE >=100 and Target_FloorId==7900  then
                  inject = inject*0;
       elseif  Target_FloorId==7900  then
@@ -489,20 +489,20 @@ function Module:OnBattleInjuryCallBack(fIndex, aIndex, battleIndex, inject)
       end
   return inject;
 end
---³¬¼¶ÁìÖ÷ÉèÖÃ
+--è¶…çº§é¢†ä¸»è®¾ç½®
 function Module:OnbattleStartEventCallback(battleIndex)
 	local Round = Battle.GetTurn(battleIndex);
 	local leader0 = Battle.GetPlayer(battleIndex, 0);
 	local leaderpet0 = Battle.GetPlayer(battleIndex, 5);
 	local player = leader0
 	local leaderpet = leaderpet0
-	if Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		player = leader0
 	else
 		player = leaderpet
 	end
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK) or nil;
-	if (Char.GetData(player,CONST.¶ÔÏó_µØÍ¼)~=7905) then
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK) or nil;
+	if (Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾)~=7905) then
 		return
 	end
 	--[[local ret = SQL.Run("select Name,WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'");
@@ -521,17 +521,17 @@ function Module:OnbattleStartEventCallback(battleIndex)
 		if (HP<=1000) then
 			HP = LordHP6*100;
 		end
-		if enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406189  then
-			--Char.SetData(enemy, CONST.¶ÔÏó_×î´óÑª, 1000000);
-			--Char.SetData(enemy, CONST.¶ÔÏó_Ñª, HP);
+		if enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406189  then
+			--Char.SetData(enemy, CONST.å¯¹è±¡_æœ€å¤§è¡€, 1000000);
+			--Char.SetData(enemy, CONST.å¯¹è±¡_è¡€, HP);
 			if player>=0 then
  				for k, v in ipairs(playerInfo) do
 					Char.SetData(enemy, v.Info, Char.GetData(player, v.Info))
 				end
 			end
-		elseif enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==BossEnemyId  then
-			Char.SetData(enemy, CONST.¶ÔÏó_×î´óÑª, 1000000);
-			Char.SetData(enemy, CONST.¶ÔÏó_Ñª, HP);
+		elseif enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==BossEnemyId  then
+			Char.SetData(enemy, CONST.å¯¹è±¡_æœ€å¤§è¡€, 1000000);
+			Char.SetData(enemy, CONST.å¯¹è±¡_è¡€, HP);
 		end
 	end
 end
@@ -541,15 +541,15 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 	local leaderpet0 = Battle.GetPlayer(battleIndex, 5);
 	local player = leader0
 	local leaderpet = leaderpet0
-	if Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		player = leader0
 	else
 		player = leaderpet
 	end
 	if (player>=0) then
-		cdk = Char.GetData(player,CONST.¶ÔÏó_CDK) or nil;
+		cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK) or nil;
 	end
-	if (Char.GetData(player,CONST.¶ÔÏó_µØÍ¼)~=7905) then
+	if (Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾)~=7905) then
 		return
 	end
 	--[[local ret = SQL.Run("select Name,WorldLord6 from lua_hook_worldboss where CdKey='"..cdk.."'");
@@ -568,33 +568,33 @@ function Module:OnBeforeBattleTurnCommand(battleIndex)
 		if (HP<=1000 and Round<1) then
 			HP = HP*200;
 		end
-		if Round==0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406189  then
-			Char.SetData(enemy, CONST.¶ÔÏó_Ñª, Char.GetData(enemy,CONST.¶ÔÏó_×î´óÑª));
-			Char.SetData(enemy, CONST.¶ÔÏó_Ä§, Char.GetData(enemy,CONST.¶ÔÏó_×î´óÄ§));
-		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406189  then
+		if Round==0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406189  then
+			Char.SetData(enemy, CONST.å¯¹è±¡_è¡€, Char.GetData(enemy,CONST.å¯¹è±¡_æœ€å¤§è¡€));
+			Char.SetData(enemy, CONST.å¯¹è±¡_é­”, Char.GetData(enemy,CONST.å¯¹è±¡_æœ€å¤§é­”));
+		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406189  then
 			local player = Battle.GetPlayIndex(battleIndex, i-10);
 			if player>=0 then
  				for k, v in ipairs(playerInfo) do
 					Char.SetData(enemy, v.Info, Char.GetData(player, v.Info))
 				end
 			end
-		elseif Round==0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==BossEnemyId  then
-			Char.SetData(enemy, CONST.¶ÔÏó_×î´óÑª, 1000000);     --ÑªÁ¿ÉÏÏŞ100Íò
-			Char.SetData(enemy, CONST.¶ÔÏó_Ñª, HP);
-		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==BossEnemyId  then
-			Char.SetData(enemy, CONST.¶ÔÏó_×î´óÑª, 1000000);     --ÑªÁ¿ÉÏÏŞ100Íò
-			Char.SetData(enemy, CONST.¶ÔÏó_Ñª, HP);
+		elseif Round==0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==BossEnemyId  then
+			Char.SetData(enemy, CONST.å¯¹è±¡_æœ€å¤§è¡€, 1000000);     --è¡€é‡ä¸Šé™100ä¸‡
+			Char.SetData(enemy, CONST.å¯¹è±¡_è¡€, HP);
+		elseif Round>0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==BossEnemyId  then
+			Char.SetData(enemy, CONST.å¯¹è±¡_æœ€å¤§è¡€, 1000000);     --è¡€é‡ä¸Šé™100ä¸‡
+			Char.SetData(enemy, CONST.å¯¹è±¡_è¡€, HP);
 			if Round>=5 then
-				--Char.SetData(enemy, CONST.¶ÔÏó_¹¥»÷Á¦, 10000);
-				--Char.SetData(enemy, CONST.¶ÔÏó_¾«Éñ, 10000);
-				--Char.SetData(enemy, CONST.¶ÔÏó_ÃüÖĞ, 100);
-				--Char.SetData(enemy, CONST.¶ÔÏó_ÉÁ¶ã, 100);
-				--Char.SetData(enemy, CONST.¶ÔÏó_·´»÷, 70);
+				--Char.SetData(enemy, CONST.å¯¹è±¡_æ”»å‡»åŠ›, 10000);
+				--Char.SetData(enemy, CONST.å¯¹è±¡_ç²¾ç¥, 10000);
+				--Char.SetData(enemy, CONST.å¯¹è±¡_å‘½ä¸­, 100);
+				--Char.SetData(enemy, CONST.å¯¹è±¡_é—ªèº², 100);
+				--Char.SetData(enemy, CONST.å¯¹è±¡_åå‡», 70);
 			end
 			if Round>=4 and Round<=8 then
-				Char.SetData(enemy, CONST.¶ÔÏó_ENEMY_HeadGraNo,114260);
+				Char.SetData(enemy, CONST.å¯¹è±¡_ENEMY_HeadGraNo,114260);
 			elseif Round>=9 then
-				Char.SetData(enemy, CONST.¶ÔÏó_ENEMY_HeadGraNo,114261);
+				Char.SetData(enemy, CONST.å¯¹è±¡_ENEMY_HeadGraNo,114261);
 			end
 		end
 	end
@@ -605,35 +605,35 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 	local leaderpet0 = Battle.GetPlayer(battleIndex, 5);
 	local player = leader0
 	local leaderpet = leaderpet0
-	if Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		player = leader0
 	else
 		player = leaderpet
 	end
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK) or nil;
-	if (Char.GetData(player,CONST.¶ÔÏó_µØÍ¼)~=7905) then
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK) or nil;
+	if (Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾)~=7905) then
 		return
 	end
 
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
-		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406189  then
+		if Round>=0 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406189  then
 			local player = Battle.GetPlayIndex(battleIndex, i-10)
-			local HP = Char.GetData(enemy,CONST.¶ÔÏó_Ñª);
-			local MP = Char.GetData(enemy,CONST.¶ÔÏó_Ä§);
+			local HP = Char.GetData(enemy,CONST.å¯¹è±¡_è¡€);
+			local MP = Char.GetData(enemy,CONST.å¯¹è±¡_é­”);
 			if player>=0 then
  				for k, v in ipairs(playerInfo) do
 					Char.SetData(enemy, v.Info, Char.GetData(player, v.Info))
 				end
 			end
-			Char.SetData(enemy, CONST.¶ÔÏó_Ñª, HP);
-			Char.SetData(enemy, CONST.¶ÔÏó_Ä§, MP);
-		elseif Round>=1 and enemy>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==BossEnemyId  then
-			local HP = Char.GetData(enemy,CONST.¶ÔÏó_Ñª);
-			Char.SetData(enemy, CONST.¶ÔÏó_×î´óÑª, 1000000);
-			Char.SetData(enemy, CONST.¶ÔÏó_Ñª, HP);
-			NLG.SystemMessage(player,"[Ïµ½y]Á_ßBË¹Ä¿Ç°Ê£ğNÑªÁ¿"..HP.."£¡");
-			--LordÑªÁ¿Ğ´Èë¿â
+			Char.SetData(enemy, CONST.å¯¹è±¡_è¡€, HP);
+			Char.SetData(enemy, CONST.å¯¹è±¡_é­”, MP);
+		elseif Round>=1 and enemy>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==BossEnemyId  then
+			local HP = Char.GetData(enemy,CONST.å¯¹è±¡_è¡€);
+			Char.SetData(enemy, CONST.å¯¹è±¡_æœ€å¤§è¡€, 1000000);
+			Char.SetData(enemy, CONST.å¯¹è±¡_è¡€, HP);
+			NLG.SystemMessage(player,"[ç³»çµ±]ç¾…é€£æ–¯ç›®å‰å‰©é¤˜è¡€é‡"..HP.."ï¼");
+			--Lordè¡€é‡å†™å…¥åº“
 			if (cdk~=nil) then
 				--SQL.Run("INSERT INTO lua_hook_worldboss (Name,CdKey) SELECT Name,CdKey FROM tbl_character WHERE NOT EXISTS ( SELECT Name FROM lua_hook_worldboss WHERE CdKey='"..cdk.."')");
 				SQL.Run("update lua_hook_worldboss set WorldLord6= '"..HP.."' where CdKey='"..cdk.."'")
@@ -642,21 +642,21 @@ function Module:OnAfterBattleTurnCommand(battleIndex)
 		end
 	end
 end
---±©×ßÄ£Ê½¼¼ÄÜÊ©·Å
+--æš´èµ°æ¨¡å¼æŠ€èƒ½æ–½æ”¾
 function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
 	local Round = Battle.GetTurn(battleIndex);
 	for i = 10, 19 do
 		local enemy = Battle.GetPlayer(battleIndex, i);
 		local player = Battle.GetPlayIndex(battleIndex, i-10);
 		local sidetable = {{10,30,41},{0,20,40}}
-		if Round>=1 and enemy>= 0 and Char.GetData(enemy, CONST.¶ÔÏó_Ãû×Ö) == "•r¿Õ«F" then
+		if Round>=1 and enemy>= 0 and Char.GetData(enemy, CONST.å¯¹è±¡_åå­—) == "æ™‚ç©ºç¸" then
 			SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_ESCAPE, -1, 15001);
-		elseif Round>=1 and enemy>= 0 and player>=0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==406189  then
+		elseif Round>=1 and enemy>= 0 and player>=0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==406189  then
 			local skillSlot = NLG.Rand(0, 9);
 			for k, v in ipairs(skillParams) do
 				local devilside = v.side+1;
 				local devilunit = v.unit+1;
-				if Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË  then                                --ÈËÎï¼¼ÄÜskill
+				if Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº  then                                --äººç‰©æŠ€èƒ½skill
 					local devil_skillId=Char.GetSkillID(player,skillSlot);
 					if devil_skillId==v.skillId  then
 						local deviltech = v.techId[1] + Char.GetSkillLv(player,skillSlot) - 1;
@@ -665,7 +665,7 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
 					else
 						SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_ATTACK, 0, -1);
 					end
-				elseif Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_³è  then                         --³èÎï¼¼ÄÜtech
+				elseif Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_å®   then                         --å® ç‰©æŠ€èƒ½tech
 					local devil_techId=Pet.GetSkill(player,skillSlot);
 					if devil_techId>=v.techId[1] and devil_techId<=v.techId[2]  then
 						SetCom(enemy, action, v.com1, sidetable[devilside][devilunit], devil_techId);
@@ -675,9 +675,9 @@ function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
 					end
 				end
 			end
-		elseif Round>=5 and Round<=9 and enemy>= 0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==BossEnemyId  then
+		elseif Round>=5 and Round<=9 and enemy>= 0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==BossEnemyId  then
 			SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
-		elseif Round>=10 and enemy>= 0 and Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID)==BossEnemyId  then
+		elseif Round>=10 and enemy>= 0 and Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID)==BossEnemyId  then
 			SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
 		end
 	end
@@ -697,12 +697,12 @@ end
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
 	local Round = Battle.GetTurn(battleIndex);
 	if (Round<1 and flg ~= CONST.DamageFlags.Miss and flg ~= CONST.DamageFlags.Dodge)  then
-		if (Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID)==406189 or Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID)==BossEnemyId)  then
-			local defHpE = Char.GetData(defCharIndex,CONST.¶ÔÏó_Ñª);
+		if (Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID)==406189 or Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID)==BossEnemyId)  then
+			local defHpE = Char.GetData(defCharIndex,CONST.å¯¹è±¡_è¡€);
 			if (damage>=defHpE-1) then
-				Char.SetData(defCharIndex, CONST.¶ÔÏó_Ñª, defHpE+damage*1);
+				Char.SetData(defCharIndex, CONST.å¯¹è±¡_è¡€, defHpE+damage*1);
 				NLG.UpChar(defCharIndex);
-				NLG.SystemMessage(charIndex,"[Ïµ½y]Ä¿Ç°Ÿo·¨ÊÜµ½‚ûº¦£¡");
+				NLG.SystemMessage(charIndex,"[ç³»çµ±]ç›®å‰ç„¡æ³•å—åˆ°å‚·å®³ï¼");
 				damage = damage*0;
 			else
 				damage = damage*0;
@@ -712,21 +712,21 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 	return damage;
 end
 
---ÍµÏ®ÉèÖÃ
+--å·è¢­è®¾ç½®
 function Module:OnBattleSurpriseCallBack(battleIndex, result)
       --self:logDebug('OnBattleSurpriseCallBack', battleIndex, result)
       local Round = Battle.GetTurn(battleIndex);
       --print(Round)
-      local Target_FloorId = Char.GetData(Battle.GetPlayer(battleIndex, 0), CONST.¶ÔÏó_µØÍ¼)
-      local Target_X = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.¶ÔÏó_X)
-      local Target_Y = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.¶ÔÏó_Y)
+      local Target_FloorId = Char.GetData(Battle.GetPlayer(battleIndex, 0), CONST.å¯¹è±¡_åœ°å›¾)
+      local Target_X = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.å¯¹è±¡_X)
+      local Target_Y = Char.GetData(Battle.GetPlayer(battleIndex, 0),CONST.å¯¹è±¡_Y)
       if Target_FloorId==7905  then
          result=1;
       end
   return result;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
