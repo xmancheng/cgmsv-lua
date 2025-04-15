@@ -273,6 +273,9 @@ end
 
 --装备接口
 function Module:itemAttachCallback(charIndex, fromItemIndex)
+      if Char.IsDummy(charIndex) or Char.IsPet(charIndex) then
+        return 0;
+      end
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
       --print("Attach:"..targetSlot);
       local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
@@ -295,6 +298,9 @@ function Module:itemAttachCallback(charIndex, fromItemIndex)
 end
 --卸下接口
 function Module:itemDetachCallback(charIndex, fromItemIndex)
+      if Char.IsDummy(charIndex) or Char.IsPet(charIndex) then
+        return 0;
+      end
       local targetSlot = Char.GetTargetItemSlot(charIndex,fromItemIndex)
       --print("Detach:"..targetSlot);
       local targetIndex = EquipSlotStat(charIndex, ItemPosName[targetSlot+1], "Q");
