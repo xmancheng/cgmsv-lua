@@ -1,0 +1,51 @@
+
+block
+	Window "\n\n\n@c【系統通知】\n\n 是否要重组出數碼兽？",YES,NO
+		Window_YES PetSpace == 0 
+			EndWindow "\n\n\n@c【系統通知】\n\n 你的寵物欄已满。"
+		Window_YES
+			KillItem 69126,1
+			LocalCount1 = Random 26,0
+			if localcount 1 == 20
+				GivePet 1314
+			endif
+			if localcount 1 == 19
+				GivePet 1313
+			endif
+			if localcount 1 == 18
+				GivePet 1312
+			endif
+			if localcount 1 == 17
+				GivePet 1311
+			endif
+			if localcount 1 == 16
+				GivePet 1310
+			endif
+			if localcount 1 == 15
+				GivePet 1309
+			endif
+			if localcount 1 == 14
+				GivePet 1308
+			endif
+			if localcount 1 == 13 || localcount 1 == 12 || localcount 1 == 21
+				GivePet 1307
+			endif
+			if localcount 1 == 10 || localcount 1 == 11 || localcount 1 == 22
+				GivePet 1306
+			endif
+			if localcount 1 == 8 || localcount 1 == 9 || localcount 1 == 23
+				GivePet 1305
+			endif
+			if localcount 1 == 6 || localcount 1 == 7 || localcount 1 == 24
+				GivePet 1304
+			endif
+			if localcount 1 == 4 || localcount 1 == 5 || localcount 1 == 25
+				GivePet 1303
+			endif
+			if localcount 1 == 2 || localcount 1 == 3
+				GivePet 1301
+			endif
+			if localcount 1 == 1 || localcount 1 == 26
+				GivePet 1302
+			endif
+		Window_NO

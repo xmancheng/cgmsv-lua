@@ -1,0 +1,29 @@
+
+block Floor == 25009 && XPos == 85 && YPos == 12 && Item 900505 ==0
+      giveitem 900505,1
+block Floor == 25009 && XPos >= 43 && XPos <= 45 && YPos >= 54 && YPos <= 56 && Item 900505 ==1 && ItemCreateTime 900505 <= 1800
+      killitem 900505,1
+      giveLeak1Item (47568%70$2,47568%30$3)
+block Floor == 25009 && XPos >= 43 && XPos <= 45 && YPos >= 54 && YPos <= 56 && Item 900505 ==1 && ItemCreateTime 900505 > 1800
+      killitem 900505,1
+      giveLeak1Item (47568%80$1,47568%15$2,47568%5$3)
+
+
+block Floor == 25009 && XPos == 55 && YPos == 12 && Item 900506 ==0
+      giveitem 900506,1
+block Floor == 25009 && XPos >= 73 && XPos <= 75 && YPos >= 54 && YPos <= 56 && Item 900506 ==1 && ItemCreateTime 900506 <= 1800
+      killitem 900506,1
+      giveLeak1Item (47568%70$2,47568%30$3)
+block Floor == 25009 && XPos >= 73 && XPos <= 75 && YPos >= 54 && YPos <= 56 && Item 900506 ==1 && ItemCreateTime 900506 > 1800
+      killitem 900506,1
+      giveLeak1Item (47568%80$1,47568%15$2,47568%5$3)
+
+
+block Floor == 25009 && XPos == 25 && YPos == 12 && Item 900507 ==0
+      giveitem 900507,1
+block Floor == 25009 && XPos >= 43 && XPos <= 45 && YPos >= 86 && YPos <= 88 && Item 900507 ==1 && ItemCreateTime 900507 <= 1800
+      killitem 900507,1
+      giveLeak1Item (47568%70$2,47568%30$3)
+block Floor == 25009 && XPos >= 43 && XPos <= 45 && YPos >= 86 && YPos <= 88 && Item 900507 ==1 && ItemCreateTime 900507 > 1800
+      killitem 900507,1
+      giveLeak1Item (47568%80$1,47568%15$2,47568%5$3)
