@@ -8,6 +8,7 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self));
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self));
   self:regCallback('BattleOverEvent', Func.bind(self.onBattleOver, self));
+  self:regCallback('CalcFpConsumeEvent', Func.bind(self.onCalcFpConsumeEvent, self));
   self:regCallback('BattleCalcDexEvent', Func.bind(self.OnBattleCalcDexEvent, self));
   self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self));
   Item.CreateNewItemType( 63, "技能卡牌", 98275, -1, 0);
@@ -16,7 +17,7 @@ end
 
 
 function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
-  self:logDebug('onBattleActionEventCallBack', charIndex, Com1, Com2, Com3, ActionNum)
+  --self:logDebug('onBattleActionEventCallBack', charIndex, Com1, Com2, Com3, ActionNum)
   local battleIndex = Char.GetBattleIndex(charIndex);
   local charside = 1;
   local ybside = Char.GetData(charIndex, CONST.对象_战斗Side);
@@ -134,7 +135,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 				local Com1 = com1;
 				local Com2 = com2;
 				local Com3 = com3;
-				print("技能:",Com1,Com2,Com3)
+				--print("技能:",Com1,Com2,Com3)
 				local TechIndex = Tech.GetTechIndex(Com3);
 				local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
 				if (Item.GetData(ItemIndex,CONST.道具_子参二)==0) then
@@ -155,7 +156,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 	elseif (Char.IsEnemy(defCharIndex) and Char.IsDummy(charIndex)==false) then
 		if (Char.GetData(charIndex,CONST.对象_职类ID)==2020) then	--偵探410
 			local CardsDamage = Char.GetTempData(charIndex, 'CardsDamage') or 0;
-			print(CardsDamage)
+			--print(CardsDamage)
 			if (CardsDamage>0) then
 				Char.SetTempData(charIndex, 'CardsDamage', 0);
 				local damage = CardsDamage * NLG.Rand(90,110) / 100;
@@ -179,7 +180,7 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
 				local Com1 = com1;
 				local Com2 = com2;
 				local Com3 = com3;
-				print("技能:",Com1,Com2,Com3)
+				--print("技能:",Com1,Com2,Com3)
 				local TechIndex = Tech.GetTechIndex(Com3);
 				local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
 				if (Item.GetData(ItemIndex,CONST.道具_子参二)==0) then
@@ -195,7 +196,7 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
 				end
 			end
 			local HealMagicRoundOn = Char.GetTempData(defCharIndex, 'HealMagicRound') or -1;
-			if (Round>=HealMagicRoundOn+2) then
+			if (Round>=HealMagicRoundOn+1) then
 				Char.SetTempData(defCharIndex, 'HealMagic', 0);
 				NLG.UpChar(defCharIndex);
 			end
@@ -204,6 +205,7 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
 	end
 	return heal;
 end
+
 
 --战斗结束清理卡牌
 function Module:onBattleOver(battleIndex)
@@ -218,6 +220,18 @@ function Module:onBattleOver(battleIndex)
 	end
 end
 
+--卡牌耗魔减半
+function Module:onCalcFpConsumeEvent(charIndex, techId, Fp)
+	if (Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false) then
+		local Cards = Char.GetTempData(charIndex, 'Cards') or 0;
+		if (Cards == 1) then
+			local Fp = Char.CalcConsumeFp(charIndex, techId)*0.5;
+			return Fp;
+		end
+		return Fp;
+	end
+	return Fp;
+end
 --卡牌优先
 function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
 	--self:logDebug('OnBattleCalcDexEvent', battleIndex, charIndex, action, flg, dex)
@@ -247,7 +261,7 @@ function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
 	return rate
 end
 
-
+--功能函数
 Char.GetItemEmptySlot = function(charIndex)
   for Slot=7,27 do
       local ItemIndex = Char.GetItemIndex(charIndex, Slot);
