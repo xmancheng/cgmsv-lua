@@ -80,10 +80,14 @@ end
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
 	if (Char.IsEnemy(charIndex) and Char.IsDummy(defCharIndex)==false) then
 		if (Char.GetData(defCharIndex,CONST.对象_职类ID)==2020) then	--偵探410
+			if (Char.ItemSlot(defCharIndex)>=20) then
+				--NLG.SystemMessage(defCharIndex,"[系統]物品欄位置已滿。");
+				return damage;
+			end
 			--print("怪物攻擊:",com1,com2,com3)
 			if (com3==-1 or com3==7300) then
 				--print("攻擊或合擊:",com1,com2,com3)
-			elseif (com3>=0 and com3<=60) then
+			elseif (com3>=0 and com3<=60) then		--被连击缩减为获得道具1次
 				local ContiAttackOn = Char.GetTempData(defCharIndex, 'ContiAttack') or 0;
 				if (ContiAttackOn==0) then
 					--道具栏空位置
@@ -105,7 +109,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 						NLG.UpChar(defCharIndex);
 					end
 				end
-			elseif (com3>=9500 and com3<=9551) then
+			elseif (com3>=9500 and com3<=9551) then		--被乱射缩减为获得道具1次
 				local RandomShotOn = Char.GetTempData(defCharIndex, 'RandomShot') or 0;
 				if (RandomShotOn==0) then
 					--道具栏空位置
@@ -158,8 +162,17 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 			local CardsDamage = Char.GetTempData(charIndex, 'CardsDamage') or 0;
 			--print(CardsDamage)
 			if (CardsDamage>0) then
-				Char.SetTempData(charIndex, 'CardsDamage', 0);
-				local damage = CardsDamage * NLG.Rand(90,110) / 100;
+				if (damage<CardsDamage) then
+					Char.SetTempData(charIndex, 'CardsDamage', 0);
+					Char.SetTempData(charIndex, 'Cards', 0);
+					local damage = CardsDamage * NLG.Rand(90,110) / 100;
+					return damage;
+				else
+					Char.SetTempData(charIndex, 'CardsDamage', 0);
+					Char.SetTempData(charIndex, 'Cards', 0);
+					return damage;
+				end
+			else
 				return damage;
 			end
 		end
@@ -170,9 +183,13 @@ end
 function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, heal, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg, ExFlg)
 	if (Char.IsPlayer(charIndex) and Char.IsDummy(defCharIndex)==false) then
 		if (Char.GetData(defCharIndex,CONST.对象_职类ID)==2020) then	--偵探410
+			if (Char.ItemSlot(defCharIndex)>=20) then
+				--NLG.SystemMessage(defCharIndex,"[系統]物品欄位置已滿。");
+				return heal;
+			end
 			local Round = Battle.GetTurn(battleIndex);
 			local HealMagicOn = Char.GetTempData(defCharIndex, 'HealMagic') or 0;
-			if (HealMagicOn==0) then
+			if (HealMagicOn==0) then	--缩减获得道具为1次之开关
 				--道具栏空位置
 				local EmptySlot = Char.GetItemEmptySlot(defCharIndex);
 				Char.GiveItem(defCharIndex, cardItemId, 1, false);
@@ -200,6 +217,7 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
 				Char.SetTempData(defCharIndex, 'HealMagic', 0);
 				NLG.UpChar(defCharIndex);
 			end
+			Char.SetTempData(defCharIndex, 'Cards', 0);
 		end
 		return heal;
 	end
@@ -225,7 +243,9 @@ function Module:onCalcFpConsumeEvent(charIndex, techId, Fp)
 	if (Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false) then
 		local Cards = Char.GetTempData(charIndex, 'Cards') or 0;
 		if (Cards == 1) then
-			local Fp = Char.CalcConsumeFp(charIndex, techId)*0.5;
+			local TechIndex = Tech.GetTechIndex(techId);
+			local originFP = Tech.GetData(TechIndex, CONST.TECH_FORCEPOINT);
+			local Fp = math.ceil(originFP * 0.5);
 			return Fp;
 		end
 		return Fp;
@@ -251,8 +271,8 @@ function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
 	local battleIndex = Char.GetBattleIndex(aIndex);
 	if Char.IsPlayer(aIndex) and Char.IsEnemy(fIndex) then	--必中
 		local Cards = Char.GetTempData(aIndex, 'Cards') or 0;
-		if Cards == 1  then
-			Char.SetTempData(aIndex, 'Cards', 0);
+		if (Cards == 1)  then
+			--Char.SetTempData(aIndex, 'Cards', 0);
 			rate = 0;
 			return rate
 		end
