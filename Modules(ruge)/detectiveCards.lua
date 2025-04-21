@@ -7,11 +7,12 @@ function Module:onLoad()
   self:regCallback('BattleActionEvent', Func.bind(self.onBattleActionEvent, self));
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self));
   self:regCallback('BattleHealCalculateEvent', Func.bind(self.OnBattleHealCalculateCallBack, self));
-  self:regCallback('BattleOverEvent', Func.bind(self.onBattleOver, self));
+  --self:regCallback('BattleOverEvent', Func.bind(self.onBattleOver, self));
+  self:regCallback('BattleExitEvent', Func.bind(self.onBattleExit, self));
   self:regCallback('CalcFpConsumeEvent', Func.bind(self.onCalcFpConsumeEvent, self));
   self:regCallback('BattleCalcDexEvent', Func.bind(self.OnBattleCalcDexEvent, self));
   self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self));
-  Item.CreateNewItemType( 63, "技能卡牌", 98275, -1, 0);
+  Item.CreateNewItemType( 63, "技能卡牌", 26409, -1, 0);
 
 end
 
@@ -173,6 +174,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 					return damage;
 				end
 			else
+				local damage = damage;
 				return damage;
 			end
 		end
@@ -235,6 +237,12 @@ function Module:onBattleOver(battleIndex)
 		--Char.SetTempData(player, 'ContiAttack', 0);
 		--Char.SetTempData(player, 'RandomShot', 0);
 		--Char.SetTempData(player, 'HealMagic', 0);
+	end
+end
+--离开战斗结束清理卡牌
+function Module:onBattleExit(player, battleIndex, type)
+	if (player>-1 and Char.HaveItem(player,cardItemId)>-1) then
+		Char.DelItem(player, cardItemId, Char.ItemNum(player, cardItemId), false);
 	end
 end
 
