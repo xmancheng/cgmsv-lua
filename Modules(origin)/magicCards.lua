@@ -8,7 +8,7 @@ function Module:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self));
   --self:regCallback('BattleOverEvent', Func.bind(self.onBattleOver, self));
   self:regCallback('BattleExitEvent', Func.bind(self.onBattleExit, self));
-  Item.CreateNewItemType( 63, "¼¼ÄÜ¿¨ÅÆ", 26409, -1, 0);
+  Item.CreateNewItemType( 63, "æŠ€èƒ½å¡ç‰Œ", 26409, -1, 0);
 
 end
 
@@ -17,29 +17,29 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
   --self:logDebug('onBattleActionEventCallBack', charIndex, Com1, Com2, Com3, ActionNum)
   local battleIndex = Char.GetBattleIndex(charIndex);
   local charside = 1;
-  local ybside = Char.GetData(charIndex, CONST.¶ÔÏó_Õ½¶·Side);
+  local ybside = Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ–—Side);
   if ybside == 1 then
     charside = 2;
   end
-  if (Com1==9 and Char.GetData(charIndex, CONST.¶ÔÏó_Õ½³è)>-1 and Char.IsPlayer(charIndex)==true) then
+  if (Com1==9 and Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜å® )>-1 and Char.IsPlayer(charIndex)==true) then
     if (ActionNum==1) then
       local ItemSlot = Com3;
       local ItemIndex = Char.GetItemIndex(charIndex,ItemSlot);
-      local ItemID = Item.GetData(ItemIndex, CONST.µÀ¾ß_ID);
-      if (Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==63) then
+      local ItemID = Item.GetData(ItemIndex, CONST.é“å…·_ID);
+      if (Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==63) then
         if (battleIndex==-1) then
-          if (Char.GetData(charIndex,CONST.¶ÔÏó_¶ÓÁÄ¿ª¹Ø) == 1) then
-            NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+          if (Char.GetData(charIndex,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+            NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
           end
         else
-          local com1 = Item.GetData(ItemIndex,CONST.µÀ¾ß_ÌØÊâÀàĞÍ)-1000;
-          local com2 = Item.GetData(ItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-          local com3 = Item.GetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+          local com1 = Item.GetData(ItemIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹)-1000;
+          local com2 = Item.GetData(ItemIndex,CONST.é“å…·_å­å‚ä¸€);
+          local com3 = Item.GetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ);
 
           local TechIndex = Tech.GetTechIndex(com3);
           local originFP = Tech.GetData(TechIndex, CONST.TECH_FORCEPOINT);
-          if (Char.GetData(charIndex, CONST.¶ÔÏó_Ä§) < originFP) then
-            NLG.SystemMessage(charIndex,"[ÏµÍ³]Ê¹ÓÃ¿¨ÅÆµÄÄ§·¨Á¦²»×ã¡£");
+          if (Char.GetData(charIndex, CONST.å¯¹è±¡_é­”) < originFP) then
+            NLG.SystemMessage(charIndex,"[ç³»ç»Ÿ]ä½¿ç”¨å¡ç‰Œçš„é­”æ³•åŠ›ä¸è¶³ã€‚");
             return
           end
 
@@ -49,18 +49,18 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
           Char.DelItemBySlot(charIndex, ItemSlot);
           --local TechIndex = Tech.GetTechIndex(com3);
           local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
-          NLG.Say(charIndex,charIndex,"¡¾G³ö¿¨ÅÆ¡¿Ê¹³ö"..TechName.."£¡£¡",4,3);
+          NLG.Say(charIndex,charIndex,"ã€ä¸Ÿå‡ºå¡ç‰Œã€‘ä½¿å‡º"..TechName.."ï¼ï¼",4,3);
         end
       end
     end
   elseif (Com1==9 and Char.IsPlayer(charIndex)==true) then
     Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, Com2, -1);
-    NLG.SystemMessage(charIndex,"[ÏµÍ³]Ê¹ÓÃ¿¨ÅÆĞèÒªºÍŒ™ÎïÒ»Æğ³ö‘ğ¡£");
+    NLG.SystemMessage(charIndex,"[ç³»ç»Ÿ]ä½¿ç”¨å¡ç‰Œéœ€è¦å’Œå¯µç‰©ä¸€èµ·å‡ºæˆ°ã€‚");
   end
 
 end
 
---¿¨ÅÆÓÅÏÈ
+--å¡ç‰Œä¼˜å…ˆ
 function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
 	--self:logDebug('OnBattleCalcDexEvent', battleIndex, charIndex, action, flg, dex)
 	if (Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false) then
@@ -80,40 +80,40 @@ function Module:OnbattleStarCommand(battleIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	if (Round==0) then
-		Char.SetTempData(leader, 'È«ÆÁÄ§·¨', 0);
+		Char.SetTempData(leader, 'å…¨å±é­”æ³•', 0);
 	elseif (Round>=1) then
-		local Vigor_pre = Char.GetTempData(leader, 'È«ÆÁÄ§·¨') or 0;
+		local Vigor_pre = Char.GetTempData(leader, 'å…¨å±é­”æ³•') or 0;
 		local Count = 0;
 		for i=0,9 do
 			local player = Battle.GetPlayIndex(battleIndex, i)
 			if (player>=0) then
-				if (Char.GetData(player, CONST.¶ÔÏó_Õ½ËÀ)==0) then
+				if (Char.GetData(player, CONST.å¯¹è±¡_æˆ˜æ­»)==0) then
 					Count = Count+1;
 				end
 			end
 		end
-		Char.SetTempData(leader, 'È«ÆÁÄ§·¨', Vigor_pre + Count);
-		local Vigor = Char.GetTempData(leader, 'È«ÆÁÄ§·¨') or 0;
+		Char.SetTempData(leader, 'å…¨å±é­”æ³•', Vigor_pre + Count);
+		local Vigor = Char.GetTempData(leader, 'å…¨å±é­”æ³•') or 0;
 		if (Vigor >= 100) then
 			local cardItemId = {75034,75035,75036,75037};
 			local rand = NLG.Rand(1,#cardItemId);
 			Char.GiveItem(leader, cardItemId[rand], 1, false);
-			NLG.SystemMessage(leader,"[Ïµ½y] ß_µ½100šâÁ¦Öµ«@µÃÈ«ÆÁÄ§·¨¡£");
-			Char.SetTempData(leader, 'È«ÆÁÄ§·¨', 0);
+			NLG.SystemMessage(leader,"[ç³»çµ±] é”åˆ°100æ°£åŠ›å€¼ç²å¾—å…¨å±é­”æ³•ã€‚");
+			Char.SetTempData(leader, 'å…¨å±é­”æ³•', 0);
 		else
-			if (Char.GetData(leader,CONST.¶ÔÏó_¶ÓÁÄ¿ª¹Ø) == 1) then
-				NLG.SystemMessage(leader,"[Ïµ½y] ÀÛ·e"..Vigor.."šâÁ¦Öµ¡£");
+			if (Char.GetData(leader,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+				NLG.SystemMessage(leader,"[ç³»çµ±] ç´¯ç©"..Vigor.."æ°£åŠ›å€¼ã€‚");
 			end
 		end
 	end
 
 end
 
---Õ½¶·½áÊøÇåÀí¿¨ÅÆ
+--æˆ˜æ–—ç»“æŸæ¸…ç†å¡ç‰Œ
 function Module:onBattleOver(battleIndex)
 	for i=0,9 do
 		local player = Battle.GetPlayer(battleIndex,i)
@@ -124,10 +124,12 @@ function Module:onBattleOver(battleIndex)
 		end
 	end
 end
---Àë¿ªÕ½¶·½áÊøÇåÀí¿¨ÅÆ
+--ç¦»å¼€æˆ˜æ–—ç»“æŸæ¸…ç†å¡ç‰Œ
 function Module:onBattleExit(player, battleIndex, type)
-	if (player>-1 and Char.HaveItem(player,cardItemId)>-1) then
-		Char.DelItem(player, cardItemId, Char.ItemNum(player, cardItemId), false);
+	for cardItemId=75034,75037 do
+		if (player>-1 and Char.HaveItem(player,cardItemId)>-1) then
+			Char.DelItem(player, cardItemId, Char.ItemNum(player, cardItemId), false);
+		end
 	end
 end
 
