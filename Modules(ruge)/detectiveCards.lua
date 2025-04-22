@@ -27,6 +27,13 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
   end
   if (Com1==9 and Char.GetData(charIndex, CONST.对象_战宠)>-1 and Char.IsPlayer(charIndex)==true) then
     if (ActionNum==1) then
+      local Page = Char.GetBagPage(charIndex);
+      --print(Com3)
+      if (Page==0) then Com3 = Com3;
+      elseif (Page==1) then Com3 = Com3+20;
+      elseif (Page==2) then Com3 = Com3+40;
+      elseif (Page==3) then Com3 = Com3+60;
+      end
       local ItemSlot = Com3;
       local ItemIndex = Char.GetItemIndex(charIndex,ItemSlot);
       local ItemID = Item.GetData(ItemIndex, CONST.道具_ID);
@@ -297,12 +304,39 @@ end
 
 --功能函数
 Char.GetItemEmptySlot = function(charIndex)
-  for Slot=7,27 do
+  local Page = Char.GetBagPage(charIndex);
+  if (Page==0) then
+    for Slot=7,27 do
       local ItemIndex = Char.GetItemIndex(charIndex, Slot);
       --print(ItemIndex);
       if (ItemIndex < 0) then
           return Slot;
       end
+    end
+  elseif (Page==1) then
+    for Slot=28,47 do
+      local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+      --print(ItemIndex);
+      if (ItemIndex < 0) then
+          return Slot;
+      end
+    end
+  elseif (Page==2) then
+    for Slot=48,67 do
+      local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+      --print(ItemIndex);
+      if (ItemIndex < 0) then
+          return Slot;
+      end
+    end
+  elseif (Page==3) then
+    for Slot=68,87 do
+      local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+      --print(ItemIndex);
+      if (ItemIndex < 0) then
+          return Slot;
+      end
+    end
   end
   return -1;
 end
