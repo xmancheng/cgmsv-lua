@@ -32,7 +32,9 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
       local ItemID = Item.GetData(ItemIndex, CONST.道具_ID);
       if (Item.GetData(ItemIndex, CONST.道具_类型)==63) then
         if (battleIndex==-1) then
-          NLG.SystemMessage(charIndex,"[道具提示]戰鬥中才能使用的道具");
+          if (Char.GetData(charIndex,CONST.对象_队聊开关) == 1) then
+            NLG.SystemMessage(charIndex,"[道具提示]戰鬥中才能使用的道具");
+          end
         else
           local com1 = Item.GetData(ItemIndex,CONST.道具_特殊类型)-1000;
           if (Item.GetData(ItemIndex,CONST.道具_子参一)>=20 and Item.GetData(ItemIndex,CONST.道具_子参一)<=29) then
@@ -82,7 +84,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 	if (Char.IsEnemy(charIndex) and Char.IsDummy(defCharIndex)==false) then
 		if (Char.GetData(defCharIndex,CONST.对象_职类ID)==2020) then	--偵探410
 			if (Char.ItemSlot(defCharIndex)>=20) then
-				--NLG.SystemMessage(defCharIndex,"[系統]物品欄位置已滿。");
+                if (Char.GetData(defCharIndex,CONST.对象_队聊开关) == 1) then
+                  NLG.SystemMessage(defCharIndex,"[系統]物品欄位置已滿。");
+                end
 				return damage;
 			end
 			--print("怪物攻擊:",com1,com2,com3)
@@ -186,7 +190,9 @@ function Module:OnBattleHealCalculateCallBack(charIndex, defCharIndex, oriheal, 
 	if (Char.IsPlayer(charIndex) and Char.IsDummy(defCharIndex)==false) then
 		if (Char.GetData(defCharIndex,CONST.对象_职类ID)==2020) then	--偵探410
 			if (Char.ItemSlot(defCharIndex)>=20) then
-				--NLG.SystemMessage(defCharIndex,"[系統]物品欄位置已滿。");
+                if (Char.GetData(defCharIndex,CONST.对象_队聊开关) == 1) then
+				  NLG.SystemMessage(defCharIndex,"[系統]物品欄位置已滿。");
+                end
 				return heal;
 			end
 			local Round = Battle.GetTurn(battleIndex);
