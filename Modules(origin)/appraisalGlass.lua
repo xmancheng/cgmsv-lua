@@ -29,13 +29,17 @@ local specialEffects = {
   {6,2,0,1645913},	--可以變化成不死系
   {6,1,0,1645912},	--可以變化成龍系
 }
+
+local enemyPetId = {
+  801,
+}
 ------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
   --鑑定镜道具
   self:regCallback('ItemString', Func.bind(self.actifyGlass, self),"LUA_useActiGlas");
-  AppraisalGlassNPC = self:NPC_createNormal('鑑定鏡', 103013, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
+  AppraisalGlassNPC = self:NPC_createNormal('鑑定鏡', 14682, { x = 38, y = 33, mapType = 0, map = 777, direction = 6 });
   Char.SetData(AppraisalGlassNPC,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
   self:NPC_regTalkedEvent(AppraisalGlassNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
@@ -74,7 +78,7 @@ function Module:onLoad()
           local Special = Item.GetData(GoalIndex,CONST.道具_特殊类型);
           local Para1 = Item.GetData(GoalIndex,CONST.道具_子参一);
           local Para2 = Item.GetData(GoalIndex,CONST.道具_子参二);
-          if (Special==0) then
+          if (Special==0 and Item.GetData(GoalIndex, CONST.道具_类型)==62) then
               local rand = NLG.Rand(1,#specialEffects);
               Item.SetData(GoalIndex,CONST.道具_特殊类型, specialEffects[rand][1]);
               Item.SetData(GoalIndex,CONST.道具_子参一, specialEffects[rand][2]);
@@ -86,6 +90,19 @@ function Module:onLoad()
               NLG.UpChar(player);
               Char.DelItem(player, 75031, 1);
               NLG.SystemMessage(player,"[系统]"..Item.GetData(GoalIndex,CONST.道具_鉴前名).."鑑定成功 "..Item.GetData(GoalIndex,CONST.道具_名字).."。");
+          elseif (Item.GetData(GoalIndex, CONST.道具_类型)==63) then
+              local rand = NLG.Rand(1,#enemyPetId);
+              local EnemyDataIndex = Data.EnemyGetDataIndex(enemyPetId[rand]);
+              local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base编号);
+              local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(enemyBaseId);
+              local Enemy_name = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_名字);
+              Item.SetData(GoalIndex,CONST.道具_名字,"["..Enemy_name.."]封印卡牌");
+              Item.SetData(GoalIndex,CONST.道具_幸运, enemyPetId[rand]);
+              Item.SetData(GoalIndex,CONST.道具_已鉴定,1);
+              Item.UpItem(player, GoalSlot);
+              NLG.UpChar(player);
+              Char.DelItem(player, 75031, 1);
+              NLG.SystemMessage(player,"[系统]鑑定成功 "..Item.GetData(GoalIndex,CONST.道具_名字).."。");
           else
               Item.SetData(GoalIndex,CONST.道具_已鉴定,1);
               Item.UpItem(player, GoalSlot);
