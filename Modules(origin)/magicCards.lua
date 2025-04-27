@@ -55,6 +55,7 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
             local enemyId = Item.GetData(ItemIndex,CONST.道具_幸运);
             local ThrowItemOn = Char.GetTempData(charIndex, 'ThrowItem') or 0;
             if (ThrowItemOn==0) then
+              local com2 = Com2
               Char.SetTempData(charIndex, 'ThrowItem', enemyId);
               Battle.ActionSelect(charIndex, com1, com2, com3);
             end
@@ -114,11 +115,21 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 				end
 			end
 		elseif (com3~=200209 and floor==20300) then
-			local damage = damage*0.01;
+			local damage = damage*0.50;
 			return damage;
 		elseif (com3==200209 and floor~=20300) then
 			Char.SetTempData(charIndex, 'ThrowItem', 0);
 			return damage;
+		elseif (Char.IsPet(charIndex) == true) then
+			local cdk = Char.GetData(charIndex,CONST.对象_主人CDK);
+			local OwnerIndex = NLG.FindUser(cdk);
+			local Ownerfloor = Char.GetData(OwnerIndex,CONST.对象_地图);
+			if (Ownerfloor==20300) then
+				local damage = damage*0.10;
+				return damage;
+			else
+				return damage;
+			end
 		end
 	end
 	return damage;
