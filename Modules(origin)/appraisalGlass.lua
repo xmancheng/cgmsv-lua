@@ -80,7 +80,7 @@ function Module:onLoad()
           local Special = Item.GetData(GoalIndex,CONST.道具_特殊类型);
           local Para1 = Item.GetData(GoalIndex,CONST.道具_子参一);
           local Para2 = Item.GetData(GoalIndex,CONST.道具_子参二);
-          if (Special==0 and Item.GetData(GoalIndex, CONST.道具_类型)==62) then
+          if (Special==0 and Item.GetData(GoalIndex, CONST.道具_类型)~=63) then
               local rand = NLG.Rand(1,#specialEffects);
               Item.SetData(GoalIndex,CONST.道具_特殊类型, specialEffects[rand][1]);
               Item.SetData(GoalIndex,CONST.道具_子参一, specialEffects[rand][2]);
