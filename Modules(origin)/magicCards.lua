@@ -59,15 +59,16 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
               Char.SetTempData(charIndex, 'ThrowItem', enemyId);
               Battle.ActionSelect(charIndex, com1, com2, com3);
             end
+            Char.SetTempData(charIndex, 'Cards', 1);
+            Char.DelItem(charIndex,74042,1);
+            NLG.Say(charIndex,charIndex,"【丟出卡牌】使出帕獸封印！！",4,3);
           else
             Battle.ActionSelect(charIndex, com1, com2, com3);
+            Char.SetTempData(charIndex, 'Cards', 1);
+            Char.DelItemBySlot(charIndex, ItemSlot);
+            local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
+            NLG.Say(charIndex,charIndex,"【丟出卡牌】使出"..TechName.."！！",4,3);
           end
-          Char.SetTempData(charIndex, 'Cards', 1);
-          --Char.DelItem(charIndex,ItemID,1);
-          Char.DelItemBySlot(charIndex, ItemSlot);
-          --local TechIndex = Tech.GetTechIndex(com3);
-          local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
-          NLG.Say(charIndex,charIndex,"【丟出卡牌】使出"..TechName.."！！",4,3);
         end
       elseif (Item.GetData(ItemIndex, CONST.道具_类型)==63 and Item.GetData(ItemIndex, CONST.道具_已鉴定)==0) then
         NLG.SystemMessage(charIndex,"無法使用未經鑑定之卡牌。");
@@ -125,7 +126,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 			local OwnerIndex = NLG.FindUser(cdk);
 			local Ownerfloor = Char.GetData(OwnerIndex,CONST.对象_地图);
 			if (Ownerfloor==20300) then
-				local damage = damage*0.10;
+				local damage = damage*0.25;
 				return damage;
 			else
 				return damage;
