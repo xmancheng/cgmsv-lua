@@ -1038,6 +1038,9 @@ function module:switchPet(charIndex,data)
       return;
     end
     Pet.UpPet(charIndex,heroPetIndex)
+    for petSlot = 0,4 do
+      Item.UpItem(heroPetIndex,petSlot);
+    end
   end
   -- 把玩家宠物给佣兵
 
