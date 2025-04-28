@@ -1,12 +1,45 @@
 local Module = ModuleBase:createModule('magicCards')
 
 local petMettleTable = {
-          {9610,9619,9620,9629},       --¶ÔBOSSÔö,×ÔBOSS¼õ,¶ÔÈËĞÎÔö,¶ÔĞ°Ä§Ôö
-          {9611,9615,9623,9624},       --¶ÔµØÔö,×ÔµØ¼õ,¶Ô·ÉĞĞÔö,¶ÔÀ¥³æÔö
-          {9612,9616,9627,9628},       --¶ÔË®Ôö,×ÔË®¼õ,¶ÔÌØÊâÔö,¶Ô½ğÊôÔö
-          {9613,9617,9621,9626},       --¶Ô»ğÔö,×Ô»ğ¼õ,¶ÔÁú×åÔö,¶ÔÒ°ÊŞÔö
-          {9614,9618,9622,9625},       --¶Ô·çÔö,×Ô·ç¼õ,¶Ô²»ËÀÔö,¶ÔÖ²ÎïÔö
+          {9610,9619,9620,9629},       --å¯¹BOSSå¢,è‡ªBOSSå‡,å¯¹äººå½¢å¢,å¯¹é‚ªé­”å¢
+          {9611,9615,9623,9624},       --å¯¹åœ°å¢,è‡ªåœ°å‡,å¯¹é£è¡Œå¢,å¯¹æ˜†è™«å¢
+          {9612,9616,9627,9628},       --å¯¹æ°´å¢,è‡ªæ°´å‡,å¯¹ç‰¹æ®Šå¢,å¯¹é‡‘å±å¢
+          {9613,9617,9621,9626},       --å¯¹ç«å¢,è‡ªç«å‡,å¯¹é¾™æ—å¢,å¯¹é‡å…½å¢
+          {9614,9618,9622,9625},       --å¯¹é£å¢,è‡ªé£å‡,å¯¹ä¸æ­»å¢,å¯¹æ¤ç‰©å¢
 }
+
+local petEvolution_check = {
+    404001,404002,404003,404004,404005,404006,404007,404008,404009,404010,
+    404011,404012,404013,404014,404015,404016,404017,404018,404019,404020,
+    404021,404022,404023,404024,404025,
+};	--enemyç¼–å·
+
+local petEvolution_list = {};
+petEvolution_list[404001] = {140001,405,408,"é›ªåŸç¿¼é¾"};
+petEvolution_list[404002] = {140005,405,408,"æš´èºç‹‚èœ‚"};
+petEvolution_list[404003] = {140007,26105,26108,"é‡åˆºé¡é¾œ"};
+petEvolution_list[404004] = {140009,6405,6408,"ç´…è‘‰æ¨¹å¦–"};
+petEvolution_list[404005] = {140011,405,408,"ç«å±±é£›é¾"};
+petEvolution_list[404006] = {140013,6105,6108,"æ¹–æ¾¤è›‡é¾"};
+petEvolution_list[404007] = {140015,26205,26208,"è¿…é›·é£›ç¸"};
+petEvolution_list[404008] = {140017,405,408,"æœ¨æœé™¸é¯Š"};
+petEvolution_list[404009] = {140019,5405,5408,"å«µåªšå¦–æœµ"};
+petEvolution_list[404010] = {140021,7638,4508,"çš®çš®é¬¼é­‚"};
+petEvolution_list[404011] = {140023,26105,26108,"æ‹‰ç´é¬¼é¾"};
+petEvolution_list[404012] = {140025,7538,4408,"ä¼Šè³€æ­¦è›™"};
+petEvolution_list[404013] = {140027,405,408,"å¤©ç·šå¹»ç¸"};
+petEvolution_list[404014] = {140029,26105,26108,"ä¸‰é¦–å¤šé¾"};
+petEvolution_list[404015] = {140033,405,408,"å…‰å½©é…‹é¾"};
+petEvolution_list[404016] = {140035,405,408,"é›»é›»æ´›äº"};
+petEvolution_list[404017] = {140037,405,408,"å‡é¢æ‹³åŠ›"};
+petEvolution_list[404018] = {140039,6805,6808,"å¤©ç…§ä¹‹å¹»"};
+petEvolution_list[404019] = {140041,26705,26708,"æœˆè®€ä¹‹å¤¢"};
+petEvolution_list[404020] = {140045,405,408,"é›»æ¢°å¸•é¾"};
+petEvolution_list[404021] = {140047,26005,26008,"é›»æŸµå·¥ç¸"};
+petEvolution_list[404022] = {140049,26105,26108,"æ£®çŒçµèœ¥"};
+petEvolution_list[404023] = {140051,26105,26108,"é£›åˆºè³è‚"};
+petEvolution_list[404024] = {140053,1238,6805,"è²“è²“å·¨ç¸"};
+petEvolution_list[404025] = {140055,6705,6708,"å¼•æ“é›·ç¸"};
 
 function Module:onLoad()
   self:logInfo('load')
@@ -14,9 +47,9 @@ function Module:onLoad()
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self));
   self:regCallback('BattleCalcDexEvent', Func.bind(self.OnBattleCalcDexEvent, self));
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnbattleStarCommand, self));
-  --self:regCallback('BattleOverEvent', Func.bind(self.onBattleOver, self));
+  self:regCallback('BattleOverEvent', Func.bind(self.onBattleOver, self));
   self:regCallback('BattleExitEvent', Func.bind(self.onBattleExit, self));
-  Item.CreateNewItemType( 63, "¼¼ÄÜ¿¨ÅÆ", 26409, -1, 0);
+  Item.CreateNewItemType( 63, "æŠ€èƒ½å¡ç‰Œ", 26409, -1, 0);
 
 end
 
@@ -25,34 +58,34 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
   --self:logDebug('onBattleActionEventCallBack', charIndex, Com1, Com2, Com3, ActionNum)
   local battleIndex = Char.GetBattleIndex(charIndex);
   local charside = 1;
-  local ybside = Char.GetData(charIndex, CONST.¶ÔÏó_Õ½¶·Side);
+  local ybside = Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜æ–—Side);
   if ybside == 1 then
     charside = 2;
   end
-  if (Com1==9 and Char.GetData(charIndex, CONST.¶ÔÏó_Õ½³è)>-1 and Char.IsPlayer(charIndex)==true) then
+  if (Com1==9 and Char.GetData(charIndex, CONST.å¯¹è±¡_æˆ˜å® )>-1 and Char.IsPlayer(charIndex)==true) then
     if (ActionNum==1) then
       local ItemSlot = Com3;
       local ItemIndex = Char.GetItemIndex(charIndex,ItemSlot);
-      local ItemID = Item.GetData(ItemIndex, CONST.µÀ¾ß_ID);
-      if (Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==63 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÒÑ¼ø¶¨)==1) then
+      local ItemID = Item.GetData(ItemIndex, CONST.é“å…·_ID);
+      if (Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==63 and Item.GetData(ItemIndex, CONST.é“å…·_å·²é‰´å®š)==1) then
         if (battleIndex==-1) then
-          if (Char.GetData(charIndex,CONST.¶ÔÏó_¶ÓÁÄ¿ª¹Ø) == 1) then
-            NLG.SystemMessage(charIndex,"[µÀ¾ßÌáÊ¾]‘ğôYÖĞ²ÅÄÜÊ¹ÓÃµÄµÀ¾ß");
+          if (Char.GetData(charIndex,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+            NLG.SystemMessage(charIndex,"[é“å…·æç¤º]æˆ°é¬¥ä¸­æ‰èƒ½ä½¿ç”¨çš„é“å…·");
           end
         else
-          local com1 = Item.GetData(ItemIndex,CONST.µÀ¾ß_ÌØÊâÀàĞÍ)-1000;
-          local com2 = Item.GetData(ItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-          local com3 = Item.GetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+          local com1 = Item.GetData(ItemIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹)-1000;
+          local com2 = Item.GetData(ItemIndex,CONST.é“å…·_å­å‚ä¸€);
+          local com3 = Item.GetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ);
 
           local TechIndex = Tech.GetTechIndex(com3);
           local originFP = Tech.GetData(TechIndex, CONST.TECH_FORCEPOINT);
-          if (Char.GetData(charIndex, CONST.¶ÔÏó_Ä§) < originFP) then
-            NLG.SystemMessage(charIndex,"[ÏµÍ³]Ê¹ÓÃ¿¨ÅÆµÄÄ§·¨Á¦²»×ã¡£");
+          if (Char.GetData(charIndex, CONST.å¯¹è±¡_é­”) < originFP) then
+            NLG.SystemMessage(charIndex,"[ç³»ç»Ÿ]ä½¿ç”¨å¡ç‰Œçš„é­”æ³•åŠ›ä¸è¶³ã€‚");
             return
           end
 
           if (com3==200209) then
-            local enemyId = Item.GetData(ItemIndex,CONST.µÀ¾ß_ĞÒÔË);
+            local enemyId = Item.GetData(ItemIndex,CONST.é“å…·_å¹¸è¿);
             local ThrowItemOn = Char.GetTempData(charIndex, 'ThrowItem') or 0;
             if (ThrowItemOn==0) then
               local com2 = Com2
@@ -61,36 +94,36 @@ function Module:onBattleActionEvent(charIndex, Com1, Com2, Com3, ActionNum)
             end
             Char.SetTempData(charIndex, 'Cards', 1);
             Char.DelItem(charIndex,74042,1);
-            NLG.Say(charIndex,charIndex,"¡¾G³ö¿¨ÅÆ¡¿Ê¹³öÅÁ«F·âÓ¡£¡£¡",4,3);
+            NLG.Say(charIndex,charIndex,"ã€ä¸Ÿå‡ºå¡ç‰Œã€‘ä½¿å‡ºå¸•ç¸å°å°ï¼ï¼",4,3);
           else
             Battle.ActionSelect(charIndex, com1, com2, com3);
             Char.SetTempData(charIndex, 'Cards', 1);
             Char.DelItemBySlot(charIndex, ItemSlot);
             local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
-            NLG.Say(charIndex,charIndex,"¡¾G³ö¿¨ÅÆ¡¿Ê¹³ö"..TechName.."£¡£¡",4,3);
+            NLG.Say(charIndex,charIndex,"ã€ä¸Ÿå‡ºå¡ç‰Œã€‘ä½¿å‡º"..TechName.."ï¼ï¼",4,3);
           end
         end
-      elseif (Item.GetData(ItemIndex, CONST.µÀ¾ß_ÀàĞÍ)==63 and Item.GetData(ItemIndex, CONST.µÀ¾ß_ÒÑ¼ø¶¨)==0) then
-        NLG.SystemMessage(charIndex,"Ÿo·¨Ê¹ÓÃÎ´½›èa¶¨Ö®¿¨ÅÆ¡£");
+      elseif (Item.GetData(ItemIndex, CONST.é“å…·_ç±»å‹)==63 and Item.GetData(ItemIndex, CONST.é“å…·_å·²é‰´å®š)==0) then
+        NLG.SystemMessage(charIndex,"ç„¡æ³•ä½¿ç”¨æœªç¶“é‘‘å®šä¹‹å¡ç‰Œã€‚");
       end
     end
   elseif (Com1==9 and Char.IsPlayer(charIndex)==true) then
     Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, Com2, -1);
-    NLG.SystemMessage(charIndex,"[ÏµÍ³]Ê¹ÓÃ¿¨ÅÆĞèÒªºÍŒ™ÎïÒ»Æğ³ö‘ğ¡£");
+    NLG.SystemMessage(charIndex,"[ç³»ç»Ÿ]ä½¿ç”¨å¡ç‰Œéœ€è¦å’Œå¯µç‰©ä¸€èµ·å‡ºæˆ°ã€‚");
   end
 
 end
 
 function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
 	if (Char.IsEnemy(defCharIndex) and Char.IsDummy(charIndex)==false) then
-		local floor = Char.GetData(charIndex,CONST.¶ÔÏó_µØÍ¼);
+		local floor = Char.GetData(charIndex,CONST.å¯¹è±¡_åœ°å›¾);
 		if (com3==200209 and floor==20300) then
-			local defHpE = Char.GetData(defCharIndex,CONST.¶ÔÏó_Ñª);
-			local ThrowItemOn = Char.GetTempData(charIndex, 'ThrowItem') or 0;	--Õë¶ÔenemyId½øĞĞ·âÓ¡
+			local defHpE = Char.GetData(defCharIndex,CONST.å¯¹è±¡_è¡€);
+			local ThrowItemOn = Char.GetTempData(charIndex, 'ThrowItem') or 0;	--é’ˆå¯¹enemyIdè¿›è¡Œå°å°
 			if (ThrowItemOn>0) then
-				if (Char.GetData(defCharIndex,CONST.¶ÔÏó_µÈ¼¶) == 1)  then
+				if (Char.GetData(defCharIndex,CONST.å¯¹è±¡_ç­‰çº§) == 1)  then
 					local PetSlot = Char.GetPetEmptySlot(charIndex);
-					local enemyId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID);
+					local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
 					if (ThrowItemOn==enemyId) then
 						Char.GivePet(charIndex,enemyId,0);
 						if (PetSlot>=0) then
@@ -122,9 +155,9 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 			Char.SetTempData(charIndex, 'ThrowItem', 0);
 			return damage;
 		elseif (Char.IsPet(charIndex) == true) then
-			local cdk = Char.GetData(charIndex,CONST.¶ÔÏó_Ö÷ÈËCDK);
+			local cdk = Char.GetData(charIndex,CONST.å¯¹è±¡_ä¸»äººCDK);
 			local OwnerIndex = NLG.FindUser(cdk);
-			local Ownerfloor = Char.GetData(OwnerIndex,CONST.¶ÔÏó_µØÍ¼);
+			local Ownerfloor = Char.GetData(OwnerIndex,CONST.å¯¹è±¡_åœ°å›¾);
 			if (Ownerfloor==20300) then
 				local damage = damage*0.25;
 				return damage;
@@ -136,7 +169,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 	return damage;
 end
 
---¿¨ÅÆÓÅÏÈ
+--å¡ç‰Œä¼˜å…ˆ
 function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
 	--self:logDebug('OnBattleCalcDexEvent', battleIndex, charIndex, action, flg, dex)
 	if (Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false) then
@@ -156,51 +189,120 @@ function Module:OnbattleStarCommand(battleIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	if (Round==0) then
-		Char.SetTempData(leader, 'È«ÆÁÄ§·¨', 0);
+		Char.SetTempData(leader, 'å…¨å±é­”æ³•', 0);
 	elseif (Round>=1) then
-		local Vigor_pre = Char.GetTempData(leader, 'È«ÆÁÄ§·¨') or 0;
+		local Vigor_pre = Char.GetTempData(leader, 'å…¨å±é­”æ³•') or 0;
 		local Count = 0;
 		for i=0,9 do
 			local player = Battle.GetPlayIndex(battleIndex, i)
 			if (player>=0) then
-				if (Char.GetData(player, CONST.¶ÔÏó_Õ½ËÀ)==0) then
+				if (Char.GetData(player, CONST.å¯¹è±¡_æˆ˜æ­»)==0) then
 					Count = Count+1;
 				end
 			end
 		end
-		Char.SetTempData(leader, 'È«ÆÁÄ§·¨', Vigor_pre + Count);
-		local Vigor = Char.GetTempData(leader, 'È«ÆÁÄ§·¨') or 0;
+		Char.SetTempData(leader, 'å…¨å±é­”æ³•', Vigor_pre + Count);
+		local Vigor = Char.GetTempData(leader, 'å…¨å±é­”æ³•') or 0;
 		if (Vigor >= 100) then
 			local cardItemId = {75034,75035,75036,75037};
 			local rand = NLG.Rand(1,#cardItemId);
 			Char.GiveItem(leader, cardItemId[rand], 1, false);
-			NLG.SystemMessage(leader,"[Ïµ½y] ß_µ½100šâÁ¦Öµ«@µÃÈ«ÆÁÄ§·¨¡£");
-			Char.SetTempData(leader, 'È«ÆÁÄ§·¨', 0);
+			NLG.SystemMessage(leader,"[ç³»çµ±] é”åˆ°100æ°£åŠ›å€¼ç²å¾—å…¨å±é­”æ³•ã€‚");
+			Char.SetTempData(leader, 'å…¨å±é­”æ³•', 0);
 		else
-			if (Char.GetData(leader,CONST.¶ÔÏó_¶ÓÁÄ¿ª¹Ø) == 1) then
-				NLG.SystemMessage(leader,"[Ïµ½y] ÀÛ·e"..Vigor.."šâÁ¦Öµ¡£");
+			if (Char.GetData(leader,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+				NLG.SystemMessage(leader,"[ç³»çµ±] ç´¯ç©"..Vigor.."æ°£åŠ›å€¼ã€‚");
 			end
 		end
 	end
 
 end
 
---Õ½¶·½áÊøÇåÀí¿¨ÅÆ
+--æˆ˜æ–—ç»“æŸè¿›åŒ–
 function Module:onBattleOver(battleIndex)
 	for i=0,9 do
 		local player = Battle.GetPlayer(battleIndex,i)
-		if (player>-1) then
-			for kItemId=75034,75037 do
-				Char.DelItem(player, kItemId, Char.ItemNum(player, kItemId), false);
+		if (player>-1 and Char.IsPlayer(player)==true) then
+			for PetSlot=0,4 do
+				local petIndex = Char.GetPet(player, PetSlot);
+				if (petIndex>-1 and Char.GetData(petIndex, CONST.PET_DepartureBattleStatus) == CONST.PET_STATE_æˆ˜æ–—) then
+					local PetName = Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—);
+					local PetId = Char.GetData(petIndex,CONST.PET_PetID);
+					local petCoreIndex = Char.GetItemIndex(petIndex, CONST.å® é“æ _é¢ˆåœˆ);
+					if ( petCoreIndex>-1 and CheckInTable(petEvolution_check,PetId)==true ) then
+						local ItemID = Item.GetData(petCoreIndex, CONST.é“å…·_ID);
+						local petLevel = Char.GetData(petIndex, CONST.å¯¹è±¡_ç­‰çº§);
+						local burst = NLG.Rand(1,140);
+						if (petLevel>=100 and petLevel>=burst) then
+							--è¿›åŒ–äº”å›´æ¡£æ¬¡å¢åŠ 10
+							local arts = { CONST.PET_ä½“æˆ, CONST.PET_åŠ›æˆ, CONST.PET_å¼ºæˆ, CONST.PET_æ•æˆ, CONST.PET_é­”æˆ };
+							pet_arts = table.map(arts, function(v)
+								return { v, Pet.GetArtRank(petIndex, v) + 10 };
+							end)
+							table.forEach(pet_arts, function(v)
+								Pet.SetArtRank(petIndex, v[1], v[2]);
+							end);
+							Pet.ReBirth(player, petIndex);
+							table.forEach(pet_arts, function(v)
+								Pet.SetArtRank(petIndex, v[1], v[2]);
+							end);
+
+							local arr_rank1_new = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+							local arr_rank2_new = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+							local arr_rank3_new = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+							local arr_rank4_new = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+							local arr_rank5_new = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
+							if (petLevel~=1) then
+								Char.SetData(petIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹,petLevel-1);
+								Char.SetData(petIndex,CONST.å¯¹è±¡_ç­‰çº§,petLevel);
+								Char.SetData(petIndex,CONST.å¯¹è±¡_ä½“åŠ›, (Char.GetData(petIndex,CONST.å¯¹è±¡_ä½“åŠ›) + (arr_rank1_new * (1/24) * (petLevel - 1)*100)) );
+								Char.SetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡, (Char.GetData(petIndex,CONST.å¯¹è±¡_åŠ›é‡) + (arr_rank2_new * (1/24) * (petLevel - 1)*100)) );
+								Char.SetData(petIndex,CONST.å¯¹è±¡_å¼ºåº¦, (Char.GetData(petIndex,CONST.å¯¹è±¡_å¼ºåº¦) + (arr_rank3_new * (1/24) * (petLevel - 1)*100)) );
+								Char.SetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, (Char.GetData(petIndex,CONST.å¯¹è±¡_é€Ÿåº¦) + (arr_rank4_new * (1/24) * (petLevel - 1)*100)) );
+								Char.SetData(petIndex,CONST.å¯¹è±¡_é­”æ³•, (Char.GetData(petIndex,CONST.å¯¹è±¡_é­”æ³•) + (arr_rank5_new * (1/24) * (petLevel - 1)*100)) );
+							end
+
+							--æºå¸¦ç‰©é…å¯¹æˆé•¿
+							if (ItemID==69047) then
+								Char.SetData(petIndex, CONST.å¯¹è±¡_å¿…æ€, Char.GetData(petIndex, CONST.å¯¹è±¡_å¿…æ€) + 50);
+							elseif (ItemID==69048) then
+								Char.SetData(petIndex, CONST.å¯¹è±¡_åå‡», Char.GetData(petIndex, CONST.å¯¹è±¡_åå‡») + 50);
+							elseif (ItemID==69049) then
+								Char.SetData(petIndex, CONST.å¯¹è±¡_å‘½ä¸­, Char.GetData(petIndex, CONST.å¯¹è±¡_å‘½ä¸­) + 50);
+							elseif (ItemID==69050) then
+								Char.SetData(petIndex, CONST.å¯¹è±¡_é—ªèº², Char.GetData(petIndex, CONST.å¯¹è±¡_é—ªèº²) + 50);
+							end
+
+							--å½¢è±¡æ”¹å˜ã€æŠ€èƒ½å‡çº§
+							Char.SetData(petIndex, CONST.å¯¹è±¡_å½¢è±¡,petEvolution_list[PetId][1]);
+							Char.SetData(petIndex, CONST.å¯¹è±¡_å¯è§†,petEvolution_list[PetId][1]);
+							Char.SetData(petIndex, CONST.å¯¹è±¡_åŸå½¢,petEvolution_list[PetId][1]);
+							Char.SetData(petIndex, CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£,petEvolution_list[PetId][1]);
+							for slot=0,9 do
+								if (Pet.GetSkill(petIndex,slot)==petEvolution_list[PetId][2]) then
+									Pet.DelSkill(petIndex,slot);
+									Pet.AddSkill(petIndex,petEvolution_list[PetId][3],slot);
+								end
+							end
+							Char.SetData(petIndex,CONST.å¯¹è±¡_åå­—,petEvolution_list[PetId][4]);
+
+							Pet.UpPet(player, petIndex);
+							NLG.UpChar(player);
+							NLG.SystemMessage(player, "[ç³»çµ±]"..PetName.."æ•£ç™¼è‘—å…‰æ­£åœ¨ç”¢ç”Ÿè®ŠåŒ–ã€‚");
+						end
+					end
+				else
+				end
 			end
+		else
 		end
 	end
 end
---Àë¿ªÕ½¶·½áÊøÇåÀí¿¨ÅÆ
+--ç¦»å¼€æˆ˜æ–—ç»“æŸæ¸…ç†å¡ç‰Œ
 function Module:onBattleExit(player, battleIndex, type)
 	for cardItemId=75034,75037 do
 		if (player>-1 and Char.HaveItem(player,cardItemId)>-1) then
@@ -218,6 +320,15 @@ Char.GetPetEmptySlot = function(charIndex)
       end
   end
   return -1;
+end
+
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
+	for k,v in pairs(_idTab) do
+		if v==_idVar then
+			return true
+		end
+	end
+	return false
 end
 
 function Module:onUnload()
