@@ -321,6 +321,12 @@ function Module:onBattleExit(player, battleIndex, type)
 			Char.DelItem(player, cardItemId, Char.ItemNum(player, cardItemId), false);
 		end
 	end
+	local ThrowItemOn = Char.GetTempData(player, 'ThrowItem') or 0;
+	local Cards = Char.GetTempData(player, 'Cards') or 0;
+	if (ThrowItemOn>0 or Cards>0) then
+		Char.SetTempData(player, 'ThrowItem', 0);
+		Char.SetTempData(player, 'Cards', 0);
+	end
 end
 
 Char.GetPetEmptySlot = function(charIndex)
