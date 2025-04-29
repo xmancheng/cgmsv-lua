@@ -143,7 +143,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 						return damage;
 					else
 						Char.SetTempData(charIndex, 'ThrowItem', 0);
-						local damage = 4444444;
+						local damage = 404;
 						return damage;
 					end
 				else
@@ -242,14 +242,14 @@ function Module:onBattleOver(battleIndex)
 			for PetSlot=0,4 do
 				local petIndex = Char.GetPet(player, PetSlot);
 				if (petIndex>-1 and Char.GetData(petIndex, CONST.PET_DepartureBattleStatus) == CONST.PET_STATE_战斗) then
-					local PetName = Char.GetData(petIndex,CONST.对象_名字);
+					local PetName = Char.GetData(petIndex,CONST.对象_原名);
 					local PetId = Char.GetData(petIndex,CONST.PET_PetID);
 					local petCoreIndex = Char.GetItemIndex(petIndex, CONST.宠道栏_颈圈);
 					if ( petCoreIndex>-1 and CheckInTable(petEvolution_check,PetId)==true ) then
 						local ItemID = Item.GetData(petCoreIndex, CONST.道具_ID);
 						local petLevel = Char.GetData(petIndex, CONST.对象_等级);
-						local burst = NLG.Rand(1,145);
-						if (petLevel>=140 and petLevel>=burst) then
+						local burst = NLG.Rand(1,100);
+						if (petLevel>=140 and burst==50 and PetName~=petEvolution_list[PetId][4]) then
 							--进化五围档次增加10
 							local arts = { CONST.PET_体成, CONST.PET_力成, CONST.PET_强成, CONST.PET_敏成, CONST.PET_魔成 };
 							pet_arts = table.map(arts, function(v)
@@ -301,6 +301,7 @@ function Module:onBattleOver(battleIndex)
 								end
 							end
 							Char.SetData(petIndex,CONST.对象_名字,petEvolution_list[PetId][4]);
+							Char.SetData(petIndex,CONST.对象_原名,petEvolution_list[PetId][4]);
 
 							Pet.UpPet(player, petIndex);
 							NLG.UpChar(player);
