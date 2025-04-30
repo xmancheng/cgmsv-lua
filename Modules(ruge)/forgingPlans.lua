@@ -1,142 +1,142 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(forgingPlans)
 
---´ÊÌõ¼¼ÄÜ
-local player_skillAffixes_list = {300,301,302,303};		--skillÔ~¾Y¾Ì–ÁĞ±í
+--è¯æ¡æŠ€èƒ½
+local player_skillAffixes_list = {300,301,302,303};		--skillè©ç¶´ç·¨è™Ÿåˆ—è¡¨
 local skillAffixes_info = {}
-skillAffixes_info[300] = "ÎïÀí¼¼ÄÜ10%Ê¹³öŞ’Ğı“ô";
-skillAffixes_info[301] = "Ş’Ğı“ôµÄ‚ûº¦Ôö¼Ó5%";
-skillAffixes_info[302] = "ÎïÀí¼¼ÄÜ2%Ôì³ÉÂé¯w";
-skillAffixes_info[303] = "¹¥“ôÄ§·¨5%ÖØŠ¶ÈÔ³ª";
+skillAffixes_info[300] = "ç‰©ç†æŠ€èƒ½10%ä½¿å‡ºè¿´æ—‹æ“Š";
+skillAffixes_info[301] = "è¿´æ—‹æ“Šçš„å‚·å®³å¢åŠ 5%";
+skillAffixes_info[302] = "ç‰©ç†æŠ€èƒ½2%é€ æˆéº»ç—º";
+skillAffixes_info[303] = "æ”»æ“Šé­”æ³•5%é‡å¼·åº¦è© å”±";
 
---·ÖÀà×ÔĞĞÌí¼Ó
-local forging_plan_name = {};		--±íµ¥ÏÔÊ¾µÀ¾ßÃû³Æ
-local forging_plan_offering = {};	--×î¶àÈı×éµÄ²ÄÁÏÉèÖÃ{µÀ¾ß±àºÅ,ÊıÁ¿}
-local forging_plan_item = {};		--ÖÆ×÷Éè¼ÆÍ¼(ÊıÁ¿1)
-local forging_plan_gold = {};		--ĞèÇó½ğ±Ò
-local forging_plan_thing = {};		--10×é³ÉÆ·ÖÆ×÷½á¹û(Á¬¶¯³É¹¦ÂÊ)
-local forging_plan_grade = {};		--Æ·ÖÊ(Ëæ»ú´ÊÌõÊıÄ¿0~3)
+--åˆ†ç±»è‡ªè¡Œæ·»åŠ 
+local forging_plan_name = {};		--è¡¨å•æ˜¾ç¤ºé“å…·åç§°
+local forging_plan_offering = {};	--æœ€å¤šä¸‰ç»„çš„ææ–™è®¾ç½®{é“å…·ç¼–å·,æ•°é‡}
+local forging_plan_item = {};		--åˆ¶ä½œè®¾è®¡å›¾(æ•°é‡1)
+local forging_plan_gold = {};		--éœ€æ±‚é‡‘å¸
+local forging_plan_thing = {};		--10ç»„æˆå“åˆ¶ä½œç»“æœ(è¿åŠ¨æˆåŠŸç‡)
+local forging_plan_grade = {};		--å“è´¨(éšæœºè¯æ¡æ•°ç›®0~3)
 --
-forging_plan_name[1] = "¡¶ÎäÆ÷¡·µÛ‡øÖØ˜Œ";
+forging_plan_name[1] = "ã€Šæ­¦å™¨ã€‹å¸åœ‹é‡æ§";
 forging_plan_offering[1] = {{70204,50},{70194,10},{66668,5}};
 forging_plan_item[1] = {72106};
 forging_plan_gold[1] =5000;
 forging_plan_thing[1] = {900204,900204,900204,900204,900204,900204,900204,900204,900204,900204};
 forging_plan_grade[1] =3;
 
-forging_plan_name[2] = "¡¶ÎäÆ÷¡·ïLú—Ö®¹­";
+forging_plan_name[2] = "ã€Šæ­¦å™¨ã€‹é¢¨é·¹ä¹‹å¼“";
 forging_plan_offering[2] = {{70202,50},{70194,10},{66668,5}};
 forging_plan_item[2] = {72106};
 forging_plan_gold[2] =5000;
 forging_plan_thing[2] = {900205,900205,900205,900205,900205,900205,900205,900205,900205,900205};
 forging_plan_grade[2] =3;
 
-forging_plan_name[3] = "¡¶ÎäÆ÷¡·ïLú—ïwçS";
+forging_plan_name[3] = "ã€Šæ­¦å™¨ã€‹é¢¨é·¹é£›é¢";
 forging_plan_offering[3] = {{70202,50},{70194,10},{66668,5}};
 forging_plan_item[3] = {72106};
 forging_plan_gold[3] =5000;
 forging_plan_thing[3] = {900206,900206,900206,900206,900206,900206,900206,900206,900206,900206};
 forging_plan_grade[3] =3;
 
-forging_plan_name[4] = "¡¶ÎäÆ÷¡·Ó°ÎäÖ®¸«";
+forging_plan_name[4] = "ã€Šæ­¦å™¨ã€‹å½±æ­¦ä¹‹æ–§";
 forging_plan_offering[4] = {{70205,50},{70194,10},{66668,5}};
 forging_plan_item[4] = {72106};
 forging_plan_gold[4] =5000;
 forging_plan_thing[4] = {900207,900207,900207,900207,900207,900207,900207,900207,900207,900207};
 forging_plan_grade[4] =3;
 
-forging_plan_name[5] = "¡¶ÎäÆ÷¡·Ó°Îä¶Ìµ¶";
+forging_plan_name[5] = "ã€Šæ­¦å™¨ã€‹å½±æ­¦çŸ­åˆ€";
 forging_plan_offering[5] = {{70205,50},{70194,10},{66668,5}};
 forging_plan_item[5] = {72106};
 forging_plan_gold[5] =5000;
 forging_plan_thing[5] = {900208,900208,900208,900208,900208,900208,900208,900208,900208,900208};
 forging_plan_grade[5] =3;
 
-forging_plan_name[6] = "¡¶ÎäÆ÷¡·Ä§Œ§Ö®ÊÖ";
+forging_plan_name[6] = "ã€Šæ­¦å™¨ã€‹é­”å°ä¹‹æ‰‹";
 forging_plan_offering[6] = {{70203,50},{70194,10},{66668,5}};
 forging_plan_item[6] = {72106};
 forging_plan_gold[6] =5000;
 forging_plan_thing[6] = {900209,900209,900209,900209,900209,900209,900209,900209,900209,900209};
 forging_plan_grade[6] =3;
 
-forging_plan_name[7] = "¡¶·À¾ß¡·ıˆòTÊ¿î^¿ø";
+forging_plan_name[7] = "ã€Šé˜²å…·ã€‹é¾é¨å£«é ­ç›”";
 forging_plan_offering[7] = {{70204,50},{70194,10},{66668,2}};
 forging_plan_item[7] = {72107};
 forging_plan_gold[7] =5000;
 forging_plan_thing[7] = {900210,900210,900210,900210,900210,900210,900210,900210,900210,900210};
 forging_plan_grade[7] =2;
 
-forging_plan_name[8] = "¡¶·À¾ß¡·ıˆòTÊ¿æz¼×";
+forging_plan_name[8] = "ã€Šé˜²å…·ã€‹é¾é¨å£«é§ç”²";
 forging_plan_offering[8] = {{70204,50},{70194,10},{66668,2}};
 forging_plan_item[8] = {72107};
 forging_plan_gold[8] =5000;
 forging_plan_thing[8] = {900211,900211,900211,900211,900211,900211,900211,900211,900211,900211};
 forging_plan_grade[8] =2;
 
-forging_plan_name[9] = " ¡¶·À¾ß¡·ıˆòTÊ¿Ö®Ñ¥";
+forging_plan_name[9] = " ã€Šé˜²å…·ã€‹é¾é¨å£«ä¹‹é´";
 forging_plan_offering[9] = {{70204,50},{70194,10},{66668,2}};
 forging_plan_item[9] = {72107};
 forging_plan_gold[9] =5000;
 forging_plan_thing[9] = {900212,900212,900212,900212,900212,900212,900212,900212,900212,900212};
 forging_plan_grade[9] =2;
 
-forging_plan_name[10] = " ¡¶·À¾ß¡·á÷«CÕßÖ®Ã±";
+forging_plan_name[10] = " ã€Šé˜²å…·ã€‹ç‹©çµè€…ä¹‹å¸½";
 forging_plan_offering[10] = {{70202,50},{70194,10},{66668,2}};
 forging_plan_item[10] = {72107};
 forging_plan_gold[10] =5000;
 forging_plan_thing[10] = {900213,900213,900213,900213,900213,900213,900213,900213,900213,900213};
 forging_plan_grade[10] =2;
 
-forging_plan_name[11] = " ¡¶·À¾ß¡·á÷«CÕßÖ®·ş";
+forging_plan_name[11] = " ã€Šé˜²å…·ã€‹ç‹©çµè€…ä¹‹æœ";
 forging_plan_offering[11] = {{70202,50},{70194,10},{66668,2}};
 forging_plan_item[11] = {72107};
 forging_plan_gold[11] =5000;
 forging_plan_thing[11] = {900214,900214,900214,900214,900214,900214,900214,900214,900214,900214};
 forging_plan_grade[11] =2;
 
-forging_plan_name[12] = " ¡¶·À¾ß¡·á÷«CÕßÖ®Ğ¬";
+forging_plan_name[12] = " ã€Šé˜²å…·ã€‹ç‹©çµè€…ä¹‹é‹";
 forging_plan_offering[12] = {{70202,50},{70194,10},{66668,2}};
 forging_plan_item[12] = {72107};
 forging_plan_gold[12] =5000;
 forging_plan_thing[12] = {900215,900215,900215,900215,900215,900215,900215,900215,900215,900215};
 forging_plan_grade[12] =2;
 
-forging_plan_name[13] = " ¡¶·À¾ß¡·×·ÛEÕßÖ®Ã±";
+forging_plan_name[13] = " ã€Šé˜²å…·ã€‹è¿½è·¡è€…ä¹‹å¸½";
 forging_plan_offering[13] = {{70205,50},{70194,10},{66668,2}};
 forging_plan_item[13] = {72107};
 forging_plan_gold[13] =5000;
 forging_plan_thing[13] = {900216,900216,900216,900216,900216,900216,900216,900216,900216,900216};
 forging_plan_grade[13] =2;
 
-forging_plan_name[14] = " ¡¶·À¾ß¡·×·ÛEÕßÖ®¼×";
+forging_plan_name[14] = " ã€Šé˜²å…·ã€‹è¿½è·¡è€…ä¹‹ç”²";
 forging_plan_offering[14] = {{70205,50},{70194,10},{66668,2}};
 forging_plan_item[14] = {72107};
 forging_plan_gold[14] =5000;
 forging_plan_thing[14] = {900217,900217,900217,900217,900217,900217,900217,900217,900217,900217};
 forging_plan_grade[14] =2;
 
-forging_plan_name[15] = " ¡¶·À¾ß¡·×·ÛEÕßÖ®Ñ¥";
+forging_plan_name[15] = " ã€Šé˜²å…·ã€‹è¿½è·¡è€…ä¹‹é´";
 forging_plan_offering[15] = {{70205,50},{70194,10},{66668,2}};
 forging_plan_item[15] = {72107};
 forging_plan_gold[15] =5000;
 forging_plan_thing[15] = {900218,900218,900218,900218,900218,900218,900218,900218,900218,900218};
 forging_plan_grade[15] =2;
 
-forging_plan_name[16] = " ¡¶·À¾ß¡·Â}„eÕßÖ®Ã±";
+forging_plan_name[16] = " ã€Šé˜²å…·ã€‹è–åˆ¥è€…ä¹‹å¸½";
 forging_plan_offering[16] = {{70203,50},{70194,10},{66668,2}};
 forging_plan_item[16] = {72107};
 forging_plan_gold[16] =5000;
 forging_plan_thing[16] = {900219,900219,900219,900219,900219,900219,900219,900219,900219,900219};
 forging_plan_grade[16] =2;
 
-forging_plan_name[17] = " ¡¶·À¾ß¡·Â}„eÕßÖ®ÅÛ";
+forging_plan_name[17] = " ã€Šé˜²å…·ã€‹è–åˆ¥è€…ä¹‹è¢";
 forging_plan_offering[17] = {{70203,50},{70194,10},{66668,2}};
 forging_plan_item[17] = {72107};
 forging_plan_gold[17] =5000;
 forging_plan_thing[17] = {900220,900220,900220,900220,900220,900220,900220,900220,900220,900220};
 forging_plan_grade[17] =2;
 
-forging_plan_name[18] = " ¡¶·À¾ß¡·Â}„eÕßÖ®Ğ¬";
+forging_plan_name[18] = " ã€Šé˜²å…·ã€‹è–åˆ¥è€…ä¹‹é‹";
 forging_plan_offering[18] = {{70203,50},{70194,10},{66668,2}};
 forging_plan_item[18] = {72107};
 forging_plan_gold[18] =5000;
@@ -149,63 +149,63 @@ local function calcWarp()
   return page, remainder
 end
 
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:forgingPlansInfo(npc, player)
-          local winButton = CONST.BUTTON_¹Ø±Õ;
-          local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+          local winButton = CONST.BUTTON_å…³é—­;
+          local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
           for i = 1,8 do
-             msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+             msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
              if (i>=8) then
-                 winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                 winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
              end
           end
-          NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+          NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
   --self:regCallback('BattleActionTargetEvent',Func.bind(self.battleActionTargetCallback,self))
   --self:regCallback('DamageCalculateEvent',Func.bind(self.damageCalculateCallback,self))
 
   self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
-  self.forgingerNPC = self:NPC_createNormal('Îä·ÀÌáŸ’å‘Ôì', 231137, { x = 73, y = 31, mapType = 0, map = 7351, direction = 0 });
+  self.forgingerNPC = self:NPC_createNormal('æ­¦é˜²æç…‰é›é€ ', 231137, { x = 73, y = 31, mapType = 0, map = 7351, direction = 0 });
   self:NPC_regWindowTalkedEvent(self.forgingerNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
+    local winButton = CONST.BUTTON_å…³é—­;
     local totalPage, remainder = calcWarp()
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.°´Å¥_È·¶¨ then
+      if _select == CONST.æŒ‰é’®_ç¡®å®š then
           if (page>=1001) then
               local seqno = page - 1000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
-                                  .. "¡¡¡¡¡¡$1ĞèÒªÒÔÏÂËùÓĞ²ÄÁÏ²ÅÄÜßMĞĞÌáŸ’å‘Ôì\\n$5"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
+                                  .. "ã€€ã€€ã€€$1éœ€è¦ä»¥ä¸‹æ‰€æœ‰ææ–™æ‰èƒ½é€²è¡Œæç…‰é›é€ \\n$5"
               local msg = msg .. forgingOfferingInfo(seqno)
-              NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000+seqno, msg);
+              NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000+seqno, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_¹Ø±Õ then
+      elseif _select == CONST.æŒ‰é’®_å…³é—­ then
           if (page>=1001) then
-              local winButton = CONST.BUTTON_¹Ø±Õ;
-              local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+              local winButton = CONST.BUTTON_å…³é—­;
+              local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
               for i = 1,8 do
-                 msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+                 msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
                  if (i>=8) then
-                     winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                     winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
                  end
               end
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_ÊÇ then
+      elseif _select == CONST.æŒ‰é’®_æ˜¯ then
           if (page>=2001) then
               local seqno = page - 2000;
               forgingMutation(seqno,player)
@@ -213,30 +213,30 @@ function Module:onLoad()
           else
               return
           end
-      elseif _select == CONST.°´Å¥_·ñ then
+      elseif _select == CONST.æŒ‰é’®_å¦ then
           if (page>=2001) then
               local count = page - 2000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
               local msg = msg .. forgingGoalInfo(count);
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
               return
           else
               return
           end
       end
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -245,44 +245,45 @@ function Module:onLoad()
       local count = 8 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
         end
       else
         for i = 1 + count, 8 + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local count = 8 * (warpPage - 1) + column
       --print(count)
-      local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+      local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
       local msg = msg .. forgingGoalInfo(count);
-      NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+      NLG.ShowWindowTalked(player, self.forgingerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
     end
   end)
   self:NPC_regTalkedEvent(self.forgingerNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Îä·ÀÌáŸ’å‘Ôì¡¿\\n"
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æ­¦é˜²æç…‰é›é€ ã€‘\\n"
       for i = 1,8 do
-         msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. forging_plan_name[i] .. "\\n"
+         msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. forging_plan_name[i] .. "\\n"
          if (i>=8) then
-             winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+             winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
          end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
     end
     return
   end)
 end
 
---µÀ¾ßËµÃ÷×éºÏ½Ó¿Ú
+--é“å…·è¯´æ˜ç»„åˆæ¥å£
 function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
-  if (Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==40 and type==2) then
-    --local boom_Skill = tostring(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC));
+  if (Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==40 and type==2) then
+    --local boom_Skill = tostring(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC));
     local info="";
-    local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
+    local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
+    if boom_Skill_x~=nil then
     for i=1,#boom_Skill_x do
       local skillId = tonumber(boom_Skill_x[i]);
       if (skillId>0) then
@@ -294,28 +295,29 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
       else
       end
     end
+	end
       
     local info = info .."\n".. msg;
     return info
   end
 end
 -----------------------------------------------------
---[[¶àÖØÊ©·¨ÉèÖÃ
-local boom_skill_list = {3,266,267,268,269,270,271};	--¶àÖØÊ©·¨µÄskillÁĞ±í
-local boom_dmg_rate = {0.75,0.50,0.25,0.01}	--²»Í¬ÖØ¼¼ÄÜ¶ÔÓ¦ÉËº¦Ï÷Èõ£¬ÀàËÆÓÚÂÒÉä
+--[[å¤šé‡æ–½æ³•è®¾ç½®
+local boom_skill_list = {3,266,267,268,269,270,271};	--å¤šé‡æ–½æ³•çš„skillåˆ—è¡¨
+local boom_dmg_rate = {0.75,0.50,0.25,0.01}	--ä¸åŒé‡æŠ€èƒ½å¯¹åº”ä¼¤å®³å‰Šå¼±ï¼Œç±»ä¼¼äºä¹±å°„
 local boom_list = {}
 local boom_cnt_num = {}
 local boom_cnt_num_aoe = {}
 local boom_tag = {}
---¶¯×÷Ä¿±êÊÂ¼ş
+--åŠ¨ä½œç›®æ ‡äº‹ä»¶
 function Module:battleActionTargetCallback(CharIndex, battleIndex, com1, com2, com3, tgl)
 	--self:logDebug('battleActionTargetCallback', CharIndex, battleIndex, com1, com2, com3, tgl)
 	if Char.IsPlayer(CharIndex) then
-		if (com3==300) then		--Ìô²¦ÃÔ»ó
+		if (com3==300) then		--æŒ‘æ‹¨è¿·æƒ‘
 			if (NLG.Rand(1,4) >= 1) then
 				local defCharIndex = Battle.GetPlayer(battleIndex,tgl[1]);
-				Char.SetTempData(defCharIndex, 'ÃÔ»ó', 5);
-				NLG.SystemMessage(-1, "[Ïµ½y]°l„ÓÌô“Ü”³ÈËÏİÈëÃÔ»ó");
+				Char.SetTempData(defCharIndex, 'è¿·æƒ‘', 5);
+				NLG.SystemMessage(-1, "[ç³»çµ±]ç™¼å‹•æŒ‘æ’¥æ•µäººé™·å…¥è¿·æƒ‘");
 			end
 		end
 		boom_list[CharIndex] = 0;
@@ -328,14 +330,14 @@ function Module:battleActionTargetCallback(CharIndex, battleIndex, com1, com2, c
 		end
 		local skillId = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_SKILLID);
 		if (CheckInTable(boom_skill_list, skillId)==true) then
-			local skill_rate = calcRate(CharIndex,skillId)*10;		--´ÊÌõ½ÔÎª10%
+			local skill_rate = calcRate(CharIndex,skillId)*10;		--è¯æ¡çš†ä¸º10%
 			local com_name = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_NAME);
 			local boom_rate = math.random(1,100);
 			local copy_num = 3;
 			if (skill_rate >= boom_rate) then
 				local msg_tag = CharIndex;
-				local msg_name =  Char.GetData(CharIndex,CONST.¶ÔÏó_Ãû×Ö);
-				NLG.SystemMessage(msg_tag, msg_name.."£º"..skill_rate.."%°l„Ó¶àÖØÖ®"..copy_num.."±¶ "..com_name);
+				local msg_name =  Char.GetData(CharIndex,CONST.å¯¹è±¡_åå­—);
+				NLG.SystemMessage(msg_tag, msg_name.."ï¼š"..skill_rate.."%ç™¼å‹•å¤šé‡ä¹‹"..copy_num.."å€ "..com_name);
 				boom_list[CharIndex] = 1
 				local return_tgl = copy_list(tgl,copy_num)	
 				return 	return_tgl	
@@ -360,8 +362,8 @@ function calcRate(charIndex,skillId)
     local skill_rate=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==40) then
-        local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==40) then
+        local boom_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
         for i=1,#boom_Skill_x do
           local skillId_x = tonumber(boom_Skill_x[i]);
           if (skillId_x>0 and skillId_x==skillId ) then
@@ -375,7 +377,7 @@ function calcRate(charIndex,skillId)
     return skill_rate
 end
 
---ÉËº¦ÊÂ¼ş
+--ä¼¤å®³äº‹ä»¶
 function Module:damageCalculateCallback(CharIndex, DefCharIndex, OriDamage, Damage, BattleIndex, Com1, Com2, Com3, DefCom1, DefCom2, DefCom3, Flg, ExFlg)
 	if (boom_list[CharIndex] == 1) then
 		local cnt = 0
@@ -404,8 +406,8 @@ function calcDamageCoeff(charIndex)
     local skill_Coeff=0;
     for slot=0,6 do
       local itemIndex = Char.GetItemIndex(charIndex,slot);
-      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.µÀ¾ß_×Ó²Î¶ş)==40) then
-        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_USEFUNC),",");
+      if (itemIndex >= 0 and Item.GetData(itemIndex, CONST.é“å…·_å­å‚äºŒ)==40) then
+        local crit_Skill_x = string.split(Item.GetData(itemIndex, CONST.é“å…·_USEFUNC),",");
         for i=1,#crit_Skill_x do
           local skillId_x = tonumber(crit_Skill_x[i]);
           if (skillId_x>0 and skillId_x==301) then
@@ -420,7 +422,7 @@ function calcDamageCoeff(charIndex)
 end
 ]]
 ---------------------------------------------------------------------------------------------------------------
---Ä¿±êĞÅÏ¢
+--ç›®æ ‡ä¿¡æ¯
 function forgingGoalInfo(count)
       local ItemsetIndex_Goal = Data.ItemsetGetIndex(forging_plan_thing[count][10]);
       local Goal_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
@@ -454,18 +456,18 @@ function forgingGoalInfo(count)
       local Goal_DataPos_24 = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_CONFUSION);
       local Goal_DataPos_25 = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_AMNESIA);
 
-      local msg = imageText .. "¡¡¡¡$4".. Goal_name .. "\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1¹¥“ô ".. Goal_DataPos_6 .."¡¡" .. "$8±Øš¢ ".. Goal_DataPos_11 .."¡¡" .. "$8·´“ô ".. Goal_DataPos_12 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1·À¶R ".. Goal_DataPos_7 .."¡¡" .. "$8ÃüÖĞ ".. Goal_DataPos_13 .."¡¡" .. "$8éW¶ã ".. Goal_DataPos_14 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Ãô½İ ".. Goal_DataPos_8 .."¡¡" .. "$2¿¹¶¾ ".. Goal_DataPos_20 .."¡¡" .. "$2¿¹×í ".. Goal_DataPos_23 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1¾«Éñ ".. Goal_DataPos_9 .."¡¡" .. "$2¿¹Ë¯ ".. Goal_DataPos_21 .."¡¡" .. "$2¿¹»ì ".. Goal_DataPos_24 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1»ÖÍ ".. Goal_DataPos_10 .."¡¡" .. "$2¿¹Ê¯ ".. Goal_DataPos_22 .."¡¡" .. "$2¿¹Íü ".. Goal_DataPos_25 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. " \\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$9îĞÍ ".. Goal_DataPos_3 .."¡¡" .. "$9µÈ¼‰ ".. Goal_DataPos_5 .."¡¡" .. "$9ÄÍ¾Ã ".. Goal_DataPos_4 .."\\n"
+      local msg = imageText .. "ã€€ã€€$4".. Goal_name .. "\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ”»æ“Š ".. Goal_DataPos_6 .."ã€€" .. "$8å¿…æ®º ".. Goal_DataPos_11 .."ã€€" .. "$8åæ“Š ".. Goal_DataPos_12 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é˜²ç¦¦ ".. Goal_DataPos_7 .."ã€€" .. "$8å‘½ä¸­ ".. Goal_DataPos_13 .."ã€€" .. "$8é–ƒèº² ".. Goal_DataPos_14 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ•æ· ".. Goal_DataPos_8 .."ã€€" .. "$2æŠ—æ¯’ ".. Goal_DataPos_20 .."ã€€" .. "$2æŠ—é†‰ ".. Goal_DataPos_23 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1ç²¾ç¥ ".. Goal_DataPos_9 .."ã€€" .. "$2æŠ—ç¡ ".. Goal_DataPos_21 .."ã€€" .. "$2æŠ—æ·· ".. Goal_DataPos_24 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ¢å¾© ".. Goal_DataPos_10 .."ã€€" .. "$2æŠ—çŸ³ ".. Goal_DataPos_22 .."ã€€" .. "$2æŠ—å¿˜ ".. Goal_DataPos_25 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. " \\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$9é¡å‹ ".. Goal_DataPos_3 .."ã€€" .. "$9ç­‰ç´š ".. Goal_DataPos_5 .."ã€€" .. "$9è€ä¹… ".. Goal_DataPos_4 .."\\n"
       return msg;
 end
 
---¼ÀÆ·ĞÅÏ¢
+--ç¥­å“ä¿¡æ¯
 function forgingOfferingInfo(seqno)
               local msg = "";
               for i = 1,#forging_plan_offering[seqno] do
@@ -485,25 +487,25 @@ function forgingOfferingInfo(seqno)
                   else
                       spaceMsg = "";
                   end
-                  msg = msg .. spaceMsg .. offering_name_i ..ItemNum_i.."‚€" .. spaceMsg .. imageText_i
+                  msg = msg .. spaceMsg .. offering_name_i ..ItemNum_i.."å€‹" .. spaceMsg .. imageText_i
               end
               local Gold = forging_plan_gold[seqno];
               local ItemsetIndex = Data.ItemsetGetIndex(forging_plan_item[seqno][1]);
               local Item_name= Data.ItemsetGetData( ItemsetIndex, CONST.ITEMSET_TRUENAME);
               local probRate = prob(seqno,forging_plan_thing[seqno][10]);
-              local msg = msg .. "\\n\\n\\n\\n¡¡$5ÔOÓ‹ˆD: ".. Item_name .. "1‚€" .. "¡¡¡¡$5Ä§Å: " .. Gold .. " G\\n"
-                                              .. "¡¡$4³É¹¦™CÂÊ: ".. probRate .. "%" .. "¡¡¡¡"
+              local msg = msg .. "\\n\\n\\n\\nã€€$5è¨­è¨ˆåœ–: ".. Item_name .. "1å€‹" .. "ã€€ã€€$5é­”å¹£: " .. Gold .. " G\\n"
+                                              .. "ã€€$4æˆåŠŸæ©Ÿç‡: ".. probRate .. "%" .. "ã€€ã€€"
       return msg;
 end
 
---ÌáÁ¶¶ÍÔìÖ´ĞĞ
+--æç‚¼é”»é€ æ‰§è¡Œ
 function forgingMutation(seqno,player)
               if (Char.ItemNum(player, forging_plan_item[seqno][1])==0) then
-                  NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙå‘ÔìµÄÔOÓ‹ˆD¡£");
+                  NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é›é€ çš„è¨­è¨ˆåœ–ã€‚");
                   return
               end
-              if (Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò)<forging_plan_gold[seqno]) then
-                  NLG.SystemMessage(player,"[Ïµ½y]¸ÄÔìËùĞè½ğÅ²»×ã¡£");
+              if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<forging_plan_gold[seqno]) then
+                  NLG.SystemMessage(player,"[ç³»çµ±]æ”¹é€ æ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
                   return
               end
               for i = 1,#forging_plan_offering[seqno] do
@@ -511,11 +513,11 @@ function forgingMutation(seqno,player)
                   if (itemIndex>=0) then
                       local itemNum = Char.ItemNum(player,forging_plan_offering[seqno][i][1]);
                       if (itemNum < forging_plan_offering[seqno][i][2]) then
-                          NLG.SystemMessage(player,"[Ïµ½y]å‘ÔìËùĞè²ÄÁÏ”µÁ¿²»×ã¡£");
+                          NLG.SystemMessage(player,"[ç³»çµ±]é›é€ æ‰€éœ€ææ–™æ•¸é‡ä¸è¶³ã€‚");
                           return
                       end
                   else
-                      NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙå‘ÔìËùĞè²ÄÁÏ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é›é€ æ‰€éœ€ææ–™ã€‚");
                       return
                   end
               end
@@ -525,11 +527,11 @@ function forgingMutation(seqno,player)
               for i = 1,#forging_plan_offering[seqno] do
                   Char.DelItem(player, forging_plan_offering[seqno][i][1], forging_plan_offering[seqno][i][2]);
               end
-              local newSlot = Char.GetEmptyItemSlot(player);				--×Ô´´½Ó¿Ú
+              local newSlot = Char.GetEmptyItemSlot(player);				--è‡ªåˆ›æ¥å£
               Char.GiveItem(player,forging_plan_thing[seqno][randCatch],1);
-              --´ÊÌõ¸³Óè
+              --è¯æ¡èµ‹äºˆ
               local WeaponIndex = Char.GetItemIndex(player,newSlot);
-              Item.SetData(WeaponIndex, CONST.µÀ¾ß_×Ó²Î¶ş, 40);
+              Item.SetData(WeaponIndex, CONST.é“å…·_å­å‚äºŒ, 40);
               local skillId="";
               local grade = forging_plan_grade[seqno];
               if (grade>0) then
@@ -541,14 +543,14 @@ function forgingMutation(seqno,player)
                     skillId = skillId .. player_skillAffixes_list[rand];
                   end
                 end
-                Item.SetData(WeaponIndex, CONST.µÀ¾ß_USEFUNC, skillId);
+                Item.SetData(WeaponIndex, CONST.é“å…·_USEFUNC, skillId);
                 Item.UpItem(player, newSlot);
                 NLG.UpChar(player);
               else
               end
 end
 
---Ä¿±ê³É¹¦ÂÊ¼ÆËã
+--ç›®æ ‡æˆåŠŸç‡è®¡ç®—
 function prob(count,id)
   for i=1,10 do
       if (forging_plan_thing[count][i]==id) then
@@ -559,12 +561,12 @@ function prob(count,id)
   return -1;
 end
 
---¿ÕµÀ¾ß¸ñ(ÖÆ×÷³öµÄĞÂÎäÆ÷Î»ÖÃ)
+--ç©ºé“å…·æ ¼(åˆ¶ä½œå‡ºçš„æ–°æ­¦å™¨ä½ç½®)
 function Char.GetEmptyItemSlot(charIndex)
   if not Char.IsValidCharIndex(charIndex) then
     return -1;
   end
-  if Char.GetData(charIndex, CONST.CHAR_ÀàĞÍ) ~= CONST.¶ÔÏóÀàĞÍ_ÈË then
+  if Char.GetData(charIndex, CONST.CHAR_ç±»å‹) ~= CONST.å¯¹è±¡ç±»å‹_äºº then
     return -1;
   end
   for i = 8, 27 do
@@ -575,86 +577,86 @@ function Char.GetEmptyItemSlot(charIndex)
   return -2;
 end
 
---ÀàĞÍ×Ö·û´®×ª»»
+--ç±»å‹å­—ç¬¦ä¸²è½¬æ¢
 function Type(Type)
   if Type==0 then
-    return "„¦"
+    return "åŠ"
   elseif Type == 1 then
-    return "¸«"
+    return "æ–§"
   elseif Type == 2 then
-    return "˜Œ"
+    return "æ§"
   elseif Type == 3 then
-    return "ÕÈ"
+    return "æ–"
   elseif Type == 4 then
-    return "¹­"
+    return "å¼“"
   elseif Type == 5 then
-    return "Ğ¡µ¶"
+    return "å°åˆ€"
   elseif Type == 6 then
-    return "Ş’Á¦çS"
+    return "è¿´åŠ›é¢"
   elseif Type == 7 then
-    return "¶Ü"
+    return "ç›¾"
   elseif Type == 8 then
-    return "î^¿ø"
+    return "é ­ç›”"
   elseif Type == 9 then
-    return "Ã±×Ó"
+    return "å¸½å­"
   elseif Type == 10 then
-    return "æz¼×"
+    return "é§ç”²"
   elseif Type == 11 then
-    return "ÒÂ·ş"
+    return "è¡£æœ"
   elseif Type == 12 then
-    return "éLÅÛ"
+    return "é•·è¢"
   elseif Type == 13 then
-    return "Ñ¥×Ó"
+    return "é´å­"
   elseif Type == 14 then
-    return "Ğ¬×Ó"
+    return "é‹å­"
   elseif Type == 15 then
-    return "ÊÖ­h"
+    return "æ‰‹ç’°"
   elseif Type == 16 then
-    return "˜·Æ÷"
+    return "æ¨‚å™¨"
   elseif Type == 17 then
-    return "í—å€"
+    return "é …éŠ"
   elseif Type == 18 then
-    return "½äÖ¸"
+    return "æˆ’æŒ‡"
   elseif Type == 19 then
-    return "î^§"
+    return "é ­å¸¶"
   elseif Type == 20 then
-    return "¶ú­h"
+    return "è€³ç’°"
   elseif Type == 21 then
-    return "×oÉí·û"
+    return "è­·èº«ç¬¦"
   elseif Type == 22 then
-    return "Ë®¾§"
+    return "æ°´æ™¶"
   elseif Type == 55 then
-    return "î^ï—"
+    return "é ­é£¾"
   elseif Type == 56 then
-    return "Œ™ÎïË®¾§"
+    return "å¯µç‰©æ°´æ™¶"
   elseif Type == 57 then
-    return "Œ™Îïï—Æ·"
+    return "å¯µç‰©é£¾å“"
   elseif Type == 58 then
-    return "Œ™ÎïÑb¼×"
+    return "å¯µç‰©è£ç”²"
   elseif Type == 59 then
-    return "Œ™Îï·şï—"
+    return "å¯µç‰©æœé£¾"
   elseif Type == 60 then
-    return "Œ™ÎïîiÈ¦"
+    return "å¯µç‰©é ¸åœˆ"
   elseif Type == 61 then
-    return "Œ™Îï×o·û"
+    return "å¯µç‰©è­·ç¬¦"
   elseif Type == 65 then
-    return "ÁîÆì"
+    return "ä»¤æ——"
   elseif Type == 66 then
-    return "Ä§„¦"
+    return "é­”åŠ"
   elseif Type == 67 then
-    return "ÏİÚå"
+    return "é™·é˜±"
   elseif Type == 68 then
-    return "•ø¼®"
+    return "æ›¸ç±"
   elseif Type == 69 then
-    return "ïLÄ§"
+    return "é¢¨é­”"
   elseif Type == 70 then
-    return "È­Ì×"
+    return "æ‹³å¥—"
   else
-    return "²»Ã÷"
+    return "ä¸æ˜"
   end
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -663,7 +665,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
