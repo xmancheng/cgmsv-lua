@@ -1,4 +1,4 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('crossGate')
 
 local EnemySet = {}
@@ -7,53 +7,53 @@ local Pos = {}
 local FTime = os.time()
 local Setting = 0;
 local PowerOn = 1;
---¶ÓÁĞ½âÊÍ
---     Îå(4)	Èı(2)	Ò»(0)	¶ş(1)	ËÄ(3)
---     Ê®(9)	°Ë(7)	Áù(5)	Æß(6)	¾Å(8)
-------------¶ÔÕ½NPCÉèÖÃ------------
-EnemySet[1] = {700061, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+--é˜Ÿåˆ—è§£é‡Š
+--     äº”(4)	ä¸‰(2)	ä¸€(0)	äºŒ(1)	å››(3)
+--     å(9)	å…«(7)	å…­(5)	ä¸ƒ(6)	ä¹(8)
+------------å¯¹æˆ˜NPCè®¾ç½®------------
+EnemySet[1] = {700061, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[1] = {199, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[1] = {"Î´ÖªÄ§Îï",EnemySet[1],BaseLevelSet[1]}
-EnemySet[2] = {700062, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[1] = {"æœªçŸ¥é­”ç‰©",EnemySet[1],BaseLevelSet[1]}
+EnemySet[2] = {700062, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[2] = {199, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[2] = {"Î´ÖªÄ§Îï",EnemySet[2],BaseLevelSet[2]}
-EnemySet[3] = {700063, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[2] = {"æœªçŸ¥é­”ç‰©",EnemySet[2],BaseLevelSet[2]}
+EnemySet[3] = {700063, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[3] = {199, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[3] = {"Î´ÖªÄ§Îï",EnemySet[3],BaseLevelSet[3]}
-EnemySet[4] = {700064, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[3] = {"æœªçŸ¥é­”ç‰©",EnemySet[3],BaseLevelSet[3]}
+EnemySet[4] = {700064, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[4] = {199, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[4] = {"Î´ÖªÄ§Îï",EnemySet[4],BaseLevelSet[4]}
-EnemySet[5] = {700065, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[4] = {"æœªçŸ¥é­”ç‰©",EnemySet[4],BaseLevelSet[4]}
+EnemySet[5] = {700065, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[5] = {199, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[5] = {"Î´ÖªÄ§Îï",EnemySet[5],BaseLevelSet[5]}
-EnemySet[6] = {700066, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[5] = {"æœªçŸ¥é­”ç‰©",EnemySet[5],BaseLevelSet[5]}
+EnemySet[6] = {700066, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[6] = {199, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[6] = {"Î´ÖªÄ§Îï",EnemySet[6],BaseLevelSet[6]}
-EnemySet[7] = {700067, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0´ú±íÃ»ÓĞ¹Ö
+Pos[6] = {"æœªçŸ¥é­”ç‰©",EnemySet[6],BaseLevelSet[6]}
+EnemySet[7] = {700067, 0, 0, 0, 0, 0, 0, 0, 0, 0}--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[7] = {199, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-Pos[7] = {"Î´ÖªÄ§Îï",EnemySet[7],BaseLevelSet[7]}
+Pos[7] = {"æœªçŸ¥é­”ç‰©",EnemySet[7],BaseLevelSet[7]}
 ------------------------------------------------------
---±³¾°ÉèÖÃ
-local Pts= 70075;		--70206ÕæÅ®ÉñÆ»¹û.70075ÈÎÎñ±Ò
+--èƒŒæ™¯è®¾ç½®
+local Pts= 70075;		--70206çœŸå¥³ç¥è‹¹æœ.70075ä»»åŠ¡å¸
 local CrossGate = {
-      { lordNum=1, timesec=180, limit=30, fallName="µ¹µØµÄÄ§ÎïF", gateLevel="E¼‰‚÷ËÍéT1", lordName="Î´ÖªÄ§ÎïF", startImage=103013, lordImage = 120038,
+      { lordNum=1, timesec=180, limit=30, fallName="å€’åœ°çš„é­”ç‰©F", gateLevel="Eç´šå‚³é€é–€1", lordName="æœªçŸ¥é­”ç‰©F", startImage=103013, lordImage = 120038,
          waitingArea={map=25008,X=25,Y=12}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=25,Y=12}},
-      { lordNum=2, timesec=180, limit=30, fallName="µ¹µØµÄÄ§ÎïE",gateLevel="E¼‰‚÷ËÍéT2", lordName="Î´ÖªÄ§ÎïE", startImage=103013, lordImage = 120026,
+      { lordNum=2, timesec=180, limit=30, fallName="å€’åœ°çš„é­”ç‰©E",gateLevel="Eç´šå‚³é€é–€2", lordName="æœªçŸ¥é­”ç‰©E", startImage=103013, lordImage = 120026,
          waitingArea={map=25008,X=55,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=55,Y=44}},
-      { lordNum=3, timesec=360, limit=40, fallName="µ¹µØµÄÄ§ÎïD",gateLevel="C¼‰‚÷ËÍéT1", lordName="Î´ÖªÄ§ÎïD", startImage=103010, lordImage = 120036,
+      { lordNum=3, timesec=360, limit=40, fallName="å€’åœ°çš„é­”ç‰©D",gateLevel="Cç´šå‚³é€é–€1", lordName="æœªçŸ¥é­”ç‰©D", startImage=103010, lordImage = 120036,
          waitingArea={map=25008,X=55,Y=12}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=55,Y=12}},
-      { lordNum=4, timesec=360, limit=40, fallName="µ¹µØµÄÄ§ÎïC",gateLevel="C¼‰‚÷ËÍéT2", lordName="Î´ÖªÄ§ÎïC", startImage=103010, lordImage = 120183,
+      { lordNum=4, timesec=360, limit=40, fallName="å€’åœ°çš„é­”ç‰©C",gateLevel="Cç´šå‚³é€é–€2", lordName="æœªçŸ¥é­”ç‰©C", startImage=103010, lordImage = 120183,
          waitingArea={map=25008,X=25,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=25,Y=44}},
-      { lordNum=5, timesec=720, limit=60, fallName="µ¹µØµÄÄ§ÎïB",gateLevel="A¼‰‚÷ËÍéT1", lordName="Î´ÖªÄ§ÎïB", startImage=103012, lordImage = 120332,
+      { lordNum=5, timesec=720, limit=60, fallName="å€’åœ°çš„é­”ç‰©B",gateLevel="Aç´šå‚³é€é–€1", lordName="æœªçŸ¥é­”ç‰©B", startImage=103012, lordImage = 120332,
          waitingArea={map=25008,X=85,Y=44}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=85,Y=44}},
-      { lordNum=6, timesec=720, limit=60, fallName="µ¹µØµÄÄ§ÎïA",gateLevel="A¼‰‚÷ËÍéT2", lordName="Î´ÖªÄ§ÎïA", startImage=103012, lordImage = 120290,
+      { lordNum=6, timesec=720, limit=60, fallName="å€’åœ°çš„é­”ç‰©A",gateLevel="Aç´šå‚³é€é–€2", lordName="æœªçŸ¥é­”ç‰©A", startImage=103012, lordImage = 120290,
          waitingArea={map=25008,X=54,Y=76}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=54,Y=76}},
-      { lordNum=7, timesec=2880, limit=70, fallName="µ¹µØµÄÄ§ÎïS",gateLevel="S¼‰‚÷ËÍéT", lordName="Î´ÖªÄ§ÎïS", startImage=103011, lordImage = 120063,
+      { lordNum=7, timesec=2880, limit=70, fallName="å€’åœ°çš„é­”ç‰©S",gateLevel="Sç´šå‚³é€é–€", lordName="æœªçŸ¥é­”ç‰©S", startImage=103011, lordImage = 120063,
          waitingArea={map=25008,X=85,Y=76}, warpArea={map=43100,LX=78,LY=53, RX=162,RY=195}, bossArea={map=25007,X=85,Y=76}},
 }
-local tbl_duel_user = {};			--µ±Ç°³¡´ÎÍæ¼ÒµÄÁĞ±í
+local tbl_duel_user = {};			--å½“å‰åœºæ¬¡ç©å®¶çš„åˆ—è¡¨
 local tbl_win_user = {};
-local GateInfo = {}				--ÀäÈ´Ê±¼ä±í
+local GateInfo = {}				--å†·å´æ—¶é—´è¡¨
 local GateSetting = {}
 local GateCD = {}
 local crossGateBattle = {}
@@ -68,7 +68,7 @@ function getGateSetting()
 	return GateSetting;
 end
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
@@ -77,40 +77,40 @@ function Module:onLoad()
    if tbl_CrossGateNPCIndex[k] == nil then
     local CrossGateNPC = self:NPC_createNormal(v.fallName, v.lordImage, { map = v.waitingArea.map, x = v.waitingArea.X, y = v.waitingArea.Y, direction = 5, mapType = 0 })
     tbl_CrossGateNPCIndex[k] = CrossGateNPC
-    Char.SetData(CrossGateNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0)--¿É´©Í¸Ìå
+    Char.SetData(CrossGateNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0)--å¯ç©¿é€ä½“
     self:NPC_regWindowTalkedEvent(tbl_CrossGateNPCIndex[k], function(npc, player, _seqno, _select, _data)
-	local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+	local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
 	local seqno = tonumber(_seqno)
 	local select = tonumber(_select)
 	local data = tonumber(_data)
-    if select == CONST.°´Å¥_·ñ then
+    if select == CONST.æŒ‰é’®_å¦ then
         return;
-    elseif seqno == 1 and select == CONST.°´Å¥_ÊÇ then
-          --‚÷ËÍéTBOSS
-          local playerName = Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö);
-          local partyname = playerName .. "£­ê ";
-          local playerLv = Char.GetData(player,CONST.¶ÔÏó_µÈ¼¶);
-          local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
-          local floor = Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼);
+    elseif seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
+          --å‚³é€é–€BOSS
+          local playerName = Char.GetData(player,CONST.å¯¹è±¡_åå­—);
+          local partyname = playerName .. "ï¼éšŠ";
+          local playerLv = Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§);
+          local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
+          local floor = Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾);
           for k,v in pairs(CrossGate) do
             if ( k==v.lordNum and gateName==v.gateLevel and floor==v.warpArea.map ) then
               if (playerLv < v.limit) then
-                NLG.SystemMessage(player,"[Ïµ½y]‚÷ËÍéT½¨×hê éLµÈ¼‰Òª"..v.limit.."ÒÔÉÏ");
+                NLG.SystemMessage(player,"[ç³»çµ±]å‚³é€é–€å»ºè­°éšŠé•·ç­‰ç´šè¦"..v.limit.."ä»¥ä¸Š");
                 return;
               else
                 Char.Warp(player,0, v.bossArea.map, v.bossArea.X-10, v.bossArea.Y+10);
-                Char.SetData(npc,CONST.¶ÔÏó_X, v.bossArea.X);
-                Char.SetData(npc,CONST.¶ÔÏó_Y, v.bossArea.Y);
-                Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.bossArea.map);
-                Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.lordName);
-                Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.lordImage);
+                Char.SetData(npc,CONST.å¯¹è±¡_X, v.bossArea.X);
+                Char.SetData(npc,CONST.å¯¹è±¡_Y, v.bossArea.Y);
+                Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.bossArea.map);
+                Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.lordName);
+                Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.lordImage);
                 NLG.UpChar(npc);
               end
             end
           end
-    elseif seqno == 2 and select == CONST.°´Å¥_ÊÇ then
-          local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
-          local floor = Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼);
+    elseif seqno == 2 and select == CONST.æŒ‰é’®_æ˜¯ then
+          local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
+          local floor = Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾);
           for k,v in pairs(CrossGate) do
             if ( k==v.lordNum and gateName==v.lordName and floor==v.bossArea.map ) then
               table.insert(tbl_duel_user,player);
@@ -118,9 +118,9 @@ function Module:onLoad()
               boss_round_start(player, npc, boss_round_callback);
             end
           end
-    elseif seqno == 3 and select == CONST.°´Å¥_ÊÇ then
-          local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
-          local floor = Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼);
+    elseif seqno == 3 and select == CONST.æŒ‰é’®_æ˜¯ then
+          local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
+          local floor = Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾);
           for k,v in pairs(CrossGate) do
             if ( k==v.lordNum and gateName==v.fallName and floor==v.waitingArea.map ) then
               Char.Warp(player,0, 1000, 241, 88);
@@ -133,28 +133,28 @@ function Module:onLoad()
           return ;
       end
       if (NLG.CanTalk(npc, player) == true) then
-          local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
-          local floor = Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼);
+          local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
+          local floor = Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾);
           for k,v in pairs(CrossGate) do
             if ( k==v.lordNum and gateName==v.gateLevel and floor==v.warpArea.map ) then
-                local msg = "\\n\\n@c¡¾"..gateName.."¡¿"
+                local msg = "\\n\\n@cã€"..gateName.."ã€‘"
                   .."\\n\\n"
-                  .."\\nÕˆ½M½¨ºÃ¹¥ÂÔ‚÷ËÍéTµÄê Îé\\n"
-                  .."\\nÊÇ·ñßMÈë‚÷ËÍéT£¿\\n";
-                NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+                  .."\\nè«‹çµ„å»ºå¥½æ”»ç•¥å‚³é€é–€çš„éšŠä¼\\n"
+                  .."\\næ˜¯å¦é€²å…¥å‚³é€é–€ï¼Ÿ\\n";
+                NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
             elseif ( k==v.lordNum and gateName==v.lordName and floor==v.bossArea.map ) then
-                local msg = "\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿"
+                local msg = "\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘"
                   .."\\n\\n"
-                  .."\\nÎ´ÖªµÄÄ§ÎïÆóˆDÏûœçÈËî\\n"
-                  .."\\nÊÇ·ñßMÈë‘ğôY£¿\\n";
-                NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2, msg);
+                  .."\\næœªçŸ¥çš„é­”ç‰©ä¼åœ–æ¶ˆæ»…äººé¡\\n"
+                  .."\\næ˜¯å¦é€²å…¥æˆ°é¬¥ï¼Ÿ\\n";
+                NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2, msg);
             elseif ( k==v.lordNum and gateName==v.fallName and floor==v.waitingArea.map ) then
-				NLG.SetAction(npc, CONST.¶¯×÷_µ¹ÏÂ);
-                local msg = "\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿"
+				NLG.SetAction(npc, CONST.åŠ¨ä½œ_å€’ä¸‹);
+                local msg = "\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘"
                   .."\\n\\n"
-                  .."\\nÍê³ÉÌáÈ¡éœÓ°Ê¿±ø£¿\\n"
-                  .."\\nÊÇ·ñëxé_‚÷ËÍéT£¿\\n";
-                NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 3, msg);
+                  .."\\nå®Œæˆæå–é—‡å½±å£«å…µï¼Ÿ\\n"
+                  .."\\næ˜¯å¦é›¢é–‹å‚³é€é–€ï¼Ÿ\\n";
+                NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 3, msg);
             end
           end
       end
@@ -164,7 +164,7 @@ function Module:onLoad()
   end
 
   if (PowerOn==1) then 
-    --ÖØÖÃ
+    --é‡ç½®
     GateInfo = {};
     GateSetting = {};
     for k=1,#CrossGate do
@@ -174,23 +174,23 @@ function Module:onLoad()
         GateSetting[k] = nil;
         GateCD[k] = 0;
     end
-    --NLG.SystemMessage(charIndex, "[Ïµ½y]‚÷ËÍéTé_·Å¡£");
+    --NLG.SystemMessage(charIndex, "[ç³»çµ±]å‚³é€é–€é–‹æ”¾ã€‚");
     --NLG.UpChar(charIndex);
 
     local gmIndex = NLG.FindUser(123456);
-    --Char.SetExtData(gmIndex, '´«ËÍÃÅÀäÈ´_set', JSON.encode(GateCD));
+    --Char.SetExtData(gmIndex, 'ä¼ é€é—¨å†·å´_set', JSON.encode(GateCD));
     local newdata = JSON.encode(GateCD);
-    SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+    SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
     NLG.UpChar(gmIndex);
     PowerOn = 0;
   end
 
-  GateMonitorNPC = self:NPC_createNormal('‚÷ËÍéT±O¿Ø', 14682, { map = 777, x = 41, y = 32,  direction = 6, mapType = 0 })
+  GateMonitorNPC = self:NPC_createNormal('å‚³é€é–€ç›£æ§', 14682, { map = 777, x = 41, y = 32,  direction = 6, mapType = 0 })
   self:NPC_regWindowTalkedEvent(GateMonitorNPC, function(npc, player, _seqno, _select, _data)
   end)
   self:NPC_regTalkedEvent(GateMonitorNPC, function(npc, player)
     local gmIndex = NLG.FindUser(123456);
-    local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")["0_0"])
+    local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")["0_0"])
     local GateCD = {};
     if (type(sqldata)=="string" and sqldata~='') then
         GateCD = JSON.decode(sqldata);
@@ -199,49 +199,49 @@ function Module:onLoad()
     end
 
     GateInfo = getGateInfo();
-    winMsg = "\\n            ¡ï¡ï¡ï¡ï¡ï¡ï‚÷ËÍéTÙYÓ¡ï¡ï¡ï¡ï¡ï¡ï"
-          .. "\\n\\n  ‚÷ËÍéT          ËùÔÚÎ»ÖÃ             Àä…sµ¹”µ\\n"
-          .. "\\n¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T"
+    winMsg = "\\n            â˜…â˜…â˜…â˜…â˜…â˜…å‚³é€é–€è³‡è¨Šâ˜…â˜…â˜…â˜…â˜…â˜…"
+          .. "\\n\\n  å‚³é€é–€          æ‰€åœ¨ä½ç½®             å†·å»å€’æ•¸\\n"
+          .. "\\nâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•"
       for k,v in pairs(CrossGate) do
-        local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_µØÍ¼)
+        local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_åœ°å›¾)
         local bossImage = tonumber(GateCD[k]);
         if (k==v.lordNum and bossImage==v.lordImage and floor==v.waitingArea.map) then
           local Name = v.gateLevel;
-          local mapsname = "ÏûÊ§ÖĞ";
+          local mapsname = "æ¶ˆå¤±ä¸­";
           local mapsX = "xxx";
           local mapsY = "yyy";
           local CTime = GateInfo[k] or os.time();
-          local CDTime = ""..v.timesec - (os.time() - CTime).." Ãë";
+          local CDTime = ""..v.timesec - (os.time() - CTime).." ç§’";
           winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
         elseif (k==v.lordNum and bossImage==0 and floor==v.warpArea.map) then
           local Name = v.gateLevel;
           local mapsname = NLG.GetMapName(0, v.warpArea.map);
-          local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_X));
-          local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_Y));
-          local CDTime = "³ö¬FÖĞ";
+          local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_X));
+          local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_Y));
+          local CDTime = "å‡ºç¾ä¸­";
           winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
         elseif (k==v.lordNum and bossImage==0 and floor==v.bossArea.map) then
           local Name = v.gateLevel;
           local mapsname = NLG.GetMapName(0, v.bossArea.map);
-          local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_X));
-          local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_Y));
-          local CDTime = "±»¹¥ÂÔ";
+          local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_X));
+          local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_Y));
+          local CDTime = "è¢«æ”»ç•¥";
           winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
         end
       end
-      winMsg = winMsg .. "\\n¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T";
-      NLG.ShowWindowTalked(player,npc, CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+      winMsg = winMsg .. "\\nâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•";
+      NLG.ShowWindowTalked(player,npc, CONST.çª—å£_å·¨ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
       return
   end)
 
 
-  --Í¨ÓÃ³éÈ¡µÀ¾ß
+  --é€šç”¨æŠ½å–é“å…·
   self:regCallback('ItemString', Func.bind(self.shadowExtraction, self),"LUA_useSdExtra");
-  self.shadowExtractionNPC = self:NPC_createNormal('éœÓ°³éÈ¡', 14682, { x = 41, y = 31, mapType = 0, map = 777, direction = 6 });
+  self.shadowExtractionNPC = self:NPC_createNormal('é—‡å½±æŠ½å–', 14682, { x = 41, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.shadowExtractionNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾éœÓ°³éÈ¡¡¿" ..	"\\n\\n\\n´_¶¨Òª‡LÔ‡³éÈ¡éœÓ°Ê¿±øK´æÈ¡£¿";
-        NLG.ShowWindowTalked(player, self.shadowExtractionNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+        local msg = "\\n@cã€é—‡å½±æŠ½å–ã€‘" ..	"\\n\\n\\nç¢ºå®šè¦å˜—è©¦æŠ½å–é—‡å½±å£«å…µä¸¦å­˜å–ï¼Ÿ";
+        NLG.ShowWindowTalked(player, self.shadowExtractionNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
@@ -251,21 +251,21 @@ function Module:onLoad()
     local data = tonumber(_data)
     local ComIndex =ComIndex;
     local ComSlot = ComSlot;
-    local Target_FloorId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼)--µØÍ¼±àºÅ
-    local Target_X = Char.GetData(player,CONST.¶ÔÏó_X)--µØÍ¼x
-    local Target_Y = Char.GetData(player,CONST.¶ÔÏó_Y)--µØÍ¼y
-    local playerLv = Char.GetData(player,CONST.¶ÔÏó_µÈ¼¶);
+    local Target_FloorId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾)--åœ°å›¾ç¼–å·
+    local Target_X = Char.GetData(player,CONST.å¯¹è±¡_X)--åœ°å›¾x
+    local Target_Y = Char.GetData(player,CONST.å¯¹è±¡_Y)--åœ°å›¾y
+    local playerLv = Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§);
     if select > 0 then
-      if seqno == 1 and Char.ItemSlot(player)==20 and select == CONST.°´Å¥_ÊÇ then
-                 NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚÎ»ÖÃÒÑM¡£");
+      if seqno == 1 and Char.ItemSlot(player)==20 and select == CONST.æŒ‰é’®_æ˜¯ then
+                 NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„ä½ç½®å·²æ»¿ã€‚");
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_·ñ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_å¦ then
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_ÊÇ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
           for k,v in pairs(CrossGate) do
 		    if ( k==v.lordNum and Target_FloorId==v.waitingArea.map ) then
               if Target_X>=v.waitingArea.X-15 and Target_X<=v.waitingArea.X+3 and Target_Y>=v.waitingArea.Y-3 and Target_Y<=v.waitingArea.Y+15 then
-		    	enemyId = Pos[k][2][1];	--10ºÅÎ»±ØÎª³éÈ¡¶ÔÏóenemyId
+		    	enemyId = Pos[k][2][1];	--10å·ä½å¿…ä¸ºæŠ½å–å¯¹è±¡enemyId
                 goto continue
               end
 		    end
@@ -273,9 +273,9 @@ function Module:onLoad()
           ::continue::
           local EnemyBaseId = Data.GetEnemyBaseIdByEnemyId(enemyId);
           local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(EnemyBaseId);
-          local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_Ãû×Ö);
+          local EnemyName = Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_åå­—);
           local EnemyDataIndex = Data.EnemyGetDataIndex(enemyId)
-          local enemyLevel = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_×î¸ßµÈ¼¶);
+          local enemyLevel = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_æœ€é«˜ç­‰çº§);
 
           local CoinNo = math.modf(playerLv/10);
           local heads,reverses,same = heads(CoinNo);
@@ -284,46 +284,46 @@ function Module:onLoad()
           if (enemyId ~=nil and enemyId>0) then
               if (heads < extraRate) then
                   Char.DelItem(player, 75027, 1);
-                  NLG.Say(player,player,"Æğí ¡¾Rise¡¿£¡£¡",14,3);
-                  if (Char.GetData(player,CONST.¶ÔÏó_¶ÓÁÄ¿ª¹Ø) == 1) then
-                    NLG.SystemMessage(player,"”S³öÕıÃæ"..heads.."‚€ ³É¹¦³éÈ¡ĞèÒª"..extraRate.."‚€ÕıÃæ¡£");
+                  NLG.Say(player,player,"èµ·ä¾† ã€Riseã€‘ï¼ï¼",14,3);
+                  if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+                    NLG.SystemMessage(player,"æ“²å‡ºæ­£é¢"..heads.."å€‹ æˆåŠŸæŠ½å–éœ€è¦"..extraRate.."å€‹æ­£é¢ã€‚");
                   end
-                  NLG.PlaySe(player, 258, Char.GetData(player,CONST.¶ÔÏó_X), Char.GetData(player,CONST.¶ÔÏó_Y));
-                  NLG.SystemMessage(player,"[Ïµ½y]ÌáÈ¡Ê§”¡¡£");
+                  NLG.PlaySe(player, 258, Char.GetData(player,CONST.å¯¹è±¡_X), Char.GetData(player,CONST.å¯¹è±¡_Y));
+                  NLG.SystemMessage(player,"[ç³»çµ±]æå–å¤±æ•—ã€‚");
                   return;
               end
-              --µÀ¾ßÀ¸¿ÕÎ»ÖÃ
+              --é“å…·æ ç©ºä½ç½®
               local EmptySlot = Char.GetItemEmptySlot(player);
-              --if (NLG.Rand(0,1)==0) then	--³éÈ¡Îª³èÎï
+              --if (NLG.Rand(0,1)==0) then	--æŠ½å–ä¸ºå® ç‰©
                  Char.GiveItem(player, 75028, 1);
                  local ItemIndex = Char.GetItemIndex(player, EmptySlot);
-                 Item.SetData(ItemIndex, CONST.µÀ¾ß_Ãû×Ö,EnemyName.."éœÓ°Ê¿±ø");
-                 Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ»,enemyId);
-                 Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş,enemyLevel);
+                 Item.SetData(ItemIndex, CONST.é“å…·_åå­—,EnemyName.."é—‡å½±å£«å…µ");
+                 Item.SetData(ItemIndex,CONST.é“å…·_å­å‚ä¸€,enemyId);
+                 Item.SetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ,enemyLevel);
                  Item.UpItem(player, EmptySlot);
                  NLG.UpChar(player);
                  Char.DelItem(player, 75027, 1);
-                 NLG.Say(player,player,"Æğí ¡¾Rise¡¿£¡£¡",14,3);
-                 NLG.PlaySe(player, 257, Char.GetData(player,CONST.¶ÔÏó_X), Char.GetData(player,CONST.¶ÔÏó_Y));
-                 NLG.SystemMessage(player, "[ÏµÍ³]"..EnemyName.."³É¹¦ÌáÈ¡ééœÓ°Ê¿±ø¡£")
-              --[[elseif (NLG.Rand(0,1)==1) then	--³éÈ¡ÎªÓ¶±ø
+                 NLG.Say(player,player,"èµ·ä¾† ã€Riseã€‘ï¼ï¼",14,3);
+                 NLG.PlaySe(player, 257, Char.GetData(player,CONST.å¯¹è±¡_X), Char.GetData(player,CONST.å¯¹è±¡_Y));
+                 NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..EnemyName.."æˆåŠŸæå–ç‚ºé—‡å½±å£«å…µã€‚")
+              --[[elseif (NLG.Rand(0,1)==1) then	--æŠ½å–ä¸ºä½£å…µ
                  Char.GiveItem(player, 75029, 1);
                  local ItemIndex = Char.GetItemIndex(player, EmptySlot);
-                 Item.SetData(ItemIndex, CONST.µÀ¾ß_Ãû×Ö,EnemyName.."éœÓ°â·°é");
-                 Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²ÎÒ»,50);
-                 Item.SetData(ItemIndex,CONST.µÀ¾ß_×Ó²Î¶ş,heroesNo);
+                 Item.SetData(ItemIndex, CONST.é“å…·_åå­—,EnemyName.."é—‡å½±å¤¥ä¼´");
+                 Item.SetData(ItemIndex,CONST.é“å…·_å­å‚ä¸€,50);
+                 Item.SetData(ItemIndex,CONST.é“å…·_å­å‚äºŒ,heroesNo);
                  Item.UpItem(player, EmptySlot);
                  NLG.UpChar(player);
                  Char.DelItem(player, 75027, 1);
-                 NLG.Say(player,player,"Æğí ¡¾Rise¡¿£¡£¡",14,3);
-                 NLG.PlaySe(player, 257, Char.GetData(player,CONST.¶ÔÏó_X), Char.GetData(player,CONST.¶ÔÏó_Y));
-                 NLG.SystemMessage(player, "[ÏµÍ³]"..EnemyName.."³É¹¦ÌáÈ¡ééœÓ°â·°é¡£")
+                 NLG.Say(player,player,"èµ·ä¾† ã€Riseã€‘ï¼ï¼",14,3);
+                 NLG.PlaySe(player, 257, Char.GetData(player,CONST.å¯¹è±¡_X), Char.GetData(player,CONST.å¯¹è±¡_Y));
+                 NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..EnemyName.."æˆåŠŸæå–ç‚ºé—‡å½±å¤¥ä¼´ã€‚")
               end]]
           elseif (enemyId ==nil) then
-              NLG.SystemMessage(player,"[Ïµ½y]ß@ß…Ÿo·¨Ê¹ÓÃéœÓ°³éÈ¡¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]é€™é‚Šç„¡æ³•ä½¿ç”¨é—‡å½±æŠ½å–ã€‚");
               return;
           else
-              NLG.SystemMessage(player,"[Ïµ½y]µÀ¾ßåeÕ`¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]é“å…·éŒ¯èª¤ã€‚");
               return;
           end
       else
@@ -332,13 +332,13 @@ function Module:onLoad()
     end
   end)
 
-  --Í¨ÓÃÕÙ»½µÀ¾ß
+  --é€šç”¨å¬å”¤é“å…·
   self:regCallback('ItemString', Func.bind(self.shadowSummon, self),"LUA_useSdSum");
-  self.shadowSummonNPC = self:NPC_createNormal('éœÓ°ÕÙ†¾', 14682, { x = 40, y = 31, mapType = 0, map = 777, direction = 6 });
+  self.shadowSummonNPC = self:NPC_createNormal('é—‡å½±å¬å–š', 14682, { x = 40, y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.shadowSummonNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c¡¾éœÓ°ÕÙ†¾¡¿" ..	"\\n\\n\\n´_¶¨Òª·Å³ö´æÈ¡µÄéœÓ°Ê¿±ø£¿";
-        NLG.ShowWindowTalked(player, self.shadowSummonNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+        local msg = "\\n@cã€é—‡å½±å¬å–šã€‘" ..	"\\n\\n\\nç¢ºå®šè¦æ”¾å‡ºå­˜å–çš„é—‡å½±å£«å…µï¼Ÿ";
+        NLG.ShowWindowTalked(player, self.shadowSummonNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
@@ -348,24 +348,24 @@ function Module:onLoad()
     local data = tonumber(_data)
     local BallIndex =BallIndex;
     local BallSlot = BallSlot;
-    local BallName = Item.GetData(BallIndex, CONST.µÀ¾ß_Ãû×Ö);
-    local last = string.find(BallName, "éœ", 1);
+    local BallName = Item.GetData(BallIndex, CONST.é“å…·_åå­—);
+    local last = string.find(BallName, "é—‡", 1);
     local enemyName =string.sub(BallName, 1, last-1);
-    local enemyId = Item.GetData(BallIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);
-    local enemyLevel = Item.GetData(BallIndex,CONST.µÀ¾ß_×Ó²Î¶ş);
+    local enemyId = Item.GetData(BallIndex,CONST.é“å…·_å­å‚ä¸€);
+    local enemyLevel = Item.GetData(BallIndex,CONST.é“å…·_å­å‚äºŒ);
     if select > 0 then
-      if seqno == 1 and Char.PetNum(player)==5 and select == CONST.°´Å¥_ÊÇ then
-                 NLG.SystemMessage(player,"[Ïµ½y]Œ™Îï™ÚÎ»ÖÃÒÑM¡£");
+      if seqno == 1 and Char.PetNum(player)==5 and select == CONST.æŒ‰é’®_æ˜¯ then
+                 NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ¬„ä½ç½®å·²æ»¿ã€‚");
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_·ñ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_å¦ then
                  return;
-      elseif seqno == 1 and select == CONST.°´Å¥_ÊÇ then
+      elseif seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
           if (enemyId ~=nil and enemyId>0) then
               Char.AddPet(player,enemyId);
               Char.DelItemBySlot(player, BallSlot);
-              NLG.SystemMessage(player, "[ÏµÍ³]"..enemyName.."³É¹¦ÕÙ†¾³öí¡£")
+              NLG.SystemMessage(player, "[ç³»ç»Ÿ]"..enemyName.."æˆåŠŸå¬å–šå‡ºä¾†ã€‚")
           else
-              NLG.SystemMessage(player,"[Ïµ½y]µÀ¾ßåeÕ`¡£");
+              NLG.SystemMessage(player,"[ç³»çµ±]é“å…·éŒ¯èª¤ã€‚");
               return;
           end
       else
@@ -376,13 +376,13 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---Ö¸ÁîÆô¶¯Ñ­»·
+-------åŠŸèƒ½è®¾ç½®
+--æŒ‡ä»¤å¯åŠ¨å¾ªç¯
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="[nr gate on]") then
-		local cdk = Char.GetData(charIndex,CONST.¶ÔÏó_CDK);
+		local cdk = Char.GetData(charIndex,CONST.å¯¹è±¡_CDK);
 		if (cdk == "123456") then
-			--ÖØÖÃ
+			--é‡ç½®
 			GateInfo = {};
 			GateSetting = {};
 			for k=1,#CrossGate do
@@ -392,19 +392,19 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 				GateSetting[k] = nil;
 				GateCD[k] = 0;
 			end
-			NLG.SystemMessage(charIndex, "[Ïµ½y]‚÷ËÍéTé_·Å¡£");
+			NLG.SystemMessage(charIndex, "[ç³»çµ±]å‚³é€é–€é–‹æ”¾ã€‚");
 			NLG.UpChar(charIndex);
 
 			local gmIndex = NLG.FindUser(123456);
-			Char.SetExtData(charIndex, '´«ËÍÃÅÀäÈ´_set', JSON.encode(GateCD));
+			Char.SetExtData(charIndex, 'ä¼ é€é—¨å†·å´_set', JSON.encode(GateCD));
 			local newdata = JSON.encode(GateCD);
-			SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+			SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
 			NLG.UpChar(gmIndex);
 			return 0;
 		end
 	elseif (msg=="/cross") then
 		local gmIndex = NLG.FindUser(123456);
-		local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")["0_0"])
+		local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")["0_0"])
 		local GateCD = {};
 		if (type(sqldata)=="string" and sqldata~='') then
 			GateCD = JSON.decode(sqldata);
@@ -413,46 +413,46 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 		end
 
 		GateInfo = getGateInfo();
-		winMsg = "\\n            ¡ï¡ï¡ï¡ï¡ï¡ï‚÷ËÍéTÙYÓ¡ï¡ï¡ï¡ï¡ï¡ï"
-			.. "\\n\\n  ‚÷ËÍéT          ËùÔÚÎ»ÖÃ             Àä…sµ¹”µ\\n"
-			.. "\\n¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T"
+		winMsg = "\\n            â˜…â˜…â˜…â˜…â˜…â˜…å‚³é€é–€è³‡è¨Šâ˜…â˜…â˜…â˜…â˜…â˜…"
+			.. "\\n\\n  å‚³é€é–€          æ‰€åœ¨ä½ç½®             å†·å»å€’æ•¸\\n"
+			.. "\\nâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•"
 			for k,v in pairs(CrossGate) do
-				local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_µØÍ¼)
+				local floor = Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_åœ°å›¾)
 				local bossImage = tonumber(GateCD[k]);
 				if (k==v.lordNum and bossImage==v.lordImage and floor==v.waitingArea.map) then
 					local Name = v.gateLevel;
-					local mapsname = "ÏûÊ§ÖĞ";
+					local mapsname = "æ¶ˆå¤±ä¸­";
 					local mapsX = "xxx";
 					local mapsY = "yyy";
 					local CTime = GateInfo[k] or os.time();
-					local CDTime = ""..v.timesec - (os.time() - CTime).." Ãë";
+					local CDTime = ""..v.timesec - (os.time() - CTime).." ç§’";
 					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
 				elseif (k==v.lordNum and bossImage==0 and floor==v.warpArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = NLG.GetMapName(0, v.warpArea.map);
-					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_X));
-					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_Y));
-					local CDTime = "³ö¬FÖĞ";
+					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_X));
+					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_Y));
+					local CDTime = "å‡ºç¾ä¸­";
 					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
 				elseif (k==v.lordNum and bossImage==0 and floor==v.bossArea.map) then
 					local Name = v.gateLevel;
 					local mapsname = NLG.GetMapName(0, v.bossArea.map);
-					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_X));
-					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.¶ÔÏó_Y));
-					local CDTime = "±»¹¥ÂÔ";
+					local mapsX = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_X));
+					local mapsY = tonumber(Char.GetData(tbl_CrossGateNPCIndex[k],CONST.å¯¹è±¡_Y));
+					local CDTime = "è¢«æ”»ç•¥";
 					winMsg = winMsg .. "\\n  "..Name.."     "..mapsname.."("..mapsX..","..mapsY..")     "..CDTime.."\\n"
 				end
 			end
-			winMsg = winMsg .. "\\n¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T";
-		NLG.ShowWindowTalked(charIndex, GateMonitorNPC, CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+			winMsg = winMsg .. "\\nâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•";
+		NLG.ShowWindowTalked(charIndex, GateMonitorNPC, CONST.çª—å£_å·¨ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
 		return 0;
 	end
 	return 1;
 end
---×ªÒÆ
+--è½¬ç§»
 function CrossGate_LoopEvent(npc)
 	local gmIndex = NLG.FindUser(123456);
-	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")["0_0"])
+	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")["0_0"])
 	local GateCD = {};
 	if (type(sqldata)=="string" and sqldata~='') then
 		GateCD = JSON.decode(sqldata);
@@ -471,41 +471,41 @@ function CrossGate_LoopEvent(npc)
             until (Map.IsWalkable(0, 43100, warpX - 2, warpY + 2) == 1) and (Map.IsWalkable(0, 43100, warpX + 2, warpY - 2) == 1)
 
 			local mapsname = NLG.GetMapName(0, v.warpArea.map);
-			--local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-			local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+			--local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+			local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 			if ( k==v.lordNum and gateName==v.fallName ) then
 				GateInfo[k] = os.time();
 				GateSetting[k] = 0;
-				NLG.SystemMessage(-1,"[Ïµ½y]"..v.gateLevel.."³ö¬FÔÚ"..mapsname.."("..warpX..","..warpY..")");
-				Char.SetData(npc,CONST.¶ÔÏó_X, warpX);
-				Char.SetData(npc,CONST.¶ÔÏó_Y, warpY);
-				Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
-				Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.gateLevel);
-				Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.startImage);
+				NLG.SystemMessage(-1,"[ç³»çµ±]"..v.gateLevel.."å‡ºç¾åœ¨"..mapsname.."("..warpX..","..warpY..")");
+				Char.SetData(npc,CONST.å¯¹è±¡_X, warpX);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, warpY);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
+				Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.gateLevel);
+				Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.startImage);
 				NLG.UpChar(npc);
 
 				GateCD[k] = 0;
 				--local newdata = JSON.encode(GateCD);
-				--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+				--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
 				--NLG.UpChar(gmIndex);
 			end
 		end
 		end
 		local newdata = JSON.encode(GateCD);
-		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
-		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
 		NLG.UpChar(gmIndex);
 	elseif (os.date("%M",os.time())=="15") or (os.date("%M",os.time())=="45") then
 		if ( os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") or (os.date("%S",os.time())=="02") or (os.date("%S",os.time())=="03") or (os.date("%S",os.time())=="04") or (os.date("%S",os.time())=="05") then
 		for k,v in pairs(CrossGate) do
-			local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-			--local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+			local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+			--local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 			if ( k==v.lordNum and bossImage==v.lordImage ) then
-				Char.SetData(npc,CONST.¶ÔÏó_X, v.waitingArea.X);
-				Char.SetData(npc,CONST.¶ÔÏó_Y, v.waitingArea.Y);
-				Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.waitingArea.map);
-				Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.fallName);
-				Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.lordImage);
+				Char.SetData(npc,CONST.å¯¹è±¡_X, v.waitingArea.X);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, v.waitingArea.Y);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.waitingArea.map);
+				Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.fallName);
+				Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.lordImage);
 				NLG.UpChar(npc);
 			end
 		end
@@ -519,21 +519,21 @@ function CrossGate_LoopEvent(npc)
 
 			if (GateSetting[k]==nil) then
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
-				--local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-				local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+				--local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+				local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 				if ( k==v.lordNum and gateName==v.fallName) then
 					GateInfo[k] = os.time();
 					GateSetting[k] = 0;
-					NLG.SystemMessage(-1,"[Ïµ½y]"..v.gateLevel.."³ö¬FÔÚ"..mapsname.."("..warpX..","..warpY..")");
-					Char.SetData(npc,CONST.¶ÔÏó_X, warpX);
-					Char.SetData(npc,CONST.¶ÔÏó_Y, warpY);
-					Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
-					Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.gateLevel);
-					Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.startImage);
+					NLG.SystemMessage(-1,"[ç³»çµ±]"..v.gateLevel.."å‡ºç¾åœ¨"..mapsname.."("..warpX..","..warpY..")");
+					Char.SetData(npc,CONST.å¯¹è±¡_X, warpX);
+					Char.SetData(npc,CONST.å¯¹è±¡_Y, warpY);
+					Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
+					Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.gateLevel);
+					Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.startImage);
 					NLG.UpChar(npc);
 				end
 			elseif (GateSetting[k]==0) then
-				local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+				local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 				if ( k==v.lordNum ) then
 					if (gateName==v.fallName or gateName==v.lordName) then
 						GateInfo[k] = os.time();
@@ -543,16 +543,16 @@ function CrossGate_LoopEvent(npc)
 				local STime = os.time();
 				local timec = STime - GateInfo[k];
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
-				local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+				local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 				if ( timec > v.timesec and k==v.lordNum and gateName==v.fallName ) then
 					GateSetting[k] = 0;
-					NLG.SystemMessage(-1,"[Ïµ½y]"..v.gateLevel.."³ö¬FÔÚ"..mapsname.."("..warpX..","..warpY..")");
-					Char.SetData(npc,CONST.¶ÔÏó_X, warpX);
-					Char.SetData(npc,CONST.¶ÔÏó_Y, warpY);
-					Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
+					NLG.SystemMessage(-1,"[ç³»çµ±]"..v.gateLevel.."å‡ºç¾åœ¨"..mapsname.."("..warpX..","..warpY..")");
+					Char.SetData(npc,CONST.å¯¹è±¡_X, warpX);
+					Char.SetData(npc,CONST.å¯¹è±¡_Y, warpY);
+					Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
 					Char.Warp(npc,0, v.warpArea.map, warpX, warpY);
-					Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.gateLevel);
-					Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.startImage);
+					Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.gateLevel);
+					Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.startImage);
 					NLG.UpChar(npc);
 
 					GateCD[k] = 0;
@@ -560,44 +560,44 @@ function CrossGate_LoopEvent(npc)
 			--[[elseif (GateSetting[k]==2) then
 				local CTime = GateInfo[k] or os.time();
 				local mapsname = NLG.GetMapName(0, v.warpArea.map);
-				--local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-				local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+				--local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+				local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 				if ( (os.time() - CTime) >= v.timesec and k==v.lordNum and gateName==v.fallName) then
 					GateInfo[k] = os.time();
 					GateSetting[k] = 1;
-					NLG.SystemMessage(-1,"[Ïµ½y]"..v.gateLevel.."³ö¬FÔÚ"..mapsname.."("..warpX..","..warpY..")");
-					Char.SetData(npc,CONST.¶ÔÏó_X, warpX);
-					Char.SetData(npc,CONST.¶ÔÏó_Y, warpY);
-					Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
-					Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.gateLevel);
-					Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.startImage);
+					NLG.SystemMessage(-1,"[ç³»çµ±]"..v.gateLevel.."å‡ºç¾åœ¨"..mapsname.."("..warpX..","..warpY..")");
+					Char.SetData(npc,CONST.å¯¹è±¡_X, warpX);
+					Char.SetData(npc,CONST.å¯¹è±¡_Y, warpY);
+					Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
+					Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.gateLevel);
+					Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.startImage);
 					NLG.UpChar(npc);
 
 					GateCD[k] = 0;
 					--local newdata = JSON.encode(GateCD);
-					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
 					--NLG.UpChar(gmIndex);
 				elseif ( v.timesec - (os.time() - CTime) < 0 and k==v.lordNum and gateName==v.fallName) then
 					GateInfo[k] = os.time();
 					GateSetting[k] = 1;
-					NLG.SystemMessage(-1,"[Ïµ½y]"..v.gateLevel.."³ö¬FÔÚ"..mapsname.."("..warpX..","..warpY..")");
-					Char.SetData(npc,CONST.¶ÔÏó_X, warpX);
-					Char.SetData(npc,CONST.¶ÔÏó_Y, warpY);
-					Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.warpArea.map);
-					Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.gateLevel);
-					Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.startImage);
+					NLG.SystemMessage(-1,"[ç³»çµ±]"..v.gateLevel.."å‡ºç¾åœ¨"..mapsname.."("..warpX..","..warpY..")");
+					Char.SetData(npc,CONST.å¯¹è±¡_X, warpX);
+					Char.SetData(npc,CONST.å¯¹è±¡_Y, warpY);
+					Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.warpArea.map);
+					Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.gateLevel);
+					Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.startImage);
 					NLG.UpChar(npc);
 
 					GateCD[k] = 0;
 					--local newdata = JSON.encode(GateCD);
-					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
 					--NLG.UpChar(gmIndex);
 				end]]
 			end
 		end
 		local newdata = JSON.encode(GateCD);
-		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
-		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
 		NLG.UpChar(gmIndex);
 
 	end
@@ -611,19 +611,19 @@ function boss_round_start(player, npc, callback)
 	table.insert(tbl_duel_user,player);
 	table.insert(tbl_duel_user,npc);
 
-	--¿ªÊ¼Õ½¶·
+	--å¼€å§‹æˆ˜æ–—
 	tbl_UpIndex = {}
 	battleindex = {}
 
 	for k,v in pairs(CrossGate) do
-		--local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-		local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+		--local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+		local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 		if ( k==v.lordNum and gateName==v.lordName ) then
 			local battleindex = Battle.PVE( player, player, nil, Pos[k][2], Pos[k][3], nil)
 			Battle.SetWinEvent("./lua/Modules/crossGate.lua", "boss_round_callback", battleindex);
 			crossGateBattle={}
 			table.insert(crossGateBattle, battleindex);
-			Char.SetTempData(player, '´«ËÍÃÅ', npc);
+			Char.SetTempData(player, 'ä¼ é€é—¨', npc);
 		end
 	end
 end
@@ -633,24 +633,24 @@ function boss_round_callback(battleindex, player)
 	local winside = Battle.GetWinSide(battleindex);
 	local sideM = 0;
 
-	--»ñÈ¡Ê¤Àû·½
+	--è·å–èƒœåˆ©æ–¹
 	if (winside == 0) then
 		sideM = 0;
 	end
 	if (winside == 1) then
 		sideM = 10;
 	end
-	--»ñÈ¡Ê¤Àû·½µÄÍæ¼ÒÖ¸Õë£¬¿ÉÄÜÕ¾ÔÚÇ°·½ºÍºó·½
+	--è·å–èƒœåˆ©æ–¹çš„ç©å®¶æŒ‡é’ˆï¼Œå¯èƒ½ç«™åœ¨å‰æ–¹å’Œåæ–¹
 	local w1 = Battle.GetPlayIndex(battleindex, 0 + sideM);
 	local w2 = Battle.GetPlayIndex(battleindex, 5 + sideM);
 	local ww = nil;
 
-	--°ÑÊ¤ÀûÍæ¼Ò¼ÓÈëÁĞ±í
+	--æŠŠèƒœåˆ©ç©å®¶åŠ å…¥åˆ—è¡¨
 	tbl_win_user = {}
-	if ( Char.GetData(w1, CONST.¶ÔÏó_ÀàĞÍ) >= CONST.¶ÔÏóÀàĞÍ_ÈË) then
+	if ( Char.GetData(w1, CONST.å¯¹è±¡_ç±»å‹) >= CONST.å¯¹è±¡ç±»å‹_äºº) then
 		local ww = w1;
 		table.insert(tbl_win_user, ww);
-	elseif ( Char.GetData(w2, CONST.¶ÔÏó_ÀàĞÍ) >= CONST.¶ÔÏóÀàĞÍ_ÈË ) then
+	elseif ( Char.GetData(w2, CONST.å¯¹è±¡_ç±»å‹) >= CONST.å¯¹è±¡ç±»å‹_äºº ) then
 		local ww = w2;
 		table.insert(tbl_win_user, ww);
 	else
@@ -660,22 +660,22 @@ function boss_round_callback(battleindex, player)
 	local player = tbl_win_user[1];
 	--local npc = tbl_duel_user[2];
 
-	--ÅĞ¶¨ÊÇÄÄ¸ö´«ËÍÃÅ
-	local npc = Char.GetTempData(player, '´«ËÍÃÅ') or 0;
+	--åˆ¤å®šæ˜¯å“ªä¸ªä¼ é€é—¨
+	local npc = Char.GetTempData(player, 'ä¼ é€é—¨') or 0;
 	--print(npc)
 
 	for k,v in pairs(CrossGate) do
-		--local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-		local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+		--local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+		local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 		if ( k==v.lordNum and gateName==v.lordName ) then
-			NLG.SystemMessage(-1,"[¹«¸æ] "..v.gateLevel.."±» "..Char.GetData(player,CONST.¶ÔÏó_Ãû×Ö).." ¹¥¿ËÁË¡£");
+			NLG.SystemMessage(-1,"[å…¬å‘Š] "..v.gateLevel.."è¢« "..Char.GetData(player,CONST.å¯¹è±¡_åå­—).." æ”»å…‹äº†ã€‚");
 			NLG.UpChar(player);
 		end
 	end
 
-	--½øÈëÀäÈ´Ê±¼ä
+	--è¿›å…¥å†·å´æ—¶é—´
 	local gmIndex = NLG.FindUser(123456);
-	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")["0_0"])
+	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")["0_0"])
 	local GateCD = {};
 	if (type(sqldata)=="string" and sqldata~='') then
 		GateCD = JSON.decode(sqldata);
@@ -683,22 +683,22 @@ function boss_round_callback(battleindex, player)
 		GateCD = {};
 	end
 	for k,v in pairs(CrossGate) do
-		local bossImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-		local gateName = Char.GetData(npc,CONST.¶ÔÏó_Ãû×Ö);
+		local bossImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+		local gateName = Char.GetData(npc,CONST.å¯¹è±¡_åå­—);
 		if ( k==v.lordNum and gateName==v.lordName ) then
 			GateInfo[k] = os.time();
 			GateSetting[k] = 2;
-			--Char.SetData(npc,CONST.¶ÔÏó_X, v.waitingArea.X);
-			--Char.SetData(npc,CONST.¶ÔÏó_Y, v.waitingArea.Y);
-			--Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.waitingArea.map);
+			--Char.SetData(npc,CONST.å¯¹è±¡_X, v.waitingArea.X);
+			--Char.SetData(npc,CONST.å¯¹è±¡_Y, v.waitingArea.Y);
+			--Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.waitingArea.map);
 			Char.Warp(npc,0, v.waitingArea.map, v.waitingArea.X, v.waitingArea.Y);
-			Char.SetData(npc,CONST.¶ÔÏó_Ãû×Ö, v.fallName);
-			Char.SetData(npc,CONST.¶ÔÏó_ĞÎÏó, v.lordImage);
+			Char.SetData(npc,CONST.å¯¹è±¡_åå­—, v.fallName);
+			Char.SetData(npc,CONST.å¯¹è±¡_å½¢è±¡, v.lordImage);
 			NLG.UpChar(npc);
 
 			GateCD[k] = bossImage;
 			local newdata = JSON.encode(GateCD);
-			SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='´«ËÍÃÅÀäÈ´_set'")
+			SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='ä¼ é€é—¨å†·å´_set'")
 			NLG.UpChar(gmIndex);
 
 			Char.Warp(player,0, v.waitingArea.map, v.waitingArea.X-3, v.waitingArea.Y+3);
@@ -706,7 +706,7 @@ function boss_round_callback(battleindex, player)
 	end
 	Battle.UnsetWinEvent(battleindex);
 	crossGateBattle ={};
-	Char.SetTempData(player, '´«ËÍÃÅ',0);
+	Char.SetTempData(player, 'ä¼ é€é—¨',0);
 end
 
 ----------------------------------------------------------------
@@ -714,8 +714,8 @@ function Module:shadowExtraction(charIndex,targetIndex,itemSlot)
     ComItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     ComSlot =itemSlot;
     ComIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local msg = "\\n@c¡¾éœÓ°³éÈ¡¡¿" ..	"\\n\\n\\n´_¶¨Òª‡LÔ‡³éÈ¡éœÓ°Ê¿±øK´æÈ¡£¿";
-    NLG.ShowWindowTalked(charIndex, self.shadowExtractionNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+    local msg = "\\n@cã€é—‡å½±æŠ½å–ã€‘" ..	"\\n\\n\\nç¢ºå®šè¦å˜—è©¦æŠ½å–é—‡å½±å£«å…µä¸¦å­˜å–ï¼Ÿ";
+    NLG.ShowWindowTalked(charIndex, self.shadowExtractionNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     return 1;
 end
 
@@ -723,18 +723,45 @@ function Module:shadowSummon(charIndex,targetIndex,itemSlot)
     BallItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     BallSlot =itemSlot;
     BallIndex = Char.GetItemIndex(charIndex,itemSlot);
-    local msg = "\\n@c¡¾éœÓ°ÕÙ†¾¡¿" ..	"\\n\\n\\n´_¶¨Òª·Å³ö´æÈ¡µÄéœÓ°Ê¿±ø£¿";
-    NLG.ShowWindowTalked(charIndex, self.shadowSummonNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+    local msg = "\\n@cã€é—‡å½±å¬å–šã€‘" ..	"\\n\\n\\nç¢ºå®šè¦æ”¾å‡ºå­˜å–çš„é—‡å½±å£«å…µï¼Ÿ";
+    NLG.ShowWindowTalked(charIndex, self.shadowSummonNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     return 1;
 end
 
 Char.GetItemEmptySlot = function(charIndex)
-  for Slot=7,27 do
+  local Page = Char.GetBagPage(charIndex);
+  if (Page==0) then
+    for Slot=7,27 do
       local ItemIndex = Char.GetItemIndex(charIndex, Slot);
       --print(ItemIndex);
       if (ItemIndex < 0) then
           return Slot;
       end
+    end
+  elseif (Page==1) then
+    for Slot=28,47 do
+      local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+      --print(ItemIndex);
+      if (ItemIndex < 0) then
+          return Slot;
+      end
+    end
+  elseif (Page==2) then
+    for Slot=48,67 do
+      local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+      --print(ItemIndex);
+      if (ItemIndex < 0) then
+          return Slot;
+      end
+    end
+  elseif (Page==3) then
+    for Slot=68,87 do
+      local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+      --print(ItemIndex);
+      if (ItemIndex < 0) then
+          return Slot;
+      end
+    end
   end
   return -1;
 end
@@ -759,7 +786,7 @@ function heads(CoinNo)
 	return h,r,s
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
