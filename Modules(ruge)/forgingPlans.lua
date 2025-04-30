@@ -295,7 +295,7 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
       else
       end
     end
-	end
+    end
       
     local info = info .."\n".. msg;
     return info
