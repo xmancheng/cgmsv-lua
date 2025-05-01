@@ -8,6 +8,15 @@ local boom_list = {}
 local boom_cnt_num = {}
 local boom_cnt_num_aoe = {}
 local boom_tag = {}
+local techDisable_check = {
+    0,1,2,3,4,5,6,7,8,9,
+    400,401,402,403,404,405,406,407,408,409,
+    --9500,9501,9502,9503,9504,
+    9505,9506,9507,9508,9509,
+    200500,200501,200502,200503,200504,200505,200506,200507,200508,200509,
+    --11101,11103,11106,11109,200599,399,499,
+}
+
 
 local BondImage_List = {};
 BondImage_List[1] = {{130148,130149,130150},50,10,CONST.战属_敏增,-30};		--形象组合、几率、敌我(10,0)、战属、增减数值%
@@ -63,15 +72,20 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 		local skillId = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_SKILLID);
 		--if (CheckInTable(boom_skill_list, skillId)==true) then
 		if (skillId >= 0) then
-			local skill300_rate = calcWhirlwindRate(charIndex,skillId)*10;		--回旋击词条为10%
-			local com_name = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_NAME);
-			local copy_num = 3;
-			if (skill300_rate >= NLG.Rand(1,100)) then
-				local msg_name =  Char.GetData(charIndex,CONST.对象_名字);
-				--NLG.SystemMessage(charIndex, msg_name.."："..skill300_rate.."%發動"..copy_num.."倍 "..com_name);
-				boom_list[charIndex] = 1
-				local return_tgl = copy_list(tgl,copy_num)	
-				return 	return_tgl	
+			if (CheckInTable(techDisable_check, com3)==false) then
+				local skill300_rate = calcWhirlwindRate(charIndex,skillId)*10;		--回旋击词条为10%
+				local com_name = Tech.GetData(Tech.GetTechIndex(com3), CONST.TECH_NAME);
+				local copy_num = 3;
+				if (skill300_rate >= NLG.Rand(1,100)) then
+					local msg_name =  Char.GetData(charIndex,CONST.对象_名字);
+					--NLG.SystemMessage(charIndex, msg_name.."："..skill300_rate.."%發動"..copy_num.."倍 "..com_name);
+					boom_list[charIndex] = 1
+					local return_tgl = copy_list(tgl,copy_num)	
+					return 	return_tgl	
+				end
+				return tgl
+			else
+				return tgl
 			end
 		else
 			return tgl
@@ -95,12 +109,12 @@ function Module:battleActionTargetCallback(charIndex, battleIndex, com1, com2, c
 		local daze_debuff = Char.GetTempData(charIndex, '迷惑') or 0;
 		local para_debuff = Char.GetTempData(charIndex, '麻痹') or 0;
 		if (daze_debuff>0) then
-			NLG.SystemMessage(-1, "[系統]"..PosName.."的"..EnemyName.."陷入迷惑");
+			NLG.SystemMessage(leader, "[系統]"..PosName.."的"..EnemyName.."陷入迷惑");
 			Char.SetTempData(charIndex, '迷惑', daze_debuff-1);
 			local tgl = calcPlayerHighHP_list(tgl,battleIndex);
 			return tgl
 		elseif (para_debuff>0 and daze_debuff<=0) then
-			NLG.SystemMessage(-1, "[系統]"..PosName.."的"..EnemyName.."陷入麻痺");
+			NLG.SystemMessage(leader, "[系統]"..PosName.."的"..EnemyName.."陷入麻痺");
 			Char.SetTempData(charIndex, '麻痹', para_debuff-1);
 			tgl[1]=30;
 			local tgl = tgl;
