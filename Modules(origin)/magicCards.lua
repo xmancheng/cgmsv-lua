@@ -294,7 +294,7 @@ function Module:onBattleOver(battleIndex)
 							Char.SetData(petIndex, CONST.对象_可视,petEvolution_list[PetId][1]);
 							Char.SetData(petIndex, CONST.对象_原形,petEvolution_list[PetId][1]);
 							Char.SetData(petIndex, CONST.对象_原始图档,petEvolution_list[PetId][1]);
-							for slot=0,9 do
+							for slot=0,8 do
 								if (Pet.GetSkill(petIndex,slot)==petEvolution_list[PetId][2]) then
 									Pet.DelSkill(petIndex,slot);
 									Pet.AddSkill(petIndex,petEvolution_list[PetId][3],slot);
