@@ -1,7 +1,7 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(evolutionPlans)
 
---·ÖÀà×ÔĞĞÌí¼Ó
+--åˆ†ç±»è‡ªè¡Œæ·»åŠ 
 local evolution_plan_name = {};
 local evolution_plan_offering = {};
 local evolution_plan_item = {};
@@ -10,196 +10,196 @@ local evolution_plan_pet = {};
 local evolution_plan_requirement = {};
 local evolution_plan_tech = {};
 --
-evolution_plan_name[1] = "¡¶ßM»¯¡·»ğ¿Öıˆ";
+evolution_plan_name[1] = "ã€Šé€²åŒ–ã€‹ç«æé¾";
 evolution_plan_offering[1] = 406198;
 evolution_plan_item[1] = 74095;
 evolution_plan_gold[1] = 5000;
 evolution_plan_pet[1] = 406199;
-evolution_plan_requirement[1] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[1] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[1] = 310007;
 
-evolution_plan_name[2] = "¡¶ßM»¯¡·‡Š»ğıˆ";
+evolution_plan_name[2] = "ã€Šé€²åŒ–ã€‹å™´ç«é¾";
 evolution_plan_offering[2] = 406199;
 evolution_plan_item[2] = 74096;
 evolution_plan_gold[2] = 15000;
 evolution_plan_pet[2] = 406200;
-evolution_plan_requirement[2] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[2] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[2] = 310008;
 
-evolution_plan_name[3] = "¡¶ßM»¯¡·³¬¼‰‡Š»ğıˆX";
+evolution_plan_name[3] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå™´ç«é¾X";
 evolution_plan_offering[3] = 406200;
 evolution_plan_item[3] = 74097;
 evolution_plan_gold[3] = 50000;
 evolution_plan_pet[3] = 406201;
-evolution_plan_requirement[3] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,20}, {CONST.¶ÔÏó_ÉËº¦Êı,500}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[3] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,20}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,500}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[3] = 310005;
 
-evolution_plan_name[4] = "¡¶ßM»¯¡·³¬¼‰‡Š»ğıˆY";
+evolution_plan_name[4] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå™´ç«é¾Y";
 evolution_plan_offering[4] = 406200;
 evolution_plan_item[4] = 74097;
 evolution_plan_gold[4] = 50000;
 evolution_plan_pet[4] = 406202;
-evolution_plan_requirement[4] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[4] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[4] = 310008;
 
-evolution_plan_name[5] = "¡¶ßM»¯¡·ÃîÍÜ²İ";
+evolution_plan_name[5] = "ã€Šé€²åŒ–ã€‹å¦™è›™è‰";
 evolution_plan_offering[5] = 406203;
 evolution_plan_item[5] = 74095;
 evolution_plan_gold[5] = 5000;
 evolution_plan_pet[5] = 406204;
-evolution_plan_requirement[5] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[5] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[5] = 310107;
 
-evolution_plan_name[6] = "¡¶ßM»¯¡·ÃîÍÜ»¨";
+evolution_plan_name[6] = "ã€Šé€²åŒ–ã€‹å¦™è›™èŠ±";
 evolution_plan_offering[6] = 406204;
 evolution_plan_item[6] = 74096;
 evolution_plan_gold[6] = 15000;
 evolution_plan_pet[6] = 406205;
-evolution_plan_requirement[6] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[6] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[6] = 310108;
 
-evolution_plan_name[7] = "¡¶ßM»¯¡·³¬¼‰ÃîÍÜ»¨";
+evolution_plan_name[7] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå¦™è›™èŠ±";
 evolution_plan_offering[7] = 406205;
 evolution_plan_item[7] = 74097;
 evolution_plan_gold[7] = 50000;
 evolution_plan_pet[7] = 406206;
-evolution_plan_requirement[7] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[7] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[7] = 310105;
 
-evolution_plan_name[8] = "¡¶ßM»¯¡·¿¨ßäı”";
+evolution_plan_name[8] = "ã€Šé€²åŒ–ã€‹å¡å’ªé¾œ";
 evolution_plan_offering[8] = 406207;
 evolution_plan_item[8] = 74095;
 evolution_plan_gold[8] = 5000;
 evolution_plan_pet[8] = 406208;
-evolution_plan_requirement[8] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[8] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[8] = 310101;
 
-evolution_plan_name[9] = "¡¶ßM»¯¡·Ë®¼ıı”";
+evolution_plan_name[9] = "ã€Šé€²åŒ–ã€‹æ°´ç®­é¾œ";
 evolution_plan_offering[9] = 406208;
 evolution_plan_item[9] = 74096;
 evolution_plan_gold[9] = 15000;
 evolution_plan_pet[9] = 406209;
-evolution_plan_requirement[9] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[9] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[9] = 310102;
 
-evolution_plan_name[10] = "¡¶ßM»¯¡·³¬¼‰Ë®¼ıı”";
+evolution_plan_name[10] = "ã€Šé€²åŒ–ã€‹è¶…ç´šæ°´ç®­é¾œ";
 evolution_plan_offering[10] = 406209;
 evolution_plan_item[10] = 74097;
 evolution_plan_gold[10] = 50000;
 evolution_plan_pet[10] = 406210;
-evolution_plan_requirement[10] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[10] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[10] = 310105;
 
-evolution_plan_name[11] = "¡¶ÍË»¯¡·Æ¤Çğ";
+evolution_plan_name[11] = "ã€Šé€€åŒ–ã€‹çš®ä¸˜";
 evolution_plan_offering[11] = 406212;
 evolution_plan_item[11] = 74094;
 evolution_plan_gold[11] = 5000;
 evolution_plan_pet[11] = 406211;
-evolution_plan_requirement[11] = {{CONST.¶ÔÏó_µÈ¼¶,30}, {CONST.¶ÔÏó_ËÀÍöÊı,50}, {CONST.¶ÔÏó_ÉËº¦Êı,10}, {CONST.¶ÔÏó_É±³èÊı,10}};
+evolution_plan_requirement[11] = {{CONST.å¯¹è±¡_ç­‰çº§,30}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,50}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,10}, {CONST.å¯¹è±¡_æ€å® æ•°,10}};
 evolution_plan_tech[11] = 310109;
 
-evolution_plan_name[12] = "¡¶ßM»¯¡·À×Çğ";
+evolution_plan_name[12] = "ã€Šé€²åŒ–ã€‹é›·ä¸˜";
 evolution_plan_offering[12] = 406212;
 evolution_plan_item[12] = 74096;
 evolution_plan_gold[12] = 15000;
 evolution_plan_pet[12] = 406213;
-evolution_plan_requirement[12] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[12] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[12] = 310010;
 
-evolution_plan_name[13] = "¡¶ßM»¯¡·ßM“ôÀ×Çğ";
+evolution_plan_name[13] = "ã€Šé€²åŒ–ã€‹é€²æ“Šé›·ä¸˜";
 evolution_plan_offering[13] = 406213;
 evolution_plan_item[13] = 74097;
 evolution_plan_gold[13] = 50000;
 evolution_plan_pet[13] = 406214;
-evolution_plan_requirement[13] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[13] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[13] = 310011;
 
-evolution_plan_name[14] = "¡¶ßM»¯¡·±È±ÈøB";
+evolution_plan_name[14] = "ã€Šé€²åŒ–ã€‹æ¯”æ¯”é³¥";
 evolution_plan_offering[14] = 406226;
 evolution_plan_item[14] = 74094;
 evolution_plan_gold[14] = 5000;
 evolution_plan_pet[14] = 406227;
-evolution_plan_requirement[14] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[14] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[14] = 310107;
 
-evolution_plan_name[15] = "¡¶ßM»¯¡·³¬¼‰´ó±ÈøB";
+evolution_plan_name[15] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå¤§æ¯”é³¥";
 evolution_plan_offering[15] = 406227;
 evolution_plan_item[15] = 74097;
 evolution_plan_gold[15] = 50000;
 evolution_plan_pet[15] = 406228;
-evolution_plan_requirement[15] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[15] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[15] = 310108;
 
-evolution_plan_name[16] = "¡¶ÍË»¯¡·ŒšŒš¶¡";
+evolution_plan_name[16] = "ã€Šé€€åŒ–ã€‹å¯¶å¯¶ä¸";
 evolution_plan_offering[16] = 406230;
 evolution_plan_item[16] = 74094;
 evolution_plan_gold[16] = 5000;
 evolution_plan_pet[16] = 406229;
-evolution_plan_requirement[16] = {{CONST.¶ÔÏó_µÈ¼¶,30}, {CONST.¶ÔÏó_ËÀÍöÊı,50}, {CONST.¶ÔÏó_ÉËº¦Êı,10}, {CONST.¶ÔÏó_É±³èÊı,10}};
+evolution_plan_requirement[16] = {{CONST.å¯¹è±¡_ç­‰çº§,30}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,50}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,10}, {CONST.å¯¹è±¡_æ€å® æ•°,10}};
 evolution_plan_tech[16] = 310100;
 
-evolution_plan_name[17] = "¡¶ßM»¯¡·ÅÖ¿É¶¡";
+evolution_plan_name[17] = "ã€Šé€²åŒ–ã€‹èƒ–å¯ä¸";
 evolution_plan_offering[17] = 406230;
 evolution_plan_item[17] = 74096;
 evolution_plan_gold[17] = 15000;
 evolution_plan_pet[17] = 406231;
-evolution_plan_requirement[17] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[17] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[17] = 310004;
 
-evolution_plan_name[18] = "¡¶ßM»¯¡·´ó×ìòğ";
+evolution_plan_name[18] = "ã€Šé€²åŒ–ã€‹å¤§å˜´è ";
 evolution_plan_offering[18] = 406274;
 evolution_plan_item[18] = 74095;
 evolution_plan_gold[18] = 5000;
 evolution_plan_pet[18] = 406275;
-evolution_plan_requirement[18] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[18] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[18] = 310110;
 
-evolution_plan_name[19] = "¡¶ßM»¯¡·²æ×Öòğ";
+evolution_plan_name[19] = "ã€Šé€²åŒ–ã€‹å‰å­—è ";
 evolution_plan_offering[19] = 406274;
 evolution_plan_item[19] = 74096;
 evolution_plan_gold[19] = 15000;
 evolution_plan_pet[19] = 406276;
-evolution_plan_requirement[19] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[19] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[19] = 310111;
 
-evolution_plan_name[20] = "¡¶ßM»¯¡·è½ÇÏ¬«F";
+evolution_plan_name[20] = "ã€Šé€²åŒ–ã€‹é‘½è§’çŠ€ç¸";
 evolution_plan_offering[20] = 406278;
 evolution_plan_item[20] = 74095;
 evolution_plan_gold[20] = 5000;
 evolution_plan_pet[20] = 406279;
-evolution_plan_requirement[20] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[20] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[20] = 310104;
 
-evolution_plan_name[21] = "¡¶ßM»¯¡·³¬¼×¿ñÏ¬";
+evolution_plan_name[21] = "ã€Šé€²åŒ–ã€‹è¶…ç”²ç‹‚çŠ€";
 evolution_plan_offering[21] = 406279;
 evolution_plan_item[21] = 74096;
 evolution_plan_gold[21] = 15000;
 evolution_plan_pet[21] = 406280;
-evolution_plan_requirement[21] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[21] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[21] = 310105;
 
-evolution_plan_name[22] = "¡¶ßM»¯¡·´©É½Íõ";
+evolution_plan_name[22] = "ã€Šé€²åŒ–ã€‹ç©¿å±±ç‹";
 evolution_plan_offering[22] = 406290;
 evolution_plan_item[22] = 74095;
 evolution_plan_gold[22] = 10000;
 evolution_plan_pet[22] = 406291;
-evolution_plan_requirement[22] = {{CONST.¶ÔÏó_µÈ¼¶,60}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[22] = {{CONST.å¯¹è±¡_ç­‰çº§,60}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[22] = 310104;
 
-evolution_plan_name[23] = "¡¶ßM»¯¡·ºÀÁ¦";
+evolution_plan_name[23] = "ã€Šé€²åŒ–ã€‹è±ªåŠ›";
 evolution_plan_offering[23] = 406332;
 evolution_plan_item[23] = 74095;
 evolution_plan_gold[23] = 5000;
 evolution_plan_pet[23] = 406333;
-evolution_plan_requirement[23] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[23] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[23] = 310001;
 
-evolution_plan_name[24] = "¡¶ßM»¯¡·¹ÖÁ¦";
+evolution_plan_name[24] = "ã€Šé€²åŒ–ã€‹æ€ªåŠ›";
 evolution_plan_offering[24] = 406333;
 evolution_plan_item[24] = 74096;
 evolution_plan_gold[24] = 15000;
 evolution_plan_pet[24] = 406334;
-evolution_plan_requirement[24] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[24] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[24] = 310002;
 
 -------------------------------------------------
@@ -209,58 +209,58 @@ local function calcWarp()
   return page, remainder
 end
 
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:evolutionPlansInfo(npc, player)
-          local winButton = CONST.BUTTON_¹Ø±Õ;
-          local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+          local winButton = CONST.BUTTON_å…³é—­;
+          local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
           for i = 1,8 do
-             msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+             msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
              if (i>=8) then
-                 winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                 winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
              end
           end
-          NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+          NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  self.evolutionerNPC = self:NPC_createNormal('Œ™ÎïßM»¯ˆÌĞĞ', 14682, { x = 38, y = 32, mapType = 0, map = 777, direction = 6 });
+  self.evolutionerNPC = self:NPC_createNormal('å¯µç‰©é€²åŒ–åŸ·è¡Œ', 14682, { x = 38, y = 32, mapType = 0, map = 777, direction = 6 });
   self:NPC_regWindowTalkedEvent(self.evolutionerNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
+    local winButton = CONST.BUTTON_å…³é—­;
     local totalPage, remainder = calcWarp()
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.°´Å¥_È·¶¨ then
+      if _select == CONST.æŒ‰é’®_ç¡®å®š then
           if (page>=1001) then
               local seqno = page - 1000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
               local msg = msg .. evolutionOfferingInfo(seqno)
-              NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000+seqno, msg);
+              NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000+seqno, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_¹Ø±Õ then
+      elseif _select == CONST.æŒ‰é’®_å…³é—­ then
           if (page>=1001) then
-              local winButton = CONST.BUTTON_¹Ø±Õ;
-              local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+              local winButton = CONST.BUTTON_å…³é—­;
+              local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
               for i = 1,8 do
-                 msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+                 msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
                  if (i>=8) then
-                     winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                     winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
                  end
               end
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_ÊÇ then
+      elseif _select == CONST.æŒ‰é’®_æ˜¯ then
           if (page>=2001) then
               local seqno = page - 2000;
               local petSlot = Char.HavePet(player, evolution_plan_offering[seqno])
@@ -269,30 +269,30 @@ function Module:onLoad()
           else
               return
           end
-      elseif _select == CONST.°´Å¥_·ñ then
+      elseif _select == CONST.æŒ‰é’®_å¦ then
           if (page>=2001) then
               local count = page - 2000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
               local msg = msg .. convertGoalInfo(count);
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
               return
           else
               return
           end
       end
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -301,105 +301,105 @@ function Module:onLoad()
       local count = 8 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
         end
       else
         for i = 1 + count, 8 + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local count = 8 * (warpPage - 1) + column
       --print(count)
-      local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+      local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
       local msg = msg .. convertGoalInfo(count);
-      NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+      NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
     end
   end)
   self:NPC_regTalkedEvent(self.evolutionerNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
       for i = 1,8 do
-         msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+         msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
          if (i>=8) then
-             winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+             winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
          end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
     end
     return
   end)
 end
 
 ---------------------------------------------------------------------------------------------------------------
---Ä¿±êĞÅÏ¢
+--ç›®æ ‡ä¿¡æ¯
 function convertGoalInfo(count)
       local EnemyDataIndex_Goal = Data.EnemyGetDataIndex(evolution_plan_pet[count]);
-      local enemyBaseId_Goal = Data.EnemyGetData(EnemyDataIndex_Goal, CONST.Enemy_Base±àºÅ);
+      local enemyBaseId_Goal = Data.EnemyGetData(EnemyDataIndex_Goal, CONST.Enemy_Baseç¼–å·);
       local EnemyBaseDataIndex_Goal = Data.EnemyBaseGetDataIndex(enemyBaseId_Goal);
-      local Goal_name = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ãû×Ö);
-      local Goal_DataPos_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÖÖ×å);
+      local Goal_name = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åå­—);
+      local Goal_DataPos_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ç§æ—);
       local Goal_DataPos_3 = Tribe(Goal_DataPos_3);
-      local Goal_DataPos_4 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÌåÁ¦);
-      local Goal_DataPos_5 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Á¦Á¿);
-      local Goal_DataPos_6 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ç¿¶È);
-      local Goal_DataPos_7 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ËÙ¶È);
+      local Goal_DataPos_4 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ä½“åŠ›);
+      local Goal_DataPos_5 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åŠ›é‡);
+      local Goal_DataPos_6 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å¼ºåº¦);
+      local Goal_DataPos_7 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é€Ÿåº¦);
       local Goal_DataPos_8 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, 8);
-      local Goal_DataPos_12 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÃüÖĞ);
-      local Goal_DataPos_13 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_±ØÉ±);
-      local Goal_DataPos_14 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_µØÊôĞÔ);
-      local Goal_DataPos_15 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ë®ÊôĞÔ);
-      local Goal_DataPos_16 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_»ğÊôĞÔ);
-      local Goal_DataPos_17 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_·çÊôĞÔ);
-      local Goal_DataPos_18 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹¶¾);
-      local Goal_DataPos_19 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹×í);
-      local Goal_DataPos_20 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹Ë¯);
-      local Goal_DataPos_21 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹»ìÂÒ);
-      local Goal_DataPos_22 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹Ê¯»¯);
-      local Goal_DataPos_23 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹ÒÅÍü);
-      local Goal_DataPos_26 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÉÁ¶ã);
-      local Goal_DataPos_27 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_·´»÷);
-      local Goal_DataPos_28 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¼¼ÄÜÀ¸);
-      local Goal_DataPos_29 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ĞÎÏó);
+      local Goal_DataPos_12 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‘½ä¸­);
+      local Goal_DataPos_13 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å¿…æ€);
+      local Goal_DataPos_14 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åœ°å±æ€§);
+      local Goal_DataPos_15 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æ°´å±æ€§);
+      local Goal_DataPos_16 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ç«å±æ€§);
+      local Goal_DataPos_17 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é£å±æ€§);
+      local Goal_DataPos_18 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—æ¯’);
+      local Goal_DataPos_19 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—é†‰);
+      local Goal_DataPos_20 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—ç¡);
+      local Goal_DataPos_21 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—æ··ä¹±);
+      local Goal_DataPos_22 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—çŸ³åŒ–);
+      local Goal_DataPos_23 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—é—å¿˜);
+      local Goal_DataPos_26 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é—ªèº²);
+      local Goal_DataPos_27 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åå‡»);
+      local Goal_DataPos_28 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ€èƒ½æ );
+      local Goal_DataPos_29 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å½¢è±¡);
       local imageText = "@g,"..Goal_DataPos_29..",2,8,6,0@"
-      local Goal_DataPos_35 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ1);
-      local Goal_DataPos_36 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ2);
-      local Goal_DataPos_37 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ3);
-      local Goal_DataPos_38 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ4);
-      local Goal_DataPos_39 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ5);
-      local Goal_DataPos_40 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ6);
-      local Goal_DataPos_41 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ7);
-      local Goal_DataPos_42 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ8);
-      local Goal_DataPos_43 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ9);
-      local Goal_DataPos_44 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ10);
+      local Goal_DataPos_35 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½1);
+      local Goal_DataPos_36 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½2);
+      local Goal_DataPos_37 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½3);
+      local Goal_DataPos_38 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½4);
+      local Goal_DataPos_39 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½5);
+      local Goal_DataPos_40 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½6);
+      local Goal_DataPos_41 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½7);
+      local Goal_DataPos_42 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½8);
+      local Goal_DataPos_43 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½9);
+      local Goal_DataPos_44 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½10);
       local TechIndex = Tech.GetTechIndex(evolution_plan_tech[count]);
       local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
-      local msg = imageText .. "¡¡¡¡$4".. Goal_name .. "\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1ówÁ¦ ".. Goal_DataPos_4+2 .."¡¡" .. "$8±Øš¢ ".. Goal_DataPos_13 .."¡¡" .. "$8·´“ô ".. Goal_DataPos_27 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Á¦Á¿ ".. Goal_DataPos_5+2 .."¡¡" .. "$8ÃüÖĞ ".. Goal_DataPos_12 .."¡¡" .. "$8éW¶ã ".. Goal_DataPos_26 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Š¶È ".. Goal_DataPos_6+2 .."¡¡" .. "$2¿¹¶¾ ".. Goal_DataPos_18 .."¡¡" .. "$2¿¹×í ".. Goal_DataPos_19 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1ËÙ¶È ".. Goal_DataPos_7+2 .."¡¡" .. "$2¿¹Ë¯ ".. Goal_DataPos_20 .."¡¡" .. "$2¿¹»ì ".. Goal_DataPos_21 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Ä§·¨ ".. Goal_DataPos_8+2 .."¡¡" .. "$2¿¹Ê¯ ".. Goal_DataPos_22 .."¡¡" .. "$2¿¹Íü ".. Goal_DataPos_23 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$5µØ ".. Goal_DataPos_14/10 .."¡¡" .."$5Ë® ".. Goal_DataPos_15/10 .."¡¡" .."$5»ğ ".. Goal_DataPos_16/10 .."¡¡" .."$5ïL ".. Goal_DataPos_17/10 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$9·N×å ".. Goal_DataPos_3 .."¡¡" .. "$9¼¼ÄÜ ".. TechName .."\\n"
+      local msg = imageText .. "ã€€ã€€$4".. Goal_name .. "\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é«”åŠ› ".. Goal_DataPos_4+2 .."ã€€" .. "$8å¿…æ®º ".. Goal_DataPos_13 .."ã€€" .. "$8åæ“Š ".. Goal_DataPos_27 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1åŠ›é‡ ".. Goal_DataPos_5+2 .."ã€€" .. "$8å‘½ä¸­ ".. Goal_DataPos_12 .."ã€€" .. "$8é–ƒèº² ".. Goal_DataPos_26 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1å¼·åº¦ ".. Goal_DataPos_6+2 .."ã€€" .. "$2æŠ—æ¯’ ".. Goal_DataPos_18 .."ã€€" .. "$2æŠ—é†‰ ".. Goal_DataPos_19 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é€Ÿåº¦ ".. Goal_DataPos_7+2 .."ã€€" .. "$2æŠ—ç¡ ".. Goal_DataPos_20 .."ã€€" .. "$2æŠ—æ·· ".. Goal_DataPos_21 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é­”æ³• ".. Goal_DataPos_8+2 .."ã€€" .. "$2æŠ—çŸ³ ".. Goal_DataPos_22 .."ã€€" .. "$2æŠ—å¿˜ ".. Goal_DataPos_23 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$5åœ° ".. Goal_DataPos_14/10 .."ã€€" .."$5æ°´ ".. Goal_DataPos_15/10 .."ã€€" .."$5ç« ".. Goal_DataPos_16/10 .."ã€€" .."$5é¢¨ ".. Goal_DataPos_17/10 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$9ç¨®æ— ".. Goal_DataPos_3 .."ã€€" .. "$9æŠ€èƒ½ ".. TechName .."\\n"
       return msg;
 end
 
---¼ÀÆ·ĞÅÏ¢
+--ç¥­å“ä¿¡æ¯
 function evolutionOfferingInfo(seqno)
               local msg = "";
               local EnemyDataIndex_1 = Data.EnemyGetDataIndex(evolution_plan_offering[seqno]);
-              local enemyBaseId_1 = Data.EnemyGetData(EnemyDataIndex_1, CONST.Enemy_Base±àºÅ);
+              local enemyBaseId_1 = Data.EnemyGetData(EnemyDataIndex_1, CONST.Enemy_Baseç¼–å·);
               local EnemyBaseDataIndex_1 = Data.EnemyBaseGetDataIndex(enemyBaseId_1);
-              --local offering_name_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_Ãû×Ö);
-              local offering_image_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_ĞÎÏó);
+              --local offering_name_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_åå­—);
+              local offering_image_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_å½¢è±¡);
               local EnemyDataIndex_3 = Data.EnemyGetDataIndex(evolution_plan_pet[seqno]);
-              local enemyBaseId_3 = Data.EnemyGetData(EnemyDataIndex_3, CONST.Enemy_Base±àºÅ);
+              local enemyBaseId_3 = Data.EnemyGetData(EnemyDataIndex_3, CONST.Enemy_Baseç¼–å·);
               local EnemyBaseDataIndex_3 = Data.EnemyBaseGetDataIndex(enemyBaseId_3);
-              --local offering_name_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_Ãû×Ö);
-              local offering_image_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_ĞÎÏó);
+              --local offering_name_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_åå­—);
+              local offering_image_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_å½¢è±¡);
               --local offering_image_ix = 3 + 7*(i-1);
               local imageText_1 = "@g,"..offering_image_1..",5,6,4,0@"
               local imageText_2 = "@g,246691,10,4,4,0@"
@@ -415,20 +415,20 @@ function evolutionOfferingInfo(seqno)
               local hit_num = evolution_plan_requirement[seqno][3][2];
               local kill_num = evolution_plan_requirement[seqno][4][2];
 
-              local msg = msg .. "\\n\\n\\n\\n\\n\\n¡¡$5µÀ¾ß: ".. Item_name .. "1‚€" .. "¡¡¡¡$5Ä§Å: " .. Gold .. " G\\n"
-                                              .. "¡¡$4¡ò—l¼ş:\\n"
-                                              .. "¡¡$4µÈ¼‰".. level .. "¡ü ËÀÍö" .. dead_num .. "¡ü ‚ûº¦" .. hit_num .. "¡ü š¢”³" .. kill_num .. "¡ü"
+              local msg = msg .. "\\n\\n\\n\\n\\n\\nã€€$5é“å…·: ".. Item_name .. "1å€‹" .. "ã€€ã€€$5é­”å¹£: " .. Gold .. " G\\n"
+                                              .. "ã€€$4â—æ¢ä»¶:\\n"
+                                              .. "ã€€$4ç­‰ç´š".. level .. "â†‘ æ­»äº¡" .. dead_num .. "â†‘ å‚·å®³" .. hit_num .. "â†‘ æ®ºæ•µ" .. kill_num .. "â†‘"
       return msg;
 end
 
---½ø»¯Ö´ĞĞ
+--è¿›åŒ–æ‰§è¡Œ
 function evolutionMutation(seqno,player,petSlot)
               if (Char.ItemNum(player, evolution_plan_item[seqno])==0) then
-                  NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙßM»¯µÄÊ¯î^¡£");
+                  NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é€²åŒ–çš„çŸ³é ­ã€‚");
                   return
               end
-              if (Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò)<evolution_plan_gold[seqno]) then
-                  NLG.SystemMessage(player,"[Ïµ½y]ßM»¯ËùĞè½ğÅ²»×ã¡£");
+              if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<evolution_plan_gold[seqno]) then
+                  NLG.SystemMessage(player,"[ç³»çµ±]é€²åŒ–æ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
                   return
               end
               local petIndex = Char.GetPet(player,petSlot);
@@ -440,35 +440,35 @@ function evolutionMutation(seqno,player,petSlot)
                 local hit_num = Char.GetData(petIndex, evolution_plan_requirement[seqno][3][1]);
                 local kill_num = Char.GetData(petIndex, evolution_plan_requirement[seqno][4][1]);
                 if (PetID~=evolution_plan_offering[seqno]) then
-                      NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙßM»¯ËùĞèŒ™Îï¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é€²åŒ–æ‰€éœ€å¯µç‰©ã€‚");
                       return
                 end
                 if ( level_num < evolution_plan_requirement[seqno][1][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]µÈ¼‰Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç­‰ç´šæœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
                 if ( dead_num < evolution_plan_requirement[seqno][2][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]Œ™ÎïËÀÍö”µ"..dead_num.."Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ­»äº¡æ•¸"..dead_num.."æœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
                 if ( hit_num < evolution_plan_requirement[seqno][3][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]Œ™Îï‚ûº¦”µ"..hit_num.."Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©å‚·å®³æ•¸"..hit_num.."æœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
                 if ( kill_num < evolution_plan_requirement[seqno][4][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]Œ™Îïš¢”³”µ"..kill_num.."Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ®ºæ•µæ•¸"..kill_num.."æœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
               else
-                      NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙßM»¯ËùĞèŒ™Îï¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é€²åŒ–æ‰€éœ€å¯µç‰©ã€‚");
                       return
               end
               Char.DelItem(player, evolution_plan_item[seqno], 1);
               Char.AddGold(player, -evolution_plan_gold[seqno]);
 
-              --µµ´Î¼ÍÂ¼
+              --æ¡£æ¬¡çºªå½•
               local a6, a1, a2, a3, a4, a5 = Char.GetPetRank(player,petSlot);
-              -- ³èÎï¼¼ÄÜ¼ÍÂ¼
+              -- å® ç‰©æŠ€èƒ½çºªå½•
               local skillTable={}
               for i=0,9 do
                 local tech_id = Pet.GetSkill(petIndex, i)
@@ -482,33 +482,33 @@ function evolutionMutation(seqno,player,petSlot)
               Char.DelSlotPet(player, petSlot);
               Char.GivePet(player,evolution_plan_pet[seqno],0);
 
-              --½ø»¯ºóµ÷ÕûÓëÔ­³èÏàÍ¬
+              --è¿›åŒ–åè°ƒæ•´ä¸åŸå® ç›¸åŒ
               local evolution_petIndex = Char.GetPet(player,petSlot);
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ìå³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ìå³É) - a1 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Á¦³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Á¦³É) - a2 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ç¿³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ç¿³É) - a3 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ãô³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ãô³É) - a4 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ä§³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ä§³É) - a5 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_ä½“æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_ä½“æˆ) - a1 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_åŠ›æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_åŠ›æˆ) - a2 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_å¼ºæˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_å¼ºæˆ) - a3 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_æ•æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_æ•æˆ) - a4 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_é­”æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_é­”æˆ) - a5 );
               Pet.ReBirth(player, evolution_petIndex);
               Pet.UpPet(player, evolution_petIndex);
 
-              local arr_rank1_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ìå³É);
-              local arr_rank2_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Á¦³É);
-              local arr_rank3_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ç¿³É);
-              local arr_rank4_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ãô³É);
-              local arr_rank5_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ä§³É);
+              local arr_rank1_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_ä½“æˆ);
+              local arr_rank2_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_åŠ›æˆ);
+              local arr_rank3_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_å¼ºæˆ);
+              local arr_rank4_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_æ•æˆ);
+              local arr_rank5_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_é­”æˆ);
 
               if(Level~=1) then
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Éı¼¶µã,Level-1);
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_µÈ¼¶,Level);
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_ÌåÁ¦, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_ÌåÁ¦) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Á¦Á¿, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_Á¦Á¿) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Ç¿¶È, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_Ç¿¶È) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_ËÙ¶È, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_ËÙ¶È) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Ä§·¨, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_Ä§·¨) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹,Level-1);
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_ç­‰çº§,Level);
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_ä½“åŠ›, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_ä½“åŠ›) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_åŠ›é‡, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_åŠ›é‡) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_å¼ºåº¦, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_å¼ºåº¦) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_é€Ÿåº¦) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_é­”æ³•, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_é­”æ³•) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
                 Pet.UpPet(player,evolution_petIndex);
               end
-              -- ³èÎï¼¼ÄÜ
+              -- å® ç‰©æŠ€èƒ½
               for i=0,9 do
                 local tech_id = skillTable[i+1];
                 Pet.DelSkill(evolution_petIndex,i);
@@ -516,24 +516,24 @@ function evolutionMutation(seqno,player,petSlot)
                   Pet.AddSkill(evolution_petIndex,tech_id,i);
                 end
               end
-              Pet.AddSkill(evolution_petIndex,tech_idevolution_plan_tech[seqno]);
+              Pet.AddSkill(evolution_petIndex, evolution_plan_tech[seqno]);
               Pet.UpPet(player,evolution_petIndex);
 end
 
---µµ´Î¼ÆËã
+--æ¡£æ¬¡è®¡ç®—
 Char.GetPetRank = function(playerIndex,slot)
   local petIndex = Char.GetPet(playerIndex, slot);
   if petIndex >= 0 then
-    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_Ìå³É);
-    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_Á¦³É);
-    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_Ç¿³É);
-    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_Ãô³É);
-    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_Ä§³É);
-    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_Ìå³É);
-    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_Á¦³É);
-    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_Ç¿³É);
-    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_Ãô³É);
-    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_Ä§³É);
+    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
+    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_ä½“æˆ);
+    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_åŠ›æˆ);
+    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_å¼ºæˆ);
+    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_æ•æˆ);
+    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_é­”æˆ);
     local a1 = math.abs(arr_rank11 - arr_rank1);
     local a2 = math.abs(arr_rank21 - arr_rank2);
     local a3 = math.abs(arr_rank31 - arr_rank3);
@@ -545,36 +545,36 @@ Char.GetPetRank = function(playerIndex,slot)
   return -1;
 end
 
---ÖÖ×å×Ö·û´®×ª»»
+--ç§æ—å­—ç¬¦ä¸²è½¬æ¢
 function Tribe(Tribe)
   if Tribe==0 then
-    return "ÈËĞÍÏµ"
+    return "äººå‹ç³»"
   elseif Tribe == 1 then
-    return "ıˆ×åÏµ"
+    return "é¾æ—ç³»"
   elseif Tribe == 2 then
-    return "²»ËÀÏµ"
+    return "ä¸æ­»ç³»"
   elseif Tribe == 3 then
-    return "ïwĞĞÏµ"
+    return "é£›è¡Œç³»"
   elseif Tribe == 4 then
-    return "À¥ÏxÏµ"
+    return "æ˜†èŸ²ç³»"
   elseif Tribe == 5 then
-    return "Ö²ÎïÏµ"
+    return "æ¤ç‰©ç³»"
   elseif Tribe == 6 then
-    return "Ò°«FÏµ"
+    return "é‡ç¸ç³»"
   elseif Tribe == 7 then
-    return "ÌØÊâÏµ"
+    return "ç‰¹æ®Šç³»"
   elseif Tribe == 8 then
-    return "½ğŒÙÏµ"
+    return "é‡‘å±¬ç³»"
   elseif Tribe == 9 then
-    return "Ğ°Ä§Ïµ"
+    return "é‚ªé­”ç³»"
   elseif Tribe == 10 then
-    return "Éñ×åÏµ"
+    return "ç¥æ—ç³»"
   elseif Tribe == 11 then
-    return "¾«ì`Ïµ"
+    return "ç²¾éˆç³»"
   end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
