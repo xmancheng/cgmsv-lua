@@ -1096,8 +1096,9 @@ function Module:onLoad()
             Char.SetTempData(chess_tbl[slot], '自走技能', JSON.encode(petbagPet.skills));
 
             --第6~10宠
+              local petbagIndex = tonumber(2);	--云库第2页前5隻宠
               local petData = {};
-              local petbagPet_chess = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot+5)) or nil;
+              local petbagPet_chess = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot)) or nil;
               pcall(function()
                 if petbagPet_chess~=nil then
                   petbagPet_chess = JSON.decode(petbagPet_chess);
@@ -1205,7 +1206,7 @@ function Module:onLoad()
             Char.SetTempData(chess_tbl[slot+10], '自走技能', JSON.encode(petbagPet.skills));
 
             --第6~10宠
-              local slotIndex = tostring('petbag-1-'..tostring(slot+5));
+              local slotIndex = tostring('petbag-2-'..tostring(slot));
               local petbagPet_chess = {};
               local switch=0;
               pcall(function()
@@ -1428,8 +1429,7 @@ function Module:handleBattleAutoCommand(battleIndex)
         Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1,-1);
       end
     else
-        --local charside = side+2;
-        --Battle.ActionSelect(petIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1],-1);
+
         local EnemyId = Char.GetData(petIndex,CONST.PET_PetID);
         local EnemyDataIndex = Data.EnemyGetDataIndex(EnemyId);
         local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base编号);
@@ -1445,9 +1445,17 @@ function Module:handleBattleAutoCommand(battleIndex)
           local chessUnit = v.unit+1;
           if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
             Battle.ActionSelect(petIndex, v.com1, sidetable[chessSide][chessUnit], chessTechId);
-            break
+            goto over
           end
         end
+        local charside = side+2;
+        local AtorDf = NLG.Rand(1, 2);
+        if (AtorDf==1) then
+          Battle.ActionSelect(petIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1],-1);
+        elseif (AtorDf==2) then
+          Battle.ActionSelect(petIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1,-1);
+        end
+        ::over::
     end
   end)
 end
