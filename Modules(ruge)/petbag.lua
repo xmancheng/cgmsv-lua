@@ -129,6 +129,7 @@ for i = 0, 0xd do
   table.insert(itemFields, i + 4000);
 end
 --------------------------------------------------------------------
+local leader_tbl = {}
 local chess_tbl = {}
 local skill_tbl = {}
 
@@ -194,10 +195,10 @@ local chessFields={
 skillParams={
 
 	-- 自创技能
-    {skillId=269,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={200500,200509},side=1,unit=0},
+	{skillId=269,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={200500,200509},side=1,unit=0},
 	{skillId=111,com1=CONST.BATTLE_COM.BATTLE_COM_AXEBOMBER,techId={11100,11109},side=1,unit=0},
-    {skillId=273,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={399,399},side=1,unit=0},
-    {skillId=274,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={499,499},side=1,unit=0},
+	{skillId=273,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={399,399},side=1,unit=0},
+	{skillId=274,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={499,499},side=1,unit=0},
 	{skillId=3100,com1=CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,techId={310000,310002},side=1,unit=0},
 	{skillId=3100,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={310003,310005},side=1,unit=0},
 	{skillId=3100,com1=CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,techId={310006,310011},side=1,unit=0},
@@ -205,7 +206,7 @@ skillParams={
 	{skillId=3101,com1=CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,techId={310103,310105},side=1,unit=0},
 	{skillId=3101,com1=CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,techId={310106,310108},side=1,unit=0},
 	{skillId=3101,com1=CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,techId={310109,310111},side=1,unit=0},
-    -- 攻击
+	-- 攻击
 	{skillId=73,com1=CONST.BATTLE_COM.BATTLE_COM_ATTACK,techId={7300,7300},side=1,unit=0},
 	-- 防御
 	{skillId=74,com1=CONST.BATTLE_COM.BATTLE_COM_GUARD,techId={7400,7400},side=0,unit=0},
@@ -259,6 +260,62 @@ skillParams={
 	{skillId=30,com1=CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,techId={3000,3099},side=1,unit=2},
 	-- 吸血魔法
 	{skillId=31,com1=CONST.BATTLE_COM.BATTLE_COM_P_DORAIN,techId={3100,3199},side=1,unit=0},
+	-- 补血
+	{skillId=61,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6100,6199},side=0,unit=0},
+	-- 强力补血
+	{skillId=62,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6200,6299},side=0,unit=1},
+	-- 超强补血
+	{skillId=63,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6300,6399},side=0,unit=2},
+	-- 恢复
+	{skillId=64,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6400,6499},side=0,unit=0},
+	-- 强力恢复
+	{skillId=65,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6500,6599},side=0,unit=1},
+	-- 超强恢复
+	{skillId=66,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6600,6699},side=0,unit=2},
+	-- 洁净 单体目标
+	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6700,6702},side=0,unit=0},
+	-- 洁净 强力目标
+	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6703,6705},side=0,unit=1},
+	-- 洁净 强超强目标
+	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6706,6799},side=0,unit=2},
+	-- 气绝回复
+	{skillId=68,com1=CONST.BATTLE_COM.BATTLE_COM_P_REVIVE,techId={6800,6899},side=0,unit=0},
+	-- 宠物毒性攻击
+	{skillId=75,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7500,7599},side=1,unit=0},
+	-- 宠物昏睡攻击
+	{skillId=76,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7600,7699},side=1,unit=0},
+	-- 宠物石化攻击
+	{skillId=77,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7700,7799},side=1,unit=0},
+	-- 宠物酒醉攻击
+	{skillId=78,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7800,7899},side=1,unit=0},
+	-- 宠物混乱攻击
+	{skillId=79,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7900,7999},side=1,unit=0},
+	-- 宠物遗忘攻击
+	{skillId=80,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={8000,8099},side=1,unit=0},
+	-- 宠物吸血攻击
+	{skillId=81,com1=CONST.BATTLE_COM.BATTLE_COM_M_BLOODATTACK,techId={8100,8199},side=1,unit=0},
+	-- 混乱攻击
+	{skillId=94,com1=CONST.BATTLE_COM.BATTLE_COM_P_PANIC,techId={9400,9499},side=1,unit=0},
+	-- 乱射
+	{skillId=95,com1=CONST.BATTLE_COM.BATTLE_COM_P_RANDOMSHOT,techId={9500,9599},side=1,unit=0},
+	-- 戒骄戒躁
+	{skillId=1001,com1=CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,techId={25700,25799},side=1,unit=0},
+	-- 一击必中
+	{skillId=1002,com1=CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,techId={25800,25899},side=1,unit=0},
+	-- 毒击
+	{skillId=1003,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={25900,25999},side=1,unit=0},
+	-- 一石二鸟
+	{skillId=1004,com1=CONST.BATTLE_COM.BATTLE_COM_BILLIARD,techId={26000,26099},side=1,unit=0},
+	-- 骑士之誉
+	{skillId=1005,com1=CONST.BATTLE_COM.BATTLE_COM_KNIGHTGUARD,techId={26100,26199},side=0,unit=0},
+	-- 迅速果断
+	{skillId=1006,com1=CONST.BATTLE_COM.BATTLE_COM_FIRSTATTACK,techId={26200,26299},side=1,unit=0},
+	-- 羊头狗肉
+	{skillId=1007,com1=CONST.BATTLE_COM.BATTLE_COM_COPY,techId={26300,26399},side=1,unit=0},
+	-- 因果报应
+	{skillId=1010,com1=CONST.BATTLE_COM.BATTLE_COM_RETRIBUTION,techId={26600,26699},side=1,unit=0},
+	-- 追月
+	{skillId=2005,com1=CONST.BATTLE_COM.BATTLE_COM_BLASTWAVE,techId={200500,200599},side=1,unit=0},
 	-- 中毒魔法
 	{skillId=32,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,techId={3200,3299},side=1,unit=0},
 	-- 昏睡魔法
@@ -317,72 +374,12 @@ skillParams={
 	{skillId=59,com1=CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_PHYSICS,techId={5900,5999},side=0,unit=0},
 	-- 魔法无效
 	{skillId=60,com1=CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_MAGIC,techId={6000,6099},side=0,unit=0},
-	-- 补血
-	{skillId=61,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6100,6199},side=0,unit=0},
-	-- 强力补血
-	{skillId=62,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6200,6299},side=0,unit=1},
-	-- 超强补血
-	{skillId=63,com1=CONST.BATTLE_COM.BATTLE_COM_P_HEAL,techId={6300,6399},side=0,unit=2},
-	-- 恢复
-	{skillId=64,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6400,6499},side=0,unit=0},
-	-- 强力恢复
-	{skillId=65,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6500,6599},side=0,unit=1},
-	-- 超强恢复
-	{skillId=66,com1=CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,techId={6600,6699},side=0,unit=2},
-	-- 洁净 单体目标
-	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6700,6702},side=0,unit=0},
-	-- 洁净 强力目标
-	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6703,6705},side=0,unit=1},
-	-- 洁净 强超强目标
-	{skillId=67,com1=CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,techId={6706,6799},side=0,unit=2},
-	-- 气绝回复
-	{skillId=68,com1=CONST.BATTLE_COM.BATTLE_COM_P_REVIVE,techId={6800,6899},side=0,unit=0},
-	-- 盗窃
-	{skillId=72,com1=CONST.BATTLE_COM.BATTLE_COM_P_STEAL,techId={7200,7299},side=0,unit=0},
-	-- 宠物普通攻击
-	{skillId=73,com1=CONST.BATTLE_COM.BATTLE_COM_ATTACK,techId={7300,7300},side=1,unit=0},
-	-- 宠物防御
-	{skillId=74,com1=CONST.BATTLE_COM.BATTLE_COM_GUARD,techId={7400,7400},side=0,unit=0},
-	-- 宠物毒性攻击
-	{skillId=75,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7500,7599},side=1,unit=0},
-	-- 宠物昏睡攻击
-	{skillId=76,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7600,7699},side=1,unit=0},
-	-- 宠物石化攻击
-	{skillId=77,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7700,7799},side=1,unit=0},
-	-- 宠物酒醉攻击
-	{skillId=78,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7800,7899},side=1,unit=0},
-	-- 宠物混乱攻击
-	{skillId=79,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={7900,7999},side=1,unit=0},
-	-- 宠物遗忘攻击
-	{skillId=80,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={8000,8099},side=1,unit=0},
-	-- 宠物吸血攻击
-	{skillId=81,com1=CONST.BATTLE_COM.BATTLE_COM_M_BLOODATTACK,techId={8100,8199},side=1,unit=0},
-	-- 混乱攻击
-	{skillId=94,com1=CONST.BATTLE_COM.BATTLE_COM_P_PANIC,techId={9400,9499},side=1,unit=0},
-	-- 乱射
-	{skillId=95,com1=CONST.BATTLE_COM.BATTLE_COM_P_RANDOMSHOT,techId={9500,9599},side=1,unit=0},
 	-- 宠物定点移动
 	{skillId=160,com1=CONST.BATTLE_COM.BATTLE_COM_POSITION,techId={16000,16000},side=0,unit=0},
 	-- 宠物什么都不做
 	{skillId=170,com1=CONST.BATTLE_COM.BATTLE_COM_NONE,techId={15002,15002},side=0,unit=0},
-	-- 戒骄戒躁
-	{skillId=1001,com1=CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,techId={25700,25799},side=1,unit=0},
-	-- 一击必中
-	{skillId=1002,com1=CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,techId={25800,25899},side=1,unit=0},
-	-- 毒击
-	{skillId=1003,com1=CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,techId={25900,25999},side=1,unit=0},
-	-- 一石二鸟
-	{skillId=1004,com1=CONST.BATTLE_COM.BATTLE_COM_BILLIARD,techId={26000,26099},side=1,unit=0},
-	-- 骑士之誉
-	{skillId=1005,com1=CONST.BATTLE_COM.BATTLE_COM_KNIGHTGUARD,techId={26100,26199},side=0,unit=0},
-	-- 迅速果断
-	{skillId=1006,com1=CONST.BATTLE_COM.BATTLE_COM_FIRSTATTACK,techId={26200,26299},side=1,unit=0},
-	-- 羊头狗肉
-	{skillId=1007,com1=CONST.BATTLE_COM.BATTLE_COM_COPY,techId={26300,26399},side=1,unit=0},
-	-- 因果报应
-	{skillId=1010,com1=CONST.BATTLE_COM.BATTLE_COM_RETRIBUTION,techId={26600,26699},side=1,unit=0},
-	-- 追月
-	{skillId=2005,com1=CONST.BATTLE_COM.BATTLE_COM_BLASTWAVE,techId={200500,200599},side=1,unit=0},
+	-- 盗窃
+	{skillId=72,com1=CONST.BATTLE_COM.BATTLE_COM_P_STEAL,techId={7200,7299},side=0,unit=0},
 }
 
 --------------------------------------------------------------------
@@ -786,13 +783,12 @@ function Module:onLoad()
     end
     if seqno == 1 then
       if data==1 then
-        if (#chess_tbl>=1) then
-          for k,v in ipairs(chess_tbl) do
+        if (chess_tbl[player]~=nil) then
+          for k,v in ipairs(chess_tbl[player]) do
             Char.DelDummy(v);
           end
         end
         leader_tbl = {}
-        chess_tbl = {}
         skill_tbl = {}
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
@@ -829,7 +825,8 @@ function Module:onLoad()
             elseif (chessIndex~=nil) then
               Char.JoinParty(chessIndex, leader_tbl[1], true);
             end
-            table.insert(chess_tbl,chessIndex);
+            chess_tbl[player]={};
+            table.insert(chess_tbl[player],chessIndex);
           else
             print("["..slot.."]號位:空");
           end
@@ -909,7 +906,8 @@ function Module:onLoad()
             elseif (chessIndex~=nil) then
               Char.JoinParty(chessIndex, leader_tbl[2], true);
             end
-            table.insert(chess_tbl,chessIndex);
+            chess_tbl[player]={};
+            table.insert(chess_tbl[player],chessIndex);
           else
             print("["..slot.."]號位:空");
           end
@@ -922,13 +920,12 @@ function Module:onLoad()
         --观战
         NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==2 then
-        if (#chess_tbl>=1) then
-          for k,v in ipairs(chess_tbl) do
+        if (chess_tbl[player]~=nil) then
+          for k,v in ipairs(chess_tbl[player]) do
             Char.DelDummy(v);
           end
         end
         leader_tbl = {}
-        chess_tbl = {}
         skill_tbl = {}
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
@@ -965,7 +962,8 @@ function Module:onLoad()
             elseif (chessIndex~=nil) then
               Char.JoinParty(chessIndex, leader_tbl[1], true);
             end
-            table.insert(chess_tbl,chessIndex);
+            chess_tbl[player]={};
+            table.insert(chess_tbl[player],chessIndex);
           else
             print("["..slot.."]號位:空");
           end
@@ -1045,7 +1043,8 @@ function Module:onLoad()
             elseif (chessIndex~=nil) then
               Char.JoinParty(chessIndex, leader_tbl[2], true);
             end
-            table.insert(chess_tbl,chessIndex);
+            chess_tbl[player]={};
+            table.insert(chess_tbl[player],chessIndex);
           else
             print("["..slot.."]號位:空");
           end
@@ -1058,13 +1057,12 @@ function Module:onLoad()
         --观战
         NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==3 then
-        if (#chess_tbl>=1) then
-          for k,v in ipairs(chess_tbl) do
+        if (chess_tbl[player]~=nil) then
+          for k,v in ipairs(chess_tbl[player]) do
             Char.DelDummy(v);
           end
         end
         leader_tbl = {}
-        chess_tbl = {}
         skill_tbl = {}
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
@@ -1077,23 +1075,24 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
-            chess_tbl[slot] = Char.CreateDummy()
-            print(chess_tbl[slot])
+            chess_tbl[player]={};
+            chess_tbl[player][slot] = Char.CreateDummy()
+            print(chess_tbl[player][slot])
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
-                Char.SetData(chess_tbl[slot], value,petbagPet.attr[tostring(value)]);
+                Char.SetData(chess_tbl[player][slot], value,petbagPet.attr[tostring(value)]);
               end
             end
-            Char.SetData(chess_tbl[slot], CONST.对象_类型,1);		--CONST.对象类型_人
-            Char.SetData(chess_tbl[slot], CONST.对象_魅力,100);
-            Char.SetData(chess_tbl[slot], CONST.对象_职业,115);		--馴獸大師
-            Char.SetData(chess_tbl[slot], CONST.对象_职类ID,110);		--馴獸大師
-            Char.SetData(chess_tbl[slot], CONST.对象_职阶,5);
-            Char.AddSkill(chess_tbl[slot], 71); 
-            Char.SetSkillLevel(chess_tbl[slot],0,10);
-            NLG.UpChar(chess_tbl[slot]);
+            Char.SetData(chess_tbl[player][slot], CONST.对象_类型,1);		--CONST.对象类型_人
+            Char.SetData(chess_tbl[player][slot], CONST.对象_魅力,100);
+            Char.SetData(chess_tbl[player][slot], CONST.对象_职业,115);		--馴獸大師
+            Char.SetData(chess_tbl[player][slot], CONST.对象_职类ID,110);		--馴獸大師
+            Char.SetData(chess_tbl[player][slot], CONST.对象_职阶,5);
+            Char.AddSkill(chess_tbl[player][slot], 71); 
+            Char.SetSkillLevel(chess_tbl[player][slot],0,10);
+            NLG.UpChar(chess_tbl[player][slot]);
             --skill_tbl[slot+1] = petbagPet.skills
-            Char.SetTempData(chess_tbl[slot], '自走技能', JSON.encode(petbagPet.skills));
+            Char.SetTempData(chess_tbl[player][slot], '自走技能', JSON.encode(petbagPet.skills));
 
             --第6~10宠
               local petbagIndex = tonumber(2);	--云库第2页前5隻宠
@@ -1107,28 +1106,28 @@ function Module:onLoad()
               if type(petbagPet_chess) == 'table' then
                 petData = petbagPet_chess
                 local enemyId = petbagPet_chess.attr[tostring(CONST.PET_PetID)];
-                petIndex = Char.AddPet(chess_tbl[slot], enemyId);
+                petIndex = Char.AddPet(chess_tbl[player][slot], enemyId);
                 self:insertPetData(petIndex,petData)
                 Char.SetData(petIndex,CONST.宠物_忠诚,100);
-                Pet.UpPet(chess_tbl[slot], petIndex);
-                Char.SetPetDepartureState(chess_tbl[slot],0,CONST.PET_STATE_战斗);
-                NLG.UpChar(chess_tbl[slot]);
+                Pet.UpPet(chess_tbl[player][slot], petIndex);
+                Char.SetPetDepartureState(chess_tbl[player][slot],0,CONST.PET_STATE_战斗);
+                NLG.UpChar(chess_tbl[player][slot]);
               else
                 --print("["..(slot+5).."]號位:空");
               end
 
-            if (chess_tbl[slot]~=nil and slot==1) then
-              local chess_leader_AIndex = chess_tbl[slot];
+            if (chess_tbl[player][slot]~=nil and slot==1) then
+              local chess_leader_AIndex = chess_tbl[player][slot];
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
               print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_AIndex);
 
               local playercdk = Char.GetData(player,CONST.对象_CDK);
               Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
-            elseif (chess_tbl[slot]~=nil) then
-              Char.JoinParty(chess_tbl[slot], leader_tbl[1], true);
+            elseif (chess_tbl[player][slot]~=nil) then
+              Char.JoinParty(chess_tbl[player][slot], leader_tbl[1], true);
             end
-            --table.insert(chess_tbl,chessIndex);
+            --table.insert(chess_tbl[player],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -1187,23 +1186,23 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' and switch==1 then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
-            chess_tbl[slot+10] = Char.CreateDummy()
-            print(chess_tbl[slot+10])
+            chess_tbl[player][slot+10] = Char.CreateDummy()
+            print(chess_tbl[player][slot+10])
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
-                Char.SetData(chess_tbl[slot+10], value, petbagPet.attr[tostring(value)]);
+                Char.SetData(chess_tbl[player][slot+10], value, petbagPet.attr[tostring(value)]);
               end
             end
-            Char.SetData(chess_tbl[slot+10], CONST.对象_类型,1);		--CONST.对象类型_人
-            Char.SetData(chess_tbl[slot+10], CONST.对象_魅力,100);
-            Char.SetData(chess_tbl[slot+10], CONST.对象_职业,115);		--馴獸大師
-            Char.SetData(chess_tbl[slot+10], CONST.对象_职类ID,110);		--馴獸大師
-            Char.SetData(chess_tbl[slot+10], CONST.对象_职阶,5);
-            Char.AddSkill(chess_tbl[slot+10], 71); 
-            Char.SetSkillLevel(chess_tbl[slot+10],0,10);
-            NLG.UpChar(chess_tbl[slot+10]);
+            Char.SetData(chess_tbl[player][slot+10], CONST.对象_类型,1);		--CONST.对象类型_人
+            Char.SetData(chess_tbl[player][slot+10], CONST.对象_魅力,100);
+            Char.SetData(chess_tbl[player][slot+10], CONST.对象_职业,115);		--馴獸大師
+            Char.SetData(chess_tbl[player][slot+10], CONST.对象_职类ID,110);		--馴獸大師
+            Char.SetData(chess_tbl[player][slot+10], CONST.对象_职阶,5);
+            Char.AddSkill(chess_tbl[player][slot+10], 71); 
+            Char.SetSkillLevel(chess_tbl[player][slot+10],0,10);
+            NLG.UpChar(chess_tbl[player][slot+10]);
             --skill_tbl[slot+10] = petbagPet.skills
-            Char.SetTempData(chess_tbl[slot+10], '自走技能', JSON.encode(petbagPet.skills));
+            Char.SetTempData(chess_tbl[player][slot+10], '自走技能', JSON.encode(petbagPet.skills));
 
             --第6~10宠
               local slotIndex = tostring('petbag-2-'..tostring(slot));
@@ -1231,25 +1230,25 @@ function Module:onLoad()
               if type(petbagPet_chess) == 'table' and switch==1 then
                 petData = petbagPet_chess
                 local enemyId = petbagPet_chess.attr[tostring(CONST.PET_PetID)];
-                local petIndex = Char.AddPet(chess_tbl[slot+10], enemyId);
+                local petIndex = Char.AddPet(chess_tbl[player][slot+10], enemyId);
                 self:insertPetData(petIndex,petData)
                 Char.SetData(petIndex,CONST.宠物_忠诚,100);
-                Pet.UpPet(chess_tbl[slot+10], petIndex);
-                Char.SetPetDepartureState(chess_tbl[slot+10],0,CONST.PET_STATE_战斗);
-                NLG.UpChar(chess_tbl[slot+10]);
+                Pet.UpPet(chess_tbl[player][slot+10], petIndex);
+                Char.SetPetDepartureState(chess_tbl[player][slot+10],0,CONST.PET_STATE_战斗);
+                NLG.UpChar(chess_tbl[player][slot+10]);
               else
                 --print("["..(slot+5).."]號位:空");
               end
 
-            if (chess_tbl[slot+10]~=nil and slot==1) then
-              local chess_leader_BIndex = chess_tbl[slot+10];
+            if (chess_tbl[player][slot+10]~=nil and slot==1) then
+              local chess_leader_BIndex = chess_tbl[player][slot+10];
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
               print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_BIndex);
-            elseif (chess_tbl[slot+10]~=nil) then
-              Char.JoinParty(chess_tbl[slot+10], leader_tbl[2], true);
+            elseif (chess_tbl[player][slot+10]~=nil) then
+              Char.JoinParty(chess_tbl[player][slot+10], leader_tbl[2], true);
             end
-            --table.insert(chess_tbl,chessIndex);
+            --table.insert(chess_tbl[player],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -1341,8 +1340,8 @@ function Module:handleBattleAutoCommand(battleIndex)
     repeat
       local FTime = os.time();
       local timec = FTime - STime;
-    --until (timec >= alive*1.3)  else
-    until (timec >= 5)  else
+    until (timec >= alive*1.3)  else
+    --until (timec >= 5)  else
   end
 
   local poss={}
