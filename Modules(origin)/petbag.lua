@@ -1407,8 +1407,9 @@ function Module:handleBattleAutoCommand(battleIndex)
       end
       local chessSide = side + v.side + 1;
       local chessUnit = v.unit+1;
+      local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
       if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
-        Battle.ActionSelect(dummyIndex, v.com1, sidetable[chessSide][chessUnit], chessTechId);
+        Battle.ActionSelect(dummyIndex, v.com1, target, chessTechId);
         goto next
       end
     end
@@ -1442,8 +1443,9 @@ function Module:handleBattleAutoCommand(battleIndex)
           end
           local chessSide = side + v.side + 1;
           local chessUnit = v.unit+1;
+          local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
           if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
-            Battle.ActionSelect(petIndex, v.com1, sidetable[chessSide][chessUnit], chessTechId);
+            Battle.ActionSelect(petIndex, v.com1, target, chessTechId);
             goto over
           end
         end
@@ -1678,7 +1680,7 @@ function Module:extractItemData(itemIndex)
   return item;
 end
 --  NOTE 赋予 物品属性
-function  Module:insertItemData(itemIndex,itemData)
+function Module:insertItemData(itemIndex,itemData)
   for _, field in pairs(itemFields) do
     local r = 0;
     if type(itemData[tostring(field)]) ~= 'nil' then
@@ -1686,6 +1688,61 @@ function  Module:insertItemData(itemIndex,itemData)
     end
   end
 end
+
+function smartTargetSelection(battleIndex,com2,com3)
+  local chessSide = com2 - math.fmod(com2, 10);
+
+  if (com3>=6100 and com3<=6199) or (com3>=6200 and com3<=6299) or (com3>=6300 and com3<=6399) then
+    -- NOTE 己方血量占比最低
+    local tagHp = nil;
+    local returnSlot;
+    for slot = chessSide + 0, chessSide + 9 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot)
+      if (charIndex >= 0) then
+        local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血)
+        if tagHp == nil then
+          tagHp = hpRatio
+          returnSlot = slot
+        elseif hpRatio < tagHp then
+          tagHp = hpRatio;
+          returnSlot = slot
+        end
+      end
+    end
+    return returnSlot;
+  elseif (com3>=6800 and com3<=6899) then
+    local slotTable = {}
+    for slot = chessSide + 0, chessSide + 9 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot)
+      if charIndex >= 0 and Char.GetData(charIndex, CONST.对象_战死) == 1 then
+        table.insert(slotTable, slot)
+      end
+    end
+    local returnSlot = slotTable[NLG.Rand(1, #slotTable)]
+    return returnSlot;
+  else
+    -- NOTE 血最少的
+    local tagHp = nil;
+    local returnSlot;
+    for slot = chessSide + 0, chessSide + 9 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot)
+      if (charIndex >= 0) then
+        local hp = Char.GetData(charIndex, CONST.对象_血)
+        if tagHp == nil then
+         tagHp = hp
+         returnSlot = slot
+        elseif hp < tagHp then
+         tagHp = hp;
+         returnSlot = slot
+        end
+      end
+    end
+    return returnSlot;
+  end
+  local returnSlot = NLG.Rand(chessSide + 0, chessSide + 9)
+  return returnSlot;
+end
+
 
 Char.GetPetEmptySlot = function(charIndex)
   for Slot=0,4 do
