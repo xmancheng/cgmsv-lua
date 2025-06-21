@@ -783,6 +783,7 @@ function Module:onLoad()
     end
     if seqno == 1 then
       if data==1 then
+        Char.LeaveParty(player);
         if (chess_tbl[player]~=nil) then
           for k,v in ipairs(chess_tbl[player]) do
             Char.DelDummy(v);
@@ -792,7 +793,7 @@ function Module:onLoad()
         skill_tbl = {}
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
-        for slot = 1, 3 do
+        for slot = 2, 3 do
           local petbagPet = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot)) or nil;
           pcall(function()
             if petbagPet~=nil then
@@ -817,18 +818,18 @@ function Module:onLoad()
             if (chessIndex~=nil and slot==1) then
               local chess_leader_AIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              print("隊長:"..leader_name)
+              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_AIndex);
 
               local playercdk = Char.GetData(player,CONST.对象_CDK);
               Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
             elseif (chessIndex~=nil) then
-              Char.JoinParty(chessIndex, leader_tbl[1], true);
+              Char.JoinParty(chessIndex, player, true);
             end
             chess_tbl[player]={};
             table.insert(chess_tbl[player],chessIndex);
           else
-            print("["..slot.."]號位:空");
+            --print("["..slot.."]號位:空");
           end
         end
         --Char.Warp(leader_tbl[1], 0, 1000, 218, 89);
@@ -901,25 +902,28 @@ function Module:onLoad()
             if (chessIndex~=nil and slot==1) then
               local chess_leader_BIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              print("隊長:"..leader_name)
+              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_BIndex);
             elseif (chessIndex~=nil) then
-              Char.JoinParty(chessIndex, leader_tbl[2], true);
+              --Char.JoinParty(chessIndex, leader_tbl[2], true);
+              Char.JoinParty(chessIndex, leader_tbl[1], true);
             end
             chess_tbl[player]={};
             table.insert(chess_tbl[player],chessIndex);
           else
-            print("["..slot.."]號位:空");
+            --print("["..slot.."]號位:空");
           end
         end
         --Char.Warp(leader_tbl[2], 0, 1000, 218, 87);
 
         --自走
-        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        --local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        local battleIndex = Battle.PVP(player,leader_tbl[1]);
         Battle.SetPVPWinEvent('./lua/Modules/petbag.lua', 'battle_wincallback', battleIndex);
         --观战
-        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+        --NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==2 then
+        Char.LeaveParty(player);
         if (chess_tbl[player]~=nil) then
           for k,v in ipairs(chess_tbl[player]) do
             Char.DelDummy(v);
@@ -929,7 +933,7 @@ function Module:onLoad()
         skill_tbl = {}
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
-        for slot = 1, 5 do
+        for slot = 2, 5 do
           local petbagPet = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot)) or nil;
           pcall(function()
             if petbagPet~=nil then
@@ -954,18 +958,18 @@ function Module:onLoad()
             if (chessIndex~=nil and slot==1) then
               local chess_leader_AIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              print("隊長:"..leader_name)
+              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_AIndex);
 
               local playercdk = Char.GetData(player,CONST.对象_CDK);
               Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
             elseif (chessIndex~=nil) then
-              Char.JoinParty(chessIndex, leader_tbl[1], true);
+              Char.JoinParty(chessIndex, player, true);
             end
             chess_tbl[player]={};
             table.insert(chess_tbl[player],chessIndex);
           else
-            print("["..slot.."]號位:空");
+            --print("["..slot.."]號位:空");
           end
         end
         --Char.Warp(leader_tbl[1], 0, 1000, 218, 89);
@@ -1038,25 +1042,28 @@ function Module:onLoad()
             if (chessIndex~=nil and slot==1) then
               local chess_leader_BIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              print("隊長:"..leader_name)
+              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_BIndex);
             elseif (chessIndex~=nil) then
-              Char.JoinParty(chessIndex, leader_tbl[2], true);
+              --Char.JoinParty(chessIndex, leader_tbl[2], true);
+              Char.JoinParty(chessIndex, leader_tbl[1], true);
             end
             chess_tbl[player]={};
             table.insert(chess_tbl[player],chessIndex);
           else
-            print("["..slot.."]號位:空");
+            --print("["..slot.."]號位:空");
           end
         end
         --Char.Warp(leader_tbl[2], 0, 1000, 218, 87);
 
         --自走
-        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        --local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        local battleIndex = Battle.PVP(player,leader_tbl[1]);
         Battle.SetPVPWinEvent('./lua/Modules/petbag.lua', 'battle_wincallback', battleIndex);
         --观战
-        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+        --NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==3 then
+        Char.LeaveParty(player);
         if (chess_tbl[player]~=nil) then
           for k,v in ipairs(chess_tbl[player]) do
             Char.DelDummy(v);
@@ -1066,7 +1073,7 @@ function Module:onLoad()
         skill_tbl = {}
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
-        for slot = 1, 5 do
+        for slot = 2, 5 do
           local petbagPet = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot)) or nil;
           pcall(function()
             if petbagPet~=nil then
@@ -1077,7 +1084,7 @@ function Module:onLoad()
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
             chess_tbl[player]={};
             chess_tbl[player][slot] = Char.CreateDummy()
-            print(chess_tbl[player][slot])
+            --print(chess_tbl[player][slot])
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
                 Char.SetData(chess_tbl[player][slot], value,petbagPet.attr[tostring(value)]);
@@ -1119,13 +1126,13 @@ function Module:onLoad()
             if (chess_tbl[player][slot]~=nil and slot==1) then
               local chess_leader_AIndex = chess_tbl[player][slot];
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              print("隊長:"..leader_name)
+              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_AIndex);
 
               local playercdk = Char.GetData(player,CONST.对象_CDK);
               Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
             elseif (chess_tbl[player][slot]~=nil) then
-              Char.JoinParty(chess_tbl[player][slot], leader_tbl[1], true);
+              Char.JoinParty(chess_tbl[player][slot], player, true);
             end
             --table.insert(chess_tbl[player],chessIndex);
           else
@@ -1187,7 +1194,7 @@ function Module:onLoad()
           if type(petbagPet) == 'table' and switch==1 then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
             chess_tbl[player][slot+10] = Char.CreateDummy()
-            print(chess_tbl[player][slot+10])
+            --print(chess_tbl[player][slot+10])
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
                 Char.SetData(chess_tbl[player][slot+10], value, petbagPet.attr[tostring(value)]);
@@ -1243,10 +1250,11 @@ function Module:onLoad()
             if (chess_tbl[player][slot+10]~=nil and slot==1) then
               local chess_leader_BIndex = chess_tbl[player][slot+10];
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              print("隊長:"..leader_name)
+              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_BIndex);
             elseif (chess_tbl[player][slot+10]~=nil) then
-              Char.JoinParty(chess_tbl[player][slot+10], leader_tbl[2], true);
+              --Char.JoinParty(chess_tbl[player][slot+10], leader_tbl[2], true);
+              Char.JoinParty(chess_tbl[player][slot+10], leader_tbl[1], true);
             end
             --table.insert(chess_tbl[player],chessIndex);
           else
@@ -1256,10 +1264,11 @@ function Module:onLoad()
         --Char.Warp(leader_tbl[2], 0, 1000, 218, 87);
 
         --自走
-        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        --local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        local battleIndex = Battle.PVP(player,leader_tbl[1]);
         Battle.SetPVPWinEvent('./lua/Modules/petbag.lua', 'battle_wincallback', battleIndex);
         --观战
-        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+        --NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==4 then
         if (NLG.CanTalk(npc, player) == true) then
           local cdKey_tbl = {}
@@ -1328,7 +1337,7 @@ end
 
 function Module:handleBattleAutoCommand(battleIndex)
   local Round = Battle.GetTurn(battleIndex);
-  local alive = 0;
+  --[[local alive = 0;
   for slot = 0,19 do
     local npc = Battle.GetPlayer(battleIndex, slot);
     if (npc>0 and Char.GetData(npc, CONST.对象_战死) == 0) then
@@ -1340,9 +1349,9 @@ function Module:handleBattleAutoCommand(battleIndex)
     repeat
       local FTime = os.time();
       local timec = FTime - STime;
-    until (timec >= alive*1.3)  else
-    --until (timec >= 5)  else
-  end
+    until (timec >= alive*1.3)
+    --until (timec >= 5)
+  end]]
 
   local poss={}
   for i = 0, 4 do
@@ -1407,8 +1416,8 @@ function Module:handleBattleAutoCommand(battleIndex)
       end
       local chessSide = side + v.side + 1;
       local chessUnit = v.unit+1;
-      local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
       if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
+        local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
         Battle.ActionSelect(dummyIndex, v.com1, target, chessTechId);
         goto next
       end
@@ -1443,8 +1452,8 @@ function Module:handleBattleAutoCommand(battleIndex)
           end
           local chessSide = side + v.side + 1;
           local chessUnit = v.unit+1;
-          local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
           if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
+            local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
             Battle.ActionSelect(petIndex, v.com1, target, chessTechId);
             goto over
           end
@@ -1488,13 +1497,15 @@ function battle_wincallback(battleIndex)
       return
     end
 
-    if (e==0) then
+    --if (e==0) then
+    if (e==1) then
       local playercdk = Char.GetTempData(dummyIndex, '自走棋手');
       local player = NLG.FindUser(playercdk);
       local pts = Char.GetExtData(player, '自走积分') or 0;
       Char.SetExtData(player, '自走积分', pts+1);
       NLG.UpChar(player);
     end
+    Char.LeaveParty(dummyIndex);
     Char.DelDummy(dummyIndex);
 
   end)
@@ -1690,6 +1701,11 @@ function Module:insertItemData(itemIndex,itemData)
 end
 
 function smartTargetSelection(battleIndex,com2,com3)
+  if (com2>=20 or com2<=39) then
+    return com2;
+  elseif (com2==40 or com2==41) then
+    return com2;
+  end
   local chessSide = com2 - math.fmod(com2, 10);
 
   if (com3>=6100 and com3<=6199) or (com3>=6200 and com3<=6299) or (com3>=6300 and com3<=6399) then
@@ -1718,7 +1734,11 @@ function smartTargetSelection(battleIndex,com2,com3)
         table.insert(slotTable, slot)
       end
     end
-    local returnSlot = slotTable[NLG.Rand(1, #slotTable)]
+    if (slotTable=="") then
+      returnSlot = NLG.Rand(chessSide + 0, chessSide + 9)
+    else
+      returnSlot = slotTable[NLG.Rand(1, #slotTable)]
+    end
     return returnSlot;
   else
     -- NOTE 血最少的
