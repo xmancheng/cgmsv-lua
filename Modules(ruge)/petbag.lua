@@ -404,6 +404,8 @@ function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
+  self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
+  self:regCallback('BattleSkillCheckEvent', Func.bind(self.onBattleSkillCheckEvent, self))
   --self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self.petBankNPC = self:NPC_createNormal('寵物雲端倉庫', 14682, { x = 38, y = 30, mapType = 0, map = 777, direction = 6 });
   self:NPC_regWindowTalkedEvent(self.petBankNPC, function(npc, player, _seqno, _select, _data)
@@ -802,12 +804,38 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
+            --总档次检测
+            local a6 = 0;
+            for k,v in pairs(petRankFields) do
+              a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
+            end
+            if (a6>135) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+              return
+            end
+
             local chessIndex = Char.CreateDummy()
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
                 Char.SetData(chessIndex, value,petbagPet.attr[tostring(value)]);
               end
             end
+            Char.GiveItem(chessIndex, 19200, 1);
+            Char.GiveItem(chessIndex, 19538, 1);
+            Char.MoveItem(chessIndex, 8, 5, -1);
+            Char.MoveItem(chessIndex, 9, 6, -1);
+            local item_1 = Char.HaveItem(chessIndex,19200);
+            Item.SetData(item_1,CONST.道具_属性一,1);
+            Item.SetData(item_1,CONST.道具_属性二,2);
+            Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
+            Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
+            local item_2 = Char.HaveItem(chessIndex,19538);
+            Item.SetData(item_2,CONST.道具_属性一,3);
+            Item.SetData(item_2,CONST.道具_属性二,4);
+            Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
+            Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
+            Item.UpItem(chessIndex, -1);
+
             Char.SetData(chessIndex, CONST.对象_类型, 1);		--CONST.对象类型_NPC
             Char.SetData(chessIndex, CONST.对象_职业, 481);		--超级职
             Char.SetData(chessIndex, CONST.对象_职类ID, 480);		--超级职
@@ -886,12 +914,38 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' and switch==1 then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
+            --总档次检测
+            local a6 = 0;
+            for k,v in pairs(petRankFields) do
+              a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
+            end
+            if (a6>135) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+              return
+            end
+
             local chessIndex = Char.CreateDummy()
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
                 Char.SetData(chessIndex, value, petbagPet.attr[tostring(value)]);
               end
             end
+            Char.GiveItem(chessIndex, 19200, 1);
+            Char.GiveItem(chessIndex, 19538, 1);
+            Char.MoveItem(chessIndex, 8, 5, -1);
+            Char.MoveItem(chessIndex, 9, 6, -1);
+            local item_1 = Char.HaveItem(chessIndex,19200);
+            Item.SetData(item_1,CONST.道具_属性一,1);
+            Item.SetData(item_1,CONST.道具_属性二,2);
+            Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
+            Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
+            local item_2 = Char.HaveItem(chessIndex,19538);
+            Item.SetData(item_2,CONST.道具_属性一,3);
+            Item.SetData(item_2,CONST.道具_属性二,4);
+            Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
+            Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
+            Item.UpItem(chessIndex, -1);
+
             Char.SetData(chessIndex, CONST.对象_类型, 1);		--CONST.对象类型_NPC
             Char.SetData(chessIndex, CONST.对象_职业, 481);		--超级职
             Char.SetData(chessIndex, CONST.对象_职类ID, 480);		--超级职
@@ -942,12 +996,38 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
+            --总档次检测
+            local a6 = 0;
+            for k,v in pairs(petRankFields) do
+              a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
+            end
+            if (a6>135) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+              return
+            end
+
             local chessIndex = Char.CreateDummy()
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
                 Char.SetData(chessIndex, value,petbagPet.attr[tostring(value)]);
               end
             end
+            Char.GiveItem(chessIndex, 19200, 1);
+            Char.GiveItem(chessIndex, 19538, 1);
+            Char.MoveItem(chessIndex, 8, 5, -1);
+            Char.MoveItem(chessIndex, 9, 6, -1);
+            local item_1 = Char.HaveItem(chessIndex,19200);
+            Item.SetData(item_1,CONST.道具_属性一,1);
+            Item.SetData(item_1,CONST.道具_属性二,2);
+            Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
+            Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
+            local item_2 = Char.HaveItem(chessIndex,19538);
+            Item.SetData(item_2,CONST.道具_属性一,3);
+            Item.SetData(item_2,CONST.道具_属性二,4);
+            Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
+            Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
+            Item.UpItem(chessIndex, -1);
+
             Char.SetData(chessIndex, CONST.对象_类型, 1);		--CONST.对象类型_NPC
             Char.SetData(chessIndex, CONST.对象_职业, 481);		--超级职
             Char.SetData(chessIndex, CONST.对象_职类ID, 480);		--超级职
@@ -1026,12 +1106,38 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' and switch==1 then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
+            --总档次检测
+            local a6 = 0;
+            for k,v in pairs(petRankFields) do
+              a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
+            end
+            if (a6>135) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+              return
+            end
+
             local chessIndex = Char.CreateDummy()
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
                 Char.SetData(chessIndex, value, petbagPet.attr[tostring(value)]);
               end
             end
+            Char.GiveItem(chessIndex, 19200, 1);
+            Char.GiveItem(chessIndex, 19538, 1);
+            Char.MoveItem(chessIndex, 8, 5, -1);
+            Char.MoveItem(chessIndex, 9, 6, -1);
+            local item_1 = Char.HaveItem(chessIndex,19200);
+            Item.SetData(item_1,CONST.道具_属性一,1);
+            Item.SetData(item_1,CONST.道具_属性二,2);
+            Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
+            Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
+            local item_2 = Char.HaveItem(chessIndex,19538);
+            Item.SetData(item_2,CONST.道具_属性一,3);
+            Item.SetData(item_2,CONST.道具_属性二,4);
+            Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
+            Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
+            Item.UpItem(chessIndex, -1);
+
             Char.SetData(chessIndex, CONST.对象_类型, 1);		--CONST.对象类型_NPC
             Char.SetData(chessIndex, CONST.对象_职业, 481);		--超级职
             Char.SetData(chessIndex, CONST.对象_职类ID, 480);		--超级职
@@ -1082,6 +1188,16 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
+            --总档次检测
+            local a6 = 0;
+            for k,v in pairs(petRankFields) do
+              a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
+            end
+            if (a6>500) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
+              return
+            end
+
             chess_tbl[player]={};
             chess_tbl[player][slot] = Char.CreateDummy()
             --print(chess_tbl[player][slot])
@@ -1090,6 +1206,22 @@ function Module:onLoad()
                 Char.SetData(chess_tbl[player][slot], value,petbagPet.attr[tostring(value)]);
               end
             end
+            Char.GiveItem(chess_tbl[player][slot], 19200, 1);
+            Char.GiveItem(chess_tbl[player][slot], 19538, 1);
+            Char.MoveItem(chess_tbl[player][slot], 8, 5, -1);
+            Char.MoveItem(chess_tbl[player][slot], 9, 6, -1);
+            local item_1 = Char.HaveItem(chess_tbl[player][slot],19200);
+            Item.SetData(item_1,CONST.道具_属性一,1);
+            Item.SetData(item_1,CONST.道具_属性二,2);
+            Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
+            Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
+            local item_2 = Char.HaveItem(chess_tbl[player][slot],19538);
+            Item.SetData(item_2,CONST.道具_属性一,3);
+            Item.SetData(item_2,CONST.道具_属性二,4);
+            Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
+            Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
+            Item.UpItem(chess_tbl[player][slot], -1);
+
             Char.SetData(chess_tbl[player][slot], CONST.对象_类型,1);		--CONST.对象类型_人
             Char.SetData(chess_tbl[player][slot], CONST.对象_魅力,100);
             Char.SetData(chess_tbl[player][slot], CONST.对象_职业,115);		--馴獸大師
@@ -1113,6 +1245,16 @@ function Module:onLoad()
               if type(petbagPet_chess) == 'table' then
                 petData = petbagPet_chess
                 local enemyId = petbagPet_chess.attr[tostring(CONST.PET_PetID)];
+                --总档次检测
+                local a6 = 0;
+                for k,v in pairs(petRankFields) do
+                  a6 = a6 + tonumber(petData.rank[tostring(v)]);
+                end
+                if (a6>500) then
+                  --NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
+                  return
+                end
+
                 petIndex = Char.AddPet(chess_tbl[player][slot], enemyId);
                 self:insertPetData(petIndex,petData)
                 Char.SetData(petIndex,CONST.宠物_忠诚,100);
@@ -1193,6 +1335,16 @@ function Module:onLoad()
           end)
           if type(petbagPet) == 'table' and switch==1 then
             local enemyId = petbagPet.attr[tostring(CONST.PET_PetID)];
+            --总档次检测
+            local a6 = 0;
+            for k,v in pairs(petRankFields) do
+              a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
+            end
+            if (a6>500) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
+              return
+            end
+
             chess_tbl[player][slot+10] = Char.CreateDummy()
             --print(chess_tbl[player][slot+10])
             for key, value in pairs(chessFields) do
@@ -1200,6 +1352,22 @@ function Module:onLoad()
                 Char.SetData(chess_tbl[player][slot+10], value, petbagPet.attr[tostring(value)]);
               end
             end
+            Char.GiveItem(chess_tbl[player][slot+10], 19200, 1);
+            Char.GiveItem(chess_tbl[player][slot+10], 19538, 1);
+            Char.MoveItem(chess_tbl[player][slot+10], 8, 5, -1);
+            Char.MoveItem(chess_tbl[player][slot+10], 9, 6, -1);
+            local item_1 = Char.HaveItem(chess_tbl[player][slot+10],19200);
+            Item.SetData(item_1,CONST.道具_属性一,1);
+            Item.SetData(item_1,CONST.道具_属性二,2);
+            Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
+            Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
+            local item_2 = Char.HaveItem(chess_tbl[player][slot+10],19538);
+            Item.SetData(item_2,CONST.道具_属性一,3);
+            Item.SetData(item_2,CONST.道具_属性二,4);
+            Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
+            Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
+            Item.UpItem(chess_tbl[player][slot+10], -1);
+
             Char.SetData(chess_tbl[player][slot+10], CONST.对象_类型,1);		--CONST.对象类型_人
             Char.SetData(chess_tbl[player][slot+10], CONST.对象_魅力,100);
             Char.SetData(chess_tbl[player][slot+10], CONST.对象_职业,115);		--馴獸大師
@@ -1237,6 +1405,16 @@ function Module:onLoad()
               if type(petbagPet_chess) == 'table' and switch==1 then
                 petData = petbagPet_chess
                 local enemyId = petbagPet_chess.attr[tostring(CONST.PET_PetID)];
+                --总档次检测
+                local a6 = 0;
+                for k,v in pairs(petRankFields) do
+                  a6 = a6 + tonumber(petData.rank[tostring(v)]);
+                end
+                if (a6>500) then
+                  --NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
+                  return
+                end
+
                 local petIndex = Char.AddPet(chess_tbl[player][slot+10], enemyId);
                 self:insertPetData(petIndex,petData)
                 Char.SetData(petIndex,CONST.宠物_忠诚,100);
@@ -1513,6 +1691,36 @@ function battle_wincallback(battleIndex)
   Battle.UnsetPVPWinEvent(battleIndex);
 end
 
+function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
+      --self:logDebug('OnDamageCalculateCallBack', charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
+      local Round = Battle.GetTurn(battleIndex);
+      if Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false  then
+        if (Char.GetData(charIndex, CONST.对象_地图)==1000) then
+          if (Char.GetData(charIndex, CONST.对象_X)>=216 and Char.GetData(charIndex, CONST.对象_X)<=220 and Char.GetData(charIndex, CONST.对象_Y)>=91 and Char.GetData(charIndex, CONST.对象_Y)<=94) then
+            damage = 1;
+            return damage;
+          end
+        end
+      end
+  return damage;
+end
+
+function Module:onBattleSkillCheckEvent(charIndex, battleIndex, arrayOfSkillEnable)
+      --self:logDebug('onBattleSkillCheckEventCallBack', charIndex, battleIndex, arrayOfSkillEnable)
+      local Round = Battle.GetTurn(battleIndex);
+      if Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false  then
+        if (Char.GetData(charIndex, CONST.对象_地图)==1000) then
+          if (Char.GetData(charIndex, CONST.对象_X)>=216 and Char.GetData(charIndex, CONST.对象_X)<=220 and Char.GetData(charIndex, CONST.对象_Y)>=91 and Char.GetData(charIndex, CONST.对象_Y)<=94) then
+            for Slot=0,14 do
+              local skillSlot=Char.GetSkillID(charIndex,Slot);
+              arrayOfSkillEnable[Slot+1]=0;
+            end
+            return arrayOfSkillEnable;
+          end
+        end
+      end
+  return arrayOfSkillEnable;
+end
 
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="/chess") then
