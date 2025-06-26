@@ -1,6 +1,8 @@
 ---模块类
 local Module = ModuleBase:createModule('petbag')
 local sgModule = getModule("setterGetter")
+local global_battle = {}
+local global_time = {}
 
 local petbag_list = {
     1,1,1,1,1,1,1,1,
@@ -403,9 +405,10 @@ end
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
-  self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
-  self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
-  self:regCallback('BattleSkillCheckEvent', Func.bind(self.onBattleSkillCheckEvent, self))
+  --self:regCallback('BeforeBattleTurnEvent', Func.bind(self.handleBattleAutoCommand, self))
+  self:regCallback('ProtocolOnRecv',Func.bind(self.battlecommand,self),'Rg')
+  --self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
+  --self:regCallback('BattleSkillCheckEvent', Func.bind(self.onBattleSkillCheckEvent, self))
   --self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self.petBankNPC = self:NPC_createNormal('寵物雲端倉庫', 14682, { x = 38, y = 30, mapType = 0, map = 777, direction = 6 });
   self:NPC_regWindowTalkedEvent(self.petBankNPC, function(npc, player, _seqno, _select, _data)
@@ -785,17 +788,18 @@ function Module:onLoad()
     end
     if seqno == 1 then
       if data==1 then
-        Char.LeaveParty(player);
-        if (chess_tbl[player]~=nil) then
-          for k,v in ipairs(chess_tbl[player]) do
+        if (chess_tbl[Char.GetData(player,CONST.对象_CDK)]~=nil) then
+          for k,v in ipairs(chess_tbl[Char.GetData(player,CONST.对象_CDK)]) do
+            NLG.DropPlayer(v);
             Char.DelDummy(v);
           end
         end
         leader_tbl = {}
         skill_tbl = {}
+        chess_tbl[Char.GetData(player,CONST.对象_CDK)]={};
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
-        for slot = 2, 3 do
+        for slot = 1, 3 do
           local petbagPet = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot)) or nil;
           pcall(function()
             if petbagPet~=nil then
@@ -809,8 +813,8 @@ function Module:onLoad()
             for k,v in pairs(petRankFields) do
               a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
             end
-            if (a6>135) then
-              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+            if (a6>500) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
               return
             end
 
@@ -843,19 +847,17 @@ function Module:onLoad()
             --skill_tbl[slot+1] = petbagPet.skills
             Char.SetTempData(chessIndex, '自走技能', JSON.encode(petbagPet.skills));
 
-            if (chessIndex~=nil and slot==1) then
+            if (chessIndex~=nil and slot==1) then	--隊長
               local chess_leader_AIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_AIndex);
 
               local playercdk = Char.GetData(player,CONST.对象_CDK);
               Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
             elseif (chessIndex~=nil) then
-              Char.JoinParty(chessIndex, player, true);
+              Char.JoinParty(chessIndex, leader_tbl[1], true);
             end
-            chess_tbl[player]={};
-            table.insert(chess_tbl[player],chessIndex);
+            table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -919,8 +921,8 @@ function Module:onLoad()
             for k,v in pairs(petRankFields) do
               a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
             end
-            if (a6>135) then
-              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+            if (a6>500) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
               return
             end
 
@@ -953,17 +955,14 @@ function Module:onLoad()
             --skill_tbl[slot+10] = petbagPet.skills
             Char.SetTempData(chessIndex, '自走技能', JSON.encode(petbagPet.skills));
 
-            if (chessIndex~=nil and slot==1) then
+            if (chessIndex~=nil and slot==1) then	--隊長
               local chess_leader_BIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_BIndex);
             elseif (chessIndex~=nil) then
-              --Char.JoinParty(chessIndex, leader_tbl[2], true);
-              Char.JoinParty(chessIndex, leader_tbl[1], true);
+              Char.JoinParty(chessIndex, leader_tbl[2], true);
             end
-            chess_tbl[player]={};
-            table.insert(chess_tbl[player],chessIndex);
+            table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -971,23 +970,24 @@ function Module:onLoad()
         --Char.Warp(leader_tbl[2], 0, 1000, 218, 87);
 
         --自走
-        --local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
-        local battleIndex = Battle.PVP(player,leader_tbl[1]);
+        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        global_battle[player] = battleIndex;
         Battle.SetPVPWinEvent('./lua/Modules/petbag.lua', 'battle_wincallback', battleIndex);
         --观战
-        --NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==2 then
-        Char.LeaveParty(player);
-        if (chess_tbl[player]~=nil) then
-          for k,v in ipairs(chess_tbl[player]) do
+        if (chess_tbl[Char.GetData(player,CONST.对象_CDK)]~=nil) then
+          for k,v in ipairs(chess_tbl[Char.GetData(player,CONST.对象_CDK)]) do
+            NLG.DropPlayer(v);
             Char.DelDummy(v);
           end
         end
         leader_tbl = {}
         skill_tbl = {}
+        chess_tbl[Char.GetData(player,CONST.对象_CDK)]={};
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
-        for slot = 2, 5 do
+        for slot = 1, 5 do
           local petbagPet = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot)) or nil;
           pcall(function()
             if petbagPet~=nil then
@@ -1001,8 +1001,8 @@ function Module:onLoad()
             for k,v in pairs(petRankFields) do
               a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
             end
-            if (a6>135) then
-              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+            if (a6>500) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
               return
             end
 
@@ -1035,19 +1035,17 @@ function Module:onLoad()
             --skill_tbl[slot+1] = petbagPet.skills
             Char.SetTempData(chessIndex, '自走技能', JSON.encode(petbagPet.skills));
 
-            if (chessIndex~=nil and slot==1) then
+            if (chessIndex~=nil and slot==1) then	--隊長
               local chess_leader_AIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_AIndex);
 
               local playercdk = Char.GetData(player,CONST.对象_CDK);
               Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
             elseif (chessIndex~=nil) then
-              Char.JoinParty(chessIndex, player, true);
+              Char.JoinParty(chessIndex, leader_tbl[1], true);
             end
-            chess_tbl[player]={};
-            table.insert(chess_tbl[player],chessIndex);
+            table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -1111,8 +1109,8 @@ function Module:onLoad()
             for k,v in pairs(petRankFields) do
               a6 = a6 + tonumber(petbagPet.rank[tostring(v)]);
             end
-            if (a6>135) then
-              NLG.SystemMessage(player, "[系統]寵物總檔次超過135無法入隊。");
+            if (a6>500) then
+              NLG.SystemMessage(player, "[系統]寵物總檔次超過500無法入隊。");
               return
             end
 
@@ -1145,17 +1143,15 @@ function Module:onLoad()
             --skill_tbl[slot+10] = petbagPet.skills
             Char.SetTempData(chessIndex, '自走技能', JSON.encode(petbagPet.skills));
 
-            if (chessIndex~=nil and slot==1) then
+            if (chessIndex~=nil and slot==1) then	--隊長
               local chess_leader_BIndex = chessIndex;
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
               --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_BIndex);
             elseif (chessIndex~=nil) then
-              --Char.JoinParty(chessIndex, leader_tbl[2], true);
-              Char.JoinParty(chessIndex, leader_tbl[1], true);
+              Char.JoinParty(chessIndex, leader_tbl[2], true);
             end
-            chess_tbl[player]={};
-            table.insert(chess_tbl[player],chessIndex);
+            table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -1163,23 +1159,24 @@ function Module:onLoad()
         --Char.Warp(leader_tbl[2], 0, 1000, 218, 87);
 
         --自走
-        --local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
-        local battleIndex = Battle.PVP(player,leader_tbl[1]);
+        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        global_battle[player] = battleIndex;
         Battle.SetPVPWinEvent('./lua/Modules/petbag.lua', 'battle_wincallback', battleIndex);
         --观战
-        --NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==3 then
-        Char.LeaveParty(player);
-        if (chess_tbl[player]~=nil) then
-          for k,v in ipairs(chess_tbl[player]) do
+        if (chess_tbl[Char.GetData(player,CONST.对象_CDK)]~=nil) then
+          for k,v in ipairs(chess_tbl[Char.GetData(player,CONST.对象_CDK)]) do
+            NLG.DropPlayer(v);
             Char.DelDummy(v);
           end
         end
         leader_tbl = {}
         skill_tbl = {}
+        chess_tbl[Char.GetData(player,CONST.对象_CDK)]={};
         --我方棋子组队
         local petbagIndex = tonumber(1);	--云库第1页前5隻宠
-        for slot = 2, 5 do
+        for slot = 1, 5 do
           local petbagPet = Char.GetExtData(player, string.format("petbag-%d-%d", petbagIndex, slot)) or nil;
           pcall(function()
             if petbagPet~=nil then
@@ -1198,40 +1195,39 @@ function Module:onLoad()
               return
             end
 
-            chess_tbl[player]={};
-            chess_tbl[player][slot] = Char.CreateDummy()
-            --print(chess_tbl[player][slot])
+            chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot] = Char.CreateDummy()
+            --print(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot])
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
-                Char.SetData(chess_tbl[player][slot], value,petbagPet.attr[tostring(value)]);
+                Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], value,petbagPet.attr[tostring(value)]);
               end
             end
-            Char.GiveItem(chess_tbl[player][slot], 19200, 1);
-            Char.GiveItem(chess_tbl[player][slot], 19538, 1);
-            Char.MoveItem(chess_tbl[player][slot], 8, 5, -1);
-            Char.MoveItem(chess_tbl[player][slot], 9, 6, -1);
-            local item_1 = Char.HaveItem(chess_tbl[player][slot],19200);
+            Char.GiveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], 19200, 1);
+            Char.GiveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], 19538, 1);
+            Char.MoveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], 8, 5, -1);
+            Char.MoveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], 9, 6, -1);
+            local item_1 = Char.HaveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot],19200);
             Item.SetData(item_1,CONST.道具_属性一,1);
             Item.SetData(item_1,CONST.道具_属性二,2);
             Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
             Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
-            local item_2 = Char.HaveItem(chess_tbl[player][slot],19538);
+            local item_2 = Char.HaveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot],19538);
             Item.SetData(item_2,CONST.道具_属性一,3);
             Item.SetData(item_2,CONST.道具_属性二,4);
             Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
             Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
-            Item.UpItem(chess_tbl[player][slot], -1);
+            Item.UpItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], -1);
 
-            Char.SetData(chess_tbl[player][slot], CONST.对象_类型,1);		--CONST.对象类型_人
-            Char.SetData(chess_tbl[player][slot], CONST.对象_魅力,100);
-            Char.SetData(chess_tbl[player][slot], CONST.对象_职业,115);		--馴獸大師
-            Char.SetData(chess_tbl[player][slot], CONST.对象_职类ID,110);		--馴獸大師
-            Char.SetData(chess_tbl[player][slot], CONST.对象_职阶,5);
-            Char.AddSkill(chess_tbl[player][slot], 71); 
-            Char.SetSkillLevel(chess_tbl[player][slot],0,10);
-            NLG.UpChar(chess_tbl[player][slot]);
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], CONST.对象_类型,1);		--CONST.对象类型_人
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], CONST.对象_魅力,100);
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], CONST.对象_职业,115);		--馴獸大師
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], CONST.对象_职类ID,110);		--馴獸大師
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], CONST.对象_职阶,5);
+            Char.AddSkill(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], 71); 
+            Char.SetSkillLevel(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot],0,10);
+            NLG.UpChar(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot]);
             --skill_tbl[slot+1] = petbagPet.skills
-            Char.SetTempData(chess_tbl[player][slot], '自走技能', JSON.encode(petbagPet.skills));
+            Char.SetTempData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], '自走技能', JSON.encode(petbagPet.skills));
 
             --第6~10宠
               local petbagIndex = tonumber(2);	--云库第2页前5隻宠
@@ -1255,28 +1251,25 @@ function Module:onLoad()
                   return
                 end
 
-                petIndex = Char.AddPet(chess_tbl[player][slot], enemyId);
+                petIndex = Char.AddPet(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], enemyId);
                 self:insertPetData(petIndex,petData)
                 Char.SetData(petIndex,CONST.宠物_忠诚,100);
-                Pet.UpPet(chess_tbl[player][slot], petIndex);
-                Char.SetPetDepartureState(chess_tbl[player][slot],0,CONST.PET_STATE_战斗);
-                NLG.UpChar(chess_tbl[player][slot]);
+                Pet.UpPet(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], petIndex);
+                Char.SetPetDepartureState(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot],0,CONST.PET_STATE_战斗);
+                NLG.UpChar(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot]);
               else
                 --print("["..(slot+5).."]號位:空");
               end
 
-            if (chess_tbl[player][slot]~=nil and slot==1) then
-              local chess_leader_AIndex = chess_tbl[player][slot];
+            if (chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot]~=nil and slot==1) then	--隊長
+              local chess_leader_AIndex = chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot];
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_AIndex);
-
               local playercdk = Char.GetData(player,CONST.对象_CDK);
               Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
-            elseif (chess_tbl[player][slot]~=nil) then
-              Char.JoinParty(chess_tbl[player][slot], player, true);
+            elseif (chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot]~=nil) then
+              Char.JoinParty(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot], leader_tbl[1], true);
             end
-            --table.insert(chess_tbl[player],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -1345,39 +1338,39 @@ function Module:onLoad()
               return
             end
 
-            chess_tbl[player][slot+10] = Char.CreateDummy()
-            --print(chess_tbl[player][slot+10])
+            chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10] = Char.CreateDummy()
+            --print(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10])
             for key, value in pairs(chessFields) do
               if petbagPet.attr[tostring(value)] ~=nil then
-                Char.SetData(chess_tbl[player][slot+10], value, petbagPet.attr[tostring(value)]);
+                Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], value, petbagPet.attr[tostring(value)]);
               end
             end
-            Char.GiveItem(chess_tbl[player][slot+10], 19200, 1);
-            Char.GiveItem(chess_tbl[player][slot+10], 19538, 1);
-            Char.MoveItem(chess_tbl[player][slot+10], 8, 5, -1);
-            Char.MoveItem(chess_tbl[player][slot+10], 9, 6, -1);
-            local item_1 = Char.HaveItem(chess_tbl[player][slot+10],19200);
+            Char.GiveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], 19200, 1);
+            Char.GiveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], 19538, 1);
+            Char.MoveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], 8, 5, -1);
+            Char.MoveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], 9, 6, -1);
+            local item_1 = Char.HaveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10],19200);
             Item.SetData(item_1,CONST.道具_属性一,1);
             Item.SetData(item_1,CONST.道具_属性二,2);
             Item.SetData(item_1,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_地属性)]);
             Item.SetData(item_1,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_水属性)]);
-            local item_2 = Char.HaveItem(chess_tbl[player][slot+10],19538);
+            local item_2 = Char.HaveItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10],19538);
             Item.SetData(item_2,CONST.道具_属性一,3);
             Item.SetData(item_2,CONST.道具_属性二,4);
             Item.SetData(item_2,CONST.道具_属性一值,petbagPet.attr[tostring(CONST.对象_火属性)]);
             Item.SetData(item_2,CONST.道具_属性二值,petbagPet.attr[tostring(CONST.对象_风属性)]);
-            Item.UpItem(chess_tbl[player][slot+10], -1);
+            Item.UpItem(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], -1);
 
-            Char.SetData(chess_tbl[player][slot+10], CONST.对象_类型,1);		--CONST.对象类型_人
-            Char.SetData(chess_tbl[player][slot+10], CONST.对象_魅力,100);
-            Char.SetData(chess_tbl[player][slot+10], CONST.对象_职业,115);		--馴獸大師
-            Char.SetData(chess_tbl[player][slot+10], CONST.对象_职类ID,110);		--馴獸大師
-            Char.SetData(chess_tbl[player][slot+10], CONST.对象_职阶,5);
-            Char.AddSkill(chess_tbl[player][slot+10], 71); 
-            Char.SetSkillLevel(chess_tbl[player][slot+10],0,10);
-            NLG.UpChar(chess_tbl[player][slot+10]);
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], CONST.对象_类型,1);		--CONST.对象类型_人
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], CONST.对象_魅力,100);
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], CONST.对象_职业,115);		--馴獸大師
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], CONST.对象_职类ID,110);		--馴獸大師
+            Char.SetData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], CONST.对象_职阶,5);
+            Char.AddSkill(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], 71); 
+            Char.SetSkillLevel(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10],0,10);
+            NLG.UpChar(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10]);
             --skill_tbl[slot+10] = petbagPet.skills
-            Char.SetTempData(chess_tbl[player][slot+10], '自走技能', JSON.encode(petbagPet.skills));
+            Char.SetTempData(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], '自走技能', JSON.encode(petbagPet.skills));
 
             --第6~10宠
               local slotIndex = tostring('petbag-2-'..tostring(slot));
@@ -1415,26 +1408,23 @@ function Module:onLoad()
                   return
                 end
 
-                local petIndex = Char.AddPet(chess_tbl[player][slot+10], enemyId);
+                local petIndex = Char.AddPet(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], enemyId);
                 self:insertPetData(petIndex,petData)
                 Char.SetData(petIndex,CONST.宠物_忠诚,100);
-                Pet.UpPet(chess_tbl[player][slot+10], petIndex);
-                Char.SetPetDepartureState(chess_tbl[player][slot+10],0,CONST.PET_STATE_战斗);
-                NLG.UpChar(chess_tbl[player][slot+10]);
+                Pet.UpPet(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], petIndex);
+                Char.SetPetDepartureState(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10],0,CONST.PET_STATE_战斗);
+                NLG.UpChar(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10]);
               else
                 --print("["..(slot+5).."]號位:空");
               end
 
-            if (chess_tbl[player][slot+10]~=nil and slot==1) then
-              local chess_leader_BIndex = chess_tbl[player][slot+10];
+            if (chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10]~=nil and slot==1) then	--隊長
+              local chess_leader_BIndex = chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10];
               local leader_name = petbagPet.attr[tostring(CONST.对象_名字)];
-              --print("隊長:"..leader_name)
               table.insert(leader_tbl,chess_leader_BIndex);
-            elseif (chess_tbl[player][slot+10]~=nil) then
-              --Char.JoinParty(chess_tbl[player][slot+10], leader_tbl[2], true);
-              Char.JoinParty(chess_tbl[player][slot+10], leader_tbl[1], true);
+            elseif (chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10]~=nil) then
+              Char.JoinParty(chess_tbl[Char.GetData(player,CONST.对象_CDK)][slot+10], leader_tbl[2], true);
             end
-            --table.insert(chess_tbl[player],chessIndex);
           else
             --print("["..slot.."]號位:空");
           end
@@ -1442,11 +1432,11 @@ function Module:onLoad()
         --Char.Warp(leader_tbl[2], 0, 1000, 218, 87);
 
         --自走
-        --local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
-        local battleIndex = Battle.PVP(player,leader_tbl[1]);
+        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        global_battle[player] = battleIndex;
         Battle.SetPVPWinEvent('./lua/Modules/petbag.lua', 'battle_wincallback', battleIndex);
         --观战
-        --NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
       elseif data==4 then
         if (NLG.CanTalk(npc, player) == true) then
           local cdKey_tbl = {}
@@ -1512,6 +1502,7 @@ function Module:onLoad()
   end)
 
 end
+
 
 function Module:handleBattleAutoCommand(battleIndex)
   local Round = Battle.GetTurn(battleIndex);
@@ -1648,6 +1639,129 @@ function Module:handleBattleAutoCommand(battleIndex)
   end)
 end
 
+function Module:battlecommand(fd, head, data)
+  local player = Protocol.GetCharByFd(fd)
+  if data[1] == 'N' then
+    local battleIndex = global_battle[player];
+    if (Battle.GetType(battleIndex)==2) then
+      local gl_time = global_time[player] or 0;
+      local eta = os.time()-gl_time;
+      if (Battle.IsWaitingCommand(Battle.GetPlayer(battleIndex,0)) and eta>3) then	-- 如果是在等待命令
+        local poss={}
+        for i = 0, 4 do
+          table.insert(poss,i)
+        end
+        for i = 10, 14 do
+          table.insert(poss,i)
+        end
+        table.forEach(poss, function(e)
+          local dummyIndex = Battle.GetPlayer(battleIndex, e);
+          -- 如果不是人，退出
+          if dummyIndex < 0 then
+            return
+          end
+          -- 如果不是假人，退出
+          if not Char.IsDummy(dummyIndex) then
+            return
+          end
+          -- 如果是佣兵 ，退出
+          local heroesOnline=sgModule:getGlobal("heroesOnline")
+          if heroesOnline[dummyIndex] then
+            return
+          end
+
+          if (Char.GetData(dummyIndex, CONST.对象_战死) == 1) then
+            Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+          end
+
+          local side=0
+          if e>9 then
+            side=1
+          end
+          local sidetable = {{NLG.Rand(0,9),NLG.Rand(20,29),40},{NLG.Rand(10,19),NLG.Rand(30,39),41},{NLG.Rand(0,9),NLG.Rand(20,29),40},}
+          --local charside = side+1;
+          local charside = side+2;
+
+          local skill_tbl = Char.GetTempData(dummyIndex, '自走技能') or nil;
+          pcall(function()
+            if skill_tbl then
+              techId_tbl = JSON.decode(skill_tbl);
+            end
+          end)
+          --local techId_tbl = skill_tbl[e+1];
+          local count = 0;
+          repeat
+            local techSlot = NLG.Rand(1, 10);
+            count = count + 1;
+            chessTechId = tonumber(techId_tbl[techSlot]);
+          until (chessTechId ~= nil) or (count==3)
+
+          --print(chessTechId)
+          -- 第一个命令
+          for k, v in pairs(skillParams) do
+            if (chessTechId == nil) then
+              chessTechId = 7300;
+            end
+            local chessSide = side + v.side + 1;
+            local chessUnit = v.unit+1;
+            if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
+              local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
+              Battle.ActionSelect(dummyIndex, v.com1, target, chessTechId);
+              goto next
+            end
+          end
+          Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1],-1);
+          ::next::
+
+          -- 获取其宠物
+          local petSLot = math.fmod(e + 5, 10)+side*10;
+          local petIndex = Battle.GetPlayer(battleIndex, petSLot);
+
+          if petIndex < 0 then
+            local charside = side+2;
+            local AtorDf = NLG.Rand(1, 2);
+            if (AtorDf==1) then
+              Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1],-1);
+            elseif (AtorDf==2) then
+              Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1,-1);
+            end
+          else
+
+            local EnemyId = Char.GetData(petIndex,CONST.PET_PetID);
+            local EnemyDataIndex = Data.EnemyGetDataIndex(EnemyId);
+            local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base编号);
+            local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(enemyBaseId);
+            local skillNum =Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_技能栏);
+            local skillSlot = NLG.Rand(0, skillNum-1);
+            for k, v in pairs(skillParams) do
+              local chessTechId = Pet.GetSkill(petIndex,skillSlot);
+              if (chessTechId == -1) then
+                chessTechId = 7300;
+              end
+              local chessSide = side + v.side + 1;
+              local chessUnit = v.unit+1;
+              if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
+                local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
+                Battle.ActionSelect(petIndex, v.com1, target, chessTechId);
+                goto over
+              end
+            end
+            local charside = side+2;
+            local AtorDf = NLG.Rand(1, 2);
+            if (AtorDf==1) then
+              Battle.ActionSelect(petIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1],-1);
+            elseif (AtorDf==2) then
+              Battle.ActionSelect(petIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1,-1);
+            end
+            ::over::
+          end
+        end)
+        global_time[player] = os.time();
+      end
+    end
+  end
+end
+
 function battle_wincallback(battleIndex)
   local winside = Battle.GetWinSide(battleIndex);
   local poss={}
@@ -1683,7 +1797,8 @@ function battle_wincallback(battleIndex)
       Char.SetExtData(player, '自走积分', pts+1);
       NLG.UpChar(player);
     end
-    Char.LeaveParty(dummyIndex);
+    --Char.LeaveParty(dummyIndex);
+    NLG.DropPlayer(dummyIndex);
     Char.DelDummy(dummyIndex);
 
   end)
