@@ -1713,8 +1713,10 @@ function Module:battlecommand(fd, head, data)
           Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1],-1);
           ::next::
 
+          Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+
           -- 获取其宠物
-          local petSLot = math.fmod(e + 5, 10)+side*10;
+          --[[local petSLot = math.fmod(e + 5, 10)+side*10;
           local petIndex = Battle.GetPlayer(battleIndex, petSLot);
 
           if petIndex < 0 then
@@ -1755,6 +1757,68 @@ function Module:battlecommand(fd, head, data)
             end
             ::over::
           end
+          ]]
+        end)
+
+        local pet_poss={}
+        for i = 5, 9 do
+          table.insert(pet_poss,i)
+        end
+        for i = 15, 19 do
+          table.insert(pet_poss,i)
+        end
+
+        table.forEach(pet_poss, function(e)
+          local dummyIndex = Battle.GetPlayer(battleIndex, e);
+          -- 如果不是人，退出
+          if dummyIndex < 0 then
+            return
+          end
+          -- 如果不是假人，退出
+          local ownerIndex = Battle.GetPlayer(battleIndex, e-5);
+          if not Char.IsDummy(ownerIndex) then
+            return
+          end
+
+          if (Char.GetData(dummyIndex, CONST.对象_战死) == 1) then
+            Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+          end
+
+          local side=0
+          if e>9 then
+            side=1
+          end
+          local sidetable = {{NLG.Rand(0,9),NLG.Rand(20,29),40},{NLG.Rand(10,19),NLG.Rand(30,39),41},{NLG.Rand(0,9),NLG.Rand(20,29),40},}
+          --local charside = side+1;
+          local charside = side+2;
+
+          local EnemyId = Char.GetData(dummyIndex,CONST.PET_PetID);
+          local EnemyDataIndex = Data.EnemyGetDataIndex(EnemyId);
+          local enemyBaseId = Data.EnemyGetData(EnemyDataIndex, CONST.Enemy_Base编号);
+          local EnemyBaseDataIndex = Data.EnemyBaseGetDataIndex(enemyBaseId);
+          local skillNum =Data.EnemyBaseGetData(EnemyBaseDataIndex, CONST.EnemyBase_技能栏);
+          local skillSlot = NLG.Rand(0, skillNum-1);
+          for k, v in pairs(skillParams) do
+            local chessTechId = Pet.GetSkill(dummyIndex,skillSlot);
+            if (chessTechId == -1) then
+              chessTechId = 7300;
+            end
+            local chessSide = side + v.side + 1;
+            local chessUnit = v.unit+1;
+            if chessTechId>=v.techId[1] and chessTechId<=v.techId[2]  then
+              local target = smartTargetSelection(battleIndex,sidetable[chessSide][chessUnit],chessTechId)
+              Battle.ActionSelect(dummyIndex, v.com1, target, chessTechId);
+              goto over
+            end
+          end
+          charside = side+2;
+          AtorDf = NLG.Rand(1, 2);
+          if (AtorDf==1) then
+            Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK, sidetable[charside][1],-1);
+          elseif (AtorDf==2) then
+            Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1,-1);
+          end
+          ::over::
         end)
         global_time[player] = os.time();
       end
@@ -1789,8 +1853,7 @@ function battle_wincallback(battleIndex)
       return
     end
 
-    --if (e==0) then
-    if (e==1) then
+    if (e==0) then
       local playercdk = Char.GetTempData(dummyIndex, '自走棋手');
       local player = NLG.FindUser(playercdk);
       local pts = Char.GetExtData(player, '自走积分') or 0;
