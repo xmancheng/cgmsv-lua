@@ -777,13 +777,21 @@ function Module:onLoad()
 
               local winButton = CONST.BUTTON_关闭;
               local msg = "1\\n　　　　　　　　【寵物進化預覽】\\n"
-              for i = 1 + count_temp, 8 + count_temp do
-                 msg = msg .. "　　◎項目 "..i.."　".. evolution_plan_name[i] .. "\\n"
-                 if page_temp == 1 then
-                   winButton = CONST.BUTTON_下取消
-                 else
-                   winButton = CONST.BUTTON_上下取消
-                 end
+              if page_temp == totalPage then
+                for i = 1 + count_temp, remainder + count_temp do
+                    msg = msg .. "　　◎項目 "..i.."　".. evolution_plan_name[i] .. "\\n"
+                end
+              else
+                for i = 1 + count_temp, 8 + count_temp do
+                    msg = msg .. "　　◎項目 "..i.."　".. evolution_plan_name[i] .. "\\n"
+                end
+              end
+              if page_temp == 1 then
+                winButton = CONST.BUTTON_下取消
+              elseif page_temp == totalPage then
+                winButton = CONST.BUTTON_上取消
+              else
+                winButton = CONST.BUTTON_上下取消
               end
               NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, page_temp, msg);
               return
@@ -1110,3 +1118,4 @@ function Module:onUnload()
 end
 
 return Module;
+
