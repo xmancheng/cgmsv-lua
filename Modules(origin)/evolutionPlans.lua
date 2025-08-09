@@ -90,12 +90,12 @@ evolution_plan_pet[10] = 406210;
 evolution_plan_requirement[10] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
 evolution_plan_tech[10] = 310105;
 
-evolution_plan_name[11] = "《退化》皮丘";
-evolution_plan_offering[11] = 406212;
-evolution_plan_item[11] = 74094;
+evolution_plan_name[11] = "《進化》皮卡丘";
+evolution_plan_offering[11] = 406211;
+evolution_plan_item[11] = 74095;
 evolution_plan_gold[11] = 5000;
-evolution_plan_pet[11] = 406211;
-evolution_plan_requirement[11] = {{CONST.对象_等级,30}, {CONST.对象_死亡数,50}, {CONST.对象_伤害数,10}, {CONST.对象_杀宠数,10}};
+evolution_plan_pet[11] = 406212;
+evolution_plan_requirement[11] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
 evolution_plan_tech[11] = 310109;
 
 evolution_plan_name[12] = "《進化》雷丘";
@@ -114,94 +114,614 @@ evolution_plan_pet[13] = 406214;
 evolution_plan_requirement[13] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
 evolution_plan_tech[13] = 310011;
 
-evolution_plan_name[14] = "《進化》比比鳥";
-evolution_plan_offering[14] = 406226;
-evolution_plan_item[14] = 74094;
+evolution_plan_name[14] = "《進化》鬼斯通";
+evolution_plan_offering[14] = 406216;
+evolution_plan_item[14] = 74095;
 evolution_plan_gold[14] = 5000;
-evolution_plan_pet[14] = 406227;
+evolution_plan_pet[14] = 406217;
 evolution_plan_requirement[14] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
-evolution_plan_tech[14] = 310107;
+evolution_plan_tech[14] = 310101;
 
-evolution_plan_name[15] = "《進化》超級大比鳥";
-evolution_plan_offering[15] = 406227;
-evolution_plan_item[15] = 74097;
-evolution_plan_gold[15] = 50000;
-evolution_plan_pet[15] = 406228;
-evolution_plan_requirement[15] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
-evolution_plan_tech[15] = 310108;
+evolution_plan_name[15] = "《進化》耿鬼";
+evolution_plan_offering[15] = 406217;
+evolution_plan_item[15] = 74096;
+evolution_plan_gold[15] = 15000;
+evolution_plan_pet[15] = 406218;
+evolution_plan_requirement[15] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[15] = 310102;
 
-evolution_plan_name[16] = "《退化》寶寶丁";
-evolution_plan_offering[16] = 406230;
-evolution_plan_item[16] = 74094;
-evolution_plan_gold[16] = 5000;
-evolution_plan_pet[16] = 406229;
-evolution_plan_requirement[16] = {{CONST.对象_等级,30}, {CONST.对象_死亡数,50}, {CONST.对象_伤害数,10}, {CONST.对象_杀宠数,10}};
-evolution_plan_tech[16] = 310100;
+evolution_plan_name[16] = "《進化》超級耿鬼";
+evolution_plan_offering[16] = 406218;
+evolution_plan_item[16] = 74097;
+evolution_plan_gold[16] = 50000;
+evolution_plan_pet[16] = 406219;
+evolution_plan_requirement[16] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,20}, {CONST.对象_伤害数,500}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[16] = 310005;
 
-evolution_plan_name[17] = "《進化》胖可丁";
-evolution_plan_offering[17] = 406230;
+evolution_plan_name[17] = "《進化》巴大蝶";
+evolution_plan_offering[17] = 406220;
 evolution_plan_item[17] = 74096;
 evolution_plan_gold[17] = 15000;
-evolution_plan_pet[17] = 406231;
+evolution_plan_pet[17] = 406221;
 evolution_plan_requirement[17] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
-evolution_plan_tech[17] = 310004;
+evolution_plan_tech[17] = 310107;
 
-evolution_plan_name[18] = "《進化》大嘴蝠";
-evolution_plan_offering[18] = 406274;
-evolution_plan_item[18] = 74095;
-evolution_plan_gold[18] = 5000;
-evolution_plan_pet[18] = 406275;
-evolution_plan_requirement[18] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_name[18] = "《進化》進擊喵老大";
+evolution_plan_offering[18] = 406222;
+evolution_plan_item[18] = 74096;
+evolution_plan_gold[18] = 15000;
+evolution_plan_pet[18] = 406223;
+evolution_plan_requirement[18] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
 evolution_plan_tech[18] = 310110;
 
-evolution_plan_name[19] = "《進化》叉字蝠";
-evolution_plan_offering[19] = 406274;
+evolution_plan_name[19] = "《進化》卡比獸";
+evolution_plan_offering[19] = 406224;
 evolution_plan_item[19] = 74096;
 evolution_plan_gold[19] = 15000;
-evolution_plan_pet[19] = 406276;
+evolution_plan_pet[19] = 406225;
 evolution_plan_requirement[19] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
-evolution_plan_tech[19] = 310111;
+evolution_plan_tech[19] = 310001;
 
-evolution_plan_name[20] = "《進化》鑽角犀獸";
-evolution_plan_offering[20] = 406278;
+evolution_plan_name[20] = "《進化》胖丁";
+evolution_plan_offering[20] = 406229;
 evolution_plan_item[20] = 74095;
 evolution_plan_gold[20] = 5000;
-evolution_plan_pet[20] = 406279;
+evolution_plan_pet[20] = 406230;
 evolution_plan_requirement[20] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
-evolution_plan_tech[20] = 310104;
+evolution_plan_tech[20] = 310101;
 
-evolution_plan_name[21] = "《進化》超甲狂犀";
-evolution_plan_offering[21] = 406279;
+evolution_plan_name[21] = "《進化》胖可丁";
+evolution_plan_offering[21] = 406230;
 evolution_plan_item[21] = 74096;
 evolution_plan_gold[21] = 15000;
-evolution_plan_pet[21] = 406280;
+evolution_plan_pet[21] = 406231;
 evolution_plan_requirement[21] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
-evolution_plan_tech[21] = 310105;
+evolution_plan_tech[21] = 310102;
 
-evolution_plan_name[22] = "《進化》穿山王";
-evolution_plan_offering[22] = 406290;
+evolution_plan_name[22] = "《進化》鴨嘴火獸";
+evolution_plan_offering[22] = 406232;
 evolution_plan_item[22] = 74095;
-evolution_plan_gold[22] = 10000;
-evolution_plan_pet[22] = 406291;
-evolution_plan_requirement[22] = {{CONST.对象_等级,60}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,200}};
-evolution_plan_tech[22] = 310104;
+evolution_plan_gold[22] = 5000;
+evolution_plan_pet[22] = 406233;
+evolution_plan_requirement[22] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[22] = 310007;
 
-evolution_plan_name[23] = "《進化》豪力";
-evolution_plan_offering[23] = 406332;
-evolution_plan_item[23] = 74095;
-evolution_plan_gold[23] = 5000;
-evolution_plan_pet[23] = 406333;
-evolution_plan_requirement[23] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
-evolution_plan_tech[23] = 310001;
+evolution_plan_name[23] = "《進化》鴨嘴炎獸";
+evolution_plan_offering[23] = 406233;
+evolution_plan_item[23] = 74096;
+evolution_plan_gold[23] = 15000;
+evolution_plan_pet[23] = 406234;
+evolution_plan_requirement[23] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[23] = 310008;
 
-evolution_plan_name[24] = "《進化》怪力";
-evolution_plan_offering[24] = 406333;
-evolution_plan_item[24] = 74096;
-evolution_plan_gold[24] = 15000;
-evolution_plan_pet[24] = 406334;
-evolution_plan_requirement[24] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
-evolution_plan_tech[24] = 310002;
+evolution_plan_name[24] = "《進化》鴨嘴擊獸";
+evolution_plan_offering[24] = 406234;
+evolution_plan_item[24] = 74097;
+evolution_plan_gold[24] = 50000;
+evolution_plan_pet[24] = 406235;
+evolution_plan_requirement[24] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,20}, {CONST.对象_伤害数,500}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[24] = 310005;
 
+evolution_plan_name[25] = "《進化》猛火猴";
+evolution_plan_offering[25] = 406236;
+evolution_plan_item[25] = 74095;
+evolution_plan_gold[25] = 5000;
+evolution_plan_pet[25] = 406237;
+evolution_plan_requirement[25] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[25] = 310007;
+
+evolution_plan_name[26] = "《進化》烈焰猴";
+evolution_plan_offering[26] = 406237;
+evolution_plan_item[26] = 74096;
+evolution_plan_gold[26] = 15000;
+evolution_plan_pet[26] = 406238;
+evolution_plan_requirement[26] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[26] = 310008;
+
+evolution_plan_name[27] = "《進化》進擊烈焰猴";
+evolution_plan_offering[27] = 406238;
+evolution_plan_item[27] = 74097;
+evolution_plan_gold[27] = 50000;
+evolution_plan_pet[27] = 406239;
+evolution_plan_requirement[27] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,20}, {CONST.对象_伤害数,500}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[27] = 310005;
+
+evolution_plan_name[28] = "《進化》森林蜥蜴";
+evolution_plan_offering[28] = 406240;
+evolution_plan_item[28] = 74095;
+evolution_plan_gold[28] = 5000;
+evolution_plan_pet[28] = 406241;
+evolution_plan_requirement[28] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[28] = 310107;
+
+evolution_plan_name[29] = "《進化》蜥蜴王";
+evolution_plan_offering[29] = 406241;
+evolution_plan_item[29] = 74096;
+evolution_plan_gold[29] = 15000;
+evolution_plan_pet[29] = 406242;
+evolution_plan_requirement[29] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[29] = 310108;
+
+evolution_plan_name[30] = "《進化》超級蜥蜴王";
+evolution_plan_offering[30] = 406242;
+evolution_plan_item[30] = 74097;
+evolution_plan_gold[30] = 50000;
+evolution_plan_pet[30] = 406243;
+evolution_plan_requirement[30] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[30] = 310105;
+
+evolution_plan_name[31] = "《進化》呱頭蛙";
+evolution_plan_offering[31] = 406244;
+evolution_plan_item[31] = 74095;
+evolution_plan_gold[31] = 5000;
+evolution_plan_pet[31] = 406245;
+evolution_plan_requirement[31] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[31] = 310101;
+
+evolution_plan_name[32] = "《進化》甲賀忍蛙";
+evolution_plan_offering[32] = 406245;
+evolution_plan_item[32] = 74096;
+evolution_plan_gold[32] = 15000;
+evolution_plan_pet[32] = 406246;
+evolution_plan_requirement[32] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[32] = 310102;
+
+evolution_plan_name[33] = "《進化》羈絆甲賀忍蛙";
+evolution_plan_offering[33] = 406246;
+evolution_plan_item[33] = 74097;
+evolution_plan_gold[33] = 50000;
+evolution_plan_pet[33] = 406247;
+evolution_plan_requirement[33] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[33] = 310105;
+
+evolution_plan_name[34] = "《進化》哈克龍";
+evolution_plan_offering[34] = 406261;
+evolution_plan_item[34] = 74095;
+evolution_plan_gold[34] = 5000;
+evolution_plan_pet[34] = 406262;
+evolution_plan_requirement[34] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[34] = 310001;
+
+evolution_plan_name[35] = "《進化》快龍";
+evolution_plan_offering[35] = 406262;
+evolution_plan_item[35] = 74096;
+evolution_plan_gold[35] = 15000;
+evolution_plan_pet[35] = 406263;
+evolution_plan_requirement[35] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[35] = 310002;
+
+evolution_plan_name[36] = "《進化》進擊快龍";
+evolution_plan_offering[36] = 406263;
+evolution_plan_item[36] = 74097;
+evolution_plan_gold[36] = 50000;
+evolution_plan_pet[36] = 406264;
+evolution_plan_requirement[36] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[36] = 310005;
+
+evolution_plan_name[37] = "《進化》阿柏怪";
+evolution_plan_offering[37] = 406268;
+evolution_plan_item[37] = 74095;
+evolution_plan_gold[37] = 5000;
+evolution_plan_pet[37] = 406269;
+evolution_plan_requirement[37] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[37] = 310001;
+
+evolution_plan_name[38] = "《進化》進擊阿柏怪";
+evolution_plan_offering[38] = 406269;
+evolution_plan_item[38] = 74096;
+evolution_plan_gold[38] = 15000;
+evolution_plan_pet[38] = 406270;
+evolution_plan_requirement[38] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[38] = 310002;
+
+evolution_plan_name[39] = "《進化》雙彈瓦斯";
+evolution_plan_offering[39] = 406271;
+evolution_plan_item[39] = 74095;
+evolution_plan_gold[39] = 5000;
+evolution_plan_pet[39] = 406272;
+evolution_plan_requirement[39] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[39] = 310101;
+
+evolution_plan_name[40] = "《進化》進擊雙彈瓦斯";
+evolution_plan_offering[40] = 406272;
+evolution_plan_item[40] = 74096;
+evolution_plan_gold[40] = 15000;
+evolution_plan_pet[40] = 406273;
+evolution_plan_requirement[40] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[40] = 310102;
+
+evolution_plan_name[41] = "《進化》大嘴蝠";
+evolution_plan_offering[41] = 406274;
+evolution_plan_item[41] = 74095;
+evolution_plan_gold[41] = 5000;
+evolution_plan_pet[41] = 406275;
+evolution_plan_requirement[41] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[41] = 310107;
+
+evolution_plan_name[42] = "《進化》叉字蝠";
+evolution_plan_offering[42] = 406275;
+evolution_plan_item[42] = 74096;
+evolution_plan_gold[42] = 15000;
+evolution_plan_pet[42] = 406276;
+evolution_plan_requirement[42] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[42] = 310108;
+
+evolution_plan_name[43] = "《進化》鑽角犀獸";
+evolution_plan_offering[43] = 406278;
+evolution_plan_item[43] = 74095;
+evolution_plan_gold[43] = 5000;
+evolution_plan_pet[43] = 406279;
+evolution_plan_requirement[43] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[43] = 310104;
+
+evolution_plan_name[44] = "《進化》超甲狂犀";
+evolution_plan_offering[44] = 406279;
+evolution_plan_item[44] = 74096;
+evolution_plan_gold[44] = 15000;
+evolution_plan_pet[44] = 406280;
+evolution_plan_requirement[44] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[44] = 310105;
+
+evolution_plan_name[45] = "《進化》雙斧戰龍";
+evolution_plan_offering[45] = 406281;
+evolution_plan_item[45] = 74096;
+evolution_plan_gold[45] = 15000;
+evolution_plan_pet[45] = 406282;
+evolution_plan_requirement[45] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[45] = 310104;
+
+evolution_plan_name[46] = "《進化》路卡利歐";
+evolution_plan_offering[46] = 406283;
+evolution_plan_item[46] = 74095;
+evolution_plan_gold[46] = 5000;
+evolution_plan_pet[46] = 406284;
+evolution_plan_requirement[46] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[46] = 310001;
+
+evolution_plan_name[47] = "《進化》超級路卡利歐";
+evolution_plan_offering[47] = 406284;
+evolution_plan_item[47] = 74096;
+evolution_plan_gold[47] = 15000;
+evolution_plan_pet[47] = 406285;
+evolution_plan_requirement[47] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[47] = 310002;
+
+evolution_plan_name[48] = "《進化》究極路卡利歐";
+evolution_plan_offering[48] = 406285;
+evolution_plan_item[48] = 74097;
+evolution_plan_gold[48] = 50000;
+evolution_plan_pet[48] = 406286;
+evolution_plan_requirement[48] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[48] = 310005;
+
+evolution_plan_name[49] = "《進化》大針鋒";
+evolution_plan_offering[49] = 406287;
+evolution_plan_item[49] = 74095;
+evolution_plan_gold[49] = 5000;
+evolution_plan_pet[49] = 406288;
+evolution_plan_requirement[49] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[49] = 310107;
+
+evolution_plan_name[50] = "《進化》超級大針鋒";
+evolution_plan_offering[50] = 406288;
+evolution_plan_item[50] = 74096;
+evolution_plan_gold[50] = 15000;
+evolution_plan_pet[50] = 406289;
+evolution_plan_requirement[50] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[50] = 310108;
+
+evolution_plan_name[51] = "《進化》穿山王";
+evolution_plan_offering[51] = 406290;
+evolution_plan_item[51] = 74096;
+evolution_plan_gold[51] = 15000;
+evolution_plan_pet[51] = 406291;
+evolution_plan_requirement[51] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[51] = 310105;
+
+evolution_plan_name[52] = "《進化》進擊拉普拉斯";
+evolution_plan_offering[52] = 406292;
+evolution_plan_item[52] = 74095;
+evolution_plan_gold[52] = 5000;
+evolution_plan_pet[52] = 406293;
+evolution_plan_requirement[52] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[52] = 310101;
+
+evolution_plan_name[53] = "《進化》究擊拉普拉斯";
+evolution_plan_offering[53] = 406293;
+evolution_plan_item[53] = 74096;
+evolution_plan_gold[53] = 15000;
+evolution_plan_pet[53] = 406294;
+evolution_plan_requirement[53] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[53] = 310102;
+
+evolution_plan_name[54] = "《進化》班基拉斯";
+evolution_plan_offering[54] = 406295;
+evolution_plan_item[54] = 74095;
+evolution_plan_gold[54] = 5000;
+evolution_plan_pet[54] = 406296;
+evolution_plan_requirement[54] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[54] = 310104;
+
+evolution_plan_name[55] = "《進化》超級班基拉斯";
+evolution_plan_offering[55] = 406296;
+evolution_plan_item[55] = 74096;
+evolution_plan_gold[55] = 15000;
+evolution_plan_pet[55] = 406297;
+evolution_plan_requirement[55] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[55] = 310105;
+
+evolution_plan_name[56] = "《進化》暴鯉龍";
+evolution_plan_offering[56] = 406298;
+evolution_plan_item[56] = 74095;
+evolution_plan_gold[56] = 5000;
+evolution_plan_pet[56] = 406299;
+evolution_plan_requirement[56] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[56] = 310107;
+
+evolution_plan_name[57] = "《進化》超級暴鯉龍";
+evolution_plan_offering[57] = 406299;
+evolution_plan_item[57] = 74096;
+evolution_plan_gold[57] = 15000;
+evolution_plan_pet[57] = 406300;
+evolution_plan_requirement[57] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[57] = 310005;
+
+evolution_plan_name[58] = "《進化》超級化石翼龍";
+evolution_plan_offering[58] = 406322;
+evolution_plan_item[58] = 74095;
+evolution_plan_gold[58] = 5000;
+evolution_plan_pet[58] = 406323;
+evolution_plan_requirement[58] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[58] = 310105;
+
+evolution_plan_name[59] = "《進化》究擊化石翼龍";
+evolution_plan_offering[59] = 406323;
+evolution_plan_item[59] = 74096;
+evolution_plan_gold[59] = 15000;
+evolution_plan_pet[59] = 406324;
+evolution_plan_requirement[59] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[59] = 310005;
+
+evolution_plan_name[60] = "《進化》皮皮";
+evolution_plan_offering[60] = 406325;
+evolution_plan_item[60] = 74095;
+evolution_plan_gold[60] = 5000;
+evolution_plan_pet[60] = 406326;
+evolution_plan_requirement[60] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[60] = 310110;
+
+evolution_plan_name[61] = "《進化》皮可西";
+evolution_plan_offering[61] = 406326;
+evolution_plan_item[61] = 74096;
+evolution_plan_gold[61] = 15000;
+evolution_plan_pet[61] = 406327;
+evolution_plan_requirement[61] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[61] = 310111;
+
+evolution_plan_name[62] = "《進化》茸茸羊";
+evolution_plan_offering[62] = 406328;
+evolution_plan_item[62] = 74095;
+evolution_plan_gold[62] = 5000;
+evolution_plan_pet[62] = 406329;
+evolution_plan_requirement[62] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[62] = 310109;
+
+evolution_plan_name[63] = "《進化》電龍";
+evolution_plan_offering[63] = 406329;
+evolution_plan_item[63] = 74096;
+evolution_plan_gold[63] = 15000;
+evolution_plan_pet[63] = 406330;
+evolution_plan_requirement[63] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[63] = 310010;
+
+evolution_plan_name[64] = "《進化》超級電龍";
+evolution_plan_offering[64] = 406330;
+evolution_plan_item[64] = 74097;
+evolution_plan_gold[64] = 50000;
+evolution_plan_pet[64] = 406331;
+evolution_plan_requirement[64] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[64] = 310011;
+
+evolution_plan_name[65] = "《進化》豪力";
+evolution_plan_offering[65] = 406332;
+evolution_plan_item[65] = 74095;
+evolution_plan_gold[65] = 5000;
+evolution_plan_pet[65] = 406333;
+evolution_plan_requirement[65] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[65] = 310001;
+
+evolution_plan_name[66] = "《進化》怪力";
+evolution_plan_offering[66] = 406333;
+evolution_plan_item[66] = 74096;
+evolution_plan_gold[66] = 15000;
+evolution_plan_pet[66] = 406334;
+evolution_plan_requirement[66] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[66] = 310002;
+
+evolution_plan_name[67] = "《進化》長尾火狐";
+evolution_plan_offering[67] = 406335;
+evolution_plan_item[67] = 74095;
+evolution_plan_gold[67] = 5000;
+evolution_plan_pet[67] = 406336;
+evolution_plan_requirement[67] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[67] = 310007;
+
+evolution_plan_name[68] = "《進化》妖火紅狐";
+evolution_plan_offering[68] = 406336;
+evolution_plan_item[68] = 74096;
+evolution_plan_gold[68] = 15000;
+evolution_plan_pet[68] = 406337;
+evolution_plan_requirement[68] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[68] = 310008;
+
+evolution_plan_name[69] = "《進化》尖牙陸鯊";
+evolution_plan_offering[69] = 406338;
+evolution_plan_item[69] = 74095;
+evolution_plan_gold[69] = 5000;
+evolution_plan_pet[69] = 406339;
+evolution_plan_requirement[69] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[69] = 310104;
+
+evolution_plan_name[70] = "《進化》烈咬陸鯊";
+evolution_plan_offering[70] = 406339;
+evolution_plan_item[70] = 74096;
+evolution_plan_gold[70] = 15000;
+evolution_plan_pet[70] = 406340;
+evolution_plan_requirement[70] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[70] = 310105;
+
+evolution_plan_name[71] = "《進化》超級波士可多拉";
+evolution_plan_offering[71] = 406344;
+evolution_plan_item[71] = 74095;
+evolution_plan_gold[71] = 5000;
+evolution_plan_pet[71] = 406345;
+evolution_plan_requirement[71] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[71] = 310002;
+
+evolution_plan_name[72] = "《進化》究極波士可多拉";
+evolution_plan_offering[72] = 406345;
+evolution_plan_item[72] = 74096;
+evolution_plan_gold[72] = 15000;
+evolution_plan_pet[72] = 406346;
+evolution_plan_requirement[72] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[72] = 310105;
+
+
+evolution_plan_name[73] = "《進化》超級阿勃梭魯";
+evolution_plan_offering[73] = 406362;
+evolution_plan_item[73] = 74097;
+evolution_plan_gold[73] = 30000;
+evolution_plan_pet[73] = 406363;
+evolution_plan_requirement[73] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[73] = 310210;
+
+evolution_plan_name[74] = "《進化》超級艾路雷朵";
+evolution_plan_offering[74] = 406366;
+evolution_plan_item[74] = 74097;
+evolution_plan_gold[74] = 30000;
+evolution_plan_pet[74] = 406367;
+evolution_plan_requirement[74] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[74] = 310201;
+
+evolution_plan_name[75] = "《進化》超級闇黑雷姆";
+evolution_plan_offering[75] = 406368;
+evolution_plan_item[75] = 74097;
+evolution_plan_gold[75] = 30000;
+evolution_plan_pet[75] = 406369;
+evolution_plan_requirement[75] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[75] = 310210;
+
+evolution_plan_name[76] = "《進化》超級焰白雷姆";
+evolution_plan_offering[76] = 406388;
+evolution_plan_item[76] = 74097;
+evolution_plan_gold[76] = 30000;
+evolution_plan_pet[76] = 406389;
+evolution_plan_requirement[76] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[76] = 310310;
+
+evolution_plan_name[77] = "《進化》超級班基拉斯";
+evolution_plan_offering[77] = 406370;
+evolution_plan_item[77] = 74097;
+evolution_plan_gold[77] = 30000;
+evolution_plan_pet[77] = 406371;
+evolution_plan_requirement[77] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[77] = 310210;
+
+evolution_plan_name[78] = "《進化》超級暴鯉龍";
+evolution_plan_offering[78] = 406374;
+evolution_plan_item[78] = 74097;
+evolution_plan_gold[78] = 30000;
+evolution_plan_pet[78] = 406375;
+evolution_plan_requirement[78] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[78] = 10628;
+
+evolution_plan_name[79] = "《進化》超級暴噬龜";
+evolution_plan_offering[79] = 406376;
+evolution_plan_item[79] = 74097;
+evolution_plan_gold[79] = 30000;
+evolution_plan_pet[79] = 406377;
+evolution_plan_requirement[79] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[79] = 310207;
+
+evolution_plan_name[80] = "《進化》超級大比鳥";
+evolution_plan_offering[80] = 406381;
+evolution_plan_item[80] = 74097;
+evolution_plan_gold[80] = 30000;
+evolution_plan_pet[80] = 406382;
+evolution_plan_requirement[80] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[80] = 310201;
+
+evolution_plan_name[81] = "《進化》超級比克提尼";
+evolution_plan_offering[81] = 406382;
+evolution_plan_item[81] = 74097;
+evolution_plan_gold[81] = 30000;
+evolution_plan_pet[81] = 406383;
+evolution_plan_requirement[81] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[81] = 10628;
+
+evolution_plan_name[82] = "《進化》超級電龍";
+evolution_plan_offering[82] = 406420;
+evolution_plan_item[82] = 74097;
+evolution_plan_gold[82] = 30000;
+evolution_plan_pet[82] = 406421;
+evolution_plan_requirement[82] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[82] = 310310;
+
+evolution_plan_name[83] = "《進化》超級蒂安希";
+evolution_plan_offering[83] = 406422;
+evolution_plan_item[83] = 74097;
+evolution_plan_gold[83] = 30000;
+evolution_plan_pet[83] = 406423;
+evolution_plan_requirement[83] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[83] = 310204;
+
+evolution_plan_name[84] = "《進化》超級赫拉克羅斯";
+evolution_plan_offering[84] = 406440;
+evolution_plan_item[84] = 74097;
+evolution_plan_gold[84] = 30000;
+evolution_plan_pet[84] = 406441;
+evolution_plan_requirement[84] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[84] = 310307;
+
+evolution_plan_name[85] = "《進化》超級巨金怪";
+evolution_plan_offering[85] = 406448;
+evolution_plan_item[85] = 74097;
+evolution_plan_gold[85] = 30000;
+evolution_plan_pet[85] = 406449;
+evolution_plan_requirement[85] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[85] = 310310;
+
+evolution_plan_name[86] = "《進化》超級巨鉗螳螂";
+evolution_plan_offering[86] = 406450;
+evolution_plan_item[86] = 74097;
+evolution_plan_gold[86] = 30000;
+evolution_plan_pet[86] = 406451;
+evolution_plan_requirement[86] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[86] = 10628;
+
+evolution_plan_name[87] = "《進化》超級烈咬陸鯊";
+evolution_plan_offering[87] = 406454;
+evolution_plan_item[87] = 74097;
+evolution_plan_gold[87] = 30000;
+evolution_plan_pet[87] = 406455;
+evolution_plan_requirement[87] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[87] = 310304;
+
+evolution_plan_name[88] = "《進化》超級基格爾德";
+evolution_plan_offering[88] = 406446;
+evolution_plan_item[88] = 74097;
+evolution_plan_gold[88] = 30000;
+evolution_plan_pet[88] = 406447;
+evolution_plan_requirement[88] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[88] = 310307;
+
+evolution_plan_name[89] = "《進化》解放胡帕";
+evolution_plan_offering[89] = 406444;
+evolution_plan_item[89] = 74097;
+evolution_plan_gold[89] = 30000;
+evolution_plan_pet[89] = 406445;
+evolution_plan_requirement[89] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[89] = 310204;
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#evolution_plan_name / 8) + 1
@@ -225,7 +745,7 @@ end
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load');
-  self.evolutionerNPC = self:NPC_createNormal('寵物進化執行', 14682, { x = 38, y = 32, mapType = 0, map = 777, direction = 6 });
+  self.evolutionerNPC = self:NPC_createNormal('寵物進化看板', 400416, { x = 106, y = 108, mapType = 0, map = 80010, direction = 6 });
   self:NPC_regWindowTalkedEvent(self.evolutionerNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
@@ -247,15 +767,25 @@ function Module:onLoad()
           end
       elseif _select == CONST.按钮_关闭 then
           if (page>=1001) then
+              local winPage_temp = page - 1000;
+              --页数纪录
+              local page_temp = math.modf(winPage_temp / 8) + 1;
+              if (math.fmod(winPage_temp,8)==0) then page_temp=page_temp-1; end
+              --起始第一列编号
+              local count_temp = 8 * (page_temp - 1)	
+              print(page,winPage_temp,page_temp,count_temp)
+
               local winButton = CONST.BUTTON_关闭;
               local msg = "1\\n　　　　　　　　【寵物進化預覽】\\n"
-              for i = 1,8 do
+              for i = 1 + count_temp, 8 + count_temp do
                  msg = msg .. "　　◎項目 "..i.."　".. evolution_plan_name[i] .. "\\n"
-                 if (i>=8) then
-                     winButton = CONST.BUTTON_下取消;
+                 if page_temp == 1 then
+                   winButton = CONST.BUTTON_下取消
+                 else
+                   winButton = CONST.BUTTON_上下取消
                  end
               end
-              NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, 1, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, winButton, page_temp, msg);
               return
           else
               return
