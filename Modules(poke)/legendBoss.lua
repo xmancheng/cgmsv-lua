@@ -1,0 +1,890 @@
+---模块类
+local Module = ModuleBase:createModule('legendBoss')
+
+local EnemySet = {}
+local BaseLevelSet = {}
+local Pos = {}
+local FTime = os.time()
+local Setting = 0;
+local PowerOn = 1;
+--队列解释
+--     五(4)	三(2)	一(0)	二(1)	四(3)
+--     十(9)	八(7)	六(5)	七(6)	九(8)
+------------对战NPC设置------------
+EnemySet[1] = {416218, 0, 0, 416217, 416217, 0, 416217, 416217, 0, 0}--0代表没有怪
+BaseLevelSet[1] = {99, 0, 0, 80, 80, 0, 80, 80, 0, 0}
+Pos[1] = {"耿鬼",EnemySet[1],BaseLevelSet[1]}
+EnemySet[2] = {416200, 0, 0, 416199, 416199, 0, 416199, 416199, 0, 0}--0代表没有怪
+BaseLevelSet[2] = {99, 0, 0, 80, 80, 0, 80, 80, 0, 0}
+Pos[2] = {"噴火龍",EnemySet[2],BaseLevelSet[2]}
+EnemySet[3] = {416209, 0, 0, 416208, 416208, 0, 416208, 416208, 0, 0}--0代表没有怪
+BaseLevelSet[3] = {99, 0, 0, 80, 80, 0, 80, 80, 0, 0}
+Pos[3] = {"水箭龜",EnemySet[3],BaseLevelSet[3]}
+EnemySet[4] = {416205, 0, 0, 416204, 416204, 0, 416204, 416204, 0, 0}--0代表没有怪
+BaseLevelSet[4] = {99, 0, 0, 80, 80, 0, 80, 80, 0, 0}
+Pos[4] = {"妙蛙花",EnemySet[4],BaseLevelSet[4]}
+EnemySet[5] = {416341, 0, 0, 416263, 416263, 0, 416263, 416263, 0, 0}--0代表没有怪
+BaseLevelSet[5] = {99, 0, 0, 80, 80, 0, 80, 80, 0, 0}
+Pos[5] = {"索爾迦雷歐",EnemySet[5],BaseLevelSet[5]}
+EnemySet[6] = {416347, 0, 0, 416351, 416351, 0, 416351, 416351, 0, 0}--0代表没有怪
+BaseLevelSet[6] = {99, 0, 0, 80, 80, 0, 80, 80, 0, 0}
+Pos[6] = {"阿爾宙斯",EnemySet[6],BaseLevelSet[6]}
+EnemySet[7] = {416353, 0, 0, 416354, 416354, 0, 416354, 416354, 0, 0}--0代表没有怪
+BaseLevelSet[7] = {99, 0, 0, 80, 80, 0, 80, 80, 0, 0}
+Pos[7] = {"無極汰納",EnemySet[7],BaseLevelSet[7]}
+------------------------------------------------------
+--背景设置
+local Pts= 74098;		--70206真女神苹果.70075猎杀币
+local LegendBoss = {
+      { lordNum=1, timesec=6000, soul=0, lordName="耿鬼", startImage=121148, transImage = 121149, waitingArea={map=777,X=38,Y=41}, warpArea={map=80014,X=53,Y=55},
+        rewardsItem={631076}, rewardsItem_count=1, prizeItem={74098}, prizeItem_count=500},
+      { lordNum=2, timesec=6000, soul=0, lordName="噴火龍", startImage=121130, transImage = 121131, waitingArea={map=777,X=38,Y=43}, warpArea={map=80023,X=57,Y=78},
+        rewardsItem={631077}, rewardsItem_count=1, prizeItem={74098}, prizeItem_count=500},
+      { lordNum=3, timesec=6000, soul=0, lordName="水箭龜", startImage=121139, transImage = 121140, waitingArea={map=777,X=38,Y=45}, warpArea={map=80023,X=83,Y=59},
+        rewardsItem={631078}, rewardsItem_count=1, prizeItem={74098}, prizeItem_count=500},
+      { lordNum=4, timesec=6000, soul=0, lordName="妙蛙花", startImage=121135, transImage = 121136, waitingArea={map=777,X=38,Y=47}, warpArea={map=80023,X=69,Y=43},
+        rewardsItem={631079}, rewardsItem_count=1, prizeItem={74098}, prizeItem_count=500},
+      { lordNum=5, timesec=6000, soul=0, lordName="索爾迦雷歐", startImage=121271, transImage = 121273, waitingArea={map=777,X=38,Y=49}, warpArea={map=80011,X=70,Y=50},
+        rewardsItem={631080}, rewardsItem_count=1, prizeItem={74098}, prizeItem_count=500},
+      { lordNum=6, timesec=6000, soul=0, lordName="阿爾宙斯", startImage=121277, transImage = 121279, waitingArea={map=777,X=38,Y=50}, warpArea={map=80018,X=69,Y=55},
+        rewardsItem={631081}, rewardsItem_count=1, prizeItem={74098}, prizeItem_count=500},
+      { lordNum=7, timesec=6000, soul=0, lordName="無極汰納", startImage=121283, transImage = 121283, waitingArea={map=777,X=38,Y=50}, warpArea={map=80010,X=69,Y=103},
+        rewardsItem={631082}, rewardsItem_count=1, prizeItem={74098}, prizeItem_count=500},
+}
+local tbl_duel_user = {};			--当前场次玩家的列表
+local tbl_win_user = {};
+local LegendInfo = {}				--冷却时间表
+local LegendSetting = {}
+local LegendCD = {}
+local legendBossBattle = {}
+tbl_LegendBossNPCIndex = tbl_LegendBossNPCIndex or {}
+
+function getLegendInfo()
+	LegendInfo = LegendInfo;
+	return LegendInfo;
+end
+function getLegendSetting()
+	LegendSetting = LegendSetting;
+	return LegendSetting;
+end
+------------------------------------------------
+--- 加载模块钩子
+function Module:onLoad()
+  self:logInfo('load')
+  --self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
+  self:regCallback('BeforeBattleTurnEvent', Func.bind(self.OnBeforeBattleTurnCommand, self))
+  --self:regCallback('AfterBattleTurnEvent', Func.bind(self.OnAfterBattleTurnCommand, self))
+  --self:regCallback('EnemyCommandEvent', Func.bind(self.OnEnemyCommandCallBack, self))
+  self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
+  self:regCallback('BattleDodgeRateEvent', Func.bind(self.OnBattleDodgeRateEvent, self))
+  --self:regCallback('BattleOverEvent', Func.bind(self.battleOverEventCallback, self))
+  self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
+  self:regCallback('LoopEvent', Func.bind(self.LegendBoss_LoopEvent,self))
+  for k,v in pairs(LegendBoss) do
+   if tbl_LegendBossNPCIndex[k] == nil then
+    local LegendBossNPC = self:NPC_createNormal(v.lordName, v.startImage, { map = v.waitingArea.map, x = v.waitingArea.X, y = v.waitingArea.Y, direction = 5, mapType = 0 })
+    tbl_LegendBossNPCIndex[k] = LegendBossNPC
+    Char.SetData(LegendBossNPC,CONST.对象_ENEMY_PetFlg+2,0)--可穿透体
+    self:NPC_regWindowTalkedEvent(tbl_LegendBossNPCIndex[k], function(npc, player, _seqno, _select, _data)
+	local cdk = Char.GetData(player,CONST.对象_CDK);
+	local seqno = tonumber(_seqno)
+	local select = tonumber(_select)
+	local data = tonumber(_data)
+    end)
+    self:NPC_regTalkedEvent(tbl_LegendBossNPCIndex[k], function(npc, player)
+      if(NLG.CheckInFront(player, npc, 1)==false) then
+          return ;
+      end
+      if (NLG.CanTalk(npc, player) == true) then
+          --面向玩家
+          local i;
+          i = Char.GetData(player, CONST.对象_方向);
+          if i >= 4 then 
+             i = i - 4;
+          else
+             i = i + 4;		
+          end
+          Char.SetData(npc, CONST.对象_方向,i);
+          NLG.UpChar(npc);
+          --傳說BOSS
+          local playerName = Char.GetData(player,CONST.对象_名字);
+          local partyname = playerName .. "－隊";
+          local playerLv = Char.GetData(player,CONST.对象_等级);
+          if (playerLv<80) then
+            NLG.SystemMessage(player,"[系統]討伐建議隊長等級要80以上");
+            return;
+          end
+
+          --local Target_X = Char.GetData(npc, CONST.CHAR_X)  --地图x
+          --local Target_Y = Char.GetData(npc, CONST.CHAR_Y)  --地图y
+          local bossImage = Char.GetData(npc,CONST.对象_形象);
+          for k,v in pairs(LegendBoss) do
+            if ( k==v.lordNum and bossImage==v.startImage ) then
+            table.insert(tbl_duel_user,player);
+            table.insert(tbl_duel_user,npc);
+            boss_round_start(player, npc, boss_round_callback);
+
+            --Char.DelItem(player, v.keyItem, 1);
+            --local slot = Char.FindItemId(player, v.keyItem);
+            --local item_indexA = Char.GetItemIndex(player,slot);
+            --参加奖励
+            --local rand = NLG.Rand(1,#v.prizeItem);
+            --Char.GiveItem(player, v.prizeItem[rand], v.prizeItem_count);
+            --local PartyNum = Char.PartyNum(player);
+            --if (PartyNum>1) then
+            --	for Slot=1,4 do
+            --		local TeamPlayer = Char.GetPartyMember(player,Slot);
+            --		if Char.IsDummy(TeamPlayer)==false then
+            --			local rand = NLG.Rand(1,#v.prizeItem);
+            --			Char.GiveItem(TeamPlayer, v.prizeItem[rand], v.prizeItem_count);
+            --		end
+            --	end
+            --end
+            end
+          end
+      end
+      return
+    end)
+   end
+  end
+
+  if (PowerOn==1) then 
+    --重置
+    LegendInfo = {};
+    LegendSetting = {};
+    for k=1,#LegendBoss do
+        --print(tbl_LegendBossNPCIndex[k])
+        Char.SetLoopEvent('./lua/Modules/legendBoss.lua','LegendBoss_LoopEvent',tbl_LegendBossNPCIndex[k],60000);
+        LegendInfo[k] = os.time();
+        LegendSetting[k] = nil;
+        LegendCD[k] = 0;
+    end
+    --NLG.SystemMessage(charIndex, "[系統]七大種魔物開放。");
+    --NLG.UpChar(charIndex);
+
+    local gmIndex = NLG.FindUser(123456);
+    --Char.SetExtData(gmIndex, '传说冷却_set', JSON.encode(LegendCD));
+    local newdata = JSON.encode(LegendCD);
+    SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+    NLG.UpChar(gmIndex);
+    PowerOn = 0;
+  end
+
+  LegendMonitorNPC = self:NPC_createNormal('傳說監控', 14682, { map = 777, x = 40, y = 31,  direction = 6, mapType = 0 })
+  self:NPC_regWindowTalkedEvent(LegendMonitorNPC, function(npc, player, _seqno, _select, _data)
+  end)
+  self:NPC_regTalkedEvent(LegendMonitorNPC, function(npc, player)
+    local gmIndex = NLG.FindUser(123456);
+    local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+    local LegendCD = {};
+    if (type(sqldata)=="string" and sqldata~='') then
+        LegendCD = JSON.decode(sqldata);
+    else
+        LegendCD = {};
+    end
+
+    winMsg = "\\n            ★★★★★★七大種魔物資訊★★★★★★"
+          .. "\\n\\n  強大魔物          所在位置             冷卻倒數\\n"
+          .. "\\n═════════════════════════════"
+      for k,v in pairs(LegendBoss) do
+        local bossImage = tonumber(LegendCD[k]);
+        if (k==v.lordNum and bossImage==v.startImage) then
+          local Name = v.lordName;
+          local mapsname = "冷卻中";
+          local mapsX = "xxx";
+          local mapsY = "yyy";
+          --if (k==6) then mapsname = NLG.GetMapName(0, v.waitingArea.map); mapsX = v.waitingArea.X; mapsY = v.waitingArea.Y; end
+          local CTime = LegendInfo[k] or os.time();
+          local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
+          winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+        elseif (k==v.lordNum and bossImage==0) then
+          local Name = v.lordName;
+          local mapsname = NLG.GetMapName(0, v.warpArea.map);
+          local mapsX = tonumber(Char.GetData(tbl_LegendBossNPCIndex[k],CONST.对象_X));
+          local mapsY = tonumber(Char.GetData(tbl_LegendBossNPCIndex[k],CONST.对象_Y));
+          local CDTime = "存活中";
+          winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+        end
+      end
+      winMsg = winMsg .. "\\n═════════════════════════════";
+      NLG.ShowWindowTalked(player,npc, CONST.窗口_巨信息框, CONST.按钮_关闭, 1, winMsg);
+      return
+  end)
+
+end
+------------------------------------------------
+-------功能设置
+--指令启动循环
+function Module:handleTalkEvent(charIndex,msg,color,range,size)
+	if (msg=="[nr legend on]") then
+		local cdk = Char.GetData(charIndex,CONST.对象_CDK);
+		if (cdk == "123456") then
+			--重置
+			LegendInfo = {};
+			LegendSetting = {};
+			for k=1,#LegendBoss do
+				--print(tbl_LegendBossNPCIndex[k])
+				Char.SetLoopEvent('./lua/Modules/legendBoss.lua','LegendBoss_LoopEvent',tbl_LegendBossNPCIndex[k],60000);
+				LegendInfo[k] = os.time();
+				LegendSetting[k] = nil;
+				LegendCD[k] = 0;
+			end
+			NLG.SystemMessage(charIndex, "[系統]七大種魔物開放。");
+			NLG.UpChar(charIndex);
+
+			local gmIndex = NLG.FindUser(123456);
+			Char.SetExtData(charIndex, '传说冷却_set', JSON.encode(LegendCD));
+			local newdata = JSON.encode(LegendCD);
+			SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+			NLG.UpChar(gmIndex);
+			return 0;
+		end
+	elseif (msg=="/legend" or msg=="/leg") then
+		local gmIndex = NLG.FindUser(123456);
+		local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+		local LegendCD = {};
+		if (type(sqldata)=="string" and sqldata~='') then
+			LegendCD = JSON.decode(sqldata);
+		else
+			LegendCD = {};
+		end
+
+		winMsg = "\\n            ★★★★★★七大種魔物資訊★★★★★★"
+			.. "\\n\\n  強大魔物          所在位置             冷卻倒數\\n"
+			.. "\\n═════════════════════════════"
+			for k,v in pairs(LegendBoss) do
+				local bossImage = tonumber(LegendCD[k]);
+				if (k==v.lordNum and bossImage==v.startImage) then
+					local Name = v.lordName;
+					local mapsname = "冷卻中";
+					local mapsX = "xxx";
+					local mapsY = "yyy";
+					--if (k==6) then mapsname = NLG.GetMapName(0, v.waitingArea.map); mapsX = v.waitingArea.X; mapsY = v.waitingArea.Y; end
+					--local CTime = LegendInfo[k] or os.time();
+					--local CDTime = ""..v.timesec - (os.time() - CTime).." 秒";
+					local CDTime = "每 "..v.timesec.." 秒刷新";
+					winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+				elseif (k==v.lordNum and bossImage==0) then
+					local Name = v.lordName;
+					local mapsname = NLG.GetMapName(0, v.warpArea.map);
+					local mapsX = tonumber(Char.GetData(tbl_LegendBossNPCIndex[k],CONST.对象_X));
+					local mapsY = tonumber(Char.GetData(tbl_LegendBossNPCIndex[k],CONST.对象_Y));
+					local CDTime = "存活中";
+					winMsg = winMsg .. "\\n  "..Name.."        "..mapsname.."("..mapsX..","..mapsY..")        "..CDTime.."\\n"
+				end
+			end
+			winMsg = winMsg .. "\\n═════════════════════════════";
+		NLG.ShowWindowTalked(charIndex, LegendMonitorNPC, CONST.窗口_巨信息框, CONST.按钮_关闭, 1, winMsg);
+		return 0;
+	end
+	return 1;
+end
+--转移
+function LegendBoss_LoopEvent(npc)
+	local gmIndex = NLG.FindUser(123456);
+	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+	local LegendCD = {};
+	if (type(sqldata)=="string" and sqldata~='') then
+		LegendCD = JSON.decode(sqldata);
+	else
+		LegendCD = {};
+	end
+
+	LegendInfo = getLegendInfo();
+	LegendSetting = getLegendSetting();
+	if (os.date("%X",os.time())=="00:00:00") then
+		for k,v in pairs(LegendBoss) do
+			local mapsname = NLG.GetMapName(0, v.warpArea.map);
+			local bossImage = Char.GetData(npc,CONST.对象_形象);
+			if ( k==v.lordNum and bossImage==v.startImage ) then
+				LegendInfo[k] = os.time();
+				LegendSetting[k] = 1;
+				NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+				Char.SetData(npc,CONST.对象_X, v.warpArea.X);
+				Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+				Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+				NLG.UpChar(npc);
+
+				LegendCD[k] = 0;
+				--local newdata = JSON.encode(LegendCD);
+				--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+				--NLG.UpChar(gmIndex);
+			end
+		end
+		local newdata = JSON.encode(LegendCD);
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		NLG.UpChar(gmIndex);
+	elseif (os.date("%X",os.time())=="23:59:00")  then
+		for k,v in pairs(LegendBoss) do
+			local bossImage = Char.GetData(npc,CONST.对象_形象);
+			if ( k==v.lordNum and bossImage==v.startImage ) then
+				Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
+				Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
+				Char.SetData(npc,CONST.对象_地图, v.waitingArea.map);
+				NLG.UpChar(npc);
+			end
+		end
+	else
+		for k,v in pairs(LegendBoss) do
+			if (LegendSetting[k]==nil) then
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local bossImage = Char.GetData(npc,CONST.对象_形象);
+				if ( k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+					LegendSetting[k] = 1;
+					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
+					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					NLG.UpChar(npc);
+				end
+			elseif (LegendSetting[k]==1) then
+				local bossImage = Char.GetData(npc,CONST.对象_形象);
+				if (k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+				end
+			elseif (LegendSetting[k]==2) then
+				local STime = os.time();
+				local timec = STime - LegendInfo[k];
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local bossImage = Char.GetData(npc,CONST.对象_形象);
+				if ( timec > v.timesec and k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+					LegendSetting[k] = 1;
+					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
+					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					NLG.UpChar(npc);
+
+					LegendCD[k] = 0;
+				end
+			--[[elseif (LegendSetting[k]==2) then
+				local CTime = LegendInfo[k] or os.time();
+				local mapsname = NLG.GetMapName(0, v.warpArea.map);
+				local bossImage = Char.GetData(npc,CONST.对象_形象);
+				if ( (os.time() - CTime) >= v.timesec and k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+					LegendSetting[k] = 1;
+					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
+					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					NLG.UpChar(npc);
+
+					LegendCD[k] = 0;
+					--local newdata = JSON.encode(LegendCD);
+					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+					--NLG.UpChar(gmIndex);
+				elseif ( v.timesec - (os.time() - CTime) < 0 and k==v.lordNum and bossImage==v.startImage) then
+					LegendInfo[k] = os.time();
+					LegendSetting[k] = 1;
+					NLG.SystemMessage(-1,"[系統]"..v.lordName.."出現在"..mapsname.."("..v.warpArea.X..","..v.warpArea.Y..")");
+					Char.SetData(npc,CONST.对象_X, v.warpArea.X);
+					Char.SetData(npc,CONST.对象_Y, v.warpArea.Y);
+					Char.SetData(npc,CONST.对象_地图, v.warpArea.map);
+					NLG.UpChar(npc);
+
+					LegendCD[k] = 0;
+					--local newdata = JSON.encode(LegendCD);
+					--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+					--NLG.UpChar(gmIndex);
+				end]]
+			end
+		end
+		local newdata = JSON.encode(LegendCD);
+		--SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		SQL.querySQL("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+		NLG.UpChar(gmIndex);
+
+		local excess = math.random(1,10);
+		if (excess>=7) then
+			if (Char.GetData(npc,CONST.对象_地图)==80022 or Char.GetData(npc,CONST.对象_地图)==80023 or Char.GetData(npc,CONST.对象_地图)==80011 or Char.GetData(npc,CONST.对象_地图)==80013 or Char.GetData(npc,CONST.对象_地图)==80018 or Char.GetData(npc,CONST.对象_地图)==80016 or Char.GetData(npc,CONST.对象_地图)==80019 or Char.GetData(npc,CONST.对象_地图)==80025 or Char.GetData(npc,CONST.对象_地图)==80024 or Char.GetData(npc,CONST.对象_地图)==80014 or Char.GetData(npc,CONST.对象_地图)==80017) then
+				local dir = math.random(0, 7);
+				local walk = 1;
+				local X,Y = Char.GetLocation(npc,dir);
+				if (NLG.Walkable(0, Char.GetData(npc,CONST.对象_地图), X, Y)==1) then
+					NLG.SetAction(npc,walk);
+					NLG.WalkMove(npc,dir);
+					NLG.UpChar(npc);
+				end
+			end
+		end
+	end
+end
+
+function boss_round_start(player, npc, callback)
+
+	--local npc = tbl_duel_user[2];
+	tbl_win_user = {};
+	tbl_duel_user = {};
+	table.insert(tbl_duel_user,player);
+	table.insert(tbl_duel_user,npc);
+
+	--开始战斗
+	tbl_UpIndex = {}
+	battleindex = {}
+
+	for k,v in pairs(LegendBoss) do
+		local bossImage = Char.GetData(npc,CONST.对象_形象);
+		if ( k==v.lordNum and bossImage==v.startImage ) then
+			local battleindex = Battle.PVE( player, player, nil, Pos[k][2], Pos[k][3], nil)
+			Battle.SetWinEvent("./lua/Modules/legendBoss.lua", "boss_round_callback", battleindex);
+			legendBossBattle={}
+			table.insert(legendBossBattle, battleindex);
+			Char.SetTempData(player, '传说', npc);
+		end
+	end
+end
+
+function boss_round_callback(battleindex, player)
+
+	local winside = Battle.GetWinSide(battleindex);
+	local sideM = 0;
+
+	--获取胜利方
+	if (winside == 0) then
+		sideM = 0;
+	end
+	if (winside == 1) then
+		sideM = 10;
+	end
+	--获取胜利方的玩家指针，可能站在前方和后方
+	local w1 = Battle.GetPlayIndex(battleindex, 0 + sideM);
+	local w2 = Battle.GetPlayIndex(battleindex, 5 + sideM);
+	local ww = nil;
+
+	--把胜利玩家加入列表
+	tbl_win_user = {}
+	if ( Char.GetData(w1, CONST.对象_类型) >= CONST.对象类型_人) then
+		local ww = w1;
+		table.insert(tbl_win_user, ww);
+	elseif ( Char.GetData(w2, CONST.对象_类型) >= CONST.对象类型_人 ) then
+		local ww = w2;
+		table.insert(tbl_win_user, ww);
+	else
+		local ww = nil;
+	end
+
+	local player = tbl_win_user[1];
+	--local npc = tbl_duel_user[2];
+
+	--判定是哪个传说宝可梦
+	local npc = Char.GetTempData(player, '传说') or 0;
+	--print(npc)
+
+	for k,v in pairs(LegendBoss) do
+		local bossImage = Char.GetData(npc,CONST.对象_形象);
+		if ( k==v.lordNum and bossImage==v.startImage ) then
+			--local slot = Char.FindItemId(player, v.keyItem);
+			--local item_indexA = Char.GetItemIndex(player,slot);
+			local rand = NLG.Rand(1,#v.rewardsItem);
+			Char.GiveItem(player, v.rewardsItem[rand], v.rewardsItem_count);
+			--Char.SetData(player,CONST.对象_伤害数, Char.GetData(player,CONST.对象_伤害数)+v.soul);
+			NLG.SystemMessage(-1,"[公告] "..v.lordName.."被 "..Char.GetData(player,CONST.对象_名字).." 討伐了。");
+			NLG.UpChar(player);
+		end
+	end
+	--队友奖励
+	local PartyNum = Char.PartyNum(player);
+	if (PartyNum>1) then
+		for Slot=1,4 do
+			local TeamPlayer = Char.GetPartyMember(player,Slot);
+			if Char.IsDummy(TeamPlayer)==false then
+				for k,v in pairs(LegendBoss) do
+					local bossImage = Char.GetData(npc,CONST.对象_形象);
+					if ( k==v.lordNum and bossImage==v.startImage ) then
+						local rand = NLG.Rand(1,#v.rewardsItem);
+						Char.GiveItem(TeamPlayer, v.rewardsItem[rand], v.rewardsItem_count);
+						--Char.SetData(TeamPlayer,CONST.对象_伤害数, Char.GetData(TeamPlayer,CONST.对象_伤害数)+v.soul);
+						NLG.UpChar(TeamPlayer);
+					end
+				end
+			end
+		end
+	end
+	--进入冷却时间
+	local gmIndex = NLG.FindUser(123456);
+	local sqldata = tostring(SQL.Run("select val from hook_charaext where cdKey='".."123456".."' and sKey='传说冷却_set'")["0_0"])
+	local LegendCD = {};
+	if (type(sqldata)=="string" and sqldata~='') then
+		LegendCD = JSON.decode(sqldata);
+	else
+		LegendCD = {};
+	end
+	for k,v in pairs(LegendBoss) do
+		local bossImage = Char.GetData(npc,CONST.对象_形象);
+		if ( k==v.lordNum and bossImage==v.startImage ) then
+			LegendInfo[k] = os.time();
+			LegendSetting[k] = 2;
+			Char.SetData(npc,CONST.对象_X, v.waitingArea.X);
+			Char.SetData(npc,CONST.对象_Y, v.waitingArea.Y);
+			Char.SetData(npc,CONST.对象_地图, v.waitingArea.map);
+			NLG.UpChar(npc);
+
+			LegendCD[k] = bossImage;
+			local newdata = JSON.encode(LegendCD);
+			SQL.Run("update hook_charaext set val= '"..newdata.."' where cdKey='".."123456".."' and sKey='传说冷却_set'")
+			NLG.UpChar(gmIndex);
+		end
+	end
+	Battle.UnsetWinEvent(battleindex);
+	legendBossBattle ={};
+	Char.SetTempData(player, '传说',0);
+end
+
+--霸主设置
+function Module:OnbattleStartEventCallback(battleIndex)
+
+	local playerCount = #NLG.GetPlayer();
+	table.forEach(legendBossBattle, function(e)
+		if  e==battleIndex  then
+			--NLG.SystemMessage(-1,"[系統]魔物血量超激增.總共有"..playerCount.."名玩家x5萬的血量！");
+		end
+	end)
+	for i = 10, 19 do
+		local enemy = Battle.GetPlayer(battleIndex, i);
+		local HP = playerCount * 50000;
+		table.forEach(legendBossBattle, function(e)
+			if enemy>=0 and e==battleIndex  then
+				if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
+					--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
+					Char.SetData(enemy, CONST.CHAR_血, HP);
+					NLG.SystemMessage(-1,"[系統]魔物血量超激增！");
+				end
+			end
+		end)
+	end
+end
+function Module:OnBeforeBattleTurnCommand(battleIndex)
+	local Round = Battle.GetTurn(battleIndex);
+	local playerCount = #NLG.GetPlayer() or 1;
+	local HP = playerCount * 50000;
+	for i = 10, 19 do
+		local enemy = Battle.GetPlayer(battleIndex, i);
+		table.forEach(legendBossBattle, function(e)
+		--[[if Round==0 and enemy>=0 and e==battleIndex  then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
+				--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
+				--Char.SetData(enemy, CONST.CHAR_血, HP);
+			end
+		]]
+		if Round>=0 and enemy>=0 and e==battleIndex  then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==416218 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==416200 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==416209 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==416205 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==416341 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==416347 or Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==416353) then
+				local Hp_10 = Char.GetData(enemy, CONST.CHAR_最大血); 
+				local Hp_8 = Char.GetData(enemy, CONST.CHAR_血);
+				local Hp08 = Hp_8/Hp_10;
+
+				--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);     --血量上限100万
+				--Char.SetData(enemy, CONST.CHAR_血, Hp_8);
+				if Hp08<=0.8 then
+					for k,v in pairs(LegendBoss) do
+						if ( k==v.lordNum and Char.GetData(enemy, CONST.对象_形象)==v.startImage ) then
+							Char.SetData(enemy, CONST.对象_形象, v.transImage);
+							--Char.SetData(enemy, CONST.对象_可视, v.transImage);
+							--Char.SetData(enemy, CONST.对象_原形, v.transImage);
+							--Char.SetData(enemy, CONST.对象_原始图档, v.transImage);
+							NLG.UpChar(enemy);
+						end
+					end
+					--Char.SetData(enemy, CONST.CHAR_攻击力, 10000);
+					--Char.SetData(enemy, CONST.CHAR_防御力, 666);
+					--Char.SetData(enemy, CONST.CHAR_敏捷, 666);
+					--Char.SetData(enemy, CONST.CHAR_精神, 10000);
+					--Char.SetData(enemy, CONST.CHAR_回复, 66);
+					--Char.SetData(enemy, CONST.CHAR_必杀, 70);
+					--Char.SetData(enemy, CONST.CHAR_闪躲, 70);
+					--Char.SetData(enemy, CONST.CHAR_命中, 70);
+					--Char.SetData(enemy, CONST.CHAR_反击, 70);
+					--Char.SetData(enemy, CONST.对象_ENEMY_HeadGraNo,108511);
+				end
+			end
+		end
+		--NLG.SystemMessage(-1,"[系統]魔物血量超激增！");
+		end)
+	end
+end
+function Module:OnAfterBattleTurnCommand(battleIndex)
+	local Round = Battle.GetTurn(battleIndex);
+	local leader0 = Battle.GetPlayer(battleIndex, 0);
+	local leaderpet0 = Battle.GetPlayer(battleIndex, 5);
+	local player = leader0
+	local leaderpet = leaderpet0
+	if Char.GetData(player, CONST.对象_类型) == CONST.对象类型_人 then
+		player = leader0
+	else
+		player = leaderpet
+	end
+	for i = 10, 19 do
+		local enemy = Battle.GetPlayer(battleIndex, i);
+		table.forEach(legendBossBattle, function(e)
+		if Round>=0 and enemy>=0 and e==battleIndex  then
+			if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
+				local HP = Char.GetData(enemy,CONST.CHAR_血);
+				--Char.SetData(enemy, CONST.CHAR_最大血, 1000000);
+				Char.SetData(enemy, CONST.CHAR_血, HP);
+				NLG.UpChar(enemy);
+			end
+		end
+		end)
+	end
+end
+--暴走模式技能施放
+function Module:OnEnemyCommandCallBack(battleIndex, side, slot, action)
+      local Round = Battle.GetTurn(battleIndex);
+      for i = 10, 19 do
+         local enemy = Battle.GetPlayer(battleIndex, i);
+         if enemy>= 0 then
+            if (Char.GetData(enemy, CONST.CHAR_ENEMY_ID)==606073) then
+                table.forEach(legendBossBattle, function(e)
+                if Round==5 and e==battleIndex  then
+                          --SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8607);
+                          --SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER, 0, 350);
+                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_P_MAGIC, 40, 2109);
+                elseif Round==10 and e==battleIndex  then
+                          --SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8609);
+                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER, 0, 358);
+                elseif Round>=15 and e==battleIndex  then
+                          SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_M_DEATH, 40, 8659);
+                          --SetCom(enemy, action, CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER, 0, 359);
+                end
+                end)
+            end
+         end
+      end
+end
+function SetCom(charIndex, action, com1, com2, com3)
+  if action == 0 then
+    Char.SetData(charIndex, CONST.CHAR_BattleCom1, com1)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom2, com2)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom3, com3)
+  else
+    Char.SetData(charIndex, CONST.CHAR_BattleCom1, com1)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom2, com2)
+    Char.SetData(charIndex, CONST.CHAR_BattleCom3, com3)
+  end
+end
+
+function Module:OnBattleDodgeRateEvent(battleIndex, aIndex, fIndex, rate)
+         --self:logDebug('OnBattleDodgeRateCallBack', battleIndex, aIndex, fIndex, rate)
+         if Char.IsPlayer(fIndex) and Char.IsEnemy(aIndex) then
+               local battleIndex = Char.GetBattleIndex(aIndex);
+               local Round = Battle.GetTurn(battleIndex);
+               if (Char.GetData(aIndex, CONST.CHAR_ENEMY_ID)==406165) then
+                   if (Round==5 or Round==10 or Round>=15)  then
+                       rate = 0;
+                       return rate
+                   end
+               end
+         end
+         return rate
+end
+
+local restraintTable = {
+   { restrItemId=69040, restrEnemyId=416341, val = 1.08},
+   { restrItemId=69041, restrEnemyId=416205, val = 1.08},
+   { restrItemId=69042, restrEnemyId=416200, val = 1.08},
+   { restrItemId=69043, restrEnemyId=416209, val = 1.08},
+   { restrItemId=69044, restrEnemyId=416347, val = 1.08},
+   { restrItemId=69045, restrEnemyId=416218, val = 1.08},
+   { restrItemId=69046, restrEnemyId=416341, val = 1.04},
+   { restrItemId=69046, restrEnemyId=416205, val = 1.04},
+   { restrItemId=69046, restrEnemyId=416200, val = 1.04},
+   { restrItemId=69046, restrEnemyId=416209, val = 1.04},
+   { restrItemId=69046, restrEnemyId=416347, val = 1.04},
+   { restrItemId=69046, restrEnemyId=416218, val = 1.04},
+
+}
+function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, damage, battleIndex, com1, com2, com3, defCom1, defCom2, defCom3, flg)
+      local Round = Battle.GetTurn(battleIndex);
+      if Char.IsPet(charIndex) and Char.IsEnemy(defCharIndex) then
+        local PetId = Char.GetData(charIndex,CONST.PET_PetID);
+        local PetCrystalIndex = Pet.GetCrystal(charIndex);
+        local ItemID = Item.GetData(PetCrystalIndex, CONST.道具_ID);
+        local enemyId = Char.GetData(defCharIndex, CONST.对象_ENEMY_ID);
+        for k, v in ipairs(restraintTable) do
+          if (v.restrtemId==ItemID and v.restrEnemyId==enemyId) then
+            damage = damage * v.val;
+            return damage;
+          end
+        end
+        return damage;
+      elseif Char.IsEnemy(defCharIndex) and Char.IsPlayer(charIndex) then
+        local enemyId = Char.GetData(defCharIndex, CONST.对象_ENEMY_ID);
+        --print(enemyId)
+        if (enemyId==406175 or enemyId==406176) then
+            if flg == CONST.DamageFlags.Combo  then
+                Char.GiveItem(charIndex, 70075, 10);
+                NLG.SortItem(charIndex);
+
+            end
+        end
+        return damage;
+      end
+  return damage;
+end
+
+--获取宠物装备-水晶
+Pet.GetCrystal = function(petIndex)
+  local ItemIndex = Char.GetItemIndex(petIndex, CONST.宠道栏_水晶);
+  if ItemIndex >= 0 and Item.GetData(ItemIndex, CONST.道具_类型)==CONST.道具类型_宠物水晶 then
+    return ItemIndex,CONST.宠道栏_水晶;
+  end
+  return -1,-1;
+end
+
+Char.GetLocation = function(npc,dir)
+	local X = Char.GetData(npc,CONST.对象_X)--地图x
+	local Y = Char.GetData(npc,CONST.对象_Y)--地图y
+	if dir==0 then
+		Y=Y-1;
+	elseif dir==1 then
+		X=X+1;
+		Y=Y-1;
+	elseif dir==2 then
+		X=X+1;
+	elseif dir==3 then
+		X=X+1;
+		Y=Y+1;
+	elseif dir==4 then
+		Y=Y+1;
+	elseif dir==5 then
+		X=X-1;
+		Y=Y+1;
+	elseif dir==6 then
+		X=X-1;
+	elseif dir==7 then
+		X=X-1;
+		Y=Y-1;
+	end
+	return X,Y;
+end
+
+function CheckIP(player)
+	local teamplayers = Char.PartyNum(player);	--获取队伍人数
+	local p1 = NLG.GetIp(Char.GetPartyMember(player,0));	--获取玩家1的ip
+	local p2 = NLG.GetIp(Char.GetPartyMember(player,1));	--获取玩家2的ip
+	local p3 = NLG.GetIp(Char.GetPartyMember(player,2));	--获取玩家3的ip
+	local p4 = NLG.GetIp(Char.GetPartyMember(player,3));	--获取玩家4的ip
+	local p5 = NLG.GetIp(Char.GetPartyMember(player,4));	--获取玩家5的ip
+	print("队伍人员ip显示如下："..p1,p2,p3,p4,p5.."")	--cgmsv.exe窗口将调试信息
+	if p1 == -2 then--无队伍
+		return 400
+	elseif p2 == -2 then
+		p2 = 2;	--p2不存在时，赋予一个不同的数
+	elseif p3 == -2 then
+		p3 = 3;	--p3不存在时，赋予一个不同的数
+	elseif p4 == -2 then
+		p4 = 4;	--p4不存在时，赋予一个不同的数
+	elseif p5 == -2 then
+		p5 = 5;	--p5不存在时，赋予一个不同的数
+	end
+	if (teamplayers==5) then
+		if p1 == p2 and p1 == p3 and p1 == p4 and p1 == p5 then
+			return 405			--5开
+		elseif p1 == p2 and p1 == p3 and p1 == p4 and p1 ~= p5 then
+			return 404			--4开
+		elseif p1 == p2 and p1 == p3 and p1 ~= p4 and p1 == p5 then
+			return 404			--4开
+		elseif p1 == p2 and p1 ~= p3 and p1 == p4 and p1 == p5 then
+			return 404			--4开
+		elseif p1 ~= p2 and p1 == p3 and p1 == p4 and p1 == p5 then
+			return 404			--4开
+		elseif p1 == p2 and p1 == p3 and p1 ~= p4 and p1 ~= p5 then
+			if  (p4 ~= p5) then
+				return 400		--3开+2不同
+			end
+			return 403			--3开+2开
+		elseif p1 == p2 and p1 ~= p3 and p1 == p4 and p1 ~= p5 then
+			if  (p3 ~= p5) then
+				return 400		--3开+2不同
+			end
+			return 403			--3开+2开
+		elseif p1 ~= p2 and p1 == p3 and p1 == p4 and p1 ~= p5 then
+			if  (p2 ~= p5) then
+				return 400		--3开+2不同
+			end
+			return 403			--3开+2开
+		elseif p1 == p2 and p1 ~= p3 and p1 ~= p4 and p1 ~= p5 then
+			if  (p4 ~= p5 or p3 ~= p5) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 == p3 and p1 ~= p4 and p1 ~= p5 then
+			if  (p4 ~= p5 or p2 ~= p5) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 == p4 and p1 ~= p5 then
+			if  (p2 ~= p5 or p3 ~= p5) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 ~= p4 and p1 == p5 then
+			if  (p2 ~= p4 or p3 ~= p4) then
+				return 400		--2开+2开+1不同
+			end
+			return 402			--2开+3开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 ~= p4 and p1 ~= p5 then
+			if p2 == p3 and p2 == p4 and p2 == p5 then
+				return 404		--1开+4开
+			end
+			return 400
+		else
+			return 400
+		end
+	elseif (teamplayers==4) then
+		if p1 == p2 and p1 == p3 and p1 == p4 then
+			return 404			--4开
+		elseif p1 == p2 and p1 == p3 and p1 ~= p4 then
+			return 403			--3开+1开
+		elseif p1 == p2 and p1 ~= p3 and p1 == p4 then
+			return 403			--3开+1开
+		elseif p1 ~= p2 and p1 == p3 and p1 == p4 then
+			return 403			--3开+1开
+		elseif p1 == p2 and p1 ~= p3 and p1 ~= p4 then
+			if (p3 ~= p4) then
+				return 400		--2开+2不同
+			end
+			return 403			--2开+2开
+		elseif p1 ~= p2 and p1 == p3 and p1 ~= p4 then
+			if (p2 ~= p4) then
+				return 400		--2开+2不同
+			end
+			return 403			--2开+2开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 == p4 then
+			if (p2 ~= p3) then
+				return 400		--2开+2不同
+			end
+			return 403			--2开+2开
+		elseif p1 ~= p2 and p1 ~= p3 and p1 ~= p4 then
+			if p2 == p3 and p2 == p4 then
+				return 403		--1开+3开
+			end
+			return 400
+		else
+			return 400
+		end
+	elseif (teamplayers==3) then
+		if p1 == p2 and p1 == p3 then
+			return 403			--3开
+		elseif p1 ~= p2 and p1 ~= p3 then
+			if (p2 ~= p3) then
+				return 400		--1开+1开+1开
+			end
+			return 402			--1开+2开
+		else
+			return 400
+		end
+	else
+		return 400
+	end
+end
+
+--- 卸载模块钩子
+function Module:onUnload()
+  self:logInfo('unload')
+end
+
+return Module;
