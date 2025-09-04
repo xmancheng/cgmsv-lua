@@ -1,45 +1,50 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeFisher')
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.fishloop,self))
   self:regCallback('fishloop', function(player)
-    local ItemID = Char.GetTempData(player, 'µöÓã¹Ò»ú') or 0;
+    local ItemID = Char.GetTempData(player, 'é’“é±¼æŒ‚æœº') or 0;
     if (ItemID >0) then
-      local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
+      local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
       if (floor~=80024) then
-        Char.SetTempData(player, 'µöÓã¹Ò»ú', 0);
+        Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'fishloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]Òòé²»ÔÚĞ¡uÉÏáô~’ì™CÍ£Ö¹¡£");
+        NLG.SystemMessage(player,"[ç³»çµ±]å› ç‚ºä¸åœ¨å°å³¶ä¸Šé‡£é­šæ›æ©Ÿåœæ­¢ã€‚");
         return
       end
 
       local RodIndex = Char.HaveItem(player,ItemID);
-      local RodStr = Item.GetData(RodIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
-      if (RodStr >= 1) then
-        Item.SetData(RodIndex, CONST.µÀ¾ß_ÄÍ¾Ã, Item.GetData(RodIndex, CONST.µÀ¾ß_ÄÍ¾Ã)-1);
+      local RodStr = Item.GetData(RodIndex, CONST.é“å…·_è€ä¹…) or 0;
+      if (RodIndex>0 and RodStr >= 1) then
+        Item.SetData(RodIndex, CONST.é“å…·_è€ä¹…, Item.GetData(RodIndex, CONST.é“å…·_è€ä¹…)-1);
         Item.UpItem(player, -1);
 
         local dropMenu = {70257,70257,70257,70257,70258,70258,70258,70259};
         local dropRate = {1,1,1,2,1,1,3,1,1,2};
         Char.GiveItem(player, dropMenu[NLG.Rand(1,8)], dropRate[NLG.Rand(1,10)]);
         NLG.SortItem(player);
-        NLG.SystemMessage(player,"ÏûºÄ1ücÄÍ¾ÃÃ¿10ÃëßMĞĞáô~£¬á¸Íß€ÓĞ"..(RodStr-1).."ücÄÍ¾Ã¡£");
-      else
-        local dropMenu = {70257,70257,70257,70257,70258,70258,70258,70259};
-        local dropRate = {1,1,1,2,1,1,3,1,1,2};
-        Char.GiveItem(player, dropMenu[NLG.Rand(1,8)], dropRate[NLG.Rand(1,10)]);
-        NLG.SortItem(player);
-        NLG.SystemMessage(player,"á¸ÍÏûºÄ´ù±M£¬áô~êPé]£¡");
+        NLG.SystemMessage(player,"æ¶ˆè€—1é»è€ä¹…æ¯10ç§’é€²è¡Œé‡£é­šï¼Œé‡£ç«¿é‚„æœ‰"..(RodStr-1).."é»è€ä¹…ã€‚");
+        if (Item.GetData(RodIndex, CONST.é“å…·_è€ä¹…)== 0) then
+          local RodSlot = Char.FindItemId(player, ItemID);
+          Char.DelItemBySlot(player, RodSlot);
+          NLG.UpChar(player);
+        end
+      elseif (RodIndex<0 or RodStr < 1) then
+        Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', 0);
+        Char.SetLoopEvent(nil,'fishloop',player,0);
+        Char.UnsetLoopEvent(player);
+        NLG.UpChar(player);
+        NLG.SystemMessage(player,"é‡£ç«¿æ¶ˆè€—æ®†ç›¡ï¼Œé‡£é­šé—œé–‰ï¼");
       end
     else
-        Char.SetTempData(player, 'µöÓã¹Ò»ú', 0);
+        Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'fishloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
@@ -48,11 +53,11 @@ function Module:onLoad()
   end)
 
   self:regCallback("ItemString", Func.bind(self.Fishing, self), 'LUA_useFisher');
-  self.fishingNPC = self:NPC_createNormal('áô~’ì™Cá¸Í', 14682, { x = 41, y = 35, mapType = 0, map = 777, direction = 6 });
+  self.fishingNPC = self:NPC_createNormal('é‡£é­šæ›æ©Ÿé‡£ç«¿', 14682, { x = 41, y = 35, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.fishingNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "\\n@c¡¾áô~’ì™C¡¿\\n\\n´Ëá¸ÍÒÑ½››]ÓĞÄÍ¾Ã¶ÈŸo·¨Ê¹ÓÃÁË£¡";
-          NLG.ShowWindowTalked(player, self.fishingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          local msg = "\\n@cã€é‡£é­šæ›æ©Ÿã€‘\\n\\næ­¤é‡£ç«¿å·²ç¶“æ²’æœ‰è€ä¹…åº¦ç„¡æ³•ä½¿ç”¨äº†ï¼";
+          NLG.ShowWindowTalked(player, self.fishingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
     end
     return
   end)
@@ -63,42 +68,49 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     local RodIndex = Char.GetItemIndex(player,RodSlot);
-    local RodStr = Item.GetData(RodIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local RodStr = Item.GetData(RodIndex, CONST.é“å…·_è€ä¹…) or 0;
     if select > 0 then
-      if (seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 1 and select == CONST.°´Å¥_ÊÇ) then
-        local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯) then
+        local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
         if (floor~=80024) then
-          NLG.SystemMessage(player,"[Ïµ½y]áô~Ö»ÄÜÔÚŒ£éTµÄĞ¡uÉÏßMĞĞ¡£");
+          NLG.SystemMessage(player,"[ç³»çµ±]é‡£é­šåªèƒ½åœ¨å°ˆé–€çš„å°å³¶ä¸Šé€²è¡Œã€‚");
           return
         end
-        local ItemID = Char.GetTempData(player, 'µöÓã¹Ò»ú') or 0;
+        local ItemID = Char.GetTempData(player, 'é’“é±¼æŒ‚æœº') or 0;
         if (RodStr > 1 and ItemID==0) then
-          local ItemID = Item.GetData(RodIndex, CONST.µÀ¾ß_ID);
-          Char.SetTempData(player, 'µöÓã¹Ò»ú', ItemID);
+          local ItemID = Item.GetData(RodIndex, CONST.é“å…·_ID);
+          Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'fishloop',player,10000);
           NLG.SetAction(player, 11);
           NLG.UpChar(player);
         elseif (RodStr == 1 and ItemID==0) then
-          local ItemID = Item.GetData(RodIndex, CONST.µÀ¾ß_ID);
+          local ItemID = Item.GetData(RodIndex, CONST.é“å…·_ID);
           Char.DelItemBySlot(player, RodSlot);
-          Char.SetTempData(player, 'µöÓã¹Ò»ú', ItemID);
+          Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'fishloop',player,10000);
-          NLG.SystemMessage(player,"áô~×îááÒ»´ÎÉúĞ§,Õˆ¼°•rÑa³äá¸Í£¡");
-        elseif (ItemID>0) then
-          Char.SetTempData(player, 'µöÓã¹Ò»ú', 0);
+          NLG.SystemMessage(player,"é‡£é­šæœ€å¾Œä¸€æ¬¡ç”Ÿæ•ˆ,è«‹åŠæ™‚è£œå……é‡£ç«¿ï¼");
+        elseif (RodStr == 0) then
+          Char.DelItemBySlot(player, RodSlot);
+          Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'fishloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]áô~’ì™CÍ£Ö¹¡£");	
+          NLG.SystemMessage(player,"[ç³»çµ±]é‡£é­šæ›æ©Ÿåœæ­¢ã€‚");	
+        elseif (ItemID>0) then
+          Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', 0);
+          Char.SetLoopEvent(nil,'fishloop',player,0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[ç³»çµ±]é‡£é­šæ›æ©Ÿåœæ­¢ã€‚");	
         end
-      elseif (seqno == 1 and select == CONST.°´Å¥_·ñ) then
-        Char.SetTempData(player, 'µöÓã¹Ò»ú', 0);
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_å¦) then
+        Char.SetTempData(player, 'é’“é±¼æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'fishloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]áô~’ì™CÍ£Ö¹¡£");	
+        NLG.SystemMessage(player,"[ç³»çµ±]é‡£é­šæ›æ©Ÿåœæ­¢ã€‚");	
       end
     else
 
@@ -112,40 +124,40 @@ function Module:Fishing(charIndex,targetIndex,itemSlot)
     ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     RodSlot = itemSlot;
     local RodIndex = Char.GetItemIndex(charIndex,RodSlot);
-    local RodStr = Item.GetData(RodIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local RodStr = Item.GetData(RodIndex, CONST.é“å…·_è€ä¹…) or 0;
     if RodStr>=0 then
-          local msg = "\\n@c¡¾áô~’ì™C¡¿\\n\\n°´¡¸ÊÇ¡¹Ê¹ÓÃá¸Í£¬ßMĞĞáô~\\n\\n°´¡¸·ñ¡¹Í£Ö¹ÕıÔÚßMĞĞµÄáô~";
-          NLG.ShowWindowTalked(charIndex, self.fishingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
-    elseif RodStr==0 then
-          local msg = "\\n@c¡¾áô~’ì™C¡¿\\n\\n´Ëá¸ÍÒÑ½››]ÓĞÄÍ¾Ã¶È£¬Ÿo·¨Ê¹ÓÃÁË£¡";
-          NLG.ShowWindowTalked(charIndex, self.fishingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          local msg = "\\n@cã€é‡£é­šæ›æ©Ÿã€‘\\n\\næŒ‰ã€Œæ˜¯ã€ä½¿ç”¨é‡£ç«¿ï¼Œé€²è¡Œé‡£é­š\\n\\næŒ‰ã€Œå¦ã€åœæ­¢æ­£åœ¨é€²è¡Œçš„é‡£é­š";
+          NLG.ShowWindowTalked(charIndex, self.fishingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
+    --elseif RodStr==0 then
+    --      local msg = "\\n@cã€é‡£é­šæ›æ©Ÿã€‘\\n\\næ­¤é‡£ç«¿å·²ç¶“æ²’æœ‰è€ä¹…åº¦ï¼Œç„¡æ³•ä½¿ç”¨äº†ï¼";
+    --      NLG.ShowWindowTalked(charIndex, self.fishingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
     end
     return 1;
 end
 
 
 function Module:onLoginEvent(charIndex)
-	local fishingOn = Char.GetTempData(charIndex, 'µöÓã¹Ò»ú') or 0;
+	local fishingOn = Char.GetTempData(charIndex, 'é’“é±¼æŒ‚æœº') or 0;
 	if (fishingOn>0) then
-		Char.SetTempData(charIndex, 'µöÓã¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'é’“é±¼æŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'fishloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]áô~’ì™CÍ£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]é‡£é­šæ›æ©Ÿåœæ­¢ã€‚");	
 	end
 end
 function Module:onLogoutEvent(charIndex)
-	local fishingOn = Char.GetTempData(charIndex, 'µöÓã¹Ò»ú') or 0;
+	local fishingOn = Char.GetTempData(charIndex, 'é’“é±¼æŒ‚æœº') or 0;
 	if (fishingOn>0) then
-		Char.SetTempData(charIndex, 'µöÓã¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'é’“é±¼æŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'fishloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]áô~’ì™CÍ£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]é‡£é­šæ›æ©Ÿåœæ­¢ã€‚");	
 	end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
