@@ -1,7 +1,7 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(evolutionPlans)
 
---·ÖÀà×ÔĞĞÌí¼Ó
+--åˆ†ç±»è‡ªè¡Œæ·»åŠ 
 local evolution_plan_name = {};
 local evolution_plan_offering = {};
 local evolution_plan_item = {};
@@ -10,886 +10,886 @@ local evolution_plan_pet = {};
 local evolution_plan_requirement = {};
 local evolution_plan_tech = {};
 --
-evolution_plan_name[1] = "¡¶ßM»¯¡·»ğ¿Öıˆ";
+evolution_plan_name[1] = "ã€Šé€²åŒ–ã€‹ç«æé¾";
 evolution_plan_offering[1] = 406198;
 evolution_plan_item[1] = 74095;
 evolution_plan_gold[1] = 5000;
 evolution_plan_pet[1] = 406199;
-evolution_plan_requirement[1] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[1] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[1] = 310007;
 
-evolution_plan_name[2] = "¡¶ßM»¯¡·‡Š»ğıˆ";
+evolution_plan_name[2] = "ã€Šé€²åŒ–ã€‹å™´ç«é¾";
 evolution_plan_offering[2] = 406199;
 evolution_plan_item[2] = 74096;
 evolution_plan_gold[2] = 15000;
 evolution_plan_pet[2] = 406200;
-evolution_plan_requirement[2] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[2] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[2] = 310008;
 
-evolution_plan_name[3] = "¡¶ßM»¯¡·³¬¼‰‡Š»ğıˆX";
+evolution_plan_name[3] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå™´ç«é¾X";
 evolution_plan_offering[3] = 406200;
 evolution_plan_item[3] = 74097;
 evolution_plan_gold[3] = 50000;
 evolution_plan_pet[3] = 406201;
-evolution_plan_requirement[3] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,20}, {CONST.¶ÔÏó_ÉËº¦Êı,500}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[3] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,20}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,500}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[3] = 310005;
 
-evolution_plan_name[4] = "¡¶ßM»¯¡·³¬¼‰‡Š»ğıˆY";
+evolution_plan_name[4] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå™´ç«é¾Y";
 evolution_plan_offering[4] = 406200;
 evolution_plan_item[4] = 74097;
 evolution_plan_gold[4] = 50000;
 evolution_plan_pet[4] = 406202;
-evolution_plan_requirement[4] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[4] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[4] = 310008;
 
-evolution_plan_name[5] = "¡¶ßM»¯¡·ÃîÍÜ²İ";
+evolution_plan_name[5] = "ã€Šé€²åŒ–ã€‹å¦™è›™è‰";
 evolution_plan_offering[5] = 406203;
 evolution_plan_item[5] = 74095;
 evolution_plan_gold[5] = 5000;
 evolution_plan_pet[5] = 406204;
-evolution_plan_requirement[5] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[5] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[5] = 310107;
 
-evolution_plan_name[6] = "¡¶ßM»¯¡·ÃîÍÜ»¨";
+evolution_plan_name[6] = "ã€Šé€²åŒ–ã€‹å¦™è›™èŠ±";
 evolution_plan_offering[6] = 406204;
 evolution_plan_item[6] = 74096;
 evolution_plan_gold[6] = 15000;
 evolution_plan_pet[6] = 406205;
-evolution_plan_requirement[6] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[6] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[6] = 310108;
 
-evolution_plan_name[7] = "¡¶ßM»¯¡·³¬¼‰ÃîÍÜ»¨";
+evolution_plan_name[7] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå¦™è›™èŠ±";
 evolution_plan_offering[7] = 406205;
 evolution_plan_item[7] = 74097;
 evolution_plan_gold[7] = 50000;
 evolution_plan_pet[7] = 406206;
-evolution_plan_requirement[7] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[7] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[7] = 310105;
 
-evolution_plan_name[8] = "¡¶ßM»¯¡·¿¨ßäı”";
+evolution_plan_name[8] = "ã€Šé€²åŒ–ã€‹å¡å’ªé¾œ";
 evolution_plan_offering[8] = 406207;
 evolution_plan_item[8] = 74095;
 evolution_plan_gold[8] = 5000;
 evolution_plan_pet[8] = 406208;
-evolution_plan_requirement[8] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[8] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[8] = 310101;
 
-evolution_plan_name[9] = "¡¶ßM»¯¡·Ë®¼ıı”";
+evolution_plan_name[9] = "ã€Šé€²åŒ–ã€‹æ°´ç®­é¾œ";
 evolution_plan_offering[9] = 406208;
 evolution_plan_item[9] = 74096;
 evolution_plan_gold[9] = 15000;
 evolution_plan_pet[9] = 406209;
-evolution_plan_requirement[9] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[9] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[9] = 310102;
 
-evolution_plan_name[10] = "¡¶ßM»¯¡·³¬¼‰Ë®¼ıı”";
+evolution_plan_name[10] = "ã€Šé€²åŒ–ã€‹è¶…ç´šæ°´ç®­é¾œ";
 evolution_plan_offering[10] = 406209;
 evolution_plan_item[10] = 74097;
 evolution_plan_gold[10] = 50000;
 evolution_plan_pet[10] = 406210;
-evolution_plan_requirement[10] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[10] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[10] = 310105;
 
-evolution_plan_name[11] = "¡¶ßM»¯¡·Æ¤¿¨Çğ";
+evolution_plan_name[11] = "ã€Šé€²åŒ–ã€‹çš®å¡ä¸˜";
 evolution_plan_offering[11] = 406211;
 evolution_plan_item[11] = 74095;
 evolution_plan_gold[11] = 5000;
 evolution_plan_pet[11] = 406212;
-evolution_plan_requirement[11] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[11] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[11] = 310109;
 
-evolution_plan_name[12] = "¡¶ßM»¯¡·À×Çğ";
+evolution_plan_name[12] = "ã€Šé€²åŒ–ã€‹é›·ä¸˜";
 evolution_plan_offering[12] = 406212;
 evolution_plan_item[12] = 74096;
 evolution_plan_gold[12] = 15000;
 evolution_plan_pet[12] = 406213;
-evolution_plan_requirement[12] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[12] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[12] = 310010;
 
-evolution_plan_name[13] = "¡¶ßM»¯¡·ßM“ôÀ×Çğ";
+evolution_plan_name[13] = "ã€Šé€²åŒ–ã€‹é€²æ“Šé›·ä¸˜";
 evolution_plan_offering[13] = 406213;
 evolution_plan_item[13] = 74097;
 evolution_plan_gold[13] = 50000;
 evolution_plan_pet[13] = 406214;
-evolution_plan_requirement[13] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[13] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[13] = 310011;
 
-evolution_plan_name[14] = "¡¶ßM»¯¡·¹íË¹Í¨";
+evolution_plan_name[14] = "ã€Šé€²åŒ–ã€‹é¬¼æ–¯é€š";
 evolution_plan_offering[14] = 406216;
 evolution_plan_item[14] = 74095;
 evolution_plan_gold[14] = 5000;
 evolution_plan_pet[14] = 406217;
-evolution_plan_requirement[14] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[14] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[14] = 310101;
 
-evolution_plan_name[15] = "¡¶ßM»¯¡·¹¢¹í";
+evolution_plan_name[15] = "ã€Šé€²åŒ–ã€‹è€¿é¬¼";
 evolution_plan_offering[15] = 406217;
 evolution_plan_item[15] = 74096;
 evolution_plan_gold[15] = 15000;
 evolution_plan_pet[15] = 406218;
-evolution_plan_requirement[15] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[15] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[15] = 310102;
 
-evolution_plan_name[16] = "¡¶ßM»¯¡·³¬¼‰¹¢¹í";
+evolution_plan_name[16] = "ã€Šé€²åŒ–ã€‹è¶…ç´šè€¿é¬¼";
 evolution_plan_offering[16] = 406218;
 evolution_plan_item[16] = 74097;
 evolution_plan_gold[16] = 50000;
 evolution_plan_pet[16] = 406219;
-evolution_plan_requirement[16] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,20}, {CONST.¶ÔÏó_ÉËº¦Êı,500}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[16] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,20}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,500}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[16] = 310005;
 
-evolution_plan_name[17] = "¡¶ßM»¯¡·°Í´óµû";
+evolution_plan_name[17] = "ã€Šé€²åŒ–ã€‹å·´å¤§è¶";
 evolution_plan_offering[17] = 406220;
 evolution_plan_item[17] = 74096;
 evolution_plan_gold[17] = 15000;
 evolution_plan_pet[17] = 406221;
-evolution_plan_requirement[17] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[17] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[17] = 310107;
 
-evolution_plan_name[18] = "¡¶ßM»¯¡·ßM“ôß÷ÀÏ´ó";
+evolution_plan_name[18] = "ã€Šé€²åŒ–ã€‹é€²æ“Šå–µè€å¤§";
 evolution_plan_offering[18] = 406222;
 evolution_plan_item[18] = 74096;
 evolution_plan_gold[18] = 15000;
 evolution_plan_pet[18] = 406223;
-evolution_plan_requirement[18] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[18] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[18] = 310110;
 
-evolution_plan_name[19] = "¡¶ßM»¯¡·¿¨±È«F";
+evolution_plan_name[19] = "ã€Šé€²åŒ–ã€‹å¡æ¯”ç¸";
 evolution_plan_offering[19] = 406224;
 evolution_plan_item[19] = 74096;
 evolution_plan_gold[19] = 15000;
 evolution_plan_pet[19] = 406225;
-evolution_plan_requirement[19] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[19] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[19] = 310001;
 
-evolution_plan_name[20] = "¡¶ßM»¯¡·ÅÖ¶¡";
+evolution_plan_name[20] = "ã€Šé€²åŒ–ã€‹èƒ–ä¸";
 evolution_plan_offering[20] = 406229;
 evolution_plan_item[20] = 74095;
 evolution_plan_gold[20] = 5000;
 evolution_plan_pet[20] = 406230;
-evolution_plan_requirement[20] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[20] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[20] = 310101;
 
-evolution_plan_name[21] = "¡¶ßM»¯¡·ÅÖ¿É¶¡";
+evolution_plan_name[21] = "ã€Šé€²åŒ–ã€‹èƒ–å¯ä¸";
 evolution_plan_offering[21] = 406230;
 evolution_plan_item[21] = 74096;
 evolution_plan_gold[21] = 15000;
 evolution_plan_pet[21] = 406231;
-evolution_plan_requirement[21] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[21] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[21] = 310102;
 
-evolution_plan_name[22] = "¡¶ßM»¯¡·ø†×ì»ğ«F";
+evolution_plan_name[22] = "ã€Šé€²åŒ–ã€‹é´¨å˜´ç«ç¸";
 evolution_plan_offering[22] = 406232;
 evolution_plan_item[22] = 74095;
 evolution_plan_gold[22] = 5000;
 evolution_plan_pet[22] = 406233;
-evolution_plan_requirement[22] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[22] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[22] = 310007;
 
-evolution_plan_name[23] = "¡¶ßM»¯¡·ø†×ìÑ×«F";
+evolution_plan_name[23] = "ã€Šé€²åŒ–ã€‹é´¨å˜´ç‚ç¸";
 evolution_plan_offering[23] = 406233;
 evolution_plan_item[23] = 74096;
 evolution_plan_gold[23] = 15000;
 evolution_plan_pet[23] = 406234;
-evolution_plan_requirement[23] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[23] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[23] = 310008;
 
-evolution_plan_name[24] = "¡¶ßM»¯¡·ø†×ì“ô«F";
+evolution_plan_name[24] = "ã€Šé€²åŒ–ã€‹é´¨å˜´æ“Šç¸";
 evolution_plan_offering[24] = 406234;
 evolution_plan_item[24] = 74097;
 evolution_plan_gold[24] = 50000;
 evolution_plan_pet[24] = 406235;
-evolution_plan_requirement[24] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,20}, {CONST.¶ÔÏó_ÉËº¦Êı,500}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[24] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,20}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,500}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[24] = 310005;
 
-evolution_plan_name[25] = "¡¶ßM»¯¡·ÃÍ»ğºï";
+evolution_plan_name[25] = "ã€Šé€²åŒ–ã€‹çŒ›ç«çŒ´";
 evolution_plan_offering[25] = 406236;
 evolution_plan_item[25] = 74095;
 evolution_plan_gold[25] = 5000;
 evolution_plan_pet[25] = 406237;
-evolution_plan_requirement[25] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[25] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[25] = 310007;
 
-evolution_plan_name[26] = "¡¶ßM»¯¡·ÁÒÑæºï";
+evolution_plan_name[26] = "ã€Šé€²åŒ–ã€‹çƒˆç„°çŒ´";
 evolution_plan_offering[26] = 406237;
 evolution_plan_item[26] = 74096;
 evolution_plan_gold[26] = 15000;
 evolution_plan_pet[26] = 406238;
-evolution_plan_requirement[26] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[26] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[26] = 310008;
 
-evolution_plan_name[27] = "¡¶ßM»¯¡·ßM“ôÁÒÑæºï";
+evolution_plan_name[27] = "ã€Šé€²åŒ–ã€‹é€²æ“Šçƒˆç„°çŒ´";
 evolution_plan_offering[27] = 406238;
 evolution_plan_item[27] = 74097;
 evolution_plan_gold[27] = 50000;
 evolution_plan_pet[27] = 406239;
-evolution_plan_requirement[27] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,20}, {CONST.¶ÔÏó_ÉËº¦Êı,500}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[27] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,20}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,500}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[27] = 310005;
 
-evolution_plan_name[28] = "¡¶ßM»¯¡·É­ÁÖòáòæ";
+evolution_plan_name[28] = "ã€Šé€²åŒ–ã€‹æ£®æ—èœ¥èœ´";
 evolution_plan_offering[28] = 406240;
 evolution_plan_item[28] = 74095;
 evolution_plan_gold[28] = 5000;
 evolution_plan_pet[28] = 406241;
-evolution_plan_requirement[28] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[28] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[28] = 310107;
 
-evolution_plan_name[29] = "¡¶ßM»¯¡·òáòæÍõ";
+evolution_plan_name[29] = "ã€Šé€²åŒ–ã€‹èœ¥èœ´ç‹";
 evolution_plan_offering[29] = 406241;
 evolution_plan_item[29] = 74096;
 evolution_plan_gold[29] = 15000;
 evolution_plan_pet[29] = 406242;
-evolution_plan_requirement[29] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[29] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[29] = 310108;
 
-evolution_plan_name[30] = "¡¶ßM»¯¡·³¬¼‰òáòæÍõ";
+evolution_plan_name[30] = "ã€Šé€²åŒ–ã€‹è¶…ç´šèœ¥èœ´ç‹";
 evolution_plan_offering[30] = 406242;
 evolution_plan_item[30] = 74097;
 evolution_plan_gold[30] = 50000;
 evolution_plan_pet[30] = 406243;
-evolution_plan_requirement[30] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[30] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[30] = 310105;
 
-evolution_plan_name[31] = "¡¶ßM»¯¡·ßÉî^ÍÜ";
+evolution_plan_name[31] = "ã€Šé€²åŒ–ã€‹å‘±é ­è›™";
 evolution_plan_offering[31] = 406244;
 evolution_plan_item[31] = 74095;
 evolution_plan_gold[31] = 5000;
 evolution_plan_pet[31] = 406245;
-evolution_plan_requirement[31] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[31] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[31] = 310101;
 
-evolution_plan_name[32] = "¡¶ßM»¯¡·¼×ÙRÈÌÍÜ";
+evolution_plan_name[32] = "ã€Šé€²åŒ–ã€‹ç”²è³€å¿è›™";
 evolution_plan_offering[32] = 406245;
 evolution_plan_item[32] = 74096;
 evolution_plan_gold[32] = 15000;
 evolution_plan_pet[32] = 406246;
-evolution_plan_requirement[32] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[32] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[32] = 310102;
 
-evolution_plan_name[33] = "¡¶ßM»¯¡·Áb½O¼×ÙRÈÌÍÜ";
+evolution_plan_name[33] = "ã€Šé€²åŒ–ã€‹ç¾ˆçµ†ç”²è³€å¿è›™";
 evolution_plan_offering[33] = 406246;
 evolution_plan_item[33] = 74097;
 evolution_plan_gold[33] = 50000;
 evolution_plan_pet[33] = 406247;
-evolution_plan_requirement[33] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[33] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[33] = 310105;
 
-evolution_plan_name[34] = "¡¶ßM»¯¡·¹ş¿Ëıˆ";
+evolution_plan_name[34] = "ã€Šé€²åŒ–ã€‹å“ˆå…‹é¾";
 evolution_plan_offering[34] = 406261;
 evolution_plan_item[34] = 74095;
 evolution_plan_gold[34] = 5000;
 evolution_plan_pet[34] = 406262;
-evolution_plan_requirement[34] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[34] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[34] = 310001;
 
-evolution_plan_name[35] = "¡¶ßM»¯¡·¿ìıˆ";
+evolution_plan_name[35] = "ã€Šé€²åŒ–ã€‹å¿«é¾";
 evolution_plan_offering[35] = 406262;
 evolution_plan_item[35] = 74096;
 evolution_plan_gold[35] = 15000;
 evolution_plan_pet[35] = 406263;
-evolution_plan_requirement[35] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[35] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[35] = 310002;
 
-evolution_plan_name[36] = "¡¶ßM»¯¡·ßM“ô¿ìıˆ";
+evolution_plan_name[36] = "ã€Šé€²åŒ–ã€‹é€²æ“Šå¿«é¾";
 evolution_plan_offering[36] = 406263;
 evolution_plan_item[36] = 74097;
 evolution_plan_gold[36] = 50000;
 evolution_plan_pet[36] = 406264;
-evolution_plan_requirement[36] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[36] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[36] = 310005;
 
-evolution_plan_name[37] = "¡¶ßM»¯¡·°¢°Ø¹Ö";
+evolution_plan_name[37] = "ã€Šé€²åŒ–ã€‹é˜¿æŸæ€ª";
 evolution_plan_offering[37] = 406268;
 evolution_plan_item[37] = 74095;
 evolution_plan_gold[37] = 5000;
 evolution_plan_pet[37] = 406269;
-evolution_plan_requirement[37] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[37] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[37] = 310001;
 
-evolution_plan_name[38] = "¡¶ßM»¯¡·ßM“ô°¢°Ø¹Ö";
+evolution_plan_name[38] = "ã€Šé€²åŒ–ã€‹é€²æ“Šé˜¿æŸæ€ª";
 evolution_plan_offering[38] = 406269;
 evolution_plan_item[38] = 74096;
 evolution_plan_gold[38] = 15000;
 evolution_plan_pet[38] = 406270;
-evolution_plan_requirement[38] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[38] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[38] = 310002;
 
-evolution_plan_name[39] = "¡¶ßM»¯¡·ëp—ÍßË¹";
+evolution_plan_name[39] = "ã€Šé€²åŒ–ã€‹é›™å½ˆç“¦æ–¯";
 evolution_plan_offering[39] = 406271;
 evolution_plan_item[39] = 74095;
 evolution_plan_gold[39] = 5000;
 evolution_plan_pet[39] = 406272;
-evolution_plan_requirement[39] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[39] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[39] = 310101;
 
-evolution_plan_name[40] = "¡¶ßM»¯¡·ßM“ôëp—ÍßË¹";
+evolution_plan_name[40] = "ã€Šé€²åŒ–ã€‹é€²æ“Šé›™å½ˆç“¦æ–¯";
 evolution_plan_offering[40] = 406272;
 evolution_plan_item[40] = 74096;
 evolution_plan_gold[40] = 15000;
 evolution_plan_pet[40] = 406273;
-evolution_plan_requirement[40] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[40] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[40] = 310102;
 
-evolution_plan_name[41] = "¡¶ßM»¯¡·´ó×ìòğ";
+evolution_plan_name[41] = "ã€Šé€²åŒ–ã€‹å¤§å˜´è ";
 evolution_plan_offering[41] = 406274;
 evolution_plan_item[41] = 74095;
 evolution_plan_gold[41] = 5000;
 evolution_plan_pet[41] = 406275;
-evolution_plan_requirement[41] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[41] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[41] = 310107;
 
-evolution_plan_name[42] = "¡¶ßM»¯¡·²æ×Öòğ";
+evolution_plan_name[42] = "ã€Šé€²åŒ–ã€‹å‰å­—è ";
 evolution_plan_offering[42] = 406275;
 evolution_plan_item[42] = 74096;
 evolution_plan_gold[42] = 15000;
 evolution_plan_pet[42] = 406276;
-evolution_plan_requirement[42] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[42] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[42] = 310108;
 
-evolution_plan_name[43] = "¡¶ßM»¯¡·è½ÇÏ¬«F";
+evolution_plan_name[43] = "ã€Šé€²åŒ–ã€‹é‘½è§’çŠ€ç¸";
 evolution_plan_offering[43] = 406278;
 evolution_plan_item[43] = 74095;
 evolution_plan_gold[43] = 5000;
 evolution_plan_pet[43] = 406279;
-evolution_plan_requirement[43] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[43] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[43] = 310104;
 
-evolution_plan_name[44] = "¡¶ßM»¯¡·³¬¼×¿ñÏ¬";
+evolution_plan_name[44] = "ã€Šé€²åŒ–ã€‹è¶…ç”²ç‹‚çŠ€";
 evolution_plan_offering[44] = 406279;
 evolution_plan_item[44] = 74096;
 evolution_plan_gold[44] = 15000;
 evolution_plan_pet[44] = 406280;
-evolution_plan_requirement[44] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[44] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[44] = 310105;
 
-evolution_plan_name[45] = "¡¶ßM»¯¡·ëp¸«‘ğıˆ";
+evolution_plan_name[45] = "ã€Šé€²åŒ–ã€‹é›™æ–§æˆ°é¾";
 evolution_plan_offering[45] = 406281;
 evolution_plan_item[45] = 74096;
 evolution_plan_gold[45] = 15000;
 evolution_plan_pet[45] = 406282;
-evolution_plan_requirement[45] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[45] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[45] = 310104;
 
-evolution_plan_name[46] = "¡¶ßM»¯¡·Â·¿¨ÀûšW";
+evolution_plan_name[46] = "ã€Šé€²åŒ–ã€‹è·¯å¡åˆ©æ­";
 evolution_plan_offering[46] = 406283;
 evolution_plan_item[46] = 74095;
 evolution_plan_gold[46] = 5000;
 evolution_plan_pet[46] = 406284;
-evolution_plan_requirement[46] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[46] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[46] = 310001;
 
-evolution_plan_name[47] = "¡¶ßM»¯¡·³¬¼‰Â·¿¨ÀûšW";
+evolution_plan_name[47] = "ã€Šé€²åŒ–ã€‹è¶…ç´šè·¯å¡åˆ©æ­";
 evolution_plan_offering[47] = 406284;
 evolution_plan_item[47] = 74096;
 evolution_plan_gold[47] = 15000;
 evolution_plan_pet[47] = 406285;
-evolution_plan_requirement[47] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[47] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[47] = 310002;
 
-evolution_plan_name[48] = "¡¶ßM»¯¡·¾¿˜OÂ·¿¨ÀûšW";
+evolution_plan_name[48] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µè·¯å¡åˆ©æ­";
 evolution_plan_offering[48] = 406285;
 evolution_plan_item[48] = 74097;
 evolution_plan_gold[48] = 50000;
 evolution_plan_pet[48] = 406286;
-evolution_plan_requirement[48] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[48] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[48] = 310005;
 
-evolution_plan_name[49] = "¡¶ßM»¯¡·´óá˜äh";
+evolution_plan_name[49] = "ã€Šé€²åŒ–ã€‹å¤§é‡é‹’";
 evolution_plan_offering[49] = 406287;
 evolution_plan_item[49] = 74095;
 evolution_plan_gold[49] = 5000;
 evolution_plan_pet[49] = 406288;
-evolution_plan_requirement[49] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[49] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[49] = 310107;
 
-evolution_plan_name[50] = "¡¶ßM»¯¡·³¬¼‰´óá˜äh";
+evolution_plan_name[50] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå¤§é‡é‹’";
 evolution_plan_offering[50] = 406288;
 evolution_plan_item[50] = 74096;
 evolution_plan_gold[50] = 15000;
 evolution_plan_pet[50] = 406289;
-evolution_plan_requirement[50] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[50] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[50] = 310108;
 
-evolution_plan_name[51] = "¡¶ßM»¯¡·´©É½Íõ";
+evolution_plan_name[51] = "ã€Šé€²åŒ–ã€‹ç©¿å±±ç‹";
 evolution_plan_offering[51] = 406290;
 evolution_plan_item[51] = 74096;
 evolution_plan_gold[51] = 15000;
 evolution_plan_pet[51] = 406291;
-evolution_plan_requirement[51] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[51] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[51] = 310105;
 
-evolution_plan_name[52] = "¡¶ßM»¯¡·ßM“ôÀ­ÆÕÀ­Ë¹";
+evolution_plan_name[52] = "ã€Šé€²åŒ–ã€‹é€²æ“Šæ‹‰æ™®æ‹‰æ–¯";
 evolution_plan_offering[52] = 406292;
 evolution_plan_item[52] = 74095;
 evolution_plan_gold[52] = 5000;
 evolution_plan_pet[52] = 406293;
-evolution_plan_requirement[52] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[52] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[52] = 310101;
 
-evolution_plan_name[53] = "¡¶ßM»¯¡·¾¿“ôÀ­ÆÕÀ­Ë¹";
+evolution_plan_name[53] = "ã€Šé€²åŒ–ã€‹ç©¶æ“Šæ‹‰æ™®æ‹‰æ–¯";
 evolution_plan_offering[53] = 406293;
 evolution_plan_item[53] = 74096;
 evolution_plan_gold[53] = 15000;
 evolution_plan_pet[53] = 406294;
-evolution_plan_requirement[53] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[53] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[53] = 310102;
 
-evolution_plan_name[54] = "¡¶ßM»¯¡·°à»ùÀ­Ë¹";
+evolution_plan_name[54] = "ã€Šé€²åŒ–ã€‹ç­åŸºæ‹‰æ–¯";
 evolution_plan_offering[54] = 406295;
 evolution_plan_item[54] = 74095;
 evolution_plan_gold[54] = 5000;
 evolution_plan_pet[54] = 406296;
-evolution_plan_requirement[54] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[54] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[54] = 310104;
 
-evolution_plan_name[55] = "¡¶ßM»¯¡·³¬¼‰°à»ùÀ­Ë¹";
+evolution_plan_name[55] = "ã€Šé€²åŒ–ã€‹è¶…ç´šç­åŸºæ‹‰æ–¯";
 evolution_plan_offering[55] = 406296;
 evolution_plan_item[55] = 74096;
 evolution_plan_gold[55] = 15000;
 evolution_plan_pet[55] = 406297;
-evolution_plan_requirement[55] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[55] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[55] = 310105;
 
-evolution_plan_name[56] = "¡¶ßM»¯¡·±©õıˆ";
+evolution_plan_name[56] = "ã€Šé€²åŒ–ã€‹æš´é¯‰é¾";
 evolution_plan_offering[56] = 406298;
 evolution_plan_item[56] = 74095;
 evolution_plan_gold[56] = 5000;
 evolution_plan_pet[56] = 406299;
-evolution_plan_requirement[56] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[56] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[56] = 310107;
 
-evolution_plan_name[57] = "¡¶ßM»¯¡·³¬¼‰±©õıˆ";
+evolution_plan_name[57] = "ã€Šé€²åŒ–ã€‹è¶…ç´šæš´é¯‰é¾";
 evolution_plan_offering[57] = 406299;
 evolution_plan_item[57] = 74096;
 evolution_plan_gold[57] = 15000;
 evolution_plan_pet[57] = 406300;
-evolution_plan_requirement[57] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[57] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[57] = 310005;
 
-evolution_plan_name[58] = "¡¶ßM»¯¡·³¬¼‰»¯Ê¯Òíıˆ";
+evolution_plan_name[58] = "ã€Šé€²åŒ–ã€‹è¶…ç´šåŒ–çŸ³ç¿¼é¾";
 evolution_plan_offering[58] = 406322;
 evolution_plan_item[58] = 74095;
 evolution_plan_gold[58] = 5000;
 evolution_plan_pet[58] = 406323;
-evolution_plan_requirement[58] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[58] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[58] = 310105;
 
-evolution_plan_name[59] = "¡¶ßM»¯¡·¾¿“ô»¯Ê¯Òíıˆ";
+evolution_plan_name[59] = "ã€Šé€²åŒ–ã€‹ç©¶æ“ŠåŒ–çŸ³ç¿¼é¾";
 evolution_plan_offering[59] = 406323;
 evolution_plan_item[59] = 74096;
 evolution_plan_gold[59] = 15000;
 evolution_plan_pet[59] = 406324;
-evolution_plan_requirement[59] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[59] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[59] = 310005;
 
-evolution_plan_name[60] = "¡¶ßM»¯¡·Æ¤Æ¤";
+evolution_plan_name[60] = "ã€Šé€²åŒ–ã€‹çš®çš®";
 evolution_plan_offering[60] = 406325;
 evolution_plan_item[60] = 74095;
 evolution_plan_gold[60] = 5000;
 evolution_plan_pet[60] = 406326;
-evolution_plan_requirement[60] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[60] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[60] = 310110;
 
-evolution_plan_name[61] = "¡¶ßM»¯¡·Æ¤¿ÉÎ÷";
+evolution_plan_name[61] = "ã€Šé€²åŒ–ã€‹çš®å¯è¥¿";
 evolution_plan_offering[61] = 406326;
 evolution_plan_item[61] = 74096;
 evolution_plan_gold[61] = 15000;
 evolution_plan_pet[61] = 406327;
-evolution_plan_requirement[61] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[61] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[61] = 310111;
 
-evolution_plan_name[62] = "¡¶ßM»¯¡·È×È×Ñò";
+evolution_plan_name[62] = "ã€Šé€²åŒ–ã€‹èŒ¸èŒ¸ç¾Š";
 evolution_plan_offering[62] = 406328;
 evolution_plan_item[62] = 74095;
 evolution_plan_gold[62] = 5000;
 evolution_plan_pet[62] = 406329;
-evolution_plan_requirement[62] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[62] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[62] = 310109;
 
-evolution_plan_name[63] = "¡¶ßM»¯¡·ëŠıˆ";
+evolution_plan_name[63] = "ã€Šé€²åŒ–ã€‹é›»é¾";
 evolution_plan_offering[63] = 406329;
 evolution_plan_item[63] = 74096;
 evolution_plan_gold[63] = 15000;
 evolution_plan_pet[63] = 406330;
-evolution_plan_requirement[63] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[63] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[63] = 310010;
 
-evolution_plan_name[64] = "¡¶ßM»¯¡·³¬¼‰ëŠıˆ";
+evolution_plan_name[64] = "ã€Šé€²åŒ–ã€‹è¶…ç´šé›»é¾";
 evolution_plan_offering[64] = 406330;
 evolution_plan_item[64] = 74097;
 evolution_plan_gold[64] = 50000;
 evolution_plan_pet[64] = 406331;
-evolution_plan_requirement[64] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[64] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[64] = 310011;
 
-evolution_plan_name[65] = "¡¶ßM»¯¡·ºÀÁ¦";
+evolution_plan_name[65] = "ã€Šé€²åŒ–ã€‹è±ªåŠ›";
 evolution_plan_offering[65] = 406332;
 evolution_plan_item[65] = 74095;
 evolution_plan_gold[65] = 5000;
 evolution_plan_pet[65] = 406333;
-evolution_plan_requirement[65] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[65] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[65] = 310001;
 
-evolution_plan_name[66] = "¡¶ßM»¯¡·¹ÖÁ¦";
+evolution_plan_name[66] = "ã€Šé€²åŒ–ã€‹æ€ªåŠ›";
 evolution_plan_offering[66] = 406333;
 evolution_plan_item[66] = 74096;
 evolution_plan_gold[66] = 15000;
 evolution_plan_pet[66] = 406334;
-evolution_plan_requirement[66] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[66] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[66] = 310002;
 
-evolution_plan_name[67] = "¡¶ßM»¯¡·éLÎ²»ğºü";
+evolution_plan_name[67] = "ã€Šé€²åŒ–ã€‹é•·å°¾ç«ç‹";
 evolution_plan_offering[67] = 406335;
 evolution_plan_item[67] = 74095;
 evolution_plan_gold[67] = 5000;
 evolution_plan_pet[67] = 406336;
-evolution_plan_requirement[67] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[67] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[67] = 310007;
 
-evolution_plan_name[68] = "¡¶ßM»¯¡·Ñı»ğ¼tºü";
+evolution_plan_name[68] = "ã€Šé€²åŒ–ã€‹å¦–ç«ç´…ç‹";
 evolution_plan_offering[68] = 406336;
 evolution_plan_item[68] = 74096;
 evolution_plan_gold[68] = 15000;
 evolution_plan_pet[68] = 406337;
-evolution_plan_requirement[68] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[68] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[68] = 310008;
 
-evolution_plan_name[69] = "¡¶ßM»¯¡·¼âÑÀê‘õ";
+evolution_plan_name[69] = "ã€Šé€²åŒ–ã€‹å°–ç‰™é™¸é¯Š";
 evolution_plan_offering[69] = 406338;
 evolution_plan_item[69] = 74095;
 evolution_plan_gold[69] = 5000;
 evolution_plan_pet[69] = 406339;
-evolution_plan_requirement[69] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[69] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[69] = 310104;
 
-evolution_plan_name[70] = "¡¶ßM»¯¡·ÁÒÒ§ê‘õ";
+evolution_plan_name[70] = "ã€Šé€²åŒ–ã€‹çƒˆå’¬é™¸é¯Š";
 evolution_plan_offering[70] = 406339;
 evolution_plan_item[70] = 74096;
 evolution_plan_gold[70] = 15000;
 evolution_plan_pet[70] = 406340;
-evolution_plan_requirement[70] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[70] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[70] = 310105;
 
-evolution_plan_name[71] = "¡¶ßM»¯¡·³¬¼‰²¨Ê¿¿É¶àÀ­";
+evolution_plan_name[71] = "ã€Šé€²åŒ–ã€‹è¶…ç´šæ³¢å£«å¯å¤šæ‹‰";
 evolution_plan_offering[71] = 406344;
 evolution_plan_item[71] = 74095;
 evolution_plan_gold[71] = 5000;
 evolution_plan_pet[71] = 406345;
-evolution_plan_requirement[71] = {{CONST.¶ÔÏó_µÈ¼¶,50}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[71] = {{CONST.å¯¹è±¡_ç­‰çº§,50}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[71] = 310002;
 
-evolution_plan_name[72] = "¡¶ßM»¯¡·¾¿˜O²¨Ê¿¿É¶àÀ­";
+evolution_plan_name[72] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µæ³¢å£«å¯å¤šæ‹‰";
 evolution_plan_offering[72] = 406345;
 evolution_plan_item[72] = 74096;
 evolution_plan_gold[72] = 15000;
 evolution_plan_pet[72] = 406346;
-evolution_plan_requirement[72] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[72] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[72] = 310105;
 
 
-evolution_plan_name[73] = "¡¶ßM»¯¡·³¬¼‰°¢²ªËóô”";
+evolution_plan_name[73] = "ã€Šé€²åŒ–ã€‹è¶…ç´šé˜¿å‹ƒæ¢­é­¯";
 evolution_plan_offering[73] = 406362;
 evolution_plan_item[73] = 74097;
 evolution_plan_gold[73] = 30000;
 evolution_plan_pet[73] = 406363;
-evolution_plan_requirement[73] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[73] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[73] = 310210;
 
-evolution_plan_name[74] = "¡¶ßM»¯¡·³¬¼‰°¬Â·À×¶ä";
+evolution_plan_name[74] = "ã€Šé€²åŒ–ã€‹è¶…ç´šè‰¾è·¯é›·æœµ";
 evolution_plan_offering[74] = 406366;
 evolution_plan_item[74] = 74097;
 evolution_plan_gold[74] = 30000;
 evolution_plan_pet[74] = 406367;
-evolution_plan_requirement[74] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[74] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[74] = 310201;
 
-evolution_plan_name[75] = "¡¶ßM»¯¡·³¬¼‰éœºÚÀ×Ä·";
+evolution_plan_name[75] = "ã€Šé€²åŒ–ã€‹è¶…ç´šé—‡é»‘é›·å§†";
 evolution_plan_offering[75] = 406368;
 evolution_plan_item[75] = 74097;
 evolution_plan_gold[75] = 30000;
 evolution_plan_pet[75] = 406369;
-evolution_plan_requirement[75] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[75] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[75] = 310210;
 
-evolution_plan_name[76] = "¡¶ßM»¯¡·³¬¼‰Ñæ°×À×Ä·";
+evolution_plan_name[76] = "ã€Šé€²åŒ–ã€‹è¶…ç´šç„°ç™½é›·å§†";
 evolution_plan_offering[76] = 406388;
 evolution_plan_item[76] = 74097;
 evolution_plan_gold[76] = 30000;
 evolution_plan_pet[76] = 406389;
-evolution_plan_requirement[76] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[76] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[76] = 310310;
 
-evolution_plan_name[77] = "¡¶ßM»¯¡·³¬¼‰°à»ùÀ­Ë¹";
+evolution_plan_name[77] = "ã€Šé€²åŒ–ã€‹è¶…ç´šç­åŸºæ‹‰æ–¯";
 evolution_plan_offering[77] = 406370;
 evolution_plan_item[77] = 74097;
 evolution_plan_gold[77] = 30000;
 evolution_plan_pet[77] = 406371;
-evolution_plan_requirement[77] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[77] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[77] = 310210;
 
-evolution_plan_name[78] = "¡¶ßM»¯¡·³¬¼‰±©õıˆ";
+evolution_plan_name[78] = "ã€Šé€²åŒ–ã€‹è¶…ç´šæš´é¯‰é¾";
 evolution_plan_offering[78] = 406374;
 evolution_plan_item[78] = 74097;
 evolution_plan_gold[78] = 30000;
 evolution_plan_pet[78] = 406375;
-evolution_plan_requirement[78] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[78] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[78] = 10628;
 
-evolution_plan_name[79] = "¡¶ßM»¯¡·³¬¼‰±©ÊÉı”";
+evolution_plan_name[79] = "ã€Šé€²åŒ–ã€‹è¶…ç´šæš´å™¬é¾œ";
 evolution_plan_offering[79] = 406376;
 evolution_plan_item[79] = 74097;
 evolution_plan_gold[79] = 30000;
 evolution_plan_pet[79] = 406377;
-evolution_plan_requirement[79] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[79] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[79] = 310207;
 
-evolution_plan_name[80] = "¡¶ßM»¯¡·³¬¼‰´ó±ÈøB";
+evolution_plan_name[80] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå¤§æ¯”é³¥";
 evolution_plan_offering[80] = 406381;
 evolution_plan_item[80] = 74097;
 evolution_plan_gold[80] = 30000;
 evolution_plan_pet[80] = 406382;
-evolution_plan_requirement[80] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[80] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[80] = 310201;
 
-evolution_plan_name[81] = "¡¶ßM»¯¡·³¬¼‰±È¿ËÌáÄá";
+evolution_plan_name[81] = "ã€Šé€²åŒ–ã€‹è¶…ç´šæ¯”å…‹æå°¼";
 evolution_plan_offering[81] = 406382;
 evolution_plan_item[81] = 74097;
 evolution_plan_gold[81] = 30000;
 evolution_plan_pet[81] = 406383;
-evolution_plan_requirement[81] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[81] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[81] = 10628;
 
-evolution_plan_name[82] = "¡¶ßM»¯¡·³¬¼‰ëŠıˆ";
+evolution_plan_name[82] = "ã€Šé€²åŒ–ã€‹è¶…ç´šé›»é¾";
 evolution_plan_offering[82] = 406420;
 evolution_plan_item[82] = 74097;
 evolution_plan_gold[82] = 30000;
 evolution_plan_pet[82] = 406421;
-evolution_plan_requirement[82] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[82] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[82] = 310310;
 
-evolution_plan_name[83] = "¡¶ßM»¯¡·³¬¼‰µÙ°²Ï£";
+evolution_plan_name[83] = "ã€Šé€²åŒ–ã€‹è¶…ç´šè’‚å®‰å¸Œ";
 evolution_plan_offering[83] = 406422;
 evolution_plan_item[83] = 74097;
 evolution_plan_gold[83] = 30000;
 evolution_plan_pet[83] = 406423;
-evolution_plan_requirement[83] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[83] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[83] = 310204;
 
-evolution_plan_name[84] = "¡¶ßM»¯¡·³¬¼‰ºÕÀ­¿ËÁ_Ë¹";
+evolution_plan_name[84] = "ã€Šé€²åŒ–ã€‹è¶…ç´šèµ«æ‹‰å…‹ç¾…æ–¯";
 evolution_plan_offering[84] = 406440;
 evolution_plan_item[84] = 74097;
 evolution_plan_gold[84] = 30000;
 evolution_plan_pet[84] = 406441;
-evolution_plan_requirement[84] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[84] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[84] = 310307;
 
-evolution_plan_name[85] = "¡¶ßM»¯¡·³¬¼‰¾Ş½ğ¹Ö";
+evolution_plan_name[85] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå·¨é‡‘æ€ª";
 evolution_plan_offering[85] = 406448;
 evolution_plan_item[85] = 74097;
 evolution_plan_gold[85] = 30000;
 evolution_plan_pet[85] = 406449;
-evolution_plan_requirement[85] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[85] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[85] = 310310;
 
-evolution_plan_name[86] = "¡¶ßM»¯¡·³¬¼‰¾ŞãQó«òë";
+evolution_plan_name[86] = "ã€Šé€²åŒ–ã€‹è¶…ç´šå·¨é‰—è³è‚";
 evolution_plan_offering[86] = 406450;
 evolution_plan_item[86] = 74097;
 evolution_plan_gold[86] = 30000;
 evolution_plan_pet[86] = 406451;
-evolution_plan_requirement[86] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[86] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[86] = 10628;
 
-evolution_plan_name[87] = "¡¶ßM»¯¡·³¬¼‰ÁÒÒ§ê‘õ";
+evolution_plan_name[87] = "ã€Šé€²åŒ–ã€‹è¶…ç´šçƒˆå’¬é™¸é¯Š";
 evolution_plan_offering[87] = 406454;
 evolution_plan_item[87] = 74097;
 evolution_plan_gold[87] = 30000;
 evolution_plan_pet[87] = 406455;
-evolution_plan_requirement[87] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[87] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[87] = 310304;
 
-evolution_plan_name[88] = "¡¶ßM»¯¡·³¬¼‰»ù¸ñ –µÂ";
+evolution_plan_name[88] = "ã€Šé€²åŒ–ã€‹è¶…ç´šåŸºæ ¼çˆ¾å¾·";
 evolution_plan_offering[88] = 406446;
 evolution_plan_item[88] = 74097;
 evolution_plan_gold[88] = 30000;
 evolution_plan_pet[88] = 406447;
-evolution_plan_requirement[88] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[88] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[88] = 310307;
 
-evolution_plan_name[89] = "¡¶ßM»¯¡·½â·ÅºúÅÁ";
+evolution_plan_name[89] = "ã€Šé€²åŒ–ã€‹è§£æ”¾èƒ¡å¸•";
 evolution_plan_offering[89] = 406444;
 evolution_plan_item[89] = 74097;
 evolution_plan_gold[89] = 30000;
 evolution_plan_pet[89] = 406445;
-evolution_plan_requirement[89] = {{CONST.¶ÔÏó_µÈ¼¶,85}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[89] = {{CONST.å¯¹è±¡_ç­‰çº§,85}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[89] = 310204;
 
 
-evolution_plan_name[90] = "¡¶ßM»¯¡·ßM“ôÑ©À­±È";
+evolution_plan_name[90] = "ã€Šé€²åŒ–ã€‹é€²æ“Šé›ªæ‹‰æ¯”";
 evolution_plan_offering[90] = 406350;
 evolution_plan_item[90] = 74096;
 evolution_plan_gold[90] = 25000;
 evolution_plan_pet[90] = 406351;
-evolution_plan_requirement[90] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[90] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[90] = 6303;
 
-evolution_plan_name[91] = "¡¶ßM»¯¡·¾¿˜OÑ©À­±È";
+evolution_plan_name[91] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µé›ªæ‹‰æ¯”";
 evolution_plan_offering[91] = 406351;
 evolution_plan_item[91] = 74097;
 evolution_plan_gold[91] = 60000;
 evolution_plan_pet[91] = 406352;
-evolution_plan_requirement[91] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[91] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[91] = 6306;
 
-evolution_plan_name[92] = "¡¶ßM»¯¡·ßM“ôÀ×¹«";
+evolution_plan_name[92] = "ã€Šé€²åŒ–ã€‹é€²æ“Šé›·å…¬";
 evolution_plan_offering[92] = 406256;
 evolution_plan_item[92] = 74096;
 evolution_plan_gold[92] = 25000;
 evolution_plan_pet[92] = 406257;
-evolution_plan_requirement[92] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[92] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[92] = 4203;
 
-evolution_plan_name[93] = "¡¶ßM»¯¡·¾¿˜OÀ×¹«";
+evolution_plan_name[93] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µé›·å…¬";
 evolution_plan_offering[93] = 406257;
 evolution_plan_item[93] = 74097;
 evolution_plan_gold[93] = 60000;
 evolution_plan_pet[93] = 406258;
-evolution_plan_requirement[93] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[93] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[93] = 4206;
 
-evolution_plan_name[94] = "¡¶ßM»¯¡·ßM“ôÑ×µÛ";
+evolution_plan_name[94] = "ã€Šé€²åŒ–ã€‹é€²æ“Šç‚å¸";
 evolution_plan_offering[94] = 406316;
 evolution_plan_item[94] = 74096;
 evolution_plan_gold[94] = 25000;
 evolution_plan_pet[94] = 406317;
-evolution_plan_requirement[94] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[94] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[94] = 3803;
 
-evolution_plan_name[95] = "¡¶ßM»¯¡·¾¿˜OÑ×µÛ";
+evolution_plan_name[95] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µç‚å¸";
 evolution_plan_offering[95] = 406317;
 evolution_plan_item[95] = 74097;
 evolution_plan_gold[95] = 60000;
 evolution_plan_pet[95] = 406318;
-evolution_plan_requirement[95] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[95] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[95] = 3806;
 
-evolution_plan_name[96] = "¡¶ßM»¯¡·ßM“ôË®¾ı";
+evolution_plan_name[96] = "ã€Šé€²åŒ–ã€‹é€²æ“Šæ°´å›";
 evolution_plan_offering[96] = 406319;
 evolution_plan_item[96] = 74096;
 evolution_plan_gold[96] = 25000;
 evolution_plan_pet[96] = 406320;
-evolution_plan_requirement[96] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[96] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[96] = 4003;
 
-evolution_plan_name[97] = "¡¶ßM»¯¡·¾¿˜OË®¾ı";
+evolution_plan_name[97] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µæ°´å›";
 evolution_plan_offering[97] = 406320;
 evolution_plan_item[97] = 74097;
 evolution_plan_gold[97] = 60000;
 evolution_plan_pet[97] = 406321;
-evolution_plan_requirement[97] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[97] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[97] = 4006;
 
-evolution_plan_name[98] = "¡¶ßM»¯¡·Ô­Ê¼¹ÌÀ­¶à";
+evolution_plan_name[98] = "ã€Šé€²åŒ–ã€‹åŸå§‹å›ºæ‹‰å¤š";
 evolution_plan_offering[98] = 406301;
 evolution_plan_item[98] = 74096;
 evolution_plan_gold[98] = 25000;
 evolution_plan_pet[98] = 406302;
-evolution_plan_requirement[98] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[98] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[98] = 5004;
 
-evolution_plan_name[99] = "¡¶ßM»¯¡·¾¿˜O¹ÌÀ­¶à";
+evolution_plan_name[99] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µå›ºæ‹‰å¤š";
 evolution_plan_offering[99] = 406302;
 evolution_plan_item[99] = 74097;
 evolution_plan_gold[99] = 60000;
 evolution_plan_pet[99] = 406303;
-evolution_plan_requirement[99] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[99] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[99] = 5008;
 
-evolution_plan_name[100] = "¡¶ßM»¯¡·Ô­Ê¼ÉwšW¿¨";
+evolution_plan_name[100] = "ã€Šé€²åŒ–ã€‹åŸå§‹è“‹æ­å¡";
 evolution_plan_offering[100] = 406304;
 evolution_plan_item[100] = 74096;
 evolution_plan_gold[100] = 25000;
 evolution_plan_pet[100] = 406305;
-evolution_plan_requirement[100] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[100] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[100] = 5104;
 
-evolution_plan_name[101] = "¡¶ßM»¯¡·¾¿˜OÉwšW¿¨";
+evolution_plan_name[101] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µè“‹æ­å¡";
 evolution_plan_offering[101] = 406305;
 evolution_plan_item[101] = 74097;
 evolution_plan_gold[101] = 60000;
 evolution_plan_pet[101] = 406306;
-evolution_plan_requirement[101] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[101] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[101] = 5108;
 
-evolution_plan_name[102] = "¡¶ßM»¯¡·³¬¼‰ÁÒ¿Õ×ù";
+evolution_plan_name[102] = "ã€Šé€²åŒ–ã€‹è¶…ç´šçƒˆç©ºåº§";
 evolution_plan_offering[102] = 406253;
 evolution_plan_item[102] = 74096;
 evolution_plan_gold[102] = 25000;
 evolution_plan_pet[102] = 406254;
-evolution_plan_requirement[102] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[102] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[102] = 5304;
 
-evolution_plan_name[103] = "¡¶ßM»¯¡·¾¿˜OÁÒ¿Õ×ù";
+evolution_plan_name[103] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µçƒˆç©ºåº§";
 evolution_plan_offering[103] = 406254;
 evolution_plan_item[103] = 74097;
 evolution_plan_gold[103] = 60000;
 evolution_plan_pet[103] = 406255;
-evolution_plan_requirement[103] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[103] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[103] = 5308;
 
-evolution_plan_name[104] = "¡¶ßM»¯¡·„e·NòTÀ­µÛ¼{";
+evolution_plan_name[104] = "ã€Šé€²åŒ–ã€‹åˆ¥ç¨®é¨æ‹‰å¸ç´";
 evolution_plan_offering[104] = 406313;
 evolution_plan_item[104] = 74096;
 evolution_plan_gold[104] = 25000;
 evolution_plan_pet[104] = 406314;
-evolution_plan_requirement[104] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[104] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[104] = 5204;
 
-evolution_plan_name[105] = "¡¶ßM»¯¡·ßM“ôòTÀ­µÛ¼{";
+evolution_plan_name[105] = "ã€Šé€²åŒ–ã€‹é€²æ“Šé¨æ‹‰å¸ç´";
 evolution_plan_offering[105] = 406314;
 evolution_plan_item[105] = 74097;
 evolution_plan_gold[105] = 60000;
 evolution_plan_pet[105] = 406315;
-evolution_plan_requirement[105] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[105] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[105] = 5208;
 
-evolution_plan_name[106] = "¡¶ßM»¯¡·¾¿˜OÀ×¼ª°¬Ë¹";
+evolution_plan_name[106] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µé›·å‰è‰¾æ–¯";
 evolution_plan_offering[106] = 406259;
 evolution_plan_item[106] = 74097;
 evolution_plan_gold[106] = 60000;
 evolution_plan_pet[106] = 406260;
-evolution_plan_requirement[106] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[106] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[106] = 5906;
 
-evolution_plan_name[107] = "¡¶ßM»¯¡·ßM“ôµÛÑÀ±R¿¨";
+evolution_plan_name[107] = "ã€Šé€²åŒ–ã€‹é€²æ“Šå¸ç‰™ç›§å¡";
 evolution_plan_offering[107] = 406307;
 evolution_plan_item[107] = 74096;
 evolution_plan_gold[107] = 25000;
 evolution_plan_pet[107] = 406308;
-evolution_plan_requirement[107] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[107] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[107] = 6703;
 
-evolution_plan_name[108] = "¡¶ßM»¯¡·¾¿˜OµÛÑÀ±R¿¨";
+evolution_plan_name[108] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µå¸ç‰™ç›§å¡";
 evolution_plan_offering[108] = 406308;
 evolution_plan_item[108] = 74097;
 evolution_plan_gold[108] = 60000;
 evolution_plan_pet[108] = 406309;
-evolution_plan_requirement[108] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[108] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[108] = 6706;
 
-evolution_plan_name[109] = "¡¶ßM»¯¡·ßM“ôÅÁÂ·Ææ†";
+evolution_plan_name[109] = "ã€Šé€²åŒ–ã€‹é€²æ“Šå¸•è·¯å¥‡äº";
 evolution_plan_offering[109] = 406310;
 evolution_plan_item[109] = 74096;
 evolution_plan_gold[109] = 25000;
 evolution_plan_pet[109] = 406311;
-evolution_plan_requirement[109] = {{CONST.¶ÔÏó_µÈ¼¶,70}, {CONST.¶ÔÏó_ËÀÍöÊı,5}, {CONST.¶ÔÏó_ÉËº¦Êı,250}, {CONST.¶ÔÏó_É±³èÊı,200}};
+evolution_plan_requirement[109] = {{CONST.å¯¹è±¡_ç­‰çº§,70}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,5}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,250}, {CONST.å¯¹è±¡_æ€å® æ•°,200}};
 evolution_plan_tech[109] = 6803;
 
-evolution_plan_name[110] = "¡¶ßM»¯¡·¾¿˜OÅÁÂ·Ææ†";
+evolution_plan_name[110] = "ã€Šé€²åŒ–ã€‹ç©¶æ¥µå¸•è·¯å¥‡äº";
 evolution_plan_offering[110] = 406311;
 evolution_plan_item[110] = 74097;
 evolution_plan_gold[110] = 60000;
 evolution_plan_pet[110] = 406312;
-evolution_plan_requirement[110] = {{CONST.¶ÔÏó_µÈ¼¶,100}, {CONST.¶ÔÏó_ËÀÍöÊı,10}, {CONST.¶ÔÏó_ÉËº¦Êı,200}, {CONST.¶ÔÏó_É±³èÊı,100}};
+evolution_plan_requirement[110] = {{CONST.å¯¹è±¡_ç­‰çº§,100}, {CONST.å¯¹è±¡_æ­»äº¡æ•°,10}, {CONST.å¯¹è±¡_ä¼¤å®³æ•°,200}, {CONST.å¯¹è±¡_æ€å® æ•°,100}};
 evolution_plan_tech[110] = 6806;
 -------------------------------------------------
 local function calcWarp()
@@ -898,76 +898,76 @@ local function calcWarp()
   return page, remainder
 end
 
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:evolutionPlansInfo(npc, player)
-          local winButton = CONST.BUTTON_¹Ø±Õ;
-          local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+          local winButton = CONST.BUTTON_å…³é—­;
+          local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
           for i = 1,8 do
-             msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+             msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
              if (i>=8) then
-                 winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                 winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
              end
           end
-          NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+          NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  self.evolutionerNPC = self:NPC_createNormal('Œ™ÎïßM»¯¿´°å', 400416, { x = 106, y = 108, mapType = 0, map = 80010, direction = 6 });
+  self.evolutionerNPC = self:NPC_createNormal('å¯µç‰©é€²åŒ–çœ‹æ¿', 400416, { x = 106, y = 108, mapType = 0, map = 80010, direction = 6 });
   self:NPC_regWindowTalkedEvent(self.evolutionerNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
+    local winButton = CONST.BUTTON_å…³é—­;
     local totalPage, remainder = calcWarp()
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.°´Å¥_È·¶¨ then
+      if _select == CONST.æŒ‰é’®_ç¡®å®š then
           if (page>=1001) then
               local seqno = page - 1000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
               local msg = msg .. evolutionOfferingInfo(seqno)
-              NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000+seqno, msg);
+              NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000+seqno, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_¹Ø±Õ then
+      elseif _select == CONST.æŒ‰é’®_å…³é—­ then
           if (page>=1001) then
               local winPage_temp = page - 1000;
-              --Ò³Êı¼ÍÂ¼
+              --é¡µæ•°çºªå½•
               local page_temp = math.modf(winPage_temp / 8) + 1;
               if (math.fmod(winPage_temp,8)==0) then page_temp=page_temp-1; end
-              --ÆğÊ¼µÚÒ»ÁĞ±àºÅ
+              --èµ·å§‹ç¬¬ä¸€åˆ—ç¼–å·
               local count_temp = 8 * (page_temp - 1)	
               --print(page,winPage_temp,page_temp,count_temp)
 
-              local winButton = CONST.BUTTON_¹Ø±Õ;
-              local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+              local winButton = CONST.BUTTON_å…³é—­;
+              local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
               if page_temp == totalPage then
                 for i = 1 + count_temp, remainder + count_temp do
-                    msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+                    msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
                 end
               else
                 for i = 1 + count_temp, 8 + count_temp do
-                    msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+                    msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
                 end
               end
               if page_temp == 1 then
-                winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+                winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
               elseif page_temp == totalPage then
-                winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+                winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
               else
-                winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+                winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
               end
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, page_temp, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, page_temp, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_ÊÇ then
+      elseif _select == CONST.æŒ‰é’®_æ˜¯ then
           if (page>=2001) then
               local seqno = page - 2000;
               local petSlot = Char.HavePet(player, evolution_plan_offering[seqno])
@@ -977,30 +977,30 @@ function Module:onLoad()
           else
               return
           end
-      elseif _select == CONST.°´Å¥_·ñ then
+      elseif _select == CONST.æŒ‰é’®_å¦ then
           if (page>=2001) then
               local count = page - 2000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
               local msg = msg .. convertGoalInfo(count);
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
               return
           else
               return
           end
       end
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -1009,105 +1009,105 @@ function Module:onLoad()
       local count = 8 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + count, remainder + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
         end
       else
         for i = 1 + count, 8 + count do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local count = 8 * (warpPage - 1) + column
       --print(count)
-      local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+      local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
       local msg = msg .. convertGoalInfo(count);
-      NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+count, msg);
+      NLG.ShowWindowTalked(player, self.evolutionerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+count, msg);
     end
   end)
   self:NPC_regTalkedEvent(self.evolutionerNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winButton = CONST.BUTTON_¹Ø±Õ;
-      local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Œ™ÎïßM»¯îAÓ[¡¿\\n"
+      local winButton = CONST.BUTTON_å…³é—­;
+      local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯µç‰©é€²åŒ–é è¦½ã€‘\\n"
       for i = 1,8 do
-         msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. evolution_plan_name[i] .. "\\n"
+         msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. evolution_plan_name[i] .. "\\n"
          if (i>=8) then
-             winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+             winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
          end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
     end
     return
   end)
 end
 
 ---------------------------------------------------------------------------------------------------------------
---Ä¿±êĞÅÏ¢
+--ç›®æ ‡ä¿¡æ¯
 function convertGoalInfo(count)
       local EnemyDataIndex_Goal = Data.EnemyGetDataIndex(evolution_plan_pet[count]);
-      local enemyBaseId_Goal = Data.EnemyGetData(EnemyDataIndex_Goal, CONST.Enemy_Base±àºÅ);
+      local enemyBaseId_Goal = Data.EnemyGetData(EnemyDataIndex_Goal, CONST.Enemy_Baseç¼–å·);
       local EnemyBaseDataIndex_Goal = Data.EnemyBaseGetDataIndex(enemyBaseId_Goal);
-      local Goal_name = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ãû×Ö);
-      local Goal_DataPos_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÖÖ×å);
+      local Goal_name = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åå­—);
+      local Goal_DataPos_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ç§æ—);
       local Goal_DataPos_3 = Tribe(Goal_DataPos_3);
-      local Goal_DataPos_4 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÌåÁ¦);
-      local Goal_DataPos_5 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Á¦Á¿);
-      local Goal_DataPos_6 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ç¿¶È);
-      local Goal_DataPos_7 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ËÙ¶È);
+      local Goal_DataPos_4 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ä½“åŠ›);
+      local Goal_DataPos_5 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åŠ›é‡);
+      local Goal_DataPos_6 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å¼ºåº¦);
+      local Goal_DataPos_7 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é€Ÿåº¦);
       local Goal_DataPos_8 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, 8);
-      local Goal_DataPos_12 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÃüÖĞ);
-      local Goal_DataPos_13 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_±ØÉ±);
-      local Goal_DataPos_14 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_µØÊôĞÔ);
-      local Goal_DataPos_15 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_Ë®ÊôĞÔ);
-      local Goal_DataPos_16 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_»ğÊôĞÔ);
-      local Goal_DataPos_17 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_·çÊôĞÔ);
-      local Goal_DataPos_18 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹¶¾);
-      local Goal_DataPos_19 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹×í);
-      local Goal_DataPos_20 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹Ë¯);
-      local Goal_DataPos_21 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹»ìÂÒ);
-      local Goal_DataPos_22 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹Ê¯»¯);
-      local Goal_DataPos_23 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¿¹ÒÅÍü);
-      local Goal_DataPos_26 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ÉÁ¶ã);
-      local Goal_DataPos_27 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_·´»÷);
-      local Goal_DataPos_28 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_¼¼ÄÜÀ¸);
-      local Goal_DataPos_29 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ĞÎÏó);
+      local Goal_DataPos_12 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‘½ä¸­);
+      local Goal_DataPos_13 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å¿…æ€);
+      local Goal_DataPos_14 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åœ°å±æ€§);
+      local Goal_DataPos_15 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æ°´å±æ€§);
+      local Goal_DataPos_16 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_ç«å±æ€§);
+      local Goal_DataPos_17 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é£å±æ€§);
+      local Goal_DataPos_18 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—æ¯’);
+      local Goal_DataPos_19 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—é†‰);
+      local Goal_DataPos_20 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—ç¡);
+      local Goal_DataPos_21 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—æ··ä¹±);
+      local Goal_DataPos_22 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—çŸ³åŒ–);
+      local Goal_DataPos_23 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ—é—å¿˜);
+      local Goal_DataPos_26 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_é—ªèº²);
+      local Goal_DataPos_27 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_åå‡»);
+      local Goal_DataPos_28 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_æŠ€èƒ½æ );
+      local Goal_DataPos_29 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å½¢è±¡);
       local imageText = "@g,"..Goal_DataPos_29..",2,8,6,0@"
-      local Goal_DataPos_35 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ1);
-      local Goal_DataPos_36 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ2);
-      local Goal_DataPos_37 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ3);
-      local Goal_DataPos_38 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ4);
-      local Goal_DataPos_39 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ5);
-      local Goal_DataPos_40 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ6);
-      local Goal_DataPos_41 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ7);
-      local Goal_DataPos_42 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ8);
-      local Goal_DataPos_43 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ9);
-      local Goal_DataPos_44 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_³öÉú¼¼ÄÜ10);
+      local Goal_DataPos_35 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½1);
+      local Goal_DataPos_36 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½2);
+      local Goal_DataPos_37 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½3);
+      local Goal_DataPos_38 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½4);
+      local Goal_DataPos_39 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½5);
+      local Goal_DataPos_40 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½6);
+      local Goal_DataPos_41 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½7);
+      local Goal_DataPos_42 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½8);
+      local Goal_DataPos_43 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½9);
+      local Goal_DataPos_44 =Data.EnemyBaseGetData(EnemyBaseDataIndex_Goal, CONST.EnemyBase_å‡ºç”ŸæŠ€èƒ½10);
       local TechIndex = Tech.GetTechIndex(evolution_plan_tech[count]);
       local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
-      local msg = imageText .. "¡¡¡¡$4".. Goal_name .. "\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1ówÁ¦ ".. Goal_DataPos_4+2 .."¡¡" .. "$8±Øš¢ ".. Goal_DataPos_13 .."¡¡" .. "$8·´“ô ".. Goal_DataPos_27 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Á¦Á¿ ".. Goal_DataPos_5+2 .."¡¡" .. "$8ÃüÖĞ ".. Goal_DataPos_12 .."¡¡" .. "$8éW¶ã ".. Goal_DataPos_26 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Š¶È ".. Goal_DataPos_6+2 .."¡¡" .. "$2¿¹¶¾ ".. Goal_DataPos_18 .."¡¡" .. "$2¿¹×í ".. Goal_DataPos_19 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1ËÙ¶È ".. Goal_DataPos_7+2 .."¡¡" .. "$2¿¹Ë¯ ".. Goal_DataPos_20 .."¡¡" .. "$2¿¹»ì ".. Goal_DataPos_21 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Ä§·¨ ".. Goal_DataPos_8+2 .."¡¡" .. "$2¿¹Ê¯ ".. Goal_DataPos_22 .."¡¡" .. "$2¿¹Íü ".. Goal_DataPos_23 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$5µØ ".. Goal_DataPos_14/10 .."¡¡" .."$5Ë® ".. Goal_DataPos_15/10 .."¡¡" .."$5»ğ ".. Goal_DataPos_16/10 .."¡¡" .."$5ïL ".. Goal_DataPos_17/10 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$9·N×å ".. Goal_DataPos_3 .."¡¡" .. "$9¼¼ÄÜ ".. TechName .."\\n"
+      local msg = imageText .. "ã€€ã€€$4".. Goal_name .. "\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é«”åŠ› ".. Goal_DataPos_4+2 .."ã€€" .. "$8å¿…æ®º ".. Goal_DataPos_13 .."ã€€" .. "$8åæ“Š ".. Goal_DataPos_27 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1åŠ›é‡ ".. Goal_DataPos_5+2 .."ã€€" .. "$8å‘½ä¸­ ".. Goal_DataPos_12 .."ã€€" .. "$8é–ƒèº² ".. Goal_DataPos_26 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1å¼·åº¦ ".. Goal_DataPos_6+2 .."ã€€" .. "$2æŠ—æ¯’ ".. Goal_DataPos_18 .."ã€€" .. "$2æŠ—é†‰ ".. Goal_DataPos_19 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é€Ÿåº¦ ".. Goal_DataPos_7+2 .."ã€€" .. "$2æŠ—ç¡ ".. Goal_DataPos_20 .."ã€€" .. "$2æŠ—æ·· ".. Goal_DataPos_21 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é­”æ³• ".. Goal_DataPos_8+2 .."ã€€" .. "$2æŠ—çŸ³ ".. Goal_DataPos_22 .."ã€€" .. "$2æŠ—å¿˜ ".. Goal_DataPos_23 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$5åœ° ".. Goal_DataPos_14/10 .."ã€€" .."$5æ°´ ".. Goal_DataPos_15/10 .."ã€€" .."$5ç« ".. Goal_DataPos_16/10 .."ã€€" .."$5é¢¨ ".. Goal_DataPos_17/10 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$9ç¨®æ— ".. Goal_DataPos_3 .."ã€€" .. "$9æŠ€èƒ½ ".. TechName .."\\n"
       return msg;
 end
 
---¼ÀÆ·ĞÅÏ¢
+--ç¥­å“ä¿¡æ¯
 function evolutionOfferingInfo(seqno)
               local msg = "";
               local EnemyDataIndex_1 = Data.EnemyGetDataIndex(evolution_plan_offering[seqno]);
-              local enemyBaseId_1 = Data.EnemyGetData(EnemyDataIndex_1, CONST.Enemy_Base±àºÅ);
+              local enemyBaseId_1 = Data.EnemyGetData(EnemyDataIndex_1, CONST.Enemy_Baseç¼–å·);
               local EnemyBaseDataIndex_1 = Data.EnemyBaseGetDataIndex(enemyBaseId_1);
-              --local offering_name_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_Ãû×Ö);
-              local offering_image_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_ĞÎÏó);
+              --local offering_name_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_åå­—);
+              local offering_image_1 = Data.EnemyBaseGetData(EnemyBaseDataIndex_1, CONST.EnemyBase_å½¢è±¡);
               local EnemyDataIndex_3 = Data.EnemyGetDataIndex(evolution_plan_pet[seqno]);
-              local enemyBaseId_3 = Data.EnemyGetData(EnemyDataIndex_3, CONST.Enemy_Base±àºÅ);
+              local enemyBaseId_3 = Data.EnemyGetData(EnemyDataIndex_3, CONST.Enemy_Baseç¼–å·);
               local EnemyBaseDataIndex_3 = Data.EnemyBaseGetDataIndex(enemyBaseId_3);
-              --local offering_name_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_Ãû×Ö);
-              local offering_image_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_ĞÎÏó);
+              --local offering_name_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_åå­—);
+              local offering_image_3 = Data.EnemyBaseGetData(EnemyBaseDataIndex_3, CONST.EnemyBase_å½¢è±¡);
               --local offering_image_ix = 3 + 7*(i-1);
               local imageText_1 = "@g,"..offering_image_1..",5,6,4,0@"
               local imageText_2 = "@g,246691,10,4,4,0@"
@@ -1123,20 +1123,20 @@ function evolutionOfferingInfo(seqno)
               local hit_num = evolution_plan_requirement[seqno][3][2];
               local kill_num = evolution_plan_requirement[seqno][4][2];
 
-              local msg = msg .. "\\n\\n\\n\\n\\n\\n¡¡$5µÀ¾ß: ".. Item_name .. "1‚€" .. "¡¡¡¡$5Ä§Å: " .. Gold .. " G\\n"
-                                              .. "¡¡$4¡ò—l¼ş:\\n"
-                                              .. "¡¡$4µÈ¼‰".. level .. "¡ü ËÀÍö" .. dead_num .. "¡ü ‚ûº¦" .. hit_num .. "¡ü š¢”³" .. kill_num .. "¡ü"
+              local msg = msg .. "\\n\\n\\n\\n\\n\\nã€€$5é“å…·: ".. Item_name .. "1å€‹" .. "ã€€ã€€$5é­”å¹£: " .. Gold .. " G\\n"
+                                              .. "ã€€$4â—æ¢ä»¶:\\n"
+                                              .. "ã€€$4ç­‰ç´š".. level .. "â†‘ æ­»äº¡" .. dead_num .. "â†‘ æ‰¿å—å‚·å®³" .. hit_num .. "â†‘ æ®ºæ•µ" .. kill_num .. "â†‘"
       return msg;
 end
 
---½ø»¯Ö´ĞĞ
+--è¿›åŒ–æ‰§è¡Œ
 function evolutionMutation(seqno,player,petSlot)
               if (Char.ItemNum(player, evolution_plan_item[seqno])==0) then
-                  NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙßM»¯µÄÊ¯î^¡£");
+                  NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é€²åŒ–çš„çŸ³é ­ã€‚");
                   return
               end
-              if (Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò)<evolution_plan_gold[seqno]) then
-                  NLG.SystemMessage(player,"[Ïµ½y]ßM»¯ËùĞè½ğÅ²»×ã¡£");
+              if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<evolution_plan_gold[seqno]) then
+                  NLG.SystemMessage(player,"[ç³»çµ±]é€²åŒ–æ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
                   return
               end
               local petIndex = Char.GetPet(player,petSlot);
@@ -1148,35 +1148,35 @@ function evolutionMutation(seqno,player,petSlot)
                 local hit_num = Char.GetData(petIndex, evolution_plan_requirement[seqno][3][1]);
                 local kill_num = Char.GetData(petIndex, evolution_plan_requirement[seqno][4][1]);
                 if (PetID~=evolution_plan_offering[seqno]) then
-                      NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙßM»¯ËùĞèŒ™Îï¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é€²åŒ–æ‰€éœ€å¯µç‰©ã€‚");
                       return
                 end
                 if ( level_num < evolution_plan_requirement[seqno][1][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]µÈ¼‰Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç­‰ç´šæœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
                 if ( dead_num < evolution_plan_requirement[seqno][2][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]Œ™ÎïËÀÍö”µ"..dead_num.."Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ­»äº¡æ•¸"..dead_num.."æœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
                 if ( hit_num < evolution_plan_requirement[seqno][3][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]Œ™Îï‚ûº¦”µ"..hit_num.."Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ‰¿å—å‚·å®³æ•¸"..hit_num.."æœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
                 if ( kill_num < evolution_plan_requirement[seqno][4][2] ) then
-                      NLG.SystemMessage(player,"[Ïµ½y]Œ™Îïš¢”³”µ"..kill_num.."Î´ß_ßM»¯˜ËœÊ¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]å¯µç‰©æ®ºæ•µæ•¸"..kill_num.."æœªé”é€²åŒ–æ¨™æº–ã€‚");
                       return
                 end
               else
-                      NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙßM»¯ËùĞèŒ™Îï¡£");
+                      NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘é€²åŒ–æ‰€éœ€å¯µç‰©ã€‚");
                       return
               end
               Char.DelItem(player, evolution_plan_item[seqno], 1);
               Char.AddGold(player, -evolution_plan_gold[seqno]);
 
-              --µµ´Î¼ÍÂ¼
+              --æ¡£æ¬¡çºªå½•
               local a6, a1, a2, a3, a4, a5 = Char.GetPetRank(player,petSlot);
-              -- ³èÎï¼¼ÄÜ¼ÍÂ¼
+              -- å® ç‰©æŠ€èƒ½çºªå½•
               local skillTable={}
               for i=0,9 do
                 local tech_id = Pet.GetSkill(petIndex, i)
@@ -1188,35 +1188,37 @@ function evolutionMutation(seqno,player,petSlot)
               end
 
               Char.DelSlotPet(player, petSlot);
+              local EmptySlot = Char.GetPetEmptySlot(player);
               Char.GivePet(player,evolution_plan_pet[seqno],0);
 
-              --½ø»¯ºóµ÷ÕûÓëÔ­³èÏàÍ¬
-              local evolution_petIndex = Char.GetPet(player,petSlot);
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ìå³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ìå³É) - a1 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Á¦³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Á¦³É) - a2 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ç¿³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ç¿³É) - a3 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ãô³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ãô³É) - a4 );
-              Pet.SetArtRank(evolution_petIndex, CONST.PET_Ä§³É,  Pet.FullArtRank(evolution_petIndex, CONST.PET_Ä§³É) - a5 );
+              --è¿›åŒ–åè°ƒæ•´ä¸åŸå® ç›¸åŒ
+              --local evolution_petIndex = Char.GetPet(player,petSlot);
+              local evolution_petIndex = Char.GetPet(player, EmptySlot);
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_ä½“æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_ä½“æˆ) - a1 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_åŠ›æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_åŠ›æˆ) - a2 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_å¼ºæˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_å¼ºæˆ) - a3 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_æ•æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_æ•æˆ) - a4 );
+              Pet.SetArtRank(evolution_petIndex, CONST.PET_é­”æˆ,  Pet.FullArtRank(evolution_petIndex, CONST.PET_é­”æˆ) - a5 );
               Pet.ReBirth(player, evolution_petIndex);
               Pet.UpPet(player, evolution_petIndex);
 
-              local arr_rank1_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ìå³É);
-              local arr_rank2_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Á¦³É);
-              local arr_rank3_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ç¿³É);
-              local arr_rank4_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ãô³É);
-              local arr_rank5_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_Ä§³É);
+              local arr_rank1_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_ä½“æˆ);
+              local arr_rank2_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_åŠ›æˆ);
+              local arr_rank3_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_å¼ºæˆ);
+              local arr_rank4_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_æ•æˆ);
+              local arr_rank5_new = Pet.GetArtRank(evolution_petIndex,CONST.PET_é­”æˆ);
 
               if(Level~=1) then
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Éı¼¶µã,Level-1);
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_µÈ¼¶,Level);
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_ÌåÁ¦, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_ÌåÁ¦) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Á¦Á¿, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_Á¦Á¿) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Ç¿¶È, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_Ç¿¶È) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_ËÙ¶È, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_ËÙ¶È) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
-                Char.SetData(evolution_petIndex,CONST.¶ÔÏó_Ä§·¨, (Char.GetData(evolution_petIndex,CONST.¶ÔÏó_Ä§·¨) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_å‡çº§ç‚¹,Level-1);
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_ç­‰çº§,Level);
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_ä½“åŠ›, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_ä½“åŠ›) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_åŠ›é‡, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_åŠ›é‡) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_å¼ºåº¦, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_å¼ºåº¦) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_é€Ÿåº¦, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_é€Ÿåº¦) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
+                Char.SetData(evolution_petIndex,CONST.å¯¹è±¡_é­”æ³•, (Char.GetData(evolution_petIndex,CONST.å¯¹è±¡_é­”æ³•) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
                 Pet.UpPet(player,evolution_petIndex);
               end
-              -- ³èÎï¼¼ÄÜ
+              -- å® ç‰©æŠ€èƒ½
               for i=0,9 do
                 local tech_id = skillTable[i+1];
                 Pet.DelSkill(evolution_petIndex,i);
@@ -1228,20 +1230,20 @@ function evolutionMutation(seqno,player,petSlot)
               Pet.UpPet(player,evolution_petIndex);
 end
 
---µµ´Î¼ÆËã
+--æ¡£æ¬¡è®¡ç®—
 Char.GetPetRank = function(playerIndex,slot)
   local petIndex = Char.GetPet(playerIndex, slot);
   if petIndex >= 0 then
-    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_Ìå³É);
-    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_Á¦³É);
-    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_Ç¿³É);
-    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_Ãô³É);
-    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_Ä§³É);
-    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_Ìå³É);
-    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_Á¦³É);
-    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_Ç¿³É);
-    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_Ãô³É);
-    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_Ä§³É);
+    local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+    local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+    local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+    local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+    local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
+    local arr_rank11 = Pet.FullArtRank(petIndex, CONST.PET_ä½“æˆ);
+    local arr_rank21 = Pet.FullArtRank(petIndex, CONST.PET_åŠ›æˆ);
+    local arr_rank31 = Pet.FullArtRank(petIndex, CONST.PET_å¼ºæˆ);
+    local arr_rank41 = Pet.FullArtRank(petIndex, CONST.PET_æ•æˆ);
+    local arr_rank51 = Pet.FullArtRank(petIndex, CONST.PET_é­”æˆ);
     local a1 = math.abs(arr_rank11 - arr_rank1);
     local a2 = math.abs(arr_rank21 - arr_rank2);
     local a3 = math.abs(arr_rank31 - arr_rank3);
@@ -1253,36 +1255,47 @@ Char.GetPetRank = function(playerIndex,slot)
   return -1;
 end
 
---ÖÖ×å×Ö·û´®×ª»»
+--ç§æ—å­—ç¬¦ä¸²è½¬æ¢
 function Tribe(Tribe)
   if Tribe==0 then
-    return "ÈËĞÍÏµ"
+    return "äººå‹ç³»"
   elseif Tribe == 1 then
-    return "ıˆ×åÏµ"
+    return "é¾æ—ç³»"
   elseif Tribe == 2 then
-    return "²»ËÀÏµ"
+    return "ä¸æ­»ç³»"
   elseif Tribe == 3 then
-    return "ïwĞĞÏµ"
+    return "é£›è¡Œç³»"
   elseif Tribe == 4 then
-    return "À¥ÏxÏµ"
+    return "æ˜†èŸ²ç³»"
   elseif Tribe == 5 then
-    return "Ö²ÎïÏµ"
+    return "æ¤ç‰©ç³»"
   elseif Tribe == 6 then
-    return "Ò°«FÏµ"
+    return "é‡ç¸ç³»"
   elseif Tribe == 7 then
-    return "ÌØÊâÏµ"
+    return "ç‰¹æ®Šç³»"
   elseif Tribe == 8 then
-    return "½ğŒÙÏµ"
+    return "é‡‘å±¬ç³»"
   elseif Tribe == 9 then
-    return "Ğ°Ä§Ïµ"
+    return "é‚ªé­”ç³»"
   elseif Tribe == 10 then
-    return "Éñ×åÏµ"
+    return "ç¥æ—ç³»"
   elseif Tribe == 11 then
-    return "¾«ì`Ïµ"
+    return "ç²¾éˆç³»"
   end
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+Char.GetPetEmptySlot = function(charIndex)
+  for Slot=0,4 do
+      local PetIndex = Char.GetPet(charIndex, Slot);
+      --print(PetIndex);
+      if (PetIndex < 0) then
+          return Slot;
+      end
+  end
+  return -1;
+end
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
