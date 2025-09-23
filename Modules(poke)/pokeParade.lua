@@ -1,44 +1,44 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeParade')
 
 local PokeEnemy = {
-      { palType=1, palNum=20, enMode=0, palName="Ò°ÉúŒš¿É‰ô", palImage=121000, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},	--palNumÉú³ÉÊıÁ¿¡¢palImageÍâÏÔĞÎÏó(²»ÖØ¸´)¡¢³öÃ»·¶Î§(·½ĞÎ×ø±ê)
-         encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },						--encountÓöµĞ»úÂÊ¡¢prizeItem½±Àø×éºÏ(¿ÉÖØ¸´¶à×é£¬Ìá¸ß¸Ã×éºÏ»úÂÊ)
-      { palType=2, palNum=15, enMode=0, palName="Ò°ÉúŒš¿É‰ô", palImage=121091, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},
+      { palType=1, palNum=20, enMode=0, palName="é‡ç”Ÿå¯¶å¯å¤¢", palImage=121000, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},	--palNumç”Ÿæˆæ•°é‡ã€palImageå¤–æ˜¾å½¢è±¡(ä¸é‡å¤)ã€å‡ºæ²¡èŒƒå›´(æ–¹å½¢åæ ‡)
+         encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },						--encounté‡æ•Œæœºç‡ã€prizeItemå¥–åŠ±ç»„åˆ(å¯é‡å¤å¤šç»„ï¼Œæé«˜è¯¥ç»„åˆæœºç‡)
+      { palType=2, palNum=15, enMode=0, palName="é‡ç”Ÿå¯¶å¯å¤¢", palImage=121091, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=3, palNum=10, enMode=0, palName="Ò°ÉúŒš¿É‰ô", palImage=121021, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},
+      { palType=3, palNum=10, enMode=0, palName="é‡ç”Ÿå¯¶å¯å¤¢", palImage=121021, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=4, palNum=5, enMode=0, palName="Ò°ÉúŒš¿É‰ô", palImage=121115, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},
+      { palType=4, palNum=5, enMode=0, palName="é‡ç”Ÿå¯¶å¯å¤¢", palImage=121115, popArea={map=80028,LX=60,LY=70, RX=130,RY=140},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={3,3} },
-      { palType=5, palNum=1, enMode=2, palName="…^Óòî^Ä¿", palImage=121046, popArea={map=80028,LX=91,LY=100, RX=96,RY=95},
+      { palType=5, palNum=1, enMode=2, palName="å€åŸŸé ­ç›®", palImage=121046, popArea={map=80028,LX=91,LY=100, RX=96,RY=95},
          encount=100, prizeItem_id={75025}, prizeItem_count={1} },
-      { palType=6, palNum=1, enMode=3, palName="…^Óòî^Ä¿", palImage=121047, popArea={map=80028,LX=102,LY=95, RX=107,RY=100},
+      { palType=6, palNum=1, enMode=3, palName="å€åŸŸé ­ç›®", palImage=121047, popArea={map=80028,LX=102,LY=95, RX=107,RY=100},
          encount=100, prizeItem_id={75025}, prizeItem_count={1} },
-      { palType=7, palNum=1, enMode=4, palName="…^ÓòîIÖ÷", palImage=121286, popArea={map=80028,LX=67,LY=74, RX=130,RY=79},
+      { palType=7, palNum=1, enMode=4, palName="å€åŸŸé ˜ä¸»", palImage=121286, popArea={map=80028,LX=67,LY=74, RX=130,RY=79},
          encount=100, prizeItem_id={75026}, prizeItem_count={1} },
 }
 ------------------------------------------------
 local EnemySet = {}
 local BaseLevelSet = {}
-EnemySet[1] = {416360, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[1] = {416360, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[1] = {30, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[2] = {416434, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[2] = {416434, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[2] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[3] = {416380, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[3] = {416380, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[3] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[4] = {416459, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[4] = {416459, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[4] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[5] = {416402, 0, 0, 0, 0, 416398, 416398, 416398, 416398, 416398}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[5] = {416402, 0, 0, 0, 0, 416398, 416398, 416398, 416398, 416398}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[5] = {150, 0, 0, 0, 0, 120, 120, 120, 120, 120}
-EnemySet[6] = {416403, 0, 0, 0, 0, 416399, 416399, 416399, 416399, 416399}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[6] = {416403, 0, 0, 0, 0, 416399, 416399, 416399, 416399, 416399}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[6] = {150, 0, 0, 0, 0, 120, 120, 120, 120, 120}
-EnemySet[7] = {416356, 0, 0, 416426, 416426, 0, 416427, 416427, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[7] = {416356, 0, 0, 416426, 416426, 0, 416427, 416427, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[7] = {150, 0, 0, 130, 130, 0, 130, 130, 0, 0}
 ------------------------------------------------
-local FTime = os.time();			--Ê±¼ä±í
+local FTime = os.time();			--æ—¶é—´è¡¨
 tbl_PokeEnemyNPCIndex = tbl_PokeEnemyNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('LoopEvent', Func.bind(self.PokeEnemy_LoopEvent,self))
@@ -54,16 +54,16 @@ function Module:onLoad()
            tbl_PokeEnemyNPCIndex[k][i] = PokeEnemyNPC
            Char.SetLoopEvent('./lua/Modules/pokeParade.lua','PokeEnemy_LoopEvent',tbl_PokeEnemyNPCIndex[k][i], 1000);
            self:regCallback('CharActionEvent', function(player, actionID)
-             local Target_FloorId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-             if (actionID == CONST.¶¯×÷_¹¥»÷ and Target_FloorId==80028 and v.enMode==1) then
-                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.¶ÔÏó_ĞÎÏó);
+             local Target_FloorId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+             if (actionID == CONST.åŠ¨ä½œ_æ”»å‡» and Target_FloorId==80028 and v.enMode==1) then
+                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.å¯¹è±¡_å½¢è±¡);
                   local npc = tbl_PokeEnemyNPCIndex[k][i];
                   if ( NLG.CheckInFront(player, npc, 1)==false) then
                         return;
                   else
                      if ( k==v.palType and npcImage==v.palImage) then
                         if ( Char.ItemSlot(player)>19)then
-                            NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚÒÑM¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„å·²æ»¿ã€‚");
                             return;
                         else
                             if( NLG.Rand(1,100) <= v.encount )then
@@ -73,10 +73,10 @@ function Module:onLoad()
                                 local rand = NLG.Rand(1,#v.prizeItem_id);
                                 Char.GiveItem(player, v.prizeItem_id[rand], v.prizeItem_count[rand]);
                                 pal_clear(player, npc);
-                                local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--µØÍ¼ÀàĞÍ
-                                local Target_FloorId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼)--µØÍ¼±àºÅ
-                                local Target_X = Char.GetData(player,CONST.¶ÔÏó_X)--µØÍ¼x
-                                local Target_Y = Char.GetData(player,CONST.¶ÔÏó_Y)--µØÍ¼y
+                                local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--åœ°å›¾ç±»å‹
+                                local Target_FloorId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾)--åœ°å›¾ç¼–å·
+                                local Target_X = Char.GetData(player,CONST.å¯¹è±¡_X)--åœ°å›¾x
+                                local Target_Y = Char.GetData(player,CONST.å¯¹è±¡_Y)--åœ°å›¾y
                                 Char.Warp(player,Target_MapId,Target_FloorId,Target_X,Target_Y);
                                 NLG.UpChar(player);
                             end
@@ -90,7 +90,7 @@ function Module:onLoad()
            end)
 
            self:NPC_regWindowTalkedEvent(tbl_PokeEnemyNPCIndex[k][i], function(npc, player, _seqno, _select, _data)
-             local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+             local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
              local seqno = tonumber(_seqno)
              local select = tonumber(_select)
              local data = tonumber(_data)
@@ -100,17 +100,17 @@ function Module:onLoad()
                  return ;
              end
              if (v.enMode==1 and NLG.CanTalk(npc, player) == true) then
-                 NLG.SystemMessage(player,"[Ïµ½y]ÕˆÊ¹ÓÃ¹¥“ô„Ó×÷×¥²¶¡£");
+                 NLG.SystemMessage(player,"[ç³»çµ±]è«‹ä½¿ç”¨æ”»æ“Šå‹•ä½œæŠ“æ•ã€‚");
                  return ;
              elseif (v.enMode==0 and NLG.CanTalk(npc, player) == true) then
-                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.¶ÔÏó_ĞÎÏó);
+                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.å¯¹è±¡_å½¢è±¡);
                   local npc = tbl_PokeEnemyNPCIndex[k][i];
                   if ( NLG.CheckInFront(player, npc, 1)==false) then
                         return;
                   else
                      if ( k==v.palType and npcImage==v.palImage) then
                         --if ( Char.ItemSlot(player)>19)then
-                            --NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚÒÑM¡£");
+                            --NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„å·²æ»¿ã€‚");
                             --return;
                         --else
                             --if( NLG.Rand(1,100) <= v.encount )then
@@ -120,10 +120,10 @@ function Module:onLoad()
                             --    local rand = NLG.Rand(1,#v.prizeItem_id);
                             --    Char.GiveItem(player, v.prizeItem_id[rand], v.prizeItem_count[rand]);
                             --    pal_clear(player, npc);
-                            --    local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--µØÍ¼ÀàĞÍ
-                            --    local Target_FloorId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼)--µØÍ¼±àºÅ
-                            --    local Target_X = Char.GetData(player,CONST.¶ÔÏó_X)--µØÍ¼x
-                            --    local Target_Y = Char.GetData(player,CONST.¶ÔÏó_Y)--µØÍ¼y
+                            --    local Target_MapId = Char.GetData(player,CONST.CHAR_MAP)--åœ°å›¾ç±»å‹
+                            --    local Target_FloorId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾)--åœ°å›¾ç¼–å·
+                            --    local Target_X = Char.GetData(player,CONST.å¯¹è±¡_X)--åœ°å›¾x
+                            --    local Target_Y = Char.GetData(player,CONST.å¯¹è±¡_Y)--åœ°å›¾y
                             --    Char.Warp(player,Target_MapId,Target_FloorId,Target_X,Target_Y);
                             --    NLG.UpChar(player);
                             --end
@@ -131,20 +131,20 @@ function Module:onLoad()
                      end
                   end
              elseif (v.enMode==2 and NLG.CanTalk(npc, player) == true) then
-                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.¶ÔÏó_ĞÎÏó);
+                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.å¯¹è±¡_å½¢è±¡);
                   local npc = tbl_PokeEnemyNPCIndex[k][i];
                   if ( NLG.CheckInFront(player, npc, 1)==false) then
                         return;
                   else
                      if ( k==v.palType and npcImage==v.palImage) then
                         if ( Char.HaveItem(player, 631085)<0 and Char.HaveItem(player, 631086)<0 )then
-                            NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ×Ö¿¨¡¸Ìô¡¹¡¢×Ö¿¨¡¸‘ğ¡¹¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘å­—å¡ã€ŒæŒ‘ã€ã€å­—å¡ã€Œæˆ°ã€ã€‚");
                             return;
                         elseif ( Char.HaveItem(player, 631085)<0 and Char.HaveItem(player, 631086)>0 )then
-                            NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ×Ö¿¨¡¸Ìô¡¹¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘å­—å¡ã€ŒæŒ‘ã€ã€‚");
                             return;
                         elseif ( Char.HaveItem(player, 631085)>0 and Char.HaveItem(player, 631086)<0 )then
-                            NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ×Ö¿¨¡¸‘ğ¡¹¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘å­—å¡ã€Œæˆ°ã€ã€‚");
                             return;
                         end
                         Char.DelItem(player,631085,1,1);
@@ -155,20 +155,20 @@ function Module:onLoad()
                      end
                   end
              elseif (v.enMode==3 and NLG.CanTalk(npc, player) == true) then
-                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.¶ÔÏó_ĞÎÏó);
+                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.å¯¹è±¡_å½¢è±¡);
                   local npc = tbl_PokeEnemyNPCIndex[k][i];
                   if ( NLG.CheckInFront(player, npc, 1)==false) then
                         return;
                   else
                      if ( k==v.palType and npcImage==v.palImage) then
                         if ( Char.HaveItem(player, 631087)<0 and Char.HaveItem(player, 631088)<0 )then
-                            NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ×Ö¿¨¡¸…^¡¹¡¢×Ö¿¨¡¸Óò¡¹¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘å­—å¡ã€Œå€ã€ã€å­—å¡ã€ŒåŸŸã€ã€‚");
                             return;
                         elseif ( Char.HaveItem(player, 631087)<0 and Char.HaveItem(player, 631088)>0 )then
-                            NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ×Ö¿¨¡¸…^¡¹¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘å­—å¡ã€Œå€ã€ã€‚");
                             return;
                         elseif ( Char.HaveItem(player, 631087)>0 and Char.HaveItem(player, 631088)<0 )then
-                            NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙ×Ö¿¨¡¸Óò¡¹¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘å­—å¡ã€ŒåŸŸã€ã€‚");
                             return;
                         end
                         Char.DelItem(player,631087,1,1);
@@ -179,14 +179,14 @@ function Module:onLoad()
                      end
                   end
              elseif (v.enMode==4 and NLG.CanTalk(npc, player) == true) then
-                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.¶ÔÏó_ĞÎÏó);
+                  local npcImage = Char.GetData(tbl_PokeEnemyNPCIndex[k][i],CONST.å¯¹è±¡_å½¢è±¡);
                   local npc = tbl_PokeEnemyNPCIndex[k][i];
                   if ( NLG.CheckInFront(player, npc, 1)==false) then
                         return;
                   else
                      if ( k==v.palType and npcImage==v.palImage) then
                         if ( Char.HaveItem(player, 631085)<0 or Char.HaveItem(player, 631086)<0 or Char.HaveItem(player, 631087)<0 or Char.HaveItem(player, 631088)<0 or Char.HaveItem(player, 631089)<0 or Char.HaveItem(player, 631090)<0 )then
-                            NLG.SystemMessage(player,"[Ïµ½y]¼¯ıR×Ö¿¨¡¸Ìô¡¹¡¢¡¸‘ğ¡¹¡¢¡¸…^¡¹¡¢¡¸Óò¡¹¡¢¡¸îI¡¹¡¢¡¸Ö÷¡¹¡£");
+                            NLG.SystemMessage(player,"[ç³»çµ±]é›†é½Šå­—å¡ã€ŒæŒ‘ã€ã€ã€Œæˆ°ã€ã€ã€Œå€ã€ã€ã€ŒåŸŸã€ã€ã€Œé ˜ã€ã€ã€Œä¸»ã€ã€‚");
                             return;
                         end
                         Char.DelItem(player,631085,1,1);
@@ -207,21 +207,21 @@ function Module:onLoad()
     end
   end
 
-  huntingNPC = self:NPC_createNormal('á÷«C¼À´ó•şˆóÃû', 14580, { map = 80010, x = 106, y = 96, direction = 4, mapType = 0 })
-  Char.SetData(huntingNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0);
+  huntingNPC = self:NPC_createNormal('ç‹©çµç¥­å¤§æœƒå ±å', 14580, { map = 80010, x = 106, y = 96, direction = 4, mapType = 0 })
+  Char.SetData(huntingNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0);
   self:NPC_regWindowTalkedEvent(huntingNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if seqno == 1 then  ----±¨Ãû¶ÔÕ½Ö´ĞĞ
+    if seqno == 1 then  ----æŠ¥åå¯¹æˆ˜æ‰§è¡Œ
      if select == 4 then
        if (os.date("%H",os.time())~="20") then
-         NLG.SystemMessage(player,"[´ó•ş¹«¸æ]ˆóÃûÈëˆö•régéÃ¿ÈÕ20:00-20:29£¡");
+         NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]å ±åå…¥å ´æ™‚é–“ç‚ºæ¯æ—¥20:00-20:29ï¼");
          return;
        end
        if (os.date("%H",os.time())=="20") and (os.date("%M",os.time())>="31") then
-         NLG.SystemMessage(player,"[´ó•ş¹«¸æ]á÷«C¼À´ó•şÒÑ½›é_Ê¼£¬ÕˆµÈ´ıÃ÷ÈÕˆóÃû£¡");
+         NLG.SystemMessage(player,"[å¤§æœƒå…¬å‘Š]ç‹©çµç¥­å¤§æœƒå·²ç¶“é–‹å§‹ï¼Œè«‹ç­‰å¾…æ˜æ—¥å ±åï¼");
          return;
        end
        Char.Warp(player,0,80028,98,139);
@@ -233,13 +233,13 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(huntingNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n@cá÷«C¼À´ó•şÕfÃ÷\\n"
-                  .. "\\nÃ¿ÈÕÍíÉÏ°ËücˆóÃûßMÈë\\n"
-                  .. "°ëĞ¡•rááêPé]ˆóÃûÈëˆö\\n"
-                  .. "Ã¿´Î´ó•ş•régéÒ»Ğ¡•r\\n\\n"
-                  .. "½MºÏµôÂä×Ö¿¨ßMĞĞŒ¦‘ğ\\n"
-                  .. "ÊÕ¼¯×Ö¿¨ƒ¶“Q¸÷Ê½ª„Æ·\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+      local msg = "\\n@cç‹©çµç¥­å¤§æœƒèªªæ˜\\n"
+                  .. "\\næ¯æ—¥æ™šä¸Šå…«é»å ±åé€²å…¥\\n"
+                  .. "åŠå°æ™‚å¾Œé—œé–‰å ±åå…¥å ´\\n"
+                  .. "æ¯æ¬¡å¤§æœƒæ™‚é–“ç‚ºä¸€å°æ™‚\\n\\n"
+                  .. "çµ„åˆæ‰è½å­—å¡é€²è¡Œå°æˆ°\\n"
+                  .. "æ”¶é›†å­—å¡å…Œæ›å„å¼çå“\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
@@ -247,8 +247,8 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---×ªÒÆ
+-------åŠŸèƒ½è®¾ç½®
+--è½¬ç§»
 function PokeEnemy_LoopEvent(npc)
 	local CTime = tonumber(os.date("%H",FTime));
 	if (os.date("%X",os.time())=="19:59:59") then
@@ -258,9 +258,9 @@ function PokeEnemy_LoopEvent(npc)
 				Char.Warp(v,0,80010,103,103);
 			end
 		end
-		NLG.SystemMessage(-1,"[´ó•ş¹«¸æ]á÷«C¼À´ó•ş¼´Œ¢é_Ê¼£¬Õˆ±MËÙˆóÃûÈëˆö¡£");
+		NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]ç‹©çµç¥­å¤§æœƒå³å°‡é–‹å§‹ï¼Œè«‹ç›¡é€Ÿå ±åå…¥å ´ã€‚");
 	elseif (os.date("%X",os.time())=="20:20:00") then
-		NLG.SystemMessage(-1,"[´ó•ş¹«¸æ]á÷«C¼À´ó•şˆóÃûÊ£ÏÂ10·ÖçŠ£¬Õˆ±MËÙˆóÃûÈëˆö¡£");
+		NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]ç‹©çµç¥­å¤§æœƒå ±åå‰©ä¸‹10åˆ†é˜ï¼Œè«‹ç›¡é€Ÿå ±åå…¥å ´ã€‚");
 	elseif (os.date("%X",os.time())=="21:00:00") then
 		local MapUser = NLG.GetMapPlayer(0,80028);
 		if (MapUser~=-3) then
@@ -268,7 +268,7 @@ function PokeEnemy_LoopEvent(npc)
 				Char.Warp(v,0,80010,103,103);
 			end
 		end
-		NLG.SystemMessage(-1,"[´ó•ş¹«¸æ]±¾ÈÕá÷«C¼À´ó•şÒÑ½YÊø£¬Œ¢‚÷ËÍ…¢¼ÓÕßëxˆö¡£");
+		NLG.SystemMessage(-1,"[å¤§æœƒå…¬å‘Š]æœ¬æ—¥ç‹©çµç¥­å¤§æœƒå·²çµæŸï¼Œå°‡å‚³é€åƒåŠ è€…é›¢å ´ã€‚");
 	--[[elseif (os.date("%H",os.time())~="20") then
 		local MapUser = NLG.GetMapPlayer(0,80028);
 		if (MapUser~=-3) then
@@ -276,34 +276,34 @@ function PokeEnemy_LoopEvent(npc)
 				Char.Warp(v,0,80010,103,103);
 			end
 		end]]
-	elseif (os.date("%M",os.time())=="8") or (os.date("%M",os.time())=="16") or (os.date("%M",os.time())=="24") or (os.date("%M",os.time())=="32") or (os.date("%M",os.time())=="40") or (os.date("%M",os.time())=="48") or (os.date("%M",os.time())=="56") or (os.date("%M",os.time())=="00") then
+	elseif (os.date("%M",os.time())=="08") or (os.date("%M",os.time())=="16") or (os.date("%M",os.time())=="24") or (os.date("%M",os.time())=="32") or (os.date("%M",os.time())=="40") or (os.date("%M",os.time())=="48") or (os.date("%M",os.time())=="56") or (os.date("%M",os.time())=="00") then
 		if (os.date("%S",os.time())=="00") or (os.date("%S",os.time())=="01") then
 		for k,v in pairs(PokeEnemy) do
-			local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-			local npcFloorId = Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼);
+			local npcImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+			local npcFloorId = Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾);
 			if ( k==v.palType and npcImage==v.palImage and npcFloorId==777 ) then
 				local palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
 				local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
-				Char.SetData(npc,CONST.¶ÔÏó_X, palX);
-				Char.SetData(npc,CONST.¶ÔÏó_Y, palY);
-				Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, v.popArea.map);
+				Char.SetData(npc,CONST.å¯¹è±¡_X, palX);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, palY);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, v.popArea.map);
 				NLG.UpChar(npc);
 			end
 		end
 		end
 	elseif (os.date("%X",os.time())=="23:59:59") or (os.date("%X",os.time())=="19:59:59") then
 		for k,v in pairs(PokeEnemy) do
-			local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
+			local npcImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
 			if ( k==v.palType and npcImage==v.palImage ) then
-				Char.SetData(npc,CONST.¶ÔÏó_X, 43);
-				Char.SetData(npc,CONST.¶ÔÏó_Y, 38);
-				Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, 777);
+				Char.SetData(npc,CONST.å¯¹è±¡_X, 43);
+				Char.SetData(npc,CONST.å¯¹è±¡_Y, 38);
+				Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, 777);
 				NLG.UpChar(npc);
 			end
 		end
 	end
 	local excess = math.random(1,10);
-	if (Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼)==80028 and excess>=7) then
+	if (Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾)==80028 and excess>=7) then
 		local dir = math.random(0, 7);
 		local walk = 1;
 		local X,Y = Char.GetLocation(npc,dir);
@@ -316,10 +316,10 @@ function PokeEnemy_LoopEvent(npc)
 end
 
 function pal_clear(player, npc)
-	--×ªÒÆÖÁÒş²Ø¿Õ¼ä
-	Char.SetData(npc,CONST.¶ÔÏó_X, 43);
-	Char.SetData(npc,CONST.¶ÔÏó_Y, 38);
-	Char.SetData(npc,CONST.¶ÔÏó_µØÍ¼, 777);
+	--è½¬ç§»è‡³éšè—ç©ºé—´
+	Char.SetData(npc,CONST.å¯¹è±¡_X, 43);
+	Char.SetData(npc,CONST.å¯¹è±¡_Y, 38);
+	Char.SetData(npc,CONST.å¯¹è±¡_åœ°å›¾, 777);
 	NLG.UpChar(npc);
 end
 
@@ -327,18 +327,18 @@ function paradeBossNPC_BattleWin(battleIndex, charIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 
-	if (Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==80028) then
-	--·ÖÅä½±Àø
+	if (Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==80028) then
+	--åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
 		local drop = {0,0,0,0,0,1,1,1,1,1,}
 		local rand = drop[NLG.Rand(1,10)];
 		local dropMenu = {70052,70052,68018};
-		if player>=0 and Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if player>=0 and Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			Char.GiveItem(player, dropMenu[NLG.Rand(1,3)], rand);
 		end
 	end
@@ -350,18 +350,18 @@ function paradeLordNPC_BattleWin(battleIndex, charIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 
-	if (Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==80028) then
-	--·ÖÅä½±Àø
+	if (Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==80028) then
+	--åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
 		local drop = {0,0,0,0,0,1,1,1,1,1,}
 		local rand = drop[NLG.Rand(1,10)];
 		local dropMenu = {70052,70052,68017};
-		if player>=0 and Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if player>=0 and Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			Char.GiveItem(player, dropMenu[NLG.Rand(1,3)], rand);
 		end
 	end
@@ -370,8 +370,8 @@ function paradeLordNPC_BattleWin(battleIndex, charIndex)
 end
 
 Char.GetLocation = function(npc,dir)
-	local X = Char.GetData(npc,CONST.¶ÔÏó_X)--µØÍ¼x
-	local Y = Char.GetData(npc,CONST.¶ÔÏó_Y)--µØÍ¼y
+	local X = Char.GetData(npc,CONST.å¯¹è±¡_X)--åœ°å›¾x
+	local Y = Char.GetData(npc,CONST.å¯¹è±¡_Y)--åœ°å›¾y
 	if dir==0 then
 		Y=Y-1;
 	elseif dir==1 then
@@ -396,9 +396,10 @@ Char.GetLocation = function(npc,dir)
 	return X,Y;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
+
 
 return Module;
