@@ -282,8 +282,10 @@ function PokeEnemy_LoopEvent(npc)
 			local npcImage = Char.GetData(npc,CONST.对象_形象);
 			local npcFloorId = Char.GetData(npc,CONST.对象_地图);
 			if ( k==v.palType and npcImage==v.palImage and npcFloorId==777 ) then
-				local palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
-				local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
+				repeat
+					palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
+					palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
+				until (Map.IsWalkable(0, 80028, palX - 2, palY + 2) == 1) and (Map.IsWalkable(0, 80028, palX + 2, palY - 2) == 1)
 				Char.SetData(npc,CONST.对象_X, palX);
 				Char.SetData(npc,CONST.对象_Y, palY);
 				Char.SetData(npc,CONST.对象_地图, v.popArea.map);
@@ -307,11 +309,11 @@ function PokeEnemy_LoopEvent(npc)
 		local dir = math.random(0, 7);
 		local walk = 1;
 		local X,Y = Char.GetLocation(npc,dir);
-		if (NLG.Walkable(0, 80028, X, Y)==1) then
+		--if (NLG.Walkable(0, 80028, X, Y)==1) then
 			NLG.SetAction(npc,walk);
 			NLG.WalkMove(npc,dir);
 			NLG.UpChar(npc);
-		end
+		--end
 	end
 end
 
@@ -400,6 +402,5 @@ end
 function Module:onUnload()
   self:logInfo('unload')
 end
-
 
 return Module;
