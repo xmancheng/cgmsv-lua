@@ -2,25 +2,25 @@
 local Module = ModuleBase:createModule('pokeParade')
 
 local PokeEnemy = {
-      { palType=1, palNum=4, enMode=0, palName="野生寶可夢", palImage=121033, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},	--palNum生成数量、palImage外显形象(不重复)、出没范围(方形坐标)
+      { palType=1, palNum=2, enMode=0, palName="野生寶可夢", palImage=121033, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},	--palNum生成数量、palImage外显形象(不重复)、出没范围(方形坐标)
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },						--encount遇敌机率、prizeItem奖励组合(可重复多组，提高该组合机率)
-      { palType=2, palNum=10, enMode=0, palName="野生寶可夢", palImage=121000, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=2, palNum=8, enMode=0, palName="野生寶可夢", palImage=121000, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=3, palNum=10, enMode=0, palName="野生寶可夢", palImage=121001, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=3, palNum=8, enMode=0, palName="野生寶可夢", palImage=121001, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=4, palNum=10, enMode=0, palName="野生寶可夢", palImage=121091, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=4, palNum=8, enMode=0, palName="野生寶可夢", palImage=121091, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=5, palNum=6, enMode=0, palName="野生寶可夢", palImage=121016, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=5, palNum=4, enMode=0, palName="野生寶可夢", palImage=121016, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=6, palNum=6, enMode=0, palName="野生寶可夢", palImage=121027, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=6, palNum=4, enMode=0, palName="野生寶可夢", palImage=121027, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=7, palNum=6, enMode=0, palName="野生寶可夢", palImage=121021, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=7, palNum=4, enMode=0, palName="野生寶可夢", palImage=121021, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=8, palNum=5, enMode=0, palName="野生寶可夢", palImage=121087, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=8, palNum=3, enMode=0, palName="野生寶可夢", palImage=121087, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=9, palNum=4, enMode=0, palName="野生寶可夢", palImage=121122, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=9, palNum=2, enMode=0, palName="野生寶可夢", palImage=121122, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
-      { palType=10, palNum=4, enMode=0, palName="野生寶可夢", palImage=121124, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
+      { palType=10, palNum=2, enMode=0, palName="野生寶可夢", palImage=121124, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
       { palType=11, palNum=3, enMode=0, palName="野生寶可夢", palImage=121115, popArea={map=80028,LX=67,LY=74, RX=126,RY=135},
          encount=80, prizeItem_id={75024,74200}, prizeItem_count={1,1} },
@@ -201,7 +201,7 @@ function Module:onLoad()
 
   huntingNPC = self:NPC_createNormal('狩獵祭大會報名', 14580, { map = 80010, x = 106, y = 96, direction = 4, mapType = 0 })
   Char.SetData(huntingNPC,CONST.对象_ENEMY_PetFlg+2,0);
-  Char.SetLoopEvent('./lua/Modules/pokeParade.lua','PokeHunting_LoopEvent',huntingNPC, 10000);
+  Char.SetLoopEvent('./lua/Modules/pokeParade.lua','PokeHunting_LoopEvent',huntingNPC, 1000);
   self:NPC_regWindowTalkedEvent(huntingNPC, function(npc, player, _seqno, _select, _data)
     local cdk = Char.GetData(player,CONST.对象_CDK);
     local seqno = tonumber(_seqno)
@@ -275,6 +275,12 @@ function PokeHunting_LoopEvent(npc)
 		local MapUser = NLG.GetMapPlayer(0,80028);
 		if (MapUser~=-3) then
 			for _,v in pairs(MapUser) do
+				local MapId = Char.GetData(v,CONST.对象_地图类型);
+				local FloorId = Char.GetData(v,CONST.对象_地图);
+				local X = Char.GetData(v,CONST.对象_X);
+				local Y = Char.GetData(v,CONST.对象_Y);
+				local D = Char.GetData(v,CONST.对象_方向);
+				Protocol.Send(v,'QBt', FloorId..'|'..from10to62(X)..'|'..from10to62(Y)..'|'..D..'|')	--地圖ID|X坐標(62進制)|Y坐標(62進制)|方向
 				NLG.UpChar(v);
 			end
 		end
@@ -406,6 +412,34 @@ Char.GetLocation = function(npc,dir)
 		Y=Y-1;
 	end
 	return X,Y;
+end
+
+function from10to62(num)
+	local dict = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--进制数
+	local result = ''
+	--local bin = ''
+
+	while num > 0 do
+		result = tostring(dict[(num % 62)+1]) .. result--取余数并拼接到进制数的前面
+		num = math.floor(num / 62)--整除62
+	end
+
+	return result
+
+	--[[
+	print('明文：'..result)
+	--string反转开始
+	local str_num = tostring(result)
+	local reversed_str = ''
+	for i = 1, #str_num do
+		reversed_str = string.sub(str_num, i, i) .. reversed_str
+	end
+	local reversed_num = tostring(reversed_str)
+	--print('反转：'..reversed_num)
+	--print('长度：'..#reversed_num)
+	return reversed_num
+	]]
 end
 
 --- 卸载模块钩子
