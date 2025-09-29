@@ -2,47 +2,85 @@
 local Module = ModuleBase:createModule('pokeTrainer')
 
 local PokeTrainer = {
-      { palType=1, palNum=1, palName="捕蟲少年", palImage=105002, prestige=4000, gold=1000,	--palNum数量(1不更动)、palImage外显形象(不重复)、声望、魔币
+      { palType=1, palNum=1, palName="捕蟲少年", palImage=105002, prestige=1000, gold=500,	--palNum数量(1不更动)、palImage外显形象(不重复)、声望、魔币
          popArea={map=80022,LX=59,LY=75, RX=59,RY=75}, watchArea={map=80022,LX=55,LY=73, RX=61,RY=80},		--出没范围(方形坐标)、监视范围(方形坐标)
          talk="捕蟲少年：讓你看看我抓到的蟲蟲。", },		--开战对话
-      { palType=2, palNum=1, palName="飛行少年", palImage=106039, prestige=5000, gold=2000,
+      { palType=2, palNum=1, palName="養鳥人", palImage=106039, prestige=2000, gold=1000,
          popArea={map=80023,LX=47,LY=63, RX=47,RY=63}, watchArea={map=80023,LX=41,LY=61, RX=49,RY=66},
-         talk="飛行少年：往來的旅行者接受我的挑戰吧。", },
-      { palType=3, palNum=1, palName="山男大叔", palImage=106577, prestige=5000, gold=2000,
+         talk="養鳥人：往來的旅行者接受我的挑戰吧。", },
+      { palType=3, palNum=1, palName="登山男", palImage=106577, prestige=2000, gold=1000,
          popArea={map=80013,LX=38,LY=41, RX=38,RY=41}, watchArea={map=80013,LX=38,LY=35, RX=45,RY=42},
-         talk="山男大叔：嘗嘗我的厲害。", },
+         talk="登山男：嘗嘗我的厲害。", },
+      { palType=4, palNum=1, palName="赤紅", palImage=105039, prestige=2500, gold=1500,
+         popArea={map=80023,LX=62,LY=84, RX=62,RY=84}, watchArea={map=80023,LX=57,LY=76, RX=66,RY=84},
+         talk="赤紅：上吧！我的夥伴們。", },
+      { palType=5, palNum=1, palName="青綠", palImage=105139, prestige=2500, gold=1500,
+         popArea={map=80023,LX=83,LY=44, RX=83,RY=44}, watchArea={map=80023,LX=77,LY=40, RX=82,RY=48},
+         talk="青綠：弱者還敢四處逛。", },
+      { palType=6, palNum=1, palName="小藍", palImage=105258, prestige=2500, gold=1500,
+         popArea={map=80023,LX=79,LY=67, RX=79,RY=67}, watchArea={map=80023,LX=74,LY=64, RX=77,RY=70},
+         talk="小藍：華麗的噴射水柱。", },
+      { palType=7, palNum=1, palName="祈祷師", palImage=106310, prestige=2000, gold=1000,
+         popArea={map=80014,LX=53,LY=45, RX=53,RY=45}, watchArea={map=80014,LX=39,LY=45, RX=67,RY=54},
+         talk="祈祷師：你見過幽靈嗎？你說沒看過！我就讓你看看！", },
+      { palType=8, palNum=1, palName="空手道王", palImage=105170, prestige=2000, gold=1000,
+         popArea={map=80011,LX=76,LY=72, RX=76,RY=72}, watchArea={map=80011,LX=64,LY=62, RX=77,RY=78},
+         talk="空手道王：心靈合一。", },
+      { palType=9, palNum=1, palName="遺跡迷", palImage=106008, prestige=2000, gold=1000,
+         popArea={map=80019,LX=38,LY=71, RX=61,RY=71}, watchArea={map=80019,LX=38,LY=71, RX=61,RY=74},
+         talk="遺跡迷：我愛遺跡，更愛從對戰中得到樂趣。", },
+      { palType=10, palNum=1, palName="忍者小子", palImage=106053, prestige=2000, gold=1000,
+         popArea={map=80013,LX=38,LY=47, RX=38,RY=47}, watchArea={map=80013,LX=37,LY=46, RX=43,RY=52},
+         talk="忍者小子：你被忍者伏擊了。", },
+      { palType=11, palNum=1, palName="泳褲小伙子", palImage=105114, prestige=2000, gold=1000,
+         popArea={map=80024,LX=84,LY=62, RX=84,RY=62}, watchArea={map=80024,LX=77,LY=56, RX=84,RY=64},
+         talk="泳褲小伙子：來場夏日對戰吧。", },
+      { palType=12, palNum=1, palName="千金小姐", palImage=105277, prestige=2000, gold=5000,
+         popArea={map=80024,LX=61,LY=48, RX=61,RY=48}, watchArea={map=80024,LX=60,LY=48, RX=61,RY=50},
+         talk="千金小姐：你會願意輸給我吧。", },
+      { palType=13, palNum=1, palName="超能力者", palImage=106283, prestige=2000, gold=1000,
+         popArea={map=80017,LX=55,LY=68, RX=55,RY=68}, watchArea={map=80017,LX=48,LY=64, RX=62,RY=70},
+         talk="超能力者：我想要操控世界的一切。", },
+      { palType=14, palNum=1, palName="吹火人", palImage=105095, prestige=3000, gold=500,
+         popArea={map=80016,LX=54,LY=63, RX=54,RY=63}, watchArea={map=80016,LX=51,LY=57, RX=58,RY=60},
+         talk="吹火人：停下來觀賞我的表演！", },
+      { palType=15, palNum=1, palName="馴龍師", palImage=105052, prestige=2000, gold=1000,
+         popArea={map=80018,LX=45,LY=46, RX=45,RY=46}, watchArea={map=80018,LX=41,LY=46, RX=50,RY=58},
+         talk="馴龍師：路過的旅行者，來場較量吧！", },
 }
 ------------------------------------------------
 local EnemySet = {}
 local BaseLevelSet = {}
 EnemySet[1] = {416289, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[1] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[2] = {416228, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[2] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[3] = {416280, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[3] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[4] = {426434, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[4] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[5] = {426376, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[5] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[6] = {426386, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[6] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[7] = {426380, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[7] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[8] = {426430, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[8] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[9] = {426448, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[9] = {80, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[10] = {426450, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[10] = {80, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[11] = {426459, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[11] = {100, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[12] = {416402, 0, 0, 0, 0, 416398, 416398, 416398, 416398, 416398}	--0代表没有怪
-BaseLevelSet[12] = {150, 0, 0, 0, 0, 120, 120, 120, 120, 120}
-EnemySet[13] = {416403, 0, 0, 0, 0, 416399, 416399, 416399, 416399, 416399}	--0代表没有怪
-BaseLevelSet[13] = {150, 0, 0, 0, 0, 120, 120, 120, 120, 120}
-EnemySet[14] = {416356, 0, 0, 416426, 416426, 0, 416427, 416427, 0, 0}	--0代表没有怪
-BaseLevelSet[14] = {150, 0, 0, 130, 130, 0, 130, 130, 0, 0}
+BaseLevelSet[1] = {140, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[2] = {416228, 416226, 416226, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[2] = {160, 150, 150, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[3] = {416280, 0, 0, 0, 0, 0, 416291, 416291, 0, 0}	--0代表没有怪
+BaseLevelSet[3] = {160, 0, 0, 0, 0, 0, 150, 150, 0, 0}
+EnemySet[4] = {0, 416201, 416202, 0, 0, 0, 416198, 416198, 0, 0}	--0代表没有怪
+BaseLevelSet[4] = {0, 170, 170, 0, 0, 0, 160, 160, 0, 0}
+EnemySet[5] = {416206, 0, 0, 0, 0, 416205, 416205, 416205, 0, 0}	--0代表没有怪
+BaseLevelSet[5] = {170, 0, 0, 0, 0, 160, 160, 160, 0, 0}
+EnemySet[6] = {416210, 0, 0, 0, 0, 416208, 0, 0, 416207, 416207}	--0代表没有怪
+BaseLevelSet[6] = {170, 0, 0, 0, 0, 160, 0, 0, 150, 150}
+EnemySet[7] = {416219, 0, 0, 416218, 416218, 0, 416218, 416218, 0, 0}	--0代表没有怪
+BaseLevelSet[7] = {160, 0, 0, 150, 150, 0, 150, 150, 0, 0}
+EnemySet[8] = {416334, 0, 0, 0, 0, 416333, 416333, 416333, 416333, 416333}	--0代表没有怪
+BaseLevelSet[8] = {160, 0, 0, 0, 0, 150, 150, 150, 150, 150}
+EnemySet[9] = {416345, 416344, 416344, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[9] = {160, 150, 150, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[10] = {416276, 416269, 416269, 0, 0, 0, 0, 0, 416272, 416272}	--0代表没有怪
+BaseLevelSet[10] = {160, 150, 150, 0, 0, 0, 0, 0, 150, 150}
+EnemySet[11] = {416293, 416245, 416245, 416245, 416245, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[11] = {160, 150, 150, 150, 150, 0, 0, 0, 0, 0}
+EnemySet[12] = {416336, 416281, 416283, 416338, 416329, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[12] = {160, 150, 150, 150, 150, 0, 0, 0, 0, 0}
+EnemySet[13] = {416327, 0, 0, 0, 416347, 0, 416350, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[13] = {160, 0, 0, 0, 150, 0, 150, 0, 0, 0}
+EnemySet[14] = {416238, 0, 0, 0, 416284, 0, 416235, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[14] = {160, 0, 0, 0, 150, 0, 150, 0, 0, 0}
+EnemySet[15] = {416264, 0, 0, 416282, 416323, 0, 416243, 416340, 0, 0}	--0代表没有怪
+BaseLevelSet[15] = {170, 0, 0, 150, 150, 0, 150, 150, 0, 0}
 ------------------------------------------------
 local FTime = os.time();			--时间表
 tbl_PokeTrainerNPCIndex = tbl_PokeTrainerNPCIndex or {}
@@ -149,6 +187,8 @@ function PokeTrainer_LoopEvent(npc)
 											break
 										end
 										if ( EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
+											Char.SetData(npc,CONST.对象_NPC_HeadGraNo,110402);	--111250
+											NLG.UpChar(npc);
 											Char.SetTempData(npc, '追击对战', player);
 											Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 600);
 											break
@@ -188,7 +228,8 @@ function PokeTrainer_LoopEvent(npc)
 						local battleIndex = Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
 						Battle.SetWinEvent("./lua/Modules/pokeTrainer.lua", "PokeTrainerNPC_BattleWin", battleIndex);
 						pal_clear(player, npc, v.palType);
-						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
+						Char.SetTempData(npc, '追击对战', nil);
+						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 3000);
 					else
 						if ( X1>v.watchArea.RX or Y1>v.watchArea.RY) then		--逃离右侧范围
 							pal_clear(player, npc, v.palType);
@@ -215,6 +256,7 @@ function pal_clear(player, npc, Type)
 			local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
 			Char.SetData(npc,CONST.对象_X, palX);
 			Char.SetData(npc,CONST.对象_Y, palY);
+			Char.SetData(npc,CONST.对象_NPC_HeadGraNo,0);
 			NLG.SetAction(npc,0);
 			NLG.UpChar(npc);
 		end
