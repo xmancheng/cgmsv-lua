@@ -162,39 +162,41 @@ function PokeTrainer_LoopEvent(npc)
 								for m = 1, #obj_tbl do
 									local player = Obj.GetCharIndex(obj_tbl[m])
 									if Char.GetData(player, CONST.对象_类型) == CONST.对象类型_人 and not Char.IsDummy(player) then
-										--print(m,i,j)
-										--local EliteCheck = Char.GetExtData(player,'菁英对战') or 0;
-										local EliteTrainer={}
-										local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
-										local EliteCheck_raw = string.split(EliteCheck,",");
-										--print(EliteCheck,#EliteCheck_raw)
-										if (#EliteCheck_raw == #PokeTrainer) then
-											for k,v in ipairs(EliteCheck_raw) do
-												table.insert(EliteTrainer,tonumber(v));
-											end
-										elseif (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
-											local Trainer_string = "";
-											for i=1,#PokeTrainer do
-												if (i==#PokeTrainer) then
-													Trainer_string = Trainer_string .. "32";
-												else
-													Trainer_string = Trainer_string .. "32,";
+										if Char.GetData(player,CONST.对象_组队模式)==CONST.组队模式_无 or Char.GetData(player,CONST.对象_组队模式)== CONST.组队模式_队长 then
+											--print(m,i,j)
+											--local EliteCheck = Char.GetExtData(player,'菁英对战') or 0;
+											local EliteTrainer={}
+											local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
+											local EliteCheck_raw = string.split(EliteCheck,",");
+											--print(EliteCheck,#EliteCheck_raw)
+											if (#EliteCheck_raw == #PokeTrainer) then
+												for k,v in ipairs(EliteCheck_raw) do
+													table.insert(EliteTrainer,tonumber(v));
 												end
+											elseif (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
+												local Trainer_string = "";
+												for i=1,#PokeTrainer do
+													if (i==#PokeTrainer) then
+														Trainer_string = Trainer_string .. "32";
+													else
+														Trainer_string = Trainer_string .. "32,";
+													end
+												end
+												--Char.SetExtData(player,'菁英对战', Trainer_string);
+												Field.Set(player, 'EliteBattle', Trainer_string);
+												NLG.UpChar(player);
+												break
 											end
-											--Char.SetExtData(player,'菁英对战', Trainer_string);
-											Field.Set(player, 'EliteBattle', Trainer_string);
-											NLG.UpChar(player);
-											break
-										end
-										if ( EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
-											Char.SetData(npc,CONST.对象_NPC_HeadGraNo,110402);	--111250
-											NLG.UpChar(npc);
-											Char.SetTempData(npc, '追击对战', player);
-											Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 600);
-											break
-										else
-											--print("本日已经对战过")
-											break
+											if ( EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
+												Char.SetData(npc,CONST.对象_NPC_HeadGraNo,110402);	--111250
+												NLG.UpChar(npc);
+												Char.SetTempData(npc, '追击对战', player);
+												Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 600);
+												break
+											else
+												--print("本日已经对战过")
+												break
+											end
 										end
 									end
 								end
