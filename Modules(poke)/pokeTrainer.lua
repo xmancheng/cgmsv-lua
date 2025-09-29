@@ -1,47 +1,53 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeTrainer')
 
 local PokeTrainer = {
-      { palType=1, palNum=1, palName="²¶ÏxÉÙÄê", palImage=105002, prestige=5000, gold=2000,	--palNumÊıÁ¿(1²»¸ü¶¯)¡¢palImageÍâÏÔĞÎÏó(²»ÖØ¸´)¡¢ÉùÍû¡¢Ä§±Ò
-         popArea={map=80022,LX=56,LY=74, RX=59,RY=78}, watchArea={map=80022,LX=55,LY=73, RX=61,RY=80},		--³öÃ»·¶Î§(·½ĞÎ×ø±ê)¡¢¼àÊÓ·¶Î§(·½ĞÎ×ø±ê)
-         talk="²¶ÏxÉÙÄê£º×ŒÄã¿´¿´ÎÒ×¥µ½µÄÏxÏx¡£", },		--¿ªÕ½¶Ô»°
+      { palType=1, palNum=1, palName="æ•èŸ²å°‘å¹´", palImage=105002, prestige=4000, gold=1000,	--palNumæ•°é‡(1ä¸æ›´åŠ¨)ã€palImageå¤–æ˜¾å½¢è±¡(ä¸é‡å¤)ã€å£°æœ›ã€é­”å¸
+         popArea={map=80022,LX=59,LY=75, RX=59,RY=75}, watchArea={map=80022,LX=55,LY=73, RX=61,RY=80},		--å‡ºæ²¡èŒƒå›´(æ–¹å½¢åæ ‡)ã€ç›‘è§†èŒƒå›´(æ–¹å½¢åæ ‡)
+         talk="æ•èŸ²å°‘å¹´ï¼šè®“ä½ çœ‹çœ‹æˆ‘æŠ“åˆ°çš„èŸ²èŸ²ã€‚", },		--å¼€æˆ˜å¯¹è¯
+      { palType=2, palNum=1, palName="é£›è¡Œå°‘å¹´", palImage=106039, prestige=5000, gold=2000,
+         popArea={map=80023,LX=47,LY=63, RX=47,RY=63}, watchArea={map=80023,LX=41,LY=61, RX=49,RY=66},
+         talk="é£›è¡Œå°‘å¹´ï¼šå¾€ä¾†çš„æ—…è¡Œè€…æ¥å—æˆ‘çš„æŒ‘æˆ°å§ã€‚", },
+      { palType=3, palNum=1, palName="å±±ç”·å¤§å”", palImage=106577, prestige=5000, gold=2000,
+         popArea={map=80013,LX=38,LY=41, RX=38,RY=41}, watchArea={map=80013,LX=38,LY=35, RX=45,RY=42},
+         talk="å±±ç”·å¤§å”ï¼šå˜—å˜—æˆ‘çš„å²å®³ã€‚", },
 }
 ------------------------------------------------
 local EnemySet = {}
 local BaseLevelSet = {}
-EnemySet[1] = {426392, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
-BaseLevelSet[1] = {20, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[2] = {426360, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
-BaseLevelSet[2] = {30, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[3] = {426361, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
-BaseLevelSet[3] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[4] = {426434, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[1] = {416289, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
+BaseLevelSet[1] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[2] = {416228, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
+BaseLevelSet[2] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[3] = {416280, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
+BaseLevelSet[3] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+EnemySet[4] = {426434, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[4] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[5] = {426376, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[5] = {426376, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[5] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[6] = {426386, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[6] = {426386, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[6] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[7] = {426380, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[7] = {426380, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[7] = {50, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[8] = {426430, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[8] = {426430, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[8] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[9] = {426448, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[9] = {426448, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[9] = {80, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[10] = {426450, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[10] = {426450, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[10] = {80, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[11] = {426459, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[11] = {426459, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[11] = {100, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[12] = {416402, 0, 0, 0, 0, 416398, 416398, 416398, 416398, 416398}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[12] = {416402, 0, 0, 0, 0, 416398, 416398, 416398, 416398, 416398}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[12] = {150, 0, 0, 0, 0, 120, 120, 120, 120, 120}
-EnemySet[13] = {416403, 0, 0, 0, 0, 416399, 416399, 416399, 416399, 416399}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[13] = {416403, 0, 0, 0, 0, 416399, 416399, 416399, 416399, 416399}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[13] = {150, 0, 0, 0, 0, 120, 120, 120, 120, 120}
-EnemySet[14] = {416356, 0, 0, 416426, 416426, 0, 416427, 416427, 0, 0}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[14] = {416356, 0, 0, 416426, 416426, 0, 416427, 416427, 0, 0}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[14] = {150, 0, 0, 130, 130, 0, 130, 130, 0, 0}
 ------------------------------------------------
-local FTime = os.time();			--Ê±¼ä±í
+local FTime = os.time();			--æ—¶é—´è¡¨
 tbl_PokeTrainerNPCIndex = tbl_PokeTrainerNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('LoopEvent', Func.bind(self.PokeTrainer_LoopEvent,self))
@@ -56,17 +62,17 @@ function Module:onLoad()
            local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
            local PokeTrainerNPC = self:NPC_createNormal(v.palName, v.palImage, { map = v.popArea.map, x = palX, y = palY, direction = 5, mapType = 0 })
            tbl_PokeTrainerNPCIndex[k][i] = PokeTrainerNPC
-           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.¶ÔÏó_ÒÆËÙ,250);
-           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.¶ÔÏó_ENEMY_PetFlg+2,0);
+           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.å¯¹è±¡_ç§»é€Ÿ,250);
+           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.å¯¹è±¡_ENEMY_PetFlg+2,0);
            Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua','PokeTrainer_LoopEvent',tbl_PokeTrainerNPCIndex[k][i], 2000);
            self:NPC_regWindowTalkedEvent(tbl_PokeTrainerNPCIndex[k][i], function(npc, player, _seqno, _select, _data)
-             local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+             local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
              local seqno = tonumber(_seqno)
              local select = tonumber(_select)
              local data = tonumber(_data)
-             if seqno == 1 then  ----±¨Ãû¶ÔÕ½Ö´ĞĞ
+             if seqno == 1 then  ----æŠ¥åå¯¹æˆ˜æ‰§è¡Œ
               if select == 4 then
-                NLG.SystemMessage(player,"[Ó–¾š¼Ò]½ñÌìŒ¦‘ğµÄºÜß^°a£¬¼s¶¨ºÃÃ÷ÌìÔÙ‘ğ£¡");
+                NLG.SystemMessage(player,"[è¨“ç·´å®¶]ä»Šå¤©å°æˆ°çš„å¾ˆéç™®ï¼Œç´„å®šå¥½æ˜å¤©å†æˆ°ï¼");
               else
                 return 0;
               end
@@ -78,10 +84,10 @@ function Module:onLoad()
                  return;
              end
              if (NLG.CanTalk(npc, player) == true) then
-                  local msg = "\\n\\n\\n\\n@c½ñÌìÒÑ½›Œ¦‘ğß^£¬Ã÷ÌìµÄÎÒ•ş¸üŠ¡£\\n";
-                  NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+                  local msg = "\\n\\n\\n\\n@cä»Šå¤©å·²ç¶“å°æˆ°éï¼Œæ˜å¤©çš„æˆ‘æœƒæ›´å¼·ã€‚\\n";
+                  NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
 
-                  local npcImage = Char.GetData(tbl_PokeTrainerNPCIndex[k][i],CONST.¶ÔÏó_ĞÎÏó);
+                  local npcImage = Char.GetData(tbl_PokeTrainerNPCIndex[k][i],CONST.å¯¹è±¡_å½¢è±¡);
                   local npc = tbl_PokeTrainerNPCIndex[k][i];
                   --if ( k==v.palType and npcImage==v.palImage) then
                   --   local battleIndex = Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
@@ -97,19 +103,19 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---Õì²â¼à¿Ø
+-------åŠŸèƒ½è®¾ç½®
+--ä¾¦æµ‹ç›‘æ§
 function PokeTrainer_LoopEvent(npc)
 	local CTime = tonumber(os.date("%H",FTime));
 	for k,v in pairs(PokeTrainer) do
-		local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-		local npcFloorId = Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼);
+		local npcImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+		local npcFloorId = Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾);
 		if ( k==v.palType and npcImage==v.palImage and npcFloorId==v.popArea.map ) then
-			local player_tbl = Char.GetTempData(npc, '×·»÷¶ÔÕ½') or nil;
+			local player_tbl = Char.GetTempData(npc, 'è¿½å‡»å¯¹æˆ˜') or nil;
 			pcall(function()
-				if player_tbl==nil then		--ÎŞËø¶¨¿ªÊ¼Õì²â
-					local X = tonumber(Char.GetData(npc,CONST.¶ÔÏó_X));
-					local Y = tonumber(Char.GetData(npc,CONST.¶ÔÏó_Y));
+				if player_tbl==nil then		--æ— é”å®šå¼€å§‹ä¾¦æµ‹
+					local X = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_X));
+					local Y = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_Y));
 					for i=v.watchArea.LX, v.watchArea.RX do
 						for j=v.watchArea.LY, v.watchArea.RY do
 							local obj_tbl = {};
@@ -117,29 +123,57 @@ function PokeTrainer_LoopEvent(npc)
 							if #obj_tbl > 0 then
 								for m = 1, #obj_tbl do
 									local player = Obj.GetCharIndex(obj_tbl[m])
-									if Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË and not Char.IsDummy(player) then
+									if Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº and not Char.IsDummy(player) then
 										--print(m,i,j)
-										Char.SetTempData(npc, '×·»÷¶ÔÕ½', player);
-										Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 600);
-										break
+										--local EliteCheck = Char.GetExtData(player,'èè‹±å¯¹æˆ˜') or 0;
+										local EliteTrainer={}
+										local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
+										local EliteCheck_raw = string.split(EliteCheck,",");
+										--print(EliteCheck,#EliteCheck_raw)
+										if (#EliteCheck_raw == #PokeTrainer) then
+											for k,v in ipairs(EliteCheck_raw) do
+												table.insert(EliteTrainer,tonumber(v));
+											end
+										elseif (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
+											local Trainer_string = "";
+											for i=1,#PokeTrainer do
+												if (i==#PokeTrainer) then
+													Trainer_string = Trainer_string .. "32";
+												else
+													Trainer_string = Trainer_string .. "32,";
+												end
+											end
+											--Char.SetExtData(player,'èè‹±å¯¹æˆ˜', Trainer_string);
+											Field.Set(player, 'EliteBattle', Trainer_string);
+											NLG.UpChar(player);
+											break
+										end
+										if ( EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
+											Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', player);
+											Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 600);
+											break
+										else
+											--print("æœ¬æ—¥å·²ç»å¯¹æˆ˜è¿‡")
+											break
+										end
 									end
 								end
 							end
 						end
 					end
-				elseif player_tbl then		--ÒÑËø¶¨¿ªÊ¼×·»÷
+				elseif player_tbl then		--å·²é”å®šå¼€å§‹è¿½å‡»
 					local player = player_tbl;
-					local X = tonumber(Char.GetData(npc,CONST.¶ÔÏó_X));
-					local Y = tonumber(Char.GetData(npc,CONST.¶ÔÏó_Y));
-					local X1 = tonumber(Char.GetData(player,CONST.¶ÔÏó_X));
-					local Y1 = tonumber(Char.GetData(player,CONST.¶ÔÏó_Y));
+					local X = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_X));
+					local Y = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_Y));
+					local X1 = tonumber(Char.GetData(player,CONST.å¯¹è±¡_X));
+					local Y1 = tonumber(Char.GetData(player,CONST.å¯¹è±¡_Y));
 					local dir,allow = moveDir(X, Y, X1, Y1);
 					NLG.SetAction(npc,1);
 					NLG.WalkMove(npc,dir);
 					NLG.UpChar(npc);
 					--print(X, Y, X1, Y1)
 					if (X1==nil or Y1==nil) then
-						Char.SetTempData(npc, '×·»÷¶ÔÕ½', nil);
+						Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', nil);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						return
 					end
@@ -149,20 +183,20 @@ function PokeTrainer_LoopEvent(npc)
 						if battleIndex >= 0 then
 							return
 						end
-						--Ç¿ÆÈ¶ÔÕ½¿ªÊ¼
+						--å¼ºè¿«å¯¹æˆ˜å¼€å§‹
 						NLG.SystemMessage(player, v.talk);
 						local battleIndex = Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
 						Battle.SetWinEvent("./lua/Modules/pokeTrainer.lua", "PokeTrainerNPC_BattleWin", battleIndex);
 						pal_clear(player, npc, v.palType);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 					else
-						if ( X1>v.watchArea.RX or Y1>v.watchArea.RY) then		--ÌÓÀëÓÒ²à·¶Î§
+						if ( X1>v.watchArea.RX or Y1>v.watchArea.RY) then		--é€ƒç¦»å³ä¾§èŒƒå›´
 							pal_clear(player, npc, v.palType);
-							Char.SetTempData(npc, '×·»÷¶ÔÕ½', nil);
+							Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
-						elseif ( X1<v.watchArea.LX or Y1<v.watchArea.LY) then	--ÌÓÀë×ó²à·¶Î§
+						elseif ( X1<v.watchArea.LX or Y1<v.watchArea.LY) then	--é€ƒç¦»å·¦ä¾§èŒƒå›´
 							pal_clear(player, npc, v.palType);
-							Char.SetTempData(npc, '×·»÷¶ÔÕ½', nil);
+							Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						end
 					end
@@ -174,13 +208,13 @@ end
 
 
 function pal_clear(player, npc, Type)
-	--Ëæ»ú×ªÒÆÖÁÆğÊ¼¼àÊÓÎ»ÖÃ
+	--éšæœºè½¬ç§»è‡³èµ·å§‹ç›‘è§†ä½ç½®
 	for k,v in pairs(PokeTrainer) do
 		if ( k==Type) then
 			local palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
 			local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
-			Char.SetData(npc,CONST.¶ÔÏó_X, palX);
-			Char.SetData(npc,CONST.¶ÔÏó_Y, palY);
+			Char.SetData(npc,CONST.å¯¹è±¡_X, palX);
+			Char.SetData(npc,CONST.å¯¹è±¡_Y, palY);
 			NLG.SetAction(npc,0);
 			NLG.UpChar(npc);
 		end
@@ -191,25 +225,50 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 
-	--·ÖÅä½±Àø
+	--åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
-		if player>=0 and Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if player>=0 and Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			for k,v in pairs(PokeTrainer) do
-				local charFloorId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-				local X = Char.GetData(player,CONST.¶ÔÏó_X);
-				local Y = Char.GetData(player,CONST.¶ÔÏó_Y);
-				print(charFloorId,X,Y)
+				local charFloorId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+				local X = Char.GetData(player,CONST.å¯¹è±¡_X);
+				local Y = Char.GetData(player,CONST.å¯¹è±¡_Y);
+				--print(charFloorId,X,Y)
 				if ( k==v.palType and charFloorId==v.popArea.map and X>=v.watchArea.LX and X<=v.watchArea.RX and Y>=v.watchArea.LY and Y<=v.watchArea.RY ) then
-					local fame = Char.GetData(player,CONST.¶ÔÏó_ÉùÍû);
-					Char.SetData(player,CONST.¶ÔÏó_ÉùÍû, fame+v.prestige);
+					local fame = Char.GetData(player,CONST.å¯¹è±¡_å£°æœ›);
+					Char.SetData(player,CONST.å¯¹è±¡_å£°æœ›, fame+v.prestige);
 					Char.AddGold(player, v.gold);
-					NLG.SystemMessage(player,"[Ïµ½y]Ä¿Ç°Â•Íû:"..fame.."£¬„ÙÀûµÃµ½î~ÍâÂ•Íû"..v.prestige.."£¡");
-					NLG.SystemMessage(player,"[Ïµ½y]„ÙÀû•rÒ²ÄŒ¦ÊÖÄÇµÃµ½Ä§Å"..v.gold.."£¡");
+					NLG.SystemMessage(player,"[ç³»çµ±]ç›®å‰è²æœ›:"..fame.."ï¼Œå‹åˆ©å¾—åˆ°é¡å¤–è²æœ›"..v.prestige.."ï¼");
+					NLG.SystemMessage(player,"[ç³»çµ±]å‹åˆ©æ™‚ä¹Ÿå¾å°æ‰‹é‚£å¾—åˆ°é­”å¹£"..v.gold.."ï¼");
+
+					--local EliteCheck = Char.GetExtData(player,'èè‹±å¯¹æˆ˜');
+					local EliteTrainer={}
+					local EliteCheck = Field.Get(player, 'EliteBattle');
+					local EliteCheck_raw = string.split(EliteCheck,",");
+					for r,t in ipairs(EliteCheck_raw) do
+						if (k==r) then
+							table.insert(EliteTrainer,tonumber(os.date("%d",os.time())));
+						else
+							table.insert(EliteTrainer,tonumber(t));
+						end
+					end
+					--è¡¨æ ¼è½¬å­—ä¸²
+					local Trainer_string = "";
+					for r,t in ipairs(EliteTrainer) do
+						if (r==#EliteTrainer) then
+							Trainer_string = Trainer_string .. t;
+						else
+							Trainer_string = Trainer_string .. t .. ",";
+						end
+					end
+					--print(Trainer_string)
+					--Char.SetExtData(player,'èè‹±å¯¹æˆ˜', Trainer_string);
+					Field.Set(player, 'EliteBattle', Trainer_string);
+					NLG.UpChar(player);
 				end
 			end
 		end
@@ -254,8 +313,8 @@ end
 
 
 Char.GetLocation = function(npc,dir)
-	local X = Char.GetData(npc,CONST.¶ÔÏó_X)--µØÍ¼x
-	local Y = Char.GetData(npc,CONST.¶ÔÏó_Y)--µØÍ¼y
+	local X = Char.GetData(npc,CONST.å¯¹è±¡_X)--åœ°å›¾x
+	local Y = Char.GetData(npc,CONST.å¯¹è±¡_Y)--åœ°å›¾y
 	if dir==0 then
 		Y=Y-1;
 	elseif dir==1 then
@@ -280,7 +339,7 @@ Char.GetLocation = function(npc,dir)
 	return X,Y;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
