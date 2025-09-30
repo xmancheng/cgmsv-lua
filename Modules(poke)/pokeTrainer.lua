@@ -5,52 +5,52 @@ local maxTrainerLevel = 100;
 local PokeTrainer = {
       { palType=1, palNum=1, palName="捕蟲少年", palImage=105002, prestige=1000, gold=500,	--palNum数量(1不更动)、palImage外显形象(不重复)、声望、魔币
          popArea={map=80022,LX=59,LY=75, RX=59,RY=75}, watchArea={map=80022,LX=55,LY=73, RX=61,RY=80},		--出没范围(方形坐标)、监视范围(方形坐标)
-         talk="捕蟲少年：讓你看看我抓到的蟲蟲。", },		--开战对话
+         talk="捕蟲少年：讓你看看我抓到的蟲蟲。", loveItem=69014, },		--开战对话
       { palType=2, palNum=1, palName="養鳥人", palImage=106039, prestige=2000, gold=1000,
          popArea={map=80023,LX=47,LY=63, RX=47,RY=63}, watchArea={map=80023,LX=41,LY=61, RX=49,RY=66},
-         talk="養鳥人：往來的旅行者接受我的挑戰吧。", },
+         talk="養鳥人：往來的旅行者接受我的挑戰吧。", loveItem=69013, },
       { palType=3, palNum=1, palName="登山男", palImage=106577, prestige=2000, gold=1000,
          popArea={map=80013,LX=38,LY=41, RX=38,RY=41}, watchArea={map=80013,LX=38,LY=35, RX=45,RY=42},
-         talk="登山男：嘗嘗我的厲害。", },
+         talk="登山男：嘗嘗我的厲害。", loveItem=69011, },
       { palType=4, palNum=1, palName="赤紅", palImage=105039, prestige=2500, gold=1500,
          popArea={map=80023,LX=62,LY=84, RX=62,RY=84}, watchArea={map=80023,LX=57,LY=76, RX=66,RY=84},
-         talk="赤紅：上吧！我的夥伴們。", },
+         talk="赤紅：上吧！我的夥伴們。", loveItem=69014, },
       { palType=5, palNum=1, palName="青綠", palImage=105139, prestige=2500, gold=1500,
          popArea={map=80023,LX=83,LY=44, RX=83,RY=44}, watchArea={map=80023,LX=77,LY=40, RX=82,RY=48},
-         talk="青綠：弱者還敢四處逛。", },
+         talk="青綠：弱者還敢四處逛。", loveItem=69011, },
       { palType=6, palNum=1, palName="小藍", palImage=105258, prestige=2500, gold=1500,
          popArea={map=80023,LX=79,LY=67, RX=79,RY=67}, watchArea={map=80023,LX=74,LY=64, RX=77,RY=70},
-         talk="小藍：華麗的噴射水柱。", },
+         talk="小藍：華麗的噴射水柱。", loveItem=69012, },
       { palType=7, palNum=1, palName="祈祷師", palImage=106310, prestige=2000, gold=1000,
          popArea={map=80014,LX=53,LY=45, RX=53,RY=45}, watchArea={map=80014,LX=39,LY=45, RX=67,RY=54},
-         talk="祈祷師：你見過幽靈嗎？你說沒看過！我就讓你看看！", },
+         talk="祈祷師：你見過幽靈嗎？你說沒看過！我就讓你看看！", loveItem=69013, },
       { palType=8, palNum=1, palName="空手道王", palImage=105170, prestige=2000, gold=1000,
          popArea={map=80011,LX=76,LY=72, RX=76,RY=72}, watchArea={map=80011,LX=64,LY=62, RX=77,RY=78},
-         talk="空手道王：心靈合一。", },
+         talk="空手道王：心靈合一。", loveItem=69011, },
       { palType=9, palNum=1, palName="遺跡迷", palImage=106008, prestige=2000, gold=1000,
          popArea={map=80019,LX=38,LY=71, RX=61,RY=71}, watchArea={map=80019,LX=38,LY=71, RX=61,RY=74},
-         talk="遺跡迷：我愛遺跡，更愛從對戰中得到樂趣。", },
+         talk="遺跡迷：我愛遺跡，更愛從對戰中得到樂趣。", loveItem=69011, },
       { palType=10, palNum=1, palName="忍者小子", palImage=106053, prestige=2000, gold=1000,
          popArea={map=80013,LX=38,LY=47, RX=38,RY=47}, watchArea={map=80013,LX=37,LY=46, RX=43,RY=52},
-         talk="忍者小子：你被忍者伏擊了。", },
+         talk="忍者小子：你被忍者伏擊了。", loveItem=69011, },
       { palType=11, palNum=1, palName="泳褲小伙子", palImage=105114, prestige=2000, gold=1000,
          popArea={map=80024,LX=84,LY=62, RX=84,RY=62}, watchArea={map=80024,LX=77,LY=56, RX=84,RY=64},
-         talk="泳褲小伙子：來場夏日對戰吧。", },
+         talk="泳褲小伙子：來場夏日對戰吧。", loveItem=69012, },
       { palType=12, palNum=1, palName="千金小姐", palImage=105277, prestige=2000, gold=5000,
          popArea={map=80024,LX=61,LY=48, RX=61,RY=48}, watchArea={map=80024,LX=60,LY=48, RX=61,RY=50},
-         talk="千金小姐：你會願意輸給我吧。", },
+         talk="千金小姐：你會願意輸給我吧。", loveItem=69013, },
       { palType=13, palNum=1, palName="超能力者", palImage=106283, prestige=2000, gold=1000,
          popArea={map=80017,LX=55,LY=68, RX=55,RY=68}, watchArea={map=80017,LX=48,LY=64, RX=62,RY=70},
-         talk="超能力者：我想要操控世界的一切。", },
+         talk="超能力者：我想要操控世界的一切。", loveItem=69011, },
       { palType=14, palNum=1, palName="吹火人", palImage=105095, prestige=3000, gold=500,
          popArea={map=80016,LX=54,LY=63, RX=54,RY=63}, watchArea={map=80016,LX=51,LY=57, RX=58,RY=60},
-         talk="吹火人：停下來觀賞我的表演！", },
+         talk="吹火人：停下來觀賞我的表演！", loveItem=69014, },
       { palType=15, palNum=1, palName="馴龍師", palImage=105052, prestige=2000, gold=1000,
          popArea={map=80018,LX=45,LY=46, RX=45,RY=46}, watchArea={map=80018,LX=41,LY=46, RX=50,RY=58},
-         talk="馴龍師：路過的旅行者，來場較量吧！", },
+         talk="馴龍師：路過的旅行者，來場較量吧！", loveItem=69012, },
       { palType=16, palNum=1, palName="研究員", palImage=106095, prestige=1500, gold=1500,
          popArea={map=80025,LX=90,LY=67, RX=90,RY=67}, watchArea={map=80025,LX=77,LY=62, RX=90,RY=69},
-         talk="研究員：你聽說過神秘之笛嗎？這就是它喚醒的怪物！", },
+         talk="研究員：你聽說過神秘之笛嗎？這就是它喚醒的怪物！", loveItem=69014, },
 }
 ------------------------------------------------
 local EnemySet = {}
@@ -116,9 +116,60 @@ function Module:onLoad()
              local data = tonumber(_data)
              if seqno == 1 then  ----报名对战执行
               if select == 4 then
-                NLG.SystemMessage(player,"[訓練家]今天對戰的很過癮，約定好明天再戰！");
+                NLG.SystemMessage(player, v.palName.."：今天對戰的很過癮，約定好明天再戰！");
               else
-                return 0;
+                if (data==1 and Char.HaveItem(player, 69011)<0) then
+                    NLG.SystemMessage(player, v.palName.."：你沒有這個樹果。");
+                    return;
+                elseif (data==1 and Char.HaveItem(player, 69011)>0) then
+                    Char.DelItem(player,69011,1,1);
+                    if (v.loveItem==69011) then
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0表不更新), intimacy(5点)
+                        NLG.SystemMessage(player, v.palName.."：正需要此樹果，親密度增加5點");
+                    else
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0表不更新), intimacy(1点)
+                        NLG.SystemMessage(player, v.palName.."：謝謝你的樹果，親密度增加1點");
+                    end
+                end
+                if (data==2 and Char.HaveItem(player, 69012)<0) then
+                    NLG.SystemMessage(player, v.palName.."：你沒有這個樹果。");
+                    return;
+                elseif (data==2 and Char.HaveItem(player, 69012)>0) then
+                    Char.DelItem(player,69012,1,1);
+                    if (v.loveItem==69012) then
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0表不更新), intimacy(5点)
+                        NLG.SystemMessage(player, v.palName.."：正需要此樹果，親密度增加5點");
+                    else
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0表不更新), intimacy(1点)
+                        NLG.SystemMessage(player, v.palName.."：謝謝你的樹果，親密度增加1點");
+                    end
+                end
+                if (data==3 and Char.HaveItem(player, 69013)<0) then
+                    NLG.SystemMessage(player, v.palName.."：你沒有這個樹果。");
+                    return;
+                elseif (data==3 and Char.HaveItem(player, 69013)>0) then
+                    Char.DelItem(player,69013,1,1);
+                    if (v.loveItem==69013) then
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0表不更新), intimacy(5点)
+                        NLG.SystemMessage(player, v.palName.."：正需要此樹果，親密度增加5點");
+                    else
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0表不更新), intimacy(1点)
+                        NLG.SystemMessage(player, v.palName.."：謝謝你的樹果，親密度增加1點");
+                    end
+                end
+                if (data==4 and Char.HaveItem(player, 69014)<0) then
+                    NLG.SystemMessage(player, v.palName.."：你沒有這個樹果。");
+                    return;
+                elseif (data==4 and Char.HaveItem(player, 69014)>0) then
+                    Char.DelItem(player,69014,1,1);
+                    if (v.loveItem==69014) then
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0表不更新), intimacy(5点)
+                        NLG.SystemMessage(player, v.palName.."：正需要此樹果，親密度增加5點");
+                    else
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0表不更新), intimacy(1点)
+                        NLG.SystemMessage(player, v.palName.."：謝謝你的樹果，親密度增加1點");
+                    end
+                end
               end
              end
 
@@ -128,15 +179,17 @@ function Module:onLoad()
                  return;
              end
              if (NLG.CanTalk(npc, player) == true) then
-                  local msg = "\\n\\n\\n\\n@c今天已經對戰過，明天的我會更強。\\n";
-                  NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_是否, 1, msg);
+                  --查询资料
+                  local EliteTrainer,EliteLvel = GetTrainerInfo(player);
+                  local msg = "5\\n@c◇ 親密度：".. EliteLvel[k] .. " ◇\\n"
+                            .."\\n今天已經對戰過但可以給他樹果提升親密度"
+                            .."\\n　　————————————————————\\n\\n"
+                            .."[　選擇  桃桃果　]\\n"
+                            .."[　選擇  莓莓果　]\\n"
+                            .."[　選擇  利木果　]\\n"
+                            .."[　選擇  蘋野果　]\\n";
+                  NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_是否, 1, msg);
 
-                  local npcImage = Char.GetData(tbl_PokeTrainerNPCIndex[k][i],CONST.对象_形象);
-                  local npc = tbl_PokeTrainerNPCIndex[k][i];
-                  --if ( k==v.palType and npcImage==v.palImage) then
-                  --   local battleIndex = Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
-                  --   Battle.SetWinEvent("./lua/Modules/pokeTrainer.lua", "paradeLordNPC_BattleWin", battleIndex);
-                  --end
              end
              return
            end)
@@ -171,35 +224,46 @@ function PokeTrainer_LoopEvent(npc)
 									if fight==0 and Char.GetData(player, CONST.对象_类型) == CONST.对象类型_人 and not Char.IsDummy(player) then
 										if Char.GetData(player,CONST.对象_组队模式)==CONST.组队模式_无 or Char.GetData(player,CONST.对象_组队模式)== CONST.组队模式_队长 then
 											--print(m,i,j)
-											local EliteTrainer={}
-											--local EliteLvel={}
-											local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
-											local EliteCheck_raw = string.split(EliteCheck,",");
-											--print(EliteCheck,#EliteCheck_raw)
-											if (#EliteCheck_raw == #PokeTrainer) then
-												for a,b in ipairs(EliteCheck_raw) do
-													local Trainer_raw = string.split(b,"|");
-													for r,t in ipairs(Trainer_raw) do
-														if (r==1) then
-															table.insert(EliteTrainer,tonumber(t));
-														--elseif (r==2) then
-														--	table.insert(EliteLvel,tonumber(t));
+											--初始化
+											if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+												for slot=0,4 do
+													local p = Char.GetPartyMember(player, slot);
+													if(p>=0) then
+														local EliteCheck = Field.Get(p, 'EliteBattle') or "0";
+														local EliteCheck_raw = string.split(EliteCheck,",");
+														if (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
+															local Trainer_string = "";
+															for i=1,#PokeTrainer do
+																if (i==#PokeTrainer) then
+																	Trainer_string = Trainer_string .. "32|0";
+																else
+																	Trainer_string = Trainer_string .. "32|0,";
+																end
+															end
+															Field.Set(p, 'EliteBattle', Trainer_string);
+															NLG.UpChar(p);
 														end
 													end
 												end
-											elseif (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
-												local Trainer_string = "";
-												for i=1,#PokeTrainer do
-													if (i==#PokeTrainer) then
-														Trainer_string = Trainer_string .. "32|0";
-													else
-														Trainer_string = Trainer_string .. "32|0,";
+											elseif Char.PartyNum(player)==-1 then
+												local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
+												local EliteCheck_raw = string.split(EliteCheck,",");
+												if (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
+													local Trainer_string = "";
+													for i=1,#PokeTrainer do
+														if (i==#PokeTrainer) then
+															Trainer_string = Trainer_string .. "32|0";
+														else
+															Trainer_string = Trainer_string .. "32|0,";
+														end
 													end
+													Field.Set(player, 'EliteBattle', Trainer_string);
+													NLG.UpChar(player);
+													break
 												end
-												Field.Set(player, 'EliteBattle', Trainer_string);
-												NLG.UpChar(player);
-												break
 											end
+											--查询资料
+											local EliteTrainer,EliteLvel = GetTrainerInfo(player);
 											if ( EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
 												Char.SetData(npc,CONST.对象_NPC_HeadGraNo,22337);	--111250.110402
 												NLG.UpChar(npc);
@@ -241,18 +305,8 @@ function PokeTrainer_LoopEvent(npc)
 						end
 						--强迫对战开始
 						NLG.SystemMessage(player, v.talk);
-
-						local EliteLvel={}
-						local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
-						local EliteCheck_raw = string.split(EliteCheck,",");
-						for a,b in ipairs(EliteCheck_raw) do
-							local Trainer_raw = string.split(b,"|");
-							for r,t in ipairs(Trainer_raw) do
-								if (r==2) then
-									table.insert(EliteLvel,tonumber(t));
-								end
-							end
-						end
+						--查询资料
+						local EliteTrainer,EliteLvel = GetTrainerInfo(player);
 						--怪物等级调整公式
 						local BaseLevelAr={}
 						for r,t in ipairs(BaseLevelSet[k]) do
@@ -321,31 +375,12 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 				local Y = Char.GetData(player,CONST.对象_Y);
 				--print(charFloorId,X,Y)
 				if ( k==v.palType and charFloorId==v.popArea.map and X>=v.watchArea.LX and X<=v.watchArea.RX and Y>=v.watchArea.LY and Y<=v.watchArea.RY ) then
-					--计算目前时序、等级
-					local EliteTrainer={}
-					local EliteLvel={}
-					local EliteCheck = Field.Get(player, 'EliteBattle');
-					local EliteCheck_raw = string.split(EliteCheck,",");
-					for a,b in ipairs(EliteCheck_raw) do
-						local Trainer_raw = string.split(b,"|");
-						for r,t in ipairs(Trainer_raw) do
-							if (k==a and r==1) then
-								table.insert(EliteTrainer,tonumber(os.date("%d",os.time())));
-							elseif (k~=a and r==1) then
-								table.insert(EliteTrainer,tonumber(t));
-							elseif (k==a and r==2) then
-								if (tonumber(t)<maxTrainerLevel) then		--菁英等级上限maxTrainerLevel
-									table.insert(EliteLvel,tonumber(t)+1);
-								else
-									table.insert(EliteLvel,tonumber(t));
-								end
-							elseif (k~=a and r==2) then
-								table.insert(EliteLvel,tonumber(t));
-							end
-						end
-					end
+					--计算更新时序、亲密度等级
+					SetTrainerInfo(player,k,1,1);	--timeStamp(1表更新), intimacy(1点)
+					--查询资料
+					local EliteTrainer,EliteLvel = GetTrainerInfo(player);
 
-					local ratio = EliteLvel[k]/maxTrainerLevel
+					local ratio = EliteLvel[k]/maxTrainerLevel;
 					local fame = Char.GetData(player,CONST.对象_声望);
 					local fame_plus = math.floor(v.prestige * ratio);
 					local gold_plus = math.floor(v.gold * ratio);
@@ -353,18 +388,6 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 					Char.AddGold(player, math.floor(v.gold*ratio));
 					NLG.SystemMessage(player,"[系統]目前聲望:"..fame.."，勝利得到額外聲望"..fame_plus.."！");
 					NLG.SystemMessage(player,"[系統]勝利時也從對手那得到魔幣"..gold_plus.."！");
-
-					--表格转字串
-					local Trainer_string = "";
-					for i=1,#PokeTrainer do
-						if (i==#PokeTrainer) then
-							Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i];
-						else
-							Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i] .. ",";
-						end
-					end
-					--print(Trainer_string)
-					Field.Set(player, 'EliteBattle', Trainer_string);
 					Char.SetTempData(player,'菁英对战', 0);
 					NLG.UpChar(player);
 				end
@@ -372,6 +395,70 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 		end
 	end
 	Battle.UnsetWinEvent(battleIndex);
+end
+
+function GetTrainerInfo(player)
+	local EliteTrainer={}
+	local EliteLvel={}
+	local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
+	local EliteCheck_raw = string.split(EliteCheck,",");
+	--print(EliteCheck,#EliteCheck_raw)
+
+	for a,b in ipairs(EliteCheck_raw) do
+		local Trainer_raw = string.split(b,"|");
+		for r,t in ipairs(Trainer_raw) do
+			if (r==1) then
+				table.insert(EliteTrainer,tonumber(t));
+			elseif (r==2) then
+				table.insert(EliteLvel,tonumber(t));
+			end
+		end
+	end
+	return EliteTrainer,EliteLvel
+end
+function SetTrainerInfo(player,k,timeStamp,intimacy)
+	local EliteTrainer={}
+	local EliteLvel={}
+	local EliteCheck = Field.Get(player, 'EliteBattle');
+	local EliteCheck_raw = string.split(EliteCheck,",");
+	for a,b in ipairs(EliteCheck_raw) do
+		local Trainer_raw = string.split(b,"|");
+		for r,t in ipairs(Trainer_raw) do
+			if (k==a and r==1) then
+				if (timeStamp==1) then
+					table.insert(EliteTrainer,tonumber(os.date("%d",os.time())));
+				else
+					table.insert(EliteTrainer,tonumber(t));
+				end
+			elseif (k~=a and r==1) then
+				table.insert(EliteTrainer,tonumber(t));
+			elseif (k==a and r==2) then
+				if (tonumber(t)<maxTrainerLevel) then		--菁英等级上限maxTrainerLevel
+					if (tonumber(t) + intimacy>=100) then
+						table.insert(EliteLvel,100);
+					else
+						table.insert(EliteLvel,tonumber(t) + intimacy);
+					end
+				else
+					table.insert(EliteLvel,tonumber(t));
+				end
+			elseif (k~=a and r==2) then
+				table.insert(EliteLvel,tonumber(t));
+			end
+		end
+	end
+	--表格转字串
+	local Trainer_string = "";
+	for i=1,#PokeTrainer do
+		if (i==#PokeTrainer) then
+			Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i];
+		else
+			Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i] .. ",";
+		end
+	end
+	--print(Trainer_string)
+	Field.Set(player, 'EliteBattle', Trainer_string);
+	NLG.UpChar(player);
 end
 
 function moveDir(X, Y, X1, Y1)
