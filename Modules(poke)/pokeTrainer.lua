@@ -365,6 +365,7 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 					end
 					--print(Trainer_string)
 					Field.Set(player, 'EliteBattle', Trainer_string);
+					Char.SetTempData(player,'菁英对战', 0);
 					NLG.UpChar(player);
 				end
 			end
