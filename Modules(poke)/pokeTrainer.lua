@@ -1,6 +1,7 @@
 ---模块类
 local Module = ModuleBase:createModule('pokeTrainer')
 
+local maxTrainerLevel = 100;
 local PokeTrainer = {
       { palType=1, palNum=1, palName="捕蟲少年", palImage=105002, prestige=1000, gold=500,	--palNum数量(1不更动)、palImage外显形象(不重复)、声望、魔币
          popArea={map=80022,LX=59,LY=75, RX=59,RY=75}, watchArea={map=80022,LX=55,LY=73, RX=61,RY=80},		--出没范围(方形坐标)、监视范围(方形坐标)
@@ -47,40 +48,45 @@ local PokeTrainer = {
       { palType=15, palNum=1, palName="馴龍師", palImage=105052, prestige=2000, gold=1000,
          popArea={map=80018,LX=45,LY=46, RX=45,RY=46}, watchArea={map=80018,LX=41,LY=46, RX=50,RY=58},
          talk="馴龍師：路過的旅行者，來場較量吧！", },
+      { palType=16, palNum=1, palName="研究員", palImage=106095, prestige=1500, gold=1500,
+         popArea={map=80025,LX=90,LY=67, RX=90,RY=67}, watchArea={map=80025,LX=77,LY=62, RX=90,RY=69},
+         talk="研究員：你聽說過神秘之笛嗎？這就是它喚醒的怪物！", },
 }
 ------------------------------------------------
 local EnemySet = {}
 local BaseLevelSet = {}
 EnemySet[1] = {416289, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[1] = {140, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[1] = {40, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[2] = {416228, 416226, 416226, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[2] = {160, 150, 150, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[2] = {60, 50, 50, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[3] = {416280, 0, 0, 0, 0, 0, 416291, 416291, 0, 0}	--0代表没有怪
-BaseLevelSet[3] = {160, 0, 0, 0, 0, 0, 150, 150, 0, 0}
+BaseLevelSet[3] = {60, 0, 0, 0, 0, 0, 50, 50, 0, 0}
 EnemySet[4] = {0, 416201, 416202, 0, 0, 0, 416198, 416198, 0, 0}	--0代表没有怪
-BaseLevelSet[4] = {0, 170, 170, 0, 0, 0, 160, 160, 0, 0}
+BaseLevelSet[4] = {0, 70, 70, 0, 0, 0, 60, 60, 0, 0}
 EnemySet[5] = {416206, 0, 0, 0, 0, 416205, 416205, 416205, 0, 0}	--0代表没有怪
-BaseLevelSet[5] = {170, 0, 0, 0, 0, 160, 160, 160, 0, 0}
+BaseLevelSet[5] = {70, 0, 0, 0, 0, 60, 60, 60, 0, 0}
 EnemySet[6] = {416210, 0, 0, 0, 0, 416208, 0, 0, 416207, 416207}	--0代表没有怪
-BaseLevelSet[6] = {170, 0, 0, 0, 0, 160, 0, 0, 150, 150}
-EnemySet[7] = {416219, 0, 0, 416218, 416218, 0, 416218, 416218, 0, 0}	--0代表没有怪
-BaseLevelSet[7] = {160, 0, 0, 150, 150, 0, 150, 150, 0, 0}
+BaseLevelSet[6] = {70, 0, 0, 0, 0, 60, 0, 0, 50, 50}
+EnemySet[7] = {416219, 0, 0, 416217, 416217, 0, 416217, 416217, 0, 0}	--0代表没有怪
+BaseLevelSet[7] = {60, 0, 0, 50, 50, 0, 50, 50, 0, 0}
 EnemySet[8] = {416334, 0, 0, 0, 0, 416333, 416333, 416333, 416333, 416333}	--0代表没有怪
-BaseLevelSet[8] = {160, 0, 0, 0, 0, 150, 150, 150, 150, 150}
+BaseLevelSet[8] = {60, 0, 0, 0, 0, 50, 50, 50, 50, 50}
 EnemySet[9] = {416345, 416344, 416344, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[9] = {160, 150, 150, 0, 0, 0, 0, 0, 0, 0}
+BaseLevelSet[9] = {60, 50, 50, 0, 0, 0, 0, 0, 0, 0}
 EnemySet[10] = {416276, 416269, 416269, 0, 0, 0, 0, 0, 416272, 416272}	--0代表没有怪
-BaseLevelSet[10] = {160, 150, 150, 0, 0, 0, 0, 0, 150, 150}
+BaseLevelSet[10] = {60, 50, 50, 0, 0, 0, 0, 0, 50, 50}
 EnemySet[11] = {416293, 416245, 416245, 416245, 416245, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[11] = {160, 150, 150, 150, 150, 0, 0, 0, 0, 0}
+BaseLevelSet[11] = {60, 50, 50, 50, 50, 0, 0, 0, 0, 0}
 EnemySet[12] = {416336, 416281, 416283, 416338, 416329, 0, 0, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[12] = {160, 150, 150, 150, 150, 0, 0, 0, 0, 0}
+BaseLevelSet[12] = {60, 50, 50, 50, 50, 0, 0, 0, 0, 0}
 EnemySet[13] = {416327, 0, 0, 0, 416347, 0, 416350, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[13] = {160, 0, 0, 0, 150, 0, 150, 0, 0, 0}
+BaseLevelSet[13] = {60, 0, 0, 0, 50, 0, 50, 0, 0, 0}
 EnemySet[14] = {416238, 0, 0, 0, 416284, 0, 416235, 0, 0, 0}	--0代表没有怪
-BaseLevelSet[14] = {160, 0, 0, 0, 150, 0, 150, 0, 0, 0}
+BaseLevelSet[14] = {60, 0, 0, 0, 50, 0, 50, 0, 0, 0}
 EnemySet[15] = {416264, 0, 0, 416282, 416323, 0, 416243, 416340, 0, 0}	--0代表没有怪
-BaseLevelSet[15] = {170, 0, 0, 150, 150, 0, 150, 150, 0, 0}
+BaseLevelSet[15] = {70, 0, 0, 50, 50, 0, 50, 50, 0, 0}
+EnemySet[15] = {416225, 0, 0, 0, 0, 0, 0, 0, 0, 0}	--0代表没有怪
+BaseLevelSet[15] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 ------------------------------------------------
 local FTime = os.time();			--时间表
 tbl_PokeTrainerNPCIndex = tbl_PokeTrainerNPCIndex or {}
@@ -160,35 +166,42 @@ function PokeTrainer_LoopEvent(npc)
 							local obj_num, obj_tbl = Obj.GetObject(0, v.popArea.map, i, j)
 							if #obj_tbl > 0 then
 								for m = 1, #obj_tbl do
-									local player = Obj.GetCharIndex(obj_tbl[m])
-									if Char.GetData(player, CONST.对象_类型) == CONST.对象类型_人 and not Char.IsDummy(player) then
+									local player = Obj.GetCharIndex(obj_tbl[m]);
+									local fight = Char.GetTempData(player,'菁英对战') or 0;
+									if fight==0 and Char.GetData(player, CONST.对象_类型) == CONST.对象类型_人 and not Char.IsDummy(player) then
 										if Char.GetData(player,CONST.对象_组队模式)==CONST.组队模式_无 or Char.GetData(player,CONST.对象_组队模式)== CONST.组队模式_队长 then
 											--print(m,i,j)
-											--local EliteCheck = Char.GetExtData(player,'菁英对战') or 0;
 											local EliteTrainer={}
+											--local EliteLvel={}
 											local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
 											local EliteCheck_raw = string.split(EliteCheck,",");
 											--print(EliteCheck,#EliteCheck_raw)
 											if (#EliteCheck_raw == #PokeTrainer) then
-												for k,v in ipairs(EliteCheck_raw) do
-													table.insert(EliteTrainer,tonumber(v));
+												for a,b in ipairs(EliteCheck_raw) do
+													local Trainer_raw = string.split(b,"|");
+													for r,t in ipairs(Trainer_raw) do
+														if (r==1) then
+															table.insert(EliteTrainer,tonumber(t));
+														--elseif (r==2) then
+														--	table.insert(EliteLvel,tonumber(t));
+														end
+													end
 												end
 											elseif (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
 												local Trainer_string = "";
 												for i=1,#PokeTrainer do
 													if (i==#PokeTrainer) then
-														Trainer_string = Trainer_string .. "32";
+														Trainer_string = Trainer_string .. "32|0";
 													else
-														Trainer_string = Trainer_string .. "32,";
+														Trainer_string = Trainer_string .. "32|0,";
 													end
 												end
-												--Char.SetExtData(player,'菁英对战', Trainer_string);
 												Field.Set(player, 'EliteBattle', Trainer_string);
 												NLG.UpChar(player);
 												break
 											end
 											if ( EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
-												Char.SetData(npc,CONST.对象_NPC_HeadGraNo,110402);	--111250
+												Char.SetData(npc,CONST.对象_NPC_HeadGraNo,22337);	--111250.110402
 												NLG.UpChar(npc);
 												Char.SetTempData(npc, '追击对战', player);
 												Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 600);
@@ -215,6 +228,7 @@ function PokeTrainer_LoopEvent(npc)
 					NLG.UpChar(npc);
 					--print(X, Y, X1, Y1)
 					if (X1==nil or Y1==nil) then
+						Char.SetTempData(player,'菁英对战', 0);
 						Char.SetTempData(npc, '追击对战', nil);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						return
@@ -227,17 +241,41 @@ function PokeTrainer_LoopEvent(npc)
 						end
 						--强迫对战开始
 						NLG.SystemMessage(player, v.talk);
-						local battleIndex = Battle.PVE( player, player, nil, EnemySet[k], BaseLevelSet[k], nil);
+
+						local EliteLvel={}
+						local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
+						local EliteCheck_raw = string.split(EliteCheck,",");
+						for a,b in ipairs(EliteCheck_raw) do
+							local Trainer_raw = string.split(b,"|");
+							for r,t in ipairs(Trainer_raw) do
+								if (r==2) then
+									table.insert(EliteLvel,tonumber(t));
+								end
+							end
+						end
+						--怪物等级调整公式
+						local BaseLevelAr={}
+						for r,t in ipairs(BaseLevelSet[k]) do
+							if tonumber(t)>0 then
+								BaseLevelAr[r] = tonumber(t) + (EliteLvel[k] * 100/maxTrainerLevel);
+							else
+								BaseLevelAr[r] = 0;
+							end
+						end
+						local battleIndex = Battle.PVE( player, player, nil, EnemySet[k], BaseLevelAr, nil);
 						Battle.SetWinEvent("./lua/Modules/pokeTrainer.lua", "PokeTrainerNPC_BattleWin", battleIndex);
+						Char.SetTempData(player,'菁英对战', 1);
 						pal_clear(player, npc, v.palType);
 						Char.SetTempData(npc, '追击对战', nil);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 3000);
 					else
 						if ( X1>v.watchArea.RX or Y1>v.watchArea.RY) then		--逃离右侧范围
+							Char.SetTempData(player,'菁英对战', 0);
 							pal_clear(player, npc, v.palType);
 							Char.SetTempData(npc, '追击对战', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						elseif ( X1<v.watchArea.LX or Y1<v.watchArea.LY) then	--逃离左侧范围
+							Char.SetTempData(player,'菁英对战', 0);
 							pal_clear(player, npc, v.palType);
 							Char.SetTempData(npc, '追击对战', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
@@ -283,34 +321,49 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 				local Y = Char.GetData(player,CONST.对象_Y);
 				--print(charFloorId,X,Y)
 				if ( k==v.palType and charFloorId==v.popArea.map and X>=v.watchArea.LX and X<=v.watchArea.RX and Y>=v.watchArea.LY and Y<=v.watchArea.RY ) then
-					local fame = Char.GetData(player,CONST.对象_声望);
-					Char.SetData(player,CONST.对象_声望, fame+v.prestige);
-					Char.AddGold(player, v.gold);
-					NLG.SystemMessage(player,"[系統]目前聲望:"..fame.."，勝利得到額外聲望"..v.prestige.."！");
-					NLG.SystemMessage(player,"[系統]勝利時也從對手那得到魔幣"..v.gold.."！");
-
-					--local EliteCheck = Char.GetExtData(player,'菁英对战');
+					--计算目前时序、等级
 					local EliteTrainer={}
+					local EliteLvel={}
 					local EliteCheck = Field.Get(player, 'EliteBattle');
 					local EliteCheck_raw = string.split(EliteCheck,",");
-					for r,t in ipairs(EliteCheck_raw) do
-						if (k==r) then
-							table.insert(EliteTrainer,tonumber(os.date("%d",os.time())));
-						else
-							table.insert(EliteTrainer,tonumber(t));
+					for a,b in ipairs(EliteCheck_raw) do
+						local Trainer_raw = string.split(b,"|");
+						for r,t in ipairs(Trainer_raw) do
+							if (k==a and r==1) then
+								table.insert(EliteTrainer,tonumber(os.date("%d",os.time())));
+							elseif (k~=a and r==1) then
+								table.insert(EliteTrainer,tonumber(t));
+							elseif (k==a and r==2) then
+								if (tonumber(t)<maxTrainerLevel) then		--菁英等级上限maxTrainerLevel
+									table.insert(EliteLvel,tonumber(t)+1);
+								else
+									table.insert(EliteLvel,tonumber(t));
+								end
+							elseif (k~=a and r==2) then
+								table.insert(EliteLvel,tonumber(t));
+							end
 						end
 					end
+
+					local ratio = EliteLvel[k]/maxTrainerLevel
+					local fame = Char.GetData(player,CONST.对象_声望);
+					local fame_plus = math.floor(v.prestige * ratio);
+					local gold_plus = math.floor(v.gold * ratio);
+					Char.SetData(player,CONST.对象_声望, fame + math.floor(v.prestige*ratio));
+					Char.AddGold(player, math.floor(v.gold*ratio));
+					NLG.SystemMessage(player,"[系統]目前聲望:"..fame.."，勝利得到額外聲望"..fame_plus.."！");
+					NLG.SystemMessage(player,"[系統]勝利時也從對手那得到魔幣"..gold_plus.."！");
+
 					--表格转字串
 					local Trainer_string = "";
-					for r,t in ipairs(EliteTrainer) do
-						if (r==#EliteTrainer) then
-							Trainer_string = Trainer_string .. t;
+					for i=1,#PokeTrainer do
+						if (i==#PokeTrainer) then
+							Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i];
 						else
-							Trainer_string = Trainer_string .. t .. ",";
+							Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i] .. ",";
 						end
 					end
 					--print(Trainer_string)
-					--Char.SetExtData(player,'菁英对战', Trainer_string);
 					Field.Set(player, 'EliteBattle', Trainer_string);
 					NLG.UpChar(player);
 				end
