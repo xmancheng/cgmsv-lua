@@ -274,7 +274,7 @@ function PokeHunting_LoopEvent(npc)
 	else
 		local MapUser = NLG.GetMapPlayer(0,80028);
 		if (MapUser~=-3) then
-			for _,v in pairs(MapUser) do
+			--[[for _,v in pairs(MapUser) do
 				local MapId = Char.GetData(v,CONST.对象_地图类型);
 				local FloorId = Char.GetData(v,CONST.对象_地图);
 				local X = Char.GetData(v,CONST.对象_X);
@@ -282,7 +282,7 @@ function PokeHunting_LoopEvent(npc)
 				local D = Char.GetData(v,CONST.对象_方向);
 				Protocol.Send(v,'QBt', FloorId..'|'..from10to62(X)..'|'..from10to62(Y)..'|'..D..'|')	--地圖ID|X坐標(62進制)|Y坐標(62進制)|方向
 				NLG.UpChar(v);
-			end
+			end]]
 		end
 	end
 end
@@ -448,3 +448,4 @@ function Module:onUnload()
 end
 
 return Module;
+
