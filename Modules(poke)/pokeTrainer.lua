@@ -292,7 +292,19 @@ function PokeTrainer_LoopEvent(npc)
 					NLG.UpChar(npc);
 					--print(X, Y, X1, Y1)
 					if (X1==nil or Y1==nil) then
-						Char.SetTempData(player,'菁英对战', 0);
+						--Char.SetTempData(player,'菁英对战', 0);
+						--进战斗开关
+						if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+							for slot=0,4 do
+								local p = Char.GetPartyMember(player, slot);
+								if(p>=0) then
+									Char.SetTempData(p,'菁英对战', 0);
+								end
+							end
+						elseif Char.PartyNum(player)==-1 then
+							Char.SetTempData(player,'菁英对战', 0);
+						end
+
 						Char.SetTempData(npc, '追击对战', nil);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						return
@@ -318,18 +330,53 @@ function PokeTrainer_LoopEvent(npc)
 						end
 						local battleIndex = Battle.PVE( player, player, nil, EnemySet[k], BaseLevelAr, nil);
 						Battle.SetWinEvent("./lua/Modules/pokeTrainer.lua", "PokeTrainerNPC_BattleWin", battleIndex);
-						Char.SetTempData(player,'菁英对战', 1);
+						--进战斗开关
+						if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+							for slot=0,4 do
+								local p = Char.GetPartyMember(player, slot);
+								if(p>=0) then
+									Char.SetTempData(p,'菁英对战', 1);
+								end
+							end
+						elseif Char.PartyNum(player)==-1 then
+							Char.SetTempData(player,'菁英对战', 1);
+						end
+
 						pal_clear(player, npc, v.palType);
 						Char.SetTempData(npc, '追击对战', nil);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 3000);
 					else
 						if ( X1>v.watchArea.RX or Y1>v.watchArea.RY) then		--逃离右侧范围
-							Char.SetTempData(player,'菁英对战', 0);
+							--Char.SetTempData(player,'菁英对战', 0);
+							--进战斗开关
+							if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+								for slot=0,4 do
+									local p = Char.GetPartyMember(player, slot);
+									if(p>=0) then
+										Char.SetTempData(p,'菁英对战', 0);
+									end
+								end
+							elseif Char.PartyNum(player)==-1 then
+								Char.SetTempData(player,'菁英对战', 0);
+							end
+
 							pal_clear(player, npc, v.palType);
 							Char.SetTempData(npc, '追击对战', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						elseif ( X1<v.watchArea.LX or Y1<v.watchArea.LY) then	--逃离左侧范围
-							Char.SetTempData(player,'菁英对战', 0);
+							--Char.SetTempData(player,'菁英对战', 0);
+							--进战斗开关
+							if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
+								for slot=0,4 do
+									local p = Char.GetPartyMember(player, slot);
+									if(p>=0) then
+										Char.SetTempData(p,'菁英对战', 0);
+									end
+								end
+							elseif Char.PartyNum(player)==-1 then
+								Char.SetTempData(player,'菁英对战', 0);
+							end
+
 							pal_clear(player, npc, v.palType);
 							Char.SetTempData(npc, '追击对战', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer.lua', 'PokeTrainer_LoopEvent', npc, 2000);
