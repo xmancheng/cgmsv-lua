@@ -644,10 +644,10 @@ evolution_plan_requirement[79] = {{CONST.对象_等级,85}, {CONST.对象_死亡
 evolution_plan_tech[79] = 310207;
 
 evolution_plan_name[80] = "《進化》超級大比鳥";
-evolution_plan_offering[80] = 406381;
+evolution_plan_offering[80] = 406380;
 evolution_plan_item[80] = 74097;
 evolution_plan_gold[80] = 30000;
-evolution_plan_pet[80] = 406382;
+evolution_plan_pet[80] = 406381;
 evolution_plan_requirement[80] = {{CONST.对象_等级,85}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
 evolution_plan_tech[80] = 310201;
 
@@ -891,6 +891,56 @@ evolution_plan_gold[110] = 60000;
 evolution_plan_pet[110] = 406312;
 evolution_plan_requirement[110] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
 evolution_plan_tech[110] = 6806;
+
+
+evolution_plan_name[111] = "《進化》超夢X";
+evolution_plan_offering[111] = 406248;
+evolution_plan_item[111] = 74095;
+evolution_plan_gold[111] = 25000;
+evolution_plan_pet[111] = 406249;
+evolution_plan_requirement[111] = {{CONST.对象_等级,50}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[111] = 6506;
+
+evolution_plan_name[112] = "《進化》究極超夢X";
+evolution_plan_offering[112] = 406249;
+evolution_plan_item[112] = 74096;
+evolution_plan_gold[112] = 60000;
+evolution_plan_pet[112] = 406250;
+evolution_plan_requirement[112] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[112] = 6206;
+
+evolution_plan_name[113] = "《進化》進擊超夢";
+evolution_plan_offering[113] = 406250;
+evolution_plan_item[113] = 74097;
+evolution_plan_gold[113] = 80000;
+evolution_plan_pet[113] = 406251;
+evolution_plan_requirement[113] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[113] = 6306;
+
+evolution_plan_name[114] = "《進化》究擊超夢";
+evolution_plan_offering[114] = 406250;
+evolution_plan_item[114] = 74097;
+evolution_plan_gold[114] = 80000;
+evolution_plan_pet[114] = 406252;
+evolution_plan_requirement[114] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[114] = 6606;
+
+evolution_plan_name[115] = "《進化》進擊夢幻";
+evolution_plan_offering[115] = 406265;
+evolution_plan_item[115] = 74096;
+evolution_plan_gold[115] = 25000;
+evolution_plan_pet[115] = 406266;
+evolution_plan_requirement[115] = {{CONST.对象_等级,70}, {CONST.对象_死亡数,5}, {CONST.对象_伤害数,250}, {CONST.对象_杀宠数,200}};
+evolution_plan_tech[115] = 6006;
+
+evolution_plan_name[116] = "《進化》究極夢幻";
+evolution_plan_offering[116] = 406266;
+evolution_plan_item[116] = 74097;
+evolution_plan_gold[116] = 60000;
+evolution_plan_pet[116] = 406267;
+evolution_plan_requirement[116] = {{CONST.对象_等级,100}, {CONST.对象_死亡数,10}, {CONST.对象_伤害数,200}, {CONST.对象_杀宠数,100}};
+evolution_plan_tech[116] = 5906;
+
 -------------------------------------------------
 local function calcWarp()
   local page = math.modf(#evolution_plan_name / 8) + 1
