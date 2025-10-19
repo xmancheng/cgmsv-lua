@@ -2,7 +2,7 @@ local Module = ModuleBase:createModule('petSkin')
 
 local skinImage_List = {};
 skinImage_List[69101] = {};
-skinImage_List[69101][101004] = 123084;					--µÀ¾ß±àºÅ.Ô­Ê¼ĞÎÏó±àºÅ.ĞÂĞÎÏó±àºÅ
+skinImage_List[69101][101004] = 123084;					--é“å…·ç¼–å·.åŸå§‹å½¢è±¡ç¼–å·.æ–°å½¢è±¡ç¼–å·
 skinImage_List[69101][101000] = 123085;
 skinImage_List[69101][101002] = 123086;
 skinImage_List[69101][101001] = 123087;
@@ -231,71 +231,84 @@ skinImage_List[69134][123073] = 123198;
 skinImage_List[69134][123071] = 123196;
 skinImage_List[69134][123072] = 123197;
 -------------------------------------------------------------------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ProtocolOnRecv',Func.bind(self.petEquipmentCommand,self),'Cpa')
 
 end
 
-function Module:petEquipmentCommand(fd, head, data)	--data2µÀ¾ßÀ¸Î»ÖÃ.data3³èÎïÎ»ÖÃ.data4³èÎï×°±¸À¸Î»ÖÃ(Cpa 0 j 2)
+function Module:petEquipmentCommand(fd, head, data)	--(Cpa 0 j 2)
   local player = Protocol.GetCharByFd(fd)
-  print(player,data[2],data[3],data[4],data[5])
-  if (tonumber(data[3])>0) then		--×°±¸½Ó¿Ú
-    local petIndex = Char.GetPet(player,tonumber(data[3])-1);
-    local itemSlot = from62to10(data[2]);
+  --print(data[1],data[2],data[3],data[4],data[5])		--äºº0å® 1-5.é“å…·æ å® è£…æ .äºº0å® 1-5.å® è£…æ é“å…·æ .æ¨¡å¼åŒæ“Š0æ‹–æ›³1
+  if (tonumber(data[1])==0) then		--è£…å¤‡æ¥å£
+    --äººç³»åˆ—
+    local itemSlot = from62to10(data[2])-1;
     local playerItemIndex = Char.GetItemIndex(player,tonumber(itemSlot));
-    local petItemIndex = Char.GetItemIndex(petIndex,tonumber(data[4]));
-    print(petIndex, playerItemIndex, petItemIndex)
-    local itemId = Item.GetData(playerItemIndex, CONST.µÀ¾ß_ID);
-    local type = Item.GetData(playerItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
-    setItemEffectData(petIndex, playerItemIndex, itemId, type);
-  elseif (tonumber(data[3])==0) then	--Ğ¶ÏÂ½Ó¿Ú
-    for petSlot=0,4 do
-      local petIndex = Char.GetPet(player,petSlot);
-      if (petIndex>0) then
-        local petItemIndex = Char.GetItemIndex(petIndex,tonumber(data[2]));
-        local itemSlot = from62to10(data[4]);
-        local playerItemIndex = Char.GetItemIndex(player,tonumber(itemSlot));
-        print(petIndex, playerItemIndex, petItemIndex)
-        if (petItemIndex>0) then
-          local itemId = Item.GetData(petItemIndex, CONST.µÀ¾ß_ID);
-          local type = Item.GetData(petItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
-          setItemReEffectData(petIndex, petItemIndex, itemId, type);
-        end
-      end
-    end
+    --å® ç³»åˆ—
+    local petIndex = Char.GetPet(player,tonumber(data[3])-1);
+    local petItemSlot = tonumber(data[4]);
+    local petItemIndex = Char.GetItemIndex(petIndex, petItemSlot);
+    setItemEffectData(petIndex, playerItemIndex, itemSlot, petItemIndex, petItemSlot);
+  elseif (tonumber(data[3])==0) then		--å¸ä¸‹æ¥å£
+    --å® ç³»åˆ—
+    local petIndex = Char.GetPet(player,tonumber(data[1])-1);
+    local petItemSlot = tonumber(data[2]);
+    local petItemIndex = Char.GetItemIndex(petIndex, petItemSlot);
+    --äººç³»åˆ—
+    local itemSlot = from62to10(data[4])-1;
+    local playerItemIndex = Char.GetItemIndex(player,tonumber(itemSlot));
+    setItemReEffectData(petIndex, petItemIndex, petItemSlot, playerItemIndex, itemSlot);
   end
 end
 
 ------------------------------------------------------------------------------------------
---¹¦ÄÜº¯Êı
---×°±¸Ê±
-function setItemEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
-	if (_Type==58 or _Type==59) then	--CONST.µÀ¾ßÀàĞÍ_³èÎï×°¼×.CONST.µÀ¾ßÀàĞÍ_³èÎï·şÊÎ
-		local petImageId = Char.GetData(_CharIndex, CONST.¶ÔÏó_Ô­ĞÎ);		--CONST.¶ÔÏó_Ô­Ê¼Í¼µµ
+--åŠŸèƒ½å‡½æ•°
+--è£…å¤‡æ—¶
+function setItemEffectData(_CharIndex, _ItemIndex, _ItemSlot, _petItemIndex, _petItemSlot)
+	local _ItemId = Item.GetData(_ItemIndex, CONST.é“å…·_ID);
+	local _Type = Item.GetData(_ItemIndex, CONST.é“å…·_ç±»å‹);
+	if (_Type==58 or _Type==59) then	--CONST.é“å…·ç±»å‹_å® ç‰©è£…ç”².CONST.é“å…·ç±»å‹_å® ç‰©æœé¥°
+		--local UUID = Pet.GetUUID(_CharIndex);
+		local petImageId = Char.GetData(_CharIndex, CONST.å¯¹è±¡_åŸå½¢);		--CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£
 		local change_imageId = skinImage_List[_ItemId][petImageId] or 0;
-		print(petImageId,change_imageId)
+		--local UUID_check = Item.GetData(_petItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°);
+		--print(petImageId,change_imageId)
 		if (change_imageId>0) then
-			print(petImageId)
-			Char.SetData(_CharIndex, CONST.¶ÔÏó_ĞÎÏó, change_imageId);
+			--local player = Pet.GetOwner(_CharIndex);
+			--Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, UUID);
+			--Item.UpItem(player, _ItemSlot);
+			--NLG.UpChar(player);
+			Char.SetData(_CharIndex, CONST.å¯¹è±¡_å½¢è±¡, change_imageId);
 			NLG.UpChar(_CharIndex);
+		--elseif (change_imageId<=0 and UUID==UUID_check) then
 		elseif (change_imageId<=0) then
-			Char.SetData(_CharIndex, CONST.¶ÔÏó_ĞÎÏó, petImageId);
+			--local player = Pet.GetOwner(_CharIndex);
+			--Item.SetData(_petItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, nil);
+			--Item.UpItem(player, _petItemSlot);
+			--NLG.UpChar(player);
+			Char.SetData(_CharIndex, CONST.å¯¹è±¡_å½¢è±¡, petImageId);
 			NLG.UpChar(_CharIndex);
 		end
 	end
 end
 
---Ğ¶ÏÂÊ±
-function setItemReEffectData(_CharIndex, _ItemIndex, _ItemId, _Type)
-	if (_Type==58 or _Type==59) then	--CONST.µÀ¾ßÀàĞÍ_³èÎï×°¼×.CONST.µÀ¾ßÀàĞÍ_³èÎï·şÊÎ
-		local petImageId = Char.GetData(_CharIndex, CONST.¶ÔÏó_Ô­ĞÎ);		--CONST.¶ÔÏó_Ô­Ê¼Í¼µµ
+--å¸ä¸‹æ—¶
+function setItemReEffectData(_CharIndex, _petItemIndex, _petItemSlot, _ItemIndex, _ItemSlot)
+	local _ItemId = Item.GetData(_petItemIndex, CONST.é“å…·_ID);
+	local _Type = Item.GetData(_petItemIndex, CONST.é“å…·_ç±»å‹);
+	if (_Type==58 or _Type==59) then	--CONST.é“å…·ç±»å‹_å® ç‰©è£…ç”².CONST.é“å…·ç±»å‹_å® ç‰©æœé¥°
+		--local UUID = Pet.GetUUID(_CharIndex);
+		local petImageId = Char.GetData(_CharIndex, CONST.å¯¹è±¡_åŸå½¢);		--CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£
 		local change_imageId = skinImage_List[_ItemId][petImageId] or 0;
-		print(petImageId,change_imageId)
+		--local UUID_check = Item.GetData(_petItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°);
+		--print(petImageId,change_imageId)
+		--if (change_imageId>0 and UUID==UUID_check) then
 		if (change_imageId>0) then
-			print(petImageId)
-			Char.SetData(_CharIndex, CONST.¶ÔÏó_ĞÎÏó, petImageId);
+			--Item.SetData(_petItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, nil);
+			--Item.UpItem(_CharIndex, _petItemSlot);
+			--NLG.UpChar(_CharIndex);
+			Char.SetData(_CharIndex, CONST.å¯¹è±¡_å½¢è±¡, petImageId);
 			local player = Pet.GetOwner(_CharIndex);
 			Pet.UpPet(player, _CharIndex);
 			NLG.UpChar(player);
@@ -305,11 +318,11 @@ end
 
 function from62to10(result)
 	local dict = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--½øÖÆÊı
+		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--è¿›åˆ¶æ•°
 	local num = -1;
 	for i=1,62 do
 		if (tostring(dict[i])==result) then
-			num = i-1;
+			num = i;
 			return num
 		end
 	end
@@ -318,19 +331,20 @@ end
 
 function from10to62(num)
 	local dict = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--½øÖÆÊı
+		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};--è¿›åˆ¶æ•°
 	local result = ''
 	--local bin = ''
 	while num > 0 do
-		result = tostring(dict[(num % 62)+1]) .. result--È¡ÓàÊı²¢Æ´½Óµ½½øÖÆÊıµÄÇ°Ãæ
-		num = math.floor(num / 62)--Õû³ı62
+		result = tostring(dict[(num % 62)+1]) .. result--å–ä½™æ•°å¹¶æ‹¼æ¥åˆ°è¿›åˆ¶æ•°çš„å‰é¢
+		num = math.floor(num / 62)--æ•´é™¤62
 	end
 	return result
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
 
 return Module;
+
