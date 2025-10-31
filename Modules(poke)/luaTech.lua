@@ -1,8 +1,8 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('luaTech')
 
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleLuaSkillEvent', Func.bind(self.OnBattleLuaSkillEventCallback, self))
@@ -11,7 +11,7 @@ end
 
 
 function Module:OnBattleLuaSkillEventCallback(battleIndex, charIndex, SKLFunc, DMGFunc)
-  local charSide = Char.GetData(charIndex,CONST.¶ÔÏó_Õ½¶·Side);
+  local charSide = Char.GetData(charIndex,CONST.å¯¹è±¡_æˆ˜æ–—Side);
   local attkSlot = Char.GetData(charIndex,CONST.CHAR_BattleCom2);
   --print(charSide,attkSlot)
   local attkSlot = real_slot(battleIndex,attkSlot);
@@ -20,7 +20,7 @@ function Module:OnBattleLuaSkillEventCallback(battleIndex, charIndex, SKLFunc, D
   local tech_PM = Tech.GetData(techIndex, CONST.TECH_OPTION);
   local techlv = Tech.GetData(techIndex, CONST.TECH_NECESSARYLV);
   --local techrange = Tech.GetData(techIndex, CONST.TECH_TARGET);
-  --Ä¿˜ËŞD“Q³É¾Øê‡ÁĞ
+  --ç›®æ¨™è½‰æ›æˆçŸ©é™£åˆ—
   local attkSlot_list = {};
   if (attkSlot<20) then
     table.insert(attkSlot_list, attkSlot);
@@ -35,128 +35,136 @@ function Module:OnBattleLuaSkillEventCallback(battleIndex, charIndex, SKLFunc, D
   end
   local skillId = Tech.GetData(techIndex, CONST.TECH_SKILLID);
   local skillIndex = Skill.GetSkillIndex(skillId);
-  local skilltype = Skill.GetData(skillIndex, CONST.SKILL_WHICHASSORT);		--0±»„Ó 1‘ğôY 3Ä§·¨
+  local skilltype = Skill.GetData(skillIndex, CONST.SKILL_WHICHASSORT);		--0è¢«å‹• 1æˆ°é¬¥ 3é­”æ³•
 
-  --¾Øê‡ÁĞ¸÷Ä¿˜ËÑİ×g
+  --çŸ©é™£åˆ—å„ç›®æ¨™æ¼”è­¯
   table.forEach(attkSlot_list, function(e)
   local targetEnemy = Battle.GetPlayer(battleIndex, e);
   if (targetEnemy>0) then
-    --‚ûº¦¹«Ê½
+    --å‚·å®³å…¬å¼
     local dmg = calcDMG(skilltype,charIndex,targetEnemy);
-    --tech¿‚¼¯ºÏµÄskill
+    --techç¸½é›†åˆçš„skill
     local skilltech = math.floor(tonumber(userTechId)/100)
     --print(e,targetEnemy,skilltech)
     if (skilltech==2009) then
-      --¼¼ÄÜ„Ó®‹ˆD™n
-      --local techId = 200899+tonumber(techlv);
-      local techId = 3019+tonumber(techlv);
-      if e==attkSlot_list[1] then	--ÏŞ¶¨Ö»°lÒ»´Î²Å²»¿¨
+      --æŠ€èƒ½å‹•ç•«åœ–æª”
+      local techId = 200899+tonumber(techlv);
+      if e==attkSlot_list[1] then	--é™å®šåªç™¼ä¸€æ¬¡æ‰ä¸å¡
         SKLFunc(techId);
       end
-      --ï@Ê¾‚ûº¦Öµ
-      Char.SetData(targetEnemy,CONST.¶ÔÏó_Ñª,Char.GetData(targetEnemy,CONST.¶ÔÏó_Ñª)-dmg);
-      --¼¼ÄÜ„Ó®‹Ñİ×g(²»Í¬BM_FLAG)
+      --é¡¯ç¤ºå‚·å®³å€¼
+      Char.SetData(targetEnemy,CONST.å¯¹è±¡_è¡€,Char.GetData(targetEnemy,CONST.å¯¹è±¡_è¡€)-dmg);
+      --æŠ€èƒ½å‹•ç•«æ¼”è­¯(ä¸åŒBM_FLAG)
       local targetEnemy_Com1 = Char.GetData(targetEnemy,CONST.CHAR_BattleCom1);
       local targetEnemy_Com2 = Char.GetData(targetEnemy,CONST.CHAR_BattleCom2);
       local targetEnemy_Com3 = Char.GetData(targetEnemy,CONST.CHAR_BattleCom3);
+
+      local è¢«æ”»å‡»æ–¹æ”»åçŠ¶æ€ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_DamageReflec);
+      local è¢«æ”»å‡»æ–¹æ”»å¸çŠ¶æ€ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_DamageAbsrob);
+      local è¢«æ”»å‡»æ–¹æ”»æ— çŠ¶æ€ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_DamageVanish);
+      local è¢«æ”»å‡»æ–¹é­”å¸çŠ¶æ€ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_DamageMagicAbsrob);
+      local è¢«æ”»å‡»æ–¹é­”åçŠ¶æ€ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_DamageMagicReflec);
+      local è¢«æ”»å‡»æ–¹é­”æ— çŠ¶æ€ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_DamageMagicVanish);
+      local è¢«æ”»å‡»æ–¹æ¢å¤çŠ¶æ€ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_LpRecovery);
       --print(targetEnemy_Com1,targetEnemy_Com2,targetEnemy_Com3)
       if (targetEnemy_Com1==1 or targetEnemy_Com1==43) then		--GUARD=0x1.SPECIALGARD=0x2B
-        local cri_rate = Char.GetData(charIndex,CONST.¶ÔÏó_±ØÉ±);
+        local cri_rate = Char.GetData(charIndex,CONST.å¯¹è±¡_å¿…æ€);
         if ( cri_rate >= math.random(1,100) ) then
           local dmg = dmg*1.25;
-          if ( Char.GetData(targetEnemy,CONST.¶ÔÏó_Ñª)<=0 ) then
+          if ( Char.GetData(targetEnemy,CONST.å¯¹è±¡_è¡€)<=0 ) then
             if (targetEnemy_Com1==1) then
               local dmg = dmg*0.8;
-              DMGFunc(attkSlot,38,dmg);		--ËÀÍö0x20.±ØÉ±0x2.ÎïÀí·ÀÓù0x4
+              DMGFunc(attkSlot,38,dmg);		--æ­»äº¡0x20.å¿…æ€0x2.ç‰©ç†é˜²å¾¡0x4
             elseif (targetEnemy_Com1==43) then
               local dmg = dmg*0.5;
-              DMGFunc(attkSlot,1058,dmg);		--ËÀÍö0x20.±ØÉ±0x2.Â}¶Ü0x400
+              DMGFunc(attkSlot,1058,dmg);		--æ­»äº¡0x20.å¿…æ€0x2.è–ç›¾0x400
             end
-            Char.SetData(targetEnemy,CONST.¶ÔÏó_Õ½ËÀ,1);
+            Char.SetData(targetEnemy,CONST.å¯¹è±¡_æˆ˜æ­»,1);
           else
             if (targetEnemy_Com1==1) then
               local dmg = dmg*0.8;
-              DMGFunc(e,6,dmg);		--±Øš¢·À¶R
+              DMGFunc(e,6,dmg);		--å¿…æ®º0x2.é˜²ç¦¦0x4
             elseif (targetEnemy_Com1==43) then
               local dmg = dmg*0.5;
-              DMGFunc(e,1026,dmg);		--±Øš¢Â}¶Ü
+              DMGFunc(e,1026,dmg);		--å¿…æ®º0x2.è–ç›¾0x400
             end
           end
         else
-          if ( Char.GetData(targetEnemy,CONST.¶ÔÏó_Ñª)<=0 ) then
+          if ( Char.GetData(targetEnemy,CONST.å¯¹è±¡_è¡€)<=0 ) then
             if (targetEnemy_Com1==1) then
               local dmg = dmg*0.8;
-              DMGFunc(attkSlot,37,dmg);		--ËÀÍö0x20.ÆÕÍ¨0x1.ÎïÀí·ÀÓù0x4
+              DMGFunc(attkSlot,37,dmg);		--æ­»äº¡0x20.æ™®é€š0x1.ç‰©ç†é˜²å¾¡0x4
             elseif (targetEnemy_Com1==43) then
               local dmg = dmg*0.5;
-              DMGFunc(attkSlot,1057,dmg);		--ËÀÍö0x20.ÆÕÍ¨0x1.Â}¶Ü0x400
+              DMGFunc(attkSlot,1057,dmg);		--æ­»äº¡0x20.æ™®é€š0x1.è–ç›¾0x400
             end
-            Char.SetData(targetEnemy,CONST.¶ÔÏó_Õ½ËÀ,1);
+            Char.SetData(targetEnemy,CONST.å¯¹è±¡_æˆ˜æ­»,1);
           else
             if (targetEnemy_Com1==1) then
               local dmg = dmg*0.8;
-              DMGFunc(e,5,dmg);			--ÆÕÍ¨·À¶R
+              DMGFunc(e,5,dmg);			--æ™®é€š0x1.é˜²ç¦¦0x4
             elseif (targetEnemy_Com1==43) then
               local dmg = dmg*0.5;
-              DMGFunc(e,1025,dmg);		--ÆÕÍ¨Â}¶Ü
+              DMGFunc(e,1025,dmg);		--æ™®é€š0x1.è–ç›¾0x400
             end
           end
         end
-        --ÃüÖĞ•r½oÄ¿˜ËÔOÖÃ”µ“ş(ÌØÊâĞ§¹û)
-        Char.SetData(targetEnemy,CONST.¶ÔÏó_¹¥»÷Á¦, Char.GetData(targetEnemy,CONST.¶ÔÏó_¹¥»÷Á¦)-10);
-        Char.SetData(targetEnemy,CONST.CHAR_BattleModPoison,2);		--ÖĞ¶¾
-        Char.SetData(targetEnemy,CONST.¶ÔÏó_ENEMY_HeadGraNo,114175);
+        --å‘½ä¸­æ™‚çµ¦ç›®æ¨™è¨­ç½®æ•¸æ“š(ç‰¹æ®Šæ•ˆæœ)
+        Char.SetData(targetEnemy,CONST.å¯¹è±¡_æ”»å‡»åŠ›, Char.GetData(targetEnemy,CONST.å¯¹è±¡_æ”»å‡»åŠ›)-10);
+        Char.SetData(targetEnemy,CONST.CHAR_BattleModPoison,2);		--ä¸­æ¯’
+        Char.SetData(targetEnemy,CONST.å¯¹è±¡_ENEMY_HeadGraNo,114175);
         NLG.UpChar(targetEnemy);
         NLG.UpChar(charIndex);
       elseif (targetEnemy_Com1==19 or targetEnemy_Com1==41) then		--EDGE=0x13.P_DODGE=0x29
         if (targetEnemy_Com1==41) then 
-          DMGFunc(e,256,0);		--ê–Ñ×éW±Ü
+          DMGFunc(e,257,0);		--æ™®é€š0x1.é™½ç‚é–ƒé¿0x100
         else 
-          DMGFunc(e,8,0);		--ÆÕÍ¨éW±Ü
+          DMGFunc(e,9,0);		--æ™®é€š0x1.é–ƒé¿0x8
         end
-      elseif (skilltype==1 and (targetEnemy_Com1==51 or targetEnemy_Com1==52 or targetEnemy_Com1==53)) then		--¹¥·´ÎüŸo0x33~0x35
-        if (targetEnemy_Com1==51) then DMGFunc(e,8192,0); end
-        if (targetEnemy_Com1==52) then DMGFunc(e,16384,0); end
-        if (targetEnemy_Com1==53) then DMGFunc(e,32768,0); end
-      elseif (skilltype==3 and (targetEnemy_Com1==54 or targetEnemy_Com1==55 or targetEnemy_Com1==56)) then		--Ä§Îü·´Ÿo0x36~0x38
-        if (targetEnemy_Com1==54) then DMGFunc(e,65536,0); end
-        if (targetEnemy_Com1==55) then DMGFunc(e,131072,0); end
-        if (targetEnemy_Com1==56) then DMGFunc(e,262144,0); end
+      --æŠ€èƒ½è¦ä¸è§¸ç™¼å·«è¡“ä»¥ä¸‹elseifè¨»è§£çœç•¥
+      elseif (skilltype==1 and (è¢«æ”»å‡»æ–¹æ”»åçŠ¶æ€>=1 or è¢«æ”»å‡»æ–¹æ”»å¸çŠ¶æ€>=1 or è¢«æ”»å‡»æ–¹æ”»æ— çŠ¶æ€>=1)) then		--BATTLE_COMæ”»åå¸ç„¡0x33~0x35
+        if (è¢«æ”»å‡»æ–¹æ”»åçŠ¶æ€>=1) then DMGFunc(e,8193,0); end		--æ™®é€š0x1.æ”»å0x2000
+        if (è¢«æ”»å‡»æ–¹æ”»å¸çŠ¶æ€>=1) then DMGFunc(e,16385,0); end		--æ™®é€š0x1.æ”»å¸0x4000
+        if (è¢«æ”»å‡»æ–¹æ”»æ— çŠ¶æ€>=1) then DMGFunc(e,32769,0); end		--æ™®é€š0x1.æ”»æ— 0x8000
+      elseif (skilltype==3 and (è¢«æ”»å‡»æ–¹é­”åçŠ¶æ€>=1 or è¢«æ”»å‡»æ–¹é­”å¸çŠ¶æ€>=1 or è¢«æ”»å‡»æ–¹é­”æ— çŠ¶æ€>=1)) then		--BATTLE_COMé­”å¸åç„¡0x36~0x38
+        if (è¢«æ”»å‡»æ–¹é­”åçŠ¶æ€>=1) then DMGFunc(e,65537,0); end		--æ™®é€š0x1.é­”å0x10000
+        if (è¢«æ”»å‡»æ–¹é­”å¸çŠ¶æ€>=1) then DMGFunc(e,131073,0); end		--æ™®é€š0x1.é­”å¸0x20000
+        if (è¢«æ”»å‡»æ–¹é­”æ— çŠ¶æ€>=1) then DMGFunc(e,262145,0); end		--æ™®é€š0x1.é­”æ— 0x40000
       else
-        --·Ç·À¶R¡¢Â}¶Ü“ôÖĞ•r(ƒÈ½¨²»ÄÜ×oĞl¡¢·´“ô)
-        local cri_rate = Char.GetData(charIndex,CONST.¶ÔÏó_±ØÉ±);
+        --éé˜²ç¦¦ã€è–ç›¾æ“Šä¸­æ™‚(å…§å»ºä¸èƒ½è­·è¡›ã€åæ“Š)
+        local cri_rate = Char.GetData(charIndex,CONST.å¯¹è±¡_å¿…æ€);
         if ( cri_rate >= math.random(1,100) ) then
           local dmg = dmg*1.25;
-          if ( Char.GetData(targetEnemy,CONST.¶ÔÏó_Ñª)<=0 ) then
-            if (dmg >= 2*Char.GetData(targetEnemy,CONST.¶ÔÏó_×î´óÑª)) then
+          if ( Char.GetData(targetEnemy,CONST.å¯¹è±¡_è¡€)<=0 ) then
+            if (dmg >= 2*Char.GetData(targetEnemy,CONST.å¯¹è±¡_æœ€å¤§è¡€)) then
               local AKO = math.random(1,2);
               if AKO==1 then DMGFunc(attkSlot,97,dmg); end
               if AKO==2 then DMGFunc(attkSlot,162,dmg); end
             else
-              DMGFunc(attkSlot,34,dmg);		--ËÀÍö0x20.±ØÉ±0x2
+              DMGFunc(attkSlot,34,dmg);		--æ­»äº¡0x20.å¿…æ€0x2
             end
-            Char.SetData(targetEnemy,CONST.¶ÔÏó_Õ½ËÀ,1);
+            Char.SetData(targetEnemy,CONST.å¯¹è±¡_æˆ˜æ­»,1);
           else
-            DMGFunc(e,2,dmg);		--±Øš¢
+            DMGFunc(e,2,dmg);		--å¿…æ®º
           end
         else
-          if ( Char.GetData(targetEnemy,CONST.¶ÔÏó_Ñª)<=0 ) then
-            if (dmg >= 2*Char.GetData(targetEnemy,CONST.¶ÔÏó_×î´óÑª)) then
+          if ( Char.GetData(targetEnemy,CONST.å¯¹è±¡_è¡€)<=0 ) then
+            if (dmg >= 2*Char.GetData(targetEnemy,CONST.å¯¹è±¡_æœ€å¤§è¡€)) then
               local AKO = math.random(1,2);
               if AKO==1 then DMGFunc(attkSlot,97,dmg); end
               if AKO==2 then DMGFunc(attkSlot,161,dmg); end
             else
-              DMGFunc(attkSlot,33,dmg);		--ËÀÍö0x20.ÆÕÍ¨0x1
+              DMGFunc(attkSlot,33,dmg);		--æ­»äº¡0x20.æ™®é€š0x1
             end
-            Char.SetData(targetEnemy,CONST.¶ÔÏó_Õ½ËÀ,1);
+            Char.SetData(targetEnemy,CONST.å¯¹è±¡_æˆ˜æ­»,1);
           else
-            DMGFunc(e,1,dmg);		--ÆÕÍ¨
+            DMGFunc(e,1,dmg);		--æ™®é€š
           end
         end
-        --ÃüÖĞ•r½oÄ¿˜ËÔOÖÃ”µ“ş(ÌØÊâĞ§¹û)
-        Char.SetData(targetEnemy,CONST.¶ÔÏó_¹¥»÷Á¦, Char.GetData(targetEnemy,CONST.¶ÔÏó_¹¥»÷Á¦)-10);
-        Char.SetData(targetEnemy,CONST.CHAR_BattleModPoison,2);		--ÖĞ¶¾
-        Char.SetData(targetEnemy,CONST.¶ÔÏó_ENEMY_HeadGraNo,114175);
+        --å‘½ä¸­æ™‚çµ¦ç›®æ¨™è¨­ç½®æ•¸æ“š(ç‰¹æ®Šæ•ˆæœ)
+        Char.SetData(targetEnemy,CONST.å¯¹è±¡_æ”»å‡»åŠ›, Char.GetData(targetEnemy,CONST.å¯¹è±¡_æ”»å‡»åŠ›)-10);
+        Char.SetData(targetEnemy,CONST.CHAR_BattleModPoison,2);		--ä¸­æ¯’
+        Char.SetData(targetEnemy,CONST.å¯¹è±¡_ENEMY_HeadGraNo,114175);
         NLG.UpChar(targetEnemy);
         NLG.UpChar(charIndex);
       end
@@ -219,59 +227,59 @@ function calcTarget(attkSlot)
 end
 
 function calcDMG(skilltype,charIndex,targetEnemy)
-    if (skilltype==1) then	--ÎïÀí‚ûº¦»ùµA¹«Ê½
-      local ¼¼ÄÜ¹¥»÷¼Ó³É = 100;	--Battle.GetTechOption(charIndex, DD:)
-      local ¼¼ÄÜ·ÀÓù¼Ó³É = 100;
-      local Ãæ°å¹¥»÷ = Char.GetData(charIndex,CONST.¶ÔÏó_¹¥»÷Á¦);
-      local Ãæ°å·ÀÓù = Char.GetData(targetEnemy,CONST.¶ÔÏó_·ÀÓùÁ¦);
-      local ¹¥»÷·½×îÖÕ¹¥»÷ = math.ceil((¼¼ÄÜ¹¥»÷¼Ó³É)/ 100 * Ãæ°å¹¥»÷ + Ãæ°å¹¥»÷);
-      local ±»¹¥»÷·½×îÖÕ·ÀÓù = math.ceil((¼¼ÄÜ·ÀÓù¼Ó³É) / 100 * Ãæ°å·ÀÓù + Ãæ°å·ÀÓù);
-      if ¹¥»÷·½×îÖÕ¹¥»÷>241 then ×îÖÕ¹¥»÷ = math.ceil((¹¥»÷·½×îÖÕ¹¥»÷-241)*0.3+241); else ×îÖÕ¹¥»÷=¹¥»÷·½×îÖÕ¹¥»÷; end
-      if ±»¹¥»÷·½×îÖÕ·ÀÓù>241 then ×îÖÕ·ÀÓù = math.ceil((±»¹¥»÷·½×îÖÕ·ÀÓù-241)*0.3+241); else ×îÖÕ·ÀÓù=±»¹¥»÷·½×îÖÕ·ÀÓù; end
-      local ÉËº¦ = (×îÖÕ¹¥»÷*×îÖÕ¹¥»÷) / ( ×îÖÕ¹¥»÷/3+×îÖÕ·ÀÓù );
+    if (skilltype==1) then	--ç‰©ç†å‚·å®³åŸºç¤å…¬å¼
+      local æŠ€èƒ½æ”»å‡»åŠ æˆ = 100;	--Battle.GetTechOption(charIndex, DD:)
+      local æŠ€èƒ½é˜²å¾¡åŠ æˆ = 100;
+      local é¢æ¿æ”»å‡» = Char.GetData(charIndex,CONST.å¯¹è±¡_æ”»å‡»åŠ›);
+      local é¢æ¿é˜²å¾¡ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_é˜²å¾¡åŠ›);
+      local æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡» = math.ceil((æŠ€èƒ½æ”»å‡»åŠ æˆ)/ 100 * é¢æ¿æ”»å‡» + é¢æ¿æ”»å‡»);
+      local è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡ = math.ceil((æŠ€èƒ½é˜²å¾¡åŠ æˆ) / 100 * é¢æ¿é˜²å¾¡ + é¢æ¿é˜²å¾¡);
+      if æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡»>241 then æœ€ç»ˆæ”»å‡» = math.ceil((æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡»-241)*0.3+241); else æœ€ç»ˆæ”»å‡»=æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡»; end
+      if è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡>241 then æœ€ç»ˆé˜²å¾¡ = math.ceil((è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡-241)*0.3+241); else æœ€ç»ˆé˜²å¾¡=è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡; end
+      local ä¼¤å®³ = (æœ€ç»ˆæ”»å‡»*æœ€ç»ˆæ”»å‡») / ( æœ€ç»ˆæ”»å‡»/3+æœ€ç»ˆé˜²å¾¡ );
 
       local ap = {}
-      ap[1] = Char.GetData(charIndex, CONST.¶ÔÏó_µØÊôĞÔ);
-      ap[2] = Char.GetData(charIndex, CONST.¶ÔÏó_Ë®ÊôĞÔ);
-      ap[3] = Char.GetData(charIndex, CONST.¶ÔÏó_»ğÊôĞÔ);
-      ap[4] = Char.GetData(charIndex, CONST.¶ÔÏó_·çÊôĞÔ);
+      ap[1] = Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å±æ€§);
+      ap[2] = Char.GetData(charIndex, CONST.å¯¹è±¡_æ°´å±æ€§);
+      ap[3] = Char.GetData(charIndex, CONST.å¯¹è±¡_ç«å±æ€§);
+      ap[4] = Char.GetData(charIndex, CONST.å¯¹è±¡_é£å±æ€§);
       local dp = {}
-      dp[1] = Char.GetData(charIndex, CONST.¶ÔÏó_µØÊôĞÔ);
-      dp[2] = Char.GetData(charIndex, CONST.¶ÔÏó_Ë®ÊôĞÔ);
-      dp[3] = Char.GetData(charIndex, CONST.¶ÔÏó_»ğÊôĞÔ);
-      dp[4] = Char.GetData(charIndex, CONST.¶ÔÏó_·çÊôĞÔ);
-      local ŒÙĞÔ„wÖÆ = Battle.CalcPropScore(ap, dp);
-      local ·N×å„wÖÆ = Battle.CalcAttributeDmgRate(charIndex,targetEnemy);
-      --print(ŒÙĞÔ„wÖÆ,·N×å„wÖÆ)
-      local dmg = ÉËº¦ * ( 100 + ŒÙĞÔ„wÖÆ + ·N×å„wÖÆ ) / 100 * NLG.Rand(90,110) / 100 * math.ceil( 1 * 1 *  1.15 * ( 100 - 0 ) / 100 );		--‚ûº¦ * ( 100 + ŒÙĞÔ„wÖÆ + ·N×å„wÖÆ ) / 100 * rand(90,110) / 100 * [ Ê¯»¯ÕÛ¿ÛÂÊ * Ò°Íâ‚S”µ±¶ÂÊ *  ÎäÆ÷‚ûº¦±¶ÂÊ * ( 100 - Æí¶\‚ûº¦œp‚û ) / 100 ]
+      dp[1] = Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å±æ€§);
+      dp[2] = Char.GetData(charIndex, CONST.å¯¹è±¡_æ°´å±æ€§);
+      dp[3] = Char.GetData(charIndex, CONST.å¯¹è±¡_ç«å±æ€§);
+      dp[4] = Char.GetData(charIndex, CONST.å¯¹è±¡_é£å±æ€§);
+      local å±¬æ€§å‰‹åˆ¶ = Battle.CalcPropScore(ap, dp);
+      local ç¨®æ—å‰‹åˆ¶ = Battle.CalcAttributeDmgRate(charIndex,targetEnemy);
+      --print(å±¬æ€§å‰‹åˆ¶,ç¨®æ—å‰‹åˆ¶)
+      local dmg = ä¼¤å®³ * ( 100 + å±¬æ€§å‰‹åˆ¶ + ç¨®æ—å‰‹åˆ¶ ) / 100 * NLG.Rand(90,110) / 100 * math.ceil( 1 * 1 *  1.15 * ( 100 - 0 ) / 100 );		--å‚·å®³ * ( 100 + å±¬æ€§å‰‹åˆ¶ + ç¨®æ—å‰‹åˆ¶ ) / 100 * rand(90,110) / 100 * [ çŸ³åŒ–æŠ˜æ‰£ç‡ * é‡å¤–ä¿‚æ•¸å€ç‡ *  æ­¦å™¨å‚·å®³å€ç‡ * ( 100 - ç¥ˆç¦±å‚·å®³æ¸›å‚· ) / 100 ]
       local dmg = math.floor(dmg);
       if (dmg<0) then dmg=20*(NLG.Rand(90,110)/100); end
       return dmg
-    elseif (skilltype==3) then	--Ä§·¨‚ûº¦»ùµA¹«Ê½
-      local ¼¼ÄÜ¹¥»÷¼Ó³É = 100;	--Battle.GetTechOption(charIndex, AR:)
-      local ¼¼ÄÜ·ÀÓù¼Ó³É = 100;
-      local Ãæ°å¹¥»÷ = Char.GetData(charIndex,CONST.¶ÔÏó_¾«Éñ);
-      local Ãæ°å·ÀÓù = Char.GetData(targetEnemy,CONST.¶ÔÏó_·ÀÓùÁ¦)*0.5 + Char.GetData(targetEnemy,CONST.¶ÔÏó_¾«Éñ)*1.15;
-      local ¹¥»÷·½×îÖÕ¹¥»÷ = math.ceil((¼¼ÄÜ¹¥»÷¼Ó³É)/ 100 * Ãæ°å¹¥»÷ + Ãæ°å¹¥»÷);
-      local ±»¹¥»÷·½×îÖÕ·ÀÓù = math.ceil((¼¼ÄÜ·ÀÓù¼Ó³É) / 100 * Ãæ°å·ÀÓù + Ãæ°å·ÀÓù);
-      if ¹¥»÷·½×îÖÕ¹¥»÷>241 then ×îÖÕ¹¥»÷ = math.ceil((¹¥»÷·½×îÖÕ¹¥»÷-241)*0.3+241); else ×îÖÕ¹¥»÷=¹¥»÷·½×îÖÕ¹¥»÷; end
-      if ±»¹¥»÷·½×îÖÕ·ÀÓù>241 then ×îÖÕ·ÀÓù = math.ceil((±»¹¥»÷·½×îÖÕ·ÀÓù-241)*0.3+241); else ×îÖÕ·ÀÓù=±»¹¥»÷·½×îÖÕ·ÀÓù; end
-      local ÉËº¦ = (×îÖÕ¹¥»÷*×îÖÕ¹¥»÷) / ( ×îÖÕ¹¥»÷/3+×îÖÕ·ÀÓù );
+    elseif (skilltype==3) then	--é­”æ³•å‚·å®³åŸºç¤å…¬å¼
+      local æŠ€èƒ½æ”»å‡»åŠ æˆ = 100;	--Battle.GetTechOption(charIndex, AR:)
+      local æŠ€èƒ½é˜²å¾¡åŠ æˆ = 100;
+      local é¢æ¿æ”»å‡» = Char.GetData(charIndex,CONST.å¯¹è±¡_ç²¾ç¥);
+      local é¢æ¿é˜²å¾¡ = Char.GetData(targetEnemy,CONST.å¯¹è±¡_é˜²å¾¡åŠ›)*0.5 + Char.GetData(targetEnemy,CONST.å¯¹è±¡_ç²¾ç¥)*1.15;
+      local æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡» = math.ceil((æŠ€èƒ½æ”»å‡»åŠ æˆ)/ 100 * é¢æ¿æ”»å‡» + é¢æ¿æ”»å‡»);
+      local è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡ = math.ceil((æŠ€èƒ½é˜²å¾¡åŠ æˆ) / 100 * é¢æ¿é˜²å¾¡ + é¢æ¿é˜²å¾¡);
+      if æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡»>241 then æœ€ç»ˆæ”»å‡» = math.ceil((æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡»-241)*0.3+241); else æœ€ç»ˆæ”»å‡»=æ”»å‡»æ–¹æœ€ç»ˆæ”»å‡»; end
+      if è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡>241 then æœ€ç»ˆé˜²å¾¡ = math.ceil((è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡-241)*0.3+241); else æœ€ç»ˆé˜²å¾¡=è¢«æ”»å‡»æ–¹æœ€ç»ˆé˜²å¾¡; end
+      local ä¼¤å®³ = (æœ€ç»ˆæ”»å‡»*æœ€ç»ˆæ”»å‡») / ( æœ€ç»ˆæ”»å‡»/3+æœ€ç»ˆé˜²å¾¡ );
 
       local ap = {}
-      ap[1] = Char.GetData(charIndex, CONST.¶ÔÏó_µØÊôĞÔ);
-      ap[2] = Char.GetData(charIndex, CONST.¶ÔÏó_Ë®ÊôĞÔ);
-      ap[3] = Char.GetData(charIndex, CONST.¶ÔÏó_»ğÊôĞÔ);
-      ap[4] = Char.GetData(charIndex, CONST.¶ÔÏó_·çÊôĞÔ);
+      ap[1] = Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å±æ€§);
+      ap[2] = Char.GetData(charIndex, CONST.å¯¹è±¡_æ°´å±æ€§);
+      ap[3] = Char.GetData(charIndex, CONST.å¯¹è±¡_ç«å±æ€§);
+      ap[4] = Char.GetData(charIndex, CONST.å¯¹è±¡_é£å±æ€§);
       local dp = {}
-      dp[1] = Char.GetData(charIndex, CONST.¶ÔÏó_µØÊôĞÔ);
-      dp[2] = Char.GetData(charIndex, CONST.¶ÔÏó_Ë®ÊôĞÔ);
-      dp[3] = Char.GetData(charIndex, CONST.¶ÔÏó_»ğÊôĞÔ);
-      dp[4] = Char.GetData(charIndex, CONST.¶ÔÏó_·çÊôĞÔ);
-      local ŒÙĞÔ„wÖÆ = Battle.CalcPropScore(ap, dp);
-      local ·N×å„wÖÆ = Battle.CalcAttributeDmgRate(charIndex,targetEnemy);
-      --print(ŒÙĞÔ„wÖÆ,·N×å„wÖÆ)
-      local dmg = ÉËº¦ * ( 100 + (ŒÙĞÔ„wÖÆ*1.2) + ·N×å„wÖÆ ) / 100 * NLG.Rand(90,110) / 100 * math.ceil( 1 * 1 *  1.15 * ( 100 - 0 ) / 100 );		--‚ûº¦ * ( 100 + ŒÙĞÔ„wÖÆ + ·N×å„wÖÆ ) / 100 * rand(90,110) / 100 * [ Ê¯»¯ÕÛ¿ÛÂÊ * Ò°Íâ‚S”µ±¶ÂÊ *  ÎäÆ÷‚ûº¦±¶ÂÊ * ( 100 - Æí¶\‚ûº¦œp‚û ) / 100 ]
+      dp[1] = Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å±æ€§);
+      dp[2] = Char.GetData(charIndex, CONST.å¯¹è±¡_æ°´å±æ€§);
+      dp[3] = Char.GetData(charIndex, CONST.å¯¹è±¡_ç«å±æ€§);
+      dp[4] = Char.GetData(charIndex, CONST.å¯¹è±¡_é£å±æ€§);
+      local å±¬æ€§å‰‹åˆ¶ = Battle.CalcPropScore(ap, dp);
+      local ç¨®æ—å‰‹åˆ¶ = Battle.CalcAttributeDmgRate(charIndex,targetEnemy);
+      --print(å±¬æ€§å‰‹åˆ¶,ç¨®æ—å‰‹åˆ¶)
+      local dmg = ä¼¤å®³ * ( 100 + (å±¬æ€§å‰‹åˆ¶*1.2) + ç¨®æ—å‰‹åˆ¶ ) / 100 * NLG.Rand(90,110) / 100 * math.ceil( 1 * 1 *  1.15 * ( 100 - 0 ) / 100 );		--å‚·å®³ * ( 100 + å±¬æ€§å‰‹åˆ¶ + ç¨®æ—å‰‹åˆ¶ ) / 100 * rand(90,110) / 100 * [ çŸ³åŒ–æŠ˜æ‰£ç‡ * é‡å¤–ä¿‚æ•¸å€ç‡ *  æ­¦å™¨å‚·å®³å€ç‡ * ( 100 - ç¥ˆç¦±å‚·å®³æ¸›å‚· ) / 100 ]
       local dmg = math.floor(dmg);
       if (dmg<0) then dmg=20*(NLG.Rand(90,110)/100); end
       return dmg
@@ -279,7 +287,7 @@ function calcDMG(skilltype,charIndex,targetEnemy)
     return 1
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
