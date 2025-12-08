@@ -1,48 +1,48 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('playerShop')
 
 local Open = 0;
 local StreetPedlar = {
-      { shopType=1, shopName="Ğ¡‚Ü", shopDesc="Š´óµÄŒ™Îï", shopImage=105002, shopArea={map=1000,X=227,Y=86,dir=6,action=12},
+      { shopType=1, shopName="å°å‚‘", shopDesc="å¼·å¤§çš„å¯µç‰©", shopImage=105002, shopArea={map=1000,X=227,Y=86,dir=6,action=12},
          itemList={}, itemPriceList={},
          petList={314,314,314,314}, petPriceList={1000,1000,1000,1000} },
-      { shopType=2, shopName="„PÆ", shopDesc="±ãÒËµÄµÍµÈÎäÆ÷", shopImage=105028, shopArea={map=1000,X=231,Y=108,dir=4,action=11},
+      { shopType=2, shopName="å‡±èŒ²", shopDesc="ä¾¿å®œçš„ä½ç­‰æ­¦å™¨", shopImage=105028, shopArea={map=1000,X=231,Y=108,dir=4,action=11},
          itemList={18,18,18,18,18,22,22,22,22,22}, itemPriceList={800,800,800,800,800,1000,1000,1000,1000,1000},
          petList={}, petPriceList={} },
-      { shopType=3, shopName="Î÷¶÷", shopDesc="±ãÒËµÄµÍµÈÎäÆ÷", shopImage=105053, shopArea={map=1000,X=229,Y=108,dir=4,action=11},
+      { shopType=3, shopName="è¥¿æ©", shopDesc="ä¾¿å®œçš„ä½ç­‰æ­¦å™¨", shopImage=105053, shopArea={map=1000,X=229,Y=108,dir=4,action=11},
          itemList={809,809,809,809,809,2002,2002,2002,2002,2002}, itemPriceList={1000,1000,1000,1000,1000,800,800,800,800,800},
          petList={}, petPriceList={} },
-      { shopType=4, shopName="Ğ¡ÅÖ", shopDesc="±ãÒËµÄÁÏÀí", shopImage=105075, shopArea={map=1000,X=219,Y=91,dir=0,action=0},
+      { shopType=4, shopName="å°èƒ–", shopDesc="ä¾¿å®œçš„æ–™ç†", shopImage=105075, shopArea={map=1000,X=219,Y=91,dir=0,action=0},
          itemList={15203,15203,15203,15203,15203,15203,15203,15203,15203,15203}, itemPriceList={600,600,600,600,600,600,600,600,600,600},
          petList={}, petPriceList={} },
-      { shopType=5, shopName="¹¦·òĞ¡×Ó", shopDesc="Š´óµÄŒ™Îï", shopImage=105102, shopArea={map=1000,X=227,Y=88,dir=6,action=9},
+      { shopType=5, shopName="åŠŸå¤«å°å­", shopDesc="å¼·å¤§çš„å¯µç‰©", shopImage=105102, shopArea={map=1000,X=227,Y=88,dir=6,action=9},
          itemList={}, itemPriceList={},
          petList={321,321,321,321}, petPriceList={2000,2000,2000,2000} },
-      { shopType=6, shopName="ØÒÀ", shopDesc="ºÃÓÃµÄËË®", shopImage=105129, shopArea={map=1000,X=219,Y=89,dir=6,action=0},
+      { shopType=6, shopName="è²ä¾", shopDesc="å¥½ç”¨çš„è—¥æ°´", shopImage=105129, shopArea={map=1000,X=219,Y=89,dir=6,action=0},
          itemList={15607,15607,15607,15607,15607,15607,15607,15607,15607,15607}, itemPriceList={450,450,450,450,450,450,450,450,450,450},
          petList={}, petPriceList={} },
-      { shopType=7, shopName="ĞÜÄĞ", shopDesc="Š´óµÄŒ™Îï", shopImage=105150, shopArea={map=1000,X=227,Y=90,dir=6,action=0},
+      { shopType=7, shopName="ç†Šç”·", shopDesc="å¼·å¤§çš„å¯µç‰©", shopImage=105150, shopArea={map=1000,X=227,Y=90,dir=6,action=0},
          itemList={}, itemPriceList={},
          petList={722,722,722}, petPriceList={3000,3000,3000} },
 
-      { shopType=8, shopName="õ‡£", shopDesc="ğ¤ºôºôµÄŒ™Îï", shopImage=105251, shopArea={map=1000,X=240,Y=86,dir=6,action=6},
+      { shopType=8, shopName="çƒåš•", shopDesc="é»å‘¼å‘¼çš„å¯µç‰©", shopImage=105251, shopArea={map=1000,X=240,Y=86,dir=6,action=6},
          itemList={2823,2823,2823}, itemPriceList={1400,1400,1400},
          petList={501,501,502,502}, petPriceList={200,200,500,500} },
-      { shopType=9, shopName="ĞÄÃÀ", shopDesc="ÎÒÊÇÖÆÕÈŸ", shopImage=105279, shopArea={map=1000,X=233,Y=114,dir=6,action=11},
+      { shopType=9, shopName="å¿ƒç¾", shopDesc="æˆ‘æ˜¯åˆ¶æ–å¸«", shopImage=105279, shopArea={map=1000,X=233,Y=114,dir=6,action=11},
          itemList={2404,2413,2447,2447,2449,2449,2449,2449,2449,2449}, itemPriceList={440,900,1600,1600,2200,2200,2200,2200,2200,2200},
          petList={}, petPriceList={} },
 }
 ------------------------------------------------
-local FTime = os.time();			--Ê±¼ä±í
+local FTime = os.time();			--æ—¶é—´è¡¨
 tbl_StreetPedlarNPCIndex = tbl_StreetPedlarNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
 
   self:regCallback('LoopEvent', Func.bind(self.StreetPedlar_LoopEvent,self))
-  MarketNPC = self:NPC_createNormal('¼ÙÈËÉÌµêÑaØ›', 99262, { map = 777, x = 34, y = 35, direction = 0, mapType = 0 })
+  MarketNPC = self:NPC_createNormal('å‡äººå•†åº—è£œè²¨', 99262, { map = 777, x = 34, y = 35, direction = 0, mapType = 0 })
   Char.SetLoopEvent('./lua/Modules/playerShop.lua','StreetPedlar_LoopEvent',MarketNPC, 1000);
   self:NPC_regWindowTalkedEvent(MarketNPC, function(npc, player, _seqno, _select, _data)
   end)
@@ -65,18 +65,18 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			end
 			local shopIndex = Char.CreateDummy()
 			tbl_StreetPedlarNPCIndex[k] = shopIndex;
-			Char.SetData(shopIndex,CONST.¶ÔÏó_µÈ¼¶, NLG.Rand(10, 100));
-			Char.SetData(shopIndex,CONST.¶ÔÏó_Ãû×Ö, v.shopName);
-			Char.SetData(shopIndex,CONST.¶ÔÏó_ĞÎÏó, v.shopImage);
-			Char.SetData(shopIndex,CONST.¶ÔÏó_Ô­ĞÎ, v.shopImage);
-			Char.SetData(shopIndex,CONST.¶ÔÏó_·½Ïò, v.shopArea.dir);
+			Char.SetData(shopIndex,CONST.å¯¹è±¡_ç­‰çº§, NLG.Rand(10, 100));
+			Char.SetData(shopIndex,CONST.å¯¹è±¡_åå­—, v.shopName);
+			Char.SetData(shopIndex,CONST.å¯¹è±¡_å½¢è±¡, v.shopImage);
+			Char.SetData(shopIndex,CONST.å¯¹è±¡_åŸå½¢, v.shopImage);
+			Char.SetData(shopIndex,CONST.å¯¹è±¡_æ–¹å‘, v.shopArea.dir);
 			Char.Warp(shopIndex, 0, v.shopArea.map, v.shopArea.X, v.shopArea.Y);
 			NLG.SetAction(shopIndex, v.shopArea.action);
 			NLG.UpChar(shopIndex);
 			if (#v.itemList>=1) then
 				for i=1,#v.itemList do
 					local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
-					Item.SetData(GoodsIndex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1);
+					Item.SetData(GoodsIndex,CONST.é“å…·_å·²é‰´å®š,1);
 					Item.UpItem(shopIndex,-1);
 					NLG.SortItem(shopIndex);
 				end
@@ -84,24 +84,24 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			if (#v.petList>=1) then
 				for i=1,#v.petList do
 					local petIndex= Char.AddPet(shopIndex, v.petList[i]);
-					local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_Ìå³É);
-					local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_Á¦³É);
-					local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_Ç¿³É);
-					local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_Ãô³É);
-					local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_Ä§³É);
+					local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+					local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+					local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+					local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+					local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
 					local petname = arr_rank1..","..arr_rank2..","..arr_rank3..","..arr_rank4..","..arr_rank5;
-					Char.SetData(petIndex,CONST.¶ÔÏó_Ãû×Ö, petname);
+					Char.SetData(petIndex,CONST.å¯¹è±¡_åå­—, petname);
 					Pet.UpPet(shopIndex,petIndex);
-					local petName = Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö);
-					local petImage = Char.GetData(petIndex,CONST.¶ÔÏó_ĞÎÏó);
+					local petName = Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—);
+					local petImage = Char.GetData(petIndex,CONST.å¯¹è±¡_å½¢è±¡);
 					local petUUID = Pet.GetUUID(petIndex);
 					local displayIndex = Char.CreateDummy()
-					Char.SetData(displayIndex,CONST.¶ÔÏó_Ãû×Ö, petName);
-					Char.SetData(displayIndex,CONST.¶ÔÏó_ĞÎÏó, petImage);
-					Char.SetData(displayIndex,CONST.¶ÔÏó_Ô­ĞÎ, petImage);
-					Char.SetData(displayIndex,CONST.¶ÔÏó_Ô­Ê¼Í¼µµ, petImage);
-					Char.SetData(displayIndex,CONST.¶ÔÏó_·½Ïò, v.shopArea.dir);
-					Char.SetData(displayIndex,CONST.¶ÔÏó_ÕËºÅ, petUUID);
+					Char.SetData(displayIndex,CONST.å¯¹è±¡_åå­—, petName);
+					Char.SetData(displayIndex,CONST.å¯¹è±¡_å½¢è±¡, petImage);
+					Char.SetData(displayIndex,CONST.å¯¹è±¡_åŸå½¢, petImage);
+					Char.SetData(displayIndex,CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£, petImage);
+					Char.SetData(displayIndex,CONST.å¯¹è±¡_æ–¹å‘, v.shopArea.dir);
+					Char.SetData(displayIndex,CONST.å¯¹è±¡_è´¦å·, petUUID);
 					Char.Warp(displayIndex, 0, v.shopArea.map, v.shopArea.X+i, v.shopArea.Y);
 					NLG.UpChar(displayIndex);
 				end
@@ -122,8 +122,8 @@ function StreetPedlar_LoopEvent(npc)
 		for k,v in pairs(StreetPedlar) do
 			if (k==v.shopType) then
 				local shopIndex = tbl_StreetPedlarNPCIndex[k];
-				--Çå¿Õ´æ»õ
-				for i = 8,Char.GetData(shopIndex,CONST.¶ÔÏó_µÀ¾ßÀ¸)-1 do
+				--æ¸…ç©ºå­˜è´§
+				for i = 8,Char.GetData(shopIndex,CONST.å¯¹è±¡_é“å…·æ )-1 do
 					local itemIndex = Char.GetItemIndex(shopIndex,i);
 					if (itemIndex > -1) then
 						Item.Kill(shopIndex,itemIndex,i);
@@ -132,23 +132,23 @@ function StreetPedlar_LoopEvent(npc)
 				for i = 0,4 do
 					local petIndex = Char.GetPet(shopIndex,i);
 					local petUUID = Pet.GetUUID(petIndex);
-					local FloorId = Char.GetData(shopIndex,CONST.¶ÔÏó_µØÍ¼);
-					local X = Char.GetData(shopIndex,CONST.¶ÔÏó_X);
-					local Y = Char.GetData(shopIndex,CONST.¶ÔÏó_Y);
+					local FloorId = Char.GetData(shopIndex,CONST.å¯¹è±¡_åœ°å›¾);
+					local X = Char.GetData(shopIndex,CONST.å¯¹è±¡_X);
+					local Y = Char.GetData(shopIndex,CONST.å¯¹è±¡_Y);
 					local num,tbl = Obj.GetObject(0,FloorId,X+1+i,Y);
 					for j=1,#tbl do
 						local displayIndex = Obj.GetCharIndex(tbl[j]);
-						if (Char.IsDummy(displayIndex) and Char.GetData(displayIndex,CONST.¶ÔÏó_ĞÎÏó)==petImage and Char.GetData(displayIndex,CONST.¶ÔÏó_ÕËºÅ)==petUUID) then
+						if (Char.IsDummy(displayIndex) and Char.GetData(displayIndex,CONST.å¯¹è±¡_å½¢è±¡)==petImage and Char.GetData(displayIndex,CONST.å¯¹è±¡_è´¦å·)==petUUID) then
 							Char.DelDummy(displayIndex);
 						end
 					end
 					Char.DelSlotPet(shopIndex,i);
 				end
-				--ÖØĞÂ²¹»õ
+				--é‡æ–°è¡¥è´§
 				if (#v.itemList>=1) then
 					for i=1,#v.itemList do
 						local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
-						Item.SetData(GoodsIndex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1);
+						Item.SetData(GoodsIndex,CONST.é“å…·_å·²é‰´å®š,1);
 						Item.UpItem(shopIndex,-1);
 						NLG.SortItem(shopIndex);
 					end
@@ -156,24 +156,24 @@ function StreetPedlar_LoopEvent(npc)
 				if (#v.petList>=1) then
 					for i=1,#v.petList do
 						local petIndex= Char.AddPet(shopIndex, v.petList[i]);
-						local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_Ìå³É);
-						local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_Á¦³É);
-						local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_Ç¿³É);
-						local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_Ãô³É);
-						local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_Ä§³É);
+						local arr_rank1 = Pet.GetArtRank(petIndex,CONST.PET_ä½“æˆ);
+						local arr_rank2 = Pet.GetArtRank(petIndex,CONST.PET_åŠ›æˆ);
+						local arr_rank3 = Pet.GetArtRank(petIndex,CONST.PET_å¼ºæˆ);
+						local arr_rank4 = Pet.GetArtRank(petIndex,CONST.PET_æ•æˆ);
+						local arr_rank5 = Pet.GetArtRank(petIndex,CONST.PET_é­”æˆ);
 						local petname = arr_rank1..","..arr_rank2..","..arr_rank3..","..arr_rank4..","..arr_rank5;
-						Char.SetData(petIndex,CONST.¶ÔÏó_Ãû×Ö, petname);
+						Char.SetData(petIndex,CONST.å¯¹è±¡_åå­—, petname);
 						Pet.UpPet(shopIndex,petIndex);
-						local petName = Char.GetData(petIndex,CONST.¶ÔÏó_Ãû×Ö);
-						local petImage = Char.GetData(petIndex,CONST.¶ÔÏó_ĞÎÏó);
+						local petName = Char.GetData(petIndex,CONST.å¯¹è±¡_åå­—);
+						local petImage = Char.GetData(petIndex,CONST.å¯¹è±¡_å½¢è±¡);
 						local petUUID = Pet.GetUUID(petIndex);
 						local displayIndex = Char.CreateDummy()
-						Char.SetData(displayIndex,CONST.¶ÔÏó_Ãû×Ö, petName);
-						Char.SetData(displayIndex,CONST.¶ÔÏó_ĞÎÏó, petImage);
-						Char.SetData(displayIndex,CONST.¶ÔÏó_Ô­ĞÎ, petImage);
-						Char.SetData(displayIndex,CONST.¶ÔÏó_Ô­Ê¼Í¼µµ, petImage);
-						Char.SetData(displayIndex,CONST.¶ÔÏó_·½Ïò, v.shopArea.dir);
-						Char.SetData(displayIndex,CONST.¶ÔÏó_ÕËºÅ, petUUID);
+						Char.SetData(displayIndex,CONST.å¯¹è±¡_åå­—, petName);
+						Char.SetData(displayIndex,CONST.å¯¹è±¡_å½¢è±¡, petImage);
+						Char.SetData(displayIndex,CONST.å¯¹è±¡_åŸå½¢, petImage);
+						Char.SetData(displayIndex,CONST.å¯¹è±¡_åŸå§‹å›¾æ¡£, petImage);
+						Char.SetData(displayIndex,CONST.å¯¹è±¡_æ–¹å‘, v.shopArea.dir);
+						Char.SetData(displayIndex,CONST.å¯¹è±¡_è´¦å·, petUUID);
 						Char.Warp(displayIndex, 0, v.shopArea.map, v.shopArea.X+i, v.shopArea.Y);
 						NLG.UpChar(displayIndex);
 					end
@@ -183,33 +183,32 @@ function StreetPedlar_LoopEvent(npc)
 	end
 end
 
----°ÚÌ¯ÓĞÎïÆ·½»Ò×³É¹¦Ê±´¥·¢µÄÊÂ¼ş¡£
+---æ‘†æ‘Šæœ‰ç‰©å“äº¤æ˜“æˆåŠŸæ—¶è§¦å‘çš„äº‹ä»¶ã€‚
 function Module:OnCharaStallSoldEventCallback(buyer, seller, itemIndex, petIndex, price)
----@param buyer  number ¹ºÂòÕßµÄ¶ÔÏóindex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
----@param seller  number ÊÛÂôÕßµÄ¶ÔÏóindex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
----@param itemIndex  number ÊÛ³öµÀ¾ßIndex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
----@param petIndex  number ÊÛ³ö³èÎïIndex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
----@param price  number ÏìÓ¦ÊÂ¼şµÄµÀ¾ßµÄÏû·ÑÊıÁ¿£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
-  local petImage = Char.GetData(petIndex,CONST.¶ÔÏó_ĞÎÏó);
-  local petUUID = Pet.GetUUID(petIndex);
-  local FloorId = Char.GetData(seller,CONST.¶ÔÏó_µØÍ¼);
-  local X = Char.GetData(seller,CONST.¶ÔÏó_X);
-  local Y = Char.GetData(seller,CONST.¶ÔÏó_Y);
-  for slot=0,4 do
-    local num,tbl = Obj.GetObject(0,FloorId,X+1+slot,Y);
-    for i=1,#tbl do
-      local displayIndex = Obj.GetCharIndex(tbl[i]);
-      if (Char.IsDummy(displayIndex) and Char.GetData(displayIndex,CONST.¶ÔÏó_ĞÎÏó)==petImage and Char.GetData(displayIndex,CONST.¶ÔÏó_ÕËºÅ)==petUUID) then
-        Char.DelDummy(displayIndex);
-      end
-    end
-  end
-
+---@param buyer  number è´­ä¹°è€…çš„å¯¹è±¡indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
+---@param seller  number å”®å–è€…çš„å¯¹è±¡indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
+---@param itemIndex  number å”®å‡ºé“å…·Indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
+---@param petIndex  number å”®å‡ºå® ç‰©Indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
+---@param price  number å“åº”äº‹ä»¶çš„é“å…·çš„æ¶ˆè´¹æ•°é‡ï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
   if (itemIndex>0) then
     --local item_pos = Char.GetItemSlot(seller,itemIndex);
     --Stall.BuyItem(buyer, seller, item_pos)
     --Stall.GetItemPrice(seller, item_pos)
   elseif (petIndex>0) then
+    local petImage = Char.GetData(petIndex,CONST.å¯¹è±¡_å½¢è±¡);
+    local petUUID = Pet.GetUUID(petIndex);
+    local FloorId = Char.GetData(seller,CONST.å¯¹è±¡_åœ°å›¾);
+    local X = Char.GetData(seller,CONST.å¯¹è±¡_X);
+    local Y = Char.GetData(seller,CONST.å¯¹è±¡_Y);
+    for slot=0,4 do
+      local num,tbl = Obj.GetObject(0,FloorId,X+1+slot,Y);
+      for i=1,#tbl do
+        local displayIndex = Obj.GetCharIndex(tbl[i]);
+        if (Char.IsDummy(displayIndex) and Char.GetData(displayIndex,CONST.å¯¹è±¡_å½¢è±¡)==petImage and Char.GetData(displayIndex,CONST.å¯¹è±¡_è´¦å·)==petUUID) then
+          Char.DelDummy(displayIndex);
+        end
+      end
+    end
     --local pet_pos = Char.GetPetSlot(seller,petIndex);
     --Stall.BuyPet(buyer, seller, pet_pos)
     --Stall.GetPetPrice(seller, pet_pos)
@@ -218,18 +217,18 @@ function Module:OnCharaStallSoldEventCallback(buyer, seller, itemIndex, petIndex
 
 end
 
----°ÚÌ¯¿ªÊ¼ÊÂ¼ş
+---æ‘†æ‘Šå¼€å§‹äº‹ä»¶
 function Module:OnCharaStallStartEventCallback(seller)
----@param seller  number ÊÛÂôÕßµÄ¶ÔÏóindex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
+---@param seller  number å”®å–è€…çš„å¯¹è±¡indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
 end
----°ÚÌ¯½áÊøÊÂ¼ş
+---æ‘†æ‘Šç»“æŸäº‹ä»¶
 function Module:OnCharaStallEndEventCallback(seller)
----@param seller  number ÊÛÂôÕßµÄ¶ÔÏóindex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
+---@param seller  number å”®å–è€…çš„å¯¹è±¡indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
 end
 
 function Module:OnCharaStallBrowseEventCallback(buyer,seller)
----@param buyer  number ¹ºÂòÕßµÄ¶ÔÏóindex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
----@param seller  number ÊÛÂôÕßµÄ¶ÔÏóindex£¬¸ÃÖµÓÉLuaÒıÇæ´«µİ¸ø±¾º¯Êı¡£
+---@param buyer  number è´­ä¹°è€…çš„å¯¹è±¡indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
+---@param seller  number å”®å–è€…çš„å¯¹è±¡indexï¼Œè¯¥å€¼ç”±Luaå¼•æ“ä¼ é€’ç»™æœ¬å‡½æ•°ã€‚
 end
 
 Char.GetItemSlot = function(charIndex,itemIndex)
@@ -251,7 +250,7 @@ Char.GetPetSlot = function(charIndex,petIndex)
 end
 
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
