@@ -3,34 +3,53 @@ local Module = ModuleBase:createModule('playerShop')
 
 local Open = 0;
 local StreetPedlar = {
-      { shopType=1, shopName="小傑", shopDesc="強大的寵物", shopImage=105002, shopArea={map=1000,X=227,Y=86,dir=6,action=12},
+      { shopType=1, walkMode=0, shopName="小傑", shopDesc="強大的寵物", shopImage=105002, shopArea={map=1000,X=227,Y=86,dir=6,action=12},
          itemList={}, itemPriceList={},
          petList={314,314,314,314}, petPriceList={1000,1000,1000,1000} },
-      { shopType=2, shopName="凱茲", shopDesc="便宜的低等武器", shopImage=105028, shopArea={map=1000,X=231,Y=108,dir=4,action=11},
+      { shopType=2, walkMode=0, shopName="凱茲", shopDesc="便宜的低等武器", shopImage=105028, shopArea={map=1000,X=231,Y=108,dir=4,action=11},
          itemList={18,18,18,18,18,22,22,22,22,22}, itemPriceList={800,800,800,800,800,1000,1000,1000,1000,1000},
          petList={}, petPriceList={} },
-      { shopType=3, shopName="西恩", shopDesc="便宜的低等武器", shopImage=105053, shopArea={map=1000,X=229,Y=108,dir=4,action=11},
+      { shopType=3, walkMode=0, shopName="西恩", shopDesc="便宜的低等武器", shopImage=105053, shopArea={map=1000,X=229,Y=108,dir=4,action=11},
          itemList={809,809,809,809,809,2002,2002,2002,2002,2002}, itemPriceList={1000,1000,1000,1000,1000,800,800,800,800,800},
          petList={}, petPriceList={} },
-      { shopType=4, shopName="小胖", shopDesc="便宜的料理", shopImage=105075, shopArea={map=1000,X=219,Y=91,dir=0,action=0},
+      { shopType=4, walkMode=0, shopName="小胖", shopDesc="便宜的料理", shopImage=105075, shopArea={map=1000,X=219,Y=91,dir=0,action=0},
          itemList={15203,15203,15203,15203,15203,15203,15203,15203,15203,15203}, itemPriceList={600,600,600,600,600,600,600,600,600,600},
          petList={}, petPriceList={} },
-      { shopType=5, shopName="功夫小子", shopDesc="強大的寵物", shopImage=105102, shopArea={map=1000,X=227,Y=88,dir=6,action=9},
+      { shopType=5, walkMode=0, shopName="功夫小子", shopDesc="強大的寵物", shopImage=105102, shopArea={map=1000,X=227,Y=88,dir=6,action=9},
          itemList={}, itemPriceList={},
          petList={321,321,321,321}, petPriceList={2000,2000,2000,2000} },
-      { shopType=6, shopName="貝依", shopDesc="好用的藥水", shopImage=105129, shopArea={map=1000,X=219,Y=89,dir=6,action=0},
+      { shopType=6, walkMode=0, shopName="貝依", shopDesc="好用的藥水", shopImage=105129, shopArea={map=1000,X=219,Y=89,dir=6,action=0},
          itemList={15607,15607,15607,15607,15607,15607,15607,15607,15607,15607}, itemPriceList={450,450,450,450,450,450,450,450,450,450},
          petList={}, petPriceList={} },
-      { shopType=7, shopName="熊男", shopDesc="強大的寵物", shopImage=105150, shopArea={map=1000,X=227,Y=90,dir=6,action=0},
+      { shopType=7, walkMode=0, shopName="熊男", shopDesc="強大的寵物", shopImage=105150, shopArea={map=1000,X=227,Y=90,dir=6,action=0},
          itemList={}, itemPriceList={},
          petList={722,722,722}, petPriceList={3000,3000,3000} },
 
-      { shopType=8, shopName="烏嚕", shopDesc="黏呼呼的寵物", shopImage=105251, shopArea={map=1000,X=240,Y=86,dir=6,action=6},
+      { shopType=8, walkMode=0, shopName="烏嚕", shopDesc="黏呼呼的寵物", shopImage=105251, shopArea={map=1000,X=240,Y=86,dir=6,action=6},
          itemList={2823,2823,2823}, itemPriceList={1400,1400,1400},
          petList={501,501,502,502}, petPriceList={200,200,500,500} },
-      { shopType=9, shopName="心美", shopDesc="我是制杖師", shopImage=105279, shopArea={map=1000,X=233,Y=114,dir=6,action=11},
+      { shopType=9, walkMode=0, shopName="心美", shopDesc="我是制杖師", shopImage=105279, shopArea={map=1000,X=233,Y=114,dir=6,action=11},
          itemList={2404,2413,2447,2447,2449,2449,2449,2449,2449,2449}, itemPriceList={440,900,1600,1600,2200,2200,2200,2200,2200,2200},
          petList={}, petPriceList={} },
+      { shopType=10, walkMode=0, shopName="艾咪", shopDesc="歡迎光臨", shopImage=105303, shopArea={map=1000,X=227,Y=108,dir=4,action=1},
+         itemList={4821,4821,4821,4821,4821}, itemPriceList={1400,1400,1400,1400,1400},
+         petList={}, petPriceList={} },
+      { shopType=11, walkMode=0, shopName="梅古", shopDesc="歡迎光臨", shopImage=105330, shopArea={map=1000,X=226,Y=108,dir=4,action=1},
+         itemList={4421,4421,4421,4421,4421}, itemPriceList={1400,1400,1400,1400,1400},
+         petList={}, petPriceList={} },
+      { shopType=12, walkMode=0, shopName="春麗", shopDesc="買雙新鞋好過年", shopImage=105352, shopArea={map=1000,X=224,Y=109,dir=6,action=6},
+         itemList={5631,5631,5631,5631,5631,6031,6031,6031,6031,6031}, itemPriceList={1300,1300,1300,1300,1300,1200,1200,1200,1200,1200},
+         petList={}, petPriceList={} },
+      { shopType=13, walkMode=0, shopName="凱茵", shopDesc="大力出奇蹟", shopImage=105375, shopArea={map=1000,X=229,Y=112,dir=7,action=5},
+         itemList={852,852,852,1658,1658,1658,6434,6434,6434,6434}, itemPriceList={3600,3600,3600,3400,3400,3400,1200,1200,1200,1200},
+         petList={}, petPriceList={} },
+      { shopType=14, walkMode=0, shopName="依露", shopDesc="歡迎光臨", shopImage=105402, shopArea={map=1000,X=228,Y=114,dir=6,action=1},
+         itemList={3620,3620,3620,4020,4020,4020,5231,5231,5231,5231}, itemPriceList={960,960,9600,1000,1000,1000,1800,1800,1800,1800},
+         petList={}, petPriceList={} },
+
+      --{ shopType=29, walkMode=1, shopName="時雨", shopDesc="忍者神出鬼沒", shopImage=106477, shopArea={map=1000,X=230,Y=111,dir=6,action=1},
+      --   itemList={18558,18559,18560,18562,18563,70200,70052,70052,70052}, itemPriceList={2000,2000,2000,2000,2000,3000,5000,7000,9000},
+      --   petList={}, petPriceList={} },
 }
 ------------------------------------------------
 local FTime = os.time();			--时间表
@@ -40,16 +59,7 @@ tbl_StreetPedlarNPCIndex = tbl_StreetPedlarNPCIndex or {}
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
-
   self:regCallback('LoopEvent', Func.bind(self.StreetPedlar_LoopEvent,self))
-  MarketNPC = self:NPC_createNormal('假人商店補貨', 99262, { map = 777, x = 34, y = 35, direction = 0, mapType = 0 })
-  Char.SetLoopEvent('./lua/Modules/playerShop.lua','StreetPedlar_LoopEvent',MarketNPC, 1000);
-  self:NPC_regWindowTalkedEvent(MarketNPC, function(npc, player, _seqno, _select, _data)
-  end)
-  self:NPC_regTalkedEvent(MarketNPC, function(npc, player)
-    return
-  end)
-
   self:regCallback('CharaStallSoldEvent', Func.bind(self.OnCharaStallSoldEventCallback, self))
   self:regCallback('CharaStallStartEvent', Func.bind(self.OnCharaStallStartEventCallback, self))
   self:regCallback('CharaStallEndEvent', Func.bind(self.OnCharaStallEndEventCallback, self))
@@ -65,6 +75,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			end
 			local shopIndex = Char.CreateDummy()
 			tbl_StreetPedlarNPCIndex[k] = shopIndex;
+			Char.SetLoopEvent('./lua/Modules/playerShop.lua','StreetPedlar_LoopEvent',tbl_StreetPedlarNPCIndex[k], 1000);
 			Char.SetData(shopIndex,CONST.对象_等级, NLG.Rand(10, 100));
 			Char.SetData(shopIndex,CONST.对象_名字, v.shopName);
 			Char.SetData(shopIndex,CONST.对象_形象, v.shopImage);
@@ -80,12 +91,12 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
                     if (itemType==23 or itemType==43) then
 					  local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
 					  Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
+					  NLG.SortItem(shopIndex);
                     else
 					  local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 1);
 					  Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
                     end
 					Item.UpItem(shopIndex,-1);
-					NLG.SortItem(shopIndex);
 				end
 			end
 			if (#v.petList>=1) then
@@ -102,18 +113,25 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 					local petName = Char.GetData(petIndex,CONST.对象_名字);
 					local petImage = Char.GetData(petIndex,CONST.对象_形象);
 					local petUUID = Pet.GetUUID(petIndex);
-					local displayIndex = Char.CreateDummy()
-					Char.SetData(displayIndex,CONST.对象_名字, petName);
-					Char.SetData(displayIndex,CONST.对象_形象, petImage);
-					Char.SetData(displayIndex,CONST.对象_原形, petImage);
-					Char.SetData(displayIndex,CONST.对象_原始图档, petImage);
-					Char.SetData(displayIndex,CONST.对象_方向, v.shopArea.dir);
-					Char.SetData(displayIndex,CONST.对象_账号, petUUID);
-					Char.Warp(displayIndex, 0, v.shopArea.map, v.shopArea.X+i, v.shopArea.Y);
-					NLG.UpChar(displayIndex);
+					if (v.walkMode==0) then
+						local displayIndex = Char.CreateDummy()
+						Char.SetData(displayIndex,CONST.对象_名字, petName);
+						Char.SetData(displayIndex,CONST.对象_形象, petImage);
+						Char.SetData(displayIndex,CONST.对象_原形, petImage);
+						Char.SetData(displayIndex,CONST.对象_原始图档, petImage);
+						Char.SetData(displayIndex,CONST.对象_方向, v.shopArea.dir);
+						Char.SetData(displayIndex,CONST.对象_账号, petUUID);
+						Char.Warp(displayIndex, 0, v.shopArea.map, v.shopArea.X+i, v.shopArea.Y);
+						NLG.UpChar(displayIndex);
+					end
 				end
 			end
 			Stall.Start(shopIndex, v.shopName, v.shopDesc, v.itemPriceList, v.petPriceList)
+			if (v.walkMode==1) then
+				Char.SetData(shopIndex,CONST.对象_经验, v.shopArea.map);
+				Char.SetData(shopIndex,CONST.对象_名色, 4);
+				NLG.UpChar(shopIndex);
+			end
 		end
         Open = 1;
 		return 0;
@@ -125,10 +143,11 @@ end
 
 function StreetPedlar_LoopEvent(npc)
 	local CTime = tonumber(os.date("%H",FTime));
+	local shopIndex = npc;
 	if (os.date("%X",os.time())=="19:59:59") then
 		for k,v in pairs(StreetPedlar) do
 			if (k==v.shopType) then
-				local shopIndex = tbl_StreetPedlarNPCIndex[k];
+				Stall.End(shopIndex)
 				--清空存货
 				for i = 8,Char.GetData(shopIndex,CONST.对象_道具栏)-1 do
 					local itemIndex = Char.GetItemIndex(shopIndex,i);
@@ -159,12 +178,12 @@ function StreetPedlar_LoopEvent(npc)
                       if (itemType==23 or itemType==43) then
 					    local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
 					    Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
+						NLG.SortItem(shopIndex);
                       else
 					    local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 1);
 					    Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
                       end
 					  Item.UpItem(shopIndex,-1);
-					  NLG.SortItem(shopIndex);
 					end
 				end
 				if (#v.petList>=1) then
@@ -181,17 +200,41 @@ function StreetPedlar_LoopEvent(npc)
 						local petName = Char.GetData(petIndex,CONST.对象_名字);
 						local petImage = Char.GetData(petIndex,CONST.对象_形象);
 						local petUUID = Pet.GetUUID(petIndex);
-						local displayIndex = Char.CreateDummy()
-						Char.SetData(displayIndex,CONST.对象_名字, petName);
-						Char.SetData(displayIndex,CONST.对象_形象, petImage);
-						Char.SetData(displayIndex,CONST.对象_原形, petImage);
-						Char.SetData(displayIndex,CONST.对象_原始图档, petImage);
-						Char.SetData(displayIndex,CONST.对象_方向, v.shopArea.dir);
-						Char.SetData(displayIndex,CONST.对象_账号, petUUID);
-						Char.Warp(displayIndex, 0, v.shopArea.map, v.shopArea.X+i, v.shopArea.Y);
-						NLG.UpChar(displayIndex);
+						if (v.walkMode==0) then
+							local displayIndex = Char.CreateDummy()
+							Char.SetData(displayIndex,CONST.对象_名字, petName);
+							Char.SetData(displayIndex,CONST.对象_形象, petImage);
+							Char.SetData(displayIndex,CONST.对象_原形, petImage);
+							Char.SetData(displayIndex,CONST.对象_原始图档, petImage);
+							Char.SetData(displayIndex,CONST.对象_方向, v.shopArea.dir);
+							Char.SetData(displayIndex,CONST.对象_账号, petUUID);
+							Char.Warp(displayIndex, 0, v.shopArea.map, v.shopArea.X+i, v.shopArea.Y);
+							NLG.UpChar(displayIndex);
+						end
 					end
 				end
+				Stall.Start(shopIndex, v.shopName, v.shopDesc, v.itemPriceList, v.petPriceList)
+				if (v.walkMode==1) then
+					Char.SetData(shopIndex,CONST.对象_经验, v.shopArea.map);
+					Char.SetData(shopIndex,CONST.对象_名色, 4);
+					NLG.UpChar(shopIndex);
+				end
+			end
+		end
+	end
+	local excess = math.random(1,10);
+	for k,v in pairs(StreetPedlar) do
+		if (k==v.shopType) then
+			if (Char.GetData(shopIndex,CONST.对象_名色)==4 and excess>=7) then
+				local dir = math.random(0, 7);
+				local walk = 1;
+				local X,Y = Char.GetLocation(shopIndex,dir);
+				if (NLG.Walkable(0, Char.GetData(shopIndex,CONST.对象_经验), X, Y)==1) then
+					NLG.SetAction(shopIndex,walk);
+					NLG.WalkMove(shopIndex,dir);
+					NLG.UpChar(shopIndex);
+				end
+				Stall.Start(shopIndex, v.shopName, v.shopDesc, v.itemPriceList, v.petPriceList)
 			end
 		end
 	end
@@ -263,6 +306,32 @@ Char.GetPetSlot = function(charIndex,petIndex)
   end
 end
 
+Char.GetLocation = function(npc,dir)
+	local X = Char.GetData(npc,CONST.对象_X)--地图x
+	local Y = Char.GetData(npc,CONST.对象_Y)--地图y
+	if dir==0 then
+		Y=Y-1;
+	elseif dir==1 then
+		X=X+1;
+		Y=Y-1;
+	elseif dir==2 then
+		X=X+1;
+	elseif dir==3 then
+		X=X+1;
+		Y=Y+1;
+	elseif dir==4 then
+		Y=Y+1;
+	elseif dir==5 then
+		X=X-1;
+		Y=Y+1;
+	elseif dir==6 then
+		X=X-1;
+	elseif dir==7 then
+		X=X-1;
+		Y=Y-1;
+	end
+	return X,Y;
+end
 
 --- 卸载模块钩子
 function Module:onUnload()
