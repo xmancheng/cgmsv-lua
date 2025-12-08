@@ -75,8 +75,15 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			NLG.UpChar(shopIndex);
 			if (#v.itemList>=1) then
 				for i=1,#v.itemList do
-					local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
-					Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
+					local ItemsetIndex = Data.ItemsetGetIndex(v.itemList[i]);
+					local itemType = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_TYPE);
+                    if (itemType==23 or itemType==43) then
+					  local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
+					  Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
+                    else
+					  local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 1);
+					  Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
+                    end
 					Item.UpItem(shopIndex,-1);
 					NLG.SortItem(shopIndex);
 				end
@@ -147,10 +154,17 @@ function StreetPedlar_LoopEvent(npc)
 				--重新补货
 				if (#v.itemList>=1) then
 					for i=1,#v.itemList do
-						local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
-						Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
-						Item.UpItem(shopIndex,-1);
-						NLG.SortItem(shopIndex);
+					  local ItemsetIndex = Data.ItemsetGetIndex(v.itemList[i]);
+					  local itemType = Data.ItemsetGetData(ItemsetIndex, CONST.ITEMSET_TYPE);
+                      if (itemType==23 or itemType==43) then
+					    local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 3);
+					    Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
+                      else
+					    local GoodsIndex = Char.GiveItem(shopIndex, v.itemList[i], 1);
+					    Item.SetData(GoodsIndex,CONST.道具_已鉴定,1);
+                      end
+					  Item.UpItem(shopIndex,-1);
+					  NLG.SortItem(shopIndex);
 					end
 				end
 				if (#v.petList>=1) then
