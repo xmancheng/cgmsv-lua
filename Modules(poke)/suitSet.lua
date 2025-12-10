@@ -22,6 +22,7 @@ suitDefs[1]={
 		{ desc="(1/1)終極技能效果100%", attr={ zhongji=100, gong=1000 } },
 	},
 }
+----------------------------------------------
 suitDefs[2]={
 	members = {80010, 80011},	--itemId
 	parts = {
@@ -29,6 +30,9 @@ suitDefs[2]={
 		{ desc="(2/2)+500MP魔法力", attr={ mo=500 } },
 	},
 }
+----------------------------------------------
+
+
 
 
 ------------------------------------------------------------------
@@ -139,12 +143,15 @@ Char.GetSuitSetNum = function(charIndex, suit)
 	local count = 0
 	for Slot = 0,7 do
 		local itemIndex = Char.GetItemIndex(charIndex, Slot);
-		local itemId = Item.GetData(itemIndex, CONST.道具_ID);
-		if itemId and itemId ~= 0 then
-			for _, sid in ipairs(suit.members) do
-				if (sid == itemId) then
-					count = count + 1;
-					break
+		if not itemIndex or itemIndex==nil or itemIndex=="" or itemIndex<0 then
+		else
+			local itemId = Item.GetData(itemIndex, CONST.道具_ID);
+			if itemId and itemId ~= 0 then
+				for _, sid in ipairs(suit.members) do
+					if (sid == itemId) then
+						count = count + 1;
+						break
+					end
 				end
 			end
 		end
