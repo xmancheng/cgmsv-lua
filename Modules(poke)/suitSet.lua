@@ -1,45 +1,49 @@
----Ä£¿éÀà(ÖØ˜‹°æ)
+---æ¨¡å—ç±»(é‡æ§‹ç‰ˆ)
 local Module = ModuleBase:createModule('suitSet')
---ĞèÔÚModuleConfigÆôÓÃloadModule('charStatusExtend')
+--éœ€åœ¨ModuleConfigå¯ç”¨loadModule('charStatusExtend')
 local ClearFlag = {};
 
--- Ì××°¶¨Òå
+-- å¥—è£…å®šä¹‰
+---(CONST.å¯¹è±¡_æœ€å¤§è¡€,xue)(CONST.å¯¹è±¡_æœ€å¤§é­”,mo)(CONST.å¯¹è±¡_æ”»å‡»åŠ›,gong)(CONST.å¯¹è±¡_é˜²å¾¡åŠ›,fang)(CONST.å¯¹è±¡_æ•æ·,min)
+---(CONST.å¯¹è±¡_å¿…æ€,bi)(CONST.å¯¹è±¡_åå‡»,fan)(CONST.å¯¹è±¡_å‘½ä¸­,ming)(CONST.å¯¹è±¡_é—ªèº²,shan)
+---(CONST.å¯¹è±¡_æŠ—æ¯’,du)(CONST.å¯¹è±¡_æŠ—ç¡,shui)(CONST.å¯¹è±¡_æŠ—çŸ³,shi)(CONST.å¯¹è±¡_æŠ—é†‰,zui)(CONST.å¯¹è±¡_æŠ—ä¹±,luan)(CONST.å¯¹è±¡_æŠ—å¿˜,wang)
+---(CONST.å¯¹è±¡_é­”æ”»,mogong)(CONST.å¯¹è±¡_é­”æŠ—,mokang)(CONST.å¯¹è±¡_ç²¾ç¥,jingshen)(CONST.å¯¹è±¡_å›å¤,huifu)
 local suitDefs = {};
 suitDefs[1]={
 	members = {80008},	--itemId
 	parts = {
-		{ desc="(1/1)+1000¹¥“ôÁ¦", attr={ ATK=1000 } },
+		{ desc="(1/1)+1000æ”»æ“ŠåŠ›", attr={ gong=1000 } },
 	},
 }
 suitDefs[2]={
 	members = {80010, 80011},	--itemId
 	parts = {
-		{ desc="(1/2)+1000HPÉúÃüÁ¦", attr={ HP=1000 } },
-		{ desc="(2/2)+500MPÄ§·¨Á¦", attr={ MP=500 } },
+		{ desc="(1/2)+1000HPç”Ÿå‘½åŠ›", attr={ xue=1000 } },
+		{ desc="(2/2)+500MPé­”æ³•åŠ›", attr={ mo=500 } },
 	},
 }
 
 
 ------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemExpansionEvent', Func.bind(self.itemExpansionCallback, self))
 
 end
 
--- µÀ¾ßËµÃ÷×éºÏ½Ó¿Ú(Ì×ÑbÓ|°l)
+-- é“å…·è¯´æ˜ç»„åˆæ¥å£(å¥—è£è§¸ç™¼)
 function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
   if (type==1) then
-    local itemId = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
-    local suitset = string.split(Item.GetData(itemIndex, CONST.µÀ¾ß_ATTACHFUNC),",");
+    local itemId = Item.GetData(itemIndex, CONST.é“å…·_ID);
+    local suitset = string.split(Item.GetData(itemIndex, CONST.é“å…·_ATTACHFUNC),",");
     if #suitset <= 1 then return end
 
-    --µÀ¾ßËµÃ÷
+    --é“å…·è¯´æ˜
     local suit = findSuitByItemId(itemId);
     if not suit then return end
-    local info = ""	--ËµÃ÷ÖØÖÃ
-    local count = Char.GetSuitSetNum(charIndex, suit);	--Ì××°ÊıÄ¿
+    local info = ""	--è¯´æ˜é‡ç½®
+    local count = Char.GetSuitSetNum(charIndex, suit);	--å¥—è£…æ•°ç›®
     for i = 1, #suit.parts do
       local part = suit.parts[i];
       if count >= i then
@@ -49,10 +53,10 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
       end
     end
 
-    --Çå¿ÕÊôĞÔ(È«Ì××°±ä¶¯¼şÊı¼ÆËã)
+    --æ¸…ç©ºå±æ€§(å…¨å¥—è£…å˜åŠ¨ä»¶æ•°è®¡ç®—)
     local temp = 0;
-    for _, suit in pairs(suitDefs) do	--È«Ì××°
-      local count = Char.GetSuitSetNum(charIndex, suit);	--Ä³Ì××°ÉúĞ§¼şÊı
+    for _, suit in pairs(suitDefs) do	--å…¨å¥—è£…
+      local count = Char.GetSuitSetNum(charIndex, suit);	--æŸå¥—è£…ç”Ÿæ•ˆä»¶æ•°
       for i = 1, #suit.parts do
         local part = suit.parts[i];
         if count >= i then
@@ -60,23 +64,39 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
         end
       end
     end
-    --Çå¿ÕÊôĞÔ(µÚÒ»´Î¡¢ÓĞ±ä¶¯)
+    --æ¸…ç©ºå±æ€§(ç¬¬ä¸€æ¬¡ã€æœ‰å˜åŠ¨)
     if not ClearFlag[charIndex] or ClearFlag[charIndex].Num~=temp then
       getModule('charStatusExtend'):clearCharStatus(charIndex);
       ClearFlag[charIndex] = {}		--true
       ClearFlag[charIndex].Num = 0;
     end
-    --ÊôĞÔ¼Ó³É
-    for _, suit in pairs(suitDefs) do	--È«Ì××°
-      local count = Char.GetSuitSetNum(charIndex, suit);	--Ä³Ì××°ÉúĞ§¼şÊı
+    --å±æ€§åŠ æˆ
+    for _, suit in pairs(suitDefs) do	--å…¨å¥—è£…
+      local count = Char.GetSuitSetNum(charIndex, suit);	--æŸå¥—è£…ç”Ÿæ•ˆä»¶æ•°
       for i = 1, #suit.parts do
         local part = suit.parts[i];
         if count >= i then
           ClearFlag[charIndex].Num = ClearFlag[charIndex].Num + 1;
-          --¸÷ÊôĞÔ¼Ó³É
-          if part.attr.HP then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.¶ÔÏó_×î´óÑª, part.attr.HP) end
-          if part.attr.MP then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.¶ÔÏó_×î´óÄ§, part.attr.MP) end
-          if part.attr.ATK then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.¶ÔÏó_¹¥»÷Á¦, part.attr.ATK) end
+          --å„å±æ€§åŠ æˆ
+          if part.attr.xue then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€, part.attr.xue) end
+          if part.attr.mo then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æœ€å¤§é­”, part.attr.mo) end
+          if part.attr.gong then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æ”»å‡»åŠ›, part.attr.gong) end
+          if part.attr.fang then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_é˜²å¾¡åŠ›, part.attr.fang) end
+          if part.attr.min then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æ•æ·, part.attr.min) end
+          if part.attr.bi then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_å¿…æ€, part.attr.bi) end
+          if part.attr.fan then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_åå‡», part.attr.fan) end
+          if part.attr.ming then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_å‘½ä¸­, part.attr.ming) end
+          if part.attr.shan then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_é—ªèº², part.attr.shan) end
+          if part.attr.du then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æŠ—æ¯’, part.attr.du) end
+          if part.attr.shui then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æŠ—ç¡, part.attr.shui) end
+          if part.attr.shi then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æŠ—çŸ³, part.attr.shi) end
+          if part.attr.zui then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æŠ—é†‰, part.attr.zui) end
+          if part.attr.luan then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æŠ—ä¹±, part.attr.luan) end
+          if part.attr.wang then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_æŠ—å¿˜, part.attr.wang) end
+          if part.attr.mogong then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_é­”æ”», part.attr.mogong) end
+          if part.attr.mokang then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_é­”æŠ—, part.attr.mokang) end
+          if part.attr.jingshen then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_ç²¾ç¥, part.attr.jingshen) end
+          if part.attr.huifu then getModule('charStatusExtend'):addCharStatus(charIndex, CONST.å¯¹è±¡_å›å¤, part.attr.huifu) end
         end
       end
     end
@@ -87,7 +107,7 @@ function Module:itemExpansionCallback(itemIndex, type, msg, charIndex, slot)
 end
 
 
--- ÕÒ³öÄ³µÀ¾ßitemIdÊôÓÚÄÄ¸öÌ××°
+-- æ‰¾å‡ºæŸé“å…·itemIdå±äºå“ªä¸ªå¥—è£…
 function findSuitByItemId(itemId)
     for _, suit in pairs(suitDefs) do
         for _, id in ipairs(suit.members) do
@@ -99,13 +119,13 @@ function findSuitByItemId(itemId)
     return nil
 end
 
--- ¼ÆËã½ÇÉ«´©´÷Ä³Ì××°¼şÊı
+-- è®¡ç®—è§’è‰²ç©¿æˆ´æŸå¥—è£…ä»¶æ•°
 Char.GetSuitSetNum = function(charIndex, suit)
 	if not suit then return 0 end
 	local count = 0
 	for Slot = 0,7 do
 		local itemIndex = Char.GetItemIndex(charIndex, Slot);
-		local itemId = Item.GetData(itemIndex, CONST.µÀ¾ß_ID);
+		local itemId = Item.GetData(itemIndex, CONST.é“å…·_ID);
 		if itemId and itemId ~= 0 then
 			for _, sid in ipairs(suit.members) do
 				if (sid == itemId) then
@@ -118,7 +138,7 @@ Char.GetSuitSetNum = function(charIndex, suit)
 	return count;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
