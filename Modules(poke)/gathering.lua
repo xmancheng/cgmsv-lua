@@ -1,84 +1,116 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('gathering')
-local gather_table = require "lua/Modules/techarea"
+local TechArea = require "lua/Modules/techarea"
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
   self:regCallback('LoopEvent', Func.bind(self.Logloop,self))
   self:regCallback('Logloop', function(player)
-    local ItemID = Char.GetTempData(player, '·¥Ä¾¹Ò»ú') or 0;
+    local ItemID = Char.GetTempData(player, 'ä¼æœ¨æŒ‚æœº') or 0;
     if (ItemID >0) then
-      local mapId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼ÀàĞÍ);
-      local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-      local px = Char.GetData(player,CONST.¶ÔÏó_X);
-      local py = Char.GetData(player,CONST.¶ÔÏó_Y);
+      local mapId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾ç±»å‹);
+      local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+      local px = Char.GetData(player,CONST.å¯¹è±¡_X);
+      local py = Char.GetData(player,CONST.å¯¹è±¡_Y);
       if (floor==1000) then
-        Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+        Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Logloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]ÔÚ·¨Ìm³ÇƒÈ¹¤×÷Í£Ö¹¡£");
+        NLG.SystemMessage(player,"[ç³»çµ±]åœ¨æ³•è˜­åŸå…§å·¥ä½œåœæ­¢ã€‚");
         return
       end
-      local HuntingOn = Char.GetTempData(player, 'á÷ÁÔ¹Ò»ú') or 0;
-      local MiningOn = Char.GetTempData(player, 'ÍÚ¾ò¹Ò»ú') or 0;
+      local HuntingOn = Char.GetTempData(player, 'ç‹©çŒæŒ‚æœº') or 0;
+      local MiningOn = Char.GetTempData(player, 'æŒ–æ˜æŒ‚æœº') or 0;
       if (HuntingOn>0 or MiningOn>0) then
           if HuntingOn>0 then 
-            Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+            Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
             Char.SetLoopEvent(nil,'Hunterloop',player,0);
-            NLG.SystemMessage(player,"[Ïµ½y]Ö»ÄÜßMĞĞ†ÎÒ»¹¤×÷£¬ÒÑÍ£Ö¹á÷«C¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]åªèƒ½é€²è¡Œå–®ä¸€å·¥ä½œï¼Œå·²åœæ­¢ç‹©çµã€‚");
           elseif MiningOn>0 then 
-            Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+            Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
             Char.SetLoopEvent(nil,'Minerloop',player,0);
-            NLG.SystemMessage(player,"[Ïµ½y]Ö»ÄÜßMĞĞ†ÎÒ»¹¤×÷£¬ÒÑÍ£Ö¹ÍÚ¾ò¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]åªèƒ½é€²è¡Œå–®ä¸€å·¥ä½œï¼Œå·²åœæ­¢æŒ–æ˜ã€‚");
           end
           Char.UnsetLoopEvent(player);
           Char.SetLoopEvent(nil,'Logloop',player,5000);
       end
 
       local AxeIndex = Char.HaveItem(player,ItemID);
-      local AxeStr = Item.GetData(AxeIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+      local AxeStr = Item.GetData(AxeIndex, CONST.é“å…·_è€ä¹…) or 0;
       if (AxeIndex>0 and AxeStr >= 1) then
-        --local count,areaIndex_tbl = TechArea.GetIndexList(mapId, floor, px, py, 225);
-        --print(count)
-        Item.SetData(AxeIndex, CONST.µÀ¾ß_ÄÍ¾Ã, Item.GetData(AxeIndex, CONST.µÀ¾ß_ÄÍ¾Ã)-1);
+        Item.SetData(AxeIndex, CONST.é“å…·_è€ä¹…, Item.GetData(AxeIndex, CONST.é“å…·_è€ä¹…)-1);
         Item.UpItem(player, -1);
-
-        local areaIndex_tbl = get_player_gather_info(px, py, floor, gather_table, 225)
+        --[[local areaIndex_tbl = get_player_gather_info(px, py, floor, gather_table, 225)
         if (areaIndex_tbl==nil) then
-          Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+          Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Logloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]´ËÌŸoËØ²Ä¿ÉÓÃµ½ß@¹¤¾ß¡£");
+          NLG.SystemMessage(player,"[ç³»çµ±]æ­¤è™•ç„¡ç´ æå¯ç”¨åˆ°é€™å·¥å…·ã€‚");
+          return
+        end]]
+        -- ç¬¬ä¸€é˜¶æ®µ ä½ç½®/æŠ€èƒ½æ‰¾è—å›¾
+        local area = GetTechArea(floor, px, py, TechArea, 225);	--skillId225
+        if (area==nil) then
+          Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
+          Char.SetLoopEvent(nil,'Logloop',player,0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[ç³»çµ±]æ­¤åœ°åœ–ç„¡ä»»ä½•ç´ ææˆ–ç„¡æ³•ä½¿ç”¨ã€‚");
           return
         end
-        local itemId,itemProb = dropMap(areaIndex_tbl);
-		if (itemProb==1) then
-          local dropRate = {1,1,1,2,1,1,3,1,1,2};
-          Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
-          NLG.SortItem(player);
-		elseif (itemProb==0) then
-          NLG.SystemMessage(player,"·¥Ä¾’ñ¼¯Ê§”¡¡£");
-		end
-        NLG.SystemMessage(player,"ÏûºÄ1ücÄÍ¾ÃÃ¿5ÃëßMĞĞ·¥Ä¾£¬¹¤¾ßß€ÓĞ"..(AxeStr-1).."ücÄÍ¾Ã¡£");
-        if (Item.GetData(AxeIndex, CONST.µÀ¾ß_ÄÍ¾Ã)== 0) then
+        -- ç¬¬äºŒé˜¶æ®µ åŒºåŸŸ/ç­‰çº§æ‰¾æ‰è½
+        local exploreLv = Char.GetExtData(player, 'æ¢ç´¢ç­‰çº§') or 1;
+        local itemId = DoGather(area, exploreLv);		--æœ€ä½³åŒ–
+        if itemId then
+            local dropRate = {1,1,1,2,1,1,3,1,1,2};
+            Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
+            NLG.SortItem(player);
+            local exploreExp = Char.GetExtData(player, 'æ¢ç´¢ç»éªŒ') or 0;
+            local exploreExp = exploreExp + 1;
+            -- ç†Ÿç·´åº¦ç¶“é©—
+            local need = GetExploreExpNeed(exploreLv);
+            if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+              NLG.SystemMessage(player,"[ç³»çµ±]æ¢ç´¢ç­‰ç´š:"..exploreLv.." è·é›¢å‡ç´š"..exploreExp.."/"..need.."ã€‚");
+            end
+            if (exploreExp >= need and need~=0) then
+                Char.SetExtData(player, 'æ¢ç´¢ç»éªŒ', exploreExp - need);
+                Char.SetExtData(player, 'æ¢ç´¢ç­‰çº§', exploreLv + 1);
+                NLG.UpChar(player);
+            elseif (exploreExp < need and need~=0) then
+                Char.SetExtData(player, 'æ¢ç´¢ç»éªŒ', exploreExp);
+                NLG.UpChar(player);
+            end
+		else
+          NLG.SystemMessage(player,"ä¼æœ¨æ¡é›†å¤±æ•—ã€‚");
+        end
+        -- éšè—æ‰è½
+        local hidden = TryHiddenDrop(225, floor, exploreLv);
+        if hidden then
+            local dropRate = {1,1,2,1,1,1,1,1,1,2};
+            Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+        end
+        if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+          NLG.SystemMessage(player,"æ¶ˆè€—1é»è€ä¹…æ¯5ç§’é€²è¡Œä¼æœ¨ï¼Œå·¥å…·é‚„æœ‰"..(AxeStr-1).."é»è€ä¹…ã€‚");
+        end
+        if (Item.GetData(AxeIndex, CONST.é“å…·_è€ä¹…)== 0) then
           local AxeSlot = Char.FindItemId(player, ItemID);
           Char.DelItemBySlot(player, AxeSlot);
           NLG.UpChar(player);
         end
       elseif (AxeIndex<0 or AxeStr < 1) then
-        Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+        Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Logloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"¹¤¾ßÏûºÄ´ù±M£¬·¥Ä¾êPé]£¡");
+        NLG.SystemMessage(player,"å·¥å…·æ¶ˆè€—æ®†ç›¡ï¼Œä¼æœ¨é—œé–‰ï¼");
       end
     else
-        Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+        Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Logloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
@@ -88,76 +120,100 @@ function Module:onLoad()
 
   self:regCallback('LoopEvent', Func.bind(self.Hunterloop,self))
   self:regCallback('Hunterloop', function(player)
-    local ItemID = Char.GetTempData(player, 'á÷ÁÔ¹Ò»ú') or 0;
+    local ItemID = Char.GetTempData(player, 'ç‹©çŒæŒ‚æœº') or 0;
     if (ItemID >0) then
-      local mapId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼ÀàĞÍ);
-      local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-      local px = Char.GetData(player,CONST.¶ÔÏó_X);
-      local py = Char.GetData(player,CONST.¶ÔÏó_Y);
+      local mapId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾ç±»å‹);
+      local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+      local px = Char.GetData(player,CONST.å¯¹è±¡_X);
+      local py = Char.GetData(player,CONST.å¯¹è±¡_Y);
       if (floor==1000) then
-        Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+        Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Hunterloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]ÔÚ·¨Ìm³ÇƒÈ¹¤×÷Í£Ö¹¡£");
+        NLG.SystemMessage(player,"[ç³»çµ±]åœ¨æ³•è˜­åŸå…§å·¥ä½œåœæ­¢ã€‚");
         return
       end
-      local LoggingOn = Char.GetTempData(player, '·¥Ä¾¹Ò»ú') or 0;
-      local MiningOn = Char.GetTempData(player, 'ÍÚ¾ò¹Ò»ú') or 0;
+      local LoggingOn = Char.GetTempData(player, 'ä¼æœ¨æŒ‚æœº') or 0;
+      local MiningOn = Char.GetTempData(player, 'æŒ–æ˜æŒ‚æœº') or 0;
       if (LoggingOn>0 or MiningOn>0) then
           if LoggingOn>0 then 
-            Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+            Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
             Char.SetLoopEvent(nil,'Logloop',player,0);
-            NLG.SystemMessage(player,"[Ïµ½y]Ö»ÄÜßMĞĞ†ÎÒ»¹¤×÷£¬ÒÑÍ£Ö¹·¥Ä¾¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]åªèƒ½é€²è¡Œå–®ä¸€å·¥ä½œï¼Œå·²åœæ­¢ä¼æœ¨ã€‚");
           elseif MiningOn>0 then 
-            Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+            Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
             Char.SetLoopEvent(nil,'Minerloop',player,0);
-            NLG.SystemMessage(player,"[Ïµ½y]Ö»ÄÜßMĞĞ†ÎÒ»¹¤×÷£¬ÒÑÍ£Ö¹ÍÚ¾ò¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]åªèƒ½é€²è¡Œå–®ä¸€å·¥ä½œï¼Œå·²åœæ­¢æŒ–æ˜ã€‚");
           end
           Char.UnsetLoopEvent(player);
           Char.SetLoopEvent(nil,'Hunterloop',player,5000);
       end
 
       local BowIndex = Char.HaveItem(player,ItemID);
-      local BowStr = Item.GetData(BowIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+      local BowStr = Item.GetData(BowIndex, CONST.é“å…·_è€ä¹…) or 0;
       if (BowIndex>0 and BowStr >= 1) then
-        --local count,areaIndex_tbl = TechArea.GetIndexList(mapId, floor, px, py, 226);
-        --print(count,areaIndex_tbl)
-        Item.SetData(BowIndex, CONST.µÀ¾ß_ÄÍ¾Ã, Item.GetData(BowIndex, CONST.µÀ¾ß_ÄÍ¾Ã)-1);
+        Item.SetData(BowIndex, CONST.é“å…·_è€ä¹…, Item.GetData(BowIndex, CONST.é“å…·_è€ä¹…)-1);
         Item.UpItem(player, -1);
 
-        local areaIndex_tbl = get_player_gather_info(px, py, floor, gather_table, 226)
-        if (areaIndex_tbl==nil) then
-          Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+        -- ç¬¬ä¸€é˜¶æ®µ ä½ç½®/æŠ€èƒ½æ‰¾è—å›¾
+        local area = GetTechArea(floor, px, py, TechArea, 226);	--skillId226
+        if (area==nil) then
+          Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Hunterloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]´ËÌŸoËØ²Ä¿ÉÓÃµ½ß@¹¤¾ß¡£");
+          NLG.SystemMessage(player,"[ç³»çµ±]æ­¤åœ°åœ–ç„¡ä»»ä½•ç´ ææˆ–ç„¡æ³•ä½¿ç”¨ã€‚");
           return
         end
-        local itemId,itemProb = dropMap(areaIndex_tbl);
-		if (itemProb==1) then
-          local dropRate = {1,1,1,2,1,1,3,1,1,2};
-          Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
-          NLG.SortItem(player);
-		elseif (itemProb==0) then
-          NLG.SystemMessage(player,"á÷«C’ñ¼¯Ê§”¡¡£");
-		end
-        NLG.SystemMessage(player,"ÏûºÄ1ücÄÍ¾ÃÃ¿5ÃëßMĞĞá÷«C£¬¹¤¾ßß€ÓĞ"..(BowStr-1).."ücÄÍ¾Ã¡£");
-        if (Item.GetData(BowIndex, CONST.µÀ¾ß_ÄÍ¾Ã)== 0) then
+        -- ç¬¬äºŒé˜¶æ®µ åŒºåŸŸ/ç­‰çº§æ‰¾æ‰è½
+        local exploreLv = Char.GetExtData(player, 'æ¢ç´¢ç­‰çº§') or 1;
+        local itemId = DoGather(area, exploreLv);		--æœ€ä½³åŒ–
+        if itemId then
+            local dropRate = {1,1,1,2,1,1,3,1,1,2};
+            Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
+            NLG.SortItem(player);
+            local exploreExp = Char.GetExtData(player, 'æ¢ç´¢ç»éªŒ') or 0;
+            local exploreExp = exploreExp + 1;
+            -- ç†Ÿç·´åº¦ç¶“é©—
+            local need = GetExploreExpNeed(exploreLv);
+            if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+              NLG.SystemMessage(player,"[ç³»çµ±]æ¢ç´¢ç­‰ç´š:"..exploreLv.." è·é›¢å‡ç´š"..exploreExp.."/"..need.."ã€‚");
+            end
+            if (exploreExp >= need and need~=0) then
+                Char.SetExtData(player, 'æ¢ç´¢ç»éªŒ', exploreExp - need);
+                Char.SetExtData(player, 'æ¢ç´¢ç­‰çº§', exploreLv + 1);
+                NLG.UpChar(player);
+            elseif (exploreExp < need and need~=0) then
+                Char.SetExtData(player, 'æ¢ç´¢ç»éªŒ', exploreExp);
+                NLG.UpChar(player);
+            end
+		else
+          NLG.SystemMessage(player,"ä¼æœ¨æ¡é›†å¤±æ•—ã€‚");
+        end
+        -- éšè—æ‰è½
+        local hidden = TryHiddenDrop(226, floor, exploreLv);
+        if hidden then
+            local dropRate = {1,1,2,1,1,1,1,1,1,2};
+            Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+        end
+        if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+          NLG.SystemMessage(player,"æ¶ˆè€—1é»è€ä¹…æ¯5ç§’é€²è¡Œç‹©çµï¼Œå·¥å…·é‚„æœ‰"..(BowStr-1).."é»è€ä¹…ã€‚");
+        end
+        if (Item.GetData(BowIndex, CONST.é“å…·_è€ä¹…)== 0) then
           local BowSlot = Char.FindItemId(player, ItemID);
           Char.DelItemBySlot(player, BowSlot);
           NLG.UpChar(player);
         end
       elseif (BowIndex<0 or BowStr < 1) then
-        Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+        Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Hunterloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"¹¤¾ßÏûºÄ´ù±M£¬á÷«CêPé]£¡");
+        NLG.SystemMessage(player,"å·¥å…·æ¶ˆè€—æ®†ç›¡ï¼Œç‹©çµé—œé–‰ï¼");
       end
     else
-        Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+        Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Hunterloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
@@ -167,76 +223,100 @@ function Module:onLoad()
 
   self:regCallback('LoopEvent', Func.bind(self.Minerloop,self))
   self:regCallback('Minerloop', function(player)
-    local ItemID = Char.GetTempData(player, 'ÍÚ¾ò¹Ò»ú') or 0;
+    local ItemID = Char.GetTempData(player, 'æŒ–æ˜æŒ‚æœº') or 0;
     if (ItemID >0) then
-      local mapId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼ÀàĞÍ);
-      local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-      local px = Char.GetData(player,CONST.¶ÔÏó_X);
-      local py = Char.GetData(player,CONST.¶ÔÏó_Y);
+      local mapId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾ç±»å‹);
+      local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+      local px = Char.GetData(player,CONST.å¯¹è±¡_X);
+      local py = Char.GetData(player,CONST.å¯¹è±¡_Y);
       if (floor==1000) then
-        Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+        Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Minerloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]ÔÚ·¨Ìm³ÇƒÈ¹¤×÷Í£Ö¹¡£");
+        NLG.SystemMessage(player,"[ç³»çµ±]åœ¨æ³•è˜­åŸå…§å·¥ä½œåœæ­¢ã€‚");
         return
       end
-      local LoggingOn = Char.GetTempData(player, '·¥Ä¾¹Ò»ú') or 0;
-      local HuntingOn = Char.GetTempData(player, 'á÷ÁÔ¹Ò»ú') or 0;
+      local LoggingOn = Char.GetTempData(player, 'ä¼æœ¨æŒ‚æœº') or 0;
+      local HuntingOn = Char.GetTempData(player, 'ç‹©çŒæŒ‚æœº') or 0;
       if (LoggingOn>0 or HuntingOn>0) then
           if LoggingOn>0 then 
-            Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+            Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
             Char.SetLoopEvent(nil,'Logloop',player,0);
-            NLG.SystemMessage(player,"[Ïµ½y]Ö»ÄÜßMĞĞ†ÎÒ»¹¤×÷£¬ÒÑÍ£Ö¹·¥Ä¾¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]åªèƒ½é€²è¡Œå–®ä¸€å·¥ä½œï¼Œå·²åœæ­¢ä¼æœ¨ã€‚");
           elseif HuntingOn>0 then 
-            Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+            Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
             Char.SetLoopEvent(nil,'Hunterloop',player,0);
-            NLG.SystemMessage(player,"[Ïµ½y]Ö»ÄÜßMĞĞ†ÎÒ»¹¤×÷£¬ÒÑÍ£Ö¹á÷«C¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]åªèƒ½é€²è¡Œå–®ä¸€å·¥ä½œï¼Œå·²åœæ­¢ç‹©çµã€‚");
           end
           Char.UnsetLoopEvent(player);
           Char.SetLoopEvent(nil,'Minerloop',player,5000);
       end
 
       local HawkIndex = Char.HaveItem(player,ItemID);
-      local HawkStr = Item.GetData(HawkIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+      local HawkStr = Item.GetData(HawkIndex, CONST.é“å…·_è€ä¹…) or 0;
       if (HawkIndex>0 and HawkStr >= 1) then
-        --local count,areaIndex_tbl = TechArea.GetIndexList(mapId, floor, px, py, 227);
-        --print(count,areaIndex_tbl)
-        Item.SetData(HawkIndex, CONST.µÀ¾ß_ÄÍ¾Ã, Item.GetData(HawkIndex, CONST.µÀ¾ß_ÄÍ¾Ã)-1);
+        Item.SetData(HawkIndex, CONST.é“å…·_è€ä¹…, Item.GetData(HawkIndex, CONST.é“å…·_è€ä¹…)-1);
         Item.UpItem(player, -1);
 
-        local areaIndex_tbl = get_player_gather_info(px, py, floor, gather_table, 227)
-        if (areaIndex_tbl==nil) then
-          Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+        -- ç¬¬ä¸€é˜¶æ®µ ä½ç½®/æŠ€èƒ½æ‰¾è—å›¾
+        local area = GetTechArea(floor, px, py, TechArea, 227);	--skillId227
+        if (area==nil) then
+          Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Minerloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]´ËÌŸoËØ²Ä¿ÉÓÃµ½ß@¹¤¾ß¡£");
+          NLG.SystemMessage(player,"[ç³»çµ±]æ­¤åœ°åœ–ç„¡ä»»ä½•ç´ ææˆ–ç„¡æ³•ä½¿ç”¨ã€‚");
           return
         end
-        local itemId,itemProb = dropMap(areaIndex_tbl);
-		if (itemProb==1) then
-          local dropRate = {1,1,1,2,1,1,3,1,1,2};
-          Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
-          NLG.SortItem(player);
-		elseif (itemProb==0) then
-          NLG.SystemMessage(player,"ÍÚ¾ò’ñ¼¯Ê§”¡¡£");
-		end
-        NLG.SystemMessage(player,"ÏûºÄ1ücÄÍ¾ÃÃ¿5ÃëßMĞĞÍÚ¾ò£¬¹¤¾ßß€ÓĞ"..(HawkStr-1).."ücÄÍ¾Ã¡£");
-        if (Item.GetData(HawkIndex, CONST.µÀ¾ß_ÄÍ¾Ã)== 0) then
+        -- ç¬¬äºŒé˜¶æ®µ åŒºåŸŸ/ç­‰çº§æ‰¾æ‰è½
+        local exploreLv = Char.GetExtData(player, 'æ¢ç´¢ç­‰çº§') or 1;
+        local itemId = DoGather(area, exploreLv);		--æœ€ä½³åŒ–
+        if itemId then
+            local dropRate = {1,1,1,2,1,1,3,1,1,2};
+            Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
+            NLG.SortItem(player);
+            local exploreExp = Char.GetExtData(player, 'æ¢ç´¢ç»éªŒ') or 0;
+            local exploreExp = exploreExp + 1;
+            -- ç†Ÿç·´åº¦ç¶“é©—
+            local need = GetExploreExpNeed(exploreLv);
+            if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+              NLG.SystemMessage(player,"[ç³»çµ±]æ¢ç´¢ç­‰ç´š:"..exploreLv.." è·é›¢å‡ç´š"..exploreExp.."/"..need.."ã€‚");
+            end
+            if (exploreExp >= need and need~=0) then
+                Char.SetExtData(player, 'æ¢ç´¢ç»éªŒ', exploreExp - need);
+                Char.SetExtData(player, 'æ¢ç´¢ç­‰çº§', exploreLv + 1);
+                NLG.UpChar(player);
+            elseif (exploreExp < need and need~=0) then
+                Char.SetExtData(player, 'æ¢ç´¢ç»éªŒ', exploreExp);
+                NLG.UpChar(player);
+            end
+		else
+          NLG.SystemMessage(player,"ä¼æœ¨æ¡é›†å¤±æ•—ã€‚");
+        end
+        -- éšè—æ‰è½
+        local hidden = TryHiddenDrop(227, floor, exploreLv);
+        if hidden then
+            local dropRate = {1,1,2,1,1,1,1,1,1,2};
+            Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+        end
+        if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+          NLG.SystemMessage(player,"æ¶ˆè€—1é»è€ä¹…æ¯5ç§’é€²è¡ŒæŒ–æ˜ï¼Œå·¥å…·é‚„æœ‰"..(HawkStr-1).."é»è€ä¹…ã€‚");
+        end
+        if (Item.GetData(HawkIndex, CONST.é“å…·_è€ä¹…)== 0) then
           local HawkSlot = Char.FindItemId(player, ItemID);
           Char.DelItemBySlot(player, HawkSlot);
           NLG.UpChar(player);
         end
       elseif (HawkIndex<0 or HawkStr < 1) then
-        Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+        Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Minerloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"¹¤¾ßÏûºÄ´ù±M£¬ÍÚ¾òêPé]£¡");
+        NLG.SystemMessage(player,"å·¥å…·æ¶ˆè€—æ®†ç›¡ï¼ŒæŒ–æ˜é—œé–‰ï¼");
       end
     else
-        Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+        Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Minerloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
@@ -248,11 +328,11 @@ function Module:onLoad()
 
   -----------------------------------------------------------------------------------------------------------------------
   self:regCallback("ItemString", Func.bind(self.Logging, self), 'LUA_useLumber');
-  self.loggingNPC = self:NPC_createNormal('·¥Ä¾’ì™C', 14682, { x = 42, y = 35, mapType = 0, map = 777, direction = 6 });
+  self.loggingNPC = self:NPC_createNormal('ä¼æœ¨æ›æ©Ÿ', 14682, { x = 42, y = 35, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.loggingNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "\\n@c¡¾·¥Ä¾’ì™C¡¿\\n\\n´Ë¹¤¾ßÒÑ½››]ÓĞÄÍ¾Ã¶ÈŸo·¨Ê¹ÓÃÁË£¡";
-          NLG.ShowWindowTalked(player, self.loggingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          local msg = "\\n@cã€ä¼æœ¨æ›æ©Ÿã€‘\\n\\næ­¤å·¥å…·å·²ç¶“æ²’æœ‰è€ä¹…åº¦ç„¡æ³•ä½¿ç”¨äº†ï¼";
+          NLG.ShowWindowTalked(player, self.loggingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
     end
     return
   end)
@@ -263,45 +343,45 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     local AxeIndex = Char.GetItemIndex(player,AxeSlot);
-    local AxeStr = Item.GetData(AxeIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local AxeStr = Item.GetData(AxeIndex, CONST.é“å…·_è€ä¹…) or 0;
     if select > 0 then
-      if (seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 1 and select == CONST.°´Å¥_ÊÇ) then
-        local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-        local ItemID = Char.GetTempData(player, '·¥Ä¾¹Ò»ú') or 0;
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯) then
+        local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+        local ItemID = Char.GetTempData(player, 'ä¼æœ¨æŒ‚æœº') or 0;
         if (AxeStr > 1 and ItemID==0) then
-          local ItemID = Item.GetData(AxeIndex, CONST.µÀ¾ß_ID);
-          Char.SetTempData(player, '·¥Ä¾¹Ò»ú', ItemID);
+          local ItemID = Item.GetData(AxeIndex, CONST.é“å…·_ID);
+          Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'Logloop',player,5000);
           NLG.SetAction(player, 11);
           NLG.UpChar(player);
         elseif (AxeStr == 1 and ItemID==0) then
-          local ItemID = Item.GetData(AxeIndex, CONST.µÀ¾ß_ID);
+          local ItemID = Item.GetData(AxeIndex, CONST.é“å…·_ID);
           Char.DelItemBySlot(player, AxeSlot);
-          Char.SetTempData(player, '·¥Ä¾¹Ò»ú', ItemID);
+          Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'Logloop',player,5000);
-          NLG.SystemMessage(player,"·¥Ä¾×îááÒ»´ÎÉúĞ§,Õˆ¼°•rÑa³ä¹¤¾ß£¡");
+          NLG.SystemMessage(player,"ä¼æœ¨æœ€å¾Œä¸€æ¬¡ç”Ÿæ•ˆ,è«‹åŠæ™‚è£œå……å·¥å…·ï¼");
         elseif (AxeStr == 0) then
           Char.DelItemBySlot(player, AxeSlot);
-          Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+          Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Logloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]·¥Ä¾¹¤×÷Í£Ö¹¡£");	
+          NLG.SystemMessage(player,"[ç³»çµ±]ä¼æœ¨å·¥ä½œåœæ­¢ã€‚");	
         elseif (ItemID>0) then
-          Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+          Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Logloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]·¥Ä¾¹¤×÷Í£Ö¹¡£");	
+          NLG.SystemMessage(player,"[ç³»çµ±]ä¼æœ¨å·¥ä½œåœæ­¢ã€‚");	
         end
-      elseif (seqno == 1 and select == CONST.°´Å¥_·ñ) then
-        Char.SetTempData(player, '·¥Ä¾¹Ò»ú', 0);
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_å¦) then
+        Char.SetTempData(player, 'ä¼æœ¨æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Logloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]·¥Ä¾¹¤×÷Í£Ö¹¡£");	
+        NLG.SystemMessage(player,"[ç³»çµ±]ä¼æœ¨å·¥ä½œåœæ­¢ã€‚");	
       end
     else
 
@@ -309,11 +389,11 @@ function Module:onLoad()
   end)
 
   self:regCallback("ItemString", Func.bind(self.Hunting, self), 'LUA_useHunter');
-  self.huntingNPC = self:NPC_createNormal('á÷«C’ì™C', 14682, { x = 43, y = 35, mapType = 0, map = 777, direction = 6 });
+  self.huntingNPC = self:NPC_createNormal('ç‹©çµæ›æ©Ÿ', 14682, { x = 43, y = 35, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.huntingNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "\\n@c¡¾á÷«C’ì™C¡¿\\n\\n´Ë¹¤¾ßÒÑ½››]ÓĞÄÍ¾Ã¶ÈŸo·¨Ê¹ÓÃÁË£¡";
-          NLG.ShowWindowTalked(player, self.huntingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          local msg = "\\n@cã€ç‹©çµæ›æ©Ÿã€‘\\n\\næ­¤å·¥å…·å·²ç¶“æ²’æœ‰è€ä¹…åº¦ç„¡æ³•ä½¿ç”¨äº†ï¼";
+          NLG.ShowWindowTalked(player, self.huntingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
     end
     return
   end)
@@ -324,45 +404,45 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     local BowIndex = Char.GetItemIndex(player,BowSlot);
-    local BowStr = Item.GetData(BowIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local BowStr = Item.GetData(BowIndex, CONST.é“å…·_è€ä¹…) or 0;
     if select > 0 then
-      if (seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 1 and select == CONST.°´Å¥_ÊÇ) then
-        local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-        local ItemID = Char.GetTempData(player, 'á÷ÁÔ¹Ò»ú') or 0;
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯) then
+        local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+        local ItemID = Char.GetTempData(player, 'ç‹©çŒæŒ‚æœº') or 0;
         if (BowStr > 1 and ItemID==0) then
-          local ItemID = Item.GetData(BowIndex, CONST.µÀ¾ß_ID);
-          Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', ItemID);
+          local ItemID = Item.GetData(BowIndex, CONST.é“å…·_ID);
+          Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'Hunterloop',player,5000);
           NLG.SetAction(player, 11);
           NLG.UpChar(player);
         elseif (BowStr == 1 and ItemID==0) then
-          local ItemID = Item.GetData(BowIndex, CONST.µÀ¾ß_ID);
+          local ItemID = Item.GetData(BowIndex, CONST.é“å…·_ID);
           Char.DelItemBySlot(player, BowSlot);
-          Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', ItemID);
+          Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'Hunterloop',player,5000);
-          NLG.SystemMessage(player,"á÷«C×îááÒ»´ÎÉúĞ§,Õˆ¼°•rÑa³ä¹¤¾ß£¡");
+          NLG.SystemMessage(player,"ç‹©çµæœ€å¾Œä¸€æ¬¡ç”Ÿæ•ˆ,è«‹åŠæ™‚è£œå……å·¥å…·ï¼");
         elseif (BowStr == 0) then
           Char.DelItemBySlot(player, BowSlot);
-          Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+          Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Hunterloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]á÷«C¹¤×÷Í£Ö¹¡£");	
+          NLG.SystemMessage(player,"[ç³»çµ±]ç‹©çµå·¥ä½œåœæ­¢ã€‚");	
         elseif (ItemID>0) then
-          Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+          Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Hunterloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]á÷«C¹¤×÷Í£Ö¹¡£");	
+          NLG.SystemMessage(player,"[ç³»çµ±]ç‹©çµå·¥ä½œåœæ­¢ã€‚");	
         end
-      elseif (seqno == 1 and select == CONST.°´Å¥_·ñ) then
-        Char.SetTempData(player, 'á÷ÁÔ¹Ò»ú', 0);
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_å¦) then
+        Char.SetTempData(player, 'ç‹©çŒæŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Hunterloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]á÷«C¹¤×÷Í£Ö¹¡£");	
+        NLG.SystemMessage(player,"[ç³»çµ±]ç‹©çµå·¥ä½œåœæ­¢ã€‚");	
       end
     else
 
@@ -370,11 +450,11 @@ function Module:onLoad()
   end)
 
   self:regCallback("ItemString", Func.bind(self.Mining, self), 'LUA_useMiner');
-  self.miningNPC = self:NPC_createNormal('ÍÚ¾ò’ì™C', 14682, { x = 44, y = 35, mapType = 0, map = 777, direction = 6 });
+  self.miningNPC = self:NPC_createNormal('æŒ–æ˜æ›æ©Ÿ', 14682, { x = 44, y = 35, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.miningNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local msg = "\\n@c¡¾ÍÚ¾ò’ì™C¡¿\\n\\n´Ë¹¤¾ßÒÑ½››]ÓĞÄÍ¾Ã¶ÈŸo·¨Ê¹ÓÃÁË£¡";
-          NLG.ShowWindowTalked(player, self.miningNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 2, msg);
+          local msg = "\\n@cã€æŒ–æ˜æ›æ©Ÿã€‘\\n\\næ­¤å·¥å…·å·²ç¶“æ²’æœ‰è€ä¹…åº¦ç„¡æ³•ä½¿ç”¨äº†ï¼";
+          NLG.ShowWindowTalked(player, self.miningNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 2, msg);
     end
     return
   end)
@@ -385,45 +465,45 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     local HawkIndex = Char.GetItemIndex(player,HawkSlot);
-    local HawkStr = Item.GetData(HawkIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local HawkStr = Item.GetData(HawkIndex, CONST.é“å…·_è€ä¹…) or 0;
     if select > 0 then
-      if (seqno == 2 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 2 and select == CONST.æŒ‰é’®_å…³é—­) then
                  return;
-      elseif (seqno == 1 and select == CONST.°´Å¥_ÊÇ) then
-        local floor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-        local ItemID = Char.GetTempData(player, 'ÍÚ¾ò¹Ò»ú') or 0;
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯) then
+        local floor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+        local ItemID = Char.GetTempData(player, 'æŒ–æ˜æŒ‚æœº') or 0;
         if (HawkStr > 1 and ItemID==0) then
-          local ItemID = Item.GetData(HawkIndex, CONST.µÀ¾ß_ID);
-          Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', ItemID);
+          local ItemID = Item.GetData(HawkIndex, CONST.é“å…·_ID);
+          Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'Minerloop',player,5000);
           NLG.SetAction(player, 11);
           NLG.UpChar(player);
         elseif (HawkStr == 1 and ItemID==0) then
-          local ItemID = Item.GetData(HawkIndex, CONST.µÀ¾ß_ID);
+          local ItemID = Item.GetData(HawkIndex, CONST.é“å…·_ID);
           Char.DelItemBySlot(player, HawkSlot);
-          Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', ItemID);
+          Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', ItemID);
           Char.SetLoopEvent(nil,'Minerloop',player,5000);
-          NLG.SystemMessage(player,"ÍÚ¾ò×îááÒ»´ÎÉúĞ§,Õˆ¼°•rÑa³ä¹¤¾ß£¡");
+          NLG.SystemMessage(player,"æŒ–æ˜æœ€å¾Œä¸€æ¬¡ç”Ÿæ•ˆ,è«‹åŠæ™‚è£œå……å·¥å…·ï¼");
         elseif (HawkStr == 0) then
           Char.DelItemBySlot(player, HawkSlot);
-          Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+          Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Minerloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]ÍÚ¾ò¹¤×÷Í£Ö¹¡£");	
+          NLG.SystemMessage(player,"[ç³»çµ±]æŒ–æ˜å·¥ä½œåœæ­¢ã€‚");	
         elseif (ItemID>0) then
-          Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+          Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
           Char.SetLoopEvent(nil,'Minerloop',player,0);
           Char.UnsetLoopEvent(player);
           NLG.UpChar(player);
-          NLG.SystemMessage(player,"[Ïµ½y]ÍÚ¾ò¹¤×÷Í£Ö¹¡£");	
+          NLG.SystemMessage(player,"[ç³»çµ±]æŒ–æ˜å·¥ä½œåœæ­¢ã€‚");	
         end
-      elseif (seqno == 1 and select == CONST.°´Å¥_·ñ) then
-        Char.SetTempData(player, 'ÍÚ¾ò¹Ò»ú', 0);
+      elseif (seqno == 1 and select == CONST.æŒ‰é’®_å¦) then
+        Char.SetTempData(player, 'æŒ–æ˜æŒ‚æœº', 0);
         Char.SetLoopEvent(nil,'Minerloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"[Ïµ½y]ÍÚ¾ò¹¤×÷Í£Ö¹¡£");	
+        NLG.SystemMessage(player,"[ç³»çµ±]æŒ–æ˜å·¥ä½œåœæ­¢ã€‚");	
       end
     else
 
@@ -433,15 +513,15 @@ function Module:onLoad()
 
 end
 
---¹¤¾ßµ÷ÓÃ
+--å·¥å…·è°ƒç”¨
 function Module:Logging(charIndex,targetIndex,itemSlot)
     AxeItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     AxeSlot = itemSlot;
     local AxeIndex = Char.GetItemIndex(charIndex,AxeSlot);
-    local AxeStr = Item.GetData(AxeIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local AxeStr = Item.GetData(AxeIndex, CONST.é“å…·_è€ä¹…) or 0;
     if AxeStr>=0 then
-          local msg = "\\n@c¡¾·¥Ä¾’ì™C¡¿\\n\\n°´¡¸ÊÇ¡¹Ê¹ÓÃ¹¤¾ß£¬ßMĞĞ·¥Ä¾\\n\\n°´¡¸·ñ¡¹Í£Ö¹ÕıÔÚßMĞĞµÄ·¥Ä¾";
-          NLG.ShowWindowTalked(charIndex, self.loggingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+          local msg = "\\n@cã€ä¼æœ¨æ›æ©Ÿã€‘\\n\\næŒ‰ã€Œæ˜¯ã€ä½¿ç”¨å·¥å…·ï¼Œé€²è¡Œä¼æœ¨\\n\\næŒ‰ã€Œå¦ã€åœæ­¢æ­£åœ¨é€²è¡Œçš„ä¼æœ¨";
+          NLG.ShowWindowTalked(charIndex, self.loggingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return 1;
 end
@@ -449,10 +529,10 @@ function Module:Hunting(charIndex,targetIndex,itemSlot)
     BowItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     BowSlot = itemSlot;
     local BowIndex = Char.GetItemIndex(charIndex,BowSlot);
-    local BowStr = Item.GetData(BowIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local BowStr = Item.GetData(BowIndex, CONST.é“å…·_è€ä¹…) or 0;
     if BowStr>=0 then
-          local msg = "\\n@c¡¾á÷«C’ì™C¡¿\\n\\n°´¡¸ÊÇ¡¹Ê¹ÓÃ¹¤¾ß£¬ßMĞĞá÷«C\\n\\n°´¡¸·ñ¡¹Í£Ö¹ÕıÔÚßMĞĞµÄá÷«C";
-          NLG.ShowWindowTalked(charIndex, self.huntingNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+          local msg = "\\n@cã€ç‹©çµæ›æ©Ÿã€‘\\n\\næŒ‰ã€Œæ˜¯ã€ä½¿ç”¨å·¥å…·ï¼Œé€²è¡Œç‹©çµ\\n\\næŒ‰ã€Œå¦ã€åœæ­¢æ­£åœ¨é€²è¡Œçš„ç‹©çµ";
+          NLG.ShowWindowTalked(charIndex, self.huntingNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return 1;
 end
@@ -460,85 +540,87 @@ function Module:Mining(charIndex,targetIndex,itemSlot)
     HawkItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     HawkSlot = itemSlot;
     local HawkIndex = Char.GetItemIndex(charIndex,HawkSlot);
-    local HawkStr = Item.GetData(HawkIndex, CONST.µÀ¾ß_ÄÍ¾Ã) or 0;
+    local HawkStr = Item.GetData(HawkIndex, CONST.é“å…·_è€ä¹…) or 0;
     if HawkStr>=0 then
-          local msg = "\\n@c¡¾ÍÚ¾ò’ì™C¡¿\\n\\n°´¡¸ÊÇ¡¹Ê¹ÓÃ¹¤¾ß£¬ßMĞĞÍÚ¾ò\\n\\n°´¡¸·ñ¡¹Í£Ö¹ÕıÔÚßMĞĞµÄÍÚ¾ò";
-          NLG.ShowWindowTalked(charIndex, self.miningNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+          local msg = "\\n@cã€æŒ–æ˜æ›æ©Ÿã€‘\\n\\næŒ‰ã€Œæ˜¯ã€ä½¿ç”¨å·¥å…·ï¼Œé€²è¡ŒæŒ–æ˜\\n\\næŒ‰ã€Œå¦ã€åœæ­¢æ­£åœ¨é€²è¡Œçš„æŒ–æ˜";
+          NLG.ShowWindowTalked(charIndex, self.miningNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return 1;
 end
 
---µÇÈëÍ£Ö¹
+--ç™»å…¥åœæ­¢
 function Module:onLoginEvent(charIndex)
-	local LoggingOn = Char.GetTempData(charIndex, '·¥Ä¾¹Ò»ú') or 0;
+	local LoggingOn = Char.GetTempData(charIndex, 'ä¼æœ¨æŒ‚æœº') or 0;
 	if (LoggingOn>0) then
-		Char.SetTempData(charIndex, '·¥Ä¾¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'ä¼æœ¨æŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'Logloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]·¥Ä¾¹¤×÷Í£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]ä¼æœ¨å·¥ä½œåœæ­¢ã€‚");	
 	end
-	local HuntingOn = Char.GetTempData(charIndex, 'á÷ÁÔ¹Ò»ú') or 0;
+	local HuntingOn = Char.GetTempData(charIndex, 'ç‹©çŒæŒ‚æœº') or 0;
 	if (HuntingOn>0) then
-		Char.SetTempData(charIndex, 'á÷ÁÔ¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'ç‹©çŒæŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'Hunterloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]á÷«C¹¤×÷Í£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]ç‹©çµå·¥ä½œåœæ­¢ã€‚");	
 	end
-	local MiningOn = Char.GetTempData(charIndex, 'ÍÚ¾ò¹Ò»ú') or 0;
+	local MiningOn = Char.GetTempData(charIndex, 'æŒ–æ˜æŒ‚æœº') or 0;
 	if (MiningOn>0) then
-		Char.SetTempData(charIndex, 'ÍÚ¾ò¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'æŒ–æ˜æŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'Minerloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]ÍÚ¾ò¹¤×÷Í£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]æŒ–æ˜å·¥ä½œåœæ­¢ã€‚");	
 	end
 end
 function Module:onLogoutEvent(charIndex)
-	local LoggingOn = Char.GetTempData(charIndex, '·¥Ä¾¹Ò»ú') or 0;
+	local LoggingOn = Char.GetTempData(charIndex, 'ä¼æœ¨æŒ‚æœº') or 0;
 	if (LoggingOn>0) then
-		Char.SetTempData(charIndex, '·¥Ä¾¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'ä¼æœ¨æŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'Logloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]·¥Ä¾¹¤×÷Í£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]ä¼æœ¨å·¥ä½œåœæ­¢ã€‚");	
 	end
-	local HuntingOn = Char.GetTempData(charIndex, 'á÷ÁÔ¹Ò»ú') or 0;
+	local HuntingOn = Char.GetTempData(charIndex, 'ç‹©çŒæŒ‚æœº') or 0;
 	if (HuntingOn>0) then
-		Char.SetTempData(charIndex, 'á÷ÁÔ¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'ç‹©çŒæŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'Hunterloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]á÷«C¹¤×÷Í£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]ç‹©çµå·¥ä½œåœæ­¢ã€‚");	
 	end
-	local MiningOn = Char.GetTempData(charIndex, 'ÍÚ¾ò¹Ò»ú') or 0;
+	local MiningOn = Char.GetTempData(charIndex, 'æŒ–æ˜æŒ‚æœº') or 0;
 	if (MiningOn>0) then
-		Char.SetTempData(charIndex, 'ÍÚ¾ò¹Ò»ú', 0);
+		Char.SetTempData(charIndex, 'æŒ–æ˜æŒ‚æœº', 0);
 		Char.SetLoopEvent(nil,'Minerloop',charIndex,0);
         Char.UnsetLoopEvent(charIndex);
 		NLG.UpChar(charIndex);
-		NLG.SystemMessage(charIndex,"[Ïµ½y]ÍÚ¾ò¹¤×÷Í£Ö¹¡£");	
+		NLG.SystemMessage(charIndex,"[ç³»çµ±]æŒ–æ˜å·¥ä½œåœæ­¢ã€‚");	
 	end
 end
 
+
+--[[
 function dropMap(areaIndex_tbl)
 	local itemId = 0;
 	local itemProb = 0;
 
-	--Ê§°ÜMISS
+	--å¤±è´¥MISS
 	--local fail = TechArea.GetData(areaIndex,CONST.TECH_AREA_FAILEDPROB);
 	local failRate = math.floor(areaIndex_tbl.failRate/1000)*100;
 	if (NLG.Rand(1,100)<=failRate) then
 		return itemId,itemProb;
 	end
-	--³É¹¦¼ÆËãµôÂäÎï
+	--æˆåŠŸè®¡ç®—æ‰è½ç‰©
 	local items = {}
 	for i=1,#areaIndex_tbl.drops do
-		--local temp_Id = TechArea.GetData(areaIndex,i);		--’ñ¼¯Çé±¨µÀ¾ßID
-		--local temp_Prob = TechArea.GetData(areaIndex,i+10);	--’ñ¼¯Çé±¨·¢ÉúÂÊ
-		local temp_Id = areaIndex_tbl.drops[i].id;		--’ñ¼¯Çé±¨µÀ¾ßID
-		local temp_Prob = areaIndex_tbl.drops[i].rate;	--’ñ¼¯Çé±¨·¢ÉúÂÊ
+		--local temp_Id = TechArea.GetData(areaIndex,i);		--æ¡é›†æƒ…æŠ¥é“å…·ID
+		--local temp_Prob = TechArea.GetData(areaIndex,i+10);	--æ¡é›†æƒ…æŠ¥å‘ç”Ÿç‡
+		local temp_Id = areaIndex_tbl.drops[i].id;		--æ¡é›†æƒ…æŠ¥é“å…·ID
+		local temp_Prob = areaIndex_tbl.drops[i].rate;	--æ¡é›†æƒ…æŠ¥å‘ç”Ÿç‡
 		local tempSET = {name=temp_Id, weight=temp_Prob};
 		if (temp_Id>0) then
 			table.insert(items,tempSET);
@@ -559,16 +641,15 @@ function dropMap(areaIndex_tbl)
 		end
 	end
 	return itemId,itemProb;
-end
-
+end]]
 ------------------------------------------------------------------
--- ™z²éÍæ¼ÒÊÇ·ñÔÚ¾ØĞÎ…^ÓòƒÈ
+--[[-- æª¢æŸ¥ç©å®¶æ˜¯å¦åœ¨çŸ©å½¢å€åŸŸå…§
 function is_in_rect(px, py, gather)
 	return px >= gather.x1 and px <= gather.x2
 		and py >= gather.y1 and py <= gather.y2
 end
 
--- È¡µÃÍæ¼Ò¿É’ñ¼¯ÙYÁÏ
+-- å–å¾—ç©å®¶å¯æ¡é›†è³‡æ–™
 function get_player_gather_info(px, py, floor, gather_table, tooltype)
 	local candidates = {}
 
@@ -578,19 +659,154 @@ function get_player_gather_info(px, py, floor, gather_table, tooltype)
 		end
 	end
 
-	-- ¶à‚€¾ØĞÎÖØ¯B•r£¬priority Ô½Ğ¡Ô½ƒÏÈ
+	-- å¤šå€‹çŸ©å½¢é‡ç–Šæ™‚ï¼Œpriority è¶Šå°è¶Šå„ªå…ˆ
 	table.sort(candidates, function(a, b)
 		return a.priority < b.priority
 	end)
 
-	return candidates[1] -- »Ø‚÷ priority ×îĞ¡µÄÄÇ¹P
+	return candidates[1] -- å›å‚³ priority æœ€å°çš„é‚£ç­†
+end]]
+
+-- å–å¾—ç©å®¶å¯æ¡é›†è³‡æ–™
+function GetTechArea(floor, px, py, TechArea, skillId)
+    local m = TechArea[floor]
+    if not m then return nil end
+
+    local areas = m[skillId]
+    if not areas then return nil end
+
+    for i = 1, #areas do
+        local a = areas[i]
+        if px >= a.x1 and px <= a.x2 and py >= a.y1 and py <= a.y2 then
+            return a
+        end
+    end
+
+    return nil
+end
+-- 
+function DoGather(area, skillLv)
+    if not area then return nil end
+
+    if area.fail > 0 and math.random(1000) <= area.fail then
+        return nil
+    end
+
+    local drops = area.drops;
+    local total = 0;
+    local K = GetExploreBonusK(skillLv);	--é€†æ¬Šé‡è£œæ­£
+
+    -- ç¬¬ä¸€æ¬¡ï¼šè¨ˆç®—è£œæ­£å¾Œç¸½æ¬Šé‡
+    for i = 1, #drops, 2 do
+        local baseRate = drops[i + 1];
+        -- æŠ€èƒ½è£œæ­£ï¼ˆç¨€æœ‰è€…åŠ æˆé«˜ï¼‰
+        local bonus = (skillLv * K) / baseRate;
+        if bonus > 1.0 then bonus = 1.0 end
+        total = total + baseRate * (1 + bonus);
+    end
+
+    local r = math.random() * total
+    local acc = 0;
+
+    -- ç¬¬äºŒæ¬¡ï¼šæŠ½é¸
+    for i = 1, #drops, 2 do
+        local itemId   = drops[i];
+        local baseRate = drops[i + 1];
+        -- æŠ€èƒ½è£œæ­£ï¼ˆç¨€æœ‰è€…åŠ æˆé«˜ï¼‰
+        local bonus = (skillLv * K) / baseRate;
+        if bonus > 1.0 then bonus = 1.0 end
+        acc = acc + baseRate * (1 + bonus);
+        if r <= acc then
+            return itemId
+        end
+    end
+
+    return nil
 end
 
+-- é€†æ¬Šé‡è£œæ­£
+local K_MAX = 0.04   -- å»ºè­°ç¯„åœ 0.03 ~ 0.06
+function GetExploreBonusK(skillLv)
+    if skillLv <= 0 then return 0 end
+    if skillLv >= 100 then return K_MAX end
 
+    local t = skillLv / 100;
+    return K_MAX * t * t
+end
 
+-- ç†Ÿç·´åº¦è¡¨
+function GetExploreExpNeed(lv)
+    if lv >= 100 then return 0 end
+    return 20 * lv * lv + 80 * lv + 100
+end
 
+--- éš±è—æ‰è½æŠ½é¸
+-- needLv
+-- æ™®é€šéš±è—ï¼š50 ç¨€æœ‰éš±è—ï¼š70 å‚³èªªç´ æï¼š90
+-- chanceï¼ˆ/1000ï¼‰
+-- ä½ç´šéš±è—ï¼š100(10%) ç¨€æœ‰éš±è—ï¼š30(3%) å‚³èªªç´ æï¼š5(0.5%)
+local HiddenDrop = {
+  [225] = {
+    [100] = {
+      needLv = 60,
+      chance = 50,   -- /1000
+      drops = { 40843, 100, 40844, 50 }		--ç«ç„°é¼ é“¶å¸ã€æ°´è“é¼ é‡‘å¸
+    }
+  },
+  [226] = {
+    [100] = {
+      needLv = 60,
+      chance = 50,   -- /1000
+      drops = { 40843, 100, 40844, 50 }		--ç«ç„°é¼ é“¶å¸ã€æ°´è“é¼ é‡‘å¸
+    }
+  },
+  [227] = {
+    [100] = {
+      needLv = 60,
+      chance = 50,   -- /1000
+      drops = { 40843, 100, 40844, 50 }		--ç«ç„°é¼ é“¶å¸ã€æ°´è“é¼ é‡‘å¸
+    }
+  },
+}
+function TryHiddenDrop(skillId, floor, skillLv)
+    local s = HiddenDrop[skillId]
+    if not s then return nil end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+    local h = s[floor]
+    if not h then return nil end
+
+    if skillLv < h.needLv then
+        return nil
+    end
+
+    -- è§¸ç™¼æ©Ÿç‡
+    if math.random(1000) > h.chance then
+        return nil
+    end
+
+    local drops = h.drops
+    local total = 0
+
+    for i = 1, #drops, 2 do
+        total = total + drops[i + 1]
+    end
+
+    if total <= 0 then return nil end
+
+    local r = math.random(total)
+    local acc = 0
+
+    for i = 1, #drops, 2 do
+        acc = acc + drops[i + 1]
+        if r <= acc then
+            return drops[i]
+        end
+    end
+
+    return nil
+end
+
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
