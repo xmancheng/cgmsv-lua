@@ -1,248 +1,248 @@
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
---ahsin×öµÄ£º¾«¼òÓ¶±ø
---°æ±¾£º20250721c
---±¾lua±ØĞëÔËĞĞÔÚmÀĞµÄĞÂ¿ò¼ÜÏÂ
---Ê×·¢ÂÛÌ³ www.cnmlb.com »ñÈ¡×îĞÂ°æ±¾
+--ahsinåšçš„ï¼šç²¾ç®€ä½£å…µ
+--ç‰ˆæœ¬ï¼š20250721c
+--æœ¬luaå¿…é¡»è¿è¡Œåœ¨mä½¬çš„æ–°æ¡†æ¶ä¸‹
+--é¦–å‘è®ºå› www.cnmlb.com è·å–æœ€æ–°ç‰ˆæœ¬
 
---ÓÉÓÚ¹¦ÄÜ±È½Ï·á¸»£¬Ãâ·Ñ·ÖÏí¹éÃâ·Ñ¡£¹ıÀ´bÕ¾µã¸öÔŞ¡¢Ò»¼üÈıÁ¬²»¹ı·Ö°É£¿
+--ç”±äºåŠŸèƒ½æ¯”è¾ƒä¸°å¯Œï¼Œå…è´¹åˆ†äº«å½’å…è´¹ã€‚è¿‡æ¥bç«™ç‚¹ä¸ªèµã€ä¸€é”®ä¸‰è¿ä¸è¿‡åˆ†å§ï¼Ÿ
 --https://space.bilibili.com/21127109
---qqÈº£º85199642
+--qqç¾¤ï¼š85199642
 
---±¾luaÖ»Ö§³Öcgmsv+ĞÂ¿ò¼Ü£¬²»È»100%ÅÜ²»ÆğÀ´
+--æœ¬luaåªæ”¯æŒcgmsv+æ–°æ¡†æ¶ï¼Œä¸ç„¶100%è·‘ä¸èµ·æ¥
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 
---Ä£¿éÀà
-local ¾«¼òÓ¶±øModule = ModuleBase:createModule('¾«¼òÓ¶±ø')--¾«¼òÓ¶±ø
+--æ¨¡å—ç±»
+local ç²¾ç®€ä½£å…µModule = ModuleBase:createModule('ç²¾ç®€ä½£å…µ')--ç²¾ç®€ä½£å…µ
 
---¼ÓÔØÄ£¿é¹³×Ó
-function ¾«¼òÓ¶±øModule:onLoad()
+--åŠ è½½æ¨¡å—é’©å­
+function ç²¾ç®€ä½£å…µModule:onLoad()
 	self:logInfo('load')
-	self:regCallback('LoginEvent', Func.bind(self.ÉÏÏß´¥·¢, self))--ÉÏÏß´¥·¢
-	self:regCallback('LoginGateEvent', Func.bind(self.µÇ»Ø³öÉúµã, self))--µÇ»Ø³öÉúµã´¥·¢
-	self:regCallback('ResetCharaBattleStateEvent', Func.bind(self.µÇ»Ø³öÉúµã, self))--Õ½¶·ºó´¥·¢2
-	self:regCallback('BattleOverEvent', Func.bind(self.Õ½¶·½áÊø´¥·¢, self))--Õ½¶·½áÊø´¥·¢
-	self:regCallback('BeforeBattleTurnEvent', Func.bind(self.»ØºÏ¿ªÊ¼Ç°´¥·¢, self))--»ØºÏ¿ªÊ¼Ç°´¥·¢
-	self:regCallback('TalkEvent', Func.bind(self.Íæ¼ÒËµ»°, self))--Íæ¼ÒËµ»°
-	self:regCallback('AfterWarpEvent', Func.bind(self.´«ËÍ´¥·¢, self))--´«ËÍ´¥·¢
-	self:regCallback('LogoutEvent', Func.bind(self.ÏÂÏßµôÏß´¥·¢, self))--ÏÂÏß´¥·¢
-	self:regCallback('DropEvent', Func.bind(self.ÏÂÏßµôÏß´¥·¢, self))--µôÏß´¥·¢
-	ai_npc = self:NPC_createNormal('aiÓ¶±ø¹ÜÀí',104862,{x=234,y=70,mapType=0,map=1000,direction=6})--aiÓ¶±ø¹ÜÀínpc
-	self:NPC_regWindowTalkedEvent(ai_npc,Func.bind(self.µ¯´°´¥·¢,self))--aiÓ¶±ø¹ÜÀínpc´°¿Ú°´Å¥´¥·¢
-	self:NPC_regTalkedEvent(ai_npc,Func.bind(self.ÃæÏònpc´¥·¢,self))--ÃæÏòai_npc´¥·¢
-	local ÔÚÏßÍæ¼Ò±í = NLG.GetPlayer() or false--»ñÈ¡ÔÚÏßÍæ¼Ò±í£¬²¢Çå¿ÕÀÏÓ¶±ø
-	if ÔÚÏßÍæ¼Ò±í ~= -1 then
-		for k,v in pairs(ÔÚÏßÍæ¼Ò±í) do
+	self:regCallback('LoginEvent', Func.bind(self.ä¸Šçº¿è§¦å‘, self))--ä¸Šçº¿è§¦å‘
+	self:regCallback('LoginGateEvent', Func.bind(self.ç™»å›å‡ºç”Ÿç‚¹, self))--ç™»å›å‡ºç”Ÿç‚¹è§¦å‘
+	self:regCallback('ResetCharaBattleStateEvent', Func.bind(self.ç™»å›å‡ºç”Ÿç‚¹, self))--æˆ˜æ–—åè§¦å‘2
+	self:regCallback('BattleOverEvent', Func.bind(self.æˆ˜æ–—ç»“æŸè§¦å‘, self))--æˆ˜æ–—ç»“æŸè§¦å‘
+	self:regCallback('BeforeBattleTurnEvent', Func.bind(self.å›åˆå¼€å§‹å‰è§¦å‘, self))--å›åˆå¼€å§‹å‰è§¦å‘
+	self:regCallback('TalkEvent', Func.bind(self.ç©å®¶è¯´è¯, self))--ç©å®¶è¯´è¯
+	self:regCallback('AfterWarpEvent', Func.bind(self.ä¼ é€è§¦å‘, self))--ä¼ é€è§¦å‘
+	self:regCallback('LogoutEvent', Func.bind(self.ä¸‹çº¿æ‰çº¿è§¦å‘, self))--ä¸‹çº¿è§¦å‘
+	self:regCallback('DropEvent', Func.bind(self.ä¸‹çº¿æ‰çº¿è§¦å‘, self))--æ‰çº¿è§¦å‘
+	ai_npc = self:NPC_createNormal('aiä½£å…µç®¡ç†',104862,{x=234,y=70,mapType=0,map=1000,direction=6})--aiä½£å…µç®¡ç†npc
+	self:NPC_regWindowTalkedEvent(ai_npc,Func.bind(self.å¼¹çª—è§¦å‘,self))--aiä½£å…µç®¡ç†npcçª—å£æŒ‰é’®è§¦å‘
+	self:NPC_regTalkedEvent(ai_npc,Func.bind(self.é¢å‘npcè§¦å‘,self))--é¢å‘ai_npcè§¦å‘
+	local åœ¨çº¿ç©å®¶è¡¨ = NLG.GetPlayer() or false--è·å–åœ¨çº¿ç©å®¶è¡¨ï¼Œå¹¶æ¸…ç©ºè€ä½£å…µ
+	if åœ¨çº¿ç©å®¶è¡¨ ~= -1 then
+		for k,v in pairs(åœ¨çº¿ç©å®¶è¡¨) do
 			if Char.IsDummy(v) then
 				Char.LeaveParty(v)
 				Char.DelDummy(v)
 			end
 		end
-		ÔÚÏßÍæ¼Ò±í = nil
+		åœ¨çº¿ç©å®¶è¡¨ = nil
 	end
 end
 
---Ö°ÒµÍ³¼Æ£º ¹­-44 | ½£-14 | ¸«-24 | Æï-34 | ¸ñ-144 | Ä§-74 | ´«-64 | Î×-134 | Öä-84 | ÈÌ-154
---ÎäÆ÷Í³¼Æ£º Ë®Áú¹­215 | 201´åÕı | 206ÅÁÂ³¿­Ë¹ | 211Ìì¿Õ | 220Ë®ÁúÕÈ | 250Ë®ÁúÖ®·ş-¸ñ¶· ,±¾luaÖ»ÓĞ¸ñ¶·»á×Ô¶¯ÅĞ¶Ï¸ø´©ÒÂ·ş£¬ÆäËüÖ°ÒµÄ¬ÈÏ´øÎäÆ÷
---20250721¿ªÊ¼£¬Ö§³Ö´Û¸ÄÓ¶±øÊÖ³ÖÎäÆ÷ÊôĞÔ£¬´Ó´ËÓ¶±ø²»ĞèÒª×°±¸´©Âú£¬´øÒ»°ÑÎäÆ÷¾Í¹»ÁË£¬¿¹ĞÔ¾Í²»×öÁË£¬¼´Ê¹ÈÌÕßÒ²ÒÑÂÔbt£¬²»ÄÜ¸ø¿¹
---´´½¨ai = {Ğò,aiÃû×Ö,Ö°ÒµÏÔÊ¾,Í¼µµid,job,jobrank,ÎäÆ÷id,'ÎäÆ÷Ñª|ÎäÆ÷Ä§|ÎäÆ÷¹¥|ÎäÆ÷·À|ÎäÆ÷Ãô|ÎäÆ÷¾«|ÎäÆ÷Ä§¹¥|ÎäÆ÷Ä§¿¹|ÎäÆ÷·´|ÎäÆ÷Ãü|ÎäÆ÷±Ø|ÎäÆ÷ÉÁ|ÎäÆ÷»Ø|ÎäÆ÷÷È',¿ªÍ¨¼Û¸ñ}
---ÎäÆ÷¸÷µ¥ÏîÊôĞÔ²»¸ÄÓÃÄ¬ÈÏµÄ£¬Ğ´¡®²»¸Ä¡¯¼´¿É£¬ÆäËü¸øÊı×Ö¼´¿É£¬Ö§³Ö¸ºÊı
+--èŒä¸šç»Ÿè®¡ï¼š å¼“-44 | å‰‘-14 | æ–§-24 | éª‘-34 | æ ¼-144 | é­”-74 | ä¼ -64 | å·«-134 | å’’-84 | å¿-154
+--æ­¦å™¨ç»Ÿè®¡ï¼š æ°´é¾™å¼“215 | 201æ‘æ­£ | 206å¸•é²å‡¯æ–¯ | 211å¤©ç©º | 220æ°´é¾™æ– | 250æ°´é¾™ä¹‹æœ-æ ¼æ–— ,æœ¬luaåªæœ‰æ ¼æ–—ä¼šè‡ªåŠ¨åˆ¤æ–­ç»™ç©¿è¡£æœï¼Œå…¶å®ƒèŒä¸šé»˜è®¤å¸¦æ­¦å™¨
+--20250721å¼€å§‹ï¼Œæ”¯æŒç¯¡æ”¹ä½£å…µæ‰‹æŒæ­¦å™¨å±æ€§ï¼Œä»æ­¤ä½£å…µä¸éœ€è¦è£…å¤‡ç©¿æ»¡ï¼Œå¸¦ä¸€æŠŠæ­¦å™¨å°±å¤Ÿäº†ï¼ŒæŠ—æ€§å°±ä¸åšäº†ï¼Œå³ä½¿å¿è€…ä¹Ÿå·²ç•¥btï¼Œä¸èƒ½ç»™æŠ—
+--åˆ›å»ºai = {åº,aiåå­—,èŒä¸šæ˜¾ç¤º,å›¾æ¡£id,job,jobrank,æ­¦å™¨id,'æ­¦å™¨è¡€|æ­¦å™¨é­”|æ­¦å™¨æ”»|æ­¦å™¨é˜²|æ­¦å™¨æ•|æ­¦å™¨ç²¾|æ­¦å™¨é­”æ”»|æ­¦å™¨é­”æŠ—|æ­¦å™¨å|æ­¦å™¨å‘½|æ­¦å™¨å¿…|æ­¦å™¨é—ª|æ­¦å™¨å›|æ­¦å™¨é­…',å¼€é€šä»·æ ¼}
+--æ­¦å™¨å„å•é¡¹å±æ€§ä¸æ”¹ç”¨é»˜è®¤çš„ï¼Œå†™â€˜ä¸æ”¹â€™å³å¯ï¼Œå…¶å®ƒç»™æ•°å­—å³å¯ï¼Œæ”¯æŒè´Ÿæ•°
 local ai_list = {
-{1,'ÇàøS','¹­¼ıÊÖ',120119,44,40,215,'²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|15|200|999',100},
-{2,'”ØÔÂ','½£Ê¿',105509,14,10,201,'²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',100},
-{3,'ÆÆÜŠ','Õ½¸«¶·Ê¿',105150,24,20,206,'²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',100},
-{4,'ıˆÒ°','ÆïÊ¿',105061,34,30,211,'²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',100},
-{5,'ĞŞÁ_','¸ñ¶·',105102,144,140,250,'²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|15|200|999',100},
-{6,'õƒº','Ä§·¨Ê¦',105266,74,70,220,'²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',100},
-{7,'ÇßĞÄ','´«½ÌÊ¿',105285,64,60,220,'500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|800|999',200},
-{8,'ÄªĞ°','Î×Ê¦',105416,134,130,220,'500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|800|999',200},
+{1,'é’é³¶','å¼“ç®­æ‰‹',120119,44,40,215,'ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|15|200|999',100},
+{2,'æ–¬æœˆ','å‰‘å£«',105509,14,10,201,'ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{3,'ç ´è»','æˆ˜æ–§æ–—å£«',105150,24,20,206,'ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{4,'é¾é‡','éª‘å£«',105061,34,30,211,'ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{5,'ä¿®ç¾…','æ ¼æ–—',105102,144,140,250,'ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|15|200|999',100},
+{6,'çƒå…’','é­”æ³•å¸ˆ',105266,74,70,220,'ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{7,'æ²å¿ƒ','ä¼ æ•™å£«',105285,64,60,220,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|800|999',200},
+{8,'è«é‚ª','å·«å¸ˆ',105416,134,130,220,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|800|999',200},
 
-{9,'GMÇàøS','¹­¼ıÊÖ',120119,44,40,215,'2000|²»¸Ä|500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|15|200|999',100},
-{10,'GM”ØÔÂ','½£Ê¿',105509,14,10,201,'2000|²»¸Ä|500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',100},
-{11,'GMÆÆÜŠ','Õ½¸«¶·Ê¿',105150,24,20,206,'2000|²»¸Ä|500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|100|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',100},
-{12,'GMıˆÒ°','ÆïÊ¿',105061,34,30,211,'2000|²»¸Ä|500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|100|²»¸Ä|70|²»¸Ä|²»¸Ä|200|999',100},
-{13,'GMĞŞÁ_','¸ñ¶·',105102,144,140,250,'2000|²»¸Ä|500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|15|200|999',100},
-{14,'GMõƒº','Ä§·¨Ê¦',105266,74,70,220,'2000|1000|²»¸Ä|²»¸Ä|²»¸Ä|1000|350|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',100},
-{15,'GMÇßĞÄ','´«½ÌÊ¿',105285,64,60,220,'5000|1000|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|800|999',200},
-{16,'GMÄªĞ°','Î×Ê¦',105416,134,130,220,'5000|1000|²»¸Ä|²»¸Ä|500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|800|999',200},
---{9,'¼úÈË','½£Ê¿',108324,14,10,201,'²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|200|999',150},
---{10,'Ë¾²¨ÉîÑ©','ÖäÊõÊ¦',108233,84,80,220,'500|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|800|999',300},
---{11,'ÓîÖÇ²¨÷ø','ÈÌÕß',102860,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999',500},--bossÕ½×öÁË²»°µÉ±Éè¶¨£¬Èç¹ûÄãÄ³Ğ©ÆÕÍ¨Õ½¶·ÖĞÒ²ÉèÓĞboss£¬¸ã²»¶¨ÍÆ¼ö×¢ÊÍ°µÉ±¼¼ÄÜ
---{12,'GM','GM',170001,481,480,220,'999|999|999|999|999|999|999|999|999|999|999|999|999|999',1000},--²âÊÔÖ°Òµ£¬Èç¹ûÄãµÄjobÀïÃ»ÓĞ481£¬»ò¾õµÃ±äÌ¬Çë×¢ÊÍ
+{9,'GMé’é³¶','å¼“ç®­æ‰‹',120119,44,40,215,'2000|ä¸æ”¹|500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|15|200|999',100},
+{10,'GMæ–¬æœˆ','å‰‘å£«',105509,14,10,201,'2000|ä¸æ”¹|500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{11,'GMç ´è»','æˆ˜æ–§æ–—å£«',105150,24,20,206,'2000|ä¸æ”¹|500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|100|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{12,'GMé¾é‡','éª‘å£«',105061,34,30,211,'2000|ä¸æ”¹|500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|100|ä¸æ”¹|70|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{13,'GMä¿®ç¾…','æ ¼æ–—',105102,144,140,250,'2000|ä¸æ”¹|500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|15|200|999',100},
+{14,'GMçƒå…’','é­”æ³•å¸ˆ',105266,74,70,220,'2000|1000|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|1000|350|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',100},
+{15,'GMæ²å¿ƒ','ä¼ æ•™å£«',105285,64,60,220,'5000|1000|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|800|999',200},
+{16,'GMè«é‚ª','å·«å¸ˆ',105416,134,130,220,'5000|1000|ä¸æ”¹|ä¸æ”¹|500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|800|999',200},
+--{9,'è´±äºº','å‰‘å£«',108324,14,10,201,'ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|200|999',150},
+--{10,'å¸æ³¢æ·±é›ª','å’’æœ¯å¸ˆ',108233,84,80,220,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|800|999',300},
+--{11,'å®‡æ™ºæ³¢é¼¬','å¿è€…',102860,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999',500},--bossæˆ˜åšäº†ä¸æš—æ€è®¾å®šï¼Œå¦‚æœä½ æŸäº›æ™®é€šæˆ˜æ–—ä¸­ä¹Ÿè®¾æœ‰bossï¼Œæä¸å®šæ¨èæ³¨é‡Šæš—æ€æŠ€èƒ½
+--{12,'GM','GM',170001,481,480,220,'999|999|999|999|999|999|999|999|999|999|999|999|999|999',1000},--æµ‹è¯•èŒä¸šï¼Œå¦‚æœä½ çš„jobé‡Œæ²¡æœ‰481ï¼Œæˆ–è§‰å¾—å˜æ€è¯·æ³¨é‡Š
 }
-local ¿ªÍ¨±ÒÖÖ = 1--0Ä§±Ò£¬1×Ô¶¨Òå±Ò
-local ×Ô¶¨Òå±ÒÃû = 'CN±Ò'
-local ×Ô¶¨Òå±Òitemid = 88888
-local ai×îµÍµÈ¼¶ = 70--Èç¹ûÍæ¼ÒµÈ¼¶Ğ¡ÓÚ70£¬aiµÈ¼¶Ç¿ÖÆÎª70£¬Íæ¼ÒµÈ¼¶¸ßÓÚ70£¬aiµÈ¼¶Ôò¸ù¾İÈËµÄµÈ¼¶À´
-local aiÈË¿ÚÏŞÖÆ = 999999999--diyÏŞÖÆÃ¿ÏßÂ··şÎñÆ÷aiÈË¿ÚÉÏÏŞ
-local Íæ¼ÒÕĞÄ¼Ó¶±øĞèÇóµÈ¼¶ = 20
-local aiÈË¿ÚÍ³¼Æ = 0--³õÊ¼»¯Êı¾İ
-local Õ½¶·¶ÔÏó±í = {}--³õÊ¼»¯Õ½¶·¶ÔÏó±í
-local Íæ¼Ò³ÖÓĞai±í = {}--³õÊ¼»¯Íæ¼ÒÊı¾İ±í
-local ÏÖÔÚÒ³ = {}--³õÊ¼»¯Íæ¼Ò·­Ò³Êı¾İ±í
-local Íæ¼ÒÔ¤¹ºÇåµ¥ = {}--³õÊ¼»¯Íæ¼ÒÔ¤¹ºÇåµ¥
-local ×°±¸³£Á¿±í = {--³õÊ¼»¯¿ì½İ×°±¸²ÎÊı³£Á¿
-	CONST.µÀ¾ß_ÉúÃü,CONST.µÀ¾ß_Ä§Á¦,CONST.µÀ¾ß_¹¥»÷,CONST.µÀ¾ß_·ÀÓù,CONST.µÀ¾ß_Ãô½İ,CONST.µÀ¾ß_¾«Éñ,CONST.µÀ¾ß_Ä§¹¥,
-	CONST.µÀ¾ß_Ä§¿¹,CONST.µÀ¾ß_·´»÷,CONST.µÀ¾ß_ÃüÖĞ,CONST.µÀ¾ß_±ØÉ±,CONST.µÀ¾ß_ÉÁ¶ã,CONST.µÀ¾ß_»Ø¸´,CONST.µÀ¾ß_÷ÈÁ¦,
+local å¼€é€šå¸ç§ = 0--0é­”å¸ï¼Œ1è‡ªå®šä¹‰å¸
+local è‡ªå®šä¹‰å¸å = 'CNå¸'
+local è‡ªå®šä¹‰å¸itemid = 88888
+local aiæœ€ä½ç­‰çº§ = 70--å¦‚æœç©å®¶ç­‰çº§å°äº70ï¼Œaiç­‰çº§å¼ºåˆ¶ä¸º70ï¼Œç©å®¶ç­‰çº§é«˜äº70ï¼Œaiç­‰çº§åˆ™æ ¹æ®äººçš„ç­‰çº§æ¥
+local aiäººå£é™åˆ¶ = 999999999--diyé™åˆ¶æ¯çº¿è·¯æœåŠ¡å™¨aiäººå£ä¸Šé™
+local ç©å®¶æ‹›å‹Ÿä½£å…µéœ€æ±‚ç­‰çº§ = 1
+local aiäººå£ç»Ÿè®¡ = 0--åˆå§‹åŒ–æ•°æ®
+local æˆ˜æ–—å¯¹è±¡è¡¨ = {}--åˆå§‹åŒ–æˆ˜æ–—å¯¹è±¡è¡¨
+local ç©å®¶æŒæœ‰aiè¡¨ = {}--åˆå§‹åŒ–ç©å®¶æ•°æ®è¡¨
+local ç°åœ¨é¡µ = {}--åˆå§‹åŒ–ç©å®¶ç¿»é¡µæ•°æ®è¡¨
+local ç©å®¶é¢„è´­æ¸…å• = {}--åˆå§‹åŒ–ç©å®¶é¢„è´­æ¸…å•
+local è£…å¤‡å¸¸é‡è¡¨ = {--åˆå§‹åŒ–å¿«æ·è£…å¤‡å‚æ•°å¸¸é‡
+	CONST.é“å…·_ç”Ÿå‘½,CONST.é“å…·_é­”åŠ›,CONST.é“å…·_æ”»å‡»,CONST.é“å…·_é˜²å¾¡,CONST.é“å…·_æ•æ·,CONST.é“å…·_ç²¾ç¥,CONST.é“å…·_é­”æ”»,
+	CONST.é“å…·_é­”æŠ—,CONST.é“å…·_åå‡»,CONST.é“å…·_å‘½ä¸­,CONST.é“å…·_å¿…æ€,CONST.é“å…·_é—ªèº²,CONST.é“å…·_å›å¤,CONST.é“å…·_é­…åŠ›,
 }
 
-function ¾«¼òÓ¶±øModule:ÃæÏònpc´¥·¢(npc,player)--ÃæÏòai_npc´¥·¢
-	if Char.GetData(player,CONST.¶ÔÏó_µÈ¼¶) < Íæ¼ÒÕĞÄ¼Ó¶±øĞèÇóµÈ¼¶ then
-		NLG.ShowWindowTalked(player,player,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_¹Ø±Õ,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\nµÈÄã'..Íæ¼ÒÕĞÄ¼Ó¶±øĞèÇóµÈ¼¶..'¼¶ÔÙÀ´°É¡£')
+function ç²¾ç®€ä½£å…µModule:é¢å‘npcè§¦å‘(npc,player)--é¢å‘ai_npcè§¦å‘
+	if Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§) < ç©å®¶æ‹›å‹Ÿä½£å…µéœ€æ±‚ç­‰çº§ then
+		NLG.ShowWindowTalked(player,player,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_å…³é—­,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\nç­‰ä½ '..ç©å®¶æ‹›å‹Ÿä½£å…µéœ€æ±‚ç­‰çº§..'çº§å†æ¥å§ã€‚')
 		return
 	end
-	local ³ÖÓĞ×´Ì¬ = {}
+	local æŒæœ‰çŠ¶æ€ = {}
 	for i = 1,#ai_list do
-		if not Íæ¼Ò³ÖÓĞai±í[player] then
-			self:ÉÏÏß´¥·¢(player)
+		if not ç©å®¶æŒæœ‰aiè¡¨[player] then
+			self:ä¸Šçº¿è§¦å‘(player)
 		end
-		if Íæ¼Ò³ÖÓĞai±í[player][i] >= 1 then
-			³ÖÓĞ×´Ì¬[i] = '³´öÏÓã'
+		if ç©å®¶æŒæœ‰aiè¡¨[player][i] >= 1 then
+			æŒæœ‰çŠ¶æ€[i] = 'ç‚’é±¿é±¼'
 		else
-			³ÖÓĞ×´Ì¬[i] = 'ÕĞÄ¼'
+			æŒæœ‰çŠ¶æ€[i] = 'æ‹›å‹Ÿ'
 		end
 	end
-	local Õ¼¾İĞĞ = 2 + #ai_list
-	local ·Ö¼¸Ò³ = math.ceil(Õ¼¾İĞĞ/10)
-	local ´°¿ÚÄÚÈİ = '1|@c\\n¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿'
-	..'\\n--> ¹ÍÓ¶±ø¼ò½é <--'
-	local GMcdk = Char.GetData(player,CONST.¶ÔÏó_GM);
+	local å æ®è¡Œ = 2 + #ai_list
+	local åˆ†å‡ é¡µ = math.ceil(å æ®è¡Œ/10)
+	local çª—å£å†…å®¹ = '1|@c\\nã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘'
+	..'\\n--> é›‡ä½£å…µç®€ä»‹ <--'
+	local GMcdk = Char.GetData(player,CONST.å¯¹è±¡_GM);
 	print(GMcdk)
 	if GMcdk==0 then
 		for j = 1,8 do
-			j = j + ((ÏÖÔÚÒ³[player]-1)*8)
-			´°¿ÚÄÚÈİ = ´°¿ÚÄÚÈİ .. left('\\n'..ai_list[j][2],15)..left(ai_list[j][3],15)..left(³ÖÓĞ×´Ì¬[j],11)
+			j = j + ((ç°åœ¨é¡µ[player]-1)*8)
+			çª—å£å†…å®¹ = çª—å£å†…å®¹ .. left('\\n'..ai_list[j][2],15)..left(ai_list[j][3],15)..left(æŒæœ‰çŠ¶æ€[j],11)
 			--if j >= #ai_list then
 			--	break
 			--end
 		end
 	elseif GMcdk==1 then
 		for j = 9,16 do
-			j = j + ((ÏÖÔÚÒ³[player]-1)*8)
-			´°¿ÚÄÚÈİ = ´°¿ÚÄÚÈİ .. left('\\n'..ai_list[j][2],15)..left(ai_list[j][3],15)..left(³ÖÓĞ×´Ì¬[j],11)
+			j = j + ((ç°åœ¨é¡µ[player]-1)*8)
+			çª—å£å†…å®¹ = çª—å£å†…å®¹ .. left('\\n'..ai_list[j][2],15)..left(ai_list[j][3],15)..left(æŒæœ‰çŠ¶æ€[j],11)
 			if j >= #ai_list then
 				break
 			end
 		end
 	end
-	if ÏÖÔÚÒ³[player]-1 == 0 then--Ê×Ò³
-		NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_Ñ¡Ôñ¿ò,CONST.°´Å¥_¹Ø±Õ,player+3330,´°¿ÚÄÚÈİ)
-	elseif ÏÖÔÚÒ³[player] == ·Ö¼¸Ò³ then--×îºóÒ»Ò³
-		NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_Ñ¡Ôñ¿ò,CONST.°´Å¥_¹Ø±Õ+CONST.°´Å¥_ÉÏÒ»Ò³,player+3330,´°¿ÚÄÚÈİ)
-	else--ÖĞ¼äÒ³
-		NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_Ñ¡Ôñ¿ò,CONST.°´Å¥_¹Ø±Õ+CONST.°´Å¥_ÏÂÒ»Ò³+CONST.°´Å¥_ÉÏÒ»Ò³,player+3330,´°¿ÚÄÚÈİ)
+	if ç°åœ¨é¡µ[player]-1 == 0 then--é¦–é¡µ
+		NLG.ShowWindowTalked(player,npc,CONST.çª—å£_é€‰æ‹©æ¡†,CONST.æŒ‰é’®_å…³é—­,player+3330,çª—å£å†…å®¹)
+	elseif ç°åœ¨é¡µ[player] == åˆ†å‡ é¡µ then--æœ€åä¸€é¡µ
+		NLG.ShowWindowTalked(player,npc,CONST.çª—å£_é€‰æ‹©æ¡†,CONST.æŒ‰é’®_å…³é—­+CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+3330,çª—å£å†…å®¹)
+	else--ä¸­é—´é¡µ
+		NLG.ShowWindowTalked(player,npc,CONST.çª—å£_é€‰æ‹©æ¡†,CONST.æŒ‰é’®_å…³é—­+CONST.æŒ‰é’®_ä¸‹ä¸€é¡µ+CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+3330,çª—å£å†…å®¹)
 	end
 end
 
-function ¾«¼òÓ¶±øModule:µ¯´°´¥·¢(npc,player,seq,sel,data)--aiÓ¶±ø¹ÜÀínpc´°¿Ú°´Å¥´¥·¢
+function ç²¾ç®€ä½£å…µModule:å¼¹çª—è§¦å‘(npc,player,seq,sel,data)--aiä½£å…µç®¡ç†npcçª—å£æŒ‰é’®è§¦å‘
 	seq = tonumber(seq)
 	sel = tonumber(sel)
 	data = shuzipanduan(data)
-	--print('seq£º'..seq)
-	--print('sel£º'..sel)
-	--print('data£º'..data)
-	if sel == 2	then--È¡Ïû
-		print('aiÓ¶±øµ¯´°£¬µãÈ¡Ïû')
+	--print('seqï¼š'..seq)
+	--print('selï¼š'..sel)
+	--print('dataï¼š'..data)
+	if sel == 2	then--å–æ¶ˆ
+		print('aiä½£å…µå¼¹çª—ï¼Œç‚¹å–æ¶ˆ')
 		return
 	end
-	if sel == 16 and seq == player+404404 then--´íÎóÒ³µãÉÏÒ»Ò³
-		self:ÃæÏònpc´¥·¢(npc,player)
+	if sel == 16 and seq == player+404404 then--é”™è¯¯é¡µç‚¹ä¸Šä¸€é¡µ
+		self:é¢å‘npcè§¦å‘(npc,player)
 		return
 	end
-	if sel == 16 and seq == 0 then--ÉÏÒ»Ò³
-		self:ÃæÏònpc´¥·¢(npc,player)
+	if sel == 16 and seq == 0 then--ä¸Šä¸€é¡µ
+		self:é¢å‘npcè§¦å‘(npc,player)
 		return
 	end
-	if sel == 16 and seq == player+8888 then--¹ºÂò·µ»ØÉÏÒ»Ò³
-		self:ÃæÏònpc´¥·¢(npc,player)
+	if sel == 16 and seq == player+8888 then--è´­ä¹°è¿”å›ä¸Šä¸€é¡µ
+		self:é¢å‘npcè§¦å‘(npc,player)
 		return
 	end
-	if seq == player+3330 then--µÚÒ»Ò³
+	if seq == player+3330 then--ç¬¬ä¸€é¡µ
 		if data == 1 then
-			local ´°¿ÚÄÚÈİ = '@c               ¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¼ò½é¡¿'
+			local çª—å£å†…å®¹ = '@c               ã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿç®€ä»‹ã€‘'
 			..'\\n'
-			..'\\n1¡¢Ã¿ÃûÍæ¼Ò×î¶àÕĞÄ¼4Ãû¹ÍÓ¶±ø×é³ÉÒ»¶Ó£¬¹ÍÓ¶±ø±³°üÒÑ¾­ÈûÂú²»»áÇÀbossµôÂä¡£'
+			..'\\n1ã€æ¯åç©å®¶æœ€å¤šæ‹›å‹Ÿ4åé›‡ä½£å…µç»„æˆä¸€é˜Ÿï¼Œé›‡ä½£å…µèƒŒåŒ…å·²ç»å¡æ»¡ä¸ä¼šæŠ¢bossæ‰è½ã€‚'
 			..'\\n'
-			..'\\n2¡¢¹ÍÓ¶±øÃ¿´ÎÕ½¶·ºó»á×Ô¶¯ÖÎÁÆ¡¢ÕĞ»ê¡¢»ØÑª¡¢»ØÄ§¡¢ĞŞÀí£¬ÎŞĞèÈÎºÎ¸ÉÔ¤¡£ËùÒÔÈô¹ÍÓ¶±øÕ½¶·ÖĞËÀÍö£¬Ò²²»Ó°ÏìºóĞø¼ÌĞøÕ½¶·¡£'
+			..'\\n2ã€é›‡ä½£å…µæ¯æ¬¡æˆ˜æ–—åä¼šè‡ªåŠ¨æ²»ç–—ã€æ‹›é­‚ã€å›è¡€ã€å›é­”ã€ä¿®ç†ï¼Œæ— éœ€ä»»ä½•å¹²é¢„ã€‚æ‰€ä»¥è‹¥é›‡ä½£å…µæˆ˜æ–—ä¸­æ­»äº¡ï¼Œä¹Ÿä¸å½±å“åç»­ç»§ç»­æˆ˜æ–—ã€‚'
 			..'\\n'
-			..'\\n3¡¢¹ÍÓ¶±øÔÚÕ½¶·ÖĞ£¬Ã»»ØºÏ»á×Ô¶¯ÂúÄ§£¬ËùÒÔÎŞĞèµ£ĞÄÕ½¶·ÖĞµÄ¹ÍÓ¶±ø»áÃ»Ä§·Å¼¼ÄÜ¡£'
+			..'\\n3ã€é›‡ä½£å…µåœ¨æˆ˜æ–—ä¸­ï¼Œæ²¡å›åˆä¼šè‡ªåŠ¨æ»¡é­”ï¼Œæ‰€ä»¥æ— éœ€æ‹…å¿ƒæˆ˜æ–—ä¸­çš„é›‡ä½£å…µä¼šæ²¡é­”æ”¾æŠ€èƒ½ã€‚'
 			..'\\n'
-			..'\\n4¡¢¹ÍÓ¶±øµÄÊôĞÔ¡¢µÈ¼¶µÈ»á²Î¿¼ÄãµÄ½ÇÉ«ÈËÎïÊôĞÔ²¢¸¡¶¯¡£Ë®¾§ÊôĞÔËæ»ú¡¢·¨ÏµÄ§·¨ÊôĞÔ»áÂÔµ÷¸ß¡£'
+			..'\\n4ã€é›‡ä½£å…µçš„å±æ€§ã€ç­‰çº§ç­‰ä¼šå‚è€ƒä½ çš„è§’è‰²äººç‰©å±æ€§å¹¶æµ®åŠ¨ã€‚æ°´æ™¶å±æ€§éšæœºã€æ³•ç³»é­”æ³•å±æ€§ä¼šç•¥è°ƒé«˜ã€‚'
 			..'\\n'
-			..'\\n5¡¢¹ÍÓ¶±øÕ½¶·ÖĞ²¿·ÖËæ»úÊ¹ÓÃ±¾Ö°Òµ¼¼ÄÜ£¬¹ÍÓ¶±øµÄ³èÎïËæ»úÊ¹ÓÃ³£¼û·á¸»µÄ³èÎï¼¼ÄÜ¡£ËüÃÇ¾ßÌå»áÊ²Ã´¼¼ÄÜ£¬Çë×ÔĞĞ³¢ÊÔ¡£'
+			..'\\n5ã€é›‡ä½£å…µæˆ˜æ–—ä¸­éƒ¨åˆ†éšæœºä½¿ç”¨æœ¬èŒä¸šæŠ€èƒ½ï¼Œé›‡ä½£å…µçš„å® ç‰©éšæœºä½¿ç”¨å¸¸è§ä¸°å¯Œçš„å® ç‰©æŠ€èƒ½ã€‚å®ƒä»¬å…·ä½“ä¼šä»€ä¹ˆæŠ€èƒ½ï¼Œè¯·è‡ªè¡Œå°è¯•ã€‚'
 			..'\\n'
-			..'\\n6¡¢±¾ÏµÍ³Ö÷´òÅã°é£¬ÈôÍæ¼ÒÍµÀÁ½«¹ÍÓ¶±ø×÷ÎªÖ÷Á¦Êä³öÊ¹ÓÃÊ±×ÜÓĞÁ¦²»´ÓĞÄÖ®Ê±£¬ËìÎÒÃÇÈÔÈ»ÍÆ¼öÍæ¼Ò×¢ÖØ¼ÓÇ¿ÌáÉı×Ô¼º¡£'
+			..'\\n6ã€æœ¬ç³»ç»Ÿä¸»æ‰“é™ªä¼´ï¼Œè‹¥ç©å®¶å·æ‡’å°†é›‡ä½£å…µä½œä¸ºä¸»åŠ›è¾“å‡ºä½¿ç”¨æ—¶æ€»æœ‰åŠ›ä¸ä»å¿ƒä¹‹æ—¶ï¼Œé‚æˆ‘ä»¬ä»ç„¶æ¨èç©å®¶æ³¨é‡åŠ å¼ºæå‡è‡ªå·±ã€‚'
 			..'\\n'
-			..'\\n7¡¢ÆäËü¿ì½İ¼ü£º/killai ½â¹ÍËùÓĞ¹ÍÓ¶±ø /aiback ¹ÍÓ¶±øË²¼ä¹é¶Ó'
-			NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_¾ŞĞÅÏ¢¿ò,CONST.°´Å¥_¹Ø±Õ+CONST.°´Å¥_ÉÏÒ»Ò³,0,´°¿ÚÄÚÈİ)
+			..'\\n7ã€å…¶å®ƒå¿«æ·é”®ï¼š/killai è§£é›‡æ‰€æœ‰é›‡ä½£å…µ /aiback é›‡ä½£å…µç¬é—´å½’é˜Ÿ'
+			NLG.ShowWindowTalked(player,npc,CONST.çª—å£_å·¨ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_å…³é—­+CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,0,çª—å£å†…å®¹)
 			return
 		end
-		if sel == 32 then--ÏÂÒ»Ò³
-			ÏÖÔÚÒ³[player] = ÏÖÔÚÒ³[player] + 1
-			--print('ÏÖÔÚÒ³[player] = '..ÏÖÔÚÒ³[player])
-			self:ÃæÏònpc´¥·¢(npc,player)
+		if sel == 32 then--ä¸‹ä¸€é¡µ
+			ç°åœ¨é¡µ[player] = ç°åœ¨é¡µ[player] + 1
+			--print('ç°åœ¨é¡µ[player] = '..ç°åœ¨é¡µ[player])
+			self:é¢å‘npcè§¦å‘(npc,player)
 			return
 		end
-		if sel == 16 then--ÉÏÒ»Ò³
-			ÏÖÔÚÒ³[player] = ÏÖÔÚÒ³[player] - 1
-			--print('ÏÖÔÚÒ³[player] = '..ÏÖÔÚÒ³[player])
-			self:ÃæÏònpc´¥·¢(npc,player)
+		if sel == 16 then--ä¸Šä¸€é¡µ
+			ç°åœ¨é¡µ[player] = ç°åœ¨é¡µ[player] - 1
+			--print('ç°åœ¨é¡µ[player] = '..ç°åœ¨é¡µ[player])
+			self:é¢å‘npcè§¦å‘(npc,player)
 			return
 		end
-		for i = 2,9 do--µã»÷ÕĞÄ¼/½â¹Í
+		for i = 2,9 do--ç‚¹å‡»æ‹›å‹Ÿ/è§£é›‡
 			if data == i then
-				i = i + ((ÏÖÔÚÒ³[player]-1)*8) -1
-				local GMcdk = Char.GetData(player,CONST.¶ÔÏó_GM);
+				i = i + ((ç°åœ¨é¡µ[player]-1)*8) -1
+				local GMcdk = Char.GetData(player,CONST.å¯¹è±¡_GM);
 				if GMcdk==1 then i=i+8; end
-				local ÊÇ·ñ¿ªÍ¨ =  Char.GetExtData(player,'ai-'..ai_list[i][2]) or 'no'
-				if ÊÇ·ñ¿ªÍ¨ == 'no' then
-					Íæ¼ÒÔ¤¹ºÇåµ¥[player] = i
-					local µ¥Î» = false
-					if ¿ªÍ¨±ÒÖÖ == 0 then
-						µ¥Î» = 'Ä§±Ò'
+				local æ˜¯å¦å¼€é€š =  Char.GetExtData(player,'ai-'..ai_list[i][2]) or 'no'
+				if æ˜¯å¦å¼€é€š == 'no' then
+					ç©å®¶é¢„è´­æ¸…å•[player] = i
+					local å•ä½ = false
+					if å¼€é€šå¸ç§ == 0 then
+						å•ä½ = 'é­”å¸'
 					else
-						µ¥Î» = ×Ô¶¨Òå±ÒÃû
+						å•ä½ = è‡ªå®šä¹‰å¸å
 					end
-					local ´°¿ÚÄÚÈİ = '@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿'
-					..'\\n\\n\\n['..ai_list[i][2]..'] »¹Ã»¿ªÍ¨'
-					..'\\n\\n¼Û¸ñ£º'..ai_list[i][9]..' '..µ¥Î»
-					..'\\n\\n\\nÊÇ·ñ¹ºÂò£¿'
-					NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÊÇ·ñ+CONST.°´Å¥_ÉÏÒ»Ò³,player+8888,´°¿ÚÄÚÈİ)
+					local çª—å£å†…å®¹ = '@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘'
+					..'\\n\\n\\n['..ai_list[i][2]..'] è¿˜æ²¡å¼€é€š'
+					..'\\n\\nä»·æ ¼ï¼š'..ai_list[i][9]..' '..å•ä½
+					..'\\n\\n\\næ˜¯å¦è´­ä¹°ï¼Ÿ'
+					NLG.ShowWindowTalked(player,npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_æ˜¯å¦+CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+8888,çª—å£å†…å®¹)
 					return
 				end
-				ÕĞÄ¼ai(player,i)
-				self:ÃæÏònpc´¥·¢(npc,player)
+				æ‹›å‹Ÿai(player,i)
+				self:é¢å‘npcè§¦å‘(npc,player)
 				return
 			end
 		end
 	end
-	if seq == player+8888 and sel == 4 then--¹ºÂò¹ÍÓ¶±ø
-		local Ô¤¹ºÄ¿±ê = Íæ¼ÒÔ¤¹ºÇåµ¥[player]
-		local ÊÕ·Ñ¼Û¸ñ = ai_list[Ô¤¹ºÄ¿±ê][9]
-		print('Íæ¼ÒÔ¤¹ºÇåµ¥ = '..Íæ¼ÒÔ¤¹ºÇåµ¥[player])
-		print('ÊÕ·Ñ¼Û¸ñ = '..ÊÕ·Ñ¼Û¸ñ)
-		if ¿ªÍ¨±ÒÖÖ == 0 then--Ä§±Ò
-			if Char.GetGold(player) < ÊÕ·Ñ¼Û¸ñ then
-				NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÉÏÒ»Ò³,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\nÄãÃ»Ç®ÁË¡£')
+	if seq == player+8888 and sel == 4 then--è´­ä¹°é›‡ä½£å…µ
+		local é¢„è´­ç›®æ ‡ = ç©å®¶é¢„è´­æ¸…å•[player]
+		local æ”¶è´¹ä»·æ ¼ = ai_list[é¢„è´­ç›®æ ‡][9]
+		print('ç©å®¶é¢„è´­æ¸…å• = '..ç©å®¶é¢„è´­æ¸…å•[player])
+		print('æ”¶è´¹ä»·æ ¼ = '..æ”¶è´¹ä»·æ ¼)
+		if å¼€é€šå¸ç§ == 0 then--é­”å¸
+			if Char.GetGold(player) < æ”¶è´¹ä»·æ ¼ then
+				NLG.ShowWindowTalked(player,npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\nä½ æ²¡é’±äº†ã€‚')
 				return
-			elseif Char.GetGold(player) >= ÊÕ·Ñ¼Û¸ñ then
-				Char.AddGold(player,-ÊÕ·Ñ¼Û¸ñ)
-				NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÉÏÒ»Ò³,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\ÄúÒÑ³É¹¦¹ºÂò ['..ai_list[Ô¤¹ºÄ¿±ê][2]..']¡£')
-				NLG.Say(player,-1,'±¾´ÎÖ§¸¶£º'..ÊÕ·Ñ¼Û¸ñ..' ½ğ±Ò',CONST.ÑÕÉ«_»ÆÉ«,CONST.×ÖÌå_ÖĞ)--·¢¿ÛÇ®Í¨Öª
-				Char.SetExtData(player,'ai-'..ai_list[Ô¤¹ºÄ¿±ê][2],'yes')
+			elseif Char.GetGold(player) >= æ”¶è´¹ä»·æ ¼ then
+				Char.AddGold(player,-æ”¶è´¹ä»·æ ¼)
+				NLG.ShowWindowTalked(player,npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\æ‚¨å·²æˆåŠŸè´­ä¹° ['..ai_list[é¢„è´­ç›®æ ‡][2]..']ã€‚')
+				NLG.Say(player,-1,'æœ¬æ¬¡æ”¯ä»˜ï¼š'..æ”¶è´¹ä»·æ ¼..' é‡‘å¸',CONST.é¢œè‰²_é»„è‰²,CONST.å­—ä½“_ä¸­)--å‘æ‰£é’±é€šçŸ¥
+				Char.SetExtData(player,'ai-'..ai_list[é¢„è´­ç›®æ ‡][2],'yes')
 				Char.SaveToDb(player)
 				return
 			end
-		elseif ¿ªÍ¨±ÒÖÖ == 1 then--×Ô¶¨Òå±Ò
-			local Íæ¼Ò³ÖÓĞµÄ×Ô¶¨Òå±Ò±ÒÊıÁ¿ = Char.ItemNum(player,×Ô¶¨Òå±Òitemid)
-			if Íæ¼Ò³ÖÓĞµÄ×Ô¶¨Òå±Ò±ÒÊıÁ¿ < ÊÕ·Ñ¼Û¸ñ then
-				NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÉÏÒ»Ò³,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\nÄãÃ»'..×Ô¶¨Òå±ÒÃû..'ÁË¡£')
+		elseif å¼€é€šå¸ç§ == 1 then--è‡ªå®šä¹‰å¸
+			local ç©å®¶æŒæœ‰çš„è‡ªå®šä¹‰å¸å¸æ•°é‡ = Char.ItemNum(player,è‡ªå®šä¹‰å¸itemid)
+			if ç©å®¶æŒæœ‰çš„è‡ªå®šä¹‰å¸å¸æ•°é‡ < æ”¶è´¹ä»·æ ¼ then
+				NLG.ShowWindowTalked(player,npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\nä½ æ²¡'..è‡ªå®šä¹‰å¸å..'äº†ã€‚')
 				return
-			elseif Íæ¼Ò³ÖÓĞµÄ×Ô¶¨Òå±Ò±ÒÊıÁ¿ >= ÊÕ·Ñ¼Û¸ñ then
-				Char.DelItem(player,×Ô¶¨Òå±Òitemid,ÊÕ·Ñ¼Û¸ñ,true)
-				NLG.ShowWindowTalked(player,npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÉÏÒ»Ò³,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\ÄúÒÑ³É¹¦¹ºÂò ['..ai_list[Ô¤¹ºÄ¿±ê][2]..']')
-				Char.SetExtData(player,'ai-'..ai_list[Ô¤¹ºÄ¿±ê][2],'yes')
+			elseif ç©å®¶æŒæœ‰çš„è‡ªå®šä¹‰å¸å¸æ•°é‡ >= æ”¶è´¹ä»·æ ¼ then
+				Char.DelItem(player,è‡ªå®šä¹‰å¸itemid,æ”¶è´¹ä»·æ ¼,true)
+				NLG.ShowWindowTalked(player,npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\æ‚¨å·²æˆåŠŸè´­ä¹° ['..ai_list[é¢„è´­ç›®æ ‡][2]..']')
+				Char.SetExtData(player,'ai-'..ai_list[é¢„è´­ç›®æ ‡][2],'yes')
 				Char.SaveToDb(player)
 				return
 			end
@@ -251,567 +251,567 @@ function ¾«¼òÓ¶±øModule:µ¯´°´¥·¢(npc,player,seq,sel,data)--aiÓ¶±ø¹ÜÀínpc´°¿Ú°´Å¥
 	end
 end
 
-function ¾«¼òÓ¶±øModule:µÇ»Ø³öÉúµã(player)--µÇ»Ø³öÉúµã´¥·¢
-	if not Íæ¼Ò³ÖÓĞai±í[player] then--reloadºóÊı¾İ±í³õÊ¼»¯
-		self:ÉÏÏß´¥·¢(player)
+function ç²¾ç®€ä½£å…µModule:ç™»å›å‡ºç”Ÿç‚¹(player)--ç™»å›å‡ºç”Ÿç‚¹è§¦å‘
+	if not ç©å®¶æŒæœ‰aiè¡¨[player] then--reloadåæ•°æ®è¡¨åˆå§‹åŒ–
+		self:ä¸Šçº¿è§¦å‘(player)
 	end
-	if Íæ¼Ò³ÖÓĞai±í[player][0] >= 0 then
-		self:Íæ¼ÒËµ»°(player,'/aiback')
+	if ç©å®¶æŒæœ‰aiè¡¨[player][0] >= 0 then
+		self:ç©å®¶è¯´è¯(player,'/aiback')
 	end
 	return 0
 end
 
-function ¾«¼òÓ¶±øModule:ÉÏÏß´¥·¢(player)--ÉÏÏß´¥·¢£¬´´½¨ai¶ÓÓÑÊı¾İ±í
-	Íæ¼Ò³ÖÓĞai±í[player] = {}
-	ÏÖÔÚÒ³[player] = 1
-	Íæ¼Ò³ÖÓĞai±í[player][0] = 0--ai¶ÓÓÑÊıÁ¿Í³¼Æ
+function ç²¾ç®€ä½£å…µModule:ä¸Šçº¿è§¦å‘(player)--ä¸Šçº¿è§¦å‘ï¼Œåˆ›å»ºaié˜Ÿå‹æ•°æ®è¡¨
+	ç©å®¶æŒæœ‰aiè¡¨[player] = {}
+	ç°åœ¨é¡µ[player] = 1
+	ç©å®¶æŒæœ‰aiè¡¨[player][0] = 0--aié˜Ÿå‹æ•°é‡ç»Ÿè®¡
 	for i = 1,#ai_list do
-		Íæ¼Ò³ÖÓĞai±í[player][i] = -1
+		ç©å®¶æŒæœ‰aiè¡¨[player][i] = -1
 	end
 	return 0
 end
 
-function ¾«¼òÓ¶±øModule:´«ËÍ´¥·¢(player,map,floor,x,y,aftermap,afterfloor,afterx,aftery)--´«ËÍ´¥·¢
+function ç²¾ç®€ä½£å…µModule:ä¼ é€è§¦å‘(player,map,floor,x,y,aftermap,afterfloor,afterx,aftery)--ä¼ é€è§¦å‘
 	if Char.IsDummy(player) then
-		--print('ai_index±àºÅ£º'..player)
+		--print('ai_indexç¼–å·ï¼š'..player)
 		return
 	else
-		if not Íæ¼Ò³ÖÓĞai±í[player] then--reloadºóÊı¾İ±í³õÊ¼»¯
-			self:ÉÏÏß´¥·¢(player)
+		if not ç©å®¶æŒæœ‰aiè¡¨[player] then--reloadåæ•°æ®è¡¨åˆå§‹åŒ–
+			self:ä¸Šçº¿è§¦å‘(player)
 		end
-		--print('Íæ¼Òindex±àºÅ£º'..player)
-		if Íæ¼Ò³ÖÓĞai±í[player][0] >= 0 then
+		--print('ç©å®¶indexç¼–å·ï¼š'..player)
+		if ç©å®¶æŒæœ‰aiè¡¨[player][0] >= 0 then
 			for i = 1,#ai_list do
-				if Char.PartyNum(Íæ¼Ò³ÖÓĞai±í[player][i]) == -1 then
-					Char.Warp(Íæ¼Ò³ÖÓĞai±í[player][i],aftermap,afterfloor,afterx,aftery)
-					Char.SetData(player,CONST.¶ÔÏó_×é¶Ó¿ª¹Ø,1)
-					Char.JoinParty(Íæ¼Ò³ÖÓĞai±í[player][i],player)
+				if Char.PartyNum(ç©å®¶æŒæœ‰aiè¡¨[player][i]) == -1 then
+					Char.Warp(ç©å®¶æŒæœ‰aiè¡¨[player][i],aftermap,afterfloor,afterx,aftery)
+					Char.SetData(player,CONST.å¯¹è±¡_ç»„é˜Ÿå¼€å…³,1)
+					Char.JoinParty(ç©å®¶æŒæœ‰aiè¡¨[player][i],player)
 				end
 			end
 		end
 	end
 end
 
-function ¾«¼òÓ¶±øModule:ÏÂÏßµôÏß´¥·¢(player)--ÏÂÏß´¥·¢
-	--print('Íæ¼ÒÏÂÏßµôÏß´¥·¢')
+function ç²¾ç®€ä½£å…µModule:ä¸‹çº¿æ‰çº¿è§¦å‘(player)--ä¸‹çº¿è§¦å‘
+	--print('ç©å®¶ä¸‹çº¿æ‰çº¿è§¦å‘')
 	for i = 1,#ai_list do
-		if Íæ¼Ò³ÖÓĞai±í[player][i] > 0 then
-			Char.DelDummy(Íæ¼Ò³ÖÓĞai±í[player][i])
-			Íæ¼Ò³ÖÓĞai±í[player][0] = 0
+		if ç©å®¶æŒæœ‰aiè¡¨[player][i] > 0 then
+			Char.DelDummy(ç©å®¶æŒæœ‰aiè¡¨[player][i])
+			ç©å®¶æŒæœ‰aiè¡¨[player][0] = 0
 		end
 	end
-	Íæ¼Ò³ÖÓĞai±í[player][0] = 0
+	ç©å®¶æŒæœ‰aiè¡¨[player][0] = 0
 end
 
-function ¾«¼òÓ¶±øModule:Íæ¼ÒËµ»°(player,msg,color,range,size)--Íæ¼ÒËµ»°
-	if not Íæ¼Ò³ÖÓĞai±í[player] then--reloadºóÊı¾İ±í³õÊ¼»¯
-		self:ÉÏÏß´¥·¢(player)
+function ç²¾ç®€ä½£å…µModule:ç©å®¶è¯´è¯(player,msg,color,range,size)--ç©å®¶è¯´è¯
+	if not ç©å®¶æŒæœ‰aiè¡¨[player] then--reloadåæ•°æ®è¡¨åˆå§‹åŒ–
+		self:ä¸Šçº¿è§¦å‘(player)
 	end
-	if msg == '/aiyb' or msg == '¡¢aiyb' then
-		self:ÃæÏònpc´¥·¢(ai_npc,player)
+	if msg == '/aiyb' or msg == 'ã€aiyb' then
+		self:é¢å‘npcè§¦å‘(ai_npc,player)
 		return 0
 	end
-	if msg == '/aiback' or msg == '¡¢aiback' then
-		if Íæ¼Ò³ÖÓĞai±í[player][0] <= 0 then
+	if msg == '/aiback' or msg == 'ã€aiback' then
+		if ç©å®¶æŒæœ‰aiè¡¨[player][0] <= 0 then
 			return 0
 		end
-		local wjmap = Char.GetData(player,CONST.¶ÔÏó_MAP)
-		local wjfloor = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼)
-		local wjx = Char.GetData(player,CONST.¶ÔÏó_X)
-		local wjy = Char.GetData(player,CONST.¶ÔÏó_Y)
+		local wjmap = Char.GetData(player,CONST.å¯¹è±¡_MAP)
+		local wjfloor = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾)
+		local wjx = Char.GetData(player,CONST.å¯¹è±¡_X)
+		local wjy = Char.GetData(player,CONST.å¯¹è±¡_Y)
 		for i = 1,#ai_list do
-			if Char.PartyNum(Íæ¼Ò³ÖÓĞai±í[player][i]) == -1 then
-				Char.Warp(Íæ¼Ò³ÖÓĞai±í[player][i],wjmap,wjfloor,wjx,wjy)
-				Char.SetData(player,CONST.¶ÔÏó_×é¶Ó¿ª¹Ø,1)
-				Char.JoinParty(Íæ¼Ò³ÖÓĞai±í[player][i],player)
+			if Char.PartyNum(ç©å®¶æŒæœ‰aiè¡¨[player][i]) == -1 then
+				Char.Warp(ç©å®¶æŒæœ‰aiè¡¨[player][i],wjmap,wjfloor,wjx,wjy)
+				Char.SetData(player,CONST.å¯¹è±¡_ç»„é˜Ÿå¼€å…³,1)
+				Char.JoinParty(ç©å®¶æŒæœ‰aiè¡¨[player][i],player)
 			end
 		end
 		return 0
 	end
-	if msg == '/killai' or msg == '¡¢killai' then--¸ÉµôaiµÄÃüÁî
+	if msg == '/killai' or msg == 'ã€killai' then--å¹²æ‰aiçš„å‘½ä»¤
 		for i = 1,#ai_list do
-			if Íæ¼Ò³ÖÓĞai±í[player][i] > 0 then
-				Char.DelDummy(Íæ¼Ò³ÖÓĞai±í[player][i])
-				Íæ¼Ò³ÖÓĞai±í[player][i] = -1
-				Íæ¼Ò³ÖÓĞai±í[player][0] = 0
+			if ç©å®¶æŒæœ‰aiè¡¨[player][i] > 0 then
+				Char.DelDummy(ç©å®¶æŒæœ‰aiè¡¨[player][i])
+				ç©å®¶æŒæœ‰aiè¡¨[player][i] = -1
+				ç©å®¶æŒæœ‰aiè¡¨[player][0] = 0
 			end
 		end
 		NLG.PlaySe(player,72,0,0)
 		Char.DischargeParty(player)
-		NLG.SystemMessage(player, 'ÒÑ¿ª³ıËùÓĞÓ¶±ø¡£' )
+		NLG.SystemMessage(player, 'å·²å¼€é™¤æ‰€æœ‰ä½£å…µã€‚' )
 		return 0
 	end
 	return 1--pass talk
 end
 
-function ¾«¼òÓ¶±øModule:Õ½¶·½áÊø´¥·¢(battleindex)--Õ½ºó´¥·¢
-	Õ½¶·¶ÔÏó±í[battleindex] = nil
-	for i = 0,19 do--ai×Ô¶¯ÂúÑªÂúÄ§¡¢ÕĞ»ê¡¢ÖÎÁÆ
+function ç²¾ç®€ä½£å…µModule:æˆ˜æ–—ç»“æŸè§¦å‘(battleindex)--æˆ˜åè§¦å‘
+	æˆ˜æ–—å¯¹è±¡è¡¨[battleindex] = nil
+	for i = 0,19 do--aiè‡ªåŠ¨æ»¡è¡€æ»¡é­”ã€æ‹›é­‚ã€æ²»ç–—
 		local ai = Battle.GetPlayer(battleindex,i) or -1
-		if Char.IsDummy(ai) then--aiÅĞ¶¨
-			--print('aiµô»ê×´Ì¬£º'..Char.GetData(ai,CONST.¶ÔÏó_µô»ê))
-			--print('aiÊÜÉË×´Ì¬£º'..Char.GetData(ai,CONST.¶ÔÏó_ÊÜÉË))
-			Char.SetData(ai,CONST.¶ÔÏó_µô»ê,0)
+		if Char.IsDummy(ai) then--aiåˆ¤å®š
+			--print('aiæ‰é­‚çŠ¶æ€ï¼š'..Char.GetData(ai,CONST.å¯¹è±¡_æ‰é­‚))
+			--print('aiå—ä¼¤çŠ¶æ€ï¼š'..Char.GetData(ai,CONST.å¯¹è±¡_å—ä¼¤))
+			Char.SetData(ai,CONST.å¯¹è±¡_æ‰é­‚,0)
 			NLG.UpChar(ai)
-			Char.SetData(ai,CONST.¶ÔÏó_ÊÜÉË,0)
+			Char.SetData(ai,CONST.å¯¹è±¡_å—ä¼¤,0)
 			NLG.UpChar(ai)
-			Char.SetData(ai,CONST.¶ÔÏó_Ñª,Char.GetData(ai,CONST.¶ÔÏó_×î´óÑª))
-			Char.SetData(ai,CONST.¶ÔÏó_Ä§,Char.GetData(ai,CONST.¶ÔÏó_×î´óÄ§))
-			local ×°±¸index = false
-			if Char.GetData(ai,CONST.¶ÔÏó_Ö°ÀàID) == 140 then--¸ñ¶·»ñÈ¡ÒÂ·şindex
-				×°±¸index = Char.GetItemIndex(ai,CONST.Î»ÖÃ_Éí)
-			else--ÆäËüÖ°Òµ»ñÈ¡ÎäÆ÷index
-				×°±¸index = Char.GetItemIndex(ai,CONST.Î»ÖÃ_×óÊÖ)
+			Char.SetData(ai,CONST.å¯¹è±¡_è¡€,Char.GetData(ai,CONST.å¯¹è±¡_æœ€å¤§è¡€))
+			Char.SetData(ai,CONST.å¯¹è±¡_é­”,Char.GetData(ai,CONST.å¯¹è±¡_æœ€å¤§é­”))
+			local è£…å¤‡index = false
+			if Char.GetData(ai,CONST.å¯¹è±¡_èŒç±»ID) == 140 then--æ ¼æ–—è·å–è¡£æœindex
+				è£…å¤‡index = Char.GetItemIndex(ai,CONST.ä½ç½®_èº«)
+			else--å…¶å®ƒèŒä¸šè·å–æ­¦å™¨index
+				è£…å¤‡index = Char.GetItemIndex(ai,CONST.ä½ç½®_å·¦æ‰‹)
 			end
-			local Ë®¾§index = Char.GetItemIndex(ai,CONST.Î»ÖÃ_Ë®¾§)
-			Item.SetData(×°±¸index,CONST.µÀ¾ß_ÄÍ¾Ã,9999)--ĞŞ×°±¸
-			Item.SetData(×°±¸index,CONST.µÀ¾ß_×î´óÄÍ¾Ã,9999)--ĞŞ×°±¸
-			Item.SetData(Ë®¾§index,CONST.µÀ¾ß_ÄÍ¾Ã,9999)--ĞŞ×°±¸
-			Item.SetData(Ë®¾§index,CONST.µÀ¾ß_×î´óÄÍ¾Ã,9999)--ĞŞ×°±¸
-			local ai_petslot = Char.GetData(ai,CONST.¶ÔÏó_Õ½³è) or -1--ai³èÎïÅĞ¶¨
-			if ai_petslot > -1 then--Èç¹ûÓĞ³èÎï
+			local æ°´æ™¶index = Char.GetItemIndex(ai,CONST.ä½ç½®_æ°´æ™¶)
+			Item.SetData(è£…å¤‡index,CONST.é“å…·_è€ä¹…,9999)--ä¿®è£…å¤‡
+			Item.SetData(è£…å¤‡index,CONST.é“å…·_æœ€å¤§è€ä¹…,9999)--ä¿®è£…å¤‡
+			Item.SetData(æ°´æ™¶index,CONST.é“å…·_è€ä¹…,9999)--ä¿®è£…å¤‡
+			Item.SetData(æ°´æ™¶index,CONST.é“å…·_æœ€å¤§è€ä¹…,9999)--ä¿®è£…å¤‡
+			local ai_petslot = Char.GetData(ai,CONST.å¯¹è±¡_æˆ˜å® ) or -1--aiå® ç‰©åˆ¤å®š
+			if ai_petslot > -1 then--å¦‚æœæœ‰å® ç‰©
 				local ai_pet = Char.GetPet(ai,ai_petslot)
-				Char.SetData(ai_pet,CONST.¶ÔÏó_ÊÜÉË,0)
-				Char.SetData(ai_pet,CONST.¶ÔÏó_ÖÒ³Ï,100)
-				Char.SetData(ai_pet,CONST.¶ÔÏó_»ù´¡ÖÒ³Ï,100)
-				Char.SetPetDepartureState(ai, 0, CONST.PET_STATE_Õ½¶·)
-				Char.SetData(ai, CONST.CHAR_Õ½³è, 0)
-				Char.SetData(ai_pet,CONST.PET_DepartureBattleStatus, CONST.PET_STATE_Õ½¶·)
-				Char.SetData(ai_pet,CONST.¶ÔÏó_Ñª,Char.GetData(ai_pet,CONST.¶ÔÏó_×î´óÑª))
-				Char.SetData(ai_pet,CONST.¶ÔÏó_Ä§,Char.GetData(ai_pet,CONST.¶ÔÏó_×î´óÄ§))
+				Char.SetData(ai_pet,CONST.å¯¹è±¡_å—ä¼¤,0)
+				Char.SetData(ai_pet,CONST.å¯¹è±¡_å¿ è¯š,100)
+				Char.SetData(ai_pet,CONST.å¯¹è±¡_åŸºç¡€å¿ è¯š,100)
+				Char.SetPetDepartureState(ai, 0, CONST.PET_STATE_æˆ˜æ–—)
+				Char.SetData(ai, CONST.CHAR_æˆ˜å® , 0)
+				Char.SetData(ai_pet,CONST.PET_DepartureBattleStatus, CONST.PET_STATE_æˆ˜æ–—)
+				Char.SetData(ai_pet,CONST.å¯¹è±¡_è¡€,Char.GetData(ai_pet,CONST.å¯¹è±¡_æœ€å¤§è¡€))
+				Char.SetData(ai_pet,CONST.å¯¹è±¡_é­”,Char.GetData(ai_pet,CONST.å¯¹è±¡_æœ€å¤§é­”))
 				Pet.UpPet(ai,ai_pet)
 				NLG.UpChar(ai_pet)
 			end
 			NLG.UpChar(ai)
 		end
-		if Char.IsPlayer(ai) then--Íæ¼ÒÅĞ¶¨
-			self:Íæ¼ÒËµ»°(ai,'/aiback')
+		if Char.IsPlayer(ai) then--ç©å®¶åˆ¤å®š
+			self:ç©å®¶è¯´è¯(ai,'/aiback')
 		end
 	end
 	return 0
 end
 
-function ¾«¼òÓ¶±øModule:»ØºÏ¿ªÊ¼Ç°´¥·¢(battleindex)
-	--Ö°ÒµÍ³¼Æ£º ¹­-44 | ½£-14 | ¸«-24 | Æï-34 | ¸ñ-144 | Ä§-74 | ´«-64 | Î×-134 | Öä-84 | ÈÌ-154
-	local ±¾¾Öindex = Battle.GetTurn(battleindex)
-	if Õ½¶·¶ÔÏó±í[battleindex] == ±¾¾Öindex then
+function ç²¾ç®€ä½£å…µModule:å›åˆå¼€å§‹å‰è§¦å‘(battleindex)
+	--èŒä¸šç»Ÿè®¡ï¼š å¼“-44 | å‰‘-14 | æ–§-24 | éª‘-34 | æ ¼-144 | é­”-74 | ä¼ -64 | å·«-134 | å’’-84 | å¿-154
+	local æœ¬å±€index = Battle.GetTurn(battleindex)
+	if æˆ˜æ–—å¯¹è±¡è¡¨[battleindex] == æœ¬å±€index then
 		return
 	end
-	Õ½¶·¶ÔÏó±í[battleindex] = ±¾¾Öindex
-	--print('»ØºÏ¿ªÊ¼Ç°´¥·¢£¬battleindex£º'..battleindex)
-	--print('±¾¾Öindex£º'..±¾¾Öindex)
-	local player = {}--Íæ¼Ò´æ´¢
-	for i = 0, 19 do
+	æˆ˜æ–—å¯¹è±¡è¡¨[battleindex] = æœ¬å±€index
+	--print('å›åˆå¼€å§‹å‰è§¦å‘ï¼Œbattleindexï¼š'..battleindex)
+	--print('æœ¬å±€indexï¼š'..æœ¬å±€index)
+	local player = {}--ç©å®¶å­˜å‚¨
+	for i = 0, 9 do
 		local ai_index = Battle.GetPlayer(battleindex, i)
 		if ai_index >= 0 then
-			if Char.IsPlayer(ai_index) then--ÊÕÂ¼ÈËµÄindex
+			if Char.IsPlayer(ai_index) then--æ”¶å½•äººçš„index
 				player[i] = ai_index
 			end
-			if Char.IsDummy(ai_index) then--aiÅĞ¶Ï
+			if Char.IsDummy(ai_index) and Char.GetData(ai_index,CONST.å¯¹è±¡_åœ°å›¾)~=777 then--aiåˆ¤æ–­
 				player[i] = ai_index
-				if Char.GetData(ai_index,CONST.¶ÔÏó_Ä§) < 500 then--È·±£aiÒ»Ö±ÓĞÄ§¹»ÎŞÏŞ·Å¼¼ÄÜ
-					Char.SetData(ai_index,CONST.¶ÔÏó_Ä§,Char.GetData(ai_index,CONST.¶ÔÏó_×î´óÄ§))
+				if Char.GetData(ai_index,CONST.å¯¹è±¡_é­”) < 500 then--ç¡®ä¿aiä¸€ç›´æœ‰é­”å¤Ÿæ— é™æ”¾æŠ€èƒ½
+					Char.SetData(ai_index,CONST.å¯¹è±¡_é­”,Char.GetData(ai_index,CONST.å¯¹è±¡_æœ€å¤§é­”))
 				end
-				--print('ai×Ô¶¯Õ½¶·£º',ai_index,petindex)
-				if Battle.IsWaitingCommand(ai_index) then--Ö°ÒµÊ¹ÓÃ¼¼ÄÜÅĞ¶Ï
-					local Ö°ÒµÀà = Char.GetData(ai_index,CONST.¶ÔÏó_Ö°ÀàID)
-					local Õ½¶·Ö¸Áî½Ó¿Ú = CONST.BATTLE_COM--±ğ¸Ä£¬»á±¬Õ¨
-					local ¼¼ÄÜÑ¡Ôñ½Ó¿Ú = Battle.ActionSelect--±ğ¸Ä£¬»á±¬Õ¨
-					if Battle.GetType(battleindex) == CONST.Õ½¶·_PVP then--PKÅÜÂ·
+				--print('aiè‡ªåŠ¨æˆ˜æ–—ï¼š',ai_index,petindex)
+				if Battle.IsWaitingCommand(ai_index) then--èŒä¸šä½¿ç”¨æŠ€èƒ½åˆ¤æ–­
+					local èŒä¸šç±» = Char.GetData(ai_index,CONST.å¯¹è±¡_èŒç±»ID)
+					local æˆ˜æ–—æŒ‡ä»¤æ¥å£ = CONST.BATTLE_COM--åˆ«æ”¹ï¼Œä¼šçˆ†ç‚¸
+					local æŠ€èƒ½é€‰æ‹©æ¥å£ = Battle.ActionSelect--åˆ«æ”¹ï¼Œä¼šçˆ†ç‚¸
+					if Battle.GetType(battleindex) == CONST.æˆ˜æ–—_PVP then--PKè·‘è·¯
 						Char.SimpleLogout(ai_index)
-						goto pkÂÔ¹ı
+						goto pkç•¥è¿‡
 					end
-					--µÚ1¶¯
-					if Ö°ÒµÀà == 40 then--¹­
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RANDOMSHOT,math.random(10,19),9509) end,--ÂÒÉä
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_DELAYATTACK,math.random(10,19),25809) end,--Ò»»÷±ØÖĞ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_DODGE,math.random(10,19),909) end,--ÑôÑ×
+					--ç¬¬1åŠ¨
+					if èŒä¸šç±» == 40 then--å¼“
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RANDOMSHOT,math.random(10,19),9509) end,--ä¹±å°„
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_DELAYATTACK,math.random(10,19),25809) end,--ä¸€å‡»å¿…ä¸­
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_DODGE,math.random(10,19),909) end,--é˜³ç‚
 						}
-						if math.random(1,100) < 70 then--ÂÒÉäÊÍ·Å¸ÅÂÊ70%
-							pcall(¼¼ÄÜ±í[1])
-						else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						if math.random(1,100) < 70 then--ä¹±å°„é‡Šæ”¾æ¦‚ç‡70%
+							pcall(æŠ€èƒ½è¡¨[1])
+						else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
 					end
-					if Ö°ÒµÀà == 10 then--½£
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_FIRSTATTACK,math.random(10,19),26209) end,--Ñ¸ËÙ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_BLASTWAVE,math.random(10,19),200509) end,--½£Æø--ÇëÈ·ÈÏÄãµÄtechÒ²ÊÇÕâ¸ö±àºÅ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),309) end,--Ç¬À¤
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),109) end,--ÖîÈĞ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(10,19),9) end,--Á¬»÷ÆÆËé
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(10,19),8) end,--Á¬»÷ÂÒÎè
+					if èŒä¸šç±» == 10 then--å‰‘
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_FIRSTATTACK,math.random(10,19),26209) end,--è¿…é€Ÿ
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_BLASTWAVE,math.random(10,19),200509) end,--å‰‘æ°”--è¯·ç¡®è®¤ä½ çš„techä¹Ÿæ˜¯è¿™ä¸ªç¼–å·
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),309) end,--ä¹¾å¤
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),109) end,--è¯¸åˆƒ
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(10,19),9) end,--è¿å‡»ç ´ç¢
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(10,19),8) end,--è¿å‡»ä¹±èˆ
 						}
-						local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-						pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+						pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 					end
-					if Ö°ÒµÀà == 20 then--¸«
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_DELAYATTACK,math.random(10,19),25709) end,--½ä½¾½äÔê
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),309) end,--Ç¬À¤
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),109) end,--ÖîÈĞ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(10,19),9) end,--Á¬»÷ÆÆËé
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(10,19),8) end,--Á¬»÷ÂÒÎè
+					if èŒä¸šç±» == 20 then--æ–§
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_DELAYATTACK,math.random(10,19),25709) end,--æˆ’éª„æˆ’èº
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),309) end,--ä¹¾å¤
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),109) end,--è¯¸åˆƒ
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(10,19),9) end,--è¿å‡»ç ´ç¢
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(10,19),8) end,--è¿å‡»ä¹±èˆ
 						}
-						if math.random(1,100) < 70 then--½ä½¾½äÔêÊÍ·Å¸ÅÂÊ70%
-							pcall(¼¼ÄÜ±í[1])
-						else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						if math.random(1,100) < 70 then--æˆ’éª„æˆ’èºé‡Šæ”¾æ¦‚ç‡70%
+							pcall(æŠ€èƒ½è¡¨[1])
+						else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
 					end
-					if Ö°ÒµÀà == 30 then--Æï
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_BILLIARD,math.random(15,19),26009) end,--Ò»Ê¯¶şÄñ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),309) end,--Ç¬À¤
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),109) end,--ÖîÈĞ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(10,19),9) end,--Á¬»÷ÆÆËé
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(10,19),8) end,--Á¬»÷ÂÒÎè
+					if èŒä¸šç±» == 30 then--éª‘
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_BILLIARD,math.random(15,19),26009) end,--ä¸€çŸ³äºŒé¸Ÿ
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),309) end,--ä¹¾å¤
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),109) end,--è¯¸åˆƒ
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(10,19),9) end,--è¿å‡»ç ´ç¢
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(10,19),8) end,--è¿å‡»ä¹±èˆ
 						}
-						if math.random(1,100) < 50 then--Ò»Ê¯¶şÄñÊÍ·Å¸ÅÂÊ50%
-							pcall(¼¼ÄÜ±í[1])
-						else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						if math.random(1,100) < 50 then--ä¸€çŸ³äºŒé¸Ÿé‡Šæ”¾æ¦‚ç‡50%
+							pcall(æŠ€èƒ½è¡¨[1])
+						else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
 					end
-					if Ö°ÒµÀà == 140 then--¸ñ
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index, Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_SPIRACLESHOT,math.random(10,19),409) end,--Æø¹¦µ¯
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index, Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PANIC,math.random(10,19),9409) end,--»ìÂÒ¹¥»÷
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index, Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_GUARDBREAK,math.random(10,19),509) end,--±À»÷
+					if èŒä¸šç±» == 140 then--æ ¼
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index, æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_SPIRACLESHOT,math.random(10,19),409) end,--æ°”åŠŸå¼¹
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index, æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PANIC,math.random(10,19),9409) end,--æ··ä¹±æ”»å‡»
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index, æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_GUARDBREAK,math.random(10,19),509) end,--å´©å‡»
 						}
-						if math.random(1,100) < 70 then--Æø¹¦µ¯ÊÍ·Å¸ÅÂÊ70%
-							pcall(¼¼ÄÜ±í[1])
-						else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						if math.random(1,100) < 70 then--æ°”åŠŸå¼¹é‡Šæ”¾æ¦‚ç‡70%
+							pcall(æŠ€èƒ½è¡¨[1])
+						else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
 					end
-					if Ö°ÒµÀà == 70 then--Ä§
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,41,2709) end,--³¬ÔÉ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,41,2809) end,--³¬±ù
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,41,2909) end,--³¬»ğ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,41,3009) end,--³¬·ç
+					if èŒä¸šç±» == 70 then--é­”
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,41,2709) end,--è¶…é™¨
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,41,2809) end,--è¶…å†°
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,41,2909) end,--è¶…ç«
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,41,3009) end,--è¶…é£
 						}
-						local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-						pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+						pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 					end
-					if Ö°ÒµÀà == 60 then--´«
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_HEAL,40,6309) end,--³¬Ç¿²¹Ñª
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_HEAL,math.random(20,29),6209) end,--Ç¿Á¦²¹Ñª
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_HEAL,math.random(0,9),6109) end,--²¹Ñª
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REVIVE,math.random(0,9),6809) end,--Æø¾ø
+					if èŒä¸šç±» == 60 then--ä¼ 
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_HEAL,40,6309) end,--è¶…å¼ºè¡¥è¡€
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_HEAL,math.random(20,29),6209) end,--å¼ºåŠ›è¡¥è¡€
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_HEAL,math.random(0,9),6109) end,--è¡¥è¡€
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REVIVE,math.random(0,9),6809) end,--æ°”ç»
 						}
-						if math.random(1,100) < 70 then--³¬Ç¿²¹ÑªÊÍ·Å¸ÅÂÊ70%
-							pcall(¼¼ÄÜ±í[1])
-						else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						if math.random(1,100) < 70 then--è¶…å¼ºè¡¥è¡€é‡Šæ”¾æ¦‚ç‡70%
+							pcall(æŠ€èƒ½è¡¨[1])
+						else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
 					end
-					if Ö°ÒµÀà == 130 then--Î×
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_LP_RECOVERY,40,6609) end,--³¬Ç¿»Ö¸´
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSRECOVER,40,6709) end,--½à¾»
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REVIVE,math.random(0,9),6809) end,--Æø¾ø
+					if èŒä¸šç±» == 130 then--å·«
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_LP_RECOVERY,40,6609) end,--è¶…å¼ºæ¢å¤
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSRECOVER,40,6709) end,--æ´å‡€
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REVIVE,math.random(0,9),6809) end,--æ°”ç»
 						}
-						local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-						pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+						pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 					end
-					if Ö°ÒµÀà == 80 then--Öä
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,41,4409) end,--³¬Ç¿¶¾
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,41,4509) end,--³¬Ç¿Ë¯
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,41,4609) end,--³¬Ç¿Ê¯
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,41,4709) end,--³¬Ç¿×í
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,41,4809) end,--³¬Ç¿ÂÒ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,41,4909) end,--³¬Ç¿Íü
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REVERSE_TYPE,math.random(0,19),5409) end,--ÊôĞÔ·´×ª
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REFLECTION_PHYSICS,math.random(0,9),5509) end,--¹¥·´
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_INEFFECTIVE_PHYSICS,math.random(0,9),5909) end,--¹¥ÎŞ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_ABSORB_PHYSICS,math.random(0,9),5709) end,--¹¥Îü
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REFLECTION_MAGIC,math.random(0,9),5609) end,--Ä§·´
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_INEFFECTIVE_MAGIC,math.random(0,9),6009) end,--Ä§ÎŞ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_ABSORB_MAGIC,math.random(0,9),5809) end,--Ä§Îü
+					if èŒä¸šç±» == 80 then--å’’
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,41,4409) end,--è¶…å¼ºæ¯’
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,41,4509) end,--è¶…å¼ºç¡
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,41,4609) end,--è¶…å¼ºçŸ³
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,41,4709) end,--è¶…å¼ºé†‰
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,41,4809) end,--è¶…å¼ºä¹±
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,41,4909) end,--è¶…å¼ºå¿˜
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REVERSE_TYPE,math.random(0,19),5409) end,--å±æ€§åè½¬
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REFLECTION_PHYSICS,math.random(0,9),5509) end,--æ”»å
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_INEFFECTIVE_PHYSICS,math.random(0,9),5909) end,--æ”»æ— 
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_ABSORB_PHYSICS,math.random(0,9),5709) end,--æ”»å¸
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REFLECTION_MAGIC,math.random(0,9),5609) end,--é­”å
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_INEFFECTIVE_MAGIC,math.random(0,9),6009) end,--é­”æ— 
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_ABSORB_MAGIC,math.random(0,9),5809) end,--é­”å¸
 						}
-						if math.random(1,100) < 50 then--³¬Öä·Å¸ÅÂÊ50%
-							local Ëæ»úÊ©·Å = math.random(1,6)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
-						else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-							local Ëæ»úÊ©·Å = math.random(7,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						if math.random(1,100) < 50 then--è¶…å’’æ”¾æ¦‚ç‡50%
+							local éšæœºæ–½æ”¾ = math.random(1,6)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
+						else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+							local éšæœºæ–½æ”¾ = math.random(7,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
 					end
-					if Ö°ÒµÀà == 150 then--ÈÌ
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,--°µÉ±
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_DODGE,math.random(10,19),909) end,--ÑôÑ×
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_ATTACKALL,math.random(10,19),10601) end,--Ó°·ÖÉí--ÇëÈ·ÈÏÄãµÄtechÒ²ÊÇÕâ¸ö±àºÅ
+					if èŒä¸šç±» == 150 then--å¿
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,--æš—æ€
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_DODGE,math.random(10,19),909) end,--é˜³ç‚
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_ATTACKALL,math.random(10,19),10601) end,--å½±åˆ†èº«--è¯·ç¡®è®¤ä½ çš„techä¹Ÿæ˜¯è¿™ä¸ªç¼–å·
 						}
-						if Battle.GetType(battleindex) == CONST.Õ½¶·_BOSSÕ½ then--bossÕ½£¬²»°µÉ±
-							local Ëæ»úÊ©·Å = math.random(2,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						if Battle.GetType(battleindex) == CONST.æˆ˜æ–—_BOSSæˆ˜ then--bossæˆ˜ï¼Œä¸æš—æ€
+							local éšæœºæ–½æ”¾ = math.random(2,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						else
-							if math.random(1,100) < 50 then--°µÉ±¸ÅÂÊ50%
-								pcall(¼¼ÄÜ±í[1])
+							if math.random(1,100) < 50 then--æš—æ€æ¦‚ç‡50%
+								pcall(æŠ€èƒ½è¡¨[1])
 							else
-								local Ëæ»úÊ©·Å = math.random(2,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+								local éšæœºæ–½æ”¾ = math.random(2,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							end
 						end
 					end
-					if Char.GetData(ai_index,CONST.¶ÔÏó_Ö°Òµ) == 481 then--GM²âÊÔ
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_M_DEATH,math.random(0,19),8602) end,--µ¥Ìå¼´ËÀ--ÇëÈ·ÈÏÄãµÄtechÒ²ÊÇÕâ¸ö±àºÅ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,--°µÉ±
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_M_EARTHQUAKE,math.random(40,41),9708) end,--´óµØÖ®Å­--ÇëÈ·ÈÏÄãµÄtechÒ²ÊÇÕâ¸ö±àºÅ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_DANCE,-1,9802) end,--±ä´ó
+					if Char.GetData(ai_index,CONST.å¯¹è±¡_èŒä¸š) == 481 then--GMæµ‹è¯•
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_M_DEATH,math.random(0,19),8602) end,--å•ä½“å³æ­»--è¯·ç¡®è®¤ä½ çš„techä¹Ÿæ˜¯è¿™ä¸ªç¼–å·
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,--æš—æ€
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_M_EARTHQUAKE,math.random(40,41),9708) end,--å¤§åœ°ä¹‹æ€’--è¯·ç¡®è®¤ä½ çš„techä¹Ÿæ˜¯è¿™ä¸ªç¼–å·
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_DANCE,-1,9802) end,--å˜å¤§
 						}
-						local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-						pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+						pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 					end
-					--µÚ2¶¯
+					--ç¬¬2åŠ¨
 					--local petindex = Battle.GetPlayer(battleindex,math.fmod(i + 5,10))
 					local petindex = Char.GetPet(ai_index,0)
-					if petindex >= 0 then--Èç¹û´ø³èÎï£¬³èÎïÊ¹ÓÃ¼¼ÄÜ
-						--print('³èÎïÃû×Ö = '..Char.GetData(petindex,CONST.¶ÔÏó_Ãû×Ö))
-						local ³èÎï¼¼ÄÜ±í = {--³èÎïÊ©·ÅµÄ¼¼ÄÜ£¬ĞèÒª³èÎïÕæµÄÓĞÑ§Õâ¸ö¼¼ÄÜ£¬·ñÔòÎŞ·¨Ê©·Å£¬×î¶à10¸ö£¬ÈË²»ÓÃÑ§£¬Ò²ÎŞÏŞÖÆ
-							--function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_ATTACK,math.random(10,19),-1) end,--¹¥»÷
-							--function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_GUARD,-1,-1) end,--·ÀÓù
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_SPECIALGARD,-1,838) end,--Ê¥¶Ü
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(10,19),38) end,--Á¬»÷
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),138) end,--ÖîÈĞ
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(10,19),338) end,--Ç¬À¤
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(30,39),2339) end,--Ç¿Á¦ÔÉÊ¯Ä§·¨
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(30,39),2439) end,--Ç¿Á¦±ù¶³Ä§·¨
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(30,39),2539) end,--Ç¿Á¦»ğÑæÄ§·¨
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(30,39),2639) end,--Ç¿Á¦·çÈĞÄ§·¨
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_M_BLOODATTACK,math.random(10,19),8138) end,--ÎüÑª¹¥»÷
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_M_STATUSATTACK,math.random(10,19),7738) end,--Ê¯»¯¹¥»÷
+					if petindex >= 0 then--å¦‚æœå¸¦å® ç‰©ï¼Œå® ç‰©ä½¿ç”¨æŠ€èƒ½
+						--print('å® ç‰©åå­— = '..Char.GetData(petindex,CONST.å¯¹è±¡_åå­—))
+						local å® ç‰©æŠ€èƒ½è¡¨ = {--å® ç‰©æ–½æ”¾çš„æŠ€èƒ½ï¼Œéœ€è¦å® ç‰©çœŸçš„æœ‰å­¦è¿™ä¸ªæŠ€èƒ½ï¼Œå¦åˆ™æ— æ³•æ–½æ”¾ï¼Œæœ€å¤š10ä¸ªï¼Œäººä¸ç”¨å­¦ï¼Œä¹Ÿæ— é™åˆ¶
+							--function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_ATTACK,math.random(10,19),-1) end,--æ”»å‡»
+							--function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_GUARD,-1,-1) end,--é˜²å¾¡
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_SPECIALGARD,-1,838) end,--åœ£ç›¾
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(10,19),38) end,--è¿å‡»
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),138) end,--è¯¸åˆƒ
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(10,19),338) end,--ä¹¾å¤
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(30,39),2339) end,--å¼ºåŠ›é™¨çŸ³é­”æ³•
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(30,39),2439) end,--å¼ºåŠ›å†°å†»é­”æ³•
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(30,39),2539) end,--å¼ºåŠ›ç«ç„°é­”æ³•
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(30,39),2639) end,--å¼ºåŠ›é£åˆƒé­”æ³•
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_M_BLOODATTACK,math.random(10,19),8138) end,--å¸è¡€æ”»å‡»
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_M_STATUSATTACK,math.random(10,19),7738) end,--çŸ³åŒ–æ”»å‡»
 						}
-						local Ëæ»úÊ©·Å = math.random(1,#³èÎï¼¼ÄÜ±í)
-						--print('Ëæ»ú = '..Ëæ»úÊ©·Å)
-						pcall(³èÎï¼¼ÄÜ±í[Ëæ»úÊ©·Å])
-					else--Ã»´ø³èÎï£¬aiÓ¶±ø2¶¯ÆÕ¹¥
-						local ¼¼ÄÜ±í = {
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_ATTACK,10,-1) end,--¹¥»÷
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_GUARD,-1,-1) end,--·ÀÓù
-							function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_POSITION,-1,-1) end,--»»Î»¡¢¶¨µãÒÆ¶¯
+						local éšæœºæ–½æ”¾ = math.random(1,#å® ç‰©æŠ€èƒ½è¡¨)
+						--print('éšæœº = '..éšæœºæ–½æ”¾)
+						pcall(å® ç‰©æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
+					else--æ²¡å¸¦å® ç‰©ï¼Œaiä½£å…µ2åŠ¨æ™®æ”»
+						local æŠ€èƒ½è¡¨ = {
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_ATTACK,10,-1) end,--æ”»å‡»
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_GUARD,-1,-1) end,--é˜²å¾¡
+							function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_POSITION,-1,-1) end,--æ¢ä½ã€å®šç‚¹ç§»åŠ¨
 						}
-						local Ëæ»úÊ©·Å = math.random(1, #¼¼ÄÜ±í)
-						pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+						local éšæœºæ–½æ”¾ = math.random(1, #æŠ€èƒ½è¡¨)
+						pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 					end
-					::pkÂÔ¹ı::
+					::pkç•¥è¿‡::
 				end
 			end
 		end
 	end
-	if Battle.GetType(battleindex) == CONST.Õ½¶·_PVP then--PKÖ»·ÀÓù
+	--[[if Battle.GetType(battleindex) == CONST.æˆ˜æ–—_PVP then--PKåªé˜²å¾¡
 		for k,v in pairs(player) do
 			if Char.IsPlayer(v) then
 				for d,j in pairs(player) do
-					if Char.IsDummy(j) then
-						NLG.Say(v,j,'ÎÒÎŞ·¨²ÎÓëpk£¬Ö»ÄÜÅÜÂ·¿©¡£',math.random(0,9),math.random(0,4))
+					if Char.IsDummy(j) and Char.GetData(j,CONST.å¯¹è±¡_åœ°å›¾)~=777 then
+						NLG.Say(v,j,'æˆ‘æ— æ³•å‚ä¸pkï¼Œåªèƒ½è·‘è·¯å’¯ã€‚',math.random(0,9),math.random(0,4))
 					end
 				end
 			end
 		end
-	end
+	end]]
 end
 
-function ´´½¨ai(player,aiĞò,aiÃû×Ö,aiÖ°ÒµÏÔÊ¾,aiÔìĞÍ,aiÖ°Òµ,aiÖ°ÒµÀà,ai×°±¸,ai×°±¸´Û¸Ä²ÎÊı)
-	--Ö°ÒµÍ³¼Æ£º ¹­-44 | ½£-14 | ¸«-24 | Æï-34 | ¸ñ-144 | Ä§-74 | ´«-64 | Î×-134 | Öä-84 | ÈÌ-154
-	local ÈË_µÈ¼¶ = Char.GetData(player,CONST.¶ÔÏó_µÈ¼¶)
-	local ÈË_ÌåÁ¦ = Char.GetData(player,CONST.¶ÔÏó_ÌåÁ¦)
-	local ÈË_Ä§·¨ = Char.GetData(player,CONST.¶ÔÏó_Ä§·¨)
-	local ÈË_¹¥»÷Á¦ = Char.GetData(player,CONST.¶ÔÏó_Á¦Á¿)
-	local ÈË_·ÀÓùÁ¦ = Char.GetData(player,CONST.¶ÔÏó_Ç¿¶È)
-	local ÈË_Ãô½İ = Char.GetData(player,CONST.¶ÔÏó_ËÙ¶È)
-	local Ëæ»úÊı = math.random(110,130)--Éú³É110~130µÄËæ»úÊı--È»ºóai²Î¿¼ÂãÌåÈËÎïbpµÄ110%~130%Éú³É¸¡¶¯bp
-	if ÈË_µÈ¼¶ < ai×îµÍµÈ¼¶ then--Èç¹ûÍæ¼ÒµÈ¼¶Ğ¡ÓÚ70£¬aiµÈ¼¶Ç¿ÖÆÎª70£¬Íæ¼ÒµÈ¼¶¸ßÓÚ70£¬aiµÈ¼¶Ôò¸ù¾İÈËµÄµÈ¼¶À´
-		ÈË_µÈ¼¶ = ai×îµÍµÈ¼¶
+function åˆ›å»ºai(player,aiåº,aiåå­—,aièŒä¸šæ˜¾ç¤º,aié€ å‹,aièŒä¸š,aièŒä¸šç±»,aiè£…å¤‡,aiè£…å¤‡ç¯¡æ”¹å‚æ•°)
+	--èŒä¸šç»Ÿè®¡ï¼š å¼“-44 | å‰‘-14 | æ–§-24 | éª‘-34 | æ ¼-144 | é­”-74 | ä¼ -64 | å·«-134 | å’’-84 | å¿-154
+	local äºº_ç­‰çº§ = Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§)
+	local äºº_ä½“åŠ› = Char.GetData(player,CONST.å¯¹è±¡_ä½“åŠ›)
+	local äºº_é­”æ³• = Char.GetData(player,CONST.å¯¹è±¡_é­”æ³•)
+	local äºº_æ”»å‡»åŠ› = Char.GetData(player,CONST.å¯¹è±¡_åŠ›é‡)
+	local äºº_é˜²å¾¡åŠ› = Char.GetData(player,CONST.å¯¹è±¡_å¼ºåº¦)
+	local äºº_æ•æ· = Char.GetData(player,CONST.å¯¹è±¡_é€Ÿåº¦)
+	local éšæœºæ•° = math.random(110,130)--ç”Ÿæˆ110~130çš„éšæœºæ•°--ç„¶åaiå‚è€ƒè£¸ä½“äººç‰©bpçš„110%~130%ç”Ÿæˆæµ®åŠ¨bp
+	if äºº_ç­‰çº§ < aiæœ€ä½ç­‰çº§ then--å¦‚æœç©å®¶ç­‰çº§å°äº70ï¼Œaiç­‰çº§å¼ºåˆ¶ä¸º70ï¼Œç©å®¶ç­‰çº§é«˜äº70ï¼Œaiç­‰çº§åˆ™æ ¹æ®äººçš„ç­‰çº§æ¥
+		äºº_ç­‰çº§ = aiæœ€ä½ç­‰çº§
 	end
-	ÈË_ÌåÁ¦ = ÈË_ÌåÁ¦ / 100 * Ëæ»úÊı
-	ÈË_Ä§·¨ = ÈË_Ä§·¨ / 100 * Ëæ»úÊı
-	ÈË_¹¥»÷Á¦ = ÈË_¹¥»÷Á¦ / 100 * Ëæ»úÊı
-	ÈË_·ÀÓùÁ¦ = ÈË_·ÀÓùÁ¦ / 100 * Ëæ»úÊı
-	ÈË_Ãô½İ = ÈË_Ãô½İ / 100 * Ëæ»úÊı
-	if aiÖ°ÒµÏÔÊ¾ == 'Ä§·¨Ê¦' then--·¨Ê¦ÌØÊâÉè¶¨
-		if ÈË_ÌåÁ¦ > 2500 then
-			ÈË_ÌåÁ¦ = 2500
+	äºº_ä½“åŠ› = äºº_ä½“åŠ› / 100 * éšæœºæ•°
+	äºº_é­”æ³• = äºº_é­”æ³• / 100 * éšæœºæ•°
+	äºº_æ”»å‡»åŠ› = äºº_æ”»å‡»åŠ› / 100 * éšæœºæ•°
+	äºº_é˜²å¾¡åŠ› = äºº_é˜²å¾¡åŠ› / 100 * éšæœºæ•°
+	äºº_æ•æ· = äºº_æ•æ· / 100 * éšæœºæ•°
+	if aièŒä¸šæ˜¾ç¤º == 'é­”æ³•å¸ˆ' then--æ³•å¸ˆç‰¹æ®Šè®¾å®š
+		if äºº_ä½“åŠ› > 2500 then
+			äºº_ä½“åŠ› = 2500
 		end
-		ÈË_¹¥»÷Á¦ = 0
-		if ÈË_·ÀÓùÁ¦ < 5000 then
-			ÈË_·ÀÓùÁ¦ = 5000
+		äºº_æ”»å‡»åŠ› = 0
+		if äºº_é˜²å¾¡åŠ› < 5000 then
+			äºº_é˜²å¾¡åŠ› = 5000
 		end
-		if ÈË_Ä§·¨ < 50000 then
-			ÈË_Ä§·¨ = 50000
-		end
-	end
-	if aiÖ°ÒµÏÔÊ¾ == '´«½ÌÊ¿' or aiÖ°ÒµÏÔÊ¾ == 'Î×Ê¦' or aiÖ°ÒµÏÔÊ¾ == 'ÖäÊõÊ¦' then--´«Î×ÌØÊâÉè¶¨
-		ÈË_¹¥»÷Á¦ = 0
-		if ÈË_ÌåÁ¦ < 50000 then
-			ÈË_ÌåÁ¦ = 50000
-		end
-		if ÈË_Ä§·¨ < 25000 then
-			ÈË_Ä§·¨ = 25000
+		if äºº_é­”æ³• < 50000 then
+			äºº_é­”æ³• = 50000
 		end
 	end
-	local ai_index = Char.CreateDummy()--Éú³ÉaiÓ¶±ø
+	if aièŒä¸šæ˜¾ç¤º == 'ä¼ æ•™å£«' or aièŒä¸šæ˜¾ç¤º == 'å·«å¸ˆ' or aièŒä¸šæ˜¾ç¤º == 'å’’æœ¯å¸ˆ' then--ä¼ å·«ç‰¹æ®Šè®¾å®š
+		äºº_æ”»å‡»åŠ› = 0
+		if äºº_ä½“åŠ› < 50000 then
+			äºº_ä½“åŠ› = 50000
+		end
+		if äºº_é­”æ³• < 25000 then
+			äºº_é­”æ³• = 25000
+		end
+	end
+	local ai_index = Char.CreateDummy()--ç”Ÿæˆaiä½£å…µ
 	print('--------------------------------')
-	print('³É¹¦ÕĞÄ¼Ó¶±ø£¬±àºÅ£º'..ai_index)
-	Íæ¼Ò³ÖÓĞai±í[player][0] = Íæ¼Ò³ÖÓĞai±í[player][0] + 1--Í³¼ÆaiÓ¶±øÊıÁ¿
-	aiÈË¿ÚÍ³¼Æ = ai_index
-	Íæ¼Ò³ÖÓĞai±í[player][aiĞò] = ai_index
+	print('æˆåŠŸæ‹›å‹Ÿä½£å…µï¼Œç¼–å·ï¼š'..ai_index)
+	ç©å®¶æŒæœ‰aiè¡¨[player][0] = ç©å®¶æŒæœ‰aiè¡¨[player][0] + 1--ç»Ÿè®¡aiä½£å…µæ•°é‡
+	aiäººå£ç»Ÿè®¡ = ai_index
+	ç©å®¶æŒæœ‰aiè¡¨[player][aiåº] = ai_index
 	Char.SetData(ai_index, CONST.CHAR_X, Char.GetData(player, CONST.CHAR_X))
 	Char.SetData(ai_index, CONST.CHAR_Y, Char.GetData(player, CONST.CHAR_Y))
-	Char.SetData(ai_index, CONST.CHAR_µØÍ¼, Char.GetData(player, CONST.CHAR_µØÍ¼))
-	Char.SetData(ai_index, CONST.CHAR_Ãû×Ö, aiÃû×Ö)
-	Char.SetData(ai_index, CONST.CHAR_µØÍ¼ÀàĞÍ, Char.GetData(player, CONST.CHAR_µØÍ¼ÀàĞÍ))
-	Char.SetData(ai_index, CONST.CHAR_ĞÎÏó, aiÔìĞÍ)
-	Char.SetData(ai_index, CONST.CHAR_Ô­ĞÎ, aiÔìĞÍ)
-	Char.SetData(ai_index, CONST.CHAR_Ô­Ê¼Í¼µµ, aiÔìĞÍ)
-	Char.SetData(ai_index, CONST.CHAR_ÌåÁ¦, ÈË_ÌåÁ¦)
-	Char.SetData(ai_index, CONST.CHAR_Á¦Á¿, ÈË_¹¥»÷Á¦)
-	Char.SetData(ai_index, CONST.CHAR_Ç¿¶È, ÈË_·ÀÓùÁ¦)
-	Char.SetData(ai_index, CONST.CHAR_ËÙ¶È, ÈË_Ãô½İ)
-	Char.SetData(ai_index, CONST.CHAR_Ä§·¨, ÈË_Ä§·¨)
-	Char.SetData(ai_index, CONST.CHAR_÷ÈÁ¦, 100)
-	Char.SetData(ai_index, CONST.CHAR_µÈ¼¶, ÈË_µÈ¼¶)
-	Char.SetData(ai_index, CONST.CHAR_ÖÖ×å, 0)--ÈËĞÎÏµ
-	Char.SetData(ai_index, CONST.¶ÔÏó_Ö°Òµ, aiÖ°Òµ)
-	Char.SetData(ai_index, CONST.¶ÔÏó_Ö°ÀàID, aiÖ°ÒµÀà)
-	Char.SetData(ai_index, CONST.¶ÔÏó_Ö°½×, 3)--3×ªÕıÊ½Ö°Òµ
-	local itemindex = Char.GiveItem(ai_index, ai×°±¸, 1)--¸ø1¼ş×°±¸
-	Item.SetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1)
-	Item.SetData(itemindex,CONST.µÀ¾ß_µÈ¼¶,1)--×°±¸µ÷ÕûÎª1¼¶£¬Ê¡µÃÓ¶±øµÈ¼¶µÍ´ø²»ÉÏ
-	--´´½¨ai = {Ğò,aiÃû×Ö,Ö°ÒµÏÔÊ¾,Í¼µµid,job,jobrank,ÎäÆ÷id,'ÎäÆ÷Ñª|ÎäÆ÷Ä§|ÎäÆ÷¹¥|ÎäÆ÷·À|ÎäÆ÷Ãô|ÎäÆ÷¾«|ÎäÆ÷Ä§¹¥|ÎäÆ÷Ä§¿¹|ÎäÆ÷·´|ÎäÆ÷Ãü|ÎäÆ÷±Ø|ÎäÆ÷ÉÁ|ÎäÆ÷»Ø|ÎäÆ÷÷È',¿ªÍ¨¼Û¸ñ}
-	local ×°±¸´Û¸Ä = split(ai×°±¸´Û¸Ä²ÎÊı,'|')
-	for k,v in pairs(×°±¸´Û¸Ä) do
-		if v == '²»¸Ä' then
-			×°±¸´Û¸Ä[k] = false
+	Char.SetData(ai_index, CONST.CHAR_åœ°å›¾, Char.GetData(player, CONST.CHAR_åœ°å›¾))
+	Char.SetData(ai_index, CONST.CHAR_åå­—, aiåå­—)
+	Char.SetData(ai_index, CONST.CHAR_åœ°å›¾ç±»å‹, Char.GetData(player, CONST.CHAR_åœ°å›¾ç±»å‹))
+	Char.SetData(ai_index, CONST.CHAR_å½¢è±¡, aié€ å‹)
+	Char.SetData(ai_index, CONST.CHAR_åŸå½¢, aié€ å‹)
+	Char.SetData(ai_index, CONST.CHAR_åŸå§‹å›¾æ¡£, aié€ å‹)
+	Char.SetData(ai_index, CONST.CHAR_ä½“åŠ›, äºº_ä½“åŠ›)
+	Char.SetData(ai_index, CONST.CHAR_åŠ›é‡, äºº_æ”»å‡»åŠ›)
+	Char.SetData(ai_index, CONST.CHAR_å¼ºåº¦, äºº_é˜²å¾¡åŠ›)
+	Char.SetData(ai_index, CONST.CHAR_é€Ÿåº¦, äºº_æ•æ·)
+	Char.SetData(ai_index, CONST.CHAR_é­”æ³•, äºº_é­”æ³•)
+	Char.SetData(ai_index, CONST.CHAR_é­…åŠ›, 100)
+	Char.SetData(ai_index, CONST.CHAR_ç­‰çº§, äºº_ç­‰çº§)
+	Char.SetData(ai_index, CONST.CHAR_ç§æ—, 0)--äººå½¢ç³»
+	Char.SetData(ai_index, CONST.å¯¹è±¡_èŒä¸š, aièŒä¸š)
+	Char.SetData(ai_index, CONST.å¯¹è±¡_èŒç±»ID, aièŒä¸šç±»)
+	Char.SetData(ai_index, CONST.å¯¹è±¡_èŒé˜¶, 3)--3è½¬æ­£å¼èŒä¸š
+	local itemindex = Char.GiveItem(ai_index, aiè£…å¤‡, 1)--ç»™1ä»¶è£…å¤‡
+	Item.SetData(itemindex,CONST.é“å…·_å·²é‰´å®š,1)
+	Item.SetData(itemindex,CONST.é“å…·_ç­‰çº§,1)--è£…å¤‡è°ƒæ•´ä¸º1çº§ï¼Œçœå¾—ä½£å…µç­‰çº§ä½å¸¦ä¸ä¸Š
+	--åˆ›å»ºai = {åº,aiåå­—,èŒä¸šæ˜¾ç¤º,å›¾æ¡£id,job,jobrank,æ­¦å™¨id,'æ­¦å™¨è¡€|æ­¦å™¨é­”|æ­¦å™¨æ”»|æ­¦å™¨é˜²|æ­¦å™¨æ•|æ­¦å™¨ç²¾|æ­¦å™¨é­”æ”»|æ­¦å™¨é­”æŠ—|æ­¦å™¨å|æ­¦å™¨å‘½|æ­¦å™¨å¿…|æ­¦å™¨é—ª|æ­¦å™¨å›|æ­¦å™¨é­…',å¼€é€šä»·æ ¼}
+	local è£…å¤‡ç¯¡æ”¹ = split(aiè£…å¤‡ç¯¡æ”¹å‚æ•°,'|')
+	for k,v in pairs(è£…å¤‡ç¯¡æ”¹) do
+		if v == 'ä¸æ”¹' then
+			è£…å¤‡ç¯¡æ”¹[k] = false
 		else
-			×°±¸´Û¸Ä[k] = tonumber(v)
+			è£…å¤‡ç¯¡æ”¹[k] = tonumber(v)
 		end
 	end
-	--for k,v in pairs(×°±¸´Û¸Ä) do
+	--for k,v in pairs(è£…å¤‡ç¯¡æ”¹) do
 	--	print(k,v)
 	--end
-	for ÏîÄ¿ = 1,#×°±¸´Û¸Ä do--¿ªÊ¼´Û¸Ä
-		if ×°±¸´Û¸Ä[ÏîÄ¿] then
-			Item.SetData(itemindex,×°±¸³£Á¿±í[ÏîÄ¿],×°±¸´Û¸Ä[ÏîÄ¿])
+	for é¡¹ç›® = 1,#è£…å¤‡ç¯¡æ”¹ do--å¼€å§‹ç¯¡æ”¹
+		if è£…å¤‡ç¯¡æ”¹[é¡¹ç›®] then
+			Item.SetData(itemindex,è£…å¤‡å¸¸é‡è¡¨[é¡¹ç›®],è£…å¤‡ç¯¡æ”¹[é¡¹ç›®])
 		end
 	end
 	Item.UpItem(ai_index,-1)
 	NLG.UpChar(ai_index)
 	local nowitemslot = Char.GetItemSlot(ai_index, itemindex)
-	--print('ÏÖÔÚÎïÆ·Î»ÖÃ = '..nowitemslot)
+	--print('ç°åœ¨ç‰©å“ä½ç½® = '..nowitemslot)
 	local stat = false
-	if aiÖ°ÒµÏÔÊ¾ == '¸ñ¶·Ê¿' then
-		stat = Char.MoveItem(ai_index, nowitemslot, CONST.Î»ÖÃ_Éí, -1)
+	if aièŒä¸šæ˜¾ç¤º == 'æ ¼æ–—å£«' then
+		stat = Char.MoveItem(ai_index, nowitemslot, CONST.ä½ç½®_èº«, -1)
 	else
-		stat = Char.MoveItem(ai_index, nowitemslot, CONST.Î»ÖÃ_×óÊÖ, -1)
+		stat = Char.MoveItem(ai_index, nowitemslot, CONST.ä½ç½®_å·¦æ‰‹, -1)
 	end
-	--print('ÒÆ¶¯ÎïÆ· = '..stat)
-	print('ÎäÆ÷£º'..Item.GetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨Ãû))
-	--print('ÊÇ·ñ¼ø¶¨£¿ = '..Item.GetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨))
+	--print('ç§»åŠ¨ç‰©å“ = '..stat)
+	print('æ­¦å™¨ï¼š'..Item.GetData(itemindex,CONST.é“å…·_å·²é‰´å®šå))
+	--print('æ˜¯å¦é‰´å®šï¼Ÿ = '..Item.GetData(itemindex,CONST.é“å…·_å·²é‰´å®š))
 	--itemindex = false
-	itemindex = Char.GiveItem(ai_index, math.random(9205,9240), 1)--¸øËæ»úË®¾§
-	Item.SetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1)
+	itemindex = Char.GiveItem(ai_index, math.random(9205,9240), 1)--ç»™éšæœºæ°´æ™¶
+	Item.SetData(itemindex,CONST.é“å…·_å·²é‰´å®š,1)
 	Item.UpItem(ai_index,-1)
 	NLG.UpChar(ai_index)
 	nowitemslot = Char.GetItemSlot(ai_index, itemindex)
-	--print('ÏÖÔÚÎïÆ·Î»ÖÃ = '..nowitemslot)
-	stat = Char.MoveItem(ai_index, nowitemslot, CONST.Î»ÖÃ_Ë®¾§, -1)
-	--print('ÒÆ¶¯ÎïÆ· = '..stat)
-	print('Ë®¾§£º'..Item.GetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨Ãû))
-	--print('ÊÇ·ñ¼ø¶¨£¿ = '..Item.GetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨))
-	Char.GiveItem(ai_index, 2, 100)--¶ÂÂú±³°ü
-	--print('aiµÀ¾ßÀ¸ÊıÁ¿ = '..Char.GetData(ai_index,CONST.¶ÔÏó_µÀ¾ßÀ¸)-8)
-	--print('aiµÀ¾ßÀ¸Õ¼ÓÃÊıÁ¿ = '..Char.ItemSlot(ai_index))
-	Char.AddSkill(ai_index, 71)--µ÷½Ì
+	--print('ç°åœ¨ç‰©å“ä½ç½® = '..nowitemslot)
+	stat = Char.MoveItem(ai_index, nowitemslot, CONST.ä½ç½®_æ°´æ™¶, -1)
+	--print('ç§»åŠ¨ç‰©å“ = '..stat)
+	print('æ°´æ™¶ï¼š'..Item.GetData(itemindex,CONST.é“å…·_å·²é‰´å®šå))
+	--print('æ˜¯å¦é‰´å®šï¼Ÿ = '..Item.GetData(itemindex,CONST.é“å…·_å·²é‰´å®š))
+	Char.GiveItem(ai_index, 2, 100)--å µæ»¡èƒŒåŒ…
+	--print('aié“å…·æ æ•°é‡ = '..Char.GetData(ai_index,CONST.å¯¹è±¡_é“å…·æ )-8)
+	--print('aié“å…·æ å ç”¨æ•°é‡ = '..Char.ItemSlot(ai_index))
+	Char.AddSkill(ai_index, 71)--è°ƒæ•™
 	Char.SetSkillLevel(ai_index,0,10)
 	local petindex = -1
 	repeat
-		petindex = Char.GivePet(ai_index, math.random(1,904))--¸øËæ»ú³èÎï
+		petindex = Char.GivePet(ai_index, math.random(1,904))--ç»™éšæœºå® ç‰©
 	until petindex > 0
-	Char.SetData(petindex,CONST.¶ÔÏó_ÖÒ³Ï,100)
-	Char.SetData(petindex,CONST.¶ÔÏó_»ù´¡ÖÒ³Ï,100)
-	Char.SetPetDepartureState(ai_index, 0, CONST.PET_STATE_Õ½¶·)
-	Char.SetData(ai_index, CONST.CHAR_Õ½³è, 0)
-	Char.SetData(petindex,CONST.PET_DepartureBattleStatus, CONST.PET_STATE_Õ½¶·)
-	Char.SetData(petindex,CONST.¶ÔÏó_µÈ¼¶,ÈË_µÈ¼¶)
-	Char.SetData(petindex,CONST.CHAR_ÌåÁ¦, ÈË_µÈ¼¶*100*1.2)
-	Char.SetData(petindex,CONST.CHAR_Ä§·¨, ÈË_µÈ¼¶*100*2)
-	Char.SetData(petindex,CONST.CHAR_Á¦Á¿, ÈË_µÈ¼¶*100)
-	Char.SetData(petindex,CONST.CHAR_Ç¿¶È, ÈË_µÈ¼¶*100*0.1)
-	Char.SetData(petindex,CONST.CHAR_ËÙ¶È, ÈË_µÈ¼¶*100*0.5)
-	Char.SetData(petindex,CONST.¶ÔÏó_¼¼ÄÜÀ¸,10)
-	for killslot = 0,9 do--Çå³ıÀ¬»ø¼¼ÄÜ
+	Char.SetData(petindex,CONST.å¯¹è±¡_å¿ è¯š,100)
+	Char.SetData(petindex,CONST.å¯¹è±¡_åŸºç¡€å¿ è¯š,100)
+	Char.SetPetDepartureState(ai_index, 0, CONST.PET_STATE_æˆ˜æ–—)
+	Char.SetData(ai_index, CONST.CHAR_æˆ˜å® , 0)
+	Char.SetData(petindex,CONST.PET_DepartureBattleStatus, CONST.PET_STATE_æˆ˜æ–—)
+	Char.SetData(petindex,CONST.å¯¹è±¡_ç­‰çº§,äºº_ç­‰çº§)
+	Char.SetData(petindex,CONST.CHAR_ä½“åŠ›, äºº_ç­‰çº§*100*1.2)
+	Char.SetData(petindex,CONST.CHAR_é­”æ³•, äºº_ç­‰çº§*100*2)
+	Char.SetData(petindex,CONST.CHAR_åŠ›é‡, äºº_ç­‰çº§*100)
+	Char.SetData(petindex,CONST.CHAR_å¼ºåº¦, äºº_ç­‰çº§*100*0.1)
+	Char.SetData(petindex,CONST.CHAR_é€Ÿåº¦, äºº_ç­‰çº§*100*0.5)
+	Char.SetData(petindex,CONST.å¯¹è±¡_æŠ€èƒ½æ ,10)
+	for killslot = 0,9 do--æ¸…é™¤åƒåœ¾æŠ€èƒ½
 		Pet.DelSkill(petindex,killslot)
 	end
-	--³èÎï×î¶à¸ø10¸ö¼¼ÄÜ£¬Çë×¢Òâ¼ÆËã
-	Pet.AddSkill(petindex, 838)--Ê¥¶Ü
-	Pet.AddSkill(petindex, 38)--Á¬»÷
-	Pet.AddSkill(petindex, 138)--ÖîÈĞ
-	Pet.AddSkill(petindex, 338)--Ç¬À¤
-	Pet.AddSkill(petindex, 2339)--Ç¿Á¦ÔÉÊ¯Ä§·¨
-	Pet.AddSkill(petindex, 2439)--Ç¿Á¦±ù¶³Ä§·¨
-	Pet.AddSkill(petindex, 2539)--Ç¿Á¦»ğÑæÄ§·¨
-	Pet.AddSkill(petindex, 2639)--Ç¿Á¦·çÈĞÄ§·¨
-	Pet.AddSkill(petindex, 8138)--ÎüÑª¹¥»÷
-	Pet.AddSkill(petindex, 7738)--Ê¯»¯¹¥»÷
-	Char.SetData(player,CONST.¶ÔÏó_×é¶Ó¿ª¹Ø,1)
+	--å® ç‰©æœ€å¤šç»™10ä¸ªæŠ€èƒ½ï¼Œè¯·æ³¨æ„è®¡ç®—
+	Pet.AddSkill(petindex, 838)--åœ£ç›¾
+	Pet.AddSkill(petindex, 38)--è¿å‡»
+	Pet.AddSkill(petindex, 138)--è¯¸åˆƒ
+	Pet.AddSkill(petindex, 338)--ä¹¾å¤
+	Pet.AddSkill(petindex, 2339)--å¼ºåŠ›é™¨çŸ³é­”æ³•
+	Pet.AddSkill(petindex, 2439)--å¼ºåŠ›å†°å†»é­”æ³•
+	Pet.AddSkill(petindex, 2539)--å¼ºåŠ›ç«ç„°é­”æ³•
+	Pet.AddSkill(petindex, 2639)--å¼ºåŠ›é£åˆƒé­”æ³•
+	Pet.AddSkill(petindex, 8138)--å¸è¡€æ”»å‡»
+	Pet.AddSkill(petindex, 7738)--çŸ³åŒ–æ”»å‡»
+	Char.SetData(player,CONST.å¯¹è±¡_ç»„é˜Ÿå¼€å…³,1)
 	Char.JoinParty(ai_index, player)
 	NLG.UpChar(ai_index)
 	NLG.UpChar(player)
-	Char.SetData(ai_index, CONST.¶ÔÏó_Ñª, Char.GetData(ai_index, CONST.¶ÔÏó_×î´óÑª))
-	Char.SetData(ai_index, CONST.¶ÔÏó_Ä§, Char.GetData(ai_index, CONST.¶ÔÏó_×î´óÄ§))
-	Char.SetData(petindex, CONST.¶ÔÏó_Ñª, Char.GetData(petindex, CONST.¶ÔÏó_×î´óÑª))
-	Char.SetData(petindex, CONST.¶ÔÏó_Ä§, Char.GetData(petindex, CONST.¶ÔÏó_×î´óÄ§))
+	Char.SetData(ai_index, CONST.å¯¹è±¡_è¡€, Char.GetData(ai_index, CONST.å¯¹è±¡_æœ€å¤§è¡€))
+	Char.SetData(ai_index, CONST.å¯¹è±¡_é­”, Char.GetData(ai_index, CONST.å¯¹è±¡_æœ€å¤§é­”))
+	Char.SetData(petindex, CONST.å¯¹è±¡_è¡€, Char.GetData(petindex, CONST.å¯¹è±¡_æœ€å¤§è¡€))
+	Char.SetData(petindex, CONST.å¯¹è±¡_é­”, Char.GetData(petindex, CONST.å¯¹è±¡_æœ€å¤§é­”))
 	NLG.UpChar(ai_index)
 	NLG.UpChar(player)
 	Pet.UpPet(ai_index, petindex)
-	local vital = Char.GetData(ai_index,CONST.¶ÔÏó_ÌåÁ¦)
-	local HP = Char.GetData(ai_index,CONST.¶ÔÏó_×î´óÑª)
-	local magic = Char.GetData(ai_index,CONST.¶ÔÏó_Ä§·¨)
-	local MP = Char.GetData(ai_index,CONST.¶ÔÏó_×î´óÄ§)
-	local rec = Char.GetData(ai_index,CONST.¶ÔÏó_»Ø¸´)
-	local atk = Char.GetData(ai_index,CONST.¶ÔÏó_Á¦Á¿)
-	local def = Char.GetData(ai_index,CONST.¶ÔÏó_Ç¿¶È)
-	local quk = Char.GetData(ai_index,CONST.¶ÔÏó_ËÙ¶È)
-	local js = Char.GetData(ai_index,CONST.¶ÔÏó_¾«Éñ)
-	local job = Char.GetData(ai_index,CONST.¶ÔÏó_Ö°Òµ)
-	print('±»´´½¨µÄaiÊôĞÔ£º'..job..' Ìå'..vital..' Ä§'..magic..' Á¦'..atk..' Ç¿'..def..' Ãô'..quk..' HP'..HP..' MP'..MP..' »Ø'..rec..' ¾«'..js)--Ã¿100=1µãbp
+	local vital = Char.GetData(ai_index,CONST.å¯¹è±¡_ä½“åŠ›)
+	local HP = Char.GetData(ai_index,CONST.å¯¹è±¡_æœ€å¤§è¡€)
+	local magic = Char.GetData(ai_index,CONST.å¯¹è±¡_é­”æ³•)
+	local MP = Char.GetData(ai_index,CONST.å¯¹è±¡_æœ€å¤§é­”)
+	local rec = Char.GetData(ai_index,CONST.å¯¹è±¡_å›å¤)
+	local atk = Char.GetData(ai_index,CONST.å¯¹è±¡_åŠ›é‡)
+	local def = Char.GetData(ai_index,CONST.å¯¹è±¡_å¼ºåº¦)
+	local quk = Char.GetData(ai_index,CONST.å¯¹è±¡_é€Ÿåº¦)
+	local js = Char.GetData(ai_index,CONST.å¯¹è±¡_ç²¾ç¥)
+	local job = Char.GetData(ai_index,CONST.å¯¹è±¡_èŒä¸š)
+	print('è¢«åˆ›å»ºçš„aiå±æ€§ï¼š'..job..' ä½“'..vital..' é­”'..magic..' åŠ›'..atk..' å¼º'..def..' æ•'..quk..' HP'..HP..' MP'..MP..' å›'..rec..' ç²¾'..js)--æ¯100=1ç‚¹bp
 	print('--------------------------------')
 end
 
-function ÕĞÄ¼ai(player,aiĞò)--ÕĞÄ¼ai
-	--print('------------------aiĞò = '..aiĞò)
-	if Íæ¼Ò³ÖÓĞai±í[player][aiĞò] >= 0 then
+function æ‹›å‹Ÿai(player,aiåº)--æ‹›å‹Ÿai
+	--print('------------------aiåº = '..aiåº)
+	if ç©å®¶æŒæœ‰aiè¡¨[player][aiåº] >= 0 then
 		NLG.PlaySe(player,72,0,0)
-		Char.LeaveParty(Íæ¼Ò³ÖÓĞai±í[player][aiĞò])
-		Char.DelDummy(Íæ¼Ò³ÖÓĞai±í[player][aiĞò])
-		Íæ¼Ò³ÖÓĞai±í[player][aiĞò] = -1
-		Íæ¼Ò³ÖÓĞai±í[player][0] = Íæ¼Ò³ÖÓĞai±í[player][0] - 1
-	elseif Íæ¼Ò³ÖÓĞai±í[player][0] > 3 then
-		NLG.ShowWindowTalked(player,ai_npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÉÏÒ»Ò³,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\nÄúÒÑ¾­ÕÙ»½ÁË4Î»Ğ¡»ï°éÁË£¬²»ÄÜÔÙÕÙ»½ÁË¡£')
-	elseif aiÈË¿ÚÍ³¼Æ > aiÈË¿ÚÏŞÖÆ then
-		NLG.ShowWindowTalked(player,ai_npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÉÏÒ»Ò³,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\nµ±Ç°ÏßÂ·ÈË¿Ú±¬Âú£¬ÎŞ·¨Ìí¼ÓÓ¶±øÁË¡£')
+		Char.LeaveParty(ç©å®¶æŒæœ‰aiè¡¨[player][aiåº])
+		Char.DelDummy(ç©å®¶æŒæœ‰aiè¡¨[player][aiåº])
+		ç©å®¶æŒæœ‰aiè¡¨[player][aiåº] = -1
+		ç©å®¶æŒæœ‰aiè¡¨[player][0] = ç©å®¶æŒæœ‰aiè¡¨[player][0] - 1
+	elseif ç©å®¶æŒæœ‰aiè¡¨[player][0] > 3 then
+		NLG.ShowWindowTalked(player,ai_npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\næ‚¨å·²ç»å¬å”¤äº†4ä½å°ä¼™ä¼´äº†ï¼Œä¸èƒ½å†å¬å”¤äº†ã€‚')
+	elseif aiäººå£ç»Ÿè®¡ > aiäººå£é™åˆ¶ then
+		NLG.ShowWindowTalked(player,ai_npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\nå½“å‰çº¿è·¯äººå£çˆ†æ»¡ï¼Œæ— æ³•æ·»åŠ ä½£å…µäº†ã€‚')
 	elseif Char.PartyNum(player) >= 5 then
-		--print('¶ÓÎéÈËÊı = '..Char.PartyNum(player))
-		NLG.ShowWindowTalked(player,ai_npc,CONST.´°¿Ú_ĞÅÏ¢¿ò,CONST.°´Å¥_ÉÏÒ»Ò³,player+404404,'@c¡¾CNÄ§Á¦ AI¹ÍÓ¶±øÏµÍ³¡¿\\n\\n\\n\\nÄãµÄ¶ÓÎéÈËÊıÒÑÂú¡£')
-	elseif Íæ¼Ò³ÖÓĞai±í[player][aiĞò] == -1 then
-		´´½¨ai(player,ai_list[aiĞò][1],ai_list[aiĞò][2],ai_list[aiĞò][3],ai_list[aiĞò][4],ai_list[aiĞò][5],ai_list[aiĞò][6],ai_list[aiĞò][7],ai_list[aiĞò][8])
+		--print('é˜Ÿä¼äººæ•° = '..Char.PartyNum(player))
+		NLG.ShowWindowTalked(player,ai_npc,CONST.çª—å£_ä¿¡æ¯æ¡†,CONST.æŒ‰é’®_ä¸Šä¸€é¡µ,player+404404,'@cã€CNé­”åŠ› AIé›‡ä½£å…µç³»ç»Ÿã€‘\\n\\n\\n\\nä½ çš„é˜Ÿä¼äººæ•°å·²æ»¡ã€‚')
+	elseif ç©å®¶æŒæœ‰aiè¡¨[player][aiåº] == -1 then
+		åˆ›å»ºai(player,ai_list[aiåº][1],ai_list[aiåº][2],ai_list[aiåº][3],ai_list[aiåº][4],ai_list[aiåº][5],ai_list[aiåº][6],ai_list[aiåº][7],ai_list[aiåº][8])
 	end
 end
 
-function shuzipanduan(data)--Êı×Ö»òÎÄ±¾ÅĞ¶Ï
+function shuzipanduan(data)--æ•°å­—æˆ–æ–‡æœ¬åˆ¤æ–­
 	local wenben = data
 	local shuzi = data
 	if tonumber(data) == nil then
@@ -821,19 +821,19 @@ function shuzipanduan(data)--Êı×Ö»òÎÄ±¾ÅĞ¶Ï
 	end
 end
 
-function left(str,len)--¾Ó×ó
-    local char = ' ' -- Ìî³ä¿Õ¸ñ
+function left(str,len)--å±…å·¦
+    local char = ' ' -- å¡«å……ç©ºæ ¼
 	if len-#str >= 0 then
 		local padding = string.rep(char,len-#str)
 		return str..padding
 	else
-		local text = 'Êı¾İÌ«³¤ÇëĞŞ¸Ä'
+		local text = 'æ•°æ®å¤ªé•¿è¯·ä¿®æ”¹'
 		local padding = string.rep(char,len-#text)
 		return text..padding
 	end
 end
 
-function split(str,split_char)--·Ö¸î¿Õ¸ñÄÚÈİµ½table
+function split(str,split_char)--åˆ†å‰²ç©ºæ ¼å†…å®¹åˆ°table
     local sub_str_tab = {}
     while (true) do
 		local pos = string.find(str, split_char)
@@ -848,9 +848,9 @@ function split(str,split_char)--·Ö¸î¿Õ¸ñÄÚÈİµ½table
     return sub_str_tab
 end
 
---Ğ¶ÔØÄ£¿é¹³×Ó
-function ¾«¼òÓ¶±øModule:onUnload()
+--å¸è½½æ¨¡å—é’©å­
+function ç²¾ç®€ä½£å…µModule:onUnload()
 	self:logInfo('unload')
 end
 
-return ¾«¼òÓ¶±øModule
+return ç²¾ç®€ä½£å…µModule
