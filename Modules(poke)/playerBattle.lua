@@ -1,77 +1,86 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('playerBattle')
 
 local Open = 0;
 local PKArena = {
-      { pkType=1, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=21,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=2, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=22,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=3, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=22,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=4, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=22,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=5, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=23,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=6, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=23,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=7, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=23,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=8, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=24,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=9, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=24,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=10, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=24,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=11, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=12, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=13, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=14, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=15, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=16, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=17, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=18, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=19, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
-      { pkType=20, walkMode=1, opponentsName="•rÓê", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=35,dir=6,action=1},
-      ai_list={'•rÓê','ÈÌÕß',106477,154,150,201,'500|²»¸Ä|²»¸Ä|²»¸Ä|250|²»¸Ä|²»¸Ä|200|15|15|15|15|800|999'} },
+      { pkType=1, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=18,Y=35,dir=6,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=2, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=39,dir=6,action=3},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=3, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=38,dir=4,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=4, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=37,dir=0,action=11},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=5, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=33,dir=4,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=6, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=32,dir=2,action=10},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=7, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=31,dir=6,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=8, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=23,Y=36,dir=6,action=6},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=9, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=24,Y=37,dir=7,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=10, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=37,dir=6,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=11, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=33,dir=6,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=12, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=32,dir=6,action=10},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=13, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=31,dir=4,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=14, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=27,Y=31,dir=6,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=15, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=28,Y=31,dir=6,action=0},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=16, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=35,dir=2,action=11},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=17, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=34,dir=6,action=10},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=18, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=33,dir=6,action=11},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=19, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=32,dir=6,action=11},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
+      { pkType=20, walkMode=1, opponentsName="æ™‚é›¨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=31,dir=6,action=11},
+      ai_list={'æ™‚é›¨','å¿è€…',106477,154,150,201,'500|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|250|ä¸æ”¹|ä¸æ”¹|200|15|15|15|15|800|999'} },
 }
 
 local dummylevel = 100;
-local equipConstant = {--³õÊ¼»¯¿ì½İ×°±¸²ÎÊı³£Á¿
-	CONST.µÀ¾ß_ÉúÃü,CONST.µÀ¾ß_Ä§Á¦,CONST.µÀ¾ß_¹¥»÷,CONST.µÀ¾ß_·ÀÓù,CONST.µÀ¾ß_Ãô½İ,CONST.µÀ¾ß_¾«Éñ,CONST.µÀ¾ß_Ä§¹¥,
-	CONST.µÀ¾ß_Ä§¿¹,CONST.µÀ¾ß_·´»÷,CONST.µÀ¾ß_ÃüÖĞ,CONST.µÀ¾ß_±ØÉ±,CONST.µÀ¾ß_ÉÁ¶ã,CONST.µÀ¾ß_»Ø¸´,CONST.µÀ¾ß_÷ÈÁ¦,
+local equipConstant = {--åˆå§‹åŒ–å¿«æ·è£…å¤‡å‚æ•°å¸¸é‡
+	CONST.é“å…·_ç”Ÿå‘½,CONST.é“å…·_é­”åŠ›,CONST.é“å…·_æ”»å‡»,CONST.é“å…·_é˜²å¾¡,CONST.é“å…·_æ•æ·,CONST.é“å…·_ç²¾ç¥,CONST.é“å…·_é­”æ”»,
+	CONST.é“å…·_é­”æŠ—,CONST.é“å…·_åå‡»,CONST.é“å…·_å‘½ä¸­,CONST.é“å…·_å¿…æ€,CONST.é“å…·_é—ªèº²,CONST.é“å…·_å›å¤,CONST.é“å…·_é­…åŠ›,
 }
 local change_list={
-name = {'Ğ¡Ã÷„¦Ê¿','ÖĞÕıÂ·ÓÂÕß','ºÚÉ«‘ğÊ¿','ÀÏÍõ²»ÙuÁË','ëuÅÅÒª¼ÓÀ±','µ¶ÏÂ²»ÁôÈË','Ğ¡Ö¾ºÜƒ´','KillĞ¡ºÚ','Dark°¢„P','±ù·âÖ®ĞÄ','³àÑæ·¨Íõ','ïLÖ®ÂÃÈË','°×ãyÖ®ÈĞ','µØªz»ğ','ÉnÔÂ','ãyÀÇ','ŸoÇé','† –µÏË¹','Ã×¿¨°¬ –','Â¶ÄÈ·Æ –','ÉªÀò½z','·ÆšWÄÈ','°µºÚÆÆ‰ÄÉñ',},
+name = {'å°æ˜åŠå£«','ä¸­æ­£è·¯å‹‡è€…','é»‘è‰²æˆ°å£«','è€ç‹ä¸è³£äº†','é›æ’è¦åŠ è¾£','åˆ€ä¸‹ä¸ç•™äºº','å°å¿—å¾ˆå…‡','Killå°é»‘','Darké˜¿å‡±','å†°å°ä¹‹å¿ƒ','èµ¤ç„°æ³•ç‹','é¢¨ä¹‹æ—…äºº','ç™½éŠ€ä¹‹åˆƒ','åœ°ç„ç«','è’¼æœˆ','éŠ€ç‹¼','ç„¡æƒ…','äºçˆ¾è¿ªæ–¯','ç±³å¡è‰¾çˆ¾','éœ²å¨œè²çˆ¾','ç‘Ÿè‰çµ²','è²æ­å¨œ','æš—é»‘ç ´å£ç¥',},
 image = {105002,105014,105027,105039,105045,105052,105064,105095,105102,105127,105252,105258,105264,105270,105277,105289,105302,105320,105333,105352,105377,106002,106033,106052,106095,106114,106127,106252,106264,106277,106283,106295,106302,106314,106327,106352,106377,},
-jobname = {'¹­¼ıÊÖ','„¦Ê¿','‘ğ¸«ôYÊ¿','òTÊ¿','¸ñôY','Ä§·¨Ÿ','‚÷½ÌÊ¿','Î×Ÿ',},
+jobname = {'å¼“ç®­æ‰‹','åŠå£«','æˆ°æ–§é¬¥å£«','é¨å£«','æ ¼é¬¥','é­”æ³•å¸«','å‚³æ•™å£«','å·«å¸«',},
 job = { {44,40},{14,10},{24,20},{34,30},{144,140},{74,70},{64,60},{134,130}, },
-equip = {--'ÎäÆ÷Ñª|ÎäÆ÷Ä§|ÎäÆ÷¹¥|ÎäÆ÷·À|ÎäÆ÷Ãô|ÎäÆ÷¾«|ÎäÆ÷Ä§¹¥|ÎäÆ÷Ä§¿¹|ÎäÆ÷·´|ÎäÆ÷Ãü|ÎäÆ÷±Ø|ÎäÆ÷ÉÁ|ÎäÆ÷»Ø|ÎäÆ÷÷È'
-     {215,'200|200|219|135|64|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|15|11|25|200|999'},
-     {201,'200|200|300|315|²»¸Ä|²»¸Ä|²»¸Ä|35|²»¸Ä|-5|²»¸Ä|65|200|999'},
-     {206,'200|200|331|294|-72|²»¸Ä|²»¸Ä|35|²»¸Ä|-5|36|45|200|999'},
-     {211,'200|200|252|425|²»¸Ä|²»¸Ä|²»¸Ä|135|15|10|²»¸Ä|45|200|999'},
-     {250,'200|200|50|235|64|²»¸Ä|²»¸Ä|100|²»¸Ä|20|5|20|200|999'},
-     {220,'200|550|²»¸Ä|160|17|65|200|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|10|200|999'},
-     {220,'300|550|²»¸Ä|160|17|65|200|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|10|400|999'},
-     {220,'300|550|²»¸Ä|160|17|65|200|²»¸Ä|²»¸Ä|²»¸Ä|²»¸Ä|10|400|999'},
+equip = {--'æ­¦å™¨è¡€|æ­¦å™¨é­”|æ­¦å™¨æ”»|æ­¦å™¨é˜²|æ­¦å™¨æ•|æ­¦å™¨ç²¾|æ­¦å™¨é­”æ”»|æ­¦å™¨é­”æŠ—|æ­¦å™¨å|æ­¦å™¨å‘½|æ­¦å™¨å¿…|æ­¦å™¨é—ª|æ­¦å™¨å›|æ­¦å™¨é­…'
+     {215,'200|200|219|135|64|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|15|11|25|200|999'},
+     {201,'200|200|300|315|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|35|ä¸æ”¹|-5|ä¸æ”¹|65|200|999'},
+     {206,'200|200|331|294|-72|ä¸æ”¹|ä¸æ”¹|35|ä¸æ”¹|-5|36|45|200|999'},
+     {211,'200|200|252|425|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|135|15|10|ä¸æ”¹|45|200|999'},
+     {250,'200|200|50|235|64|ä¸æ”¹|ä¸æ”¹|100|ä¸æ”¹|20|5|20|200|999'},
+     {220,'200|550|ä¸æ”¹|160|17|65|200|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|10|200|999'},
+     {220,'300|550|ä¸æ”¹|160|17|65|200|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|10|400|999'},
+     {220,'300|550|ä¸æ”¹|160|17|65|200|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|ä¸æ”¹|10|400|999'},
   },
 }
-
+local talk_list= {
+     "ä¾†å ´å‹èª¼è³½å—ï¼Ÿç«¶æŠ€å ´èµ°èµ·ï½",
+     "ä¸è¼¸ä¸è´ï¼Œç´”åˆ‡ç£‹ï¼Œä¾†å—ï¼Ÿ",
+     "ç›®å‰é€£å‹ä¸­ï¼Œæƒ³æ‰¾å€‹å¼·è€…å°æˆ°ã€‚",
+     "æˆ‘æ˜¯æ–°æ‰‹ï¼Œèƒ½é™ªæˆ‘åœ¨ç«¶æŠ€å ´æ‰“ä¸€å ´å—ï¼Ÿ",
+     "è½èªªä½ å¯¦åŠ›ä¸éŒ¯ï¼Œä¾†ç«¶æŠ€å ´é©—è­‰ä¸€ä¸‹å§ã€‚",
+     "æ•¢ä¸æ•¢ä¾†å ´å–®æŒ‘å°æ±ºï¼Ÿ",
+     "å«ä¸Šä½ å…©å€‹éšŠå‹ï¼Œ3v3 èµ°èµ·ã€‚",
+     "5v5 æ‰çœ‹å¾—å‡ºçœŸæœ¬äº‹ã€‚",
+}
 ------------------------------------------------
-local FTime = os.time();			--Ê±¼ä±í
+local FTime = os.time();			--æ—¶é—´è¡¨
 tbl_PKArenaNPCIndex = tbl_PKArenaNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
@@ -82,7 +91,7 @@ end
 
 function Module:handleBattleAutoCommand(battleIndex)
 	local player = {}
-	if Battle.GetType(battleIndex) == CONST.Õ½¶·_PVP then
+	if Battle.GetType(battleIndex) == CONST.æˆ˜æ–—_PVP then
 		local side=0
 		local leader1 = Battle.GetPlayer(battleIndex,0)
 		local leader2 = Battle.GetPlayer(battleIndex,5)
@@ -107,191 +116,191 @@ function Module:handleBattleAutoCommand(battleIndex)
 		for i = 0, 19 do
 			local ai_index = Battle.GetPlayer(battleIndex, i)
 			if ai_index >= 0 then
-				if Char.IsPlayer(ai_index) then--ÊÕÂ¼ÈËµÄindex
+				if Char.IsPlayer(ai_index) then--æ”¶å½•äººçš„index
 					player[i] = ai_index
 				end
 
-				if Char.IsDummy(ai_index) and Char.GetData(ai_index,CONST.¶ÔÏó_µØÍ¼)~=777 then--aiÅĞ¶Ï
+				if Char.IsDummy(ai_index) and Char.GetData(ai_index,CONST.å¯¹è±¡_åœ°å›¾)~=777 then--aiåˆ¤æ–­
 					player[i] = ai_index
-					--print('ai×Ô¶¯Õ½¶·£º',ai_index,petindex)
-					if Battle.IsWaitingCommand(ai_index) then--Ö°ÒµÊ¹ÓÃ¼¼ÄÜÅĞ¶Ï
-						local Ö°ÒµÀà = Char.GetData(ai_index,CONST.¶ÔÏó_Ö°ÀàID)
-						local Õ½¶·Ö¸Áî½Ó¿Ú = CONST.BATTLE_COM--±ğ¸Ä£¬»á±¬Õ¨
-						local ¼¼ÄÜÑ¡Ôñ½Ó¿Ú = Battle.ActionSelect--±ğ¸Ä£¬»á±¬Õ¨
-						--µÚ1¶¯
-						if Ö°ÒµÀà == 40 then--¹­
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RANDOMSHOT,math.random(0,9),9509) end,--ÂÒÉä
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_DELAYATTACK,math.random(0,9),25809) end,--Ò»»÷±ØÖĞ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--ÑôÑ×
+					--print('aiè‡ªåŠ¨æˆ˜æ–—ï¼š',ai_index,petindex)
+					if Battle.IsWaitingCommand(ai_index) then--èŒä¸šä½¿ç”¨æŠ€èƒ½åˆ¤æ–­
+						local èŒä¸šç±» = Char.GetData(ai_index,CONST.å¯¹è±¡_èŒç±»ID)
+						local æˆ˜æ–—æŒ‡ä»¤æ¥å£ = CONST.BATTLE_COM--åˆ«æ”¹ï¼Œä¼šçˆ†ç‚¸
+						local æŠ€èƒ½é€‰æ‹©æ¥å£ = Battle.ActionSelect--åˆ«æ”¹ï¼Œä¼šçˆ†ç‚¸
+						--ç¬¬1åŠ¨
+						if èŒä¸šç±» == 40 then--å¼“
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RANDOMSHOT,math.random(0,9),9509) end,--ä¹±å°„
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_DELAYATTACK,math.random(0,9),25809) end,--ä¸€å‡»å¿…ä¸­
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--é˜³ç‚
 							}
-							if math.random(1,100) < 70 then--ÂÒÉäÊÍ·Å¸ÅÂÊ70%
-								pcall(¼¼ÄÜ±í[1])
-							else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-								local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							if math.random(1,100) < 70 then--ä¹±å°„é‡Šæ”¾æ¦‚ç‡70%
+								pcall(æŠ€èƒ½è¡¨[1])
+							else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+								local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							end
 						end
-						if Ö°ÒµÀà == 10 then--½£
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_FIRSTATTACK,math.random(0,9),26209) end,--Ñ¸ËÙ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_BLASTWAVE,math.random(0,9),200509) end,--½£Æø--ÇëÈ·ÈÏÄãµÄtechÒ²ÊÇÕâ¸ö±àºÅ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--Ç¬À¤
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--ÖîÈĞ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--Á¬»÷ÆÆËé
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--Á¬»÷ÂÒÎè
+						if èŒä¸šç±» == 10 then--å‰‘
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_FIRSTATTACK,math.random(0,9),26209) end,--è¿…é€Ÿ
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_BLASTWAVE,math.random(0,9),200509) end,--å‰‘æ°”--è¯·ç¡®è®¤ä½ çš„techä¹Ÿæ˜¯è¿™ä¸ªç¼–å·
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--ä¹¾å¤
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--è¯¸åˆƒ
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--è¿å‡»ç ´ç¢
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--è¿å‡»ä¹±èˆ
 							}
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
-						if Ö°ÒµÀà == 20 then--¸«
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_DELAYATTACK,math.random(0,9),25709) end,--½ä½¾½äÔê
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--Ç¬À¤
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--ÖîÈĞ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--Á¬»÷ÆÆËé
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--Á¬»÷ÂÒÎè
+						if èŒä¸šç±» == 20 then--æ–§
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_DELAYATTACK,math.random(0,9),25709) end,--æˆ’éª„æˆ’èº
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--ä¹¾å¤
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--è¯¸åˆƒ
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--è¿å‡»ç ´ç¢
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--è¿å‡»ä¹±èˆ
 							}
-							if math.random(1,100) < 70 then--½ä½¾½äÔêÊÍ·Å¸ÅÂÊ70%
-								pcall(¼¼ÄÜ±í[1])
-							else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-								local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							if math.random(1,100) < 70 then--æˆ’éª„æˆ’èºé‡Šæ”¾æ¦‚ç‡70%
+								pcall(æŠ€èƒ½è¡¨[1])
+							else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+								local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							end
 						end
-						if Ö°ÒµÀà == 30 then--Æï
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_BILLIARD,math.random(5,9),26009) end,--Ò»Ê¯¶şÄñ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--Ç¬À¤
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--ÖîÈĞ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--Á¬»÷ÆÆËé
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--Á¬»÷ÂÒÎè
+						if èŒä¸šç±» == 30 then--éª‘
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_BILLIARD,math.random(5,9),26009) end,--ä¸€çŸ³äºŒé¸Ÿ
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--ä¹¾å¤
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--è¯¸åˆƒ
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--è¿å‡»ç ´ç¢
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--è¿å‡»ä¹±èˆ
 							}
-							if math.random(1,100) < 50 then--Ò»Ê¯¶şÄñÊÍ·Å¸ÅÂÊ50%
-								pcall(¼¼ÄÜ±í[1])
-							else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-								local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							if math.random(1,100) < 50 then--ä¸€çŸ³äºŒé¸Ÿé‡Šæ”¾æ¦‚ç‡50%
+								pcall(æŠ€èƒ½è¡¨[1])
+							else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+								local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							end
 						end
-						if Ö°ÒµÀà == 140 then--¸ñ
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index, Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_SPIRACLESHOT,math.random(0,9),409) end,--Æø¹¦µ¯
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index, Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PANIC,math.random(0,9),9409) end,--»ìÂÒ¹¥»÷
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index, Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_GUARDBREAK,math.random(0,9),509) end,--±À»÷
+						if èŒä¸šç±» == 140 then--æ ¼
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index, æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_SPIRACLESHOT,math.random(0,9),409) end,--æ°”åŠŸå¼¹
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index, æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PANIC,math.random(0,9),9409) end,--æ··ä¹±æ”»å‡»
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index, æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_GUARDBREAK,math.random(0,9),509) end,--å´©å‡»
 							}
-							if math.random(1,100) < 70 then--Æø¹¦µ¯ÊÍ·Å¸ÅÂÊ70%
-								pcall(¼¼ÄÜ±í[1])
-							else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-								local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							if math.random(1,100) < 70 then--æ°”åŠŸå¼¹é‡Šæ”¾æ¦‚ç‡70%
+								pcall(æŠ€èƒ½è¡¨[1])
+							else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+								local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							end
 						end
-						if Ö°ÒµÀà == 70 then--Ä§
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,40,2709) end,--³¬ÔÉ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,40,2809) end,--³¬±ù
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,40,2909) end,--³¬»ğ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,40,3009) end,--³¬·ç
+						if èŒä¸šç±» == 70 then--é­”
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,40,2709) end,--è¶…é™¨
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,40,2809) end,--è¶…å†°
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,40,2909) end,--è¶…ç«
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,40,3009) end,--è¶…é£
 							}
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
-						if Ö°ÒµÀà == 60 then--´«
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_HEAL,41,6309) end,--³¬Ç¿²¹Ñª
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_HEAL,math.random(30,39),6209) end,--Ç¿Á¦²¹Ñª
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_HEAL,math.random(10,91),6109) end,--²¹Ñª
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--Æø¾ø
+						if èŒä¸šç±» == 60 then--ä¼ 
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_HEAL,41,6309) end,--è¶…å¼ºè¡¥è¡€
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_HEAL,math.random(30,39),6209) end,--å¼ºåŠ›è¡¥è¡€
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_HEAL,math.random(10,91),6109) end,--è¡¥è¡€
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--æ°”ç»
 							}
-							if math.random(1,100) < 70 then--³¬Ç¿²¹ÑªÊÍ·Å¸ÅÂÊ70%
-								pcall(¼¼ÄÜ±í[1])
-							else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-								local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							if math.random(1,100) < 70 then--è¶…å¼ºè¡¥è¡€é‡Šæ”¾æ¦‚ç‡70%
+								pcall(æŠ€èƒ½è¡¨[1])
+							else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+								local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							end
 						end
-						if Ö°ÒµÀà == 130 then--Î×
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_LP_RECOVERY,41,6609) end,--³¬Ç¿»Ö¸´
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSRECOVER,41,6709) end,--½à¾»
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--Æø¾ø
+						if èŒä¸šç±» == 130 then--å·«
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_LP_RECOVERY,41,6609) end,--è¶…å¼ºæ¢å¤
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSRECOVER,41,6709) end,--æ´å‡€
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--æ°”ç»
 							}
-							local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
-						if Ö°ÒµÀà == 80 then--Öä
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,40,4409) end,--³¬Ç¿¶¾
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,40,4509) end,--³¬Ç¿Ë¯
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,40,4609) end,--³¬Ç¿Ê¯
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,40,4709) end,--³¬Ç¿×í
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,40,4809) end,--³¬Ç¿ÂÒ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_STATUSCHANGE,40,4909) end,--³¬Ç¿Íü
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REVERSE_TYPE,math.random(10,19),5409) end,--ÊôĞÔ·´×ª
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REFLECTION_PHYSICS,math.random(10,19),5509) end,--¹¥·´
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_INEFFECTIVE_PHYSICS,math.random(10,19),5909) end,--¹¥ÎŞ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_ABSORB_PHYSICS,math.random(10,19),5709) end,--¹¥Îü
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_REFLECTION_MAGIC,math.random(10,19),5609) end,--Ä§·´
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_INEFFECTIVE_MAGIC,math.random(10,19),6009) end,--Ä§ÎŞ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_ABSORB_MAGIC,math.random(10,19),5809) end,--Ä§Îü
+						if èŒä¸šç±» == 80 then--å’’
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,40,4409) end,--è¶…å¼ºæ¯’
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,40,4509) end,--è¶…å¼ºç¡
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,40,4609) end,--è¶…å¼ºçŸ³
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,40,4709) end,--è¶…å¼ºé†‰
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,40,4809) end,--è¶…å¼ºä¹±
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_STATUSCHANGE,40,4909) end,--è¶…å¼ºå¿˜
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REVERSE_TYPE,math.random(10,19),5409) end,--å±æ€§åè½¬
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REFLECTION_PHYSICS,math.random(10,19),5509) end,--æ”»å
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_INEFFECTIVE_PHYSICS,math.random(10,19),5909) end,--æ”»æ— 
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_ABSORB_PHYSICS,math.random(10,19),5709) end,--æ”»å¸
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_REFLECTION_MAGIC,math.random(10,19),5609) end,--é­”å
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_INEFFECTIVE_MAGIC,math.random(10,19),6009) end,--é­”æ— 
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_ABSORB_MAGIC,math.random(10,19),5809) end,--é­”å¸
 							}
-							if math.random(1,100) < 50 then--³¬Öä·Å¸ÅÂÊ50%
-								local Ëæ»úÊ©·Å = math.random(1,6)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
-							else--ÆäËü¼¼ÄÜËæ»úÊ©·Å
-								local Ëæ»úÊ©·Å = math.random(7,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							if math.random(1,100) < 50 then--è¶…å’’æ”¾æ¦‚ç‡50%
+								local éšæœºæ–½æ”¾ = math.random(1,6)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
+							else--å…¶å®ƒæŠ€èƒ½éšæœºæ–½æ”¾
+								local éšæœºæ–½æ”¾ = math.random(7,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							end
 						end
-						if Ö°ÒµÀà == 150 then--ÈÌ
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_ASSASSIN,math.random(0,9),9609) end,--°µÉ±
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--ÑôÑ×
-								--function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_ATTACKALL,math.random(10,19),10601) end,--Ó°·ÖÉí--ÇëÈ·ÈÏÄãµÄtechÒ²ÊÇÕâ¸ö±àºÅ
+						if èŒä¸šç±» == 150 then--å¿
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_ASSASSIN,math.random(0,9),9609) end,--æš—æ€
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--é˜³ç‚
+								--function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_ATTACKALL,math.random(10,19),10601) end,--å½±åˆ†èº«--è¯·ç¡®è®¤ä½ çš„techä¹Ÿæ˜¯è¿™ä¸ªç¼–å·
 							}
-							if Battle.GetType(battleIndex) == CONST.Õ½¶·_BOSSÕ½ then--bossÕ½£¬²»°µÉ±
-								local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-								pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							if Battle.GetType(battleIndex) == CONST.æˆ˜æ–—_BOSSæˆ˜ then--bossæˆ˜ï¼Œä¸æš—æ€
+								local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+								pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 							else
-								if math.random(1,100) < 20 then--°µÉ±¸ÅÂÊ50%
-									pcall(¼¼ÄÜ±í[1])
+								if math.random(1,100) < 20 then--æš—æ€æ¦‚ç‡50%
+									pcall(æŠ€èƒ½è¡¨[1])
 								else
-									local Ëæ»úÊ©·Å = math.random(1,#¼¼ÄÜ±í)
-									pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+									local éšæœºæ–½æ”¾ = math.random(1,#æŠ€èƒ½è¡¨)
+									pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 								end
 							end
 						end
-						--µÚ2¶¯
+						--ç¬¬2åŠ¨
 						--local petindex = Battle.GetPlayer(battleIndex,math.fmod(i + 5,10))
 						local petindex = Char.GetPet(ai_index,0)
-						if petindex >= 0 then--Èç¹û´ø³èÎï£¬³èÎïÊ¹ÓÃ¼¼ÄÜ
-							--print('³èÎïÃû×Ö = '..Char.GetData(petindex,CONST.¶ÔÏó_Ãû×Ö))
-							local ³èÎï¼¼ÄÜ±í = {--³èÎïÊ©·ÅµÄ¼¼ÄÜ£¬ĞèÒª³èÎïÕæµÄÓĞÑ§Õâ¸ö¼¼ÄÜ£¬·ñÔòÎŞ·¨Ê©·Å£¬×î¶à10¸ö£¬ÈË²»ÓÃÑ§£¬Ò²ÎŞÏŞÖÆ
-								--function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_ATTACK,math.random(10,19),-1) end,--¹¥»÷
-								--function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_GUARD,-1,-1) end,--·ÀÓù
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_SPECIALGARD,-1,838) end,--Ê¥¶Ü
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_RENZOKU,math.random(0,9),38) end,--Á¬»÷
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),138) end,--ÖîÈĞ
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_PARAMETER,math.random(0,9),338) end,--Ç¬À¤
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(20,29),2339) end,--Ç¿Á¦ÔÉÊ¯Ä§·¨
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(20,29),2439) end,--Ç¿Á¦±ù¶³Ä§·¨
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(20,29),2539) end,--Ç¿Á¦»ğÑæÄ§·¨
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_P_MAGIC,math.random(20,29),2639) end,--Ç¿Á¦·çÈĞÄ§·¨
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_M_BLOODATTACK,math.random(0,9),8138) end,--ÎüÑª¹¥»÷
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(petindex,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_M_STATUSATTACK,math.random(0,9),7738) end,--Ê¯»¯¹¥»÷
+						if petindex >= 0 then--å¦‚æœå¸¦å® ç‰©ï¼Œå® ç‰©ä½¿ç”¨æŠ€èƒ½
+							--print('å® ç‰©åå­— = '..Char.GetData(petindex,CONST.å¯¹è±¡_åå­—))
+							local å® ç‰©æŠ€èƒ½è¡¨ = {--å® ç‰©æ–½æ”¾çš„æŠ€èƒ½ï¼Œéœ€è¦å® ç‰©çœŸçš„æœ‰å­¦è¿™ä¸ªæŠ€èƒ½ï¼Œå¦åˆ™æ— æ³•æ–½æ”¾ï¼Œæœ€å¤š10ä¸ªï¼Œäººä¸ç”¨å­¦ï¼Œä¹Ÿæ— é™åˆ¶
+								--function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_ATTACK,math.random(10,19),-1) end,--æ”»å‡»
+								--function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_GUARD,-1,-1) end,--é˜²å¾¡
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_SPECIALGARD,-1,838) end,--åœ£ç›¾
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_RENZOKU,math.random(0,9),38) end,--è¿å‡»
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),138) end,--è¯¸åˆƒ
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_PARAMETER,math.random(0,9),338) end,--ä¹¾å¤
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(20,29),2339) end,--å¼ºåŠ›é™¨çŸ³é­”æ³•
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(20,29),2439) end,--å¼ºåŠ›å†°å†»é­”æ³•
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(20,29),2539) end,--å¼ºåŠ›ç«ç„°é­”æ³•
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_P_MAGIC,math.random(20,29),2639) end,--å¼ºåŠ›é£åˆƒé­”æ³•
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_M_BLOODATTACK,math.random(0,9),8138) end,--å¸è¡€æ”»å‡»
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(petindex,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_M_STATUSATTACK,math.random(0,9),7738) end,--çŸ³åŒ–æ”»å‡»
 							}
-							local Ëæ»úÊ©·Å = math.random(1,#³èÎï¼¼ÄÜ±í)
-							--print('Ëæ»ú = '..Ëæ»úÊ©·Å)
-							pcall(³èÎï¼¼ÄÜ±í[Ëæ»úÊ©·Å])
-						else--Ã»´ø³èÎï£¬aiÓ¶±ø2¶¯ÆÕ¹¥
-							local ¼¼ÄÜ±í = {
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_ATTACK,math.random(0,9),-1) end,--¹¥»÷
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_GUARD,-1,-1) end,--·ÀÓù
-								function() ¼¼ÄÜÑ¡Ôñ½Ó¿Ú(ai_index,Õ½¶·Ö¸Áî½Ó¿Ú.BATTLE_COM_POSITION,-1,-1) end,--»»Î»¡¢¶¨µãÒÆ¶¯
+							local éšæœºæ–½æ”¾ = math.random(1,#å® ç‰©æŠ€èƒ½è¡¨)
+							--print('éšæœº = '..éšæœºæ–½æ”¾)
+							pcall(å® ç‰©æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
+						else--æ²¡å¸¦å® ç‰©ï¼Œaiä½£å…µ2åŠ¨æ™®æ”»
+							local æŠ€èƒ½è¡¨ = {
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_ATTACK,math.random(0,9),-1) end,--æ”»å‡»
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_GUARD,-1,-1) end,--é˜²å¾¡
+								function() æŠ€èƒ½é€‰æ‹©æ¥å£(ai_index,æˆ˜æ–—æŒ‡ä»¤æ¥å£.BATTLE_COM_POSITION,-1,-1) end,--æ¢ä½ã€å®šç‚¹ç§»åŠ¨
 							}
-							local Ëæ»úÊ©·Å = math.random(1, #¼¼ÄÜ±í)
-							pcall(¼¼ÄÜ±í[Ëæ»úÊ©·Å])
+							local éšæœºæ–½æ”¾ = math.random(1, #æŠ€èƒ½è¡¨)
+							pcall(æŠ€èƒ½è¡¨[éšæœºæ–½æ”¾])
 						end
 					end
 				end
@@ -303,6 +312,19 @@ end
 function Module:handleTalkEvent(charIndex,msg,color,range,size)
 	if (msg=="/battle" and Open==0) then
 		leader_tbl = {}
+		dummyPlayer_tbl = {}
+		local xr = NLG.Rand(1,3);
+		for i=1,#change_list.name-1-xr do
+			r = NLG.Rand(1,i+1+xr);
+			temp=change_list.name[r];
+			change_list.name[r]=change_list.name[i];
+			change_list.name[i]=temp;
+		end
+		for k,v in ipairs(change_list.name) do
+			if (k<=#PKArena) then
+				table.insert(dummyPlayer_tbl,v);
+			end
+		end
 		for k,v in pairs(PKArena) do
 			if (tbl_PKArenaNPCIndex[k] == nil) then
 				tbl_PKArenaNPCIndex[k] = {}
@@ -310,46 +332,48 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			local opponentsIndex = Char.CreateDummy()
 			tbl_PKArenaNPCIndex[k] = opponentsIndex;
 			Char.SetLoopEvent('./lua/Modules/playerBattle.lua','PKArena_LoopEvent',tbl_PKArenaNPCIndex[k], 1000);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_Ãû×Ö, v.opponentsName);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_ĞÎÏó, v.opponentsImage);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_Ô­ĞÎ, v.opponentsImage);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_·½Ïò, v.opponentsArea.dir);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_åå­—, dummyPlayer_tbl[k]);
+			--Char.SetData(opponentsIndex,CONST.å¯¹è±¡_åå­—, v.opponentsName);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_å½¢è±¡, v.opponentsImage);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_åŸå½¢, v.opponentsImage);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_æ–¹å‘, v.opponentsArea.dir);
+			NLG.SetAction(opponentsIndex, v.opponentsArea.action);
 
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_÷ÈÁ¦, 100)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_µÈ¼¶, dummylevel)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_ÖÖ×å, 0)--ÈËĞÎÏµ
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Ö°Òµ, v.ai_list[4])
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Ö°ÀàID, v.ai_list[5])
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Ö°½×, 3)--3×ªÕıÊ½Ö°Òµ
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_é­…åŠ›, 100)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_ç­‰çº§, dummylevel)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_ç§æ—, 0)--äººå½¢ç³»
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_èŒä¸š, v.ai_list[4])
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_èŒç±»ID, v.ai_list[5])
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_èŒé˜¶, 3)--3è½¬æ­£å¼èŒä¸š
 
-			local ÈË_¹¥»÷Á¦ = (15+(dummylevel-1)*2)*100;
-			local ÈË_ÌåÁ¦ = (15+(dummylevel-1)*2 - 90)*100;
-			if (v.ai_list[5]==70) then--Ä§
-				ÈË_¹¥»÷Á¦ = 0;
-				ÈË_Ä§·¨ = (15+(dummylevel-1)*2)*100;
-			elseif (v.ai_list[5]==60 or v.ai_list[5]==130 or v.ai_list[5]==80) then--´«Î×Öä
-				ÈË_¹¥»÷Á¦ = 0;
-				ÈË_ÌåÁ¦ = (15+(dummylevel-1)*2)*100;
-				ÈË_Ä§·¨ = (15+(dummylevel-1)*2 - 90)*100;
+			local äºº_æ”»å‡»åŠ› = (15+(dummylevel-1)*2)*100;
+			local äºº_ä½“åŠ› = (15+(dummylevel-1)*2 - 90)*100;
+			if (v.ai_list[5]==70) then--é­”
+				äºº_æ”»å‡»åŠ› = 0;
+				äºº_é­”æ³• = (15+(dummylevel-1)*2)*100;
+			elseif (v.ai_list[5]==60 or v.ai_list[5]==130 or v.ai_list[5]==80) then--ä¼ å·«å’’
+				äºº_æ”»å‡»åŠ› = 0;
+				äºº_ä½“åŠ› = (15+(dummylevel-1)*2)*100;
+				äºº_é­”æ³• = (15+(dummylevel-1)*2 - 90)*100;
 			end
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_ÌåÁ¦, ÈË_ÌåÁ¦)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Á¦Á¿, ÈË_¹¥»÷Á¦)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Ç¿¶È, 0)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_ËÙ¶È, 9000)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Ä§·¨, 0)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_ä½“åŠ›, äºº_ä½“åŠ›)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_åŠ›é‡, äºº_æ”»å‡»åŠ›)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_å¼ºåº¦, 0)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_é€Ÿåº¦, 9000)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_é­”æ³•, 0)
 
-			local itemindex = Char.GiveItem(opponentsIndex, v.ai_list[6], 1)--¸ø1¼ş×°±¸
-			Item.SetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1)
-			Item.SetData(itemindex,CONST.µÀ¾ß_µÈ¼¶,1)
+			local itemindex = Char.GiveItem(opponentsIndex, v.ai_list[6], 1)--ç»™1ä»¶è£…å¤‡
+			Item.SetData(itemindex,CONST.é“å…·_å·²é‰´å®š,1)
+			Item.SetData(itemindex,CONST.é“å…·_ç­‰çº§,1)
 			local equipMod = string.split(v.ai_list[7],'|')
 			for k,v in pairs(equipMod) do
-				if v == '²»¸Ä' then
+				if v == 'ä¸æ”¹' then
 					equipMod[k] = false
 				else
 					equipMod[k] = tonumber(v)
 				end
 			end
-			for i = 1,#equipMod do--¿ªÊ¼´Û¸Ä
+			for i = 1,#equipMod do--å¼€å§‹ç¯¡æ”¹
 				if equipMod[i] then
 					Item.SetData(itemindex,equipConstant[i],equipMod[i]);
 				end
@@ -359,31 +383,31 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			local nowitemslot = Char.GetItemSlot(opponentsIndex, itemindex);
 			local stat = false
 			if v.ai_list[5] == 140 then
-				Char.MoveItem(opponentsIndex, nowitemslot, CONST.Î»ÖÃ_Éí, -1)
+				Char.MoveItem(opponentsIndex, nowitemslot, CONST.ä½ç½®_èº«, -1)
 			else
-				Char.MoveItem(opponentsIndex, nowitemslot, CONST.Î»ÖÃ_×óÊÖ, -1)
+				Char.MoveItem(opponentsIndex, nowitemslot, CONST.ä½ç½®_å·¦æ‰‹, -1)
 			end
 
-			local itemindex = Char.GiveItem(opponentsIndex, math.random(9205,9240), 1)--¸øËæ»úË®¾§
-			Item.SetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1)
+			local itemindex = Char.GiveItem(opponentsIndex, math.random(9205,9240), 1)--ç»™éšæœºæ°´æ™¶
+			Item.SetData(itemindex,CONST.é“å…·_å·²é‰´å®š,1)
 			Item.UpItem(opponentsIndex,-1)
 			NLG.UpChar(opponentsIndex)
 			local nowitemslot = Char.GetItemSlot(opponentsIndex, itemindex)
-			Char.MoveItem(opponentsIndex, nowitemslot, CONST.Î»ÖÃ_Ë®¾§, -1)
+			Char.MoveItem(opponentsIndex, nowitemslot, CONST.ä½ç½®_æ°´æ™¶, -1)
 
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø, 1);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³, 1);
 			Char.Warp(opponentsIndex, 0, v.opponentsArea.map, v.opponentsArea.X, v.opponentsArea.Y);
 			--NLG.SetAction(opponentsIndex, v.opponentsArea.action);
 			NLG.UpChar(opponentsIndex);
 
 			--[[if (v.walkMode==1) then
-				Char.SetData(opponentsIndex,CONST.¶ÔÏó_¾­Ñé, v.opponentsArea.map);
-				Char.SetData(opponentsIndex,CONST.¶ÔÏó_ÃûÉ«, 4);
+				Char.SetData(opponentsIndex,CONST.å¯¹è±¡_ç»éªŒ, v.opponentsArea.map);
+				Char.SetData(opponentsIndex,CONST.å¯¹è±¡_åè‰², 4);
 				NLG.UpChar(opponentsIndex);
-				--Char.SetAutoWalk(opponentsIndex, true, 5, 10, 1, 3, 1, 3);--Î´ÉúĞ§
+				--Char.SetAutoWalk(opponentsIndex, true, 5, 10, 1, 3, 1, 3);--æœªç”Ÿæ•ˆ
 			end]]
-			if (k==1 or k==2 or k==5 or k==8 or k==11 or k==16) then	--ê éL
-				Char.SetTempData(opponentsIndex,'¼ÙÈË¶Ó³¤',1);
+			if (k==1 or k==2 or k==5 or k==8 or k==11 or k==16) then	--éšŠé•·
+				Char.SetTempData(opponentsIndex,'å‡äººé˜Ÿé•¿',1);
 				table.insert(leader_tbl,opponentsIndex);
 			else
 				if k>=3 and k<=4 then Char.JoinParty(opponentsIndex, leader_tbl[2], true);
@@ -404,47 +428,48 @@ end
 
 function PKArena_LoopEvent(npc)
 	local opponentsIndex = npc;
-	--local CTime = tonumber(os.date("%H",FTime));
-	local HTime = tostring(Char.GetTempData(opponentsIndex,'¼ÙÈËÖØÖÃ')) or "00";
-	if ( HTime=="00" or tostring(os.date("%H",os.time()))~=HTime) then
-			Char.SetTempData(opponentsIndex,'¼ÙÈËÖØÖÃ', tostring(os.date("%H",os.time())));
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_Ãû×Ö, change_list.name[NLG.Rand(1,#change_list.name)]);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_ĞÎÏó, change_list.image[NLG.Rand(1,#change_list.image)]);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_Ô­ĞÎ, change_list.image[NLG.Rand(1,#change_list.image)]);
+	local CTime = tonumber(os.date("%M",FTime));
+	local HTime = tostring(Char.GetTempData(opponentsIndex,'å‡äººé‡ç½®')) or "00";
+	if (HTime=="00" or tostring(os.date("%H",os.time()))~=HTime) then
+			Char.SetTempData(opponentsIndex,'å‡äººé‡ç½®', tostring(os.date("%H",os.time())));
+			NLG.UpChar(opponentsIndex);
+			--Char.SetData(opponentsIndex,CONST.å¯¹è±¡_åå­—, change_list.name[NLG.Rand(1,#change_list.name)]);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_å½¢è±¡, change_list.image[NLG.Rand(1,#change_list.image)]);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_åŸå½¢, change_list.image[NLG.Rand(1,#change_list.image)]);
 			local rand = NLG.Rand(1,8);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_Ö°Òµ, change_list.job[rand][1]);
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_Ö°ÀàID, change_list.job[rand][2]);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_èŒä¸š, change_list.job[rand][1]);
+			Char.SetData(opponentsIndex,CONST.å¯¹è±¡_èŒç±»ID, change_list.job[rand][2]);
 
-			local jobType = Char.GetData(opponentsIndex,CONST.¶ÔÏó_Ö°ÀàID);
-			local ÈË_¹¥»÷Á¦ = (15+(dummylevel-1)*2)*100;
-			local ÈË_ÌåÁ¦ = (15+(dummylevel-1)*2 - 90)*100;
-			if (jobType==70) then--Ä§
-				ÈË_¹¥»÷Á¦ = 0;
-				ÈË_Ä§·¨ = (15+(dummylevel-1)*2)*100;
-			elseif (jobType==60 or jobType==130 or jobType==80) then--´«Î×Öä
-				ÈË_¹¥»÷Á¦ = 0;
-				ÈË_ÌåÁ¦ = (15+(dummylevel-1)*2)*100;
-				ÈË_Ä§·¨ = (15+(dummylevel-1)*2 - 90)*100;
+			local jobType = Char.GetData(opponentsIndex,CONST.å¯¹è±¡_èŒç±»ID);
+			local äºº_æ”»å‡»åŠ› = (15+(dummylevel-1)*2)*100;
+			local äºº_ä½“åŠ› = (15+(dummylevel-1)*2 - 90)*100;
+			if (jobType==70) then--é­”
+				äºº_æ”»å‡»åŠ› = 0;
+				äºº_é­”æ³• = (15+(dummylevel-1)*2)*100;
+			elseif (jobType==60 or jobType==130 or jobType==80) then--ä¼ å·«å’’
+				äºº_æ”»å‡»åŠ› = 0;
+				äºº_ä½“åŠ› = (15+(dummylevel-1)*2)*100;
+				äºº_é­”æ³• = (15+(dummylevel-1)*2 - 90)*100;
 			end
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_ÌåÁ¦, ÈË_ÌåÁ¦)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Á¦Á¿, ÈË_¹¥»÷Á¦)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Ç¿¶È, 0)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_ËÙ¶È, 9000)
-			Char.SetData(opponentsIndex, CONST.¶ÔÏó_Ä§·¨, 0)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_ä½“åŠ›, äºº_ä½“åŠ›)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_åŠ›é‡, äºº_æ”»å‡»åŠ›)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_å¼ºåº¦, 0)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_é€Ÿåº¦, 9000)
+			Char.SetData(opponentsIndex, CONST.å¯¹è±¡_é­”æ³•, 0)
 			NLG.UpChar(opponentsIndex);
 
-			local itemindex = Char.GiveItem(opponentsIndex, change_list.equip[rand][1], 1)--¸ø1¼ş×°±¸
-			Item.SetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1)
-			Item.SetData(itemindex,CONST.µÀ¾ß_µÈ¼¶,1)
+			local itemindex = Char.GiveItem(opponentsIndex, change_list.equip[rand][1], 1)--ç»™1ä»¶è£…å¤‡
+			Item.SetData(itemindex,CONST.é“å…·_å·²é‰´å®š,1)
+			Item.SetData(itemindex,CONST.é“å…·_ç­‰çº§,1)
 			local equipMod = string.split(change_list.equip[rand][2],'|')
 			for k,v in pairs(equipMod) do
-				if v == '²»¸Ä' then
+				if v == 'ä¸æ”¹' then
 					equipMod[k] = false
 				else
 					equipMod[k] = tonumber(v)
 				end
 			end
-			for i = 1,#equipMod do--¿ªÊ¼´Û¸Ä
+			for i = 1,#equipMod do--å¼€å§‹ç¯¡æ”¹
 				if equipMod[i] then
 					Item.SetData(itemindex,equipConstant[i],equipMod[i]);
 				end
@@ -454,74 +479,80 @@ function PKArena_LoopEvent(npc)
 			local nowitemslot = Char.GetItemSlot(opponentsIndex, itemindex);
 			local stat = false
 			if jobType == 140 then
-				Char.MoveItem(opponentsIndex, nowitemslot, CONST.Î»ÖÃ_Éí, -1)
+				Char.MoveItem(opponentsIndex, nowitemslot, CONST.ä½ç½®_èº«, -1)
 			else
-				Char.MoveItem(opponentsIndex, nowitemslot, CONST.Î»ÖÃ_×óÊÖ, -1)
+				Char.MoveItem(opponentsIndex, nowitemslot, CONST.ä½ç½®_å·¦æ‰‹, -1)
 			end
 
-			local itemindex = Char.GiveItem(opponentsIndex, math.random(9205,9240), 1)--¸øËæ»úË®¾§
-			Item.SetData(itemindex,CONST.µÀ¾ß_ÒÑ¼ø¶¨,1)
+			local itemindex = Char.GiveItem(opponentsIndex, math.random(9205,9240), 1)--ç»™éšæœºæ°´æ™¶
+			Item.SetData(itemindex,CONST.é“å…·_å·²é‰´å®š,1)
 			Item.UpItem(opponentsIndex,-1)
 			NLG.UpChar(opponentsIndex)
 			local nowitemslot = Char.GetItemSlot(opponentsIndex, itemindex)
-			Char.MoveItem(opponentsIndex, nowitemslot, CONST.Î»ÖÃ_Ë®¾§, -1)
+			Char.MoveItem(opponentsIndex, nowitemslot, CONST.ä½ç½®_æ°´æ™¶, -1)
 
-			Char.AddSkill(opponentsIndex, 71)--µ÷½Ì
+			Char.AddSkill(opponentsIndex, 71)--è°ƒæ•™
 			Char.SetSkillLevel(opponentsIndex,0,10)
 			local petindex = -1
 			repeat
-				petindex = Char.GivePet(opponentsIndex, math.random(1,904))--¸øËæ»ú³èÎï
+				petindex = Char.GivePet(opponentsIndex, math.random(1,904))--ç»™éšæœºå® ç‰©
 			until petindex > 0
-			Char.SetData(petindex,CONST.¶ÔÏó_ÖÒ³Ï,100)
-			Char.SetData(petindex,CONST.¶ÔÏó_»ù´¡ÖÒ³Ï,100)
-			Char.SetPetDepartureState(opponentsIndex, 0, CONST.PET_STATE_Õ½¶·)
-			Char.SetData(opponentsIndex, CONST.CHAR_Õ½³è, 0)
-			Char.SetData(petindex,CONST.PET_DepartureBattleStatus, CONST.PET_STATE_Õ½¶·)
-			Char.SetData(petindex,CONST.¶ÔÏó_µÈ¼¶, dummylevel)
-			Char.SetData(petindex,CONST.¶ÔÏó_ÌåÁ¦, dummylevel*100*1.2)
-			Char.SetData(petindex,CONST.¶ÔÏó_Ä§·¨, dummylevel*100*2)
-			Char.SetData(petindex,CONST.¶ÔÏó_Á¦Á¿, dummylevel*100)
-			Char.SetData(petindex,CONST.¶ÔÏó_Ç¿¶È, dummylevel*100*0.1)
-			Char.SetData(petindex,CONST.¶ÔÏó_ËÙ¶È, dummylevel*100*0.5)
-			Char.SetData(petindex,CONST.¶ÔÏó_¼¼ÄÜÀ¸,10)
-			for killslot = 0,9 do--Çå³ıÀ¬»ø¼¼ÄÜ
+			Char.SetData(petindex,CONST.å¯¹è±¡_å¿ è¯š,100)
+			Char.SetData(petindex,CONST.å¯¹è±¡_åŸºç¡€å¿ è¯š,100)
+			Char.SetPetDepartureState(opponentsIndex, 0, CONST.PET_STATE_æˆ˜æ–—)
+			Char.SetData(opponentsIndex, CONST.CHAR_æˆ˜å® , 0)
+			Char.SetData(petindex,CONST.PET_DepartureBattleStatus, CONST.PET_STATE_æˆ˜æ–—)
+			Char.SetData(petindex,CONST.å¯¹è±¡_ç­‰çº§, dummylevel)
+			Char.SetData(petindex,CONST.å¯¹è±¡_ä½“åŠ›, dummylevel*100*1.2)
+			Char.SetData(petindex,CONST.å¯¹è±¡_é­”æ³•, dummylevel*100*2)
+			Char.SetData(petindex,CONST.å¯¹è±¡_åŠ›é‡, dummylevel*100)
+			Char.SetData(petindex,CONST.å¯¹è±¡_å¼ºåº¦, dummylevel*100*0.1)
+			Char.SetData(petindex,CONST.å¯¹è±¡_é€Ÿåº¦, dummylevel*100*0.5)
+			Char.SetData(petindex,CONST.å¯¹è±¡_æŠ€èƒ½æ ,10)
+			for killslot = 0,9 do--æ¸…é™¤åƒåœ¾æŠ€èƒ½
 				Pet.DelSkill(petindex,killslot);
 			end
-			--³èÎï×î¶à¸ø10¸ö¼¼ÄÜ£¬Çë×¢Òâ¼ÆËã
-			Pet.AddSkill(petindex, 838)--Ê¥¶Ü
-			Pet.AddSkill(petindex, 38)--Á¬»÷
-			Pet.AddSkill(petindex, 138)--ÖîÈĞ
-			Pet.AddSkill(petindex, 338)--Ç¬À¤
-			Pet.AddSkill(petindex, 2339)--Ç¿Á¦ÔÉÊ¯Ä§·¨
-			Pet.AddSkill(petindex, 2439)--Ç¿Á¦±ù¶³Ä§·¨
-			Pet.AddSkill(petindex, 2539)--Ç¿Á¦»ğÑæÄ§·¨
-			Pet.AddSkill(petindex, 2639)--Ç¿Á¦·çÈĞÄ§·¨
-			Pet.AddSkill(petindex, 8138)--ÎüÑª¹¥»÷
-			Pet.AddSkill(petindex, 7738)--Ê¯»¯¹¥»÷
+			--å® ç‰©æœ€å¤šç»™10ä¸ªæŠ€èƒ½ï¼Œè¯·æ³¨æ„è®¡ç®—
+			Pet.AddSkill(petindex, 838)--åœ£ç›¾
+			Pet.AddSkill(petindex, 38)--è¿å‡»
+			Pet.AddSkill(petindex, 138)--è¯¸åˆƒ
+			Pet.AddSkill(petindex, 338)--ä¹¾å¤
+			Pet.AddSkill(petindex, 2339)--å¼ºåŠ›é™¨çŸ³é­”æ³•
+			Pet.AddSkill(petindex, 2439)--å¼ºåŠ›å†°å†»é­”æ³•
+			Pet.AddSkill(petindex, 2539)--å¼ºåŠ›ç«ç„°é­”æ³•
+			Pet.AddSkill(petindex, 2639)--å¼ºåŠ›é£åˆƒé­”æ³•
+			Pet.AddSkill(petindex, 8138)--å¸è¡€æ”»å‡»
+			Pet.AddSkill(petindex, 7738)--çŸ³åŒ–æ”»å‡»
 			Pet.UpPet(opponentsIndex, petindex);
 	end
+
+
 	local excess = math.random(1,10);
-	for k,v in pairs(PKArena) do
-		if (k==v.pkType) then
-			Char.SetData(opponentsIndex,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø, 1);
-			local walkOn = Char.GetTempData(opponentsIndex,'¼ÙÈË¶Ó³¤') or 0;
-			--[[if (walkOn==1 and excess>=9) then
-				local dir = math.random(0, 7);
-				local X,Y = Char.GetLocation(opponentsIndex,dir);
-				if (NLG.Walkable(0, Char.GetData(opponentsIndex,CONST.¶ÔÏó_¾­Ñé), X, Y)==1) then
-					NLG.SetAction(opponentsIndex,0);
-					NLG.WalkMove(opponentsIndex,dir);
-					NLG.UpChar(opponentsIndex);
-				end
-			end]]
+
+	Char.SetData(opponentsIndex,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³, 1);
+	local walkOn = Char.GetTempData(opponentsIndex,'å‡äººé˜Ÿé•¿') or 0;
+	local MTime = Char.GetTempData(opponentsIndex,'å‡äººå‘è¯') or 1;
+	if (tonumber(os.date("%M",os.time()))-CTime>=1 and tonumber(os.date("%M",os.time()))~=MTime) then
+		if (walkOn==1 and excess>=8) then
+			NLG.TalkToMap(0,1401,opponentsIndex, talk_list[NLG.Rand(1,#talk_list)], NLG.Rand(0,1),3);
+			Char.SetTempData(opponentsIndex,'å‡äººå‘è¯',tonumber(os.date("%M",os.time())));
 		end
+		--[[if (walkOn==1 and excess>=8) then
+			local dir = math.random(0, 7);
+			local X,Y = Char.GetLocation(opponentsIndex,dir);
+			if (NLG.Walkable(0, 1401, X, Y)==1) then
+				NLG.SetAction(opponentsIndex,0);
+				NLG.WalkMove(opponentsIndex,dir);
+				NLG.UpChar(opponentsIndex);
+			end
+		end]]
 	end
 end
 
 
 Char.GetLocation = function(npc,dir)
-	local X = Char.GetData(npc,CONST.¶ÔÏó_X)--µØÍ¼x
-	local Y = Char.GetData(npc,CONST.¶ÔÏó_Y)--µØÍ¼y
+	local X = Char.GetData(npc,CONST.å¯¹è±¡_X)--åœ°å›¾x
+	local Y = Char.GetData(npc,CONST.å¯¹è±¡_Y)--åœ°å›¾y
 	if dir==0 then
 		Y=Y-1;
 	elseif dir==1 then
@@ -546,7 +577,7 @@ Char.GetLocation = function(npc,dir)
 	return X,Y;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
