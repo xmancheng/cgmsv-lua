@@ -686,58 +686,68 @@ function GetTechArea(floor, px, py, TechArea, skillId)
 end
 -- 
 function DoGather(area, skillLv)
-    if not area then return nil end
+	if not area then return nil end
 
-    if area.fail > 0 and math.random(1000) <= area.fail then
-        return nil
-    end
+	local baseFail = area.fail;
+	local realFail = CalcFailRate(baseFail, skillLv);	-- 失誤率補正
+	if math.random(1000) <= realFail then
+		return nil
+	end
 
-    local drops = area.drops;
-    local total = 0;
-    local K = GetExploreBonusK(skillLv);	--逆權重補正
+	local drops = area.drops;
+	local total = 0;
+	local K = GetExploreBonusK(skillLv);	--逆權重補正
 
-    -- 第一次：計算補正後總權重
-    for i = 1, #drops, 2 do
-        local baseRate = drops[i + 1];
-        -- 技能補正（稀有者加成高）
-        local bonus = (skillLv * K) / baseRate;
-        if bonus > 1.0 then bonus = 1.0 end
-        total = total + baseRate * (1 + bonus);
-    end
+	-- 第一次：計算補正後總權重
+	for i = 1, #drops, 2 do
+		local baseRate = drops[i + 1];
+		-- 技能補正（稀有者加成高）
+		local bonus = (skillLv * K) / baseRate;
+		if bonus > 1.0 then bonus = 1.0 end
+		total = total + baseRate * (1 + bonus);
+	end
 
-    local r = math.random() * total
-    local acc = 0;
+	local r = math.random() * total
+	local acc = 0;
 
-    -- 第二次：抽選
-    for i = 1, #drops, 2 do
-        local itemId   = drops[i];
-        local baseRate = drops[i + 1];
-        -- 技能補正（稀有者加成高）
-        local bonus = (skillLv * K) / baseRate;
-        if bonus > 1.0 then bonus = 1.0 end
-        acc = acc + baseRate * (1 + bonus);
-        if r <= acc then
-            return itemId
-        end
-    end
+	-- 第二次：抽選
+	for i = 1, #drops, 2 do
+		local itemId   = drops[i];
+		local baseRate = drops[i + 1];
+		-- 技能補正（稀有者加成高）
+		local bonus = (skillLv * K) / baseRate;
+		if bonus > 1.0 then bonus = 1.0 end
+		acc = acc + baseRate * (1 + bonus);
+		if r <= acc then
+			return itemId
+		end
+	end
 
-    return nil
+	return nil
 end
 
+-- 失誤率補正
+function CalcFailRate(baseFail, skillLv)
+	local A = 0.5	-- 最低 50% fail
+	local B = 40.0	-- 成長曲線
+
+	local k = A + (1 - A) * math.exp(-skillLv / B)
+	return math.floor(baseFail * k + 0.5)
+end
 -- 逆權重補正
 local K_MAX = 0.04   -- 建議範圍 0.03 ~ 0.06
 function GetExploreBonusK(skillLv)
-    if skillLv <= 0 then return 0 end
-    if skillLv >= 100 then return K_MAX end
+	if skillLv <= 0 then return 0 end
+	if skillLv >= 100 then return K_MAX end
 
-    local t = skillLv / 100;
-    return K_MAX * t * t
+	local t = skillLv / 100;
+	return K_MAX * t * t
 end
 
 -- 熟練度表
 function GetExploreExpNeed(lv)
-    if lv >= 100 then return 0 end
-    return 20 * lv * lv + 80 * lv + 100
+	if lv >= 100 then return 0 end
+	return 20 * lv * lv + 80 * lv + 100
 end
 
 --- 隱藏掉落抽選
