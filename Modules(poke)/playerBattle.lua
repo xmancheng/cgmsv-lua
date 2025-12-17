@@ -408,19 +408,35 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			end]]
 			if (k==1 or k==2 or k==5 or k==8 or k==11 or k==16) then	--隊長
 				Char.SetTempData(opponentsIndex,'假人队长',1);
-				table.insert(leader_tbl,opponentsIndex);
+				leader_tbl[k]={};
+				table.insert(leader_tbl[k],opponentsIndex);
 			else
-				if k>=3 and k<=4 then Char.JoinParty(opponentsIndex, leader_tbl[2], true);
-				elseif k>=6 and k<=7 then Char.JoinParty(opponentsIndex, leader_tbl[3], true);
-				elseif k>=9 and k<=10 then Char.JoinParty(opponentsIndex, leader_tbl[4], true);
-				elseif k>=12 and k<=15 then Char.JoinParty(opponentsIndex, leader_tbl[5], true);
-				elseif k>=17 and k<=20 then Char.JoinParty(opponentsIndex, leader_tbl[6], true);
+				if k>=3 and k<=4 then table.insert(leader_tbl[2],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[2][1], true);
+				elseif k>=6 and k<=7 then table.insert(leader_tbl[5],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[5][1], true);
+				elseif k>=9 and k<=10 then table.insert(leader_tbl[8],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[8][1], true);
+				elseif k>=12 and k<=15 then table.insert(leader_tbl[11],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[11][1], true);
+				elseif k>=17 and k<=20 then table.insert(leader_tbl[16],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[16][1], true);
 				end
 			end
 		end
         Open = 1;
 		return 0;
 	elseif (msg=="/battle" and Open==1) then
+		for k,v in pairs(PKArena) do
+			local opponentsIndex = tbl_PKArenaNPCIndex[k];
+			if (k==1 or k==2 or k==5 or k==8 or k==11 or k==16) then	--隊長
+				Char.SetTempData(opponentsIndex,'假人队长',1);
+				leader_tbl[k]={};
+				table.insert(leader_tbl[k],opponentsIndex);
+			else
+				if k>=3 and k<=4 then table.insert(leader_tbl[2],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[2][1], true);
+				elseif k>=6 and k<=7 then table.insert(leader_tbl[5],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[5][1], true);
+				elseif k>=9 and k<=10 then table.insert(leader_tbl[8],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[8][1], true);
+				elseif k>=12 and k<=15 then table.insert(leader_tbl[11],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[11][1], true);
+				elseif k>=17 and k<=20 then table.insert(leader_tbl[16],opponentsIndex); Char.JoinParty(opponentsIndex, leader_tbl[16][1], true);
+				end
+			end
+		end
 		return 0;
 	end
 	return 1;
