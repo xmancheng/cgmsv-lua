@@ -757,7 +757,7 @@ end
 -- 低級隱藏：100(10%) 稀有隱藏：30(3%) 傳說素材：5(0.5%)
 local HiddenDrop = {
   [225] = { -- 伐木
-    { needLv = 10, chance = 100, drops = { 16269, 100 } },--月之工作手套
+    { needLv = 10, chance = 100, drops = { 18360, 100 } },--樵夫的手环
     { needLv = 15, chance = 70, drops = { 16000, 90 } },--铜钥匙
     { needLv = 20, chance = 60, drops = { 16001, 80 } },--白钥匙
     { needLv = 25, chance = 50, drops = { 16002, 80 } },--黑钥匙
@@ -765,7 +765,7 @@ local HiddenDrop = {
     { needLv = 50, chance = 5,  drops = { 40844, 50 } },--水蓝鼠金币
   },
   [226] = { -- 狩獵
-    { needLv = 10, chance = 100, drops = { 16270, 100 } },--月之靴
+    { needLv = 10, chance = 100, drops = { 18359, 100 } },--猎人的手环
     { needLv = 15, chance = 70, drops = { 16000, 90 } },--铜钥匙
     { needLv = 20, chance = 60, drops = { 16001, 80 } },--白钥匙
     { needLv = 25, chance = 50, drops = { 16002, 80 } },--黑钥匙
@@ -773,7 +773,7 @@ local HiddenDrop = {
     { needLv = 50, chance = 5,  drops = { 40844, 50 } },--水蓝鼠金币
   },
   [227] = { -- 挖掘
-    { needLv = 10, chance = 100, drops = { 16271, 100 } },--月之安全帽
+    { needLv = 10, chance = 100, drops = { 18358, 100 } },--矿工的手环
     { needLv = 15, chance = 80, drops = { 16000, 120 } },--铜钥匙
     { needLv = 20, chance = 70, drops = { 16001, 110 } },--白钥匙
     { needLv = 25, chance = 60, drops = { 16002, 110 } },--黑钥匙
