@@ -89,7 +89,7 @@ function Module:onLoad()
           NLG.SystemMessage(player,"伐木採集失敗。");
         end
         -- 隐藏掉落
-        local hidden = TryHiddenDrop(225, floor, exploreLv);
+        local hidden = TryHiddenDrop(225, exploreLv);
         if hidden then
             local dropRate = {1,1,2,1,1,1,1,1,1,2};
             Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
@@ -192,7 +192,7 @@ function Module:onLoad()
           NLG.SystemMessage(player,"伐木採集失敗。");
         end
         -- 隐藏掉落
-        local hidden = TryHiddenDrop(226, floor, exploreLv);
+        local hidden = TryHiddenDrop(226, exploreLv);
         if hidden then
             local dropRate = {1,1,2,1,1,1,1,1,1,2};
             Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
@@ -295,7 +295,7 @@ function Module:onLoad()
           NLG.SystemMessage(player,"伐木採集失敗。");
         end
         -- 隐藏掉落
-        local hidden = TryHiddenDrop(227, floor, exploreLv);
+        local hidden = TryHiddenDrop(227, exploreLv);
         if hidden then
             local dropRate = {1,1,2,1,1,1,1,1,1,2};
             Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
@@ -746,64 +746,66 @@ end
 -- chance（/1000）
 -- 低級隱藏：100(10%) 稀有隱藏：30(3%) 傳說素材：5(0.5%)
 local HiddenDrop = {
-  [225] = {
-    [100] = {
-      needLv = 60,
-      chance = 50,   -- /1000
-      drops = { 40843, 100, 40844, 50 }		--火焰鼠银币、水蓝鼠金币
-    }
+  [225] = { -- 伐木
+    { needLv = 10, chance = 100, drops = { 16269, 100 } },--月之工作手套
+    { needLv = 15, chance = 70, drops = { 16000, 90 } },--铜钥匙
+    { needLv = 20, chance = 60, drops = { 16001, 80 } },--白钥匙
+    { needLv = 25, chance = 50, drops = { 16002, 80 } },--黑钥匙
+    { needLv = 40, chance = 30, drops = { 40843, 70 } },--火焰鼠银币
+    { needLv = 50, chance = 5,  drops = { 40844, 50 } },--水蓝鼠金币
   },
-  [226] = {
-    [100] = {
-      needLv = 60,
-      chance = 50,   -- /1000
-      drops = { 40843, 100, 40844, 50 }		--火焰鼠银币、水蓝鼠金币
-    }
+  [226] = { -- 狩獵
+    { needLv = 10, chance = 100, drops = { 16270, 100 } },--月之靴
+    { needLv = 15, chance = 70, drops = { 16000, 90 } },--铜钥匙
+    { needLv = 20, chance = 60, drops = { 16001, 80 } },--白钥匙
+    { needLv = 25, chance = 50, drops = { 16002, 80 } },--黑钥匙
+    { needLv = 40, chance = 30, drops = { 40843, 70 } },--火焰鼠银币
+    { needLv = 50, chance = 5,  drops = { 40844, 50 } },--水蓝鼠金币
   },
-  [227] = {
-    [100] = {
-      needLv = 60,
-      chance = 50,   -- /1000
-      drops = { 40843, 100, 40844, 50 }		--火焰鼠银币、水蓝鼠金币
-    }
+  [227] = { -- 挖掘
+    { needLv = 10, chance = 100, drops = { 16271, 100 } },--月之安全帽
+    { needLv = 15, chance = 80, drops = { 16000, 120 } },--铜钥匙
+    { needLv = 20, chance = 70, drops = { 16001, 110 } },--白钥匙
+    { needLv = 25, chance = 60, drops = { 16002, 110 } },--黑钥匙
+    { needLv = 40, chance = 30, drops = { 40843, 70 } },--火焰鼠银币
+    { needLv = 50, chance = 5,  drops = { 40844, 50 } },--水蓝鼠金币
   },
 }
-function TryHiddenDrop(skillId, floor, skillLv)
-    local s = HiddenDrop[skillId]
-    if not s then return nil end
+function TryHiddenDrop(skillId, skillLv)
+	local list = HiddenDrop[skillId]
+	if not list then return nil end
 
-    local h = s[floor]
-    if not h then return nil end
+	local candidates = {}
+	local totalWeight = 0
 
-    if skillLv < h.needLv then
-        return nil
-    end
+	for _, layer in ipairs(list) do
+		if skillLv >= layer.needLv then
+			if math.random(1000) <= layer.chance then
+				local d = layer.drops
+				for i = 1, #d, 2 do
+					totalWeight = totalWeight + d[i + 1]
+					table.insert(candidates, {
+						item = d[i],
+						weight = d[i + 1]
+					})
+				end
+			end
+		end
+	end
 
-    -- 觸發機率
-    if math.random(1000) > h.chance then
-        return nil
-    end
+	if totalWeight == 0 then return nil end
 
-    local drops = h.drops
-    local total = 0
+	local r = math.random(totalWeight)
+	local acc = 0
 
-    for i = 1, #drops, 2 do
-        total = total + drops[i + 1]
-    end
+	for _, v in ipairs(candidates) do
+		acc = acc + v.weight
+		if r <= acc then
+			return v.item
+		end
+	end
 
-    if total <= 0 then return nil end
-
-    local r = math.random(total)
-    local acc = 0
-
-    for i = 1, #drops, 2 do
-        acc = acc + drops[i + 1]
-        if r <= acc then
-            return drops[i]
-        end
-    end
-
-    return nil
+	return nil
 end
 
 --- 卸载模块钩子
