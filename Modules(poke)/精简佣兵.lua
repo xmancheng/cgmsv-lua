@@ -417,10 +417,10 @@ function 精简佣兵Module:回合开始前触发(battleindex)
 					local 职业类 = Char.GetData(ai_index,CONST.对象_职类ID)
 					local 战斗指令接口 = CONST.BATTLE_COM--别改，会爆炸
 					local 技能选择接口 = Battle.ActionSelect--别改，会爆炸
-					if Battle.GetType(battleindex) == CONST.战斗_PVP then--PK跑路
+					--[[if Battle.GetType(battleindex) == CONST.战斗_PVP then--PK跑路
 						Char.SimpleLogout(ai_index)
 						goto pk略过
-					end
+					end]]
 					--第1动
 					if 职业类 == 40 then--弓
 						local 技能表 = {
