@@ -90,9 +90,10 @@ function Module:onLoad()
 end
 
 function Module:handleBattleAutoCommand(battleIndex)
-	local player = {}
+	local player = {}--玩家存储
+	local aiindex = false--临时记录index
 	if Battle.GetType(battleIndex) == CONST.战斗_PVP then
-		local side=0
+		--[[local side=0
 		local leader1 = Battle.GetPlayer(battleIndex,0)
 		local leader2 = Battle.GetPlayer(battleIndex,5)
 		local leader3 = Battle.GetPlayer(battleIndex,10)
@@ -111,28 +112,26 @@ function Module:handleBattleAutoCommand(battleIndex)
 			side=1
 		end
 		local sidetable = {{NLG.Rand(10,19),NLG.Rand(30,39),41},{NLG.Rand(0,9),NLG.Rand(20,29),40},}
-		local charside = side+1;
+		local charside = side+1;]]
 
-		for i = 0, 19 do
+		for i = 10, 19 do
 			local ai_index = Battle.GetPlayer(battleIndex, i)
 			if ai_index >= 0 then
 				if Char.IsPlayer(ai_index) then--收录人的index
 					player[i] = ai_index
 				end
-
-				if Char.IsDummy(ai_index) and Char.GetData(ai_index,CONST.对象_地图)~=777 then--ai判断
+				if Char.IsDummy(ai_index) then--ai判断
+					aiindex = ai_index--临时记录index
 					player[i] = ai_index
 					--print('ai自动战斗：',ai_index,petindex)
-					if Battle.IsWaitingCommand(ai_index) then--职业使用技能判断
+					if Battle.IsWaitingCommand(ai_index)== 1 then--职业使用技能判断
 						local 职业类 = Char.GetData(ai_index,CONST.对象_职类ID)
-						local 战斗指令接口 = CONST.BATTLE_COM--别改，会爆炸
-						local 技能选择接口 = Battle.ActionSelect--别改，会爆炸
 						--第1动
 						if 职业类 == 40 then--弓
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_RANDOMSHOT,math.random(0,9),9509) end,--乱射
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_DELAYATTACK,math.random(0,9),25809) end,--一击必中
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--阳炎
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_RANDOMSHOT,math.random(0,9),9509) end,--乱射
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,math.random(0,9),25809) end,--一击必中
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--阳炎
 							}
 							if math.random(1,100) < 70 then--乱射释放概率70%
 								pcall(技能表[1])
@@ -143,23 +142,23 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						if 职业类 == 10 then--剑
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_FIRSTATTACK,math.random(0,9),26209) end,--迅速
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_BLASTWAVE,math.random(0,9),200509) end,--剑气--请确认你的tech也是这个编号
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--乾坤
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--诸刃
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--连击破碎
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--连击乱舞
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_FIRSTATTACK,math.random(0,9),26209) end,--迅速
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_BLASTWAVE,math.random(0,9),200509) end,--剑气--请确认你的tech也是这个编号
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--乾坤
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--诸刃
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--连击破碎
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--连击乱舞
 							}
 							local 随机施放 = math.random(1,#技能表)
 							pcall(技能表[随机施放])
 						end
 						if 职业类 == 20 then--斧
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_DELAYATTACK,math.random(0,9),25709) end,--戒骄戒躁
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--乾坤
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--诸刃
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--连击破碎
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--连击乱舞
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,math.random(0,9),25709) end,--戒骄戒躁
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--乾坤
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--诸刃
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--连击破碎
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--连击乱舞
 							}
 							if math.random(1,100) < 70 then--戒骄戒躁释放概率70%
 								pcall(技能表[1])
@@ -170,11 +169,11 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						if 职业类 == 30 then--骑
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_BILLIARD,math.random(5,9),26009) end,--一石二鸟
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--乾坤
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--诸刃
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--连击破碎
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--连击乱舞
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_BILLIARD,math.random(5,9),26009) end,--一石二鸟
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),309) end,--乾坤
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),109) end,--诸刃
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,math.random(0,9),9) end,--连击破碎
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,math.random(0,9),8) end,--连击乱舞
 							}
 							if math.random(1,100) < 50 then--一石二鸟释放概率50%
 								pcall(技能表[1])
@@ -185,9 +184,9 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						if 职业类 == 140 then--格
 							local 技能表 = {
-								function() 技能选择接口(ai_index, 战斗指令接口.BATTLE_COM_P_SPIRACLESHOT,math.random(0,9),409) end,--气功弹
-								function() 技能选择接口(ai_index, 战斗指令接口.BATTLE_COM_P_PANIC,math.random(0,9),9409) end,--混乱攻击
-								function() 技能选择接口(ai_index, 战斗指令接口.BATTLE_COM_P_GUARDBREAK,math.random(0,9),509) end,--崩击
+								function() Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,math.random(0,9),409) end,--气功弹
+								function() Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_P_PANIC,math.random(0,9),9409) end,--混乱攻击
+								function() Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_P_GUARDBREAK,math.random(0,9),509) end,--崩击
 							}
 							if math.random(1,100) < 70 then--气功弹释放概率70%
 								pcall(技能表[1])
@@ -198,20 +197,20 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						if 职业类 == 70 then--魔
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_MAGIC,40,2709) end,--超陨
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_MAGIC,40,2809) end,--超冰
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_MAGIC,40,2909) end,--超火
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_MAGIC,40,3009) end,--超风
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,40,2709) end,--超陨
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,40,2809) end,--超冰
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,40,2909) end,--超火
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,40,3009) end,--超风
 							}
 							local 随机施放 = math.random(1,#技能表)
 							pcall(技能表[随机施放])
 						end
 						if 职业类 == 60 then--传
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_HEAL,41,6309) end,--超强补血
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_HEAL,math.random(30,39),6209) end,--强力补血
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_HEAL,math.random(10,91),6109) end,--补血
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--气绝
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_HEAL,41,6309) end,--超强补血
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_HEAL,math.random(30,39),6209) end,--强力补血
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_HEAL,math.random(10,91),6109) end,--补血
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--气绝
 							}
 							if math.random(1,100) < 70 then--超强补血释放概率70%
 								pcall(技能表[1])
@@ -222,28 +221,28 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						if 职业类 == 130 then--巫
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_LP_RECOVERY,41,6609) end,--超强恢复
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_STATUSRECOVER,41,6709) end,--洁净
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--气绝
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY,41,6609) end,--超强恢复
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER,41,6709) end,--洁净
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_REVIVE,math.random(10,19),6809) end,--气绝
 							}
 							local 随机施放 = math.random(1,#技能表)
 							pcall(技能表[随机施放])
 						end
 						if 职业类 == 80 then--咒
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_STATUSCHANGE,40,4409) end,--超强毒
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_STATUSCHANGE,40,4509) end,--超强睡
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_STATUSCHANGE,40,4609) end,--超强石
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_STATUSCHANGE,40,4709) end,--超强醉
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_STATUSCHANGE,40,4809) end,--超强乱
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_STATUSCHANGE,40,4909) end,--超强忘
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_REVERSE_TYPE,math.random(10,19),5409) end,--属性反转
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_REFLECTION_PHYSICS,math.random(10,19),5509) end,--攻反
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_INEFFECTIVE_PHYSICS,math.random(10,19),5909) end,--攻无
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_ABSORB_PHYSICS,math.random(10,19),5709) end,--攻吸
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_REFLECTION_MAGIC,math.random(10,19),5609) end,--魔反
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_INEFFECTIVE_MAGIC,math.random(10,19),6009) end,--魔无
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_ABSORB_MAGIC,math.random(10,19),5809) end,--魔吸
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,40,4409) end,--超强毒
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,40,4509) end,--超强睡
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,40,4609) end,--超强石
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,40,4709) end,--超强醉
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,40,4809) end,--超强乱
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE,40,4909) end,--超强忘
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_REVERSE_TYPE,math.random(10,19),5409) end,--属性反转
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_REFLECTION_PHYSICS,math.random(10,19),5509) end,--攻反
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_PHYSICS,math.random(10,19),5909) end,--攻无
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS,math.random(10,19),5709) end,--攻吸
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_REFLECTION_MAGIC,math.random(10,19),5609) end,--魔反
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_MAGIC,math.random(10,19),6009) end,--魔无
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_MAGIC,math.random(10,19),5809) end,--魔吸
 							}
 							if math.random(1,100) < 50 then--超咒放概率50%
 								local 随机施放 = math.random(1,6)
@@ -255,9 +254,9 @@ function Module:handleBattleAutoCommand(battleIndex)
 						end
 						if 职业类 == 150 then--忍
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_ASSASSIN,math.random(0,9),9609) end,--暗杀
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--阳炎
-								--function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_ATTACKALL,math.random(10,19),10601) end,--影分身--请确认你的tech也是这个编号
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_ASSASSIN,math.random(0,9),9609) end,--暗杀
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_DODGE,math.random(0,9),909) end,--阳炎
+								--function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_ATTACKALL,math.random(10,19),10601) end,--影分身--请确认你的tech也是这个编号
 							}
 							if Battle.GetType(battleIndex) == CONST.战斗_BOSS战 then--boss战，不暗杀
 								local 随机施放 = math.random(1,#技能表)
@@ -272,38 +271,52 @@ function Module:handleBattleAutoCommand(battleIndex)
 							end
 						end
 						--第2动
-						--local petindex = Battle.GetPlayer(battleIndex,math.fmod(i + 5,10))
-						local petindex = Char.GetPet(ai_index,0)
-						if petindex >= 0 then--如果带宠物，宠物使用技能
-							--print('宠物名字 = '..Char.GetData(petindex,CONST.对象_名字))
-							local 宠物技能表 = {--宠物施放的技能，需要宠物真的有学这个技能，否则无法施放，最多10个，人不用学，也无限制
-								--function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_ATTACK,math.random(10,19),-1) end,--攻击
-								--function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_GUARD,-1,-1) end,--防御
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_SPECIALGARD,-1,838) end,--圣盾
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_RENZOKU,math.random(0,9),38) end,--连击
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),138) end,--诸刃
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_PARAMETER,math.random(0,9),338) end,--乾坤
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_MAGIC,math.random(20,29),2339) end,--强力陨石魔法
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_MAGIC,math.random(20,29),2439) end,--强力冰冻魔法
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_MAGIC,math.random(20,29),2539) end,--强力火焰魔法
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_P_MAGIC,math.random(20,29),2639) end,--强力风刃魔法
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_M_BLOODATTACK,math.random(0,9),8138) end,--吸血攻击
-								function() 技能选择接口(petindex,战斗指令接口.BATTLE_COM_M_STATUSATTACK,math.random(0,9),7738) end,--石化攻击
-							}
-							local 随机施放 = math.random(1,#宠物技能表)
-							--print('随机 = '..随机施放)
-							pcall(宠物技能表[随机施放])
-						else--没带宠物，ai佣兵2动普攻
+						--local petindex = Battle.GetPlayer(battleindex,math.fmod(i + 5,10))
+						local petindex = Char.GetPet(ai_index,0)--获取第一栏宠物
+						local 出战宠物slot = Char.GetData(ai_index,CONST.对象_战宠)
+						--print('宠物index = '..petindex)
+						--print('出战宠物slot = '..出战宠物slot)
+						if petindex < 0 or 出战宠物slot == -1 then--如果没带宠物，ai人第2动
 							local 技能表 = {
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_ATTACK,math.random(0,9),-1) end,--攻击
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_GUARD,-1,-1) end,--防御
-								function() 技能选择接口(ai_index,战斗指令接口.BATTLE_COM_POSITION,-1,-1) end,--换位、定点移动
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(0,9),-1) end,--攻击
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_GUARD,-1,-1) end,--防御
+								function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_POSITION,-1,-1) end,--换位、定点移动
 							}
 							local 随机施放 = math.random(1, #技能表)
 							pcall(技能表[随机施放])
 						end
 					end
+					NLG.UpChar(ai_index);
 				end
+				if Char.IsPet(ai_index) then--判定为宠物
+					local petindex = ai_index;
+					if Battle.IsWaitingCommand(petindex)== 1 then
+						--print('宠物名字 = '..Char.GetData(petindex,CONST.对象_名字))
+						local 宠物技能表 = {--宠物施放的技能，需要宠物真的有学这个技能，否则无法施放，最多10个，人不用学，也无限制
+							--function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19),-1) end,--攻击
+							--function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_GUARD,-1,-1) end,--防御
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_SPECIALGARD,-1,838) end,--圣盾
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,math.random(0,9),38) end,--连击
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),138) end,--诸刃
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,math.random(0,9),338) end,--乾坤
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,math.random(20,29),2339) end,--强力陨石魔法
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,math.random(20,29),2439) end,--强力冰冻魔法
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,math.random(20,29),2539) end,--强力火焰魔法
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_P_MAGIC,math.random(20,29),2639) end,--强力风刃魔法
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_M_BLOODATTACK,math.random(0,9),8138) end,--吸血攻击
+							function() Battle.ActionSelect(petindex,CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK,math.random(0,9),7738) end,--石化攻击
+						}
+						local 随机施放 = math.random(1,#宠物技能表)
+						--print('随机 = '..随机施放)
+						pcall(宠物技能表[随机施放])
+						NLG.UpChar(petindex)
+						if aiindex then
+							Pet.UpPet(aiindex, petindex);
+							NLG.UpChar(aiindex);
+						end
+					end
+				end
+			else
 			end
 		end
 	end
@@ -425,6 +438,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 		for k,v in pairs(PKArena) do
 			local opponentsIndex = tbl_PKArenaNPCIndex[k];
 			if (k==1 or k==2 or k==5 or k==8 or k==11 or k==16) then	--隊長
+				Char.DischargeParty(opponentsIndex);
 				Char.SetTempData(opponentsIndex,'假人队长',1);
 				leader_tbl[k]={};
 				table.insert(leader_tbl[k],opponentsIndex);
