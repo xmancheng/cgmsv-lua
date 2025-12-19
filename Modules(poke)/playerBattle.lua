@@ -4,45 +4,69 @@ local Module = ModuleBase:createModule('playerBattle')
 local Open = 0;
 local PKArena = {
       { pkType=1, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=18,Y=35,dir=6,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=2, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=39,dir=6,action=3},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=3, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=38,dir=4,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=4, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=37,dir=0,action=11},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=5, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=33,dir=4,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=6, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=32,dir=2,action=10},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=7, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=31,dir=6,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=8, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=23,Y=36,dir=6,action=6},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=9, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=24,Y=37,dir=7,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=10, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=37,dir=6,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=11, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=33,dir=6,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=12, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=32,dir=6,action=10},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=13, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=31,dir=4,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=14, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=27,Y=31,dir=6,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=15, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=28,Y=31,dir=6,action=0},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=16, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=35,dir=2,action=11},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=17, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=34,dir=6,action=10},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=18, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=33,dir=6,action=11},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=19, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=32,dir=6,action=11},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
-      { pkType=20, walkMode=1, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=31,dir=6,action=11},
-      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'} },
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={[1]={X=20,Y=28},[2]={X=25,Y=27},[3]={X=25,Y=40},[4]={X=18,Y=39},[5]={X=18,Y=35}, }}, },
+
+      { pkType=2, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=39,dir=6,action=3},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={[1]={X=30,Y=39},[2]={X=26,Y=29},[3]={X=15,Y=29},[4]={X=19,Y=39}, }}, },
+
+      { pkType=3, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=38,dir=4,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={[1]={X=30,Y=39},[2]={X=26,Y=29},[3]={X=15,Y=29},[4]={X=19,Y=39}, }}, },
+
+      { pkType=4, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=19,Y=37,dir=0,action=11},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={[1]={X=30,Y=39},[2]={X=26,Y=29},[3]={X=15,Y=29},[4]={X=19,Y=39}, }}, },
+
+      { pkType=5, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=33,dir=4,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=6, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=32,dir=2,action=10},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=7, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=20,Y=31,dir=6,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=8, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=23,Y=36,dir=6,action=6},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=9, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=24,Y=37,dir=7,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=10, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=25,Y=37,dir=6,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=11, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=33,dir=6,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=12, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=32,dir=6,action=10},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=13, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=26,Y=31,dir=4,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=14, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=27,Y=31,dir=6,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=15, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=28,Y=31,dir=6,action=0},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=16, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=35,dir=2,action=11},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=17, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=34,dir=6,action=10},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=18, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=33,dir=6,action=11},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=19, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=32,dir=6,action=11},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
+      { pkType=20, walkMode=0, opponentsName="時雨", opponentsImage=106477, opponentsArea={map=1401,X=16,Y=31,dir=6,action=11},
+      ai_list={'時雨','忍者',106477,154,150,201,'500|不改|不改|不改|250|不改|不改|200|15|15|15|15|800|999'},
+      route_list={Stop={ }}, },
 }
 
 local dummylevel = 100;
@@ -66,6 +90,7 @@ equip = {--'武器血|武器魔|武器攻|武器防|武器敏|武器精|武器�
      {220,'300|550|不改|160|17|65|200|不改|不改|不改|不改|10|400|999'},
   },
 }
+
 local talk_list= {
      "來場友誼賽嗎？競技場走起～",
      "不輸不贏，純切磋，來嗎？",
@@ -413,12 +438,12 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 			--NLG.SetAction(opponentsIndex, v.opponentsArea.action);
 			NLG.UpChar(opponentsIndex);
 
-			--[[if (v.walkMode==1) then
-				Char.SetData(opponentsIndex,CONST.对象_经验, v.opponentsArea.map);
-				Char.SetData(opponentsIndex,CONST.对象_名色, 4);
+			if (v.walkMode==1) then
+				Char.SetData(opponentsIndex,CONST.对象_经验, v.pkType);
+				--Char.SetData(opponentsIndex,CONST.对象_名色, 4);
 				NLG.UpChar(opponentsIndex);
 				--Char.SetAutoWalk(opponentsIndex, true, 5, 10, 1, 3, 1, 3);--未生效
-			end]]
+			end
 			if (k==1 or k==2 or k==5 or k==8 or k==11 or k==16) then	--隊長
 				Char.SetTempData(opponentsIndex,'假人队长',1);
 				leader_tbl[k]={};
@@ -558,7 +583,6 @@ function PKArena_LoopEvent(npc)
 
 
 	local excess = math.random(1,10);
-
 	Char.SetData(opponentsIndex,CONST.对象_对战开关, 1);
 	local walkOn = Char.GetTempData(opponentsIndex,'假人队长') or 0;
 	local MTime = Char.GetTempData(opponentsIndex,'假人发话') or 1;
@@ -577,10 +601,35 @@ function PKArena_LoopEvent(npc)
 			end
 		end]]
 	end
+	for k,v in pairs(PKArena) do
+		if (k==v.pkType and walkOn==1 and excess>=5) then
+			local tag = Char.GetData(opponentsIndex,CONST.对象_经验);
+			--local color = Char.GetData(opponentsIndex,CONST.对象_名色);
+			if (tag==v.pkType) then
+				local goal = Char.GetTempData(opponentsIndex,'中继点') or 1;
+				local X = tonumber(Char.GetData(opponentsIndex,CONST.对象_X));
+				local Y = tonumber(Char.GetData(opponentsIndex,CONST.对象_Y));
+				local X1 = v.route_list.Stop[goal].X;
+				local Y1 = v.route_list.Stop[goal].Y;
+				if X1 and Y1 then
+					local dir,allow = moveDir(X, Y, X1, Y1);
+					NLG.SetAction(opponentsIndex,1);
+					NLG.WalkMove(opponentsIndex,dir);
+					if allow then
+						if (goal>=#v.route_list.Stop) then
+							Char.SetTempData(opponentsIndex,'中继点',1);
+						else
+							Char.SetTempData(opponentsIndex,'中继点',goal+1);
+						end
+					end
+				end
+			end
+		end
+	end
 end
 
 
-Char.GetLocation = function(npc,dir)
+--[[Char.GetLocation = function(npc,dir)
 	local X = Char.GetData(npc,CONST.对象_X)--地图x
 	local Y = Char.GetData(npc,CONST.对象_Y)--地图y
 	if dir==0 then
@@ -605,6 +654,41 @@ Char.GetLocation = function(npc,dir)
 		Y=Y-1;
 	end
 	return X,Y;
+end]]
+
+function moveDir(X, Y, X1, Y1)
+	if not X or not Y or not X1 or not Y1 then
+		return
+	end
+	local dir = 8
+	if X1 > X then
+		if Y1 > Y then
+			dir = 3
+		elseif Y1 < Y then
+			dir = 1
+		else
+			dir = 2
+		end
+	elseif X1 < X then
+		if Y1 > Y then
+			dir = 5
+		elseif Y1 < Y then
+			dir = 7
+		else
+			dir = 6
+		end
+	else
+		if Y1 > Y then
+			dir = 4
+		elseif Y1 < Y then
+			dir = 0
+		end
+	end
+	local allow = false
+	if math.abs(X-X1) < 1 and math.abs(Y-Y1) < 1 then
+		allow = true
+	end
+	return dir, allow
 end
 
 --- 卸载模块钩子
