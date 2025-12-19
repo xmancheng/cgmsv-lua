@@ -242,6 +242,7 @@ function StreetPedlar_LoopEvent(npc)
 						local X1 = z.Stop[goal].X;
 						local Y1 = z.Stop[goal].Y;
 						local dir,allow = moveDir(X, Y, X1, Y1);
+						local dir = MaybeAdjustDirection(dir, 0.15);
 						NLG.SetAction(shopIndex,1);
 						NLG.WalkMove(shopIndex,dir);
 						if allow then
@@ -357,7 +358,7 @@ end
 	return X,Y;
 end]]
 
-function moveDir(X, Y, X1, Y1)
+--[[function moveDir(X, Y, X1, Y1)
 	if not X or not Y or not X1 or not Y1 then
 		return
 	end
@@ -390,8 +391,47 @@ function moveDir(X, Y, X1, Y1)
 		allow = true
 	end
 	return dir, allow
+end]]
+
+function moveDir(X, Y, X1, Y1)
+	local dx = X1 - X;
+	local dy = Y1 - Y;
+
+	if dx == 0 and dy < 0 then return 0 end
+	if dx > 0 and dy < 0 then return 1 end
+	if dx > 0 and dy == 0 then return 2 end
+	if dx > 0 and dy > 0 then return 3 end
+	if dx == 0 and dy > 0 then return 4 end
+	if dx < 0 and dy > 0 then return 5 end
+	if dx < 0 and dy == 0 then return 6 end
+	if dx < 0 and dy < 0 then return 7 end
+
+	local allow = false
+	if math.abs(X-X1) < 1 and math.abs(Y-Y1) < 1 then
+		allow = true
+	end
+	return dir, allow
 end
 
+function MaybeAdjustDirection(dir, chance)
+	-- chance = 0.1 表示 10% 機率偏移
+	if math.random() > chance then
+		return dir
+	end
+
+	-- -1 或 +1
+	if math.random(0, 1) == 0 then
+		dir = dir - 1
+	else
+		dir = dir + 1
+	end
+
+	-- 環狀修正（0~7）
+	if dir < 0 then dir = 7 end
+	if dir > 7 then dir = 0 end
+
+	return dir
+end
 
 --- 卸载模块钩子
 function Module:onUnload()
