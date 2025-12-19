@@ -53,7 +53,7 @@ local StreetPedlar = {
 }
 
 local DetourRoute = {
-      {routeType=15, Stop={[1]={X=212,Y=111},[2]={X=212,Y=87},[3]={X=224,Y=85},[4]={X=224,Y=111},} },
+      {routeType=15, Stop={[1]={X=212,Y=111},[2]={X=212,Y=87},[3]={X=222,Y=87},[4]={X=224,Y=110},} },
 }
 ------------------------------------------------
 local FTime = os.time();			--时间表
@@ -235,7 +235,7 @@ function StreetPedlar_LoopEvent(npc)
 				--local walk = 1;
 				--local X,Y = Char.GetLocation(shopIndex,dir);
 				for _,z in pairs(DetourRoute) do
-					if (v.shopType==z.routeType) then
+					if (v.shopType==z.routeType and Char.GetData(shopIndex,CONST.对象_名字)==v.shopName) then
 						local goal = Char.GetTempData(shopIndex,'中继点') or 1;
 						local X = tonumber(Char.GetData(shopIndex,CONST.对象_X));
 						local Y = tonumber(Char.GetData(shopIndex,CONST.对象_Y));
