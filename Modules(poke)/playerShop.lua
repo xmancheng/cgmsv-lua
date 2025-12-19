@@ -31,25 +31,29 @@ local StreetPedlar = {
       { shopType=9, walkMode=0, shopName="心美", shopDesc="我是制杖師", shopImage=105279, shopArea={map=1000,X=233,Y=114,dir=6,action=11},
          itemList={2404,2413,2447,2447,2449,2449,2449,2449,2449,2449}, itemPriceList={440,900,1600,1600,2200,2200,2200,2200,2200,2200},
          petList={}, petPriceList={} },
-      { shopType=10, walkMode=0, shopName="艾咪", shopDesc="歡迎光臨", shopImage=105303, shopArea={map=1000,X=227,Y=108,dir=4,action=1},
+      { shopType=10, walkMode=0, shopName="艾咪", shopDesc="歡迎光臨", shopImage=105303, shopArea={map=1000,X=227,Y=108,dir=4,action=11},
          itemList={4821,4821,4821,4821,4821}, itemPriceList={1400,1400,1400,1400,1400},
          petList={}, petPriceList={} },
-      { shopType=11, walkMode=0, shopName="梅古", shopDesc="歡迎光臨", shopImage=105330, shopArea={map=1000,X=226,Y=108,dir=4,action=1},
+      { shopType=11, walkMode=0, shopName="梅古", shopDesc="歡迎光臨", shopImage=105330, shopArea={map=1000,X=226,Y=108,dir=4,action=11},
          itemList={4421,4421,4421,4421,4421}, itemPriceList={1400,1400,1400,1400,1400},
          petList={}, petPriceList={} },
       { shopType=12, walkMode=0, shopName="春麗", shopDesc="買雙新鞋好過年", shopImage=105352, shopArea={map=1000,X=224,Y=109,dir=6,action=6},
          itemList={5631,5631,5631,5631,5631,6031,6031,6031,6031,6031}, itemPriceList={1300,1300,1300,1300,1300,1200,1200,1200,1200,1200},
          petList={}, petPriceList={} },
-      { shopType=13, walkMode=0, shopName="凱茵", shopDesc="大力出奇蹟", shopImage=105375, shopArea={map=1000,X=229,Y=112,dir=7,action=5},
+      { shopType=13, walkMode=0, shopName="凱茵", shopDesc="大力出奇蹟", shopImage=105375, shopArea={map=1000,X=229,Y=112,dir=7,action=11},
          itemList={852,852,852,1658,1658,1658,6434,6434,6434,6434}, itemPriceList={3600,3600,3600,3400,3400,3400,1200,1200,1200,1200},
          petList={}, petPriceList={} },
-      { shopType=14, walkMode=0, shopName="依露", shopDesc="歡迎光臨", shopImage=105402, shopArea={map=1000,X=228,Y=114,dir=6,action=1},
+      { shopType=14, walkMode=0, shopName="依露", shopDesc="歡迎光臨", shopImage=105402, shopArea={map=1000,X=228,Y=114,dir=6,action=11},
          itemList={3620,3620,3620,4020,4020,4020,5231,5231,5231,5231}, itemPriceList={960,960,9600,1000,1000,1000,1800,1800,1800,1800},
          petList={}, petPriceList={} },
 
-      --{ shopType=29, walkMode=1, shopName="時雨", shopDesc="忍者神出鬼沒", shopImage=106477, shopArea={map=1000,X=230,Y=111,dir=6,action=1},
-      --   itemList={18558,18559,18560,18562,18563,70200,70052,70052,70052}, itemPriceList={2000,2000,2000,2000,2000,3000,5000,7000,9000},
-      --   petList={}, petPriceList={} },
+      { shopType=15, walkMode=1, shopName="時雨", shopDesc="忍者神出鬼沒", shopImage=106477, shopArea={map=1000,X=230,Y=111,dir=6,action=1},
+         itemList={18558,18559,18560,18562,18563,70200,70052,70052,70052}, itemPriceList={2000,2000,2000,2000,2000,3000,5000,7000,9000},
+         petList={}, petPriceList={} },
+}
+
+local DetourRoute = {
+      {routeType=15, Stop={[1]={X=212,Y=111},[2]={X=212,Y=87},[3]={X=224,Y=85},[4]={X=224,Y=111},} },
 }
 ------------------------------------------------
 local FTime = os.time();			--时间表
@@ -131,6 +135,7 @@ function Module:handleTalkEvent(charIndex,msg,color,range,size)
 				Char.SetData(shopIndex,CONST.对象_经验, v.shopArea.map);
 				Char.SetData(shopIndex,CONST.对象_名色, 4);
 				NLG.UpChar(shopIndex);
+				--Char.SetAutoWalk(shopIndex, true, 5, 10, 1, 3, 1, 3);--未生效
 			end
 		end
         Open = 1;
@@ -225,15 +230,34 @@ function StreetPedlar_LoopEvent(npc)
 	local excess = math.random(1,10);
 	for k,v in pairs(StreetPedlar) do
 		if (k==v.shopType) then
-			if (Char.GetData(shopIndex,CONST.对象_名色)==4 and excess>=7) then
-				local dir = math.random(0, 7);
-				local walk = 1;
-				local X,Y = Char.GetLocation(shopIndex,dir);
-				if (NLG.Walkable(0, Char.GetData(shopIndex,CONST.对象_经验), X, Y)==1) then
+			if (Char.GetData(shopIndex,CONST.对象_名色)==4 and excess>=3) then
+				--local dir = math.random(0, 7);
+				--local walk = 1;
+				--local X,Y = Char.GetLocation(shopIndex,dir);
+				for _,z in pairs(DetourRoute) do
+					if (v.shopType==z.routeType) then
+						local goal = Char.GetTempData(shopIndex,'中继点') or 1;
+						local X = tonumber(Char.GetData(shopIndex,CONST.对象_X));
+						local Y = tonumber(Char.GetData(shopIndex,CONST.对象_Y));
+						local X1 = z.Stop[goal].X;
+						local Y1 = z.Stop[goal].Y;
+						local dir,allow = moveDir(X, Y, X1, Y1);
+						NLG.SetAction(shopIndex,1);
+						NLG.WalkMove(shopIndex,dir);
+						if allow then
+							if (goal>=#z.Stop) then
+								Char.SetTempData(shopIndex,'中继点',1);
+							else
+								Char.SetTempData(shopIndex,'中继点',goal+1);
+							end
+						end
+					end
+				end
+				--[[if (NLG.Walkable(0, Char.GetData(shopIndex,CONST.对象_经验), X, Y)==1) then
 					NLG.SetAction(shopIndex,walk);
 					NLG.WalkMove(shopIndex,dir);
 					NLG.UpChar(shopIndex);
-				end
+				end]]
 				Stall.Start(shopIndex, v.shopName, v.shopDesc, v.itemPriceList, v.petPriceList)
 			end
 		end
@@ -306,7 +330,7 @@ Char.GetPetSlot = function(charIndex,petIndex)
   end
 end
 
-Char.GetLocation = function(npc,dir)
+--[[Char.GetLocation = function(npc,dir)
 	local X = Char.GetData(npc,CONST.对象_X)--地图x
 	local Y = Char.GetData(npc,CONST.对象_Y)--地图y
 	if dir==0 then
@@ -331,7 +355,43 @@ Char.GetLocation = function(npc,dir)
 		Y=Y-1;
 	end
 	return X,Y;
+end]]
+
+function moveDir(X, Y, X1, Y1)
+	if not X or not Y or not X1 or not Y1 then
+		return
+	end
+	local dir = 8
+	if X1 > X then
+		if Y1 > Y then
+			dir = 3
+		elseif Y1 < Y then
+			dir = 1
+		else
+			dir = 2
+		end
+	elseif X1 < X then
+		if Y1 > Y then
+			dir = 5
+		elseif Y1 < Y then
+			dir = 7
+		else
+			dir = 6
+		end
+	else
+		if Y1 > Y then
+			dir = 4
+		elseif Y1 < Y then
+			dir = 0
+		end
+	end
+	local allow = false
+	if math.abs(X-X1) < 1 and math.abs(Y-Y1) < 1 then
+		allow = true
+	end
+	return dir, allow
 end
+
 
 --- 卸载模块钩子
 function Module:onUnload()
