@@ -164,10 +164,10 @@ function Module:onLoad()
                     local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[2]);
                     local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
                     Char.DelItem(player,v.loveItem[2],1,1);
-					local ratio = EliteLvel[k]/maxTrainerLevel;
-					local fame = Char.GetData(player,CONST.对象_声望);
-					local fame_plus = math.floor(v.prestige * ratio);
-					Char.SetData(player,CONST.对象_声望, fame + fame_plus);
+                    local ratio = EliteLvel[k]/maxTrainerLevel;
+                    local fame = Char.GetData(player,CONST.对象_声望);
+                    local fame_plus = math.floor(v.prestige * ratio);
+                    Char.SetData(player,CONST.对象_声望, fame + fame_plus);
                     SetTrainerInfo(player,k,0,1,0);	--timeStamp(0表不更新), intimacy(1点),flag(0表不更新)
                     NLG.SystemMessage(player, v.palName.."：謝謝你的"..Item_name.."回禮聲望"..fame_plus.."點[親密度增加1點]");
                 end
@@ -181,9 +181,9 @@ function Module:onLoad()
                     local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[3]);
                     local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
                     Char.DelItem(player,v.loveItem[3],1,1);
-					local ratio = EliteLvel[k]/maxTrainerLevel;
-					local gold_plus = math.floor(v.gold * ratio);
-					Char.AddGold(player, gold_plus);
+                    local ratio = EliteLvel[k]/maxTrainerLevel;
+                    local gold_plus = math.floor(v.gold * ratio);
+                    Char.AddGold(player, gold_plus);
                     SetTrainerInfo(player,k,0,1,0);	--timeStamp(0表不更新), intimacy(1点),flag(0表不更新)
                     NLG.SystemMessage(player, v.palName.."：謝謝你的"..Item_name.."回禮魔幣"..gold_plus.."G[親密度增加1點]");
                 end
