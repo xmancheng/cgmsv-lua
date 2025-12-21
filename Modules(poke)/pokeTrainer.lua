@@ -5,52 +5,52 @@ local maxTrainerLevel = 100;
 local PokeTrainer = {
       { palType=1, palNum=1, palName="捕蟲少年", palImage=105002, prestige=1000, gold=500,	--palNum数量(1不更动)、palImage外显形象(不重复)、声望、魔币
          popArea={map=80022,LX=59,LY=75, RX=59,RY=75}, watchArea={map=80022,LX=55,LY=73, RX=61,RY=80},		--出没范围(方形坐标)、监视范围(方形坐标)
-         talk="捕蟲少年：讓你看看我抓到的蟲蟲。", loveItem=69014, giftItem={69088,73059}, },		--开战对话
+         talk="捕蟲少年：讓你看看我抓到的蟲蟲。", loveItem={69014,69014,69014}, giftItem={607700,46630,75026,69088,73059}, },		--开战对话，礼物(1)礼物(∞)礼物(∞)，亲密度20、40、60、80、100之一次性奖励
       { palType=2, palNum=1, palName="養鳥人", palImage=106039, prestige=2000, gold=1000,
          popArea={map=80023,LX=47,LY=63, RX=47,RY=63}, watchArea={map=80023,LX=41,LY=61, RX=49,RY=66},
-         talk="養鳥人：往來的旅行者接受我的挑戰吧。", loveItem=69013, giftItem={73023,73023}, },
+         talk="養鳥人：往來的旅行者接受我的挑戰吧。", loveItem={69013,69013,69013}, giftItem={607701,46631,75026,73023,73023}, },
       { palType=3, palNum=1, palName="登山男", palImage=106577, prestige=2000, gold=1000,
          popArea={map=80013,LX=38,LY=41, RX=38,RY=41}, watchArea={map=80013,LX=38,LY=35, RX=45,RY=42},
-         talk="登山男：嘗嘗我的厲害。", loveItem=69011, giftItem={73056,73056}, },
+         talk="登山男：嘗嘗我的厲害。", loveItem={69011,69011,69011}, giftItem={607702,46632,75026,73056,73056}, },
       { palType=4, palNum=1, palName="赤紅", palImage=105039, prestige=2500, gold=1500,
          popArea={map=80023,LX=62,LY=84, RX=62,RY=84}, watchArea={map=80023,LX=57,LY=76, RX=66,RY=84},
-         talk="赤紅：上吧！我的夥伴們。", loveItem=69014, giftItem={69084,69084}, },
+         talk="赤紅：上吧！我的夥伴們。", loveItem={69014,69014,69014}, giftItem={607703,46633,75026,69084,69084}, },
       { palType=5, palNum=1, palName="青綠", palImage=105139, prestige=2500, gold=1500,
          popArea={map=80023,LX=83,LY=44, RX=83,RY=44}, watchArea={map=80023,LX=77,LY=40, RX=82,RY=48},
-         talk="青綠：弱者還敢四處逛。", loveItem=69011, giftItem={69081,69081}, },
+         talk="青綠：弱者還敢四處逛。", loveItem={69011,69011,69011}, giftItem={607704,46633,75026,69081,69081}, },
       { palType=6, palNum=1, palName="小藍", palImage=105258, prestige=2500, gold=1500,
          popArea={map=80023,LX=79,LY=67, RX=79,RY=67}, watchArea={map=80023,LX=74,LY=64, RX=77,RY=70},
-         talk="小藍：華麗的噴射水柱。", loveItem=69012, giftItem={69083,69083}, },
+         talk="小藍：華麗的噴射水柱。", loveItem={69012,69012,69012}, giftItem={607705,46632,75026,69083,69083}, },
       { palType=7, palNum=1, palName="祈祷師", palImage=106310, prestige=2000, gold=1000,
          popArea={map=80014,LX=53,LY=45, RX=53,RY=45}, watchArea={map=80014,LX=39,LY=45, RX=67,RY=54},
-         talk="祈祷師：你見過幽靈嗎？你說沒看過！我就讓你看看！", loveItem=69013, giftItem={69082,69082}, },
+         talk="祈祷師：你見過幽靈嗎？你說沒看過！我就讓你看看！", loveItem={69013,69013,69013}, giftItem={607706,46631,75026,69082,69082}, },
       { palType=8, palNum=1, palName="空手道王", palImage=105170, prestige=2000, gold=1000,
          popArea={map=80011,LX=76,LY=72, RX=76,RY=72}, watchArea={map=80011,LX=64,LY=62, RX=77,RY=78},
-         talk="空手道王：心靈合一。", loveItem=69011, giftItem={73016,73016}, },
+         talk="空手道王：心靈合一。", loveItem={69011,69011,69011}, giftItem={607706,46630,75026,73016,73016}, },
       { palType=9, palNum=1, palName="遺跡迷", palImage=106008, prestige=2000, gold=1000,
          popArea={map=80019,LX=38,LY=71, RX=61,RY=71}, watchArea={map=80019,LX=38,LY=71, RX=61,RY=74},
-         talk="遺跡迷：我愛遺跡，更愛從對戰中得到樂趣。", loveItem=69011, giftItem={69086,69086}, },
+         talk="遺跡迷：我愛遺跡，更愛從對戰中得到樂趣。", loveItem={69011,69011,69011}, giftItem={607707,46630,75026,69086,69086}, },
       { palType=10, palNum=1, palName="忍者小子", palImage=106053, prestige=2000, gold=1000,
          popArea={map=80013,LX=38,LY=47, RX=38,RY=47}, watchArea={map=80013,LX=37,LY=46, RX=43,RY=52},
-         talk="忍者小子：你被忍者伏擊了。", loveItem=69011, giftItem={73014,73014}, },
+         talk="忍者小子：你被忍者伏擊了。", loveItem={69011,69011,69011}, giftItem={607708,46631,75026,73014,73014}, },
       { palType=11, palNum=1, palName="泳褲小伙子", palImage=105114, prestige=2000, gold=1000,
          popArea={map=80024,LX=84,LY=62, RX=84,RY=62}, watchArea={map=80024,LX=77,LY=56, RX=84,RY=64},
-         talk="泳褲小伙子：來場夏日對戰吧。", loveItem=69012, giftItem={69087,69087}, },
+         talk="泳褲小伙子：來場夏日對戰吧。", loveItem={69012,69012,69012}, giftItem={607709,46632,75026,69087,69087}, },
       { palType=12, palNum=1, palName="千金小姐", palImage=105277, prestige=2000, gold=5000,
          popArea={map=80024,LX=61,LY=48, RX=61,RY=48}, watchArea={map=80024,LX=60,LY=48, RX=61,RY=50},
-         talk="千金小姐：你會願意輸給我吧。", loveItem=69013, giftItem={73042,73043}, },
+         talk="千金小姐：你會願意輸給我吧。", loveItem={69013,69013,69013}, giftItem={607710,46633,75026,73042,73043}, },
       { palType=13, palNum=1, palName="超能力者", palImage=106283, prestige=2000, gold=1000,
          popArea={map=80017,LX=55,LY=68, RX=55,RY=68}, watchArea={map=80017,LX=48,LY=64, RX=62,RY=70},
-         talk="超能力者：我想要操控世界的一切。", loveItem=69011, giftItem={69090,69090}, },
+         talk="超能力者：我想要操控世界的一切。", loveItem={69011,69011,69011}, giftItem={607711,46633,75026,69090,69090}, },
       { palType=14, palNum=1, palName="吹火人", palImage=105095, prestige=3000, gold=500,
          popArea={map=80016,LX=54,LY=63, RX=54,RY=63}, watchArea={map=80016,LX=51,LY=57, RX=58,RY=60},
-         talk="吹火人：停下來觀賞我的表演！", loveItem=69014, giftItem={73028,73037}, },
+         talk="吹火人：停下來觀賞我的表演！", loveItem={69014,69014,69014}, giftItem={607712,46632,75026,73028,73037}, },
       { palType=15, palNum=1, palName="馴龍師", palImage=105052, prestige=2000, gold=1000,
          popArea={map=80018,LX=45,LY=46, RX=45,RY=46}, watchArea={map=80018,LX=41,LY=46, RX=50,RY=58},
-         talk="馴龍師：路過的旅行者，來場較量吧！", loveItem=69012, giftItem={69085,73062}, },
+         talk="馴龍師：路過的旅行者，來場較量吧！", loveItem={69012,69012,69012}, giftItem={607713,46631,75026,69085,73062}, },
       { palType=16, palNum=1, palName="研究員", palImage=106095, prestige=1500, gold=1500,
          popArea={map=80025,LX=90,LY=67, RX=90,RY=67}, watchArea={map=80025,LX=77,LY=62, RX=90,RY=69},
-         talk="研究員：你聽說過神秘之笛嗎？這就是它喚醒的怪物！", loveItem=69014, giftItem={69089,73038}, },
+         talk="研究員：你聽說過神秘之笛嗎？這就是它喚醒的怪物！", loveItem={69014,69014,69014}, giftItem={607714,46630,75026,69089,73038}, },
 }
 ------------------------------------------------
 local EnemySet = {}
@@ -118,15 +118,77 @@ function Module:onLoad()
               if select == 4 then
                 NLG.SystemMessage(player, v.palName.."：今天對戰的很過癮，約定好明天再戰！");
               elseif select == 1 then
+                local changed,flag = CheckAndGiveFriendReward(player,k,v.giftItem);
                 local EliteTrainer,EliteLvel = GetTrainerInfo(player);
-                if (EliteLvel[k]<100) then
-                    NLG.SystemMessage(player, v.palName.."：我們的關係還不是很熱絡。");
-                    return;
+                if (EliteLvel[k]>=100) then
+                  NLG.SystemMessage(player, v.palName.."：我們已經是最親密的夥伴了。");
+                  --SetTrainerInfo(player,k,0,-100);	--timeStamp(0表不更新), 扣除亲密度(-100点)
+                  --Char.GiveItem(player, v.giftItem[NLG.Rand(1,2)], 1);
+                  return;
                 else
-                    SetTrainerInfo(player,k,0,-100);	--timeStamp(0表不更新), 扣除亲密度(-100点)
-                    Char.GiveItem(player, v.giftItem[NLG.Rand(1,2)], 1);
+                  NLG.SystemMessage(player, v.palName.."：讓我們更加熱絡來領取收藏品吧。");
+                  return;
                 end
               else
+                --打招呼(每日限1增加少)
+                local EliteTrainer,EliteLvel = GetTrainerInfo(player);
+                if (data==1 and EliteTrainer[k]==tonumber(os.date("%d",os.time())) ) then
+                    NLG.SystemMessage(player, v.palName.."：今天已經和我互動過了。");
+                    return;
+                elseif (data==1 and EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
+                    SetTrainerInfo(player,k,1,2,0);	--timeStamp(1表更新), intimacy(1点),flag(0表不更新)
+                    NLG.SetAction(npc,12);	--动作_招手
+                    NLG.SystemMessage(player, v.palName.."：(揮揮手)友善的互動[親密度增加2點](每天限一次)");
+                end
+                --給禮物(同限1增加多)
+                if (data==2 and Char.HaveItem(player, v.loveItem[1])<0) then
+                    local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[1]);
+                    local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
+                    NLG.SystemMessage(player, v.palName.."：你沒有"..Item_name.."。");
+                    return;
+                elseif (data==2 and EliteTrainer[k]==tonumber(os.date("%d",os.time())) ) then
+                    NLG.SystemMessage(player, v.palName.."：今天已經和我互動過了。");
+                    return;
+                elseif (data==2 and Char.HaveItem(player, v.loveItem[1])>0 and EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
+                    Char.DelItem(player,v.loveItem[1],1,1);
+                    SetTrainerInfo(player,k,1,5,0);	--timeStamp(0表不更新1表更新), intimacy(5点),flag(0表不更新)
+                    NLG.SystemMessage(player, v.palName.."：這是很好的禮物[親密度增加5點](每天限一次)");
+                end
+                --給禮物(不限次數)声望回礼
+                if (data==3 and Char.HaveItem(player, v.loveItem[2])<0) then
+                    local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[2]);
+                    local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
+                    NLG.SystemMessage(player, v.palName.."：你沒有"..Item_name.."。");
+                    return;
+                elseif (data==3 and Char.HaveItem(player, v.loveItem[2])>0) then
+                    local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[2]);
+                    local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
+                    Char.DelItem(player,v.loveItem[2],1,1);
+					local ratio = EliteLvel[k]/maxTrainerLevel;
+					local fame = Char.GetData(player,CONST.对象_声望);
+					local fame_plus = math.floor(v.prestige * ratio);
+					Char.SetData(player,CONST.对象_声望, fame + fame_plus);
+                    SetTrainerInfo(player,k,0,1,0);	--timeStamp(0表不更新), intimacy(1点),flag(0表不更新)
+                    NLG.SystemMessage(player, v.palName.."：謝謝你的"..Item_name.."回禮聲望"..fame_plus.."點[親密度增加1點]");
+                end
+                --給禮物(不限次數)魔币回礼
+                if (data==4 and Char.HaveItem(player, v.loveItem[3])<0) then
+                    local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[3]);
+                    local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
+                    NLG.SystemMessage(player, v.palName.."：你沒有"..Item_name.."。");
+                    return;
+                elseif (data==4 and Char.HaveItem(player, v.loveItem[3])>0) then
+                    local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[3]);
+                    local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
+                    Char.DelItem(player,v.loveItem[3],1,1);
+					local ratio = EliteLvel[k]/maxTrainerLevel;
+					local gold_plus = math.floor(v.gold * ratio);
+					Char.AddGold(player, gold_plus);
+                    SetTrainerInfo(player,k,0,1,0);	--timeStamp(0表不更新), intimacy(1点),flag(0表不更新)
+                    NLG.SystemMessage(player, v.palName.."：謝謝你的"..Item_name.."回禮魔幣"..gold_plus.."G[親密度增加1點]");
+                end
+
+--[[
                 if (data==1 and Char.HaveItem(player, 69011)<0) then
                     NLG.SystemMessage(player, v.palName.."：你沒有這個樹果。");
                     return;
@@ -179,6 +241,7 @@ function Module:onLoad()
                         NLG.SystemMessage(player, v.palName.."：謝謝你的樹果，親密度增加1點");
                     end
                 end
+]]
               end
              end
 
@@ -188,15 +251,29 @@ function Module:onLoad()
                  return;
              end
              if (NLG.CanTalk(npc, player) == true) then
+                 local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
+                  local EliteCheck_raw = string.split(EliteCheck,",");
+                  if (EliteCheck=="0" or #EliteCheck_raw < #PokeTrainer) then
+                    local Trainer_string = "";
+                    for i=1,#PokeTrainer do
+                      if (i==#PokeTrainer) then
+                        Trainer_string = Trainer_string .. "32|0|1";
+                      else
+                        Trainer_string = Trainer_string .. "32|0|1,";
+                      end
+                    end
+                    Field.Set(player, 'EliteBattle', Trainer_string);
+                    NLG.UpChar(player);
+                  end
                   --查询资料
                   local EliteTrainer,EliteLvel = GetTrainerInfo(player);
                   local msg = "5\\n@c◇ 親密度：".. EliteLvel[k] .. " ◇\\n"
-                            .."\\n今天已經對戰過但可以給他樹果提升親密度"
+                            .."\\n每天可以送禮物提升親密度"
                             .."\\n　　————————————————————\\n\\n"
-                            .."[　選擇  桃桃果　]\\n"
-                            .."[　選擇  莓莓果　]\\n"
-                            .."[　選擇  利木果　]\\n"
-                            .."[　選擇  蘋野果　]\\n";
+                            .."[　選項(1)  打招呼(1)(2)每日共1次　]\\n"
+                            .."[　選項(2)  送禮物(1)(2)每日共1次　]\\n"
+                            .."[　選項(3)  聲望回禮(不限次數∞)　]\\n"
+                            .."[　選項(4)  魔幣回禮(不限次數∞)　]\\n";
                   NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, 13, 1, msg);	--CONST.按钮_是否+CONST.按钮_确定
 
              end
@@ -244,9 +321,9 @@ function PokeTrainer_LoopEvent(npc)
 															local Trainer_string = "";
 															for i=1,#PokeTrainer do
 																if (i==#PokeTrainer) then
-																	Trainer_string = Trainer_string .. "32|0";
+																	Trainer_string = Trainer_string .. "32|0|1";
 																else
-																	Trainer_string = Trainer_string .. "32|0,";
+																	Trainer_string = Trainer_string .. "32|0|1,";
 																end
 															end
 															Field.Set(p, 'EliteBattle', Trainer_string);
@@ -261,9 +338,9 @@ function PokeTrainer_LoopEvent(npc)
 													local Trainer_string = "";
 													for i=1,#PokeTrainer do
 														if (i==#PokeTrainer) then
-															Trainer_string = Trainer_string .. "32|0";
+															Trainer_string = Trainer_string .. "32|0|1";
 														else
-															Trainer_string = Trainer_string .. "32|0,";
+															Trainer_string = Trainer_string .. "32|0|1,";
 														end
 													end
 													Field.Set(player, 'EliteBattle', Trainer_string);
@@ -463,6 +540,7 @@ end
 function GetTrainerInfo(player)
 	local EliteTrainer={}
 	local EliteLvel={}
+	local EliteFlag={}
 	local EliteCheck = Field.Get(player, 'EliteBattle') or "0";
 	local EliteCheck_raw = string.split(EliteCheck,",");
 	--print(EliteCheck,#EliteCheck_raw)
@@ -474,14 +552,17 @@ function GetTrainerInfo(player)
 				table.insert(EliteTrainer,tonumber(t));
 			elseif (r==2) then
 				table.insert(EliteLvel,tonumber(t));
+			elseif (r==3) then
+				table.insert(EliteFlag,tonumber(t));
 			end
 		end
 	end
-	return EliteTrainer,EliteLvel
+	return EliteTrainer,EliteLvel,EliteFlag
 end
-function SetTrainerInfo(player,k,timeStamp,intimacy)
+function SetTrainerInfo(player,k,timeStamp,intimacy,flag)
 	local EliteTrainer={}
 	local EliteLvel={}
+	local EliteFlag={}
 	local EliteCheck = Field.Get(player, 'EliteBattle');
 	local EliteCheck_raw = string.split(EliteCheck,",");
 	for a,b in ipairs(EliteCheck_raw) do
@@ -511,6 +592,14 @@ function SetTrainerInfo(player,k,timeStamp,intimacy)
 				end
 			elseif (k~=a and r==2) then
 				table.insert(EliteLvel,tonumber(t));
+			elseif (k==a and r==3) then
+				if (tonumber(flag)>0)then
+					table.insert(EliteFlag,tonumber(flag));
+				else
+					table.insert(EliteFlag,tonumber(t));
+				end
+			elseif (k~=a and r==3) then
+				table.insert(EliteFlag,tonumber(t));
 			end
 		end
 	end
@@ -518,14 +607,46 @@ function SetTrainerInfo(player,k,timeStamp,intimacy)
 	local Trainer_string = "";
 	for i=1,#PokeTrainer do
 		if (i==#PokeTrainer) then
-			Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i];
+			Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i] .. "|" .. EliteFlag[i];
 		else
-			Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i] .. ",";
+			Trainer_string = Trainer_string .. EliteTrainer[i] .. "|" .. EliteLvel[i] .. "|" .. EliteFlag[i] .. ",";
 		end
 	end
 	--print(Trainer_string)
 	Field.Set(player, 'EliteBattle', Trainer_string);
 	NLG.UpChar(player);
+end
+
+function CheckAndGiveFriendReward(player,k,giftItem)
+	--local changed = false
+	-- 為了確保順序，這邊用 ipairs + 陣列
+	local levels = {20, 40, 60, 80, 100};
+
+	for key, lv in ipairs(levels) do
+		local EliteTrainer,EliteLvel,EliteFlag = GetTrainerInfo(player);
+		if EliteLvel[k] >= lv then
+			local bit = GetFriendRewardBit(lv);
+			--print(key,EliteLvel[k],lv,bit,EliteFlag[k])
+			if (bit > 0 and EliteFlag[k]==bit) then
+				local reward = giftItem[key];
+                Char.GiveItem(player, reward, 1);
+				--NLG.SystemMessage(player, "[系統]已領取對應獎勵！");
+
+				flag = 2^key;
+				--print(flag)
+				SetTrainerInfo(player,k,0,0,flag);
+			end
+		end
+	end
+end
+-- bit旗標
+function GetFriendRewardBit(lv)
+	if lv == 20  then return 1 end
+	if lv == 40  then return 2 end
+	if lv == 60  then return 4 end
+	if lv == 80  then return 8 end
+	if lv == 100 then return 16 end
+	return 0
 end
 
 function moveDir(X, Y, X1, Y1)
