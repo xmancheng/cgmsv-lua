@@ -1,112 +1,137 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('systemJob')
 
--- ³£”µ¶¨Áx
---------------------------------------------------
-local MAX_MENU_LEVEL = 2  -- îĞÍ ¡ú Âš˜I ¡ú ÙYÓ
-
--- Âš˜IëA¶Î¶¨Áx
+-- è·æ¥­éšæ®µå®šç¾©
 local JOB_STAGE = {
-    [0] = "ÒŠÁ•",
-    [1] = "ÕıÂš",
-    [2] = "ÍõŒm",
-    [3] = "Ÿ¹ ",
-    [4] = "´óŸ",
+    [0] = "è¦‹ç¿’",
+    [1] = "æ­£è·",
+    [2] = "ç‹å®®",
+    [3] = "å¸«ç¯„",
+    [4] = "å¤§å¸«",
 }
 
 local quest = {
-    [2] = "ĞÂÊÖÈÎ„Õ",
-    [93] = "ëA¼‰Ìá•N¢ñ˜ä¾«éLÀÏ",
-    [92] = "ëA¼‰Ìá•N¢òÉñ«FÊ·À×ÆÕÄá –",
-    [91] = "ëA¼‰Ìá•N¢óÔ{ÖäµÄÃÔŒm",
-    [90] = "ëA¼‰Ìá•N¢ôÊÄÑÔÖ®»¨",
+    [2] = "æ–°æ‰‹ä»»å‹™",
+    [93] = "éšç´šææ˜‡â… æ¨¹ç²¾é•·è€",
+    [92] = "éšç´šææ˜‡â…¡ç¥ç¸å²é›·æ™®å°¼çˆ¾",
+    [91] = "éšç´šææ˜‡â…¢è©›å’’çš„è¿·å®®",
+    [90] = "éšç´šææ˜‡â…£èª“è¨€ä¹‹èŠ±",
 }
 
--- Âš˜I˜ä£¨ÒÀ¡¸®”Ç°ëA¶Î¡¹›Q¶¨ï@Ê¾£©
+-- è·æ¥­æ¨¹ï¼ˆä¾ã€Œç•¶å‰éšæ®µã€æ±ºå®šé¡¯ç¤ºï¼‰
 --------------------------------------------------
 local JOB_Select = {
 -- ===============================
--- ÒŠÁ•£¨ß[Ãñ ¡ú ÒŠÁ•£©
+-- è¦‹ç¿’ï¼ˆéŠæ°‘ â†’ è¦‹ç¿’ï¼‰
 -- ===============================
-	{typeName = "½ü‘ğÏµ",jobs = {
-		{ id = 11, name = "„¦Ê¿", needLv = 1, endeventId = 2 },
-		{ id = 21, name = "‘ğ¸«ôYÊ¿", needLv = 1, endeventId = 2 },
-		{ id = 31, name = "òTÊ¿", needLv = 1, endeventId = 2 },
-		{ id = 51, name = "Ê¿±ø", needLv = 1, endeventId = 2 },
-		{ id = 151, name = "ÈÌÕß", needLv = 1, endeventId = 2 },} },
+	{typeName = "è¿‘æˆ°ç³»",jobs = {
+		{ id = 11, name = "åŠå£«", needLv = 1, endeventId = 2 },
+		{ id = 21, name = "æˆ°æ–§é¬¥å£«", needLv = 1, endeventId = 2 },
+		{ id = 31, name = "é¨å£«", needLv = 1, endeventId = 2 },
+		{ id = 51, name = "å£«å…µ", needLv = 1, endeventId = 2 },
+		{ id = 151, name = "å¿è€…", needLv = 1, endeventId = 2 },} },
 
-	{typeName = "ßh³ÌÏµ",jobs = {
-		{ id = 41, name = "¹­¼ıÊÖ", needLv = 1, endeventId = 2 },
-		{ id = 141, name = "¸ñôYÊ¿", needLv = 1, endeventId = 2 },
-		{ id = 121, name = "µÁÔô", needLv = 1, endeventId = 2 },
-		{ id = 161, name = "ÎèÕß", needLv = 1, endeventId = 2 },} },
-	{typeName = "·¨ĞgÏµ",jobs = {
-		{ id = 61, name = "‚÷½ÌÊ¿", needLv = 1, endeventId = 2 },
-		{ id = 71, name = "Ä§ĞgŸ", needLv = 1, endeventId = 2 },
-		{ id = 81, name = "ÖäĞgŸ", needLv = 1, endeventId = 2 },
-		{ id = 131, name = "Î×Ÿ", needLv = 1, endeventId = 2 },} },
-	{typeName = "Œ™ÎïÏµ",jobs = {
-		{ id = 91, name = "·âÓ¡Ÿ", needLv = 1, endeventId = 2 },
-		{ id = 101, name = "ï•ğBŸ", needLv = 1, endeventId = 2 },
-		{ id = 111, name = "ñZ«FŸ", needLv = 1, endeventId = 2 },} },
+	{typeName = "é ç¨‹ç³»",jobs = {
+		{ id = 41, name = "å¼“ç®­æ‰‹", needLv = 1, endeventId = 2 },
+		{ id = 141, name = "æ ¼é¬¥å£«", needLv = 1, endeventId = 2 },
+		{ id = 121, name = "ç›—è´¼", needLv = 1, endeventId = 2 },
+		{ id = 161, name = "èˆè€…", needLv = 1, endeventId = 2 },} },
+	{typeName = "æ³•è¡“ç³»",jobs = {
+		{ id = 61, name = "å‚³æ•™å£«", needLv = 1, endeventId = 2 },
+		{ id = 71, name = "é­”è¡“å¸«", needLv = 1, endeventId = 2 },
+		{ id = 81, name = "å’’è¡“å¸«", needLv = 1, endeventId = 2 },
+		{ id = 131, name = "å·«å¸«", needLv = 1, endeventId = 2 },} },
+	{typeName = "å¯µç‰©ç³»",jobs = {
+		{ id = 91, name = "å°å°å¸«", needLv = 1, endeventId = 2 },
+		{ id = 101, name = "é£¼é¤Šå¸«", needLv = 1, endeventId = 2 },
+		{ id = 111, name = "é¦´ç¸å¸«", needLv = 1, endeventId = 2 },} },
 }
 
 local JOB_Tree = {
 [10] = {  --jobs
-	{ jobsId = 12, className = "„¦Ê¿CëA", name = "„¦Ê¿", needLv = 30, endeventId = 93 },-- ÕıÂš£¨ÒŠÁ• ¡ú ÕıÂš£©
-	{ jobsId = 13, className = "„¦Ê¿BëA", name = "ÍõŒm„¦Ê¿", needLv = 50, endeventId = 92 },-- ÍõŒm£¨ÕıÂš ¡ú ÍõŒm£©
-	{ jobsId = 14, className = "„¦Ê¿AëA", name = "„¦ĞgŸ¹ ", needLv = 70, endeventId = 91 },-- Ÿ¹ £¨ÍõŒm ¡ú Ÿ¹ £©
-	{ jobsId = 15, className = "„¦Ê¿SëA", name = "„¦Ğg´óŸ", needLv = 90, endeventId = 90 },-- ´óŸ£¨Ÿ¹  ¡ú ´óŸ£©
+	{ jobsId = 12, className = "åŠå£«Céš", name = "åŠå£«", needLv = 30, endeventId = 93 },-- æ­£è·ï¼ˆè¦‹ç¿’ â†’ æ­£è·ï¼‰
+	{ jobsId = 13, className = "åŠå£«Béš", name = "ç‹å®®åŠå£«", needLv = 50, endeventId = 92 },-- ç‹å®®ï¼ˆæ­£è· â†’ ç‹å®®ï¼‰
+	{ jobsId = 14, className = "åŠå£«Aéš", name = "åŠè¡“å¸«ç¯„", needLv = 70, endeventId = 91 },-- å¸«ç¯„ï¼ˆç‹å®® â†’ å¸«ç¯„ï¼‰
+	{ jobsId = 15, className = "åŠå£«Séš", name = "åŠè¡“å¤§å¸«", needLv = 90, endeventId = 90 },-- å¤§å¸«ï¼ˆå¸«ç¯„ â†’ å¤§å¸«ï¼‰
 },
 [20] = {
-	{ jobsId = 22, className = "‘ğ¸«ôYÊ¿CëA", name = "‘ğ¸«ôYÊ¿", needLv = 30, endeventId = 93 },-- ÕıÂš£¨ÒŠÁ• ¡ú ÕıÂš£©
-	{ jobsId = 23, className = "‘ğ¸«ôYÊ¿BëA", name = "ÍõŒm‘ğ¸«ôYÊ¿", needLv = 50, endeventId = 92 },-- ÍõŒm£¨ÕıÂš ¡ú ÍõŒm£©
-	{ jobsId = 24, className = "‘ğ¸«ôYÊ¿AëA", name = "‘ğ¸«Ÿ¹ ", needLv = 70, endeventId = 91 },-- Ÿ¹ £¨ÍõŒm ¡ú Ÿ¹ £©
-	{ jobsId = 25, className = "‘ğ¸«ôYÊ¿SëA", name = "‘ğ¸«´óŸ", needLv = 90, endeventId = 90 },-- ´óŸ£¨Ÿ¹  ¡ú ´óŸ£©
+	{ jobsId = 22, className = "æˆ°æ–§é¬¥å£«Céš", name = "æˆ°æ–§é¬¥å£«", needLv = 30, endeventId = 93 },-- æ­£è·ï¼ˆè¦‹ç¿’ â†’ æ­£è·ï¼‰
+	{ jobsId = 23, className = "æˆ°æ–§é¬¥å£«Béš", name = "ç‹å®®æˆ°æ–§é¬¥å£«", needLv = 50, endeventId = 92 },-- ç‹å®®ï¼ˆæ­£è· â†’ ç‹å®®ï¼‰
+	{ jobsId = 24, className = "æˆ°æ–§é¬¥å£«Aéš", name = "æˆ°æ–§å¸«ç¯„", needLv = 70, endeventId = 91 },-- å¸«ç¯„ï¼ˆç‹å®® â†’ å¸«ç¯„ï¼‰
+	{ jobsId = 25, className = "æˆ°æ–§é¬¥å£«Séš", name = "æˆ°æ–§å¤§å¸«", needLv = 90, endeventId = 90 },-- å¤§å¸«ï¼ˆå¸«ç¯„ â†’ å¤§å¸«ï¼‰
 },
 [30] = {
-	{ jobsId = 32, className = "òTÊ¿CëA", name = "òTÊ¿", needLv = 30, endeventId = 93 },-- ÕıÂš£¨ÒŠÁ• ¡ú ÕıÂš£©
-	{ jobsId = 33, className = "òTÊ¿BëA", name = "ÍõŒmòTÊ¿", needLv = 50, endeventId = 92 },-- ÍõŒm£¨ÕıÂš ¡ú ÍõŒm£©
-	{ jobsId = 34, className = "òTÊ¿AëA", name = "½üĞlòTÊ¿", needLv = 70, endeventId = 91 },-- Ÿ¹ £¨ÍõŒm ¡ú Ÿ¹ £©
-	{ jobsId = 35, className = "òTÊ¿SëA", name = "èFÑªòTÊ¿", needLv = 90, endeventId = 90 },-- ´óŸ£¨Ÿ¹  ¡ú ´óŸ£©
+	{ jobsId = 32, className = "é¨å£«Céš", name = "é¨å£«", needLv = 30, endeventId = 93 },-- æ­£è·ï¼ˆè¦‹ç¿’ â†’ æ­£è·ï¼‰
+	{ jobsId = 33, className = "é¨å£«Béš", name = "ç‹å®®é¨å£«", needLv = 50, endeventId = 92 },-- ç‹å®®ï¼ˆæ­£è· â†’ ç‹å®®ï¼‰
+	{ jobsId = 34, className = "é¨å£«Aéš", name = "è¿‘è¡›é¨å£«", needLv = 70, endeventId = 91 },-- å¸«ç¯„ï¼ˆç‹å®® â†’ å¸«ç¯„ï¼‰
+	{ jobsId = 35, className = "é¨å£«Séš", name = "éµè¡€é¨å£«", needLv = 90, endeventId = 90 },-- å¤§å¸«ï¼ˆå¸«ç¯„ â†’ å¤§å¸«ï¼‰
 },
 [40] = {
-	{ jobsId = 42, className = "¹­¼ıÊÖCëA", name = "¹­¼ıÊÖ", needLv = 30, endeventId = 93 },-- ÕıÂš£¨ÒŠÁ• ¡ú ÕıÂš£©
-	{ jobsId = 43, className = "¹­¼ıÊÖBëA", name = "ÍõŒm¹­¼ıÊÖ", needLv = 50, endeventId = 92 },-- ÍõŒm£¨ÕıÂš ¡ú ÍõŒm£©
-	{ jobsId = 44, className = "¹­¼ıÊÖAëA", name = "¹­ĞgŸ¹ ", needLv = 70, endeventId = 91 },-- Ÿ¹ £¨ÍõŒm ¡ú Ÿ¹ £©
-	{ jobsId = 45, className = "¹­¼ıÊÖSëA", name = "ß[‚b", needLv = 90, endeventId = 90 },-- ´óŸ£¨Ÿ¹  ¡ú ´óŸ£©
+	{ jobsId = 42, className = "å¼“ç®­æ‰‹Céš", name = "å¼“ç®­æ‰‹", needLv = 30, endeventId = 93 },-- æ­£è·ï¼ˆè¦‹ç¿’ â†’ æ­£è·ï¼‰
+	{ jobsId = 43, className = "å¼“ç®­æ‰‹Béš", name = "ç‹å®®å¼“ç®­æ‰‹", needLv = 50, endeventId = 92 },-- ç‹å®®ï¼ˆæ­£è· â†’ ç‹å®®ï¼‰
+	{ jobsId = 44, className = "å¼“ç®­æ‰‹Aéš", name = "å¼“è¡“å¸«ç¯„", needLv = 70, endeventId = 91 },-- å¸«ç¯„ï¼ˆç‹å®® â†’ å¸«ç¯„ï¼‰
+	{ jobsId = 45, className = "å¼“ç®­æ‰‹Séš", name = "éŠä¿ ", needLv = 90, endeventId = 90 },-- å¤§å¸«ï¼ˆå¸«ç¯„ â†’ å¤§å¸«ï¼‰
 },
 [50] = {
-	{ jobsId = 52, className = "Ê¿±øCëA", name = "Ê¿±ø", needLv = 30, endeventId = 93 },-- ÕıÂš£¨ÒŠÁ• ¡ú ÕıÂš£©
-	{ jobsId = 53, className = "Ê¿±øBëA", name = "ÍõŒmÊ¿±ø", needLv = 50, endeventId = 92 },-- ÍõŒm£¨ÕıÂš ¡ú ÍõŒm£©
-	{ jobsId = 54, className = "Ê¿±øAëA", name = "Ê¿±øéL", needLv = 70, endeventId = 91 },-- Ÿ¹ £¨ÍõŒm ¡ú Ÿ¹ £©
-	{ jobsId = 55, className = "Ê¿±øSëA", name = "ÖØ‘ğÊ¿", needLv = 90, endeventId = 90 },-- ´óŸ£¨Ÿ¹  ¡ú ´óŸ£©
+	{ jobsId = 52, className = "å£«å…µCéš", name = "å£«å…µ", needLv = 30, endeventId = 93 },-- æ­£è·ï¼ˆè¦‹ç¿’ â†’ æ­£è·ï¼‰
+	{ jobsId = 53, className = "å£«å…µBéš", name = "ç‹å®®å£«å…µ", needLv = 50, endeventId = 92 },-- ç‹å®®ï¼ˆæ­£è· â†’ ç‹å®®ï¼‰
+	{ jobsId = 54, className = "å£«å…µAéš", name = "å£«å…µé•·", needLv = 70, endeventId = 91 },-- å¸«ç¯„ï¼ˆç‹å®® â†’ å¸«ç¯„ï¼‰
+	{ jobsId = 55, className = "å£«å…µSéš", name = "é‡æˆ°å£«", needLv = 90, endeventId = 90 },-- å¤§å¸«ï¼ˆå¸«ç¯„ â†’ å¤§å¸«ï¼‰
 },
 [60] = {
-	{ jobsId = 62, className = "‚÷½ÌÊ¿CëA", name = "‚÷½ÌÊ¿", needLv = 30, endeventId = 93 },-- ÕıÂš£¨ÒŠÁ• ¡ú ÕıÂš£©
-	{ jobsId = 63, className = "‚÷½ÌÊ¿BëA", name = "ÄÁŸ", needLv = 50, endeventId = 92 },-- ÍõŒm£¨ÕıÂš ¡ú ÍõŒm£©
-	{ jobsId = 64, className = "‚÷½ÌÊ¿AëA", name = "Ö÷½Ì", needLv = 70, endeventId = 91 },-- Ÿ¹ £¨ÍõŒm ¡ú Ÿ¹ £©
-	{ jobsId = 65, className = "‚÷½ÌÊ¿SëA", name = "´óÖ÷½Ì", needLv = 90, endeventId = 90 },-- ´óŸ£¨Ÿ¹  ¡ú ´óŸ£©
+	{ jobsId = 62, className = "å‚³æ•™å£«Céš", name = "å‚³æ•™å£«", needLv = 30, endeventId = 93 },-- æ­£è·ï¼ˆè¦‹ç¿’ â†’ æ­£è·ï¼‰
+	{ jobsId = 63, className = "å‚³æ•™å£«Béš", name = "ç‰§å¸«", needLv = 50, endeventId = 92 },-- ç‹å®®ï¼ˆæ­£è· â†’ ç‹å®®ï¼‰
+	{ jobsId = 64, className = "å‚³æ•™å£«Aéš", name = "ä¸»æ•™", needLv = 70, endeventId = 91 },-- å¸«ç¯„ï¼ˆç‹å®® â†’ å¸«ç¯„ï¼‰
+	{ jobsId = 65, className = "å‚³æ•™å£«Séš", name = "å¤§ä¸»æ•™", needLv = 90, endeventId = 90 },-- å¤§å¸«ï¼ˆå¸«ç¯„ â†’ å¤§å¸«ï¼‰
 },
 
 
 }
 -------------------------------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
 	self:logInfo('load');
-	self:NPC_CreateCo('Ïµ½yÌáÊ¾ŞDÂš', 14063, { x = 242, y = 74, mapType = 0, map = 1000, direction = 4 },Func.bind(self.onTalk,self))
+	self:regCallback('TalkEvent', Func.bind(self.handleTalkEvent, self))
+	self:regCallback('LoginGateEvent', Func.bind(self.onLoginGateEventCallBack,self))
+	self.systemNPC = self:NPC_CreateCo('ç³»çµ±æç¤ºè½‰è·', 14063, { x = 242, y = 74, mapType = 0, map = 1000, direction = 4 },Func.bind(self.onTalk,self))
 
 end
 
+function Module:handleTalkEvent(player,msg,color,range,size)
+	if (msg=="/sys") then
+		self.systemNPC:onTalk(self.systemNPC.npc,player);
+		return 0;
+	end
+	return 1;
+end
+
+function Module:onLoginGateEventCallBack(player)
+	local playerJobs = Char.GetData(player,CONST.å¯¹è±¡_èŒç±»ID);
+	local playerStage = Char.GetData(player,CONST.å¯¹è±¡_èŒé˜¶);
+	print(playerJobs)
+	if (playerJobs==0) then		--éŠæ°‘
+		self.systemNPC:onTalk(self.systemNPC.npc,player);
+	else
+		if (playerStage==0 and Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§)>=30) then
+			self.systemNPC:onTalk(self.systemNPC.npc,player);
+		elseif (playerStage==1 and Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§)>=50) then
+			self.systemNPC:onTalk(self.systemNPC.npc,player);
+		elseif (playerStage==2 and Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§)>=70) then
+			self.systemNPC:onTalk(self.systemNPC.npc,player);
+		elseif (playerStage==3 and Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§)>=90) then
+			self.systemNPC:onTalk(self.systemNPC.npc,player);
+		end
+	end
+	return 0
+end
 
 function Module:onTalk(co, npc, player, msg, color, size)
 	local page = 1
 	local level = 1
 	local selectPath = {}
-	--local npc, player, _seqno, _select, _data = co:next(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 0, "" )
+	--local npc, player, _seqno, _select, _data = co:next(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 0, "" )
 
-	-- ½¨Á¢ï@Ê¾ÓÃÇå†Î
+	-- å»ºç«‹é¡¯ç¤ºç”¨æ¸…å–®
 	local function buildList(data, page)
 		local list = {}
 		for i = 1, 5 do
@@ -118,39 +143,39 @@ function Module:onTalk(co, npc, player, msg, color, size)
 		return list
 	end
 
-	-- Íæ¼ÒÄ¿Ç°ŞDÂšëA¶Î£¨Äã¿É¸Ä³ÉÓÃ×ƒ”µ»ò flag£©
-	local playerStage = Char.GetData(player,CONST.¶ÔÏó_Ö°½×);
+	-- ç©å®¶ç›®å‰è½‰è·éšæ®µï¼ˆä½ å¯æ”¹æˆç”¨è®Šæ•¸æˆ– flagï¼‰
+	local playerStage = Char.GetData(player,CONST.å¯¹è±¡_èŒé˜¶);
 	--print(playerStage)
 	if playerStage==4 then
 		local msg =
-			"\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿" ..
+			"\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘" ..
 			"\\n\\n" ..
-			"\\n$4ÄãÒÑß_µ½Âš˜I×î½KëA¶Î\\n";
-		npc, player, _seqno, _select, _data = co:next(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_¹Ø±Õ, 0, msg)
+			"\\n$4å·²é”åˆ°è·æ¥­æœ€çµ‚éšæ®µ\\n";
+		npc, player, _seqno, _select, _data = co:next(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 0, msg)
 		return false
 	end
 
 	repeat
-		local windowType = CONST.´°¿Ú_Ñ¡Ôñ¿ò;
+		local windowType = CONST.çª—å£_é€‰æ‹©æ¡†;
 		local msg = "";
 		local listData = {}
-		local playerJobs = Char.GetData(player,CONST.¶ÔÏó_Ö°ÀàID);
-		local playerStage = Char.GetData(player,CONST.¶ÔÏó_Ö°½×);
-		local playerJobId = Char.GetData(player,CONST.¶ÔÏó_Ö°Òµ);
+		local playerJobs = Char.GetData(player,CONST.å¯¹è±¡_èŒç±»ID);
+		local playerStage = Char.GetData(player,CONST.å¯¹è±¡_èŒé˜¶);
+		local playerJobId = Char.GetData(player,CONST.å¯¹è±¡_èŒä¸š);
 		--print(playerJobs,playerStage,playerJobId)
 		local tree = JOB_Tree[playerJobs];
 		--------------------------------------------------
-		-- µÚÒ»ŒÓ£ºÂš˜IîĞÍ(ß[Ãñ)£¬Âš˜IëA¼‰(·Çß[Ãñ)
+		-- ç¬¬ä¸€å±¤ï¼šè·æ¥­é¡å‹(éŠæ°‘)ï¼Œè·æ¥­éšç´š(ééŠæ°‘)
 		--------------------------------------------------
 		if level == 1 then
-			windowType = CONST.´°¿Ú_Ñ¡Ôñ¿ò;
-			if (playerJobs==0) then		--ß[Ãñ then
+			windowType = CONST.çª—å£_é€‰æ‹©æ¡†;
+			if (playerJobs==0) then		--éŠæ°‘
 				if (Char.EndEvent(player,2) == 0) then
 					Char.EndEvent(player,2,1);
 				end
 				msg =
-					"4\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿" ..
-					"\\n\\n¡ª¡ª¡ª¡ª¡ª¡ªÕˆßx“ñÂš˜IîĞÍ¡ª¡ª¡ª¡ª¡ª¡ª\\n"
+					"4\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘" ..
+					"\\n\\nâ€”â€”â€”â€”â€”â€”è«‹é¸æ“‡è·æ¥­é¡å‹â€”â€”â€”â€”â€”â€”\\n"
 				for _, v in pairs(JOB_Select) do
 					table.insert(listData, v.typeName);
 				end
@@ -158,10 +183,10 @@ function Module:onTalk(co, npc, player, msg, color, size)
 				for i=1,#list do
 					msg = msg..list[i].."\\n"
 				end
-			elseif (playerJobs~=0 and playerStage>=0) then		--ÒŠÁ•
+			elseif (playerJobs~=0 and playerStage>=0) then		--è¦‹ç¿’
 				msg =
-					"4\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿" ..
-					"\\n\\n¡ª¡ª¡ª¡ª¡ª¡ª²é¿´ÉıëAµÄ—l¼ş¡ª¡ª¡ª¡ª¡ª¡ª\\n"
+					"4\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘" ..
+					"\\n\\nâ€”â€”â€”â€”â€”â€”æŸ¥çœ‹å‡éšçš„æ¢ä»¶â€”â€”â€”â€”â€”â€”\\n"
 				for k, v in pairs(tree) do
 					table.insert(listData, v.className);
 				end
@@ -171,14 +196,14 @@ function Module:onTalk(co, npc, player, msg, color, size)
 				end
 			end
 		--------------------------------------------------
-		-- µÚ¶şŒÓ£ºÂš˜I(ß[Ãñ)£¬ÙYÓï@Ê¾ + ´_ÕJ(·Çß[Ãñ)
+		-- ç¬¬äºŒå±¤ï¼šè·æ¥­(éŠæ°‘)ï¼Œè³‡è¨Šé¡¯ç¤º + ç¢ºèª(ééŠæ°‘)
 		--------------------------------------------------
 		elseif level == 2 then
-			windowType = CONST.´°¿Ú_Ñ¡Ôñ¿ò;
-			if (playerJobs==0) then		--ß[Ãñ
+			windowType = CONST.çª—å£_é€‰æ‹©æ¡†;
+			if (playerJobs==0) then		--éŠæ°‘
 				msg =
-					"4\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿" ..
-					"\\n\\n¡ª¡ª¡ª¡ª¡ª¡ªßx“ñÒªŞDÂšµÄÂš˜I¡ª¡ª¡ª¡ª¡ª¡ª\\n"
+					"4\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘" ..
+					"\\n\\nâ€”â€”â€”â€”â€”â€”é¸æ“‡è½‰è·çš„è·æ¥­â€”â€”â€”â€”â€”â€”\\n"
 				local group = JOB_Select[selectPath[1]]
 				for _, job in pairs(group.jobs) do
 					table.insert(listData, job.name);
@@ -187,59 +212,59 @@ function Module:onTalk(co, npc, player, msg, color, size)
 				for i=1,#list do
 					msg = msg..list[i].."\\n"
 				end
-			elseif (playerJobs~=0 and playerStage>=0) then		--ÒÑ¾ÍÂšß^
-				windowType = CONST.´°¿Ú_ĞÅÏ¢¿ò;
+			elseif (playerJobs~=0 and playerStage>=0) then		--å·²å°±è·é
+				windowType = CONST.çª—å£_ä¿¡æ¯æ¡†;
 				winMsg =
-					"\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿" ..
+					"\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘" ..
 					"\\n\\n"
 				local job = tree[selectPath[1]]
 				local ok, reason = checkJobCondition(player, job)
 				msg =
-					"ŞDÂšëA¶Î£º$1" .. JOB_STAGE[selectPath[1]] .. "\\n" ..
-					"Âš˜I£º$1" .. job.className .. "\\n" ..
-					"ĞèÇóµÈ¼‰£º$1" .. job.needLv .. "\\n" ..
-					"ĞèÇóÈÎ„Õ£º$1" .. (quest[job.endeventId] or "Ÿo") .. "\\n\\n" ..
-					"ÅĞ¶¨£º" .. reason .. "\\n\\n" ..
-					(ok and "$5üc“ô¡¾´_¶¨¡¿ßMĞĞŞDÂš" or "$7ÉĞÎ´ß_³ÉËùÓĞŞDÂš—l¼ş")
+					"ææ˜‡éšæ®µï¼š$1" .. JOB_STAGE[selectPath[1]] .. "\\n" ..
+					"è·æ¥­ï¼š$1" .. job.className .. "\\n" ..
+					"éœ€æ±‚ç­‰ç´šï¼š$1" .. job.needLv .. "\\n" ..
+					"éœ€æ±‚ä»»å‹™ï¼š$1" .. (quest[job.endeventId] or "ç„¡") .. "\\n\\n" ..
+					"åˆ¤å®šï¼š" .. reason .. "\\n\\n" ..
+					(ok and "$5é»æ“Šã€ç¢ºå®šã€‘é€²è¡Œææ˜‡" or "$7å°šæœªé”æˆæ‰€æœ‰ææ˜‡æ¢ä»¶")
 			end
 		--------------------------------------------------
-		-- µÚÈıŒÓ£ºÙYÓï@Ê¾ + ´_ÕJ(ß[Ãñ)
+		-- ç¬¬ä¸‰å±¤ï¼šè³‡è¨Šé¡¯ç¤º + ç¢ºèª(éŠæ°‘)
 		--------------------------------------------------
 		else
-			windowType = CONST.´°¿Ú_ĞÅÏ¢¿ò;
+			windowType = CONST.çª—å£_ä¿¡æ¯æ¡†;
 			winMsg =
-				"\\n\\n@c¡¾Ïµ½yÍ¨Öª¡¿" ..
+				"\\n\\n@cã€ç³»çµ±é€šçŸ¥ã€‘" ..
 				"\\n"
-			if (playerJobs==0) then		--ß[Ãñ
+			if (playerJobs==0) then		--éŠæ°‘
 				local job = JOB_Select[selectPath[1]].jobs[selectPath[2]]
 				local ok, reason = checkJobCondition(player, job)
 				msg =
-					"ŞDÂšëA¶Î£º$1ÒŠÁ•\\n" ..
-					"Âš˜I£º$1" .. job.name .. "\\n" ..
-					"ĞèÇóµÈ¼‰£º$1" .. job.needLv .. "\\n" ..
-					"ĞèÇóÈÎ„Õ£º$1" .. (quest[job.endeventId] or "Ÿo") .. "\\n\\n" ..
-					"ÅĞ¶¨£º" .. reason .. "\\n\\n" ..
-					(ok and "$5üc“ô¡¾´_¶¨¡¿ßMĞĞŞDÂš" or "$7ÉĞÎ´ß_³ÉËùÓĞŞDÂš—l¼ş")
+					"è½‰è·éšæ®µï¼š$1è¦‹ç¿’\\n" ..
+					"è·æ¥­ï¼š$1" .. job.name .. "\\n" ..
+					"éœ€æ±‚ç­‰ç´šï¼š$1" .. job.needLv .. "\\n" ..
+					"éœ€æ±‚ä»»å‹™ï¼š$1" .. (quest[job.endeventId] or "ç„¡") .. "\\n\\n" ..
+					"åˆ¤å®šï¼š" .. reason .. "\\n\\n" ..
+					(ok and "$5é»æ“Šã€ç¢ºå®šã€‘é€²è¡Œè½‰è·" or "$7å°šæœªé”æˆæ‰€æœ‰è½‰è·æ¢ä»¶")
 			end
 		end
 		--------------------------------------------------
-        -- °´âoß‰İ‹
+        -- æŒ‰éˆ•é‚è¼¯
         --------------------------------------------------
 		if level == 1 then
-			buttons = CONST.°´Å¥_¹Ø±Õ;
+			buttons = CONST.æŒ‰é’®_å…³é—­;
 		elseif level == 2 and playerJobs==0 then
-			buttons = CONST.°´Å¥_ÉÏÈ¡Ïû;
+			buttons = CONST.æŒ‰é’®_ä¸Šå–æ¶ˆ;
 		elseif level == 2 and playerJobs~=0 then
-			buttons = CONST.°´Å¥_È·¶¨¹Ø±Õ;
+			buttons = CONST.æŒ‰é’®_ç¡®å®šå…³é—­;
 		elseif level == 3 and playerJobs==0 then
-			buttons = CONST.°´Å¥_È·¶¨+CONST.°´Å¥_ÉÏÈ¡Ïû;
+			buttons = CONST.æŒ‰é’®_ç¡®å®š+CONST.æŒ‰é’®_ä¸Šå–æ¶ˆ;
 		end
 
 		npc, player, _seqno, _select, _data = co:next(player, npc, windowType, buttons, 0, msg);
 		_select = tonumber(_select)
 		_data = tonumber(_data)
         --------------------------------------------------
-        -- °´âoÌÀí
+        -- æŒ‰éˆ•è™•ç†
         --------------------------------------------------
 		if _select == 2 then
 			return false
@@ -247,37 +272,37 @@ function Module:onTalk(co, npc, player, msg, color, size)
 			level = level - 1;
 			page = 1;
 		elseif _select == 1 and level == 3 then
-			-- ´_ÕJ¾ÍÂš
-			if (playerJobs==0) then		--ß[Ãñ
+			-- ç¢ºèªå°±è·
+			if (playerJobs==0) then		--éŠæ°‘
 				local job = JOB_Select[selectPath[1]].jobs[selectPath[2]];
 				local ok = checkJobCondition(player, job);
 				if ok then
-					Char.SetData(player,CONST.¶ÔÏó_Ö°ÀàID,job.id-1);
-					Char.SetData(player,CONST.¶ÔÏó_Ö°½×,0);
-					Char.SetData(player,CONST.¶ÔÏó_Ö°Òµ,job.id);
-					NLG.SystemMessage(player,"[Ïµ½y]³É¹¦Íê³É¾ÍÂš£¡");
+					Char.SetData(player,CONST.å¯¹è±¡_èŒç±»ID,job.id-1);
+					Char.SetData(player,CONST.å¯¹è±¡_èŒé˜¶,0);
+					Char.SetData(player,CONST.å¯¹è±¡_èŒä¸š,job.id);
+					NLG.SystemMessage(player,"[ç³»çµ±]æˆåŠŸå®Œæˆå°±è·ï¼");
 					NLG.UpChar(player);
 				else
-					NLG.SystemMessage(player,"[Ïµ½y]ÉĞÎ´Íê³ÉÈÎ„Õ£¡");
+					NLG.SystemMessage(player,"[ç³»çµ±]å°šæœªå®Œæˆä»»å‹™ï¼");
 					return false
 				end
 			end
 			return false
 		elseif _select == 1 and level == 2 then
-			if (playerJobs~=0 and playerStage>=0) then		--ÒÑ¾ÍÂšß^
+			if (playerJobs~=0 and playerStage>=0) then		--å·²å°±è·é
 				local job = tree[selectPath[1]];
 				local ok = checkJobCondition(player, job);
 				if (playerJobId>=job.jobsId) then
-					NLG.SystemMessage(player,"[Ïµ½y]ÒÑ½›Íê³É´ËëA¶ÎÈÎ„Õ£¡");
+					NLG.SystemMessage(player,"[ç³»çµ±]å·²ç¶“å®Œæˆæ­¤éšæ®µä»»å‹™ï¼");
 					return false
 				end
 				if ok then
-					Char.SetData(player,CONST.¶ÔÏó_Ö°½×,playerStage+1);
-					Char.SetData(player,CONST.¶ÔÏó_Ö°Òµ,job.jobsId);
-					NLG.SystemMessage(player,"[Ïµ½y]³É¹¦Íê³ÉßMëA£¡");
+					Char.SetData(player,CONST.å¯¹è±¡_èŒé˜¶,playerStage+1);
+					Char.SetData(player,CONST.å¯¹è±¡_èŒä¸š,job.jobsId);
+					NLG.SystemMessage(player,"[ç³»çµ±]æˆåŠŸå®Œæˆé€²éšï¼");
 					NLG.UpChar(player);
 				else
-					NLG.SystemMessage(player,"[Ïµ½y]ÉĞÎ´ß_³ÉËùÓĞ—l¼ş£¡");
+					NLG.SystemMessage(player,"[ç³»çµ±]å°šæœªé”æˆæ‰€æœ‰æ¢ä»¶ï¼");
 					return false
 				end
 			end
@@ -290,20 +315,20 @@ function Module:onTalk(co, npc, player, msg, color, size)
     until false
 end
 
--- ŞDÂš—l¼şÅĞ”à
+-- è½‰è·æ¢ä»¶åˆ¤æ–·
 function checkJobCondition(player, job)
-    if Char.GetData(player,CONST.¶ÔÏó_µÈ¼¶) < job.needLv then
-        return false, "$8µÈ¼‰²»×ã£¨ĞèÒª Lv." .. job.needLv .. "£©"
+    if Char.GetData(player,CONST.å¯¹è±¡_ç­‰çº§) < job.needLv then
+        return false, "$8ç­‰ç´šä¸è¶³ï¼ˆéœ€è¦ Lv." .. job.needLv .. "ï¼‰"
     end
 
     if Char.EndEvent(player,job.endeventId) == 0 then
-        return false, "$9ÉĞÎ´Íê³ÉÈÎ„Õ"
+        return false, "$9å°šæœªå®Œæˆä»»å‹™"
     end
 
-    return true, "$4Íê³ÉÈÎ„Õ·ûºÏ—l¼ş"
+    return true, "$4å®Œæˆä»»å‹™ç¬¦åˆæ¢ä»¶"
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
