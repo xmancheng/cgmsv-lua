@@ -84,7 +84,66 @@ local JOB_Tree = {
 	{ jobsId = 64, className = "傳教士A階", name = "主教", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
 	{ jobsId = 65, className = "傳教士S階", name = "大主教", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
 },
-
+[70] = {
+	{ jobsId = 72, className = "魔術師C階", name = "魔術師", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 73, className = "魔術師B階", name = "王宮魔法師", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 74, className = "魔術師A階", name = "魔導士", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 75, className = "魔術師S階", name = "大魔導師", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[80] = {
+	{ jobsId = 82, className = "咒術師C階", name = "咒術師", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 83, className = "咒術師B階", name = "王宮咒術師", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 84, className = "咒術師A階", name = "降頭師", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 85, className = "咒術師S階", name = "咒術大師", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[90] = {
+	{ jobsId = 92, className = "封印師C階", name = "封印師", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 93, className = "封印師B階", name = "王宮封印師", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 94, className = "封印師A階", name = "封印術師範", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 95, className = "封印師S階", name = "封印大師", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[100] = {
+	{ jobsId = 102, className = "飼養師C階", name = "飼養師", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 103, className = "飼養師B階", name = "王宮飼養師", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 104, className = "飼養師A階", name = "高級飼養師", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 105, className = "飼養師S階", name = "飼養大師", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[110] = {
+	{ jobsId = 112, className = "馴獸師C階", name = "馴獸師", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 113, className = "馴獸師B階", name = "王宮馴獸師", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 114, className = "馴獸師A階", name = "馴獸師範", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 115, className = "馴獸師S階", name = "馴獸大師", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[120] = {
+	{ jobsId = 122, className = "盗贼C階", name = "盗贼", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 123, className = "盗贼B階", name = "小偷", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 124, className = "盗贼A階", name = "詐欺師", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 125, className = "盗贼S階", name = "神偷", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[130] = {
+	{ jobsId = 132, className = "巫師C階", name = "巫師", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 133, className = "巫師B階", name = "王宮巫師", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 134, className = "巫師A階", name = "巫術大師", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 135, className = "巫師S階", name = "巫王", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[140] = {
+	{ jobsId = 142, className = "格鬥士C階", name = "格鬥士", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 143, className = "格鬥士B階", name = "格鬥專家", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 144, className = "格鬥士A階", name = "格鬥家師範", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 145, className = "格鬥士S階", name = "格鬥王", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[150] = {
+	{ jobsId = 152, className = "忍者C階", name = "中級忍者", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 153, className = "忍者B階", name = "上級忍者", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 154, className = "忍者A階", name = "影", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 155, className = "忍者S階", name = "陰", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
+[160] = {
+	{ jobsId = 162, className = "舞者C階", name = "串場藝人", needLv = 30, endeventId = 93 },-- 正職（見習 → 正職）
+	{ jobsId = 163, className = "舞者B階", name = "舞者", needLv = 50, endeventId = 92 },-- 王宮（正職 → 王宮）
+	{ jobsId = 164, className = "舞者A階", name = "超級巨星", needLv = 70, endeventId = 91 },-- 師範（王宮 → 師範）
+	{ jobsId = 165, className = "舞者S階", name = "國際巨星", needLv = 90, endeventId = 90 },-- 大師（師範 → 大師）
+},
 
 }
 -------------------------------------------------------------------------
@@ -108,7 +167,6 @@ end
 function Module:onLoginGateEventCallBack(player)
 	local playerJobs = Char.GetData(player,CONST.对象_职类ID);
 	local playerStage = Char.GetData(player,CONST.对象_职阶);
-	print(playerJobs)
 	if (playerJobs==0) then		--遊民
 		self.systemNPC:onTalk(self.systemNPC.npc,player);
 	else
