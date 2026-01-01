@@ -243,7 +243,7 @@ function Module:onTalk(co, npc, player, msg, color, size)
 		--------------------------------------------------
 		if level == 1 then
 			windowType = CONST.窗口_选择框;
-			if (playerJobs==0) then		--遊民
+			if (playerJobs==0 or playerJobs==-1) then		--遊民
 				if (Char.EndEvent(player,2) == 0) then
 					Char.EndEvent(player,2,1);
 				end
@@ -257,7 +257,7 @@ function Module:onTalk(co, npc, player, msg, color, size)
 				for i=1,#list do
 					msg = msg..list[i].."\\n"
 				end
-			elseif (playerJobs~=0 and playerStage>=0) then		--見習
+			elseif (playerJobs>0 and playerStage>=0) then		--見習
 				msg =
 					"4\\n\\n@c【系統通知】" ..
 					"\\n\\n——————查看升階的條件——————\\n"
@@ -274,7 +274,7 @@ function Module:onTalk(co, npc, player, msg, color, size)
 		--------------------------------------------------
 		elseif level == 2 then
 			windowType = CONST.窗口_选择框;
-			if (playerJobs==0) then		--遊民
+			if (playerJobs==0 or playerJobs==-1) then		--遊民
 				msg =
 					"4\\n\\n@c【系統通知】" ..
 					"\\n\\n——————選擇轉職的職業——————\\n"
@@ -286,7 +286,7 @@ function Module:onTalk(co, npc, player, msg, color, size)
 				for i=1,#list do
 					msg = msg..list[i].."\\n"
 				end
-			elseif (playerJobs~=0 and playerStage>=0) then		--已就職過
+			elseif (playerJobs>0 and playerStage>=0) then		--已就職過
 				windowType = CONST.窗口_信息框;
 				winMsg =
 					"\\n\\n@c【系統通知】" ..
@@ -309,7 +309,7 @@ function Module:onTalk(co, npc, player, msg, color, size)
 			winMsg =
 				"\\n\\n@c【系統通知】" ..
 				"\\n"
-			if (playerJobs==0) then		--遊民
+			if (playerJobs==0 or playerJobs==-1) then		--遊民
 				local job = JOB_Select[selectPath[1]].jobs[selectPath[2]]
 				local ok, reason = checkJobCondition(player, job)
 				msg =
@@ -347,7 +347,7 @@ function Module:onTalk(co, npc, player, msg, color, size)
 			page = 1;
 		elseif _select == 1 and level == 3 then
 			-- 確認就職
-			if (playerJobs==0) then		--遊民
+			if (playerJobs==0 or playerJobs==-1) then		--遊民
 				local job = JOB_Select[selectPath[1]].jobs[selectPath[2]];
 				local ok = checkJobCondition(player, job);
 				if ok then
@@ -365,7 +365,7 @@ function Module:onTalk(co, npc, player, msg, color, size)
 			end
 			return false
 		elseif _select == 1 and level == 2 then
-			if (playerJobs~=0 and playerStage>=0) then		--已就職過
+			if (playerJobs>0 and playerStage>=0) then		--已就職過
 				local job = tree[selectPath[1]];
 				local ok = checkJobCondition(player, job);
 				if (playerJobId>=job.jobsId) then
