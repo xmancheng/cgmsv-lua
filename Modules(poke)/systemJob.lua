@@ -379,7 +379,11 @@ function Module:onTalk(co, npc, player, msg, color, size)
 					NLG.UpChar(player);
 				else
 					local warpPoint= quest[job.endeventId][2];
-					Char.Warp(player,0,warpPoint[1],warpPoint[2],warpPoint[3]);
+					if (warpPoint[1]==4320 and Char.EndEvent(player,5) == 0) then
+						Char.Warp(player,0,24001,7,8);
+					else
+						Char.Warp(player,0,warpPoint[1],warpPoint[2],warpPoint[3]);
+					end
 					--NLG.SystemMessage(player,"[系統]尚未達成所有條件！");
 					return false
 				end
