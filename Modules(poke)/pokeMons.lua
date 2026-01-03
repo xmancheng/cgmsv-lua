@@ -1,5 +1,113 @@
 local Module = ModuleBase:createModule('pokeMons')
 
+local AIinfo = {
+  "æ•µæ–¹å–®é«”éš¨æ©Ÿ",
+  "æˆ‘æ–¹å–®é«”è¡€å°‘",
+  "æ•µæ–¹å–®é«”è¡€å°‘",
+  "æ•µæ–¹å–®é«”è¡€å¤š",
+  "æ•µæ–¹å…¨é«”ç›®æ¨™",
+  "æˆ‘æ–¹å…¨é«”ç›®æ¨™",
+}
+
+skillParams={
+  -- è‡ªåˆ›æŠ€èƒ½
+  [2005] = {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT},
+  [111] = {CONST.BATTLE_COM.BATTLE_COM_AXEBOMBER},
+  [3] = {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT},
+  [4] = {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT},
+  [106] = {CONST.BATTLE_COM.BATTLE_COM_ATTACKALL},
+  [3100] = {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER},
+  [3101] = {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER},
+  [3102] = {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,CONST.BATTLE_COM.BATTLE_COM_M_BLOODATTACK,CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK,CONST.BATTLE_COM.BATTLE_COM_AXEBOMBER},
+  [3103] = {CONST.BATTLE_COM.BATTLE_COM_ATTACKALL,CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,CONST.BATTLE_COM.BATTLE_COM_AXEBOMBER},
+
+  [0] = {CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU},	-- è¿å‡»
+  [1] = {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER},	-- è¯¸åˆƒ
+  [3] = {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER},	-- ä¹¾å¤
+  [4] = {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT},	-- æ°”åŠŸè›‹
+  [5] = {CONST.BATTLE_COM.BATTLE_COM_P_GUARDBREAK},	-- å´©å‡»
+  [6] = {CONST.BATTLE_COM.BATTLE_COM_P_FORCECUT},	-- æˆ˜æ —è¢­å¿ƒ
+  [7] = {CONST.BATTLE_COM.BATTLE_COM_P_BODYGUARD},	-- æŠ¤å«
+  [8] = {CONST.BATTLE_COM.BATTLE_COM_P_SPECIALGARD},	-- åœ£ç›¾
+  [9] = {CONST.BATTLE_COM.BATTLE_COM_P_DODGE},	-- é˜³ç‚
+  [10] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGICGARD},	-- é˜²å¾¡é­”æ³•æ”»å‡»
+  [11] = {CONST.BATTLE_COM.BATTLE_COM_P_CROSSCOUNTER},	-- åå‡»
+  [12] = {CONST.BATTLE_COM.BATTLE_COM_P_CONSENTRATION},	-- æ˜é•œæ­¢æ°´
+
+  [19] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- é™¨çŸ³é­”æ³•
+  [20] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- å†°å†»é­”æ³•
+  [21] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- ç«ç„°é­”æ³•
+  [22] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- é£åˆƒé­”æ³•
+  [23] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- å¼ºåŠ›é™¨çŸ³
+  [24] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- å¼ºåŠ›å†°å†»
+  [25] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- å¼ºåŠ›ç«ç„°
+  [26] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- å¼ºåŠ›é£åˆƒ
+  [27] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- è¶…å¼ºé™¨çŸ³
+  [28] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- è¶…å¼ºå†°å†»
+  [29] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- è¶…å¼ºç«ç„°
+  [30] = {CONST.BATTLE_COM.BATTLE_COM_P_MAGIC},	-- è¶…å¼ºé£åˆƒ
+
+  [31] = {CONST.BATTLE_COM.BATTLE_COM_P_DORAIN},	-- å¸è¡€é­”æ³•
+  [61] = {CONST.BATTLE_COM.BATTLE_COM_P_HEAL},	-- è¡¥è¡€
+  [62] = {CONST.BATTLE_COM.BATTLE_COM_P_HEAL},	-- å¼ºåŠ›è¡¥è¡€
+  [63] = {CONST.BATTLE_COM.BATTLE_COM_P_HEAL},	-- è¶…å¼ºè¡¥è¡€
+  [64] = {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY},	-- æ¢å¤
+  [65] = {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY},	-- å¼ºåŠ›æ¢å¤
+  [66] = {CONST.BATTLE_COM.BATTLE_COM_P_LP_RECOVERY},	-- è¶…å¼ºæ¢å¤
+  [67] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER},	-- æ´å‡€
+  [68] = {CONST.BATTLE_COM.BATTLE_COM_P_REVIVE},	-- æ°”ç»å›å¤
+
+  [75] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- æ¯’æ€§æ”»å‡»
+  [76] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- æ˜ç¡æ”»å‡»
+  [77] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- çŸ³åŒ–æ”»å‡»
+  [78] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- é…’é†‰æ”»å‡»
+  [79] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- æ··ä¹±æ”»å‡»
+  [80] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- é—å¿˜æ”»å‡»
+  [81] = {CONST.BATTLE_COM.BATTLE_COM_M_BLOODATTACK},	-- å¸è¡€æ”»å‡»
+
+  [94] = {CONST.BATTLE_COM.BATTLE_COM_P_PANIC},	-- æ··ä¹±æ”»å‡»
+  [95] = {CONST.BATTLE_COM.BATTLE_COM_P_RANDOMSHOT},	-- ä¹±å°„
+  [257] = {CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK},	-- æˆ’éª„æˆ’èº
+  [258] = {CONST.BATTLE_COM.BATTLE_COM_DELAYATTACK},	-- ä¸€å‡»å¿…ä¸­
+  [259] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- æ¯’å‡»
+  [260] = {CONST.BATTLE_COM.BATTLE_COM_BILLIARD},	-- ä¸€çŸ³äºŒé¸Ÿ
+  [261] = {CONST.BATTLE_COM.BATTLE_COM_KNIGHTGUARD},	-- éª‘å£«ä¹‹èª‰
+  [262] = {CONST.BATTLE_COM.BATTLE_COM_FIRSTATTACK},	-- è¿…é€Ÿæœæ–­
+  [266] = {CONST.BATTLE_COM.BATTLE_COM_RETRIBUTION},	-- å› æœæŠ¥åº”
+
+  [32] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- ä¸­æ¯’é­”æ³•
+  [33] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- æ˜ç¡é­”æ³•
+  [34] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- çŸ³åŒ–é­”æ³•
+  [35] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- é…’é†‰é­”æ³•
+  [36] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- æ··ä¹±é­”æ³•
+  [37] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- é—å¿˜é­”æ³•
+  [38] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- å¼ºåŠ›ä¸­æ¯’é­”æ³•
+  [39] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- å¼ºåŠ›æ˜ç¡é­”æ³•
+  [40] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- å¼ºåŠ›çŸ³åŒ–é­”æ³•
+  [41] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- å¼ºåŠ›é…’é†‰é­”æ³•
+  [42] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- å¼ºåŠ›æ··ä¹±é­”æ³•
+  [43] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- å¼ºåŠ›é—å¿˜é­”æ³•
+  [44] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- è¶…å¼ºä¸­æ¯’é­”æ³•
+  [45] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- è¶…å¼ºæ˜ç¡é­”æ³•
+  [46] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- è¶…å¼ºçŸ³åŒ–é­”æ³•
+  [47] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- è¶…å¼ºé…’é†‰é­”æ³•
+  [48] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- è¶…å¼ºæ··ä¹±é­”æ³•
+  [49] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSCHANGE},	-- è¶…å¼ºé—å¿˜é­”æ³•
+
+  [50] = {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE},	-- å¤§åœ°çš„ç¥ˆç¥·
+  [51] = {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE},	-- æµ·æ´‹çš„ç¥ˆç¥·
+  [52] = {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE},	-- ç«ç„°çš„ç¥ˆç¥·
+  [53] = {CONST.BATTLE_COM.BATTLE_COM_P_TREAT_TYPE},	-- äº‘ç¾¤çš„ç¥ˆç¥·
+
+  [54] = {CONST.BATTLE_COM.BATTLE_COM_P_REVERSE_TYPE},	-- å±æ€§åè½¬
+  [55] = {CONST.BATTLE_COM.BATTLE_COM_P_REFLECTION_PHYSICS},	-- æ”»å‡»åå¼¹
+  [56] = {CONST.BATTLE_COM.BATTLE_COM_P_REFLECTION_MAGIC},	-- é­”æ³•åå¼¹
+  [57] = {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_PHYSICS},	-- æ”»å‡»å¸æ”¶
+  [58] = {CONST.BATTLE_COM.BATTLE_COM_P_ABSORB_MAGIC},	-- é­”æ³•å¸æ”¶
+  [59] = {CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_PHYSICS},	-- æ”»å‡»æ— æ•ˆ
+  [60] = {CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_MAGIC},	-- é­”æ³•æ— æ•ˆ
+}
+
 tbl_MonsIndex = tbl_MonsIndex or {}
 -----------------------------------------------------------------
 function Module:onLoad()
@@ -10,135 +118,351 @@ function Module:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.onBeforeBattleTurnCallback, self));
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.onAfterBattleTurnCallback, self));
   self:regCallback('BattleOverEvent', Func.bind(self.onBattleOverCallback, self));
-  Item.CreateNewItemType( 64, "AIÄ£½M", 400188, -1, 0);
+  Item.CreateNewItemType( 64, "AIæ¨¡çµ„", 400188, -1, 0);
+
+  --AIæ¨¡çµ„
+  self:regCallback('ItemString', Func.bind(self.mechanism, self),"LUA_useOrgan");
+  self.applianceNPC = self:NPC_createNormal('AIè¡Œå‹•æ¨¡çµ„', 14682, { x = 42, y = 33, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.applianceNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+        local msg = "\\n@cã€AIè¡Œå‹•æ¨¡çµ„ã€‘" ..	"\\n\\n[æ•µæ–¹å–®é«”éš¨æ©Ÿ]æ¨¡çµ„\\n[æˆ‘æ–¹å–®é«”è¡€å°‘]æ¨¡çµ„\\n[æ•µæ–¹å–®é«”è¡€å°‘]æ¨¡çµ„\\n[æ•µæ–¹å–®é«”è¡€å¤š]æ¨¡çµ„\\n[æ•µæ–¹å…¨é«”ç›®æ¨™]æ¨¡çµ„\\n[æˆ‘æ–¹å…¨é«”ç›®æ¨™]æ¨¡çµ„";	
+        NLG.ShowWindowTalked(player, self.applianceNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.applianceNPC, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select > 0 then
+      if seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­ then
+        return
+      end
+    end
+  end)
+
+  --ç²¾éˆçƒ
+  self:regCallback('ItemString', Func.bind(self.mmessage, self),"LUA_useMonsInfo");
+  self.pokeVRNPC = self:NPC_createNormal('ç²¾éˆç™»éŒ„', 14682, { x = 41, y = 33, mapType = 0, map = 777, direction = 6 });
+  self:NPC_regTalkedEvent(self.pokeVRNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+        local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç²¾éˆç¸è³‡è¨Šã€‘\\n"
+               .. "ã€€ã€€$4å°ç«é¾\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1æ€ªç¸é¡å‹ [åŠ›é‡å‹]\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1æ”œå¸¶æŠ€èƒ½ [æ”»æ“Š]\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$2é©æ€§æ¨¡çµ„ [æ•µæ–¹å–®é«”éš¨æ©Ÿ]\\n\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$5åœ° 10ã€€æ°´ 10ã€€ç« 10ã€€é¢¨ 10\\n";
+        NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.pokeVRNPC, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    BallSlot = BallSlot;
+    BallIndex = Char.GetItemIndex(player,BallSlot);
+    local GoalIndex,GoalSlot = Char.GetVRGoalSlot(player);
+    if (GoalIndex>0) then
+        if select > 0 then
+          if select == CONST.æŒ‰é’®_å…³é—­ then
+                 return;
+          elseif seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
+            local GoalName = Item.GetData(GoalIndex,CONST.é“å…·_åå­—);
+            local itemName = Item.GetData(BallIndex,CONST.é“å…·_åå­—);
+            local last = string.find(itemName, "]", 1);
+            local MonsName = string.sub(itemName, 2, last-1);
+            local msg = "\\n@cã€æ€ªç¸èˆ‡æ¨¡çµ„ç¶å®šæµç¨‹ã€‘\\n\\n"
+               .. "\\næ‰¾å°‹åˆ°å“æ¬„ä¸­çš„ $2"..GoalName.."\\n\\n"
+               .. "\\n$5"..MonsName.." $0ç¢ºå®šè¦èˆ‡æ¨¡çµ„é€²è¡Œç¶å®šå—ï¼Ÿ\\n"
+               .. " $4â€»å¦‚éé©ç•¶çš„é…å°ï¼Œå¯ç§»å‹•ç‰©å“æ¬„æ¨¡çµ„çš„å…ˆå¾Œé †åº";
+            NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 2, msg);
+          elseif seqno == 2 and select == CONST.æŒ‰é’®_ç¡®å®š then
+            local itemInfo_45 = Item.GetData(BallIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹);	--å½¢è±¡ç·¨è™Ÿ
+            local itemName = Item.GetData(BallIndex,CONST.é“å…·_åå­—);
+            local last = string.find(itemName, "]", 1);
+            local MonsName = string.sub(itemName, 2, last-1);
+            local monsType = Item.GetData(BallIndex,CONST.é“å…·_å¹¸è¿);		--æ€ªç‰©é¡å‹
+            local itemInfo_32 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§ä¸€);
+            local itemInfo_33 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§äºŒ);
+            local itemInfo_34 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§ä¸€å€¼);
+            local itemInfo_35 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§äºŒå€¼);
+            local itemInfo_46 = Item.GetData(BallIndex,CONST.é“å…·_å­å‚ä¸€);	--æ–½æ”¾techç·¨è™Ÿ
+            Item.SetData(GoalIndex,CONST.é“å…·_åå­—,"["..MonsName.."]é…å°æ¨¡çµ„");
+            Item.SetData(GoalIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹, itemInfo_45);	--å½¢è±¡ç·¨è™Ÿ
+            Item.SetData(GoalIndex,CONST.é“å…·_å¹¸è¿, monsType);		--æ€ªç‰©é¡å‹
+            Item.SetData(GoalIndex,CONST.é“å…·_å±æ€§ä¸€, itemInfo_32);
+            Item.SetData(GoalIndex,CONST.é“å…·_å±æ€§äºŒ, itemInfo_33);
+            Item.SetData(GoalIndex,CONST.é“å…·_å±æ€§ä¸€å€¼, itemInfo_34);
+            Item.SetData(GoalIndex,CONST.é“å…·_å±æ€§äºŒå€¼, itemInfo_35);
+            Item.SetData(GoalIndex,CONST.é“å…·_å­å‚ä¸€, itemInfo_46);
+            Item.UpItem(player, GoalSlot);
+            Char.DelItemBySlot(player, BallSlot);
+            NLG.PlaySe(player, 279, Char.GetData(player,CONST.å¯¹è±¡_X), Char.GetData(player,CONST.å¯¹è±¡_Y));
+            NLG.UpChar(player);
+          else
+              return;
+          end
+        end
+    else
+        if select > 0 then
+          if select == CONST.æŒ‰é’®_å…³é—­ then
+            return;
+          elseif seqno == 1 and select == CONST.æŒ‰é’®_ç¡®å®š then
+            NLG.SystemMessage(player,"[ç³»çµ±]æ²’æœ‰æ‰¾åˆ°å¯ä½¿ç”¨ä¹‹å…¨æ–°AIæ¨¡çµ„ï¼Œè«‹é‡æ–°ç¢ºèªã€‚");
+          end
+        end
+    end
+  end)
+
 
 end
 
--- --- ÌÀí×Ô„Ó‘ğôYÖ¸ÁîÊÂ¼ş (ÒıÇæÒªÇó°lËÍÖ¸Áî•r±»ºô½Ğ)
+-- AIæ¨¡çµ„æ€ªç¸è¨Šæ¯
+function Module:mechanism(charIndex,targetIndex,itemSlot)
+    local ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
+    APPSlot = itemSlot;
+    APPIndex = Char.GetItemIndex(charIndex,itemSlot);
+
+    local itemType = Item.GetData(APPIndex,CONST.å¯¹è±¡_ç±»å‹);		--é¡å‹64 AIæ¨¡çµ„
+    local itemInfo_45 = Item.GetData(APPIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹);	--å½¢è±¡ç·¨è™Ÿ
+    if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45è¡¨å·²æˆåŠŸæ¿€æ´»
+      local itemName = Item.GetData(APPIndex,CONST.é“å…·_åå­—);
+      local last = string.find(itemName, "]", 1);
+      local MonsName = string.sub(itemName, 2, last-1);
+      local AIType = Item.GetData(APPIndex,CONST.é“å…·_ç­‰çº§);		--AIæ¨¡å¼
+      local monsType = Item.GetData(APPIndex,CONST.é“å…·_å¹¸è¿);		--æ€ªç‰©é¡å‹
+
+      local itemInfo_32 = Item.GetData(APPIndex,CONST.é“å…·_å±æ€§ä¸€);
+      local itemInfo_33 = Item.GetData(APPIndex,CONST.é“å…·_å±æ€§äºŒ);
+      local itemInfo_34 = Item.GetData(APPIndex,CONST.é“å…·_å±æ€§ä¸€å€¼);
+      local itemInfo_35 = Item.GetData(APPIndex,CONST.é“å…·_å±æ€§äºŒå€¼);
+      local Goal_DataPos_14 = 0;
+      local Goal_DataPos_15 = 0;
+      local Goal_DataPos_16 = 0;
+      local Goal_DataPos_17 = 0;
+      if itemInfo_32==1 then Goal_DataPos_14=itemInfo_34;
+      elseif itemInfo_32==2 then Goal_DataPos_15=itemInfo_34;
+      elseif itemInfo_32==3 then Goal_DataPos_16=itemInfo_34;
+      elseif itemInfo_32==4 then Goal_DataPos_17=itemInfo_34; end
+      if itemInfo_33==1 then Goal_DataPos_14=itemInfo_35;
+      elseif itemInfo_33==2 then Goal_DataPos_15=itemInfo_35;
+      elseif itemInfo_33==3 then Goal_DataPos_16=itemInfo_35;
+      elseif itemInfo_33==4 then Goal_DataPos_17=itemInfo_35; end
+
+      local itemInfo_46 = Item.GetData(APPIndex,CONST.é“å…·_å­å‚ä¸€);	--æ–½æ”¾techç·¨è™Ÿ
+      local TechIndex = Tech.GetTechIndex(itemInfo_46);
+      local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
+
+      local itemInfo_47 = Item.GetData(APPIndex,CONST.é“å…·_å­å‚äºŒ);	--é€²åŒ–ç´ è³ªåŠ æˆè¡¨
+      local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
+      msg = imageText .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€AIè¡Œå‹•æ¨¡çµ„ã€‘\\n"
+               .. "ã€€ã€€$4".. MonsName .. "\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1æŠ€èƒ½æ–½æ”¾å°è±¡ ["..AIinfo[AIType].."]\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1æ–½æ”¾æŠ€èƒ½åç¨± ["..TechName.."]\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$2ç¨®æ— äººå½¢ç³»\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$4â–½é¡å¤–åŠ æˆèƒ½åŠ›â–½\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$4æ”»æ“Š "..itemInfo_47.."ã€€".."é˜²ç¦¦ "..itemInfo_47.."ã€€".."æ•æ· "..itemInfo_47.."\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$4ç²¾ç¥ "..itemInfo_47.."ã€€".."æ¢å¾© "..itemInfo_47.."\\n\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$5åœ° ".. Goal_DataPos_14/10 .."ã€€" .."$5æ°´ ".. Goal_DataPos_15/10 .."ã€€" .."$5ç« ".. Goal_DataPos_16/10 .."ã€€" .."$5é¢¨ ".. Goal_DataPos_17/10 .."\\n";
+    elseif (itemType == 64 and itemInfo_45 <= 0) then
+      local itemName = Item.GetData(APPIndex,CONST.é“å…·_åå­—);
+      msg = "\\n@cã€AIè¡Œå‹•æ¨¡çµ„ã€‘\\n\\n"
+               .. "\\næ­¤ç‚º "..itemName.."\\n\\n"
+               .. "\\n$7å°šæœªèˆ‡ç²¾éˆæ€ªç¸é€²è¡ŒæˆåŠŸç¶å®š\\n";
+    end
+    NLG.ShowWindowTalked(charIndex, self.applianceNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
+    return 1;
+end
+
+-- ç²¾éˆçƒæ€ªç¸è¨Šæ¯
+function Module:mmessage(charIndex,targetIndex,itemSlot)
+    local ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
+    BallSlot = itemSlot;
+    BallIndex = Char.GetItemIndex(charIndex,itemSlot);
+
+      local itemInfo_45 = Item.GetData(BallIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹);	--å½¢è±¡ç·¨è™Ÿ
+      local itemName = Item.GetData(BallIndex,CONST.é“å…·_åå­—);
+      local last = string.find(itemName, "]", 1);
+      local MonsName = string.sub(itemName, 2, last-1);
+      local AIType = Item.GetData(BallIndex,CONST.é“å…·_ç­‰çº§);		--AIæ¨¡å¼
+      local monsType = Item.GetData(BallIndex,CONST.é“å…·_å¹¸è¿);		--æ€ªç‰©é¡å‹
+      if (monsType>=1) then monsTypeName="é­”åŠ›å‹" else monsTypeName="åŠ›é‡å‹" end
+      local itemInfo_32 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§ä¸€);
+      local itemInfo_33 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§äºŒ);
+      local itemInfo_34 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§ä¸€å€¼);
+      local itemInfo_35 = Item.GetData(BallIndex,CONST.é“å…·_å±æ€§äºŒå€¼);
+      local Goal_DataPos_14 = 0;
+      local Goal_DataPos_15 = 0;
+      local Goal_DataPos_16 = 0;
+      local Goal_DataPos_17 = 0;
+      if itemInfo_32==1 then Goal_DataPos_14=itemInfo_34;
+      elseif itemInfo_32==2 then Goal_DataPos_15=itemInfo_34;
+      elseif itemInfo_32==3 then Goal_DataPos_16=itemInfo_34;
+      elseif itemInfo_32==4 then Goal_DataPos_17=itemInfo_34; end
+      if itemInfo_33==1 then Goal_DataPos_14=itemInfo_35;
+      elseif itemInfo_33==2 then Goal_DataPos_15=itemInfo_35;
+      elseif itemInfo_33==3 then Goal_DataPos_16=itemInfo_35;
+      elseif itemInfo_33==4 then Goal_DataPos_17=itemInfo_35; end
+
+      local itemInfo_46 = Item.GetData(BallIndex,CONST.é“å…·_å­å‚ä¸€);	--æ–½æ”¾techç·¨è™Ÿ
+      local TechIndex = Tech.GetTechIndex(itemInfo_46);
+      local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
+
+      local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
+      msg = imageText .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç²¾éˆæ€ªç¸è³‡è¨Šã€‘\\n"
+               .. "ã€€ã€€$4".. MonsName .. "\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1æ€ªç¸é¡å‹ ["..monsTypeName.."]\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1æ”œå¸¶æŠ€èƒ½ ["..TechName.."]\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$2é©æ€§æ¨¡çµ„ ["..AIinfo[AIType].."]\\n\\n"
+               .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€$5åœ° ".. Goal_DataPos_14/10 .."ã€€" .."$5æ°´ ".. Goal_DataPos_15/10 .."ã€€" .."$5ç« ".. Goal_DataPos_16/10 .."ã€€" .."$5é¢¨ ".. Goal_DataPos_17/10 .."\\n";
+    NLG.ShowWindowTalked(charIndex, self.pokeVRNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
+    return 1;
+end
+-- æœå°‹å…¨æ–°AIæ¨¡çµ„
+Char.GetVRGoalSlot = function(charIndex)
+	for Slot=8,47 do
+		local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+		--print(ItemIndex);
+		if (ItemIndex > 0) then
+			local ItemId = Item.GetData(ItemIndex,CONST.é“å…·_ID);
+			local itemType = Item.GetData(ItemIndex,CONST.å¯¹è±¡_ç±»å‹);		--é¡å‹64 AIæ¨¡çµ„
+			local itemInfo_45 = Item.GetData(ItemIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹);	--å½¢è±¡ç·¨è™Ÿ
+			if (itemType == 64 and itemInfo_45 <= 0) then
+				return ItemIndex,Slot;
+			end
+		end
+	end
+	return -1,-1;
+end
+----------------------------------------------------------------
+-- --- è™•ç†è‡ªå‹•æˆ°é¬¥æŒ‡ä»¤äº‹ä»¶ (å¼•æ“è¦æ±‚ç™¼é€æŒ‡ä»¤æ™‚è¢«å‘¼å«)
 function Module:onAutoBattleCommandEvent(battleIndex, ch)
 	local autoBattleIndex = battleIndex;
-	local petSlot = Char.GetData(ch, CONST.¶ÔÏó_Õ½³è);
-	local ridePet = Char.GetData(ch, CONST.¶ÔÏó_Æï³è);
-	local ch2 = ch;	-- ch2 îAÔOµÈì¶Íæ¼Ò ch
+	local petSlot = Char.GetData(ch, CONST.å¯¹è±¡_æˆ˜å® );
+	local ridePet = Char.GetData(ch, CONST.å¯¹è±¡_éª‘å® );
+	local ch2 = ch;	-- ch2 é è¨­ç­‰æ–¼ç©å®¶ ch
 	--print(ch, ch2, ridePet, petSlot, Battle.GetTurn(battleIndex));
-	-- ÅĞ”à‘ğŒ™ÊÇ·ñ´æÔÚ
+	-- åˆ¤æ–·æˆ°å¯µæ˜¯å¦å­˜åœ¨
 	if petSlot >= 0 and petSlot < 5 then
 		ch2 = Char.GetPet(ch, petSlot);
 	end
 	--print(ch, ch2, ridePet, petSlot, Battle.GetTurn(battleIndex));
 
-	-- Èç¹ûòTŒ™ºÍ‘ğŒ™ÊÇÍ¬Ò»ëb£¬„tŒ¢ ch Ë÷ÒıÔO¶¨éŒ™Îï
+	-- å¦‚æœé¨å¯µå’Œæˆ°å¯µæ˜¯åŒä¸€éš»ï¼Œå‰‡å°‡ ch ç´¢å¼•è¨­å®šç‚ºå¯µç‰©
 	if ridePet >= 0 and ridePet < 5 and ridePet == petSlot then
 		ch = ch2;
 	end
 	--print(ch, ch2, ridePet, petSlot, Battle.GetTurn(battleIndex));
 
-    -- °lËÍÖ¸Áî (Ö÷Òª½ÇÉ«/òTŒ™)
+    -- ç™¼é€æŒ‡ä»¤ (ä¸»è¦è§’è‰²/é¨å¯µ)
     DoAction(ch, 1, autoBattleIndex);
-    -- °lËÍÖ¸Áî (‘ğŒ™/Íæ¼Ò±¾ÈË£¬Èç¹û ch ºÍ ch2 ²»Í¬)
+    -- ç™¼é€æŒ‡ä»¤ (æˆ°å¯µ/ç©å®¶æœ¬äººï¼Œå¦‚æœ ch å’Œ ch2 ä¸åŒ)
     DoAction(ch2, 2, autoBattleIndex);
     return 1;
 end
 
--- --- ˆÌĞĞ‘ğôY„Ó×÷
+-- --- åŸ·è¡Œæˆ°é¬¥å‹•ä½œ
 function DoAction(charIndex, actionNum, autoBattleIndex)
 	--print(charIndex, actionNum, Battle.IsWaitingCommand(charIndex));
 	if (Battle.IsWaitingCommand(charIndex)~=1) then return end
 
 	local battleturn = Battle.GetTurn(autoBattleIndex);
 	if Char.IsPlayer(charIndex) then
-		local level = Char.GetData(charIndex, CONST.¶ÔÏó_µÈ¼¶);
-		local cg1 = Char.GetData(charIndex, CONST.¶ÔÏó_ÌåÁ¦);
-		local cg2 = Char.GetData(charIndex, CONST.¶ÔÏó_Á¦Á¿);
-		local cg3 = Char.GetData(charIndex, CONST.¶ÔÏó_Ç¿¶È);
-		local cg4 = Char.GetData(charIndex, CONST.¶ÔÏó_ËÙ¶È);
-		local cg5 = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§·¨);
+		local level = Char.GetData(charIndex, CONST.å¯¹è±¡_ç­‰çº§);
+		local cg1 = Char.GetData(charIndex, CONST.å¯¹è±¡_ä½“åŠ›);
+		local cg2 = Char.GetData(charIndex, CONST.å¯¹è±¡_åŠ›é‡);
+		local cg3 = Char.GetData(charIndex, CONST.å¯¹è±¡_å¼ºåº¦);
+		local cg4 = Char.GetData(charIndex, CONST.å¯¹è±¡_é€Ÿåº¦);
+		local cg5 = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”æ³•);
 		--print(cg1,cg2,cg3,cg4,cg5);
-		if (battleturn==0) then		--é_ˆöÕÙ†¾â·°é
-			local cdk = Char.GetData(charIndex, CONST.¶ÔÏó_CDK);
+		if (battleturn==0) then		--é–‹å ´å¬å–šå¤¥ä¼´
+			local cdk = Char.GetData(charIndex, CONST.å¯¹è±¡_CDK);
 			if (actionNum==1) then
 				for itemSlot=8,11 do
 					local itemIndex = Char.GetItemIndex(charIndex, itemSlot);
 					if (itemIndex>0) then
-						local itemType = Item.GetData(itemIndex,CONST.¶ÔÏó_ÀàĞÍ);		--îĞÍ64 AIÄ£½M
-						local itemId = Item.GetData(itemIndex,CONST.µÀ¾ß_ID);
-						local itemInfo_45 = Item.GetData(itemIndex,CONST.µÀ¾ß_ÌØÊâÀàĞÍ);	--ĞÎÏó¾Ì–
-						if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45±íÒÑ³É¹¦¼¤»î
-							local itemName = Item.GetData(itemIndex,CONST.µÀ¾ß_Ãû×Ö);
-							local AIType = Item.GetData(itemIndex,CONST.µÀ¾ß_µÈ¼¶);		--AIÄ£Ê½
-							local monsType = Item.GetData(itemIndex,CONST.µÀ¾ß_ĞÒÔË);		--¹ÖÎïîĞÍ
-							local itemInfo_32 = Item.GetData(itemIndex,CONST.µÀ¾ß_ÊôĞÔÒ»);
-							local itemInfo_33 = Item.GetData(itemIndex,CONST.µÀ¾ß_ÊôĞÔ¶ş);
-							local itemInfo_34 = Item.GetData(itemIndex,CONST.µÀ¾ß_ÊôĞÔÒ»Öµ);
-							local itemInfo_35 = Item.GetData(itemIndex,CONST.µÀ¾ß_ÊôĞÔ¶şÖµ);
-							local itemInfo_46 = Item.GetData(itemIndex,CONST.µÀ¾ß_×Ó²ÎÒ»);	--Ê©·Åtech¾Ì–
-							local itemInfo_47 = Item.GetData(itemIndex,CONST.µÀ¾ß_×Ó²Î¶ş);	--ßM»¯ËØÙ|¼Ó³É±í
+						local itemType = Item.GetData(itemIndex,CONST.å¯¹è±¡_ç±»å‹);		--é¡å‹64 AIæ¨¡çµ„
+						local itemId = Item.GetData(itemIndex,CONST.é“å…·_ID);
+						local itemInfo_45 = Item.GetData(itemIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹);	--å½¢è±¡ç·¨è™Ÿ
+						if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45è¡¨å·²æˆåŠŸæ¿€æ´»
+							local itemName = Item.GetData(itemIndex,CONST.é“å…·_åå­—);
+							local last = string.find(itemName, "]", 1);
+							local MonsName = string.sub(itemName, 2, last-1);
+							local AIType = Item.GetData(itemIndex,CONST.é“å…·_ç­‰çº§);		--AIæ¨¡å¼
+							local monsType = Item.GetData(itemIndex,CONST.é“å…·_å¹¸è¿);		--æ€ªç‰©é¡å‹
+							local itemInfo_32 = Item.GetData(itemIndex,CONST.é“å…·_å±æ€§ä¸€);
+							local itemInfo_33 = Item.GetData(itemIndex,CONST.é“å…·_å±æ€§äºŒ);
+							local itemInfo_34 = Item.GetData(itemIndex,CONST.é“å…·_å±æ€§ä¸€å€¼);
+							local itemInfo_35 = Item.GetData(itemIndex,CONST.é“å…·_å±æ€§äºŒå€¼);
+							local itemInfo_46 = Item.GetData(itemIndex,CONST.é“å…·_å­å‚ä¸€);	--æ–½æ”¾techç·¨è™Ÿ
+							local itemInfo_47 = Item.GetData(itemIndex,CONST.é“å…·_å­å‚äºŒ);	--é€²åŒ–ç´ è³ªåŠ æˆè¡¨
 
 							local MonsIndex = Char.CreateDummy()
 							table.insert(tbl_MonsIndex[cdk],MonsIndex);
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_ÖÖ×å, 0);
-							--ŒÙĞÔ
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_ç§æ—, 0);
+							--å±¬æ€§
 							Char.GiveItem(MonsIndex, 19200, 1);
 							Char.MoveItem(MonsIndex, 8, 5, -1);
 							local item_1 = Char.HaveItem(MonsIndex,19200);
-							Item.SetData(item_1,CONST.µÀ¾ß_ÊôĞÔÒ»,itemInfo_32);
-							Item.SetData(item_1,CONST.µÀ¾ß_ÊôĞÔ¶ş,itemInfo_33);
-							Item.SetData(item_1,CONST.µÀ¾ß_ÊôĞÔÒ»Öµ,itemInfo_34);
-							Item.SetData(item_1,CONST.µÀ¾ß_ÊôĞÔ¶şÖµ,itemInfo_35);
+							Item.SetData(item_1,CONST.é“å…·_å±æ€§ä¸€,itemInfo_32);
+							Item.SetData(item_1,CONST.é“å…·_å±æ€§äºŒ,itemInfo_33);
+							Item.SetData(item_1,CONST.é“å…·_å±æ€§ä¸€å€¼,itemInfo_34);
+							Item.SetData(item_1,CONST.é“å…·_å±æ€§äºŒå€¼,itemInfo_35);
 							Item.UpItem(MonsIndex, -1);
-							--[[³¬ß^ëpŒÙ¿ÉĞĞ·½°¸
+							--[[è¶…éé›™å±¬å¯è¡Œæ–¹æ¡ˆ
 							Char.GiveItem(MonsIndex, 19538, 1);
 							Char.MoveItem(MonsIndex, 9, 6, -1);
 							local item_2 = Char.HaveItem(MonsIndex,19538);
-							Item.SetData(item_2,CONST.µÀ¾ß_ÊôĞÔÒ»,3);
-							Item.SetData(item_2,CONST.µÀ¾ß_ÊôĞÔ¶ş,4);
-							Item.SetData(item_2,CONST.µÀ¾ß_ÊôĞÔÒ»Öµ,petbagPet.attr[tostring(CONST.¶ÔÏó_»ğÊôĞÔ)]);
-							Item.SetData(item_2,CONST.µÀ¾ß_ÊôĞÔ¶şÖµ,petbagPet.attr[tostring(CONST.¶ÔÏó_·çÊôĞÔ)]);
+							Item.SetData(item_2,CONST.é“å…·_å±æ€§ä¸€,3);
+							Item.SetData(item_2,CONST.é“å…·_å±æ€§äºŒ,4);
+							Item.SetData(item_2,CONST.é“å…·_å±æ€§ä¸€å€¼,petbagPet.attr[tostring(CONST.å¯¹è±¡_ç«å±æ€§)]);
+							Item.SetData(item_2,CONST.é“å…·_å±æ€§äºŒå€¼,petbagPet.attr[tostring(CONST.å¯¹è±¡_é£å±æ€§)]);
 							Item.UpItem(MonsIndex, -1);]]
-							--º†Ò×È«ŒÙ·½°¸
-							--Char.SetData(MonsIndex,CONST.¶ÔÏó_µØÊôĞÔ, 20);
-							--Char.SetData(MonsIndex,CONST.¶ÔÏó_Ë®ÊôĞÔ, 20);
-							--Char.SetData(MonsIndex,CONST.¶ÔÏó_»ğÊôĞÔ, 20);
-							--Char.SetData(MonsIndex,CONST.¶ÔÏó_·çÊôĞÔ, 20);
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_ĞÎÏó, itemInfo_45);
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_Ô­ĞÎ, itemInfo_45);
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_Ö°½×, AIType);			--AIÄ£Ê½
+							--ç°¡æ˜“å…¨å±¬æ–¹æ¡ˆ
+							--Char.SetData(MonsIndex,CONST.å¯¹è±¡_åœ°å±æ€§, 20);
+							--Char.SetData(MonsIndex,CONST.å¯¹è±¡_æ°´å±æ€§, 20);
+							--Char.SetData(MonsIndex,CONST.å¯¹è±¡_ç«å±æ€§, 20);
+							--Char.SetData(MonsIndex,CONST.å¯¹è±¡_é£å±æ€§, 20);
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_å½¢è±¡, itemInfo_45);
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_åŸå½¢, itemInfo_45);
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_èŒé˜¶, AIType);			--AIæ¨¡å¼
 
 							--local skills = {}
 							--table.insert(skills,itemInfo_46);
-							--Char.SetTempData(MonsIndex, '×Ô×ß¼¼ÄÜ', JSON.encode(skills));		--Ê©·Åtech¾Ì–
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_½ğ±Ò, itemInfo_46);		--Ê©·Åtech¾Ì–
+							--Char.SetTempData(MonsIndex, 'è‡ªèµ°æŠ€èƒ½', JSON.encode(skills));		--æ–½æ”¾techç·¨è™Ÿ
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_é‡‘å¸, itemInfo_46);		--æ–½æ”¾techç·¨è™Ÿ
 
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_Ãû×Ö, itemName);
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_µÈ¼¶, level);
-							--¹ÖÎïîĞÍ
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_åå­—, MonsName);
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_ç­‰çº§, level);
+							--æ€ªç‰©é¡å‹
 							if monsType>=1 then
-								cg2 = Char.GetData(charIndex, CONST.¶ÔÏó_Ä§·¨);
-								cg5 = Char.GetData(charIndex, CONST.¶ÔÏó_Á¦Á¿);
+								cg2 = Char.GetData(charIndex, CONST.å¯¹è±¡_é­”æ³•);
+								cg5 = Char.GetData(charIndex, CONST.å¯¹è±¡_åŠ›é‡);
 							end
-							Char.SetData(MonsIndex, CONST.¶ÔÏó_ÌåÁ¦, cg1);
-							Char.SetData(MonsIndex, CONST.¶ÔÏó_Á¦Á¿, cg2);
-							Char.SetData(MonsIndex, CONST.¶ÔÏó_Ç¿¶È, cg3);
-							Char.SetData(MonsIndex, CONST.¶ÔÏó_ËÙ¶È, cg4);
-							Char.SetData(MonsIndex, CONST.¶ÔÏó_Ä§·¨, cg5);
+							Char.SetData(MonsIndex, CONST.å¯¹è±¡_ä½“åŠ›, cg1);
+							Char.SetData(MonsIndex, CONST.å¯¹è±¡_åŠ›é‡, cg2);
+							Char.SetData(MonsIndex, CONST.å¯¹è±¡_å¼ºåº¦, cg3);
+							Char.SetData(MonsIndex, CONST.å¯¹è±¡_é€Ÿåº¦, cg4);
+							Char.SetData(MonsIndex, CONST.å¯¹è±¡_é­”æ³•, cg5);
 							NLG.UpChar(MonsIndex);
-							--ßM»¯¼Ó³É(ĞèÒĞÙ‡ÔÚÑb‚äÉÏ)
+							--é€²åŒ–åŠ æˆ(éœ€å€šè³´åœ¨è£å‚™ä¸Š)
 							Char.GiveItem(MonsIndex, 19538, 1);
 							Char.MoveItem(MonsIndex, 9, 6, -1);
 							local item_2 = Char.HaveItem(MonsIndex,19538);
-							Item.SetData(item_2,CONST.µÀ¾ß_ÉúÃü,0);
-							Item.SetData(item_2,CONST.µÀ¾ß_Ä§Á¦,0);
-							Item.SetData(item_2,CONST.µÀ¾ß_¹¥»÷,0);
-							Item.SetData(item_2,CONST.µÀ¾ß_·ÀÓù,0);
-							Item.SetData(item_2,CONST.µÀ¾ß_Ãô½İ,0);
-							Item.SetData(item_2,CONST.µÀ¾ß_¾«Éñ,0);
-							Item.SetData(item_2,CONST.µÀ¾ß_»Ø¸´,0);
+							Item.SetData(item_2,CONST.é“å…·_ç”Ÿå‘½,0);
+							Item.SetData(item_2,CONST.é“å…·_é­”åŠ›,0);
+							Item.SetData(item_2,CONST.é“å…·_æ”»å‡»,0);
+							Item.SetData(item_2,CONST.é“å…·_é˜²å¾¡,0);
+							Item.SetData(item_2,CONST.é“å…·_æ•æ·,0);
+							Item.SetData(item_2,CONST.é“å…·_ç²¾ç¥,0);
+							Item.SetData(item_2,CONST.é“å…·_å›å¤,0);
 							Item.UpItem(MonsIndex, -1);
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_Ñª, Char.GetData(MonsIndex,CONST.¶ÔÏó_×î´óÑª));
-							Char.SetData(MonsIndex,CONST.¶ÔÏó_Ä§, Char.GetData(MonsIndex,CONST.¶ÔÏó_×î´óÄ§));
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_è¡€, Char.GetData(MonsIndex,CONST.å¯¹è±¡_æœ€å¤§è¡€));
+							Char.SetData(MonsIndex,CONST.å¯¹è±¡_é­”, Char.GetData(MonsIndex,CONST.å¯¹è±¡_æœ€å¤§é­”));
 							NLG.UpChar(MonsIndex);
-							--¼ÓÈë‘ğôY
-							--Char.Warp(MonsIndex,Char.GetData(charIndex,CONST.¶ÔÏó_MAP),Char.GetData(charIndex,CONST.¶ÔÏó_µØÍ¼),Char.GetData(charIndex,CONST.¶ÔÏó_X),Char.GetData(charIndex,CONST.¶ÔÏó_Y));
+							--åŠ å…¥æˆ°é¬¥
+							--Char.Warp(MonsIndex,Char.GetData(charIndex,CONST.å¯¹è±¡_MAP),Char.GetData(charIndex,CONST.å¯¹è±¡_åœ°å›¾),Char.GetData(charIndex,CONST.å¯¹è±¡_X),Char.GetData(charIndex,CONST.å¯¹è±¡_Y));
 							Char.JoinParty(MonsIndex, charIndex, true);
 							Battle.JoinBattle(charIndex, MonsIndex);
 						else
@@ -146,56 +470,58 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 					else
 					end
 				end
-				--é_ˆöÍæ¼Òê éLÕÙ†¾
-				Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_COPY, 0, 26306);		--Ñòî^¹·Èâ
-				--Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_DETECTENEMY, 10, 10701);		--‚É²é
+				--é–‹å ´ç©å®¶éšŠé•·å¬å–š
+				Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_COPY, 0, 26306);		--ç¾Šé ­ç‹—è‚‰
+				--Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_DETECTENEMY, 10, 10701);		--åµæŸ¥
 			elseif (actionNum==2) then
-				--é_ˆöÍæ¼Òê éL·À¶R
+				--é–‹å ´ç©å®¶éšŠé•·é˜²ç¦¦
 				Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1, -1);
 			end
 		end
 	elseif Char.IsPet(charIndex) then
-		--é_ˆöŒ™Îï·À¶R
+		--é–‹å ´å¯µç‰©é˜²ç¦¦
 		Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1, -1);
 	end
 end
---µÇÈëÊÂ¼ş
+--ç™»å…¥äº‹ä»¶
 function Module:onLoginEvent(charIndex)
-	local floor = Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼);
-	if (floor==100) then	-- Ö»ÒªÔÚµØˆD 100£¬ŠÖÆé_†¢×Ô„Ó‘ğôY
-		Char.SetData(charIndex, CONST.¶ÔÏó_×Ô¶¯Õ½¶·¿ª¹Ø, 1);
-		NLG.SystemMessage(charIndex, "[Ïµ½y] µÇÈë™z²é£ºÄúÎ»ì¶ÌØÊâ…^Óò£¬ÒÑ×Ô„Óé_†¢×Ô„Ó‘ğôY¡£");
+	local floor = Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾);
+	if (floor==100) then	-- åªè¦åœ¨åœ°åœ– 100ï¼Œå¼·åˆ¶é–‹å•Ÿè‡ªå‹•æˆ°é¬¥
+		Char.SetData(charIndex, CONST.å¯¹è±¡_è‡ªåŠ¨æˆ˜æ–—å¼€å…³, 1);
+		NLG.SystemMessage(charIndex, "[ç³»çµ±] ç™»å…¥æª¢æŸ¥ï¼šæ‚¨ä½æ–¼ç‰¹æ®Šå€åŸŸï¼Œå·²è‡ªå‹•é–‹å•Ÿè‡ªå‹•æˆ°é¬¥ã€‚");
 	else
-		-- ²»ÔÚÔ“µØˆD£¬„t´_±£êPé]£¨»òÊÇ¾S³Ö¬F î£¬¿´ÄãµÄÔOÓ‹ĞèÇó
-		Char.SetData(charIndex, CONST.¶ÔÏó_×Ô¶¯Õ½¶·¿ª¹Ø, 0);
+		-- ä¸åœ¨è©²åœ°åœ–ï¼Œå‰‡ç¢ºä¿é—œé–‰ï¼ˆæˆ–æ˜¯ç¶­æŒç¾ç‹€ï¼Œçœ‹ä½ çš„è¨­è¨ˆéœ€æ±‚
+		Char.SetData(charIndex, CONST.å¯¹è±¡_è‡ªåŠ¨æˆ˜æ–—å¼€å…³, 0);
 	end
 	return 0;
 end
---ÍµÒuÊÂ¼ş
+--å·è¥²äº‹ä»¶
 function Module:onBattleSurpriseEvent(battleIndex, result)
 	local player = Battle.GetPlayer(battleIndex, 0);
 	if (player>=0) then
-		local floor = Char.GetData(player, CONST.¶ÔÏó_µØÍ¼);
-		if (floor==100) then	--µØˆD™z²é(Ö»ÔÚÖ¸¶¨µØˆDÉúĞ§)
-			Char.DischargeParty(player);
-			Char.SetData(player, CONST.¶ÔÏó_×Ô¶¯Õ½¶·¿ª¹Ø, 1);
-			if (Char.GetData(player,CONST.¶ÔÏó_¶ÓÁÄ¿ª¹Ø) == 1) then
-				-- Ö»ÒªÔÚµØˆD100±Ø¶¨ÍµÒuÇÒé_ˆöµÚÒ»»ØŠÖÆé_†¢×Ô„Ó‘ğôY
-				NLG.SystemMessage(player, "[Ïµ½y]Î»ì¶ÌØÊâ…^ÓòÊ×»Ø±Ø¶¨ÍµÒu¡£");
-				NLG.SystemMessage(player, "[Ïµ½y]Î»ì¶ÌØÊâ…^ÓòÊ×»Øé_†¢×Ô„Ó‘ğôYŸo·¨¹¥“ô¡£");
+		local switch = checkAISummon(player);
+		--local floor = Char.GetData(player, CONST.å¯¹è±¡_åœ°å›¾);
+		if (switch==true and Char.PartyNum(player)==-1) then	--åœ°åœ–æª¢æŸ¥(åªåœ¨æŒ‡å®šåœ°åœ–ç”Ÿæ•ˆ)
+			--Char.DischargeParty(player);
+			Char.SetData(player, CONST.å¯¹è±¡_è‡ªåŠ¨æˆ˜æ–—å¼€å…³, 1);
+			if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+				-- åªè¦åœ¨åœ°åœ–100å¿…å®šå·è¥²ä¸”é–‹å ´ç¬¬ä¸€å›å¼·åˆ¶é–‹å•Ÿè‡ªå‹•æˆ°é¬¥
+				NLG.SystemMessage(player, "[ç³»çµ±]ä½æ–¼ç‰¹æ®Šå€åŸŸé¦–å›å¿…å®šå·è¥²ã€‚");
+				NLG.SystemMessage(player, "[ç³»çµ±]ä½æ–¼ç‰¹æ®Šå€åŸŸé¦–å›é–‹å•Ÿè‡ªå‹•æˆ°é¬¥ç„¡æ³•æ”»æ“Šã€‚");
 			end
-			return 1;	--ÍµÏ®ĞÎÊ½ 0²»ÍµÏ®£¬1ÍµÏ®£¬2±»ÍµÏ®
+			return 1;	--å·è¢­å½¢å¼ 0ä¸å·è¢­ï¼Œ1å·è¢­ï¼Œ2è¢«å·è¢­
 		end
 	end
 	return result;
 end
---»ØºÏÇ°ÊÂ¼ş
+--å›åˆå‰äº‹ä»¶
 function Module:onBeforeBattleTurnCallback(battleIndex)
 	local player = Battle.GetPlayIndex(battleIndex,0);
 	local battleturn = Battle.GetTurn(battleIndex);
-	local floor = Char.GetData(player, CONST.¶ÔÏó_µØÍ¼);
-	if (floor==100 and battleturn==0) then
-		local cdk = Char.GetData(player, CONST.¶ÔÏó_CDK);
+	local switch = checkAISummon(player);
+	--local floor = Char.GetData(player, CONST.å¯¹è±¡_åœ°å›¾);
+	if (switch==true and battleturn==0) then
+		local cdk = Char.GetData(player, CONST.å¯¹è±¡_CDK);
 		if (tbl_MonsIndex[cdk] == nil) then
 			tbl_MonsIndex[cdk] = {}
 		else
@@ -206,60 +532,165 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 			tbl_MonsIndex[cdk] = {}
 		end
 	elseif (battleturn>=1) then
-		-- ²»ÔÚÔ“µØˆD„têPé]»ò·Çé_ˆö•rêPé]
-		Char.SetData(player, CONST.¶ÔÏó_×Ô¶¯Õ½¶·¿ª¹Ø, 0);
+		-- ä¸åœ¨è©²åœ°åœ–å‰‡é—œé–‰æˆ–éé–‹å ´æ™‚é—œé–‰
+		Char.SetData(player, CONST.å¯¹è±¡_è‡ªåŠ¨æˆ˜æ–—å¼€å…³, 0);
 	end
-	for i=0,9 do
-		local ai_index = Battle.GetPlayer(battleIndex,i);
-		if ai_index >= 0 then
-			if Char.IsDummy(ai_index) and Battle.IsWaitingCommand(ai_index)== 1 then
-				local cg1 = Char.GetData(ai_index, CONST.¶ÔÏó_×î´óÑª);
-				local cg2 = Char.GetData(ai_index, CONST.¶ÔÏó_×î´óÄ§);
-				local cg3 = Char.GetData(ai_index, CONST.¶ÔÏó_¹¥»÷Á¦);
-				local cg4 = Char.GetData(ai_index, CONST.¶ÔÏó_·ÀÓùÁ¦);
-				local cg5 = Char.GetData(ai_index, CONST.¶ÔÏó_Ãô½İ);
-				local cg6 = Char.GetData(ai_index, CONST.¶ÔÏó_¾«Éñ);
-				local cg7 = Char.GetData(ai_index, CONST.¶ÔÏó_»Ø¸´);
-				print(cg1,cg2,cg3,cg4,cg5);
+	if (switch==true) then
+		for i=0,9 do
+			local ai_index = Battle.GetPlayer(battleIndex,i);
+			if ai_index >= 0 then
+				if Char.IsDummy(ai_index) and Battle.IsWaitingCommand(ai_index)== 1 then
+					local cg1 = Char.GetData(ai_index, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+					local cg2 = Char.GetData(ai_index, CONST.å¯¹è±¡_æœ€å¤§é­”);
+					local cg3 = Char.GetData(ai_index, CONST.å¯¹è±¡_æ”»å‡»åŠ›);
+					local cg4 = Char.GetData(ai_index, CONST.å¯¹è±¡_é˜²å¾¡åŠ›);
+					local cg5 = Char.GetData(ai_index, CONST.å¯¹è±¡_æ•æ·);
+					local cg6 = Char.GetData(ai_index, CONST.å¯¹è±¡_ç²¾ç¥);
+					local cg7 = Char.GetData(ai_index, CONST.å¯¹è±¡_å›å¤);
+					print(cg1,cg2,cg3,cg4,cg5);
 
-				local AIType = Char.GetData(ai_index,CONST.¶ÔÏó_Ö°½×);	--AIÄ£Ê½
-				local techId = Char.GetData(ai_index,CONST.¶ÔÏó_½ğ±Ò);	--Ê©·Åtech¾Ì–
-				Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId);
-				local petindex = Char.GetPet(ai_index,0);
-				local ³öÕ½³èÎïslot = Char.GetData(ai_index,CONST.¶ÔÏó_Õ½³è);
-				if (petindex < 0 or ³öÕ½³èÎïslot == -1) then
-					Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId);
+					local AIType = Char.GetData(ai_index,CONST.å¯¹è±¡_èŒé˜¶);	--AIæ¨¡å¼
+					local techId = Char.GetData(ai_index,CONST.å¯¹è±¡_é‡‘å¸);	--æ–½æ”¾techç·¨è™Ÿ
+					local IMAGEId,order = math.modf(techId / 100);
+					local order = math.floor(order*100);
+					--print(IMAGEId,order)
+					if (#skillParams[IMAGEId]>1) then
+						if (order==0 or order==1 or order==2 or order==27 or order==29) then
+							com1=1;
+						elseif (order==3 or order==4 or order==5) then
+							com1=2;
+						elseif (order==6 or order==7 or order==8) then
+							com1=3;
+						elseif (order==9 or order==10 or order==11) then
+							com1=4;
+						end
+					else
+						com1=1;
+					end
+					local com2 = smartTargetSelection(battleIndex,AIType,techId);
+					local action_tbl = {
+					    function() Battle.ActionSelect(ai_index,skillParams[IMAGEId][com1], com2, techId) end,
+					}
+					pcall(action_tbl[1])
+					--Battle.ActionSelect(ai_index, skillParams[IMAGEId][com1], com2, techId);
+
+					local petindex = Char.GetPet(ai_index,0);
+					local å‡ºæˆ˜å® ç‰©slot = Char.GetData(ai_index,CONST.å¯¹è±¡_æˆ˜å® );
+					if (petindex < 0 or å‡ºæˆ˜å® ç‰©slot == -1) then
+						Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId);
+					end
+					NLG.UpChar(ai_index);
 				end
-				NLG.UpChar(ai_index);
 			end
 		end
 	end
 end
---»ØºÏááÊÂ¼ş
+--å›åˆå¾Œäº‹ä»¶
 function Module:onAfterBattleTurnCallback(battleIndex)
 	local player = Battle.GetPlayIndex(battleIndex,0);
 	local battleturn = Battle.GetTurn(battleIndex);
-	local floor = Char.GetData(player, CONST.¶ÔÏó_µØÍ¼);
-	if (floor==100 and battleturn>=0) then
-		Char.SetData(player, CONST.¶ÔÏó_×Ô¶¯Õ½¶·¿ª¹Ø, 0);
+	local switch = checkAISummon(player);
+	--local floor = Char.GetData(player, CONST.å¯¹è±¡_åœ°å›¾);
+	if (switch==true and battleturn>=0) then
+		Char.SetData(player, CONST.å¯¹è±¡_è‡ªåŠ¨æˆ˜æ–—å¼€å…³, 0);
 	end
 end
---‘ğôY½YÊøÊÂ¼ş
+--æˆ°é¬¥çµæŸäº‹ä»¶
 function Module:onBattleOverCallback(battleIndex)
 	local player = Battle.GetPlayer(battleIndex, 0);
 	if (player>=0) then
-		local floor = Char.GetData(player, CONST.¶ÔÏó_µØÍ¼);
-		if (floor==100) then	--µØˆD™z²é(Ö»ÔÚÖ¸¶¨µØˆDÉúĞ§)
+		local switch = checkAISummon(player);
+		--local floor = Char.GetData(player, CONST.å¯¹è±¡_åœ°å›¾);
+		if (switch==true and Char.IsDummy(Battle.GetPlayIndex(battleIndex,1))) then	--åœ°åœ–æª¢æŸ¥(åªåœ¨æŒ‡å®šåœ°åœ–ç”Ÿæ•ˆ)
 			Char.DischargeParty(player);
-			if (Char.GetData(player,CONST.¶ÔÏó_¶ÓÁÄ¿ª¹Ø) == 1) then
-				NLG.SystemMessage(player, "[Ïµ½y]Î»ì¶ÌØÊâ…^Óò‘ğôY½YÊø¼´½âÉ¢ê Îé¡£");
+			if (Char.GetData(player,CONST.å¯¹è±¡_é˜ŸèŠå¼€å…³) == 1) then
+				NLG.SystemMessage(player, "[ç³»çµ±]ä½æ–¼ç‰¹æ®Šå€åŸŸæˆ°é¬¥çµæŸå³è§£æ•£éšŠä¼ã€‚");
 			end
 		end
 	end
 	return 0;
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+-- æª¢æŸ¥æ˜¯å¦æœ‰AIæ¨¡çµ„
+function checkAISummon(player)
+	for itemSlot=8,11 do
+		local itemIndex = Char.GetItemIndex(player,itemSlot);
+		if (itemIndex>0) then
+			local itemType = Item.GetData(itemIndex,CONST.å¯¹è±¡_ç±»å‹);		--é¡å‹64 AIæ¨¡çµ„
+			local itemInfo_45 = Item.GetData(itemIndex,CONST.é“å…·_ç‰¹æ®Šç±»å‹);	--å½¢è±¡ç·¨è™Ÿ
+			if (itemType == 64 and itemInfo_45 > 0) then
+				return true
+			end
+		end
+	end
+	return false
+end
+--AIæ¨¡å¼é¸æ“‡ç›®æ¨™å°è±¡
+function smartTargetSelection(battleIndex,AIType,techId)
+  local tSlot = 10;
+  -- NOTE æ•µæ–¹å–®é«”éš¨æ©Ÿ
+  if (AIType==1) then
+    local tSlot = math.random(10,19);
+    return tSlot;
+  elseif (AIType==2) then	-- NOTE æˆ‘æ–¹å–®é«”è¡€å°‘
+    local tagHp = nil;
+    for slot = 0,9 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot);
+      if (charIndex >= 0) then
+        local hpRatio = Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+        if tagHp == nil then
+          tagHp = hpRatio;
+          tSlot = slot;
+        elseif hpRatio < tagHp then	--å·±æ–¹è¡€é‡å æ¯”æœ€ä½
+          tagHp = hpRatio;
+          tSlot = slot;
+        end
+      end
+    end
+    return tSlot;
+  elseif (AIType==3) then	-- NOTE æ•µæ–¹å–®é«”è¡€å°‘
+    local tagHp = nil;
+    for slot = 10,19 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot);
+      if (charIndex >= 0) then
+        local hpRatio = Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+        if tagHp == nil then
+          tagHp = hpRatio;
+          tSlot = slot;
+        elseif hpRatio < tagHp then	--æ•µæ–¹è¡€é‡å æ¯”æœ€ä½
+          tagHp = hpRatio;
+          tSlot = slot;
+        end
+      end
+    end
+    return tSlot;
+  elseif (AIType==4) then	-- NOTE æ•µæ–¹å–®é«”è¡€å¤š
+    local tagHp = nil;
+    for slot = 10,19 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot);
+      if (charIndex >= 0) then
+        local hpRatio = Char.GetData(charIndex, CONST.å¯¹è±¡_è¡€) / Char.GetData(charIndex, CONST.å¯¹è±¡_æœ€å¤§è¡€);
+        if tagHp == nil then
+          tagHp = hpRatio;
+          tSlot = slot;
+        elseif hpRatio > tagHp then	--æ•µæ–¹è¡€é‡å æ¯”æœ€é«˜
+          tagHp = hpRatio;
+          tSlot = slot;
+        end
+      end
+    end
+    return tSlot;
+  elseif (AIType==5) then	-- NOTE æ•µæ–¹å…¨é«”ç›®æ¨™
+    local tSlot = 41;
+    return tSlot;
+  elseif (AIType==6) then	-- NOTE æˆ‘æ–¹å…¨é«”ç›®æ¨™
+    local tSlot = 40;
+    return tSlot;
+  end
+  return tSlot;
+end
+
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
