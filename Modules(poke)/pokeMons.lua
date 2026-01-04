@@ -1,20 +1,25 @@
 local Module = ModuleBase:createModule('pokeMons')
 
 local AIinfo = {
-  "敵方單體隨機",
-  "我方單體血少",
-  "敵方單體血少",
-  "敵方單體血多",
-  "敵方全體目標",
-  "我方全體目標",
+  "敵方隨機目標",
+  "我方血少目標",
+  "敵方血少目標",
+  "敵方血多目標",
+  "敵方首領目標",
+  "我方隊長目標",
 }
 
-skillParams={
+local Assortment = {
+  "力速型",
+  "魔速型",
+  "體速型",
+  "魔防型",
+  "力體速型",
+  "魔體速型",
+}
+local skillParams={
   -- 自创技能
   [2005] = {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT},
-  [111] = {CONST.BATTLE_COM.BATTLE_COM_AXEBOMBER},
-  [3] = {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT},
-  [4] = {CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT},
   [106] = {CONST.BATTLE_COM.BATTLE_COM_ATTACKALL},
   [3100] = {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER},
   [3101] = {CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER,CONST.BATTLE_COM.BATTLE_COM_P_SPIRACLESHOT,CONST.BATTLE_COM.BATTLE_COM_P_RENZOKU,CONST.BATTLE_COM.BATTLE_COM_P_PARAMETER},
@@ -108,6 +113,102 @@ skillParams={
   [60] = {CONST.BATTLE_COM.BATTLE_COM_P_INEFFECTIVE_MAGIC},	-- 魔法无效
 }
 
+local skillCom={
+  -- 自创技能
+  [2005] = {0},
+  [106] = {20},
+  [3100] = {0,0,0},
+  [3101] = {0,0,0,0},
+  [3102] = {0,0,0,20},
+  [3103] = {20,0,0,41},
+
+  [0] = {0},	-- 连击
+  [1] = {0},	-- 诸刃
+  [3] = {0},	-- 乾坤
+  [4] = {0},	-- 气功蛋
+  [5] = {0},	-- 崩击
+  [6] = {0},	-- 战栗袭心
+  [7] = {0},	-- 护卫
+  [8] = {-1},	-- 圣盾
+  [9] = {-1},	-- 阳炎
+  [10] = {-1},	-- 防御魔法攻击
+  [11] = {-1},	-- 反击
+  [12] = {-1},	-- 明镜止水
+
+  [19] = {0},	-- 陨石魔法
+  [20] = {0},	-- 冰冻魔法
+  [21] = {0},	-- 火焰魔法
+  [22] = {0},	-- 风刃魔法
+  [23] = {20},	-- 强力陨石
+  [24] = {20},	-- 强力冰冻
+  [25] = {20},	-- 强力火焰
+  [26] = {20},	-- 强力风刃
+  [27] = {40},	-- 超强陨石
+  [28] = {40},	-- 超强冰冻
+  [29] = {40},	-- 超强火焰
+  [30] = {40},	-- 超强风刃
+
+  [31] = {0},	-- 吸血魔法
+  [61] = {0},	-- 补血
+  [62] = {20},	-- 强力补血
+  [63] = {40},	-- 超强补血
+  [64] = {0},	-- 恢复
+  [65] = {20},	-- 强力恢复
+  [66] = {40},	-- 超强恢复
+  [67] = {0,0,20,40},	-- 洁净
+  [68] = {0,0,20,20},	-- 气绝回复
+
+  [75] = {0},	-- 毒性攻击
+  [76] = {0},	-- 昏睡攻击
+  [77] = {0},	-- 石化攻击
+  [78] = {0},	-- 酒醉攻击
+  [79] = {0},	-- 混乱攻击
+  [80] = {0},	-- 遗忘攻击
+  [81] = {0},	-- 吸血攻击
+
+  [94] = {0},	-- 混乱攻击
+  [95] = {0},	-- 乱射
+  [257] = {0},	-- 戒骄戒躁
+  [258] = {0},	-- 一击必中
+  [259] = {0},	-- 毒击
+  [260] = {0},	-- 一石二鸟
+  [261] = {0},	-- 骑士之誉
+  [262] = {0},	-- 迅速果断
+  [266] = {0},	-- 因果报应
+
+  [32] = {0},	-- 中毒魔法
+  [33] = {0},	-- 昏睡魔法
+  [34] = {0},	-- 石化魔法
+  [35] = {0},	-- 酒醉魔法
+  [36] = {0},	-- 混乱魔法
+  [37] = {0},	-- 遗忘魔法
+  [38] = {20},	-- 强力中毒魔法
+  [39] = {20},	-- 强力昏睡魔法
+  [40] = {20},	-- 强力石化魔法
+  [41] = {20},	-- 强力酒醉魔法
+  [42] = {20},	-- 强力混乱魔法
+  [43] = {20},	-- 强力遗忘魔法
+  [44] = {41},	-- 超强中毒魔法
+  [45] = {41},	-- 超强昏睡魔法
+  [46] = {41},	-- 超强石化魔法
+  [47] = {41},	-- 超强酒醉魔法
+  [48] = {41},	-- 超强混乱魔法
+  [49] = {41},	-- 超强遗忘魔法
+
+  [50] = {0},	-- 大地的祈祷
+  [51] = {0},	-- 海洋的祈祷
+  [52] = {0},	-- 火焰的祈祷
+  [53] = {0},	-- 云群的祈祷
+
+  [54] = {0,0,20,40},	-- 属性反转
+  [55] = {0,0,20,40},	-- 攻击反弹
+  [56] = {0,0,20,40},	-- 魔法反弹
+  [57] = {0,0,20,40},	-- 攻击吸收
+  [58] = {0,0,20,40},	-- 魔法吸收
+  [59] = {0,0,20,40},	-- 攻击无效
+  [60] = {0,0,20,40},	-- 魔法无效
+}
+
 tbl_MonsIndex = tbl_MonsIndex or {}
 -----------------------------------------------------------------
 function Module:onLoad()
@@ -148,7 +249,7 @@ function Module:onLoad()
     if (NLG.CanTalk(npc, player) == true) then
         local msg = "　　　　　　　　【精靈獸資訊】\\n"
                .. "　　$4小火龍\\n"
-               .. "　　　　　　　$1怪獸類型 [力量型]\\n"
+               .. "　　　　　　　$1怪獸類型 [力速型]\\n"
                .. "　　　　　　　$1攜帶技能 [攻擊]\\n"
                .. "　　　　　　　$2適性模組 [敵方單體隨機]\\n\\n"
                .. "　　　　　　　$5地 10　水 10　火 10　風 10\\n";
@@ -178,24 +279,26 @@ function Module:onLoad()
                .. " $4※如非適當的配對，可移動物品欄模組的先後順序";
             NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 2, msg);
           elseif seqno == 2 and select == CONST.按钮_确定 then
-            local itemInfo_45 = Item.GetData(BallIndex,CONST.道具_特殊类型);	--形象編號
             local itemName = Item.GetData(BallIndex,CONST.道具_名字);
             local last = string.find(itemName, "]", 1);
             local MonsName = string.sub(itemName, 2, last-1);
-            local monsType = Item.GetData(BallIndex,CONST.道具_幸运);		--怪物類型
-            local itemInfo_32 = Item.GetData(BallIndex,CONST.道具_属性一);
-            local itemInfo_33 = Item.GetData(BallIndex,CONST.道具_属性二);
-            local itemInfo_34 = Item.GetData(BallIndex,CONST.道具_属性一值);
-            local itemInfo_35 = Item.GetData(BallIndex,CONST.道具_属性二值);
-            local itemInfo_46 = Item.GetData(BallIndex,CONST.道具_子参一);	--施放tech編號
             Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]配對模組");
-            Item.SetData(GoalIndex,CONST.道具_特殊类型, itemInfo_45);	--形象編號
-            Item.SetData(GoalIndex,CONST.道具_幸运, monsType);		--怪物類型
-            Item.SetData(GoalIndex,CONST.道具_属性一, itemInfo_32);
-            Item.SetData(GoalIndex,CONST.道具_属性二, itemInfo_33);
-            Item.SetData(GoalIndex,CONST.道具_属性一值, itemInfo_34);
-            Item.SetData(GoalIndex,CONST.道具_属性二值, itemInfo_35);
-            Item.SetData(GoalIndex,CONST.道具_子参一, itemInfo_46);
+            Item.SetData(GoalIndex,CONST.道具_特殊类型, Item.GetData(BallIndex,CONST.道具_特殊类型));	--形象編號
+            Item.SetData(GoalIndex,CONST.道具_幸运, Item.GetData(BallIndex,CONST.道具_幸运));		--怪物類型
+            Item.SetData(GoalIndex,CONST.道具_属性一, Item.GetData(BallIndex,CONST.道具_属性一));
+            Item.SetData(GoalIndex,CONST.道具_属性二, Item.GetData(BallIndex,CONST.道具_属性二));
+            Item.SetData(GoalIndex,CONST.道具_属性一值, Item.GetData(BallIndex,CONST.道具_属性一值));
+            Item.SetData(GoalIndex,CONST.道具_属性二值, Item.GetData(BallIndex,CONST.道具_属性二值));
+            Item.SetData(GoalIndex,CONST.道具_子参一, Item.GetData(BallIndex,CONST.道具_子参一));	--第一回施放tech編號
+            Item.SetData(GoalIndex,CONST.道具_子参二, Item.GetData(BallIndex,CONST.道具_子参二));	--第二回施放tech編號
+            --天生加成
+            Item.SetData(GoalIndex,CONST.道具_攻击, Item.GetData(BallIndex,CONST.道具_攻击));
+            Item.SetData(GoalIndex,CONST.道具_防御, Item.GetData(BallIndex,CONST.道具_防御));
+            Item.SetData(GoalIndex,CONST.道具_敏捷, Item.GetData(BallIndex,CONST.道具_敏捷));
+            Item.SetData(GoalIndex,CONST.道具_精神, Item.GetData(BallIndex,CONST.道具_精神));
+            Item.SetData(GoalIndex,CONST.道具_回复, Item.GetData(BallIndex,CONST.道具_回复));
+            Item.SetData(GoalIndex,CONST.道具_生命, Item.GetData(BallIndex,CONST.道具_生命));
+            Item.SetData(GoalIndex,CONST.道具_魔力, Item.GetData(BallIndex,CONST.道具_魔力));
             Item.UpItem(player, GoalSlot);
             Char.DelItemBySlot(player, BallSlot);
             NLG.PlaySe(player, 279, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
@@ -232,7 +335,17 @@ function Module:mechanism(charIndex,targetIndex,itemSlot)
       local MonsName = string.sub(itemName, 2, last-1);
       local AIType = Item.GetData(APPIndex,CONST.道具_等级);		--AI模式
       local monsType = Item.GetData(APPIndex,CONST.道具_幸运);		--怪物類型
-
+      local itemInfo_4003 = Item.GetData(APPIndex,CONST.道具_自用参数);	--進化加成表
+      local equipMod = string.split(itemInfo_4003,',');
+      if equipMod[1]=="" then
+        for i=1,7 do
+          equipMod[i] = tonumber(0);
+        end
+      else
+        for k,v in pairs(equipMod) do
+          equipMod[k] = tonumber(v);
+        end
+      end
       local itemInfo_32 = Item.GetData(APPIndex,CONST.道具_属性一);
       local itemInfo_33 = Item.GetData(APPIndex,CONST.道具_属性二);
       local itemInfo_34 = Item.GetData(APPIndex,CONST.道具_属性一值);
@@ -250,20 +363,23 @@ function Module:mechanism(charIndex,targetIndex,itemSlot)
       elseif itemInfo_33==3 then Goal_DataPos_16=itemInfo_35;
       elseif itemInfo_33==4 then Goal_DataPos_17=itemInfo_35; end
 
-      local itemInfo_46 = Item.GetData(APPIndex,CONST.道具_子参一);	--施放tech編號
-      local TechIndex = Tech.GetTechIndex(itemInfo_46);
-      local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
+      local itemInfo_46 = Item.GetData(APPIndex,CONST.道具_子参一);	--第一回施放tech編號
+      local TechIndex_46 = Tech.GetTechIndex(itemInfo_46);
+      local TechName_46 = Tech.GetData(TechIndex_46, CONST.TECH_NAME);
 
-      local itemInfo_47 = Item.GetData(APPIndex,CONST.道具_子参二);	--進化素質加成表
+      local itemInfo_47 = Item.GetData(APPIndex,CONST.道具_子参二);	--第二回施放tech編號
+      local TechIndex_47 = Tech.GetTechIndex(itemInfo_47);
+      local TechName_47 = Tech.GetData(TechIndex_47, CONST.TECH_NAME);
       local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
       msg = imageText .. "　　　　　　　　【AI行動模組】\\n"
                .. "　　$4".. MonsName .. "\\n"
                .. "　　　　　　　$1技能施放對象 ["..AIinfo[AIType].."]\\n"
-               .. "　　　　　　　$1施放技能名稱 ["..TechName.."]\\n"
-               .. "　　　　　　　$2種族 人形系\\n"
+               .. "　　　　　　　$1一動施放技能 ["..TechName_46.."]\\n"
+               .. "　　　　　　　$1二動施放技能 ["..TechName_47.."]\\n"
+               .. "　　　　　　　$2怪獸類型 ["..Assortment[monsType].."]　種族 人形系\\n"
                .. "　　　　　　　$4▽額外加成能力▽\\n"
-               .. "　　　　　　　$4攻擊 "..itemInfo_47.."　".."防禦 "..itemInfo_47.."　".."敏捷 "..itemInfo_47.."\\n"
-               .. "　　　　　　　$4精神 "..itemInfo_47.."　".."恢復 "..itemInfo_47.."\\n\\n"
+               .. "　　　　　　　$4攻擊 "..equipMod[1].."　".."防禦 "..equipMod[2].."　".."敏捷 "..equipMod[3].."\\n"
+               .. "　　　　　　　$4精神 "..equipMod[4].."　".."恢復 "..equipMod[5].."\\n"
                .. "　　　　　　　$5地 ".. Goal_DataPos_14/10 .."　" .."$5水 ".. Goal_DataPos_15/10 .."　" .."$5火 ".. Goal_DataPos_16/10 .."　" .."$5風 ".. Goal_DataPos_17/10 .."\\n";
     elseif (itemType == 64 and itemInfo_45 <= 0) then
       local itemName = Item.GetData(APPIndex,CONST.道具_名字);
@@ -287,7 +403,7 @@ function Module:mmessage(charIndex,targetIndex,itemSlot)
       local MonsName = string.sub(itemName, 2, last-1);
       local AIType = Item.GetData(BallIndex,CONST.道具_等级);		--AI模式
       local monsType = Item.GetData(BallIndex,CONST.道具_幸运);		--怪物類型
-      if (monsType>=1) then monsTypeName="魔力型" else monsTypeName="力量型" end
+      local monsTypeName = Assortment[monsType];
       local itemInfo_32 = Item.GetData(BallIndex,CONST.道具_属性一);
       local itemInfo_33 = Item.GetData(BallIndex,CONST.道具_属性二);
       local itemInfo_34 = Item.GetData(BallIndex,CONST.道具_属性一值);
@@ -305,16 +421,19 @@ function Module:mmessage(charIndex,targetIndex,itemSlot)
       elseif itemInfo_33==3 then Goal_DataPos_16=itemInfo_35;
       elseif itemInfo_33==4 then Goal_DataPos_17=itemInfo_35; end
 
-      local itemInfo_46 = Item.GetData(BallIndex,CONST.道具_子参一);	--施放tech編號
-      local TechIndex = Tech.GetTechIndex(itemInfo_46);
-      local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
+      local itemInfo_46 = Item.GetData(BallIndex,CONST.道具_子参一);	--第一回施放tech編號
+      local TechIndex_46 = Tech.GetTechIndex(itemInfo_46);
+      local TechName_46 = Tech.GetData(TechIndex_46, CONST.TECH_NAME);
+      local itemInfo_47 = Item.GetData(BallIndex,CONST.道具_子参二);	--第二回施放tech編號
+      local TechIndex_47 = Tech.GetTechIndex(itemInfo_47);
+      local TechName_47 = Tech.GetData(TechIndex_47, CONST.TECH_NAME);
 
       local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
       msg = imageText .. "　　　　　　　　【精靈怪獸資訊】\\n"
                .. "　　$4".. MonsName .. "\\n"
                .. "　　　　　　　$1怪獸類型 ["..monsTypeName.."]\\n"
-               .. "　　　　　　　$1攜帶技能 ["..TechName.."]\\n"
-               .. "　　　　　　　$2適性模組 ["..AIinfo[AIType].."]\\n\\n"
+               .. "　　　　　　　$1一動技能 ["..TechName_46.."]\\n"
+               .. "　　　　　　　$1二動技能 ["..TechName_47.."]\\n\\n"
                .. "　　　　　　　$5地 ".. Goal_DataPos_14/10 .."　" .."$5水 ".. Goal_DataPos_15/10 .."　" .."$5火 ".. Goal_DataPos_16/10 .."　" .."$5風 ".. Goal_DataPos_17/10 .."\\n";
     NLG.ShowWindowTalked(charIndex, self.pokeVRNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     return 1;
@@ -370,11 +489,11 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 	local battleturn = Battle.GetTurn(autoBattleIndex);
 	if Char.IsPlayer(charIndex) then
 		local level = Char.GetData(charIndex, CONST.对象_等级);
-		local cg1 = Char.GetData(charIndex, CONST.对象_体力);
-		local cg2 = Char.GetData(charIndex, CONST.对象_力量);
-		local cg3 = Char.GetData(charIndex, CONST.对象_强度);
-		local cg4 = Char.GetData(charIndex, CONST.对象_速度);
-		local cg5 = Char.GetData(charIndex, CONST.对象_魔法);
+		--local cg1 = Char.GetData(charIndex, CONST.对象_体力);
+		--local cg2 = Char.GetData(charIndex, CONST.对象_力量);
+		--local cg3 = Char.GetData(charIndex, CONST.对象_强度);
+		--local cg4 = Char.GetData(charIndex, CONST.对象_速度);
+		--local cg5 = Char.GetData(charIndex, CONST.对象_魔法);
 		--print(cg1,cg2,cg3,cg4,cg5);
 		if (battleturn==0) then		--開場召喚夥伴
 			local cdk = Char.GetData(charIndex, CONST.对象_CDK);
@@ -395,8 +514,8 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 							local itemInfo_33 = Item.GetData(itemIndex,CONST.道具_属性二);
 							local itemInfo_34 = Item.GetData(itemIndex,CONST.道具_属性一值);
 							local itemInfo_35 = Item.GetData(itemIndex,CONST.道具_属性二值);
-							local itemInfo_46 = Item.GetData(itemIndex,CONST.道具_子参一);	--施放tech編號
-							local itemInfo_47 = Item.GetData(itemIndex,CONST.道具_子参二);	--進化素質加成表
+							local itemInfo_46 = Item.GetData(itemIndex,CONST.道具_子参一);	--第一回施放tech編號
+							local itemInfo_47 = Item.GetData(itemIndex,CONST.道具_子参二);	--第二回施放tech編號
 
 							local MonsIndex = Char.CreateDummy()
 							table.insert(tbl_MonsIndex[cdk],MonsIndex);
@@ -409,6 +528,14 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 							Item.SetData(item_1,CONST.道具_属性二,itemInfo_33);
 							Item.SetData(item_1,CONST.道具_属性一值,itemInfo_34);
 							Item.SetData(item_1,CONST.道具_属性二值,itemInfo_35);
+							--天生加成(需倚賴在裝備上)
+							Item.SetData(item_1,CONST.道具_攻击,Item.GetData(itemIndex,CONST.道具_攻击));
+							Item.SetData(item_1,CONST.道具_防御,Item.GetData(itemIndex,CONST.道具_防御));
+							Item.SetData(item_1,CONST.道具_敏捷,Item.GetData(itemIndex,CONST.道具_敏捷));
+							Item.SetData(item_1,CONST.道具_精神,Item.GetData(itemIndex,CONST.道具_精神));
+							Item.SetData(item_1,CONST.道具_回复,Item.GetData(itemIndex,CONST.道具_回复));
+							Item.SetData(item_1,CONST.道具_生命,Item.GetData(itemIndex,CONST.道具_生命));
+							Item.SetData(item_1,CONST.道具_魔力,Item.GetData(itemIndex,CONST.道具_魔力));
 							Item.UpItem(MonsIndex, -1);
 							--[[超過雙屬可行方案
 							Char.GiveItem(MonsIndex, 19538, 1);
@@ -431,15 +558,13 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 							--local skills = {}
 							--table.insert(skills,itemInfo_46);
 							--Char.SetTempData(MonsIndex, '自走技能', JSON.encode(skills));		--施放tech編號
-							Char.SetData(MonsIndex,CONST.对象_金币, itemInfo_46);		--施放tech編號
+							Char.SetData(MonsIndex,CONST.对象_金币, itemInfo_46);			--第一回施放tech編號
+							Char.SetData(MonsIndex,CONST.对象_银行金币, itemInfo_47);		--第二回施放tech編號
 
 							Char.SetData(MonsIndex,CONST.对象_名字, MonsName);
 							Char.SetData(MonsIndex,CONST.对象_等级, level);
 							--怪物類型
-							if monsType>=1 then
-								cg2 = Char.GetData(charIndex, CONST.对象_魔法);
-								cg5 = Char.GetData(charIndex, CONST.对象_力量);
-							end
+							local cg1,cg2,cg3,cg4,cg5 = setAssortment(level,monsType);
 							Char.SetData(MonsIndex, CONST.对象_体力, cg1);
 							Char.SetData(MonsIndex, CONST.对象_力量, cg2);
 							Char.SetData(MonsIndex, CONST.对象_强度, cg3);
@@ -447,16 +572,27 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 							Char.SetData(MonsIndex, CONST.对象_魔法, cg5);
 							NLG.UpChar(MonsIndex);
 							--進化加成(需倚賴在裝備上)
+							local itemInfo_4003 = Item.GetData(APPIndex,CONST.道具_自用参数);	--進化加成表
+							local equipMod = string.split(itemInfo_4003,',');
+							if equipMod[1]=="" then
+								for i=1,7 do
+									equipMod[i] = tonumber(0);
+								end
+							else
+								for k,v in pairs(equipMod) do
+									equipMod[k] = tonumber(v);
+								end
+							end
 							Char.GiveItem(MonsIndex, 19538, 1);
 							Char.MoveItem(MonsIndex, 9, 6, -1);
 							local item_2 = Char.HaveItem(MonsIndex,19538);
-							Item.SetData(item_2,CONST.道具_生命,0);
-							Item.SetData(item_2,CONST.道具_魔力,0);
-							Item.SetData(item_2,CONST.道具_攻击,0);
-							Item.SetData(item_2,CONST.道具_防御,0);
-							Item.SetData(item_2,CONST.道具_敏捷,0);
-							Item.SetData(item_2,CONST.道具_精神,0);
-							Item.SetData(item_2,CONST.道具_回复,0);
+							Item.SetData(item_2,CONST.道具_攻击,equipMod[1]);
+							Item.SetData(item_2,CONST.道具_防御,equipMod[2]);
+							Item.SetData(item_2,CONST.道具_敏捷,equipMod[3]);
+							Item.SetData(item_2,CONST.道具_精神,equipMod[4]);
+							Item.SetData(item_2,CONST.道具_回复,equipMod[5]);
+							Item.SetData(item_2,CONST.道具_生命,equipMod[6]);
+							Item.SetData(item_2,CONST.道具_魔力,equipMod[7]);
 							Item.UpItem(MonsIndex, -1);
 							Char.SetData(MonsIndex,CONST.对象_血, Char.GetData(MonsIndex,CONST.对象_最大血));
 							Char.SetData(MonsIndex,CONST.对象_魔, Char.GetData(MonsIndex,CONST.对象_最大魔));
@@ -540,21 +676,23 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 			local ai_index = Battle.GetPlayer(battleIndex,i);
 			if ai_index >= 0 then
 				if Char.IsDummy(ai_index) and Battle.IsWaitingCommand(ai_index)== 1 then
-					local cg1 = Char.GetData(ai_index, CONST.对象_最大血);
-					local cg2 = Char.GetData(ai_index, CONST.对象_最大魔);
-					local cg3 = Char.GetData(ai_index, CONST.对象_攻击力);
-					local cg4 = Char.GetData(ai_index, CONST.对象_防御力);
-					local cg5 = Char.GetData(ai_index, CONST.对象_敏捷);
-					local cg6 = Char.GetData(ai_index, CONST.对象_精神);
-					local cg7 = Char.GetData(ai_index, CONST.对象_回复);
-					print(cg1,cg2,cg3,cg4,cg5);
+					local mod1 = Char.GetData(ai_index, CONST.对象_攻击力);
+					local mod2 = Char.GetData(ai_index, CONST.对象_防御力);
+					local mod3 = Char.GetData(ai_index, CONST.对象_敏捷);
+					local mod4 = Char.GetData(ai_index, CONST.对象_精神);
+					local mod5 = Char.GetData(ai_index, CONST.对象_回复);
+					local mod6 = Char.GetData(ai_index, CONST.对象_最大血);
+					local mod7 = Char.GetData(ai_index, CONST.对象_最大魔);
+					print(mod1,mod2,mod3,mod4,mod5,mod6,mod7);
 
 					local AIType = Char.GetData(ai_index,CONST.对象_职阶);	--AI模式
-					local techId = Char.GetData(ai_index,CONST.对象_金币);	--施放tech編號
-					local IMAGEId,order = math.modf(techId / 100);
-					local order = math.floor(order*100);
-					--print(IMAGEId,order)
-					if (#skillParams[IMAGEId]>1) then
+					local techId_1 = Char.GetData(ai_index,CONST.对象_金币);		--第一回施放tech編號
+					local techId_2 = Char.GetData(ai_index,CONST.对象_银行金币);	--第二回施放tech編號
+					local IMAGEId_1,order_1 = math.modf(techId_1 / 100);
+					local IMAGEId_2,order_2 = math.modf(techId_2 / 100);
+					local order = math.floor(order_1*100);
+					--print(IMAGEId_1,order)
+					if (#skillParams[IMAGEId_1]>1) then
 						if (order==0 or order==1 or order==2 or order==27 or order==29) then
 							com1=1;
 						elseif (order==3 or order==4 or order==5) then
@@ -567,17 +705,47 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 					else
 						com1=1;
 					end
-					local com2 = smartTargetSelection(battleIndex,AIType,techId);
+					local tSlot = smartTargetSelection(battleIndex,AIType,techId_1);
+					if skillCom[IMAGEId_1][com1]==40 or skillCom[IMAGEId_1][com1]==41 then
+						com2 = skillCom[IMAGEId_1][com1];
+					else
+						com2 = tSlot + skillCom[IMAGEId_1][com1];
+					end
 					local action_tbl = {
-					    function() Battle.ActionSelect(ai_index,skillParams[IMAGEId][com1], com2, techId) end,
+					    function() Battle.ActionSelect(ai_index,skillParams[IMAGEId_1][com1], com2, techId_1) end,
 					}
 					pcall(action_tbl[1])
-					--Battle.ActionSelect(ai_index, skillParams[IMAGEId][com1], com2, techId);
+					--Battle.ActionSelect(ai_index, skillParams[IMAGEId_1][com1], com2, techId_1);
 
 					local petindex = Char.GetPet(ai_index,0);
 					local 出战宠物slot = Char.GetData(ai_index,CONST.对象_战宠);
 					if (petindex < 0 or 出战宠物slot == -1) then
-						Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId);
+						local order = math.floor(order_2*100);
+						--print(IMAGEId_2,order)
+						if (#skillParams[IMAGEId_2]>1) then
+							if (order==0 or order==1 or order==2 or order==27 or order==29) then
+								com1=1;
+							elseif (order==3 or order==4 or order==5) then
+								com1=2;
+							elseif (order==6 or order==7 or order==8) then
+								com1=3;
+							elseif (order==9 or order==10 or order==11) then
+								com1=4;
+							end
+						else
+							com1=1;
+						end
+						local tSlot = smartTargetSelection(battleIndex,AIType,techId_2);
+						if skillCom[IMAGEId_2][com1]==40 or skillCom[IMAGEId_2][com1]==41 then
+							com2 = skillCom[IMAGEId_2][com1];
+						else
+							com2 = tSlot + skillCom[IMAGEId_2][com1];
+						end
+						local action_tbl = {
+							function() Battle.ActionSelect(ai_index,skillParams[IMAGEId_2][com1], com2, techId_2) end,
+						}
+						pcall(action_tbl[1])
+						--Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId_2);
 					end
 					NLG.UpChar(ai_index);
 				end
@@ -628,11 +796,11 @@ end
 --AI模式選擇目標對象
 function smartTargetSelection(battleIndex,AIType,techId)
   local tSlot = 10;
-  -- NOTE 敵方單體隨機
+  -- NOTE 敵方隨機目標
   if (AIType==1) then
     local tSlot = math.random(10,19);
     return tSlot;
-  elseif (AIType==2) then	-- NOTE 我方單體血少
+  elseif (AIType==2) then	-- NOTE 我方血少
     local tagHp = nil;
     for slot = 0,9 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
@@ -648,7 +816,7 @@ function smartTargetSelection(battleIndex,AIType,techId)
       end
     end
     return tSlot;
-  elseif (AIType==3) then	-- NOTE 敵方單體血少
+  elseif (AIType==3) then	-- NOTE 敵方血少
     local tagHp = nil;
     for slot = 10,19 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
@@ -664,7 +832,7 @@ function smartTargetSelection(battleIndex,AIType,techId)
       end
     end
     return tSlot;
-  elseif (AIType==4) then	-- NOTE 敵方單體血多
+  elseif (AIType==4) then	-- NOTE 敵方血多
     local tagHp = nil;
     for slot = 10,19 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
@@ -680,14 +848,52 @@ function smartTargetSelection(battleIndex,AIType,techId)
       end
     end
     return tSlot;
-  elseif (AIType==5) then	-- NOTE 敵方全體目標
-    local tSlot = 41;
+  elseif (AIType==5) then	-- NOTE 敵方首領目標
+    local tSlot = 10;
     return tSlot;
-  elseif (AIType==6) then	-- NOTE 我方全體目標
-    local tSlot = 40;
+  elseif (AIType==6) then	-- NOTE 我方隊長目標
+    local tSlot = 0;
     return tSlot;
   end
   return tSlot;
+end
+-- 怪獸類型及配點
+function setAssortment(level,monsType)
+	local cg1,cg2,cg3,cg4,cg5 = 0,0,0,0,0;
+	if (monsType==1) then	--力速型
+		cg2 = (15+(level-1)*2)*100;
+		cg4 = (15+(level-1)*2)*100;
+	elseif (monsType==2) then	--魔速型
+		cg5 = (15+(level-1)*2)*100;
+		cg4 = (15+(level-1)*2)*100;
+	elseif (monsType==3) then	--體速型
+		cg1 = (15+(level-1)*2)*100;
+		cg4 = (15+(level-1)*2)*100;
+	elseif (monsType==4) then	--魔防型
+		cg5 = (15+(level-1)*2)*100;
+		cg3 = (15+(level-1)*2)*100;
+	elseif (monsType==5) then	--力體速型
+		if level<=101 then
+			cg4 = level*100;
+			cg2 = (15+(level-1)*2)*100;
+			cg1 = (15+(level-1)*2 - level)*100;
+		else
+			cg4 = 10000;	--100敏
+			cg2 = (15+(level-1)*2)*100;
+			cg1 = (15+(level-1)*2 - 100)*100;
+		end
+	elseif (monsType==6) then	--魔體速型
+		if level<=101 then
+			cg4 = level*100;
+			cg5 = (15+(level-1)*2)*100;
+			cg1 = (15+(level-1)*2 - level)*100;
+		else
+			cg4 = 10000;	--100敏
+			cg5 = (15+(level-1)*2)*100;
+			cg1 = (15+(level-1)*2 - 100)*100;
+		end
+	end
+	return cg1,cg2,cg3,cg4,cg5;
 end
 
 function CheckInTable(_idTab, _idVar) ---循环函数
