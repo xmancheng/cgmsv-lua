@@ -62,6 +62,8 @@ local skillParams={
   [67] = {CONST.BATTLE_COM.BATTLE_COM_P_STATUSRECOVER},	-- 洁净
   [68] = {CONST.BATTLE_COM.BATTLE_COM_P_REVIVE},	-- 气绝回复
 
+  [73] = {CONST.BATTLE_COM.BATTLE_COM_ATTACK},	-- 攻击
+  [74] = {CONST.BATTLE_COM.BATTLE_COM_GUARD},	-- 防御
   [75] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- 毒性攻击
   [76] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- 昏睡攻击
   [77] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- 石化攻击
@@ -158,6 +160,8 @@ local skillCom={
   [67] = {0,0,20,40},	-- 洁净
   [68] = {0,0,20,20},	-- 气绝回复
 
+  [73] = {-1},	-- 攻击
+  [74] = {-1},	-- 防御
   [75] = {0},	-- 毒性攻击
   [76] = {0},	-- 昏睡攻击
   [77] = {0},	-- 石化攻击
@@ -219,14 +223,14 @@ function Module:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.onBeforeBattleTurnCallback, self));
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.onAfterBattleTurnCallback, self));
   self:regCallback('BattleOverEvent', Func.bind(self.onBattleOverCallback, self));
-  Item.CreateNewItemType( 64, "AI模組", 400188, -1, 0);
+  Item.CreateNewItemType( 64, "喚獸卡牌", 400188, -1, 0);
 
-  --AI模組
+  --喚獸卡牌
   self:regCallback('ItemString', Func.bind(self.mechanism, self),"LUA_useOrgan");
-  self.applianceNPC = self:NPC_createNormal('AI行動模組', 14682, { x = 42, y = 33, mapType = 0, map = 777, direction = 6 });
+  self.applianceNPC = self:NPC_createNormal('AI行動模式', 14682, { x = 42, y = 33, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.applianceNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "\\n@c【AI行動模組】" ..	"\\n\\n[敵方單體隨機]模組\\n[我方單體血少]模組\\n[敵方單體血少]模組\\n[敵方單體血多]模組\\n[敵方全體目標]模組\\n[我方全體目標]模組";	
+        local msg = "\\n@c【喚獸卡牌行動模式】" ..	"\\n\\n[敵方單體隨機]模式\\n[我方單體血少]模式\\n[敵方單體血少]模式\\n[敵方單體血多]模式\\n[敵方全體目標]模式\\n[我方全體目標]模式";	
         NLG.ShowWindowTalked(player, self.applianceNPC, CONST.窗口_信息框, CONST.按钮_关闭, 1, msg);
     end
     return
@@ -235,23 +239,44 @@ function Module:onLoad()
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
+    APPSlot = APPSlot;
+    APPIndex = Char.GetItemIndex(player,APPSlot);
     if select > 0 then
       if seqno == 1 and select == CONST.按钮_关闭 then
         return
+      elseif seqno == 1 and select == CONST.按钮_确定 then
+        local AIType = Item.GetData(APPIndex,CONST.道具_等级);		--AI模式
+        local msg = "3\\n @c【喚獸卡牌行動模式】\\n"
+                .. " ※選擇切換的卡牌行動模式\\n\\n"
+        for i=1,#AIinfo do
+          if (i==AIType) then
+            msg = msg .. "◆　" .. AIinfo[i].."\\n"
+          else
+            msg = msg .. "◇　" .. AIinfo[i].."\\n"
+          end
+        end
+        NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 2, msg);
+      end
+    else
+      if seqno == 2 and data > 0 then
+        Item.SetData(APPIndex,CONST.道具_等级,tonumber(data));		--AI模式
+        Item.UpItem(player, APPSlot);
+        NLG.PlaySe(player, 279, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+        NLG.UpChar(player);
       end
     end
   end)
 
   --精靈球
   self:regCallback('ItemString', Func.bind(self.mmessage, self),"LUA_useMonsInfo");
-  self.pokeVRNPC = self:NPC_createNormal('精靈登錄', 14682, { x = 41, y = 33, mapType = 0, map = 777, direction = 6 });
+  self.pokeVRNPC = self:NPC_createNormal('精靈喚獸登錄', 14682, { x = 41, y = 33, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.pokeVRNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-        local msg = "　　　　　　　　【精靈獸資訊】\\n"
+        local msg = "　　　　　　　　【精靈喚獸資訊】\\n"
                .. "　　$4小火龍\\n"
-               .. "　　　　　　　$1怪獸類型 [力速型]\\n"
+               .. "　　　　　　　$1喚獸類型 [力速型]\\n"
                .. "　　　　　　　$1攜帶技能 [攻擊]\\n"
-               .. "　　　　　　　$2適性模組 [敵方單體隨機]\\n\\n"
+               .. "　　　　　　　$2適性模式 [敵方單體隨機]\\n\\n"
                .. "　　　　　　　$5地 10　水 10　火 10　風 10\\n";
         NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_关闭, 1, msg);
     end
@@ -273,16 +298,16 @@ function Module:onLoad()
             local itemName = Item.GetData(BallIndex,CONST.道具_名字);
             local last = string.find(itemName, "]", 1);
             local MonsName = string.sub(itemName, 2, last-1);
-            local msg = "\\n@c【怪獸與模組綁定流程】\\n\\n"
+            local msg = "\\n@c【喚獸與卡牌綁定流程】\\n\\n"
                .. "\\n找尋到品欄中的 $2"..GoalName.."\\n\\n"
-               .. "\\n$5"..MonsName.." $0確定要與模組進行綁定嗎？\\n"
-               .. " $4※如非適當的配對，可移動物品欄模組的先後順序";
+               .. "\\n$5"..MonsName.." $0確定要與卡牌進行綁定嗎？\\n"
+               --.. " $4※如非適當的配對，可移動物品欄卡牌的先後順序";
             NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 2, msg);
           elseif seqno == 2 and select == CONST.按钮_确定 then
             local itemName = Item.GetData(BallIndex,CONST.道具_名字);
             local last = string.find(itemName, "]", 1);
             local MonsName = string.sub(itemName, 2, last-1);
-            Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]配對模組");
+            Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]配對卡牌");
             Item.SetData(GoalIndex,CONST.道具_特殊类型, Item.GetData(BallIndex,CONST.道具_特殊类型));	--形象編號
             Item.SetData(GoalIndex,CONST.道具_幸运, Item.GetData(BallIndex,CONST.道具_幸运));		--怪物類型
             Item.SetData(GoalIndex,CONST.道具_属性一, Item.GetData(BallIndex,CONST.道具_属性一));
@@ -312,7 +337,7 @@ function Module:onLoad()
           if select == CONST.按钮_关闭 then
             return;
           elseif seqno == 1 and select == CONST.按钮_确定 then
-            NLG.SystemMessage(player,"[系統]沒有找到可使用之全新AI模組，請重新確認。");
+            NLG.SystemMessage(player,"[系統]沒有找到可使用之全新模式卡牌，請重新確認。");
           end
         end
     end
@@ -321,13 +346,13 @@ function Module:onLoad()
 
 end
 
--- AI模組怪獸訊息
+-- AI模式怪獸訊息
 function Module:mechanism(charIndex,targetIndex,itemSlot)
     local ItemID = Item.GetData(Char.GetItemIndex(charIndex,itemSlot),0);
     APPSlot = itemSlot;
     APPIndex = Char.GetItemIndex(charIndex,itemSlot);
 
-    local itemType = Item.GetData(APPIndex,CONST.对象_类型);		--類型64 AI模組
+    local itemType = Item.GetData(APPIndex,CONST.对象_类型);		--類型64 AI模式
     local itemInfo_45 = Item.GetData(APPIndex,CONST.道具_特殊类型);	--形象編號
     if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45表已成功激活
       local itemName = Item.GetData(APPIndex,CONST.道具_名字);
@@ -371,23 +396,24 @@ function Module:mechanism(charIndex,targetIndex,itemSlot)
       local TechIndex_47 = Tech.GetTechIndex(itemInfo_47);
       local TechName_47 = Tech.GetData(TechIndex_47, CONST.TECH_NAME);
       local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
-      msg = imageText .. "　　　　　　　　【AI行動模組】\\n"
+      msg = imageText .. "　　　　　　　　【喚獸卡牌行動模式】\\n"
                .. "　　$4".. MonsName .. "\\n"
-               .. "　　　　　　　$1技能施放對象 ["..AIinfo[AIType].."]\\n"
-               .. "　　　　　　　$1一動施放技能 ["..TechName_46.."]\\n"
-               .. "　　　　　　　$1二動施放技能 ["..TechName_47.."]\\n"
-               .. "　　　　　　　$2怪獸類型 ["..Assortment[monsType].."]　種族 人形系\\n"
+               .. "　　　　　　　$2喚獸類型 ["..Assortment[monsType].."]　人形系\\n"
+               .. "　　　　　　　$1行動模式 ["..AIinfo[AIType].."]\\n"
+               .. "　　　　　　　$1一動技能 ["..TechName_46.."]\\n"
+               .. "　　　　　　　$1二動技能 ["..TechName_47.."]\\n"
+               .. "　　　　　　　$5地 ".. Goal_DataPos_14/10 .."　" .."$5水 ".. Goal_DataPos_15/10 .."　" .."$5火 ".. Goal_DataPos_16/10 .."　" .."$5風 ".. Goal_DataPos_17/10 .."\\n"
                .. "　　　　　　　$4▽額外加成能力▽\\n"
                .. "　　　　　　　$4攻擊 "..equipMod[1].."　".."防禦 "..equipMod[2].."　".."敏捷 "..equipMod[3].."\\n"
-               .. "　　　　　　　$4精神 "..equipMod[4].."　".."恢復 "..equipMod[5].."\\n"
-               .. "　　　　　　　$5地 ".. Goal_DataPos_14/10 .."　" .."$5水 ".. Goal_DataPos_15/10 .."　" .."$5火 ".. Goal_DataPos_16/10 .."　" .."$5風 ".. Goal_DataPos_17/10 .."\\n";
+               .. "　　　　　　　$4精神 "..equipMod[4].."　".."恢復 "..equipMod[5].."\\n";
+      NLG.ShowWindowTalked(charIndex, self.applianceNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     elseif (itemType == 64 and itemInfo_45 <= 0) then
       local itemName = Item.GetData(APPIndex,CONST.道具_名字);
-      msg = "\\n@c【AI行動模組】\\n\\n"
+      msg = "\\n@c【喚獸卡牌行動模式】\\n\\n"
                .. "\\n此為 "..itemName.."\\n\\n"
-               .. "\\n$7尚未與精靈怪獸進行成功綁定\\n";
+               .. "\\n$7尚未與精靈喚獸進行成功綁定\\n";
+      NLG.ShowWindowTalked(charIndex, self.applianceNPC, CONST.窗口_信息框, CONST.按钮_关闭, 1, msg);
     end
-    NLG.ShowWindowTalked(charIndex, self.applianceNPC, CONST.窗口_信息框, CONST.按钮_关闭, 1, msg);
     return 1;
 end
 
@@ -429,23 +455,26 @@ function Module:mmessage(charIndex,targetIndex,itemSlot)
       local TechName_47 = Tech.GetData(TechIndex_47, CONST.TECH_NAME);
 
       local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
-      msg = imageText .. "　　　　　　　　【精靈怪獸資訊】\\n"
+      local imageText_2 = "@g,239526,10,4,4,0@"
+      msg = imageText .. "　　　　　　　　【精靈喚獸資訊】\\n"
                .. "　　$4".. MonsName .. "\\n"
-               .. "　　　　　　　$1怪獸類型 ["..monsTypeName.."]\\n"
+               .. "　　　　　　　$2喚獸類型 ["..monsTypeName.."]\\n"
+               .. "　　　　　　　$1行動模式 [尚未綁定生效]\\n"
                .. "　　　　　　　$1一動技能 ["..TechName_46.."]\\n"
-               .. "　　　　　　　$1二動技能 ["..TechName_47.."]\\n\\n"
+               .. "　　　　　　　$1二動技能 ["..TechName_47.."]\\n"
                .. "　　　　　　　$5地 ".. Goal_DataPos_14/10 .."　" .."$5水 ".. Goal_DataPos_15/10 .."　" .."$5火 ".. Goal_DataPos_16/10 .."　" .."$5風 ".. Goal_DataPos_17/10 .."\\n";
+      --local msg = msg .. imageText_2
     NLG.ShowWindowTalked(charIndex, self.pokeVRNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     return 1;
 end
--- 搜尋全新AI模組
+-- 搜尋全新AI模式
 Char.GetVRGoalSlot = function(charIndex)
 	for Slot=8,47 do
 		local ItemIndex = Char.GetItemIndex(charIndex, Slot);
 		--print(ItemIndex);
 		if (ItemIndex > 0) then
 			local ItemId = Item.GetData(ItemIndex,CONST.道具_ID);
-			local itemType = Item.GetData(ItemIndex,CONST.对象_类型);		--類型64 AI模組
+			local itemType = Item.GetData(ItemIndex,CONST.对象_类型);		--類型64 AI模式
 			local itemInfo_45 = Item.GetData(ItemIndex,CONST.道具_特殊类型);	--形象編號
 			if (itemType == 64 and itemInfo_45 <= 0) then
 				return ItemIndex,Slot;
@@ -501,7 +530,7 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 				for itemSlot=8,11 do
 					local itemIndex = Char.GetItemIndex(charIndex, itemSlot);
 					if (itemIndex>0) then
-						local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模組
+						local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
 						local itemId = Item.GetData(itemIndex,CONST.道具_ID);
 						local itemInfo_45 = Item.GetData(itemIndex,CONST.道具_特殊类型);	--形象編號
 						if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45表已成功激活
@@ -779,12 +808,12 @@ function Module:onBattleOverCallback(battleIndex)
 	return 0;
 end
 
--- 檢查是否有AI模組
+-- 檢查是否有AI模式
 function checkAISummon(player)
 	for itemSlot=8,11 do
 		local itemIndex = Char.GetItemIndex(player,itemSlot);
 		if (itemIndex>0) then
-			local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模組
+			local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
 			local itemInfo_45 = Item.GetData(itemIndex,CONST.道具_特殊类型);	--形象編號
 			if (itemType == 64 and itemInfo_45 > 0) then
 				return true
