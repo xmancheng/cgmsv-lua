@@ -735,7 +735,9 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 						com1=1;
 					end
 					local tSlot = smartTargetSelection(battleIndex,AIType,techId_1);
-					if skillCom[IMAGEId_1][com1]==40 or skillCom[IMAGEId_1][com1]==41 then
+					if skillCom[IMAGEId_1][com1]==40 or skillCom[IMAGEId_1][com1]==41 then	--全體技能
+						com2 = skillCom[IMAGEId_1][com1];
+					elseif skillCom[IMAGEId_1][com1]==-1 then	--非指向技能
 						com2 = skillCom[IMAGEId_1][com1];
 					else
 						com2 = tSlot + skillCom[IMAGEId_1][com1];
@@ -765,8 +767,10 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 							com1=1;
 						end
 						local tSlot = smartTargetSelection(battleIndex,AIType,techId_2);
-						if skillCom[IMAGEId_2][com1]==40 or skillCom[IMAGEId_2][com1]==41 then
+						if skillCom[IMAGEId_2][com1]==40 or skillCom[IMAGEId_2][com1]==41 then	--全體技能
 							com2 = skillCom[IMAGEId_2][com1];
+						elseif skillCom[IMAGEId_1][com1]==-1 then	--非指向技能
+							com2 = skillCom[IMAGEId_1][com1];
 						else
 							com2 = tSlot + skillCom[IMAGEId_2][com1];
 						end
