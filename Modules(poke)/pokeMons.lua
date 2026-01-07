@@ -388,6 +388,9 @@ function Module:mechanism(charIndex,targetIndex,itemSlot)
       elseif itemInfo_33==3 then Goal_DataPos_16=itemInfo_35;
       elseif itemInfo_33==4 then Goal_DataPos_17=itemInfo_35; end
 
+      local awakeLv = Item.GetData(APPIndex,CONST.道具_最大耐久);	--覺醒等級
+      local plus = GetAwakenPower(awakeLv);
+
       local itemInfo_46 = Item.GetData(APPIndex,CONST.道具_子参一);	--第一回施放tech編號
       local TechIndex_46 = Tech.GetTechIndex(itemInfo_46);
       local TechName_46 = Tech.GetData(TechIndex_46, CONST.TECH_NAME);
@@ -403,7 +406,7 @@ function Module:mechanism(charIndex,targetIndex,itemSlot)
                .. "　　　　　　　$1一動技能 ["..TechName_46.."]\\n"
                .. "　　　　　　　$1二動技能 ["..TechName_47.."]\\n"
                .. "　　　　　　　$5地 ".. Goal_DataPos_14/10 .."　" .."$5水 ".. Goal_DataPos_15/10 .."　" .."$5火 ".. Goal_DataPos_16/10 .."　" .."$5風 ".. Goal_DataPos_17/10 .."\\n"
-               .. "　　　　　　　$4▽額外加成能力▽\\n"
+               .. "　　　　　　　$4▽額外加成能力▽　$0基本值"..plus.."點▲\\n"
                .. "　　　　　　　$4攻擊 "..equipMod[1].."　".."防禦 "..equipMod[2].."　".."敏捷 "..equipMod[3].."\\n"
                .. "　　　　　　　$4精神 "..equipMod[4].."　".."恢復 "..equipMod[5].."\\n";
       NLG.ShowWindowTalked(charIndex, self.applianceNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
@@ -593,13 +596,14 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 							Char.SetData(MonsIndex,CONST.对象_名字, MonsName);
 							Char.SetData(MonsIndex,CONST.对象_等级, level);
 							local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);	--覺醒等級
+							local plus = GetAwakenPower(awakeLv)*100;
 							--怪物類型
 							local cg1,cg2,cg3,cg4,cg5 = setAssortment(level,monsType);
-							Char.SetData(MonsIndex, CONST.对象_体力, cg1+(awakeLv*100));
-							Char.SetData(MonsIndex, CONST.对象_力量, cg2+(awakeLv*100));
-							Char.SetData(MonsIndex, CONST.对象_强度, cg3+(awakeLv*100));
-							Char.SetData(MonsIndex, CONST.对象_速度, cg4+(awakeLv*100));
-							Char.SetData(MonsIndex, CONST.对象_魔法, cg5+(awakeLv*100));
+							Char.SetData(MonsIndex, CONST.对象_体力, cg1+plus);
+							Char.SetData(MonsIndex, CONST.对象_力量, cg2+plus);
+							Char.SetData(MonsIndex, CONST.对象_强度, cg3+plus);
+							Char.SetData(MonsIndex, CONST.对象_速度, cg4+plus);
+							Char.SetData(MonsIndex, CONST.对象_魔法, cg5+plus);
 							NLG.UpChar(MonsIndex);
 							--進化加成(需倚賴在裝備上)
 							local itemInfo_4003 = Item.GetData(itemIndex,CONST.道具_自用参数);	--進化加成表
@@ -817,7 +821,7 @@ function Module:onBattleOverCallback(battleIndex)
 						local awakeExp = Item.GetData(itemIndex,CONST.道具_耐久);
 						local awakeExp = awakeExp + Battle.GetTurn(battleIndex)-1;
 						-- 覺醒度經驗
-						local need = GetAwakeExpNeed(awakeLv);
+						local need = GetAwakenExpNeed(awakeLv);
 						if (awakeExp >= need and need~=0) then
 							Item.SetData(itemIndex,CONST.道具_耐久,0);
 							Item.SetData(itemIndex,CONST.道具_最大耐久,awakeLv + 1);
@@ -965,11 +969,17 @@ function setAssortment(level,monsType)
 end
 
 -- 覺醒度表
-function GetAwakeExpNeed(lv)
+function GetAwakenExpNeed(lv)
 	if lv >= 9999 then return 0 end
     local K = 9999;
     local C = 500;
 	return math.floor(K * lv / (lv + C));
+end
+-- 累積型加成表
+function GetAwakenPower(lv)
+    local Pmax = 900;
+    local C = 2500;
+	return math.floor(Pmax * lv^2 / (lv^2 + C^2) ) ;
 end
 
 function CheckInTable(_idTab, _idVar) ---循环函数
