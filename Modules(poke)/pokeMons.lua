@@ -1,11 +1,11 @@
 local Module = ModuleBase:createModule('pokeMons')
 
 local AIinfo = {
-  "敵方隨機目標",
-  "我方血少目標",
-  "敵方血少目標",
-  "敵方血多目標",
   "敵方首領目標",
+  "敵方血低目標",
+  "敵方血高目標",
+  "敵方隨機目標",
+  "我方血低目標",
   "我方隊長目標",
 }
 
@@ -64,6 +64,7 @@ local skillParams={
 
   [73] = {CONST.BATTLE_COM.BATTLE_COM_ATTACK},	-- 攻击
   [74] = {CONST.BATTLE_COM.BATTLE_COM_GUARD},	-- 防御
+  [160] = {CONST.BATTLE_COM.BATTLE_COM_POSITION},	-- 定点移动
   [75] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- 毒性攻击
   [76] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- 昏睡攻击
   [77] = {CONST.BATTLE_COM.BATTLE_COM_M_STATUSATTACK},	-- 石化攻击
@@ -162,6 +163,7 @@ local skillCom={
 
   [73] = {-1},	-- 攻击
   [74] = {-1},	-- 防御
+  [160] = {-1},	-- 定点移动
   [75] = {0},	-- 毒性攻击
   [76] = {0},	-- 昏睡攻击
   [77] = {0},	-- 石化攻击
@@ -213,7 +215,13 @@ local skillCom={
   [60] = {0,0,20,40},	-- 魔法无效
 }
 
+local techManual = {
+  {Name="喚獸技能學習師", Image=14682, Area={map=1000,X=237,Y=99}, Dynamo=1, TechInfo={{38,5000},{138,5000},{338,5000},{538,5000},{638,5000},{738,5000},{1138,5000},{8138,5000},}, },
+  {Name="喚獸技能學習師", Image=14682, Area={map=1000,X=238,Y=99}, Dynamo=2, TechInfo={{7300,6000},{7400,6000},{16000,5000},}, },
+}
+
 tbl_MonsIndex = tbl_MonsIndex or {}
+tbl_techManualNPCIndex = tbl_techManualNPCIndex or {}
 -----------------------------------------------------------------
 function Module:onLoad()
   self:logInfo('load')
@@ -342,6 +350,111 @@ function Module:onLoad()
         end
     end
   end)
+
+  --技能學習
+ for k,v in pairs(techManual) do
+  if tbl_techManualNPCIndex[k] == nil then
+  local TechLearningNPC = self:NPC_createNormal(v.Name,v.Image, { mapType=0, map=v.Area.map, x=v.Area.X, y=v.Area.Y, direction=4 });
+  tbl_techManualNPCIndex[k] = TechLearningNPC;
+  Char.SetData(TechLearningNPC,CONST.对象_ENEMY_PetFlg+2,0);
+  self:NPC_regTalkedEvent(tbl_techManualNPCIndex[k], function(npc, player)
+    -- 数据结构: NPC图档|窗口名称|NPC对话|未知1|未知2|标题N|耗魔N|价格N|介绍文字N|...
+    if (NLG.CanTalk(npc, player) == true) then
+        local dynamo = v.Dynamo;
+        if (dynamo==1) then namo="『一動技能』"; elseif (dynamo==2) then namo="『二動技能』"; end
+        local msg = "14682|喚獸"..namo.."學習|\n我可以讓你道具欄的喚獸卡牌學習技能哦|未知1|未知2|"
+        for i=1,#v.TechInfo do
+          local techId = v.TechInfo[i][1];
+          local techGold = v.TechInfo[i][2];
+          local TechIndex = Tech.GetTechIndex(techId);
+          local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
+          local TechFP = Tech.GetData(TechIndex, CONST.TECH_FORCEPOINT);
+          local msgId = Tech.GetData(TechIndex, CONST.TECH_COMMENT);
+          local TechComment = Data.GetMessage(msgId);
+          msg = msg .. TechName.."|"..TechFP.."|"..techGold.."|\n"..TechComment.."|"
+        end
+        NLG.ShowWindowTalked(player, npc, 24, CONST.按钮_上下取消, 99, msg);	--CONST.窗口_宠技学习选择技能框
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(tbl_techManualNPCIndex[k], function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select > 0 then
+      if select == CONST.按钮_关闭 then
+        return;
+      end
+    end
+    if (seqno == 99) then
+      TechSort = data+1;
+      local msg = "3\\n @c【喚獸卡牌技能學習】\\n"
+               .. " ※選擇哪一個卡牌的一動技能覆蓋學習\\n\\n"
+      for Slot=8,11 do
+        local APPIndex = Char.GetItemIndex(player,Slot);
+        if (APPIndex>0) then
+          local itemName = Item.GetData(APPIndex,CONST.道具_名字);
+          local itemType = Item.GetData(APPIndex,CONST.对象_类型);		--類型64 AI模式
+          local itemInfo_45 = Item.GetData(APPIndex,CONST.道具_特殊类型);	--形象編號
+          if (itemType == 64 and itemInfo_45 > 0) then
+            msg = msg .. "◎　" ..itemName.."\\n"
+          else
+            msg = msg .. "◎　空\\n"
+          end
+        else
+            msg = msg .. "◎　空\\n"
+        end
+      end
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 1, msg);
+    elseif (seqno == 1) then
+      local dynamo = v.Dynamo;
+      local techId = v.TechInfo[TechSort][1];
+      local techGold = v.TechInfo[TechSort][2];
+      if (Char.GetData(player,CONST.对象_金币)<techGold) then
+         NLG.SystemMessage(player, "[系統]學習技能需要" ..techGold.. "G。");
+         return;
+      end
+      if (techId>0) then
+        local Slot = data+7;
+        local APPIndex = Char.GetItemIndex(player,Slot);
+        if (APPIndex>0) then
+          local itemName = Item.GetData(APPIndex,CONST.道具_名字);
+          local last = string.find(itemName, "]", 1);
+          local MonsName = string.sub(itemName, 2, last-1);
+          local itemType = Item.GetData(APPIndex,CONST.对象_类型);		--類型64 AI模式
+          local itemInfo_45 = Item.GetData(APPIndex,CONST.道具_特殊类型);	--形象編號
+          local itemInfo_46 = Item.GetData(APPIndex,CONST.道具_子参一);	--第一回施放tech編號
+          local itemInfo_47 = Item.GetData(APPIndex,CONST.道具_子参二);	--第一回施放tech編號
+          local TechIndex = Tech.GetTechIndex(techId);
+          local TechName = Tech.GetData(TechIndex, CONST.TECH_NAME);
+          if (itemType == 64 and itemInfo_46 == techId and dynamo==1) then
+             NLG.SystemMessage(player,"[系統]卡牌技能和學習技能相同。");
+             return;
+          elseif (itemType == 64 and itemInfo_45 > 0 and dynamo==1) then
+             Item.SetData(APPIndex,CONST.道具_子参一, techId);	--第一回施放tech編號
+             Item.UpItem(player, Slot);
+             Char.AddGold(player, -techGold);
+             NLG.SystemMessage(player,"[系統]花費"..techGold.."G "..MonsName.."學習了"..TechName.."。");
+             NLG.UpChar(player);
+          elseif (itemType == 64 and itemInfo_47 == techId and dynamo==2) then
+             NLG.SystemMessage(player,"[系統]卡牌技能和學習技能相同。");
+             return;
+          elseif (itemType == 64 and itemInfo_45 > 0 and dynamo==2) then
+             Item.SetData(APPIndex,CONST.道具_子参二, techId);	--第二回施放tech編號
+             Item.UpItem(player, Slot);
+             Char.AddGold(player, -techGold);
+             NLG.SystemMessage(player,"[系統]花費"..techGold.."G "..MonsName.."學習了"..TechName.."。");
+             NLG.UpChar(player);
+          elseif (itemType ~= 64 or itemInfo_45 == 0) then
+             NLG.SystemMessage(player,"[系統]只有配對卡牌可學習技能，請重新確認。");
+             return;
+          end
+        end
+      end
+    end
+  end)
+  end
+ end
 
 
 end
@@ -869,26 +982,10 @@ end
 function smartTargetSelection(battleIndex,AIType,techId)
   local tSlot = 10;
   -- NOTE 敵方隨機目標
-  if (AIType==1) then
-    local tSlot = math.random(10,19);
+  if (AIType==1) then	-- NOTE 敵方首領目標
+    local tSlot = 10;
     return tSlot;
-  elseif (AIType==2) then	-- NOTE 我方血少
-    local tagHp = nil;
-    for slot = 0,9 do
-      local charIndex = Battle.GetPlayer(battleIndex, slot);
-      if (charIndex >= 0) then
-        local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
-        if tagHp == nil then
-          tagHp = hpRatio;
-          tSlot = slot;
-        elseif hpRatio < tagHp then	--己方血量占比最低
-          tagHp = hpRatio;
-          tSlot = slot;
-        end
-      end
-    end
-    return tSlot;
-  elseif (AIType==3) then	-- NOTE 敵方血少
+  elseif (AIType==2) then	-- NOTE 敵方血低
     local tagHp = nil;
     for slot = 10,19 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
@@ -904,7 +1001,7 @@ function smartTargetSelection(battleIndex,AIType,techId)
       end
     end
     return tSlot;
-  elseif (AIType==4) then	-- NOTE 敵方血多
+  elseif (AIType==3) then	-- NOTE 敵方血高
     local tagHp = nil;
     for slot = 10,19 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
@@ -920,8 +1017,24 @@ function smartTargetSelection(battleIndex,AIType,techId)
       end
     end
     return tSlot;
-  elseif (AIType==5) then	-- NOTE 敵方首領目標
-    local tSlot = 10;
+  elseif (AIType==4) then
+    local tSlot = math.random(10,19);
+    return tSlot;
+  elseif (AIType==5) then	-- NOTE 我方血低
+    local tagHp = nil;
+    for slot = 0,9 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot);
+      if (charIndex >= 0) then
+        local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
+        if tagHp == nil then
+          tagHp = hpRatio;
+          tSlot = slot;
+        elseif hpRatio < tagHp then	--己方血量占比最低
+          tagHp = hpRatio;
+          tSlot = slot;
+        end
+      end
+    end
     return tSlot;
   elseif (AIType==6) then	-- NOTE 我方隊長目標
     local tSlot = 0;
