@@ -217,7 +217,7 @@ local skillCom={
 
 local techManual = {
   {Name="喚獸技能學習師", Image=14682, Area={map=1000,X=237,Y=99}, Dynamo=1, TechInfo={{38,5000},{138,5000},{338,5000},{538,5000},{638,5000},{738,5000},{1138,5000},{8138,5000},}, },
-  {Name="喚獸技能學習師", Image=14682, Area={map=1000,X=238,Y=99}, Dynamo=2, TechInfo={{7300,6000},{7400,6000},{16000,5000},}, },
+  {Name="喚獸技能學習師", Image=14682, Area={map=1000,X=238,Y=99}, Dynamo=2, TechInfo={{7300,100},{7400,100},{16000,100},}, },
 }
 
 tbl_MonsIndex = tbl_MonsIndex or {}
@@ -418,11 +418,15 @@ function Module:onLoad()
         local Slot = data+7;
         local APPIndex = Char.GetItemIndex(player,Slot);
         if (APPIndex>0) then
+          local itemType = Item.GetData(APPIndex,CONST.对象_类型);		--類型64 AI模式
+          local itemInfo_45 = Item.GetData(APPIndex,CONST.道具_特殊类型);	--形象編號
+          if (itemType ~= 64 or itemInfo_45 == 0) then
+             NLG.SystemMessage(player,"[系統]只有配對卡牌可學習技能，請重新確認。");
+             return;
+          end
           local itemName = Item.GetData(APPIndex,CONST.道具_名字);
           local last = string.find(itemName, "]", 1);
           local MonsName = string.sub(itemName, 2, last-1);
-          local itemType = Item.GetData(APPIndex,CONST.对象_类型);		--類型64 AI模式
-          local itemInfo_45 = Item.GetData(APPIndex,CONST.道具_特殊类型);	--形象編號
           local itemInfo_46 = Item.GetData(APPIndex,CONST.道具_子参一);	--第一回施放tech編號
           local itemInfo_47 = Item.GetData(APPIndex,CONST.道具_子参二);	--第一回施放tech編號
           local TechIndex = Tech.GetTechIndex(techId);
@@ -445,9 +449,6 @@ function Module:onLoad()
              Char.AddGold(player, -techGold);
              NLG.SystemMessage(player,"[系統]花費"..techGold.."G "..MonsName.."學習了"..TechName.."。");
              NLG.UpChar(player);
-          elseif (itemType ~= 64 or itemInfo_45 == 0) then
-             NLG.SystemMessage(player,"[系統]只有配對卡牌可學習技能，請重新確認。");
-             return;
           end
         end
       end
