@@ -10,12 +10,12 @@ local AIinfo = {
 }
 
 local Assortment = {
-  "力速型",
-  "魔速型",
-  "體速型",
-  "魔防型",
-  "力體速型",
-  "魔體速型",
+  {"力速型","500,200,150,30,50,2000,2000"},
+  {"魔速型","100,200,150,80,50,2000,2000"},
+  {"體速型","300,200,150,30,90,2000,2000"},
+  {"魔防型","100,250,100,90,60,2000,2000"},
+  {"力體速型","400,200,120,30,80,2000,2000"},
+  {"魔體速型","100,200,120,50,80,2000,2000"},
 }
 local skillParams={
   -- 自创技能
@@ -398,7 +398,7 @@ function Module:mechanism(charIndex,targetIndex,itemSlot)
       local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
       msg = imageText .. "　　　　　　　　【喚獸卡牌行動模式】\\n"
                .. "　　$4".. MonsName .. "\\n"
-               .. "　　　　　　　$2喚獸類型 ["..Assortment[monsType].."]　人形系\\n"
+               .. "　　　　　　　$2喚獸類型 ["..Assortment[monsType][1].."]　人形系\\n"
                .. "　　　　　　　$1行動模式 ["..AIinfo[AIType].."]\\n"
                .. "　　　　　　　$1一動技能 ["..TechName_46.."]\\n"
                .. "　　　　　　　$1二動技能 ["..TechName_47.."]\\n"
@@ -429,7 +429,7 @@ function Module:mmessage(charIndex,targetIndex,itemSlot)
       local MonsName = string.sub(itemName, 2, last-1);
       local AIType = Item.GetData(BallIndex,CONST.道具_等级);		--AI模式
       local monsType = Item.GetData(BallIndex,CONST.道具_幸运);		--怪物類型
-      local monsTypeName = Assortment[monsType];
+      local monsTypeName = Assortment[monsType][1];
       local itemInfo_32 = Item.GetData(BallIndex,CONST.道具_属性一);
       local itemInfo_33 = Item.GetData(BallIndex,CONST.道具_属性二);
       local itemInfo_34 = Item.GetData(BallIndex,CONST.道具_属性一值);
@@ -592,16 +592,17 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 
 							Char.SetData(MonsIndex,CONST.对象_名字, MonsName);
 							Char.SetData(MonsIndex,CONST.对象_等级, level);
+							local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);	--覺醒等級
 							--怪物類型
 							local cg1,cg2,cg3,cg4,cg5 = setAssortment(level,monsType);
-							Char.SetData(MonsIndex, CONST.对象_体力, cg1);
-							Char.SetData(MonsIndex, CONST.对象_力量, cg2);
-							Char.SetData(MonsIndex, CONST.对象_强度, cg3);
-							Char.SetData(MonsIndex, CONST.对象_速度, cg4);
-							Char.SetData(MonsIndex, CONST.对象_魔法, cg5);
+							Char.SetData(MonsIndex, CONST.对象_体力, cg1+(awakeLv*100));
+							Char.SetData(MonsIndex, CONST.对象_力量, cg2+(awakeLv*100));
+							Char.SetData(MonsIndex, CONST.对象_强度, cg3+(awakeLv*100));
+							Char.SetData(MonsIndex, CONST.对象_速度, cg4+(awakeLv*100));
+							Char.SetData(MonsIndex, CONST.对象_魔法, cg5+(awakeLv*100));
 							NLG.UpChar(MonsIndex);
 							--進化加成(需倚賴在裝備上)
-							local itemInfo_4003 = Item.GetData(APPIndex,CONST.道具_自用参数);	--進化加成表
+							local itemInfo_4003 = Item.GetData(itemIndex,CONST.道具_自用参数);	--進化加成表
 							local equipMod = string.split(itemInfo_4003,',');
 							if equipMod[1]=="" then
 								for i=1,7 do
@@ -738,7 +739,7 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 					if skillCom[IMAGEId_1][com1]==40 or skillCom[IMAGEId_1][com1]==41 then	--全體技能
 						com2 = skillCom[IMAGEId_1][com1];
 					elseif skillCom[IMAGEId_1][com1]==-1 then	--非指向技能
-						com2 = skillCom[IMAGEId_1][com1];
+						com2 = tSlot;
 					else
 						com2 = tSlot + skillCom[IMAGEId_1][com1];
 					end
@@ -769,8 +770,8 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 						local tSlot = smartTargetSelection(battleIndex,AIType,techId_2);
 						if skillCom[IMAGEId_2][com1]==40 or skillCom[IMAGEId_2][com1]==41 then	--全體技能
 							com2 = skillCom[IMAGEId_2][com1];
-						elseif skillCom[IMAGEId_1][com1]==-1 then	--非指向技能
-							com2 = skillCom[IMAGEId_1][com1];
+						elseif skillCom[IMAGEId_2][com1]==-1 then	--非指向技能
+							com2 = tSlot;
 						else
 							com2 = tSlot + skillCom[IMAGEId_2][com1];
 						end
@@ -803,6 +804,40 @@ function Module:onBattleOverCallback(battleIndex)
 		local switch = checkAISummon(player);
 		--local floor = Char.GetData(player, CONST.对象_地图);
 		if (switch==true and Char.IsDummy(Battle.GetPlayIndex(battleIndex,1))) then	--地圖檢查(只在指定地圖生效)
+			for itemSlot=8,11 do
+				local itemIndex = Char.GetItemIndex(player, itemSlot);
+				if (itemIndex>0) then
+					if (Item.GetData(itemIndex,CONST.道具_最大耐久)>=1) then
+						local itemName = Item.GetData(itemIndex,CONST.道具_名字);
+						local last = string.find(itemName, "]", 1);
+						local MonsName = string.sub(itemName, 2, last-1);
+						local monsType = Item.GetData(itemIndex,CONST.道具_幸运);		--怪物類型
+
+						local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);
+						local awakeExp = Item.GetData(itemIndex,CONST.道具_耐久);
+						local awakeExp = awakeExp + Battle.GetTurn(battleIndex)-1;
+						-- 覺醒度經驗
+						local need = GetAwakeExpNeed(awakeLv);
+						if (awakeExp >= need and need~=0) then
+							Item.SetData(itemIndex,CONST.道具_耐久,0);
+							Item.SetData(itemIndex,CONST.道具_最大耐久,awakeLv + 1);
+							NLG.SystemMessage(player, "[系統]"..MonsName.."覺醒等級提升。");
+						elseif (awakeExp < need and need~=0) then
+							Item.SetData(itemIndex,CONST.道具_耐久,awakeExp);
+						end
+						--進化
+						if (awakeLv==3600 and Item.GetData(itemIndex,CONST.道具_丢地消失)==0) then
+							Item.SetData(itemIndex,CONST.道具_丢地消失,1);
+							Item.SetData(itemIndex,CONST.道具_宠邮,0);
+							Item.SetData(itemIndex,CONST.道具_自用参数,Assortment[monsType][2]);
+							Item.SetData(itemIndex,CONST.道具_特殊类型,Item.GetData(itemIndex,CONST.道具_特殊类型)+1);	--形象編號
+							NLG.SystemMessage(player, "[系統]"..MonsName.."發出光芒，外型似乎出現變化。");
+						end
+						Item.UpItem(player, itemSlot);
+						NLG.UpChar(player);
+					end
+				end
+			end
 			Char.DischargeParty(player);
 			if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
 				NLG.SystemMessage(player, "[系統]位於特殊區域戰鬥結束即解散隊伍。");
@@ -927,6 +962,14 @@ function setAssortment(level,monsType)
 		end
 	end
 	return cg1,cg2,cg3,cg4,cg5;
+end
+
+-- 覺醒度表
+function GetAwakeExpNeed(lv)
+	if lv >= 9999 then return 0 end
+    local K = 9999;
+    local C = 500;
+	return math.floor(K * lv / (lv + C));
 end
 
 function CheckInTable(_idTab, _idVar) ---循环函数
