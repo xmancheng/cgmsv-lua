@@ -387,9 +387,11 @@ function Module:onLoad()
       end
     end
     if (seqno == 99) then
+      local dynamo = v.Dynamo;
       TechSort = data+1;
+      if (dynamo==1) then namo="『一動技能』"; elseif (dynamo==2) then namo="『二動技能』"; end
       local msg = "3\\n @c【喚獸卡牌技能學習】\\n"
-               .. " ※選擇哪一個卡牌的一動技能覆蓋學習\\n\\n"
+               .. " ※選擇哪個卡牌的"..namo.."覆蓋學習\\n\\n"
       for Slot=8,11 do
         local APPIndex = Char.GetItemIndex(player,Slot);
         if (APPIndex>0) then
