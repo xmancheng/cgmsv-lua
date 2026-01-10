@@ -71,7 +71,7 @@ function Module:onLoad()
             Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
             NLG.SortItem(player);
             local exploreExp = Char.GetExtData(player, '探索经验') or 0;
-            local exploreExp = exploreExp + 1;
+            local exploreExp = exploreExp + 40;
             -- 熟練度經驗
             local need = GetExploreExpNeed(exploreLv);
             if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
@@ -85,14 +85,19 @@ function Module:onLoad()
                 Char.SetExtData(player, '探索经验', exploreExp);
                 NLG.UpChar(player);
             end
-		else
+        else
           NLG.SystemMessage(player,"伐木採集失敗。");
         end
         -- 隐藏掉落
         local hidden = TryHiddenDrop(225, exploreLv);
         if hidden then
-            local dropRate = {1,1,2,1,1,1,1,1,1,2};
-            Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			if (hidden==18360 and Char.FindItemId(player,18360)==-1) then
+				local dropRate = {1,1,2,1,1,1,1,1,1,2};
+				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			elseif (hidden~=18360) then
+				local dropRate = {1,1,2,1,1,1,1,1,1,2};
+				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			end
         end
         if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
           NLG.SystemMessage(player,"消耗1點耐久每5秒進行伐木，工具還有"..(AxeStr-1).."點耐久。");
@@ -174,7 +179,7 @@ function Module:onLoad()
             Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
             NLG.SortItem(player);
             local exploreExp = Char.GetExtData(player, '探索经验') or 0;
-            local exploreExp = exploreExp + 1;
+            local exploreExp = exploreExp + 40;
             -- 熟練度經驗
             local need = GetExploreExpNeed(exploreLv);
             if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
@@ -188,14 +193,19 @@ function Module:onLoad()
                 Char.SetExtData(player, '探索经验', exploreExp);
                 NLG.UpChar(player);
             end
-		else
-          NLG.SystemMessage(player,"伐木採集失敗。");
+        else
+          NLG.SystemMessage(player,"狩獵採集失敗。");
         end
         -- 隐藏掉落
         local hidden = TryHiddenDrop(226, exploreLv);
         if hidden then
-            local dropRate = {1,1,2,1,1,1,1,1,1,2};
-            Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			if (hidden==18359 and Char.FindItemId(player,18359)==-1) then
+				local dropRate = {1,1,2,1,1,1,1,1,1,2};
+				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			elseif (hidden~=18359) then
+				local dropRate = {1,1,2,1,1,1,1,1,1,2};
+				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			end
         end
         if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
           NLG.SystemMessage(player,"消耗1點耐久每5秒進行狩獵，工具還有"..(BowStr-1).."點耐久。");
@@ -277,7 +287,7 @@ function Module:onLoad()
             Char.GiveItem(player, itemId, dropRate[NLG.Rand(1,10)]);
             NLG.SortItem(player);
             local exploreExp = Char.GetExtData(player, '探索经验') or 0;
-            local exploreExp = exploreExp + 1;
+            local exploreExp = exploreExp + 40;
             -- 熟練度經驗
             local need = GetExploreExpNeed(exploreLv);
             if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
@@ -291,14 +301,19 @@ function Module:onLoad()
                 Char.SetExtData(player, '探索经验', exploreExp);
                 NLG.UpChar(player);
             end
-		else
-          NLG.SystemMessage(player,"伐木採集失敗。");
+        else
+          NLG.SystemMessage(player,"挖掘採集失敗。");
         end
         -- 隐藏掉落
         local hidden = TryHiddenDrop(227, exploreLv);
         if hidden then
-            local dropRate = {1,1,2,1,1,1,1,1,1,2};
-            Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			if (hidden==18358 and Char.FindItemId(player,18358)==-1) then
+				local dropRate = {1,1,2,1,1,1,1,1,1,2};
+				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			elseif (hidden~=18358) then
+				local dropRate = {1,1,2,1,1,1,1,1,1,2};
+				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
+			end
         end
         if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
           NLG.SystemMessage(player,"消耗1點耐久每5秒進行挖掘，工具還有"..(HawkStr-1).."點耐久。");
