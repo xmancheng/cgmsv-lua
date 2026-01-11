@@ -98,7 +98,7 @@ end
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load');
-  self.DIYerNPC = self:NPC_createNormal('組合工作台', 400222, { x = 34, y = 27, mapType = 0, map = 20311, direction = 0 });
+  self.DIYerNPC = self:NPC_createNormal('組合工作台', 400222, { x = 29, y = 36, mapType = 0, map = 20311, direction = 0 });
   self:NPC_regWindowTalkedEvent(self.DIYerNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
@@ -111,9 +111,10 @@ function Module:onLoad()
     local totalPage, remainder = calcFilteredWarp(totalAvailable);
     -- 1. 處理「確定製作」與「查看詳情」的跳轉邏輯
     if _select == CONST.按钮_是 then
-        if (page >= 2001) then
+        if (page >= 2001 and tonumber(_data)>=1) then
             local realIdx = page - 2000;
-            diyMutation(realIdx, player);
+            local num = tonumber(_data) or 0;
+            diyMutation(realIdx, player, num);
             return;
         else
             return;
@@ -123,8 +124,10 @@ function Module:onLoad()
             local realIdx = page - 1000;
             local msg = "　　　　　　　　【確認合成材料】\\n"
                      .. "　　　$1確認要消耗以下材料進行製作嗎？\\n$5"
-            msg = msg .. diyOfferingInfo(realIdx);
-            NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.窗口_信息框, CONST.按钮_是否, 2000 + realIdx, msg);
+            msg = msg .. diyOfferingInfo(realIdx)
+            msg = msg .."　　　請輸入欲製作的數量：\\n";
+            --NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.窗口_信息框, CONST.按钮_是否, 2000 + realIdx, msg);
+            NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.窗口_输入框, CONST.按钮_是否, 2000 + realIdx, msg);
             return;
         else
             return;
@@ -428,30 +431,39 @@ function diyOfferingInfo(realIdx)
 end
 
 --道具合成执行
-function diyMutation(realIdx,player)
-	if (Char.GetData(player, CONST.对象_金币)<diy_plan_gold[realIdx]) then
-		NLG.SystemMessage(player,"[系統]改造所需金幣不足。");
+function diyMutation(realIdx,player,num)
+	local count = 0;
+	for w = 1,num do
+		if (Char.GetData(player, CONST.对象_金币)<diy_plan_gold[realIdx]) then
+			NLG.SystemMessage(player,"[系統]合成所需金幣不足。");
+			goto next
+		end
+		for i = 1,#diy_plan_offering[realIdx] do
+			local itemIndex = Char.HaveItem(player, diy_plan_offering[realIdx][i][1]);
+			if (itemIndex>=0) then
+				local itemNum = Char.ItemNum(player,diy_plan_offering[realIdx][i][1]);
+				if (itemNum < diy_plan_offering[realIdx][i][2]) then
+					NLG.SystemMessage(player,"[系統]合成所需材料數量不足。");
+					goto next
+				end
+			else
+				NLG.SystemMessage(player,"[系統]缺少合成所需足夠材料。");
+				goto next
+			end
+		end
+		Char.AddGold(player, -diy_plan_gold[realIdx]);
+		local randCatch= NLG.Rand(1, #diy_plan_thing[realIdx] );
+		for i = 1,#diy_plan_offering[realIdx] do
+			Char.DelItem(player, diy_plan_offering[realIdx][i][1], diy_plan_offering[realIdx][i][2]);
+		end
+		Char.GiveItem(player,diy_plan_thing[realIdx][randCatch],1);
+		count = count+1;
+	end
+	::next::
+	if (num>=1) then
+		NLG.SystemMessage(player,"[系統]總共完成"..count.."組的道具製作。");
 		return
 	end
-	for i = 1,#diy_plan_offering[realIdx] do
-		local itemIndex = Char.HaveItem(player, diy_plan_offering[realIdx][i][1]);
-		if (itemIndex>=0) then
-			local itemNum = Char.ItemNum(player,diy_plan_offering[realIdx][i][1]);
-			if (itemNum < diy_plan_offering[realIdx][i][2]) then
-				NLG.SystemMessage(player,"[系統]合成所需材料數量不足。");
-				return
-			end
-		else
-			NLG.SystemMessage(player,"[系統]缺少合成所需材料。");
-			return
-		end
-	end
-	Char.AddGold(player, -diy_plan_gold[realIdx]);
-	local randCatch= NLG.Rand(1, #diy_plan_thing[realIdx] );
-	for i = 1,#diy_plan_offering[realIdx] do
-		Char.DelItem(player, diy_plan_offering[realIdx][i][1], diy_plan_offering[realIdx][i][2]);
-	end
-	Char.GiveItem(player,diy_plan_thing[realIdx][randCatch],1);
 end
 
 --目标成功率计算
