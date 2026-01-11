@@ -112,6 +112,10 @@ function Module:onLoad()
     -- 1. 處理「確定製作」與「查看詳情」的跳轉邏輯
     if _select == CONST.按钮_是 then
         if (page >= 2001 and tonumber(_data)>=1) then
+            if Char.ItemSlot(player)+tonumber(_data)>Char.GetData(player,CONST.对象_道具栏) then
+              NLG.SystemMessage(player,"[系統]輸入數量大於物品欄位。");
+              return;
+            end
             local realIdx = page - 2000;
             local num = tonumber(_data) or 0;
             diyMutation(realIdx, player, num);
