@@ -216,8 +216,8 @@ local skillCom={
 }
 
 local techManual = {
-  {Name="喚獸技能學習師", Image=14682, Area={map=1000,X=237,Y=99}, Dynamo=1, TechInfo={{38,5000},{138,5000},{338,5000},{538,5000},{638,5000},{738,5000},{1138,5000},{8138,5000},}, },
-  {Name="喚獸技能學習師", Image=14682, Area={map=1000,X=238,Y=99}, Dynamo=2, TechInfo={{7300,100},{7400,100},{16000,100},}, },
+  {Name="喚獸技能學習師", Image=14682, Area={map=20314,X=28,Y=29}, Dynamo=1, TechInfo={{38,5000},{138,5000},{338,5000},{538,5000},{638,5000},{738,5000},{1138,5000},{8138,5000},}, },
+  {Name="喚獸技能學習師", Image=14682, Area={map=20314,X=29,Y=29}, Dynamo=2, TechInfo={{7300,100},{7400,100},{16000,100},}, },
 }
 
 tbl_MonsIndex = tbl_MonsIndex or {}
@@ -646,7 +646,8 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 		if (battleturn==0) then		--開場召喚夥伴
 			local cdk = Char.GetData(charIndex, CONST.对象_CDK);
 			if (actionNum==1) then
-				for itemSlot=8,11 do
+				local standby = 0;
+				for itemSlot=8,27 do
 					local itemIndex = Char.GetItemIndex(charIndex, itemSlot);
 					if (itemIndex>0) then
 						local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
@@ -751,11 +752,16 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 							--Char.Warp(MonsIndex,Char.GetData(charIndex,CONST.对象_MAP),Char.GetData(charIndex,CONST.对象_地图),Char.GetData(charIndex,CONST.对象_X),Char.GetData(charIndex,CONST.对象_Y));
 							Char.JoinParty(MonsIndex, charIndex, true);
 							Battle.JoinBattle(charIndex, MonsIndex);
+							standby = standby+1;
 						else
 						end
 					else
 					end
+					if (standby>=4) then
+						goto next
+					end
 				end
+				::next::
 				--開場玩家隊長召喚
 				Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_COPY, 0, 26306);		--羊頭狗肉
 				--Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_DETECTENEMY, 10, 10701);		--偵查
