@@ -516,7 +516,7 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 				--print(charFloorId,X,Y)
 				if ( k==v.palType and charFloorId==v.popArea.map and X>=v.watchArea.LX and X<=v.watchArea.RX and Y>=v.watchArea.LY and Y<=v.watchArea.RY ) then
 					--计算更新时序、亲密度等级
-					SetTrainerInfo(player,k,1,1);	--timeStamp(1表更新), intimacy(1点)
+					SetTrainerInfo(player,k,1,3,0);	--timeStamp(1表更新), intimacy(3点)
 					--查询资料
 					local EliteTrainer,EliteLvel = GetTrainerInfo(player);
 
