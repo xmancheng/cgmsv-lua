@@ -953,10 +953,13 @@ function Module:onBattleOverCallback(battleIndex)
 		local switch = checkAISummon(player);
 		--local floor = Char.GetData(player, CONST.对象_地图);
 		if (switch==true and Char.IsDummy(Battle.GetPlayIndex(battleIndex,1))) then	--地圖檢查(只在指定地圖生效)
-			for itemSlot=8,11 do
+			local standby = 0;
+			for itemSlot=8,27 do
 				local itemIndex = Char.GetItemIndex(player, itemSlot);
 				if (itemIndex>0) then
-					if (Item.GetData(itemIndex,CONST.道具_最大耐久)>=1) then
+					local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
+					local itemInfo_45 = Item.GetData(itemIndex,CONST.道具_特殊类型);	--形象編號
+					if (itemType == 64 and itemInfo_45 > 0 and Item.GetData(itemIndex,CONST.道具_最大耐久)>=1) then
 						local itemName = Item.GetData(itemIndex,CONST.道具_名字);
 						local last = string.find(itemName, "]", 1);
 						local MonsName = string.sub(itemName, 2, last-1);
@@ -984,9 +987,14 @@ function Module:onBattleOverCallback(battleIndex)
 						end
 						Item.UpItem(player, itemSlot);
 						NLG.UpChar(player);
+						standby = standby+1;
 					end
 				end
+				if (standby>=4) then
+					goto next
+				end
 			end
+			::next::
 			Char.DischargeParty(player);
 			if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
 				NLG.SystemMessage(player, "[系統]位於特殊區域戰鬥結束即解散隊伍。");
