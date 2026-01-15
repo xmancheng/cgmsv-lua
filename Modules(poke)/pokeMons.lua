@@ -1,5 +1,7 @@
 local Module = ModuleBase:createModule('pokeMons')
 
+local card_Lslot = 8;
+local card_Rslot = 27;
 local AIinfo = {
   "敵方首領目標",
   "敵方血低目標",
@@ -670,7 +672,7 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 			local cdk = Char.GetData(charIndex, CONST.对象_CDK);
 			if (actionNum==1) then
 				local standby = 0;
-				for itemSlot=8,27 do
+				for itemSlot=card_Lslot,card_Rslot do
 					local itemIndex = Char.GetItemIndex(charIndex, itemSlot);
 					if (itemIndex>0) then
 						local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
@@ -954,7 +956,7 @@ function Module:onBattleOverCallback(battleIndex)
 		--local floor = Char.GetData(player, CONST.对象_地图);
 		if (switch==true and Char.IsDummy(Battle.GetPlayIndex(battleIndex,1))) then	--地圖檢查(只在指定地圖生效)
 			local standby = 0;
-			for itemSlot=8,27 do
+			for itemSlot=card_Lslot,card_Rslot do
 				local itemIndex = Char.GetItemIndex(player, itemSlot);
 				if (itemIndex>0) then
 					local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
@@ -1006,7 +1008,7 @@ end
 
 -- 檢查是否有AI模式
 function checkAISummon(player)
-	for itemSlot=8,11 do
+	for itemSlot=card_Lslot,card_Rslot do
 		local itemIndex = Char.GetItemIndex(player,itemSlot);
 		if (itemIndex>0) then
 			local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
