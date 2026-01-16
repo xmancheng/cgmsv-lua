@@ -1,102 +1,102 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeTrainer2')
 
 local maxTrainerLevel = 100;
 local PokeTrainer = {
-      { palType=1, palNum=1, palName="²¶ÏxÉÙÄê", palImage=105002, prestige=1000, gold=500,	--palNumÊıÁ¿(1²»¸ü¶¯)¡¢palImageÍâÏÔĞÎÏó(²»ÖØ¸´)¡¢ÉùÍû¡¢Ä§±Ò
-         popArea={map=20311,LX=41,LY=2, RX=41,RY=2}, watchArea={map=20311,LX=37,LY=2, RX=43,RY=10},		--³öÃ»·¶Î§(·½ĞÎ×ø±ê)¡¢¼àÊÓ·¶Î§(·½ĞÎ×ø±ê)
-         talk="²¶ÏxÉÙÄê£º×ŒÄã¿´¿´ÎÒ×¥µ½µÄÏxÏx¡£", loveItem={69014,69014,69014}, giftItem={607700,46630,75026,69088,76007}, },		--¿ªÕ½¶Ô»°£¬ÀñÎï(1)ÀñÎï(¡Ş)ÀñÎï(¡Ş)£¬Ç×ÃÜ¶È20¡¢40¡¢60¡¢80¡¢100Ö®Ò»´ÎĞÔ½±Àø
-      { palType=2, palNum=1, palName="ğBøBÈË", palImage=106039, prestige=2000, gold=1000,
+      { palType=1, palNum=1, palName="æ•èŸ²å°‘å¹´", palImage=105002, prestige=1000, gold=500,	--palNumæ•°é‡(1ä¸æ›´åŠ¨)ã€palImageå¤–æ˜¾å½¢è±¡(ä¸é‡å¤)ã€å£°æœ›ã€é­”å¸
+         popArea={map=20311,LX=41,LY=2, RX=41,RY=2}, watchArea={map=20311,LX=37,LY=2, RX=43,RY=10},		--å‡ºæ²¡èŒƒå›´(æ–¹å½¢åæ ‡)ã€ç›‘è§†èŒƒå›´(æ–¹å½¢åæ ‡)
+         talk="æ•èŸ²å°‘å¹´ï¼šè®“ä½ çœ‹çœ‹æˆ‘æŠ“åˆ°çš„èŸ²èŸ²ã€‚", loveItem={69014,69014,69014}, giftItem={607700,46630,75026,69088,76007}, },		--å¼€æˆ˜å¯¹è¯ï¼Œç¤¼ç‰©(1)ç¤¼ç‰©(âˆ)ç¤¼ç‰©(âˆ)ï¼Œäº²å¯†åº¦20ã€40ã€60ã€80ã€100ä¹‹ä¸€æ¬¡æ€§å¥–åŠ±
+      { palType=2, palNum=1, palName="é¤Šé³¥äºº", palImage=106039, prestige=2000, gold=1000,
          popArea={map=20311,LX=12,LY=24, RX=12,RY=24}, watchArea={map=20311,LX=12,LY=23, RX=13,RY=29},
-         talk="ğBøBÈË£ºÍùíµÄÂÃĞĞÕß½ÓÊÜÎÒµÄÌô‘ğ°É¡£", loveItem={69013,69013,69013}, giftItem={607701,46631,75026,74124,76058}, },
-      { palType=3, palNum=1, palName="µÇÉ½ÄĞ", palImage=106577, prestige=2000, gold=1000,
+         talk="é¤Šé³¥äººï¼šå¾€ä¾†çš„æ—…è¡Œè€…æ¥å—æˆ‘çš„æŒ‘æˆ°å§ã€‚", loveItem={69013,69013,69013}, giftItem={607701,46631,75026,74124,76058}, },
+      { palType=3, palNum=1, palName="ç™»å±±ç”·", palImage=106577, prestige=2000, gold=1000,
          popArea={map=20332,LX=48,LY=48, RX=48,RY=48}, watchArea={map=20332,LX=44,LY=46, RX=51,RY=53},
-         talk="µÇÉ½ÄĞ£º‡L‡LÎÒµÄ…–º¦¡£", loveItem={69011,69011,69011}, giftItem={607702,46632,75026,74121,76002}, },
-      { palType=4, palNum=1, palName="³à¼t", palImage=105039, prestige=2500, gold=1500,
+         talk="ç™»å±±ç”·ï¼šå˜—å˜—æˆ‘çš„å²å®³ã€‚", loveItem={69011,69011,69011}, giftItem={607702,46632,75026,74121,76002}, },
+      { palType=4, palNum=1, palName="èµ¤ç´…", palImage=105039, prestige=2500, gold=1500,
          popArea={map=20314,LX=38,LY=16, RX=38,RY=16}, watchArea={map=20314,LX=37,LY=15, RX=39,RY=17},
-         talk="³à¼t£ºÉÏ°É£¡ÎÒµÄâ·°é‚ƒ¡£", loveItem={69014,69014,69014}, giftItem={607703,46633,75026,69084,76013}, },
-      { palType=5, palNum=1, palName="ÏèÌ«", palImage=105139, prestige=2500, gold=1500,
+         talk="èµ¤ç´…ï¼šä¸Šå§ï¼æˆ‘çš„å¤¥ä¼´å€‘ã€‚", loveItem={69014,69014,69014}, giftItem={607703,46633,75026,69084,76013}, },
+      { palType=5, palNum=1, palName="ç¿”å¤ª", palImage=105139, prestige=2500, gold=1500,
          popArea={map=20314,LX=14,LY=15, RX=14,RY=15}, watchArea={map=20314,LX=13,LY=14, RX=15,RY=16},
-         talk="ÏèÌ«£ºÎÒÒªŒWµ½ÔS¶àµÄ½›ò¡£", loveItem={69011,69011,69011}, giftItem={607704,46633,75026,69081,76062}, },
-      { palType=6, palNum=1, palName="Ğ¡ßb", palImage=105252, prestige=2500, gold=1500,
+         talk="ç¿”å¤ªï¼šæˆ‘è¦å­¸åˆ°è¨±å¤šçš„ç¶“é©—ã€‚", loveItem={69011,69011,69011}, giftItem={607704,46633,75026,69081,76062}, },
+      { palType=6, palNum=1, palName="å°é™", palImage=105252, prestige=2500, gold=1500,
          popArea={map=20314,LX=38,LY=44, RX=38,RY=44}, watchArea={map=20314,LX=37,LY=43, RX=39,RY=48},
-         talk="Ğ¡ßb£ºÈAûµÄ»ğÑæ¡£", loveItem={69012,69012,69012}, giftItem={607705,46632,75026,69083,76010}, },
-      { palType=7, palNum=1, palName="Æíµ»Ÿ", palImage=106310, prestige=2000, gold=1000,
+         talk="å°é™ï¼šè¯éº—çš„ç«ç„°ã€‚", loveItem={69012,69012,69012}, giftItem={607705,46632,75026,69083,76010}, },
+      { palType=7, palNum=1, palName="ç¥ˆç¥·å¸«", palImage=106310, prestige=2000, gold=1000,
          popArea={map=20334,LX=95,LY=33, RX=95,RY=33}, watchArea={map=20334,LX=89,LY=32, RX=96,RY=39},
-         talk="Æíµ»Ÿ£ºÄãÒŠß^ÓÄì`†á£¿ÄãÕf›]¿´ß^£¡ÎÒ¾Í×ŒÄã¿´¿´£¡", loveItem={69013,69013,69013}, giftItem={607706,46631,75026,69082,76027}, },
-      { palType=8, palNum=1, palName="¿ÕÊÖµÀÍõ", palImage=105170, prestige=2000, gold=1000,
+         talk="ç¥ˆç¥·å¸«ï¼šä½ è¦‹éå¹½éˆå—ï¼Ÿä½ èªªæ²’çœ‹éï¼æˆ‘å°±è®“ä½ çœ‹çœ‹ï¼", loveItem={69013,69013,69013}, giftItem={607706,46631,75026,69082,76027}, },
+      { palType=8, palNum=1, palName="ç©ºæ‰‹é“ç‹", palImage=105170, prestige=2000, gold=1000,
          popArea={map=20312,LX=36,LY=10, RX=36,RY=10}, watchArea={map=20312,LX=35,LY=9, RX=36,RY=11},
-         talk="¿ÕÊÖµÀÍõ£ºĞÄì`ºÏÒ»¡£", loveItem={69011,69011,69011}, giftItem={607706,46630,75026,74130,76055}, },
-      { palType=9, palNum=1, palName="ßzÛEÃÔ", palImage=106008, prestige=2000, gold=1000,
+         talk="ç©ºæ‰‹é“ç‹ï¼šå¿ƒéˆåˆä¸€ã€‚", loveItem={69011,69011,69011}, giftItem={607706,46630,75026,74130,76055}, },
+      { palType=9, palNum=1, palName="éºè·¡è¿·", palImage=106008, prestige=2000, gold=1000,
          popArea={map=20333,LX=21,LY=15, RX=21,RY=15}, watchArea={map=20333,LX=16,LY=13, RX=23,RY=19},
-         talk="ßzÛEÃÔ£ºÎÒÛßzÛE£¬¸üÛÄŒ¦‘ğÖĞµÃµ½˜·È¤¡£", loveItem={69011,69011,69011}, giftItem={607707,46630,75026,69086,76001}, },
-      { palType=10, palNum=1, palName="ÈÌÕßĞ¡×Ó", palImage=106053, prestige=2000, gold=1000,
+         talk="éºè·¡è¿·ï¼šæˆ‘æ„›éºè·¡ï¼Œæ›´æ„›å¾å°æˆ°ä¸­å¾—åˆ°æ¨‚è¶£ã€‚", loveItem={69011,69011,69011}, giftItem={607707,46630,75026,69086,76001}, },
+      { palType=10, palNum=1, palName="å¿è€…å°å­", palImage=106053, prestige=2000, gold=1000,
          popArea={map=20313,LX=10,LY=44, RX=10,RY=44}, watchArea={map=20313,LX=9,LY=43, RX=11,RY=45},
-         talk="ÈÌÕßĞ¡×Ó£ºÄã±»ÈÌÕß·ü“ôÁË¡£", loveItem={69011,69011,69011}, giftItem={607708,46631,75026,74142,76052}, },
-      { palType=11, palNum=1, palName="Ó¾ÑĞ¡»ï×Ó", palImage=105114, prestige=2000, gold=1000,
+         talk="å¿è€…å°å­ï¼šä½ è¢«å¿è€…ä¼æ“Šäº†ã€‚", loveItem={69011,69011,69011}, giftItem={607708,46631,75026,74142,76052}, },
+      { palType=11, palNum=1, palName="æ³³è¤²å°ä¼™å­", palImage=105114, prestige=2000, gold=1000,
          popArea={map=20313,LX=31,LY=10, RX=31,RY=10}, watchArea={map=20313,LX=30,LY=9, RX=31,RY=11},
-         talk="Ó¾ÑĞ¡»ï×Ó£ºíˆöÏÄÈÕŒ¦‘ğ°É¡£", loveItem={69012,69012,69012}, giftItem={607709,46632,75026,69087,76071}, },
-      { palType=12, palNum=1, palName="Ç§½ğĞ¡½ã", palImage=105277, prestige=2000, gold=5000,
+         talk="æ³³è¤²å°ä¼™å­ï¼šä¾†å ´å¤æ—¥å°æˆ°å§ã€‚", loveItem={69012,69012,69012}, giftItem={607709,46632,75026,69087,76071}, },
+      { palType=12, palNum=1, palName="åƒé‡‘å°å§", palImage=105277, prestige=2000, gold=5000,
          popArea={map=20314,LX=11,LY=34, RX=19,RY=43}, watchArea={map=20314,LX=14,LY=36, RX=16,RY=42},
-         talk="Ç§½ğĞ¡½ã£ºÄã•şîŠÒâİ”½oÎÒ°É¡£", loveItem={69013,69013,69013}, giftItem={607710,46633,75026,74151,76026}, },
-      { palType=13, palNum=1, palName="³¬ÄÜÁ¦Õß", palImage=106283, prestige=2000, gold=1000,
+         talk="åƒé‡‘å°å§ï¼šä½ æœƒé¡˜æ„è¼¸çµ¦æˆ‘å§ã€‚", loveItem={69013,69013,69013}, giftItem={607710,46633,75026,74151,76026}, },
+      { palType=13, palNum=1, palName="è¶…èƒ½åŠ›è€…", palImage=106283, prestige=2000, gold=1000,
          popArea={map=20314,LX=46,LY=2, RX=46,RY=2}, watchArea={map=20314,LX=42,LY=1, RX=47,RY=8},
-         talk="³¬ÄÜÁ¦Õß£ºÎÒÏëÒª²Ù¿ØÊÀ½çµÄÒ»ÇĞ¡£", loveItem={69011,69011,69011}, giftItem={607711,46633,75026,69090,76067}, },
-      { palType=14, palNum=1, palName="´µ»ğÈË", palImage=105095, prestige=3000, gold=500,
+         talk="è¶…èƒ½åŠ›è€…ï¼šæˆ‘æƒ³è¦æ“æ§ä¸–ç•Œçš„ä¸€åˆ‡ã€‚", loveItem={69011,69011,69011}, giftItem={607711,46633,75026,69090,76067}, },
+      { palType=14, palNum=1, palName="å¹ç«äºº", palImage=105095, prestige=3000, gold=500,
          popArea={map=20313,LX=10,LY=10, RX=10,RY=10}, watchArea={map=20313,LX=7,LY=7, RX=13,RY=13},
-         talk="´µ»ğÈË£ºÍ£ÏÂíÓ^ÙpÎÒµÄ±íÑİ£¡", loveItem={69014,69014,69014}, giftItem={607712,46632,75026,74112,76008}, },
-      { palType=15, palNum=1, palName="ñZıˆŸ", palImage=105052, prestige=2000, gold=1000,
+         talk="å¹ç«äººï¼šåœä¸‹ä¾†è§€è³æˆ‘çš„è¡¨æ¼”ï¼", loveItem={69014,69014,69014}, giftItem={607712,46632,75026,74112,76008}, },
+      { palType=15, palNum=1, palName="é¦´é¾å¸«", palImage=105052, prestige=2000, gold=1000,
          popArea={map=20314,LX=27,LY=40, RX=27,RY=40}, watchArea={map=20314,LX=25,LY=38, RX=29,RY=42},
-         talk="ñZıˆŸ£ºÂ·ß^µÄÂÃĞĞÕß£¬íˆöİ^Á¿°É£¡", loveItem={69012,69012,69012}, giftItem={607713,46631,75026,69085,76034}, },
-      { palType=16, palNum=1, palName="ÑĞ¾¿†T", palImage=106095, prestige=1500, gold=1500,
+         talk="é¦´é¾å¸«ï¼šè·¯éçš„æ—…è¡Œè€…ï¼Œä¾†å ´è¼ƒé‡å§ï¼", loveItem={69012,69012,69012}, giftItem={607713,46631,75026,69085,76034}, },
+      { palType=16, palNum=1, palName="ç ”ç©¶å“¡", palImage=106095, prestige=1500, gold=1500,
          popArea={map=20334,LX=37,LY=67, RX=37,RY=67}, watchArea={map=20334,LX=28,LY=65, RX=37,RY=70},
-         talk="ÑĞ¾¿†T£ºÄãÂ Õfß^ÉñÃØÖ®µÑ†á£¿ß@¾ÍÊÇËü†¾ĞÑµÄ¹ÖÎï£¡", loveItem={69014,69014,69014}, giftItem={607714,46630,75026,69089,76068}, },
-      { palType=17, palNum=1, palName="áô~ÇàÄê", palImage=106552, prestige=1500, gold=1500,
+         talk="ç ”ç©¶å“¡ï¼šä½ è½èªªéç¥ç§˜ä¹‹ç¬›å—ï¼Ÿé€™å°±æ˜¯å®ƒå–šé†’çš„æ€ªç‰©ï¼", loveItem={69014,69014,69014}, giftItem={607714,46630,75026,69089,76068}, },
+      { palType=17, palNum=1, palName="é‡£é­šé’å¹´", palImage=106552, prestige=1500, gold=1500,
          popArea={map=80000,LX=25,LY=26, RX=25,RY=26}, watchArea={map=80000,LX=23,LY=25, RX=26,RY=26},
-         talk="áô~ÇàÄê£ºß@ÊÇÎÒÓÃ¸ß¼‰ÇòÊÕ·şµÄ¹ÖÎï£¡", loveItem={69013,69013,69013}, giftItem={607737,46633,75026,74106,76032}, },
+         talk="é‡£é­šé’å¹´ï¼šé€™æ˜¯æˆ‘ç”¨é«˜ç´šçƒæ”¶æœçš„æ€ªç‰©ï¼", loveItem={69013,69013,69013}, giftItem={607737,46633,75026,74106,76032}, },
 }
 ------------------------------------------------
 local EnemySet = {}
 local BaseLevelSet = {}
-EnemySet[1] = {{415016, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415017, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[1] = {{415016, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415017, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[1] = {20, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[2] = {{415018, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415019, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[2] = {{415018, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415019, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[2] = {30, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[3] = {{415020, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415021, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[3] = {{415020, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415021, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[3] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[4] = {{415022, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415023, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[4] = {{415022, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415023, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[4] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[5] = {{415024, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415025, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[5] = {{415024, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415025, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[5] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[6] = {{415026, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415027, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[6] = {{415026, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415027, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[6] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[7] = {{415028, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415029, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[7] = {{415028, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415029, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[7] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[8] = {{415030, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415031, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[8] = {{415030, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415031, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[8] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[9] = {{415032, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415033, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[9] = {{415032, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415033, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[9] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[10] = {{415034, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415035, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[10] = {{415034, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415035, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[10] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[11] = {{415036, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415037, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[11] = {{415036, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415037, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[11] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[12] = {{415038, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415039, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[12] = {{415038, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415039, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[12] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[13] = {{415040, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415041, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[13] = {{415040, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415041, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[13] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[14] = {{415042, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415043, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[14] = {{415042, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415043, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[14] = {60, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[15] = {{415044, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415045, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[15] = {{415044, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415045, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[15] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[16] = {{415046, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415047, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[16] = {{415046, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415047, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[16] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-EnemySet[17] = {{415048, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415049, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0´ú±íÃ»ÓĞ¹Ö
+EnemySet[17] = {{415048, 0, 0, 0, 0, 0, 0, 0, 0, 0},{415049, 0, 0, 0, 0, 0, 0, 0, 0, 0}}	--0ä»£è¡¨æ²¡æœ‰æ€ª
 BaseLevelSet[17] = {70, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 ------------------------------------------------
-local FTime = os.time();			--Ê±¼ä±í
+local FTime = os.time();			--æ—¶é—´è¡¨
 tbl_PokeTrainerNPCIndex = tbl_PokeTrainerNPCIndex or {}
 ------------------------------------------------
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('LoopEvent', Func.bind(self.PokeTrainer_LoopEvent,self))
@@ -111,76 +111,79 @@ function Module:onLoad()
            local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
            local PokeTrainerNPC = self:NPC_createNormal(v.palName, v.palImage, { map = v.popArea.map, x = palX, y = palY, direction = 5, mapType = 0 })
            tbl_PokeTrainerNPCIndex[k][i] = PokeTrainerNPC
-           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.¶ÔÏó_ÒÆËÙ,250);
-           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.¶ÔÏó_ENEMY_PetFlg+2,0);
+           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.å¯¹è±¡_ç§»é€Ÿ,250);
+           Char.SetData(tbl_PokeTrainerNPCIndex[k][i],CONST.å¯¹è±¡_ENEMY_PetFlg+2,0);
            Char.SetLoopEvent('./lua/Modules/pokeTrainer2.lua','PokeTrainer_LoopEvent',tbl_PokeTrainerNPCIndex[k][i], 2000);
            self:NPC_regWindowTalkedEvent(tbl_PokeTrainerNPCIndex[k][i], function(npc, player, _seqno, _select, _data)
-             local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+             local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
              local seqno = tonumber(_seqno)
              local select = tonumber(_select)
              local data = tonumber(_data)
-             if seqno == 1 then  ----±¨Ãû¶ÔÕ½Ö´ĞĞ
-              if select == 4 then
-                NLG.SystemMessage(player, v.palName.."£º½ñÌìŒ¦‘ğµÄºÜß^°a£¬¼s¶¨ºÃÃ÷ÌìÔÙ‘ğ£¡");
-              elseif select == 1 then
+             if seqno == 1 then  ----æŠ¥åå¯¹æˆ˜æ‰§è¡Œ
+              --if select == 4 then
+                --NLG.SystemMessage(player, v.palName.."ï¼šä»Šå¤©å°æˆ°çš„å¾ˆéç™®ï¼Œç´„å®šå¥½æ˜å¤©å†æˆ°ï¼");
+              if select == CONST.æŒ‰é’®_ä¸‹ä¸€é¡µ then
+                  local msg = CheckFriendRewardList(player,k,v.giftItem)
+                  NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1, msg);
+              elseif select == CONST.æŒ‰é’®_ç¡®å®š then
                 local changed,flag = CheckAndGiveFriendReward(player,k,v.giftItem);
                 local EliteTrainer,EliteLvel = GetTrainerInfo(player);
                 if (EliteLvel[k]>=100) then
-                  NLG.SystemMessage(player, v.palName.."£ºÎÒ‚ƒÒÑ½›ÊÇ×îÓHÃÜµÄâ·°éÁË¡£");
-                  --SetTrainerInfo(player,k,0,-100);	--timeStamp(0±í²»¸üĞÂ), ¿Û³ıÇ×ÃÜ¶È(-100µã)
+                  NLG.SystemMessage(player, v.palName.."ï¼šæˆ‘å€‘å·²ç¶“æ˜¯æœ€è¦ªå¯†çš„å¤¥ä¼´äº†ã€‚");
+                  --SetTrainerInfo(player,k,0,-100);	--timeStamp(0è¡¨ä¸æ›´æ–°), æ‰£é™¤äº²å¯†åº¦(-100ç‚¹)
                   --Char.GiveItem(player, v.giftItem[NLG.Rand(1,2)], 1);
                   return;
                 else
-                  NLG.SystemMessage(player, v.palName.."£º×ŒÎÒ‚ƒ¸ü¼ÓŸá½jíîIÈ¡ÊÕ²ØÆ·°É¡£");
+                  NLG.SystemMessage(player, v.palName.."ï¼šè®“æˆ‘å€‘æ›´åŠ ç†±çµ¡ä¾†é ˜å–æ”¶è—å“å§ã€‚");
                   return;
                 end
               else
-                --´òÕĞºô(Ã¿ÈÕÏŞ1Ôö¼ÓÉÙ)
+                --æ‰“æ‹›å‘¼(æ¯æ—¥é™1å¢åŠ å°‘)
                 local EliteTrainer,EliteLvel = GetTrainerInfo(player);
                 if (data==1 and EliteTrainer[k]==tonumber(os.date("%d",os.time())) ) then
-                    NLG.SystemMessage(player, v.palName.."£º½ñÌìÒÑ½›ºÍÎÒ»¥„Óß^ÁË¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä»Šå¤©å·²ç¶“å’Œæˆ‘äº’å‹•éäº†ã€‚");
                     return;
                 elseif (data==1 and EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
-                    SetTrainerInfo(player,k,1,2,0);	--timeStamp(1±í¸üĞÂ), intimacy(1µã),flag(0±í²»¸üĞÂ)
-                    NLG.SetAction(npc,12);	--¶¯×÷_ÕĞÊÖ
-                    NLG.SystemMessage(player, v.palName.."£º(“]“]ÊÖ)ÓÑÉÆµÄ»¥„Ó[ÓHÃÜ¶ÈÔö¼Ó2üc](Ã¿ÌìÏŞÒ»´Î)");
+                    SetTrainerInfo(player,k,1,2,0);	--timeStamp(1è¡¨æ›´æ–°), intimacy(1ç‚¹),flag(0è¡¨ä¸æ›´æ–°)
+                    NLG.SetAction(npc,12);	--åŠ¨ä½œ_æ‹›æ‰‹
+                    NLG.SystemMessage(player, v.palName.."ï¼š(æ®æ®æ‰‹)å‹å–„çš„äº’å‹•[è¦ªå¯†åº¦å¢åŠ 2é»](æ¯å¤©é™ä¸€æ¬¡)");
                 end
-                --½o¶YÎï(Í¬ÏŞ1Ôö¼Ó¶à)
+                --çµ¦ç¦®ç‰©(åŒé™1å¢åŠ å¤š)
                 if (data==2 and Char.HaveItem(player, v.loveItem[1])<0) then
                     local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[1]);
                     local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
-                    NLG.SystemMessage(player, v.palName.."£ºÄã›]ÓĞ"..Item_name.."¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä½ æ²’æœ‰"..Item_name.."ã€‚");
                     return;
                 elseif (data==2 and EliteTrainer[k]==tonumber(os.date("%d",os.time())) ) then
-                    NLG.SystemMessage(player, v.palName.."£º½ñÌìÒÑ½›ºÍÎÒ»¥„Óß^ÁË¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä»Šå¤©å·²ç¶“å’Œæˆ‘äº’å‹•éäº†ã€‚");
                     return;
                 elseif (data==2 and Char.HaveItem(player, v.loveItem[1])>0 and EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
                     Char.DelItem(player,v.loveItem[1],1,1);
-                    SetTrainerInfo(player,k,1,5,0);	--timeStamp(0±í²»¸üĞÂ1±í¸üĞÂ), intimacy(5µã),flag(0±í²»¸üĞÂ)
-                    NLG.SystemMessage(player, v.palName.."£ºß@ÊÇºÜºÃµÄ¶YÎï[ÓHÃÜ¶ÈÔö¼Ó5üc](Ã¿ÌìÏŞÒ»´Î)");
+                    SetTrainerInfo(player,k,1,5,0);	--timeStamp(0è¡¨ä¸æ›´æ–°1è¡¨æ›´æ–°), intimacy(5ç‚¹),flag(0è¡¨ä¸æ›´æ–°)
+                    NLG.SystemMessage(player, v.palName.."ï¼šé€™æ˜¯å¾ˆå¥½çš„ç¦®ç‰©[è¦ªå¯†åº¦å¢åŠ 5é»](æ¯å¤©é™ä¸€æ¬¡)");
                 end
-                --½o¶YÎï(²»ÏŞ´Î”µ)ÉùÍû»ØÀñ
+                --çµ¦ç¦®ç‰©(ä¸é™æ¬¡æ•¸)å£°æœ›å›ç¤¼
                 if (data==3 and Char.HaveItem(player, v.loveItem[2])<0) then
                     local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[2]);
                     local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
-                    NLG.SystemMessage(player, v.palName.."£ºÄã›]ÓĞ"..Item_name.."¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä½ æ²’æœ‰"..Item_name.."ã€‚");
                     return;
                 elseif (data==3 and Char.HaveItem(player, v.loveItem[2])>0) then
                     local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[2]);
                     local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
                     Char.DelItem(player,v.loveItem[2],1,1);
                     local ratio = EliteLvel[k]/maxTrainerLevel;
-                    local fame = Char.GetData(player,CONST.¶ÔÏó_ÉùÍû);
+                    local fame = Char.GetData(player,CONST.å¯¹è±¡_å£°æœ›);
                     local fame_plus = math.floor(v.prestige * ratio);
-                    Char.SetData(player,CONST.¶ÔÏó_ÉùÍû, fame + fame_plus);
-                    SetTrainerInfo(player,k,0,1,0);	--timeStamp(0±í²»¸üĞÂ), intimacy(1µã),flag(0±í²»¸üĞÂ)
-                    NLG.SystemMessage(player, v.palName.."£ºÖxÖxÄãµÄ"..Item_name.."»Ø¶YÂ•Íû"..fame_plus.."üc[ÓHÃÜ¶ÈÔö¼Ó1üc]");
+                    Char.SetData(player,CONST.å¯¹è±¡_å£°æœ›, fame + fame_plus);
+                    SetTrainerInfo(player,k,0,1,0);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(1ç‚¹),flag(0è¡¨ä¸æ›´æ–°)
+                    NLG.SystemMessage(player, v.palName.."ï¼šè¬è¬ä½ çš„"..Item_name.."å›ç¦®è²æœ›"..fame_plus.."é»[è¦ªå¯†åº¦å¢åŠ 1é»]");
                 end
-                --½o¶YÎï(²»ÏŞ´Î”µ)Ä§±Ò»ØÀñ
+                --çµ¦ç¦®ç‰©(ä¸é™æ¬¡æ•¸)é­”å¸å›ç¤¼
                 if (data==4 and Char.HaveItem(player, v.loveItem[3])<0) then
                     local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[3]);
                     local Item_name = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_TRUENAME);
-                    NLG.SystemMessage(player, v.palName.."£ºÄã›]ÓĞ"..Item_name.."¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä½ æ²’æœ‰"..Item_name.."ã€‚");
                     return;
                 elseif (data==4 and Char.HaveItem(player, v.loveItem[3])>0) then
                     local ItemsetIndex_Goal = Data.ItemsetGetIndex(v.loveItem[3]);
@@ -189,61 +192,61 @@ function Module:onLoad()
                     local ratio = EliteLvel[k]/maxTrainerLevel;
                     local gold_plus = math.floor(v.gold * ratio);
                     Char.AddGold(player, gold_plus);
-                    SetTrainerInfo(player,k,0,1,0);	--timeStamp(0±í²»¸üĞÂ), intimacy(1µã),flag(0±í²»¸üĞÂ)
-                    NLG.SystemMessage(player, v.palName.."£ºÖxÖxÄãµÄ"..Item_name.."»Ø¶YÄ§Å"..gold_plus.."G[ÓHÃÜ¶ÈÔö¼Ó1üc]");
+                    SetTrainerInfo(player,k,0,1,0);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(1ç‚¹),flag(0è¡¨ä¸æ›´æ–°)
+                    NLG.SystemMessage(player, v.palName.."ï¼šè¬è¬ä½ çš„"..Item_name.."å›ç¦®é­”å¹£"..gold_plus.."G[è¦ªå¯†åº¦å¢åŠ 1é»]");
                 end
 
 --[[
                 if (data==1 and Char.HaveItem(player, 69011)<0) then
-                    NLG.SystemMessage(player, v.palName.."£ºÄã›]ÓĞß@‚€˜ä¹û¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä½ æ²’æœ‰é€™å€‹æ¨¹æœã€‚");
                     return;
                 elseif (data==1 and Char.HaveItem(player, 69011)>0) then
                     Char.DelItem(player,69011,1,1);
                     if (v.loveItem==69011) then
-                        SetTrainerInfo(player,k,0,5);	--timeStamp(0±í²»¸üĞÂ), intimacy(5µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÕıĞèÒª´Ë˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó5üc");
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(5ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šæ­£éœ€è¦æ­¤æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 5é»");
                     else
-                        SetTrainerInfo(player,k,0,1);	--timeStamp(0±í²»¸üĞÂ), intimacy(1µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÖxÖxÄãµÄ˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó1üc");
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(1ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šè¬è¬ä½ çš„æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 1é»");
                     end
                 end
                 if (data==2 and Char.HaveItem(player, 69012)<0) then
-                    NLG.SystemMessage(player, v.palName.."£ºÄã›]ÓĞß@‚€˜ä¹û¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä½ æ²’æœ‰é€™å€‹æ¨¹æœã€‚");
                     return;
                 elseif (data==2 and Char.HaveItem(player, 69012)>0) then
                     Char.DelItem(player,69012,1,1);
                     if (v.loveItem==69012) then
-                        SetTrainerInfo(player,k,0,5);	--timeStamp(0±í²»¸üĞÂ), intimacy(5µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÕıĞèÒª´Ë˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó5üc");
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(5ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šæ­£éœ€è¦æ­¤æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 5é»");
                     else
-                        SetTrainerInfo(player,k,0,1);	--timeStamp(0±í²»¸üĞÂ), intimacy(1µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÖxÖxÄãµÄ˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó1üc");
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(1ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šè¬è¬ä½ çš„æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 1é»");
                     end
                 end
                 if (data==3 and Char.HaveItem(player, 69013)<0) then
-                    NLG.SystemMessage(player, v.palName.."£ºÄã›]ÓĞß@‚€˜ä¹û¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä½ æ²’æœ‰é€™å€‹æ¨¹æœã€‚");
                     return;
                 elseif (data==3 and Char.HaveItem(player, 69013)>0) then
                     Char.DelItem(player,69013,1,1);
                     if (v.loveItem==69013) then
-                        SetTrainerInfo(player,k,0,5);	--timeStamp(0±í²»¸üĞÂ), intimacy(5µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÕıĞèÒª´Ë˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó5üc");
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(5ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šæ­£éœ€è¦æ­¤æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 5é»");
                     else
-                        SetTrainerInfo(player,k,0,1);	--timeStamp(0±í²»¸üĞÂ), intimacy(1µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÖxÖxÄãµÄ˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó1üc");
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(1ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šè¬è¬ä½ çš„æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 1é»");
                     end
                 end
                 if (data==4 and Char.HaveItem(player, 69014)<0) then
-                    NLG.SystemMessage(player, v.palName.."£ºÄã›]ÓĞß@‚€˜ä¹û¡£");
+                    NLG.SystemMessage(player, v.palName.."ï¼šä½ æ²’æœ‰é€™å€‹æ¨¹æœã€‚");
                     return;
                 elseif (data==4 and Char.HaveItem(player, 69014)>0) then
                     Char.DelItem(player,69014,1,1);
                     if (v.loveItem==69014) then
-                        SetTrainerInfo(player,k,0,5);	--timeStamp(0±í²»¸üĞÂ), intimacy(5µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÕıĞèÒª´Ë˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó5üc");
+                        SetTrainerInfo(player,k,0,5);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(5ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šæ­£éœ€è¦æ­¤æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 5é»");
                     else
-                        SetTrainerInfo(player,k,0,1);	--timeStamp(0±í²»¸üĞÂ), intimacy(1µã)
-                        NLG.SystemMessage(player, v.palName.."£ºÖxÖxÄãµÄ˜ä¹û£¬ÓHÃÜ¶ÈÔö¼Ó1üc");
+                        SetTrainerInfo(player,k,0,1);	--timeStamp(0è¡¨ä¸æ›´æ–°), intimacy(1ç‚¹)
+                        NLG.SystemMessage(player, v.palName.."ï¼šè¬è¬ä½ çš„æ¨¹æœï¼Œè¦ªå¯†åº¦å¢åŠ 1é»");
                     end
                 end
 ]]
@@ -270,16 +273,16 @@ function Module:onLoad()
                     Field.Set(player, 'EliteBattle', Trainer_string);
                     NLG.UpChar(player);
                   end
-                  --²éÑ¯×ÊÁÏ
+                  --æŸ¥è¯¢èµ„æ–™
                   local EliteTrainer,EliteLvel = GetTrainerInfo(player);
-                  local msg = "5\\n@c¡ó ÓHÃÜ¶È£º".. EliteLvel[k] .. " ¡ó\\n"
-                            .."\\nÃ¿Ìì¿ÉÒÔËÍ¶YÎïÌáÉıÓHÃÜ¶È"
-                            .."\\n¡¡¡¡¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\\n\\n"
-                            .."[¡¡ßxí—(1)  ´òÕĞºô(1)(2)Ã¿ÈÕ¹²1´Î¡¡]\\n"
-                            .."[¡¡ßxí—(2)  ËÍ¶YÎï(1)(2)Ã¿ÈÕ¹²1´Î¡¡]\\n"
-                            .."[¡¡ßxí—(3)  Â•Íû»Ø¶Y(²»ÏŞ´Î”µ¡Ş)¡¡]\\n"
-                            .."[¡¡ßxí—(4)  Ä§Å»Ø¶Y(²»ÏŞ´Î”µ¡Ş)¡¡]\\n";
-                  NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, 13, 1, msg);	--CONST.°´Å¥_ÊÇ·ñ+CONST.°´Å¥_È·¶¨
+                  local msg = "5\\n@câ—‡ è¦ªå¯†åº¦ï¼š".. EliteLvel[k] .. " â—‡\\n"
+                            .."\\næ¯å¤©å¯ä»¥é€ç¦®ç‰©æå‡è¦ªå¯†åº¦"
+                            .."\\nã€€ã€€â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\\n\\n"
+                            .."[ã€€é¸é …(1)  æ‰“æ‹›å‘¼(1)(2)æ¯æ—¥å…±1æ¬¡ã€€]\\n"
+                            .."[ã€€é¸é …(2)  é€ç¦®ç‰©(1)(2)æ¯æ—¥å…±1æ¬¡ã€€]\\n"
+                            .."[ã€€é¸é …(3)  è²æœ›å›ç¦®(ä¸é™æ¬¡æ•¸âˆ)ã€€]\\n"
+                            .."[ã€€é¸é …(4)  é­”å¹£å›ç¦®(ä¸é™æ¬¡æ•¸âˆ)ã€€]\\n";
+                  NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_ä¸‹å–æ¶ˆ, 1, msg);	--13CONST.æŒ‰é’®_æ˜¯å¦+CONST.æŒ‰é’®_ç¡®å®š
 
              end
              return
@@ -291,19 +294,19 @@ function Module:onLoad()
 
 end
 ------------------------------------------------
--------¹¦ÄÜÉèÖÃ
---Õì²â¼à¿Ø
+-------åŠŸèƒ½è®¾ç½®
+--ä¾¦æµ‹ç›‘æ§
 function PokeTrainer_LoopEvent(npc)
 	local CTime = tonumber(os.date("%H",FTime));
 	for k,v in pairs(PokeTrainer) do
-		local npcImage = Char.GetData(npc,CONST.¶ÔÏó_ĞÎÏó);
-		local npcFloorId = Char.GetData(npc,CONST.¶ÔÏó_µØÍ¼);
+		local npcImage = Char.GetData(npc,CONST.å¯¹è±¡_å½¢è±¡);
+		local npcFloorId = Char.GetData(npc,CONST.å¯¹è±¡_åœ°å›¾);
 		if ( k==v.palType and npcImage==v.palImage and npcFloorId==v.popArea.map ) then
-			local player_tbl = Char.GetTempData(npc, '×·»÷¶ÔÕ½') or nil;
+			local player_tbl = Char.GetTempData(npc, 'è¿½å‡»å¯¹æˆ˜') or nil;
 			pcall(function()
-				if player_tbl==nil then		--ÎŞËø¶¨¿ªÊ¼Õì²â
-					local X = tonumber(Char.GetData(npc,CONST.¶ÔÏó_X));
-					local Y = tonumber(Char.GetData(npc,CONST.¶ÔÏó_Y));
+				if player_tbl==nil then		--æ— é”å®šå¼€å§‹ä¾¦æµ‹
+					local X = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_X));
+					local Y = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_Y));
 					for i=v.watchArea.LX, v.watchArea.RX do
 						for j=v.watchArea.LY, v.watchArea.RY do
 							local obj_tbl = {};
@@ -311,11 +314,11 @@ function PokeTrainer_LoopEvent(npc)
 							if #obj_tbl > 0 then
 								for m = 1, #obj_tbl do
 									local player = Obj.GetCharIndex(obj_tbl[m]);
-									local fight = Char.GetTempData(player,'İ¼Ó¢¶ÔÕ½') or 0;
-									if fight==0 and Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË and not Char.IsDummy(player) then
-										if Char.GetData(player,CONST.¶ÔÏó_×é¶ÓÄ£Ê½)==CONST.×é¶ÓÄ£Ê½_ÎŞ or Char.GetData(player,CONST.¶ÔÏó_×é¶ÓÄ£Ê½)== CONST.×é¶ÓÄ£Ê½_¶Ó³¤ then
+									local fight = Char.GetTempData(player,'èè‹±å¯¹æˆ˜') or 0;
+									if fight==0 and Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº and not Char.IsDummy(player) then
+										if Char.GetData(player,CONST.å¯¹è±¡_ç»„é˜Ÿæ¨¡å¼)==CONST.ç»„é˜Ÿæ¨¡å¼_æ—  or Char.GetData(player,CONST.å¯¹è±¡_ç»„é˜Ÿæ¨¡å¼)== CONST.ç»„é˜Ÿæ¨¡å¼_é˜Ÿé•¿ then
 											--print(m,i,j)
-											--³õÊ¼»¯
+											--åˆå§‹åŒ–
 											if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
 												for slot=0,4 do
 													local p = Char.GetPartyMember(player, slot);
@@ -353,16 +356,16 @@ function PokeTrainer_LoopEvent(npc)
 													break
 												end
 											end
-											--²éÑ¯×ÊÁÏ
+											--æŸ¥è¯¢èµ„æ–™
 											local EliteTrainer,EliteLvel = GetTrainerInfo(player);
 											if ( EliteTrainer[k]~=tonumber(os.date("%d",os.time())) ) then
-												Char.SetData(npc,CONST.¶ÔÏó_NPC_HeadGraNo,22337);	--111250.110402
+												Char.SetData(npc,CONST.å¯¹è±¡_NPC_HeadGraNo,22337);	--111250.110402
 												NLG.UpChar(npc);
-												Char.SetTempData(npc, '×·»÷¶ÔÕ½', player);
+												Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', player);
 												Char.SetLoopEvent('./lua/Modules/pokeTrainer2.lua', 'PokeTrainer_LoopEvent', npc, 600);
 												break
 											else
-												--print("±¾ÈÕÒÑ¾­¶ÔÕ½¹ı")
+												--print("æœ¬æ—¥å·²ç»å¯¹æˆ˜è¿‡")
 												break
 											end
 										end
@@ -371,32 +374,32 @@ function PokeTrainer_LoopEvent(npc)
 							end
 						end
 					end
-				elseif player_tbl then		--ÒÑËø¶¨¿ªÊ¼×·»÷
+				elseif player_tbl then		--å·²é”å®šå¼€å§‹è¿½å‡»
 					local player = player_tbl;
-					local X = tonumber(Char.GetData(npc,CONST.¶ÔÏó_X));
-					local Y = tonumber(Char.GetData(npc,CONST.¶ÔÏó_Y));
-					local X1 = tonumber(Char.GetData(player,CONST.¶ÔÏó_X));
-					local Y1 = tonumber(Char.GetData(player,CONST.¶ÔÏó_Y));
+					local X = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_X));
+					local Y = tonumber(Char.GetData(npc,CONST.å¯¹è±¡_Y));
+					local X1 = tonumber(Char.GetData(player,CONST.å¯¹è±¡_X));
+					local Y1 = tonumber(Char.GetData(player,CONST.å¯¹è±¡_Y));
 					local dir,allow = moveDir(X, Y, X1, Y1);
 					NLG.SetAction(npc,1);
 					NLG.WalkMove(npc,dir);
 					NLG.UpChar(npc);
 					--print(X, Y, X1, Y1)
 					if (X1==nil or Y1==nil) then
-						--Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 0);
-						--½øÕ½¶·¿ª¹Ø
+						--Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 0);
+						--è¿›æˆ˜æ–—å¼€å…³
 						if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
 							for slot=0,4 do
 								local p = Char.GetPartyMember(player, slot);
 								if(p>=0) then
-									Char.SetTempData(p,'İ¼Ó¢¶ÔÕ½', 0);
+									Char.SetTempData(p,'èè‹±å¯¹æˆ˜', 0);
 								end
 							end
 						elseif Char.PartyNum(player)==-1 then
-							Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 0);
+							Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 0);
 						end
 
-						Char.SetTempData(npc, '×·»÷¶ÔÕ½', nil);
+						Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', nil);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer2.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						return
 					end
@@ -406,18 +409,18 @@ function PokeTrainer_LoopEvent(npc)
 						if battleIndex >= 0 then
 							return
 						end
-						--Ç¿ÆÈ¶ÔÕ½¿ªÊ¼
+						--å¼ºè¿«å¯¹æˆ˜å¼€å§‹
 						NLG.SystemMessage(player, v.talk);
-						--²éÑ¯×ÊÁÏ
+						--æŸ¥è¯¢èµ„æ–™
 						local EliteTrainer,EliteLvel = GetTrainerInfo(player);
-						--¹ÖÎï×éºÏ(Ç×ÃÜ¶È)
+						--æ€ªç‰©ç»„åˆ(äº²å¯†åº¦)
 						local EnemyIdAr={}
 						if (EliteLvel[k] < math.floor(maxTrainerLevel/2)) then
 							EnemyIdAr = EnemySet[k][1];
 						elseif (EliteLvel[k] >= math.floor(maxTrainerLevel/2)) then
 							EnemyIdAr = EnemySet[k][2];
 						end
-						--¹ÖÎïµÈ¼¶µ÷Õû¹«Ê½
+						--æ€ªç‰©ç­‰çº§è°ƒæ•´å…¬å¼
 						local BaseLevelAr={}
 						for r,t in ipairs(BaseLevelSet[k]) do
 							if tonumber(t)>0 then
@@ -428,55 +431,55 @@ function PokeTrainer_LoopEvent(npc)
 						end
 						local battleIndex = Battle.PVE( player, player, nil, EnemyIdAr, BaseLevelAr, nil);
 						Battle.SetWinEvent("./lua/Modules/pokeTrainer2.lua", "PokeTrainerNPC_BattleWin", battleIndex);
-						--½øÕ½¶·¿ª¹Ø
+						--è¿›æˆ˜æ–—å¼€å…³
 						if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
 							for slot=0,4 do
 								local p = Char.GetPartyMember(player, slot);
 								if(p>=0) then
-									Char.SetTempData(p,'İ¼Ó¢¶ÔÕ½', 1);
+									Char.SetTempData(p,'èè‹±å¯¹æˆ˜', 1);
 								end
 							end
 						elseif Char.PartyNum(player)==-1 then
-							Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 1);
+							Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 1);
 						end
 
 						pal_clear(player, npc, v.palType);
-						Char.SetTempData(npc, '×·»÷¶ÔÕ½', nil);
+						Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', nil);
 						Char.SetLoopEvent('./lua/Modules/pokeTrainer2.lua', 'PokeTrainer_LoopEvent', npc, 3000);
 					else
-						if ( X1>v.watchArea.RX or Y1>v.watchArea.RY) then		--ÌÓÀëÓÒ²à·¶Î§
-							--Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 0);
-							--½øÕ½¶·¿ª¹Ø
+						if ( X1>v.watchArea.RX or Y1>v.watchArea.RY) then		--é€ƒç¦»å³ä¾§èŒƒå›´
+							--Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 0);
+							--è¿›æˆ˜æ–—å¼€å…³
 							if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
 								for slot=0,4 do
 									local p = Char.GetPartyMember(player, slot);
 									if(p>=0) then
-										Char.SetTempData(p,'İ¼Ó¢¶ÔÕ½', 0);
+										Char.SetTempData(p,'èè‹±å¯¹æˆ˜', 0);
 									end
 								end
 							elseif Char.PartyNum(player)==-1 then
-								Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 0);
+								Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 0);
 							end
 
 							pal_clear(player, npc, v.palType);
-							Char.SetTempData(npc, '×·»÷¶ÔÕ½', nil);
+							Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer2.lua', 'PokeTrainer_LoopEvent', npc, 2000);
-						elseif ( X1<v.watchArea.LX or Y1<v.watchArea.LY) then	--ÌÓÀë×ó²à·¶Î§
-							--Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 0);
-							--½øÕ½¶·¿ª¹Ø
+						elseif ( X1<v.watchArea.LX or Y1<v.watchArea.LY) then	--é€ƒç¦»å·¦ä¾§èŒƒå›´
+							--Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 0);
+							--è¿›æˆ˜æ–—å¼€å…³
 							if Char.PartyNum(player)>0 and player==Char.GetPartyMember(player,0) then
 								for slot=0,4 do
 									local p = Char.GetPartyMember(player, slot);
 									if(p>=0) then
-										Char.SetTempData(p,'İ¼Ó¢¶ÔÕ½', 0);
+										Char.SetTempData(p,'èè‹±å¯¹æˆ˜', 0);
 									end
 								end
 							elseif Char.PartyNum(player)==-1 then
-								Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 0);
+								Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 0);
 							end
 
 							pal_clear(player, npc, v.palType);
-							Char.SetTempData(npc, '×·»÷¶ÔÕ½', nil);
+							Char.SetTempData(npc, 'è¿½å‡»å¯¹æˆ˜', nil);
 							Char.SetLoopEvent('./lua/Modules/pokeTrainer2.lua', 'PokeTrainer_LoopEvent', npc, 2000);
 						end
 					end
@@ -488,14 +491,14 @@ end
 
 
 function pal_clear(player, npc, Type)
-	--Ëæ»ú×ªÒÆÖÁÆğÊ¼¼àÊÓÎ»ÖÃ
+	--éšæœºè½¬ç§»è‡³èµ·å§‹ç›‘è§†ä½ç½®
 	for k,v in pairs(PokeTrainer) do
 		if ( k==Type) then
 			local palX = NLG.Rand(v.popArea.LX, v.popArea.RX);
 			local palY = NLG.Rand(v.popArea.LY, v.popArea.RY);
-			Char.SetData(npc,CONST.¶ÔÏó_X, palX);
-			Char.SetData(npc,CONST.¶ÔÏó_Y, palY);
-			Char.SetData(npc,CONST.¶ÔÏó_NPC_HeadGraNo,0);
+			Char.SetData(npc,CONST.å¯¹è±¡_X, palX);
+			Char.SetData(npc,CONST.å¯¹è±¡_Y, palY);
+			Char.SetData(npc,CONST.å¯¹è±¡_NPC_HeadGraNo,0);
 			NLG.SetAction(npc,0);
 			NLG.UpChar(npc);
 		end
@@ -506,35 +509,35 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 
-	--·ÖÅä½±Àø
+	--åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
-		if player>=0 and Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if player>=0 and Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			for k,v in pairs(PokeTrainer) do
-				local charFloorId = Char.GetData(player,CONST.¶ÔÏó_µØÍ¼);
-				local X = Char.GetData(player,CONST.¶ÔÏó_X);
-				local Y = Char.GetData(player,CONST.¶ÔÏó_Y);
+				local charFloorId = Char.GetData(player,CONST.å¯¹è±¡_åœ°å›¾);
+				local X = Char.GetData(player,CONST.å¯¹è±¡_X);
+				local Y = Char.GetData(player,CONST.å¯¹è±¡_Y);
 				--print(charFloorId,X,Y)
 				if ( k==v.palType and charFloorId==v.popArea.map and X>=v.watchArea.LX and X<=v.watchArea.RX and Y>=v.watchArea.LY and Y<=v.watchArea.RY ) then
-					--¼ÆËã¸üĞÂÊ±Ğò¡¢Ç×ÃÜ¶ÈµÈ¼¶
-					SetTrainerInfo(player,k,1,3,0);	--timeStamp(1±í¸üĞÂ), intimacy(3µã)
-					--²éÑ¯×ÊÁÏ
+					--è®¡ç®—æ›´æ–°æ—¶åºã€äº²å¯†åº¦ç­‰çº§
+					SetTrainerInfo(player,k,1,3,0);	--timeStamp(1è¡¨æ›´æ–°), intimacy(3ç‚¹)
+					--æŸ¥è¯¢èµ„æ–™
 					local EliteTrainer,EliteLvel = GetTrainerInfo(player);
 
 					local ratio = EliteLvel[k]/maxTrainerLevel;
-					local fame = Char.GetData(player,CONST.¶ÔÏó_ÉùÍû);
+					local fame = Char.GetData(player,CONST.å¯¹è±¡_å£°æœ›);
 					local fame_plus = math.floor(v.prestige * ratio);
 					local gold_plus = math.floor(v.gold * ratio);
-					Char.GiveItem(player, 75038, 10);	--Ó–¾šÄÜÁ¿
-					--Char.SetData(player,CONST.¶ÔÏó_ÉùÍû, fame + math.floor(v.prestige*ratio));
+					Char.GiveItem(player, 75038, 10);	--è¨“ç·´èƒ½é‡
+					--Char.SetData(player,CONST.å¯¹è±¡_å£°æœ›, fame + math.floor(v.prestige*ratio));
 					Char.AddGold(player, math.floor(v.gold*ratio));
-					--NLG.SystemMessage(player,"[Ïµ½y]Ä¿Ç°Â•Íû:"..fame.."£¬„ÙÀûµÃµ½î~ÍâÂ•Íû"..fame_plus.."£¡");
-					NLG.SystemMessage(player,"[Ïµ½y]„ÙÀû•rÒ²ÄŒ¦ÊÖÄÇµÃµ½Ä§Å"..gold_plus.."£¡");
-					Char.SetTempData(player,'İ¼Ó¢¶ÔÕ½', 0);
+					--NLG.SystemMessage(player,"[ç³»çµ±]ç›®å‰è²æœ›:"..fame.."ï¼Œå‹åˆ©å¾—åˆ°é¡å¤–è²æœ›"..fame_plus.."ï¼");
+					NLG.SystemMessage(player,"[ç³»çµ±]å‹åˆ©æ™‚ä¹Ÿå¾å°æ‰‹é‚£å¾—åˆ°é­”å¹£"..gold_plus.."ï¼");
+					Char.SetTempData(player,'èè‹±å¯¹æˆ˜', 0);
 					NLG.UpChar(player);
 				end
 			end
@@ -583,7 +586,7 @@ function SetTrainerInfo(player,k,timeStamp,intimacy,flag)
 			elseif (k~=a and r==1) then
 				table.insert(EliteTrainer,tonumber(t));
 			elseif (k==a and r==2) then
-				if (tonumber(t)<maxTrainerLevel) then		--İ¼Ó¢µÈ¼¶ÉÏÏŞmaxTrainerLevel
+				if (tonumber(t)<maxTrainerLevel) then		--èè‹±ç­‰çº§ä¸Šé™maxTrainerLevel
 					if (tonumber(t) + intimacy>=100) then
 						table.insert(EliteLvel,100);
 					else
@@ -609,7 +612,7 @@ function SetTrainerInfo(player,k,timeStamp,intimacy,flag)
 			end
 		end
 	end
-	--±í¸ñ×ª×Ö´®
+	--è¡¨æ ¼è½¬å­—ä¸²
 	local Trainer_string = "";
 	for i=1,#PokeTrainer do
 		if (i==#PokeTrainer) then
@@ -623,9 +626,55 @@ function SetTrainerInfo(player,k,timeStamp,intimacy,flag)
 	NLG.UpChar(player);
 end
 
+function CheckFriendRewardList(player,k,giftItem)
+	--æŸ¥è¯¢èµ„æ–™
+	local EliteTrainer,EliteLvel = GetTrainerInfo(player);
+	local msg = "@câ—‡ è¦ªå¯†åº¦ï¼š".. EliteLvel[k] .. " â—‡\\n";
+
+	local ItemIndex_1 = Data.ItemsetGetIndex(giftItem[1]);
+	local name_1 = Data.ItemsetGetData(ItemIndex_1, CONST.ITEMSET_TRUENAME);
+	if (#name_1>=8) then len_1=""; elseif (#name_1==6) then len_1="ã€€"; elseif (#name_1<=4) then len_1="ã€€ã€€"; end
+	local image_1 = Data.ItemsetGetData(ItemIndex_1, CONST.ITEMSET_BASEIMAGENUMBER);
+	local imageText_1 = "@g,"..image_1..",2,2,0,0@";
+	local ItemIndex_2 = Data.ItemsetGetIndex(giftItem[2]);
+	local name_2 = Data.ItemsetGetData(ItemIndex_2, CONST.ITEMSET_TRUENAME);
+	if (#name_2>=8) then len_2=""; elseif (#name_2==6) then len_2="ã€€"; elseif (#name_2<=4) then len_2="ã€€ã€€"; end
+	local image_2 = Data.ItemsetGetData(ItemIndex_2, CONST.ITEMSET_BASEIMAGENUMBER);
+	local imageText_2 = "@g,"..image_2..",2,5,0,0@";
+	local ItemIndex_3 = Data.ItemsetGetIndex(giftItem[3]);
+	local name_3 = Data.ItemsetGetData(ItemIndex_3, CONST.ITEMSET_TRUENAME);
+	if (#name_3>=8) then len_3=""; elseif (#name_3==6) then len_3="ã€€"; elseif (#name_3<=4) then len_3="ã€€ã€€"; end
+	local image_3 = Data.ItemsetGetData(ItemIndex_3, CONST.ITEMSET_BASEIMAGENUMBER);
+	local imageText_3 = "@g,"..image_3..",2,8,0,0@";
+	local ItemIndex_4 = Data.ItemsetGetIndex(giftItem[4]);
+	local name_4 = Data.ItemsetGetData(ItemIndex_4, CONST.ITEMSET_TRUENAME);
+	local last = string.find(name_4, "]", 1);
+	if (last~=nil) then name_4 = string.sub(name_4, 2, last-1); end
+	if (#name_4>=8) then namelen_4 = 8; else namelen_4 = #name_4; end
+	if (namelen_4>=8) then len_4=""; elseif (namelen_4==6) then len_4="ã€€"; elseif (namelen_4<=4) then len_4="ã€€ã€€"; end
+	local image_4 = Data.ItemsetGetData(ItemIndex_4, CONST.ITEMSET_BASEIMAGENUMBER);
+	local imageText_4 = "@g,"..image_4..",10,2,0,0@";
+	local ItemIndex_5 = Data.ItemsetGetIndex(giftItem[5]);
+	local name_5 = Data.ItemsetGetData(ItemIndex_5, CONST.ITEMSET_TRUENAME);
+	local last = string.find(name_5, "]", 1);
+	if (last~=nil) then name_5 = string.sub(name_5, 2, last-1); end
+	if (#name_5>=8) then namelen_5 = 8; else namelen_5 = #name_5; end
+	if (namelen_5>=8) then len_5=""; elseif (namelen_5==6) then len_5="ã€€"; elseif (namelen_5<=4) then len_5="ã€€ã€€"; end
+	local image_5 = Data.ItemsetGetData(ItemIndex_5, CONST.ITEMSET_BASEIMAGENUMBER);
+	local imageText_5 = "@g,"..image_5..",10,5,0,0@";
+	local msg = msg .. string.sub(name_1,1,8)..len_1.."ã€€ã€€ã€€ã€€   "..string.sub(name_4,1,namelen_4)..len_4.."ã€€ã€€\\n"
+					.. "ã€€ã€€" .."ã€€ã€€$1è¦ªå¯†åº¦:20ã€€ã€€".."ã€€".."ã€€ã€€$1è¦ªå¯†åº¦:80ã€€ã€€".."\\n\\n"
+					.. string.sub(name_2,1,8)..len_2.."ã€€ã€€ã€€ã€€   "..string.sub(name_5,1,namelen_5)..len_5.."ã€€ã€€\\n"
+					.. "ã€€ã€€" .."ã€€ã€€$1è¦ªå¯†åº¦:40ã€€ã€€".."ã€€".."ã€€ã€€$1è¦ªå¯†åº¦:100ã€€ã€€".."\\n\\n"
+					.. string.sub(name_3,1,8)..len_3.."ã€€ã€€ã€€ã€€   ".."ã€€ã€€ã€€ã€€".."ã€€ã€€\\n"
+					.. "ã€€ã€€" .."ã€€ã€€$1è¦ªå¯†åº¦:60ã€€ã€€".."ã€€".."ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€".."ã€€\\n\\n"
+	local msg = msg ..imageText_1..imageText_2..imageText_3..imageText_4..imageText_5;
+	return msg;
+end
+
 function CheckAndGiveFriendReward(player,k,giftItem)
 	--local changed = false
-	-- éÁË´_±£í˜Ğò£¬ß@ß…ÓÃ ipairs + ê‡ÁĞ
+	-- ç‚ºäº†ç¢ºä¿é †åºï¼Œé€™é‚Šç”¨ ipairs + é™£åˆ—
 	local levels = {20, 40, 60, 80, 100};
 
 	for key, lv in ipairs(levels) do
@@ -636,7 +685,7 @@ function CheckAndGiveFriendReward(player,k,giftItem)
 			if (bit > 0 and EliteFlag[k]==bit) then
 				local reward = giftItem[key];
                 Char.GiveItem(player, reward, 1);
-				--NLG.SystemMessage(player, "[Ïµ½y]ÒÑîIÈ¡Œ¦‘ªª„„î£¡");
+				--NLG.SystemMessage(player, "[ç³»çµ±]å·²é ˜å–å°æ‡‰çå‹µï¼");
 
 				flag = 2^key;
 				--print(flag)
@@ -645,7 +694,7 @@ function CheckAndGiveFriendReward(player,k,giftItem)
 		end
 	end
 end
--- bitÆì˜Ë
+-- bitæ——æ¨™
 function GetFriendRewardBit(lv)
 	if lv == 20  then return 1 end
 	if lv == 40  then return 2 end
@@ -692,8 +741,8 @@ end
 
 
 Char.GetLocation = function(npc,dir)
-	local X = Char.GetData(npc,CONST.¶ÔÏó_X)--µØÍ¼x
-	local Y = Char.GetData(npc,CONST.¶ÔÏó_Y)--µØÍ¼y
+	local X = Char.GetData(npc,CONST.å¯¹è±¡_X)--åœ°å›¾x
+	local Y = Char.GetData(npc,CONST.å¯¹è±¡_Y)--åœ°å›¾y
 	if dir==0 then
 		Y=Y-1;
 	elseif dir==1 then
@@ -718,7 +767,7 @@ Char.GetLocation = function(npc,dir)
 	return X,Y;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
