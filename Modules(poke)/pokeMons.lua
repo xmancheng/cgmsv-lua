@@ -7,8 +7,8 @@ local AIinfo = {
   "敵方血低目標",
   "敵方血高目標",
   "敵方隨機目標",
-  "我方血低目標",
-  "我方隊長目標",
+  "敵方魔低目標",
+  "敵方魔高目標",
 }
 
 local Assortment = {
@@ -123,7 +123,7 @@ local skillCom={
   -- 自创技能
   [2005] = {0},
   [106] = {20},
-  [3100] = {0,0,0},
+  [3100] = {0,0,0,0},
   [3101] = {0,0,0,0},
   [3102] = {0,0,0,20},
   [3103] = {20,0,0,41},
@@ -895,9 +895,14 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 						com2 = tSlot + skillCom[IMAGEId_1][com1];
 					end
 					local action_tbl = {
-					    function() Battle.ActionSelect(ai_index,skillParams[IMAGEId_1][com1], com2, techId_1) end,
+						function() Battle.ActionSelect(ai_index,skillParams[IMAGEId_1][com1], com2, techId_1) end,
+						function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,
 					}
-					pcall(action_tbl[1])
+					if (math.random(1,100)<=5 and IMAGEId_1==73) then
+						pcall(action_tbl[2])
+					else
+						pcall(action_tbl[1])
+					end
 					--Battle.ActionSelect(ai_index, skillParams[IMAGEId_1][com1], com2, techId_1);
 
 					local petindex = Char.GetPet(ai_index,0);
@@ -928,8 +933,13 @@ function Module:onBeforeBattleTurnCallback(battleIndex)
 						end
 						local action_tbl = {
 							function() Battle.ActionSelect(ai_index,skillParams[IMAGEId_2][com1], com2, techId_2) end,
+							function() Battle.ActionSelect(ai_index,CONST.BATTLE_COM.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,
 						}
-						pcall(action_tbl[1])
+						if (math.random(1,100)<=5 and IMAGEId_1==73) then
+							pcall(action_tbl[2])
+						else
+							pcall(action_tbl[1])
+						end
 						--Battle.ActionSelect(ai_index, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId_2);
 					end
 					NLG.UpChar(ai_index);
@@ -1022,7 +1032,33 @@ function checkAISummon(player)
 end
 --AI模式選擇目標對象
 function smartTargetSelection(battleIndex,AIType,techId)
-  local tSlot = 10;
+  local tSlot = 10;		--預設位敵方首領
+
+  ---防呆強制我方的技能
+  local IMAGEId_tmp,order_tmp = math.modf(techId / 100);
+  -- NOTE 我方血低
+  local tagHp = nil;
+  for slot = 0,9 do
+    local charIndex = Battle.GetPlayer(battleIndex, slot);
+    if (charIndex >= 0) then
+      local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
+      if tagHp == nil then
+        tagHp = hpRatio;
+        tSlot = slot;
+      elseif hpRatio < tagHp then	--己方血量占比最低
+        tagHp = hpRatio;
+        tSlot = slot;
+      end
+    end
+  end
+  local side0_tech = {7,61,62,63,64,65,66,67,68,55,56,57,58,59,60}
+  for k,v in pairs (side0_tech) do
+    if (IMAGEId_tmp==v) then
+      return tSlot;
+    end
+  end
+
+  ---依設置敵方的技能
   -- NOTE 敵方隨機目標
   if (AIType==1) then	-- NOTE 敵方首領目標
     local tSlot = 10;
@@ -1062,24 +1098,37 @@ function smartTargetSelection(battleIndex,AIType,techId)
   elseif (AIType==4) then
     local tSlot = math.random(10,19);
     return tSlot;
-  elseif (AIType==5) then	-- NOTE 我方血低
-    local tagHp = nil;
+  elseif (AIType==5) then	-- NOTE 敵方魔低
+    local tagFp = nil;
     for slot = 0,9 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
       if (charIndex >= 0) then
-        local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
-        if tagHp == nil then
-          tagHp = hpRatio;
+        local fpRatio = Char.GetData(charIndex, CONST.对象_魔) / Char.GetData(charIndex, CONST.对象_最大魔);
+        if tagFp == nil then
+          tagFp = fpRatio;
           tSlot = slot;
-        elseif hpRatio < tagHp then	--己方血量占比最低
-          tagHp = hpRatio;
+        elseif hpRatio < tagFp then	--敵方魔力量占比最低
+          tagFp = fpRatio;
           tSlot = slot;
         end
       end
     end
     return tSlot;
-  elseif (AIType==6) then	-- NOTE 我方隊長目標
-    local tSlot = 0;
+  elseif (AIType==6) then	-- NOTE 敵方魔高
+    local tagFp = nil;
+    for slot = 10,19 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot);
+      if (charIndex >= 0) then
+        local fpRatio = Char.GetData(charIndex, CONST.对象_魔) / Char.GetData(charIndex, CONST.对象_最大魔);
+        if tagFp == nil then
+          tagFp = fpRatio;
+          tSlot = slot;
+        elseif fpRatio > tagFp then	--敵方魔力量占比最高
+          tagFp = fpRatio;
+          tSlot = slot;
+        end
+      end
+    end
     return tSlot;
   end
   return tSlot;
