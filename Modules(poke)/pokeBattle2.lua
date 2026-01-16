@@ -1,60 +1,60 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule('pokeBattle2')
 
 local playerOFF = 0;
 local EncountSet = {
-    { Type=1, GymBoss={"ÈÕê×ÈÕ", 14640, 20252,7,4}, dropMenu={74121,74122}, nowEvent={"Éî»ÒÊĞ(Ç°ÒÁ –´å)94",311}, EnemySet = {415053, 0, 0, 0, 0, 0, 415062, 415062, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
-    { Type=2, GymBoss={"ÔÂê×ÈÕ", 14679, 20253,7,2}, dropMenu={74118,74119}, nowEvent={"ÈAË{ÊĞ(Ç°Â}À­ô”¿¨´å)95",312}, EnemySet = {415050, 0, 0, 0, 0, 0, 415058, 415058, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
-    { Type=3, GymBoss={"»ğê×ÈÕ", 14638, 20254,7,2}, dropMenu={74115,74116}, nowEvent={"¿İÈ~ÊĞ(Ç°†ÁôÌØ´å)96",313}, EnemySet = {415057, 0, 0, 0, 0, 0, 415061, 415061, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
-    { Type=4, GymBoss={"Ë®ê×ÈÕ", 14680, 20255,7,3}, dropMenu={74124,74125}, nowEvent={"ÓñºçÊĞ(Ç°Î¬Åµ†´å)97",314}, EnemySet = {415056, 0, 0, 0, 0, 0, 415052, 415052, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
-    { Type=5, GymBoss={"Ä¾ê×ÈÕ", 14691, 20256,6,10}, dropMenu={74127,74128}, nowEvent={"Ç³¼tÊĞ(Ç°ÆæÀû´å)98",315}, EnemySet = {415062, 0, 0, 0, 0, 0, 415060, 415060, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
-    { Type=6, GymBoss={"½ğê×ÈÕ", 14636, 20257,12,10}, dropMenu={74109,74110}, nowEvent={"½ğüSÊĞ(Ç°¼Ó¼{´å)99",316}, EnemySet = {415051, 0, 0, 0, 0, 0, 415054, 415054, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
-    { Type=7, GymBoss={"ÍÁê×ÈÕ", 14578, 20258,4,3}, dropMenu={74112,74113}, nowEvent={"¼tÉæ‚(Ç°‚ÜÅµÍßæ‚)100",317}, EnemySet = {415055, 0, 0, 0, 0, 0, 415059, 415059, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
-    { Type=8, GymBoss={"ÛàÄ¾", 14676, 20259,4,3}, dropMenu={74106,74107}, nowEvent={"³£ÇàÊĞ(Ç°µÙÄÈ´å)101",318}, EnemySet = {416252, 0, 0, 0, 0, 416279, 416278, 416278, 416279, 416279}, EnemyLevel = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50} },		--
+    { Type=1, GymBoss={"æ—¥æ›œæ—¥", 14640, 20252,7,4}, dropMenu={74121,74122}, nowEvent={"æ·±ç°å¸‚(å‰ä¼Šçˆ¾æ‘)94",311}, EnemySet = {415053, 0, 0, 0, 0, 0, 415062, 415062, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
+    { Type=2, GymBoss={"æœˆæ›œæ—¥", 14679, 20253,7,2}, dropMenu={74118,74119}, nowEvent={"è¯è—å¸‚(å‰è–æ‹‰é­¯å¡æ‘)95",312}, EnemySet = {415050, 0, 0, 0, 0, 0, 415058, 415058, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
+    { Type=3, GymBoss={"ç«æ›œæ—¥", 14638, 20254,7,2}, dropMenu={74115,74116}, nowEvent={"æ¯è‘‰å¸‚(å‰äºç•™ç‰¹æ‘)96",313}, EnemySet = {415057, 0, 0, 0, 0, 0, 415061, 415061, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
+    { Type=4, GymBoss={"æ°´æ›œæ—¥", 14680, 20255,7,3}, dropMenu={74124,74125}, nowEvent={"ç‰è™¹å¸‚(å‰ç»´è¯ºäºæ‘)97",314}, EnemySet = {415056, 0, 0, 0, 0, 0, 415052, 415052, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
+    { Type=5, GymBoss={"æœ¨æ›œæ—¥", 14691, 20256,6,10}, dropMenu={74127,74128}, nowEvent={"æµ…ç´…å¸‚(å‰å¥‡åˆ©æ‘)98",315}, EnemySet = {415062, 0, 0, 0, 0, 0, 415060, 415060, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
+    { Type=6, GymBoss={"é‡‘æ›œæ—¥", 14636, 20257,12,10}, dropMenu={74109,74110}, nowEvent={"é‡‘é»ƒå¸‚(å‰åŠ ç´æ‘)99",316}, EnemySet = {415051, 0, 0, 0, 0, 0, 415054, 415054, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
+    { Type=7, GymBoss={"åœŸæ›œæ—¥", 14578, 20258,4,3}, dropMenu={74112,74113}, nowEvent={"ç´…è“®é®(å‰å‚‘è¯ºç“¦é®)100",317}, EnemySet = {415055, 0, 0, 0, 0, 0, 415059, 415059, 0, 0}, EnemyLevel = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60} },		--
+    { Type=8, GymBoss={"å‚æœ¨", 14676, 20259,4,3}, dropMenu={74106,74107}, nowEvent={"å¸¸é’å¸‚(å‰è’‚å¨œæ‘)101",318}, EnemySet = {416252, 0, 0, 0, 0, 416279, 416278, 416278, 416279, 416279}, EnemyLevel = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50} },		--
 }
 
 local monsCard = {76009,76033,76035,76040,76047,76049,76044,76050,76053,76059,76066,76074,76078,}
 
 local rewardPet = {
-    73015,73016,73023,73046,73047,73058,	--ÈÕê×ÈÕ
-    73014,73018,73042,73043,73048,73049,73061,	--ÔÂê×ÈÕ
-	73017,73027,73032,73037,73054,73060,	--»ğê×ÈÕ
-	73020,73021,73065,	--Ë®ê×ÈÕ
-	73019,73034,73044,73045,73059,73062,	--Ä¾ê×ÈÕ
-	73040,73041,73052,73053,73063,73064,	--½ğê×ÈÕ
-	73050,73051,73056,	--ÍÁê×ÈÕ
+    73015,73016,73023,73046,73047,73058,	--æ—¥æ›œæ—¥
+    73014,73018,73042,73043,73048,73049,73061,	--æœˆæ›œæ—¥
+	73017,73027,73032,73037,73054,73060,	--ç«æ›œæ—¥
+	73020,73021,73065,	--æ°´æ›œæ—¥
+	73019,73034,73044,73045,73059,73062,	--æœ¨æ›œæ—¥
+	73040,73041,73052,73053,73063,73064,	--é‡‘æ›œæ—¥
+	73050,73051,73056,	--åœŸæ›œæ—¥
 }
 
 local GymsEnemy = {
-    123092,123097,123124,	--ÑÒÊ¯ÊôĞÔ
-    123017,123101,123102,	--Ë®ÊôĞÔ
-    123014,123015,123132,	--µçÊôĞÔ
-    123006,123043,123090,	--²İÊôĞÔ
-    123071,123074,123078,	--¶¾ÊôĞÔ
-    123019,123068,123153,	--³¬ÄÜÁ¦ÊôĞÔ
-    123138,123035,123036,	--»ğÊôĞÔ
-    123080,123081,123050,	--µØÃæÊôĞÔ
+    123092,123097,123124,	--å²©çŸ³å±æ€§
+    123017,123101,123102,	--æ°´å±æ€§
+    123014,123015,123132,	--ç”µå±æ€§
+    123006,123043,123090,	--è‰å±æ€§
+    123071,123074,123078,	--æ¯’å±æ€§
+    123019,123068,123153,	--è¶…èƒ½åŠ›å±æ€§
+    123138,123035,123036,	--ç«å±æ€§
+    123080,123081,123050,	--åœ°é¢å±æ€§
 }	--ImageId
 
 local restraintMap = {
-    { 123022,123023,123089,123090,123091, },	--³æÊôĞÔ
-    { 123005,123006,123042,123043,123044,123045,123152,123153, },	--²İÊôĞÔ
-    { 123013,123014,123015,123016,123058,123059,123060,123130,123131,123132, },	--µçÊôĞÔ
-    { 123009,123010,123011,123017,123046,123047,123048,123049,123100,123101,123106,123107,123108,123112,123113,123114,123121,123122,123123, },	--Ë®ÊôĞÔ
-    { 123024,123025,123026,123027,123146,123147,123148,123149,123150, },	--Ò»°ãÊôĞÔ
-    { 123018,123019,123020,123021,123115,123116,123117, },	--ÓÄÁéÊôĞÔ
-    { 123050,123051,123052,123067,123068,123151,123154, },	--³¬ÄÜÁ¦ÊôĞÔ
-    { 123061,123062,123094,123095,123096, },	--±ùÊôĞÔ
-    { 123000,123001,123002,123004,123034,123035,123036,123037,123038,123039,123118,123119,123120,123137,123138,123139, },	--»ğÊôĞÔ
-    { 123028,123029,123030,123066,123076,123077,123102, },	--·ÉĞĞÊôĞÔ
-    { 123040,123041,123085,123086,123087,123088,123134,123135,123136, },	--¸ñ¶·ÊôĞÔ
-    { 123092,123093,123097,123098,123099,123124,123125,123126, },	--ÑÒÊ¯ÊôĞÔ
-    { 123079,123080,123081,123082,123103,123104,123105,123140, },	--µØÃæÊôĞÔ
-    { 123031,123032,123033,123069,123127,123128,123129, },	--Ñı¾«ÊôĞÔ
-    { 123109,123110,123111,123143,123144,123145, },	--¸ÖÊôĞÔ
-    { 123003,123055,123056,123057,123063,123064,123065,123083,123084,123133,123141,123142, },	--ÁúÊôĞÔ
-    { 123053,123054,123072,123075,123078, },	--¶ñÊôĞÔ
-    { 123007,123008,123070,123071,123073,123074, },	--¶¾ÊôĞÔ
+    { 123022,123023,123089,123090,123091, },	--è™«å±æ€§
+    { 123005,123006,123042,123043,123044,123045,123152,123153, },	--è‰å±æ€§
+    { 123013,123014,123015,123016,123058,123059,123060,123130,123131,123132, },	--ç”µå±æ€§
+    { 123009,123010,123011,123017,123046,123047,123048,123049,123100,123101,123106,123107,123108,123112,123113,123114,123121,123122,123123, },	--æ°´å±æ€§
+    { 123024,123025,123026,123027,123146,123147,123148,123149,123150, },	--ä¸€èˆ¬å±æ€§
+    { 123018,123019,123020,123021,123115,123116,123117, },	--å¹½çµå±æ€§
+    { 123050,123051,123052,123067,123068,123151,123154, },	--è¶…èƒ½åŠ›å±æ€§
+    { 123061,123062,123094,123095,123096, },	--å†°å±æ€§
+    { 123000,123001,123002,123004,123034,123035,123036,123037,123038,123039,123118,123119,123120,123137,123138,123139, },	--ç«å±æ€§
+    { 123028,123029,123030,123066,123076,123077,123102, },	--é£è¡Œå±æ€§
+    { 123040,123041,123085,123086,123087,123088,123134,123135,123136, },	--æ ¼æ–—å±æ€§
+    { 123092,123093,123097,123098,123099,123124,123125,123126, },	--å²©çŸ³å±æ€§
+    { 123079,123080,123081,123082,123103,123104,123105,123140, },	--åœ°é¢å±æ€§
+    { 123031,123032,123033,123069,123127,123128,123129, },	--å¦–ç²¾å±æ€§
+    { 123109,123110,123111,123143,123144,123145, },	--é’¢å±æ€§
+    { 123003,123055,123056,123057,123063,123064,123065,123083,123084,123133,123141,123142, },	--é¾™å±æ€§
+    { 123053,123054,123072,123075,123078, },	--æ¶å±æ€§
+    { 123007,123008,123070,123071,123073,123074, },	--æ¯’å±æ€§
   }
   local attr = {
     { 1, 2, 1, 1, 1, 0.5, 2, 1, 0.5, 0.5, 0.5, 1, 1,0.5, 0.5, 1, 2, 0.5 },
@@ -80,64 +80,67 @@ local restraintMap = {
 local warp_area_name = {};
 local warp_area_area = {};
 local warp_area_flag = {};
-warp_area_name[1] = "×Ô„“ÕĞÊ½·¿ég";
+warp_area_name[1] = "è‡ªå‰µæ‹›å¼æˆ¿é–“";
 warp_area_area[1] = {20335,6,8};
 warp_area_flag[1] = 311;
 
-warp_area_name[2] = "‘ğôY¼¼ÄÜ·¿ég";
+warp_area_name[2] = "æˆ°é¬¥æŠ€èƒ½æˆ¿é–“";
 warp_area_area[2] = {20335,24,78};
 warp_area_flag[2] = 312;
 
-warp_area_name[3] = "†ÎówÄ§·¨·¿ég";
+warp_area_name[3] = "å–®é«”é­”æ³•æˆ¿é–“";
 warp_area_area[3] = {20335,6,67};
 warp_area_flag[3] = 313;
 
-warp_area_name[4] = "ÈºówÄ§·¨·¿ég";
+warp_area_name[4] = "ç¾¤é«”é­”æ³•æˆ¿é–“";
 warp_area_area[4] = {20335,24,56};
 warp_area_flag[4] = 314;
 
-warp_area_name[5] = " î‘B¹¥“ô·¿ég";
+warp_area_name[5] = "ç‹€æ…‹æ”»æ“Šæˆ¿é–“";
 warp_area_area[5] = {20335,6,45};
 warp_area_flag[5] = 315;
 
-warp_area_name[6] = " î‘BÄ§·¨·¿ég";
+warp_area_name[6] = "ç‹€æ…‹é­”æ³•æˆ¿é–“";
 warp_area_area[6] = {20335,24,34};
 warp_area_flag[6] = 316;
 
-warp_area_name[7] = "İoÖúÄ§·¨·¿ég";
+warp_area_name[7] = "è¼”åŠ©é­”æ³•æˆ¿é–“";
 warp_area_area[7] = {20335,6,23};
 warp_area_flag[7] = 317;
 
---- «@È¡Íæ¼Ò®”Ç°¿ÉÒŠµÄ‚÷ËÍÇå†Î
+--- ç²å–ç©å®¶ç•¶å‰å¯è¦‹çš„å‚³é€æ¸…å–®
 function getPlayerAvailableList(player)
 	local availableList = {};
-	for i = 1, #warp_area_name do
+	for i = 2, #warp_area_name do
 		if (Char.NowEvent(player, warp_area_flag[i]) == 1) then
-			table.insert(availableList, i); -- ƒ¦´æÔ­Ê¼Ë÷Òı
+			table.insert(availableList, i); -- å„²å­˜åŸå§‹ç´¢å¼•
 		end
+	end
+	if (Char.NowEvent(player, warp_area_flag[1]) == 1 and #availableList>=6) then
+		availableList = {1,2,3,4,5,6,7};
 	end
 	return availableList;
 end
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('BattleStartEvent', Func.bind(self.OnbattleStartEventCallback, self))
   self:regCallback('DamageCalculateEvent', Func.bind(self.OnDamageCalculateCallBack, self))
 
-  self.GymBossNPC = self:NPC_createNormal('Œ¦‘ğ²ÃÅĞ†T', 14637, { map =80002, x = 18, y = 18, direction = 4, mapType = 0 })
-  Char.SetData(self.GymBossNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0)--¿É´©Í¸Ìå
+  self.GymBossNPC = self:NPC_createNormal('å°æˆ°è£åˆ¤å“¡', 14637, { map =80002, x = 18, y = 18, direction = 4, mapType = 0 })
+  Char.SetData(self.GymBossNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0)--å¯ç©¿é€ä½“
   self:NPC_regWindowTalkedEvent(self.GymBossNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_¹Ø±Õ or select == CONST.°´Å¥_·ñ then
+    if select == CONST.BUTTON_å…³é—­ or select == CONST.æŒ‰é’®_å¦ then
         return;
     end
     local nowGym = tonumber(os.date("%w",os.time()))+1;
     --local gymBoss = tonumber(Field.Get(player, 'GymBoss')) or 0;
     --local gymBossLevel = tonumber(Field.Get(player, 'GymBossLevel')) or 0;
-    if seqno == 1 and select == CONST.°´Å¥_ÊÇ then
+    if seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
         if (nowGym>=1) then
             local EnemyIdAr = EncountSet[nowGym].EnemySet;
             local BaseLevelAr = EncountSet[nowGym].EnemyLevel;
@@ -176,41 +179,41 @@ function Module:onLoad()
     --local gymBossLevel = tonumber(Field.Get(player, 'GymBossLevel')) or 0;
     local nowGym = tonumber(os.date("%w",os.time()))+1;
     if (NLG.CanTalk(npc, player) == true) then
-      --[[local msg = "4\\n@c¡ïµÀğ^Ìô‘ğ¡ï"
-                .."\\nÄ¿Ç°êP¿¨:  µÚ"..nowGym.."µÀğ^\\n"
-                .."\\n¡¡¡¡¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                .."[¡¡ĞÂÊÖ‡LÔ‡µÀğ^Ìô‘ğ¡¡]\\n"
-                .."[¡¡ÙYÉî¼ÓËÙµÀğ^Ìô‘ğ¡¡]\\n";]]
-      local msg = "\\n@c¡ïµÀğ^Ìô‘ğ¡ï"
-                .."\\nŒ¦‘ğÄ¿˜Ë:  "..EncountSet[nowGym].GymBoss[1].."µÀğ^\\n"
-                .."\\n¡¡¡¡¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\\n"
-                .."\\n\\n¡¡ [ÊÇ]é_Ê¼¡¡¡¡[·ñ]È¡Ïû\\n";
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+      --[[local msg = "4\\n@câ˜…é“é¤¨æŒ‘æˆ°â˜…"
+                .."\\nç›®å‰é—œå¡:  ç¬¬"..nowGym.."é“é¤¨\\n"
+                .."\\nã€€ã€€â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                .."[ã€€æ–°æ‰‹å˜—è©¦é“é¤¨æŒ‘æˆ°ã€€]\\n"
+                .."[ã€€è³‡æ·±åŠ é€Ÿé“é¤¨æŒ‘æˆ°ã€€]\\n";]]
+      local msg = "\\n@câ˜…é“é¤¨æŒ‘æˆ°â˜…"
+                .."\\nå°æˆ°ç›®æ¨™:  "..EncountSet[nowGym].GymBoss[1].."é“é¤¨\\n"
+                .."\\nã€€ã€€â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\\n"
+                .."\\n\\nã€€ [æ˜¯]é–‹å§‹ã€€ã€€[å¦]å–æ¶ˆ\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
 
-  self.GymRewardNPC = self:NPC_createNormal('µÀğ^»ÕÕÂƒ¶“Q', 400223, { map =20314, x = 26, y = 29, direction = 4, mapType = 0 })
-  Char.SetData(self.GymRewardNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0)--¿É´©Í¸Ìå
+  self.GymRewardNPC = self:NPC_createNormal('é“é¤¨å¾½ç« å…Œæ›', 400223, { map =20314, x = 26, y = 29, direction = 4, mapType = 0 })
+  Char.SetData(self.GymRewardNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0)--å¯ç©¿é€ä½“
   self:NPC_regWindowTalkedEvent(self.GymRewardNPC, function(npc, player, _seqno, _select, _data)
-    local cdk = Char.GetData(player,CONST.¶ÔÏó_CDK);
+    local cdk = Char.GetData(player,CONST.å¯¹è±¡_CDK);
     local seqno = tonumber(_seqno)
     local select = tonumber(_select)
     local data = tonumber(_data)
-    if select == CONST.BUTTON_¹Ø±Õ or select == CONST.°´Å¥_·ñ then
+    if select == CONST.BUTTON_å…³é—­ or select == CONST.æŒ‰é’®_å¦ then
         return;
     end
     local nowGym = tonumber(os.date("%w",os.time()))+1;
-    if seqno == 1 and select == CONST.°´Å¥_ÊÇ then
+    if seqno == 1 and select == CONST.æŒ‰é’®_æ˜¯ then
         for i=1,7 do
           local gymBadge = Char.NowEvent(player, EncountSet[i].nowEvent[2]);
           if (gymBadge~=1) then
-            NLG.SystemMessage(player,"[Ïµ½y]ÉĞÎ´È¡µÃËùÓĞ»ÕÕÂ¡£");
+            NLG.SystemMessage(player,"[ç³»çµ±]å°šæœªå–å¾—æ‰€æœ‰å¾½ç« ã€‚");
             return;
           end
         end
         if (Char.ItemSlot(player)>=25) then
-          NLG.SystemMessage(player,"[Ïµ½y]ÎïÆ·™ÚÎ»ÖÃÒÑM¡£");
+          NLG.SystemMessage(player,"[ç³»çµ±]ç‰©å“æ¬„ä½ç½®å·²æ»¿ã€‚");
           return;
         end
         for i=1,7 do
@@ -225,49 +228,49 @@ function Module:onLoad()
   end)
   self:NPC_regTalkedEvent(self.GymRewardNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local msg = "\\n@c¡ïµÀğ^Ìô‘ğ¡ï"
-                .."\\n½»³öËùÓĞµÀğ^»ÕÕÂ«@µÃ3-5‚€†¾«FÇò\\n"
-                .."\\n¡¡¡¡¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\\n";
+      local msg = "\\n@câ˜…é“é¤¨æŒ‘æˆ°â˜…"
+                .."\\näº¤å‡ºæ‰€æœ‰é“é¤¨å¾½ç« ç²å¾—3-5å€‹å–šç¸çƒ\\n"
+                .."\\nã€€ã€€â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\\n";
       for i=1,7 do
-        if (i==1 or i==3 or i==5 or i==7) then msg = msg.."¡¡¡¡" end
-        msg = msg.. EncountSet[i].GymBoss[1].."µÀğ^ "
+        if (i==1 or i==3 or i==5 or i==7) then msg = msg.."ã€€ã€€" end
+        msg = msg.. EncountSet[i].GymBoss[1].."é“é¤¨ "
         local gymBadge = Char.NowEvent(player, EncountSet[i].nowEvent[2]);
-        if (gymBadge==1) then msg = msg.."$5ÒÑÍê³É¡¡$0" else msg = msg.."$8Î´Íê³É$0¡¡" end
-        if (i==2 or i==4 or i==6) then msg = msg.."\\n" elseif (i==7) then msg = msg.."¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡   \\n" end
+        if (gymBadge==1) then msg = msg.."$5å·²å®Œæˆã€€$0" else msg = msg.."$8æœªå®Œæˆ$0ã€€" end
+        if (i==2 or i==4 or i==6) then msg = msg.."\\n" elseif (i==7) then msg = msg.."ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€   \\n" end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1, msg);
     end
     return
   end)
 
-  self.boardNPC = self:NPC_createNormal('‚÷ËÍ¸æÊ¾°å', 11562, { x = 23, y = 85, mapType = 0, map = 20335, direction = 4 });
-  Char.SetData(self.boardNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0)--¿É´©Í¸Ìå
+  self.boardNPC = self:NPC_createNormal('å‚³é€å‘Šç¤ºæ¿', 11562, { x = 23, y = 85, mapType = 0, map = 20335, direction = 4 });
+  Char.SetData(self.boardNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0)--å¯ç©¿é€ä½“
   self:NPC_regWindowTalkedEvent(self.boardNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾¼¼ÄÜŒWÁ•‚÷ËÍÔS¿É¡¿\\n"
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æŠ€èƒ½å­¸ç¿’å‚³é€è¨±å¯ã€‘\\n"
+    local winButton = CONST.BUTTON_å…³é—­;
 	local availableList = getPlayerAvailableList(player);
-    -- 1. ÌÀíêPé]
-    if _select == CONST.°´Å¥_¹Ø±Õ then
+    -- 1. è™•ç†é—œé–‰
+    if _select == CONST.æŒ‰é’®_å…³é—­ then
         return;
     end
-    -- 2. ÌÀí·Öí“°´âoÇĞ“Q
+    -- 2. è™•ç†åˆ†é æŒ‰éˆ•åˆ‡æ›
     local warpPage = page;
-    if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+    if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1;
-    elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+    elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1;
     end
-    -- 3. ÅĞ”à¡¸ücßxí—Ä¿¡¹
+    -- 3. åˆ¤æ–·ã€Œé»é¸é …ç›®ã€
     if _select > 0 then
-        -- ï@Ê¾ßx†Î½éÃæ
-        local winButton = CONST.BUTTON_¹Ø±Õ;
+        -- é¡¯ç¤ºé¸å–®ä»‹é¢
+        local winButton = CONST.BUTTON_å…³é—­;
     else
-        -- Íæ¼ÒücßxÁËÄ³‚€í—Ä¿ (_select == 0)
+        -- ç©å®¶é»é¸äº†æŸå€‹é …ç›® (_select == 0)
         local selectionIndex = column;
-        local realIdx = availableList[selectionIndex];	-- Í¸ß^Ó³Éä±í×¥»ØÕæŒ ID
+        local realIdx = availableList[selectionIndex];	-- é€éæ˜ å°„è¡¨æŠ“å›çœŸå¯¦ ID
         if realIdx then
             Char.DischargeParty(player);
             Char.Warp(player,0,warp_area_area[realIdx][1],warp_area_area[realIdx][2],warp_area_area[realIdx][3]);
@@ -277,14 +280,14 @@ function Module:onLoad()
   self:NPC_regTalkedEvent(self.boardNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
       local availableList = getPlayerAvailableList(player);
-      local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾¼¼ÄÜŒWÁ•‚÷ËÍÔS¿É¡¿\\n"
-      -- ¸ù“ş¿ÉÓÃÇå†ÎÉú³É UI
+      local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€æŠ€èƒ½å­¸ç¿’å‚³é€è¨±å¯ã€‘\\n"
+      -- æ ¹æ“šå¯ç”¨æ¸…å–®ç”Ÿæˆ UI
       for showIdx, realIdx in ipairs(availableList) do
          if (showIdx <= 8) then
-           msg = msg .. "¡¡¡¡¡òé_·ÅÔS¿É " .. showIdx .. "¡¡" .. warp_area_name[realIdx] .. "\\n"
+           msg = msg .. "ã€€ã€€â—é–‹æ”¾è¨±å¯ " .. showIdx .. "ã€€" .. warp_area_name[realIdx] .. "\\n"
          end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, msg);
     end
     return
   end)
@@ -295,20 +298,20 @@ function Module:OnbattleStartEventCallback(battleIndex)
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
 	for i=10, 19 do
 		local enemy = Battle.GetPlayIndex(battleIndex, i)
 		local player = Battle.GetPlayIndex(battleIndex, i-10)
-		--local enemyId = Char.GetData(enemy, CONST.¶ÔÏó_ENEMY_ID);
-		local ImageId = Char.GetData(enemy, CONST.¶ÔÏó_ĞÎÏó);
+		--local enemyId = Char.GetData(enemy, CONST.å¯¹è±¡_ENEMY_ID);
+		local ImageId = Char.GetData(enemy, CONST.å¯¹è±¡_å½¢è±¡);
 		if enemy>=0 and Char.IsEnemy(enemy) and CheckInTable(GymsEnemy,ImageId)==true  then
-			Char.SetTempData(enemy, '¿ËÖÆ', gymBoss);
+			Char.SetTempData(enemy, 'å…‹åˆ¶', gymBoss);
 			NLG.UpChar(enemy);
-			if Char.GetData(player,CONST.¶ÔÏó_¶ÔÕ½¿ª¹Ø) == 1  then
-				NLG.Say(player,-1,"¡¾ŒÙĞÔ„wÖÆ¡¿",4,3);
+			if Char.GetData(player,CONST.å¯¹è±¡_å¯¹æˆ˜å¼€å…³) == 1  then
+				NLG.Say(player,-1,"ã€å±¬æ€§å‰‹åˆ¶ã€‘",4,3);
 			end
 		end
 	end
@@ -320,7 +323,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
       local leader1 = Battle.GetPlayer(battleIndex,0)
       local leader2 = Battle.GetPlayer(battleIndex,5)
       local leader = leader1
-      if Char.GetData(leader2, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+      if Char.GetData(leader2, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
           leader = leader2
       end
       local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
@@ -332,11 +335,11 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
       end
       --print(Round)
       if Char.IsEnemy(defCharIndex) then
-          --local enemyId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ENEMY_ID);
-          local ImageId = Char.GetData(defCharIndex, CONST.¶ÔÏó_ĞÎÏó);
+          --local enemyId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_ENEMY_ID);
+          local ImageId = Char.GetData(defCharIndex, CONST.å¯¹è±¡_å½¢è±¡);
           if CheckInTable(GymsEnemy,ImageId)==true then
             if Char.IsPlayer(charIndex) and Char.IsDummy(charIndex)==false  then
-               if (playerOFF==1 and (Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20252 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20253 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20254 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20255 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20256 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20257 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20258 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20259)) then
+               if (playerOFF==1 and (Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20252 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20253 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20254 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20255 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20256 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20257 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20258 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20259)) then
                   damage = 1;
                else
                   damage = damage;
@@ -348,7 +351,7 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
                 if (a==0 or b==0) then
                     damage = 1;
                 else
-                    --print('µÚ'..a..'ÁĞ','µÚ'..b..'™Ú','±¶ÂÊ:'..attr[a][b])
+                    --print('ç¬¬'..a..'åˆ—','ç¬¬'..b..'æ¬„','å€ç‡:'..attr[a][b])
                     damage = damage * attr[a][b] * speedRate;
                 end
             end
@@ -356,22 +359,22 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           end
 
       elseif Char.IsEnemy(charIndex) and flg ~= CONST.DamageFlags.Magic then
-          --local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
-          local ImageId = Char.GetData(charIndex, CONST.¶ÔÏó_ĞÎÏó);
+          --local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
+          local ImageId = Char.GetData(charIndex, CONST.å¯¹è±¡_å½¢è±¡);
           if CheckInTable(GymsEnemy,ImageId)==true then
             if Char.IsPlayer(defCharIndex) and Char.IsDummy(defCharIndex)==false  then
-               if (Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20252 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20253 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20254 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20255 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20256 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20257 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20258 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20259) then
+               if (Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20252 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20253 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20254 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20255 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20256 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20257 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20258 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20259) then
                   damage = damage;
                end
                return damage;
             end
-            --local State = Char.GetTempData(defCharIndex, '¿ËÖÆ') or 0;
+            --local State = Char.GetTempData(defCharIndex, 'å…‹åˆ¶') or 0;
             if gymBoss>=0 then
                 local a,b = checkRestraint_att(charIndex,defCharIndex);
                 if (a==0 or b==0) then
                     damage = damage;
                 else
-                    --print('µÚ'..a..'ÁĞ','µÚ'..b..'™Ú','±¶ÂÊ:'..attr[a][b])
+                    --print('ç¬¬'..a..'åˆ—','ç¬¬'..b..'æ¬„','å€ç‡:'..attr[a][b])
                     damage = damage * attr[a][b] * speedRate;
                 end
             end
@@ -379,22 +382,22 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
           end
 
       elseif Char.IsEnemy(charIndex) and flg == CONST.DamageFlags.Magic then
-          --local enemyId = Char.GetData(charIndex, CONST.¶ÔÏó_ENEMY_ID);
-          local ImageId = Char.GetData(charIndex, CONST.¶ÔÏó_ĞÎÏó);
+          --local enemyId = Char.GetData(charIndex, CONST.å¯¹è±¡_ENEMY_ID);
+          local ImageId = Char.GetData(charIndex, CONST.å¯¹è±¡_å½¢è±¡);
           if CheckInTable(GymsEnemy,ImageId)==true then
             if Char.IsPlayer(defCharIndex) and Char.IsDummy(defCharIndex)==false  then
-               if (Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20252 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20253 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20254 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20255 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20256 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20257 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20258 or Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==20259) then
+               if (Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20252 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20253 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20254 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20255 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20256 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20257 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20258 or Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==20259) then
                   damage = damage;
                end
                return damage;
             end
-            --local State = Char.GetTempData(defCharIndex, '¿ËÖÆ') or 0;
+            --local State = Char.GetTempData(defCharIndex, 'å…‹åˆ¶') or 0;
             if gymBoss>=0 then
                 local a,b = checkRestraint_att(charIndex,defCharIndex);
                 if (a==0 or b==0) then
                     damage = damage;
                 else
-                    --print('µÚ'..a..'ÁĞ','µÚ'..b..'™Ú','±¶ÂÊ:'..attr[a][b])
+                    --print('ç¬¬'..a..'åˆ—','ç¬¬'..b..'æ¬„','å€ç‡:'..attr[a][b])
                     damage = damage * attr[a][b] * 0.8 * speedRate;
                 end
             end
@@ -406,26 +409,28 @@ function Module:OnDamageCalculateCallBack(charIndex, defCharIndex, oriDamage, da
 end
 
 function gymBossNPC_BattleWin(battleIndex, charIndex)
-	--¼ÆËãµÈµÚ
+	--è®¡ç®—ç­‰ç¬¬
 	local leader1 = Battle.GetPlayer(battleIndex,0)
 	local leader2 = Battle.GetPlayer(battleIndex,5)
 	local leader = leader1
-	if Char.GetData(leader2, CONST.CHAR_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+	if Char.GetData(leader2, CONST.CHAR_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 		leader = leader2
 	end
 	local gymBoss = tonumber(Field.Get(leader, 'GymBoss')) or 0;
 	local gymBossLevel = tonumber(Field.Get(leader, 'GymBossLevel')) or 0;
 
-	if (Char.GetData(charIndex, CONST.¶ÔÏó_µØÍ¼)==80020) then
-	--·ÖÅä½±Àø
+	if (Char.GetData(charIndex, CONST.å¯¹è±¡_åœ°å›¾)==80002) then
+	--åˆ†é…å¥–åŠ±
 	for p=0,9 do
 		local player = Battle.GetPlayIndex(battleIndex, p);
 		local drop = {0,0,0,0,0,0,0,1,1,1,}
 		local rand = drop[NLG.Rand(1,10)];
-		if player>=0 and Char.GetData(player, CONST.¶ÔÏó_ÀàĞÍ) == CONST.¶ÔÏóÀàĞÍ_ÈË then
+		if player>=0 and Char.GetData(player, CONST.å¯¹è±¡_ç±»å‹) == CONST.å¯¹è±¡ç±»å‹_äºº then
 			local nowGym = tonumber(os.date("%w",os.time()))+1;
 			Char.NowEvent(player, EncountSet[nowGym].nowEvent[2], 1);
 			--Char.GiveItem(player, EncountSet[nowGym].dropMenu[NLG.Rand(1,2)], rand);
+			Char.AddGold(player, 5000);
+			NLG.SystemMessage(player, "[ç³»çµ±]æˆ°å‹é“é¤¨æˆ°ç²å¾—5000Gé‡‘å¹£ã€‚");
 			Char.Warp(player,0,20314,23,32);
 		end
 	end
@@ -433,7 +438,7 @@ function gymBossNPC_BattleWin(battleIndex, charIndex)
 	Battle.UnsetWinEvent(battleIndex);
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -442,18 +447,18 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---ÎÒ·½¹¥charIndex,¹Ö·½ÊØdefCharIndex
+--æˆ‘æ–¹æ”»charIndex,æ€ªæ–¹å®ˆdefCharIndex
 function checkRestraint_def(aIndex,bIndex)
           local a=0;
           local b=0;
           --local enemyId_a = Char.GetData(aIndex,CONST.PET_PetID);
-          local ImageId_a = Char.GetData(aIndex, CONST.¶ÔÏó_ĞÎÏó);
+          local ImageId_a = Char.GetData(aIndex, CONST.å¯¹è±¡_å½¢è±¡);
           if Char.IsDummy(aIndex)==true  then
-              --enemyId_a = Char.GetData(aIndex, CONST.¶ÔÏó_½ğ±Ò);
-              ImageId_a = Char.GetData(aIndex, CONST.¶ÔÏó_ĞÎÏó);
+              --enemyId_a = Char.GetData(aIndex, CONST.å¯¹è±¡_é‡‘å¸);
+              ImageId_a = Char.GetData(aIndex, CONST.å¯¹è±¡_å½¢è±¡);
           end
-          --local enemyId_b = Char.GetData(bIndex, CONST.¶ÔÏó_ENEMY_ID);
-          local ImageId_b = Char.GetData(bIndex, CONST.¶ÔÏó_ĞÎÏó);
+          --local enemyId_b = Char.GetData(bIndex, CONST.å¯¹è±¡_ENEMY_ID);
+          local ImageId_b = Char.GetData(bIndex, CONST.å¯¹è±¡_å½¢è±¡);
           for i, v in ipairs(restraintMap) do
               for k, enemyId in ipairs(v) do
                     if (v[k]==ImageId_a) then
@@ -472,17 +477,17 @@ function checkRestraint_def(aIndex,bIndex)
            return a,b;
 end
 
---¹Ö·½¹¥charIndex,ÎÒ·½ÊØdefCharIndex
+--æ€ªæ–¹æ”»charIndex,æˆ‘æ–¹å®ˆdefCharIndex
 function checkRestraint_att(aIndex,bIndex)
           local a=0;
           local b=0;
-          --local enemyId_a = Char.GetData(aIndex, CONST.¶ÔÏó_ENEMY_ID);
+          --local enemyId_a = Char.GetData(aIndex, CONST.å¯¹è±¡_ENEMY_ID);
           --local enemyId_b = Char.GetData(bIndex,CONST.PET_PetID);
-          local ImageId_a = Char.GetData(aIndex, CONST.¶ÔÏó_ĞÎÏó);
-          local ImageId_b = Char.GetData(bIndex, CONST.¶ÔÏó_ĞÎÏó);
+          local ImageId_a = Char.GetData(aIndex, CONST.å¯¹è±¡_å½¢è±¡);
+          local ImageId_b = Char.GetData(bIndex, CONST.å¯¹è±¡_å½¢è±¡);
           if Char.IsDummy(bIndex)==true  then
-              --enemyId_b = Char.GetData(bIndex, CONST.¶ÔÏó_½ğ±Ò);
-              ImageId_b = Char.GetData(bIndex, CONST.¶ÔÏó_ĞÎÏó);
+              --enemyId_b = Char.GetData(bIndex, CONST.å¯¹è±¡_é‡‘å¸);
+              ImageId_b = Char.GetData(bIndex, CONST.å¯¹è±¡_å½¢è±¡);
           end
           for i, v in ipairs(restraintMap) do
               for k, enemyId in ipairs(v) do
@@ -502,7 +507,7 @@ function checkRestraint_att(aIndex,bIndex)
            return a,b;
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
