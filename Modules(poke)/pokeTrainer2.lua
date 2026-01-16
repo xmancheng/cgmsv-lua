@@ -536,7 +536,7 @@ function PokeTrainerNPC_BattleWin(battleIndex, charIndex)
 					--Char.SetData(player,CONST.对象_声望, fame + math.floor(v.prestige*ratio));
 					Char.AddGold(player, math.floor(v.gold*ratio));
 					--NLG.SystemMessage(player,"[系統]目前聲望:"..fame.."，勝利得到額外聲望"..fame_plus.."！");
-					NLG.SystemMessage(player,"[系統]勝利時也從對手那得到魔幣"..gold_plus.."！");
+					NLG.SystemMessage(player,"[系統]從對手得到勝利的"..gold_plus.."G金幣！");
 					Char.SetTempData(player,'菁英对战', 0);
 					NLG.UpChar(player);
 				end
