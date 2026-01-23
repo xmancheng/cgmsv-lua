@@ -220,8 +220,8 @@ local skillCom={
 }
 
 local techManual = {
-  {Name="喚獸技能學習師", Image=14682, Area={map=20335,X=13,Y=85}, Dynamo=1, TechInfo={{7300,100},{7400,100},{1030,100},{16000,100},{15002,50},{738,1600},{838,1600},{938,1600},}, },
-  {Name="喚獸技能學習師", Image=14682, Area={map=20335,X=16,Y=85}, Dynamo=2, TechInfo={{7300,100},{7400,100},{1030,100},{16000,100},{15002,50},{736,400},{836,400},{936,400},}, },
+  {Name="喚獸技能學習師", Image=14682, Area={map=20335,X=13,Y=85}, Dynamo=1, TechInfo={{7300,100},{7400,100},{1030,100},{16000,100},{15002,50},{738,1600},{838,1600},{938,1600},{2334,1600},{2434,1600},{2534,1600},{2634,1600},}, },
+  {Name="喚獸技能學習師", Image=14682, Area={map=20335,X=16,Y=85}, Dynamo=2, TechInfo={{7300,100},{7400,100},{1030,100},{16000,100},{15002,50},{736,400},{836,400},{936,400},{2333,400},{2433,400},{2533,400},{2633,400},}, },
   {Name="喚獸技能學習師", Image=14682, Area={map=20335,X=15,Y=76}, Dynamo=1, TechInfo={{38,1600},{138,1600},{338,1600},{538,1600},{638,1600},{1138,1600},{1238,2700},{8138,2025},}, },
   {Name="喚獸技能學習師", Image=14682, Area={map=20335,X=17,Y=76}, Dynamo=2, TechInfo={{36,400},{136,400},{336,400},{536,400},{636,400},{1136,400},{1236,500},{8136,625},}, },
   {Name="喚獸技能學習師", Image=14682, Area={map=20335,X=13,Y=65}, Dynamo=1, TechInfo={{1903,800},{1906,2450},{1909,5000},{2003,800},{2006,2450},{2009,5000},{2103,800},{2106,2450},{2109,5000},{2203,800},{2206,2450},{2209,5000},}, },
@@ -965,6 +965,7 @@ function Module:onBattleOverCallback(battleIndex)
 		local switch = checkAISummon(player);
 		--local floor = Char.GetData(player, CONST.对象_地图);
 		if (switch==true and Char.IsDummy(Battle.GetPlayIndex(battleIndex,1))) then	--地圖檢查(只在指定地圖生效)
+			local exploreLv = Char.GetExtData(player, '探索等级') or 1;
 			local standby = 0;
 			for itemSlot=card_Lslot,card_Rslot do
 				local itemIndex = Char.GetItemIndex(player, itemSlot);
@@ -979,7 +980,7 @@ function Module:onBattleOverCallback(battleIndex)
 
 						local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);
 						local awakeExp = Item.GetData(itemIndex,CONST.道具_耐久);
-						local awakeExp = awakeExp + Battle.GetTurn(battleIndex)-1;
+						local awakeExp = awakeExp + (Battle.GetTurn(battleIndex)-1)*exploreLv;
 						-- 覺醒度經驗
 						local need = GetAwakenExpNeed(awakeLv);
 						if (awakeExp >= need and need~=0) then
@@ -1107,7 +1108,7 @@ function smartTargetSelection(battleIndex,AIType,techId)
         if tagFp == nil then
           tagFp = fpRatio;
           tSlot = slot;
-        elseif hpRatio < tagFp then	--敵方魔力量占比最低
+        elseif fpRatio < tagFp then	--敵方魔力量占比最低
           tagFp = fpRatio;
           tSlot = slot;
         end
