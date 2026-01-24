@@ -1,49 +1,49 @@
 local Module = ModuleBase:createModule('phySlot')
 
--- ÖØĞÂ¶¨Áx 4 ‚€ºËĞÄ²¿Î»
-local ItemPosName = {"î^ ²¿", "Éí Ìå", "ÊÖ ²¿", "×ã ²¿"}
--- 0:î^, 1:Éí, 2:ÓÒ, 3:×ó, 4:×ã
+-- é‡æ–°å®šç¾© 4 å€‹æ ¸å¿ƒéƒ¨ä½
+local ItemPosName = {"é ­ éƒ¨", "èº« ä½“", "æ‰‹ éƒ¨", "è¶³ éƒ¨"}
+-- 0:é ­, 1:èº«, 2:å³, 3:å·¦, 4:è¶³
 local SlotMapping = {
-    [1] = {0},       -- î^²¿Œ¦‘ª Slot 0
-    [2] = {1},       -- ÉíówŒ¦‘ª Slot 1
-    [3] = {2, 3},    -- ÊÖ²¿Œ¦‘ª Slot 2(ÓÒ) ºÍ 3(×ó)
-    [4] = {4}        -- ×ã²¿Œ¦‘ª Slot 4
+    [1] = {0},       -- é ­éƒ¨å°æ‡‰ Slot 0
+    [2] = {1},       -- èº«é«”å°æ‡‰ Slot 1
+    [3] = {2, 3},    -- æ‰‹éƒ¨å°æ‡‰ Slot 2(å³) å’Œ 3(å·¦)
+    [4] = {4}        -- è¶³éƒ¨å°æ‡‰ Slot 4
 }
 
 local MaxLv = 999
 local MaxExp = 9999
-local energy = 75038	--ÄÜÁ¿µÀ¾ß¾Ì–
+local energy = 75038	--èƒ½é‡é“å…·ç·¨è™Ÿ
 ---------------------------------------------------------------------
--- KÇú¾€Ó‹Ëãº¯”µ
+-- Kæ›²ç·šè¨ˆç®—å‡½æ•¸
 ---------------------------------------------------------------------
--- µÈ¼‰ŞD½›òéT™‘ (ÓÃì¶ÅĞ”àÉı¼‰)
+-- ç­‰ç´šè½‰ç¶“é©—é–€æª» (ç”¨æ–¼åˆ¤æ–·å‡ç´š)
 function GetExpByLv(lv)
     if lv <= 1 then return 10 end
-    -- Œ¢ÖĞĞÄüc (m) ÔOé 400£¬k ÔOé 0.008
-    -- ß@•ş×Œ 1-200 ¼‰·Ç³£İpó £¬400 ¼‰áá½›òĞèÇóé_Ê¼Ã÷ï@Ôö¼Ó£¬¸ßµÈ¼‰±Æ½ü 9999
+    -- å°‡ä¸­å¿ƒé» (m) è¨­ç‚º 400ï¼Œk è¨­ç‚º 0.008
+    -- é€™æœƒè®“ 1-200 ç´šéå¸¸è¼•é¬†ï¼Œ400 ç´šå¾Œç¶“é©—éœ€æ±‚é–‹å§‹æ˜é¡¯å¢åŠ ï¼Œé«˜ç­‰ç´šé€¼è¿‘ 9999
     return math.floor(MaxExp / (1 + math.exp(-0.008 * (lv - 400))))
 end
 
--- µÈ¼‰ŞDŒÙĞÔ¼Ó³É‚S”µ (È¡´úÔ­±¾µÄÊ¯°å+µÈ¼‰¹«Ê½)
--- ß@ÑeÔOÓ‹Ò»‚€ K Çú¾€£¬×Œ Lv 999 •rß_µ½îAÔOµÄ×î´ó¼Ó³É
+-- ç­‰ç´šè½‰å±¬æ€§åŠ æˆä¿‚æ•¸ (å–ä»£åŸæœ¬çš„çŸ³æ¿+ç­‰ç´šå…¬å¼)
+-- é€™è£¡è¨­è¨ˆä¸€å€‹ K æ›²ç·šï¼Œè®“ Lv 999 æ™‚é”åˆ°é è¨­çš„æœ€å¤§åŠ æˆ
 function GetRateByLv(lv, isHPMP)
     local baseRate = lv / MaxLv
-    -- KÇú¾€£ºf(x) = x / (1 + (1-x)*k) £¬kÖµÔ½¸ßÇú¾€Ô½ÔçÌ§Éı
+    -- Kæ›²ç·šï¼šf(x) = x / (1 + (1-x)*k) ï¼Œkå€¼è¶Šé«˜æ›²ç·šè¶Šæ—©æŠ¬å‡
     local k = 3.5 
     local curve = baseRate / (1 + (1 - baseRate) * k)
     
     if isHPMP then
-        return curve * 0.4 -- ¼ÙÔOÑªÄ§×î´ó¼Ó³É 40%
+        return curve * 0.4 -- å‡è¨­è¡€é­”æœ€å¤§åŠ æˆ 40%
     else
-        return curve * 0.25 -- ¼ÙÔO¹¥·ÀÃô×î´ó¼Ó³É 25%
+        return curve * 0.25 -- å‡è¨­æ”»é˜²æ•æœ€å¤§åŠ æˆ 25%
     end
 end
 
 --------------------------------------------------------------------
--- UI ï@Ê¾
+-- UI é¡¯ç¤º
 function Module:phySlotInfo(npc, player)
-    local winMsg = "3\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾½ÇÉ«ºËĞÄÓ–¾š¡¿\\n"
-                     .."¡¡¡¡²¿Î»¡¡¡¡µÈ¼‰¡¡¡¡½›òÖµ¡¡¡¡¼Ó³É(¹¥/Ñª)\\n"
+    local winMsg = "3\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€è§’è‰²æ ¸å¿ƒè¨“ç·´ã€‘\\n"
+                     .."ã€€ã€€éƒ¨ä½ã€€ã€€ç­‰ç´šã€€ã€€ç¶“é©—å€¼ã€€ã€€åŠ æˆ(æ”»/è¡€)\\n"
                      .."--------------------------------------\\n"
     for i = 1, #ItemPosName do
         local tStrLv = tonumber(PhySlotStat(player, ItemPosName[i], "Q"));
@@ -55,23 +55,23 @@ function Module:phySlotInfo(npc, player)
         local rateB = math.floor(GetRateByLv(tStrLv, false) * 100)
         local rateH = math.floor(GetRateByLv(tStrLv, true) * 100)
         
-        winMsg = winMsg .."¡¡".. ItemPosName[i] .. "   [Lv." .. tStrLv .. "]¡¡" 
-                        .. tStrExp .. "¡¡¡¡(" .. rateB .. "%/" .. rateH .. "%)\n"
+        winMsg = winMsg .."ã€€".. ItemPosName[i] .. "   [Lv." .. tStrLv .. "]ã€€" 
+                        .. tStrExp .. "ã€€ã€€(" .. rateB .. "%/" .. rateH .. "%)\n"
     end
-    NLG.ShowWindowTalked(player, self.phySloterNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+    NLG.ShowWindowTalked(player, self.phySloterNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load')
   self:regCallback('ItemAttachEvent', Func.bind(self.itemAttachCallback, self))
   self:regCallback('ItemDetachEvent', Func.bind(self.itemDetachCallback, self))
 
-  self.phySloterNPC = self:NPC_createNormal('Ñb‚ä²å²Û¹ÜÀí', 14682, { x =36 , y = 31, mapType = 0, map = 777, direction = 6 });
+  self.phySloterNPC = self:NPC_createNormal('è£å‚™æ’æ§½ç®¡ç†', 14682, { x =36 , y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.phySloterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-          local winMsg = "3\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾½ÇÉ«ºËĞÄÓ–¾š¡¿\\n"
-                           .."¡¡¡¡²¿Î»¡¡¡¡µÈ¼‰¡¡¡¡½›òÖµ¡¡¡¡¼Ó³É(¹¥/Ñª)\\n"
+          local winMsg = "3\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€è§’è‰²æ ¸å¿ƒè¨“ç·´ã€‘\\n"
+                           .."ã€€ã€€éƒ¨ä½ã€€ã€€ç­‰ç´šã€€ã€€ç¶“é©—å€¼ã€€ã€€åŠ æˆ(æ”»/è¡€)\\n"
                            .."--------------------------------------\\n"
           for i = 1, #ItemPosName do
               local tStrLv = tonumber(PhySlotStat(player, ItemPosName[i], "Q"));
@@ -83,10 +83,10 @@ function Module:onLoad()
               local rateB = math.floor(GetRateByLv(tStrLv, false) * 100)
               local rateH = math.floor(GetRateByLv(tStrLv, true) * 100)
         
-              winMsg = winMsg .."¡¡".. ItemPosName[i] .. "   [Lv." .. tStrLv .. "]¡¡" 
-                              .. tStrExp .. "¡¡¡¡(" .. rateB .. "%/" .. rateH .. "%)\n"
+              winMsg = winMsg .."ã€€".. ItemPosName[i] .. "   [Lv." .. tStrLv .. "]ã€€" 
+                              .. tStrExp .. "ã€€ã€€(" .. rateB .. "%/" .. rateH .. "%)\n"
           end
-          NLG.ShowWindowTalked(player, self.phySloterNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, CONST.°´Å¥_¹Ø±Õ, 1, winMsg);
+          NLG.ShowWindowTalked(player, self.phySloterNPC, CONST.çª—å£_é€‰æ‹©æ¡†, CONST.æŒ‰é’®_å…³é—­, 1, winMsg);
     end
     return
   end)
@@ -97,62 +97,62 @@ function Module:onLoad()
     local data = tonumber(_data)
     --print(data)
     if select > 0 then
-      if (seqno == 11 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 11 and select == CONST.æŒ‰é’®_å…³é—­) then
          return;
       end
-      if (seqno == 11 and select == CONST.BUTTON_È·¶¨ and data >= 1) then
-          local addExp = tonumber(data) or 0; -- Íæ¼Òİ”ÈëÒª³äÈëµÄ·üÌØÁ¿
+      if (seqno == 11 and select == CONST.BUTTON_ç¡®å®š and data >= 1) then
+          local addExp = tonumber(data) or 0; -- ç©å®¶è¼¸å…¥è¦å……å…¥çš„ä¼ç‰¹é‡
           local uiIdx = targetUIIdx;
           local posName = ItemPosName[uiIdx];
           local curExp = tonumber(PhySlotStat(player, posName, "V")) or 0;
           local curLv = tonumber(PhySlotStat(player, posName, "Q")) or 0;
 
           if (curLv >= MaxLv) then
-              NLG.SystemMessage(player, "[Ïµ½y]Ô“²¿Î»ÒÑß_×î¸ßµÈ¼‰999");
+              NLG.SystemMessage(player, "[ç³»çµ±]è©²éƒ¨ä½å·²é”æœ€é«˜ç­‰ç´š999");
               return;
           end
-          if addExp <= 0 or addExp > Char.ItemNum(player, energy) then	-- ÄÜÁ¿µÀ¾ß”µÁ¿
-              NLG.SystemMessage(player, "[Ïµ½y]ÄÜÁ¿²»×ã»òİ”ÈëåeÕ`¡£");
+          if addExp <= 0 or addExp > Char.ItemNum(player, energy) then	-- èƒ½é‡é“å…·æ•¸é‡
+              NLG.SystemMessage(player, "[ç³»çµ±]èƒ½é‡ä¸è¶³æˆ–è¼¸å…¥éŒ¯èª¤ã€‚");
               return;
           end
 
-          -- 1. ¸üĞÂ½›òÅcµÈ¼‰
-          local newExp = math.min(MaxExp, curExp + addExp);	--Ó‹Ëã¸üĞÂ½›ò
+          -- 1. æ›´æ–°ç¶“é©—èˆ‡ç­‰ç´š
+          local newExp = math.min(MaxExp, curExp + addExp);	--è¨ˆç®—æ›´æ–°ç¶“é©—
           local newLv = curLv;
           for lv = curLv + 1, MaxLv do
-            if newExp >= GetExpByLv(lv) then newLv = lv else break end	--ĞÂ½›òÓ‹ËãĞÂµÈ¼‰
+            if newExp >= GetExpByLv(lv) then newLv = lv else break end	--æ–°ç¶“é©—è¨ˆç®—æ–°ç­‰ç´š
           end
-          Char.DelItem(player, energy, addExp);	-- ¿Û³ıµÀ¾ß
+          Char.DelItem(player, energy, addExp);	-- æ‰£é™¤é“å…·
           PhySlotStat(player, posName, "V", newExp);
           PhySlotStat(player, posName, "Q", newLv);
 
-          -- 2. Í¬²½Ë¢ĞÂËùÓĞÓ³ÉäµÄ Game Slots
+          -- 2. åŒæ­¥åˆ·æ–°æ‰€æœ‰æ˜ å°„çš„ Game Slots
           for _, gameSlot in ipairs(SlotMapping[uiIdx]) do
             local itemIndex = Char.GetItemIndex(player, gameSlot);
             if itemIndex >= 0 then
-               setItemRevertData(itemIndex);		-- ÏÈß€Ô­ÅfµÈ¼‰¼Ó³É
-               setItemStrData(itemIndex, newLv);	-- ÙxÓèĞÂµÈ¼‰¼Ó³É
+               setItemRevertData(itemIndex);		-- å…ˆé‚„åŸèˆŠç­‰ç´šåŠ æˆ
+               setItemStrData(itemIndex, newLv);	-- è³¦äºˆæ–°ç­‰ç´šåŠ æˆ
                Item.UpItem(player, gameSlot);
             end
           end
           NLG.UpChar(player);
-          NLG.SystemMessage(player, "[Ïµ½y] " .. posName .. " Š»¯Íê³É£¬Ä¿Ç°µÈ¼‰ Lv." .. newLv);
+          NLG.SystemMessage(player, "[ç³»çµ±] " .. posName .. " å¼·åŒ–å®Œæˆï¼Œç›®å‰ç­‰ç´š Lv." .. newLv);
       end
 
     else
-      if (seqno == 1 and select == CONST.°´Å¥_¹Ø±Õ) then
+      if (seqno == 1 and select == CONST.æŒ‰é’®_å…³é—­) then
          return;
       end
       if (seqno == 1 and data >= 1) then
-        targetUIIdx = data -- •º´æÍæ¼ÒßxµÄ UI Ë÷Òı (1-4)
+        targetUIIdx = data -- æš«å­˜ç©å®¶é¸çš„ UI ç´¢å¼• (1-4)
         local killNum = Char.ItemNum(player, energy);
-        local winMsg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡$1¡¾½ÇÉ«Ó–¾šŠ»¯¡¿\\n"
-                     .."¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\\n"
-                     .."ÕıÔÚ´_ÕJºËĞÄÙYÓ...\\n"
-                     .."\\n¡¡¡¡¡¡¡¡´_ÕJ²¿Î»£º$2".. ItemPosName[targetUIIdx] .."\\n"
-                     .."\\n¡¡¡¡¡¡¡¡®”Ç°ÄÜÁ¿£º$4".. killNum .."\\n"
-                     .."\\nÕˆİ”ÈëÓû³äÈëµÄÄÜÁ¿”µÖµ£º\\n";
-        NLG.ShowWindowTalked(player, self.phySloterNPC, CONST.´°¿Ú_ÊäÈë¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 11, winMsg);
+        local winMsg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€$1ã€è§’è‰²è¨“ç·´å¼·åŒ–ã€‘\\n"
+                     .."â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\\n"
+                     .."æ­£åœ¨ç¢ºèªæ ¸å¿ƒè³‡è¨Š...\\n"
+                     .."\\nã€€ã€€ã€€ã€€ç¢ºèªéƒ¨ä½ï¼š$2".. ItemPosName[targetUIIdx] .."\\n"
+                     .."\\nã€€ã€€ã€€ã€€ç•¶å‰èƒ½é‡ï¼š$4".. killNum .."\\n"
+                     .."\\nè«‹è¼¸å…¥æ¬²å……å…¥çš„èƒ½é‡æ•¸å€¼ï¼š\\n";
+        NLG.ShowWindowTalked(player, self.phySloterNPC, CONST.çª—å£_è¾“å…¥æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 11, winMsg);
       else
         return;
       end
@@ -161,8 +161,8 @@ function Module:onLoad()
 
 
 end
--- Š»¯ß‰İ‹Åc NPC ÊÂ¼ş (´ËÌÊ¡ÂÔ²¿·ÖÖØÑ}µÄ NPC Ô]ƒÔ´ú´a£¬ÖØücÔÚì¶½›òß‰İ‹)
--- ... (ÔÚŒ¦Ô’ÊÂ¼şÖĞ¼ÓÈëµÈ¼‰ÅĞ¶¨)
+-- å¼·åŒ–é‚è¼¯èˆ‡ NPC äº‹ä»¶ (æ­¤è™•çœç•¥éƒ¨åˆ†é‡è¤‡çš„ NPC è¨»å†Šä»£ç¢¼ï¼Œé‡é»åœ¨æ–¼ç¶“é©—é‚è¼¯)
+-- ... (åœ¨å°è©±äº‹ä»¶ä¸­åŠ å…¥ç­‰ç´šåˆ¤å®š)
 -- local nextExp = GetExpByLv(tStrLv + 1)
 -- if tStrExp >= nextExp and tStrLv < MaxLv then 
 --    PhySlotStat(player, ItemPosName[targetSlot+1], "Q", tStrLv + 1)
@@ -170,9 +170,9 @@ end
 
 ---------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
---¹¦ÄÜº¯Êı
+--åŠŸèƒ½å‡½æ•°
 function PhySlotStat( _Index, _StatSlot, _StatTab, _StatValue )
-	--  E-¸³Óè£¬P- ÅçÆá£¬H- ÁÔ£¬G- ¹í£¬Q- ²å²Û£¬V- ·üÌØ£¬C- ¿¨Æ¬
+	--  E-èµ‹äºˆï¼ŒP- å–·æ¼†ï¼ŒH- çŒï¼ŒG- é¬¼ï¼ŒQ- æ’æ§½ï¼ŒV- ä¼ç‰¹ï¼ŒC- å¡ç‰‡
 	local tStatTab = {}
 	if type(_StatTab)=="nil" then
 		--GetAll
@@ -217,22 +217,26 @@ function PhySlotStat( _Index, _StatSlot, _StatTab, _StatValue )
 end
 
 
--- ĞŞ¸ÄááµÄ´©´÷»Øºô
+-- ä¿®æ”¹å¾Œçš„ç©¿æˆ´å›å‘¼
 function Module:itemAttachCallback(charIndex, fromItemIndex)
     if Char.IsDummy(charIndex) or Char.IsPet(charIndex) then return 0 end
 
-    -- 1. Í¸ß^îĞÍ«@È¡¡¸²¿Î»Ãû·Q¡¹£¬ÓÃí×¥È¡¹²ÓÃ½›ò—lµÈ¼‰
+    -- 1. é€éé¡å‹ç²å–ã€Œéƒ¨ä½åç¨±ã€ï¼Œç”¨ä¾†æŠ“å–å…±ç”¨ç¶“é©—æ¢ç­‰ç´š
     local posName = Char.GetTargetItemSlotName(charIndex, fromItemIndex);
     if not posName then return 0 end
 
-    -- 2. «@È¡Ô“²¿Î»µÈ¼‰KÙxÓèÄÜÁ¦
-    local tStrLv = tonumber(PhySlotStat(charIndex, posName, "Q")) or 0
+    -- 2. ç²å–è©²éƒ¨ä½ç­‰ç´šä¸¦è³¦äºˆèƒ½åŠ›
+    local tStrLv = tonumber(PhySlotStat(charIndex, posName, "Q"));
+    if (tStrLv==nil) then
+      PhySlotStat(charIndex, posName, "Q", 0);
+      PhySlotStat(charIndex, posName, "V", 0);
+    end
     setItemStrData(fromItemIndex, tStrLv);
 
-    -- 3. ÖØÒª£ºŒ¤ÕÒÔ“µÀ¾ß¡¸Ä¿Ç°Î»ì¶¡¹ÄÄÒ»‚€Ñb‚ä™ÚÎ» (ÎïÀí Slot)
-    -- ²»ÒªÊ¹ÓÃ×Ô¶¨ÁxµÄ GetTargetItemSlot£¬¸ÄÓÃ±éšvŒ¤ÕÒ
+    -- 3. é‡è¦ï¼šå°‹æ‰¾è©²é“å…·ã€Œç›®å‰ä½æ–¼ã€å“ªä¸€å€‹è£å‚™æ¬„ä½ (ç‰©ç† Slot)
+    -- ä¸è¦ä½¿ç”¨è‡ªå®šç¾©çš„ GetTargetItemSlotï¼Œæ”¹ç”¨éæ­·å°‹æ‰¾
     local targetSlot = -1;
-    for i = 0, 4 do -- ™z²éî^¡¢Éí¡¢ÓÒ¡¢×ó¡¢×ã
+    for i = 0, 4 do -- æª¢æŸ¥é ­ã€èº«ã€å³ã€å·¦ã€è¶³
         if Char.GetItemIndex(charIndex, i) == fromItemIndex then
             targetSlot = i;
             break;
@@ -243,15 +247,15 @@ function Module:itemAttachCallback(charIndex, fromItemIndex)
     --Char.SaveToDb(charIndex);
     return 0
 end
--- ĞŞ¸ÄááµÄĞ¶ÏÂ»Øºô
+-- ä¿®æ”¹å¾Œçš„å¸ä¸‹å›å‘¼
 function Module:itemDetachCallback(charIndex, fromItemIndex)
     if Char.IsDummy(charIndex) or Char.IsPet(charIndex) then return 0 end
 
-    -- 1. «@È¡Ô“²¿Î»µÈ¼‰Kœp³ıÄÜÁ¦
+    -- 1. ç²å–è©²éƒ¨ä½ç­‰ç´šä¸¦æ¸›é™¤èƒ½åŠ›
     setItemRevertData(fromItemIndex);
-    -- ˆÌĞĞß€Ô­
+    -- åŸ·è¡Œé‚„åŸ
     local targetSlot = -1;
-    for i = 0, 4 do -- ™z²éî^¡¢Éí¡¢ÓÒ¡¢×ó¡¢×ã
+    for i = 0, 4 do -- æª¢æŸ¥é ­ã€èº«ã€å³ã€å·¦ã€è¶³
         if Char.GetItemIndex(charIndex, i) == fromItemIndex then
             targetSlot = i;
             break;
@@ -259,26 +263,26 @@ function Module:itemDetachCallback(charIndex, fromItemIndex)
     end
     Item.UpItem(charIndex, targetSlot);
 
-    -- ¸üĞÂ½ÇÉ« î‘B
+    -- æ›´æ–°è§’è‰²ç‹€æ…‹
     NLG.UpChar(charIndex);
     --Char.SaveToDb(charIndex);
     return 0
 end
 
 
--- Ñb‚ä•rÔö¼ÓËØÙ| (¸üĞÂ°æ)
+-- è£å‚™æ™‚å¢åŠ ç´ è³ª (æ›´æ–°ç‰ˆ)
 function setItemStrData(_ItemIndex, _StrLv)
-    local strData = {18, 19, 20, 21, 22, 27, 28} -- ¹¥,·À,Ãô,¾«,»Ø,Ñª,Ä§
+    local strData = {18, 19, 20, 21, 22, 27, 28} -- æ”»,é˜²,æ•,ç²¾,å›,è¡€,é­”
     local Plus_buffer = {}
 
-    -- ¸ù“şĞÂµÈ¼‰«@È¡ K Çú¾€±¶ÂÊ
+    -- æ ¹æ“šæ–°ç­‰ç´šç²å– K æ›²ç·šå€ç‡
     local bRate = GetRateByLv(_StrLv, false)
     local hRate = GetRateByLv(_StrLv, true)
 
     for k, v in pairs(strData) do
         local baseVal = Item.GetData(_ItemIndex, v)
         local plus = 0
-        if baseVal ~= 0 then -- ¼´Ê¹ÊÇØ“ÖµÑb‚äÒ²ßMĞĞÓ‹Ëã
+        if baseVal ~= 0 then -- å³ä½¿æ˜¯è² å€¼è£å‚™ä¹Ÿé€²è¡Œè¨ˆç®—
             if k <= 5 then
                 plus = math.floor(baseVal * bRate)
             else
@@ -286,19 +290,19 @@ function setItemStrData(_ItemIndex, _StrLv)
             end
             Item.SetData(_ItemIndex, v, baseVal + plus);
         end
-        Plus_buffer[k] = plus -- Ó›ä›ß@´ÎÔö¼ÓÁË¶àÉÙ”µÖµ
+        Plus_buffer[k] = plus -- è¨˜éŒ„é€™æ¬¡å¢åŠ äº†å¤šå°‘æ•¸å€¼
     end
 
-    -- Œ¢ß@ 7 í—”µÖµÓÃ "|" ¸ôé_´æÈëµÀ¾ß…¢”µ£¬¹©ß€Ô­•rÊ¹ÓÃ
+    -- å°‡é€™ 7 é …æ•¸å€¼ç”¨ "|" éš”é–‹å­˜å…¥é“å…·åƒæ•¸ï¼Œä¾›é‚„åŸæ™‚ä½¿ç”¨
     local tStat = table.concat(Plus_buffer, "|");
-    Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, tostring(tStat));
+    Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, tostring(tStat));
 end
 
--- Ğ¶ÏÂ•rß€Ô­ËØÙ| (á˜Œ¦ 1~999 ¼‰ÔOÓ‹)
+-- å¸ä¸‹æ™‚é‚„åŸç´ è³ª (é‡å° 1~999 ç´šè¨­è¨ˆ)
 function setItemRevertData(_ItemIndex)
-    local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı));
+    local tItemStat = tostring(Item.GetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°));
     
-    -- °²È«™z²é£º´_±£ÓĞÓ›ä›¼Ó³É”µÖµ²ÅßMĞĞ¿Û³ı
+    -- å®‰å…¨æª¢æŸ¥ï¼šç¢ºä¿æœ‰è¨˜éŒ„åŠ æˆæ•¸å€¼æ‰é€²è¡Œæ‰£é™¤
     if tItemStat == "" or string.find(tItemStat, "|") == nil then
         return
     end
@@ -307,28 +311,28 @@ function setItemRevertData(_ItemIndex)
     local Plus_buffer = string.split(tItemStat, "|")
 
     for k, v in pairs(strData) do
-        -- ×xÈ¡®”Ç°”µÖµKœpÈ¥®”³õÔö¼ÓµÄ”µÖµ
+        -- è®€å–ç•¶å‰æ•¸å€¼ä¸¦æ¸›å»ç•¶åˆå¢åŠ çš„æ•¸å€¼
         local currentVal = Item.GetData(_ItemIndex, v)
         local addedVal = tonumber(Plus_buffer[k]) or 0
         Item.SetData(_ItemIndex, v, currentVal - addedVal);
     end
 
-    -- Çå¿ÕµÀ¾ß…¢”µ£¬·ÀÖ¹ÖØÑ}¿Û³ı
-    Item.SetData(_ItemIndex, CONST.µÀ¾ß_×ÔÓÃ²ÎÊı, "");
+    -- æ¸…ç©ºé“å…·åƒæ•¸ï¼Œé˜²æ­¢é‡è¤‡æ‰£é™¤
+    Item.SetData(_ItemIndex, CONST.é“å…·_è‡ªç”¨å‚æ•°, "");
 end
 
--- »Ø‚÷Œ¦‘ª ItemPosName µÄ×Ö´®
+-- å›å‚³å°æ‡‰ ItemPosName çš„å­—ä¸²
 Char.GetTargetItemSlotName = function(charIndex, fromItemIndex)
-    local type = Item.GetData(fromItemIndex, CONST.µÀ¾ß_ÀàĞÍ);
-    if type == 8 or type == 9 then return "î^ ²¿"
-    elseif type >= 10 and type <= 12 then return "Éí Ìå"
-    elseif type >= 0 and type <= 7 then return "ÊÖ ²¿" -- „¦¡¢¸«¡¢Ã¬¡¢ÕÈ¡¢¹­¡¢Í¶”S¡¢¶ÜµÈÈ«²¿šwîÊÖ²¿
-    elseif type == 13 or type == 14 then return "×ã ²¿"
+    local type = Item.GetData(fromItemIndex, CONST.é“å…·_ç±»å‹);
+    if type == 8 or type == 9 then return "é ­ éƒ¨"
+    elseif type >= 10 and type <= 12 then return "èº« ä½“"
+    elseif type >= 0 and type <= 7 then return "æ‰‹ éƒ¨" -- åŠã€æ–§ã€çŸ›ã€æ–ã€å¼“ã€æŠ•æ“²ã€ç›¾ç­‰å…¨éƒ¨æ­¸é¡æ‰‹éƒ¨
+    elseif type == 13 or type == 14 then return "è¶³ éƒ¨"
     end
     return nil
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
