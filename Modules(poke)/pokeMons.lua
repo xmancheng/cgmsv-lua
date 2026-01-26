@@ -485,6 +485,153 @@ function Module:onLoad()
  end
 
 
+  --卡牌转移成戒指、晶石
+  self.VRcardNPC = self:NPC_createNormal('卡牌轉移祭司', 14683, { x = 29, y = 28, mapType = 0, map = 20315, direction = 6 });
+  self:NPC_regTalkedEvent(self.VRcardNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+        local msg = "3\\n@c【卡牌回收轉移流程】\\n"
+               .. "※選擇製作的裝備類型\\n\\n"
+               .. " [玩家]的轉移戒指\\n\\n"
+               .. " [寵物]的轉移晶石\\n\\n"
+        NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 1, msg);
+    end
+    return
+  end)
+  self:NPC_regWindowTalkedEvent(self.VRcardNPC, function(npc, player, _seqno, _select, _data)
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    local CardIndex,CardSlot = Char.GetVRCardSlot(player);
+    if (CardIndex>0) then
+        local CardName = Item.GetData(CardIndex,CONST.道具_名字);
+        local last = string.find(CardName, "]", 1);
+        local MonsName = string.sub(CardName, 2, last-1);
+        local itemInfo_45 = Item.GetData(CardIndex,CONST.道具_特殊类型);	--形象編號
+        local itemInfo_46 = Item.GetData(CardIndex,CONST.道具_子参一);	--第一回施放tech編號
+        local itemInfo_47 = Item.GetData(CardIndex,CONST.道具_子参二);	--第二回施放tech編號
+        --local imageText = "@g,"..itemInfo_45..",2,8,6,0@"
+        local monsType = Item.GetData(CardIndex,CONST.道具_幸运);		--怪物類型
+        local awakeLv = Item.GetData(CardIndex,CONST.道具_最大耐久);	--覺醒等級
+        --覺醒等級BP點數轉換加成
+        local statAllocation = {}
+        statAllocation[1] = {0.1, 0.1, 0.1, -0.3, 0.8, 8.0, 1.0};
+        statAllocation[2] = {2.0, 0.2, 0.2, -0.1, -0.1, 2.0, 2.0};
+        statAllocation[3] = {0.2, 2.0, 0.2, 0.2, -0.1, 3.0, 2.0};
+        statAllocation[4] = {0.2, 0.2, 2.0, -0.1, 0.2, 3.0, 2.0};
+        statAllocation[5] = {0.1, 0.1, 0.1, 0.8, -0.3, 1.0, 10.0};
+        local plus = GetAwakenPower(awakeLv);
+        local equipMod_1 = Item.GetData(CardIndex,CONST.道具_攻击) + plus*math.floor(statAllocation[1][1]+statAllocation[2][1]+statAllocation[3][1]+statAllocation[4][1]+statAllocation[5][1]);
+        local equipMod_2 = Item.GetData(CardIndex,CONST.道具_防御) + plus*math.floor(statAllocation[1][2]+statAllocation[2][2]+statAllocation[3][2]+statAllocation[4][2]+statAllocation[5][2]);
+        local equipMod_3 = Item.GetData(CardIndex,CONST.道具_敏捷) + plus*math.floor(statAllocation[1][3]+statAllocation[2][3]+statAllocation[3][3]+statAllocation[4][3]+statAllocation[5][3]);
+        local equipMod_4 = Item.GetData(CardIndex,CONST.道具_精神) + plus*math.floor(statAllocation[1][4]+statAllocation[2][4]+statAllocation[3][4]+statAllocation[4][4]+statAllocation[5][4]);
+        local equipMod_5 = Item.GetData(CardIndex,CONST.道具_回复) + plus*math.floor(statAllocation[1][5]+statAllocation[2][5]+statAllocation[3][5]+statAllocation[4][5]+statAllocation[5][5]);
+        local equipMod_6 = Item.GetData(CardIndex,CONST.道具_生命) + plus*math.floor(statAllocation[1][6]+statAllocation[2][6]+statAllocation[3][6]+statAllocation[4][6]+statAllocation[5][6]);
+        local equipMod_7 = Item.GetData(CardIndex,CONST.道具_魔力) + plus*math.floor(statAllocation[1][7]+statAllocation[2][7]+statAllocation[3][7]+statAllocation[4][7]+statAllocation[5][7]);
+        --類型進化加成
+        local itemInfo_4003 = Item.GetData(CardIndex,CONST.道具_自用参数);	--進化加成表
+        local equipMod = string.split(itemInfo_4003,',');
+        if equipMod[1]=="" then
+          for i=1,7 do
+            equipMod[i] = tonumber(0);
+          end
+        else
+          for k,v in pairs(equipMod) do
+            equipMod[k] = tonumber(v);
+          end
+        end
+        --總和數據顯示
+        local newInfo1 = equipMod_1 + equipMod[1];	--攻击
+        local newInfo2 = equipMod_2 + equipMod[2];	--防御
+        local newInfo3 = equipMod_3 + equipMod[3];	--敏捷
+        local newInfo4 = equipMod_4 + equipMod[4];	--精神
+        local newInfo5 = equipMod_5 + equipMod[5];	--回复
+        local newInfo6 = equipMod_6 + equipMod[6];	--生命
+        local newInfo7 = equipMod_7 + equipMod[7];	--魔力
+        local newInfo8 = math.floor(awakeLv/100);	--必杀.反击.命中.闪躲
+        if select > 0 then
+          if select == CONST.按钮_关闭 then
+                 return;
+          elseif seqno == 11 and select == CONST.按钮_确定 then
+            local newSlot = Char.GetEmptyItemSlot(player);
+            local GoalIndex = Item.MakeItem(17903);
+            Char.SetItemIndex(player, newSlot, GoalIndex);
+            Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]in戒指");
+            Item.SetData(GoalIndex,CONST.道具_特殊类型, itemInfo_45);	--形象編號
+            --轉移加成
+            Item.SetData(GoalIndex,CONST.道具_攻击, newInfo1);
+            Item.SetData(GoalIndex,CONST.道具_防御, newInfo2);
+            Item.SetData(GoalIndex,CONST.道具_敏捷, newInfo3);
+            Item.SetData(GoalIndex,CONST.道具_精神, newInfo4);
+            Item.SetData(GoalIndex,CONST.道具_回复, newInfo5);
+            Item.SetData(GoalIndex,CONST.道具_生命, newInfo6);
+            Item.SetData(GoalIndex,CONST.道具_魔力, newInfo7);
+            Item.SetData(GoalIndex,CONST.道具_必杀, newInfo8 + math.random(-3,5));
+            Item.SetData(GoalIndex,CONST.道具_反击, newInfo8 + math.random(-3,5));
+            Item.SetData(GoalIndex,CONST.道具_命中, newInfo8 + math.random(-3,5));
+            Item.SetData(GoalIndex,CONST.道具_闪躲, newInfo8 + math.random(-3,5));
+
+            Item.UpItem(player, newSlot);
+            Char.DelItemBySlot(player, CardSlot);
+            NLG.PlaySe(player, 279, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+            NLG.UpChar(player);
+          elseif seqno == 13 and select == CONST.按钮_确定 then
+            local newSlot = Char.GetEmptyItemSlot(player);
+            local GoalIndex = Item.MakeItem(17904);
+            Char.SetItemIndex(player, newSlot, GoalIndex);
+            Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]in晶石");
+            Item.SetData(GoalIndex,CONST.道具_特殊类型, itemInfo_45);	--形象編號
+            --轉移加成
+            Item.SetData(GoalIndex,CONST.道具_攻击, newInfo1);
+            Item.SetData(GoalIndex,CONST.道具_防御, newInfo2);
+            Item.SetData(GoalIndex,CONST.道具_敏捷, newInfo3);
+            Item.SetData(GoalIndex,CONST.道具_精神, newInfo4);
+            Item.SetData(GoalIndex,CONST.道具_回复, newInfo5);
+            Item.SetData(GoalIndex,CONST.道具_生命, newInfo6);
+            Item.SetData(GoalIndex,CONST.道具_魔力, newInfo7);
+            Item.SetData(GoalIndex,CONST.道具_必杀, newInfo8 + math.random(-3,5));
+            Item.SetData(GoalIndex,CONST.道具_反击, newInfo8 + math.random(-3,5));
+            Item.SetData(GoalIndex,CONST.道具_命中, newInfo8 + math.random(-3,5));
+            Item.SetData(GoalIndex,CONST.道具_闪躲, newInfo8 + math.random(-3,5));
+
+            Item.UpItem(player, newSlot);
+            Char.DelItemBySlot(player, CardSlot);
+            NLG.PlaySe(player, 279, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+            NLG.UpChar(player);
+          else
+              return;
+          end
+        else
+          if seqno == 1 then
+            if (data==1) then
+              local msg = "@c【卡牌回收轉移流程】\\n\\n"
+                 .. " $4"..MonsName.." 喚獸類型 ["..Assortment[monsType][1].."]\\n"
+                 .. "$1攻擊 "..newInfo1.."　".."防禦 "..newInfo2.."　".."敏捷 "..newInfo3.."　".."精神 "..newInfo4.."\\n"
+                 .. "$1恢復 "..newInfo5.."　".."生命 "..newInfo6.."　".."魔力 "..newInfo7.."\\n"
+                 .. "$7必殺"..(newInfo8-3)..","..(newInfo8+5).."　".."反擊"..(newInfo8-3)..","..(newInfo8+5).."　".."命中"..(newInfo8-3)..","..(newInfo8+5).."　".."閃躲"..(newInfo8-3)..","..(newInfo8+5).."\\n\\n"
+                 .. " 確定要回收 $2"..CardName.." $0製作$5戒指$0嗎？\\n"
+                 .. " $4※如為非回收之卡，移動物品欄的先後順序";
+              NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 11, msg);
+            elseif (data==3) then
+              local msg = "@c【卡牌回收轉移流程】\\n\\n"
+                 .. " $4"..MonsName.." 喚獸類型 ["..Assortment[monsType][1].."]\\n"
+                 .. "$1攻擊 "..newInfo1.."　".."防禦 "..newInfo2.."　".."敏捷 "..newInfo3.."　".."精神 "..newInfo4.."\\n"
+                 .. "$1恢復 "..newInfo5.."　".."生命 "..newInfo6.."　".."魔力 "..newInfo7.."\\n"
+                 .. "$7必殺"..(newInfo8-3)..","..(newInfo8+5).."　".."反擊"..(newInfo8-3)..","..(newInfo8+5).."　".."命中"..(newInfo8-3)..","..(newInfo8+5).."　".."閃躲"..(newInfo8-3)..","..(newInfo8+5).."\\n\\n"
+                 .. " 確定要回收 $2"..CardName.." $0製作$5晶石$0嗎？\\n"
+                 .. " $4※如為非回收之卡，移動物品欄的先後順序";
+              NLG.ShowWindowTalked(player, npc, CONST.窗口_信息框, CONST.按钮_确定关闭, 13, msg);
+            end
+          end
+        end
+    else
+        if seqno == 1 then
+          NLG.SystemMessage(player,"[系統]沒有找到可回收之已覺醒卡牌，請重新確認。");
+          return
+        end
+    end
+  end)
+
+
 end
 
 -- AI模式怪獸訊息
@@ -611,6 +758,7 @@ function Module:mmessage(charIndex,targetIndex,itemSlot)
     NLG.ShowWindowTalked(charIndex, self.pokeVRNPC, CONST.窗口_信息框, CONST.按钮_确定关闭, 1, msg);
     return 1;
 end
+
 -- 搜尋全新AI模式
 Char.GetVRGoalSlot = function(charIndex)
 	for Slot=8,47 do
@@ -621,6 +769,22 @@ Char.GetVRGoalSlot = function(charIndex)
 			local itemType = Item.GetData(ItemIndex,CONST.对象_类型);		--類型64 AI模式
 			local itemInfo_45 = Item.GetData(ItemIndex,CONST.道具_特殊类型);	--形象編號
 			if (itemType == 64 and itemInfo_45 <= 0) then
+				return ItemIndex,Slot;
+			end
+		end
+	end
+	return -1,-1;
+end
+-- 搜尋已覺醒的卡牌
+Char.GetVRCardSlot = function(charIndex)
+	for Slot=8,47 do
+		local ItemIndex = Char.GetItemIndex(charIndex, Slot);
+		if (ItemIndex > 0) then
+			local ItemId = Item.GetData(ItemIndex,CONST.道具_ID);
+			local itemType = Item.GetData(ItemIndex,CONST.对象_类型);		--類型64 AI模式
+			local itemInfo_45 = Item.GetData(ItemIndex,CONST.道具_特殊类型);	--形象編號
+			local awakeLv = Item.GetData(ItemIndex,CONST.道具_最大耐久);	--覺醒等級
+			if (itemType == 64 and itemInfo_45 >= 0 and awakeLv>=1) then
 				return ItemIndex,Slot;
 			end
 		end
@@ -1185,6 +1349,22 @@ function GetAwakenPower(lv)
     local Pmax = 900;
     local C = 2500;
 	return math.floor(Pmax * lv^2 / (lv^2 + C^2) ) ;
+end
+
+--空道具格(制作出的新道具位置)
+function Char.GetEmptyItemSlot(charIndex)
+  if not Char.IsValidCharIndex(charIndex) then
+    return -1;
+  end
+  if Char.GetData(charIndex, CONST.CHAR_类型) ~= CONST.对象类型_人 then
+    return -1;
+  end
+  for i = 8, 47 do
+    if Char.GetItemIndex(charIndex, i) == -2 then
+      return i;
+    end
+  end
+  return -2;
 end
 
 function CheckInTable(_idTab, _idVar) ---循环函数
