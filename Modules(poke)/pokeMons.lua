@@ -879,7 +879,9 @@ function Module:onLoad()
             Char.SetData(chessIndex, CONST.对象_强度, cg3);
             Char.SetData(chessIndex, CONST.对象_速度, cg4);
             Char.SetData(chessIndex, CONST.对象_魔法, cg5);
-
+            Char.SetData(chessIndex,CONST.对象_血, Char.GetData(chessIndex,CONST.对象_最大血));
+            Char.SetData(chessIndex,CONST.对象_魔, Char.GetData(chessIndex,CONST.对象_最大魔));
+            NLG.UpChar(chessIndex);
             if (chessIndex~=nil and slot==1) then	--隊長
               local chess_leader_BIndex = chessIndex;
               table.insert(leader_tbl,chess_leader_BIndex);
@@ -1071,7 +1073,9 @@ function Module:onLoad()
             Char.SetData(chessIndex, CONST.对象_强度, cg3);
             Char.SetData(chessIndex, CONST.对象_速度, cg4);
             Char.SetData(chessIndex, CONST.对象_魔法, cg5);
-
+            Char.SetData(chessIndex,CONST.对象_血, Char.GetData(chessIndex,CONST.对象_最大血));
+            Char.SetData(chessIndex,CONST.对象_魔, Char.GetData(chessIndex,CONST.对象_最大魔));
+            NLG.UpChar(chessIndex);
             if (chessIndex~=nil and slot==1) then	--隊長
               local chess_leader_BIndex = chessIndex;
               table.insert(leader_tbl,chess_leader_BIndex);
@@ -1263,7 +1267,9 @@ function Module:onLoad()
             Char.SetData(chessIndex, CONST.对象_强度, cg3);
             Char.SetData(chessIndex, CONST.对象_速度, cg4);
             Char.SetData(chessIndex, CONST.对象_魔法, cg5);
-
+            Char.SetData(chessIndex,CONST.对象_血, Char.GetData(chessIndex,CONST.对象_最大血));
+            Char.SetData(chessIndex,CONST.对象_魔, Char.GetData(chessIndex,CONST.对象_最大魔));
+            NLG.UpChar(chessIndex);
             if (chessIndex~=nil and slot==1) then	--隊長
               local chess_leader_BIndex = chessIndex;
               table.insert(leader_tbl,chess_leader_BIndex);
