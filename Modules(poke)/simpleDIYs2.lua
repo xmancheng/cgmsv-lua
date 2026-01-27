@@ -38,6 +38,17 @@ diy_plan_gold[5] =500;
 diy_plan_thing[5] = {76022,76022,76022,76022,76042,76042,76042,76042,76029,76029,};
 diy_plan_level[5] = 15;
 
+diy_plan_name[6] = "《喚獸球》 5";
+diy_plan_offering[6] = {{70262,80},{70263,20},{74092,40}};
+diy_plan_gold[6] =5000;
+diy_plan_thing[6] = {76056,76056,76056,76056,76006,76006,76006,76077,76077,76077,};
+diy_plan_level[6] = 45;
+
+diy_plan_name[7] = "《喚獸球》 6";
+diy_plan_offering[7] = {{70270,80},{70271,20},{74092,40}};
+diy_plan_gold[7] =5000;
+diy_plan_thing[7] = {76069,76069,76069,76069,76064,76064,76064,76005,76005,76005,};
+diy_plan_level[7] = 55;
 -----------------------------------------------------
 local function calcWarp()
   local page = math.modf(#diy_plan_name / 8) + 1
@@ -301,7 +312,12 @@ function diyGoalInfo(realIdx)
 	for _, data in pairs(sortedList) do
 		local ItemIndex = Data.ItemsetGetIndex(data.id);
 		local name = Data.ItemsetGetData(ItemIndex, CONST.ITEMSET_TRUENAME);
-		msg = msg .. "　" .. "$5" .. string.sub(name,2,7) .. "　　"
+		local last = string.find(name, "]", 1);
+		if (last~=nil) then
+			msg = msg .. "　" .. "$5" .. string.sub(name,2,7) .. "　　"
+		else
+			msg = msg .. "　" .. "$5" .. string.sub(name,1,6) .. "　　"
+		end
 		idx = idx + 1;
 		if idx >= 4 then break end
 	end
