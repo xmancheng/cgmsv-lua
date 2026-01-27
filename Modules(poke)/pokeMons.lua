@@ -603,6 +603,7 @@ function Module:onLoad()
             local GoalIndex = Item.MakeItem(17903);
             Char.SetItemIndex(player, newSlot, GoalIndex);
             Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]in戒指");
+            Item.SetData(GoalIndex,CONST.道具_OTHERFLG,48);
             Item.SetData(GoalIndex,CONST.道具_特殊类型, itemInfo_45);	--形象編號
             --轉移加成
             Item.SetData(GoalIndex,CONST.道具_攻击, newInfo1);
@@ -631,6 +632,7 @@ function Module:onLoad()
             local GoalIndex = Item.MakeItem(17904);
             Char.SetItemIndex(player, newSlot, GoalIndex);
             Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]in晶石");
+            Item.SetData(GoalIndex,CONST.道具_OTHERFLG,48);
             Item.SetData(GoalIndex,CONST.道具_特殊类型, itemInfo_45);	--形象編號
             --轉移加成
             Item.SetData(GoalIndex,CONST.道具_攻击, newInfo1);
