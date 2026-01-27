@@ -1,42 +1,48 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(simpleDIYs3)
 
---·ÖÀà×ÔĞĞÌí¼Ó
-local diy_plan_name = {};		--±íµ¥ÏÔÊ¾µÀ¾ßÃû³Æ
-local diy_plan_offering = {};	--×î¶àÈı×éµÄ²ÄÁÏÉèÖÃ{µÀ¾ß±àºÅ,ÊıÁ¿(ÊıÁ¿²»³¬¹ı99)}
-local diy_plan_gold = {};		--ĞèÇó½ğ±Ò
-local diy_plan_thing = {};		--10×é³ÉÆ·ÖÆ×÷½á¹û(Á¬¶¯³É¹¦ÂÊ)[²»³¬¹ı4ÖÖ]
-local diy_plan_level = {};		--ĞèÇóÌ½Ë÷µÈ¼¶
+--åˆ†ç±»è‡ªè¡Œæ·»åŠ 
+local diy_plan_name = {};		--è¡¨å•æ˜¾ç¤ºé“å…·åç§°
+local diy_plan_offering = {};	--æœ€å¤šä¸‰ç»„çš„ææ–™è®¾ç½®{é“å…·ç¼–å·,æ•°é‡(æ•°é‡ä¸è¶…è¿‡99)}
+local diy_plan_gold = {};		--éœ€æ±‚é‡‘å¸
+local diy_plan_thing = {};		--10ç»„æˆå“åˆ¶ä½œç»“æœ(è¿åŠ¨æˆåŠŸç‡)[ä¸è¶…è¿‡4ç§]
+local diy_plan_level = {};		--éœ€æ±‚æ¢ç´¢ç­‰çº§
 --
-diy_plan_name[1] = "¡¶ÆÕÍ¨Çò,³¬¼‰Çò,´óŸÇò¡· 1";
+diy_plan_name[1] = "ã€Šæ™®é€šçƒ,è¶…ç´šçƒ,å¤§å¸«çƒã€‹ 1";
 diy_plan_offering[1] = {{70264,10},{70268,10},{70272,10}};
 diy_plan_gold[1] =2000;
 diy_plan_thing[1] = {74087,74087,74087,74087,74087,74087,74088,74088,74088,74090,};
 diy_plan_level[1] = 20;
 
-diy_plan_name[2] = "¡¶ÆÕÍ¨Çò,³¬¼‰Çò,´óŸÇò¡· 2";
+diy_plan_name[2] = "ã€Šæ™®é€šçƒ,è¶…ç´šçƒ,å¤§å¸«çƒã€‹ 2";
 diy_plan_offering[2] = {{70265,20},{70269,20},{70273,20}};
 diy_plan_gold[2] =5000;
 diy_plan_thing[2] = {74087,74087,74087,74087,74088,74088,74088,74088,74088,74090,};
 diy_plan_level[2] = 50;
 
-diy_plan_name[3] = "¡¶³¬¼‰Çò,´óŸÇò¡·";
+diy_plan_name[3] = "ã€Šè¶…ç´šçƒ,å¤§å¸«çƒã€‹";
 diy_plan_offering[3] = {{74087,5},{74092,5},{17902,5}};
 diy_plan_gold[3] =10000;
 diy_plan_thing[3] = {74088,74088,74088,74088,74088,74088,74090,74090,74090,74090,};
 diy_plan_level[3] = 100;
 
-diy_plan_name[4] = "¡¶ÕĞÊ½ŒWÁ•™C¡·";
-diy_plan_offering[4] = {{75017,1},{75017,1},{75017,1}};
-diy_plan_gold[4] =6000;
-diy_plan_thing[4] = {74100,74100,74100,74100,74100,74100,74100,74100,74100,74100,};
-diy_plan_level[4] = 120;
+diy_plan_name[4] = "ã€Šè¡Œå‹•æ¨¡å¼å¡ç‰Œ,å–šç¸è¦ºé†’çŸ³ã€‹";
+diy_plan_offering[4] = {{70265,80},{70269,80},{70273,80}};
+diy_plan_gold[4] =60000;
+diy_plan_thing[4] = {17901,17901,17902,17902,17902,17902,17902,17902,17902,17902,};
+diy_plan_level[4] = 60;
 
-diy_plan_name[5] = "¡¶Œ™ÎïĞÎÏó¿¨¡·";
+diy_plan_name[5] = "ã€Šæ‹›å¼å­¸ç¿’æ©Ÿã€‹";
 diy_plan_offering[5] = {{75017,1},{75017,1},{75017,1}};
-diy_plan_gold[5] =500;
+diy_plan_gold[5] =6000;
 diy_plan_thing[5] = {74100,74100,74100,74100,74100,74100,74100,74100,74100,74100,};
 diy_plan_level[5] = 120;
+
+diy_plan_name[6] = "ã€Šå¯µç‰©å½¢è±¡å¡ã€‹";
+diy_plan_offering[6] = {{75017,1},{75017,1},{75017,1}};
+diy_plan_gold[6] =500;
+diy_plan_thing[6] = {74100,74100,74100,74100,74100,74100,74100,74100,74100,74100,};
+diy_plan_level[6] = 120;
 
 -----------------------------------------------------
 local function calcWarp()
@@ -52,38 +58,38 @@ local function calcFilteredWarp(availableCount)
   return totalPage, remainder;
 end
 
---Ô¶³Ì°´Å¥UIºô½Ğ
+--è¿œç¨‹æŒ‰é’®UIå‘¼å«
 function Module:simpleDIYsInfo(npc, player)
-          local winButton = CONST.BUTTON_¹Ø±Õ;
-          local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾º†Ò×µÀ¾ßºÏ³É¡¿\\n"
+          local winButton = CONST.BUTTON_å…³é—­;
+          local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç°¡æ˜“é“å…·åˆæˆã€‘\\n"
           for i = 1,8 do
-             msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. diy_plan_name[i] .. "\\n"
+             msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. diy_plan_name[i] .. "\\n"
              if (i>=8) then
-                 winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                 winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
              end
           end
-          NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+          NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
   self:logInfo('load');
-  self.DIYerNPC = self:NPC_createNormal('½MºÏ¹¤×÷Ì¨', 400222, { x = 12, y = 30, mapType = 0, map = 20313, direction = 0 });
+  self.DIYerNPC = self:NPC_createNormal('çµ„åˆå·¥ä½œå°', 400222, { x = 12, y = 30, mapType = 0, map = 20313, direction = 0 });
   self:NPC_regWindowTalkedEvent(self.DIYerNPC, function(npc, player, _seqno, _select, _data)
     local column = tonumber(_data)
     local page = tonumber(_seqno)
     local warpPage = page;
-    local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾º†Ò×µÀ¾ßºÏ³É¡¿\\n"
-    local winButton = CONST.BUTTON_¹Ø±Õ;
+    local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç°¡æ˜“é“å…·åˆæˆã€‘\\n"
+    local winButton = CONST.BUTTON_å…³é—­;
     --local totalPage, remainder = calcWarp()
 	local availableList = getPlayerAvailableList(player);
     local totalAvailable = #availableList;
     local totalPage, remainder = calcFilteredWarp(totalAvailable);
-    -- 1. ÌÀí¡¸´_¶¨Ñu×÷¡¹Åc¡¸²é¿´Ô”Çé¡¹µÄÌøŞDß‰İ‹
-    if _select == CONST.°´Å¥_ÊÇ then
+    -- 1. è™•ç†ã€Œç¢ºå®šè£½ä½œã€èˆ‡ã€ŒæŸ¥çœ‹è©³æƒ…ã€çš„è·³è½‰é‚è¼¯
+    if _select == CONST.æŒ‰é’®_æ˜¯ then
         if (page >= 2001) then
-            if Char.ItemSlot(player)+tonumber(_data)>Char.GetData(player,CONST.¶ÔÏó_µÀ¾ßÀ¸) then
-              NLG.SystemMessage(player,"[Ïµ½y]İ”Èë”µÁ¿´óì¶ÎïÆ·™ÚÎ»¡£");
+            if Char.ItemSlot(player)+tonumber(_data)>Char.GetData(player,CONST.å¯¹è±¡_é“å…·æ ) then
+              NLG.SystemMessage(player,"[ç³»çµ±]è¼¸å…¥æ•¸é‡å¤§æ–¼ç‰©å“æ¬„ä½ã€‚");
               return;
             end
             local realIdx = page - 2000;
@@ -93,91 +99,91 @@ function Module:onLoad()
         else
             return;
         end
-    elseif _select == CONST.°´Å¥_È·¶¨ then
+    elseif _select == CONST.æŒ‰é’®_ç¡®å®š then
         if (page >= 1001) then
             local realIdx = page - 1000;
-            local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾´_ÕJºÏ³É²ÄÁÏ¡¿\\n"
-                     .. "¡¡¡¡¡¡$1´_ÕJÒªÏûºÄÒÔÏÂ²ÄÁÏßMĞĞÑu×÷†á£¿\\n$5"
+            local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç¢ºèªåˆæˆææ–™ã€‘\\n"
+                     .. "ã€€ã€€ã€€$1ç¢ºèªè¦æ¶ˆè€—ä»¥ä¸‹ææ–™é€²è¡Œè£½ä½œå—ï¼Ÿ\\n$5"
             msg = msg .. diyOfferingInfo(realIdx);
-            msg = msg .."¡¡¡¡¡¡Õˆİ”ÈëÓûÑu×÷µÄ”µÁ¿£º\\n";
-            --NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000 + realIdx, msg);
-            NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.´°¿Ú_ÊäÈë¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000 + realIdx, msg);
+            msg = msg .."ã€€ã€€ã€€è«‹è¼¸å…¥æ¬²è£½ä½œçš„æ•¸é‡ï¼š\\n";
+            --NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000 + realIdx, msg);
+            NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.çª—å£_è¾“å…¥æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000 + realIdx, msg);
             return;
         else
             return;
         end
-    elseif _select == CONST.°´Å¥_¹Ø±Õ then
+    elseif _select == CONST.æŒ‰é’®_å…³é—­ then
         return;
-    elseif _select == CONST.°´Å¥_·ñ then
-        -- ·µ»ØÖ÷ßx†ÎµÚÒ»í“
+    elseif _select == CONST.æŒ‰é’®_å¦ then
+        -- è¿”å›ä¸»é¸å–®ç¬¬ä¸€é 
         page = 1;
     end
 
-    -- 2. ÌÀí·Öí“°´âoÇĞ“Q
+    -- 2. è™•ç†åˆ†é æŒ‰éˆ•åˆ‡æ›
     local warpPage = page;
-    if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+    if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1;
-    elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+    elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1;
     end
 
-    -- 3. ÅĞ”àÊÇ¡¸ücßxí—Ä¿¡¹ß€ÊÇ¡¸ÇĞ“Qí“Ãæ¡¹
+    -- 3. åˆ¤æ–·æ˜¯ã€Œé»é¸é …ç›®ã€é‚„æ˜¯ã€Œåˆ‡æ›é é¢ã€
     if _select > 0 then
-        -- ï@Ê¾ßx†Î½éÃæ
-        local winButton = CONST.BUTTON_¹Ø±Õ;
+        -- é¡¯ç¤ºé¸å–®ä»‹é¢
+        local winButton = CONST.BUTTON_å…³é—­;
         if totalPage > 1 then
-            if warpPage <= 1 then winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
-            elseif warpPage >= totalPage then winButton = CONST.BUTTON_ÉÏÈ¡Ïû;
-            else winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû; end
+            if warpPage <= 1 then winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
+            elseif warpPage >= totalPage then winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ;
+            else winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ; end
         end
 
-        local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾º†Ò×µÀ¾ßºÏ³É¡¿\\n";
+        local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç°¡æ˜“é“å…·åˆæˆã€‘\\n";
         local startIdx = (warpPage - 1) * 8 + 1;
         local endIdx = math.min(warpPage * 8, totalAvailable);
 
         for i = startIdx, endIdx do
             local realIdx = availableList[i];
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ " .. i .. "¡¡" .. diy_plan_name[realIdx] .. "\\n";
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® " .. i .. "ã€€" .. diy_plan_name[realIdx] .. "\\n";
         end
-        NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+        NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
-        -- Íæ¼ÒücßxÁËÄ³‚€í—Ä¿ (_select == 0)
+        -- ç©å®¶é»é¸äº†æŸå€‹é …ç›® (_select == 0)
         local selectionIndex = (warpPage - 1) * 8 + column;
-        local realIdx = availableList[selectionIndex];	-- Í¸ß^Ó³Éä±í×¥»ØÕæŒ ID
+        local realIdx = availableList[selectionIndex];	-- é€éæ˜ å°„è¡¨æŠ“å›çœŸå¯¦ ID
         if realIdx then
-            local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾º†Ò×µÀ¾ßºÏ³É¡¿\\n" .. diyGoalInfo(realIdx);
-            NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000 + realIdx, msg);
+            local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç°¡æ˜“é“å…·åˆæˆã€‘\\n" .. diyGoalInfo(realIdx);
+            NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000 + realIdx, msg);
         end
     end
 --[[
-    --ÉÏÒ³16 ÏÂÒ³32 ¹Ø±Õ/È¡Ïû2
+    --ä¸Šé¡µ16 ä¸‹é¡µ32 å…³é—­/å–æ¶ˆ2
     if _select > 0 then
-      if _select == CONST.°´Å¥_È·¶¨ then
+      if _select == CONST.æŒ‰é’®_ç¡®å®š then
           if (page>=1001) then
               local realIdx = page - 1000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾º†Ò×µÀ¾ßºÏ³É¡¿\\n"
-                                  .. "¡¡¡¡¡¡$1ĞèÒªÒÔÏÂËùÓĞ²ÄÁÏ²ÅÄÜßMĞĞºÏ³É\\n$5"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç°¡æ˜“é“å…·åˆæˆã€‘\\n"
+                                  .. "ã€€ã€€ã€€$1éœ€è¦ä»¥ä¸‹æ‰€æœ‰ææ–™æ‰èƒ½é€²è¡Œåˆæˆ\\n$5"
               local msg = msg .. diyOfferingInfo(realIdx)
-              NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 2000+realIdx, msg);
+              NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 2000+realIdx, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_¹Ø±Õ then
+      elseif _select == CONST.æŒ‰é’®_å…³é—­ then
           if (page>=1001) then
-              local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾º†Ò×µÀ¾ßºÏ³É¡¿\\n"
+              local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç°¡æ˜“é“å…·åˆæˆã€‘\\n"
               for i = 1,8 do
-                 msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. diy_plan_name[i] .. "\\n"
+                 msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. diy_plan_name[i] .. "\\n"
                  if (i>=8) then
-                     winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+                     winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
                  end
               end
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
               return
           else
               return
           end
-      elseif _select == CONST.°´Å¥_ÊÇ then
+      elseif _select == CONST.æŒ‰é’®_æ˜¯ then
           if (page>=2001) then
               local realIdx = page - 2000;
               forgingMutation(realIdx,player)
@@ -185,30 +191,30 @@ function Module:onLoad()
           else
               return
           end
-      elseif _select == CONST.°´Å¥_·ñ then
+      elseif _select == CONST.æŒ‰é’®_å¦ then
           if (page>=2001) then
               local realIdx = page - 2000;
-              local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾¿ÉÄÜ«@µÃµÄ³ÉÆ·¡¿\\n"
+              local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯èƒ½ç²å¾—çš„æˆå“ã€‘\\n"
               local msg = msg .. diyGoalInfo(realIdx);
-              NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+realIdx, msg);
+              NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+realIdx, msg);
               return
           else
               return
           end
       end
-      if _select == CONST.BUTTON_ÏÂÒ»Ò³ then
+      if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then
         warpPage = warpPage + 1
         if (warpPage == totalPage) or ((warpPage == (totalPage - 1) and remainder == 0)) then
-          winButton = CONST.BUTTON_ÉÏÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
-      elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then
+      elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then
         warpPage = warpPage - 1
         if warpPage == 1 then
-          winButton = CONST.BUTTON_ÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ
         else
-          winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû
+          winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ
         end
       elseif _select == 2 then
         warpPage = 1
@@ -217,91 +223,91 @@ function Module:onLoad()
       local realIdx = 8 * (warpPage - 1)
       if warpPage == totalPage then
         for i = 1 + realIdx, remainder + realIdx do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. diy_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. diy_plan_name[i] .. "\\n"
         end
       else
         for i = 1 + realIdx, 8 + realIdx do
-            winMsg = winMsg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. diy_plan_name[i] .. "\\n"
+            winMsg = winMsg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. diy_plan_name[i] .. "\\n"
         end
       end
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
     else
       local realIdx = 8 * (warpPage - 1) + column
       --print(realIdx)
-      local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾¿ÉÄÜ«@µÃµÄ³ÉÆ·¡¿\\n"
+      local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å¯èƒ½ç²å¾—çš„æˆå“ã€‘\\n"
       local msg = msg .. diyGoalInfo(realIdx);
-      NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_È·¶¨¹Ø±Õ, 1000+realIdx, msg);
+      NLG.ShowWindowTalked(player, self.DIYerNPC, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_ç¡®å®šå…³é—­, 1000+realIdx, msg);
     end
 ]]
   end)
   self:NPC_regTalkedEvent(self.DIYerNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
-      local winButton = CONST.BUTTON_¹Ø±Õ;
+      local winButton = CONST.BUTTON_å…³é—­;
       local availableList = getPlayerAvailableList(player);
 
-      local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾º†Ò×µÀ¾ßºÏ³É¡¿\\n"
-      -- ¸ù“ş¿ÉÓÃÇå†ÎÉú³É UI
+      local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ç°¡æ˜“é“å…·åˆæˆã€‘\\n"
+      -- æ ¹æ“šå¯ç”¨æ¸…å–®ç”Ÿæˆ UI
       for showIdx, realIdx in ipairs(availableList) do
          if (showIdx <= 8) then
-           msg = msg .. "¡¡¡¡¡òí—Ä¿ " .. showIdx .. "¡¡" .. diy_plan_name[realIdx] .. "\\n"
+           msg = msg .. "ã€€ã€€â—é …ç›® " .. showIdx .. "ã€€" .. diy_plan_name[realIdx] .. "\\n"
          end
          if (showIdx >= 8) then
-             winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+             winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
          end
       end
       --[[for i = 1,4 do
-         msg = msg .. "¡¡¡¡¡òí—Ä¿ "..i.."¡¡".. diy_plan_name[i] .. "\\n"
+         msg = msg .. "ã€€ã€€â—é …ç›® "..i.."ã€€".. diy_plan_name[i] .. "\\n"
          if (i>=8) then
-             winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
+             winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
          end
       end]]
-      NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+      NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
     end
     return
   end)
 end
 
 ---------------------------------------------------------------------------------------------------------------
---- «@È¡Íæ¼Ò®”Ç°¿ÉÒŠµÄºÏ³ÉÇå†Î
+--- ç²å–ç©å®¶ç•¶å‰å¯è¦‹çš„åˆæˆæ¸…å–®
 function getPlayerAvailableList(player)
-	local exploreLv = Char.GetExtData(player, 'Ì½Ë÷µÈ¼¶') or 1;
+	local exploreLv = Char.GetExtData(player, 'æ¢ç´¢ç­‰çº§') or 1;
 	local availableList = {};
 	for i = 1, #diy_plan_name do
 		if exploreLv >= (diy_plan_level[i] or 0) then
-			table.insert(availableList, i); -- ƒ¦´æÔ­Ê¼Ë÷Òı
+			table.insert(availableList, i); -- å„²å­˜åŸå§‹ç´¢å¼•
 		end
 	end
 	return availableList;
 end
 
---Ä¿±êĞÅÏ¢
+--ç›®æ ‡ä¿¡æ¯
 function diyGoalInfo(realIdx)
 	local results = diy_plan_thing[realIdx];
-	local counts = {} -- ÓÃì¶½yÓ‹£º[µÀ¾ßID] = ”µÁ¿
+	local counts = {} -- ç”¨æ–¼çµ±è¨ˆï¼š[é“å…·ID] = æ•¸é‡
 
-	-- 1. -- ½yÓ‹™CÂÊ
+	-- 1. -- çµ±è¨ˆæ©Ÿç‡
 	for _, itemId in ipairs(results) do
 		counts[itemId] = (counts[itemId] or 0) + 1;
 	end
 
-	-- 2. Œ¢½yÓ‹½Y¹ûŞDÈëĞÂ±íÒÔ±ãÅÅĞò
+	-- 2. å°‡çµ±è¨ˆçµæœè½‰å…¥æ–°è¡¨ä»¥ä¾¿æ’åº
 	local sortedList = {}
 	for itemId, count in pairs(counts) do
 		table.insert(sortedList, {id = itemId, count = count})
 	end
 
-	-- 3. ÒÀÕÕ count (™CÂÊ) ´óĞ¡ßMĞĞ½µĞòÅÅĞò (Ä´óµ½Ğ¡)
+	-- 3. ä¾ç…§ count (æ©Ÿç‡) å¤§å°é€²è¡Œé™åºæ’åº (å¾å¤§åˆ°å°)
 	table.sort(sortedList, function(a, b)
 		return a.count > b.count
 	end)
 
-	-- 4. ±éšv½yÓ‹½Y¹û£¬Éú³ÉˆDÊ¾Åc™CÂÊÎÄ×Ö
+	-- 4. éæ­·çµ±è¨ˆçµæœï¼Œç”Ÿæˆåœ–ç¤ºèˆ‡æ©Ÿç‡æ–‡å­—
 	local idx = 0
 	local msg = "\\n ";
 	for _, data in pairs(sortedList) do
 		local ItemIndex = Data.ItemsetGetIndex(data.id);
 		local name = Data.ItemsetGetData(ItemIndex, CONST.ITEMSET_TRUENAME);
-		msg = msg .. "¡¡" .. "$5" .. string.sub(name,1,6) .. "¡¡¡¡"
+		msg = msg .. "ã€€" .. "$5" .. string.sub(name,1,6) .. "ã€€ã€€"
 		idx = idx + 1;
 		if idx >= 4 then break end
 	end
@@ -312,7 +318,7 @@ function diyGoalInfo(realIdx)
 		local ItemIndex = Data.ItemsetGetIndex(data.id);
 		local name = Data.ItemsetGetData(ItemIndex, CONST.ITEMSET_TRUENAME);
 		local image = Data.ItemsetGetData(ItemIndex, CONST.ITEMSET_BASEIMAGENUMBER);
-		local rate = data.count * 10 .. "%" -- Ã¿‚€Î»ÖÃ´ú±í10%
+		local rate = data.count * 10 .. "%" -- æ¯å€‹ä½ç½®ä»£è¡¨10%
 		msg = msg .. "   " .. "$4[" .. rate .. "]" .. "   "
 		idx = idx + 1;
 		if idx >= 4 then break end
@@ -323,7 +329,7 @@ function diyGoalInfo(realIdx)
 	for _, data in pairs(sortedList) do
 		local ItemIndex = Data.ItemsetGetIndex(data.id);
 		local image = Data.ItemsetGetData(ItemIndex, CONST.ITEMSET_BASEIMAGENUMBER);
-		local imgX = 2 + (idx * 5); -- ß@ÑeÖ»ÊÇ¹ Àı£¬½¨×h´¹Ö±ÅÅÁĞİ^ÇåÎú
+		local imgX = 2 + (idx * 5); -- é€™è£¡åªæ˜¯ç¯„ä¾‹ï¼Œå»ºè­°å‚ç›´æ’åˆ—è¼ƒæ¸…æ™°
 		local imageText_idx = "@g,"..image..","..imgX..",6,0,0@"
 		msg = msg .. imageText_idx
 		idx = idx + 1;
@@ -363,19 +369,19 @@ function diyGoalInfo(realIdx)
       local Goal_DataPos_24 = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_CONFUSION);
       local Goal_DataPos_25 = Data.ItemsetGetData(ItemsetIndex_Goal, CONST.ITEMSET_AMNESIA);
 
-      local msg = imageText .. "¡¡¡¡$4".. Goal_name .. "\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1¹¥“ô ".. Goal_DataPos_6 .."¡¡" .. "$8±Øš¢ ".. Goal_DataPos_11 .."¡¡" .. "$8·´“ô ".. Goal_DataPos_12 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1·À¶R ".. Goal_DataPos_7 .."¡¡" .. "$8ÃüÖĞ ".. Goal_DataPos_13 .."¡¡" .. "$8éW¶ã ".. Goal_DataPos_14 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1Ãô½İ ".. Goal_DataPos_8 .."¡¡" .. "$2¿¹¶¾ ".. Goal_DataPos_20 .."¡¡" .. "$2¿¹×í ".. Goal_DataPos_23 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1¾«Éñ ".. Goal_DataPos_9 .."¡¡" .. "$2¿¹Ë¯ ".. Goal_DataPos_21 .."¡¡" .. "$2¿¹»ì ".. Goal_DataPos_24 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$1»ÖÍ ".. Goal_DataPos_10 .."¡¡" .. "$2¿¹Ê¯ ".. Goal_DataPos_22 .."¡¡" .. "$2¿¹Íü ".. Goal_DataPos_25 .."\\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. " \\n"
-                         .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡" .. "$9îĞÍ ".. Goal_DataPos_3 .."¡¡" .. "$9µÈ¼‰ ".. Goal_DataPos_5 .."¡¡" .. "$9ÄÍ¾Ã ".. Goal_DataPos_4 .."\\n"
+      local msg = imageText .. "ã€€ã€€$4".. Goal_name .. "\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ”»æ“Š ".. Goal_DataPos_6 .."ã€€" .. "$8å¿…æ®º ".. Goal_DataPos_11 .."ã€€" .. "$8åæ“Š ".. Goal_DataPos_12 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1é˜²ç¦¦ ".. Goal_DataPos_7 .."ã€€" .. "$8å‘½ä¸­ ".. Goal_DataPos_13 .."ã€€" .. "$8é–ƒèº² ".. Goal_DataPos_14 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ•æ· ".. Goal_DataPos_8 .."ã€€" .. "$2æŠ—æ¯’ ".. Goal_DataPos_20 .."ã€€" .. "$2æŠ—é†‰ ".. Goal_DataPos_23 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1ç²¾ç¥ ".. Goal_DataPos_9 .."ã€€" .. "$2æŠ—ç¡ ".. Goal_DataPos_21 .."ã€€" .. "$2æŠ—æ·· ".. Goal_DataPos_24 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$1æ¢å¾© ".. Goal_DataPos_10 .."ã€€" .. "$2æŠ—çŸ³ ".. Goal_DataPos_22 .."ã€€" .. "$2æŠ—å¿˜ ".. Goal_DataPos_25 .."\\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. " \\n"
+                         .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€" .. "$9é¡å‹ ".. Goal_DataPos_3 .."ã€€" .. "$9ç­‰ç´š ".. Goal_DataPos_5 .."ã€€" .. "$9è€ä¹… ".. Goal_DataPos_4 .."\\n"
 ]]
 	return msg;
 end
 
---¼ÀÆ·ĞÅÏ¢
+--ç¥­å“ä¿¡æ¯
 function diyOfferingInfo(realIdx)
 	local msg = "";
 	for i = 1,#diy_plan_offering[realIdx] do
@@ -395,21 +401,21 @@ function diyOfferingInfo(realIdx)
 		else
 			spaceMsg = "";
 		end
-		msg = msg .. spaceMsg .. offering_name_i ..ItemNum_i.."‚€" .. spaceMsg .. imageText_i
+		msg = msg .. spaceMsg .. offering_name_i ..ItemNum_i.."å€‹" .. spaceMsg .. imageText_i
 	end
 	local Gold = diy_plan_gold[realIdx];
 
 	--local probRate = prob(realIdx,diy_plan_thing[realIdx][10]);
-	local msg = msg .. "\\n\\n\\n\\n¡¡$4Ä§Å: " .. Gold .. " G"
+	local msg = msg .. "\\n\\n\\n\\nã€€$4é­”å¹£: " .. Gold .. " G"
 	return msg;
 end
 
---µÀ¾ßºÏ³ÉÖ´ĞĞ
+--é“å…·åˆæˆæ‰§è¡Œ
 function diyMutation(realIdx,player,num)
 	local count = 0;
 	for w = 1,num do
-		if (Char.GetData(player, CONST.¶ÔÏó_½ğ±Ò)<diy_plan_gold[realIdx]) then
-			NLG.SystemMessage(player,"[Ïµ½y]ºÏ³ÉËùĞè½ğÅ²»×ã¡£");
+		if (Char.GetData(player, CONST.å¯¹è±¡_é‡‘å¸)<diy_plan_gold[realIdx]) then
+			NLG.SystemMessage(player,"[ç³»çµ±]åˆæˆæ‰€éœ€é‡‘å¹£ä¸è¶³ã€‚");
 			goto next
 		end
 		for i = 1,#diy_plan_offering[realIdx] do
@@ -417,11 +423,11 @@ function diyMutation(realIdx,player,num)
 			if (itemIndex>=0) then
 				local itemNum = Char.ItemNum(player,diy_plan_offering[realIdx][i][1]);
 				if (itemNum < diy_plan_offering[realIdx][i][2]) then
-					NLG.SystemMessage(player,"[Ïµ½y]ºÏ³ÉËùĞè²ÄÁÏ”µÁ¿²»×ã¡£");
+					NLG.SystemMessage(player,"[ç³»çµ±]åˆæˆæ‰€éœ€ææ–™æ•¸é‡ä¸è¶³ã€‚");
 					goto next
 				end
 			else
-				NLG.SystemMessage(player,"[Ïµ½y]È±ÉÙºÏ³ÉËùĞè×ã‰ò²ÄÁÏ¡£");
+				NLG.SystemMessage(player,"[ç³»çµ±]ç¼ºå°‘åˆæˆæ‰€éœ€è¶³å¤ ææ–™ã€‚");
 				goto next
 			end
 		end
@@ -435,12 +441,12 @@ function diyMutation(realIdx,player,num)
 	end
 	::next::
 	if (num>=1) then
-		NLG.SystemMessage(player,"[Ïµ½y]¿‚¹²Íê³É"..count.."½MµÄµÀ¾ßÑu×÷¡£");
+		NLG.SystemMessage(player,"[ç³»çµ±]ç¸½å…±å®Œæˆ"..count.."çµ„çš„é“å…·è£½ä½œã€‚");
 		return
 	end
 end
 
---Ä¿±ê³É¹¦ÂÊ¼ÆËã
+--ç›®æ ‡æˆåŠŸç‡è®¡ç®—
 --[[function prob(count,id)
   for i=1,10 do
       if (diy_plan_thing[count][i]==id) then
@@ -451,86 +457,86 @@ end
   return -1;
 end]]
 
---ÀàĞÍ×Ö·û´®×ª»»
+--ç±»å‹å­—ç¬¦ä¸²è½¬æ¢
 function Type(Type)
   if Type==0 then
-    return "„¦"
+    return "åŠ"
   elseif Type == 1 then
-    return "¸«"
+    return "æ–§"
   elseif Type == 2 then
-    return "˜Œ"
+    return "æ§"
   elseif Type == 3 then
-    return "ÕÈ"
+    return "æ–"
   elseif Type == 4 then
-    return "¹­"
+    return "å¼“"
   elseif Type == 5 then
-    return "Ğ¡µ¶"
+    return "å°åˆ€"
   elseif Type == 6 then
-    return "Ş’Á¦çS"
+    return "è¿´åŠ›é¢"
   elseif Type == 7 then
-    return "¶Ü"
+    return "ç›¾"
   elseif Type == 8 then
-    return "î^¿ø"
+    return "é ­ç›”"
   elseif Type == 9 then
-    return "Ã±×Ó"
+    return "å¸½å­"
   elseif Type == 10 then
-    return "æz¼×"
+    return "é§ç”²"
   elseif Type == 11 then
-    return "ÒÂ·ş"
+    return "è¡£æœ"
   elseif Type == 12 then
-    return "éLÅÛ"
+    return "é•·è¢"
   elseif Type == 13 then
-    return "Ñ¥×Ó"
+    return "é´å­"
   elseif Type == 14 then
-    return "Ğ¬×Ó"
+    return "é‹å­"
   elseif Type == 15 then
-    return "ÊÖ­h"
+    return "æ‰‹ç’°"
   elseif Type == 16 then
-    return "˜·Æ÷"
+    return "æ¨‚å™¨"
   elseif Type == 17 then
-    return "í—å€"
+    return "é …éŠ"
   elseif Type == 18 then
-    return "½äÖ¸"
+    return "æˆ’æŒ‡"
   elseif Type == 19 then
-    return "î^§"
+    return "é ­å¸¶"
   elseif Type == 20 then
-    return "¶ú­h"
+    return "è€³ç’°"
   elseif Type == 21 then
-    return "×oÉí·û"
+    return "è­·èº«ç¬¦"
   elseif Type == 22 then
-    return "Ë®¾§"
+    return "æ°´æ™¶"
   elseif Type == 55 then
-    return "î^ï—"
+    return "é ­é£¾"
   elseif Type == 56 then
-    return "Œ™ÎïË®¾§"
+    return "å¯µç‰©æ°´æ™¶"
   elseif Type == 57 then
-    return "Œ™Îïï—Æ·"
+    return "å¯µç‰©é£¾å“"
   elseif Type == 58 then
-    return "Œ™ÎïÑb¼×"
+    return "å¯µç‰©è£ç”²"
   elseif Type == 59 then
-    return "Œ™Îï·şï—"
+    return "å¯µç‰©æœé£¾"
   elseif Type == 60 then
-    return "Œ™ÎïîiÈ¦"
+    return "å¯µç‰©é ¸åœˆ"
   elseif Type == 61 then
-    return "Œ™Îï×o·û"
+    return "å¯µç‰©è­·ç¬¦"
   elseif Type == 65 then
-    return "ÁîÆì"
+    return "ä»¤æ——"
   elseif Type == 66 then
-    return "Ä§„¦"
+    return "é­”åŠ"
   elseif Type == 67 then
-    return "ÏİÚå"
+    return "é™·é˜±"
   elseif Type == 68 then
-    return "•ø¼®"
+    return "æ›¸ç±"
   elseif Type == 69 then
-    return "ïLÄ§"
+    return "é¢¨é­”"
   elseif Type == 70 then
-    return "È­Ì×"
+    return "æ‹³å¥—"
   else
-    return "²»Ã÷"
+    return "ä¸æ˜"
   end
 end
 
-function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
+function CheckInTable(_idTab, _idVar) ---å¾ªç¯å‡½æ•°
 	for k,v in pairs(_idTab) do
 		if v==_idVar then
 			return true
@@ -539,7 +545,7 @@ function CheckInTable(_idTab, _idVar) ---Ñ­»·º¯Êı
 	return false
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
   self:logInfo('unload')
 end
