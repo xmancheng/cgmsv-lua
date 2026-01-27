@@ -1,5 +1,42 @@
 local Module = ModuleBase:createModule('pokeMons')
 
+Module:addMigration(1, 'init lua_hook_worldboss', function()
+  SQL.querySQL([[
+      CREATE TABLE IF NOT EXISTS `card_conversion_logs` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY COMMENT '自动编号',
+    `player_name` char(32) COLLATE gbk_bin NOT NULL NOT NULL COMMENT '玩家名称',
+    `log_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '转换时间戳记',
+    -- 從 Item.GetData 取得的卡牌核心訊息
+    `card_name` char(32) COLLATE gbk_bin NOT NULL COMMENT '卡牌名称',
+    `image_id` int(10) NOT NULL Default 0 COMMENT '形象编号',
+    `mons_type` int(10) NOT NULL Default 0 COMMENT '怪物类型',
+    -- 屬性信息
+    `attr_1` int(10) NOT NULL Default 0 COMMENT '属性一',
+    `attr_1_val` int(10) NOT NULL Default 0 COMMENT '属性一值',
+    `attr_2` int(10) NOT NULL Default 0 COMMENT '属性二',
+    `attr_2_val` int(10) NOT NULL Default 0 COMMENT '属性二值',
+    -- 技能信息 (一動與二動)
+    `tech_id_1` int(10) NOT NULL Default 0 COMMENT '一技能编号',
+    `tech_id_2` int(10) NOT NULL Default 0 COMMENT '二技能编号',
+    -- 戰鬥能力加成
+    `add_atk` int(10) NOT NULL Default 0 COMMENT '攻击加成',
+    `add_def` int(10) NOT NULL Default 0 COMMENT '防御加成',
+    `add_agi` int(10) NOT NULL Default 0 COMMENT '敏捷加成',
+    `add_mnd` int(10) NOT NULL Default 0 COMMENT '精神加成',
+    `add_rcv` int(10) NOT NULL Default 0 COMMENT '回复加成',
+    `add_hp` int(10) NOT NULL Default 0 COMMENT '生命加成',
+    `add_mp` int(10) NOT NULL Default 0 COMMENT '魔力加成',
+    -- 索引優化
+    INDEX `idx_player` (`player_name`),
+    INDEX `idx_time` (`log_time`)
+  ) ENGINE=Innodb DEFAULT CHARSET=gbk COLLATE=gbk_bin
+  ]])
+end);
+local global_battle = {}
+local global_time = {}
+local leader_tbl = {}
+local chess_tbl = {}
+
 local card_Lslot = 8;
 local card_Rslot = 27;
 local AIinfo = {
@@ -256,6 +293,7 @@ function Module:onLoad()
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.onBeforeBattleTurnCallback, self));
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.onAfterBattleTurnCallback, self));
   self:regCallback('BattleOverEvent', Func.bind(self.onBattleOverCallback, self));
+  self:regCallback('ProtocolOnRecv',Func.bind(self.battlecommand,self),'Rg')
   Item.CreateNewItemType( 64, "喚獸卡牌", 400188, -1, 0);
 
   --喚獸卡牌
@@ -503,9 +541,14 @@ function Module:onLoad()
     local data = tonumber(_data)
     local CardIndex,CardSlot = Char.GetVRCardSlot(player);
     if (CardIndex>0) then
+        local PlayerName = Char.GetData(player,CONST.对象_名字);
         local CardName = Item.GetData(CardIndex,CONST.道具_名字);
         local last = string.find(CardName, "]", 1);
         local MonsName = string.sub(CardName, 2, last-1);
+        local itemInfo_32 = Item.GetData(CardIndex,CONST.道具_属性一);
+        local itemInfo_33 = Item.GetData(CardIndex,CONST.道具_属性二);
+        local itemInfo_34 = Item.GetData(CardIndex,CONST.道具_属性一值);
+        local itemInfo_35 = Item.GetData(CardIndex,CONST.道具_属性二值);
         local itemInfo_45 = Item.GetData(CardIndex,CONST.道具_特殊类型);	--形象編號
         local itemInfo_46 = Item.GetData(CardIndex,CONST.道具_子参一);	--第一回施放tech編號
         local itemInfo_47 = Item.GetData(CardIndex,CONST.道具_子参二);	--第二回施放tech編號
@@ -553,6 +596,10 @@ function Module:onLoad()
                  return;
           elseif seqno == 11 and select == CONST.按钮_确定 then
             local newSlot = Char.GetEmptyItemSlot(player);
+            if newSlot<0 then
+                 NLG.SystemMessage(player,"[系統]前40格中物品欄沒空位。");
+                 return;
+            end
             local GoalIndex = Item.MakeItem(17903);
             Char.SetItemIndex(player, newSlot, GoalIndex);
             Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]in戒指");
@@ -573,9 +620,14 @@ function Module:onLoad()
             Item.UpItem(player, newSlot);
             Char.DelItemBySlot(player, CardSlot);
             NLG.PlaySe(player, 279, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+            SQL.Run("INSERT INTO card_conversion_logs (player_name,card_name,image_id,mons_type,attr_1,attr_1_val,attr_2,attr_2_val,tech_id_1,tech_id_2,add_atk,add_def,add_agi,add_mnd,add_rcv,add_hp,add_mp) VALUES ('"..PlayerName.."','"..MonsName.."',"..itemInfo_45..","..monsType..","..itemInfo_32..","..itemInfo_33..","..itemInfo_34..","..itemInfo_35..","..itemInfo_46..","..itemInfo_47..","..newInfo1..","..newInfo2..","..newInfo3..","..newInfo4..","..newInfo5..","..newInfo6..","..newInfo7..")");
             NLG.UpChar(player);
           elseif seqno == 13 and select == CONST.按钮_确定 then
             local newSlot = Char.GetEmptyItemSlot(player);
+            if newSlot<0 then
+                 NLG.SystemMessage(player,"[系統]前40格中物品欄沒空位。");
+                 return;
+            end
             local GoalIndex = Item.MakeItem(17904);
             Char.SetItemIndex(player, newSlot, GoalIndex);
             Item.SetData(GoalIndex,CONST.道具_名字,"["..MonsName.."]in晶石");
@@ -596,6 +648,7 @@ function Module:onLoad()
             Item.UpItem(player, newSlot);
             Char.DelItemBySlot(player, CardSlot);
             NLG.PlaySe(player, 279, Char.GetData(player,CONST.对象_X), Char.GetData(player,CONST.对象_Y));
+            SQL.Run("INSERT INTO card_conversion_logs (player_name,card_name,image_id,mons_type,attr_1,attr_1_val,attr_2,attr_2_val,tech_id_1,tech_id_2,add_atk,add_def,add_agi,add_mnd,add_rcv,add_hp,add_mp) VALUES ('"..PlayerName.."','"..MonsName.."',"..itemInfo_45..","..monsType..","..itemInfo_32..","..itemInfo_33..","..itemInfo_34..","..itemInfo_35..","..itemInfo_46..","..itemInfo_47..","..newInfo1..","..newInfo2..","..newInfo3..","..newInfo4..","..newInfo5..","..newInfo6..","..newInfo7..")");
             NLG.UpChar(player);
           else
               return;
@@ -631,6 +684,616 @@ function Module:onLoad()
     end
   end)
 
+
+  --宠物自动对战
+  self.ChessNPC = self:NPC_createNormal('聯盟冠軍自走棋', 14682, { x = 20, y = 19, mapType = 0, map = 20315, direction = 6 });
+  Char.SetData(self.ChessNPC,CONST.对象_ENEMY_PetFlg+2,0);
+  self:NPC_regWindowTalkedEvent(self.ChessNPC, function(npc, player, _seqno, _select, _data)
+    local level = Char.GetData(player, CONST.对象_等级);
+    local cdk = Char.GetData(player,CONST.对象_CDK);
+    local seqno = tonumber(_seqno)
+    local select = tonumber(_select)
+    local data = tonumber(_data)
+    if select == CONST.按钮_关闭 then
+        return;
+    end
+    if seqno == 1 then
+      local switch = checkAISummon(player);
+      if (switch==false) then
+        Char.AddGold(player, 20000);
+        NLG.SystemMessage(player, "[系統]聯盟冠軍獎勵20000G金幣。");
+        Char.Warp(player,0,20314,23,32);
+        return;
+      end
+      if data==1 then		--對戰一員配對
+        if (chess_tbl[Char.GetData(player,CONST.对象_CDK)]~=nil) then
+          for k,v in ipairs(chess_tbl[Char.GetData(player,CONST.对象_CDK)]) do
+            NLG.DropPlayer(v);
+            Char.DelDummy(v);
+          end
+        end
+        leader_tbl = {}
+        chess_tbl[Char.GetData(player,CONST.对象_CDK)]={};
+        --我方棋子组队
+        local standby = 1;
+        for itemSlot=card_Lslot,card_Rslot do
+          local itemIndex = Char.GetItemIndex(player, itemSlot);
+          if (itemIndex>0) then
+            local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
+            local itemId = Item.GetData(itemIndex,CONST.道具_ID);
+            local itemInfo_45 = Item.GetData(itemIndex,CONST.道具_特殊类型);	--形象編號
+            if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45表已成功激活
+              local itemName = Item.GetData(itemIndex,CONST.道具_名字);
+              local last = string.find(itemName, "]", 1);
+              local MonsName = string.sub(itemName, 2, last-1);
+              local AIType = Item.GetData(itemIndex,CONST.道具_等级);		--AI模式
+              local monsType = Item.GetData(itemIndex,CONST.道具_幸运);		--怪物類型
+              local itemInfo_32 = Item.GetData(itemIndex,CONST.道具_属性一);
+              local itemInfo_33 = Item.GetData(itemIndex,CONST.道具_属性二);
+              local itemInfo_34 = Item.GetData(itemIndex,CONST.道具_属性一值);
+              local itemInfo_35 = Item.GetData(itemIndex,CONST.道具_属性二值);
+              local itemInfo_46 = Item.GetData(itemIndex,CONST.道具_子参一);	--第一回施放tech編號
+              local itemInfo_47 = Item.GetData(itemIndex,CONST.道具_子参二);	--第二回施放tech編號
+
+              local chessIndex = Char.CreateDummy()
+              Char.SetData(chessIndex,CONST.对象_种族, 0);
+              --屬性
+              Char.GiveItem(chessIndex, 19200, 1);
+              Char.MoveItem(chessIndex, 8, 5, -1);
+              local item_1 = Char.HaveItem(chessIndex,19200);
+              Item.SetData(item_1,CONST.道具_属性一,itemInfo_32);
+              Item.SetData(item_1,CONST.道具_属性二,itemInfo_33);
+              Item.SetData(item_1,CONST.道具_属性一值,itemInfo_34);
+              Item.SetData(item_1,CONST.道具_属性二值,itemInfo_35);
+              --天生加成(需倚賴在裝備上)
+              Item.SetData(item_1,CONST.道具_攻击,Item.GetData(itemIndex,CONST.道具_攻击));
+              Item.SetData(item_1,CONST.道具_防御,Item.GetData(itemIndex,CONST.道具_防御));
+              Item.SetData(item_1,CONST.道具_敏捷,Item.GetData(itemIndex,CONST.道具_敏捷));
+              Item.SetData(item_1,CONST.道具_精神,Item.GetData(itemIndex,CONST.道具_精神));
+              Item.SetData(item_1,CONST.道具_回复,Item.GetData(itemIndex,CONST.道具_回复));
+              Item.SetData(item_1,CONST.道具_生命,Item.GetData(itemIndex,CONST.道具_生命));
+              Item.SetData(item_1,CONST.道具_魔力,Item.GetData(itemIndex,CONST.道具_魔力));
+              Item.UpItem(chessIndex, -1);
+              Char.SetData(chessIndex,CONST.对象_形象, itemInfo_45);
+              Char.SetData(chessIndex,CONST.对象_原形, itemInfo_45);
+              Char.SetData(chessIndex,CONST.对象_职阶, AIType);			--AI模式
+
+              Char.SetData(chessIndex,CONST.对象_金币, itemInfo_46);			--第一回施放tech編號
+              Char.SetData(chessIndex,CONST.对象_银行金币, itemInfo_47);		--第二回施放tech編號
+
+              Char.SetData(chessIndex,CONST.对象_名字, MonsName);
+              Char.SetData(chessIndex,CONST.对象_等级, level);
+              local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);	--覺醒等級
+              local plus = GetAwakenPower(awakeLv)*100;
+              --怪物類型
+              local cg1,cg2,cg3,cg4,cg5 = setAssortment(level,monsType);
+              Char.SetData(chessIndex, CONST.对象_体力, cg1+plus);
+              Char.SetData(chessIndex, CONST.对象_力量, cg2+plus);
+              Char.SetData(chessIndex, CONST.对象_强度, cg3+plus);
+              Char.SetData(chessIndex, CONST.对象_速度, cg4+plus);
+              Char.SetData(chessIndex, CONST.对象_魔法, cg5+plus);
+              NLG.UpChar(chessIndex);
+              --進化加成(需倚賴在裝備上)
+              local itemInfo_4003 = Item.GetData(itemIndex,CONST.道具_自用参数);	--進化加成表
+              local equipMod = string.split(itemInfo_4003,',');
+              if equipMod[1]=="" then
+                for i=1,7 do
+                  equipMod[i] = tonumber(0);
+                end
+              else
+                for k,v in pairs(equipMod) do
+                  equipMod[k] = tonumber(v);
+                end
+              end
+              Char.GiveItem(chessIndex, 19538, 1);
+              Char.MoveItem(chessIndex, 9, 6, -1);
+              local item_2 = Char.HaveItem(chessIndex,19538);
+              Item.SetData(item_2,CONST.道具_攻击,equipMod[1]);
+              Item.SetData(item_2,CONST.道具_防御,equipMod[2]);
+              Item.SetData(item_2,CONST.道具_敏捷,equipMod[3]);
+              Item.SetData(item_2,CONST.道具_精神,equipMod[4]);
+              Item.SetData(item_2,CONST.道具_回复,equipMod[5]);
+              Item.SetData(item_2,CONST.道具_生命,equipMod[6]);
+              Item.SetData(item_2,CONST.道具_魔力,equipMod[7]);
+              Item.UpItem(chessIndex, -1);
+              Char.SetData(chessIndex,CONST.对象_血, Char.GetData(chessIndex,CONST.对象_最大血));
+              Char.SetData(chessIndex,CONST.对象_魔, Char.GetData(chessIndex,CONST.对象_最大魔));
+              NLG.UpChar(chessIndex);
+              --加入戰鬥
+              if (chessIndex~=nil and standby==1) then	--隊長
+                local chess_leader_AIndex = chessIndex;
+                table.insert(leader_tbl,chess_leader_AIndex);
+                local playercdk = Char.GetData(player,CONST.对象_CDK);
+                Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
+              elseif (chessIndex~=nil) then
+                Char.JoinParty(chessIndex, leader_tbl[1], true);
+              end
+              table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
+              standby = standby+1;
+            else
+            end
+          else
+          end
+          if (standby>=2) then
+            goto next
+          end
+        end
+        ::next::
+
+        --随机对手
+        local playercdk = Char.GetData(player,CONST.对象_CDK);
+        for slot = 1, 1 do
+          local ret = SQL.Run("SELECT * FROM card_conversion_logs ORDER BY RAND() LIMIT 1")
+          if (type(ret)=='table') then
+            npcData = {
+                name = ret["0_1"].."的"..ret["0_3"],
+                image = ret["0_4"],
+                monsType = ret["0_5"],
+                itemInfo_32 = ret["0_6"],
+                itemInfo_33 = ret["0_7"],
+                itemInfo_34 = ret["0_8"],
+                itemInfo_35 = ret["0_9"],
+                skill1 = ret["0_10"],
+                skill2 = ret["0_11"],
+                atk = ret["0_12"],
+                def = ret["0_13"],
+                agi = ret["0_14"],
+                mnd = ret["0_15"],
+                rcv = ret["0_16"],
+                hp = ret["0_17"],
+                mp = ret["0_18"],
+            }
+            local chessIndex = Char.CreateDummy()
+            Char.SetData(chessIndex,CONST.对象_种族, 0);
+            --屬性
+            Char.GiveItem(chessIndex, 19200, 1);
+            Char.MoveItem(chessIndex, 8, 5, -1);
+            local item_1 = Char.HaveItem(chessIndex,19200);
+            Item.SetData(item_1,CONST.道具_属性一,npcData.itemInfo_32);
+            Item.SetData(item_1,CONST.道具_属性二,npcData.itemInfo_33);
+            Item.SetData(item_1,CONST.道具_属性一值,npcData.itemInfo_34);
+            Item.SetData(item_1,CONST.道具_属性二值,npcData.itemInfo_35);
+            --天生加成(需倚賴在裝備上)
+            Item.SetData(item_1,CONST.道具_攻击,npcData.atk);
+            Item.SetData(item_1,CONST.道具_防御,npcData.def);
+            Item.SetData(item_1,CONST.道具_敏捷,npcData.agi);
+            Item.SetData(item_1,CONST.道具_精神,npcData.mnd);
+            Item.SetData(item_1,CONST.道具_回复,npcData.rcv);
+            Item.SetData(item_1,CONST.道具_生命,npcData.hp);
+            Item.SetData(item_1,CONST.道具_魔力,npcData.mp);
+            Item.UpItem(chessIndex, -1);
+            Char.SetData(chessIndex, CONST.对象_类型, 1);					--CONST.对象类型_NPC
+            Char.SetData(chessIndex,CONST.对象_形象, npcData.image);
+            Char.SetData(chessIndex,CONST.对象_原形, npcData.image);
+            Char.SetData(chessIndex,CONST.对象_职阶, 4);	--AI模式
+
+            Char.SetData(chessIndex,CONST.对象_金币, npcData.skill1);			--第一回施放tech編號
+            Char.SetData(chessIndex,CONST.对象_银行金币, npcData.skill2);		--第二回施放tech編號
+
+            Char.SetData(chessIndex,CONST.对象_名字, npcData.name);
+            Char.SetData(chessIndex,CONST.对象_等级, 100);
+            --怪物類型
+            local cg1,cg2,cg3,cg4,cg5 = setAssortment(100,npcData.monsType);
+            Char.SetData(chessIndex, CONST.对象_体力, cg1);
+            Char.SetData(chessIndex, CONST.对象_力量, cg2);
+            Char.SetData(chessIndex, CONST.对象_强度, cg3);
+            Char.SetData(chessIndex, CONST.对象_速度, cg4);
+            Char.SetData(chessIndex, CONST.对象_魔法, cg5);
+
+            if (chessIndex~=nil and slot==1) then	--隊長
+              local chess_leader_BIndex = chessIndex;
+              table.insert(leader_tbl,chess_leader_BIndex);
+            elseif (chessIndex~=nil) then
+              Char.JoinParty(chessIndex, leader_tbl[2], true);
+            end
+            table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
+          else
+          end
+        end
+
+        --自走
+        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        global_battle[player] = battleIndex;
+        Battle.SetPVPWinEvent('./lua/Modules/pokeMons.lua', 'battle_wincallback', battleIndex);
+        --观战
+        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+      elseif data==2 then		--對戰三員配對
+        if (chess_tbl[Char.GetData(player,CONST.对象_CDK)]~=nil) then
+          for k,v in ipairs(chess_tbl[Char.GetData(player,CONST.对象_CDK)]) do
+            NLG.DropPlayer(v);
+            Char.DelDummy(v);
+          end
+        end
+        leader_tbl = {}
+        chess_tbl[Char.GetData(player,CONST.对象_CDK)]={};
+        --我方棋子组队
+        local standby = 1;
+        for itemSlot=card_Lslot,card_Rslot do
+          local itemIndex = Char.GetItemIndex(player, itemSlot);
+          if (itemIndex>0) then
+            local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
+            local itemId = Item.GetData(itemIndex,CONST.道具_ID);
+            local itemInfo_45 = Item.GetData(itemIndex,CONST.道具_特殊类型);	--形象編號
+            if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45表已成功激活
+              local itemName = Item.GetData(itemIndex,CONST.道具_名字);
+              local last = string.find(itemName, "]", 1);
+              local MonsName = string.sub(itemName, 2, last-1);
+              local AIType = Item.GetData(itemIndex,CONST.道具_等级);		--AI模式
+              local monsType = Item.GetData(itemIndex,CONST.道具_幸运);		--怪物類型
+              local itemInfo_32 = Item.GetData(itemIndex,CONST.道具_属性一);
+              local itemInfo_33 = Item.GetData(itemIndex,CONST.道具_属性二);
+              local itemInfo_34 = Item.GetData(itemIndex,CONST.道具_属性一值);
+              local itemInfo_35 = Item.GetData(itemIndex,CONST.道具_属性二值);
+              local itemInfo_46 = Item.GetData(itemIndex,CONST.道具_子参一);	--第一回施放tech編號
+              local itemInfo_47 = Item.GetData(itemIndex,CONST.道具_子参二);	--第二回施放tech編號
+
+              local chessIndex = Char.CreateDummy()
+              Char.SetData(chessIndex,CONST.对象_种族, 0);
+              --屬性
+              Char.GiveItem(chessIndex, 19200, 1);
+              Char.MoveItem(chessIndex, 8, 5, -1);
+              local item_1 = Char.HaveItem(chessIndex,19200);
+              Item.SetData(item_1,CONST.道具_属性一,itemInfo_32);
+              Item.SetData(item_1,CONST.道具_属性二,itemInfo_33);
+              Item.SetData(item_1,CONST.道具_属性一值,itemInfo_34);
+              Item.SetData(item_1,CONST.道具_属性二值,itemInfo_35);
+              --天生加成(需倚賴在裝備上)
+              Item.SetData(item_1,CONST.道具_攻击,Item.GetData(itemIndex,CONST.道具_攻击));
+              Item.SetData(item_1,CONST.道具_防御,Item.GetData(itemIndex,CONST.道具_防御));
+              Item.SetData(item_1,CONST.道具_敏捷,Item.GetData(itemIndex,CONST.道具_敏捷));
+              Item.SetData(item_1,CONST.道具_精神,Item.GetData(itemIndex,CONST.道具_精神));
+              Item.SetData(item_1,CONST.道具_回复,Item.GetData(itemIndex,CONST.道具_回复));
+              Item.SetData(item_1,CONST.道具_生命,Item.GetData(itemIndex,CONST.道具_生命));
+              Item.SetData(item_1,CONST.道具_魔力,Item.GetData(itemIndex,CONST.道具_魔力));
+              Item.UpItem(chessIndex, -1);
+              Char.SetData(chessIndex,CONST.对象_形象, itemInfo_45);
+              Char.SetData(chessIndex,CONST.对象_原形, itemInfo_45);
+              Char.SetData(chessIndex,CONST.对象_职阶, AIType);			--AI模式
+
+              Char.SetData(chessIndex,CONST.对象_金币, itemInfo_46);			--第一回施放tech編號
+              Char.SetData(chessIndex,CONST.对象_银行金币, itemInfo_47);		--第二回施放tech編號
+
+              Char.SetData(chessIndex,CONST.对象_名字, MonsName);
+              Char.SetData(chessIndex,CONST.对象_等级, level);
+              local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);	--覺醒等級
+              local plus = GetAwakenPower(awakeLv)*100;
+              --怪物類型
+              local cg1,cg2,cg3,cg4,cg5 = setAssortment(level,monsType);
+              Char.SetData(chessIndex, CONST.对象_体力, cg1+plus);
+              Char.SetData(chessIndex, CONST.对象_力量, cg2+plus);
+              Char.SetData(chessIndex, CONST.对象_强度, cg3+plus);
+              Char.SetData(chessIndex, CONST.对象_速度, cg4+plus);
+              Char.SetData(chessIndex, CONST.对象_魔法, cg5+plus);
+              NLG.UpChar(chessIndex);
+              --進化加成(需倚賴在裝備上)
+              local itemInfo_4003 = Item.GetData(itemIndex,CONST.道具_自用参数);	--進化加成表
+              local equipMod = string.split(itemInfo_4003,',');
+              if equipMod[1]=="" then
+                for i=1,7 do
+                  equipMod[i] = tonumber(0);
+                end
+              else
+                for k,v in pairs(equipMod) do
+                  equipMod[k] = tonumber(v);
+                end
+              end
+              Char.GiveItem(chessIndex, 19538, 1);
+              Char.MoveItem(chessIndex, 9, 6, -1);
+              local item_2 = Char.HaveItem(chessIndex,19538);
+              Item.SetData(item_2,CONST.道具_攻击,equipMod[1]);
+              Item.SetData(item_2,CONST.道具_防御,equipMod[2]);
+              Item.SetData(item_2,CONST.道具_敏捷,equipMod[3]);
+              Item.SetData(item_2,CONST.道具_精神,equipMod[4]);
+              Item.SetData(item_2,CONST.道具_回复,equipMod[5]);
+              Item.SetData(item_2,CONST.道具_生命,equipMod[6]);
+              Item.SetData(item_2,CONST.道具_魔力,equipMod[7]);
+              Item.UpItem(chessIndex, -1);
+              Char.SetData(chessIndex,CONST.对象_血, Char.GetData(chessIndex,CONST.对象_最大血));
+              Char.SetData(chessIndex,CONST.对象_魔, Char.GetData(chessIndex,CONST.对象_最大魔));
+              NLG.UpChar(chessIndex);
+              --加入戰鬥
+              if (chessIndex~=nil and standby==1) then	--隊長
+                local chess_leader_AIndex = chessIndex;
+                table.insert(leader_tbl,chess_leader_AIndex);
+                local playercdk = Char.GetData(player,CONST.对象_CDK);
+                Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
+              elseif (chessIndex~=nil) then
+                Char.JoinParty(chessIndex, leader_tbl[1], true);
+              end
+              table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
+              standby = standby+1;
+            else
+            end
+          else
+          end
+          if (standby>=4) then
+            goto next
+          end
+        end
+        ::next::
+
+        --随机对手
+        local playercdk = Char.GetData(player,CONST.对象_CDK);
+        for slot = 1, 3 do
+          local ret = SQL.Run("SELECT * FROM card_conversion_logs ORDER BY RAND() LIMIT 1")
+          if (type(ret)=='table') then
+            npcData = {
+                name = ret["0_1"].."的"..ret["0_3"],
+                image = ret["0_4"],
+                monsType = ret["0_5"],
+                itemInfo_32 = ret["0_6"],
+                itemInfo_33 = ret["0_7"],
+                itemInfo_34 = ret["0_8"],
+                itemInfo_35 = ret["0_9"],
+                skill1 = ret["0_10"],
+                skill2 = ret["0_11"],
+                atk = ret["0_12"],
+                def = ret["0_13"],
+                agi = ret["0_14"],
+                mnd = ret["0_15"],
+                rcv = ret["0_16"],
+                hp = ret["0_17"],
+                mp = ret["0_18"],
+            }
+            local chessIndex = Char.CreateDummy()
+            Char.SetData(chessIndex,CONST.对象_种族, 0);
+            --屬性
+            Char.GiveItem(chessIndex, 19200, 1);
+            Char.MoveItem(chessIndex, 8, 5, -1);
+            local item_1 = Char.HaveItem(chessIndex,19200);
+            Item.SetData(item_1,CONST.道具_属性一,npcData.itemInfo_32);
+            Item.SetData(item_1,CONST.道具_属性二,npcData.itemInfo_33);
+            Item.SetData(item_1,CONST.道具_属性一值,npcData.itemInfo_34);
+            Item.SetData(item_1,CONST.道具_属性二值,npcData.itemInfo_35);
+            --天生加成(需倚賴在裝備上)
+            Item.SetData(item_1,CONST.道具_攻击,npcData.atk);
+            Item.SetData(item_1,CONST.道具_防御,npcData.def);
+            Item.SetData(item_1,CONST.道具_敏捷,npcData.agi);
+            Item.SetData(item_1,CONST.道具_精神,npcData.mnd);
+            Item.SetData(item_1,CONST.道具_回复,npcData.rcv);
+            Item.SetData(item_1,CONST.道具_生命,npcData.hp);
+            Item.SetData(item_1,CONST.道具_魔力,npcData.mp);
+            Item.UpItem(chessIndex, -1);
+            Char.SetData(chessIndex, CONST.对象_类型, 1);					--CONST.对象类型_NPC
+            Char.SetData(chessIndex,CONST.对象_形象, npcData.image);
+            Char.SetData(chessIndex,CONST.对象_原形, npcData.image);
+            Char.SetData(chessIndex,CONST.对象_职阶, 4);	--AI模式
+
+            Char.SetData(chessIndex,CONST.对象_金币, npcData.skill1);			--第一回施放tech編號
+            Char.SetData(chessIndex,CONST.对象_银行金币, npcData.skill2);		--第二回施放tech編號
+
+            Char.SetData(chessIndex,CONST.对象_名字, npcData.name);
+            Char.SetData(chessIndex,CONST.对象_等级, 100);
+            --怪物類型
+            local cg1,cg2,cg3,cg4,cg5 = setAssortment(100,npcData.monsType);
+            Char.SetData(chessIndex, CONST.对象_体力, cg1);
+            Char.SetData(chessIndex, CONST.对象_力量, cg2);
+            Char.SetData(chessIndex, CONST.对象_强度, cg3);
+            Char.SetData(chessIndex, CONST.对象_速度, cg4);
+            Char.SetData(chessIndex, CONST.对象_魔法, cg5);
+
+            if (chessIndex~=nil and slot==1) then	--隊長
+              local chess_leader_BIndex = chessIndex;
+              table.insert(leader_tbl,chess_leader_BIndex);
+            elseif (chessIndex~=nil) then
+              Char.JoinParty(chessIndex, leader_tbl[2], true);
+            end
+            table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
+          else
+          end
+        end
+
+        --自走
+        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        global_battle[player] = battleIndex;
+        Battle.SetPVPWinEvent('./lua/Modules/pokeMons.lua', 'battle_wincallback', battleIndex);
+        --观战
+        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+      elseif data==3 then		--對戰五員配對
+        if (chess_tbl[Char.GetData(player,CONST.对象_CDK)]~=nil) then
+          for k,v in ipairs(chess_tbl[Char.GetData(player,CONST.对象_CDK)]) do
+            NLG.DropPlayer(v);
+            Char.DelDummy(v);
+          end
+        end
+        leader_tbl = {}
+        chess_tbl[Char.GetData(player,CONST.对象_CDK)]={};
+        --我方棋子组队
+        local standby = 1;
+        for itemSlot=card_Lslot,card_Rslot do
+          local itemIndex = Char.GetItemIndex(player, itemSlot);
+          if (itemIndex>0) then
+            local itemType = Item.GetData(itemIndex,CONST.对象_类型);		--類型64 AI模式
+            local itemId = Item.GetData(itemIndex,CONST.道具_ID);
+            local itemInfo_45 = Item.GetData(itemIndex,CONST.道具_特殊类型);	--形象編號
+            if (itemType == 64 and itemInfo_45 > 0) then	--itemInfo_45表已成功激活
+              local itemName = Item.GetData(itemIndex,CONST.道具_名字);
+              local last = string.find(itemName, "]", 1);
+              local MonsName = string.sub(itemName, 2, last-1);
+              local AIType = Item.GetData(itemIndex,CONST.道具_等级);		--AI模式
+              local monsType = Item.GetData(itemIndex,CONST.道具_幸运);		--怪物類型
+              local itemInfo_32 = Item.GetData(itemIndex,CONST.道具_属性一);
+              local itemInfo_33 = Item.GetData(itemIndex,CONST.道具_属性二);
+              local itemInfo_34 = Item.GetData(itemIndex,CONST.道具_属性一值);
+              local itemInfo_35 = Item.GetData(itemIndex,CONST.道具_属性二值);
+              local itemInfo_46 = Item.GetData(itemIndex,CONST.道具_子参一);	--第一回施放tech編號
+              local itemInfo_47 = Item.GetData(itemIndex,CONST.道具_子参二);	--第二回施放tech編號
+
+              local chessIndex = Char.CreateDummy()
+              Char.SetData(chessIndex,CONST.对象_种族, 0);
+              --屬性
+              Char.GiveItem(chessIndex, 19200, 1);
+              Char.MoveItem(chessIndex, 8, 5, -1);
+              local item_1 = Char.HaveItem(chessIndex,19200);
+              Item.SetData(item_1,CONST.道具_属性一,itemInfo_32);
+              Item.SetData(item_1,CONST.道具_属性二,itemInfo_33);
+              Item.SetData(item_1,CONST.道具_属性一值,itemInfo_34);
+              Item.SetData(item_1,CONST.道具_属性二值,itemInfo_35);
+              --天生加成(需倚賴在裝備上)
+              Item.SetData(item_1,CONST.道具_攻击,Item.GetData(itemIndex,CONST.道具_攻击));
+              Item.SetData(item_1,CONST.道具_防御,Item.GetData(itemIndex,CONST.道具_防御));
+              Item.SetData(item_1,CONST.道具_敏捷,Item.GetData(itemIndex,CONST.道具_敏捷));
+              Item.SetData(item_1,CONST.道具_精神,Item.GetData(itemIndex,CONST.道具_精神));
+              Item.SetData(item_1,CONST.道具_回复,Item.GetData(itemIndex,CONST.道具_回复));
+              Item.SetData(item_1,CONST.道具_生命,Item.GetData(itemIndex,CONST.道具_生命));
+              Item.SetData(item_1,CONST.道具_魔力,Item.GetData(itemIndex,CONST.道具_魔力));
+              Item.UpItem(chessIndex, -1);
+              Char.SetData(chessIndex,CONST.对象_形象, itemInfo_45);
+              Char.SetData(chessIndex,CONST.对象_原形, itemInfo_45);
+              Char.SetData(chessIndex,CONST.对象_职阶, AIType);			--AI模式
+
+              Char.SetData(chessIndex,CONST.对象_金币, itemInfo_46);			--第一回施放tech編號
+              Char.SetData(chessIndex,CONST.对象_银行金币, itemInfo_47);		--第二回施放tech編號
+
+              Char.SetData(chessIndex,CONST.对象_名字, MonsName);
+              Char.SetData(chessIndex,CONST.对象_等级, level);
+              local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);	--覺醒等級
+              local plus = GetAwakenPower(awakeLv)*100;
+              --怪物類型
+              local cg1,cg2,cg3,cg4,cg5 = setAssortment(level,monsType);
+              Char.SetData(chessIndex, CONST.对象_体力, cg1+plus);
+              Char.SetData(chessIndex, CONST.对象_力量, cg2+plus);
+              Char.SetData(chessIndex, CONST.对象_强度, cg3+plus);
+              Char.SetData(chessIndex, CONST.对象_速度, cg4+plus);
+              Char.SetData(chessIndex, CONST.对象_魔法, cg5+plus);
+              NLG.UpChar(chessIndex);
+              --進化加成(需倚賴在裝備上)
+              local itemInfo_4003 = Item.GetData(itemIndex,CONST.道具_自用参数);	--進化加成表
+              local equipMod = string.split(itemInfo_4003,',');
+              if equipMod[1]=="" then
+                for i=1,7 do
+                  equipMod[i] = tonumber(0);
+                end
+              else
+                for k,v in pairs(equipMod) do
+                  equipMod[k] = tonumber(v);
+                end
+              end
+              Char.GiveItem(chessIndex, 19538, 1);
+              Char.MoveItem(chessIndex, 9, 6, -1);
+              local item_2 = Char.HaveItem(chessIndex,19538);
+              Item.SetData(item_2,CONST.道具_攻击,equipMod[1]);
+              Item.SetData(item_2,CONST.道具_防御,equipMod[2]);
+              Item.SetData(item_2,CONST.道具_敏捷,equipMod[3]);
+              Item.SetData(item_2,CONST.道具_精神,equipMod[4]);
+              Item.SetData(item_2,CONST.道具_回复,equipMod[5]);
+              Item.SetData(item_2,CONST.道具_生命,equipMod[6]);
+              Item.SetData(item_2,CONST.道具_魔力,equipMod[7]);
+              Item.UpItem(chessIndex, -1);
+              Char.SetData(chessIndex,CONST.对象_血, Char.GetData(chessIndex,CONST.对象_最大血));
+              Char.SetData(chessIndex,CONST.对象_魔, Char.GetData(chessIndex,CONST.对象_最大魔));
+              NLG.UpChar(chessIndex);
+              --加入戰鬥
+              if (chessIndex~=nil and standby==1) then	--隊長
+                local chess_leader_AIndex = chessIndex;
+                table.insert(leader_tbl,chess_leader_AIndex);
+                local playercdk = Char.GetData(player,CONST.对象_CDK);
+                Char.SetTempData(chess_leader_AIndex, '自走棋手', playercdk);
+              elseif (chessIndex~=nil) then
+                Char.JoinParty(chessIndex, leader_tbl[1], true);
+              end
+              table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
+              standby = standby+1;
+            else
+            end
+          else
+          end
+          if (standby>=6) then
+            goto next
+          end
+        end
+        ::next::
+
+        --随机对手
+        local playercdk = Char.GetData(player,CONST.对象_CDK);
+        for slot = 1, 5 do
+          local ret = SQL.Run("SELECT * FROM card_conversion_logs ORDER BY RAND() LIMIT 1")
+          if (type(ret)=='table') then
+            npcData = {
+                name = ret["0_1"].."的"..ret["0_3"],
+                image = ret["0_4"],
+                monsType = ret["0_5"],
+                itemInfo_32 = ret["0_6"],
+                itemInfo_33 = ret["0_7"],
+                itemInfo_34 = ret["0_8"],
+                itemInfo_35 = ret["0_9"],
+                skill1 = ret["0_10"],
+                skill2 = ret["0_11"],
+                atk = ret["0_12"],
+                def = ret["0_13"],
+                agi = ret["0_14"],
+                mnd = ret["0_15"],
+                rcv = ret["0_16"],
+                hp = ret["0_17"],
+                mp = ret["0_18"],
+            }
+            local chessIndex = Char.CreateDummy()
+            Char.SetData(chessIndex,CONST.对象_种族, 0);
+            --屬性
+            Char.GiveItem(chessIndex, 19200, 1);
+            Char.MoveItem(chessIndex, 8, 5, -1);
+            local item_1 = Char.HaveItem(chessIndex,19200);
+            Item.SetData(item_1,CONST.道具_属性一,npcData.itemInfo_32);
+            Item.SetData(item_1,CONST.道具_属性二,npcData.itemInfo_33);
+            Item.SetData(item_1,CONST.道具_属性一值,npcData.itemInfo_34);
+            Item.SetData(item_1,CONST.道具_属性二值,npcData.itemInfo_35);
+            --天生加成(需倚賴在裝備上)
+            Item.SetData(item_1,CONST.道具_攻击,npcData.atk);
+            Item.SetData(item_1,CONST.道具_防御,npcData.def);
+            Item.SetData(item_1,CONST.道具_敏捷,npcData.agi);
+            Item.SetData(item_1,CONST.道具_精神,npcData.mnd);
+            Item.SetData(item_1,CONST.道具_回复,npcData.rcv);
+            Item.SetData(item_1,CONST.道具_生命,npcData.hp);
+            Item.SetData(item_1,CONST.道具_魔力,npcData.mp);
+            Item.UpItem(chessIndex, -1);
+            Char.SetData(chessIndex, CONST.对象_类型, 1);					--CONST.对象类型_NPC
+            Char.SetData(chessIndex,CONST.对象_形象, npcData.image);
+            Char.SetData(chessIndex,CONST.对象_原形, npcData.image);
+            Char.SetData(chessIndex,CONST.对象_职阶, 4);	--AI模式
+
+            Char.SetData(chessIndex,CONST.对象_金币, npcData.skill1);			--第一回施放tech編號
+            Char.SetData(chessIndex,CONST.对象_银行金币, npcData.skill2);		--第二回施放tech編號
+
+            Char.SetData(chessIndex,CONST.对象_名字, npcData.name);
+            Char.SetData(chessIndex,CONST.对象_等级, 100);
+            --怪物類型
+            local cg1,cg2,cg3,cg4,cg5 = setAssortment(100,npcData.monsType);
+            Char.SetData(chessIndex, CONST.对象_体力, cg1);
+            Char.SetData(chessIndex, CONST.对象_力量, cg2);
+            Char.SetData(chessIndex, CONST.对象_强度, cg3);
+            Char.SetData(chessIndex, CONST.对象_速度, cg4);
+            Char.SetData(chessIndex, CONST.对象_魔法, cg5);
+
+            if (chessIndex~=nil and slot==1) then	--隊長
+              local chess_leader_BIndex = chessIndex;
+              table.insert(leader_tbl,chess_leader_BIndex);
+            elseif (chessIndex~=nil) then
+              Char.JoinParty(chessIndex, leader_tbl[2], true);
+            end
+            table.insert(chess_tbl[Char.GetData(player,CONST.对象_CDK)],chessIndex);
+          else
+          end
+        end
+
+        --自走
+        local battleIndex = Battle.PVP(leader_tbl[1],leader_tbl[2]);
+        global_battle[player] = battleIndex;
+        Battle.SetPVPWinEvent('./lua/Modules/pokeMons.lua', 'battle_wincallback', battleIndex);
+        --观战
+        NLG.WatchEntry(player, tonumber(leader_tbl[1]));
+      end
+    end
+  end)
+  self:NPC_regTalkedEvent(self.ChessNPC, function(npc, player)
+    if (NLG.CanTalk(npc, player) == true) then
+      local msg = "3\\n@c【聯盟冠軍自走棋】\\n\\n\\n"
+               .. " 對戰一員配對 " .. "\\n"
+               .. " 對戰三員配對 " .. "\\n"
+               .. " 對戰五員配對 " .. "\\n";
+      NLG.ShowWindowTalked(player, npc, CONST.窗口_选择框, CONST.按钮_关闭, 1, msg);
+    end
+    return
+  end)
 
 end
 
@@ -1180,7 +1843,243 @@ function Module:onBattleOverCallback(battleIndex)
 	end
 	return 0;
 end
+--自走棋對戰
+function Module:battlecommand(fd, head, data)
+  local player = Protocol.GetCharByFd(fd)
+  if data[1] == 'N' then
+    local battleIndex = global_battle[player] or -1;
+    if (Battle.GetType(battleIndex)==2) then
+      local gl_time = global_time[player] or 0;
+      local eta = os.time()-gl_time;
+      if (Battle.IsWaitingCommand(Battle.GetPlayer(battleIndex,0)) and eta>3) then	-- 如果是在等待命令
+        --下方自走棋
+        local poss={}
+        for i = 0, 9 do
+          table.insert(poss,i)
+        end
+        table.forEach(poss, function(e)
+          local dummyIndex = Battle.GetPlayer(battleIndex, e);
+          -- 如果不是人，退出
+          if dummyIndex < 0 then
+            return
+          end
+          -- 如果不是假人，退出
+          if not Char.IsDummy(dummyIndex) then
+            return
+          end
 
+          if (Char.GetData(dummyIndex, CONST.对象_战死) == 1) then
+            Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+          end
+          local AIType = Char.GetData(dummyIndex,CONST.对象_职阶);	--AI模式
+          local techId_1 = Char.GetData(dummyIndex,CONST.对象_金币);		--第一回施放tech編號
+          local techId_2 = Char.GetData(dummyIndex,CONST.对象_银行金币);	--第二回施放tech編號
+          local IMAGEId_1,order_1 = math.modf(techId_1 / 100);
+          local IMAGEId_2,order_2 = math.modf(techId_2 / 100);
+          local order = math.floor(order_1*100);
+          if (#skillParams[IMAGEId_1]>1) then
+            if (order==0 or order==1 or order==2 or order==27 or order==29) then
+              com1=1;
+            elseif (order==3 or order==4 or order==5) then
+              com1=2;
+            elseif (order==6 or order==7 or order==8) then
+              com1=3;
+            elseif (order==9 or order==10 or order==11) then
+              com1=4;
+            end
+          else
+            com1=1;
+          end
+          local tSlot = smartTargetSelection(battleIndex,AIType,techId_1);
+          if skillCom[IMAGEId_1][com1]==40 or skillCom[IMAGEId_1][com1]==41 then	--全體技能
+            com2 = skillCom[IMAGEId_1][com1];
+          elseif skillCom[IMAGEId_1][com1]==-1 then	--非指向技能
+            com2 = tSlot;
+          else
+            com2 = tSlot + skillCom[IMAGEId_1][com1];
+          end
+          local action_tbl = {
+            function() Battle.ActionSelect(dummyIndex,skillParams[IMAGEId_1][com1], com2, techId_1) end,
+            function() Battle.ActionSelect(dummyIndex,CONST.BATTLE_COM.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,
+          }
+          if (math.random(1,100)<=5 and IMAGEId_1==73) then
+            pcall(action_tbl[2])
+          else
+            pcall(action_tbl[1])
+          end
+          --Battle.ActionSelect(dummyIndex, skillParams[IMAGEId_1][com1], com2, techId_1);
+
+          local petindex = Char.GetPet(dummyIndex,0);
+          local 出战宠物slot = Char.GetData(dummyIndex,CONST.对象_战宠);
+          if (petindex < 0 or 出战宠物slot == -1) then
+            local order = math.floor(order_2*100);
+            --print(IMAGEId_2,order)
+            if (#skillParams[IMAGEId_2]>1) then
+              if (order==0 or order==1 or order==2 or order==27 or order==29) then
+                com1=1;
+              elseif (order==3 or order==4 or order==5) then
+                com1=2;
+              elseif (order==6 or order==7 or order==8) then
+                com1=3;
+              elseif (order==9 or order==10 or order==11) then
+                com1=4;
+              end
+            else
+              com1=1;
+            end
+            local tSlot = smartTargetSelection(battleIndex,AIType,techId_2);
+            if skillCom[IMAGEId_2][com1]==40 or skillCom[IMAGEId_2][com1]==41  then	--全體技能
+              com2 = skillCom[IMAGEId_2][com1];
+            elseif skillCom[IMAGEId_2][com1]==-1 then	--非指向技能
+              com2 = tSlot;
+            else
+              com2 = tSlot + skillCom[IMAGEId_2][com1];
+            end
+            local action_tbl = {
+              function() Battle.ActionSelect(dummyIndex,skillParams[IMAGEId_2][com1], com2, techId_2) end,
+              function() Battle.ActionSelect(dummyIndex,CONST.BATTLE_COM.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,
+            }
+            if (math.random(1,100)<=5 and IMAGEId_1==73) then
+              pcall(action_tbl[2])
+            else
+              pcall(action_tbl[1])
+            end
+            --Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId_2);
+          end
+          NLG.UpChar(dummyIndex);
+        end)
+
+        --上方自走棋
+        local poss={}
+        for i = 10, 19 do
+          table.insert(poss,i)
+        end
+        table.forEach(poss, function(e)
+          local dummyIndex = Battle.GetPlayer(battleIndex, e);
+          -- 如果不是人，退出
+          if dummyIndex < 0 then
+            return
+          end
+          -- 如果不是假人，退出
+          if not Char.IsDummy(dummyIndex) then
+            return
+          end
+
+          if (Char.GetData(dummyIndex, CONST.对象_战死) == 1) then
+            Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_NONE, -1, 15002);
+          end
+          local AIType = Char.GetData(dummyIndex,CONST.对象_职阶);	--AI模式
+          local techId_1 = Char.GetData(dummyIndex,CONST.对象_金币);		--第一回施放tech編號
+          local techId_2 = Char.GetData(dummyIndex,CONST.对象_银行金币);	--第二回施放tech編號
+          local IMAGEId_1,order_1 = math.modf(techId_1 / 100);
+          local IMAGEId_2,order_2 = math.modf(techId_2 / 100);
+          local order = math.floor(order_1*100);
+          if (#skillParams[IMAGEId_1]>1) then
+            if (order==0 or order==1 or order==2 or order==27 or order==29) then
+              com1=1;
+            elseif (order==3 or order==4 or order==5) then
+              com1=2;
+            elseif (order==6 or order==7 or order==8) then
+              com1=3;
+            elseif (order==9 or order==10 or order==11) then
+              com1=4;
+            end
+          else
+            com1=1;
+          end
+          local tSlot = smartTargetSelection(battleIndex,AIType,techId_1);
+          if skillCom[IMAGEId_1][com1]==40 then	--全體技能
+            com2 = 41;
+          elseif skillCom[IMAGEId_1][com1]==41 then	--全體技能
+            com2 = 40;
+          elseif skillCom[IMAGEId_1][com1]==-1 then	--非指向技能
+            com2 = tSlot-10;
+          else
+            com2 = tSlot-10 + skillCom[IMAGEId_1][com1];
+          end
+          local action_tbl = {
+            function() Battle.ActionSelect(dummyIndex,skillParams[IMAGEId_1][com1], com2, techId_1) end,
+            function() Battle.ActionSelect(dummyIndex,CONST.BATTLE_COM.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,
+          }
+          if (math.random(1,100)<=5 and IMAGEId_1==73) then
+            pcall(action_tbl[2])
+          else
+            pcall(action_tbl[1])
+          end
+          --Battle.ActionSelect(dummyIndex, skillParams[IMAGEId_1][com1], com2, techId_1);
+
+          local petindex = Char.GetPet(dummyIndex,0);
+          local 出战宠物slot = Char.GetData(dummyIndex,CONST.对象_战宠);
+          if (petindex < 0 or 出战宠物slot == -1) then
+            local order = math.floor(order_2*100);
+            --print(IMAGEId_2,order)
+            if (#skillParams[IMAGEId_2]>1) then
+              if (order==0 or order==1 or order==2 or order==27 or order==29) then
+                com1=1;
+              elseif (order==3 or order==4 or order==5) then
+                com1=2;
+              elseif (order==6 or order==7 or order==8) then
+                com1=3;
+              elseif (order==9 or order==10 or order==11) then
+                com1=4;
+              end
+            else
+              com1=1;
+            end
+            local tSlot = smartTargetSelection(battleIndex,AIType,techId_2);
+            if skillCom[IMAGEId_2][com1]==40 then	--全體技能
+              com2 = 41;
+            elseif skillCom[IMAGEId_2][com1]==41 then	--全體技能
+              com2 = 40;
+            elseif skillCom[IMAGEId_2][com1]==-1 then	--非指向技能
+              com2 = tSlot-10;
+            else
+              com2 = tSlot-10 + skillCom[IMAGEId_2][com1];
+            end
+            local action_tbl = {
+              function() Battle.ActionSelect(dummyIndex,skillParams[IMAGEId_2][com1], com2, techId_2) end,
+              function() Battle.ActionSelect(dummyIndex,CONST.BATTLE_COM.BATTLE_COM_P_ASSASSIN,math.random(10,19),9609) end,
+            }
+            if (math.random(1,100)<=5 and IMAGEId_1==73) then
+              pcall(action_tbl[2])
+            else
+              pcall(action_tbl[1])
+            end
+            --Battle.ActionSelect(dummyIndex, CONST.BATTLE_COM.BATTLE_COM_ATTACK,math.random(10,19), techId_2);
+          end
+          NLG.UpChar(dummyIndex);
+        end)
+
+        global_time[player] = os.time();
+      end
+    end
+  end
+end
+function battle_wincallback(battleIndex)
+  local winside = Battle.GetWinSide(battleIndex);
+  local poss={}
+  for i = 0, 4 do
+    table.insert(poss,i)
+  end
+  for i = 10, 14 do
+    table.insert(poss,i)
+  end
+  table.forEach(poss, function(e)
+    if (e==0) then
+      local playercdk = Char.GetTempData(dummyIndex, '自走棋手');
+      local player = NLG.FindUser(playercdk);
+      if (Char.GetData(player, CONST.对象_地图)==20315) then
+        Char.AddGold(player, 20000);
+        NLG.SystemMessage(player, "[系統]聯盟冠軍獎勵20000G金幣。");
+        Char.Warp(player,0,20314,23,32);
+      end
+    end
+    NLG.DropPlayer(dummyIndex);
+    Char.DelDummy(dummyIndex);
+  end)
+  Battle.UnsetPVPWinEvent(battleIndex);
+end
+-------------------------------------------------------------
 -- 檢查是否有AI模式
 function checkAISummon(player)
 	for itemSlot=card_Lslot,card_Rslot do
