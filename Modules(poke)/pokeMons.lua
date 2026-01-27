@@ -700,8 +700,8 @@ function Module:onLoad()
     if seqno == 1 then
       local switch = checkAISummon(player);
       if (switch==false) then
-        Char.AddGold(player, 20000);
-        NLG.SystemMessage(player, "[系統]聯盟冠軍獎勵20000G金幣。");
+        Char.AddGold(player, 6000);
+        NLG.SystemMessage(player, "[系統]參加聯盟獎勵6000G金幣。");
         Char.Warp(player,0,20314,23,32);
         return;
       end
@@ -2065,12 +2065,21 @@ function battle_wincallback(battleIndex)
     table.insert(poss,i)
   end
   table.forEach(poss, function(e)
+    local dummyIndex = Battle.GetPlayer(battleIndex, e);
+    -- 如果不是人，退出
+    if dummyIndex < 0 then
+      return
+    end
+    -- 如果不是假人，退出
+    if not Char.IsDummy(dummyIndex) then
+      return
+    end
     if (e==0) then
       local playercdk = Char.GetTempData(dummyIndex, '自走棋手');
       local player = NLG.FindUser(playercdk);
       if (Char.GetData(player, CONST.对象_地图)==20315) then
         Char.AddGold(player, 20000);
-        NLG.SystemMessage(player, "[系統]聯盟冠軍獎勵20000G金幣。");
+        NLG.SystemMessage(player, "[系統]到達聯盟冠軍獎勵20000G金幣。");
         Char.Warp(player,0,20314,23,32);
       end
     end
