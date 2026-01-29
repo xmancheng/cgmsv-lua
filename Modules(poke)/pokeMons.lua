@@ -40,12 +40,13 @@ local chess_tbl = {}
 local card_Lslot = 8;
 local card_Rslot = 27;
 local AIinfo = {
-  "敵方首領目標",
-  "敵方血低目標",
-  "敵方血高目標",
-  "敵方隨機目標",
-  "敵方魔低目標",
-  "敵方魔高目標",
+  "敵方等級高目標",
+  "敵方血最少目標",
+  "敵方魔最多目標",
+  "敵方隨機的目標",
+  "敵方血佔高目標",
+  "敵方魔佔低目標",
+
 }
 
 local Assortment = {
@@ -1623,8 +1624,12 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 				end
 				::next::
 				--開場玩家隊長召喚
-				Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_COPY, 0, 26306);		--羊頭狗肉
-				--Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_DETECTENEMY, 10, 10701);		--偵查
+				if (Char.GetData(player,CONST.对象_组队开关) == 1) then
+					Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_COPY, 0, 26306);		--羊頭狗肉
+					--Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_DETECTENEMY, 10, 10701);		--偵查
+				else
+					Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1, -1);
+				end
 			elseif (actionNum==2) then
 				--開場玩家隊長防禦
 				Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_GUARD, -1, -1);
@@ -2126,7 +2131,7 @@ function smartTargetSelection(battleIndex,AIType,techId)
       if tagHp == nil then
         tagHp = hpRatio;
         tSlot = slot;
-      elseif hpRatio < tagHp then	--己方血量占比最低
+      elseif hpRatio < tagHp then	--己方血量佔比最低
         tagHp = hpRatio;
         tSlot = slot;
       end
@@ -2140,46 +2145,77 @@ function smartTargetSelection(battleIndex,AIType,techId)
   end
 
   ---依設置敵方的技能
-  -- NOTE 敵方隨機目標
-  if (AIType==1) then	-- NOTE 敵方首領目標
-    local tSlot = 10;
+  if (AIType==1) then	-- NOTE 敵方首領(等級最高)目標
+    --local tSlot = 10;
+    local tagLv = nil;
+    for slot = 10,19 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot);
+      if (charIndex >= 0) then
+        local level = Char.GetData(charIndex, CONST.对象_等级);
+        if tagLv == nil then
+          tagLv = level
+          tSlot = slot
+        elseif level > tagLv then
+          tagLv = level;
+          tSlot = slot
+        end
+      end
+    end
     return tSlot;
-  elseif (AIType==2) then	-- NOTE 敵方血低
+  elseif (AIType==2) then	-- NOTE 敵方剩餘血少
     local tagHp = nil;
     for slot = 10,19 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
       if (charIndex >= 0) then
-        local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
+        --local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
+        local hp = Char.GetData(charIndex, CONST.对象_血);
         if tagHp == nil then
-          tagHp = hpRatio;
+          tagHp = hp;
           tSlot = slot;
-        elseif hpRatio < tagHp then	--敵方血量占比最低
-          tagHp = hpRatio;
+        elseif hp < tagHp then	--敵方血量最少
+          tagHp = hp;
           tSlot = slot;
         end
       end
     end
     return tSlot;
-  elseif (AIType==3) then	-- NOTE 敵方血高
-    local tagHp = nil;
+  elseif (AIType==3) then	-- NOTE 敵方剩餘魔多
+    local tagFp = nil;
     for slot = 10,19 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
       if (charIndex >= 0) then
-        local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
-        if tagHp == nil then
-          tagHp = hpRatio;
+        --local fpRatio = Char.GetData(charIndex, CONST.对象_魔) / Char.GetData(charIndex, CONST.对象_最大魔);
+        local fp = Char.GetData(charIndex, CONST.对象_魔);
+        if tagFp == nil then
+          tagFp = fp;
           tSlot = slot;
-        elseif hpRatio > tagHp then	--敵方血量占比最高
-          tagHp = hpRatio;
+        elseif fp > tagFp then	--敵方魔力量最多
+          tagFp = fp;
           tSlot = slot;
         end
       end
     end
     return tSlot;
-  elseif (AIType==4) then
+  elseif (AIType==4) then	-- NOTE 敵方隨機目標
     local tSlot = math.random(10,19);
     return tSlot;
-  elseif (AIType==5) then	-- NOTE 敵方魔低
+  elseif (AIType==5) then	-- NOTE 敵方血佔比高
+    local tagHp = nil;
+    for slot = 10,19 do
+      local charIndex = Battle.GetPlayer(battleIndex, slot);
+      if (charIndex >= 0) then
+        local hpRatio = Char.GetData(charIndex, CONST.对象_血) / Char.GetData(charIndex, CONST.对象_最大血);
+        if tagHp == nil then
+          tagHp = hpRatio;
+          tSlot = slot;
+        elseif hpRatio > tagHp then	--敵方血量佔比最高
+          tagHp = hpRatio;
+          tSlot = slot;
+        end
+      end
+    end
+    return tSlot;
+  elseif (AIType==6) then	-- NOTE 敵方魔佔比低
     local tagFp = nil;
     for slot = 0,9 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
@@ -2188,23 +2224,7 @@ function smartTargetSelection(battleIndex,AIType,techId)
         if tagFp == nil then
           tagFp = fpRatio;
           tSlot = slot;
-        elseif fpRatio < tagFp then	--敵方魔力量占比最低
-          tagFp = fpRatio;
-          tSlot = slot;
-        end
-      end
-    end
-    return tSlot;
-  elseif (AIType==6) then	-- NOTE 敵方魔高
-    local tagFp = nil;
-    for slot = 10,19 do
-      local charIndex = Battle.GetPlayer(battleIndex, slot);
-      if (charIndex >= 0) then
-        local fpRatio = Char.GetData(charIndex, CONST.对象_魔) / Char.GetData(charIndex, CONST.对象_最大魔);
-        if tagFp == nil then
-          tagFp = fpRatio;
-          tSlot = slot;
-        elseif fpRatio > tagFp then	--敵方魔力量占比最高
+        elseif fpRatio < tagFp then	--敵方魔力量佔比最低
           tagFp = fpRatio;
           tSlot = slot;
         end
