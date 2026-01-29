@@ -67,6 +67,7 @@ function Module:onLoad()
   self:regCallback('ItemAttachEvent', Func.bind(self.itemAttachCallback, self))
   self:regCallback('ItemDetachEvent', Func.bind(self.itemDetachCallback, self))
 
+  self:regCallback('ItemString', Func.bind(self.phySlotInfo, self),"LUA_useTraiMac");
   self.phySloterNPC = self:NPC_createNormal('裝備插槽管理', 14682, { x =36 , y = 31, mapType = 0, map = 777, direction = 6 });
   self:NPC_regTalkedEvent(self.phySloterNPC, function(npc, player)
     if (NLG.CanTalk(npc, player) == true) then
