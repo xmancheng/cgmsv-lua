@@ -46,7 +46,6 @@ local AIinfo = {
   "敵方隨機的目標",
   "敵方血佔高目標",
   "敵方魔佔低目標",
-
 }
 
 local Assortment = {
@@ -2217,7 +2216,7 @@ function smartTargetSelection(battleIndex,AIType,techId)
     return tSlot;
   elseif (AIType==6) then	-- NOTE 敵方魔佔比低
     local tagFp = nil;
-    for slot = 0,9 do
+    for slot = 10,19 do
       local charIndex = Battle.GetPlayer(battleIndex, slot);
       if (charIndex >= 0) then
         local fpRatio = Char.GetData(charIndex, CONST.对象_魔) / Char.GetData(charIndex, CONST.对象_最大魔);
