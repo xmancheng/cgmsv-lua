@@ -1623,7 +1623,7 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 				end
 				::next::
 				--開場玩家隊長召喚
-				if (Char.GetData(player,CONST.对象_组队开关) == 1) then
+				if (Char.GetData(charIndex,CONST.对象_组队开关) == 1) then
 					Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_COPY, 0, 26306);		--羊頭狗肉
 					--Battle.ActionSelect(charIndex, CONST.BATTLE_COM.BATTLE_COM_DETECTENEMY, 10, 10701);		--偵查
 				else
