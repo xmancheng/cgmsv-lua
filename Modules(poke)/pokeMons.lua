@@ -290,6 +290,7 @@ function Module:onLoad()
   self:regCallback('AutoBattleCommandEvent', Func.bind(self.onAutoBattleCommandEvent, self));
   --self:regCallback('LoginEvent',Func.bind(self.onLoginEvent,self));
   self:regCallback('BattleSurpriseEvent',Func.bind(self.onBattleSurpriseEvent,self));
+  self:regCallback('BattleCalcDexEvent', Func.bind(self.OnBattleCalcDexEvent, self));
   self:regCallback('BeforeBattleTurnEvent', Func.bind(self.onBeforeBattleTurnCallback, self));
   self:regCallback('AfterBattleTurnEvent', Func.bind(self.onAfterBattleTurnCallback, self));
   self:regCallback('BattleOverEvent', Func.bind(self.onBattleOverCallback, self));
@@ -1573,6 +1574,7 @@ function DoAction(charIndex, actionNum, autoBattleIndex)
 							Char.SetData(MonsIndex,CONST.对象_名字, MonsName);
 							Char.SetData(MonsIndex,CONST.对象_等级, level);
 							local awakeLv = Item.GetData(itemIndex,CONST.道具_最大耐久);	--覺醒等級
+							Char.SetTempData(MonsIndex, '觉醒等级', awakeLv);
 							local plus = GetAwakenPower(awakeLv)*100;
 							--怪物類型
 							local cg1,cg2,cg3,cg4,cg5 = setAssortment(level,monsType);
@@ -1669,6 +1671,25 @@ function Module:onBattleSurpriseEvent(battleIndex, result)
 		end
 	end
 	return result;
+end
+--行動序事件
+function Module:OnBattleCalcDexEvent(battleIndex, charIndex, action, flg, dex)
+	--self:logDebug('OnBattleCalcDexEvent', battleIndex, charIndex, action, flg, dex)
+	if Char.IsDummy(charIndex) then
+		local awakeLv = Char.GetTempData(charIndex,'觉醒等级')or 0;
+		if (action==0 and awakeLv>=1) then	--第1動作
+			local awakeAOV = math.floor( 100 * awakeLv / (awakeLv + 1000) );
+			local newdex = dex + awakeAOV;
+			--print(dex,newdex)
+			return newdex;
+		elseif (action==1 and awakeLv>=1) then	--第2動作
+			local awakeAOV = math.floor( 500 * awakeLv / (awakeLv + 460) );
+			local newdex = dex + awakeAOV;
+			--print(dex,newdex)
+			return newdex;
+		end
+	end
+	return dex;
 end
 --回合前事件
 function Module:onBeforeBattleTurnCallback(battleIndex)
