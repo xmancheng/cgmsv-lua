@@ -1,184 +1,184 @@
----Ä£¿éÀà
+---æ¨¡å—ç±»
 local Module = ModuleBase:createModule(questBoard)
 
--- Î¯ÓšÅäÖÃ±í¸ñ
-local quest_name = {};        -- Î¯Óš˜Ëî}
-local quest_description = {}; -- ÈÎ„Õº†Êö
-local quest_requirement = {}; -- ĞèÇóµÀ¾ß {µÀ¾ß¾Ì–, ”µÁ¿}
-local quest_reward = {};      -- ª„„îµÀ¾ß {µÀ¾ß¾Ì–, ”µÁ¿}
-local quest_level_limit = {}; -- ĞèÇóÓÂÕßµÈ¼‰
+-- å§”è¨—é…ç½®è¡¨æ ¼
+local quest_name = {};        -- å§”è¨—æ¨™é¡Œ
+local quest_description = {}; -- ä»»å‹™ç°¡è¿°
+local quest_requirement = {}; -- éœ€æ±‚é“å…· {é“å…·ç·¨è™Ÿ, æ•¸é‡}
+local quest_reward = {};      -- çå‹µé“å…· {é“å…·ç·¨è™Ÿ, æ•¸é‡}
+local quest_level_limit = {}; -- éœ€æ±‚å‹‡è€…ç­‰ç´š
 
--- Î¯ÓšÙYÁÏ¹ Àı (¿É×ÔĞĞÔö„h)
-quest_name[1] = "¡¶Çå³ı¸ç²¼ÁÖ¡·";
-quest_description[1] = "×î½ü·¨Ìm³Ç¸½½ü¸ç²¼ÁÖ™MĞĞ£¬¹«•şÕıÔÚáç¼¯Ã°ëUÕß‚ƒÓ‘·¥´óÁ¿¸ç²¼ÁÖ£¬ÊÕ¼¯¾Gî^¿øí×CÃ÷ÄãµÄØ•«I¡£";
-quest_requirement[1] = {18195, 5}; -- ĞèÇóµÀ¾ßID, ”µÁ¿
-quest_reward[1] = {75041, 1};      -- ª„„îµÀ¾ßID (Î¯Óš î), ”µÁ¿
-quest_level_limit[1] = 1;          -- ÓÂÕßµÈ¼‰ÏŞÖÆ
+-- å§”è¨—è³‡æ–™ç¯„ä¾‹ (å¯è‡ªè¡Œå¢åˆª)
+quest_name[1] = "ã€Šæ¸…é™¤å“¥å¸ƒæ—ã€‹";
+quest_description[1] = "æœ€è¿‘æ³•è˜­åŸé™„è¿‘å“¥å¸ƒæ—æ©«è¡Œï¼Œå…¬æœƒæ­£åœ¨å¾µé›†å†’éšªè€…å€‘è¨ä¼å¤§é‡å“¥å¸ƒæ—ï¼Œæ”¶é›†ç¶ é ­ç›”ä¾†è­‰æ˜ä½ çš„è²¢ç»ã€‚";
+quest_requirement[1] = {18195, 5}; -- éœ€æ±‚é“å…·ID, æ•¸é‡
+quest_reward[1] = {75041, 1};      -- çå‹µé“å…·ID (å§”è¨—ç‹€), æ•¸é‡
+quest_level_limit[1] = 1;          -- å‹‡è€…ç­‰ç´šé™åˆ¶
 
-quest_name[2] = "¡¶Ó‘·¥¸ç²¼ÁÖ¡·";
-quest_description[2] = "Ê¿±ø»ØˆóÔÚ·¨Ìm³ÇÄÏéTÍâ°l¬F¸ç²¼ÁÖÖ®¼Ò£¬ÕˆÃ°ëUÕßÖ§Ô®¼ÓÈë¸ç²¼ÁÖÓ‘·¥ê éÁË˜s×u¶ø‘ğ¡£";
+quest_name[2] = "ã€Šè¨ä¼å“¥å¸ƒæ—ã€‹";
+quest_description[2] = "å£«å…µå›å ±åœ¨æ³•è˜­åŸå—é–€å¤–ç™¼ç¾å“¥å¸ƒæ—ä¹‹å®¶ï¼Œè«‹å†’éšªè€…æ”¯æ´åŠ å…¥å“¥å¸ƒæ—è¨ä¼éšŠç‚ºäº†æ¦®è­½è€Œæˆ°ã€‚";
 quest_requirement[2] = {18243, 1};
 quest_reward[2] = {75042, 1};
 quest_level_limit[2] = 10;
 
-quest_name[3] = "¡¶Íµ³Ôô~µÄØˆÔô¡·";
-quest_description[3] = "ÄÃÅËÊ³Æ·µêÙuô~µÄÅÁÁÖÕıÔÚÀ§”_ô~±»Íµ×ß£¬Ò¹Íí•régµ½Ã°ëUÕßÂÃğ^éT¿Ú¸½½üÌ½²é¿ÉÒÉÈËÊÂÎï¡£";
+quest_name[3] = "ã€Šå·åƒé­šçš„è²“è´¼ã€‹";
+quest_description[3] = "æ‹¿æ½˜é£Ÿå“åº—è³£é­šçš„å¸•æ—æ­£åœ¨å›°æ“¾é­šè¢«å·èµ°ï¼Œå¤œæ™šæ™‚é–“åˆ°å†’éšªè€…æ—…é¤¨é–€å£é™„è¿‘æ¢æŸ¥å¯ç–‘äººäº‹ç‰©ã€‚";
 quest_requirement[3] = {18185, 1};
 quest_reward[3] = {75041, 1};
 quest_level_limit[3] = 1;
 
-quest_name[4] = "¡¶ÊÕ¼¯Ä§·¨Ë²İ¡·";
-quest_description[4] = "å€½ğĞgŸ¹«•şÕı¼±ĞèÒ»Åú¸ßÆ·Ù|Ë²İ£¬ß@Œ¦ÌáÉıÃ°ëUÕßµÄÑa½oÓĞºÜ´óÍÖú¡£";
+quest_name[4] = "ã€Šæ”¶é›†é­”æ³•è—¥è‰ã€‹";
+quest_description[4] = "éŠé‡‘è¡“å¸«å…¬æœƒæ­£æ€¥éœ€ä¸€æ‰¹é«˜å“è³ªè—¥è‰ï¼Œé€™å°æå‡å†’éšªè€…çš„è£œçµ¦æœ‰å¾ˆå¤§å¹«åŠ©ã€‚";
 quest_requirement[4] = {12800, 80};
 quest_reward[4] = {75041, 1};
 quest_level_limit[4] = 2;
 
-quest_name[5] = "¡¶³Éé¾¿˜ONŸ¡·";
-quest_description[5] = "ÍõŒmÊ³ÌÃÕıÔÚŒ¤ÕÒÄÜÍÃ¦µÄNŸÖúÊÖ£¬Œ¦NË‡ÓĞ×ÔĞÅµÄÃ°ëUÕß‚ƒ¿ÉÒÔÈ¥…¢¼ÓÌô‘ğ¡£";
+quest_name[5] = "ã€Šæˆç‚ºç©¶æ¥µå»šå¸«ã€‹";
+quest_description[5] = "ç‹å®®é£Ÿå ‚æ­£åœ¨å°‹æ‰¾èƒ½å¹«å¿™çš„å»šå¸«åŠ©æ‰‹ï¼Œå°å»šè—æœ‰è‡ªä¿¡çš„å†’éšªè€…å€‘å¯ä»¥å»åƒåŠ æŒ‘æˆ°ã€‚";
 quest_requirement[5] = {18629, 1};
 quest_reward[5] = {75041, 1};
 quest_level_limit[5] = 5;
 
-quest_name[6] = "¡¶ÛØˆµÄÅ®º¢¡·";
-quest_description[6] = "·¨Ìm³Ç¹«Ô¢¶ş˜ÇÛØˆµÄÉ¯¼ÑçùÏëğBØˆµ«¹«Ô¢ÊÇ½ûÖ¹ğBŒ™ÎïµÄ¡£Èç¹ûÄã§Öø¿ÉÛ»¢ÈËËı•şºÜ¸ßÅd¡£";
+quest_name[6] = "ã€Šæ„›è²“çš„å¥³å­©ã€‹";
+quest_description[6] = "æ³•è˜­åŸå…¬å¯“äºŒæ¨“æ„›è²“çš„èä½³ç¦æƒ³é¤Šè²“ä½†å…¬å¯“æ˜¯ç¦æ­¢é¤Šå¯µç‰©çš„ã€‚å¦‚æœä½ å¸¶è‘—å¯æ„›è™äººå¥¹æœƒå¾ˆé«˜èˆˆã€‚";
 quest_requirement[6] = {18306, 1};
-quest_reward[6] = {75041, 1};
+quest_reward[6] = {75041, 2};
 quest_level_limit[6] = 5;
 
-quest_name[7] = "¡¶¸‚¼¼ˆöµÄÃÔŒm¡·";
-quest_description[7] = "·¨Ìm³ÇµÄ¸‚¼¼ˆöÔÚ°×Ìì•r¶¨ÆÚÅeŞkĞn´ÌÂ·ÅÜ»î„Ó£¬ÓÂÕß‚ƒÕˆÒÔµÚÒ»ÃûéÄ¿˜Ë°É¡£";
+quest_name[7] = "ã€Šç«¶æŠ€å ´çš„è¿·å®®ã€‹";
+quest_description[7] = "æ³•è˜­åŸçš„ç«¶æŠ€å ´åœ¨ç™½å¤©æ™‚å®šæœŸèˆ‰è¾¦è¡åˆºè·¯è·‘æ´»å‹•ï¼Œå‹‡è€…å€‘è«‹ä»¥ç¬¬ä¸€åç‚ºç›®æ¨™å§ã€‚";
 quest_requirement[7] = {18396, 1};
-quest_reward[7] = {75041, 1};
+quest_reward[7] = {75041, 2};
 quest_level_limit[7] = 7;
 
-quest_name[8] = "¡¶Ó‘·¥¶´¿ßÅ£¹í¡·";
-quest_description[8] = "ÒÁ –´åÂÃĞĞÉÌÈËÌ©ÀÕµÄÅ®ƒº±»Ãû½ĞÅ£¹íµÄ¹ÖÎï½o×¥×ßÁË£¬ÕıÔÚÕÒÓÂÊ¿ÍÖúÈ¥¾ÈËûÅ®ƒºÆÖ²¿¡£";
+quest_name[8] = "ã€Šè¨ä¼æ´çªŸç‰›é¬¼ã€‹";
+quest_description[8] = "ä¼Šçˆ¾æ‘æ—…è¡Œå•†äººæ³°å‹’çš„å¥³å…’è¢«åå«ç‰›é¬¼çš„æ€ªç‰©çµ¦æŠ“èµ°äº†ï¼Œæ­£åœ¨æ‰¾å‹‡å£«å¹«åŠ©å»æ•‘ä»–å¥³å…’æµ¦éƒ¨ã€‚";
 quest_requirement[8] = {18230, 1};
-quest_reward[8] = {75041, 1};
+quest_reward[8] = {75041, 2};
 quest_level_limit[8] = 8;
 
-quest_name[9] = "¡¶Œ¤ÕÒÊ§Û™µÄÀ×Æ¡·";
-quest_description[9] = "ÒÁ –´åátÔºµÄ«CÈË¿ÂË_ôÃÕıÔÚËÄÌ´òÌ½ƒº×ÓµÄÏûÏ¢£¬Ëûƒº×ÓÈ¥†ÁôÌØ´å´ò«CÒÑÔS¾ÃÎ´šw¡£";
+quest_name[9] = "ã€Šå°‹æ‰¾å¤±è¹¤çš„é›·èŒ²ã€‹";
+quest_description[9] = "ä¼Šçˆ¾æ‘é†«é™¢çš„çµäººæŸ¯è–©è£˜æ­£åœ¨å››è™•æ‰“æ¢å…’å­çš„æ¶ˆæ¯ï¼Œä»–å…’å­å»äºç•™ç‰¹æ‘æ‰“çµå·²è¨±ä¹…æœªæ­¸ã€‚";
 quest_requirement[9] = {18302, 1};
-quest_reward[9] = {75041, 1};
+quest_reward[9] = {75041, 2};
 quest_level_limit[9] = 9;
 
-quest_name[10] = "¡¶®…°²ÔıµÄËÍ¶Y¡·";
-quest_description[10] = "Á_ÉºÄÈµÈ´ıÖøÇ°Íùì`ÌÃÓ‘·¥µÄÊ¿±ø®…°²Ôıšwí£¬Œ¢ËıµÄÅÎÍû‚÷ß_½o®…°²Ôı¡£";
+quest_name[10] = "ã€Šç•¢å®‰æœ­çš„é€ç¦®ã€‹";
+quest_description[10] = "ç¾…çŠå¨œç­‰å¾…è‘—å‰å¾€éˆå ‚è¨ä¼çš„å£«å…µç•¢å®‰æœ­æ­¸ä¾†ï¼Œå°‡å¥¹çš„ç›¼æœ›å‚³é”çµ¦ç•¢å®‰æœ­ã€‚";
 quest_requirement[10] = {18236, 1};
-quest_reward[10] = {75041, 1};
+quest_reward[10] = {75041, 2};
 quest_level_limit[10] = 10;
 
-quest_name[11] = "¡¶ÂÃğ^µÄÕ{²é¡·";
-quest_description[11] = "·¨Ìm³Ç„‚½ÓÊÖµÄÂÃğ^Ö÷ÈË°l³öÎ¯Óš£¬Ï£ÍûÕ{²éÇå³şéÊ²üN•ş‚÷³öô[¹íµÄ‚÷Â„¡£";
+quest_name[11] = "ã€Šæ—…é¤¨çš„èª¿æŸ¥ã€‹";
+quest_description[11] = "æ³•è˜­åŸå‰›æ¥æ‰‹çš„æ—…é¤¨ä¸»äººç™¼å‡ºå§”è¨—ï¼Œå¸Œæœ›èª¿æŸ¥æ¸…æ¥šç‚ºä»€éº¼æœƒå‚³å‡ºé¬§é¬¼çš„å‚³èã€‚";
 quest_requirement[11] = {18326, 1};
-quest_reward[11] = {75041, 1};
+quest_reward[11] = {75041, 3};
 quest_level_limit[11] = 10;
 
-quest_name[12] = "¡¶ºÀÈA¿Í´¬µÄÊÂ¼ş¡·";
-quest_description[12] = "ºÀÈAÎİÖĞÛÕfÃ÷µÄh¿Ë‚ÉÌ½ÒÔÕTÈËµÄª„Ùpáç¼¯ÓĞÄÜÁ¦µÄÖúÊÖÒ»Í¬Ç°ÍùÕĞ´ıµÄºÀÈA¿Í´¬¡£";
+quest_name[12] = "ã€Šè±ªè¯å®¢èˆ¹çš„äº‹ä»¶ã€‹";
+quest_description[12] = "è±ªè¯å±‹ä¸­æ„›èªªæ˜çš„æ¼¢å…‹åµæ¢ä»¥èª˜äººçš„çè³å¾µé›†æœ‰èƒ½åŠ›çš„åŠ©æ‰‹ä¸€åŒå‰å¾€æ‹›å¾…çš„è±ªè¯å®¢èˆ¹ã€‚";
 quest_requirement[12] = {18899, 1};
 quest_reward[12] = {75044, 1};
 quest_level_limit[12] = 10;
 
-quest_name[13] = "¡¶Ææ¹ÖµÄ¶´¿ß¡·";
-quest_description[13] = "†ÁôÌØ´å²»”à‚÷³ö´åÃñÏûÊ§£¬È¥´åÇf¸½½üÕ{²é¿´¿´£¬ÈçÓĞ“ìµ½½z½í½»½o†ÁôÌØ´åµÄÄÏÏ£¡£";
+quest_name[13] = "ã€Šå¥‡æ€ªçš„æ´çªŸã€‹";
+quest_description[13] = "äºç•™ç‰¹æ‘ä¸æ–·å‚³å‡ºæ‘æ°‘æ¶ˆå¤±ï¼Œå»æ‘èŠé™„è¿‘èª¿æŸ¥çœ‹çœ‹ï¼Œå¦‚æœ‰æ’¿åˆ°çµ²å·¾äº¤çµ¦äºç•™ç‰¹æ‘çš„å—å¸Œã€‚";
 quest_requirement[13] = {18305, 1};
-quest_reward[13] = {75041, 1};
+quest_reward[13] = {75041, 2};
 quest_level_limit[13] = 11;
 
-quest_name[14] = "¡¶Á÷ĞÇÉ½ÇğÑ²¶Y¡·";
-quest_description[14] = "Ë÷Ææ†uµÄÁ÷ĞÇÉ½ÇğÊÇÇé‚H±ØÈ¥Â}µØ£¬Í¾ÖĞ“ìµ½µÄëEÊ¯ÓĞ™C•şÊÇÄÜÔSîŠ³É¹¦µÄÁ÷ĞÇ¡£";
+quest_name[14] = "ã€Šæµæ˜Ÿå±±ä¸˜å·¡ç¦®ã€‹";
+quest_description[14] = "ç´¢å¥‡äºå³¶çš„æµæ˜Ÿå±±ä¸˜æ˜¯æƒ…ä¾¶å¿…å»è–åœ°ï¼Œé€”ä¸­æ’¿åˆ°çš„éš•çŸ³æœ‰æ©Ÿæœƒæ˜¯èƒ½è¨±é¡˜æˆåŠŸçš„æµæ˜Ÿã€‚";
 quest_requirement[14] = {18375, 1};
-quest_reward[14] = {75041, 1};
+quest_reward[14] = {75042, 2};
 quest_level_limit[14] = 12;
 
-quest_name[15] = "¡¶§ÖøĞÜ”rÂ·µÄÄĞÈË¡·";
-quest_description[15] = "‚÷Â„¹ş°Íô”–|ß…¶´Ñ¨ÓĞÖøÒ»Î»š¢ĞÜÕß£¬”rÏÂËùÓĞ½›ß^µÄÈË‚ƒ£¬Î¯ÓšÈËÏ£ÍûÅÉÈËÈ¥Õ{²é¡£";
+quest_name[15] = "ã€Šå¸¶è‘—ç†Šæ””è·¯çš„ç”·äººã€‹";
+quest_description[15] = "å‚³èå“ˆå·´é­¯æ±é‚Šæ´ç©´æœ‰è‘—ä¸€ä½æ®ºç†Šè€…ï¼Œæ””ä¸‹æ‰€æœ‰ç¶“éçš„äººå€‘ï¼Œå§”è¨—äººå¸Œæœ›æ´¾äººå»èª¿æŸ¥ã€‚";
 quest_requirement[15] = {18403, 1};
 quest_reward[15] = {75041, 1};
 quest_level_limit[15] = 13;
 
-quest_name[16] = "¡¶‘ğÊ¿°ÍÆäô”µÄÀ§”_¡·";
-quest_description[16] = "Ë÷Ææ†º£µ×¶´¿ßÒ²ÓĞÖøÒ»Î»ÄĞÈË•ş”rÏÂ½›ß^µÄÈË‚ƒ£¬ÏûÏ¢ÕfµÀËûËÆºõÕıÕÒŒ¤ÖøµÜÃÃ¡£";
+quest_name[16] = "ã€Šæˆ°å£«å·´å…¶é­¯çš„å›°æ“¾ã€‹";
+quest_description[16] = "ç´¢å¥‡äºæµ·åº•æ´çªŸä¹Ÿæœ‰è‘—ä¸€ä½ç”·äººæœƒæ””ä¸‹ç¶“éçš„äººå€‘ï¼Œæ¶ˆæ¯èªªé“ä»–ä¼¼ä¹æ­£æ‰¾å°‹è‘—å¼Ÿå¦¹ã€‚";
 quest_requirement[16] = {18404, 1};
-quest_reward[16] = {75042, 1};
+quest_reward[16] = {75041, 3};
 quest_level_limit[16] = 13;
 
-quest_name[17] = "¡¶ÆæÀû´åÕT¹ÕÊÂ¼ş¡·";
-quest_description[17] = "ÆæÀû´åÀÏ·ò‹DÏ£Íû´åéLÕ{²é½üÆÚ°lÉúµÄ×oÊ¿ÕT¹ÕÊÂ¼şÕÒµ½Å®ƒºÃ×ƒÈô”ÅÁ¡£";
+quest_name[17] = "ã€Šå¥‡åˆ©æ‘èª˜æ‹äº‹ä»¶ã€‹";
+quest_description[17] = "å¥‡åˆ©æ‘è€å¤«å©¦å¸Œæœ›æ‘é•·èª¿æŸ¥è¿‘æœŸç™¼ç”Ÿçš„è­·å£«èª˜æ‹äº‹ä»¶æ‰¾åˆ°å¥³å…’ç±³å…§é­¯å¸•ã€‚";
 quest_requirement[17] = {18350, 1};
-quest_reward[17] = {75042, 1};
+quest_reward[17] = {75041, 3};
 quest_level_limit[17] = 14;
 
-quest_name[18] = "¡¶¿Ö²ÀÂÃˆFµÄÕ{²é¡·";
-quest_description[18] = "Ë÷Ææ†uñTÅ«µÄ¼ÒÎ¯Óš·¨Ìm³ÇµÄÃ°ëUÕß£¬ÍÖú´òÌ½‚÷Â„ÖĞ¿Ö²ÀÂÃˆFµÄÏûÏ¢¡£";
+quest_name[18] = "ã€Šææ€–æ—…åœ˜çš„èª¿æŸ¥ã€‹";
+quest_description[18] = "ç´¢å¥‡äºå³¶é¦®å¥´çš„å®¶å§”è¨—æ³•è˜­åŸçš„å†’éšªè€…ï¼Œå¹«åŠ©æ‰“æ¢å‚³èä¸­ææ€–æ—…åœ˜çš„æ¶ˆæ¯ã€‚";
 quest_requirement[18] = {18421, 1};
 quest_reward[18] = {75042, 1};
 quest_level_limit[18] = 15;
 
-quest_name[19] = "¡¶É°Ä®Ö®ìôµÄ¿¼¹Å¡·";
-quest_description[19] = "Ë÷Ææ†É°Ä®µØµ×ÓĞégÉ³Ä®Ö®R£¬ËÆºõÂñ²ØÖø¹Å´úÍõ×åµÄÏ¡ÊÀÕäŒš¡£";
+quest_name[19] = "ã€Šç ‚æ¼ ä¹‹ç¥ çš„è€ƒå¤ã€‹";
+quest_description[19] = "ç´¢å¥‡äºç ‚æ¼ åœ°åº•æœ‰é–“æ²™æ¼ ä¹‹å»Ÿï¼Œä¼¼ä¹åŸ‹è—è‘—å¤ä»£ç‹æ—çš„ç¨€ä¸–çå¯¶ã€‚";
 quest_requirement[19] = {18464, 1};
 quest_reward[19] = {75043, 1};
 quest_level_limit[19] = 16;
 
-quest_name[20] = "¡¶ÖäĞgŸµÄÃØÃÜ×¡Ì¡·";
-quest_description[20] = "É¯ÉÄÈº£µ×¶´¿ßÄ³ÌËÆºõÓĞÖø½M¿—Åc·¨Ìm³ÇµÄºÀÕ¬²»Œ¤³£ÓĞĞ©êPÂ“£¬ÕˆÇ°È¥Õ{²éÕæÏà¡£";
+quest_name[20] = "ã€Šå’’è¡“å¸«çš„ç§˜å¯†ä½è™•ã€‹";
+quest_description[20] = "èè“®å¨œæµ·åº•æ´çªŸæŸè™•ä¼¼ä¹æœ‰ä¸€å€‹çµ„ç¹”ï¼Œå®ƒèˆ‡æ³•è˜­åŸè±ªå®…çš„ä¸å°‹å¸¸æœ‰äº›é—œè¯ï¼Œè«‹å‰å»èª¿æŸ¥çœŸç›¸ã€‚";
 quest_requirement[20] = {18378, 1};
 quest_reward[20] = {75043, 1};
 quest_level_limit[20] = 17;
 
-quest_name[21] = "¡¶òáòæ‘ğÊ¿ˆFÓ‘·¥¡·";
-quest_description[21] = "Àï±¤ÈËÊÂ²¿µÄ¿¨Ë¹°Í –ÊÕµ½í×Ô°¢°ÍÄáË¹´åµÄ¾o¼±‚÷Ó£¬ĞèÅÉÈËÇ°Íù´åÍâ–|ß…òáòæÖ®³²Æ½¶¨·Ëy¡£";
+quest_name[21] = "ã€Šèœ¥èœ´æˆ°å£«åœ˜è¨ä¼ã€‹";
+quest_description[21] = "é‡Œå ¡äººäº‹éƒ¨çš„å¡æ–¯å·´çˆ¾æ”¶åˆ°ä¾†è‡ªé˜¿å·´å°¼æ–¯æ‘çš„ç·Šæ€¥å‚³è¨Šï¼Œéœ€æ´¾äººå‰å¾€æ‘å¤–æ±é‚Šèœ¥èœ´ä¹‹å·¢å¹³å®šåŒªäº‚ã€‚";
 quest_requirement[21] = {18577, 1};
 quest_reward[21] = {75043, 1};
 quest_level_limit[21] = 17;
 
-quest_name[22] = "¡¶°¬ –°ÍÄá†ÌØÊ¹¡·";
-quest_description[22] = "ÌØÊ¹ÅcÎèÕß¿ÉÁÕÔâÓö±©ïLÓê£¬ïhÁ÷µ½ŸoÈËµÄë[²ØÖ®¼Ò£¬Óöµ½Ò»ÃûÎ´ÖªµÄÉÙÄêµÄÒ»ßB´®ÊÂ¼ş¡£";
+quest_name[22] = "ã€Šè‰¾çˆ¾å·´å°¼äºç‰¹ä½¿ã€‹";
+quest_description[22] = "ç‰¹ä½¿èˆ‡èˆè€…å¯ç³é­é‡æš´é¢¨é›¨ï¼Œé£„æµåˆ°ç„¡äººçš„éš±è—ä¹‹å®¶ï¼Œé‡åˆ°ä¸€åæœªçŸ¥å°‘å¹´çš„ä¸€é€£ä¸²äº‹ä»¶ã€‚";
 quest_requirement[22] = {18806, 1};
-quest_reward[22] = {75043, 1};
+quest_reward[22] = {75043, 2};
 quest_level_limit[22] = 17;
 
-quest_name[23] = "¡¶Ñ©É½Ö®í”µÄÄ§Îï¡·";
-quest_description[23] = "É¯ÉÄÈ·eÑ©µÄÉ½Â·ÓĞÖøŠ´óµÄÄ§Îï—«Ï¢£¬‚÷Â„ËüµÄÑÛœIÓĞÖøòŒÄ§±ÜĞ°Ğ§¹û£¬Î¯ÓšÄÎ´ÖĞ”à¡£";
-quest_requirement[23] = {18806, 1};
+quest_name[23] = "ã€Šé›ªå±±ä¹‹é ‚çš„é­”ç‰©ã€‹";
+quest_description[23] = "èè“®å¨œç©é›ªçš„å±±è·¯æœ‰è‘—å¼·å¤§çš„é­”ç‰©æ£²æ¯ï¼Œå‚³èå®ƒçš„çœ¼æ·šæœ‰è‘—é©…é­”é¿é‚ªæ•ˆæœï¼Œå§”è¨—å¾æœªä¸­æ–·ã€‚";
+quest_requirement[23] = {17798, 1};
 quest_reward[23] = {75044, 1};
 quest_level_limit[23] = 18;
 
-quest_name[24] = "¡¶ßB½Ó•r¿ÕÖ®Îï¡·";
-quest_description[24] = "ÄÜÇ°Íù²»Í¬•r¿ÕµÄÉñµzÖ®Îï£¬ËÆºõÅcË÷Ææ†½ÇµÑ´óïLÑ¨Ë®Ö©ÖëÖ®ÑÛÓĞÃÜÇĞêP‚S¡£";
+quest_name[24] = "ã€Šé€£æ¥æ™‚ç©ºä¹‹ç‰©ã€‹";
+quest_description[24] = "èƒ½å‰å¾€ä¸åŒæ™‚ç©ºçš„ç¥ç¥•ä¹‹ç‰©ï¼Œä¼¼ä¹èˆ‡ç´¢å¥‡äºè§’ç¬›å¤§é¢¨ç©´æ°´èœ˜è››ä¹‹çœ¼æœ‰å¯†åˆ‡é—œä¿‚ã€‚";
 quest_requirement[24] = {18443, 1};
 quest_reward[24] = {75042, 1};
 quest_level_limit[24] = 20;
 
-quest_name[25] = "¡¶É­Á_ÈfÏóÖ®Ò»¡·";
-quest_description[25] = "Ü½ÀÙÑÅÍÁÖ®¶´¿ßµÄÕ{²éÎ¯Óš¡£\\n";
+quest_name[25] = "ã€Šæ£®ç¾…è¬è±¡ä¹‹ä¸€ã€‹";
+quest_description[25] = "èŠ™è•¾é›…åœŸä¹‹æ´çªŸçš„èª¿æŸ¥å§”è¨—ã€‚\\n";
 quest_requirement[25] = {18973, 1};
-quest_reward[25] = {75042, 1};
+quest_reward[25] = {75042, 2};
 quest_level_limit[25] = 25;
 
-quest_name[26] = "¡¶É­Á_ÈfÏóÖ®¶ş¡·";
-quest_description[26] = "Ü½ÀÙÑÅÑ×Ö®¶´¿ßµÄÕ{²éÎ¯Óš¡£\\n";
+quest_name[26] = "ã€Šæ£®ç¾…è¬è±¡ä¹‹äºŒã€‹";
+quest_description[26] = "èŠ™è•¾é›…ç‚ä¹‹æ´çªŸçš„èª¿æŸ¥å§”è¨—ã€‚\\n";
 quest_requirement[26] = {18975, 1};
 quest_reward[26] = {75043, 1};
 quest_level_limit[26] = 25;
 
-quest_name[27] = "¡¶É­Á_ÈfÏóÖ®Èı¡·";
-quest_description[27] = "Ü½ÀÙÑÅË®Ö®¶´¿ßµÄÕ{²éÎ¯Óš¡£\\n";
+quest_name[27] = "ã€Šæ£®ç¾…è¬è±¡ä¹‹ä¸‰ã€‹";
+quest_description[27] = "èŠ™è•¾é›…æ°´ä¹‹æ´çªŸçš„èª¿æŸ¥å§”è¨—ã€‚\\n";
 quest_requirement[27] = {18974, 1};
 quest_reward[27] = {75043, 1};
 quest_level_limit[27] = 25;
 
-quest_name[28] = "¡¶É­Á_ÈfÏóÖ®ËÄ¡·";
-quest_description[28] = "Ü½ÀÙÑÅïLÖ®¶´¿ßµÄÕ{²éÎ¯Óš¡£\\n";
+quest_name[28] = "ã€Šæ£®ç¾…è¬è±¡ä¹‹å››ã€‹";
+quest_description[28] = "èŠ™è•¾é›…é¢¨ä¹‹æ´çªŸçš„èª¿æŸ¥å§”è¨—ã€‚\\n";
 quest_requirement[28] = {18976, 1};
-quest_reward[28] = {75042, 1};
+quest_reward[28] = {75042, 2};
 quest_level_limit[28] = 25;
 
 -----------------------------------------------------
--- ¹¤¾ßº¯”µ£º·Öí“Ó‹Ëã
+-- å·¥å…·å‡½æ•¸ï¼šåˆ†é è¨ˆç®—
 local function calcFilteredWarp(availableCount)
     local totalPage = math.floor((availableCount - 1) / 8) + 1;
     local remainder = math.fmod(availableCount, 8);
@@ -186,20 +186,57 @@ local function calcFilteredWarp(availableCount)
     return totalPage, remainder;
 end
 
--- «@È¡Íæ¼Ò·ûºÏ¡¸ÓÂÕßµÈ¼‰¡¹µÄÎ¯ÓšÇå†Î
-function getAvailableQuests(player)
-    -- ĞŞ¸Ä£º×xÈ¡ÓÂÕßµÈ¼‰”UÕ¹”µ“ş
-    local braveLv = Char.GetExtData(player,'ÓÂÕßµÈ¼¶') or 1;
+-- ç²å–ç©å®¶ç¬¦åˆã€Œå‹‡è€…ç­‰ç´šã€çš„å§”è¨—æ¸…å–®
+--[[function getAvailableQuests(player)
+    -- ä¿®æ”¹ï¼šè®€å–å‹‡è€…ç­‰ç´šæ“´å±•æ•¸æ“š
+    local braveLv = Char.GetExtData(player,'å‹‡è€…ç­‰çº§') or 1;
     local availableList = {};
     for i = 1, #quest_name do
         if braveLv >= (quest_level_limit[i] or 0) then
-            table.insert(availableList, i); -- ƒ¦´æ·ûºÏ—l¼şµÄÔ­Ê¼Ë÷Òı
+            table.insert(availableList, i); -- å„²å­˜ç¬¦åˆæ¢ä»¶çš„åŸå§‹ç´¢å¼•
         end
     end
     return availableList;
+end]]
+
+-- ç²å–ç©å®¶ç¬¦åˆã€Œå‹‡è€…ç­‰ç´šã€ä¸”æ¯å¤©å›ºå®šéš¨æ©ŸæŠ½é¸è‡³å¤š 8 å€‹çš„å§”è¨—æ¸…å–®
+function getAvailableQuests(player)
+    -- 1. è®€å–å‹‡è€…ç­‰ç´šæ“´å±•æ•¸æ“š
+    local braveLv = Char.GetExtData(player, 'å‹‡è€…ç­‰çº§') or 1;
+    local fullList = {};
+    -- 2. ç¯©é¸å‡ºæ‰€æœ‰ç¬¦åˆç­‰ç´šé™åˆ¶çš„å§”è¨—
+    for i = 1, #quest_name do
+        if braveLv >= (quest_level_limit[i] or 0) then
+            table.insert(fullList, i);
+        end
+    end
+    -- 3. å¦‚æœç¬¦åˆæ¢ä»¶çš„å§”è¨—å¤§æ–¼ 8 å€‹ï¼Œå‰‡é€²è¡Œã€Œæ—¥æœŸå›ºå®šéš¨æ©Ÿã€
+    if #fullList > 8 then
+        -- ä½¿ç”¨ç•¶å‰æ—¥æœŸ (æ ¼å¼å¦‚ 20231027) ä½œç‚ºéš¨æ©Ÿç¨®å­
+        local dateSeed = tonumber(os.date("%Y%m%d"));
+        math.randomseed(dateSeed); 
+        -- é€²è¡Œæ´—ç‰Œ (Shuffle)
+        for i = #fullList, 2, -1 do
+            -- æ³¨æ„ï¼šè¨­å®šäº† seed å¾Œä½¿ç”¨ math.random
+            local j = math.random(1, i);
+            fullList[i], fullList[j] = fullList[j], fullList[i];
+        end
+        -- 4. æˆªå–å‰ 8 å€‹å§”è¨—
+        local limitedList = {};
+        for k = 1, 8 do
+            table.insert(limitedList, fullList[k]);
+        end
+        -- é‡è¦ï¼šéš¨æ©Ÿå®Œç•¢å¾Œï¼Œå»ºè­°å°‡ç¨®å­é‡ç½®ç‚ºç³»çµ±æ™‚é–“ï¼Œé¿å…å½±éŸ¿åˆ°éŠæˆ²å…¶ä»–é‚è¼¯
+        math.randomseed(os.time());
+        return limitedList;
+    end
+
+    -- å¦‚æœä¸è¶³ 8 å€‹ï¼Œç›´æ¥è¿”å›æ‰€æœ‰ç¬¦åˆæ¢ä»¶çš„å§”è¨—
+    return fullList;
 end
 
--- Éú³ÉÎ¯ÓšÔ”Çéí“Ãæ (×óÏÂĞèÇó£¬ÓÒÏÂª„„î)
+
+-- ç”Ÿæˆå§”è¨—è©³æƒ…é é¢ (å·¦ä¸‹éœ€æ±‚ï¼Œå³ä¸‹çå‹µ)
 function getQuestDetailMsg(realIdx)
     local reqID = quest_requirement[realIdx][1];
     local rewID = quest_reward[realIdx][1];
@@ -217,24 +254,24 @@ function getQuestDetailMsg(realIdx)
     for i=1,16-#reqName do
       space = space .. " "
     end
-    local msg = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Î¯ÓšÔ”¼šƒÈÈİ¡¿\\n"
-             .. "$1Î¯ÓšƒÈÈİ£º\\n¡¡¡¡" .. quest_description[realIdx] .. "\\n\\n"
-             .. "¡¡¡¡$4¡´ĞèÇóÎïÆ·¡µ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡´Î¯Óšª„„î¡µ\\n"
-             .. "¡¡¡¡ $5" .. string.sub(reqName,1,16) .. " x" .. quest_requirement[realIdx][2] .. "¡¡¡¡¡¡¡¡" ..space.. string.sub(rewName,1,16) .. "\\n"
-             .. "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡  $8ÊÇ·ñ½»¸¶?"
-             -- Ê¹ÓÃ @g ˜Ë»`ÀLÑuˆD™n£¬×óÏÂ(X=3)ÅcÓÒÏÂ(X=16)
+    local msg = "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å§”è¨—è©³ç´°å…§å®¹ã€‘\\n"
+             .. "$1å§”è¨—å…§å®¹ï¼š\\nã€€ã€€" .. quest_description[realIdx] .. "\\n\\n"
+             .. "ã€€ã€€$4ã€ˆéœ€æ±‚ç‰©å“ã€‰ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€ˆå§”è¨—çå‹µã€‰\\n"
+             .. "ã€€ã€€ $5" .. string.sub(reqName,1,16) .. " x" .. quest_requirement[realIdx][2] .. "ã€€ã€€ã€€" ..space.. string.sub(rewName,1,16) .. " x" .. quest_reward[realIdx][2] .. "\\n"
+             .. "ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€  $8æ˜¯å¦äº¤ä»˜?"
+             -- ä½¿ç”¨ @g æ¨™ç±¤ç¹ªè£½åœ–æª”ï¼Œå·¦ä¸‹(X=3)èˆ‡å³ä¸‹(X=16)
              .. "@g,"..reqImg..",3,8,0,0@" .."@g,243041,6,8,0,0@".."@g,243041,8,8,0,0@".."@g,243041,10,8,0,0@".."@g,243041,12,8,0,0@"
              .. "@g,"..rewImg..",16,8,0,0@"
              --.. "@g,400437,10,5,0,0@"
     return msg;
 end
 
---- ¼ÓÔØÄ£¿é¹³×Ó
+--- åŠ è½½æ¨¡å—é’©å­
 function Module:onLoad()
     self:logInfo('load');
-    -- ½¨Á¢Ò»‚€¸æÊ¾ÅÆÍâÓ^µÄ NPC
-    self.BoardNPC = self:NPC_createNormal('Ã°ëUÕß¹«•şÎ¯Óš°å', 11563, { x = 235, y = 72, mapType = 0, map = 1000, direction = 6 });
-    Char.SetData(self.BoardNPC,CONST.¶ÔÏó_ENEMY_PetFlg+2,0)--¿É´©Í¸Ìå
+    -- å»ºç«‹ä¸€å€‹å‘Šç¤ºç‰Œå¤–è§€çš„ NPC
+    self.BoardNPC = self:NPC_createNormal('å†’éšªè€…å…¬æœƒå§”è¨—æ¿', 11563, { x = 235, y = 72, mapType = 0, map = 1000, direction = 6 });
+    Char.SetData(self.BoardNPC,CONST.å¯¹è±¡_ENEMY_PetFlg+2,0)--å¯ç©¿é€ä½“
     self:NPC_regWindowTalkedEvent(self.BoardNPC, function(npc, player, _seqno, _select, _data)
         local column = tonumber(_data)
         local page = _seqno
@@ -242,89 +279,89 @@ function Module:onLoad()
         local totalAvailable = #availableList;
         local totalPage, remainder = calcFilteredWarp(totalAvailable);
 
-        -- ÌÀí½»¸¶ß‰İ‹
-        if _select == CONST.°´Å¥_ÊÇ then
+        -- è™•ç†äº¤ä»˜é‚è¼¯
+        if _select == CONST.æŒ‰é’®_æ˜¯ then
             if page >= 1000 then
                 local realIdx = page - 1000;
                 
-                -- 1. ¿Õég™z²é
+                -- 1. ç©ºé–“æª¢æŸ¥
                 if Char.ItemSlot(player) < 1 then
-                    NLG.SystemMessage(player, "[Ïµ½y]ÎïÆ·™ÚÎ»²»×ã£¬ÕˆÇå³ö¿Õég¡£");
+                    NLG.SystemMessage(player, "[ç³»çµ±]ç‰©å“æ¬„ä½ä¸è¶³ï¼Œè«‹æ¸…å‡ºç©ºé–“ã€‚");
                     return;
                 end
-                -- 2. µÀ¾ß™z²é
+                -- 2. é“å…·æª¢æŸ¥
                 local hasNum = Char.ItemNum(player, quest_requirement[realIdx][1]);
                 if hasNum < quest_requirement[realIdx][2] then
-                    NLG.SystemMessage(player, "[Ïµ½y]ĞèÇóÎïÆ·”µÁ¿²»×ã¡£");
+                    NLG.SystemMessage(player, "[ç³»çµ±]éœ€æ±‚ç‰©å“æ•¸é‡ä¸è¶³ã€‚");
                     return;
                 else
-                    -- 3. ˆÌĞĞ½»“Q
+                    -- 3. åŸ·è¡Œäº¤æ›
                     Char.DelItem(player, quest_requirement[realIdx][1], quest_requirement[realIdx][2]);
                     Char.GiveItem(player, quest_reward[realIdx][1], quest_reward[realIdx][2]);
-                    NLG.SystemMessage(player, "[Ïµ½y]³É¹¦Íê³ÉÎ¯Óš£º" .. quest_name[realIdx]);
+                    NLG.SystemMessage(player, "[ç³»çµ±]æˆåŠŸå®Œæˆå§”è¨—ï¼š" .. quest_name[realIdx]);
                 end
             end
             return;
-        elseif _select == CONST.°´Å¥_·ñ then
+        elseif _select == CONST.æŒ‰é’®_å¦ then
             page = tmpPage;
         end
 
-        -- ·Öí“°´âoß‰İ‹
+        -- åˆ†é æŒ‰éˆ•é‚è¼¯
         local warpPage = page;
-        if _select == CONST.BUTTON_ÏÂÒ»Ò³ then warpPage = warpPage + 1;
-        elseif _select == CONST.BUTTON_ÉÏÒ»Ò³ then warpPage = warpPage - 1;
-        elseif _select == CONST.°´Å¥_¹Ø±Õ then return;
+        if _select == CONST.BUTTON_ä¸‹ä¸€é¡µ then warpPage = warpPage + 1;
+        elseif _select == CONST.BUTTON_ä¸Šä¸€é¡µ then warpPage = warpPage - 1;
+        elseif _select == CONST.æŒ‰é’®_å…³é—­ then return;
         end
 
         if _select > 0 then
-            -- ï@Ê¾Çå†Î·Öí“
-            local winButton = CONST.BUTTON_¹Ø±Õ;
+            -- é¡¯ç¤ºæ¸…å–®åˆ†é 
+            local winButton = CONST.BUTTON_å…³é—­;
             if totalPage > 1 then
-                if warpPage <= 1 then winButton = CONST.BUTTON_ÏÂÈ¡Ïû;
-                elseif warpPage >= totalPage then winButton = CONST.BUTTON_ÉÏÈ¡Ïû;
-                else winButton = CONST.BUTTON_ÉÏÏÂÈ¡Ïû; end
+                if warpPage <= 1 then winButton = CONST.BUTTON_ä¸‹å–æ¶ˆ;
+                elseif warpPage >= totalPage then winButton = CONST.BUTTON_ä¸Šå–æ¶ˆ;
+                else winButton = CONST.BUTTON_ä¸Šä¸‹å–æ¶ˆ; end
             end
 
-            local winMsg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Ã°ëUÕß¹«•şÎ¯Óš°å¡¿\\n";
+            local winMsg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å†’éšªè€…å…¬æœƒå§”è¨—æ¿ã€‘\\n";
             local startIdx = (warpPage - 1) * 8 + 1;
             local endIdx = math.min(warpPage * 8, totalAvailable);
 
             for i = startIdx, endIdx do
                 local rIdx = availableList[i];
-                winMsg = winMsg .. "¡¡¡¡¡òÎ¯Óš " .. i .. "¡¡" .. quest_name[rIdx] .. "\\n"
+                winMsg = winMsg .. "ã€€ã€€â—å§”è¨— " .. i .. "ã€€" .. quest_name[rIdx] .. "\\n"
             end
-            NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, warpPage, winMsg);
+            NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, warpPage, winMsg);
         else
             tmpPage = warpPage;
-            -- ücßxÌØ¶¨Î¯ÓšßMÈëÔ”Çéí“Ãæ
+            -- é»é¸ç‰¹å®šå§”è¨—é€²å…¥è©³æƒ…é é¢
             local selectionIndex = (warpPage - 1) * 8 + column;
             local realIdx = availableList[selectionIndex];
             if realIdx then
                 local msg = getQuestDetailMsg(realIdx);
-                NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_ĞÅÏ¢¿ò, CONST.°´Å¥_ÊÇ·ñ, 1000 + realIdx, msg);
+                NLG.ShowWindowTalked(player, npc, CONST.çª—å£_ä¿¡æ¯æ¡†, CONST.æŒ‰é’®_æ˜¯å¦, 1000 + realIdx, msg);
             end
         end
     end)
 
-    -- NPC üc“ôÓ|°l
+    -- NPC é»æ“Šè§¸ç™¼
     self:NPC_regTalkedEvent(self.BoardNPC, function(npc, player)
         if (NLG.CanTalk(npc, player)) then
             local availableList = getAvailableQuests(player);
-            local msg = "1\\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾Ã°ëUÕß¹«•şÎ¯Óš°å¡¿\\n";
+            local msg = "1\\nã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€å†’éšªè€…å…¬æœƒå§”è¨—æ¿ã€‘\\n";
             
             for i, rIdx in ipairs(availableList) do
                 if i <= 8 then
-                    msg = msg .. "¡¡¡¡¡òÎ¯Óš " .. i .. "¡¡" .. quest_name[rIdx] .. "\\n"
+                    msg = msg .. "ã€€ã€€â—å§”è¨— " .. i .. "ã€€" .. quest_name[rIdx] .. "\\n"
                 end
             end
             
-            local winButton = (#availableList > 8) and CONST.BUTTON_ÏÂÈ¡Ïû or CONST.BUTTON_¹Ø±Õ;
-            NLG.ShowWindowTalked(player, npc, CONST.´°¿Ú_Ñ¡Ôñ¿ò, winButton, 1, msg);
+            local winButton = (#availableList > 8) and CONST.BUTTON_ä¸‹å–æ¶ˆ or CONST.BUTTON_å…³é—­;
+            NLG.ShowWindowTalked(player, npc, CONST.çª—å£_é€‰æ‹©æ¡†, winButton, 1, msg);
         end
     end)
 end
 
---- Ğ¶ÔØÄ£¿é¹³×Ó
+--- å¸è½½æ¨¡å—é’©å­
 function Module:onUnload()
     self:logInfo('unload')
 end
