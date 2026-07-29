@@ -8,10 +8,15 @@ local COMMAND = "aptitude"
 -- ====================== 圖片路徑定義 ======================
 local BG_frameIMG        = "luaUI/modules/cg图档集/勇者适性/介面视窗.png"
 local BG_colorIMG        = "luaUI/modules/cg图档集/勇者适性/黑底.png"
+local BG_themeIMG        = "luaUI/modules/cg图档集/勇者适性/Chakra.png"
 local TOOLTIP_BG    = "luaUI/modules/cg图档集/勇者适性/能力信息.png"
 local CLOSE_BTN     = "luaUI/modules/cg图档集/勇者适性/关1.png"
 local CLOSE_HOVER   = "luaUI/modules/cg图档集/勇者适性/关2.png"
 local CLOSE_PRESS   = "luaUI/modules/cg图档集/勇者适性/关3.png"
+
+local CON_TAINER   = "luaUI/modules/cg图档集/勇者适性/container.png"
+local BTN_STATE   = "luaUI/modules/cg图档集/勇者适性/btn_state.png"
+local BTN_PRESS   = "luaUI/modules/cg图档集/勇者适性/btn_press.png"
 
 --------------------------------------------------------------------------------
 -- 1. 數據配置與常數定義
@@ -201,9 +206,10 @@ function AptitudeModule:CreateWin()
     -- 主介面背景
     --- 視窗底色
     window:AddPngImage({ x = 6, y = 12, width = winW-30, height = winH-20, image = BG_colorIMG, hitable = false })
+    --- 視窗主題底圖
+    window:AddPngImage({ x = 6, y = 12, width = winW-30, height = winH-20, image = BG_themeIMG, hitable = false })
     --- 視窗外框
     window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_frameIMG, hitable = false })
-
     -- 關閉按鈕
     window:AddPngImage({
         x = 532, y = 8, width = 12, height = 12,
@@ -216,11 +222,23 @@ function AptitudeModule:CreateWin()
     })
 
     -- 頂部文字資訊
-    window:AddText({ x = 225, y = 10, width = 20, height = 20, font = 4, color = 75, text = "勇者適性天賦" })	--color:16灰白色33深紫色69朱紅色72深棕色
+    window:AddText({ x = 230, y = 10, width = 20, height = 20, font = 4, color = 75, text = "勇者適性天賦" })	--color:16灰白色33深紫色69朱紅色72深棕色
+    window:AddPngImage({ x = 118, y = 32, width = 125, height = 22, image = CON_TAINER, hitable = false })
+    window:AddPngImage({ x = 316, y = 32, width = 125, height = 22, image = CON_TAINER, hitable = false })
     local heroLv = self.heroLv or "--"
     local remainPts = self:GetRemainPoints() or "--"
-    self.lblHeroLv = window:AddText({ x = 150, y = 35, width = 150, height = 24, font = 0, color = 50, text = "勇者等級: "..heroLv })
+    self.lblHeroLv = window:AddText({ x = 120, y = 35, width = 150, height = 24, font = 0, color = 50, text = "勇者等級: "..heroLv })
     self.lblRemainPts = window:AddText({ x = 320, y = 35, width = 150, height = 24, font = 0, color = 31, text = "剩餘點數: "..remainPts })
+
+    -- 重置點數按鈕
+    self.resetBtn = window:AddPngImage({
+        x = 235, y = 330, width = 80, height = 25,
+        image = BTN_STATE, hitable = true,
+        onClick = function() self.resetBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnResetBtnClick() end,
+        onHover = function() self.resetBtn:Set({image = BTN_STATE , visible=true}) self.resetStr:Set({color = 0}) end,
+        onLeave = function() self.resetBtn:Set({image = BTN_STATE , visible=true}) self.resetStr:Set({color = 16})end
+    })
+    self.resetStr = window:AddText({ x = 240, y = 335, width = 40, height = 25, font = 0, color = 16, text = "重新分配"})
 
     -- 建立 8 大脈輪天賦圖示與等級標籤
     self.nodeWidgets = {}
@@ -258,7 +276,6 @@ function AptitudeModule:CreateWin()
     self.tipCurEffect = window:AddText({ x = 10, y = 46, width = 190, height = 18, font = 4, color = 0, text = "", visible = true })
     self.tipNextEffect = window:AddText({ x = 10, y = 64, width = 190, height = 18, font = 4, color = 5, text = "", visible = true })
     self.tipCost = window:AddText({ x = 10, y = 84, width = 190, height = 18, font = 4, color = 5, text = "", visible = true })
-
 end
 
 --------------------------------------------------------------------------------
@@ -347,6 +364,10 @@ function AptitudeModule:OnNodeClick(key)
         -- 直接向服務端送出升級請求，判斷與點數扣除完全交給服務端
         WinMgr.SendPacket("UpdateAptitudeData", key)
     end
+end
+
+function AptitudeModule:OnResetBtnClick()
+    WinMgr.SendPacket("ResetAptitudeData", "reset")
 end
 
 function AptitudeModule:split(str, sep)
