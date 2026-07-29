@@ -249,7 +249,7 @@ function AptitudeModule:CreateWin()
 
     -- Tooltip 懸停視窗 (使用 能力信息.png)
     self.tooltipWnd = window:AddPngImage({
-        x = 0, y = 0, width = 286, height = 109,
+        x = 0, y = 0, width = 269, height = 127,
         image = TOOLTIP_BG, visible = false, hitable = false
     })
 
@@ -277,7 +277,11 @@ function AptitudeModule:UpdateUI()
 
         widgetGroup.badge:Set({text = "Lv."..level})
         if level > 0 then
-            widgetGroup.badge:Set({color = 0})
+            if level >= 10 then
+              widgetGroup.badge:Set({color = 4})	--滿級10黃字
+            else
+              widgetGroup.badge:Set({color = 0})	--1級白字
+            end
             widgetGroup.button:Set({image = node.iconActive , visible=true})
         else
             widgetGroup.button:Set({image = node.iconNormal , visible=true})
@@ -299,7 +303,7 @@ function AptitudeModule:ShowTooltip(key, btnX, btnY)
     self.tipCurEffect:Set({text = "當前: " .. info.desc .. " (" .. curRate .. "%)"})
 
     if level >= info.maxLevel then
-        self.tipNextEffect:Set({text = "上限: 已達最高等級", color = 4})
+        self.tipNextEffect:Set({text = "上限: 已達最高等級", color = 84})
         self.tipCost:Set({text = "所需點數: --"})
     else
         local nextLevel = level + 1
@@ -308,23 +312,23 @@ function AptitudeModule:ShowTooltip(key, btnX, btnY)
 
         self.tipNextEffect:Set({text = "下級: " .. info.desc .. " (" .. nextRate .. "%)", color = 5})
         if remainPts >= cost then
-            self.tipCost:Set({text = "升級消耗: " .. cost .. " 點 (可升級)", color = 5})
+            self.tipCost:Set({text = "升級消耗: " .. cost .. " 點 (可升級)", color = 85})
         else
-            self.tipCost:Set({text = "升級消耗: " .. cost .. " 點 (點數不足)", color = 6})
+            self.tipCost:Set({text = "升級消耗: " .. cost .. " 點 (點數不足)", color = 89})
         end
     end
 
     -- 設定位置與顯示
     local tipX = btnX + IconSize.w + 10
     local tipY = btnY - 10
-    if tipX + 210 > 550 then tipX = btnX - 300 end
+    if tipX + 210 > 550 then tipX = btnX - 273 end
 
     self.tooltipWnd:Set({x = tipX, y = tipY, visible = true})
-    self.tipTitle:Set({ x = tipX+14, y = tipY+10, visible = true })
-    self.tipChakra:Set({ x = tipX+14, y = tipY+28, visible = true })
-    self.tipCurEffect:Set({ x = tipX+14, y = tipY+48, visible = true })
-    self.tipNextEffect:Set({ x = tipX+14, y = tipY+66, visible = true })
-    self.tipCost:Set({ x = tipX+14, y = tipY+86, visible = true })
+    self.tipTitle:Set({ x = tipX+14, y = tipY+12, visible = true })
+    self.tipChakra:Set({ x = tipX+14, y = tipY+30, visible = true })
+    self.tipCurEffect:Set({ x = tipX+14, y = tipY+55, visible = true })
+    self.tipNextEffect:Set({ x = tipX+14, y = tipY+73, visible = true })
+    self.tipCost:Set({ x = tipX+14, y = tipY+100, visible = true })
 end
 
 function AptitudeModule:HideTooltip()
