@@ -1,4 +1,4 @@
-local Ç¿»¯×°±¸Module = ModuleBase:extend('Ç¿»¯×°±¸02_01')
+local Ç¿»¯×°±¸Module = ModuleBase:extend('EquipForgeClientUI')
 
 local function ¾ÓÖĞX(¿í)
     if CONST and CONST.Screen and CONST.Screen.Width then
@@ -120,6 +120,12 @@ local ĞüÍ£Ì××°±¦Ê¯ÑùÊ½ = {
         ÄÚÈİ = {×ÖÌå=9, ÑÕÉ«=49},
         Æ«ÒÆX = 13, ¸ß = 15, ĞĞ¸ß = 15, ¼ä¸ôY = 2,
     },
+}
+local ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½ = {
+    ±êÌâ = {×ÖÌå=9, ÑÕÉ«=48, Æ«ÒÆX=13},
+    Ö÷Òª = {×ÖÌå=9, ¿í=42},
+    ¸½¼Ó = {×ÖÌå=9, ¿í=42},
+    ĞĞ¸ß = 15, ¼ä¸ôY = 2,
 }
 
 local ĞŞÀíÌáÊ¾¿òid = 80012
@@ -453,7 +459,7 @@ local Ç±ÄÜ×´Ì¬ = {
 local Ç±ÄÜÆ·ÖÊÃû³Æ = {[1]='ÌØÊâ', [2]='Ï¡ÓĞ', [3]='º±¼û', [4]='´«Ëµ'}
 local Ç±ÄÜÆ·ÖÊÑÕÉ« = {[1]=68, [2]=92, [3]=120, [4]=48}	--77ÁÁ×Ï80µ­×Ï84œ\¾G87ÁÁ¼t89×Ï¼t91°µ·Û
 
--- 260~268 Îª±¾¿Í»§¶ËÔ¤ÁôµÄÇ±ÄÜĞ­ÒéºÅ£»µ±Ç° customxb_handler.lua ÉĞÎ´¶¨ÒåÕâĞ©²ÎÊı¡£
+-- 260~269 Îª±¾¿Í»§¶ËÔ¤ÁôµÄÇ±ÄÜĞ­ÒéºÅ£»µ±Ç° customxb_handler.lua ÉĞÎ´¶¨ÒåÕâĞ©²ÎÊı¡£
 local Ç±ÄÜĞ­Òé = {
     ²éÑ¯ = 260,
     ·ÅÈë×°±¸ = 261,
@@ -464,6 +470,7 @@ local Ç±ÄÜĞ­Òé = {
     ÖØÏ´¸½¼Ó = 266,
     È¡»Ø×°±¸ = 267,
     È¡»ØµÀ¾ß = 268,
+    ĞüÍ£×°±¸ = 269,
 }
 
 local ĞüÍ£×°±¸¸ñ = nil
@@ -495,8 +502,51 @@ end
 function Ç¿»¯×°±¸Module:onLoad()
     WinMgr.PlaySe(73,320)
 
+    self.»º´æÇ±ÄÜÎÄ±¾ = self.»º´æÇ±ÄÜÎÄ±¾ or ''
+    self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ or 0
+    self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ or 0
+    self.»º´æÏâÇ¶Ç±ÄÜ×ÊÁÏ = self.»º´æÏâÇ¶Ç±ÄÜ×ÊÁÏ or {
+        ×°±¸¸ñ = {ÎÄ±¾='', Ö÷ÒªÆ·ÖÊ=0, ¸½¼ÓÆ·ÖÊ=0},
+        ºÏ³É¸ñ = {ÎÄ±¾='', Ö÷ÒªÆ·ÖÊ=0, ¸½¼ÓÆ·ÖÊ=0},
+    }
+    self.»º´æ×°±¸ĞüÍ£×ÊÁÏ = self.»º´æ×°±¸ĞüÍ£×ÊÁÏ or {}
+    self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ or nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ or nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı or nil
+
     self:onPacketRecv('XBCENTER', function(header, params)
         local show = tonumber(params[1]) or 0
+
+        -- show=3£ºÊ¹ÓÃ¬FÓĞ XBCENTER »Ø‚÷“ÄÜ Tooltip ¿ìÈ¡¡£
+        -- params[10] = “ÄÜÎÄ×Ö
+        -- params[11] = Ö÷Òª“ÄÜÆ·Ù|
+        -- params[12] = ¸½¼Ó“ÄÜÆ·Ù|
+        if show == 3 then
+            local potentialText = tostring(params[10] or '')
+            local mainQuality = tonumber(params[11]) or 0
+            local addQuality = tonumber(params[12]) or 0
+            local sourceType = tostring(params[13] or '')
+            local sourceIndex = tostring(params[14] or '')
+
+            if sourceType == 'inlay_equip' or sourceIndex == '×°±¸¸ñ' then
+                self.»º´æÏâÇ¶Ç±ÄÜ×ÊÁÏ.×°±¸¸ñ = {ÎÄ±¾=potentialText, Ö÷ÒªÆ·ÖÊ=mainQuality, ¸½¼ÓÆ·ÖÊ=addQuality}
+                if self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ and self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ.type == 'inlay' and tostring(self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ.index or '') == '×°±¸¸ñ' then
+                    pcall(function() self:Ë¢ĞÂµ±Ç°ĞüÍ£×°±¸Tooltip() end)
+                end
+            elseif sourceType == 'inlay_result' or sourceIndex == 'ºÏ³É¸ñ' then
+                self.»º´æÏâÇ¶Ç±ÄÜ×ÊÁÏ.ºÏ³É¸ñ = {ÎÄ±¾=potentialText, Ö÷ÒªÆ·ÖÊ=mainQuality, ¸½¼ÓÆ·ÖÊ=addQuality}
+                if self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ and self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ.type == 'inlay' and tostring(self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ.index or '') == 'ºÏ³É¸ñ' then
+                    pcall(function() self:Ë¢ĞÂµ±Ç°ĞüÍ£×°±¸Tooltip() end)
+                end
+            else
+                self.»º´æÇ±ÄÜÎÄ±¾ = potentialText
+                self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = mainQuality
+                self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = addQuality
+                pcall(function() self:Ë¢ĞÂµ±Ç°ĞüÍ£×°±¸Tooltip() end)
+            end
+            return
+        end
+
         if show == 2 then return end
         Ç¿»¯²ÛÏÔÊ¾ = show
         Ç¿»¯²ÛÍ¼ºÅ = tonumber(params[2]) or 0
@@ -509,6 +559,11 @@ function Ç¿»¯×°±¸Module:onLoad()
         local ÖÖÀàÎÄ±¾ = tostring(params[7] or '')
         local Ì××°ÎÄ±¾ = tostring(params[8] or '')
         local ±¦Ê¯ÎÄ±¾ = tostring(params[9] or '')
+        if params[10] ~= nil or params[11] ~= nil or params[12] ~= nil then
+            self.»º´æÇ±ÄÜÎÄ±¾ = tostring(params[10] or '')
+            self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = tonumber(params[11]) or 0
+            self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = tonumber(params[12]) or 0
+        end
         ÄÍ¾ÃÎÄ±¾ = string.gsub(ÄÍ¾ÃÎÄ±¾, "\\S", " ")
         ÖÖÀàÎÄ±¾ = string.gsub(ÖÖÀàÎÄ±¾, "\\S", " ")
         Ì××°ÎÄ±¾ = string.gsub(Ì××°ÎÄ±¾, "\\S", " ")
@@ -524,7 +579,7 @@ function Ç¿»¯×°±¸Module:onLoad()
         self.»º´æÌ××°ÎÄ±¾ = Ì××°ÎÄ±¾
         self.»º´æ±¦Ê¯ÎÄ±¾ = ±¦Ê¯ÎÄ±¾
         if ĞüÍ£Ç¿»¯²Û then
-            self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÕûÌåÎÄ±¾, µ±Ç°Ç¿»¯µÈ¼¶, ÄÍ¾ÃÎÄ±¾, ÖÖÀàÎÄ±¾, Ì××°ÎÄ±¾, ±¦Ê¯ÎÄ±¾)
+            self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÕûÌåÎÄ±¾, µ±Ç°Ç¿»¯µÈ¼¶, ÄÍ¾ÃÎÄ±¾, ÖÖÀàÎÄ±¾, Ì××°ÎÄ±¾, ±¦Ê¯ÎÄ±¾, self:È¡µÃ»º´æÇ±ÄÜ×ÊÁÏ())
         end
         self:Ë¢ĞÂÇ¿»¯²ÛÏÔÊ¾()
     end)
@@ -616,6 +671,9 @@ function Ç¿»¯×°±¸Module:onLoad()
             ºÏ³É¸ñĞ§¹û = tostring(params[25] or ''),
         }
         self:Ë¢ĞÂÏâÇ¶²Û()
+        if ĞüÍ£ÏâÇ¶¸ñ == '×°±¸¸ñ' or ĞüÍ£ÏâÇ¶¸ñ == 'ºÏ³É¸ñ' then
+            pcall(function() self:Ë¢ĞÂµ±Ç°ĞüÍ£×°±¸Tooltip() end)
+        end
     end)
 
     -- Ç±ÄÜ×´Ì¬£º
@@ -661,6 +719,29 @@ function Ç¿»¯×°±¸Module:onLoad()
         self:Ë¢ĞÂÇ±ÄÜ½çÃæ()
     end)
 
+    -- Ç±ÄÜ×°±¸¸ñĞüÍ£ÏêÏ¸×ÊÁÏ£ºÑØÓÃÏâÇ¶/±³°ü×°±¸ Tooltip¡£
+    -- params: 1Í¼ºÅ 2Ç¿»¯µÈ¼¶ 3ÕûÌåÎÄ±¾ 4ÄÍ¾Ã 5ÖÖÀà 6Ì××° 7±¦Ê¯ 8Ö÷Ç±Æ·ÖÊ 9¸½Ç±Æ·ÖÊ
+	self:onPacketRecv('POTINFO', function(header, params)
+        if self.Ç±ÄÜĞüÍ£¸ñ ~= '×°±¸' then return end
+        local Í¼ = tonumber(params[1]) or 0
+        local Ç¿»¯µÈ¼¶ = tonumber(params[2]) or 0
+        local ÕûÌå = tostring(params[3] or '')
+        if Í¼ <= 0 or ÕûÌå == '' then
+            self:Òş²ØĞüÍ£ÌáÊ¾()
+            return
+        end
+        local Ç±ÄÜ×ÊÁÏ = self:È¡µÃ»º´æÇ±ÄÜ×ÊÁÏ() or {
+            Ö÷ÒªÆ·ÖÊ = tonumber(params[8]) or 0,
+            ¸½¼ÓÆ·ÖÊ = tonumber(params[9]) or 0,
+        }
+        self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(
+            ÕûÌå, Ç¿»¯µÈ¼¶,
+            tostring(params[4] or ''), tostring(params[5] or ''),
+            tostring(params[6] or ''), tostring(params[7] or ''),
+            Ç±ÄÜ×ÊÁÏ
+        )
+    end)
+
     self:onPacketRecv('POTMSG', function(header, params)
         local ÎÄ±¾ = tostring(params[1] or '')
         if ÎÄ±¾ ~= '' then self:cliSendMsg(ÎÄ±¾, 4) end
@@ -672,8 +753,18 @@ function Ç¿»¯×°±¸Module:onLoad()
         local Í¼ = tonumber(params[2]) or 0
         local ÎÄ±¾ = tostring(params[4] or '')
         if Í¼ > 0 and ÎÄ±¾ ~= '' then
-            pcall(function() self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÎÄ±¾, params[3], params[5], params[6], params[7], params[8]) end)
+            self.»º´æ×°±¸ĞüÍ£×ÊÁÏ[¸ñ] = {
+                Í¼ºÅ = Í¼,
+                ÎÄ±¾ = ÎÄ±¾,
+                µÈ¼¶ = tonumber(params[3]) or 0,
+                ÄÍ¾Ã = tostring(params[5] or ''),
+                ÖÖÀà = tostring(params[6] or ''),
+                Ì××° = tostring(params[7] or ''),
+                ±¦Ê¯ = tostring(params[8] or ''),
+            }
+            pcall(function() self:Ë¢ĞÂµ±Ç°ĞüÍ£×°±¸Tooltip() end)
         else
+            self.»º´æ×°±¸ĞüÍ£×ÊÁÏ[¸ñ] = nil
             self:ÏÔÊ¾×°±¸¸ñÀàĞÍÌáÊ¾(¸ñ)
         end
     end)
@@ -684,7 +775,7 @@ function Ç¿»¯×°±¸Module:onLoad()
         local Í¼ = tonumber(params[2]) or 0
         local ÎÄ±¾ = tostring(params[4] or '')
         if Í¼ > 0 and ÎÄ±¾ ~= '' then
-            pcall(function() self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÎÄ±¾, params[3], params[5], params[6], params[7], params[8]) end)
+            pcall(function() self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÎÄ±¾, params[3], params[5], params[6], params[7], params[8], self:È¡µÃ»º´æÇ±ÄÜ×ÊÁÏ()) end)
         else
             self:Òş²ØĞüÍ£ÌáÊ¾()
         end
@@ -696,7 +787,7 @@ function Ç¿»¯×°±¸Module:onLoad()
         local Í¼ = tonumber(params[2]) or 0
         local ÎÄ±¾ = tostring(params[4] or '')
         if Í¼ > 0 and ÎÄ±¾ ~= '' then
-            pcall(function() self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÎÄ±¾, params[3], params[5], params[6], params[7], params[8]) end)
+            pcall(function() self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÎÄ±¾, params[3], params[5], params[6], params[7], params[8], self:È¡µÃ»º´æÇ±ÄÜ×ÊÁÏ()) end)
         else
             self:Òş²ØĞüÍ£ÌáÊ¾()
         end
@@ -1142,14 +1233,29 @@ end
 
 function Ç¿»¯×°±¸Module:ÏâÇ¶¸ñĞüÍ£(Ãû³Æ)
     ĞüÍ£ÏâÇ¶¸ñ = Ãû³Æ
+    ĞüÍ£×°±¸¸ñ = nil
+    ĞüÍ£±³°ü¸ñ = nil
+    ĞüÍ£ÒøĞĞ¸ñ = nil
     ĞüÍ£Ç¿»¯²Û = false
+    self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = { type = 'inlay', index = Ãû³Æ }
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = (Ãû³Æ == '×°±¸¸ñ') and 'inlay_equip' or ((Ãû³Æ == 'ºÏ³É¸ñ') and 'inlay_result' or nil)
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = (Ãû³Æ == '×°±¸¸ñ' or Ãû³Æ == 'ºÏ³É¸ñ') and Ãû³Æ or nil
+    self.»º´æÇ±ÄÜÎÄ±¾ = ''
+    self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = 0
+    self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = 0
     local ×´Ì¬ = self.ÏâÇ¶×´Ì¬ and self.ÏâÇ¶×´Ì¬[Ãû³Æ]
     if not ×´Ì¬ or ×´Ì¬.ÏÔÊ¾ ~= 1 or ×´Ì¬.Í¼ºÅ <= 0 then return true end
     if Ãû³Æ == '±¦Ê¯¸ñ' then
-        self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(self.»º´æÏâÇ¶ÎÄ±¾ and self.»º´æÏâÇ¶ÎÄ±¾.±¦Ê¯¸ñ or '', ×´Ì¬.µÈ¼¶ or 0, '', '', '', '')
+        self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(self.»º´æÏâÇ¶ÎÄ±¾ and self.»º´æÏâÇ¶ÎÄ±¾.±¦Ê¯¸ñ or '', ×´Ì¬.µÈ¼¶ or 0, '', '', '', '', nil)
     else
         local ¸± = self.»º´æÏâÇ¶¸±ÎÄ±¾ and self.»º´æÏâÇ¶¸±ÎÄ±¾[Ãû³Æ]
-        self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(self.»º´æÏâÇ¶ÎÄ±¾ and self.»º´æÏâÇ¶ÎÄ±¾[Ãû³Æ] or '', ×´Ì¬.µÈ¼¶ or 0, ¸± and ¸±.durab or '', ¸± and ¸±.type or '', ¸± and ¸±.set or '', ¸± and ¸±.gem or '')
+        -- ÏÈË¢ĞÂÒ»´Î±¾Ìå Tooltip£»ËæºóÓÉ 258 -> XBCENTER show=3 ÔÙ´Îµ÷ÓÃÍ³Ò»Èë¿Ú²¹ÉÏÇ±ÄÜ×ÊÁÏ¡£
+        self:Ë¢ĞÂµ±Ç°ĞüÍ£×°±¸Tooltip()
+        if Ãû³Æ == '×°±¸¸ñ' then
+            self:sendPacket('CUSTOMXB 258 1')
+        elseif Ãû³Æ == 'ºÏ³É¸ñ' then
+            self:sendPacket('CUSTOMXB 258 2')
+        end
     end
     return true
 end
@@ -1157,6 +1263,12 @@ end
 function Ç¿»¯×°±¸Module:ÏâÇ¶¸ñÀë¿ª(Ãû³Æ)
     if ĞüÍ£ÏâÇ¶¸ñ == Ãû³Æ then
         ĞüÍ£ÏâÇ¶¸ñ = nil
+        self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = nil
+        self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = nil
+        self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = nil
+        self.»º´æÇ±ÄÜÎÄ±¾ = ''
+        self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = 0
+        self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = 0
         self:Òş²ØĞüÍ£ÌáÊ¾()
     end
     return true
@@ -1224,7 +1336,77 @@ function Ç¿»¯×°±¸Module:ĞüÍ£ÌáÊ¾Î»ÖÃ(ĞüÍ£¸ß)
     return Ä¿±êX, Ä¿±êY
 end
 
-function Ç¿»¯×°±¸Module:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÕûÌåÎÄ±¾, µÈ¼¶, ÄÍ¾ÃÎÄ±¾, ÖÖÀàÎÄ±¾, Ì××°ÎÄ±¾, ±¦Ê¯ÎÄ±¾)
+function Ç¿»¯×°±¸Module:Ë¢ĞÂµ±Ç°ĞüÍ£×°±¸Tooltip()
+    -- ½yÒ» Tooltip Ë¢ĞÂÈë¿Ú¡£
+    -- ÈÎºÎÙYÁÏíÔ´£¨XBCENTER / EQUIPINFO / XQSTATE / 258£©µ½ß_áá¶¼Ö»ĞèÒªºô½Ğ±¾º¯Ê½¡£
+    local ctx = self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ
+    if type(ctx) ~= 'table' then return false end
+
+    -- 1) Íæ¼ÒÉíÉÏ×°±¸¸ñ£ºEQUIPINFO Ìá¹©±¾ówÙYÁÏ£¬XBCENTER Ìá¹©“ÄÜÙYÁÏ¡£
+    if ctx.type == 'equip' then
+        local ¸ñ = tonumber(ctx.index) or 0
+        local »ù´¡ = self.»º´æ×°±¸ĞüÍ£×ÊÁÏ and self.»º´æ×°±¸ĞüÍ£×ÊÁÏ[¸ñ]
+        if »ù´¡ and tonumber(»ù´¡.Í¼ºÅ or 0) > 0 and tostring(»ù´¡.ÎÄ±¾ or '') ~= '' then
+            self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(
+                »ù´¡.ÎÄ±¾ or '',
+                »ù´¡.µÈ¼¶ or 0,
+                »ù´¡.ÄÍ¾Ã or '',
+                »ù´¡.ÖÖÀà or '',
+                »ù´¡.Ì××° or '',
+                »ù´¡.±¦Ê¯ or '',
+                self:È¡µÃ»º´æÇ±ÄÜ×ÊÁÏ()
+            )
+            return true
+        end
+        return false
+    end
+
+    -- 2) è‚Ç¶Ñb‚ä¸ñ / ºÏ³É½Y¹û¸ñ£ºXQSTATE Ìá¹©±¾ówÙYÁÏ£¬258 -> XBCENTER Ìá¹©“ÄÜÙYÁÏ¡£
+    if ctx.type == 'inlay' then
+        local Ãû³Æ = tostring(ctx.index or '')
+        local ×´Ì¬ = self.ÏâÇ¶×´Ì¬ and self.ÏâÇ¶×´Ì¬[Ãû³Æ]
+        local ¸± = self.»º´æÏâÇ¶¸±ÎÄ±¾ and self.»º´æÏâÇ¶¸±ÎÄ±¾[Ãû³Æ]
+        local ÎÄ±¾ = self.»º´æÏâÇ¶ÎÄ±¾ and self.»º´æÏâÇ¶ÎÄ±¾[Ãû³Æ] or ''
+        local Ç±ÄÜ×ÊÁÏ
+        local »º´æ = self.»º´æÏâÇ¶Ç±ÄÜ×ÊÁÏ and self.»º´æÏâÇ¶Ç±ÄÜ×ÊÁÏ[Ãû³Æ]
+        if »º´æ and ((tostring(»º´æ.ÎÄ±¾ or '') ~= '') or (tonumber(»º´æ.Ö÷ÒªÆ·ÖÊ or 0) > 0) or (tonumber(»º´æ.¸½¼ÓÆ·ÖÊ or 0) > 0)) then
+            Ç±ÄÜ×ÊÁÏ = {ÎÄ±¾=tostring(»º´æ.ÎÄ±¾ or ''), Ö÷ÒªÆ·ÖÊ=tonumber(»º´æ.Ö÷ÒªÆ·ÖÊ) or 0, ¸½¼ÓÆ·ÖÊ=tonumber(»º´æ.¸½¼ÓÆ·ÖÊ) or 0}
+        end
+        if ×´Ì¬ and tonumber(×´Ì¬.ÏÔÊ¾ or 0) == 1 and tonumber(×´Ì¬.Í¼ºÅ or 0) > 0 and ÎÄ±¾ ~= '' then
+            self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(
+                ÎÄ±¾,
+                ×´Ì¬.µÈ¼¶ or 0,
+                ¸± and ¸±.durab or '',
+                ¸± and ¸±.type or '',
+                ¸± and ¸±.set or '',
+                ¸± and ¸±.gem or '',
+                Ç±ÄÜ×ÊÁÏ
+            )
+            return true
+        end
+        return false
+    end
+
+    return false
+end
+
+function Ç¿»¯×°±¸Module:È¡µÃ»º´æÇ±ÄÜ×ÊÁÏ()
+    local ÎÄ±¾ = tostring(self.»º´æÇ±ÄÜÎÄ±¾ or '')
+    local Ö÷ÒªÆ·ÖÊ = tonumber(self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ) or 0
+    local ¸½¼ÓÆ·ÖÊ = tonumber(self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ) or 0
+
+    if ÎÄ±¾ == '' and Ö÷ÒªÆ·ÖÊ <= 0 and ¸½¼ÓÆ·ÖÊ <= 0 then
+        return nil
+    end
+
+    return {
+        ÎÄ±¾ = ÎÄ±¾,
+        Ö÷ÒªÆ·ÖÊ = Ö÷ÒªÆ·ÖÊ,
+        ¸½¼ÓÆ·ÖÊ = ¸½¼ÓÆ·ÖÊ,
+    }
+end
+
+function Ç¿»¯×°±¸Module:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÕûÌåÎÄ±¾, µÈ¼¶, ÄÍ¾ÃÎÄ±¾, ÖÖÀàÎÄ±¾, Ì××°ÎÄ±¾, ±¦Ê¯ÎÄ±¾, Ç±ÄÜÆ·ÖÊ×ÊÁÏ)
     if ĞüÍ£±³°ü¸ñ and ĞüÍ£±³°ü¸ñ > 0 then
         ±³°ü¸ñÖÖÀà[ĞüÍ£±³°ü¸ñ] = ÖÖÀàÎÄ±¾
     end
@@ -1291,6 +1473,18 @@ function Ç¿»¯×°±¸Module:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÕûÌåÎÄ±¾, µÈ¼¶, ÄÍ¾ÃÎÄ±¾, ÖÖÀàÎÄ±¾, Ì××°ÎÄ±
             if µ×²¿ÎÄ±¾Êı×é[µ×] ~= '' then µ×²¿×Ü¸ß = µ×²¿×Ü¸ß + µ×²¿ÑùÊ½Êı×é[µ×].ĞĞ¸ß end
         end
         µ×²¿×Ü¸ß = µ×²¿×Ü¸ß + ĞüÍ£Ì××°±¦Ê¯ÑùÊ½.Ì××°.¼ä¸ôY
+    end
+
+    local Ö÷Ç±Æ·ÖÊ = 0
+    local ¸½Ç±Æ·ÖÊ = 0
+    local ÏÔÊ¾Ç±ÄÜÆ·ÖÊ = false
+    if type(Ç±ÄÜÆ·ÖÊ×ÊÁÏ) == 'table' then
+        Ö÷Ç±Æ·ÖÊ = tonumber(Ç±ÄÜÆ·ÖÊ×ÊÁÏ.Ö÷ÒªÆ·ÖÊ or 0) or 0
+        ¸½Ç±Æ·ÖÊ = tonumber(Ç±ÄÜÆ·ÖÊ×ÊÁÏ.¸½¼ÓÆ·ÖÊ or 0) or 0
+        ÏÔÊ¾Ç±ÄÜÆ·ÖÊ = Ö÷Ç±Æ·ÖÊ > 0 or ¸½Ç±Æ·ÖÊ > 0
+        if ÏÔÊ¾Ç±ÄÜÆ·ÖÊ then
+            µ×²¿×Ü¸ß = µ×²¿×Ü¸ß + ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.¼ä¸ôY + ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.ĞĞ¸ß
+        end
     end
     µ±Ç°ĞüÍ£ÌáÊ¾¸ß = ĞüÍ£ÑùÊ½.ÊôĞÔ.ÆğÊ¼Æ«ÒÆY + #ÊôĞÔĞĞÊı×é * ĞüÍ£ÑùÊ½.ÊôĞÔ.ĞĞ¸ß + µ×²¿×Ü¸ß
     local Ïà¶ÔX, Ïà¶ÔY = self:ĞüÍ£ÌáÊ¾Î»ÖÃ(µ±Ç°ĞüÍ£ÌáÊ¾¸ß)
@@ -1430,6 +1624,39 @@ function Ç¿»¯×°±¸Module:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ÕûÌåÎÄ±¾, µÈ¼¶, ÄÍ¾ÃÎÄ±¾, ÖÖÀàÎÄ±¾, Ì××°ÎÄ±
                 ÄÚÈİ¿Ø¼ş:Set({text=ÄÚÈİÎÄ±¾, color=ÑùÊ½.ÄÚÈİ.ÑÕÉ«, x=ÄÚÈİx, y=ĞĞy, visible=true})
             end
         end
+    end
+
+    if ÏÔÊ¾Ç±ÄÜÆ·ÖÊ then
+        local ĞĞºÅ = #ÊôĞÔĞĞÊı×é + 3 + µ×²¿ÏÔÊ¾ĞĞÊı
+        local Æ·ÖÊĞĞ = ĞüÍ£ÌáÊ¾ĞĞ¿Ø¼ş[ĞĞºÅ] or {}
+        ĞüÍ£ÌáÊ¾ĞĞ¿Ø¼ş[ĞĞºÅ] = Æ·ÖÊĞĞ
+        local ĞĞy = Ïà¶ÔY + ĞüÍ£ÑùÊ½.ÊôĞÔ.ÆğÊ¼Æ«ÒÆY + #ÊôĞÔĞĞÊı×é * ĞüÍ£ÑùÊ½.ÊôĞÔ.ĞĞ¸ß + µ×²¿×Ü¸ß - ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.ĞĞ¸ß
+
+        local ±êÌâ¿Ø¼ş = Æ·ÖÊĞĞ[1]
+        if not ±êÌâ¿Ø¼ş then
+            ±êÌâ¿Ø¼ş = ¸¸´°Ìå:AddText({x=0,y=0,width=100,height=15,text='',font=ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.±êÌâ.×ÖÌå,color=ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.±êÌâ.ÑÕÉ«,hitable=false})
+            Æ·ÖÊĞĞ[1] = ±êÌâ¿Ø¼ş
+        end
+        ±êÌâ¿Ø¼ş:Set({text='Ö÷Ç±/¸½Ç±Æ·ÖÊ£º', color=ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.±êÌâ.ÑÕÉ«, x=Ïà¶ÔX+ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.±êÌâ.Æ«ÒÆX, y=ĞĞy, visible=true})
+
+        local Ö÷¿Ø¼ş = Æ·ÖÊĞĞ[2]
+        if not Ö÷¿Ø¼ş then
+            Ö÷¿Ø¼ş = ¸¸´°Ìå:AddText({x=0,y=0,width=42,height=15,text='',font=ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.Ö÷Òª.×ÖÌå,color=49,hitable=false})
+            Æ·ÖÊĞĞ[2] = Ö÷¿Ø¼ş
+        end
+        local ¸½¿Ø¼ş = Æ·ÖÊĞĞ[3]
+        if not ¸½¿Ø¼ş then
+            ¸½¿Ø¼ş = ¸¸´°Ìå:AddText({x=0,y=0,width=42,height=15,text='',font=ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.¸½¼Ó.×ÖÌå,color=49,hitable=false})
+            Æ·ÖÊĞĞ[3] = ¸½¿Ø¼ş
+        end
+
+        local ±êÌâx = Ïà¶ÔX + ĞüÍ£Ç±ÄÜÆ·ÖÊÑùÊ½.±êÌâ.Æ«ÒÆX
+        local Ö÷x = ±êÌâx + ÎÄ±¾ÏñËØ¿í('Ö÷Ç±/¸½Ç±Æ·ÖÊ£º')
+        local Ö÷ÎÄ = Ö÷Ç±Æ·ÖÊ > 0 and (Ç±ÄÜÆ·ÖÊÃû³Æ[Ö÷Ç±Æ·ÖÊ] or '') or '-'
+        local ¸½ÎÄ = ¸½Ç±Æ·ÖÊ > 0 and (Ç±ÄÜÆ·ÖÊÃû³Æ[¸½Ç±Æ·ÖÊ] or '') or '-'
+        Ö÷¿Ø¼ş:Set({text=Ö÷ÎÄ, color=Ç±ÄÜÆ·ÖÊÑÕÉ«[Ö÷Ç±Æ·ÖÊ] or 49, x=Ö÷x, y=ĞĞy, visible=true})
+        local ¸½x = Ö÷x + ÎÄ±¾ÏñËØ¿í(Ö÷ÎÄ) + 8
+        ¸½¿Ø¼ş:Set({text=¸½ÎÄ, color=Ç±ÄÜÆ·ÖÊÑÕÉ«[¸½Ç±Æ·ÖÊ] or 49, x=¸½x, y=ĞĞy, visible=true})
     end
 end
 
@@ -1681,7 +1908,7 @@ function Ç¿»¯×°±¸Module:Ë¢ĞÂÇ±ÄÜ½çÃæ()
     end
 
     if self.Ç±ÄÜ½ğ±ÒÎÄ×Ö¿Ø¼ş and self.Ç±ÄÜ½ğ±ÒÎÄ×Ö¿Ø¼ş.valid then
-        local ½ğ±Ò=tonumber(Ç±ÄÜ×´Ì¬.½ğ±ÒĞèÇó) or 0
+        local ½ğ±Ò = tonumber(Ç±ÄÜ×´Ì¬.½ğ±ÒĞèÇó) or 0
         self.Ç±ÄÜ½ğ±ÒÎÄ×Ö¿Ø¼ş:Set({text=½ğ±Ò>0 and ('ÏûºÄ½ğ±Ò£º'..tostring(½ğ±Ò)) or '', visible=¿É¼û and ×°±¸ÓĞÎï and ½ğ±Ò>0})
     end
 end
@@ -1777,14 +2004,27 @@ function Ç¿»¯×°±¸Module:Ç±ÄÜµÀ¾ß¸ñµã»÷()
 end
 
 function Ç¿»¯×°±¸Module:Ç±ÄÜ¸ñĞüÍ£(ÀàĞÍ)
-    self.Ç±ÄÜĞüÍ£¸ñ=ÀàĞÍ
-    -- local ËµÃ÷ = Ç±ÄÜĞüÍ£¸ñËµÃ÷[ÀàĞÍ]
-    -- if ËµÃ÷ then self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(ËµÃ÷) else self:Òş²ØĞüÍ£ÌáÊ¾() end
+    self.Ç±ÄÜĞüÍ£¸ñ = ÀàĞÍ
+    ĞüÍ£Ç¿»¯²Û = false
+    ĞüÍ£ÏâÇ¶¸ñ = nil
+    if not self.Ç±ÄÜÄ£Ê½ then return true end
+    if Ê°ÆğÖĞ then self:Òş²ØĞüÍ£ÌáÊ¾() return true end
+    local ×´Ì¬ = (ÀàĞÍ == '×°±¸' and Ç±ÄÜ×´Ì¬.×°±¸¸ñ) or (ÀàĞÍ == 'Ç±ÄÜ' and Ç±ÄÜ×´Ì¬.µÀ¾ß¸ñ)
+    if not ×´Ì¬ or ×´Ì¬.ÏÔÊ¾ ~= 1 or ×´Ì¬.Í¼ºÅ <= 0 then
+        self:Òş²ØĞüÍ£ÌáÊ¾()
+        return true
+    end
+    if ÀàĞÍ == '×°±¸' then
+        self:sendPacket('CUSTOMXB ' .. tostring(Ç±ÄÜĞ­Òé.ĞüÍ£×°±¸))
+    else
+        self:ÏÔÊ¾ĞüÍ£ÌáÊ¾('Ç±ÄÜµÀ¾ß', 10, '', '·Nî:“ÄÜµÀ¾ß', '', '')
+    end
     return true
 end
+
 function Ç¿»¯×°±¸Module:Ç±ÄÜ¸ñÀë¿ª()
-	self.Ç±ÄÜĞüÍ£¸ñ=nil
-	self:Òş²ØĞüÍ£ÌáÊ¾()
+    self.Ç±ÄÜĞüÍ£¸ñ = nil
+    self:Òş²ØĞüÍ£ÌáÊ¾()
     return true
 end
 
@@ -3229,13 +3469,23 @@ end
 
 function Ç¿»¯×°±¸Module:ÒøĞĞ¸ñĞüÍ£(i)
     ĞüÍ£ÒøĞĞ¸ñ = i
+    ĞüÍ£×°±¸¸ñ = nil
+    ĞüÍ£ÏâÇ¶¸ñ = nil
+    ĞüÍ£±³°ü¸ñ = nil
+    ĞüÍ£Ç¿»¯²Û = false
+    self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = nil
     local Í¼ = ÒøĞĞ¸ñÍ¼ºÅ[i] or 0
     if Í¼ > 0 then self:sendPacket('CUSTOMXB 229 ' .. tostring(i)) else self:Òş²ØĞüÍ£ÌáÊ¾() end
     return true
 end
 
 function Ç¿»¯×°±¸Module:ÒøĞĞ¸ñÀë¿ª(i)
-    if ĞüÍ£ÒøĞĞ¸ñ == i then ĞüÍ£ÒøĞĞ¸ñ = nil; self:Òş²ØĞüÍ£ÌáÊ¾() end
+    if ĞüÍ£ÒøĞĞ¸ñ == i then
+        ĞüÍ£ÒøĞĞ¸ñ = nil
+        self:Òş²ØĞüÍ£ÌáÊ¾()
+    end
     return true
 end
 
@@ -3331,39 +3581,80 @@ function Ç¿»¯×°±¸Module:±³°ü¸ñ×ø±ê(i)
 end
 
 function Ç¿»¯×°±¸Module:±³°ü¸ñĞüÍ£(i)
+    self.»º´æÇ±ÄÜÎÄ±¾ = ''
+    self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = 0
+    self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = 0
     ĞüÍ£±³°ü¸ñ = i
     ĞüÍ£×°±¸¸ñ = nil
+    ĞüÍ£ÏâÇ¶¸ñ = nil
+    ĞüÍ£ÒøĞĞ¸ñ = nil
     ĞüÍ£Ç¿»¯²Û = false
+    self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = nil
     local Í¼ = ±³°ü¸ñÍ¼ºÅ[i] or 0
     if Í¼ > 0 then self:sendPacket('CUSTOMXB 213 ' .. tostring(i)) else self:Òş²ØĞüÍ£ÌáÊ¾() end
     return true
 end
 
 function Ç¿»¯×°±¸Module:±³°ü¸ñÀë¿ª(i)
-    if ĞüÍ£±³°ü¸ñ == i then ĞüÍ£±³°ü¸ñ = nil; self:Òş²ØĞüÍ£ÌáÊ¾() end
+    if ĞüÍ£±³°ü¸ñ == i then
+        ĞüÍ£±³°ü¸ñ = nil
+        self:Òş²ØĞüÍ£ÌáÊ¾()
+    end
     return true
 end
 
 function Ç¿»¯×°±¸Module:×°±¸¸ñĞüÍ£(e)
+    self.»º´æÇ±ÄÜÎÄ±¾ = ''
+    self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = 0
+    self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = 0
     ĞüÍ£×°±¸¸ñ = e
+    ĞüÍ£ÏâÇ¶¸ñ = nil
     ĞüÍ£±³°ü¸ñ = nil
+    ĞüÍ£ÒøĞĞ¸ñ = nil
     ĞüÍ£Ç¿»¯²Û = false
+    self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = { type = 'equip', index = e }
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = 'equip'
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = e
+    if self.»º´æ×°±¸ĞüÍ£×ÊÁÏ then
+        self.»º´æ×°±¸ĞüÍ£×ÊÁÏ[e] = nil
+    end
     local Í¼ = ×°±¸¸ñÍ¼ºÅ[e] or 0
-    if Í¼ > 0 then self:sendPacket('CUSTOMXB 212 ' .. tostring(e)) else self:ÏÔÊ¾×°±¸¸ñÀàĞÍÌáÊ¾(e) end
+    if Í¼ > 0 then
+        self:sendPacket('CUSTOMXB 212 ' .. tostring(e))
+    else
+        self:ÏÔÊ¾×°±¸¸ñÀàĞÍÌáÊ¾(e)
+    end
     return true
 end
 
 function Ç¿»¯×°±¸Module:×°±¸¸ñÀë¿ª(e)
-    if ĞüÍ£×°±¸¸ñ == e then ĞüÍ£×°±¸¸ñ = nil; self:Òş²ØĞüÍ£ÌáÊ¾() end
+    if ĞüÍ£×°±¸¸ñ == e then
+        ĞüÍ£×°±¸¸ñ = nil
+        if self.»º´æ×°±¸ĞüÍ£×ÊÁÏ then self.»º´æ×°±¸ĞüÍ£×ÊÁÏ[e] = nil end
+        self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = nil
+        self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = nil
+        self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = nil
+        self.»º´æÇ±ÄÜÎÄ±¾ = ''
+        self.»º´æÇ±ÄÜÖ÷ÒªÆ·ÖÊ = 0
+        self.»º´æÇ±ÄÜ¸½¼ÓÆ·ÖÊ = 0
+        self:Òş²ØĞüÍ£ÌáÊ¾()
+    end
     return true
 end
 
 function Ç¿»¯×°±¸Module:Ç¿»¯²ÛĞüÍ£()
     ĞüÍ£Ç¿»¯²Û = true
     ĞüÍ£×°±¸¸ñ = nil
+    ĞüÍ£ÏâÇ¶¸ñ = nil
     ĞüÍ£±³°ü¸ñ = nil
+    ĞüÍ£ÒøĞĞ¸ñ = nil
+    self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = { type = 'enhance', index = 1 }
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = nil
     if Ç¿»¯²ÛÏÔÊ¾ == 1 and Ç¿»¯²ÛÍ¼ºÅ > 0 then
-        self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(self.»º´æÊôĞÔÎÄ±¾, µ±Ç°Ç¿»¯µÈ¼¶, self.»º´æÄÍ¾ÃÎÄ±¾, self.»º´æÖÖÀàÎÄ±¾, self.»º´æÌ××°ÎÄ±¾, self.»º´æ±¦Ê¯ÎÄ±¾)
+        self:ÏÔÊ¾ĞüÍ£ÌáÊ¾(self.»º´æÊôĞÔÎÄ±¾, µ±Ç°Ç¿»¯µÈ¼¶, self.»º´æÄÍ¾ÃÎÄ±¾, self.»º´æÖÖÀàÎÄ±¾, self.»º´æÌ××°ÎÄ±¾, self.»º´æ±¦Ê¯ÎÄ±¾, self:È¡µÃ»º´æÇ±ÄÜ×ÊÁÏ())
     else
         self:Òş²ØĞüÍ£ÌáÊ¾()
     end
@@ -3372,6 +3663,9 @@ end
 
 function Ç¿»¯×°±¸Module:Ç¿»¯²ÛÀë¿ª()
     ĞüÍ£Ç¿»¯²Û = false
+    self.µ±Ç°ĞüÍ£TooltipÉÏÏÂÎÄ = nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´ÀàĞÍ = nil
+    self.µ±Ç°ĞüÍ£Ç±ÄÜÀ´Ô´Ë÷Òı = nil
     self:Òş²ØĞüÍ£ÌáÊ¾()
     return true
 end
