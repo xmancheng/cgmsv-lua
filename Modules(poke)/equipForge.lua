@@ -824,7 +824,7 @@ function sendSystemMessage(playerIndex, message)
 end
 
 -- 封裝並發送自訂 XBCENTER 協議封包。
-function sendXBProtocol(playerIndex, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+function sendXBProtocol(playerIndex, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13)
 	local numericValue = tostring(tonumber(arg1) or 0)
 	local numericValue2 = tostring(tonumber(arg2) or 0)
 	local numericValue3 = tostring(tonumber(arg3) or 0)
@@ -835,7 +835,13 @@ function sendXBProtocol(playerIndex, arg1, arg2, arg3, arg4, arg5, arg6, arg7, a
 	local value4 = tostring(arg7 or "")
 	local value5 = tostring(arg8 or "")
 
-	Protocol.Send(playerIndex, "XBCENTER", numericValue, numericValue2, numericValue3, numericValue4, value, value2, value3, value4, value5)
+	local value6 = tostring(arg9 or "")
+	local value7 = tostring(arg10 or 0)
+	local value8 = tostring(arg11 or 0)
+	local value9 = tostring(arg12 or "")
+	local value10 = tostring(arg13 or "")
+
+	Protocol.Send(playerIndex, "XBCENTER", numericValue, numericValue2, numericValue3, numericValue4, value, value2, value3, value4, value5, value6, value7, value8, value9, value10)
 end
 
 -- 將實體裝備屬性整理成 UI 顯示格式。
@@ -1480,7 +1486,7 @@ function findEquipmentSlot(playerIndex, itemIndex)
 		return CONST.EQUIP_腿
 	end
 
-	if Item.Types.isAccessory(itemType) then
+	if Item.Types.isAccessory(itemType) or itemType == CONST.道具类型_头饰 then
 		if Char.GetItemIndex(playerIndex, CONST.EQUIP_首饰1) < 0 then
 			return CONST.EQUIP_首饰1
 		end
@@ -1502,7 +1508,7 @@ end
 -- 判斷道具類型是否可以放入指定裝備欄。
 function canEquipInSlot(itemType, slot)
 	if slot == 1 or slot == 3 then
-		return Item.Types.isAccessory(itemType)
+		return Item.Types.isAccessory(itemType) or itemType == CONST.道具类型_头饰
 	end
 
 	if slot == 2 then
@@ -1927,6 +1933,7 @@ function refreshEquipment(playerIndex, slot)
 	local itemIndex = Char.GetItemIndex(playerIndex, value)
 
 	if not itemIndex or itemIndex < 0 then
+		sendXBProtocol(playerIndex, 3, 0, 0, "", "", "", "", "", "", 0, 0)
 		Protocol.Send(playerIndex, "EQUIPINFO", tostring(slot), "0", "0", "", "", "", "", "")
 
 		return
@@ -1935,6 +1942,7 @@ function refreshEquipment(playerIndex, slot)
 	local numericValue = tonumber(Item.GetData(itemIndex, 1) or 0) or 0
 	local value2 = getItemDisplayNameFromData(itemIndex)
 	local value3, localValue50_5 = getItemSetAndGemInfo(playerIndex, itemIndex)
+	sendPotentialCacheXBCENTERFromItemIndex(playerIndex, itemIndex, "equip", tostring(slot))
 
 	Protocol.Send(playerIndex, "EQUIPINFO", tostring(slot), tostring(numericValue), tostring(value2), formatItemInfo(itemIndex), formatItemDurability(itemIndex), formatItemType(itemIndex), value3, localValue50_5)
 end
@@ -1955,6 +1963,7 @@ function queryEquipmentInfo(playerIndex, slot)
 		local value4 = loadBagItem(playerIndex, value2)
 
 		if not value4 then
+			sendXBProtocol(playerIndex, 3, 0, 0, "", "", "", "", "", "", 0, 0)
 			Protocol.Send(playerIndex, "BAGINFO", tostring(slot), "0", "0", "", "", "", "", "")
 
 			return
@@ -1963,6 +1972,7 @@ function queryEquipmentInfo(playerIndex, slot)
 		local value5, localValue51_7 = pcall(JSON.decode, value4)
 		local result = value5 and formatItemDataInfo(localValue51_7) or ""
 		local value6, localValue51_10 = getItemDataSetAndGemInfo(playerIndex, localValue51_7)
+		sendPotentialCacheXBCENTER(playerIndex, value5 and localValue51_7 or nil)
 
 		Protocol.Send(playerIndex, "BAGINFO", tostring(slot), tostring(value3), tostring(localValue51_4), result, value5 and formatItemDataDurability(localValue51_7) or "", value5 and formatItemDataType(localValue51_7) or "", value6, localValue51_10)
 
@@ -1973,6 +1983,7 @@ function queryEquipmentInfo(playerIndex, slot)
 	local itemIndex = Char.GetItemIndex(playerIndex, value7)
 
 	if not itemIndex or itemIndex < 0 then
+		sendXBProtocol(playerIndex, 3, 0, 0, "", "", "", "", "", "", 0, 0)
 		Protocol.Send(playerIndex, "BAGINFO", tostring(slot), "0", "0", "", "", "", "", "")
 
 		return
@@ -1981,6 +1992,7 @@ function queryEquipmentInfo(playerIndex, slot)
 	local numericValue = tonumber(Item.GetData(itemIndex, 1) or 0) or 0
 	local value8 = getItemDisplayNameFromData(itemIndex)
 	local value9, localValue51_16 = getItemSetAndGemInfo(playerIndex, itemIndex)
+	sendPotentialCacheXBCENTERFromItemIndex(playerIndex, itemIndex)
 
 	Protocol.Send(playerIndex, "BAGINFO", tostring(slot), tostring(numericValue), tostring(value8), formatItemInfo(itemIndex), formatItemDurability(itemIndex), formatItemType(itemIndex), value9, localValue51_16)
 end
@@ -2166,7 +2178,8 @@ function putEnhanceItem(playerIndex, slot, page)
 
 	local value11, localValue57_17 = getItemDataSetAndGemInfo(playerIndex, data)
 
-	sendXBProtocol(playerIndex, 1, tonumber(value3) or 0, value5, value6, formatItemDataDurability(data), formatItemDataType(data), value11, localValue57_17)
+	local potentialText, potentialMainQuality, potentialAddQuality = getPotentialHoverCacheData(data)
+	sendXBProtocol(playerIndex, 1, tonumber(value3) or 0, value5, value6, formatItemDataDurability(data), formatItemDataType(data), value11, localValue57_17, potentialText, potentialMainQuality, potentialAddQuality)
 	sendBagList(playerIndex)
 	sendSystemMessage(playerIndex, "已把裝備放入強化槽")
 end
@@ -2634,7 +2647,8 @@ function queryEnhanceSlot(playerIndex)
 
 		local value9, localValue59_23 = getItemDataSetAndGemInfo(playerIndex, itemData)
 
-		sendXBProtocol(playerIndex, 1, itemImage, itemLevel, value, formatItemDataDurability(itemData), formatItemDataType(itemData), value9, localValue59_23)
+		local potentialText, potentialMainQuality, potentialAddQuality = getPotentialHoverCacheData(itemData)
+		sendXBProtocol(playerIndex, 1, itemImage, itemLevel, value, formatItemDataDurability(itemData), formatItemDataType(itemData), value9, localValue59_23, potentialText, potentialMainQuality, potentialAddQuality)
 		sendSystemMessage(playerIndex, "[系統] 檢測到強化槽中有裝備，已自動恢復顯示。")
 	else
 		sendXBProtocol(playerIndex, 0, 0, 0, "")
@@ -3248,6 +3262,18 @@ function withdrawFromBank(playerIndex, slot, targetPage)
 		ensureEnhanceData(newItemIndex, true)
 	end
 
+	-- 銀行取回必須恢復潛能 ExtData 與基礎屬性快照，再重新建構 潛能→寶石→強化。
+	if result.potential and type(result.potential) == "table" then
+		local potentialOK, potentialEncoded = pcall(JSON.encode, result.potential)
+		if potentialOK and potentialEncoded then
+			Item.SetExtData(newItemIndex, "potentialData", potentialEncoded)
+		end
+	end
+	if result._statBaseAttrs and type(result._statBaseAttrs) == "table" then
+		saveStatBaseExtData(newItemIndex, result._statBaseAttrs)
+	end
+	rebuildItemStats(playerIndex, newItemIndex, value3)
+
 	local targetPageValue = Char.GetItemIndex(playerIndex, value3)
 
 	if targetPageValue and targetPageValue >= 0 then
@@ -3381,6 +3407,7 @@ function moveBankItemToBag(playerIndex, bankSlot)
 	local value3 = loadBankItem(playerIndex, value)
 
 	if not value3 then
+		sendXBProtocol(playerIndex, 3, 0, 0, "", "", "", "", "", "", 0, 0)
 		Protocol.Send(playerIndex, "BANKINFO", tostring(bankSlot), "0", "0", "", "", "", "", "")
 
 		return
@@ -3389,6 +3416,7 @@ function moveBankItemToBag(playerIndex, bankSlot)
 	local value4, localValue76_6 = pcall(JSON.decode, value3)
 	local result = value4 and formatItemDataInfo(localValue76_6) or ""
 	local value5, localValue76_9 = getItemDataSetAndGemInfo(playerIndex, localValue76_6)
+	sendPotentialCacheXBCENTER(playerIndex, value4 and localValue76_6 or nil)
 
 	Protocol.Send(playerIndex, "BANKINFO", tostring(bankSlot), tostring(value2), tostring(value4 and getItemImage(localValue76_6) or 0), result, value4 and formatItemDataDurability(localValue76_6) or "", value4 and formatItemDataType(localValue76_6) or "", value5, localValue76_9)
 end
@@ -4780,7 +4808,8 @@ function enhanceEquipment(playerIndex)
 
 	local value15, localValue95_39 = getItemDataSetAndGemInfo(playerIndex, data2)
 
-	sendXBProtocol(playerIndex, 1, numericValue6, value11, value12, formatItemDataDurability(data2), formatItemDataType(data2), value15, localValue95_39)
+	local potentialText, potentialMainQuality, potentialAddQuality = getPotentialHoverCacheData(data2)
+	sendXBProtocol(playerIndex, 1, numericValue6, value11, value12, formatItemDataDurability(data2), formatItemDataType(data2), value15, localValue95_39, potentialText, potentialMainQuality, potentialAddQuality)
 end
 
 -- 取得隊伍中的其他成員。
@@ -5741,6 +5770,68 @@ local potentialQualityNames = {
 
 -- 每個品質三條效果的候選池。
 -- 目前先保存/回傳文字；真正角色/裝備屬性套用放在 applyPotentialStats()。
+-- 使用既有 XBCENTER 傳送潛能 Tooltip 快取。
+-- 文字與品質同時快取，前端所有裝備 Tooltip 共用這份資料。
+function getPotentialHoverCacheData(itemData)
+	if type(itemData) ~= "table" then
+		return "", 0, 0
+	end
+
+	local p = itemData.potential
+	if type(p) ~= "table" then
+		return "", 0, 0
+	end
+
+	local mainQuality = p.mainOpened and (tonumber(p.mainQuality) or 0) or 0
+	local addQuality = p.addOpened and (tonumber(p.addQuality) or 0) or 0
+	if mainQuality <= 0 and addQuality <= 0 then
+		return "", 0, 0
+	end
+
+	local mainName = potentialQualityNames[mainQuality] or "-"
+	local addName = potentialQualityNames[addQuality] or "-"
+	local text = "主潛/附潛品質：" .. mainName .. "  " .. addName
+	return text, mainQuality, addQuality
+end
+
+function getPotentialHoverCacheFromItemIndex(itemIndex)
+	if not itemIndex or itemIndex < 0 then
+		return "", 0, 0
+	end
+
+	local raw = Item.GetExtData(itemIndex, "potentialData")
+	if not raw or raw == "" then
+		return "", 0, 0
+	end
+
+	local ok, data = pcall(JSON.decode, raw)
+	if not ok or type(data) ~= "table" then
+		return "", 0, 0
+	end
+
+	return getPotentialHoverCacheData({ potential = data })
+end
+
+function sendPotentialCacheXBCENTER(playerIndex, itemData, sourceType, sourceIndex)
+	local text, mainQuality, addQuality = getPotentialHoverCacheData(itemData)
+	sendXBProtocol(playerIndex, 3, 0, 0, "", "", "", "", "", text, mainQuality, addQuality, sourceType or "", sourceIndex or "")
+end
+
+function sendPotentialCacheXBCENTERFromItemIndex(playerIndex, itemIndex, sourceType, sourceIndex)
+	local raw = Item.GetExtData(itemIndex, "potentialData")
+	if not raw or raw == "" then
+		sendXBProtocol(playerIndex, 3, 0, 0, "", "", "", "", "", "", 0, 0, sourceType or "", sourceIndex or "")
+		return
+	end
+
+	local ok, data = pcall(JSON.decode, raw)
+	if ok and type(data) == "table" then
+		sendPotentialCacheXBCENTER(playerIndex, { potential = data }, sourceType, sourceIndex)
+	else
+		sendXBProtocol(playerIndex, 3, 0, 0, "", "", "", "", "", "", 0, 0, sourceType or "", sourceIndex or "")
+	end
+end
+
 local potentialEffectTierWeights = {
     [1] = 60, -- 低
     [2] = 30, -- 中
@@ -5934,17 +6025,14 @@ function potentialSendState(playerIndex, message)
     end
     local goldCost = 0
 
-    if p and not p.mainOpened then
-        goldCost = potentialConfig.mainOpenGold
-    elseif p and not p.addOpened then
-        goldCost = potentialConfig.addOpenGold
-    elseif tool then
-        local kind = toolKind
-        if kind == 'main_cube' then
-            goldCost = potentialConfig.mainCubeGold
-        elseif kind == 'add_cube' then
-            goldCost = potentialConfig.addCubeGold
-        end
+    if p and tool then
+		if toolKind == "main_open" then 
+			if not p.mainOpened then goldCost = potentialConfig.mainOpenGold end
+		elseif toolKind == "add_open" then 
+			if not p.addOpened then goldCost = potentialConfig.addOpenGold end
+		elseif toolKind == "main_cube" then goldCost = potentialConfig.mainCubeGold
+		elseif toolKind == "add_cube" then goldCost = potentialConfig.addCubeGold
+		end
     end
 
     Protocol.Send(playerIndex, "POTSTATE",
@@ -6328,333 +6416,376 @@ function potentialOperate(playerIndex, action)
     end
 end
 
+-- 取得潛能裝備格的完整懸停 Tooltip 資料。
+-- 269：只讀 xpot_equip，不改變任何潛能/裝備狀態。
+function sendPotentialHoverInfo(playerIndex)
+    local itemData = potentialGetStoredData(playerIndex, potentialEquipStorageKey)
+    if not itemData then
+        Protocol.Send(playerIndex, "POTINFO", "0")
+        return
+    end
+    local itemType = tonumber(itemData[tostring(CONST.道具_类型)]) or -1
+    if itemType < 0 or itemType > 22 then
+        Protocol.Send(playerIndex, "POTINFO", "0")
+        return
+    end
+    local image = tonumber(itemData["1"]) or 0
+    local p = potentialEnsureData(itemData)
+    sendPotentialCacheXBCENTER(playerIndex, itemData)
+    local enhanceLevel = 0
+    if type(itemData._itemExt) == "table" and type(itemData._itemExt.starEnhance) == "table" then
+        enhanceLevel = tonumber(itemData._itemExt.starEnhance.level) or 0
+    end
+    local text, durab, itemTypeText, setText, gemText = formatStoredItemInfo(playerIndex, itemData)
+    Protocol.Send(playerIndex, "POTINFO", tostring(image), tostring(enhanceLevel), tostring(text or ""), tostring(durab or ""), tostring(itemTypeText or ""), tostring(setText or ""), tostring(gemText or ""), tostring(p.mainOpened and (tonumber(p.mainQuality) or 0) or 0), tostring(p.addOpened and (tonumber(p.addQuality) or 0) or 0))
+end
+
 function queryPotentialState(playerIndex)
     potentialSendState(playerIndex)
 end
 
-function handleXBProtocol(fd, protocol, args)
-	local value = Protocol.GetCharIndexFromFd(fd)
+function handleXBProtocol(fd, head, data)
+	local player = Protocol.GetCharIndexFromFd(fd)
 
-	if not value or value < 0 then
+	if not player or player < 0 then
 		return 1
 	end
 
-	local numericValue = tonumber(args[1]) or -1
-	local numericValue2 = tonumber(args[2]) or -1
+	local numericValue = tonumber(data[1]) or -1
+	local numericValue2 = tonumber(data[2]) or -1
 
 	if numericValue == 0 then
-		sortBag(value)
+		sortBag(player)
 
 		return 1
 	end
 
 	if numericValue == 201 then
-		putEnhanceItem(value, numericValue2, tonumber(args[3]) or 1)
+		putEnhanceItem(player, numericValue2, tonumber(data[3]) or 1)
 
 		return 1
 	end
 
 	if numericValue == 202 then
-		takeEnhanceItem(value, numericValue2, tonumber(args[3]) or 1)
+		takeEnhanceItem(player, numericValue2, tonumber(data[3]) or 1)
 
 		return 1
 	end
 
 	if numericValue == 203 then
-		openEnhanceUI(value)
+		openEnhanceUI(player)
 
 		return 1
 	end
 
 	if numericValue == 204 then
-		enhanceEquipment(value)
+		enhanceEquipment(player)
 
 		return 1
 	end
 
 	if numericValue == 205 then
-		toggleEnhanceSuccessBoost(value)
+		toggleEnhanceSuccessBoost(player)
 
 		return 1
 	end
 
 	if numericValue == 206 then
-		queryEnhanceSuccessBoost(value)
+		queryEnhanceSuccessBoost(player)
 
 		return 1
 	end
 
 	if numericValue == 207 then
-		moveBagItem(value, numericValue2, tonumber(args[3]) or -1)
+		moveBagItem(player, numericValue2, tonumber(data[3]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 208 then
-		equipItem(value, numericValue2, tonumber(args[3]) or -1, tonumber(args[4]) or 1)
+		equipItem(player, numericValue2, tonumber(data[3]) or -1, tonumber(data[4]) or 1)
 
 		return 1
 	end
 
 	if numericValue == 209 then
-		unequipItem(value, numericValue2, tonumber(args[3]) or -1, tonumber(args[4]) or 1)
+		unequipItem(player, numericValue2, tonumber(data[3]) or -1, tonumber(data[4]) or 1)
 
 		return 1
 	end
 
 	if numericValue == 210 then
-		sendBagList(value)
-		sendEquipmentList(value)
+		sendBagList(player)
+		sendEquipmentList(player)
 
 		return 1
 	end
 
 	if numericValue == 211 then
-		swapEquipment(value, numericValue2, tonumber(args[3]) or -1)
+		swapEquipment(player, numericValue2, tonumber(data[3]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 212 then
-		refreshEquipment(value, numericValue2)
+		refreshEquipment(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 213 then
-		queryEquipmentInfo(value, numericValue2)
+		queryEquipmentInfo(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 214 then
-		refreshItemInfo(value)
+		refreshItemInfo(player)
 
 		return 1
 	end
 
 	if numericValue == 215 then
-		dropBagItem(value, numericValue2)
+		dropBagItem(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 216 then
-		queryEnhanceResult(value, numericValue2)
+		queryEnhanceResult(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 217 then
-		queryEnhanceCost(value, numericValue2)
+		queryEnhanceCost(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 218 then
-		depositToBank(value, numericValue2, tonumber(args[3]), tonumber(args[4]))
+		depositToBank(player, numericValue2, tonumber(data[3]), tonumber(data[4]))
 
 		return 1
 	end
 
 	if numericValue == 219 then
-		deleteBagItem(value, numericValue2, tonumber(args[3]) or 0)
+		deleteBagItem(player, numericValue2, tonumber(data[3]) or 0)
 
 		return 1
 	end
 
 	if numericValue == 220 then
-		queryBankPage(value, numericValue2)
+		queryBankPage(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 221 then
-		withdrawFromBank(value, numericValue2, tonumber(args[3]))
+		withdrawFromBank(player, numericValue2, tonumber(data[3]))
 
 		return 1
 	end
 
 	if numericValue == 222 then
-		sortBank(value, numericValue2)
+		sortBank(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 223 then
-		moveBankItem(value, numericValue2, tonumber(args[3]) or -1)
+		moveBankItem(player, numericValue2, tonumber(data[3]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 224 then
-		moveBagItemToBank(value, numericValue2, tonumber(args[3]) or -1)
+		moveBagItemToBank(player, numericValue2, tonumber(data[3]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 225 then
-		depositBagItem(value, numericValue2, tonumber(args[3]) or -1)
+		depositBagItem(player, numericValue2, tonumber(data[3]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 226 then
-		withdrawBagItem(value, numericValue2)
+		withdrawBagItem(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 227 then
-		moveBagSlot(value, numericValue2, tonumber(args[3]) or -1)
+		moveBagSlot(player, numericValue2, tonumber(data[3]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 228 then
-		moveBankSlot(value, numericValue2, tonumber(args[3]) or -1)
+		moveBankSlot(player, numericValue2, tonumber(data[3]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 229 then
-		moveBankItemToBag(value, numericValue2)
+		moveBankItemToBag(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 230 then
-		moveBankPageSlot(value, numericValue2, tonumber(args[3]) or -1, tonumber(args[4]) or 0)
+		moveBankPageSlot(player, numericValue2, tonumber(data[3]) or -1, tonumber(data[4]) or 0)
 
 		return 1
 	end
 
 	if numericValue == 231 then
-		sortBagItems(value)
+		sortBagItems(player)
 
 		return 1
 	end
 
 	if numericValue == 232 then
-		moveBagPageSlot(value, numericValue2, tonumber(args[3]) or -1, tonumber(args[4]) or 1)
+		moveBagPageSlot(player, numericValue2, tonumber(data[3]) or -1, tonumber(data[4]) or 1)
 
 		return 1
 	end
 
 	if numericValue == 240 then
-		repairAllEquipment(value)
+		repairAllEquipment(player)
 
 		return 1
 	end
 
 	if numericValue == 241 then
-		queryPartyInfo(value)
+		queryPartyInfo(player)
 
 		return 1
 	end
 
 	if numericValue == 242 then
-		kickPartyMember(value, numericValue2)
+		kickPartyMember(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 243 then
-		queryPetList(value, numericValue2)
+		queryPetList(player, numericValue2)
 
 		return 1
 	end
 
 	if numericValue == 245 then
-		feedTarget(value, numericValue2, tonumber(args[3]) or 0, tonumber(args[4]) or -1, tonumber(args[5]) or 1, tonumber(args[6]) or -1)
+		feedTarget(player, numericValue2, tonumber(data[3]) or 0, tonumber(data[4]) or -1, tonumber(data[5]) or 1, tonumber(data[6]) or -1)
 
 		return 1
 	end
 
 	if numericValue == 250 then
-		putSynthesisItem(value, numericValue2, tonumber(args[3]) or 1, equipStorageKey, "equip", "鑲嵌裝備格")
+		putSynthesisItem(player, numericValue2, tonumber(data[3]) or 1, equipStorageKey, "equip", "鑲嵌裝備格")
 
 		return 1
 	end
 
 	if numericValue == 251 then
-		putSynthesisItem(value, numericValue2, tonumber(args[3]) or 1, gemStorageKey, "gem", "鑲嵌寶石格")
+		putSynthesisItem(player, numericValue2, tonumber(data[3]) or 1, gemStorageKey, "gem", "鑲嵌寶石格")
 
 		return 1
 	end
 
 	if numericValue == 252 then
-		takeSynthesisItem(value, numericValue2, tonumber(args[3]) or 1, equipStorageKey, "鑲嵌裝備格")
+		takeSynthesisItem(player, numericValue2, tonumber(data[3]) or 1, equipStorageKey, "鑲嵌裝備格")
 
 		return 1
 	end
 
 	if numericValue == 253 then
-		takeSynthesisItem(value, numericValue2, tonumber(args[3]) or 1, gemStorageKey, "鑲嵌寶石格")
+		takeSynthesisItem(player, numericValue2, tonumber(data[3]) or 1, gemStorageKey, "鑲嵌寶石格")
 
 		return 1
 	end
 
 	if numericValue == 254 then
-		takeSynthesisItem(value, numericValue2, tonumber(args[3]) or 1, resultStorageKey, "合成結果格")
+		takeSynthesisItem(player, numericValue2, tonumber(data[3]) or 1, resultStorageKey, "合成結果格")
 
 		return 1
 	end
 
 	if numericValue == 255 then
-		synthesizeGemIntoEquipment(value)
+		synthesizeGemIntoEquipment(player)
 
 		return 1
 	end
 
 	if numericValue == 256 then
-		refreshSynthesisUI(value)
+		refreshSynthesisUI(player)
 
 		return 1
 	end
 
 	if numericValue == 257 then
-		putSynthesisItem(value, numericValue2, tonumber(args[3]) or 1, resultStorageKey, "result", "合成結果格")
+		putSynthesisItem(player, numericValue2, tonumber(data[3]) or 1, resultStorageKey, "result", "合成結果格")
 
+		return 1
+	end
+
+	-- 258：使用既有 XBCENTER 回傳鑲嵌/合成裝備格的潛能 Tooltip 快取。
+	-- arg2 = 1 鑲嵌裝備格，2 合成結果格。
+	if numericValue == 258 then
+		local cacheType = numericValue2
+		if cacheType == 1 then
+			sendPotentialCacheXBCENTER(player, getStorageData(player, equipStorageKey), "inlay_equip", "装备格")
+		elseif cacheType == 2 then
+			sendPotentialCacheXBCENTER(player, getStorageData(player, resultStorageKey), "inlay_result", "合成格")
+		else
+			sendXBProtocol(player, 3, 0, 0, "", "", "", "", "", "", 0, 0, "", "")
+		end
 		return 1
 	end
 
 	-- 260：查詢潛能狀態。
 	if numericValue == 260 then
-		queryPotentialState(value)
+		queryPotentialState(player)
 		return 1
 	end
 
 	if numericValue == 261 then
-		potentialPutItem(value, numericValue2, tonumber(args[3]) or 1, potentialEquipStorageKey, true)
+		potentialPutItem(player, numericValue2, tonumber(data[3]) or 1, potentialEquipStorageKey, true)
 		return 1
 	end
 
 	if numericValue == 262 then
-		potentialPutItem(value, numericValue2, tonumber(args[3]) or 1, potentialToolStorageKey, false)
+		potentialPutItem(player, numericValue2, tonumber(data[3]) or 1, potentialToolStorageKey, false)
+		return 1
+	end
+
+	if numericValue == 263 or numericValue == 264 or numericValue == 265 or numericValue == 266 then
+		potentialOperate(player, numericValue)
 		return 1
 	end
 
 	-- 267：取回潜能装备。
 	-- 参数：可选目标背包槽位 + 目标页码；不传时自动放回第1页可用背包格。
 	if numericValue == 267 then
-		potentialTakeItem(value, numericValue2, tonumber(args[3]) or 1, potentialEquipStorageKey, true)
+		potentialTakeItem(player, numericValue2, tonumber(data[3]) or 1, potentialEquipStorageKey, true)
 		return 1
 	end
 
 	-- 268：取回潜能道具。
 	-- 参数：可选目标背包槽位 + 目标页码；不传时自动放回第1页可用背包格。
 	if numericValue == 268 then
-		potentialTakeItem(value, numericValue2, tonumber(args[3]) or 1, potentialToolStorageKey, false)
+		potentialTakeItem(player, numericValue2, tonumber(data[3]) or 1, potentialToolStorageKey, false)
+		return 1
+	end
+	-- 269：潛能裝備格懸停詳細資料。
+	if numericValue == 269 then
+		sendPotentialHoverInfo(player)
 		return 1
 	end
 
-	if numericValue == 263 or numericValue == 264 or numericValue == 265 or numericValue == 266 then
-		potentialOperate(value, numericValue)
-		return 1
-	end
-
-	sendSystemMessage(value, "未定義的 CUSTOMXB 參數：" .. tostring(numericValue))
+	sendSystemMessage(player, "未定義的 CUSTOMXB 參數：" .. tostring(numericValue))
 
 	return 1
 end
