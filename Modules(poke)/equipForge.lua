@@ -1,4 +1,26 @@
 -- ============================================================================
+-- equipForge.lua｜可讀性整理版
+-- 版本原則：僅整理結構與註解，不改變既有函式、協議、參數、資料格式與執行邏輯。
+-- 搜尋方式：可使用 [GEM] / [ENHANCE] / [BANK] / [POTENTIAL] / [HOVER] 等標籤快速定位。
+-- ============================================================================
+-- 功能目錄：
+--   01 DATA：檔案讀取與通用解析
+--   02 GEM：寶石 ID／材料／效果
+--   03 JOB/ITEMSET：職業與需求
+--   04 SUIT：套裝
+--   05 EQUIP：裝備欄與裝備資訊
+--   06 REPAIR：修理
+--   07 ENHANCE：強化
+--   08 BAG：背包／銀行移動
+--   09 STATS：基礎值 → 潛能 → 寶石 → 強化重建
+--   10 STORAGE：JSON 暫存與 Item 重建
+--   11 ENHANCE-UI：強化協議
+--   12-15 POTENTIAL：潛能系統
+--   16 PROTOCOL：CUSTOMXB 分派
+--   17 LIFECYCLE：生命週期
+-- ============================================================================
+
+-- ============================================================================
 -- CustomXB：可讀性重構＋反編譯語意校正版
 -- 說明：
 --   1. 以「程式碼正確.lua」作為原始語意基準。
@@ -77,6 +99,10 @@ local equipmentTypeNames = {
 }
 
 -- 將 Tab 分隔的資料列切割成欄位陣列。
+
+-- ----------------------------------------------------------------------------
+-- [01][DATA] 基礎資料讀取工具
+-- ----------------------------------------------------------------------------
 function splitTabLine(line)
 	local data = {}
 
@@ -124,6 +150,10 @@ local gemAttributeNames = {
 local gemMaterialEffects = {}
 
 -- 讀取 itemmaterial.txt，建立寶石材料效果資料表。
+
+-- ----------------------------------------------------------------------------
+-- [02][GEM] 寶石資料、效果解析與屬性套用
+-- ----------------------------------------------------------------------------
 function loadGemMaterialData()
 	local value = openDataFile("itemmaterial.txt")
 
@@ -439,6 +469,10 @@ function applyGemEffects(itemData, materialId, isWeapon, resetDurability)
 end
 
 -- 讀取職業熟練度、職業名稱與道具需求等資料。
+
+-- ----------------------------------------------------------------------------
+-- [03][JOB/ITEMSET] 職業、熟練與裝備需求資料
+-- ----------------------------------------------------------------------------
 function loadJobAndItemSetData()
 	local value = openDataFile("jobs.txt")
 
@@ -497,6 +531,10 @@ end
 local suitItemInfo = {}
 
 -- 讀取套裝資料並建立道具 ID 對應資訊。
+
+-- ----------------------------------------------------------------------------
+-- [04][SUIT] 套裝資料與套裝效果
+-- ----------------------------------------------------------------------------
 function loadSuitSetData()
 	suitItemInfo = {}
 
@@ -529,6 +567,10 @@ function loadSuitSetData()
 end
 
 -- 統計角色裝備欄中指定套裝的已裝備件數。
+
+-- ----------------------------------------------------------------------------
+-- [05][EQUIP] 裝備欄、套裝、穿戴與裝備資訊
+-- ----------------------------------------------------------------------------
 function countEquippedSuitItems(playerIndex, suitName)
 	if not suitName then
 		return 0
@@ -1800,6 +1842,10 @@ function unequipItem(playerIndex, equipSlot, targetBagSlot, mode)
 end
 
 -- 修理角色所有可修理裝備。
+
+-- ----------------------------------------------------------------------------
+-- [06][REPAIR] 裝備修理與裝備欄操作
+-- ----------------------------------------------------------------------------
 function repairAllEquipment(playerIndex)
 	local value = 0
 
@@ -2057,6 +2103,10 @@ function queryEnhanceSuccessBoost(playerIndex)
 end
 
 -- 將背包裝備放入強化槽。
+
+-- ----------------------------------------------------------------------------
+-- [07][ENHANCE] 強化格、強化等級與強化流程
+-- ----------------------------------------------------------------------------
 function putEnhanceItem(playerIndex, slot, page)
 	page = tonumber(page) or 1
 
@@ -2660,6 +2710,10 @@ function queryEnhanceSlot(playerIndex)
 end
 
 -- 移動背包物品。
+
+-- ----------------------------------------------------------------------------
+-- [08][BAG] 背包、銀行與跨頁物品移動
+-- ----------------------------------------------------------------------------
 function moveBagItem(playerIndex, fromSlot, targetSlot)
 	fromSlot = tonumber(fromSlot) or -1
 	targetSlot = tonumber(targetSlot) or -1
@@ -3495,6 +3549,10 @@ end
 -- ============================================================================
 -- 裝備屬性三層重建：基礎 → 潛能 → 寶石 → 強化
 -- ============================================================================
+
+-- ----------------------------------------------------------------------------
+-- [09][STATS] 基礎屬性快照、潛能／寶石／強化三層重建
+-- ----------------------------------------------------------------------------
 function getStatBaseExtData(itemIndex)
     if not itemIndex or itemIndex < 0 then return nil end
     local raw = Item.GetExtData(itemIndex, "statBaseAttrs")
@@ -3839,6 +3897,10 @@ function createItemFromData(playerIndex, itemData, targetSlot)
 	return newItemIndex
 end
 
+
+-- ----------------------------------------------------------------------------
+-- [10][STORAGE] 暫存裝備／重建 Item／取回流程
+-- ----------------------------------------------------------------------------
 function takeStoredBagItem(playerIndex, slot)
 	slot = tonumber(slot) or -1
 
@@ -4269,7 +4331,7 @@ function moveBagPageSlot(playerIndex, fromSlot, targetSlot, fromPage)
 		return
 	end
 
-	local value12, localValue84_18, localValue84_19 = getBagItemData(playerIndex, targetItemIndex)
+	local value12, localValue84_18, localValue84_19 = getBagItemData(playerIndex, targetSlot)
 
 	saveBagItem(playerIndex, targetSlot, nil, 0, 0, 0)
 	saveBagItem(playerIndex, value11, value7, value12, localValue84_18, localValue84_19)
@@ -4519,6 +4581,10 @@ function deleteBagItem(playerIndex, slot, itemIndex2)
 end
 
 -- 開啟/刷新強化介面。
+
+-- ----------------------------------------------------------------------------
+-- [11][ENHANCE-UI] 強化介面查詢與結果封包
+-- ----------------------------------------------------------------------------
 function openEnhanceUI(playerIndex)
 	queryEnhanceSlot(playerIndex)
 	sendBagList(playerIndex)
@@ -5992,6 +6058,10 @@ function potentialRollQuality(currentQuality)
 end
 
 -- 套用潛能後重建完整裝備屬性：基礎 → 潛能 → 寶石 → 強化。
+
+-- ----------------------------------------------------------------------------
+-- [12][POTENTIAL] 潛能品質、低中高數值與屬性套用
+-- ----------------------------------------------------------------------------
 function applyPotentialStats(playerIndex, itemData, slot)
     if type(itemData) == "table" then
         return rebuildItemDataStats(itemData)
@@ -6002,6 +6072,10 @@ function applyPotentialStats(playerIndex, itemData, slot)
     return false
 end
 
+
+-- ----------------------------------------------------------------------------
+-- [13][POTENTIAL-STATE] 潛能格狀態、放入／取回／洗潛
+-- ----------------------------------------------------------------------------
 function potentialSendState(playerIndex, message)
     local equip = potentialGetStoredData(playerIndex, potentialEquipStorageKey)
     local tool = potentialGetStoredData(playerIndex, potentialToolStorageKey)
@@ -6418,6 +6492,10 @@ end
 
 -- 取得潛能裝備格的完整懸停 Tooltip 資料。
 -- 269：只讀 xpot_equip，不改變任何潛能/裝備狀態。
+
+-- ----------------------------------------------------------------------------
+-- [14][POTENTIAL-HOVER] 潛能 Tooltip 與懸停資料
+-- ----------------------------------------------------------------------------
 function sendPotentialHoverInfo(playerIndex)
     local itemData = potentialGetStoredData(playerIndex, potentialEquipStorageKey)
     if not itemData then
@@ -6440,10 +6518,18 @@ function sendPotentialHoverInfo(playerIndex)
     Protocol.Send(playerIndex, "POTINFO", tostring(image), tostring(enhanceLevel), tostring(text or ""), tostring(durab or ""), tostring(itemTypeText or ""), tostring(setText or ""), tostring(gemText or ""), tostring(p.mainOpened and (tonumber(p.mainQuality) or 0) or 0), tostring(p.addOpened and (tonumber(p.addQuality) or 0) or 0))
 end
 
+
+-- ----------------------------------------------------------------------------
+-- [15][POTENTIAL-PROTOCOL] 潛能協議 260~269
+-- ----------------------------------------------------------------------------
 function queryPotentialState(playerIndex)
     potentialSendState(playerIndex)
 end
 
+
+-- ----------------------------------------------------------------------------
+-- [16][PROTOCOL] CUSTOMXB 協議總入口
+-- ----------------------------------------------------------------------------
 function handleXBProtocol(fd, head, data)
 	local player = Protocol.GetCharIndexFromFd(fd)
 
@@ -6792,6 +6878,10 @@ end
 
 _G.handleXBProtocol = handleXBProtocol
 
+
+-- ----------------------------------------------------------------------------
+-- [17][LIFECYCLE] 登入／載入／卸載
+-- ----------------------------------------------------------------------------
 function Module.onLoginEvent(fd, protocol)
 	queryEnhanceSlot(protocol)
 	refreshSynthesisUI(protocol)
