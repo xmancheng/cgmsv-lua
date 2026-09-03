@@ -1,3 +1,4 @@
 ModuleSystem:loadModule('WidgetClientUI')	  --UI掛件整合
-ModuleSystem:loadModule('AptitudeClientUI')	  --天賦
-ModuleSystem:loadModule('EquipForgeClientUI')	  --裝備/強化鑲嵌潛能
+ModuleSystem:loadModule('AptitudeClientUI')		--天賦
+ModuleSystem:loadModule('GatheringClientUI')	--採集
+ModuleSystem:loadModule('EquipForgeClientUI')	--裝備/強化鑲嵌潛能
