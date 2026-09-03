@@ -6,17 +6,17 @@ local WIN_ID = 90008
 local COMMAND = "aptitude"
 
 -- ====================== 圖片路徑定義 ======================
-local BG_frameIMG        = "luaUI/modules/cg图档集/勇者适性/介面视窗.png"
-local BG_colorIMG        = "luaUI/modules/cg图档集/勇者适性/黑底.png"
+local BG_frameIMG        = "luaUI/modules/cg图档集/特殊介面/介面视窗.png"
+local BG_colorIMG        = "luaUI/modules/cg图档集/特殊介面/黑底.png"
 local BG_themeIMG        = "luaUI/modules/cg图档集/勇者适性/Chakra.png"
 local TOOLTIP_BG    = "luaUI/modules/cg图档集/勇者适性/能力信息.png"
-local CLOSE_BTN     = "luaUI/modules/cg图档集/勇者适性/关1.png"
-local CLOSE_HOVER   = "luaUI/modules/cg图档集/勇者适性/关2.png"
-local CLOSE_PRESS   = "luaUI/modules/cg图档集/勇者适性/关3.png"
+local CLOSE_BTN     = "luaUI/modules/cg图档集/特殊介面/关1.png"
+local CLOSE_HOVER   = "luaUI/modules/cg图档集/特殊介面/关2.png"
+local CLOSE_PRESS   = "luaUI/modules/cg图档集/特殊介面/关3.png"
 
 local CON_TAINER   = "luaUI/modules/cg图档集/勇者适性/container.png"
-local BTN_STATE   = "luaUI/modules/cg图档集/勇者适性/btn_state.png"
-local BTN_PRESS   = "luaUI/modules/cg图档集/勇者适性/btn_press.png"
+local BTN_STATE   = "luaUI/modules/cg图档集/特殊介面/btn_state.png"
+local BTN_PRESS   = "luaUI/modules/cg图档集/特殊介面/btn_press.png"
 
 --------------------------------------------------------------------------------
 -- 1. 數據配置與常數定義
@@ -186,6 +186,17 @@ function AptitudeModule:ToggleAptitude()
     end
 end
 
+function AptitudeModule:CreateWin_Update()
+	local player_Status = self:findWindow(7)	--玩家狀態栏7
+	if player_Status == nil then
+		if self.wnd and self.wnd.valid then
+			self.wnd:Close()
+			self:releaseWindow(self.wnd)
+			self.wnd = nil
+		end
+	end
+end
+
 function AptitudeModule:CreateWin()
     if self.wnd then return end
 
@@ -197,7 +208,8 @@ function AptitudeModule:CreateWin()
         width = winW,
         height = winH,
         layer = 4,
-        dragMove = 1
+        dragMove = 1,
+        update = function() self:CreateWin_Update() end,
     })
 
     if not window then return end

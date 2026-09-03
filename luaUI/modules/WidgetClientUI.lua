@@ -2,10 +2,9 @@
 -- 各式掛件UI整合 - 客戶端 UI 模組 (Client UI)
 --==============================================================================
 local Module = ModuleBase:extend('WidgetClientUI')
-local WIN_ID = 10101
 
 -- ====================== 圖片路徑定義 ======================
-local BG_frameIMG        = "luaUI/modules/cg图档集/特殊介面/介面视窗.png"
+local BG_frameIMG        = "luaUI/modules/cg图档集/特殊介面/小介面视窗.png"
 local BG_colorIMG        = "luaUI/modules/cg图档集/特殊介面/黑底.png"
 
 local CLOSE_BTN     = "luaUI/modules/cg图档集/特殊介面/关1.png"
@@ -19,7 +18,7 @@ local BTN_PRESS   = "luaUI/modules/cg图档集/特殊介面/btn_press.png"
 local frontWindowCaptureId = -1		--缓存，不要动
 local player_Status_NativeId = 7		--玩家狀態7.物品栏14.小地图33
 
-local pInfo_WIN_ID = 90009		--採集等級、勇者等級
+local pInfo_WIN_ID = 10101		--採集等級、勇者等級
 
 function Module:onLoad()
     print("[Widget] 各式掛件UI整合模組載入成功")
@@ -135,7 +134,7 @@ function Module:pInfo_CreateWin()
 
     local winW, winH = 249, 167
     local status, window = self:newWindow({
-        id = WIN_ID,
+        id = pInfo_WIN_ID,
         x = pInfo_Win_x + 350,
         y = pInfo_Win_y + 40,
         -- x = (CONST.Screen.Width - winW) / 2,
@@ -195,6 +194,15 @@ function Module:pInfo_CreateWin()
     })
     self.aptitudeStr = window:AddText({ x = 165, y = 23, width = 64, height = 20, font = 13, color = 16, text = "打開天賦"})
 
+    -- 探索地圖-指引按鈕
+    self.gatheringBtn = window:AddPngImage({
+        x = 160, y = 90, width = 64, height = 20,
+        image = BTN_STATE, hitable = true,
+        onClick = function() self.gatheringBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnGatheringBtnClick() end,
+        onHover = function() self.gatheringBtn:Set({image = BTN_STATE , visible=true}) self.gatheringStr:Set({color = 0}) end,
+        onLeave = function() self.gatheringBtn:Set({image = BTN_STATE , visible=true}) self.gatheringStr:Set({color = 16})end
+    })
+    self.gatheringStr = window:AddText({ x = 165, y = 93, width = 64, height = 20, font = 13, color = 16, text = "採集掃描"})
 end
 
 --------------------------------------------------------------------------------
@@ -225,6 +233,9 @@ function Module:OnAptitudeBtnClick()
 	WinMgr.SendPacket("uiMenu", 1)
 end
 
+function Module:OnGatheringBtnClick()
+	WinMgr.SendPacket("uiMenu", 2)
+end
 
 ------
 function Module:split(str, sep)
