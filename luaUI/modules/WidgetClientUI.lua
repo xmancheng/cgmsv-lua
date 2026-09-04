@@ -60,19 +60,20 @@ function Module:onLoad()
             elseif packetNumber == "3" then
               str = "ÍÚ¾òÖĞ..."
             end
-            print(packetNumber,str)
-            if self.gathering_wnd and self.gathering_wnd.valid then
-              if str == "’ñ¼¯½YÊø" then
+            if str == "’ñ¼¯½YÊø" then
+              if self.gathering_wnd and self.gathering_wnd.valid then
                 self.gathering_wnd:Close()
                 self:releaseWindow(self.gathering_wnd)
                 self.gathering_wnd = nil
-              else
-                self.gathering_str = str;
-                self:gathering_UpdateUI_Sring()
               end
             else
-              self.gathering_str = str;
-              self:gathering_CreateWin()
+              if self.gathering_wnd and self.gathering_wnd.valid then
+                self.gathering_str = str;
+                self:gathering_UpdateUI_Sring()
+              else
+                self.gathering_str = str;
+                self:gathering_CreateWin()
+              end
             end
         end
     end)
