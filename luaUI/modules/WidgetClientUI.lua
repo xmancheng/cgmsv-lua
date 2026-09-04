@@ -14,11 +14,13 @@ local CLOSE_PRESS   = "luaUI/modules/cg图档集/特殊介面/关3.png"
 local BTN_STATE   = "luaUI/modules/cg图档集/特殊介面/btn_state.png"
 local BTN_PRESS   = "luaUI/modules/cg图档集/特殊介面/btn_press.png"
 
+local BG_sframeIMG = "luaUI/modules/cg图档集/特殊介面/msg_bg.png"	--採集狀態框
 
 local frontWindowCaptureId = -1		--缓存，不要动
 local player_Status_NativeId = 7		--玩家狀態7.物品栏14.小地图33
 
 local pInfo_WIN_ID = 10101		--採集等級、勇者等級
+local gathering_WIN_ID = 10102	--採集狀態
 
 function Module:onLoad()
     print("[Widget] 各式掛件UI整合模組載入成功")
@@ -43,6 +45,37 @@ function Module:onLoad()
             self:pInfo_UpdateUI_Sring()
         end
     end)
+
+    ----- 採集狀態資訊
+    self.gathering_wnd = nil
+    -- 接收後端回傳的遊戲數據，建構與更新前端UI介面
+    self:onPacketRecv("IsGathering", function(header, params)
+        if params then
+            local packetNumber = params[1] or "0";
+            local str = "採集結束"
+            if packetNumber == "1" then
+              str = "伐木中..."
+            elseif packetNumber == "2" then
+              str = "狩獵中..."
+            elseif packetNumber == "3" then
+              str = "挖掘中..."
+            end
+            print(packetNumber,str)
+            if self.gathering_wnd and self.gathering_wnd.valid then
+              if str == "採集結束" then
+                self.gathering_wnd:Close()
+                self:releaseWindow(self.gathering_wnd)
+                self.gathering_wnd = nil
+              else
+                self.gathering_str = str;
+                self:gathering_UpdateUI_Sring()
+              end
+            else
+              self.gathering_str = str;
+              self:gathering_CreateWin()
+            end
+        end
+    end)
 end
 
 function Module:onUnload()
@@ -50,6 +83,11 @@ function Module:onUnload()
         self.pInfo_wnd:Close()
         self:releaseWindow(self.pInfo_wnd)
         self.pInfo_wnd = nil
+    end
+    if self.gathering_wnd then
+        self.gathering_wnd:Close()
+        self:releaseWindow(self.gathering_wnd)
+        self.gathering_wnd = nil
     end
 end
 
@@ -205,6 +243,29 @@ function Module:pInfo_CreateWin()
     self.gatheringStr = window:AddText({ x = 165, y = 93, width = 64, height = 20, font = 13, color = 16, text = "採集掃描"})
 end
 
+function Module:gathering_CreateWin()
+    if self.gathering_wnd then return end
+
+    local winW, winH = 162, 80
+    local status, window = self:newWindow({
+        id = gathering_WIN_ID,
+        x = (CONST.Screen.Width - winW) / 2,
+        y = (CONST.Screen.Height - winH) / 2,
+        width = winW,
+        height = winH,
+        layer = 4,
+        dragMove = 1,
+    })
+
+    if not window then return end
+    self.gathering_wnd = self:ownWindow(window)
+
+    --- 視窗
+    window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_sframeIMG, hitable = false })
+
+    local gathering_str = self.gathering_str
+    self.statusStr = window:AddText({ x = 50, y = 30, width = 20, height = 20, font = 3, color = 0, text = gathering_str })
+end
 --------------------------------------------------------------------------------
 -- 介面文本刷新
 --------------------------------------------------------------------------------
@@ -229,6 +290,13 @@ function Module:pInfo_UpdateUI_Sring()
     self.lblExploreExp2:Set({text = "下一級: "..exploreExp2 })
 end
 
+function Module:gathering_UpdateUI_Sring()
+    local gathering_str = self.gathering_str
+    self.statusStr:Set({text = gathering_str })
+end
+--------------------------------------------------------------------------------
+-- 傳送封包至後端
+--------------------------------------------------------------------------------
 function Module:OnAptitudeBtnClick()
 	WinMgr.SendPacket("uiMenu", 1)
 end
