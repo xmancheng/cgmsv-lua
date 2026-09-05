@@ -95,18 +95,18 @@ end
 --------------------------------------------------------------------------------
 -- UI 建立與控制
 --------------------------------------------------------------------------------
-function Module:ToggleWidget()
-    WinMgr.PlaySe(56, CONST.Screen.Width / 2)
-    if self.pInfo_wnd and self.pInfo_wnd.valid then
-        self.pInfo_wnd:Close()
-        self:releaseWindow(self.pInfo_wnd)
-        self.pInfo_wnd = nil
-    else
-        --請求服務端傳送數據
-        self:sendPacket("RequestPlayerInfoData")
-        self:pInfo_CreateWin()
-    end
-end
+-- function Module:ToggleWidget()
+    -- WinMgr.PlaySe(56, CONST.Screen.Width / 2)
+    -- if self.pInfo_wnd and self.pInfo_wnd.valid then
+        -- self.pInfo_wnd:Close()
+        -- self:releaseWindow(self.pInfo_wnd)
+        -- self.pInfo_wnd = nil
+    -- else
+        -- --請求服務端傳送數據
+        -- self:sendPacket("RequestPlayerInfoData")
+        -- self:pInfo_CreateWin()
+    -- end
+-- end
 
 function Module:ViewChangeEvent(viewType,viewState)
 	-- self:cliSendMsg('场景类型 = '..viewType..' | 场景状态 = '..viewState)
@@ -165,9 +165,7 @@ function Module:pInfo_CreateWin_Update()
 			self.pInfo_wnd:Set({ x = pInfo_Win_x+350, y = pInfo_Win_y+40})
 		end
 	end
-
 end
-
 function Module:pInfo_CreateWin()
     if self.pInfo_wnd then return end
 
@@ -244,6 +242,7 @@ function Module:pInfo_CreateWin()
     self.gatheringStr = window:AddText({ x = 165, y = 93, width = 64, height = 20, font = 13, color = 16, text = "採集掃描"})
 end
 
+
 function Module:gathering_CreateWin()
     if self.gathering_wnd then return end
 
@@ -254,16 +253,14 @@ function Module:gathering_CreateWin()
         y = (CONST.Screen.Height - winH) / 2,
         width = winW,
         height = winH,
-        layer = 4,
+        layer = 3,
         dragMove = 1,
     })
-
     if not window then return end
     self.gathering_wnd = self:ownWindow(window)
-
-    --- 視窗
+    --- 小視窗
     window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_sframeIMG, hitable = false })
-
+    --- 採集狀態文字
     local gathering_str = self.gathering_str
     self.statusStr = window:AddText({ x = 50, y = 30, width = 20, height = 20, font = 3, color = 0, text = gathering_str })
 end

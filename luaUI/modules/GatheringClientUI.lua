@@ -8,7 +8,7 @@ local COMMAND = "gathering"
 -- ====================== 圖片路徑定義 ======================
 local BG_frameIMG        = "luaUI/modules/cg图档集/特殊介面/介面视窗.png"
 local BG_colorIMG        = "luaUI/modules/cg图档集/特殊介面/黑底.png"
-local BG_themeIMG        = "luaUI/modules/cg图档集/特殊介面/BigMap.png"
+local BG_themeIMG        = "luaUI/modules/cg图档集/特殊介面/Collection.png"
 
 local CLOSE_BTN     = "luaUI/modules/cg图档集/特殊介面/关1.png"
 local CLOSE_HOVER   = "luaUI/modules/cg图档集/特殊介面/关2.png"
@@ -118,7 +118,7 @@ function GatheringModule:CreateWin()
     --- 視窗底色
     window:AddPngImage({ x = 6, y = 12, width = winW-30, height = winH-20, image = BG_colorIMG, hitable = false })
     --- 視窗主題底圖
-    -- window:AddPngImage({ x = 6, y = 12, width = winW-30, height = winH-20, image = BG_themeIMG, hitable = false })
+    window:AddPngImage({ x = 8, y = 26, width = winW-33, height = winH-35, image = BG_themeIMG, hitable = false })
     --- 視窗外框
     window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_frameIMG, hitable = false })
     -- 關閉按鈕
@@ -137,7 +137,11 @@ function GatheringModule:CreateWin()
 
     self.strGroup = {}
     -- 採集物指引
-    self.lblAxeIMG = window:AddPngImage({ x = 50, y = 50, width = 48, height = 40, image = Axe_IMG, imageHover = Axe_IMG, imagePress = Axe_IMG, hitable = false})
+    self.lblAxeIMG = window:AddPngImage({ x = 50, y = 50, width = 48, height = 40, image = Axe_IMG, imageHover = Axe_IMG, imagePress = Axe_IMG, hitable = true,
+        onClick = function() self.lblAxeIMG:Set({x = 50, y = 50, width = 48, height = 40 , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnlblAxeIMGClick() end,
+        onHover = function() self.lblAxeIMG:Set({x = 48, y = 48, width = 52, height = 44 , visible=true}) end,
+        onLeave = function() self.lblAxeIMG:Set({x = 50, y = 50, width = 48, height = 40 , visible=true}) end
+    })
     self.lblAxe = window:AddText({ x = 120, y = 60, width = 150, height = 24, font = 0, color = 102, text = "伐木之斧"})
     for key = 1,3 do
         local str = window:AddText({
@@ -146,7 +150,11 @@ function GatheringModule:CreateWin()
         })
         self.strGroup[key] = str;
     end
-    self.lblBowIMG = window:AddPngImage({ x = 50, y = 150, width = 48, height = 40, image = Bow_IMG, imageHover = Bow_IMG, imagePress = Bow_IMG, hitable = false})
+    self.lblBowIMG = window:AddPngImage({ x = 50, y = 150, width = 48, height = 40, image = Bow_IMG, imageHover = Bow_IMG, imagePress = Bow_IMG, hitable = true,
+        onClick = function() self.lblBowIMG:Set({x = 50, y = 150, width = 48, height = 40 , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnlblBowIMGClick() end,
+        onHover = function() self.lblBowIMG:Set({x = 48, y = 148, width = 52, height = 44 , visible=true}) end,
+        onLeave = function() self.lblBowIMG:Set({x = 50, y = 150, width = 48, height = 40 , visible=true}) end
+    })
     self.lblBow = window:AddText({ x = 120, y = 160, width = 150, height = 24, font = 0, color = 110, text = "狩獵之弓"})
     for key = 4,6 do
         local str = window:AddText({
@@ -155,7 +163,11 @@ function GatheringModule:CreateWin()
         })
         self.strGroup[key] = str;
     end
-    self.lblHawkIMG = window:AddPngImage({ x = 50, y = 250, width = 48, height = 40, image = Hawk_IMG, imageHover = Hawk_IMG, imagePress = Hawk_IMG, hitable = false})
+    self.lblHawkIMG = window:AddPngImage({ x = 50, y = 250, width = 48, height = 40, image = Hawk_IMG, imageHover = Hawk_IMG, imagePress = Hawk_IMG, hitable = true,
+        onClick = function() self.lblHawkIMG:Set({x = 50, y = 250, width = 48, height = 40 , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnlblHawkIMGClick() end,
+        onHover = function() self.lblHawkIMG:Set({x = 48, y = 248, width = 52, height = 44 , visible=true}) end,
+        onLeave = function() self.lblHawkIMG:Set({x = 50, y = 250, width = 48, height = 40 , visible=true}) end
+    })
     self.lblHawk = window:AddText({ x = 120, y = 260, width = 150, height = 24, font = 0, color = 116, text = "挖掘之槁"})
     for key = 7,9 do
         local str = window:AddText({
@@ -171,8 +183,6 @@ end
 --------------------------------------------------------------------------------
 function GatheringModule:UpdateUI()
     if not self.wnd then return end
-
-
     -- 採集物指引
     self.lblAxe:Set({text = "伐木之斧"})
     for key = 1,3 do
@@ -194,6 +204,16 @@ function GatheringModule:UpdateUI()
     end
 end
 
+-- 點擊圖示開始採集
+function GatheringModule:OnlblAxeIMGClick()
+    WinMgr.SendPacket("StartGathering", "Log")
+end
+function GatheringModule:OnlblBowIMGClick()
+    WinMgr.SendPacket("StartGathering", "Hunter")
+end
+function GatheringModule:OnlblHawkIMGClick()
+    WinMgr.SendPacket("StartGathering", "Miner")
+end
 
 function GatheringModule:split(str, sep)
     local result = {}
