@@ -2,9 +2,92 @@
 local Module = ModuleBase:createModule('gathering')
 local TechArea = require "lua/Modules/techarea"
 
+function Module:startSite_SendData(fd,head,data)
+    local player = tonumber(Protocol.GetCharByFd(fd))
+    if head == 'StartGathering' then
+      local packetNumber = tostring(data[1])
+      if packetNumber == "Log" then
+        local fp = Char.GetData(player, CONST.对象_魔);
+        local Site = Char.GetTempData(player, '伐木挂机') or 0;
+        if (fp >= 1 and Site==0) then
+          Char.SetTempData(player, '伐木挂机', 70204);
+          Char.SetLoopEvent(nil,'Logloop',player,5000);
+          Protocol.Send(player,'IsGathering',1);
+          NLG.SetAction(player, 11);
+          NLG.UpChar(player);
+        elseif (fp == 0) then
+          Char.SetTempData(player, '伐木挂机', 0);
+          Char.SetLoopEvent(nil,'Logloop',player,0);
+          Protocol.Send(player,'IsGathering',0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[系統]伐木工作停止。");	
+        elseif (Site > 0) then
+          Char.SetTempData(player, '伐木挂机', 0);
+          Char.SetLoopEvent(nil,'Logloop',player,0);
+          Protocol.Send(player,'IsGathering',0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[系統]伐木工作停止。");	
+        end
+      elseif packetNumber == "Hunter" then
+        local fp = Char.GetData(player, CONST.对象_魔);
+        local Site = Char.GetTempData(player, '狩猎挂机') or 0;
+        if (fp >= 1 and Site==0) then
+          Char.SetTempData(player, '狩猎挂机', 70205);
+          Char.SetLoopEvent(nil,'Hunterloop',player,5000);
+          Protocol.Send(player,'IsGathering',2);
+          NLG.SetAction(player, 11);
+          NLG.UpChar(player);
+        elseif (fp == 0) then
+          Char.SetTempData(player, '狩猎挂机', 0);
+          Char.SetLoopEvent(nil,'Hunterloop',player,0);
+          Protocol.Send(player,'IsGathering',0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[系統]狩獵工作停止。");	
+        elseif (Site > 0) then
+          Char.SetTempData(player, '狩猎挂机', 0);
+          Char.SetLoopEvent(nil,'Hunterloop',player,0);
+          Protocol.Send(player,'IsGathering',0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[系統]狩獵工作停止。");	
+        end
+      elseif packetNumber == "Miner" then
+        local fp = Char.GetData(player, CONST.对象_魔);
+        local Site = Char.GetTempData(player, '狩猎挂机') or 0;
+        if (fp >= 1 and Site==0) then
+          Char.SetTempData(player, '挖掘挂机', 70206);
+          Char.SetLoopEvent(nil,'Minerloop',player,5000);
+          Protocol.Send(player,'IsGathering',3);
+          NLG.SetAction(player, 11);
+          NLG.UpChar(player);
+        elseif (fp == 0) then
+          Char.SetTempData(player, '挖掘挂机', 0);
+          Char.SetLoopEvent(nil,'Minerloop',player,0);
+          Protocol.Send(player,'IsGathering',0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[系統]挖掘工作停止。");	
+        elseif (Site > 0) then
+          Char.SetTempData(player, '挖掘挂机', 0);
+          Char.SetLoopEvent(nil,'Minerloop',player,0);
+          Protocol.Send(player,'IsGathering',0);
+          Char.UnsetLoopEvent(player);
+          NLG.UpChar(player);
+          NLG.SystemMessage(player,"[系統]挖掘工作停止。");	
+        end
+      end
+    end
+    return 1
+end
+
 --- 加载模块钩子
 function Module:onLoad()
   self:logInfo('load')
+  -- 註冊 UI 封包請求
+  self:regCallback('ProtocolOnRecv',Func.bind(self.startSite_SendData,self),'StartGathering')		--接收前端按鈕開始採集
   self:regCallback('LoginEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LoginGateEvent', Func.bind(self.onLoginEvent, self));
   self:regCallback('LogoutEvent', Func.bind(self.onLogoutEvent, self));
@@ -41,11 +124,15 @@ function Module:onLoad()
           Char.SetLoopEvent(nil,'Logloop',player,5000);
       end
 
-      local AxeIndex = Char.HaveItem(player,ItemID);
-      local AxeStr = Item.GetData(AxeIndex, CONST.道具_耐久) or 0;
-      if (AxeIndex>0 and AxeStr >= 1) then
-        Item.SetData(AxeIndex, CONST.道具_耐久, Item.GetData(AxeIndex, CONST.道具_耐久)-1);
-        Item.UpItem(player, -1);
+      -- local AxeIndex = Char.HaveItem(player,ItemID);
+      -- local AxeStr = Item.GetData(AxeIndex, CONST.道具_耐久) or 0;
+      local fp = Char.GetData(player, CONST.对象_魔);
+      -- if (AxeIndex>0 and AxeStr >= 1) then
+        -- Item.SetData(AxeIndex, CONST.道具_耐久, Item.GetData(AxeIndex, CONST.道具_耐久)-1);
+        -- Item.UpItem(player, -1);
+      if (fp >= 1) then
+        Char.SetData(player, CONST.对象_魔, fp-1);
+        NLG.UpChar(player);
         --[[local areaIndex_tbl = get_player_gather_info(px, py, floor, gather_table, 225)
         if (areaIndex_tbl==nil) then
           Char.SetTempData(player, '伐木挂机', 0);
@@ -102,20 +189,22 @@ function Module:onLoad()
 				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
 			end
         end
-        if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
-          NLG.SystemMessage(player,"消耗1點耐久每5秒進行伐木，工具還有"..(AxeStr-1).."點耐久。");
-        end
-        if (Item.GetData(AxeIndex, CONST.道具_耐久)== 0) then
-          local AxeSlot = Char.FindItemId(player, ItemID);
-          Char.DelItemBySlot(player, AxeSlot);
-          NLG.UpChar(player);
-        end
-      elseif (AxeIndex<0 or AxeStr < 1) then
+        -- if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
+          -- NLG.SystemMessage(player,"消耗1點耐久每5秒進行伐木，工具還有"..(AxeStr-1).."點耐久。");
+        -- end
+        -- if (Item.GetData(AxeIndex, CONST.道具_耐久)== 0) then
+          -- local AxeSlot = Char.FindItemId(player, ItemID);
+          -- Char.DelItemBySlot(player, AxeSlot);
+          -- NLG.UpChar(player);
+        -- end
+      -- elseif (AxeIndex<0 or AxeStr < 1) then
+      elseif (fp < 1) then
         Char.SetTempData(player, '伐木挂机', 0);
         Char.SetLoopEvent(nil,'Logloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"工具消耗殆盡，伐木關閉！");
+        -- NLG.SystemMessage(player,"工具消耗殆盡，伐木關閉！");
+        NLG.SystemMessage(player,"魔力消耗殆盡，伐木關閉！");
         Protocol.Send(player,'IsGathering',0);
       end
     else
@@ -161,11 +250,15 @@ function Module:onLoad()
           Char.SetLoopEvent(nil,'Hunterloop',player,5000);
       end
 
-      local BowIndex = Char.HaveItem(player,ItemID);
-      local BowStr = Item.GetData(BowIndex, CONST.道具_耐久) or 0;
-      if (BowIndex>0 and BowStr >= 1) then
-        Item.SetData(BowIndex, CONST.道具_耐久, Item.GetData(BowIndex, CONST.道具_耐久)-1);
-        Item.UpItem(player, -1);
+      -- local BowIndex = Char.HaveItem(player,ItemID);
+      -- local BowStr = Item.GetData(BowIndex, CONST.道具_耐久) or 0;
+      local fp = Char.GetData(player, CONST.对象_魔);
+      -- if (BowIndex>0 and BowStr >= 1) then
+        -- Item.SetData(BowIndex, CONST.道具_耐久, Item.GetData(BowIndex, CONST.道具_耐久)-1);
+        -- Item.UpItem(player, -1);
+      if (fp >= 1) then
+        Char.SetData(player, CONST.对象_魔, fp-1);
+        NLG.UpChar(player);
 
         -- 第一阶段 位置/技能找藏图
         local area = GetTechArea(floor, px, py, TechArea, 226);	--skillId226
@@ -214,20 +307,22 @@ function Module:onLoad()
 				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
 			end
         end
-        if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
-          NLG.SystemMessage(player,"消耗1點耐久每5秒進行狩獵，工具還有"..(BowStr-1).."點耐久。");
-        end
-        if (Item.GetData(BowIndex, CONST.道具_耐久)== 0) then
-          local BowSlot = Char.FindItemId(player, ItemID);
-          Char.DelItemBySlot(player, BowSlot);
-          NLG.UpChar(player);
-        end
-      elseif (BowIndex<0 or BowStr < 1) then
+        -- if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
+          -- NLG.SystemMessage(player,"消耗1點耐久每5秒進行狩獵，工具還有"..(BowStr-1).."點耐久。");
+        -- end
+        -- if (Item.GetData(BowIndex, CONST.道具_耐久)== 0) then
+          -- local BowSlot = Char.FindItemId(player, ItemID);
+          -- Char.DelItemBySlot(player, BowSlot);
+          -- NLG.UpChar(player);
+        -- end
+      -- elseif (BowIndex<0 or BowStr < 1) then
+      elseif (fp < 1) then
         Char.SetTempData(player, '狩猎挂机', 0);
         Char.SetLoopEvent(nil,'Hunterloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"工具消耗殆盡，狩獵關閉！");
+        -- NLG.SystemMessage(player,"工具消耗殆盡，狩獵關閉！");
+        NLG.SystemMessage(player,"魔力消耗殆盡，狩獵關閉！");
         Protocol.Send(player,'IsGathering',0);
       end
     else
@@ -273,11 +368,15 @@ function Module:onLoad()
           Char.SetLoopEvent(nil,'Minerloop',player,5000);
       end
 
-      local HawkIndex = Char.HaveItem(player,ItemID);
-      local HawkStr = Item.GetData(HawkIndex, CONST.道具_耐久) or 0;
-      if (HawkIndex>0 and HawkStr >= 1) then
-        Item.SetData(HawkIndex, CONST.道具_耐久, Item.GetData(HawkIndex, CONST.道具_耐久)-1);
-        Item.UpItem(player, -1);
+      -- local HawkIndex = Char.HaveItem(player,ItemID);
+      -- local HawkStr = Item.GetData(HawkIndex, CONST.道具_耐久) or 0;
+      local fp = Char.GetData(player, CONST.对象_魔);
+      -- if (HawkIndex>0 and HawkStr >= 1) then
+        -- Item.SetData(HawkIndex, CONST.道具_耐久, Item.GetData(HawkIndex, CONST.道具_耐久)-1);
+        -- Item.UpItem(player, -1);
+      if (fp >= 1) then
+        Char.SetData(player, CONST.对象_魔, fp-1);
+        NLG.UpChar(player);
 
         -- 第一阶段 位置/技能找藏图
         local area = GetTechArea(floor, px, py, TechArea, 227);	--skillId227
@@ -326,20 +425,22 @@ function Module:onLoad()
 				Char.GiveItem(player, hidden, dropRate[NLG.Rand(1,10)]);
 			end
         end
-        if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
-          NLG.SystemMessage(player,"消耗1點耐久每5秒進行挖掘，工具還有"..(HawkStr-1).."點耐久。");
-        end
-        if (Item.GetData(HawkIndex, CONST.道具_耐久)== 0) then
-          local HawkSlot = Char.FindItemId(player, ItemID);
-          Char.DelItemBySlot(player, HawkSlot);
-          NLG.UpChar(player);
-        end
-      elseif (HawkIndex<0 or HawkStr < 1) then
+        -- if (Char.GetData(player,CONST.对象_队聊开关) == 1) then
+          -- NLG.SystemMessage(player,"消耗1點耐久每5秒進行挖掘，工具還有"..(HawkStr-1).."點耐久。");
+        -- end
+        -- if (Item.GetData(HawkIndex, CONST.道具_耐久)== 0) then
+          -- local HawkSlot = Char.FindItemId(player, ItemID);
+          -- Char.DelItemBySlot(player, HawkSlot);
+          -- NLG.UpChar(player);
+        -- end
+      -- elseif (HawkIndex<0 or HawkStr < 1) then
+      elseif (fp < 1) then
         Char.SetTempData(player, '挖掘挂机', 0);
         Char.SetLoopEvent(nil,'Minerloop',player,0);
         Char.UnsetLoopEvent(player);
         NLG.UpChar(player);
-        NLG.SystemMessage(player,"工具消耗殆盡，挖掘關閉！");
+        -- NLG.SystemMessage(player,"工具消耗殆盡，挖掘關閉！");
+        NLG.SystemMessage(player,"魔力消耗殆盡，挖掘關閉！");
         Protocol.Send(player,'IsGathering',0);
       end
     else

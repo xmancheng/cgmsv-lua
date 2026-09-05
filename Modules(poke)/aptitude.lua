@@ -90,7 +90,7 @@ function Module:SendData(fd,head,data)
 	  local id8 = aptTable["EXECUTE"];
       Protocol.Send(player,'ResponseAptitudeData', heroLv.."|"..id1..","..id2..","..id3..","..id4..","..id5..","..id6..","..id7..","..id8)
     end
-    return 0
+    return 1
 end
 function Module:UpdateData(fd,head,data)
     local player = tonumber(Protocol.GetCharByFd(fd))
@@ -120,7 +120,7 @@ function Module:UpdateData(fd,head,data)
       -- 回傳客戶端要他去索要更新介面
       Protocol.Send(player,'SyncAptitudeData')
     end
-    return 0
+    return 1
 end
 function Module:ResetData(fd,head,data)
     local player = tonumber(Protocol.GetCharByFd(fd))
@@ -130,7 +130,7 @@ function Module:ResetData(fd,head,data)
       -- 回傳客戶端要他去索要更新介面
       Protocol.Send(player,'SyncAptitudeData')
     end
-    return 0
+    return 1
 end
 
 ------------------------------------------------

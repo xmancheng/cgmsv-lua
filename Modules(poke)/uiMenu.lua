@@ -30,7 +30,7 @@ function Module:playerInfo_SendData(fd,head,data)
       local id6 = GetExploreExpNeed(id4) or 0;
       Protocol.Send(player,'ResponsePlayerInfoData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6)
     end
-    return 0
+    return 1
 end
 --- 探索指引資訊:接收要求後回傳
 function Module:gatherInfo_SendData(fd,head,data)
@@ -101,8 +101,9 @@ function Module:gatherInfo_SendData(fd,head,data)
       end
       Protocol.Send(player,'ResponseGatheringData', Ga_id1..","..Ga_id2..","..Ga_id3.."|"..Ga_id4..","..Ga_id5..","..Ga_id6.."|"..Ga_id7..","..Ga_id8..","..Ga_id9)
     end
-    return 0
+    return 1
 end
+
 ------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
