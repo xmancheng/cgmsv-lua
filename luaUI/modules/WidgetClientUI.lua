@@ -1,37 +1,37 @@
 --==============================================================================
--- å„å¼æ›ä»¶UIæ•´åˆ - å®¢æˆ¶ç«¯ UI æ¨¡çµ„ (Client UI)
+-- ¸÷Ê½’ì¼şUIÕûºÏ - ¿Í‘ô¶Ë UI Ä£½M (Client UI)
 --==============================================================================
 local Module = ModuleBase:extend('WidgetClientUI')
 
--- ====================== åœ–ç‰‡è·¯å¾‘å®šç¾© ======================
-local BG_frameIMG        = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/å°ä»‹é¢è§†çª—.png"
-local BG_colorIMG        = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/é»‘åº•.png"
+-- ====================== ˆDÆ¬Â·½¶¨Áx ======================
+local BG_frameIMG        = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/Ğ¡½éÃæÊÓ´°.png"
+local BG_colorIMG        = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/ºÚµ×.png"
 
-local CLOSE_BTN     = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/å…³1.png"
-local CLOSE_HOVER   = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/å…³2.png"
-local CLOSE_PRESS   = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/å…³3.png"
+local CLOSE_BTN     = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/¹Ø1.png"
+local CLOSE_HOVER   = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/¹Ø2.png"
+local CLOSE_PRESS   = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/¹Ø3.png"
 
-local BTN_STATE   = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/btn_state.png"
-local BTN_PRESS   = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/btn_press.png"
+local BTN_STATE   = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/btn_state.png"
+local BTN_PRESS   = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/btn_press.png"
 
-local BG_sframeIMG = "luaUI/modules/cgå›¾æ¡£é›†/ç‰¹æ®Šä»‹é¢/msg_bg.png"	--æ¡é›†ç‹€æ…‹æ¡†
+local BG_sframeIMG = "luaUI/modules/cgÍ¼µµ¼¯/ÌØÊâ½éÃæ/msg_bg.png"	--’ñ¼¯ î‘B¿ò
 
-local frontWindowCaptureId = -1		--ç¼“å­˜ï¼Œä¸è¦åŠ¨
-local player_Status_NativeId = 7		--ç©å®¶ç‹€æ…‹7.ç‰©å“æ 14.å°åœ°å›¾33
+local frontWindowCaptureId = -1		--»º´æ£¬²»Òª¶¯
+local player_Status_NativeId = 7		--Íæ¼Ò î‘B7.ÎïÆ·À¸14.Ğ¡µØÍ¼33
 
-local pInfo_WIN_ID = 10101		--æ¡é›†ç­‰ç´šã€å‹‡è€…ç­‰ç´š
-local gathering_WIN_ID = 10102	--æ¡é›†ç‹€æ…‹
+local pInfo_WIN_ID = 10101		--’ñ¼¯µÈ¼‰¡¢ÓÂÕßµÈ¼‰
+local gathering_WIN_ID = 10102	--’ñ¼¯ î‘B
 
 function Module:onLoad()
-    print("[Widget] å„å¼æ›ä»¶UIæ•´åˆæ¨¡çµ„è¼‰å…¥æˆåŠŸ")
+    print("[Widget] ¸÷Ê½’ì¼şUIÕûºÏÄ£½MİdÈë³É¹¦")
     WinMgr.PlaySe(73,320)
-    self:cliSendMsg('load WidgetClientUI.lua æˆåŠŸ',4)
+    self:cliSendMsg('load WidgetClientUI.lua ³É¹¦',4)
     self:onWindowFocusChanged(function(frontId,backId) self:WindowFocusChanged(frontId,backId) end)
 	self:onSceneStateChanged(function(viewType,viewState) self:ViewChangeEvent(viewType,viewState) end)
 
-    ----- ç©å®¶æ“´å±•è³‡è¨Š
+    ----- Íæ¼Ò”UÕ¹ÙYÓ
     self.pInfo_wnd = nil
-    -- æ¥æ”¶å¾Œç«¯å›å‚³çš„éŠæˆ²æ•¸æ“šï¼Œå»ºæ§‹èˆ‡æ›´æ–°å‰ç«¯UIä»‹é¢
+    -- ½ÓÊÕáá¶Ë»Ø‚÷µÄß[‘ò”µ“ş£¬½¨˜‹Åc¸üĞÂÇ°¶ËUI½éÃæ
     self:onPacketRecv("ResponsePlayerInfoData", function(header, params)
         if params then
             local str = params[1] or ""
@@ -46,21 +46,21 @@ function Module:onLoad()
         end
     end)
 
-    ----- æ¡é›†ç‹€æ…‹è³‡è¨Š
+    ----- ’ñ¼¯ î‘BÙYÓ
     self.gathering_wnd = nil
-    -- æ¥æ”¶å¾Œç«¯å›å‚³çš„éŠæˆ²æ•¸æ“šï¼Œå»ºæ§‹èˆ‡æ›´æ–°å‰ç«¯UIä»‹é¢
+    -- ½ÓÊÕáá¶Ë»Ø‚÷µÄß[‘ò”µ“ş£¬½¨˜‹Åc¸üĞÂÇ°¶ËUI½éÃæ
     self:onPacketRecv("IsGathering", function(header, params)
         if params then
             local packetNumber = params[1] or "0";
-            local str = "æ¡é›†çµæŸ"
+            local str = "’ñ¼¯½YÊø"
             if packetNumber == "1" then
-              str = "ä¼æœ¨ä¸­..."
+              str = "·¥Ä¾ÖĞ..."
             elseif packetNumber == "2" then
-              str = "ç‹©çµä¸­..."
+              str = "á÷«CÖĞ..."
             elseif packetNumber == "3" then
-              str = "æŒ–æ˜ä¸­..."
+              str = "ÍÚ¾òÖĞ..."
             end
-            if str == "æ¡é›†çµæŸ" then
+            if str == "’ñ¼¯½YÊø" then
               if self.gathering_wnd and self.gathering_wnd.valid then
                 self.gathering_wnd:Close()
                 self:releaseWindow(self.gathering_wnd)
@@ -93,7 +93,7 @@ function Module:onUnload()
 end
 
 --------------------------------------------------------------------------------
--- UI å»ºç«‹èˆ‡æ§åˆ¶
+-- UI ½¨Á¢Åc¿ØÖÆ
 --------------------------------------------------------------------------------
 -- function Module:ToggleWidget()
     -- WinMgr.PlaySe(56, CONST.Screen.Width / 2)
@@ -102,15 +102,15 @@ end
         -- self:releaseWindow(self.pInfo_wnd)
         -- self.pInfo_wnd = nil
     -- else
-        -- --è«‹æ±‚æœå‹™ç«¯å‚³é€æ•¸æ“š
+        -- --ÕˆÇó·ş„Õ¶Ë‚÷ËÍ”µ“ş
         -- self:sendPacket("RequestPlayerInfoData")
         -- self:pInfo_CreateWin()
     -- end
 -- end
 
 function Module:ViewChangeEvent(viewType,viewState)
-	-- self:cliSendMsg('åœºæ™¯ç±»å‹ = '..viewType..' | åœºæ™¯çŠ¶æ€ = '..viewState)
-	-- print('åœºæ™¯ç±»å‹ = '..viewType..' | åœºæ™¯çŠ¶æ€ = '..viewState)
+	-- self:cliSendMsg('³¡¾°ÀàĞÍ = '..viewType..' | ³¡¾°×´Ì¬ = '..viewState)
+	-- print('³¡¾°ÀàĞÍ = '..viewType..' | ³¡¾°×´Ì¬ = '..viewState)
 	if viewType == 9 then
 		if self.pInfo_wnd and self.pInfo_wnd.valid then
 			self.pInfo_wnd:Close()
@@ -124,7 +124,7 @@ function Module:ViewChangeEvent(viewType,viewState)
 end
 
 function Module:WindowFocusChanged(frontId,backId)
-	-- print('å‰å°id = '..frontId..' | åå°id = '..backId)
+	-- print('Ç°Ì¨id = '..frontId..' | ºóÌ¨id = '..backId)
 	--print('---------------------------------------')
 	frontWindowCaptureId = tonumber(frontId)
 	backWindowCaptureId = tonumber(backId)
@@ -133,7 +133,7 @@ function Module:WindowFocusChanged(frontId,backId)
 		local player_Status = self:findWindow(player_Status_NativeId)
 		pInfo_Win_x = player_Status.x
 		pInfo_Win_y = player_Status.y
-        --è«‹æ±‚æœå‹™ç«¯å‚³é€æ•¸æ“š
+        --ÕˆÇó·ş„Õ¶Ë‚÷ËÍ”µ“ş
         self:sendPacket("RequestPlayerInfoData")
 		self:pInfo_CreateWin()
 	elseif frontWindowCaptureId == 80003 then
@@ -159,7 +159,7 @@ function Module:pInfo_CreateWin_Update()
 		pInfo_Win_x = player_Status.x
 		pInfo_Win_y = player_Status.y
 		if self.pInfo_wnd and self.pInfo_wnd.valid then
-			--è«‹æ±‚æœå‹™ç«¯å‚³é€æ•¸æ“š
+			--ÕˆÇó·ş„Õ¶Ë‚÷ËÍ”µ“ş
 			self:sendPacket("RequestPlayerInfoData")
 			self:pInfo_CreateWin()
 			self.pInfo_wnd:Set({ x = pInfo_Win_x+350, y = pInfo_Win_y+40})
@@ -186,14 +186,14 @@ function Module:pInfo_CreateWin()
     if not window then return end
     self.pInfo_wnd = self:ownWindow(window)
 
-    -- ä¸»ä»‹é¢èƒŒæ™¯
-    --- è¦–çª—åº•è‰²
+    -- Ö÷½éÃæ±³¾°
+    --- Ò•´°µ×É«
     -- window:AddPngImage({ x = 3, y = 12, width = winW-15, height = winH-15, image = BG_colorIMG, hitable = false })
-    --- è¦–çª—ä¸»é¡Œåº•åœ–
+    --- Ò•´°Ö÷î}µ×ˆD
     -- window:AddPngImage({ x = 6, y = 12, width = winW-30, height = winH-20, image = BG_themeIMG, hitable = false })
-    --- è¦–çª—å¤–æ¡†
+    --- Ò•´°Íâ¿ò
     window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_frameIMG, hitable = false })
-    -- é—œé–‰æŒ‰éˆ•
+    -- êPé]°´âo
     -- window:AddPngImage({
         -- x = 230, y = 3, width = 6, height = 6,
         -- image = CLOSE_BTN, imageHover = CLOSE_HOVER, imagePress = CLOSE_PRESS,
@@ -201,27 +201,27 @@ function Module:pInfo_CreateWin()
         -- onClick = function() self:ToggleWidget() return true end
     -- })
 
-    -- é ‚éƒ¨æ–‡å­—è³‡è¨Š
-    -- window:AddText({ x = 230, y = 10, width = 20, height = 20, font = 4, color = 75, text = "ç‰¹æ®Šç­‰ç´š" })	--color:16ç°ç™½è‰²33æ·±ç´«è‰²69æœ±ç´…è‰²72æ·±æ£•è‰²
+    -- í”²¿ÎÄ×ÖÙYÓ
+    -- window:AddText({ x = 230, y = 10, width = 20, height = 20, font = 4, color = 75, text = "ÌØÊâµÈ¼‰" })	--color:16»Ò°×É«33Éî×ÏÉ«69Öì¼tÉ«72Éî×ØÉ«
 
-    -- ç©å®¶æ“´å±•è³‡è¨Šæ–‡æœ¬
+    -- Íæ¼Ò”UÕ¹ÙYÓÎÄ±¾
     local heroLv = self.heroLv or "1"
     local heroExp = self.heroExp or "0"
     local heroExp2 = self.heroExp2 or "_"
     local exploreLv = self.exploreLv or "1"
     local exploreExp = self.exploreExp or "0"
     local exploreExp2 = self.exploreExp2 or "_"
-    --- æ»¿ç´šé¡¯ç¤º"--"
+    --- M¼‰ï@Ê¾"--"
     if heroExp2==0 then heroExp="_" heroExp2="_" end
     if exploreExp2==0 then exploreExp="_" exploreExp2="_" end
-    self.lblHeroLv = window:AddText({ x = 10, y = 20, width = 150, height = 24, font = 13, color = 96, text = "å‹‡è€…ç­‰ç´š: "..heroLv })
-    self.lblHeroExp = window:AddText({ x = 10, y = 40, width = 150, height = 24, font = 13, color = 0, text = "ç¶“é©—å€¼: "..heroExp })
-    self.lblHeroExp2 = window:AddText({ x = 10, y = 60, width = 150, height = 24, font = 13, color = 0, text = "ä¸‹ä¸€ç´š: "..heroExp2 })
-    self.lblExploreLv = window:AddText({ x = 10, y = 90, width = 150, height = 24, font = 13, color = 96, text = "æ¢ç´¢ç­‰ç´š: "..exploreLv })
-    self.lblExploreExp = window:AddText({ x = 10, y = 110, width = 150, height = 24, font = 13, color = 0, text = "ç¶“é©—å€¼: "..exploreExp })
-    self.lblExploreExp2 = window:AddText({ x = 10, y = 130, width = 150, height = 24, font = 13, color = 0, text = "ä¸‹ä¸€ç´š: "..exploreExp2 })
+    self.lblHeroLv = window:AddText({ x = 10, y = 20, width = 150, height = 24, font = 13, color = 96, text = "ÓÂÕßµÈ¼‰: "..heroLv })
+    self.lblHeroExp = window:AddText({ x = 10, y = 40, width = 150, height = 24, font = 13, color = 0, text = "½›òÖµ: "..heroExp })
+    self.lblHeroExp2 = window:AddText({ x = 10, y = 60, width = 150, height = 24, font = 13, color = 0, text = "ÏÂÒ»¼‰: "..heroExp2 })
+    self.lblExploreLv = window:AddText({ x = 10, y = 90, width = 150, height = 24, font = 13, color = 96, text = "Ì½Ë÷µÈ¼‰: "..exploreLv })
+    self.lblExploreExp = window:AddText({ x = 10, y = 110, width = 150, height = 24, font = 13, color = 0, text = "½›òÖµ: "..exploreExp })
+    self.lblExploreExp2 = window:AddText({ x = 10, y = 130, width = 150, height = 24, font = 13, color = 0, text = "ÏÂÒ»¼‰: "..exploreExp2 })
 
-    -- å‹‡è€…ç­‰ç´š-å¤©è³¦æŒ‰éˆ•
+    -- ÓÂÕßµÈ¼‰-ÌìÙx°´âo
     self.aptitudeBtn = window:AddPngImage({
         x = 160, y = 20, width = 64, height = 20,
         image = BTN_STATE, hitable = true,
@@ -229,9 +229,9 @@ function Module:pInfo_CreateWin()
         onHover = function() self.aptitudeBtn:Set({image = BTN_STATE , visible=true}) self.aptitudeStr:Set({color = 0}) end,
         onLeave = function() self.aptitudeBtn:Set({image = BTN_STATE , visible=true}) self.aptitudeStr:Set({color = 16})end
     })
-    self.aptitudeStr = window:AddText({ x = 165, y = 23, width = 64, height = 20, font = 13, color = 16, text = "æ‰“é–‹å¤©è³¦"})
+    self.aptitudeStr = window:AddText({ x = 165, y = 23, width = 64, height = 20, font = 13, color = 16, text = "´òé_ÌìÙx"})
 
-    -- æ¢ç´¢åœ°åœ–-æŒ‡å¼•æŒ‰éˆ•
+    -- Ì½Ë÷µØˆD-Ö¸Òı°´âo
     self.gatheringBtn = window:AddPngImage({
         x = 160, y = 90, width = 64, height = 20,
         image = BTN_STATE, hitable = true,
@@ -239,7 +239,7 @@ function Module:pInfo_CreateWin()
         onHover = function() self.gatheringBtn:Set({image = BTN_STATE , visible=true}) self.gatheringStr:Set({color = 0}) end,
         onLeave = function() self.gatheringBtn:Set({image = BTN_STATE , visible=true}) self.gatheringStr:Set({color = 16})end
     })
-    self.gatheringStr = window:AddText({ x = 165, y = 93, width = 64, height = 20, font = 13, color = 16, text = "æ¡é›†æƒæ"})
+    self.gatheringStr = window:AddText({ x = 165, y = 93, width = 64, height = 20, font = 13, color = 16, text = "’ñ¼¯’ßÃè"})
 end
 
 
@@ -258,34 +258,34 @@ function Module:gathering_CreateWin()
     })
     if not window then return end
     self.gathering_wnd = self:ownWindow(window)
-    --- å°è¦–çª—
+    --- Ğ¡Ò•´°
     window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_sframeIMG, hitable = false })
-    --- æ¡é›†ç‹€æ…‹æ–‡å­—
+    --- ’ñ¼¯ î‘BÎÄ×Ö
     local gathering_str = self.gathering_str
     self.statusStr = window:AddText({ x = 50, y = 30, width = 20, height = 20, font = 3, color = 0, text = gathering_str })
 end
 --------------------------------------------------------------------------------
--- ä»‹é¢æ–‡æœ¬åˆ·æ–°
+-- ½éÃæÎÄ±¾Ë¢ĞÂ
 --------------------------------------------------------------------------------
--- ç©å®¶æ“´å±•è³‡è¨Šæ–‡æœ¬
+-- Íæ¼Ò”UÕ¹ÙYÓÎÄ±¾
 function Module:pInfo_UpdateUI_Sring()
     if not self.pInfo_wnd then return end
 
     local heroLv = self.heroLv or "1"
     local heroExp = self.heroExp or "0"
-    local heroExp2 = self.heroExp or "_"
+    local heroExp2 = self.heroExp2 or "_"
     local exploreLv = self.exploreLv or "1"
     local exploreExp = self.exploreExp or "0"
     local exploreExp2 = self.exploreExp2 or "_"
-    --- æ»¿ç´šé¡¯ç¤º"--"
+    --- M¼‰ï@Ê¾"--"
     if heroExp2==0 then heroExp="_" heroExp2="_" end
     if exploreExp2==0 then exploreExp="_" exploreExp2="_" end
-    self.lblHeroLv:Set({text = "å‹‡è€…ç­‰ç´š: "..heroLv })
-    self.lblHeroExp:Set({text = "ç¶“é©—å€¼: "..heroExp })
-    self.lblHeroExp2:Set({text = "ä¸‹ä¸€ç´š: "..heroExp2 })
-    self.lblExploreLv:Set({text = "æ¢ç´¢ç­‰ç´š: "..exploreLv })
-    self.lblExploreExp:Set({text = "ç¶“é©—å€¼: "..exploreExp })
-    self.lblExploreExp2:Set({text = "ä¸‹ä¸€ç´š: "..exploreExp2 })
+    self.lblHeroLv:Set({text = "ÓÂÕßµÈ¼‰: "..heroLv })
+    self.lblHeroExp:Set({text = "½›òÖµ: "..heroExp })
+    self.lblHeroExp2:Set({text = "ÏÂÒ»¼‰: "..heroExp2 })
+    self.lblExploreLv:Set({text = "Ì½Ë÷µÈ¼‰: "..exploreLv })
+    self.lblExploreExp:Set({text = "½›òÖµ: "..exploreExp })
+    self.lblExploreExp2:Set({text = "ÏÂÒ»¼‰: "..exploreExp2 })
 end
 
 function Module:gathering_UpdateUI_Sring()
@@ -293,7 +293,7 @@ function Module:gathering_UpdateUI_Sring()
     self.statusStr:Set({text = gathering_str })
 end
 --------------------------------------------------------------------------------
--- å‚³é€å°åŒ…è‡³å¾Œç«¯
+-- ‚÷ËÍ·â°üÖÁáá¶Ë
 --------------------------------------------------------------------------------
 function Module:OnAptitudeBtnClick()
 	WinMgr.SendPacket("uiMenu", 1)
