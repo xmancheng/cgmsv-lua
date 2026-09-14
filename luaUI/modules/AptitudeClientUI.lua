@@ -175,7 +175,7 @@ end
 -- 5. UI ½¨Á¢Åc¿ØÖÆ
 --------------------------------------------------------------------------------
 function AptitudeModule:ToggleAptitude()
-    WinMgr.PlaySe(56, CONST.Screen.Width / 2)
+    WinMgr.PlaySe(57, CONST.Screen.Width / 2)
     if self.wnd and self.wnd.valid then
         self.wnd:Close()
         self:releaseWindow(self.wnd)
