@@ -215,7 +215,7 @@ function GetMaterialPet(charIndex,enemyid,mainSlot)
               table.insert(MaterialPetData,tostring(Char.GetData(PetIndex,CONST.对象_原名)));
               table.insert(MaterialPetData,tostring(Char.GetData(PetIndex,CONST.对象_等级)));
           else
-              table.insert(MaterialPetData,"不符合");
+              table.insert(MaterialPetData,tostring(Char.GetData(PetIndex,CONST.对象_原名)));
               table.insert(MaterialPetData,"_");
           end
       elseif (PetIndex >= 0 and Slot == mainSlot) then
