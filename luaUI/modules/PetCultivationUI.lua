@@ -117,6 +117,11 @@ function CultivationModule:onUnload()
         self:releaseWindow(self.wnd)
         self.wnd = nil
     end
+    if self.material_list_wnd then
+        self.material_list_wnd:Close()
+        self:releaseWindow(self.material_list_wnd)
+        self.material_list_wnd = nil
+    end
 end
 
 --------------------------------------------------------------------------------
@@ -206,9 +211,9 @@ function CultivationModule:CreateWin()
     self.progressFill = window:AddPngImage({ x = 15, y = 205, width = 0, height = 8, image = PROGRESS_FILL_IMG, hitable = false})
     -- 能否繼續吸收培養
     if self.maxed == "1" then
-        self.maxed_str = window:AddText({ x = 71, y = 215, width = 150, height = 24, font = 13, color = 50, text = "五項能力檔次已達上限"})
+        self.maxed_str = window:AddText({ x = 27, y = 215, width = 150, height = 24, font = 13, color = 50, text = "五項能力檔次已達上限"})
     else
-        self.cultivationCount_str = window:AddText({ x = 71, y = 215, width = 150, height = 24, font = 13, color = 49, text = "已吸收次數: "..self.cultivationCount})
+        self.maxed_str = window:AddText({ x = 71, y = 215, width = 150, height = 24, font = 13, color = 49, text = "已補檔次數: "..self.cultivationCount})
     end
 end
 
@@ -269,69 +274,156 @@ function CultivationModule:material_list_CreateWin()
 
     -- 頂部文字資訊
     window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "勾選被吸收寵" })
-
+    window:AddText({ x = 15, y = 35, width = 150, height = 24, font = 13, color = 0, text = "培養經驗充滿時"})
+    window:AddText({ x = 15, y = 55, width = 150, height = 24, font = 13, color = 0, text = "主寵物隨機掉檔+1"})
     -- 勾選材料
     self.seriesChecks = {}
     self.seriesDraft = {}
     self.seriesHoverIndex = nil
     self.seriesSelectedCount = 0
 
-	local ROW_X = 15
-	local ROW_Y = 65
-	local ROW_H = 20
+	local SERIES_ROW_X = 15
+	local SERIES_ROW_Y = 77
+	local SERIES_ROW_WIDTH = 155
+	local SERIES_ROW_HEIGHT = 20
 
-	local CHECK_X = ROW_X + 6
-	local CHECK_Y_OFFSET = 2
+	local SERIES_CHECKBOX_X = SERIES_ROW_X + 5
+	local SERIES_CHECKBOX_Y = 2
 
-	local TEXT_X = ROW_X + 30
-	local NAME_WIDTH = 70
+	local SERIES_NAME_X = SERIES_ROW_X + 27
+	local SERIES_NAME_WIDTH = 72
 
-	local LEVEL_X = ROW_X + 105
-	local LEVEL_WIDTH = 45
+	local SERIES_LEVEL_X = SERIES_ROW_X + 105
+	local SERIES_LEVEL_WIDTH = 45
 
 	for i = 1, 5 do
 		local index = i
-		local y = ROW_Y + ROW_H * (i - 1)
-		local nameIndex = index * 2 - 1
+		local rowY = SERIES_ROW_Y + SERIES_ROW_HEIGHT * (index - 1)
+		local nameIndex = index * 2 - 1;
 		local petName = self.material_List[nameIndex] or ""
+		local petLevel = self.material_List[nameIndex + 1] or "_"
+		--------------------------------------------------
+		-- 是否可以選擇
+		--------------------------------------------------
 		local selectable = true
-		if petName == "主寵物" or petName == "不符合" or petName == "空" then
+		if petName == "" or petName == "主寵物" or petName == "不符合" or petName == "空" then
 			selectable = false
 		end
-		-- Checkbox 底圖
-		local checkBox = window:AddPngImage({x = CHECK_X, y = y + CHECK_Y_OFFSET, width = 17, height = 16,
+		--------------------------------------------------
+		-- Row 底圖
+		--------------------------------------------------
+		local row = window:AddPngImage({
+			x = SERIES_ROW_X, y = rowY, width = SERIES_ROW_WIDTH, height = SERIES_ROW_HEIGHT,
+			image = SERIES_ROW_NORMAL_IMAGE, color = -1, visible = true, hitable = false})
+		--------------------------------------------------
+		-- Checkbox 未勾選
+		--------------------------------------------------
+		local checkBox = window:AddPngImage({
+			x = SERIES_CHECKBOX_X, y = rowY + SERIES_CHECKBOX_Y, width = 17, height = 16,
 			image = CHECKBOX_uncheckedIMG, color = -1, visible = selectable, hitable = false})
-		-- Checkbox 勾勾
-		local checkMark = window:AddPngImage({x = CHECK_X, y = y + CHECK_Y_OFFSET,width = 17, height = 16,
-			image = CHECKBOX_checkedIMG, color = -1, visible = false,	hitable = false})
-		-- 整列點擊區
-		local hit = window:AddPngImage({x = ROW_X, y = y, width = 155, height = ROW_H,
+		--------------------------------------------------
+		-- Checkbox 已勾選
+		--------------------------------------------------
+		local checkMark = window:AddPngImage({
+			x = SERIES_CHECKBOX_X, y = rowY + SERIES_CHECKBOX_Y, width = 17, height = 16,
+			image = CHECKBOX_checkedIMG, color = -1, visible = false, hitable = false})
+		--------------------------------------------------
+		-- 整列透明點擊區
+		--------------------------------------------------
+		local hit = window:AddPngImage({
+			x = SERIES_ROW_X, y = rowY, width = SERIES_ROW_WIDTH, height = SERIES_ROW_HEIGHT,
 			image = TRANSPARENT_IMAGE, color = -1, visible = selectable, hitable = true,
-			onClick = function() self:toggleSeriesCheck(index) return true end,
-			onHover = function() self.seriesHoverIndex = index return true end,
-			onLeave = function() if self.seriesHoverIndex == index then self.seriesHoverIndex = nil	end return true end})
-
+			onClick = function()
+				self:toggleSeriesCheck(index) return true end,
+			onHover = function() 
+				self.seriesHoverIndex = index self:refreshSeriesChecks() return true end,
+			onLeave = function() 
+				if self.seriesHoverIndex == index then self.seriesHoverIndex = nil end
+				self:refreshSeriesChecks()
+				return true end})
+		--------------------------------------------------
 		-- 寵物名稱
+		--------------------------------------------------
 		local textColor = 48;
 		if petName == "主寵物" then
 			textColor = 4;
 		elseif petName == "不符合" or petName == "空" then
 			textColor = 16;
 		end
-		local name_Str = window:AddText({x = TEXT_X, y = y + 3,	width = NAME_WIDTH, height = 20,
-			text = petName,	font = 13, color = textColor, hitable = false})
-		-- 等級
-		local level_Str = window:AddText({x = LEVEL_X, y = y + 3, width = LEVEL_WIDTH, height = 20,
-			text = "Lv "..tostring(self.material_List[nameIndex + 1] or "_"), font = 13, color = textColor, hitable = false})
-		self.seriesChecks[index] = {box = checkBox,	mark = checkMark,hit = hit, name = name_Str, level = level_Str}
-	end
-	self:refreshSeriesChecks()
 
+		local name_Str = window:AddText({
+			x = SERIES_NAME_X, y = rowY + 3, width = SERIES_NAME_WIDTH, height = 20,
+			text = petName, font = 13, color = textColor, hitable = false})
+		--------------------------------------------------
+		-- 等級
+		--------------------------------------------------
+		local level_Str = window:AddText({
+			x = SERIES_LEVEL_X, y = rowY + 3, width = SERIES_LEVEL_WIDTH, height = 20,
+			text = "Lv "..tostring(petLevel), font = 13, color = textColor, hitable = false})
+		--------------------------------------------------
+		-- 保存控制項
+		--------------------------------------------------
+		self.seriesChecks[index] = {row = row, box = checkBox, mark = checkMark, hit = hit, name = name_Str, level = level_Str}
+	end
+
+	-- local ROW_X = 15
+	-- local ROW_Y = 65
+	-- local ROW_H = 20
+
+	-- local CHECK_X = ROW_X + 6
+	-- local CHECK_Y_OFFSET = 2
+
+	-- local TEXT_X = ROW_X + 30
+	-- local NAME_WIDTH = 70
+
+	-- local LEVEL_X = ROW_X + 105
+	-- local LEVEL_WIDTH = 45
+
+	-- for i = 1, 5 do
+		-- local index = i
+		-- local y = ROW_Y + ROW_H * (i - 1)
+		-- local nameIndex = index * 2 - 1
+		-- local petName = self.material_List[nameIndex] or ""
+		-- local selectable = true
+		-- if petName == "主寵物" or petName == "不符合" or petName == "空" then
+			-- selectable = false
+		-- end
+		-- -- Checkbox 底圖
+		-- local checkBox = window:AddPngImage({x = CHECK_X, y = y + CHECK_Y_OFFSET, width = 17, height = 16,
+			-- image = CHECKBOX_uncheckedIMG, color = -1, visible = selectable, hitable = false})
+		-- -- Checkbox 勾勾
+		-- local checkMark = window:AddPngImage({x = CHECK_X, y = y + CHECK_Y_OFFSET,width = 17, height = 16,
+			-- image = CHECKBOX_checkedIMG, color = -1, visible = false,	hitable = false})
+		-- -- 整列點擊區
+		-- local hit = window:AddPngImage({x = ROW_X, y = y, width = 155, height = ROW_H,
+			-- image = TRANSPARENT_IMAGE, color = -1, visible = selectable, hitable = true,
+			-- onClick = function() self:toggleSeriesCheck(index) return true end,
+			-- onHover = function() self.seriesHoverIndex = index return true end,
+			-- onLeave = function() if self.seriesHoverIndex == index then self.seriesHoverIndex = nil	end return true end})
+
+		-- -- 寵物名稱
+		-- local textColor = 48;
+		-- if petName == "主寵物" then
+			-- textColor = 4;
+		-- elseif petName == "不符合" or petName == "空" then
+			-- textColor = 16;
+		-- end
+		-- local name_Str = window:AddText({x = TEXT_X, y = y + 3,	width = NAME_WIDTH, height = 20,
+			-- text = petName,	font = 13, color = textColor, hitable = false})
+		-- -- 等級
+		-- local level_Str = window:AddText({x = LEVEL_X, y = y + 3, width = LEVEL_WIDTH, height = 20,
+			-- text = "Lv "..tostring(self.material_List[nameIndex + 1] or "_"), font = 13, color = textColor, hitable = false})
+		-- self.seriesChecks[index] = {box = checkBox,	mark = checkMark,hit = hit, name = name_Str, level = level_Str}
+	-- end
+	-- self:refreshSeriesChecks()
+
+    -- 培養經驗
+    self.exp_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 113, text = "培養經驗+0"})
     -- 確定吸收培養按鈕
     self.cultivationBtn = window:AddPngImage({
         x = 105, y = 182, width = 64, height = 20,
         image = BTN_STATE, hitable = true,
-        onClick = function() self.cultivationBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnCultivationBtnClick() end,
+        onClick = function() self.cultivationBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnCultivationBtnClick() return true end,
         onHover = function() self.cultivationBtn:Set({image = BTN_STATE , visible=true}) self.cultivationStr:Set({color = 0}) end,
         onLeave = function() self.cultivationBtn:Set({image = BTN_STATE , visible=true}) self.cultivationStr:Set({color = 16})end
     })
@@ -377,16 +469,16 @@ function CultivationModule:UpdateUI()
     local expNeed = self.expNeed
     local currentExp = self.cultivationExp or 0
     if currentExp > expNeed then currentExp = expNeed end
-    local fillWidth = 8 * currentExp / expNeed
-    if fillWidth < 0 then fillWidth = 0 elseif fillWidth > 0 then fillWidth = 150 end
+    local fillWidth = 50 * currentExp / expNeed
+    if fillWidth < 0 then fillWidth = 0 elseif fillWidth > 50 then fillWidth = 150 end
     if self.progressFill and self.progressFill.Set then
         self.progressFill:Set({ width = fillWidth })
     end
 
     if self.maxed == "1" then
-        self.maxed_str:Set({ color = 50, text = "五項能力檔次已達上限"})
+        self.maxed_str:Set({ x = 27, color = 50, text = "五項能力檔次已達上限"})
     else
-        self.cultivationCount_str:Set({color = 49, text = "已吸收次數: "..self.cultivationCount})
+        self.maxed_str:Set({x = 71, color = 49, text = "已補檔次數: "..self.cultivationCount})
     end
 
     if self.material_list_wnd then
@@ -419,11 +511,16 @@ end
 function CultivationModule:toggleSeriesCheck(index)
     local nameIndex = index * 2 - 1;
     local petName = self.material_List[nameIndex]
+    --------------------------------------------------
+    -- 主寵 / 空槽 / 不可用欄位禁止選擇
+    --------------------------------------------------
     if not petName or petName == "" or petName == "主寵物" or petName == "不符合" or petName == "空" then
         return true
     end
-    -- 以寵物 Slot 作為唯一 Key
-    if self.seriesDraft[index] == true then
+    --------------------------------------------------
+    -- 切換選取狀態
+    --------------------------------------------------
+    if self.seriesDraft[index] == true then	-- 以寵物 Slot 作為唯一 Key
         self.seriesDraft[index] = nil
     else
         self.seriesDraft[index] = true
@@ -442,28 +539,39 @@ function CultivationModule:refreshSeriesChecks()
             local petName = self.material_List[nameIndex] or "";
             local petLevel = self.material_List[levelIndex] or "_";
             local selectable = true
-
+            --------------------------------------------------
+            -- 判斷是否可以選擇
+            --------------------------------------------------
             if petName == "" or petName == "不符合" or petName == "空" then	-- 空槽
                 selectable = false
             elseif petName == "主寵物" then	-- 主寵
                 selectable = false
             end
-
-            -- 勾選狀態
+            --------------------------------------------------
+            -- 取得選取狀態
+            --------------------------------------------------
             local selected = false
             if selectable and self.seriesDraft[i] == true then
                 selected = true
                 selectedCount = selectedCount + 1;
             else
-                -- 如果這一格現在已經不可選，
-                -- 同時清掉舊的選取狀態
-                self.seriesDraft[i] = nil
+                self.seriesDraft[i] = nil	-- 清掉舊的選取狀態
             end
-            -- Checkbox 本體
+            -- Row 底圖
+            if controls.row and controls.row.valid then
+                local rowImage = SERIES_ROW_NORMAL_IMAGE
+                if selected then
+                    rowImage = SERIES_ROW_SELECTED_IMAGE
+                elseif self.seriesHoverIndex == i then
+                    rowImage = SERIES_ROW_HOVER_IMAGE
+                end
+                controls.row:Set({image = rowImage, visible = true})
+            end
+            -- Checkbox
             if controls.box and controls.box.valid then
                 controls.box:Set({visible = selectable})
             end
-            -- 勾勾
+            --  Checkbox 勾勾
             if controls.mark and controls.mark.valid then
                 controls.mark:Set({visible = selected})
             end
@@ -478,15 +586,18 @@ function CultivationModule:refreshSeriesChecks()
             elseif petName == "不符合" or petName == "空" then
                 textColor = 16;
             end
+            -- 寵物名稱
             if controls.name and controls.name.valid then
                 controls.name:Set({text = petName,color = textColor})
             end
+            -- 等級
             if controls.level and controls.level.valid then
                 controls.level:Set({text = "Lv "..tostring(petLevel),color = textColor})
             end
         end
     end
-    self.seriesSelectedCount = selectedCount
+    self.seriesSelectedCount = selectedCount * 100;
+    self.exp_str:Set({text = "培養經驗+"..self.seriesSelectedCount})
 end
 
 
@@ -496,33 +607,27 @@ function CultivationModule:OpenMaterialPetWindow(mainPetSlot)
 end
 -- 點擊按鈕確認吸收
 function CultivationModule:OnCultivationBtnClick()
-    if not self.petSlot then
+    -- 1. 主寵 Slot
+    local mainSlot = tonumber(self.petSlot)
+    if not mainSlot then
         return
     end
-
-    local selected = self:getSelectedMaterialPets()
-    if #selected <= 0 then
+    -- 2. 收集已勾選材料
+    local materialSlots = {}
+    for slot = 1, 5 do
+        if self.seriesDraft[slot] == true then
+            table.insert(materialSlots, tostring(slot))
+        end
+    end
+    -- 3. 至少選擇一隻材料
+    if #materialSlots <= 0 then
         print("[PetCultivation] 尚未選擇材料寵物")
         return
     end
-
-    local materialSlots = {}
-    for _, slot in ipairs(selected) do
-        table.insert(materialSlots, tostring(slot))
-    end
-    local mainSlot = tonumber(self.petSlot)
-
-    local packetData = tostring(mainSlot) .. "|" .. table.concat(materialSlots, ",")
+    local materialString = table.concat(materialSlots, ",")
+    local packetData = tostring(mainSlot) .. "|" .. materialString
     WinMgr.SendPacket("ExecutePetCultivation", packetData)
-end
-function CultivationModule:getSelectedMaterialPets()
-    local result = {}
-    for slot = 1, 5 do
-        if self.seriesDraft[slot] == true then
-            table.insert(result, slot)
-        end
-    end
-    return result
+    self:Toggle_list_Wnd()
 end
 
 function CultivationModule:split(str, sep)
