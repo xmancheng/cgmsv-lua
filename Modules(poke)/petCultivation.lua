@@ -36,8 +36,8 @@ function Module:SendData(fd,head,data)
       local id3,id5 = GetCultivationData(player,petIndex);		--cultivationExp, cultivationCount
 	  local id4 = GetCultivationExpNeed(id5);					--expNeed
 	  local id6 = IsPetCultivationMaxed(petIndex) and 1 or 0;	--maxed
-
-	  local gradeData = {}										--寵物目前檔次與最高檔次
+	  --寵物目前檔次與最高檔次
+	  local gradeData = {}
 	  for _, gradeType in ipairs(PET_GRADE_TYPES) do
         local currentRank = Pet.GetArtRank(petIndex,gradeType);
         local fullRank = Pet.FullArtRank(petIndex,gradeType);
@@ -73,16 +73,24 @@ end
 
 function Module:ExecuteCultivation(fd, head, data)
     local player = tonumber(Protocol.GetCharByFd(fd))
-    if head ~= "ExecutePetCultivation" then
+    if head ~= 'ExecutePetCultivation' then
         return 1
     end
-    if not data or not data[1] then
+
+    local arr = {}
+    for slot in string.gmatch(data[1], "[^|]+") do
+        local arrslot = tostring(slot)
+        if arrslot then
+            table.insert(arr, arrslot);
+        end
+    end
+    if not arr or not arr[1] then
         return 1
     end
     --------------------------------------------------
     -- 1. 解析主寵
     --------------------------------------------------
-    local mainSlot = tonumber(data[1])
+    local mainSlot = tonumber(arr[1])
     if not mainSlot then
         return 1
     end
@@ -93,12 +101,12 @@ function Module:ExecuteCultivation(fd, head, data)
     --------------------------------------------------
     -- 2. 解析材料 Slot
     --------------------------------------------------
-    local materialString = data[2] or ""
+    local materialString = arr[2] or ""
     local materialSlots = {}
     for slot in string.gmatch(materialString, "[^,]+") do
         local materialSlot = tonumber(slot)
         if materialSlot then
-            table.insert(materialSlots, materialSlot)
+            table.insert(materialSlots, materialSlot);
         end
     end
     if #materialSlots <= 0 then
@@ -133,47 +141,53 @@ function Module:ExecuteCultivation(fd, head, data)
     --------------------------------------------------
     -- 5. 取得目前培養資料
     --------------------------------------------------
-    local currentExp, cultivationCount = GetCultivationData(player, mainPetIndex)
-    currentExp = tonumber(currentExp) or 0
-    cultivationCount = tonumber(cultivationCount) or 0
-    local expNeed = GetCultivationExpNeed(cultivationCount)
+    local currentExp, cultivationCount = GetCultivationData(player, mainPetIndex);
+    local expNeed = GetCultivationExpNeed(cultivationCount);
     --------------------------------------------------
     -- 6. 增加 EXP
     --------------------------------------------------
-    currentExp = currentExp + totalExp
+    currentExp = currentExp + totalExp;
     --------------------------------------------------
     -- 7. 達標就增加資質
     --------------------------------------------------
-    while currentExp >= expNeed do
-        currentExp = currentExp - expNeed
-        local success = IncreaseRandomGrade(player,mainPetIndex)
-        if not success then
-            currentExp = 0
-            break
+    for count = 1,#materialPets do
+        if currentExp >= expNeed then
+            currentExp = currentExp - expNeed;
+            cultivationCount = cultivationCount + 1;
+            local success = IncreaseRandomGrade(player,mainPetIndex);	-- 8. 升檔及寫回培養資料
         end
-        cultivationCount = cultivationCount + 1;
-        expNeed = GetCultivationExpNeed(cultivationCount)
+        expNeed = GetCultivationExpNeed(cultivationCount);
+        Char.SetExtData(mainPetIndex,"吸收经验",currentExp);
+        Char.SetExtData(mainPetIndex,"吸收次数",cultivationCount);
+        NLG.UpChar(mainPetIndex);
+        NLG.UpChar(player);
     end
-    --------------------------------------------------
-    -- 8. 寫回培養資料
-    --------------------------------------------------
-    Char.SetExtData(mainPetIndex,"吸收经验",currentExp);
-    Char.SetExtData(mainPetIndex,"吸收次数",cultivationCount);
     --------------------------------------------------
     -- 9. 消耗材料寵物
     --------------------------------------------------
-
-    -- 這裡先不要直接照抄 API
-    -- 請使用你目前伺服器實際的「刪除寵物」API。
-    --
-    -- 因為目前提供給我的 petCultivation.lua
-    -- 沒有出現刪除寵物的既有 API，
-    -- 所以這裡不能憑空指定 Char.DelPet / Char.RemovePet 等名稱。
-
+    table.sort(materialSlots, function(a, b)
+        return a > b
+    end)
+    for _, materialSlot in ipairs(materialSlots) do
+        Char.DelSlotPet(player, materialSlot-1);
+    end
     --------------------------------------------------
     -- 10. 重新同步主寵資料
     --------------------------------------------------
-    Protocol.Send(player,"ResponsePetCultivationData",...)
+    local id1 = mainSlot;
+    local id2 = Char.GetData(mainPetIndex,CONST.对象_原名);			--PetName
+    local id3,id5 = GetCultivationData(player,mainPetIndex);		--cultivationExp, cultivationCount
+    local id4 = GetCultivationExpNeed(id5);					--expNeed
+	local id6 = IsPetCultivationMaxed(mainPetIndex) and 1 or 0;	--maxed
+
+	local gradeData = {}										--寵物目前檔次與最高檔次
+	for _, gradeType in ipairs(PET_GRADE_TYPES) do
+        local currentRank = Pet.GetArtRank(mainPetIndex,gradeType);
+        local fullRank = Pet.FullArtRank(mainPetIndex,gradeType);
+        table.insert(gradeData,tostring(currentRank));
+        table.insert(gradeData,tostring(fullRank));
+    end
+    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ","))
     return 1
 end
 
@@ -266,7 +280,26 @@ function IncreaseRandomGrade(player, petIndex)
     if newRank > selected.full then
         newRank = selected.full;
     end
-    Pet.SetArtRank(petIndex,selected.type,newRank)
+    Pet.SetArtRank(petIndex,selected.type,newRank);
+    Pet.ReBirth(player, petIndex);
+    Pet.UpPet(player, petIndex);
+
+    local Level = Char.GetData(petIndex,CONST.对象_等级);
+    local arr_rank1_new = Pet.GetArtRank(petIndex,CONST.PET_体成);
+    local arr_rank2_new = Pet.GetArtRank(petIndex,CONST.PET_力成);
+    local arr_rank3_new = Pet.GetArtRank(petIndex,CONST.PET_强成);
+    local arr_rank4_new = Pet.GetArtRank(petIndex,CONST.PET_敏成);
+    local arr_rank5_new = Pet.GetArtRank(petIndex,CONST.PET_魔成);
+    if(Level~=1) then
+        Char.SetData(petIndex,CONST.CONST.对象_升级点,Level-1);
+        Char.SetData(petIndex,CONST.对象_等级,Level);
+        Char.SetData(petIndex,CONST.对象_体力, (Char.GetData(petIndex,CONST.对象_体力) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_力量, (Char.GetData(petIndex,CONST.对象_力量) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_强度, (Char.GetData(petIndex,CONST.对象_强度) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_速度, (Char.GetData(petIndex,CONST.对象_速度) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_魔法, (Char.GetData(petIndex,CONST.对象_魔法) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
+        Pet.UpPet(player,petIndex);
+    end
     return true,selected.index,oldRank,newRank
 end
 
