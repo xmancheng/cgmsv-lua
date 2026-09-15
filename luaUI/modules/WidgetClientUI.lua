@@ -277,9 +277,9 @@ function Module:pInfo_CreateWin()
         image = BTN_STATE, hitable = true,
         onClick = function() self.aptitudeBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnAptitudeBtnClick() end,
         onHover = function() self.aptitudeBtn:Set({image = BTN_STATE , visible=true}) self.aptitudeStr:Set({color = 0}) end,
-        onLeave = function() self.aptitudeBtn:Set({image = BTN_STATE , visible=true}) self.aptitudeStr:Set({color = 16})end
+        onLeave = function() self.aptitudeBtn:Set({image = BTN_STATE , visible=true}) self.aptitudeStr:Set({color = 128})end
     })
-    self.aptitudeStr = window:AddText({ x = 165, y = 23, width = 64, height = 20, font = 13, color = 16, text = "打開天賦"})
+    self.aptitudeStr = window:AddText({ x = 165, y = 23, width = 64, height = 20, font = 13, color = 128, text = "打開天賦"})
 
     -- 探索地圖-指引按鈕
     self.gatheringBtn = window:AddPngImage({
@@ -287,9 +287,9 @@ function Module:pInfo_CreateWin()
         image = BTN_STATE, hitable = true,
         onClick = function() self.gatheringBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnGatheringBtnClick() end,
         onHover = function() self.gatheringBtn:Set({image = BTN_STATE , visible=true}) self.gatheringStr:Set({color = 0}) end,
-        onLeave = function() self.gatheringBtn:Set({image = BTN_STATE , visible=true}) self.gatheringStr:Set({color = 16})end
+        onLeave = function() self.gatheringBtn:Set({image = BTN_STATE , visible=true}) self.gatheringStr:Set({color = 128})end
     })
-    self.gatheringStr = window:AddText({ x = 165, y = 93, width = 64, height = 20, font = 13, color = 16, text = "採集掃描"})
+    self.gatheringStr = window:AddText({ x = 165, y = 93, width = 64, height = 20, font = 13, color = 128, text = "採集掃描"})
 end
 
 

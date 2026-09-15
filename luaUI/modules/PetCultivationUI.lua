@@ -81,7 +81,11 @@ function CultivationModule:onLoad()
                 self:UpdateUI()
             end
             if self.material_list_wnd then
-                self:material_list_UpdateUI()
+                if self.maxed == "1" then
+                    self:Toggle_list_Wnd()
+                else
+                    self:material_list_UpdateUI()
+                end
             end
         end
     end)
@@ -101,7 +105,7 @@ function CultivationModule:onLoad()
                 group =group+2;
             end
             self.material_List = self.material_List
-            if not self.material_list_wnd then
+            if not self.material_list_wnd and self.maxed == "0" then
                 self:material_list_CreateWin()
                 self:material_list_UpdateUI()
             else
@@ -121,6 +125,10 @@ function CultivationModule:onUnload()
         self.material_list_wnd:Close()
         self:releaseWindow(self.material_list_wnd)
         self.material_list_wnd = nil
+        self.material_list_wnd = nil
+        self.seriesChecks = {}
+        self.seriesDraft = {}
+        self.seriesHoverIndex = nil
     end
 end
 
@@ -201,9 +209,9 @@ function CultivationModule:CreateWin()
         image = BTN_STATE, hitable = true,
         onClick = function() self.selectlistBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OpenMaterialPetWindow(self.petSlot) end,
         onHover = function() self.selectlistBtn:Set({image = BTN_STATE , visible=true}) self.selectlistStr:Set({color = 0}) end,
-        onLeave = function() self.selectlistBtn:Set({image = BTN_STATE , visible=true}) self.selectlistStr:Set({color = 16})end
+        onLeave = function() self.selectlistBtn:Set({image = BTN_STATE , visible=true}) self.selectlistStr:Set({color = 128})end
     })
-    self.selectlistStr = window:AddText({ x = 110, y = 185, width = 64, height = 20, font = 13, color = 16, text = "選擇材料"})
+    self.selectlistStr = window:AddText({ x = 110, y = 185, width = 64, height = 20, font = 13, color = 128, text = "選擇材料"})
 
     -- 培養經驗進度條
     self.progress_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 113, text = "目前培養進度"})
@@ -290,10 +298,10 @@ function CultivationModule:material_list_CreateWin()
 	local SERIES_CHECKBOX_X = SERIES_ROW_X + 5
 	local SERIES_CHECKBOX_Y = 2
 
-	local SERIES_NAME_X = SERIES_ROW_X + 27
+	local SERIES_NAME_X = SERIES_ROW_X + 21
 	local SERIES_NAME_WIDTH = 72
 
-	local SERIES_LEVEL_X = SERIES_ROW_X + 105
+	local SERIES_LEVEL_X = SERIES_ROW_X + 107
 	local SERIES_LEVEL_WIDTH = 45
 
 	for i = 1, 5 do
@@ -306,7 +314,7 @@ function CultivationModule:material_list_CreateWin()
 		-- 是否可以選擇
 		--------------------------------------------------
 		local selectable = true
-		if petName == "" or petName == "主寵物" or petName == "不符合" or petName == "空" then
+		if petName == "主寵物" or petLevel == "_" then
 			selectable = false
 		end
 		--------------------------------------------------
@@ -334,6 +342,7 @@ function CultivationModule:material_list_CreateWin()
 			x = SERIES_ROW_X, y = rowY, width = SERIES_ROW_WIDTH, height = SERIES_ROW_HEIGHT,
 			image = TRANSPARENT_IMAGE, color = -1, visible = selectable, hitable = true,
 			onClick = function()
+				WinMgr.PlaySe(52,CONST.Screen.Width/2)
 				self:toggleSeriesCheck(index) return true end,
 			onHover = function() 
 				self.seriesHoverIndex = index self:refreshSeriesChecks() return true end,
@@ -347,7 +356,7 @@ function CultivationModule:material_list_CreateWin()
 		local textColor = 48;
 		if petName == "主寵物" then
 			textColor = 4;
-		elseif petName == "不符合" or petName == "空" then
+		elseif petLevel == "_" then
 			textColor = 16;
 		end
 
@@ -423,11 +432,11 @@ function CultivationModule:material_list_CreateWin()
     self.cultivationBtn = window:AddPngImage({
         x = 105, y = 182, width = 64, height = 20,
         image = BTN_STATE, hitable = true,
-        onClick = function() self.cultivationBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnCultivationBtnClick() return true end,
+        onClick = function() self.cultivationBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(53,CONST.Screen.Width/2) self:OnCultivationBtnClick() return true end,
         onHover = function() self.cultivationBtn:Set({image = BTN_STATE , visible=true}) self.cultivationStr:Set({color = 0}) end,
-        onLeave = function() self.cultivationBtn:Set({image = BTN_STATE , visible=true}) self.cultivationStr:Set({color = 16})end
+        onLeave = function() self.cultivationBtn:Set({image = BTN_STATE , visible=true}) self.cultivationStr:Set({color = 128})end
     })
-    self.cultivationStr = window:AddText({ x = 110, y = 185, width = 64, height = 20, font = 13, color = 16, text = "確定吸收"})
+    self.cultivationStr = window:AddText({ x = 110, y = 185, width = 64, height = 20, font = 13, color = 128, text = "確定吸收"})
 
 end
 --------------------------------------------------------------------------------
@@ -469,15 +478,19 @@ function CultivationModule:UpdateUI()
     local expNeed = self.expNeed
     local currentExp = self.cultivationExp or 0
     if currentExp > expNeed then currentExp = expNeed end
-    local fillWidth = 50 * currentExp / expNeed
-    if fillWidth < 0 then fillWidth = 0 elseif fillWidth > 50 then fillWidth = 150 end
+    local fillWidth = 150 * currentExp / expNeed
+    if fillWidth < 0 then fillWidth = 0 elseif fillWidth > 150 then fillWidth = 150 end
     if self.progressFill and self.progressFill.Set then
         self.progressFill:Set({ width = fillWidth })
     end
 
     if self.maxed == "1" then
+        self.selectlistBtn:Set({visible=false})
+        self.selectlistStr:Set({visible=false})
         self.maxed_str:Set({ x = 27, color = 50, text = "五項能力檔次已達上限"})
     else
+        self.selectlistBtn:Set({visible=true})
+        self.selectlistStr:Set({visible=true})
         self.maxed_str:Set({x = 71, color = 49, text = "已補檔次數: "..self.cultivationCount})
     end
 
@@ -496,7 +509,7 @@ function CultivationModule:material_list_UpdateUI()
         local textcolor = 48;
         if petName == "主寵物" then
             textcolor = 4;
-        elseif petName == "不符合" or petName == "空" then
+        elseif petLevel == "_" then
             textcolor = 16;
         end
         if self.seriesChecks[i] then
@@ -505,7 +518,9 @@ function CultivationModule:material_list_UpdateUI()
         end
         group = group + 2;
     end
-    self:refreshSeriesChecks()
+    -- if self.maxed == "0" then
+        self:refreshSeriesChecks()
+    -- end
 end
 -- 更新勾選狀態
 function CultivationModule:toggleSeriesCheck(index)
@@ -542,7 +557,7 @@ function CultivationModule:refreshSeriesChecks()
             --------------------------------------------------
             -- 判斷是否可以選擇
             --------------------------------------------------
-            if petName == "" or petName == "不符合" or petName == "空" then	-- 空槽
+            if petLevel == "_" then	-- 空槽
                 selectable = false
             elseif petName == "主寵物" then	-- 主寵
                 selectable = false
@@ -583,7 +598,7 @@ function CultivationModule:refreshSeriesChecks()
             local textColor = 48;
             if petName == "主寵物" then
                 textColor = 4;
-            elseif petName == "不符合" or petName == "空" then
+            elseif petLevel == "_" then
                 textColor = 16;
             end
             -- 寵物名稱
