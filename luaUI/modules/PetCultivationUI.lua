@@ -18,9 +18,15 @@ local CLOSE_PRESS   = "luaUI/modules/cg图档集/特殊介面/关3.png"
 local BTN_STATE   = "luaUI/modules/cg图档集/特殊介面/btn_state.png"
 local BTN_PRESS   = "luaUI/modules/cg图档集/特殊介面/btn_press.png"
 
-local PROGRESS_BG_IMG = "luaUI/modules/cg图档集/吸收培养/签到进度条.png"
+local PROGRESS_BG_IMG = "luaUI/modules/cg图档集/吸收培养/进度条.png"
 local PROGRESS_FILL_IMG = "luaUI/modules/cg图档集/吸收培养/已完成进度条.png"
 
+local SERIES_ROW_NORMAL_IMAGE = "luaUI/modules/cg图档集/吸收培养/series_row_normal.png"
+local SERIES_ROW_HOVER_IMAGE = "luaUI/modules/cg图档集/吸收培养/series_row_hover.png"
+local SERIES_ROW_SELECTED_IMAGE = "luaUI/modules/cg图档集/吸收培养/series_row_selected.png"
+local CHECKBOX_uncheckedIMG = "luaUI/modules/cg图档集/吸收培养/checkbox_unchecked.png"
+local CHECKBOX_checkedIMG = "luaUI/modules/cg图档集/吸收培养/checkbox_checked.png"
+local TRANSPARENT_IMAGE = "luaUI/modules/cg图档集/吸收培养/透明.png"
 --------------------------------------------------------------------------------
 -- 1. 生命週期與初始化
 --------------------------------------------------------------------------------
@@ -74,6 +80,9 @@ function CultivationModule:onLoad()
             else
                 self:UpdateUI()
             end
+            if self.material_list_wnd then
+                self:material_list_UpdateUI()
+            end
         end
     end)
 
@@ -89,10 +98,15 @@ function CultivationModule:onLoad()
                 local mat = self:split(arr[i], ",")
                 self.material_List[group] = mat[1];
                 self.material_List[group+1] = mat[2];
-                group = group+2;
+                group =group+2;
             end
             self.material_List = self.material_List
-            self:material_list_CreateWin()
+            if not self.material_list_wnd then
+                self:material_list_CreateWin()
+                self:material_list_UpdateUI()
+            else
+                self:material_list_UpdateUI()
+            end
         end
     end)
 end
@@ -205,6 +219,9 @@ function CultivationModule:Toggle_list_Wnd()
         self.material_list_wnd:Close()
         self:releaseWindow(self.material_list_wnd)
         self.material_list_wnd = nil
+        self.seriesChecks = {}
+        self.seriesDraft = {}
+        self.seriesHoverIndex = nil
     else
         self:material_list_CreateWin()
     end
@@ -252,6 +269,64 @@ function CultivationModule:material_list_CreateWin()
 
     -- 頂部文字資訊
     window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "勾選被吸收寵" })
+
+    -- 勾選材料
+    self.seriesChecks = {}
+    self.seriesDraft = {}
+    self.seriesHoverIndex = nil
+    self.seriesSelectedCount = 0
+
+	local ROW_X = 15
+	local ROW_Y = 65
+	local ROW_H = 20
+
+	local CHECK_X = ROW_X + 6
+	local CHECK_Y_OFFSET = 2
+
+	local TEXT_X = ROW_X + 30
+	local NAME_WIDTH = 70
+
+	local LEVEL_X = ROW_X + 105
+	local LEVEL_WIDTH = 45
+
+	for i = 1, 5 do
+		local index = i
+		local y = ROW_Y + ROW_H * (i - 1)
+		local nameIndex = index * 2 - 1
+		local petName = self.material_List[nameIndex] or ""
+		local selectable = true
+		if petName == "主寵物" or petName == "不符合" or petName == "空" then
+			selectable = false
+		end
+		-- Checkbox 底圖
+		local checkBox = window:AddPngImage({x = CHECK_X, y = y + CHECK_Y_OFFSET, width = 17, height = 16,
+			image = CHECKBOX_uncheckedIMG, color = -1, visible = selectable, hitable = false})
+		-- Checkbox 勾勾
+		local checkMark = window:AddPngImage({x = CHECK_X, y = y + CHECK_Y_OFFSET,width = 17, height = 16,
+			image = CHECKBOX_checkedIMG, color = -1, visible = false,	hitable = false})
+		-- 整列點擊區
+		local hit = window:AddPngImage({x = ROW_X, y = y, width = 155, height = ROW_H,
+			image = TRANSPARENT_IMAGE, color = -1, visible = selectable, hitable = true,
+			onClick = function() self:toggleSeriesCheck(index) return true end,
+			onHover = function() self.seriesHoverIndex = index return true end,
+			onLeave = function() if self.seriesHoverIndex == index then self.seriesHoverIndex = nil	end return true end})
+
+		-- 寵物名稱
+		local textColor = 48;
+		if petName == "主寵物" then
+			textColor = 4;
+		elseif petName == "不符合" or petName == "空" then
+			textColor = 16;
+		end
+		local name_Str = window:AddText({x = TEXT_X, y = y + 3,	width = NAME_WIDTH, height = 20,
+			text = petName,	font = 13, color = textColor, hitable = false})
+		-- 等級
+		local level_Str = window:AddText({x = LEVEL_X, y = y + 3, width = LEVEL_WIDTH, height = 20,
+			text = "Lv "..tostring(self.material_List[nameIndex + 1] or "_"), font = 13, color = textColor, hitable = false})
+		self.seriesChecks[index] = {box = checkBox,	mark = checkMark,hit = hit, name = name_Str, level = level_Str}
+	end
+	self:refreshSeriesChecks()
+
     -- 確定吸收培養按鈕
     self.cultivationBtn = window:AddPngImage({
         x = 105, y = 182, width = 64, height = 20,
@@ -266,8 +341,12 @@ end
 --------------------------------------------------------------------------------
 -- 3. 介面刷新
 --------------------------------------------------------------------------------
+-- 主寵物資訊刷新(第二層)
 function CultivationModule:UpdateUI()
     if not self.wnd then return end
+
+    self.petSlot_str:Set({ color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
+    self.PetName_str:Set({ color = 4, text = "〈"..self.PetName.."〉"})
 
     if (self.grade_tbl["Art1_N"]==self.grade_tbl["Art1_F"]) then
       self.Art1_str:Set({ color = 48, text = "體力: "..self.grade_tbl["Art1_N"].." / "..self.grade_tbl["Art1_F"]})
@@ -303,17 +382,148 @@ function CultivationModule:UpdateUI()
     if self.progressFill and self.progressFill.Set then
         self.progressFill:Set({ width = fillWidth })
     end
+
+    if self.maxed == "1" then
+        self.maxed_str:Set({ color = 50, text = "五項能力檔次已達上限"})
+    else
+        self.cultivationCount_str:Set({color = 49, text = "已吸收次數: "..self.cultivationCount})
+    end
+
+    if self.material_list_wnd then
+        WinMgr.SendPacket("GetMaterialPet", self.petSlot)
+    end
+end
+-- 材料選擇框刷新(第三層)
+function CultivationModule:material_list_UpdateUI()
+    if not self.material_list_wnd then return end
+
+    local group = 1;
+    for i = 1,5 do
+        local petName = self.material_List[group] or ""
+        local petLevel = self.material_List[group + 1] or "_"
+        local textcolor = 48;
+        if petName == "主寵物" then
+            textcolor = 4;
+        elseif petName == "不符合" or petName == "空" then
+            textcolor = 16;
+        end
+        if self.seriesChecks[i] then
+            self.seriesChecks[i].name:Set({text = petName,color = textcolor})
+            self.seriesChecks[i].level:Set({text = "Lv "..petLevel,color = textcolor})
+        end
+        group = group + 2;
+    end
+    self:refreshSeriesChecks()
+end
+-- 更新勾選狀態
+function CultivationModule:toggleSeriesCheck(index)
+    local nameIndex = index * 2 - 1;
+    local petName = self.material_List[nameIndex]
+    if not petName or petName == "" or petName == "主寵物" or petName == "不符合" or petName == "空" then
+        return true
+    end
+    -- 以寵物 Slot 作為唯一 Key
+    if self.seriesDraft[index] == true then
+        self.seriesDraft[index] = nil
+    else
+        self.seriesDraft[index] = true
+    end
+    self:refreshSeriesChecks()
+    return true
+end
+-- 更新勾選狀態UI
+function CultivationModule:refreshSeriesChecks()
+    local selectedCount = 0;
+    for i = 1, 5 do
+        local controls = self.seriesChecks and self.seriesChecks[i]
+        if controls then
+            local nameIndex = i * 2 - 1;
+            local levelIndex = i * 2;
+            local petName = self.material_List[nameIndex] or "";
+            local petLevel = self.material_List[levelIndex] or "_";
+            local selectable = true
+
+            if petName == "" or petName == "不符合" or petName == "空" then	-- 空槽
+                selectable = false
+            elseif petName == "主寵物" then	-- 主寵
+                selectable = false
+            end
+
+            -- 勾選狀態
+            local selected = false
+            if selectable and self.seriesDraft[i] == true then
+                selected = true
+                selectedCount = selectedCount + 1;
+            else
+                -- 如果這一格現在已經不可選，
+                -- 同時清掉舊的選取狀態
+                self.seriesDraft[i] = nil
+            end
+            -- Checkbox 本體
+            if controls.box and controls.box.valid then
+                controls.box:Set({visible = selectable})
+            end
+            -- 勾勾
+            if controls.mark and controls.mark.valid then
+                controls.mark:Set({visible = selected})
+            end
+            -- 點擊區
+            if controls.hit and controls.hit.valid then
+                controls.hit:Set({visible = selectable})
+            end
+            -- 文字顏色
+            local textColor = 48;
+            if petName == "主寵物" then
+                textColor = 4;
+            elseif petName == "不符合" or petName == "空" then
+                textColor = 16;
+            end
+            if controls.name and controls.name.valid then
+                controls.name:Set({text = petName,color = textColor})
+            end
+            if controls.level and controls.level.valid then
+                controls.level:Set({text = "Lv "..tostring(petLevel),color = textColor})
+            end
+        end
+    end
+    self.seriesSelectedCount = selectedCount
 end
 
--- 點擊按鈕吸收名單
+
+-- 點擊按鈕要求吸收名單
 function CultivationModule:OpenMaterialPetWindow(mainPetSlot)
     WinMgr.SendPacket("GetMaterialPet", mainPetSlot)
 end
-
+-- 點擊按鈕確認吸收
 function CultivationModule:OnCultivationBtnClick()
+    if not self.petSlot then
+        return
+    end
 
+    local selected = self:getSelectedMaterialPets()
+    if #selected <= 0 then
+        print("[PetCultivation] 尚未選擇材料寵物")
+        return
+    end
+
+    local materialSlots = {}
+    for _, slot in ipairs(selected) do
+        table.insert(materialSlots, tostring(slot))
+    end
+    local mainSlot = tonumber(self.petSlot)
+
+    local packetData = tostring(mainSlot) .. "|" .. table.concat(materialSlots, ",")
+    WinMgr.SendPacket("ExecutePetCultivation", packetData)
 end
-
+function CultivationModule:getSelectedMaterialPets()
+    local result = {}
+    for slot = 1, 5 do
+        if self.seriesDraft[slot] == true then
+            table.insert(result, slot)
+        end
+    end
+    return result
+end
 
 function CultivationModule:split(str, sep)
     local result = {}

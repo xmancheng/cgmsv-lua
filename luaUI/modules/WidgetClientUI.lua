@@ -333,7 +333,7 @@ function Module:pet_cultivation_CreateWin_Update()
 			--ÕˆÇó·þ„Õ¶Ë‚÷ËÍ”µ“þ
 			self:sendPacket("RequestPetSlotData")
 			self:pet_cultivation_CreateWin()
-			self.pet_cultivation_wnd:Set({ x = pet_cultivation_Win_x, y = pet_cultivation_Win_y, layer = 3,})
+			self.pet_cultivation_wnd:Set({ x = pet_cultivation_Win_x, y = pet_cultivation_Win_y,})
 		end
 	end
 end
