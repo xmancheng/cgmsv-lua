@@ -16,9 +16,12 @@ local BTN_PRESS   = "luaUI/modules/cg图档集/特殊介面/btn_press.png"
 
 local BG_sframeIMG = "luaUI/modules/cg图档集/特殊介面/msg_bg.png"	--採集狀態框
 
-local BTN_icon = "luaUI/modules/cg图档集/特殊介面/宠物小图标.png"
-local BTN_iconHover = "luaUI/modules/cg图档集/特殊介面/宠物小图标高亮.png"
-local BTN_iconPress = "luaUI/modules/cg图档集/特殊介面/宠物小图标按下.png"
+local BTN_icon1 = "luaUI/modules/cg图档集/特殊介面/宠物小图标.png"
+local BTN_icon1Hover = "luaUI/modules/cg图档集/特殊介面/宠物小图标高亮.png"
+local BTN_icon1Press = "luaUI/modules/cg图档集/特殊介面/宠物小图标按下.png"
+local BTN_icon2 = "luaUI/modules/cg图档集/特殊介面/喂食小图标.png"
+local BTN_icon2Hover = "luaUI/modules/cg图档集/特殊介面/喂食小图标高亮.png"
+local BTN_icon2Press = "luaUI/modules/cg图档集/特殊介面/喂食小图标按下.png"
 
 local frontWindowCaptureId = -1		--缓存，不要动
 local player_Status_NativeId = 7		--玩家狀態7.物品栏14.小地图33
@@ -98,6 +101,9 @@ function Module:onLoad()
             self.petSlot_tbl[4] = arr[4];
             self.petSlot_tbl[5] = arr[5];
             self.petSlot_tbl = self.petSlot_tbl;
+            if self.pet_cultivation_wnd and self.pet_cultivation_wnd.valid then
+                self:pet_cultivation_UpdateUI_Icon()
+            end
         end
     end)
 
@@ -118,6 +124,7 @@ function Module:onUnload()
         self.pet_cultivation_wnd:Close()
         self:releaseWindow(self.pet_cultivation_wnd)
         self.pet_cultivation_wnd = nil
+        self.nodeCultivateBtns = {}
     end
 end
 
@@ -150,6 +157,7 @@ function Module:ViewChangeEvent(viewType,viewState)
 			self.pet_cultivation_wnd:Close()
 			self:releaseWindow(self.pet_cultivation_wnd)
 			self.pet_cultivation_wnd = nil
+			self.nodeCultivateBtns = {}
 		end
 	end
 	-- if viewState == 104 then
@@ -191,6 +199,7 @@ function Module:WindowFocusChanged(frontId,backId)
 			self.pet_cultivation_wnd:Close()
 			self:releaseWindow(self.pet_cultivation_wnd)
 			self.pet_cultivation_wnd = nil
+			self.nodeCultivateBtns = {}
 		end
 	end
 end
@@ -325,6 +334,7 @@ function Module:pet_cultivation_CreateWin_Update()
 			self.pet_cultivation_wnd:Close()
 			self:releaseWindow(self.pet_cultivation_wnd)
 			self.pet_cultivation_wnd = nil
+			self.nodeCultivateBtns = {}
 		end
 	else
 		pet_cultivation_Win_x = pet_Status.x
@@ -333,6 +343,7 @@ function Module:pet_cultivation_CreateWin_Update()
 			--請求服務端傳送數據
 			self:sendPacket("RequestPetSlotData")
 			self:pet_cultivation_CreateWin()
+			self:pet_cultivation_UpdateUI_Icon()
 			self.pet_cultivation_wnd:Set({ x = pet_cultivation_Win_x, y = pet_cultivation_Win_y,})
 		end
 	end
@@ -355,21 +366,25 @@ function Module:pet_cultivation_CreateWin()
     self.pet_cultivation_wnd = self:ownWindow(window)
 
     self.nodeCultivateBtns = {}
-    for key = 1,5 do
+    for i = 1,5 do
+        local index = i
         local winW, winH = 20, 19
         local btnX = 5 - winW / 2
-        local btnY = 37 + (key-1)*48 - winH / 2
-        -- 同名吸收按鈕
-        if (self.petSlot_tbl[key]=="true") then
-          self.nodeCultivateBtns[key] = window:AddPngImage({
+        local btnY = 37 + (i-1)*48 - winH / 2
+        -- 按鈕
+        local icon1 = window:AddPngImage({
             x = btnX, y = btnY, width = winW, height = winH,
-            image = BTN_icon, imageHover = BTN_iconHover, imagePress = BTN_iconPress, hitable = true,
-            onClick = function() WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnCultivateBtnClick(key) end,
+            image = BTN_icon1, imageHover = BTN_icon1Hover, imagePress = BTN_icon1Press, visible = true, hitable = true,
+            onClick = function() WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnBPInfoBtnClick(i) end,
             onHover = function() window:ShowTips('將相同寵物吸收補足檔次') return true end,
-          })
-        else
-          self.nodeCultivateBtns[key] = nil;
-        end
+        })
+        local icon2 = window:AddPngImage({
+            x = btnX+0.3, y = btnY+16, width = winW, height = winH,
+            image = BTN_icon2, imageHover = BTN_icon2Hover, imagePress = BTN_icon2Press, visible = true, hitable = true,
+            onClick = function() WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnCultivateBtnClick(i) end,
+            onHover = function() window:ShowTips('持續餵食突破已滿的檔次') return true end,
+        })
+        self.nodeCultivateBtns[index] = {icon1 = icon1, icon2 = icon2}
     end
 end
 
@@ -401,6 +416,18 @@ function Module:gathering_UpdateUI_Sring()
     local gathering_str = self.gathering_str
     self.statusStr:Set({text = gathering_str })
 end
+
+function Module:pet_cultivation_UpdateUI_Icon()
+    for i = 1,5 do
+        if (self.petSlot_tbl[i]=="true") then
+			self.nodeCultivateBtns[i].icon1:Set({visible = true})
+			self.nodeCultivateBtns[i].icon2:Set({visible = true})
+		else
+			self.nodeCultivateBtns[i].icon1:Set({visible = false})
+			self.nodeCultivateBtns[i].icon2:Set({visible = false})
+        end
+    end
+end
 --------------------------------------------------------------------------------
 -- 傳送封包至後端
 --------------------------------------------------------------------------------
@@ -411,9 +438,11 @@ end
 function Module:OnGatheringBtnClick()
 	WinMgr.SendPacket("uiMenu", 2)
 end
-
-function Module:OnCultivateBtnClick(k)
+function Module:OnBPInfoBtnClick(k)
 	WinMgr.SendPacket("uiMenu", 3, k)
+end
+function Module:OnCultivateBtnClick(k)
+	WinMgr.SendPacket("uiMenu", 4, k)
 end
 
 ------
