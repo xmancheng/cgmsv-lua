@@ -137,7 +137,7 @@ function Module:ExecuteCultivation(fd, head, data)
     --------------------------------------------------
     -- 4. 計算培養 EXP
     --------------------------------------------------
-    local totalExp = #materialPets * SACRIFICE_PET_EXP
+    local totalExp = GetMaterialPetsCultivationExp(materialPets);
     --------------------------------------------------
     -- 5. 取得目前培養資料
     --------------------------------------------------
@@ -301,6 +301,31 @@ function IncreaseRandomGrade(player, petIndex)
         Pet.UpPet(player,petIndex);
     end
     return true,selected.index,oldRank,newRank
+end
+-- 計算培養經驗
+function GetMaterialPetCultivationExp(petLevel)
+    petLevel = tonumber(petLevel) or 0
+    if petLevel <= 0 then
+        return 0
+    end
+    if petLevel >= 100 then
+        return 0
+    end
+    local decreaseStep = math.floor((petLevel - 1) / 5)
+    local exp = SACRIFICE_PET_EXP - decreaseStep * 5
+    if exp < 0 then
+        exp = 0
+    end
+    return exp
+end
+-- 加總所有材料的培養經驗
+function GetMaterialPetsCultivationExp(materialPets)
+    local totalExp = 0
+    for _, materialPet in ipairs(materialPets or {}) do
+        local petLevel = Char.GetData(materialPet.index,CONST.对象_等级);
+        totalExp = totalExp + GetMaterialPetCultivationExp(petLevel)
+    end
+    return totalExp
 end
 
 function CheckInTable(_idTab, _idVar) ---循环函数
