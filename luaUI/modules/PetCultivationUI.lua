@@ -546,6 +546,7 @@ end
 -- 更新勾選狀態UI
 function CultivationModule:refreshSeriesChecks()
     local selectedCount = 0;
+    local totalExp = 0
     for i = 1, 5 do
         local controls = self.seriesChecks and self.seriesChecks[i]
         if controls then
@@ -569,6 +570,8 @@ function CultivationModule:refreshSeriesChecks()
             if selectable and self.seriesDraft[i] == true then
                 selected = true
                 selectedCount = selectedCount + 1;
+				local level = tonumber(petLevel) or 0;
+				totalExp = totalExp + self:GetMaterialPetCultivationExp(level)	-- 每隻被選取材料寵分別計算
             else
                 self.seriesDraft[i] = nil	-- 清掉舊的選取狀態
             end
@@ -611,7 +614,7 @@ function CultivationModule:refreshSeriesChecks()
             end
         end
     end
-    self.seriesSelectedCount = selectedCount * 100;
+	self.seriesSelectedCount = totalExp;
     self.exp_str:Set({text = "培養經驗+"..self.seriesSelectedCount})
 end
 
@@ -643,6 +646,22 @@ function CultivationModule:OnCultivationBtnClick()
     local packetData = tostring(mainSlot) .. "|" .. materialString
     WinMgr.SendPacket("ExecutePetCultivation", packetData)
     self:Toggle_list_Wnd()
+end
+-- 加總所有材料的培養經驗
+function CultivationModule:GetMaterialPetCultivationExp(petLevel)
+    petLevel = tonumber(petLevel) or 0
+    if petLevel <= 0 then
+        return 0
+    end
+    if petLevel >= 100 then
+        return 0
+    end
+    local decreaseStep = math.floor((petLevel - 1) / 5)
+    local exp = 100 - decreaseStep * 5
+    if exp < 0 then
+        exp = 0
+    end
+    return exp
 end
 
 function CultivationModule:split(str, sep)
