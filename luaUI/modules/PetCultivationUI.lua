@@ -27,6 +27,10 @@ local SERIES_ROW_SELECTED_IMAGE = "luaUI/modules/cg图档集/吸收培养/series_row_se
 local CHECKBOX_uncheckedIMG = "luaUI/modules/cg图档集/吸收培养/checkbox_unchecked.png"
 local CHECKBOX_checkedIMG = "luaUI/modules/cg图档集/吸收培养/checkbox_checked.png"
 local TRANSPARENT_IMAGE = "luaUI/modules/cg图档集/吸收培养/透明.png"
+-- ============================================================
+-- 寵物培養分頁
+local PAGE_FIRST = 1	-- 1 = 第一頁：檔次補足
+local PAGE_SECOND = 2	-- 2 = 第二頁：檔次突破
 --------------------------------------------------------------------------------
 -- 1. 生命週期與初始化
 --------------------------------------------------------------------------------
@@ -35,7 +39,13 @@ function CultivationModule:onLoad()
     WinMgr.PlaySe(73,320)
     self:cliSendMsg('load PetCultivationUI.lua 成功',4)
 
-    self.wnd = nil
+    self.C_wnd = nil
+    self.B_wnd = nil
+    -- 當前所在培養分頁
+    self.currentWnd = PAGE_FIRST
+    -- 目前操作中的寵物 Slot
+    self.petSlot = nil
+
     self.progressBg = nil
     self.progressFill = nil
     self.grade_tbl = {
@@ -46,8 +56,19 @@ function CultivationModule:onLoad()
     -- 接收來自客戶端按鈕的呼叫)
     self:onPacketRecv("SyncCultivationData", function(header, params)
         if params then
-            -- 請求服務端傳送數據
-            self:sendPacket("RequestPetCultivationData",tonumber(params[1]))
+            local str = params[1] or ""
+            local arr = self:split(str, "|")
+            local windowType = tonumber(arr[1]) or PAGE_FIRST
+            local petSlot = tonumber(arr[2])
+            if not petSlot then
+                return
+            end
+
+            self.currentWnd = windowType-- 記錄目前分頁
+            self.petSlot = petSlot-- 記錄目前寵物
+            -- 向後端要求目前寵物資料
+            self:CloseAllWindows()
+            self:sendPacket("RequestPetCultivationData", tostring(windowType) .. "|" .. tostring(petSlot))
         end
     end)
     -- 接收後端回傳的遊戲數據，建構與更新前端UI介面
@@ -73,18 +94,30 @@ function CultivationModule:onLoad()
             self.grade_tbl["Art3_F"] = grade[6];
             self.grade_tbl["Art4_F"] = grade[8];
             self.grade_tbl["Art5_F"] = grade[10];
+
+            -- 後端回傳目前分頁
+            self.currentWnd = tonumber(arr[8]) or PAGE_FIRST
             self.grade_tbl = self.grade_tbl
-            if not self.wnd then
-                self:CreateWin()
-                self:UpdateUI()
-            else
-                self:UpdateUI()
-            end
-            if self.material_list_wnd then
-                if self.maxed == "1" then
-                    self:Toggle_list_Wnd()
+            if self.currentWnd == PAGE_FIRST then
+                if not self.C_wnd then
+                    self:CreateWin1()
+                    self:UpdateUI1()
                 else
-                    self:material_list_UpdateUI()
+                    self:UpdateUI1()
+                end
+                if self.material_list_wnd then
+                    if self.maxed == "1" then
+                        self:Toggle_list_Wnd()
+                    else
+                        self:material_list_UpdateUI()
+                    end
+                end
+            elseif self.currentWnd == PAGE_SECOND then
+                if not self.B_wnd then
+                    self:CreateWin2()
+                    self:UpdateUI2()
+                else
+                    self:UpdateUI2()
                 end
             end
         end
@@ -116,10 +149,10 @@ function CultivationModule:onLoad()
 end
 
 function CultivationModule:onUnload()
-    if self.wnd then
-        self.wnd:Close()
-        self:releaseWindow(self.wnd)
-        self.wnd = nil
+    if self.C_wnd then
+        self.C_wnd:Close()
+        self:releaseWindow(self.C_wnd)
+        self.C_wnd = nil
     end
     if self.material_list_wnd then
         self.material_list_wnd:Close()
@@ -131,33 +164,64 @@ function CultivationModule:onUnload()
         self.seriesHoverIndex = nil
     end
 end
-
 --------------------------------------------------------------------------------
 -- 2. UI 建立與控制
 --------------------------------------------------------------------------------
 -- 主寵物資訊(第二層)
-function CultivationModule:ToggleWnd()
+function CultivationModule:CloseAllWindows()
+    -- 關閉材料寵物窗口
+    if self.material_list_wnd then
+        if self.material_list_wnd.valid then
+            self.material_list_wnd:Close()
+            self:releaseWindow(self.material_list_wnd)
+            self.material_list_wnd = nil
+        end
+    end
+    -- 關閉培養窗口
+    if self.C_wnd then
+        if self.C_wnd.valid then
+            self.C_wnd:Close()
+            self:releaseWindow(self.C_wnd)
+            self.C_wnd = nil
+        end
+    end
+    -- 關閉突破窗口
+    if self.B_wnd then
+        if self.B_wnd.valid then
+            self.B_wnd:Close()
+            self:releaseWindow(self.B_wnd)
+            self.B_wnd = nil
+        end
+    end
+    -- 清除材料選擇狀態
+    self.seriesChecks = {}
+    self.seriesDraft = {}
+    self.seriesHoverIndex = nil
+    self.seriesSelectedCount = 0
+end
+-- 主寵物資訊(第二層-1)
+function CultivationModule:ToggleWnd1()
     WinMgr.PlaySe(57, CONST.Screen.Width / 2)
-    if self.wnd and self.wnd.valid then
-        self.wnd:Close()
-        self:releaseWindow(self.wnd)
-        self.wnd = nil
+    if self.C_wnd and self.C_wnd.valid then
+        self.C_wnd:Close()
+        self:releaseWindow(self.C_wnd)
+        self.C_wnd = nil
     else
-        self:CreateWin()
+        self:CreateWin1()
     end
 end
-function CultivationModule:CreateWin_Update()
+function CultivationModule:CreateWin1_Update()
 	local pet_Status = self:findWindow(15)	--寵物栏15
 	if pet_Status == nil then
-		if self.wnd and self.wnd.valid then
-			self.wnd:Close()
-			self:releaseWindow(self.wnd)
-			self.wnd = nil
+		if self.C_wnd and self.C_wnd.valid then
+			self.C_wnd:Close()
+			self:releaseWindow(self.C_wnd)
+			self.C_wnd = nil
 		end
 	end
 end
-function CultivationModule:CreateWin()
-    if self.wnd then return end
+function CultivationModule:CreateWin1()
+    if self.C_wnd then return end
 
     local winW, winH = 200, 246
     local status, window = self:newWindow({
@@ -168,11 +232,11 @@ function CultivationModule:CreateWin()
         height = winH,
         layer = 4,
         dragMove = 1,
-        update = function() self:CreateWin_Update() end,
+        update = function() self:CreateWin1_Update() end,
     })
 
     if not window then return end
-    self.wnd = self:ownWindow(window)
+    self.C_wnd = self:ownWindow(window)
 
     -- 主介面背景
     --- 視窗底色
@@ -187,7 +251,7 @@ function CultivationModule:CreateWin()
         image = CLOSE_BTN, imageHover = CLOSE_HOVER, imagePress = CLOSE_PRESS,
         hitable = true,
         onClick = function()
-            self:ToggleWnd()
+            self:ToggleWnd1()
             return true
         end
     })
@@ -224,20 +288,19 @@ function CultivationModule:CreateWin()
         self.maxed_str = window:AddText({ x = 71, y = 215, width = 150, height = 24, font = 13, color = 49, text = "已補檔次數: "..self.cultivationCount})
     end
 end
-
--- 材料選擇框(第三層)
+-- 材料選擇框(第三層-1)
 function CultivationModule:Toggle_list_Wnd()
     WinMgr.PlaySe(57, CONST.Screen.Width / 2)
     if self.material_list_wnd and self.material_list_wnd.valid then
         self.material_list_wnd:Close()
         self:releaseWindow(self.material_list_wnd)
-        self.material_list_wnd = nil
-        self.seriesChecks = {}
-        self.seriesDraft = {}
-        self.seriesHoverIndex = nil
-    else
-        self:material_list_CreateWin()
     end
+    self.material_list_wnd = nil
+    -- 清除材料寵選擇狀態
+    self.seriesChecks = {}
+    self.seriesDraft = {}
+    self.seriesHoverIndex = nil
+    self.seriesSelectedCount = 0
 end
 function CultivationModule:material_list_CreateWin_Update()
 	local pet_Status = self:findWindow(15)	--寵物栏15
@@ -439,12 +502,106 @@ function CultivationModule:material_list_CreateWin()
     self.cultivationStr = window:AddText({ x = 110, y = 185, width = 64, height = 20, font = 13, color = 128, text = "確定吸收"})
 
 end
+------------------------------------------------------
+-- 主寵物資訊(第二層-2)
+function CultivationModule:ToggleWnd2()
+    WinMgr.PlaySe(57, CONST.Screen.Width / 2)
+    if self.B_wnd and self.B_wnd.valid then
+        self.B_wnd:Close()
+        self:releaseWindow(self.B_wnd)
+        self.B_wnd = nil
+    else
+        self:CreateWin2()
+    end
+end
+function CultivationModule:CreateWin2_Update()
+	local pet_Status = self:findWindow(15)	--寵物栏15
+	if pet_Status == nil then
+		if self.B_wnd and self.B_wnd.valid then
+			self.B_wnd:Close()
+			self:releaseWindow(self.B_wnd)
+			self.B_wnd = nil
+		end
+	end
+end
+function CultivationModule:CreateWin2()
+    if self.B_wnd then return end
+
+    local winW, winH = 200, 246
+    local status, window = self:newWindow({
+        id = WIN_ID,
+        x = (CONST.Screen.Width - winW) / 2,
+        y = (CONST.Screen.Height - winH) / 2,
+        width = winW,
+        height = winH,
+        layer = 4,
+        dragMove = 1,
+        update = function() self:CreateWin2_Update() end,
+    })
+
+    if not window then return end
+    self.B_wnd = self:ownWindow(window)
+
+    -- 主介面背景
+    --- 視窗底色
+    -- window:AddPngImage({ x = 6, y = 12, width = winW-30, height = winH-20, image = BG_colorIMG, hitable = false })
+    --- 視窗主題底圖
+    -- window:AddPngImage({ x = 8, y = 26, width = winW-33, height = winH-35, image = BG_themeIMG, hitable = false })
+    --- 視窗外框
+    window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_frameIMG, hitable = false })
+    -- 關閉按鈕
+    window:AddPngImage({
+        x = 159, y = 8, width = 12, height = 12,
+        image = CLOSE_BTN, imageHover = CLOSE_HOVER, imagePress = CLOSE_PRESS,
+        hitable = true,
+        onClick = function()
+            self:ToggleWnd2()
+            return true
+        end
+    })
+
+    -- 頂部文字資訊
+    window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "主寵物的訊息" })	--color:16灰白色33深紫色69朱紅色72深棕色
+    self.petSlot_str = window:AddText({ x = 15, y = 35, width = 150, height = 24, font = 13, color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
+    self.PetName_str = window:AddText({ x = 15, y = 55, width = 150, height = 24, font = 13, color = 4, text = "〈"..self.PetName.."〉"})
+    -- 目前檔次分布
+    self.Art1_str = window:AddText({ x = 15, y = 80, width = 150, height = 24, font = 13, color = 0, text = "體力: "..self.grade_tbl["Art1_F"]})
+    self.Art2_str = window:AddText({ x = 15, y = 100, width = 150, height = 24, font = 13, color = 0, text = "力量: "..self.grade_tbl["Art2_F"]})
+    self.Art3_str = window:AddText({ x = 15, y = 120, width = 150, height = 24, font = 13, color = 0, text = "強度: "..self.grade_tbl["Art3_F"]})
+    self.Art4_str = window:AddText({ x = 15, y = 140, width = 150, height = 24, font = 13, color = 0, text = "速度: "..self.grade_tbl["Art4_F"]})
+    self.Art5_str = window:AddText({ x = 15, y = 160, width = 150, height = 24, font = 13, color = 0, text = "魔法: "..self.grade_tbl["Art5_F"]})
+
+    self.Art1P_str = window:AddText({ x = 70, y = 80, width = 150, height = 24, font = 13, color = 48, text = " ＋ "..self.grade_tbl["Art1_N"]-self.grade_tbl["Art1_F"]})
+    self.Art2P_str = window:AddText({ x = 70, y = 100, width = 150, height = 24, font = 13, color = 48, text = " ＋ "..self.grade_tbl["Art2_N"]-self.grade_tbl["Art2_F"]})
+    self.Art3P_str = window:AddText({ x = 70, y = 120, width = 150, height = 24, font = 13, color = 48, text = " ＋ "..self.grade_tbl["Art2_N"]-self.grade_tbl["Art2_F"]})
+    self.Art4P_str = window:AddText({ x = 70, y = 140, width = 150, height = 24, font = 13, color = 48, text = " ＋ "..self.grade_tbl["Art2_N"]-self.grade_tbl["Art2_F"]})
+    self.Art5P_str = window:AddText({ x = 70, y = 160, width = 150, height = 24, font = 13, color = 48, text = " ＋ "..self.grade_tbl["Art2_N"]-self.grade_tbl["Art2_F"]})
+
+    -- 選擇碎片按鈕
+    self.selectlistBtn = window:AddPngImage({
+        x = 105, y = 182, width = 64, height = 20,
+        image = BTN_STATE, hitable = true,
+        onClick = function() self.selectlistBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OpenMaterialItemWindow(self.petSlot) end,
+        onHover = function() self.selectlistBtn:Set({image = BTN_STATE , visible=true}) self.selectlistStr:Set({color = 0}) end,
+        onLeave = function() self.selectlistBtn:Set({image = BTN_STATE , visible=true}) self.selectlistStr:Set({color = 128})end
+    })
+    self.selectlistStr = window:AddText({ x = 110, y = 185, width = 64, height = 20, font = 13, color = 128, text = "選擇碎片"})
+
+    -- 檔次進度
+    self.BPstate_N = self.grade_tbl["Art1_N"]+self.grade_tbl["Art2_N"]+self.grade_tbl["Art3_N"]+self.grade_tbl["Art4_N"]+self.grade_tbl["Art5_N"]
+    self.BPstate_F = self.grade_tbl["Art1_F"]+self.grade_tbl["Art2_F"]+self.grade_tbl["Art3_F"]+self.grade_tbl["Art4_F"]+self.grade_tbl["Art5_F"]
+    self.BPstate_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 113, text = "檔次 "..self.BPstate_N.."/"..self.BPstate_F})
+
+    -- 碎片提示
+    self.shards = 20;
+    self.shards_str = window:AddText({ x = 33, y = 210, width = 150, height = 24, font = 13, color = 47, text = "每種所需碎片數"..self.shards})
+end
 --------------------------------------------------------------------------------
 -- 3. 介面刷新
 --------------------------------------------------------------------------------
 -- 主寵物資訊刷新(第二層)
-function CultivationModule:UpdateUI()
-    if not self.wnd then return end
+function CultivationModule:UpdateUI1()
+    if not self.C_wnd then return end
 
     self.petSlot_str:Set({ color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
     self.PetName_str:Set({ color = 4, text = "〈"..self.PetName.."〉"})
@@ -518,9 +675,7 @@ function CultivationModule:material_list_UpdateUI()
         end
         group = group + 2;
     end
-    -- if self.maxed == "0" then
-        self:refreshSeriesChecks()
-    -- end
+    self:refreshSeriesChecks()
 end
 -- 更新勾選狀態
 function CultivationModule:toggleSeriesCheck(index)
@@ -618,7 +773,49 @@ function CultivationModule:refreshSeriesChecks()
     self.exp_str:Set({text = "培養經驗+"..self.seriesSelectedCount})
 end
 
+function CultivationModule:UpdateUI2()
+    self.petSlot_str:Set({ color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
+    self.PetName_str:Set({ color = 4, text = "〈"..self.PetName.."〉"})
 
+    if (self.grade_tbl["Art1_N"]>=self.grade_tbl["Art1_F"]) then
+      self.Art1P_str:Set({ color = 48, text = " ＋ "..self.grade_tbl["Art1_N"]-self.grade_tbl["Art1_F"]})
+    else
+      self.Art1P_str:Set({ color = 112, text = " － "..self.grade_tbl["Art1_F"]-self.grade_tbl["Art1_N"]})
+    end
+    if (self.grade_tbl["Art2_N"]>=self.grade_tbl["Art2_F"]) then
+      self.Art2P_str:Set({ color = 48, text = " ＋ "..self.grade_tbl["Art2_N"]-self.grade_tbl["Art2_F"]})
+    else
+      self.Art2P_str:Set({ color = 112, text = " － "..self.grade_tbl["Art2_F"]-self.grade_tbl["Art2_N"]})
+    end
+    if (self.grade_tbl["Art3_N"]>=self.grade_tbl["Art3_F"]) then
+      self.Art3P_str:Set({ color = 48, text = " ＋ "..self.grade_tbl["Art3_N"]-self.grade_tbl["Art3_F"]})
+    else
+      self.Art3P_str:Set({ color = 112, text = " － "..self.grade_tbl["Art3_F"]-self.grade_tbl["Art3_N"]})
+    end
+    if (self.grade_tbl["Art4_N"]>=self.grade_tbl["Art4_F"]) then
+      self.Art4P_str:Set({ color = 48, text = " ＋ "..self.grade_tbl["Art4_N"]-self.grade_tbl["Art4_F"]})
+    else
+      self.Art4P_str:Set({ color = 112, text = " － "..self.grade_tbl["Art4_F"]-self.grade_tbl["Art4_N"]})
+    end
+    if (self.grade_tbl["Art5_N"]>=self.grade_tbl["Art5_F"]) then
+      self.Art5P_str:Set({ color = 48, text = " ＋ "..self.grade_tbl["Art5_N"]-self.grade_tbl["Art5_F"]})
+    else
+      self.Art5P_str:Set({ color = 112, text = " － "..self.grade_tbl["Art5_F"]-self.grade_tbl["Art5_N"]})
+    end
+
+    -- 檔次進度
+    self.BPstate_N = self.grade_tbl["Art1_N"]+self.grade_tbl["Art2_N"]+self.grade_tbl["Art3_N"]+self.grade_tbl["Art4_N"]+self.grade_tbl["Art5_N"]
+    self.BPstate_F = self.grade_tbl["Art1_F"]+self.grade_tbl["Art2_F"]+self.grade_tbl["Art3_F"]+self.grade_tbl["Art4_F"]+self.grade_tbl["Art5_F"]
+    self.BPstate_str:Set({ color = 113, text = "檔次 "..self.BPstate_N.."/"..self.BPstate_F})
+
+    -- 碎片提示
+    self.shards = 20;
+    self.shards_str:Set({ color = 47, text = "每種所需碎片數"..self.shards})
+
+end
+--------------------------------------------------------------------------------
+-- 4. 回調功能函數
+--------------------------------------------------------------------------------
 -- 點擊按鈕要求吸收名單
 function CultivationModule:OpenMaterialPetWindow(mainPetSlot)
     WinMgr.SendPacket("GetMaterialPet", mainPetSlot)
@@ -662,6 +859,10 @@ function CultivationModule:GetMaterialPetCultivationExp(petLevel)
         exp = 0
     end
     return exp
+end
+
+function CultivationModule:OpenMaterialItemWindow(mainPetSlot)
+    WinMgr.SendPacket("GetMaterialItem", mainPetSlot)
 end
 
 function CultivationModule:split(str, sep)
