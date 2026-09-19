@@ -9,12 +9,18 @@ function Module:Frontcg2dPackTrigger(fd,head,data)
     local player = tonumber(Protocol.GetCharByFd(fd))
     if head == 'uiMenu' then
       local packetNumber = tonumber(data[1])
+      local petSlot = tonumber(data[2])
       if packetNumber == 1 then
         Protocol.Send(player,'SyncAptitudeData')	--勇者適性
       elseif packetNumber == 2 then
         Protocol.Send(player,'SyncGatheringData')	--探索指引
+      elseif packetNumber == 3 then
+        Protocol.Send(player,'SyncCultivationData',"1|"..tostring(petSlot or 0))	--寵物欄圖標1/寵物格位子
+      elseif packetNumber == 4 then
+        Protocol.Send(player,'SyncCultivationData',"2|"..tostring(petSlot or 0))	--寵物欄圖標2/寵物格位子
       end
     end
+    return 1
 end
 
 ------------------------------------------------
@@ -103,7 +109,27 @@ function Module:gatherInfo_SendData(fd,head,data)
     end
     return 1
 end
-
+--- 寵物欄狀況資訊:接收要求後回傳
+function Module:petSlot_SendData(fd,head,data)
+    local player = tonumber(Protocol.GetCharByFd(fd))
+    if head == 'RequestPetSlotData' then
+      local petSlot_tbl = {}
+      for slot=0,4 do
+        if Char.GetPet(player,slot)>=0 then
+          petSlot_tbl[slot+1] = "true";
+        else
+          petSlot_tbl[slot+1] = "false";
+        end
+      end
+      local id1 = petSlot_tbl[1];
+      local id2 = petSlot_tbl[2];
+      local id3 = petSlot_tbl[3];
+      local id4 = petSlot_tbl[4];
+      local id5 = petSlot_tbl[5];
+      Protocol.Send(player,'ResponsePetSlotData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5)
+    end
+    return 1
+end
 ------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
@@ -112,6 +138,7 @@ function Module:onLoad()
   self:regCallback('ProtocolOnRecv',Func.bind(self.Frontcg2dPackTrigger,self),'uiMenu')					--前端按鈕整合封包
   self:regCallback('ProtocolOnRecv',Func.bind(self.playerInfo_SendData,self),'RequestPlayerInfoData')	--接收前端玩家擴展資訊所要
   self:regCallback('ProtocolOnRecv',Func.bind(self.gatherInfo_SendData,self),'RequestGatheringData')	--接收前端探索指引資訊所要
+  self:regCallback('ProtocolOnRecv',Func.bind(self.petSlot_SendData,self),'RequestPetSlotData')		--接收前端寵物欄狀況
 
 end
 
