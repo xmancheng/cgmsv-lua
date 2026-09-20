@@ -31,10 +31,10 @@ local CHECKBOX_checkedIMG = "luaUI/modules/cg图档集/吸收培养/checkbox_checked.pn
 local TRANSPARENT_IMAGE = "luaUI/modules/cg图档集/吸收培养/透明.png"
 -- ============================================================
 local BREAKTHROUGH_CRYSTALS = {
-    { index = 1, id = 18310, name = "地的水晶碎片" },
-    { index = 2, id = 18311, name = "水的水晶碎片" },
-    { index = 3, id = 18312, name = "火的水晶碎片" },
-    { index = 4, id = 18313, name = "風的水晶碎片" },
+    { index = 1, id = 18310, name = "地的水晶碎片", color = 48, str = "地" },
+    { index = 2, id = 18311, name = "水的水晶碎片", color = 50, str = "水" },
+    { index = 3, id = 18312, name = "火的水晶碎片", color = 105, str = "火" },
+    { index = 4, id = 18313, name = "風的水晶碎片", color = 116, str = "風" },
 }
 local BREAKTHROUGH_RECIPES = {
     -- 4選2
@@ -49,6 +49,18 @@ local BREAKTHROUGH_RECIPES = {
     ["1,2,4"] = {1,2,4}, -- 地 + 水 + 風 → 體力 + 力量 + 速度
     ["1,3,4"] = {1,2,5}, -- 地 + 火 + 風 → 體力 + 力量 + 魔法
     ["2,3,4"] = {3,4,5}, -- 水 + 火 + 風 → 強度 + 速度 + 魔法
+}
+local BREAKTHROUGH_RECIPE_NAMES = {
+    ["1,2"] = "岩潮之契",
+    ["1,3"] = "炎岩之契",
+    ["1,4"] = "蒼嵐之契",
+    ["2,3"] = "熾潮之契",
+    ["2,4"] = "蒼風之契",
+    ["3,4"] = "炎嵐之契",
+    ["1,2,3"] = "大地熔潮之契",
+    ["1,2,4"] = "大地蒼嵐之契",
+    ["1,3,4"] = "炎岩天風之契",
+    ["2,3,4"] = "熾潮天嵐之契",
 }
 local BREAKTHROUGH_STAT_NAMES = {
     [1] = "體力",
@@ -576,7 +588,7 @@ function CultivationModule:C_material_List_CreateWin()
 	-- self:refreshSeriesChecks()
 
     -- 培養經驗
-    self.exp_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 113, text = "培養經驗+0"})
+    self.exp_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 113, text = "培養經驗＋0"})
     -- 確定吸收培養按鈕
     self.cultivationBtn = window:AddPngImage({
         x = 60, y = 202, width = 64, height = 20,
@@ -666,11 +678,11 @@ function CultivationModule:CreateWin2()
     self.break_tbl = {
         Art1_B = 0, Art2_B = 0, Art3_B = 0, Art4_B = 0, Art5_B = 0,
     }
-    self.Art1B_str = window:AddText({ x = 125, y = 80, width = 150, height = 24, font = 13, color = 5, text = " ＋ "..self.break_tbl["Art1_B"]})
-    self.Art2B_str = window:AddText({ x = 125, y = 100, width = 150, height = 24, font = 13, color = 5, text = " ＋ "..self.break_tbl["Art2_B"]})
-    self.Art3B_str = window:AddText({ x = 125, y = 120, width = 150, height = 24, font = 13, color = 5, text = " ＋ "..self.break_tbl["Art3_B"]})
-    self.Art4B_str = window:AddText({ x = 125, y = 140, width = 150, height = 24, font = 13, color = 5, text = " ＋ "..self.break_tbl["Art4_B"]})
-    self.Art5B_str = window:AddText({ x = 125, y = 160, width = 150, height = 24, font = 13, color = 5, text = " ＋ "..self.break_tbl["Art5_B"]})
+    self.Art1B_str = window:AddText({ x = 125, y = 80, width = 150, height = 24, font = 13, color = 113, text = " ＋ "..self.break_tbl["Art1_B"]})
+    self.Art2B_str = window:AddText({ x = 125, y = 100, width = 150, height = 24, font = 13, color = 113, text = " ＋ "..self.break_tbl["Art2_B"]})
+    self.Art3B_str = window:AddText({ x = 125, y = 120, width = 150, height = 24, font = 13, color = 113, text = " ＋ "..self.break_tbl["Art3_B"]})
+    self.Art4B_str = window:AddText({ x = 125, y = 140, width = 150, height = 24, font = 13, color = 113, text = " ＋ "..self.break_tbl["Art4_B"]})
+    self.Art5B_str = window:AddText({ x = 125, y = 160, width = 150, height = 24, font = 13, color = 113, text = " ＋ "..self.break_tbl["Art5_B"]})
 
     -- 選擇碎片按鈕
     self.selectlistBtn = window:AddPngImage({
@@ -785,28 +797,33 @@ function CultivationModule:B_material_List_CreateWin()
             image = TRANSPARENT_IMAGE, visible = true, hitable = true,
             onClick = function()
 				WinMgr.PlaySe(52, CONST.Screen.Width / 2)
-				self:ToggleBreakthroughCrystal(index) return true end,
+				self:toggleBreakthroughCrystal(index) return true end,
             onHover = function()
-				self.breakthroughCrystalHoverIndex = index self:RefreshBreakthroughCrystalUI() return true end,
+				self.breakthroughCrystalHoverIndex = index self:refreshBreakthroughCrystalUI() return true end,
             onLeave = function()
 				if self.breakthroughCrystalHoverIndex == index then self.breakthroughCrystalHoverIndex = nil end
-				self:RefreshBreakthroughCrystalUI() return true end})
+				self:refreshBreakthroughCrystalUI() return true end})
         -- 碎片名稱
         local name = window:AddText({x = ROW_X + 27, y = rowY + 3, width = 72, height = ROW_HEIGHT,
-            font = 13, color = 48, text = crystal.name, hitable = false})
+            font = 13, color = crystal.color, text = crystal.name, hitable = false})
         self.breakthroughCrystalChecks[index] = {row = row, box = check, mark = checkMark , name = name, hit = hit,}
     end
-    -- -- 培養經驗
-    -- self.exp_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 113, text = "培養經驗+0"})
+    -- 碎片需求
+    local totalRank = self:GetBreakthroughTotalRank()
+    self.breakthroughCrystalCost = self:GetBreakthroughCrystalCost(totalRank) or 0
+    local cost = self.breakthroughCrystalCost
+    self.cost_str = window:AddText({ x = 15, y = 165, width = 150, height = 24, font = 13, color = 113, text = ""})
+    -- 刻印文字
+    self.engraved_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 4, text = ""})
     -- 確定突破按鈕
     self.breakthroughBtn = window:AddPngImage({
         x = 60, y = 202, width = 64, height = 20,
-        image = BTN_STATE, hitable = true,
+        image = BTN_STATE, visible = false, hitable = true,
         onClick = function() self.breakthroughBtn:Set({image = BTN_PRESS , visible=true}) WinMgr.PlaySe(53,CONST.Screen.Width/2) self:OnBreakthroughBtnClick() return true end,
         onHover = function() self.breakthroughBtn:Set({image = BTN_STATE , visible=true}) self.breakthroughStr:Set({color = 0}) end,
         onLeave = function() self.breakthroughBtn:Set({image = BTN_STATE , visible=true}) self.breakthroughStr:Set({color = 128})end
     })
-    self.breakthroughStr = window:AddText({ x = 65, y = 205, width = 64, height = 20, font = 13, color = 128, text = "確定突破"})
+    self.breakthroughStr = window:AddText({ x = 65, y = 205, width = 64, height = 20, font = 13, visible = false, color = 128, text = "確定突破"})
 
 end
 
@@ -984,7 +1001,7 @@ function CultivationModule:refreshSeriesChecks()
         end
     end
 	self.seriesSelectedCount = totalExp;
-    self.exp_str:Set({text = "培養經驗+"..self.seriesSelectedCount})
+    self.exp_str:Set({text = "培養經驗＋"..self.seriesSelectedCount})
 end
 -------------------------------------------------------------------
 -------------------------------------------------------------------
@@ -1019,11 +1036,31 @@ function CultivationModule:UpdateUI2()
       self.Art5P_str:Set({ color = 112, text = " － "..self.grade_tbl["Art5_F"]-self.grade_tbl["Art5_N"]})
     end
 
-    self.Art1B_str:Set({ color = 5, text = " ＋ "..self.break_tbl["Art1_B"]})
-    self.Art2B_str:Set({ color = 5, text = " ＋ "..self.break_tbl["Art2_B"]})
-    self.Art3B_str:Set({ color = 5, text = " ＋ "..self.break_tbl["Art3_B"]})
-    self.Art4B_str:Set({ color = 5, text = " ＋ "..self.break_tbl["Art4_B"]})
-    self.Art5B_str:Set({ color = 5, text = " ＋ "..self.break_tbl["Art5_B"]})
+    if (self.break_tbl["Art1_B"]>0) then
+      self.Art1B_str:Set({ visible=true, color = 113, text = " ＋ "..self.break_tbl["Art1_B"]})
+    else
+      self.Art1B_str:Set({ visible=false, color = 113, text = " ＋ "..self.break_tbl["Art1_B"]})
+    end
+    if (self.break_tbl["Art2_B"]>0) then
+      self.Art2B_str:Set({ visible=true, color = 113, text = " ＋ "..self.break_tbl["Art2_B"]})
+    else
+      self.Art2B_str:Set({ visible=false, color = 113, text = " ＋ "..self.break_tbl["Art2_B"]})
+    end
+    if (self.break_tbl["Art3_B"]>0) then
+      self.Art3B_str:Set({ visible=true, color = 113, text = " ＋ "..self.break_tbl["Art3_B"]})
+    else
+      self.Art3B_str:Set({ visible=false, color = 113, text = " ＋ "..self.break_tbl["Art3_B"]})
+    end
+    if (self.break_tbl["Art4_B"]>0) then
+      self.Art4B_str:Set({ visible=true, color = 113, text = " ＋ "..self.break_tbl["Art4_B"]})
+    else
+      self.Art4B_str:Set({ visible=false, color = 113, text = " ＋ "..self.break_tbl["Art4_B"]})
+    end
+    if (self.break_tbl["Art5_B"]>0) then
+      self.Art5B_str:Set({ visible=true, color = 113, text = " ＋ "..self.break_tbl["Art5_B"]})
+    else
+      self.Art5B_str:Set({ visible=false,color = 113, text = " ＋ "..self.break_tbl["Art5_B"]})
+    end
 
     -- 檔次進度
     self.BPstate_N = self.grade_tbl["Art1_N"]+self.grade_tbl["Art2_N"]+self.grade_tbl["Art3_N"]+self.grade_tbl["Art4_N"]+self.grade_tbl["Art5_N"]
@@ -1044,7 +1081,7 @@ function CultivationModule:UpdateUI2()
     end
 end
 -- 更新碎片勾選狀態
-function CultivationModule:ToggleBreakthroughCrystal(index)
+function CultivationModule:toggleBreakthroughCrystal(index)
     if index < 1 or index > 4 then
         return true
     end
@@ -1064,18 +1101,18 @@ function CultivationModule:ToggleBreakthroughCrystal(index)
         end
         self.breakthroughCrystalSelected[index] = true
     end
-    self:RefreshBreakthroughCrystalUI()
+    self:refreshBreakthroughCrystalUI()
     return true
 end
 -- 更新碎片勾選狀態UI
-function CultivationModule:RefreshBreakthroughCrystalUI()
+function CultivationModule:refreshBreakthroughCrystalUI()
     local selected = {}
     for i = 1, 4 do
         if self.breakthroughCrystalSelected[i] == true then
             table.insert(selected, i)
         end
     end
-    local selectedCount = #selected
+    local selectedCount = #selected or 0;
     self.breakthroughCrystalSelectedCount = selectedCount
     -- ==========================================
     -- 更新水晶勾選狀態
@@ -1102,15 +1139,26 @@ function CultivationModule:RefreshBreakthroughCrystalUI()
             end
         end
     end
-    -- ==========================================
-    -- 少於2種
-    -- ==========================================
-    if selectedCount < 2 then
+    -- 計算碎片的需求數量
+    local cost = self.breakthroughCrystalCost
+    local cost_txt = "";
+    if selectedCount < 2 then	-- 少於2種
         self.breakthroughCrystalRecipe = nil
         self.breakthroughPreviewTitle:Set({color = 0,text = "請選擇2～3種水晶"})
         self.breakthroughPreviewStr:Set({color = 113,text = "至少選擇2種水晶"})
-        self.breakthroughBtn:Set({image = BTN_STATE,visible = true})
-        self.breakthroughStr:Set({color = 128})
+        self.breakthroughBtn:Set({image = BTN_STATE, visible = false})
+        self.breakthroughStr:Set({color = 128, visible = false})
+        for i = 1, 4 do
+            local crystal = BREAKTHROUGH_CRYSTALS[i]
+            if self.breakthroughCrystalSelected[i] == true then
+                cost_txt = cost_txt .. tostring(crystal.str).."ｘ"..tostring(cost).." "
+                self.cost_str:Set({visible = true, color = 128,text = cost_txt})
+            end
+        end
+        if selectedCount <= 1 then	-- 少於2種
+            self.cost_str:Set({visible = true, color = 128,text = ""})
+        end
+        self.engraved_str:Set({visible = false, text = "《 》"})
         self.break_tbl = {
             Art1_B = 0, Art2_B = 0, Art3_B = 0, Art4_B = 0, Art5_B = 0,
         }
@@ -1118,66 +1166,50 @@ function CultivationModule:RefreshBreakthroughCrystalUI()
             self:UpdateUI2()
         end
         return
-    end
-    -- ==========================================
-    -- 組合 Key
-    -- ==========================================
-    local key = table.concat(selected, ",")
-    local recipe = BREAKTHROUGH_RECIPES[key]
-    if not recipe then
+    elseif selectedCount >= 2 then
         self.breakthroughCrystalRecipe = nil
         self.breakthroughPreviewTitle:Set({color = 0,text = "請選擇2～3種水晶"})
-        self.breakthroughPreviewStr:Set({color = 16,text = "非法組合請重新選擇"})
+        self.breakthroughPreviewStr:Set({color = 113,text = "已形成刻印文字"})
+        self.breakthroughBtn:Set({image = BTN_STATE, visible = true})
+        self.breakthroughStr:Set({color = 128, visible = true})
+        -- 組合 Key
+        local key = table.concat(selected, ",")
+        local recipe = BREAKTHROUGH_RECIPES[key]
+        if not recipe then
+            self.breakthroughCrystalRecipe = nil
+            self.breakthroughPreviewTitle:Set({color = 0,text = "請選擇2～3種水晶"})
+            self.breakthroughPreviewStr:Set({color = 16,text = "非法組合請重新選擇"})
+        end
+        self.breakthroughCrystalRecipe = recipe
+        -- 更新每種碎片的需求數量
+        for i = 1, 4 do
+            local crystal = BREAKTHROUGH_CRYSTALS[i]
+            if self.breakthroughCrystalSelected[i] == true then
+                cost_txt = cost_txt .. tostring(crystal.str).."ｘ"..tostring(cost).." "
+                self.cost_str:Set({visible = true, color = 128,text = cost_txt})
+            end
+        end
+        -- 刻印文字
+        local engraved = BREAKTHROUGH_RECIPE_NAMES[key]
+        if engraved then
+            self.engraved_str:Set({visible = true, text = "《"..BREAKTHROUGH_RECIPE_NAMES[key].."》"})
+        end
+        -- ==========================================
+        -- 更新第二層主選單+
+        self.break_tbl = {
+            Art1_B = 0, Art2_B = 0, Art3_B = 0, Art4_B = 0, Art5_B = 0,
+        }
+        for i = 1, #recipe do
+            local statIndex = recipe[i]
+            self.break_tbl["Art" .. statIndex .. "_B"] = 1;
+        end
+        if self.B_wnd then
+            self:UpdateUI2()
+        end
+        -- ==========================================
         return
     end
-    self.breakthroughCrystalRecipe = recipe
-    -- ==========================================
-    -- 組合名稱
-    -- ==========================================
-    -- local crystalNames = {}
-    -- for i = 1, #selected do
-        -- local crystalIndex = selected[i]
-        -- table.insert(crystalNames,BREAKTHROUGH_CRYSTALS[crystalIndex].name)
-    -- end
-    -- ==========================================
-    -- 能力名稱
-    -- ==========================================
-    -- local statNames = {}
-    self.break_tbl = {
-        Art1_B = 0, Art2_B = 0, Art3_B = 0, Art4_B = 0, Art5_B = 0,
-    }
-    for i = 1, #recipe do
-        local statIndex = recipe[i]
-        self.break_tbl["Art" .. statIndex .. "_B"] = 1;
-        -- table.insert(statNames,BREAKTHROUGH_STAT_NAMES[statIndex] .. " +1")
-    end
-    if self.B_wnd then
-        self:UpdateUI2()
-    end
-    -- ==========================================
-    -- 顯示預覽
-    -- ==========================================
-    -- local crystalText = table.concat(crystalNames, " + ")
-    -- local statText = table.concat(statNames, "、")
-    -- self.breakthroughPreviewTitle:Set({color = 48,text = "預覽：" .. crystalText})
-    -- self.breakthroughPreviewStr:Set({color = 48,text = "→ " .. statText})
-    -- ==========================================
-    -- 更新每種水晶的需求數量
-    -- ==========================================
-    -- local cost = self.breakthroughCrystalCost
-    -- for i = 1, 4 do
-        -- local controls = self.breakthroughCrystalChecks[i]
-        -- if controls and controls.id and controls.id.valid then
-            -- local crystal = BREAKTHROUGH_CRYSTALS[i]
-            -- if self.breakthroughCrystalSelected[i] == true then
-                -- controls.id:Set({color = 48,text = tostring(crystal.id).."   " .. tostring(cost)})
-            -- else
-                -- controls.id:Set({color = 113,text = tostring(crystal.id)})
-            -- end
-        -- end
-    -- end
 end
-
 --------------------------------------------------------------------------------
 -- 4. 回調功能函數
 --------------------------------------------------------------------------------
@@ -1271,7 +1303,7 @@ function CultivationModule:OnBreakthroughBtnClick()
 
     WinMgr.SendPacket("ExecutePetBreakthrough",packetData)
     -- 先關閉第三層
-    self:CloseBreakthroughMaterialWin()
+    self:Toggle_Blist_Wnd()
 end
 -- 總檔次 → 水晶需求
 function CultivationModule:GetBreakthroughCrystalCost(totalRank)
