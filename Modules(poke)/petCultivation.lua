@@ -15,19 +15,59 @@ local PET_GRADE_TYPES = {
     CONST.PET_敏成,
     CONST.PET_魔成,
 }
-
+------------------------------------------------
+-- 寵物水晶突破設定
+------------------------------------------------
+local BREAKTHROUGH_CRYSTALS = {
+    [18310] = 1, -- 地之水晶碎片
+    [18311] = 2, -- 水之水晶碎片
+    [18312] = 3, -- 火之水晶碎片
+    [18313] = 4, -- 風之水晶碎片
+}
+local BREAKTHROUGH_CRYSTAL_COST = {
+    { min = 120, max = 125, cost = 10 },
+    { min = 126, max = 130, cost = 15 },
+    { min = 131, max = 135, cost = 20 },
+    { min = 136, max = 139, cost = 30 },
+    { min = 140, max = 144, cost = 60 },
+    { min = 145, max = 149, cost = 100 },
+    { min = 150, max = 154, cost = 160 },
+    { min = 155, max = 159, cost = 240 },
+    { min = 160, max = 164, cost = 350 },
+    { min = 165, max = 169, cost = 500 },
+}
+local BREAKTHROUGH_RECIPES = {
+    -- 4 選 2
+    ["1,2"] = {1,2},
+    ["1,3"] = {1,3},
+    ["1,4"] = {1,4},
+    ["2,3"] = {1,5},
+    ["2,4"] = {3,5},
+    ["3,4"] = {2,4},
+    -- 4 選 3
+    ["1,2,3"] = {1,2,3},
+    ["1,2,4"] = {1,2,4},
+    ["1,3,4"] = {1,2,5},
+    ["2,3,4"] = {3,4,5},
+}
 --------------------------------------------------
 -- 客戶端封包通訊同步
 --------------------------------------------------
 function Module:SendData(fd,head,data)
     local player = tonumber(Protocol.GetCharByFd(fd))
     if head == 'RequestPetCultivationData' then
-      local petSlot = tonumber(data[1]);
+      local requestData = data[1] or ""
+      local requestArr = {}
+      for value in string.gmatch(requestData, "[^|]+") do
+        table.insert(requestArr, value)
+      end
+      local page = tonumber(requestArr[1]) or 1
+      local petSlot = tonumber(requestArr[2])
       if not petSlot then return end
 
       local petIndex = Char.GetPet(player, petSlot-1);
       if petIndex <= 0 then
-        Protocol.Send(player,'ResponsePetCultivationData',"0|0|0|0|0|0|0,0,0,0,0,0,0,0,0,0")
+        Protocol.Send(player,'ResponsePetCultivationData',"0|0|0|0|0|0|0,0,0,0,0,0,0,0,0,0|"..tostring(page))
         return
       end
 
@@ -44,7 +84,7 @@ function Module:SendData(fd,head,data)
         table.insert(gradeData,tostring(currentRank));
         table.insert(gradeData,tostring(fullRank));
       end
-      Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ","))
+      Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ",").."|"..tostring(page))
     end
     return 1
 end
@@ -71,6 +111,7 @@ function Module:material_SendData(fd,head,data)
     return 1
 end
 
+-- 執行寵物吸收
 function Module:ExecuteCultivation(fd, head, data)
     local player = tonumber(Protocol.GetCharByFd(fd))
     if head ~= 'ExecutePetCultivation' then
@@ -191,6 +232,186 @@ function Module:ExecuteCultivation(fd, head, data)
     return 1
 end
 
+-- 執行寵物突破
+function Module:ExecutePetBreakthrough(fd, head, data)
+    if head ~= 'ExecutePetBreakthrough' then
+        return 1
+    end
+    local player = tonumber(Protocol.GetCharByFd(fd))
+    if not player or player < 0 then
+        return 1
+    end
+    if not data or not data[1] then
+        return 1
+    end
+    ------------------------------------------------
+    -- 1. 解析：
+    -- 寵物欄位|18310,18312
+    ------------------------------------------------
+    local packet = data[1]
+    local splitData = {}
+    for value in string.gmatch(packet, "[^|]+") do
+        table.insert(splitData, value)
+    end
+    local petSlot = tonumber(splitData[1])
+    if not petSlot then
+        NLG.SystemMessage(player, "[系統] 寵物欄位無效")
+        return 1
+    end
+    ------------------------------------------------
+    -- 2. 取得寵物
+    ------------------------------------------------
+    if petSlot < 1 or petSlot > 5 then
+        NLG.SystemMessage(player, "[系統] 寵物欄位無效")
+        return 1
+    end
+    local petIndex = Char.GetPet(player, petSlot - 1)
+    if not petIndex or petIndex <= 0 then
+        NLG.SystemMessage(player, "[系統] 找不到指定寵物")
+        return 1
+    end
+    ------------------------------------------------
+    -- 3. 解析水晶
+    ------------------------------------------------
+    local crystalString = splitData[2] or ""
+    local crystalIds = {}
+    for value in string.gmatch(crystalString, "[^,]+") do
+        local crystalId = tonumber(value)
+        if not crystalId then
+            NLG.SystemMessage(player, "[系統] 水晶資料錯誤")
+            return 1
+        end
+        table.insert(crystalIds, crystalId)
+    end
+    ------------------------------------------------
+    -- 4. 必須選 2～3 種
+    ------------------------------------------------
+    if #crystalIds < 2 or #crystalIds > 3 then
+        NLG.SystemMessage(player, "[系統] 必須選擇 2～3 種水晶")
+        return 1
+    end
+    ------------------------------------------------
+    -- 5. 不允許重複水晶
+    ------------------------------------------------
+    local crystalUsed = {}
+    for _, crystalId in ipairs(crystalIds) do
+        if crystalUsed[crystalId] then
+            NLG.SystemMessage(player, "[系統] 不可重複選擇水晶")
+            return 1
+        end
+        crystalUsed[crystalId] = true
+        if not BREAKTHROUGH_CRYSTALS[crystalId] then
+            NLG.SystemMessage(player, "[系統] 未知的水晶")
+            return 1
+        end
+    end
+    ------------------------------------------------
+    -- 6. 取得合法配方
+    ------------------------------------------------
+    local recipeKey = GetBreakthroughRecipeKey(crystalIds)
+    if not recipeKey then
+        NLG.SystemMessage(player, "[系統] 無效的水晶組合")
+        return 1
+    end
+    local recipe = BREAKTHROUGH_RECIPES[recipeKey]
+    if not recipe then
+        NLG.SystemMessage(player, "[系統] 此水晶組合不存在")
+        return 1
+    end
+    ------------------------------------------------
+    -- 7. 五項能力必須全部滿檔
+    ------------------------------------------------
+    for i = 1, 5 do
+        local gradeType = PET_GRADE_TYPES[i]
+        local currentRank =
+            tonumber(Pet.GetArtRank(petIndex, gradeType)) or 0
+        local fullRank =
+            tonumber(Pet.FullArtRank(petIndex, gradeType)) or 0
+        if currentRank ~= fullRank then
+            NLG.SystemMessage(player, "[系統] 寵物五項能力尚未全部滿檔")
+            return 1
+        end
+    end
+    ------------------------------------------------
+    -- 8. 計算目前總檔次
+    ------------------------------------------------
+    local totalRank = 0
+    for i = 1, 5 do
+        local gradeType = PET_GRADE_TYPES[i]
+        totalRank = totalRank + (tonumber(Pet.GetArtRank(petIndex, gradeType)) or 0)
+    end
+    ------------------------------------------------
+    -- 9. 總檔次限制
+    ------------------------------------------------
+    if totalRank < 120 then
+        NLG.SystemMessage(player, "[系統] 寵物總檔次不足120")
+        return 1
+    end
+    if totalRank >= 170 then
+        NLG.SystemMessage(player, "[系統] 寵物總檔次已達170")
+        return 1
+    end
+    ------------------------------------------------
+    -- 10. 計算每種水晶需求
+    ------------------------------------------------
+    local crystalCost = GetBreakthroughCrystalCost(totalRank)
+    if not crystalCost then
+        NLG.SystemMessage(player, "[系統] 無法計算水晶需求")
+        return 1
+    end
+    ------------------------------------------------
+    -- 11. 檢查所有水晶數量
+    ------------------------------------------------
+    for _, crystalId in ipairs(crystalIds) do
+        local itemCount = tonumber(Char.ItemNum(player, crystalId)) or 0
+        if itemCount < crystalCost then
+            NLG.SystemMessage(player,"[系統] 水晶碎片不足，每種碎片都需要："..tostring(crystalCost))
+            return 1
+        end
+    end
+    ------------------------------------------------
+    -- 12. 再次確認所有條件後，開始扣除水晶
+    ------------------------------------------------
+    for _, crystalId in ipairs(crystalIds) do
+        Char.DelItem(player, crystalId, crystalCost);
+    end
+    ------------------------------------------------
+    -- 13. 套用突破屬性
+    ------------------------------------------------
+    for _, statIndex in ipairs(recipe) do
+        local gradeType = PET_GRADE_TYPES[statIndex]
+        local currentRank = tonumber(Pet.GetArtRank(petIndex, gradeType)) or 0
+        Pet.SetArtRank(petIndex, gradeType, currentRank + 1);
+    end
+    ------------------------------------------------
+    -- 14. 更新寵物
+    ------------------------------------------------
+    Pet.UpPet(player, petIndex);
+    SetNonLv1PetRebirth(player, petIndex);
+    ------------------------------------------------
+    -- 15. 回傳系統訊息
+    ------------------------------------------------
+    NLG.SystemMessage(player,"[系統] 寵物突破成功！刻印文字：" .. recipeKey)
+    ------------------------------------------------
+    -- 16. 回傳最新培養資料
+    ------------------------------------------------
+    local id1 = petSlot;
+    local id2 = Char.GetData(petIndex,CONST.对象_原名);
+    local id3, id5 = GetCultivationData(player, petIndex);
+    local id4 = GetCultivationExpNeed(id5);
+    local id6 = IsPetCultivationMaxed(petIndex) and 1 or 0;
+
+    local gradeData = {}
+    for _, gradeType in ipairs(PET_GRADE_TYPES) do
+        local currentRank = Pet.GetArtRank(petIndex, gradeType);
+        local fullRank = Pet.FullArtRank(petIndex, gradeType);
+        table.insert(gradeData, tostring(currentRank))
+        table.insert(gradeData, tostring(fullRank))
+    end
+    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ","))
+    return 1
+end
+
 ------------------------------------------------
 --- 加载模块钩子
 function Module:onLoad()
@@ -200,6 +421,7 @@ function Module:onLoad()
   self:regCallback('ProtocolOnRecv',Func.bind(self.SendData,self),'RequestPetCultivationData')	--前端索求遊戲數據
   self:regCallback('ProtocolOnRecv',Func.bind(self.material_SendData,self),'GetMaterialPet')
   self:regCallback('ProtocolOnRecv',Func.bind(self.ExecuteCultivation,self),'ExecutePetCultivation')
+  self:regCallback('ProtocolOnRecv',Func.bind(self.ExecutePetBreakthrough,self),'ExecutePetBreakthrough')
 
 end
 
@@ -227,6 +449,28 @@ function GetMaterialPet(charIndex,enemyid,mainSlot)
       end
   end
   return MaterialPetData;
+end
+-- 寵物檔次改變後重生
+function SetNonLv1PetRebirth(player, petIndex)
+    local Level = Char.GetData(petIndex,CONST.对象_等级);
+    local arr_rank1_new = Pet.GetArtRank(petIndex,CONST.PET_体成);
+    local arr_rank2_new = Pet.GetArtRank(petIndex,CONST.PET_力成);
+    local arr_rank3_new = Pet.GetArtRank(petIndex,CONST.PET_强成);
+    local arr_rank4_new = Pet.GetArtRank(petIndex,CONST.PET_敏成);
+    local arr_rank5_new = Pet.GetArtRank(petIndex,CONST.PET_魔成);
+    if(Level>=1) then
+        Char.SetData(petIndex,CONST.CONST.对象_升级点,Level-1);
+        Char.SetData(petIndex,CONST.对象_等级,Level);
+        Char.SetData(petIndex,CONST.对象_体力, (Char.GetData(petIndex,CONST.对象_体力) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_力量, (Char.GetData(petIndex,CONST.对象_力量) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_强度, (Char.GetData(petIndex,CONST.对象_强度) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_速度, (Char.GetData(petIndex,CONST.对象_速度) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
+        Char.SetData(petIndex,CONST.对象_魔法, (Char.GetData(petIndex,CONST.对象_魔法) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
+        Pet.UpPet(player,petIndex);
+        return
+    elseif(Level<1) then
+        return
+    end
 end
 
 -- 取得培養資料
@@ -284,22 +528,7 @@ function IncreaseRandomGrade(player, petIndex)
     Pet.ReBirth(player, petIndex);
     Pet.UpPet(player, petIndex);
 
-    local Level = Char.GetData(petIndex,CONST.对象_等级);
-    local arr_rank1_new = Pet.GetArtRank(petIndex,CONST.PET_体成);
-    local arr_rank2_new = Pet.GetArtRank(petIndex,CONST.PET_力成);
-    local arr_rank3_new = Pet.GetArtRank(petIndex,CONST.PET_强成);
-    local arr_rank4_new = Pet.GetArtRank(petIndex,CONST.PET_敏成);
-    local arr_rank5_new = Pet.GetArtRank(petIndex,CONST.PET_魔成);
-    if(Level~=1) then
-        Char.SetData(petIndex,CONST.CONST.对象_升级点,Level-1);
-        Char.SetData(petIndex,CONST.对象_等级,Level);
-        Char.SetData(petIndex,CONST.对象_体力, (Char.GetData(petIndex,CONST.对象_体力) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
-        Char.SetData(petIndex,CONST.对象_力量, (Char.GetData(petIndex,CONST.对象_力量) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
-        Char.SetData(petIndex,CONST.对象_强度, (Char.GetData(petIndex,CONST.对象_强度) + (arr_rank3_new * (1/24) * (Level - 1)*100)) );
-        Char.SetData(petIndex,CONST.对象_速度, (Char.GetData(petIndex,CONST.对象_速度) + (arr_rank4_new * (1/24) * (Level - 1)*100)) );
-        Char.SetData(petIndex,CONST.对象_魔法, (Char.GetData(petIndex,CONST.对象_魔法) + (arr_rank5_new * (1/24) * (Level - 1)*100)) );
-        Pet.UpPet(player,petIndex);
-    end
+    SetNonLv1PetRebirth(player, petIndex);	--重生計算寵物能力
     return true,selected.index,oldRank,newRank
 end
 -- 計算培養經驗
@@ -327,6 +556,31 @@ function GetMaterialPetsCultivationExp(materialPets)
     end
     return totalExp
 end
+----------------------
+-- 取得突破水晶消耗量
+function GetBreakthroughCrystalCost(totalRank)
+    totalRank = tonumber(totalRank) or 0
+    for _, data in ipairs(BREAKTHROUGH_CRYSTAL_COST) do
+        if totalRank >= data.min and totalRank <= data.max then
+            return data.cost
+        end
+    end
+    return nil
+end
+-- 取得突破配方 Key
+function GetBreakthroughRecipeKey(crystalIds)
+    local indexes = {}
+    for _, crystalId in ipairs(crystalIds) do
+        local index = BREAKTHROUGH_CRYSTALS[crystalId]
+        if not index then
+            return nil
+        end
+        table.insert(indexes, index)
+    end
+    table.sort(indexes)
+    return table.concat(indexes, ",")
+end
+
 
 function CheckInTable(_idTab, _idVar) ---循环函数
 	for k,v in pairs(_idTab) do
