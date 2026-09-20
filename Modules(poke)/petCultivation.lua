@@ -25,6 +25,7 @@ local BREAKTHROUGH_CRYSTALS = {
     [18313] = 4, -- ïLÖ®Ë®¾§ËéÆ¬
 }
 local BREAKTHROUGH_CRYSTAL_COST = {
+    { min = 110, max = 120, cost = 5 },
     { min = 120, max = 125, cost = 10 },
     { min = 126, max = 130, cost = 15 },
     { min = 131, max = 135, cost = 20 },
@@ -37,14 +38,14 @@ local BREAKTHROUGH_CRYSTAL_COST = {
     { min = 165, max = 169, cost = 500 },
 }
 local BREAKTHROUGH_RECIPES = {
-    -- 4 ßx 2
+    -- 4ßx2
     ["1,2"] = {1,2},
     ["1,3"] = {1,3},
     ["1,4"] = {1,4},
     ["2,3"] = {1,5},
     ["2,4"] = {3,5},
     ["3,4"] = {2,4},
-    -- 4 ßx 3
+    -- 4ßx3
     ["1,2,3"] = {1,2,3},
     ["1,2,4"] = {1,2,4},
     ["1,3,4"] = {1,2,5},
