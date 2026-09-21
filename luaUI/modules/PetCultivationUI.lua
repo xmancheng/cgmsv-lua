@@ -304,6 +304,7 @@ function CultivationModule:ToggleWnd1()
         self.C_wnd:Close()
         self:releaseWindow(self.C_wnd)
         self.C_wnd = nil
+        self:Toggle_Clist_Wnd()		-- 關閉第三層
     else
         self:CreateWin1()
     end
@@ -315,6 +316,7 @@ function CultivationModule:CreateWin1_Update()
 			self.C_wnd:Close()
 			self:releaseWindow(self.C_wnd)
 			self.C_wnd = nil
+			self:Toggle_Clist_Wnd()		-- 關閉第三層
 		end
 	end
 end
@@ -400,16 +402,16 @@ function CultivationModule:Toggle_Clist_Wnd()
     self.seriesHoverIndex = nil
     self.seriesSelectedCount = 0
 end
-function CultivationModule:C_material_List_CreateWin_Update()
-	local pet_Status = self:findWindow(15)	--寵物栏15
-	if pet_Status == nil then
-		if self.C_material_wnd and self.C_material_wnd.valid then
-			self.C_material_wnd:Close()
-			self:releaseWindow(self.C_material_wnd)
-			self.C_material_wnd = nil
-		end
-	end
-end
+-- function CultivationModule:C_material_List_CreateWin_Update()
+	-- local pet_Status = self:findWindow(15)	--寵物栏15
+	-- if pet_Status == nil then
+		-- if self.C_material_wnd and self.C_material_wnd.valid then
+			-- self.C_material_wnd:Close()
+			-- self:releaseWindow(self.C_material_wnd)
+			-- self.C_material_wnd = nil
+		-- end
+	-- end
+-- end
 function CultivationModule:C_material_List_CreateWin()
     if self.C_material_wnd then return end
 
@@ -422,7 +424,7 @@ function CultivationModule:C_material_List_CreateWin()
         height = winH,
         layer = 4,
         dragMove = 1,
-        update = function() self:C_material_List_CreateWin_Update() end,
+        -- update = function() self:C_material_List_CreateWin_Update() end,
     })
 
     if not window then return end
@@ -608,6 +610,7 @@ function CultivationModule:ToggleWnd2()
         self.B_wnd:Close()
         self:releaseWindow(self.B_wnd)
         self.B_wnd = nil
+        self:Toggle_Blist_Wnd()		-- 關閉第三層
     else
         self:CreateWin2()
     end
@@ -619,6 +622,7 @@ function CultivationModule:CreateWin2_Update()
 			self.B_wnd:Close()
 			self:releaseWindow(self.B_wnd)
 			self.B_wnd = nil
+			self:Toggle_Blist_Wnd()		-- 關閉第三層
 		end
 	end
 end
@@ -720,16 +724,16 @@ function CultivationModule:Toggle_Blist_Wnd()
 	self.breakthroughCrystalCost = 0
 	self.breakthroughCrystalRecipe = nil
 end
-function CultivationModule:B_material_List_CreateWin_Update()
-	local pet_Status = self:findWindow(15)	--寵物栏15
-	if pet_Status == nil then
-		if self.B_material_wnd and self.B_material_wnd.valid then
-			self.B_material_wnd:Close()
-			self:releaseWindow(self.B_material_wnd)
-			self.B_material_wnd = nil
-		end
-	end
-end
+-- function CultivationModule:B_material_List_CreateWin_Update()
+	-- local pet_Status = self:findWindow(15)	--寵物栏15
+	-- if pet_Status == nil then
+		-- if self.B_material_wnd and self.B_material_wnd.valid then
+			-- self.B_material_wnd:Close()
+			-- self:releaseWindow(self.B_material_wnd)
+			-- self.B_material_wnd = nil
+		-- end
+	-- end
+-- end
 function CultivationModule:B_material_List_CreateWin()
     if self.B_material_wnd then return end
 
@@ -742,7 +746,7 @@ function CultivationModule:B_material_List_CreateWin()
         height = winH,
         layer = 4,
         dragMove = 1,
-        update = function() self:B_material_List_CreateWin_Update() end,
+        -- update = function() self:B_material_List_CreateWin_Update() end,
     })
 
     if not window then return end
