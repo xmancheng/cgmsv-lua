@@ -1,6 +1,9 @@
 ---模块类
 local Module = ModuleBase:createModule('petCultivation')
 
+------------------------------------------------
+-- 寵物吸收設定
+------------------------------------------------
 -- 每一隻同名犧牲寵物提供多少培養 EXP
 local SACRIFICE_PET_EXP = 100
 -- 第一階培養所需 EXP
@@ -16,7 +19,7 @@ local PET_GRADE_TYPES = {
     CONST.PET_魔成,
 }
 ------------------------------------------------
--- 寵物水晶突破設定
+-- 寵物突破設定
 ------------------------------------------------
 local BREAKTHROUGH_CRYSTALS = {
     [18310] = 1, -- 地之水晶碎片
@@ -50,6 +53,18 @@ local BREAKTHROUGH_RECIPES = {
     ["1,2,4"] = {1,2,4},
     ["1,3,4"] = {1,2,5},
     ["2,3,4"] = {3,4,5},
+}
+local BREAKTHROUGH_RECIPE_NAMES = {
+    ["1,2"] = "岩潮之契",
+    ["1,3"] = "炎岩之契",
+    ["1,4"] = "蒼嵐之契",
+    ["2,3"] = "熾潮之契",
+    ["2,4"] = "蒼風之契",
+    ["3,4"] = "炎嵐之契",
+    ["1,2,3"] = "大地熔潮之契",
+    ["1,2,4"] = "大地蒼嵐之契",
+    ["1,3,4"] = "炎岩天風之契",
+    ["2,3,4"] = "熾潮天嵐之契",
 }
 --------------------------------------------------
 -- 客戶端封包通訊同步
@@ -229,7 +244,7 @@ function Module:ExecuteCultivation(fd, head, data)
         table.insert(gradeData,tostring(currentRank));
         table.insert(gradeData,tostring(fullRank));
     end
-    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ","))
+    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ",").."|1")
     return 1
 end
 
@@ -328,7 +343,7 @@ function Module:ExecutePetBreakthrough(fd, head, data)
             tonumber(Pet.GetArtRank(petIndex, gradeType)) or 0
         local fullRank =
             tonumber(Pet.FullArtRank(petIndex, gradeType)) or 0
-        if currentRank ~= fullRank then
+        if currentRank < fullRank then
             NLG.SystemMessage(player, "[系統] 寵物五項能力尚未全部滿檔")
             return 1
         end
@@ -344,8 +359,8 @@ function Module:ExecutePetBreakthrough(fd, head, data)
     ------------------------------------------------
     -- 9. 總檔次限制
     ------------------------------------------------
-    if totalRank < 120 then
-        NLG.SystemMessage(player, "[系統] 寵物總檔次不足120")
+    if totalRank < 110 then
+        NLG.SystemMessage(player, "[系統] 寵物總檔次不足110")
         return 1
     end
     if totalRank >= 170 then
@@ -392,7 +407,8 @@ function Module:ExecutePetBreakthrough(fd, head, data)
     ------------------------------------------------
     -- 15. 回傳系統訊息
     ------------------------------------------------
-    NLG.SystemMessage(player,"[系統] 寵物突破成功！刻印文字：" .. recipeKey)
+    local engraved = BREAKTHROUGH_RECIPE_NAMES[recipeKey];
+    NLG.SystemMessage(player,"[系統] 寵物突破成功！刻印文字《"..engraved.."》")
     ------------------------------------------------
     -- 16. 回傳最新培養資料
     ------------------------------------------------
@@ -409,7 +425,7 @@ function Module:ExecutePetBreakthrough(fd, head, data)
         table.insert(gradeData, tostring(currentRank))
         table.insert(gradeData, tostring(fullRank))
     end
-    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ","))
+    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ",").."|2")
     return 1
 end
 
@@ -426,6 +442,7 @@ function Module:onLoad()
 
 end
 
+----------------------
 -- 回傳寵物欄所有寵物及判斷是否同名(enemyid)
 function GetMaterialPet(charIndex,enemyid,mainSlot)
   local MaterialPetData = {}
@@ -460,7 +477,7 @@ function SetNonLv1PetRebirth(player, petIndex)
     local arr_rank4_new = Pet.GetArtRank(petIndex,CONST.PET_敏成);
     local arr_rank5_new = Pet.GetArtRank(petIndex,CONST.PET_魔成);
     if(Level>=1) then
-        Char.SetData(petIndex,CONST.CONST.对象_升级点,Level-1);
+        Char.SetData(petIndex,CONST.对象_升级点,Level-1);
         Char.SetData(petIndex,CONST.对象_等级,Level);
         Char.SetData(petIndex,CONST.对象_体力, (Char.GetData(petIndex,CONST.对象_体力) + (arr_rank1_new * (1/24) * (Level - 1)*100)) );
         Char.SetData(petIndex,CONST.对象_力量, (Char.GetData(petIndex,CONST.对象_力量) + (arr_rank2_new * (1/24) * (Level - 1)*100)) );
@@ -473,7 +490,7 @@ function SetNonLv1PetRebirth(player, petIndex)
         return
     end
 end
-
+----------------------
 -- 取得培養資料
 function GetCultivationData(player, petIndex)
     local exp = Char.GetExtData(petIndex, '吸收经验') or 0;
@@ -558,7 +575,7 @@ function GetMaterialPetsCultivationExp(materialPets)
     return totalExp
 end
 ----------------------
--- 取得突破水晶消耗量
+-- 取得突破水晶碎片消耗量
 function GetBreakthroughCrystalCost(totalRank)
     totalRank = tonumber(totalRank) or 0
     for _, data in ipairs(BREAKTHROUGH_CRYSTAL_COST) do
