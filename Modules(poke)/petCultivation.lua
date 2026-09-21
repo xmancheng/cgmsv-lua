@@ -21,6 +21,11 @@ local PET_GRADE_TYPES = {
 ------------------------------------------------
 -- 寵物突破設定
 ------------------------------------------------
+local BREAKTHROUGH_MAX_RANK = 170	--目前伺服器突破檔次上限
+local BREAKTHROUGH_AMOUNTS = {		--合法突破幅度
+    [2] = true,
+    [3] = true,
+}
 local BREAKTHROUGH_CRYSTALS = {
     [18310] = 1, -- 地之水晶碎片
     [18311] = 2, -- 水之水晶碎片
@@ -364,7 +369,12 @@ function Module:ExecutePetBreakthrough(fd, head, data)
         return 1
     end
     if totalRank >= 170 then
-        NLG.SystemMessage(player, "[系統] 寵物總檔次已達170")
+        NLG.SystemMessage(player, "[系統] 寵物總檔次已達"..BREAKTHROUGH_MAX_RANK)
+        return 1
+    end
+    local breakthroughCount = #recipe
+    if not IsBreakthroughAmountAllowed(totalRank, breakthroughCount) then
+        NLG.SystemMessage(player, "[系統] 請選擇+2或+3刻印文字以符合"..BREAKTHROUGH_MAX_RANK.."上限")
         return 1
     end
     ------------------------------------------------
@@ -598,7 +608,26 @@ function GetBreakthroughRecipeKey(crystalIds)
     table.sort(indexes)
     return table.concat(indexes, ",")
 end
-
+-- 突破增加數值合法性檢測
+function IsBreakthroughAmountAllowed(totalRank, amount)
+    totalRank = tonumber(totalRank) or 0
+    amount = tonumber(amount) or 0
+    if not BREAKTHROUGH_AMOUNTS[amount] then
+        return false
+    end
+    local remain = BREAKTHROUGH_MAX_RANK - totalRank
+    if remain <= 0 then
+        return false
+    end
+    if amount > remain then
+        return false
+    end
+    local remainAfter = remain - amount
+    if remainAfter == 1 then
+        return false
+    end
+    return true
+end
 
 function CheckInTable(_idTab, _idVar) ---循环函数
 	for k,v in pairs(_idTab) do
