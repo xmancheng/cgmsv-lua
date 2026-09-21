@@ -355,7 +355,7 @@ function CultivationModule:CreateWin1()
     })
 
     -- 頂部文字資訊
-    window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "主寵物的訊息" })	--color:16灰白色33深紫色69朱紅色72深棕色
+    window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "寵物吸收培養" })	--color:16灰白色33深紫色69朱紅色72深棕色
     self.petSlot_str = window:AddText({ x = 15, y = 35, width = 150, height = 24, font = 13, color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
     self.PetName_str = window:AddText({ x = 15, y = 55, width = 150, height = 24, font = 13, color = 4, text = "〈"..self.PetName.."〉"})
     -- 目前檔次分布
@@ -383,7 +383,7 @@ function CultivationModule:CreateWin1()
     if self.maxed == "1" then
         self.maxed_str = window:AddText({ x = 47, y = 215, width = 150, height = 24, font = 13, color = 50, text = "五項能力滿檔"})
     else
-        self.maxed_str = window:AddText({ x = 71, y = 215, width = 150, height = 24, font = 13, color = 49, text = "已補檔次數: "..self.cultivationCount})
+        self.maxed_str = window:AddText({ x = 71, y = 215, width = 150, height = 24, font = 13, color = 32, text = "已補檔次數: "..self.cultivationCount})
     end
 end
 -- 材料選擇框(第三層-1)
@@ -659,7 +659,7 @@ function CultivationModule:CreateWin2()
     })
 
     -- 頂部文字資訊
-    window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "主寵物的訊息" })	--color:16灰白色33深紫色69朱紅色72深棕色
+    window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "寵物刻印突破" })	--color:16灰白色33深紫色69朱紅色72深棕色
     self.petSlot_str = window:AddText({ x = 15, y = 35, width = 150, height = 24, font = 13, color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
     self.PetName_str = window:AddText({ x = 15, y = 55, width = 150, height = 24, font = 13, color = 4, text = "〈"..self.PetName.."〉"})
     -- 目前檔次分布
@@ -702,7 +702,7 @@ function CultivationModule:CreateWin2()
     -- 碎片提示
     local totalRank = self:GetBreakthroughTotalRank()
     local cost = self:GetBreakthroughCrystalCost(totalRank) or 0
-    self.shards_str = window:AddText({ x = 33, y = 210, width = 150, height = 24, font = 13, color = 47, text = "每種所需碎片數"..tostring(cost)})
+    self.shards_str = window:AddText({ x = 33, y = 210, width = 150, height = 24, font = 13, color = 32, text = "每種所需碎片數"..tostring(cost)})
 end
 -- 碎片選擇框(第三層-2)
 function CultivationModule:Toggle_Blist_Wnd()
@@ -812,9 +812,9 @@ function CultivationModule:B_material_List_CreateWin()
     local totalRank = self:GetBreakthroughTotalRank()
     self.breakthroughCrystalCost = self:GetBreakthroughCrystalCost(totalRank) or 0
     local cost = self.breakthroughCrystalCost
-    self.cost_str = window:AddText({ x = 15, y = 165, width = 150, height = 24, font = 13, color = 113, text = ""})
+    self.cost_str = window:AddText({ x = 12, y = 185, width = 150, height = 24, font = 13, color = 113, text = ""})
     -- 刻印文字
-    self.engraved_str = window:AddText({ x = 15, y = 185, width = 150, height = 24, font = 13, color = 4, text = ""})
+    self.engraved_str = window:AddText({ x = 15, y = 165, width = 150, height = 24, font = 13, color = 4, text = ""})
     -- 確定突破按鈕
     self.breakthroughBtn = window:AddPngImage({
         x = 60, y = 202, width = 64, height = 20,
@@ -838,29 +838,39 @@ function CultivationModule:UpdateUI1()
     self.PetName_str:Set({ color = 4, text = "〈"..self.PetName.."〉"})
 
     if (self.grade_tbl["Art1_N"]==self.grade_tbl["Art1_F"]) then
-      self.Art1_str:Set({ color = 48, text = "體力: "..self.grade_tbl["Art1_N"].." / "..self.grade_tbl["Art1_F"]})
-    else
+      self.Art1_str:Set({ color = 0, text = "體力: "..self.grade_tbl["Art1_N"].." / "..self.grade_tbl["Art1_F"]})
+    elseif (self.grade_tbl["Art1_N"]<self.grade_tbl["Art1_F"]) then
       self.Art1_str:Set({ color = 112, text = "體力: "..self.grade_tbl["Art1_N"].." / "..self.grade_tbl["Art1_F"]})
+    else
+      self.Art1_str:Set({ color = 48, text = "體力: "..self.grade_tbl["Art1_N"].." / "..self.grade_tbl["Art1_F"]})
     end
     if (self.grade_tbl["Art2_N"]==self.grade_tbl["Art2_F"]) then
-      self.Art2_str:Set({ color = 48, text = "力量: "..self.grade_tbl["Art2_N"].." / "..self.grade_tbl["Art2_F"]})
-    else
+      self.Art2_str:Set({ color = 0, text = "力量: "..self.grade_tbl["Art2_N"].." / "..self.grade_tbl["Art2_F"]})
+    elseif (self.grade_tbl["Art2_N"]<self.grade_tbl["Art2_F"]) then
       self.Art2_str:Set({ color = 112, text = "力量: "..self.grade_tbl["Art2_N"].." / "..self.grade_tbl["Art2_F"]})
+    else
+      self.Art2_str:Set({ color = 48, text = "力量: "..self.grade_tbl["Art2_N"].." / "..self.grade_tbl["Art2_F"]})
     end
     if (self.grade_tbl["Art3_N"]==self.grade_tbl["Art3_F"]) then
-      self.Art3_str:Set({ color = 48, text = "強度: "..self.grade_tbl["Art3_N"].." / "..self.grade_tbl["Art3_F"]})
-    else
+      self.Art3_str:Set({ color = 0, text = "強度: "..self.grade_tbl["Art3_N"].." / "..self.grade_tbl["Art3_F"]})
+    elseif (self.grade_tbl["Art3_N"]<self.grade_tbl["Art3_F"]) then
       self.Art3_str:Set({ color = 112, text = "強度: "..self.grade_tbl["Art3_N"].." / "..self.grade_tbl["Art3_F"]})
+    else
+      self.Art3_str:Set({ color = 48, text = "強度: "..self.grade_tbl["Art3_N"].." / "..self.grade_tbl["Art3_F"]})
     end
     if (self.grade_tbl["Art4_N"]==self.grade_tbl["Art4_F"]) then
-      self.Art4_str:Set({ color = 48, text = "速度: "..self.grade_tbl["Art4_N"].." / "..self.grade_tbl["Art4_F"]})
-    else
+      self.Art4_str:Set({ color = 0, text = "速度: "..self.grade_tbl["Art4_N"].." / "..self.grade_tbl["Art4_F"]})
+    elseif (self.grade_tbl["Art4_N"]<self.grade_tbl["Art4_F"]) then
       self.Art4_str:Set({ color = 112, text = "速度: "..self.grade_tbl["Art4_N"].." / "..self.grade_tbl["Art4_F"]})
+    else
+      self.Art4_str:Set({ color = 48, text = "速度: "..self.grade_tbl["Art4_N"].." / "..self.grade_tbl["Art4_F"]})
     end
     if (self.grade_tbl["Art5_N"]==self.grade_tbl["Art5_F"]) then
-      self.Art5_str:Set({ color = 48, text = "魔法: "..self.grade_tbl["Art5_N"].." / "..self.grade_tbl["Art5_F"]})
-    else
+      self.Art5_str:Set({ color = 0, text = "魔法: "..self.grade_tbl["Art5_N"].." / "..self.grade_tbl["Art5_F"]})
+    elseif (self.grade_tbl["Art5_N"]<self.grade_tbl["Art5_F"]) then
       self.Art5_str:Set({ color = 112, text = "魔法: "..self.grade_tbl["Art5_N"].." / "..self.grade_tbl["Art5_F"]})
+    else
+      self.Art5_str:Set({ color = 48, text = "魔法: "..self.grade_tbl["Art5_N"].." / "..self.grade_tbl["Art5_F"]})
     end
 
     local expNeed = self.expNeed
@@ -879,7 +889,7 @@ function CultivationModule:UpdateUI1()
     else
         self.selectlistBtn:Set({visible=true})
         self.selectlistStr:Set({visible=true})
-        self.maxed_str:Set({x = 71, color = 49, text = "已補檔次數: "..self.cultivationCount})
+        self.maxed_str:Set({x = 71, color = 32, text = "已補檔次數: "..self.cultivationCount})
     end
 
     if self.C_material_wnd then
@@ -1073,11 +1083,17 @@ function CultivationModule:UpdateUI2()
     if not self:IsBreakthroughFull() then
         self.selectlistBtn:Set({visible=false})
         self.selectlistStr:Set({visible=false})
-        self.shards_str:Set({visible=true, color = 6, text = "五項能力滿檔開啟"})
+        self.shards_str:Set({visible=true, color = 11, text = "五項能力滿檔開啟"})
     else
-        self.selectlistBtn:Set({visible=true})
-        self.selectlistStr:Set({visible=true})
-        self.shards_str:Set({visible=true, color = 47, text = "每種所需碎片數"..tostring(cost)})
+        if totalRank>=170 then
+            self.selectlistBtn:Set({visible=false})
+            self.selectlistStr:Set({visible=false})
+            self.shards_str:Set({visible=true, color = 50, text = "已達開放突破上限"})
+        else
+            self.selectlistBtn:Set({visible=true})
+            self.selectlistStr:Set({visible=true})
+            self.shards_str:Set({visible=true, color = 32, text = "每種所需碎片數"..tostring(cost)})
+        end
     end
 end
 -- 更新碎片勾選狀態
@@ -1192,7 +1208,9 @@ function CultivationModule:refreshBreakthroughCrystalUI()
         -- 刻印文字
         local engraved = BREAKTHROUGH_RECIPE_NAMES[key]
         if engraved then
-            self.engraved_str:Set({visible = true, text = "《"..BREAKTHROUGH_RECIPE_NAMES[key].."》"})
+            local vx = 48;
+            if key=="1,2,3" or key=="1,2,4" or key=="1,3,4" or key=="2,3,4" then vx=36; end
+            self.engraved_str:Set({x = vx,visible = true, text = "《"..BREAKTHROUGH_RECIPE_NAMES[key].."》"})
         end
         -- ==========================================
         -- 更新第二層主選單+
@@ -1300,7 +1318,6 @@ function CultivationModule:OnBreakthroughBtnClick()
     end
     local crystalString = table.concat(selected, ",")
     local packetData = tostring(self.petSlot) .. "|" .. crystalString
-
     WinMgr.SendPacket("ExecutePetBreakthrough",packetData)
     -- 先關閉第三層
     self:Toggle_Blist_Wnd()
@@ -1321,7 +1338,7 @@ function CultivationModule:IsBreakthroughFull()
     for i = 1, 5 do
         local current = tonumber(self.grade_tbl["Art" .. i .. "_N"]) or 0
         local full = tonumber(self.grade_tbl["Art" .. i .. "_F"]) or 0
-        if current ~= full then
+        if current < full then
             return false
         end
     end
