@@ -6882,7 +6882,7 @@ _G.handleXBProtocol = handleXBProtocol
 -- ----------------------------------------------------------------------------
 -- [17][LIFECYCLE] µ«»Î£Ø›d»Î£Ø–∂›d
 -- ----------------------------------------------------------------------------
-function Module.onLoginEvent(fd, protocol)
+function Module:onLoginEvent(fd, protocol)
 	queryEnhanceSlot(protocol)
 	refreshSynthesisUI(protocol)
 	queryPotentialState(protocol)
@@ -6891,13 +6891,13 @@ function Module.onLoginEvent(fd, protocol)
 	sendBankList(protocol)
 end
 
-function Module.onLoad(fd)
+function Module:onLoad(fd)
 	Protocol.OnRecv(nil, "handleXBProtocol", "CUSTOMXB")
 	math.randomseed(os.time())
 	loadJobAndItemSetData()
 	loadSuitSetData()
 	loadGemMaterialData()
-	fd:regCallback("LoginEvent", function(fd)
+	self:regCallback("LoginEvent", function(fd)
 		queryEnhanceSlot(fd)
 		refreshSynthesisUI(fd)
 		sendBagList(fd)
@@ -6906,7 +6906,7 @@ function Module.onLoad(fd)
 	end)
 end
 
-function Module.onUnload(fd)
+function Module:onUnload(fd)
 	return
 end
 
