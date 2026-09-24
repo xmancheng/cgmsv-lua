@@ -88,7 +88,7 @@ function Module:SendData(fd,head,data)
 
       local petIndex = Char.GetPet(player, petSlot-1);
       if petIndex <= 0 then
-        Protocol.Send(player,'ResponsePetCultivationData',"0|0|0|0|0|0|0,0,0,0,0,0,0,0,0,0|"..tostring(page))
+        Protocol.Send(player,'ResponsePetCultivationData',"0|0|0|0|0|0|0|0,0,0,0,0,0,0,0,0,0|"..tostring(page))
         return
       end
 
@@ -97,6 +97,7 @@ function Module:SendData(fd,head,data)
       local id3,id5 = GetCultivationData(player,petIndex);		--cultivationExp, cultivationCount
 	  local id4 = GetCultivationExpNeed(id5);					--expNeed
 	  local id6 = IsPetCultivationMaxed(petIndex) and 1 or 0;	--maxed
+	  local id7 = IsPetProtectLocked(player, petIndex);			--locked
 	  --寵物目前檔次與最高檔次
 	  local gradeData = {}
 	  for _, gradeType in ipairs(PET_GRADE_TYPES) do
@@ -105,7 +106,44 @@ function Module:SendData(fd,head,data)
         table.insert(gradeData,tostring(currentRank));
         table.insert(gradeData,tostring(fullRank));
       end
-      Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ",").."|"..tostring(page))
+      Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..id7.."|"..table.concat(gradeData, ",").."|"..tostring(page))
+    end
+    return 1
+end
+function Module:SwitchExecute(fd,head,data)
+    local player = tonumber(Protocol.GetCharByFd(fd))
+    if head == 'SwitchLocked' then
+      local mainSlot = tonumber(data[1]);
+      if not mainSlot then return end
+
+      local petIndex = Char.GetPet(player, mainSlot-1);
+      if petIndex <= 0 then
+        Protocol.Send(player,'ResponsePetCultivationData',"0|0|0|0|0|0|0|0,0,0,0,0,0,0,0,0,0|"..tostring(page))
+        return
+      end
+      local locked = Char.GetExtData(petIndex, '吸收锁定') or 0;
+      if locked==0 then
+          Char.SetExtData(petIndex, '吸收锁定', 1);
+      elseif locked==1 then
+          Char.SetExtData(petIndex, '吸收锁定', 0);
+      end
+      Pet.UpPet(player, petIndex);
+
+      local id1 = mainSlot;
+      local id2 = Char.GetData(petIndex,CONST.对象_原名);			--PetName
+      local id3,id5 = GetCultivationData(player,petIndex);		--cultivationExp, cultivationCount
+	  local id4 = GetCultivationExpNeed(id5);					--expNeed
+	  local id6 = IsPetCultivationMaxed(petIndex) and 1 or 0;	--maxed
+	  local id7 = IsPetProtectLocked(player, petIndex);			--locked
+	  --寵物目前檔次與最高檔次
+	  local gradeData = {}
+	  for _, gradeType in ipairs(PET_GRADE_TYPES) do
+        local currentRank = Pet.GetArtRank(petIndex,gradeType);
+        local fullRank = Pet.FullArtRank(petIndex,gradeType);
+        table.insert(gradeData,tostring(currentRank));
+        table.insert(gradeData,tostring(fullRank));
+      end
+      Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..id7.."|"..table.concat(gradeData, ",").."|"..tostring(page))
     end
     return 1
 end
@@ -117,11 +155,14 @@ function Module:material_SendData(fd,head,data)
 
       local petIndex = Char.GetPet(player, mainSlot-1);
       if petIndex <= 0 then
-        Protocol.Send(player,'ResponseMaterialPetData',"0|0|0|0|0")
+        Protocol.Send(player,'ResponseMaterialPetData',"0,0|0,0|0,0|0,0|0,0")
         return
       end
       local PetId = Char.GetData(petIndex,CONST.宠物_PETID);
-      local material_List = GetMaterialPet(player,PetId,mainSlot);
+      local material_List,locked_List = GetMaterialPet(player,PetId,mainSlot);
+      -- 保護鎖定
+      Protocol.Send(player,'ResponseLockedPetData', locked_List[1].."|"..locked_List[2].."|"..locked_List[3].."|"..locked_List[4].."|"..locked_List[5])
+      -- 名字、等級
       local pack = material_List[1] .."," ..material_List[2] .."|"
                 .. material_List[3] .."," ..material_List[4] .."|"
                 .. material_List[5] .."," ..material_List[6] .."|"
@@ -188,6 +229,13 @@ function Module:ExecuteCultivation(fd, head, data)
         if materialPetIndex <= 0 then
             return 1
         end
+        -- 檢查材料寵物是否被保護鎖定
+        local materialLocked = Char.GetExtData(materialPetIndex, '吸收锁定') or 0
+        if tonumber(materialLocked) == 1 then
+            NLG.SystemMessage(player, "[系統] 鎖定的寵物不能作為材料。")
+            return 1
+        end
+
         local materialPetId = Char.GetData(materialPetIndex, CONST.宠物_PETID)
         -- 必須與主寵相同 PETID
         if materialPetId ~= mainPetId then
@@ -239,8 +287,9 @@ function Module:ExecuteCultivation(fd, head, data)
     local id1 = mainSlot;
     local id2 = Char.GetData(mainPetIndex,CONST.对象_原名);			--PetName
     local id3,id5 = GetCultivationData(player,mainPetIndex);		--cultivationExp, cultivationCount
-    local id4 = GetCultivationExpNeed(id5);					--expNeed
+    local id4 = GetCultivationExpNeed(id5);						--expNeed
 	local id6 = IsPetCultivationMaxed(mainPetIndex) and 1 or 0;	--maxed
+	local id7 = IsPetProtectLocked(player, mainPetIndex);			--locked
 
 	local gradeData = {}										--寵物目前檔次與最高檔次
 	for _, gradeType in ipairs(PET_GRADE_TYPES) do
@@ -249,7 +298,7 @@ function Module:ExecuteCultivation(fd, head, data)
         table.insert(gradeData,tostring(currentRank));
         table.insert(gradeData,tostring(fullRank));
     end
-    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ",").."|1")
+    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..id7.."|"..table.concat(gradeData, ",").."|1")
     return 1
 end
 
@@ -427,6 +476,7 @@ function Module:ExecutePetBreakthrough(fd, head, data)
     local id3, id5 = GetCultivationData(player, petIndex);
     local id4 = GetCultivationExpNeed(id5);
     local id6 = IsPetCultivationMaxed(petIndex) and 1 or 0;
+    local id7 = IsPetProtectLocked(player, petIndex);
 
     local gradeData = {}
     for _, gradeType in ipairs(PET_GRADE_TYPES) do
@@ -435,7 +485,7 @@ function Module:ExecutePetBreakthrough(fd, head, data)
         table.insert(gradeData, tostring(currentRank))
         table.insert(gradeData, tostring(fullRank))
     end
-    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..table.concat(gradeData, ",").."|2")
+    Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..id7.."|"..table.concat(gradeData, ",").."|2")
     return 1
 end
 
@@ -446,6 +496,7 @@ function Module:onLoad()
 
   -- 註冊 UI 封包請求
   self:regCallback('ProtocolOnRecv',Func.bind(self.SendData,self),'RequestPetCultivationData')	--前端索求遊戲數據
+  self:regCallback('ProtocolOnRecv',Func.bind(self.SwitchExecute,self),'SwitchLocked')
   self:regCallback('ProtocolOnRecv',Func.bind(self.material_SendData,self),'GetMaterialPet')
   self:regCallback('ProtocolOnRecv',Func.bind(self.ExecuteCultivation,self),'ExecutePetCultivation')
   self:regCallback('ProtocolOnRecv',Func.bind(self.ExecutePetBreakthrough,self),'ExecutePetBreakthrough')
@@ -456,6 +507,7 @@ end
 -- 回傳寵物欄所有寵物及判斷是否同名(enemyid)
 function GetMaterialPet(charIndex,enemyid,mainSlot)
   local MaterialPetData = {}
+  local LockedPetData = {}
   for Slot=1,5 do
       local PetIndex = Char.GetPet(charIndex, Slot-1);
       if (PetIndex > 0 and Slot ~= mainSlot) then
@@ -464,19 +516,23 @@ function GetMaterialPet(charIndex,enemyid,mainSlot)
           if (enemyid==MPetId) then
               table.insert(MaterialPetData,tostring(Char.GetData(PetIndex,CONST.对象_原名)));
               table.insert(MaterialPetData,tostring(Char.GetData(PetIndex,CONST.对象_等级)));
+              table.insert(LockedPetData,tostring(Char.GetExtData(PetIndex,'吸收锁定') or 0));
           else
               table.insert(MaterialPetData,tostring(Char.GetData(PetIndex,CONST.对象_原名)));
               table.insert(MaterialPetData,"_");
+              table.insert(LockedPetData,tostring(Char.GetExtData(PetIndex,'吸收锁定') or 0));
           end
-      elseif (PetIndex >= 0 and Slot == mainSlot) then
+      elseif (PetIndex > 0 and Slot == mainSlot) then
           table.insert(MaterialPetData,"主寵物");
           table.insert(MaterialPetData,tostring(Char.GetData(PetIndex,CONST.对象_等级)));
+          table.insert(LockedPetData,tostring(Char.GetExtData(PetIndex,'吸收锁定') or 0));
       elseif (PetIndex < 0) then
           table.insert(MaterialPetData,"空");
           table.insert(MaterialPetData,"_");
+          table.insert(LockedPetData,"_");
       end
   end
-  return MaterialPetData;
+  return MaterialPetData,LockedPetData;
 end
 -- 寵物檔次改變後重生
 function SetNonLv1PetRebirth(player, petIndex)
@@ -501,6 +557,11 @@ function SetNonLv1PetRebirth(player, petIndex)
     end
 end
 ----------------------
+-- 取得培養保護鎖定
+function IsPetProtectLocked(player, petIndex)
+    local locked = Char.GetExtData(petIndex, '吸收锁定') or 0;
+    return locked
+end
 -- 取得培養資料
 function GetCultivationData(player, petIndex)
     local exp = Char.GetExtData(petIndex, '吸收经验') or 0;

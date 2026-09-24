@@ -18,6 +18,8 @@ function Module:Frontcg2dPackTrigger(fd,head,data)
         Protocol.Send(player,'SyncCultivationData',"1|"..tostring(petSlot or 0))	--寵物欄圖標1/寵物格位子
       elseif packetNumber == 4 then
         Protocol.Send(player,'SyncCultivationData',"2|"..tostring(petSlot or 0))	--寵物欄圖標2/寵物格位子
+      elseif packetNumber == 5 then
+        Protocol.Send(player,'SyncCultivationData',"3|"..tostring(petSlot or 0))	--寵物欄圖標3/寵物格位子
       end
     end
     return 1
