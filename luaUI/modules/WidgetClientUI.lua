@@ -22,6 +22,9 @@ local BTN_icon1Press = "luaUI/modules/cg图档集/特殊介面/宠物小图标按下.png"
 local BTN_icon2 = "luaUI/modules/cg图档集/特殊介面/喂食小图标.png"
 local BTN_icon2Hover = "luaUI/modules/cg图档集/特殊介面/喂食小图标高亮.png"
 local BTN_icon2Press = "luaUI/modules/cg图档集/特殊介面/喂食小图标按下.png"
+local BTN_icon3 = "luaUI/modules/cg图档集/特殊介面/技能小图标.png"
+local BTN_icon3Hover = "luaUI/modules/cg图档集/特殊介面/技能小图标高亮.png"
+local BTN_icon3Press = "luaUI/modules/cg图档集/特殊介面/技能小图标按下.png"
 
 local frontWindowCaptureId = -1		--缓存，不要动
 local player_Status_NativeId = 7		--玩家狀態7.物品栏14.小地图33
@@ -379,12 +382,18 @@ function Module:pet_cultivation_CreateWin()
             onHover = function() window:ShowTips('將相同寵物吸收補足檔次') return true end,
         })
         local icon2 = window:AddPngImage({
-            x = btnX+0.3, y = btnY+16, width = winW, height = winH,
+            x = btnX, y = btnY+16, width = winW, height = winH,
             image = BTN_icon2, imageHover = BTN_icon2Hover, imagePress = BTN_icon2Press, visible = true, hitable = true,
             onClick = function() WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnCultivateBtnClick(i) end,
             onHover = function() window:ShowTips('持續餵食突破已滿的檔次') return true end,
         })
-        self.nodeCultivateBtns[index] = {icon1 = icon1, icon2 = icon2}
+        local icon3 = window:AddPngImage({
+            x = btnX, y = btnY+32, width = winW, height = winH,
+            image = BTN_icon3, imageHover = BTN_icon3Hover, imagePress = BTN_icon3Press, visible = true, hitable = true,
+            onClick = function() WinMgr.PlaySe(51,CONST.Screen.Width/2) self:OnTechBtnClick(i) end,
+            onHover = function() window:ShowTips('學習從能力檔獲得的技能') return true end,
+        })
+        self.nodeCultivateBtns[index] = {icon1 = icon1, icon2 = icon2, icon3 = icon3}
     end
 end
 
@@ -422,9 +431,11 @@ function Module:pet_cultivation_UpdateUI_Icon()
         if (self.petSlot_tbl[i]=="true") then
 			self.nodeCultivateBtns[i].icon1:Set({visible = true})
 			self.nodeCultivateBtns[i].icon2:Set({visible = true})
+			self.nodeCultivateBtns[i].icon3:Set({visible = true})
 		else
 			self.nodeCultivateBtns[i].icon1:Set({visible = false})
 			self.nodeCultivateBtns[i].icon2:Set({visible = false})
+			self.nodeCultivateBtns[i].icon3:Set({visible = false})
         end
     end
 end
@@ -443,6 +454,9 @@ function Module:OnBPInfoBtnClick(k)
 end
 function Module:OnCultivateBtnClick(k)
 	WinMgr.SendPacket("uiMenu", 4, k)
+end
+function Module:OnTechBtnClick(k)
+	WinMgr.SendPacket("uiMenu", 5, k)
 end
 
 ------

@@ -138,8 +138,9 @@ function CultivationModule:onLoad()
             self.expNeed = arr[4];
             self.cultivationCount = arr[5];
             self.maxed = arr[6];
+            self.locked = arr[7];
 
-            local grade = self:split(arr[7], ",")
+            local grade = self:split(arr[8], ",")
             self.grade_tbl["Art1_N"] = grade[1];
             self.grade_tbl["Art2_N"] = grade[3];
             self.grade_tbl["Art3_N"] = grade[5];
@@ -152,7 +153,7 @@ function CultivationModule:onLoad()
             self.grade_tbl["Art5_F"] = grade[10];
 
             -- 後端回傳目前分頁
-            self.currentWnd = tonumber(arr[8]) or PAGE_FIRST
+            self.currentWnd = tonumber(arr[9]) or PAGE_FIRST
             self.grade_tbl = self.grade_tbl
             if self.currentWnd == PAGE_FIRST then
                 if not self.C_wnd then
@@ -198,6 +199,19 @@ function CultivationModule:onLoad()
                 self:C_material_List_CreateWin()
                 self:C_material_List_UpdateUI()
             else
+                self:C_material_List_UpdateUI()
+            end
+        end
+    end)
+    self.C_locked_List = {}
+    self:onPacketRecv("ResponseLockedPetData", function(header, params)
+        if params then
+            local str = params[1] or ""
+            local arr = self:split(str, "|")
+            for i = 1,5 do
+                self.C_locked_List[i] = arr[i] or "0";
+            end
+            if self.C_material_wnd then
                 self:C_material_List_UpdateUI()
             end
         end
@@ -360,6 +374,17 @@ function CultivationModule:CreateWin1()
     window:AddText({ x = 45, y = 10, width = 20, height = 20, font = 4, color = 75, text = "寵物吸收培養" })	--color:16灰白色33深紫色69朱紅色72深棕色
     self.petSlot_str = window:AddText({ x = 15, y = 35, width = 150, height = 24, font = 13, color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
     self.PetName_str = window:AddText({ x = 15, y = 55, width = 150, height = 24, font = 13, color = 4, text = "〈"..self.PetName.."〉"})
+
+    if self.locked=="0" then
+        self.Lock_str = window:AddText({ x = 145, y = 40, width = 24, height = 24, font = 5, color = 139, text = "☆"})
+        self.Lock_hit = window:AddPngImage({ x =145, y = 40, width = 24, height = 24, image = TRANSPARENT_IMAGE, color = -1, visible = true, hitable = true,
+           onClick = function() WinMgr.PlaySe(68,CONST.Screen.Width/2) WinMgr.SendPacket("SwitchLocked", self.petSlot) return true end})
+   elseif self.locked=="1" then
+        self.Lock_str = window:AddText({ x = 145, y = 40, width = 24, height = 24, font = 5, color = 120, text = "★"})
+        self.Lock_hit = window:AddPngImage({ x =145, y = 40, width = 24, height = 24, image = TRANSPARENT_IMAGE, color = -1, visible = true, hitable = true,
+           onClick = function() WinMgr.PlaySe(68,CONST.Screen.Width/2) WinMgr.SendPacket("SwitchLocked", self.petSlot) return true end})
+    end
+
     -- 目前檔次分布
     self.Art1_str = window:AddText({ x = 15, y = 80, width = 150, height = 24, font = 13, color = 48, text = "體力: "..self.grade_tbl["Art1_N"].." / "..self.grade_tbl["Art1_F"]})
     self.Art2_str = window:AddText({ x = 15, y = 100, width = 150, height = 24, font = 13, color = 48, text = "力量: "..self.grade_tbl["Art2_N"].." / "..self.grade_tbl["Art2_F"]})
@@ -473,11 +498,18 @@ function CultivationModule:C_material_List_CreateWin()
 		local nameIndex = index * 2 - 1;
 		local petName = self.C_material_List[nameIndex] or ""
 		local petLevel = self.C_material_List[nameIndex + 1] or "_"
+		local petLocked = self.C_locked_List[i] or "0"
 		--------------------------------------------------
 		-- 是否可以選擇
 		--------------------------------------------------
 		local selectable = true
-		if petName == "主寵物" or petLevel == "_" then
+	    if petName == "主寵物" then
+		    selectable = false
+		end
+		if petLevel == "_" then
+			selectable = false
+		end
+		if petLocked == "1" then
 			selectable = false
 		end
 		--------------------------------------------------
@@ -516,13 +548,17 @@ function CultivationModule:C_material_List_CreateWin()
 		--------------------------------------------------
 		-- 寵物名稱
 		--------------------------------------------------
-		local textColor = 48;
-		if petName == "主寵物" then
-			textColor = 4;
-		elseif petLevel == "_" then
+		if petLevel == "_" then
 			textColor = 16;
 		end
-
+		if petLocked == "1" then
+			textColor = 232;
+		elseif petLocked == "0" then
+			textColor = 48;
+		end
+		if petName == "主寵物" then
+			textColor = 4;
+		end
 		local name_Str = window:AddText({
 			x = SERIES_NAME_X, y = rowY + 3, width = SERIES_NAME_WIDTH, height = 20,
 			text = petName, font = 13, color = textColor, hitable = false})
@@ -840,6 +876,11 @@ function CultivationModule:UpdateUI1()
 
     self.petSlot_str:Set({ color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
     self.PetName_str:Set({ color = 4, text = "〈"..self.PetName.."〉"})
+    if self.locked=="0" then
+        self.Lock_str:Set({color = 139, text = "☆"})
+    elseif self.locked=="1" then
+        self.Lock_str:Set({color = 120, text = "★"})
+    end
 
     if (self.grade_tbl["Art1_N"]==self.grade_tbl["Art1_F"]) then
       self.Art1_str:Set({ color = 0, text = "體力: "..self.grade_tbl["Art1_N"].." / "..self.grade_tbl["Art1_F"]})
@@ -908,15 +949,21 @@ function CultivationModule:C_material_List_UpdateUI()
     for i = 1,5 do
         local petName = self.C_material_List[group] or ""
         local petLevel = self.C_material_List[group + 1] or "_"
-        local textcolor = 48;
+        local petLocked = self.C_locked_List[i] or "0"
+        if petLevel == "_" then
+            textColor = 16;
+        end
+        if petLocked == "1" then	-- 鎖定文字顏色
+            textColor = 232;
+        elseif petLocked == "0" then
+            textColor = 48;
+        end
         if petName == "主寵物" then
-            textcolor = 4;
-        elseif petLevel == "_" then
-            textcolor = 16;
+            textColor = 4;
         end
         if self.seriesChecks[i] then
-            self.seriesChecks[i].name:Set({text = petName,color = textcolor})
-            self.seriesChecks[i].level:Set({text = "Lv "..petLevel,color = textcolor})
+            self.seriesChecks[i].name:Set({text = petName,color = textColor})
+            self.seriesChecks[i].level:Set({text = "Lv "..petLevel,color = textColor})
         end
         group = group + 2;
     end
@@ -926,6 +973,7 @@ end
 function CultivationModule:toggleSeriesCheck(index)
     local nameIndex = index * 2 - 1;
     local petName = self.C_material_List[nameIndex]
+    local petLocked = self.C_locked_List[index] or "0"
     --------------------------------------------------
     -- 主寵 / 空槽 / 不可用欄位禁止選擇
     --------------------------------------------------
@@ -954,13 +1002,18 @@ function CultivationModule:refreshSeriesChecks()
             local levelIndex = i * 2;
             local petName = self.C_material_List[nameIndex] or "";
             local petLevel = self.C_material_List[levelIndex] or "_";
+            local petLocked = self.C_locked_List[i] or "0"
             local selectable = true
             --------------------------------------------------
             -- 判斷是否可以選擇
             --------------------------------------------------
+            if petName == "主寵物" then	-- 主寵
+                selectable = false
+            end
             if petLevel == "_" then	-- 空槽
                 selectable = false
-            elseif petName == "主寵物" then	-- 主寵
+            end
+            if petLocked == "1" then
                 selectable = false
             end
             --------------------------------------------------
@@ -998,11 +1051,16 @@ function CultivationModule:refreshSeriesChecks()
                 controls.hit:Set({visible = selectable})
             end
             -- 文字顏色
-            local textColor = 48;
+            if petLevel == "_" then
+                textColor = 16;
+            end
+            if petLocked == "1" then	-- 鎖定文字顏色
+                textColor = 232;
+            elseif petLocked == "0" then
+                textColor = 48;
+            end
             if petName == "主寵物" then
                 textColor = 4;
-            elseif petLevel == "_" then
-                textColor = 16;
             end
             -- 寵物名稱
             if controls.name and controls.name.valid then
