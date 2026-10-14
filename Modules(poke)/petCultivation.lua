@@ -18,6 +18,54 @@ local PET_GRADE_TYPES = {
     CONST.PET_敏成,
     CONST.PET_魔成,
 }
+--------------------------------------------------
+-- 寵物技能資料表
+--
+-- 欄位：
+-- name       = 技能名稱
+-- gradeIndex = 五圍索引
+-- gradeValue = 檔次門檻
+-- levelLimit = 等級限制，-1 代表不限
+-- petID      = PETID 限制，-1 代表不限
+--
+-- 五圍索引：
+-- 1 = 體力
+-- 2 = 力量
+-- 3 = 強度
+-- 4 = 速度
+-- 5 = 魔法
+local PET_GRADE_NAMES = {
+    [1] = "體力",
+    [2] = "力量",
+    [3] = "強度",
+    [4] = "速度",
+    [5] = "魔法",
+}
+--------------------------------------------------
+local PET_SKILL_DATA = {
+    { name = "騎士之譽LV4", techId = 26103, gradeIndex = 1, gradeValue = 40, levelLimit = 10, petID = -1,},
+    { name = "攻擊吸收LV1", techId = 5700, gradeIndex = 1, gradeValue = 45, levelLimit = 30, petID = -1,},
+    { name = "魔法吸收LV1", techId = 5800, gradeIndex = 1, gradeValue = 45, levelLimit = 30, petID = -1,},
+    --------------------------------------------------
+    { name = "戒驕戒躁LV4", techId = 25703, gradeIndex = 2, gradeValue = 30, levelLimit = -1, petID = -1,},
+    { name = "氣功彈LV4", techId = 403, gradeIndex = 2, gradeValue = 40, levelLimit = 10, petID = -1,},
+    { name = "活殺氣功彈", techId = 409, gradeIndex = 2, gradeValue = 45, levelLimit = 30, petID = -1,},
+    --------------------------------------------------
+    { name = "強力恢復魔法LV4", techId = 6503, gradeIndex = 3, gradeValue = 40, levelLimit = 25, petID = -1,},
+    { name = "攻擊反彈LV1", techId = 5500, gradeIndex = 3, gradeValue = 45, levelLimit = 30, petID = -1,},
+    { name = "魔法反彈LV1", techId = 5600, gradeIndex = 3, gradeValue = 45, levelLimit = 30, petID = -1,},
+    { name = "屬性反轉LV4", techId = 5403, gradeIndex = 3, gradeValue = 50, levelLimit = 40, petID = -1,},
+    --------------------------------------------------
+    { name = "追月LV4", techId = 200503, gradeIndex = 4, gradeValue = 40, levelLimit = 10, petID = -1,},
+    { name = "鴻雁追月", techId = 200509, gradeIndex = 4, gradeValue = 45, levelLimit = 30, petID = -1,},
+    { name = "潔凈魔法LV4", techId = 6703, gradeIndex = 4, gradeValue = 50, levelLimit = 40, petID = -1,},
+    --------------------------------------------------
+    { name = "強力補血魔法LV4", techId = 6203, gradeIndex = 5, gradeValue = 40, levelLimit = 20, petID = -1,},
+    { name = "超強隕石魔法LV4", techId = 2703, gradeIndex = 5, gradeValue = 50, levelLimit = 40, petID = -1,},
+    { name = "超強冰凍魔法LV4", techId = 2803, gradeIndex = 5, gradeValue = 50, levelLimit = 40, petID = -1,},
+    { name = "超強火焰魔法LV4", techId = 2903, gradeIndex = 5, gradeValue = 50, levelLimit = 40, petID = -1,},
+    { name = "超強風刃魔法LV4", techId = 3003, gradeIndex = 5, gradeValue = 50, levelLimit = 40, petID = -1,},
+}
 ------------------------------------------------
 -- 寵物突破設定
 ------------------------------------------------
@@ -488,6 +536,118 @@ function Module:ExecutePetBreakthrough(fd, head, data)
     Protocol.Send(player,'ResponsePetCultivationData', id1.."|"..id2.."|"..id3.."|"..id4.."|"..id5.."|"..id6.."|"..id7.."|"..table.concat(gradeData, ",").."|2")
     return 1
 end
+-- 回傳寵物技能清單
+function Module:SendPetSkillData(fd, head, data)
+    if head ~= "RequestPetSkillData" then
+        return 1
+    end
+
+    local player = tonumber(Protocol.GetCharByFd(fd))
+    if not player or player < 0 then
+        return 1
+    end
+
+    local packetData = BuildPetSkillDataString()
+    Protocol.Send(player,"ResponsePetSkillData",packetData)
+    return 1
+end
+
+-- 執行學習寵物技能
+function Module:LearnPetSkill(fd, head, data)
+    if head ~= "LearnPetSkill" then
+        return 1
+    end
+    local player = tonumber(Protocol.GetCharByFd(fd))
+    if not player or player < 0 or not data or not data[1] then
+        return 1
+    end
+
+    -- 封包格式：寵物欄位|techId
+    local packet = {}
+    for value in string.gmatch(data[1], "[^|]+") do
+        table.insert(packet, value)
+    end
+    local petSlot = tonumber(packet[1]);
+    local MactechId = tonumber(packet[2]);
+
+    if not petSlot or petSlot < 1 or petSlot > 5
+        or not MactechId or MactechId <= 0 then
+        return 1
+    end
+    local petIndex = Char.GetPet(player, petSlot - 1);
+    if not petIndex or petIndex <= 0 then
+        NLG.SystemMessage(player, "[系統]找不到指定的寵物！");
+        return 1
+    end
+
+    -- 查找技能資料
+    local skillData = nil
+    for _, skill in ipairs(PET_SKILL_DATA) do
+        if tonumber(skill.techId) == MactechId then
+            skillData = skill
+            break
+        end
+    end
+    if not skillData then
+        NLG.SystemMessage(player, "[系統]找不到指定的技能資料！");
+        return 1
+    end
+
+    -- 後端重新檢查檔次，避免只靠前端判斷
+    local gradeIndex = tonumber(skillData.gradeIndex) or 0
+    local requiredGrade = tonumber(skillData.gradeValue) or 0
+    if gradeIndex < 1 or gradeIndex > 5 then
+        return 1
+    end
+    local gradeType = PET_GRADE_TYPES[gradeIndex]
+    local currentGrade = tonumber(Pet.GetArtRank(petIndex, gradeType)) or 0
+    if currentGrade < requiredGrade then
+        NLG.SystemMessage(player, "[系統]寵物的檔次不足，無法學習此技能！");
+        return 1
+    end
+    -- 後端重新檢查等級，避免只靠前端判斷
+    local requiredLevel = tonumber(skillData.levelLimit) or -1
+    local currentLevel = Char.GetData(petIndex,CONST.对象_等级);
+    if currentLevel < requiredLevel then
+        NLG.SystemMessage(player, "[系統]寵物的等級不足，無法學習此技能！");
+        return 1
+    end
+    -- 後端重新檢查寵物Id，避免只靠前端判斷
+    local requiredPetId = tonumber(skillData.petID) or -1
+    local currentPetId = Char.GetData(petIndex,CONST.宠物_PETID);
+    if (requiredPetId ~= -1 and currentPetId ~= requiredPetId) then
+        NLG.SystemMessage(player, "[系統]寵物資格不符，無法學習此技能！");
+        return 1
+    end
+
+    -- 判定有無重複技能，並尋找第一個空技能欄位
+    for i = 0, 9 do
+        local petskill = Pet.GetSkill(petIndex, i);
+        if tonumber(petskill) == MactechId then
+            NLG.SystemMessage(player, "[系統]寵物已學習過此招式！");
+            return 1
+        end
+    end
+    if Char.GetSkillNum(petIndex)==Char.GetData(petIndex, CONST.对象_技能栏) then
+        NLG.SystemMessage(player, "[系統]寵物技能欄位已滿，無法學習！");
+        return 1
+    end
+    -- 確認招式存在
+    local techIndex = Tech.GetTechIndex(MactechId);
+    if not techIndex or techIndex <= 0 then
+        NLG.SystemMessage(player, "[系統]找不到此招式的資料！");
+        return 1
+    end
+
+    -- 學習技能：空欄位直接新增，不覆蓋既有技能
+    Pet.AddSkill(petIndex, MactechId);
+    Pet.UpPet(player, petIndex);
+    NLG.UpChar(player);
+
+    local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
+    NLG.SystemMessage(player,"[系統]寵物成功學會「" .. tostring(techName or skillData.name) .. "」！");
+    return 1
+end
 
 ------------------------------------------------
 --- 加载模块钩子
@@ -500,6 +660,8 @@ function Module:onLoad()
   self:regCallback('ProtocolOnRecv',Func.bind(self.material_SendData,self),'GetMaterialPet')
   self:regCallback('ProtocolOnRecv',Func.bind(self.ExecuteCultivation,self),'ExecutePetCultivation')
   self:regCallback('ProtocolOnRecv',Func.bind(self.ExecutePetBreakthrough,self),'ExecutePetBreakthrough')
+  self:regCallback('ProtocolOnRecv',Func.bind(self.SendPetSkillData, self),'RequestPetSkillData')
+  self:regCallback('ProtocolOnRecv',Func.bind(self.LearnPetSkill, self),'LearnPetSkill')
 
 end
 
@@ -688,6 +850,25 @@ function IsBreakthroughAmountAllowed(totalRank, amount)
         return false
     end
     return true
+end
+----------------------
+--產生寵物技能列表封包字串-技能名稱,檔次索引,檔次門檻,等級限制,PETID 多筆技能使用 ; 分隔
+function BuildPetSkillDataString()
+    local result = {}
+
+    for _, skill in ipairs(PET_SKILL_DATA) do
+        local skillName = tostring(skill.name or "")
+        local techId = tonumber(skill.techId) or 0
+        local gradeIndex = tonumber(skill.gradeIndex) or 0
+        local gradeValue = tonumber(skill.gradeValue) or 0
+        local levelLimit = tonumber(skill.levelLimit) or -1
+        local petID = tonumber(skill.petID) or -1
+
+        local skillData = table.concat({skillName,tostring(techId),tostring(gradeIndex),tostring(gradeValue),tostring(levelLimit),tostring(petID),}, ",")
+        table.insert(result, skillData)
+    end
+
+    return table.concat(result, "|")
 end
 
 function CheckInTable(_idTab, _idVar) ---循环函数

@@ -20,6 +20,7 @@ function Module:Frontcg2dPackTrigger(fd,head,data)
         Protocol.Send(player,'SyncCultivationData',"2|"..tostring(petSlot or 0))	--寵物欄圖標2/寵物格位子
       elseif packetNumber == 5 then
         Protocol.Send(player,'SyncCultivationData',"3|"..tostring(petSlot or 0))	--寵物欄圖標3/寵物格位子
+        -- Protocol.Send(player,'SyncPetSkillData',tostring(petSlot or 0))
       end
     end
     return 1
@@ -140,7 +141,7 @@ function Module:onLoad()
   self:regCallback('ProtocolOnRecv',Func.bind(self.Frontcg2dPackTrigger,self),'uiMenu')					--前端按鈕整合封包
   self:regCallback('ProtocolOnRecv',Func.bind(self.playerInfo_SendData,self),'RequestPlayerInfoData')	--接收前端玩家擴展資訊所要
   self:regCallback('ProtocolOnRecv',Func.bind(self.gatherInfo_SendData,self),'RequestGatheringData')	--接收前端探索指引資訊所要
-  self:regCallback('ProtocolOnRecv',Func.bind(self.petSlot_SendData,self),'RequestPetSlotData')		--接收前端寵物欄狀況
+  self:regCallback('ProtocolOnRecv',Func.bind(self.petSlot_SendData,self),'RequestPetSlotData')			--接收前端寵物欄狀況
 
 end
 
@@ -169,9 +170,6 @@ function GetTechArea(floor, px, py, TechArea, skillId)
     end
     return nil
 end
-
-
-
 
 function CheckInTable(_idTab, _idVar) ---循环函数
 	for k,v in pairs(_idTab) do
