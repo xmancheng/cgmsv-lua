@@ -6,6 +6,7 @@ local B_WIN_ID = 90010
 local C_WIN_ID = 90011
 local C_material_List_WIN_ID = 90012
 local B_material_List_WIN_ID = 90013
+local S_material_List_WIN_ID = 90014
 local COMMAND = "PetCultivation"
 
 -- ====================== 圖片路徑定義 ======================
@@ -69,6 +70,13 @@ local BREAKTHROUGH_STAT_NAMES = {
     [4] = "速度",
     [5] = "魔法",
 }
+local PET_GRADE_NAMES = {
+    [1] = "體力",
+    [2] = "力量",
+    [3] = "強度",
+    [4] = "速度",
+    [5] = "魔法",
+}
 -- 總檔次 → 每種水晶需求量
 local BREAKTHROUGH_CRYSTAL_COST = {
     { min = 110, max = 120, cost = 5 },
@@ -86,6 +94,7 @@ local BREAKTHROUGH_CRYSTAL_COST = {
 -- 寵物培養分頁
 local PAGE_FIRST = 1	-- 1 = 第一頁：檔次補足
 local PAGE_SECOND = 2	-- 2 = 第二頁：檔次突破
+local PAGE_SKILL = 3	-- 3 = 第三頁：技能習得
 --------------------------------------------------------------------------------
 -- 1. 生命週期與初始化
 --------------------------------------------------------------------------------
@@ -96,6 +105,7 @@ function CultivationModule:onLoad()
 
     self.C_wnd = nil
     self.B_wnd = nil
+    self.S_wnd = nil
     -- 當前所在培養分頁
     self.currentWnd = PAGE_FIRST
     -- 目前操作中的寵物 Slot
@@ -176,6 +186,9 @@ function CultivationModule:onLoad()
                 else
                     self:UpdateUI2()
                 end
+            elseif self.currentWnd == PAGE_SKILL then
+                -- 向後端要求技能列表
+                self:sendPacket("RequestPetSkillData", tostring(petSlot))
             end
         end
     end)
@@ -228,6 +241,54 @@ function CultivationModule:onLoad()
     self.breakthroughCrystalSelectedCount = 0
     self.breakthroughCrystalCost = 0
     self.breakthroughCrystalRecipe = nil
+
+    -- 第三頁技能列表
+    self.skillData = {}
+    self.skillRows = {}
+    self.skillScrollView = nil
+    -- self:onPacketRecv("SyncPetSkillData", function(header, params)
+        -- if not params then
+            -- return
+        -- end
+        -- local petSlot = tonumber(params[1])
+        -- if not petSlot then
+            -- return
+        -- end
+        -- -- 記錄目前操作的寵物
+        -- self.petSlot = petSlot
+        -- self.currentWnd = PAGE_SKILL
+        -- -- 關閉第一、二頁及其子視窗
+        -- self:CloseAllWindows()
+        -- -- CloseAllWindows 不應改變目前頁碼
+        -- self.currentWnd = PAGE_SKILL
+        -- -- 向後端要求技能列表
+        -- self:sendPacket("RequestPetSkillData", tostring(petSlot))
+    -- end)
+    self:onPacketRecv("ResponsePetSkillData", function(header, params)
+        if not params then
+            return
+        end
+        local packetData = params[1] or ""
+        self.skillData = {}
+        for skillStr in string.gmatch(packetData, "[^|]+") do
+            local fields = self:split(skillStr, ",")
+            table.insert(self.skillData, {
+                name = fields[1] or "",
+                techId = tonumber(fields[2]) or 0,
+                gradeIndex = tonumber(fields[3]) or 0,
+                gradeValue = tonumber(fields[4]) or 0,
+                levelLimit = tonumber(fields[5]) or -1,
+                petID = tonumber(fields[6]) or -1,
+            })
+        end
+        if not self.S_wnd then
+            self:CreateSkillPage()
+            self:UpdateSkillUI()
+        else
+            self:UpdateSkillUI()
+        end
+    end)
+
 end
 
 function CultivationModule:onUnload()
@@ -259,6 +320,14 @@ function CultivationModule:onUnload()
 		self.breakthroughCrystalSelectedCount = 0
 		self.breakthroughCrystalCost = 0
 		self.breakthroughCrystalRecipe = nil
+    end
+    if self.S_wnd then
+        self.S_wnd:Close()
+        self:releaseWindow(self.S_wnd)
+        self.S_wnd = nil
+        self.skillData = {}
+        self.skillRows = {}
+        self.skillScrollView = nil
     end
 end
 --------------------------------------------------------------------------------
@@ -304,12 +373,23 @@ function CultivationModule:CloseAllWindows()
     self.seriesHoverIndex = nil
     self.seriesSelectedCount = 0
     -- 清除碎片選擇狀態
-	self.breakthroughCrystalChecks = {}
-	self.breakthroughCrystalSelected = {}
-	self.breakthroughCrystalHoverIndex = nil
-	self.breakthroughCrystalSelectedCount = 0
-	self.breakthroughCrystalCost = 0
-	self.breakthroughCrystalRecipe = nil
+    self.breakthroughCrystalChecks = {}
+    self.breakthroughCrystalSelected = {}
+    self.breakthroughCrystalHoverIndex = nil
+    self.breakthroughCrystalSelectedCount = 0
+    self.breakthroughCrystalCost = 0
+    self.breakthroughCrystalRecipe = nil
+
+    -- 關閉第三頁：寵物技能列表
+    if self.S_wnd then
+        if self.S_wnd.valid then
+            self.S_wnd:Close()
+            self:releaseWindow(self.S_wnd)
+        end
+        self.S_wnd = nil
+    end
+    self.skillRows = {}
+    self.skillScrollView = nil
 end
 -- 主寵物資訊(第二層-1)
 function CultivationModule:ToggleWnd1()
@@ -867,6 +947,166 @@ function CultivationModule:B_material_List_CreateWin()
 
 end
 
+------------------------------------------------------
+-- 主寵物技能資訊(第二層-3)
+function CultivationModule:ToggleSkillPage()
+    WinMgr.PlaySe(57, CONST.Screen.Width / 2)
+    if self.S_wnd and self.S_wnd.valid then
+        self.S_wnd:Close()
+        self:releaseWindow(self.S_wnd)
+        self.S_wnd = nil
+        self.skillRows = {}
+        self.skillScrollView = nil
+    else
+        self:CreateSkillPage()
+    end
+end
+function CultivationModule:CreateSkillPage_Update()
+    local petStatus = self:findWindow(15)
+    if not petStatus then
+        if self.S_wnd and self.S_wnd.valid then
+            self.S_wnd:Close()
+            self:releaseWindow(self.S_wnd)
+        end
+        self.S_wnd = nil
+        self.skillRows = {}
+        self.skillScrollView = nil
+    end
+end
+function CultivationModule:CreateSkillPage()
+    if self.S_wnd and self.S_wnd.valid then
+        return
+    end
+
+    local winW, winH = 200, 246
+    local status, window = self:newWindow({
+        id = S_material_List_WIN_ID,
+        x = (CONST.Screen.Width - winW) / 2,
+        y = (CONST.Screen.Height - winH) / 2,
+        width = winW,
+        height = winH,
+        layer = 4,
+        dragMove = 1,
+        update = function()
+            self:CreateSkillPage_Update()
+        end,
+    })
+
+    if not window then return end
+    self.S_wnd = self:ownWindow(window)
+    self.skillRows = {}
+
+    --- 視窗外框
+    window:AddPngImage({ x = 0, y = 0, width = winW, height = winH, image = BG_frameIMG, hitable = false,})
+    -- 關閉按鈕
+    window:AddPngImage({
+        x = 159, y = 8, width = 12, height = 12,
+        image = CLOSE_BTN, imageHover = CLOSE_HOVER, imagePress = CLOSE_PRESS,
+        hitable = true,
+        onClick = function()
+            self:ToggleSkillPage()
+            return true
+        end,
+    })
+    -- 頂部文字資訊
+    window:AddText({ x = 45, y = 10, width = 100, height = 20, font = 4, color = 75, text = "寵物技能習得" })
+    self.petSlot_str = window:AddText({ x = 15, y = 35, width = 150, height = 24, font = 13, color = 119, text = "寵物欄  第 "..self.petSlot.." 格的"})
+    self.PetName_str = window:AddText({ x = 15, y = 55, width = 150, height = 24, font = 13, color = 4, text = "〈"..self.PetName.."〉"})
+    -- 說明訊息
+    self.techNum_str = window:AddText({ x = 15, y = 185, width = 90, height = 18, font = 13, color = 113, text = "可習得技能數量：" .. tostring(#(self.skillData or {})) })
+    window:AddText({ x = 47, y = 210, width = 150, height = 24, font = 13, color = 50, text = "點擊進行學習"})
+
+    -- =====================================================
+    -- 技能列表 ScrollView
+    -- 保留原先清單位置與尺寸
+    -- =====================================================
+    local LIST_X = 15
+    local LIST_Y = 77
+    local LIST_W = 155
+    local LIST_H = 100
+    local ROW_H = 20
+
+    local skills = self.skillData or {}
+    local contentHeight = math.max(LIST_H, #skills * ROW_H)
+    -- 建立技能列
+    self.skillScrollView = window:AddScrollView({
+        x = LIST_X, y = LIST_Y, width = LIST_W, height = LIST_H,
+        contentHeight = contentHeight, barWidth = 8, scrollStep = ROW_H,
+    })
+    for i = 1, #skills do
+        local index = i
+        local skill = skills[index]
+        local rowY = (index - 1) * ROW_H
+        -- 技能列背景
+        local rowBg = self.S_wnd:AddPngImage({
+            parent = self.skillScrollView,
+            x = 0, y = rowY, width = LIST_W - 2, height = ROW_H, image = SERIES_ROW_NORMAL_IMAGE, hitable = false,
+        })
+        -- 技能名稱
+        local nameText = self.S_wnd:AddText({
+            parent = self.skillScrollView,
+            x = 5, y = rowY + 3, width = 145, height = 18, font = 13, color = 0,
+            text = tostring(skill.name or ""),
+        })
+
+        ---- 技能列點擊／滑過區域
+        -- 詳細資料：技能條件、寵物限制
+        local gradeName = PET_GRADE_NAMES[skill.gradeIndex] or "未知"
+        local techId = tonumber(skill.techId)
+        local gradeValue = tonumber(skill.gradeValue) or 0
+        local requiredLevel = "Lv.1 以上"
+        if tonumber(skill.levelLimit) and skill.levelLimit >= 0 then
+            requiredLevel = "Lv." .. tostring(skill.levelLimit) .." 以上"
+        end
+        -- local petLimit = "不限寵物"
+        -- if tonumber(skill.petID) and skill.petID >= 0 then
+            -- petLimit = "限定寵物 ID：" .. tostring(skill.petID)
+        -- end
+        local hit = self.S_wnd:AddPngImage({
+            parent = self.skillScrollView,
+            x = 0, y = rowY, width = LIST_W - 2, height = ROW_H, image = TRANSPARENT_IMAGE, hitable = true,
+            onClick = function()
+            WinMgr.PlaySe(59,CONST.Screen.Width/2)
+                if rowBg and rowBg.valid then
+                    rowBg:Set({image = SERIES_ROW_SELECTED_IMAGE,})
+                end
+                window:ShowTips(
+                    tostring(skill.name or "").. " - 需求" ..
+                    "\n屬性:" .. gradeName .. tostring(skill.gradeValue or 0) ..
+                    "\n等級:" .. requiredLevel
+                )
+                self:OnSkillScrollBtnClick(techId)
+                return true
+            end,
+            onHover = function()
+                if rowBg and rowBg.valid then
+                    rowBg:Set({image = SERIES_ROW_HOVER_IMAGE,})
+                end
+                window:ShowTips(
+                    tostring(skill.name or "").. " - 需求" ..
+                    "\n屬性:" .. gradeName .. tostring(gradeValue) ..
+                    "\n等級:" .. requiredLevel
+                    -- .."\n" .. petLimit
+                )
+                return true
+            end,
+            onLeave = function()
+                if rowBg and rowBg.valid then
+                    rowBg:Set({image = SERIES_ROW_NORMAL_IMAGE,})
+                end
+            end,
+        })
+        self.skillRows[index] = {row = rowBg, name = nameText, hit = hit, skill = skill,}
+    end
+    -- -- 沒有技能時顯示提示
+    -- if #skills == 0 then
+        -- window:AddText({
+            -- parent = self.skillScrollView,
+            -- x = 8, y = 5, width = 140, height = 20, font = 13, color = 113, text = "目前沒有可顯示的技能",
+        -- })
+    -- end
+end
+
 --------------------------------------------------------------------------------
 -- 3. 介面刷新
 --------------------------------------------------------------------------------
@@ -1290,6 +1530,38 @@ function CultivationModule:refreshBreakthroughCrystalUI()
         return
     end
 end
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+-- 主寵物資訊刷新(第二層-3)
+function CultivationModule:UpdateSkillUI()
+    if not self.S_wnd or not self.S_wnd.valid then
+        return
+    end
+    local canLearNum = 0;
+    for i, rowData in ipairs(self.skillRows or {}) do
+        local skill = (self.skillData or {})[i]
+        local nameText = rowData.name
+
+        if skill and nameText and nameText.valid then
+            local canLearn = self:CanLearnPetSkill(skill)
+
+            -- 0 = 白色；16 = 灰白色
+            nameText:Set({
+                color = canLearn and 0 or 16,
+                text = tostring(skill.name or ""),
+            })
+
+            if canLearn then
+                canLearNum = canLearNum +1;
+            end
+            -- 將資格結果留在列資料中，點擊時可直接檢查
+            rowData.canLearn = canLearn
+            rowData.skill = skill
+        end
+    end
+    self.techNum_str:Set({text = "可習得技能數量：".. tostring(canLearNum).."/".. tostring(#(self.skillData or {})) })
+
+end
 --------------------------------------------------------------------------------
 -- 4. 回調功能函數
 --------------------------------------------------------------------------------
@@ -1426,6 +1698,32 @@ function CultivationModule:GetBreakthroughRecipeKey()
         return nil
     end
     return table.concat(selected, ",")
+end
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+-- 判斷寵物是否符合技能的檔次需求
+function CultivationModule:CanLearnPetSkill(skill)
+    if not skill then
+        return false
+    end
+
+    local gradeIndex = tonumber(skill.gradeIndex) or 0
+    local requiredGrade = tonumber(skill.gradeValue) or 0
+
+    if gradeIndex < 1 or gradeIndex > 5 then
+        return false
+    end
+
+    local gradeKey = "Art" .. tostring(gradeIndex) .. "_N"
+    local currentGrade = tonumber(self.grade_tbl[gradeKey]) or 0
+
+    return currentGrade >= requiredGrade
+end
+-- 點擊按鈕確認突破
+function CultivationModule:OnSkillScrollBtnClick(techId)
+    -- 傳送寵物欄位與技能 techId
+    WinMgr.SendPacket("LearnPetSkill",tostring(self.petSlot) .. "|" .. tostring(techId))
+
 end
 
 function CultivationModule:split(str, sep)
