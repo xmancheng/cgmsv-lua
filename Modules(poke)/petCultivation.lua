@@ -602,14 +602,14 @@ function Module:LearnPetSkill(fd, head, data)
     local gradeType = PET_GRADE_TYPES[gradeIndex]
     local currentGrade = tonumber(Pet.GetArtRank(petIndex, gradeType)) or 0
     if currentGrade < requiredGrade then
-        NLG.SystemMessage(player, "[系統]寵物的檔次不足，無法學習此技能！");
+        NLG.SystemMessage(player, "[系統]寵物的檔次不足，無法學習此技能");
         return 1
     end
     -- 後端重新檢查等級，避免只靠前端判斷
     local requiredLevel = tonumber(skillData.levelLimit) or -1
     local currentLevel = Char.GetData(petIndex,CONST.对象_等级);
     if currentLevel < requiredLevel then
-        NLG.SystemMessage(player, "[系統]寵物的等級不足，無法學習此技能！");
+        NLG.SystemMessage(player, "[系統]寵物的等級不足，無法學習此技能");
         return 1
     end
     -- 後端重新檢查寵物Id，避免只靠前端判斷
@@ -624,13 +624,9 @@ function Module:LearnPetSkill(fd, head, data)
     for i = 0, 9 do
         local petskill = Pet.GetSkill(petIndex, i);
         if tonumber(petskill) == MactechId then
-            NLG.SystemMessage(player, "[系統]寵物已學習過此招式！");
+            NLG.SystemMessage(player, "[系統]寵物已學習過此招式");
             return 1
         end
-    end
-    if Char.GetSkillNum(petIndex)==Char.GetData(petIndex, CONST.对象_技能栏) then
-        NLG.SystemMessage(player, "[系統]寵物技能欄位已滿，無法學習！");
-        return 1
     end
     -- 確認招式存在
     local techIndex = Tech.GetTechIndex(MactechId);
@@ -639,10 +635,31 @@ function Module:LearnPetSkill(fd, head, data)
         return 1
     end
 
-    -- 學習技能：空欄位直接新增，不覆蓋既有技能
-    Pet.AddSkill(petIndex, MactechId);
-    Pet.UpPet(player, petIndex);
-    NLG.UpChar(player);
+    if Char.GetSkillNum(petIndex)==Char.GetData(petIndex, CONST.对象_技能栏) then
+        local replaceSlot = -1;
+        -- 判定有無「什麽都不做」可取代替換
+        for i = 0, 9 do
+            local petskill = Pet.GetSkill(petIndex, i);
+		    if (petskill == 15002) then
+		        replaceSlot = i;
+		    end
+        end
+        if replaceSlot>=0 then
+            --NLG.SystemMessage(player, "[系統]已將「什麽都不做」刪除後學習新技能。");
+            Pet.DelSkill(petIndex, replaceSlot);
+            Pet.AddSkill(petIndex, MactechId, replaceSlot);
+            Pet.UpPet(player, petIndex);
+            NLG.UpChar(player);
+        else
+            NLG.SystemMessage(player, "[系統]寵物技能欄位已滿，如有「什麽都不做」將可刪除後學習");
+            return 1
+        end
+    else
+        -- 學習技能：空欄位直接新增，不覆蓋既有技能
+        Pet.AddSkill(petIndex, MactechId);
+        Pet.UpPet(player, petIndex);
+        NLG.UpChar(player);
+    end
 
     local techName = Tech.GetData(techIndex, CONST.TECH_NAME);
     NLG.SystemMessage(player,"[系統]寵物成功學會「" .. tostring(techName or skillData.name) .. "」！");
